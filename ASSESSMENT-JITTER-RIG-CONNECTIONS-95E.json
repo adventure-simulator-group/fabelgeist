@@ -1,0 +1,777 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Two distinct earlier checkpoint 059 findings connected to selected current animation source and nine individually attributed historical source reads.",
+  "source_reasoning": "Source inspection and symbolic empty/short sample reasoning only; no viewer, animation, scenario, product, test, renderer or runtime probe ran.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1319-1327.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "lines": 1021,
+      "ranges": [
+        [
+          785,
+          910
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "bytes": 37278,
+      "lines": 792,
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          590,
+          680
+        ],
+        [
+          750,
+          792
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3dbfef0433ee96648a504407dac3a8784f7b6c79",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "bytes": 9178,
+      "lines": 234,
+      "ranges": [
+        [
+          75,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0f8470338b1dd6dcd7974abe3a83cf0ff3e3aa05",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "bytes": 17947,
+      "lines": 352,
+      "ranges": [
+        [
+          270,
+          310
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "711237c82078c4612f9c01266e19254b47b7308a",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "bytes": 4369,
+      "lines": 155,
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          135,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/names.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e32c8372ceeed04055ca0084b1a80deefce45bb2",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "bytes": 5002,
+      "lines": 78,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8f9cc1a3f4cad4fa9e649a33bfeceb4b69113f62",
+      "sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "bytes": 2343,
+      "lines": 84,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/jitter-rig-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges were inspected; full bytes are retained for independent recovery. No product, scenario, viewer or tests ran."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ADLER-L11-JITTER-MEASUREMENT-COVERAGE",
+      "relationship": "Same previously recorded coverage/result-state contract, not a new unique finding.",
+      "trace": "The byte-identical current jitter validate sets diagnostics_complete from per-frame at least three bones and segment-boundary shape. Empty input satisfies both all predicates locally; analyze_scenario returns on fewer than four retained frames and skips a bone missing from any frame, while report omits nonfinite derivative values. This boolean does not retain a per-bone/segment measured finite-window witness. Current jitter_frames intentionally excludes FullRagdoll and splits at action, landing, foot contact and selected transitions before deriving local transforms.",
+      "guards_and_limits": "Current build_completed_report and validation_passed separately require exact plan/frame/report-bone completion, finite captured bone components, nonempty screenshot artifacts for each supplied frame and other gates; these disprove an inference that missing report bones, nonfinite captured components or a truncated ordinary selected plan alone cause overall acceptance. Ragdoll exclusion and acquisition/contact warmups are intentional. Finite captured components do not by themselves establish all derived finite window coverage. No actual segment or report was produced, no ordinary plan false pass is asserted, and selected-plan applicability, segment lengths, native quaternion assumptions, alias inventory and whole consumer policy remain open.",
+      "connected_repair": "Retain measured applicable bone/segment/window coverage or an explicit unavailable/not-applicable state and carry it to actual report acceptance, preserving independent finite/plan/continuity guards and deliberate warmup/ragdoll exclusions. Do not change the numerical stencil merely to force a witness.",
+      "discovery": "partial; current selected callers and frozen body traced, all eligible plan and alias coverage open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-RIG-JOINT-DESCENDANT-PRIVATE-API",
+      "relationship": "Same earlier retained owner-fit finding, not a new unique defect or runtime malfunction.",
+      "trace": "The current byte-identical establish_animation_targets passes RigJointName::SKELETON.as_ref() into find_named_descendant(target: &str), which captures it during descendant traversal and compares it to native Bevy Name. The current rig crate defines exact, case-sensitive RigJointName, with empty and unfamiliar labels permitted, and SKELETON as an associated value. A pinned-tree textual Rust source search found this call and definition; target binding subsequently retains a native target ID and AuthoredRigJoint, whose current constructor stores the typed name and separately computes optional animation roles.",
+      "guards_and_limits": "A native Name/string comparison is appropriate at the adapter; the assessed concern is earlier erasure across the private query API, not a missing native string or a demonstrated failed lookup. Text search locates source calls but does not itself close generated, external, native or semantic alias inventory. No rig loaded and scheduling or full target consumer behavior is assessed.",
+      "connected_repair": "Carry the existing exact RigJointName through the private query until the Bevy Name comparison. Preserve exact label semantics, open labels and separate anatomical-role classification; do not add compatibility aliases or a closed enum. Complete callers, native behavior and alias audit before repair.",
+      "discovery": "partial; selected current source owner and receiver connected, full alias/native/scheduling scope open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-JITTER-MEASUREMENT-COVERAGE",
+        "/discovery_findings_and_dependencies/SEGOVB-L12-RIG-JOINT-DESCENDANT-PRIVATE-API"
+      ],
+      "qualification": "Earlier findings retain their original 059 status and revision, including finite/report and plan safeguards; neither becomes checkpoint 3821 evidence."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/35",
+        "/entries/254",
+        "/entries/1113 through /entries/1121"
+      ],
+      "qualification": "Only selected current source connections added; all remain partially reconciled."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-178.json",
+      "sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf",
+      "bytes": 9650,
+      "git_blob": "ac7d98d15971baaf1e1676bbec671a279d474367",
+      "preserved_bytes": "recovered/jitter-rig-059/f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf.gz",
+      "published_sha256": "f4f8b64439ca4b191c4967c81b6092cdb96fe4c811d8e7de8c016b791fc450cf",
+      "published_bytes": 9650,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "adler/READ-L11-203.json",
+      "sha256": "f0471ed988a4558b1deba5274c9b03be79005613a95dba03734c6bbb728582f3",
+      "bytes": 15331,
+      "git_blob": "85034fb20d5e938bd8b06684a50b1a8263d24f8e",
+      "preserved_bytes": "recovered/jitter-rig-059/f0471ed988a4558b1deba5274c9b03be79005613a95dba03734c6bbb728582f3.gz",
+      "published_sha256": "f0471ed988a4558b1deba5274c9b03be79005613a95dba03734c6bbb728582f3",
+      "published_bytes": 15331,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "adler/READ-L11-204.json",
+      "sha256": "0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872",
+      "bytes": 15389,
+      "git_blob": "19b680b66695c20ed100715dd0df134b73c5eaa3",
+      "preserved_bytes": "recovered/jitter-rig-059/0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872.gz",
+      "published_sha256": "0120db149cb71611b30ec917fb25120a1d036c192176cec395490e461d611872",
+      "published_bytes": 15389,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-360.json",
+      "sha256": "f0900373c32b3ca59cb84681da0cee20e0afa025db6eae7accf48eb5b87962ee",
+      "bytes": 2204,
+      "git_blob": "79ad2ec11af6f75cdcd97212b90ae0dd8b83c267",
+      "preserved_bytes": "recovered/jitter-rig-059/f0900373c32b3ca59cb84681da0cee20e0afa025db6eae7accf48eb5b87962ee.gz",
+      "published_sha256": "f0900373c32b3ca59cb84681da0cee20e0afa025db6eae7accf48eb5b87962ee",
+      "published_bytes": 2204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-361.json",
+      "sha256": "5dc3b8b77ebe5e5b1727f026cf0106a09bac4ad3e7dff3667ef51cc3a8adc3a2",
+      "bytes": 1221,
+      "git_blob": "aa255b1e0fee7dd9356fb019a53caf1d1d7da291",
+      "preserved_bytes": "recovered/jitter-rig-059/5dc3b8b77ebe5e5b1727f026cf0106a09bac4ad3e7dff3667ef51cc3a8adc3a2.gz",
+      "published_sha256": "5dc3b8b77ebe5e5b1727f026cf0106a09bac4ad3e7dff3667ef51cc3a8adc3a2",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-362.json",
+      "sha256": "9569d578efd4f11fdc89f3eb1adcb7fc662abb543008a7fceb04854485238c54",
+      "bytes": 1215,
+      "git_blob": "22560da1be126c549582fb54e7b5a72788d037c5",
+      "preserved_bytes": "recovered/jitter-rig-059/9569d578efd4f11fdc89f3eb1adcb7fc662abb543008a7fceb04854485238c54.gz",
+      "published_sha256": "9569d578efd4f11fdc89f3eb1adcb7fc662abb543008a7fceb04854485238c54",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-363.json",
+      "sha256": "d84e3ad5beeaf16c243ceba07b05b961f97b846cbfeeb4c7ea9cd65399d98784",
+      "bytes": 719,
+      "git_blob": "4176ff0f85797cad2c4e3b548a2ad2cdfdf517db",
+      "preserved_bytes": "recovered/jitter-rig-059/d84e3ad5beeaf16c243ceba07b05b961f97b846cbfeeb4c7ea9cd65399d98784.gz",
+      "published_sha256": "d84e3ad5beeaf16c243ceba07b05b961f97b846cbfeeb4c7ea9cd65399d98784",
+      "published_bytes": 719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-364.json",
+      "sha256": "eb168914b433b81bc8defcbef63a6fdfdfde6fb51af08db38dbecc4fc5704bc8",
+      "bytes": 1214,
+      "git_blob": "94784a00af4b997af95cb49a1c3b4325c80c1cac",
+      "preserved_bytes": "recovered/jitter-rig-059/eb168914b433b81bc8defcbef63a6fdfdfde6fb51af08db38dbecc4fc5704bc8.gz",
+      "published_sha256": "eb168914b433b81bc8defcbef63a6fdfdfde6fb51af08db38dbecc4fc5704bc8",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L11-535.json",
+      "sha256": "715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e",
+      "bytes": 24180,
+      "git_blob": "e29abf4a3a335095d64d5cb9bbc3e8e648afb92c",
+      "preserved_bytes": "recovered/jitter-rig-059/715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e.gz",
+      "published_sha256": "715c157ae13b72512f7f38cbd36d08b6491c243b4a11087350b05214dc4bb40e",
+      "published_bytes": 24180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L11-643.json",
+      "sha256": "ea6a2b6b42f3fa0672020e81a99166fed3e665af54f5ba122504da93f24c7b6f",
+      "bytes": 22502,
+      "git_blob": "cab596ac9ec8421011a8d880a9538e1dbe928002",
+      "preserved_bytes": "recovered/jitter-rig-059/ea6a2b6b42f3fa0672020e81a99166fed3e665af54f5ba122504da93f24c7b6f.gz",
+      "published_sha256": "ea6a2b6b42f3fa0672020e81a99166fed3e665af54f5ba122504da93f24c7b6f",
+      "published_bytes": 22502,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-360.json",
+      "sha256": "a8d38ed6d9a63d52eb68665e742c0507bfcb8b855a820be75981f4ff4852e785",
+      "bytes": 16553,
+      "git_blob": "7b0a868081bca914e6715d769a10d1aee776bb36",
+      "preserved_bytes": "recovered/jitter-rig-059/a8d38ed6d9a63d52eb68665e742c0507bfcb8b855a820be75981f4ff4852e785.gz",
+      "published_sha256": "a8d38ed6d9a63d52eb68665e742c0507bfcb8b855a820be75981f4ff4852e785",
+      "published_bytes": 16553,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-361.json",
+      "sha256": "ca73d92b98a028f7201fc9311fb154ced9b853fe90566832024667509faf0127",
+      "bytes": 12213,
+      "git_blob": "352f3c17839f39ef8445d7cedd3c456262a2b99b",
+      "preserved_bytes": "recovered/jitter-rig-059/ca73d92b98a028f7201fc9311fb154ced9b853fe90566832024667509faf0127.gz",
+      "published_sha256": "ca73d92b98a028f7201fc9311fb154ced9b853fe90566832024667509faf0127",
+      "published_bytes": 12213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-362.json",
+      "sha256": "f37a33a8a7388065c238925537109ee1133c0e003e31f7f73796d400a00f1601",
+      "bytes": 9127,
+      "git_blob": "092585854851d5e79f2dad398487a04d665882a5",
+      "preserved_bytes": "recovered/jitter-rig-059/f37a33a8a7388065c238925537109ee1133c0e003e31f7f73796d400a00f1601.gz",
+      "published_sha256": "f37a33a8a7388065c238925537109ee1133c0e003e31f7f73796d400a00f1601",
+      "published_bytes": 9127,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-363.json",
+      "sha256": "421b2d168e87b87d935062c11a527ff667ac772e1dd91a3fd67e438692520437",
+      "bytes": 7424,
+      "git_blob": "2aaca1d5a350875fd4dc3c9bc57fea2371019566",
+      "preserved_bytes": "recovered/jitter-rig-059/421b2d168e87b87d935062c11a527ff667ac772e1dd91a3fd67e438692520437.gz",
+      "published_sha256": "421b2d168e87b87d935062c11a527ff667ac772e1dd91a3fd67e438692520437",
+      "published_bytes": 7424,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/READ-L12-364.json",
+      "sha256": "3e01225a99d8957992cb5e6f48fcee7a7eb2ba303390ba601e400d91ccb5ecdc",
+      "bytes": 17666,
+      "git_blob": "93a08007c31445ef0bb2d6021008ff885f7fca06",
+      "preserved_bytes": "recovered/jitter-rig-059/3e01225a99d8957992cb5e6f48fcee7a7eb2ba303390ba601e400d91ccb5ecdc.gz",
+      "published_sha256": "3e01225a99d8957992cb5e6f48fcee7a7eb2ba303390ba601e400d91ccb5ecdc",
+      "published_bytes": 17666,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-224.json",
+      "sha256": "7db441eae5df43623294d3afee812e4d1a1a75d9e2760755212d2e819345c971",
+      "bytes": 1228,
+      "git_blob": "72c31e4794a1b0fa13b1540b4ce62ba875f6b4ab",
+      "preserved_bytes": "recovered/jitter-rig-059/7db441eae5df43623294d3afee812e4d1a1a75d9e2760755212d2e819345c971.gz",
+      "published_sha256": "7db441eae5df43623294d3afee812e4d1a1a75d9e2760755212d2e819345c971",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-225.json",
+      "sha256": "5b71f40ec2fb700ffb6b650837a03aa5ddb31a9bc041713774d62443317aee5f",
+      "bytes": 1234,
+      "git_blob": "449b61ff754c08cec4f2e17b3e4cc5eb7273c1d2",
+      "preserved_bytes": "recovered/jitter-rig-059/5b71f40ec2fb700ffb6b650837a03aa5ddb31a9bc041713774d62443317aee5f.gz",
+      "published_sha256": "5b71f40ec2fb700ffb6b650837a03aa5ddb31a9bc041713774d62443317aee5f",
+      "published_bytes": 1234,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-226.json",
+      "sha256": "6918e46065907861e2d60c1af48ff0a2b25de3833a64e0617493da3faca8ba09",
+      "bytes": 1246,
+      "git_blob": "fb9fb49d1ccad09c2452c327632177fc4230473d",
+      "preserved_bytes": "recovered/jitter-rig-059/6918e46065907861e2d60c1af48ff0a2b25de3833a64e0617493da3faca8ba09.gz",
+      "published_sha256": "6918e46065907861e2d60c1af48ff0a2b25de3833a64e0617493da3faca8ba09",
+      "published_bytes": 1246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-227.json",
+      "sha256": "280b31eea9034c4ffe3780d7faad4992e8e38179fa6ea46115e4977c7a5301c0",
+      "bytes": 1230,
+      "git_blob": "e89e3ae86fafa95853688d8d8e250e5df02e5c69",
+      "preserved_bytes": "recovered/jitter-rig-059/280b31eea9034c4ffe3780d7faad4992e8e38179fa6ea46115e4977c7a5301c0.gz",
+      "published_sha256": "280b31eea9034c4ffe3780d7faad4992e8e38179fa6ea46115e4977c7a5301c0",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-228.json",
+      "sha256": "7f9993063aae2a02ca83eb39e6b5c437bf44832c75227ee5c73dda71bf01b359",
+      "bytes": 1226,
+      "git_blob": "69326bba395220c117af3a58a42c1f04abcb9647",
+      "preserved_bytes": "recovered/jitter-rig-059/7f9993063aae2a02ca83eb39e6b5c437bf44832c75227ee5c73dda71bf01b359.gz",
+      "published_sha256": "7f9993063aae2a02ca83eb39e6b5c437bf44832c75227ee5c73dda71bf01b359",
+      "published_bytes": 1226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-229.json",
+      "sha256": "39da5621e0f480b80bed75a4cf2a9bb54d9436a2b37c0faf109038b3c6996559",
+      "bytes": 1214,
+      "git_blob": "2a42ed54b2df959dce0aa64d24c8dc36122ba12a",
+      "preserved_bytes": "recovered/jitter-rig-059/39da5621e0f480b80bed75a4cf2a9bb54d9436a2b37c0faf109038b3c6996559.gz",
+      "published_sha256": "39da5621e0f480b80bed75a4cf2a9bb54d9436a2b37c0faf109038b3c6996559",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-230.json",
+      "sha256": "42bec907c01e63cd0c28da2a21f422462580648f6b379e53499d1e454c8dd027",
+      "bytes": 1187,
+      "git_blob": "8a003c90867c6e18956d407cee0570da997ca367",
+      "preserved_bytes": "recovered/jitter-rig-059/42bec907c01e63cd0c28da2a21f422462580648f6b379e53499d1e454c8dd027.gz",
+      "published_sha256": "42bec907c01e63cd0c28da2a21f422462580648f6b379e53499d1e454c8dd027",
+      "published_bytes": 1187,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-231.json",
+      "sha256": "ba3df94303abfa86ba009adc7baf113f371e51beacae9997aa73d44b41a423fa",
+      "bytes": 1199,
+      "git_blob": "782e5be9de33c6360c2e8d099cd6b1ab41e9aab8",
+      "preserved_bytes": "recovered/jitter-rig-059/ba3df94303abfa86ba009adc7baf113f371e51beacae9997aa73d44b41a423fa.gz",
+      "published_sha256": "ba3df94303abfa86ba009adc7baf113f371e51beacae9997aa73d44b41a423fa",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-232.json",
+      "sha256": "2b21e4834ea514fa4a2330853881f424405302140000567adb00515598e940d1",
+      "bytes": 1209,
+      "git_blob": "de6c20039096aed88a4ca906afe7abf3c1ed41db",
+      "preserved_bytes": "recovered/jitter-rig-059/2b21e4834ea514fa4a2330853881f424405302140000567adb00515598e940d1.gz",
+      "published_sha256": "2b21e4834ea514fa4a2330853881f424405302140000567adb00515598e940d1",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-233.json",
+      "sha256": "3debcb1349c2a59548d2a707daa8292babde5e71a9bec36eac0fa9a46e0099d6",
+      "bytes": 1219,
+      "git_blob": "6b9fe10180f5f6cbb76c3c761d6c480b08d098e4",
+      "preserved_bytes": "recovered/jitter-rig-059/3debcb1349c2a59548d2a707daa8292babde5e71a9bec36eac0fa9a46e0099d6.gz",
+      "published_sha256": "3debcb1349c2a59548d2a707daa8292babde5e71a9bec36eac0fa9a46e0099d6",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-234.json",
+      "sha256": "c0e104c729aaf664615ad9f8666f319242e61d045d6cb6350658bbcae8b6d9c7",
+      "bytes": 1233,
+      "git_blob": "94729e319ad4f30f83da2f68d76226ec59d671bc",
+      "preserved_bytes": "recovered/jitter-rig-059/c0e104c729aaf664615ad9f8666f319242e61d045d6cb6350658bbcae8b6d9c7.gz",
+      "published_sha256": "c0e104c729aaf664615ad9f8666f319242e61d045d6cb6350658bbcae8b6d9c7",
+      "published_bytes": 1233,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SUPPORT-L12-364-001.json",
+      "sha256": "2068f9524746255df1b4b539f7e97d4917e8f2295a19c56610fdcfa1558d0bc1",
+      "bytes": 1911,
+      "git_blob": "d4e3bbb159c5212776fb96aac3a227b8a0a2ed28",
+      "preserved_bytes": "recovered/jitter-rig-059/2068f9524746255df1b4b539f7e97d4917e8f2295a19c56610fdcfa1558d0bc1.gz",
+      "published_sha256": "2068f9524746255df1b4b539f7e97d4917e8f2295a19c56610fdcfa1558d0bc1",
+      "published_bytes": 1911,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SUPPORT-L12-364-002.json",
+      "sha256": "c6f961690fa1732c4b873fb456a149cbfc772edb2815a97d94a33dfad812927c",
+      "bytes": 1880,
+      "git_blob": "3427317463c013217dbe26aeb0b3ba8bc47dd042",
+      "preserved_bytes": "recovered/jitter-rig-059/c6f961690fa1732c4b873fb456a149cbfc772edb2815a97d94a33dfad812927c.gz",
+      "published_sha256": "c6f961690fa1732c4b873fb456a149cbfc772edb2815a97d94a33dfad812927c",
+      "published_bytes": 1880,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-360.json",
+      "sha256": "21db1202edb13ee1937f8f9ccb20516898922d93d150a57bde90b0e917f17521",
+      "bytes": 840,
+      "git_blob": "5f1cb7f6758d237ca0a6439a799f25d7c6c36ea0",
+      "preserved_bytes": "recovered/jitter-rig-059/21db1202edb13ee1937f8f9ccb20516898922d93d150a57bde90b0e917f17521.gz",
+      "published_sha256": "21db1202edb13ee1937f8f9ccb20516898922d93d150a57bde90b0e917f17521",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-361.json",
+      "sha256": "6e56b802eab1b297ab711520f726c540b788cb144c0188619e899a9241bd7deb",
+      "bytes": 840,
+      "git_blob": "4ead625bb83d8c5d5a7c9ebdce30fc81ded5689f",
+      "preserved_bytes": "recovered/jitter-rig-059/6e56b802eab1b297ab711520f726c540b788cb144c0188619e899a9241bd7deb.gz",
+      "published_sha256": "6e56b802eab1b297ab711520f726c540b788cb144c0188619e899a9241bd7deb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-362.json",
+      "sha256": "94cf88cd1980f96e7bbeab19dd3487eb4d70b0c4a4b7920e3588efd76167e479",
+      "bytes": 840,
+      "git_blob": "973cc1babff76574270041760d7835a35316cc0f",
+      "preserved_bytes": "recovered/jitter-rig-059/94cf88cd1980f96e7bbeab19dd3487eb4d70b0c4a4b7920e3588efd76167e479.gz",
+      "published_sha256": "94cf88cd1980f96e7bbeab19dd3487eb4d70b0c4a4b7920e3588efd76167e479",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-363.json",
+      "sha256": "8066bd55cd3f8182d1af80d66c07eb8d3d6f1114a5f4493c4336f95868bfe1dd",
+      "bytes": 840,
+      "git_blob": "98adc3f410e8ac4122ee7a27daa4e6185ba0d9ff",
+      "preserved_bytes": "recovered/jitter-rig-059/8066bd55cd3f8182d1af80d66c07eb8d3d6f1114a5f4493c4336f95868bfe1dd.gz",
+      "published_sha256": "8066bd55cd3f8182d1af80d66c07eb8d3d6f1114a5f4493c4336f95868bfe1dd",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/STATE-L12-364.json",
+      "sha256": "26205ec0e3d24527d3abef9d8540033636956c7f9bf85dacd384ad3a56254aab",
+      "bytes": 840,
+      "git_blob": "918715580fb714dea426f281c590f92b7325f4a7",
+      "preserved_bytes": "recovered/jitter-rig-059/26205ec0e3d24527d3abef9d8540033636956c7f9bf85dacd384ad3a56254aab.gz",
+      "published_sha256": "26205ec0e3d24527d3abef9d8540033636956c7f9bf85dacd384ad3a56254aab",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-643.json",
+      "sha256": "0c0e6292e2543c0abb6149b033e9471715fecbb278dfc7e726fdc79881c04825",
+      "bytes": 407,
+      "git_blob": "aabca9a040401d2f276bb631eef10d332f2996a5",
+      "preserved_bytes": "recovered/jitter-rig-059/0c0e6292e2543c0abb6149b033e9471715fecbb278dfc7e726fdc79881c04825.gz",
+      "published_sha256": "0c0e6292e2543c0abb6149b033e9471715fecbb278dfc7e726fdc79881c04825",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical support"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-360.json",
+      "sha256": "61e1fed8af7ab6d1511ea8190b6c9a964e007572c36f67c8e1ec3d83811a59da",
+      "bytes": 558,
+      "git_blob": "29fb5066cd401ea477a42f8010e4e8eb068e224d",
+      "preserved_bytes": "recovered/jitter-rig-059/61e1fed8af7ab6d1511ea8190b6c9a964e007572c36f67c8e1ec3d83811a59da.gz",
+      "published_sha256": "61e1fed8af7ab6d1511ea8190b6c9a964e007572c36f67c8e1ec3d83811a59da",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-361.json",
+      "sha256": "b8df7ebea94ba877bbe6bb670a9e0dd157bf58b74c0baad8889273d9b08f59ab",
+      "bytes": 558,
+      "git_blob": "af2f0bd1d263abf71e0344563f241a37c409d042",
+      "preserved_bytes": "recovered/jitter-rig-059/b8df7ebea94ba877bbe6bb670a9e0dd157bf58b74c0baad8889273d9b08f59ab.gz",
+      "published_sha256": "b8df7ebea94ba877bbe6bb670a9e0dd157bf58b74c0baad8889273d9b08f59ab",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-362.json",
+      "sha256": "8e274420b50895e37280c0727ff47abf090b77fd394c2c6ec800e03b784f86bb",
+      "bytes": 558,
+      "git_blob": "19e7c10051be00323197ccc7e5b494b079929d09",
+      "preserved_bytes": "recovered/jitter-rig-059/8e274420b50895e37280c0727ff47abf090b77fd394c2c6ec800e03b784f86bb.gz",
+      "published_sha256": "8e274420b50895e37280c0727ff47abf090b77fd394c2c6ec800e03b784f86bb",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-363.json",
+      "sha256": "24ed4744192159a0f06eee932a5f4dee316f869853f6439b4d2724eb92247f40",
+      "bytes": 558,
+      "git_blob": "6e092b0db518a6e31181dca7e695f1ff12a88b51",
+      "preserved_bytes": "recovered/jitter-rig-059/24ed4744192159a0f06eee932a5f4dee316f869853f6439b4d2724eb92247f40.gz",
+      "published_sha256": "24ed4744192159a0f06eee932a5f4dee316f869853f6439b4d2724eb92247f40",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-364.json",
+      "sha256": "3a0519c107a295eb6dc100ed63627c9963166a18806df801ad08910256294fce",
+      "bytes": 558,
+      "git_blob": "f7766dc013f8614a607c8a3e6f254f3748179828",
+      "preserved_bytes": "recovered/jitter-rig-059/3a0519c107a295eb6dc100ed63627c9963166a18806df801ad08910256294fce.gz",
+      "published_sha256": "3a0519c107a295eb6dc100ed63627c9963166a18806df801ad08910256294fce",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and qualification preserved; no transfer to checkpoint 3821."
+    }
+  ],
+  "new_unique_candidate_count": 0,
+  "remaining": "Actual admitted derivative-window policy, native Bevy behavior and rig call/alias inventory remain open. Final 3821 ledger and queue remain missing; no repaired or validated status is claimed.",
+  "repair": "not started",
+  "validation": "not performed"
+}
