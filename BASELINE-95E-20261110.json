@@ -5565,8 +5565,36 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CONDITION-REGIONAL-95E.json"
+      },
+      {
+        "id": "REVIEW-SAME-SNAPPED-NODE-ZERO-ROUTE-001",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional distinct destinations collapse into a zero-length route and unavailable map",
+        "classification": "A selected geographic destination distinct from the origin must have an explicit short-distance route and presentation contract when both endpoints snap to the same routing node.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1565",
+          "segovb/READ-L12-627.json",
+          "adler/READ-L11-289.json",
+          "REVIEW-REGIONAL-MAP-ENVIRONMENT-IDENTITY-001"
+        ],
+        "relationship_qualification": "New bounded current route cardinality question connected to original059 pending family; distinct from previously recorded environment-content cache identity and prior grade issue unless further alias evidence proves otherwise. No historical unique increment or checkpoint3821 attribution.",
+        "discovery": "partial; same-node source chain and bounded idealized coordinates established, actual source/selection, timing and exact aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SHORT-ROUTE-HEIGHTFIELD-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1142.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1148.json"
 }
