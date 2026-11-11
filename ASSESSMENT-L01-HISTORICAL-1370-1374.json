@@ -1,0 +1,185 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1370,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1370",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "lines": 2973,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "sha256": "1316d55883c31826dcf78b1c36f80116faf40dee3aa3cf8a4bc82646030d19e3",
+        "bytes": 139647,
+        "lines": 2973,
+        "git_blob": "5eff44d2c63c470fef92210078d199f5d299ab45",
+        "preserved_bytes": "main-advance-95e/ik-observation-evidence/current-1370.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "differing_line_numbers": [
+          111,
+          2969
+        ],
+        "qualification": "Exact source comparison supports bounded claims only. Current coordinator differences add a PoseCulled query exclusion and call runtime_inverse_kinematics_config; no full lifecycle or configuration equivalence is asserted."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source tails; no test or animation ran. Earlier reviewers retain their own attribution and original revision."
+    },
+    {
+      "original_index": 1371,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1371",
+      "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "lines": 453,
+      "new_personal_read_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+        "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+        "bytes": 17423,
+        "lines": 453,
+        "git_blob": "b3af5cd661525d4bb2f0e882efa0ff3b325e2f94",
+        "preserved_bytes": "main-advance-95e/ik-observation-evidence/current-1371.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "differing_line_numbers": [],
+        "qualification": "Identical bytes do not transfer earlier reviewer or independent lens credit."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source tails; no test or animation ran. Earlier reviewers retain their own attribution and original revision."
+    },
+    {
+      "original_index": 1372,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1372",
+      "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+      "lines": 530,
+      "new_personal_read_ranges": [
+        [
+          1,
+          530
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+        "bytes": 19255,
+        "lines": 530,
+        "git_blob": "6a203ccbe06878d32929b4c44bbe6628ccc4fab5",
+        "preserved_bytes": "main-advance-95e/ik-observation-evidence/current-1372.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "differing_line_numbers": [],
+        "qualification": "Identical bytes do not transfer earlier reviewer or independent lens credit."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source tails; no test or animation ran. Earlier reviewers retain their own attribution and original revision."
+    },
+    {
+      "original_index": 1373,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1373",
+      "sha256": "c4d855062c60ad77559b87fcf6a346547a1e881fa904c620fe1b0e91dac439e8",
+      "lines": 165,
+      "new_personal_read_ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs",
+        "sha256": "c4d855062c60ad77559b87fcf6a346547a1e881fa904c620fe1b0e91dac439e8",
+        "bytes": 5903,
+        "lines": 165,
+        "git_blob": "a2b269c3dd952b9eed0c0f0521e080ac49b4ddcf",
+        "preserved_bytes": "main-advance-95e/ik-observation-evidence/current-1373.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "differing_line_numbers": [],
+        "qualification": "Identical bytes do not transfer earlier reviewer or independent lens credit."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source tails; no test or animation ran. Earlier reviewers retain their own attribution and original revision."
+    },
+    {
+      "original_index": 1374,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/plant.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1374",
+      "sha256": "4f30c6b7a81f9d8ba4f6d7b9d9fc02c40e102eff64ed14861234da7885647336",
+      "lines": 44,
+      "new_personal_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/plant.rs",
+        "sha256": "4f30c6b7a81f9d8ba4f6d7b9d9fc02c40e102eff64ed14861234da7885647336",
+        "bytes": 1305,
+        "lines": 44,
+        "git_blob": "bd2ed8fd8ec5b7475cf328fda48ea0f33873210e",
+        "preserved_bytes": "main-advance-95e/ik-observation-evidence/current-1374.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "differing_line_numbers": [],
+        "qualification": "Identical bytes do not transfer earlier reviewer or independent lens credit."
+      },
+      "qualification": "Full original historical source personally read through EOF, including test source tails; no test or animation ran. Earlier reviewers retain their own attribution and original revision."
+    }
+  ],
+  "observations": [
+    "Five frozen coordinator, propagated observation, orientation, anatomical yaw and foot-plant bodies personally read through EOF. Original role 1370 is 2,973 lines; test source is read only.",
+    "Current role 1370 differs at exactly two lines: query exclusion of PoseCulled and runtime IK configuration accessor. Other four current files equal their original historical bytes. No whole-lifecycle equivalence or uninspected engine behavior is claimed.",
+    "Earlier independent Lens12 batches 384–387 retain their original attribution and staging; newly read historical Lens1 bodies do not grant independent-lens completion."
+  ],
+  "remaining": "Continue role 1375. Pose-culling lifecycle, all native and producer contracts, exact aliases, overlays and independent lenses remain open."
+}
