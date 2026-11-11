@@ -1,0 +1,261 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1877,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality with current is explicit per role, not a lens-verdict transfer or a missing row-level revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1877",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "lines": 862,
+      "new_personal_read_ranges": [
+        [
+          1,
+          862
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-PRECISION.json",
+          "ranges": [
+            [
+              80,
+              103
+            ],
+            [
+              535,
+              570
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+        "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "bytes": 28617,
+        "lines": 862,
+        "git_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+        "preserved_bytes": "main-advance-95e/inventory-cache-evidence/current-1877.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            35,
+            175
+          ],
+          [
+            190,
+            735
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            862
+          ]
+        ],
+        "qualification": "Equal exact bytes were read historically through EOF; only listed ranges were independently re-read from95e. No original lens verdict transfers and no product operation ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; independent Segovb and Adler receipts retain separate authorship, range and revision qualifications."
+    },
+    {
+      "original_index": 1878,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality with current is explicit per role, not a lens-verdict transfer or a missing row-level revision-as-recorded.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1878",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "lines": 53,
+      "new_personal_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/inventory/armor.rs",
+        "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+        "bytes": 1688,
+        "lines": 53,
+        "git_blob": "761d0ea891ad888fc25ab9bbf42b4a05ea944777",
+        "preserved_bytes": "main-advance-95e/inventory-cache-evidence/current-1878.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "qualification": "Equal exact bytes were read historically through EOF; only listed ranges were independently re-read from95e. No original lens verdict transfers and no product operation ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; independent Segovb and Adler receipts retain separate authorship, range and revision qualifications."
+    },
+    {
+      "original_index": 1879,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality with current is explicit per role, not a lens-verdict transfer or a missing row-level revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1879",
+      "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "lines": 76,
+      "new_personal_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+        "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+        "bytes": 2310,
+        "lines": 76,
+        "git_blob": "98c7198a871b42ca9f5648e02a882b34bfa9aba2",
+        "preserved_bytes": "main-advance-95e/inventory-cache-evidence/current-1879.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            76
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            76
+          ]
+        ],
+        "qualification": "Equal exact bytes were read historically through EOF; only listed ranges were independently re-read from95e. No original lens verdict transfers and no product operation ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; independent Segovb and Adler receipts retain separate authorship, range and revision qualifications."
+    },
+    {
+      "original_index": 1880,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality with current is explicit per role, not a lens-verdict transfer or a missing row-level revision-as-recorded.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1880",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "lines": 130,
+      "new_personal_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+        "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+        "bytes": 4982,
+        "lines": 130,
+        "git_blob": "1c8e039ec137ef036eea9a22b872a5d7a291560e",
+        "preserved_bytes": "main-advance-95e/inventory-cache-evidence/current-1880.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            67
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            130
+          ]
+        ],
+        "qualification": "Equal exact bytes were read historically through EOF; only listed ranges were independently re-read from95e. No original lens verdict transfers and no product operation ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; independent Segovb and Adler receipts retain separate authorship, range and revision qualifications."
+    },
+    {
+      "original_index": 1881,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality with current is explicit per role, not a lens-verdict transfer or a missing row-level revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1881",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "lines": 17,
+      "new_personal_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/inventory/timing.rs",
+        "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+        "bytes": 549,
+        "lines": 17,
+        "git_blob": "4fa36db858434450eea8e489b504530463bfe9d2",
+        "preserved_bytes": "main-advance-95e/inventory-cache-evidence/current-1881.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "qualification": "Equal exact bytes were read historically through EOF; only listed ranges were independently re-read from95e. No original lens verdict transfers and no product operation ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; independent Segovb and Adler receipts retain separate authorship, range and revision qualifications."
+    }
+  ],
+  "observations": [
+    "Complete historical inventory, armor, chronology, ordering and timing bodies were read through actual EOF.",
+    "Equipment sequence and revision wrap by design; zero remains valid after wrap and is the initial revision. Unarmed timing and optional bilateral armor are explicit modes.",
+    "The original ordering locator uses a Windows path. Original Segovb qualification gives zero body credit for the locator; its two earlier producer receipts are separately attributed and restored from the earlier774 publication."
+  ],
+  "qualification": "Personal historical Lens1 body reads and individually identified current traces. Original059 and earlier774 are not checkpoint3821.",
+  "next_original_role": 1882
+}

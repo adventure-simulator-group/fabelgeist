@@ -47,6 +47,31 @@
       "path": "bevy_ecs-0.19.1/src/lifecycle.rs",
       "sha256": "766e00c0f8efd48d86a6f8c401406f134839aa91f193606302a1cd34e8a3e4a6",
       "bytes": 25788
+    },
+    {
+      "path": "bevy_ecs-0.19.1/src/relationship/mod.rs",
+      "sha256": "08ea0566a6c3104bd4433754260cf474fec38ef162a3d572cbaa5ff48493a6e0",
+      "bytes": 51741
+    },
+    {
+      "path": "bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "bytes": 111800
+    },
+    {
+      "path": "bevy_ecs-0.19.1/src/system/commands/entity_command.rs",
+      "sha256": "8e10e33284c85a46b680bb7084082269fd1098102d93082354a5ee2df89501c1",
+      "bytes": 14392
+    },
+    {
+      "path": "bevy_ecs-0.19.1/src/world/command_queue.rs",
+      "sha256": "1825f53bb9814a81be3a25bf423512c344c3196c39ef0968700f0748e5aa230a",
+      "bytes": 21168
+    },
+    {
+      "path": "bevy_ecs-0.19.1/src/world/entity_access/world_mut.rs",
+      "sha256": "00cdfc7e8a7148313177be79a21de991eae17c527cf9aecdc915d7bd818a2648",
+      "bytes": 90178
     }
   ],
   "personally_inspected_ranges": {
@@ -86,6 +111,48 @@
       [
         14,
         41
+      ]
+    ],
+    "bevy_ecs-0.19.1/src/relationship/mod.rs": [
+      [
+        120,
+        260
+      ]
+    ],
+    "bevy_ecs-0.19.1/src/system/commands/mod.rs": [
+      [
+        75,
+        115
+      ],
+      [
+        1270,
+        1290
+      ],
+      [
+        1700,
+        1728
+      ],
+      [
+        1930,
+        1958
+      ]
+    ],
+    "bevy_ecs-0.19.1/src/system/commands/entity_command.rs": [
+      [
+        200,
+        224
+      ]
+    ],
+    "bevy_ecs-0.19.1/src/world/command_queue.rs": [
+      [
+        235,
+        320
+      ]
+    ],
+    "bevy_ecs-0.19.1/src/world/entity_access/world_mut.rs": [
+      [
+        1296,
+        1371
       ]
     ]
   }

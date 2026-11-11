@@ -5343,8 +5343,57 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-LANDFORM-BOUNDS-95E.json"
+      },
+      {
+        "id": "REVIEW-DROPPED-SHIELD-CACHE-001",
+        "lens": 7,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-derived conditional stale shield authority",
+        "classification": "A derived held-shield cache must stop granting shield behavior when its referenced item leaves the owner.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1555",
+          "segovb/READ-L12-617.json",
+          "adler/READ-L11-285.json"
+        ],
+        "relationship_qualification": "New bounded current source question connected to original059 evidence; historical unique count unchanged, exact global aliases and checkpoint3821 state remain open.",
+        "discovery": "partial; source order, pinned native relationship and selected defense consumers established; actual successful scene, all lifecycle paths and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json"
+      },
+      {
+        "id": "REVIEW-ITERATION-ARMOR-LAYER-LABELS-001",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          5,
+          7,
+          8,
+          11,
+          13
+        ],
+        "severity": "unassigned; conditional cross-mode report interpretation",
+        "classification": "If matching tactical and autoresolve armor-layer distributions are intended to be compared, their reported keys and layer populations need explicit shared semantics.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1556",
+          "PL13-ITERATION-ARMOR-PROJECTION"
+        ],
+        "relationship_qualification": "New bounded current source question connected to original059 evidence; historical unique count unchanged, exact global aliases and checkpoint3821 state remain open.",
+        "discovery": "partial; divergent source labels and populations established, intended consumer comparison and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1118.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1123.json"
 }
