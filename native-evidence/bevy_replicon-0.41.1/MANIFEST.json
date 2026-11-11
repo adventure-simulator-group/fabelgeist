@@ -1,0 +1,46 @@
+{
+  "schema": "726-native-archive-evidence-v1",
+  "package": "bevy_replicon",
+  "version": "0.41.1",
+  "archive": "bevy_replicon-0.41.1.crate",
+  "sha256": "a25105650eb1b27c6ada888e06bb38ff7e326a94c7c5b4d75fb5aee50c5ae45e",
+  "bytes": 174508,
+  "provenance": "Exact local registry archive checksum matches raw6533 and current95e Cargo.lock excerpts.",
+  "qualification": "Archive and selected source inspection only; no feature resolution, network session, scene or product execution.",
+  "inspected_members": [
+    {
+      "path": "bevy_replicon-0.41.1/src/lib.rs",
+      "sha256": "89209be71052181a23c13eaa4545aa971001cdfbbddf9ca4b72a1f583561816b",
+      "bytes": 36723
+    },
+    {
+      "path": "bevy_replicon-0.41.1/src/shared/replication/registry/receive_fns.rs",
+      "sha256": "d290e8b600a86b04491be670830b0f47a8620b78f65e6dfb9271f4614d4aee97",
+      "bytes": 5637
+    },
+    {
+      "path": "bevy_replicon-0.41.1/LICENSE-APACHE",
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
+      "bytes": 10173
+    },
+    {
+      "path": "bevy_replicon-0.41.1/LICENSE-MIT",
+      "sha256": "44e960a99520ca181e916d491ed0bd05bcd2cab46a1602174221d0a224468e76",
+      "bytes": 1078
+    }
+  ],
+  "personally_inspected_ranges": {
+    "bevy_replicon-0.41.1/src/lib.rs": [
+      [
+        221,
+        242
+      ]
+    ],
+    "bevy_replicon-0.41.1/src/shared/replication/registry/receive_fns.rs": [
+      [
+        1,
+        153
+      ]
+    ]
+  }
+}

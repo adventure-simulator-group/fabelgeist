@@ -4342,8 +4342,52 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CITY-TRAFFIC-CONTEXT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-TRAFFIC-NODE-REPRESENTATIVE-IDENTITY",
+        "lens": 11,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Recovered059 Adler snapped-road representative question newly reassessed at95e; no new historical finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/90",
+          "baseline-059/queue.json#/entries/1394"
+        ],
+        "relationship_qualification": "Same earlier Adler finding; current bitwise producer and ordered digest qualify reorder examples, no historical count change.",
+        "discovery": "partial; earlier finding with dyadic source example and order-sensitive digest counterevidence; actual producer and policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ROAD-WEATHER-IDENTITY-95E.json"
+      },
+      {
+        "id": "ADLER-L11-WEATHER-ENVIRONMENT-REVISION",
+        "lens": 11,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Recovered059 Adler precipitation revision question newly reassessed at95e, including immutability and pinned framework semantics; no new historical finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/89",
+          "baseline-059/queue.json#/entries/1397"
+        ],
+        "relationship_qualification": "Same earlier Adler and Segovb scoped finding; immutable snapshot and default framework insertion source recorded with no live producer claim.",
+        "discovery": "partial; original concern now qualified by immutable component and pinned insertion semantics, real changed-value producer and runtime remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ROAD-WEATHER-IDENTITY-95E.json"
+      },
+      {
+        "id": "REVIEW-WEATHER-TREE-TRANSFORM-IDENTITY-001",
+        "lens": 12,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Newly assessed95e conditional occlusion-signature source question linked to recovered Segovb pending queue1398; no historical finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1398"
+        ],
+        "relationship_qualification": "Distinct newly assessed rotation/scale invalidation question within broader prior pending tree-transform scope; exact aliases and permitted mutation remain open.",
+        "discovery": "partial; key/input mismatch is source-derived, actual mutation and visual policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ROAD-WEATHER-IDENTITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0842.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0847.json"
 }

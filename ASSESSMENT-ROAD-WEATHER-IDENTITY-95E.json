@@ -1,0 +1,1124 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original traffic, vista and weather roles; bounded current street producer, scene selector and weather identity source; pinned Bevy ECS and Replicon semantics.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1672-1676.json",
+  "git_membership_evidence": "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0509b746b4c68920ab40476703adbb00f0b28135",
+      "sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "bytes": 4936,
+      "lines": 164,
+      "ranges": [
+        [
+          14,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/graph.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "12332b87e929ea88d529e644167209e548caaa54",
+      "sha256": "612c7f5325e68b395850ff1dd1273fa6234a3305698337b2e9a606154230e72e",
+      "bytes": 10994,
+      "lines": 315,
+      "ranges": [
+        [
+          61,
+          108
+        ],
+        [
+          114,
+          194
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770e2e6b38cbd651caef72242c2c1f98182a6d28",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "bytes": 830,
+      "lines": 20,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c4201a9ec21590b4961ca955b3f4370d5841a7e",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "bytes": 4372,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          150,
+          173
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a59daf6513c5851c13fdc67a5bbc0065c063b735",
+      "sha256": "b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+      "bytes": 3291,
+      "lines": 78,
+      "ranges": [
+        [
+          6,
+          44
+        ],
+        [
+          62,
+          74
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "bytes": 21534,
+      "lines": 577,
+      "ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          269,
+          284
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c48f3661134425004fe566834961000534b78505",
+      "sha256": "5dc4692893cb46eafc83376730b05121885a310d915bfacc8b824aebd24eee3d",
+      "bytes": 3709,
+      "lines": 86,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          40,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/atmosphere.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6605718573500e5780e8b967a35056a1f87119f",
+      "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+      "bytes": 22633,
+      "lines": 656,
+      "ranges": [
+        [
+          431,
+          451
+        ],
+        [
+          527,
+          557
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2bcec2ed9eae812853b54bf66f6e68fad4fb3e36",
+      "sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "bytes": 30423,
+      "lines": 827,
+      "ranges": [
+        [
+          279,
+          300
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          285,
+          326
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2fa4044303d8f1b9d4b4034f696215ecdee43c4d",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "bytes": 2569,
+      "lines": 75,
+      "ranges": [
+        [
+          20,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          657,
+          710
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "41e029b7baa19e2e79caec08b28bc2a36de37873",
+      "sha256": "8d76b7aadada8bae53e9f27cbbb6eca7e0beffb9b25519a98b10edc521476042",
+      "bytes": 3168,
+      "lines": 89,
+      "ranges": [
+        [
+          17,
+          88
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2844fa9d856f85c0e44de1d298151905234b5150",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "bytes": 13999,
+      "lines": 365,
+      "ranges": [
+        [
+          144,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5495a01b719275d4b967751aa7907b84f0d19271",
+      "sha256": "84e84f3131091565ab88b5dd04275305ba8cb8ad3481fc97c833a87abd35be58",
+      "bytes": 55082,
+      "lines": 1399,
+      "ranges": [
+        [
+          60,
+          79
+        ],
+        [
+          131,
+          175
+        ],
+        [
+          825,
+          903
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c5eb5ceb85493113db1475e01db7037fcb4fb78",
+      "sha256": "21c4da31ab6698c3f1386b39d2a722a9b8675fd1527dfd257bf6fddd68179b21",
+      "bytes": 5521,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1785,
+          1788
+        ],
+        [
+          2632,
+          2635
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/road-weather-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete source bytes retained. Source-only tests were not run; no other-lens credit inferred."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1677,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+      "bytes": 2645,
+      "lines": 77,
+      "git_blob": "cf23b82fc4592861acd7594dd0875ff7f994a0b0",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ241 at6533; exact scope retained in original receipt.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future role identity-proved only; no new ordered historical or checkpoint3821 credit."
+    }
+  ],
+  "historical_lock_evidence": {
+    "role": 497,
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "archive": "recovered/original-registry-source-archive/objects.tar.gz",
+    "membership": "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "inspected_ranges": [
+      [
+        1802,
+        1805
+      ],
+      [
+        2800,
+        2803
+      ]
+    ],
+    "qualification": "Only these package checksum excerpts inspected; original lock role remains metadata-partial."
+  },
+  "native_source_evidence": [
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "members": [
+        "bevy_ecs-0.19.1/src/component/mod.rs",
+        "bevy_ecs-0.19.1/src/lifecycle.rs"
+      ],
+      "qualification": "Pinned source documents immutable component reference and Add versus Insert; actual app event ordering not executed."
+    },
+    {
+      "manifest": "native-evidence/bevy_replicon-0.41.1/MANIFEST.json",
+      "members": [
+        "bevy_replicon-0.41.1/src/lib.rs",
+        "bevy_replicon-0.41.1/src/shared/replication/registry/receive_fns.rs"
+      ],
+      "qualification": "Pinned default immutable receive uses insertion; feature resolution, overrides and live network were not established."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Vista retained-height scope",
+      "trace": "The complete surface body independently confirms that ActiveVistaSurface retains two rings; existing selected-LOD and surface-frame assessments retain their earlier qualifications.",
+      "remaining": "Selected visible rings, digest lifecycle and alternate producers remain open; no duplicate candidate is inferred."
+    },
+    {
+      "contract": "Weather source delta",
+      "trace": "Historical and current weather-occlusion bodies differ only by one foliage: None field in a test literal.",
+      "remaining": "This source comparison is not evidence a test passed or that a runtime implementation changed."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-TRAFFIC-NODE-REPRESENTATIVE-IDENTITY",
+      "lens": 11,
+      "classification": "Recovered059 Adler snapped-road representative question newly reassessed at95e; no new historical finding.",
+      "canonical_owner": "Canonical scene street identity and traffic-network representative geometry, including whether order is part of the supported scene contract.",
+      "first_failed_contract": "Rounded millimetre endpoint keys merge road identities, but the exact coordinates retained for a shared key depend on which road is inserted first.",
+      "trace": "TrafficNetwork canonicalizes endpoint key order and indexes by the rounded endpoint pair. On collision it changes only half width to the maximum and retains the first Road start/end; the straight path and clearance then use those endpoints. The scene street validator checks count and each corridor finite endpoints, nonzero finite squared length and half width1..20; it does not itself compare pairs. The generator StreetGraph instead keys nodes by exact f32 bits and selected generated edges have an established order. Complete city-grounding, producers and other semantic rules remain separate.",
+      "symbolic_example": "Consider two individually valid corridor shapes with equal width2m and endpoints A=(0,0) to (1,0), B=(1/4096,0) to (1+1/4096,0). These binary-exact coordinates multiplied by1000 fall strictly within the rounding intervals for endpoint keys0 and1000. Thus both pairs select the same key while their raw endpoints differ; reversing their iteration changes the stored representative. No TrafficNetwork, scene, float execution, mask or test was run; only dyadic rational inequalities and source branches were compared.",
+      "counterevidence": "The checked-in source tests exercise reversed exact endpoints and duplicate widths, not this near-coordinate pair, and were not run. Source order may intentionally be authoritative: TacticalSceneInput includes streets as an ordered Vec and hashes serialization of the validated document, so reordering does not establish different results for one identical scene digest. The generator constructs graph nodes from exact float bits, and no actual produced near-key duplicate or rendered difference was shown. Full ground binding and input producer constraints may exclude or make irrelevant this hypothetical pair.",
+      "dependencies": [
+        "Trace every authoritative producer and the full scene/grounding admission for exact, near-snap and repeated streets.",
+        "Decide whether scene order is meaningful or a canonical representative must be chosen for equal snapped identities.",
+        "Compare this first failure with semantic street, traffic mask and digest alias candidates without conflating distinct inputs."
+      ],
+      "acceptance_requirements": [
+        "Document and preserve the intended snapped identity and exact geometry representative for every supported street order, including near-key duplicates and maximum-width merge."
+      ],
+      "discovery": "partial; earlier finding with dyadic source example and order-sensitive digest counterevidence; actual producer and policy open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "ADLER-L11-WEATHER-ENVIRONMENT-REVISION",
+      "lens": 11,
+      "classification": "Recovered059 Adler precipitation revision question newly reassessed at95e, including immutability and pinned framework semantics; no new historical finding.",
+      "canonical_owner": "Selected scene environment and terrain revision as the owner of precipitation particles, contact image, shelter image and captured material parameters.",
+      "first_failed_contract": "Weather particles rebuild on ActiveTacticalScene resource change, while selected SceneEnvironment replacements can have independent change detection and the precipitation system does not check it.",
+      "trace": "The original source and current95e weather body are byte-identical. apply_active_scene_weather returns when ActiveTacticalScene is unchanged, before selecting current weather or terrain; on a change it removes old particles and creates contact/occlusion materials. Fog and celestial lighting check both the selected resource and Ref<SceneEnvironment> change. SceneEnvironment is explicitly a Bevy immutable component, which rules out ordinary exclusive mutation while attached but does not by itself mean the value cannot be reinserted. Current netcode registers SceneEnvironment for normal replication, not replicate_once. The Cargo.lock-pinned Replicon default immutable receive function deserializes and inserts the component, and pinned Bevy ECS lifecycle documentation distinguishes insertion over an existing component from Add; the selector observes Add and refreshes unchanged membership without writing. The inspected source-only atmosphere test clones and reinserts a changed environment on the same entity, but was not executed.",
+      "conditional_example": "If a supported path reinserts a materially changed SceneEnvironment on the same still-selected entity after weather initialization, with no other write changing ActiveTacticalScene, the selector Add path does not run for that overwrite according to pinned lifecycle semantics; the precipitation gate can return while fog/sky observe the new environment. This is conditional on exact scheduling/change ticks and the actual producer; no Bevy world, event, replication, atmosphere or weather was run.",
+      "counterevidence": "The environment contract is documented immutable, and the inspected server scene startup constructs one environment snapshot and inserts it with a newly spawned scene. No production source that changes weather on that same entity was established. Replicon can reinsert an identical value, which is not evidence of a semantic mismatch. A supported policy requiring a fresh scene entity for changed snapshots would narrow or reject the concern. Feature resolution, actual network configuration and event order remain unverified.",
+      "dependencies": [
+        "Determine every scene/environment and terrain replacement producer, network and lifecycle ownership and intended immutable-snapshot policy.",
+        "Trace active selector change ticks and deferred event ordering for actual replacement routes.",
+        "Compare contact/occlusion refresh and existing cloud and material-lifecycle findings before exact alias decisions."
+      ],
+      "acceptance_requirements": [
+        "Actual supported weather and terrain revisions either rebuild the coupled precipitation/contact state consistently with the selected scene or are prevented by an explicit owner invariant; preserve intentional clear and absent-surface behavior."
+      ],
+      "discovery": "partial; original concern now qualified by immutable component and pinned insertion semantics, real changed-value producer and runtime remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-WEATHER-TREE-TRANSFORM-IDENTITY-001",
+      "lens": 12,
+      "classification": "Newly assessed95e conditional occlusion-signature source question linked to recovered Segovb pending queue1398; no historical finding.",
+      "canonical_owner": "Weather shelter map invalidation and the supported world transform and cached branch geometry of presented trees.",
+      "first_failed_contract": "Tree signature records cache key and translation only, while shelter rasterization reads the full transform including rotation and scale.",
+      "trace": "The update skips map rebuild when its sorted per-tree signature equals the retained value. Each signature record includes only tree cache key and x/y/z translation bits. Rasterization transforms branch endpoints with the full GlobalTransform and scales radii by the largest absolute extracted scale; branches come from the variant cache. If the same selected tree changes orientation or scale while cache key, translation, scene entity and other records remain fixed, the signature input is unchanged although raster inputs differ.",
+      "symbolic_example": "For one hypothetical off-axis branch from (0,2,0) to (4,2,0), a same-translation quarter turn about Y changes its scene-space axis while leaving recorded translation and variant key unchanged. This compares transformation requirements, not constructed transforms, a raster, image, shader, or scene.",
+      "counterevidence": "The inspected server generator creates tree obstacles with zero yaw, a translation and Static rigid body; the art-demo oak source creates a translation-only root. These are substantive reasons not to assume normal trees rotate or scale after presentation. Other transform mutation, cache replacement, visibility ownership and map coverage were not exhaustively traced. No stale shelter, actual changed transform, weather, native resource or visible symptom was observed.",
+      "dependencies": [
+        "Trace all tree root and parent transform producers, replication, reset and cache replacement semantics.",
+        "Establish whether rotation/scale are immutable after registration or part of the signature contract.",
+        "Compare with weather environment revision and other cache invalidation findings without treating their different triggers as automatic aliases."
+      ],
+      "acceptance_requirements": [
+        "Supported tree geometry changes invalidate the shelter map, or the owning presentation contract explicitly prevents changes that would alter raster input while the retained key remains equal."
+      ],
+      "discovery": "partial; key/input mismatch is source-derived, actual mutation and visual policy remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/89",
+        "/entries/90",
+        "/entries/1394",
+        "/entries/1395",
+        "/entries/1396",
+        "/entries/1397",
+        "/entries/1398"
+      ],
+      "qualification": "Bounded partial reassessments only; exact original findings, scope and unresolved producers preserved."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-TRAFFIC-NODE-REPRESENTATIVE-IDENTITY",
+        "/discovery_findings_and_dependencies/ADLER-L11-WEATHER-ENVIRONMENT-REVISION"
+      ],
+      "qualification": "Original Adler findings and earlier Segovb connection remain unchanged."
+    },
+    {
+      "file": "ASSESSMENT-CITY-TRAFFIC-CONTEXT-95E.json",
+      "qualification": "Earlier Segovb READ530 and future role1672 non-credit preserved."
+    },
+    {
+      "file": "ASSESSMENT-VISTA-SELECTED-LOD-95E.json",
+      "qualification": "Previously bounded retained versus selected vista ring question, not automatically aliased."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/road-weather-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "bytes": 28862,
+      "git_blob": "95edfc8fdd908cdbab5fffe854ef97f8864d31cb",
+      "preserved_bytes": "recovered/road-weather-059/5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca.gz",
+      "published_sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "published_bytes": 28862,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "bytes": 10621,
+      "git_blob": "25bb8a4a591ee3909127f214e44fb93350adcbea",
+      "preserved_bytes": "recovered/road-weather-059/5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42.gz",
+      "published_sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "published_bytes": 10621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "bytes": 12598,
+      "git_blob": "90a28ed99ca21b61895e44f56d29f3abad161731",
+      "preserved_bytes": "recovered/road-weather-059/b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801.gz",
+      "published_sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "published_bytes": 12598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "bytes": 7769,
+      "git_blob": "d563e583ecc5c2413b2d14a29bc66e12b00f68a4",
+      "preserved_bytes": "recovered/road-weather-059/2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e.gz",
+      "published_sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "published_bytes": 7769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "bytes": 13714,
+      "git_blob": "20c134892a8bebb3d8e9924ab9f9b646884583d8",
+      "preserved_bytes": "recovered/road-weather-059/0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec.gz",
+      "published_sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "published_bytes": 13714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "bytes": 28619,
+      "git_blob": "933b2f20628d6089414bb9e1cd52abc5a9b51384",
+      "preserved_bytes": "recovered/road-weather-059/482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f.gz",
+      "published_sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "published_bytes": 28619,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "bytes": 12351,
+      "git_blob": "f94fb7bf5fa58c50328fc55a6d29800df744f74c",
+      "preserved_bytes": "recovered/road-weather-059/16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e.gz",
+      "published_sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "published_bytes": 12351,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "bytes": 19400,
+      "git_blob": "b6d53cc4ad9ab3120b059d081bf8239919b03dd2",
+      "preserved_bytes": "recovered/road-weather-059/4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2.gz",
+      "published_sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "published_bytes": 19400,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/road-weather-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "bytes": 18811,
+      "git_blob": "36a766aac5ad6c9426d59d658ed3a8d73a60d2f4",
+      "preserved_bytes": "recovered/road-weather-059/8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509.gz",
+      "published_sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "published_bytes": 18811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "bytes": 18188,
+      "git_blob": "87fe5a523b60caf394c0c69c8e52a2980136d13b",
+      "preserved_bytes": "recovered/road-weather-059/e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48.gz",
+      "published_sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "published_bytes": 18188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-237.json",
+      "sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4",
+      "bytes": 18097,
+      "git_blob": "80c9f2860e085b80089da3bc4dfe00436f589898",
+      "preserved_bytes": "recovered/road-weather-059/b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4.gz",
+      "published_sha256": "b132641c48544d2335f37f895b480f9d3f98c7d296c9ab57cfa9e79803344ff4",
+      "published_bytes": 18097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-238.json",
+      "sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601",
+      "bytes": 15331,
+      "git_blob": "c02f740d171a766a74ccfab52113c2948d26de63",
+      "preserved_bytes": "recovered/road-weather-059/ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601.gz",
+      "published_sha256": "ff62639e9259786232e9eab399b36b48563b4ceae9f0a2c0d9042b1a8b8ab601",
+      "published_bytes": 15331,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-239.json",
+      "sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+      "bytes": 15279,
+      "git_blob": "f4a0932b9ef082898caf43158e14e04c7abbb098",
+      "preserved_bytes": "recovered/road-weather-059/6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801.gz",
+      "published_sha256": "6ae50c701936dbd39c003b6df17c69c3d0faf2fd885ca78e5254c6d405fa6801",
+      "published_bytes": 15279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-240.json",
+      "sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230",
+      "bytes": 16467,
+      "git_blob": "a85d71c7da5943a8b0ebda5d3e807a7727c829c5",
+      "preserved_bytes": "recovered/road-weather-059/892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230.gz",
+      "published_sha256": "892541eaabed917f78fb696be9de6488aeb1fe6a48f7ce004ff393339cd37230",
+      "published_bytes": 16467,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context; no fresh read or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "bytes": 17859,
+      "git_blob": "75db69485b5727f787c0a1722d74f1878d10f499",
+      "preserved_bytes": "recovered/road-weather-059/47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330.gz",
+      "published_sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "published_bytes": 17859,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler Lens11 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-505.json",
+      "sha256": "4d026a4bd48b312ac6d972c65bb2e94574d8f2c318fd40eeb5df19e9f40209cd",
+      "bytes": 777,
+      "git_blob": "3d8a7f1c1d796a1fd1e5154f98020242e3c36272",
+      "preserved_bytes": "recovered/road-weather-059/4d026a4bd48b312ac6d972c65bb2e94574d8f2c318fd40eeb5df19e9f40209cd.gz",
+      "published_sha256": "4d026a4bd48b312ac6d972c65bb2e94574d8f2c318fd40eeb5df19e9f40209cd",
+      "published_bytes": 777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-506.json",
+      "sha256": "b1b47f46c87d82371639c117c896bfd773d46ad6281053fce812c4cb9389e6cd",
+      "bytes": 777,
+      "git_blob": "f980357a8bd4ea9474d8ffbc7f6b84bf3a036f26",
+      "preserved_bytes": "recovered/road-weather-059/b1b47f46c87d82371639c117c896bfd773d46ad6281053fce812c4cb9389e6cd.gz",
+      "published_sha256": "b1b47f46c87d82371639c117c896bfd773d46ad6281053fce812c4cb9389e6cd",
+      "published_bytes": 777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-507.json",
+      "sha256": "a731b9dd842a20afd35acc9f1ef91225e8454f48c1abc77006d1e26849b099cc",
+      "bytes": 763,
+      "git_blob": "f651ffd583dac75562a667a5b4bcdb89d01e28af",
+      "preserved_bytes": "recovered/road-weather-059/a731b9dd842a20afd35acc9f1ef91225e8454f48c1abc77006d1e26849b099cc.gz",
+      "published_sha256": "a731b9dd842a20afd35acc9f1ef91225e8454f48c1abc77006d1e26849b099cc",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-508.json",
+      "sha256": "5150d24cb549c2e7d7fc5f4b1413a34faf48f83a5fe7187184419c71ffce6631",
+      "bytes": 757,
+      "git_blob": "8d82b028a3eab18faab02b515a55be7517fae1a2",
+      "preserved_bytes": "recovered/road-weather-059/5150d24cb549c2e7d7fc5f4b1413a34faf48f83a5fe7187184419c71ffce6631.gz",
+      "published_sha256": "5150d24cb549c2e7d7fc5f4b1413a34faf48f83a5fe7187184419c71ffce6631",
+      "published_bytes": 757,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-509.json",
+      "sha256": "e3a01094eab635e3bfbe20bf789d6d2406eb2227525e6e05de7afe00c8429be5",
+      "bytes": 767,
+      "git_blob": "7c8c01f26d3b633730f3c18bcb2009ca1b641e2f",
+      "preserved_bytes": "recovered/road-weather-059/e3a01094eab635e3bfbe20bf789d6d2406eb2227525e6e05de7afe00c8429be5.gz",
+      "published_sha256": "e3a01094eab635e3bfbe20bf789d6d2406eb2227525e6e05de7afe00c8429be5",
+      "published_bytes": 767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-510.json",
+      "sha256": "4a6b19381d4bbd7c68fdcb2d9d952a8ca947f7d989a592f9e184288ed1c80a01",
+      "bytes": 756,
+      "git_blob": "85bede5212241cc0e29cfd016bff430093135a43",
+      "preserved_bytes": "recovered/road-weather-059/4a6b19381d4bbd7c68fdcb2d9d952a8ca947f7d989a592f9e184288ed1c80a01.gz",
+      "published_sha256": "4a6b19381d4bbd7c68fdcb2d9d952a8ca947f7d989a592f9e184288ed1c80a01",
+      "published_bytes": 756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-241.json",
+      "sha256": "8c15ef2a11276c8fbfba72a2c7d624d415fee573989a20b3cc4c3c3c9e684a03",
+      "bytes": 668,
+      "git_blob": "8165249bd99246ea93a9f02bec17bfd5598586e3",
+      "preserved_bytes": "recovered/road-weather-059/8c15ef2a11276c8fbfba72a2c7d624d415fee573989a20b3cc4c3c3c9e684a03.gz",
+      "published_sha256": "8c15ef2a11276c8fbfba72a2c7d624d415fee573989a20b3cc4c3c3c9e684a03",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-241.json",
+      "sha256": "24aec59fe9405f2eee6a7e979577eaf99cb2f6c8bdbe57f833281b255a831ef9",
+      "bytes": 32827,
+      "git_blob": "65dfe26c55c4e3f3eae80964bc774d767c4bf6a5",
+      "preserved_bytes": "recovered/road-weather-059/24aec59fe9405f2eee6a7e979577eaf99cb2f6c8bdbe57f833281b255a831ef9.gz",
+      "published_sha256": "24aec59fe9405f2eee6a7e979577eaf99cb2f6c8bdbe57f833281b255a831ef9",
+      "published_bytes": 32827,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-531.json",
+      "sha256": "62b37de30cc50f45e2de00e99312430900c43be90df4d46bb881b1f205567613",
+      "bytes": 1239,
+      "git_blob": "0fc0c6da4dbb76c2beef3ae78aba94ea091e44b2",
+      "preserved_bytes": "recovered/road-weather-059/62b37de30cc50f45e2de00e99312430900c43be90df4d46bb881b1f205567613.gz",
+      "published_sha256": "62b37de30cc50f45e2de00e99312430900c43be90df4d46bb881b1f205567613",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-532.json",
+      "sha256": "24618d35de2ddb23bba34e8f5fb4b7a0f93badb0d37cd0b9fd0abdb13f8af8c1",
+      "bytes": 1223,
+      "git_blob": "39d93879026fc30704dbf187b77f4a95c45b977e",
+      "preserved_bytes": "recovered/road-weather-059/24618d35de2ddb23bba34e8f5fb4b7a0f93badb0d37cd0b9fd0abdb13f8af8c1.gz",
+      "published_sha256": "24618d35de2ddb23bba34e8f5fb4b7a0f93badb0d37cd0b9fd0abdb13f8af8c1",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-518.json",
+      "sha256": "682ff87aa02202f4fefa21d239aa07aeaadc9699d6ae44cde5902431b02600fc",
+      "bytes": 8246,
+      "git_blob": "4692db7817f352c893ee9c8f5ce8426b4c98b142",
+      "preserved_bytes": "recovered/road-weather-059/682ff87aa02202f4fefa21d239aa07aeaadc9699d6ae44cde5902431b02600fc.gz",
+      "published_sha256": "682ff87aa02202f4fefa21d239aa07aeaadc9699d6ae44cde5902431b02600fc",
+      "published_bytes": 8246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 supporting prior receipt with no fresh read"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-531.json",
+      "sha256": "a25b04e8227b14d8a2498e58e5aa64f528068e54ae8fdb5d348162c30ecedae8",
+      "bytes": 9925,
+      "git_blob": "d8dd5a36c63d5e953ac68347d0a57397f943792d",
+      "preserved_bytes": "recovered/road-weather-059/a25b04e8227b14d8a2498e58e5aa64f528068e54ae8fdb5d348162c30ecedae8.gz",
+      "published_sha256": "a25b04e8227b14d8a2498e58e5aa64f528068e54ae8fdb5d348162c30ecedae8",
+      "published_bytes": 9925,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-532.json",
+      "sha256": "e1ced0b33bd14ed26e37284581f4b40b35f305fc917cf84737a578bc42cc2df9",
+      "bytes": 10916,
+      "git_blob": "53070c86109ed987d27f5eaf6db3a804aebc3cb8",
+      "preserved_bytes": "recovered/road-weather-059/e1ced0b33bd14ed26e37284581f4b40b35f305fc917cf84737a578bc42cc2df9.gz",
+      "published_sha256": "e1ced0b33bd14ed26e37284581f4b40b35f305fc917cf84737a578bc42cc2df9",
+      "published_bytes": 10916,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-543.json",
+      "sha256": "cbfd80c5290abe0b22474fff123835bd52d97522331bd219de044a841516acf5",
+      "bytes": 1225,
+      "git_blob": "11af2e0184a8f141b630ad06d72d5305face819e",
+      "preserved_bytes": "recovered/road-weather-059/cbfd80c5290abe0b22474fff123835bd52d97522331bd219de044a841516acf5.gz",
+      "published_sha256": "cbfd80c5290abe0b22474fff123835bd52d97522331bd219de044a841516acf5",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 supporting registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-580.json",
+      "sha256": "3ee32d2351bce07eab0a346baec99ec009ff5252fd20c1aa3ae3483f1d96bd9b",
+      "bytes": 1240,
+      "git_blob": "4ff5b6d4ca62084d64c58d564bbd484dade490a3",
+      "preserved_bytes": "recovered/road-weather-059/3ee32d2351bce07eab0a346baec99ec009ff5252fd20c1aa3ae3483f1d96bd9b.gz",
+      "published_sha256": "3ee32d2351bce07eab0a346baec99ec009ff5252fd20c1aa3ae3483f1d96bd9b",
+      "published_bytes": 1240,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-581.json",
+      "sha256": "dabfad0da70dfb0f8312fbd0e5f12ffd1c15f0516df5b8882f2eaa5d59fe971d",
+      "bytes": 1212,
+      "git_blob": "3a1e0cbfd68eeba323de316403dfef0828448dd0",
+      "preserved_bytes": "recovered/road-weather-059/dabfad0da70dfb0f8312fbd0e5f12ffd1c15f0516df5b8882f2eaa5d59fe971d.gz",
+      "published_sha256": "dabfad0da70dfb0f8312fbd0e5f12ffd1c15f0516df5b8882f2eaa5d59fe971d",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-582.json",
+      "sha256": "2f90b2a9f05a8cc841e04240d4601f14d11b678a2c7d9f42ab49f137688bc758",
+      "bytes": 1190,
+      "git_blob": "2fb398b6a440a35a052718cbf92e6229b4b0dd71",
+      "preserved_bytes": "recovered/road-weather-059/2f90b2a9f05a8cc841e04240d4601f14d11b678a2c7d9f42ab49f137688bc758.gz",
+      "published_sha256": "2f90b2a9f05a8cc841e04240d4601f14d11b678a2c7d9f42ab49f137688bc758",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-583.json",
+      "sha256": "a3bb8623a8fa10e954577cfd92f42e3851bed35e69ac94f70a34d1889aef6ef5",
+      "bytes": 1210,
+      "git_blob": "9d9a584954364f741207f476c8cb48609ea4269a",
+      "preserved_bytes": "recovered/road-weather-059/a3bb8623a8fa10e954577cfd92f42e3851bed35e69ac94f70a34d1889aef6ef5.gz",
+      "published_sha256": "a3bb8623a8fa10e954577cfd92f42e3851bed35e69ac94f70a34d1889aef6ef5",
+      "published_bytes": 1210,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-531.json",
+      "sha256": "6c186e5beac2c6b50f6d7b8f92957f0c8628c20c2d64fc52114f8883fee3b139",
+      "bytes": 840,
+      "git_blob": "7578259b87cf52cb6aa7ff246222416ed43e510c",
+      "preserved_bytes": "recovered/road-weather-059/6c186e5beac2c6b50f6d7b8f92957f0c8628c20c2d64fc52114f8883fee3b139.gz",
+      "published_sha256": "6c186e5beac2c6b50f6d7b8f92957f0c8628c20c2d64fc52114f8883fee3b139",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-532.json",
+      "sha256": "ae4ca34c4770ce020764fd718386a17a2bdb3dfe07c7e93ea0c213b87648307f",
+      "bytes": 840,
+      "git_blob": "de2a3008ac47b77c25d206cf99998bf1f4c97926",
+      "preserved_bytes": "recovered/road-weather-059/ae4ca34c4770ce020764fd718386a17a2bdb3dfe07c7e93ea0c213b87648307f.gz",
+      "published_sha256": "ae4ca34c4770ce020764fd718386a17a2bdb3dfe07c7e93ea0c213b87648307f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-531.json",
+      "sha256": "a55aced534fc2a2326b05e5e1ec55219a4638228c26c79c68064d9affac0d3dc",
+      "bytes": 558,
+      "git_blob": "0046ce6cd162b8cfb82a2d6f4181849a287afcb2",
+      "preserved_bytes": "recovered/road-weather-059/a55aced534fc2a2326b05e5e1ec55219a4638228c26c79c68064d9affac0d3dc.gz",
+      "published_sha256": "a55aced534fc2a2326b05e5e1ec55219a4638228c26c79c68064d9affac0d3dc",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-532.json",
+      "sha256": "f3161056d95989235529e772039066c0720988408c84186659cfe3c8ee55f3ef",
+      "bytes": 558,
+      "git_blob": "9fa9486d699dcbdb430a125aa65ff5dec5f2ee9d",
+      "preserved_bytes": "recovered/road-weather-059/f3161056d95989235529e772039066c0720988408c84186659cfe3c8ee55f3ef.gz",
+      "published_sha256": "f3161056d95989235529e772039066c0720988408c84186659cfe3c8ee55f3ef",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and prior attribution retained; no checkpoint3821 or other-lens transfer."
+    }
+  ],
+  "remaining": "Trace street producer/order contracts, actual changed-environment and tree-transform producers, native feature and event timing, original1677 onward, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
