@@ -1,0 +1,457 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical UI/audio/core-metadata roles and current wheel, forecast and DOM serialization source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1745-1749.json",
+  "git_membership_evidence": "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/ui/wheel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bb5f7e64b9e583e266662cfde006e976d07c7fe1",
+      "sha256": "3bb34a4383bf5b2d02ba2c8ffe23eae7f97454416657bdc0aad98088ccd7ffc8",
+      "bytes": 14497,
+      "lines": 438,
+      "ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wheel-current-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "predecessor_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "byte_identical_to_predecessor": true,
+      "qualification": "Current source personally inspected in stated ranges; complete bytes retained. Predecessor identity does not automatically transfer full-lens or runtime credit. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/hud.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a79183f3570d171bf5029da8b87730b9997ab103",
+      "sha256": "fcc8c3870307145ace4daf1f08af7eda0c52d8db1e8cabcba1475e30a4c50283",
+      "bytes": 6086,
+      "lines": 200,
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wheel-current-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "predecessor_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "byte_identical_to_predecessor": true,
+      "qualification": "Current source personally inspected in stated ranges; complete bytes retained. Predecessor identity does not automatically transfer full-lens or runtime credit. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/tactical-hud.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8f0c1572300067a10c0bcc1f21153c9c43990d3d",
+      "sha256": "017a234502121b9b3dbb4c736c7257d07d3386b146cc6f0d6eb610c0c28c0b24",
+      "bytes": 13774,
+      "lines": 335,
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wheel-current-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "predecessor_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "byte_identical_to_predecessor": true,
+      "qualification": "Current source personally inspected in stated ranges; complete bytes retained. Predecessor identity does not automatically transfer full-lens or runtime credit. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "bytes": 7093,
+      "lines": 211,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wheel-current-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "predecessor_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "byte_identical_to_predecessor": true,
+      "qualification": "Current source personally inspected in stated ranges; complete bytes retained. Predecessor identity does not automatically transfer full-lens or runtime credit. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wheel-current-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "predecessor_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "byte_identical_to_predecessor": true,
+      "qualification": "Current source personally inspected in stated ranges; complete bytes retained. Predecessor identity does not automatically transfer full-lens or runtime credit. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "de2a2f23fb6b8572219754d3598da3292410722c",
+      "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+      "bytes": 5927,
+      "lines": 166,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/wheel-current-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "predecessor_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "byte_identical_to_predecessor": true,
+      "qualification": "Current source personally inspected in stated ranges; complete bytes retained. Predecessor identity does not automatically transfer full-lens or runtime credit. Product and source tests were not executed."
+    }
+  ],
+  "prior_predecessor_assessment": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+  "predecessor_ledger_pointer": "main-advance-95e/predecessor-baseline.json.gz#/repair_ledger/entries/31",
+  "observations": [
+    {
+      "contract": "Historical and current UI boundary",
+      "trace": "Historical6533 UI painted clipped arc amounts directly with the native egui painter and retained a separate combat-state helper. The current95e UI delegates to a browser wheel module; current source computes view arcs and positions in Rust, serializes the shapes and calls the HUD page, whose drawWheels uses each share. The historical helper is absent at95e.",
+      "remaining": "The page, actual geometry, timing, display and native client were not run. Different user-facing or gameplay behavior beyond the bounded wheel path requires independent review."
+    },
+    {
+      "contract": "Weather audio transition",
+      "trace": "Historical6533 spawns looping Bevy AudioPlayer entities with silent sinks and updates their volumes. Current95e retains an array of LinearVolume and calls sound_output::set_loop_volume for each named layer. Both source versions select the first available environment and ground in their shown update.",
+      "remaining": "Current audio startup, failed load and scene-selection questions remain in ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json. Source does not establish an actual multi-scene failure or audible output."
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "NEW-WHEEL-QUANTIZED-CUTOFF-001",
+      "lens": 1,
+      "classification": "Existing predecessor c100 conditional source finding explicitly reassessed at95e; not a new unique historical or checkpoint3821 finding.",
+      "first_failed_contract": "The configured 100-percent display cutoff is applied before each visible wheel share is independently rounded, so the represented shares can sum to more than one circle for some inputs.",
+      "canonical_owner": "Wheel arc allocation and quantization at the Rust-to-browser boundary; it is presentation of the existing combat state, not another impairment source.",
+      "trace": "Current wheel_arcs clips each visible raw segment to remaining and subtracts the unrounded amount, then independently rounds that amount to thousandths. Browser drawWheels advances the angle by each serialized share, without an aggregate cap. Current core derives pain, blood loss, fatigue and other source amounts from transient TacticalCombatState, and the server separately computes projected increases.",
+      "symbolic_example": "For nonnegative source amounts pain=0.3336, blood_loss=0.3336, fear=0.3328 and zero projected increases, binary32 source-level arithmetic yields displayed shares approximately 0.334,0.334,0.333, totalling about1.001. All exceed the0.005 omission threshold. This repeats the earlier evidence-only arithmetic and invokes no Rust function, serializer, browser, renderer or product behavior.",
+      "safeguards": "The precise combination has not been shown reachable from an admitted live combat state, and no serialized value, browser rendering or user-visible overdraw was observed. The source retains fixed source order, black fatigue, translucent grey encumbrance, yellow projected increases, and scales total forecasts against available unrounded space. All producer/writer, quantization, serialized finite-value and visual policies remain open. The old6533 painter advanced by clipped unrounded amount; the ff9c root UI differs from6533 and remains separately identified.",
+      "prior_attribution": "The c100 source finding and its earlier selected ff9c evidence remain unchanged in ASSESSMENT-L1-WHEEL-CUTOFF.json and frozen predecessor ledger entry31. Current95e relevant source bytes match c100, but this assessment records explicit source inspection rather than silently relabeling predecessor work. Segovb564–565 original6533 Lens12 reviews are separately attributed.",
+      "connected_repair_dependencies": [
+        "After audit completion and separate implementation authorization, select an allocation/quantization rule whose serialized shares cannot exceed one while retaining intended omission, ordering, colors and actual-versus-projection priority.",
+        "Trace admissible source values, native serialization, page renderer and exact historical aliases; retain transient Bevy-server combat authority and one general fatigue pool."
+      ],
+      "later_acceptance": [
+        "In a later separately authorized validation phase, verify the total transmitted/displayed wheel never exceeds100%, including multi-arc rounding boundaries, full and underfull cases.",
+        "Preserve yellow projections as projected increases, black fatigue, translucent grey encumbrance, source order and legitimate subpixel omission without introducing additional gameplay penalties."
+      ],
+      "discovery": "partial; current source and earlier conditional binary32 counterexample connected, live input reachability, serialization, visual effect and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0,
+      "additional_current_lenses": [
+        8
+      ],
+      "historical_lens_assessed": 1
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1442",
+        "/entries/1443"
+      ],
+      "qualification": "Original059 pending scopes only partially connected; no checkpoint3821 transfer."
+    },
+    {
+      "file": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json",
+      "qualification": "Separately assessed audio issues and source-qualified runtime limitations remain intact."
+    },
+    {
+      "file": "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+      "qualification": "Predecessor c100 conditional finding and distinct ff9c historical source remain unchanged."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-564-001.json",
+      "sha256": "169c4fc4b744e93207adb34e4357aa5a00c4660588e8a122cfc89d4e75c834b1",
+      "bytes": 5477,
+      "git_blob": "5ac5daa9b7586cad2fdcbe88041d3c4d48cac95d",
+      "preserved_bytes": "recovered/wheel-current-059/169c4fc4b744e93207adb34e4357aa5a00c4660588e8a122cfc89d4e75c834b1.gz",
+      "published_sha256": "169c4fc4b744e93207adb34e4357aa5a00c4660588e8a122cfc89d4e75c834b1",
+      "published_bytes": 5477,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-564-002-EOF.json",
+      "sha256": "a6410fc119dc6012743789930e77f10e8bcf9051e11176d6437fa35b67d1cde6",
+      "bytes": 5894,
+      "git_blob": "38273b06461b07fdc629ff125180388f5d9964d9",
+      "preserved_bytes": "recovered/wheel-current-059/a6410fc119dc6012743789930e77f10e8bcf9051e11176d6437fa35b67d1cde6.gz",
+      "published_sha256": "a6410fc119dc6012743789930e77f10e8bcf9051e11176d6437fa35b67d1cde6",
+      "published_bytes": 5894,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier reviewer partial or EOF qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-564.json",
+      "sha256": "a735f63e02fedb3c84758dbbf19571bd2761762bfc3760e590918b4ae3d0a657",
+      "bytes": 707,
+      "git_blob": "c988a76d67b62a941708633daad43a54eef7376d",
+      "preserved_bytes": "recovered/wheel-current-059/a735f63e02fedb3c84758dbbf19571bd2761762bfc3760e590918b4ae3d0a657.gz",
+      "published_sha256": "a735f63e02fedb3c84758dbbf19571bd2761762bfc3760e590918b4ae3d0a657",
+      "published_bytes": 707,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-565.json",
+      "sha256": "b2c3e9598fd780cf369309298390d571bc94833fba6c530ff88befa34cb9582e",
+      "bytes": 2138,
+      "git_blob": "bd870b8f3ec178754c784a4a1de29db3c1ffc35a",
+      "preserved_bytes": "recovered/wheel-current-059/b2c3e9598fd780cf369309298390d571bc94833fba6c530ff88befa34cb9582e.gz",
+      "published_sha256": "b2c3e9598fd780cf369309298390d571bc94833fba6c530ff88befa34cb9582e",
+      "published_bytes": 2138,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-428.json",
+      "sha256": "9fbb066a7ea7a45869886226d9e7c3d8d0b66443189ae63fb75cda16c7bfb963",
+      "bytes": 5580,
+      "git_blob": "41dccc9ac61291c140ef154d8c0d6c9fc9aca5d2",
+      "preserved_bytes": "recovered/wheel-current-059/9fbb066a7ea7a45869886226d9e7c3d8d0b66443189ae63fb75cda16c7bfb963.gz",
+      "published_sha256": "9fbb066a7ea7a45869886226d9e7c3d8d0b66443189ae63fb75cda16c7bfb963",
+      "published_bytes": 5580,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-564.json",
+      "sha256": "3bd3b0eeba7d4c0596d13f2cb7edd9858de124f3c4e39d47ec828ec9be43204a",
+      "bytes": 9806,
+      "git_blob": "d552dd3a0778bb68ce135b8e0a5866cca4dff533",
+      "preserved_bytes": "recovered/wheel-current-059/3bd3b0eeba7d4c0596d13f2cb7edd9858de124f3c4e39d47ec828ec9be43204a.gz",
+      "published_sha256": "3bd3b0eeba7d4c0596d13f2cb7edd9858de124f3c4e39d47ec828ec9be43204a",
+      "published_bytes": 9806,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer",
+        "earlier same-lens receipt, no new credit"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-565.json",
+      "sha256": "92a4614e64796b50f28d8fd9e9c3ec4377b59471d31b3aff98de13b30b8c9aee",
+      "bytes": 16648,
+      "git_blob": "c827d39812915a79079322603921ff8c32337426",
+      "preserved_bytes": "recovered/wheel-current-059/92a4614e64796b50f28d8fd9e9c3ec4377b59471d31b3aff98de13b30b8c9aee.gz",
+      "published_sha256": "92a4614e64796b50f28d8fd9e9c3ec4377b59471d31b3aff98de13b30b8c9aee",
+      "published_bytes": 16648,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-364.json",
+      "sha256": "4ed9bff59241a1a084dcff3e9c1eade4a67f4f595866ffdfa03cdfd5d9065842",
+      "bytes": 1162,
+      "git_blob": "3fc9d96d1559dbf4bd1dc82a7dd82b77d89d36f3",
+      "preserved_bytes": "recovered/wheel-current-059/4ed9bff59241a1a084dcff3e9c1eade4a67f4f595866ffdfa03cdfd5d9065842.gz",
+      "published_sha256": "4ed9bff59241a1a084dcff3e9c1eade4a67f4f595866ffdfa03cdfd5d9065842",
+      "published_bytes": 1162,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified same-lens registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-652.json",
+      "sha256": "82f41e7514a1fcbca9b69874ef0b8092767953f69608ca76ece7f119e5ac2886",
+      "bytes": 1201,
+      "git_blob": "61dc24b10a8d583410ccdec03677ef880f958fa4",
+      "preserved_bytes": "recovered/wheel-current-059/82f41e7514a1fcbca9b69874ef0b8092767953f69608ca76ece7f119e5ac2886.gz",
+      "published_sha256": "82f41e7514a1fcbca9b69874ef0b8092767953f69608ca76ece7f119e5ac2886",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration",
+        "earlier qualified same-lens registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-653.json",
+      "sha256": "8dd095dc6edddd6fb6d1b6a7d1f22e0af5069fe786850443551021b91fc0adb7",
+      "bytes": 1220,
+      "git_blob": "58add3f92232bf11cf226d4a4e06e06cc6ece884",
+      "preserved_bytes": "recovered/wheel-current-059/8dd095dc6edddd6fb6d1b6a7d1f22e0af5069fe786850443551021b91fc0adb7.gz",
+      "published_sha256": "8dd095dc6edddd6fb6d1b6a7d1f22e0af5069fe786850443551021b91fc0adb7",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-654.json",
+      "sha256": "e5f9770e2f3c0c50eafa0bb2d8b4c8d9ee5daab2c39215ee72595f88a4754c9b",
+      "bytes": 1216,
+      "git_blob": "1aad74f4edabd3ddf7a1f8aa4e77c9fe756ec9fe",
+      "preserved_bytes": "recovered/wheel-current-059/e5f9770e2f3c0c50eafa0bb2d8b4c8d9ee5daab2c39215ee72595f88a4754c9b.gz",
+      "published_sha256": "e5f9770e2f3c0c50eafa0bb2d8b4c8d9ee5daab2c39215ee72595f88a4754c9b",
+      "published_bytes": 1216,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-655.json",
+      "sha256": "768503e749674dafd397d8d8277b7c76a4a0b82c3d16d39a793ad1c770b83aa8",
+      "bytes": 1188,
+      "git_blob": "cfeafd567c394436aaa73406d0b649bf00e15834",
+      "preserved_bytes": "recovered/wheel-current-059/768503e749674dafd397d8d8277b7c76a4a0b82c3d16d39a793ad1c770b83aa8.gz",
+      "published_sha256": "768503e749674dafd397d8d8277b7c76a4a0b82c3d16d39a793ad1c770b83aa8",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-656.json",
+      "sha256": "37ed47e97ab3c1e040157eec3bbf1a963be009382c3f9536f78e1bb255cb48de",
+      "bytes": 1190,
+      "git_blob": "48eaaa4d71e3e68d5de988d84ec14cd7091fc7a6",
+      "preserved_bytes": "recovered/wheel-current-059/37ed47e97ab3c1e040157eec3bbf1a963be009382c3f9536f78e1bb255cb48de.gz",
+      "published_sha256": "37ed47e97ab3c1e040157eec3bbf1a963be009382c3f9536f78e1bb255cb48de",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-564.json",
+      "sha256": "754e29429371c25a090693762289e3920446efd19e39e1b27fae5c6e8297c80b",
+      "bytes": 840,
+      "git_blob": "086b0eb542b4d6494dcb1509503ea7158e5cdb4f",
+      "preserved_bytes": "recovered/wheel-current-059/754e29429371c25a090693762289e3920446efd19e39e1b27fae5c6e8297c80b.gz",
+      "published_sha256": "754e29429371c25a090693762289e3920446efd19e39e1b27fae5c6e8297c80b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-565.json",
+      "sha256": "280c71155d93a4553c1a097817d3b7315d33ccb67b50ac7082760997ef61ce7b",
+      "bytes": 840,
+      "git_blob": "b9eaa93329e42fb8b453e52878ce6fd6e35c9a1d",
+      "preserved_bytes": "recovered/wheel-current-059/280c71155d93a4553c1a097817d3b7315d33ccb67b50ac7082760997ef61ce7b.gz",
+      "published_sha256": "280c71155d93a4553c1a097817d3b7315d33ccb67b50ac7082760997ef61ce7b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-564.json",
+      "sha256": "fff5ad467458e3d5b8e70d90dd06e1873ec2a56ae5891b1dca5edc035e3bb9b9",
+      "bytes": 558,
+      "git_blob": "238003f9dc4aedb88bf906d6bb9d310de453c7a6",
+      "preserved_bytes": "recovered/wheel-current-059/fff5ad467458e3d5b8e70d90dd06e1873ec2a56ae5891b1dca5edc035e3bb9b9.gz",
+      "published_sha256": "fff5ad467458e3d5b8e70d90dd06e1873ec2a56ae5891b1dca5edc035e3bb9b9",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-565.json",
+      "sha256": "97634110a2d498fc95a0143734bd6960ed4b9f4acd1ff4e5f11ea9d37745c2cb",
+      "bytes": 558,
+      "git_blob": "05b8b16f5f5f5c8aab30a9e9e52cc3d1ddbfbd56",
+      "preserved_bytes": "recovered/wheel-current-059/97634110a2d498fc95a0143734bd6960ed4b9f4acd1ff4e5f11ea9d37745c2cb.gz",
+      "published_sha256": "97634110a2d498fc95a0143734bd6960ed4b9f4acd1ff4e5f11ea9d37745c2cb",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1750; establish live wheel/source admission and page behavior, audio scene policy, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

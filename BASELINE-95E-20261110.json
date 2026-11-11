@@ -4648,8 +4648,29 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SKY-CAPTURE-PERSISTENCE-95E.json"
+      },
+      {
+        "id": "NEW-WHEEL-QUANTIZED-CUTOFF-001",
+        "lens": 1,
+        "severity": "unassigned; conditional displayed-arc cutoff issue",
+        "classification": "Existing predecessor c100 conditional source finding explicitly reassessed at95e; not a new unique historical or checkpoint3821 finding.",
+        "historical_related_records": [
+          "ASSESSMENT-L1-WHEEL-CUTOFF.json",
+          "main-advance-95e/predecessor-baseline.json.gz#/repair_ledger/entries/31",
+          "segovb/READ-L12-564.json",
+          "segovb/READ-L12-565.json"
+        ],
+        "relationship_qualification": "Predecessor c100 finding and original6533 reviewer records remain separately attributed; current source reassessment changes no checkpoint3821 or historical finding count.",
+        "discovery": "partial; current source and earlier conditional binary32 counterexample connected, live input reachability, serialization, visual effect and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-WHEEL-CUTOFF-95E.json",
+        "additional_current_lenses": [
+          8
+        ],
+        "historical_lens_assessed": 1
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0947.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0950.json"
 }

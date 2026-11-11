@@ -1,0 +1,215 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1745,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e presence or absence separately checked.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1745",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "lines": 1039,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/ui.rs",
+        "status": "present",
+        "sha256": "f91fe076a2bc1dccc6e2660098fe431898681f4e96ea54d15b6ca79e581f7bd9",
+        "bytes": 8262,
+        "lines": 279,
+        "git_blob": "aeebce112cdb79070ac32e3d105825e8e2bcb7d0",
+        "preserved_bytes": "main-advance-95e/wheel-current-evidence/current-1745.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            279
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Current differing body separately personally inspected through EOF. Source tests and product were not executed.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/wheel-current-evidence/role-1745.diff.gz",
+          "sha256": "e386f557bb65a052b04173061b2ad5efcdb759ec7da310eaef7c307ccffa058e",
+          "bytes": 43495,
+          "content_encoding": "gzip"
+        }
+      },
+      "qualification": "Complete historical body personally inspected at this original role; imported/native behavior and independent lenses remain open."
+    },
+    {
+      "original_index": 1746,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e presence or absence separately checked.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1746",
+      "sha256": "4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+      "lines": 140,
+      "new_personal_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+        "status": "absent from current Git tree",
+        "qualification": "The historical helper was removed; current wheel.rs is a separately inspected successor, not an identical file or historical body."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; imported/native behavior and independent lenses remain open."
+    },
+    {
+      "original_index": 1747,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e presence or absence separately checked.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1747",
+      "sha256": "35e0527b4916af005b7cf251be2808a43f5226c23fefc9287f14ae511c6b27e9",
+      "lines": 208,
+      "new_personal_read_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/weather_audio.rs",
+        "status": "present",
+        "sha256": "17be8dd3cf558dad4feba5789dfa498f8aab18fd3e84a4380133a8ccf96c0aad",
+        "bytes": 6333,
+        "lines": 190,
+        "git_blob": "6d2e10833c83bb6e1d90d701fb21fe67c557a604",
+        "preserved_bytes": "main-advance-95e/wheel-current-evidence/current-1747.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            190
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Current differing body separately personally inspected through EOF. Source tests and product were not executed.",
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/wheel-current-evidence/role-1747.diff.gz",
+          "sha256": "867e2c8500f5ead3f0475cafc6f0ab81707286a4af5137c4f972b0ec93ec8510",
+          "bytes": 4534,
+          "content_encoding": "gzip"
+        }
+      },
+      "qualification": "Complete historical body personally inspected at this original role; imported/native behavior and independent lenses remain open."
+    },
+    {
+      "original_index": 1748,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/AGENTS.md",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e presence or absence separately checked.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1748",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "lines": 17,
+      "new_personal_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/AGENTS.md",
+        "status": "present",
+        "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+        "bytes": 946,
+        "lines": 17,
+        "git_blob": "a0b38d1435a5f1122c38793d3c6ecb2ebd99f958",
+        "preserved_bytes": "main-advance-95e/wheel-current-evidence/current-1748.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "qualification": "Historical body personally inspected through EOF; exact current bytes compared equal. No separate independent current reread claimed. Source tests and product were not executed."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; imported/native behavior and independent lenses remain open."
+    },
+    {
+      "original_index": 1749,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e presence or absence separately checked.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1749",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "lines": 44,
+      "new_personal_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/Cargo.toml",
+        "status": "present",
+        "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+        "bytes": 1228,
+        "lines": 44,
+        "git_blob": "a3fc8d392f72cc9c45017dcfa454019a9cc5a5b3",
+        "preserved_bytes": "main-advance-95e/wheel-current-evidence/current-1749.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "qualification": "Historical body personally inspected through EOF; exact current bytes compared equal. No separate independent current reread claimed. Source tests and product were not executed."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; imported/native behavior and independent lenses remain open."
+    }
+  ],
+  "observations": [
+    "Historical6533 UI root, wheel helper, weather audio, tactical-core guide and manifest were personally inspected through EOF. Current95e UI and weather audio differ and were separately read through EOF; the old helper is absent. The guide and manifest are byte-identical to their personally read historical bodies; no separate current reread is claimed.",
+    "Original Segovb564–565 and linked partials/reuses retain their6533 reviewer attribution. The earlier ff9c wheel helper is byte-identical to historical6533 helper; the ff9c and6533 root UI sources differ and are not conflated.",
+    "The current browser wheel, combat source and forecast were independently inspected in stated95e ranges. No tests, application, browser, graphics or audio ran."
+  ],
+  "remaining": "Continue original1750; establish live wheel inputs, browser and forecast policy, combat source producers, audio ownership, exact aliases, all13 lenses and queue. Final checkpoint3821 ledger and queue remain missing."
+}
