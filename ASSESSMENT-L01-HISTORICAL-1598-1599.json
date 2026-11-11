@@ -1,0 +1,146 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1598,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob and differs from95e; original and current evidence remain separately attributed.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1598",
+      "sha256": "01e01e3d4c8c4c8a5d0b5d91248c5b715bbfdb40722c4f36ed15395b95a35683",
+      "lines": 1358,
+      "new_personal_read_ranges": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          750
+        ],
+        [
+          751,
+          1000
+        ],
+        [
+          1001,
+          1200
+        ],
+        [
+          1201,
+          1358
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+        "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38",
+        "bytes": 56596,
+        "lines": 1336,
+        "git_blob": "f6a572e392112603c3cdb61528dc50ffcf82de31",
+        "preserved_bytes": "main-advance-95e/tree-skeleton-evidence/current-1598.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            330,
+            402
+          ],
+          [
+            580,
+            627
+          ],
+          [
+            710,
+            773
+          ]
+        ],
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/tree-skeleton-evidence/diff-1598.txt.gz",
+          "sha256": "126222533e95ab617f53e5a394d3ee3d0168dc86328d0b97100c0bf3e18faecb",
+          "bytes": 21917,
+          "content_encoding": "gzip"
+        },
+        "qualification": "Exact complete diff inspected and saved; only stated current body ranges independently read. Test source and asserted counts were not executed."
+      },
+      "qualification": "Complete original body personally read through actual EOF. Reading tests is not running tests; no generation, meshing, rendering or product validation."
+    },
+    {
+      "original_index": 1599,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob and differs from95e; original and current evidence remain separately attributed.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1599",
+      "sha256": "5e281ec79d0b5d56ebfbfefce2f7bd8f1bc297a809be6a8983b1b7c68df18d85",
+      "lines": 1370,
+      "new_personal_read_ranges": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          750
+        ],
+        [
+          751,
+          1000
+        ],
+        [
+          1001,
+          1200
+        ],
+        [
+          1201,
+          1370
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs",
+        "sha256": "bfcb0426d718881a24174dcca52e6e88c555131a50cb2ef4d9be63f1300a92de",
+        "bytes": 53953,
+        "lines": 1372,
+        "git_blob": "3d87b91b49c5889edfe15bcfc04f4460e19b9e79",
+        "preserved_bytes": "main-advance-95e/tree-skeleton-evidence/current-1599.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [],
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/tree-skeleton-evidence/diff-1599.txt.gz",
+          "sha256": "2b9fdf217ef8b37da3b19be6b0b3e3f7ebab2ae44373cd1d7897ca3de0d20cfc",
+          "bytes": 3039,
+          "content_encoding": "gzip"
+        },
+        "qualification": "Exact complete diff inspected and saved; only stated current body ranges independently read. Test source and asserted counts were not executed."
+      },
+      "qualification": "Complete original body personally read through actual EOF. Reading tests is not running tests; no generation, meshing, rendering or product validation."
+    }
+  ],
+  "observations": [
+    "Original tree skeleton and wood-mesh bodies personally read through EOF, and exact source changes to95e retained. Wood-mesh changes are in test fixture construction and source expectations; test results are not evidence here.",
+    "Earlier Adler Lens11 batches225–226 and Segovb Lens12 batches498–499 remain separately attributed at6533. Adler's six connected later-material reads retain their exact scopes, including root_profile1–53 of117; no source or reviewer credit is promoted to checkpoint3821."
+  ],
+  "remaining": "Continue original1600; current diffs and supporting source reads do not complete the full current body, independent lenses, imported helpers, native geometry or behavior policy."
+}

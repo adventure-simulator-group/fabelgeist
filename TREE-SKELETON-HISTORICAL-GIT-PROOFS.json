@@ -1,0 +1,504 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "4d619c10f2fba7efe3e98324585cc1d529910000": {
+      "git_object": "4d619c10f2fba7efe3e98324585cc1d529910000",
+      "sha256": "4ae7574b5600462c9b7951915415f316007f6867d67b55dc5f0620c8d25bd0cd",
+      "bytes": 38,
+      "preserved_bytes": "main-advance-95e/tree-skeleton-evidence/git-objects/4d619c10f2fba7efe3e98324585cc1d529910000.tree.gz"
+    },
+    "b4a7e777e66841d6a884ada1ce2a050146b565e3": {
+      "git_object": "b4a7e777e66841d6a884ada1ce2a050146b565e3",
+      "sha256": "97bd7ad2fbe9ce195efa3e3383874cc6bc0300959fc8918daad08ab87a0a629e",
+      "bytes": 163,
+      "preserved_bytes": "main-advance-95e/tree-skeleton-evidence/git-objects/b4a7e777e66841d6a884ada1ce2a050146b565e3.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "obstacles",
+          "mode": "40000",
+          "child": "7e03754c47f1b09d96c64e9fab4803d6ce015174"
+        },
+        {
+          "tree": "7e03754c47f1b09d96c64e9fab4803d6ce015174",
+          "name": "tree",
+          "mode": "40000",
+          "child": "5be2d9fe4507164462532c68eb0c41a94ef122f6"
+        },
+        {
+          "tree": "5be2d9fe4507164462532c68eb0c41a94ef122f6",
+          "name": "geometry",
+          "mode": "40000",
+          "child": "6d7c3870d9d081b8065554f48867b0f964c130cd"
+        },
+        {
+          "tree": "6d7c3870d9d081b8065554f48867b0f964c130cd",
+          "name": "skeleton.rs",
+          "mode": "100644",
+          "child": "96b7cfeaad85c0686e7a8dff561ececbeb0c44fd"
+        }
+      ],
+      "git_blob": "96b7cfeaad85c0686e7a8dff561ececbeb0c44fd",
+      "sha256": "01e01e3d4c8c4c8a5d0b5d91248c5b715bbfdb40722c4f36ed15395b95a35683",
+      "bytes": 57312,
+      "lines": 1358
+    },
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "obstacles",
+          "mode": "40000",
+          "child": "7e03754c47f1b09d96c64e9fab4803d6ce015174"
+        },
+        {
+          "tree": "7e03754c47f1b09d96c64e9fab4803d6ce015174",
+          "name": "tree",
+          "mode": "40000",
+          "child": "5be2d9fe4507164462532c68eb0c41a94ef122f6"
+        },
+        {
+          "tree": "5be2d9fe4507164462532c68eb0c41a94ef122f6",
+          "name": "geometry",
+          "mode": "40000",
+          "child": "6d7c3870d9d081b8065554f48867b0f964c130cd"
+        },
+        {
+          "tree": "6d7c3870d9d081b8065554f48867b0f964c130cd",
+          "name": "wood_mesh.rs",
+          "mode": "100644",
+          "child": "7864e2a0e716e4579e1c062dd49f440036132324"
+        }
+      ],
+      "git_blob": "7864e2a0e716e4579e1c062dd49f440036132324",
+      "sha256": "5e281ec79d0b5d56ebfbfefce2f7bd8f1bc297a809be6a8983b1b7c68df18d85",
+      "bytes": 53895,
+      "lines": 1370
+    },
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "ground_scatter",
+          "mode": "40000",
+          "child": "fecfb6f9344e972ca817654c9192b8c33590cb5e"
+        },
+        {
+          "tree": "fecfb6f9344e972ca817654c9192b8c33590cb5e",
+          "name": "loose_stone",
+          "mode": "40000",
+          "child": "b83c81a7c9a1a718595cea1d7960ec854afd1b26"
+        },
+        {
+          "tree": "b83c81a7c9a1a718595cea1d7960ec854afd1b26",
+          "name": "streams.rs",
+          "mode": "100644",
+          "child": "b62dea7fde1b4491cfef718bbc2e8ddeae409ed5"
+        }
+      ],
+      "git_blob": "b62dea7fde1b4491cfef718bbc2e8ddeae409ed5",
+      "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+      "bytes": 1415,
+      "lines": 18
+    },
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "ground_scatter",
+          "mode": "40000",
+          "child": "fecfb6f9344e972ca817654c9192b8c33590cb5e"
+        },
+        {
+          "tree": "fecfb6f9344e972ca817654c9192b8c33590cb5e",
+          "name": "understory",
+          "mode": "40000",
+          "child": "4d619c10f2fba7efe3e98324585cc1d529910000"
+        },
+        {
+          "tree": "4d619c10f2fba7efe3e98324585cc1d529910000",
+          "name": "streams.rs",
+          "mode": "100644",
+          "child": "a94b9986801113d17bbab750810cd5e1239291a0"
+        }
+      ],
+      "git_blob": "a94b9986801113d17bbab750810cd5e1239291a0",
+      "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+      "bytes": 1076,
+      "lines": 17
+    },
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/streams.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "obstacles",
+          "mode": "40000",
+          "child": "7e03754c47f1b09d96c64e9fab4803d6ce015174"
+        },
+        {
+          "tree": "7e03754c47f1b09d96c64e9fab4803d6ce015174",
+          "name": "tree",
+          "mode": "40000",
+          "child": "5be2d9fe4507164462532c68eb0c41a94ef122f6"
+        },
+        {
+          "tree": "5be2d9fe4507164462532c68eb0c41a94ef122f6",
+          "name": "geometry",
+          "mode": "40000",
+          "child": "6d7c3870d9d081b8065554f48867b0f964c130cd"
+        },
+        {
+          "tree": "6d7c3870d9d081b8065554f48867b0f964c130cd",
+          "name": "skeleton",
+          "mode": "40000",
+          "child": "b4a7e777e66841d6a884ada1ce2a050146b565e3"
+        },
+        {
+          "tree": "b4a7e777e66841d6a884ada1ce2a050146b565e3",
+          "name": "streams.rs",
+          "mode": "100644",
+          "child": "8e612401d371ba96c09b34662eb5ce0ef9878559"
+        }
+      ],
+      "git_blob": "8e612401d371ba96c09b34662eb5ce0ef9878559",
+      "sha256": "0d8665bffe65c04fdc695d187ef0a3b91071e714eecf1e46e526af46d2738df7",
+      "bytes": 8913,
+      "lines": 149
+    },
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "obstacles",
+          "mode": "40000",
+          "child": "7e03754c47f1b09d96c64e9fab4803d6ce015174"
+        },
+        {
+          "tree": "7e03754c47f1b09d96c64e9fab4803d6ce015174",
+          "name": "tree",
+          "mode": "40000",
+          "child": "5be2d9fe4507164462532c68eb0c41a94ef122f6"
+        },
+        {
+          "tree": "5be2d9fe4507164462532c68eb0c41a94ef122f6",
+          "name": "geometry",
+          "mode": "40000",
+          "child": "6d7c3870d9d081b8065554f48867b0f964c130cd"
+        },
+        {
+          "tree": "6d7c3870d9d081b8065554f48867b0f964c130cd",
+          "name": "skeleton",
+          "mode": "40000",
+          "child": "b4a7e777e66841d6a884ada1ce2a050146b565e3"
+        },
+        {
+          "tree": "b4a7e777e66841d6a884ada1ce2a050146b565e3",
+          "name": "growth_axes.rs",
+          "mode": "100644",
+          "child": "aa5d35592bb7e5628cfc94af72e1214c23cde8b9"
+        }
+      ],
+      "git_blob": "aa5d35592bb7e5628cfc94af72e1214c23cde8b9",
+      "sha256": "6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+      "bytes": 3661,
+      "lines": 88
+    },
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "obstacles",
+          "mode": "40000",
+          "child": "7e03754c47f1b09d96c64e9fab4803d6ce015174"
+        },
+        {
+          "tree": "7e03754c47f1b09d96c64e9fab4803d6ce015174",
+          "name": "tree",
+          "mode": "40000",
+          "child": "5be2d9fe4507164462532c68eb0c41a94ef122f6"
+        },
+        {
+          "tree": "5be2d9fe4507164462532c68eb0c41a94ef122f6",
+          "name": "geometry",
+          "mode": "40000",
+          "child": "6d7c3870d9d081b8065554f48867b0f964c130cd"
+        },
+        {
+          "tree": "6d7c3870d9d081b8065554f48867b0f964c130cd",
+          "name": "skeleton",
+          "mode": "40000",
+          "child": "b4a7e777e66841d6a884ada1ce2a050146b565e3"
+        },
+        {
+          "tree": "b4a7e777e66841d6a884ada1ce2a050146b565e3",
+          "name": "root_plan.rs",
+          "mode": "100644",
+          "child": "f19bc5feab9c1288d8d8c7bf0a86f0908334d226"
+        }
+      ],
+      "git_blob": "f19bc5feab9c1288d8d8c7bf0a86f0908334d226",
+      "sha256": "8ed183b6e87bf3e20eee0d8d2bfd5ec5f08c3cfcc5a3352bd4005ce62643922b",
+      "bytes": 7495,
+      "lines": 177
+    },
+    "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "presentation",
+          "mode": "40000",
+          "child": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba"
+        },
+        {
+          "tree": "8499ca2b9124eb3363c3c909d6a15c91dd3ba5ba",
+          "name": "obstacles",
+          "mode": "40000",
+          "child": "7e03754c47f1b09d96c64e9fab4803d6ce015174"
+        },
+        {
+          "tree": "7e03754c47f1b09d96c64e9fab4803d6ce015174",
+          "name": "tree",
+          "mode": "40000",
+          "child": "5be2d9fe4507164462532c68eb0c41a94ef122f6"
+        },
+        {
+          "tree": "5be2d9fe4507164462532c68eb0c41a94ef122f6",
+          "name": "geometry",
+          "mode": "40000",
+          "child": "6d7c3870d9d081b8065554f48867b0f964c130cd"
+        },
+        {
+          "tree": "6d7c3870d9d081b8065554f48867b0f964c130cd",
+          "name": "skeleton",
+          "mode": "40000",
+          "child": "b4a7e777e66841d6a884ada1ce2a050146b565e3"
+        },
+        {
+          "tree": "b4a7e777e66841d6a884ada1ce2a050146b565e3",
+          "name": "root_profile.rs",
+          "mode": "100644",
+          "child": "585331fc644adb78813266576a2642354ba92e78"
+        }
+      ],
+      "git_blob": "585331fc644adb78813266576a2642354ba92e78",
+      "sha256": "55e0e9789ade5938b62b9c929b4a8e6ccb49920e42ad85b38648c19fe315022b",
+      "bytes": 4776,
+      "lines": 117
+    }
+  },
+  "qualification": "Raw public Git objects establish6533 membership of historical source bodies; supporting identity and independent bounded reads do not advance other population frontiers."
+}
