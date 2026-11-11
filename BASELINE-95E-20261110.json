@@ -10929,8 +10929,203 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GARMENT-MEASUREMENT-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GARMENT-PANEL-REFERENCE-PROPAGATION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; garment panel identity",
+        "classification": "Pattern panel names and stitch references remain strings across the pattern, fitter and cloth panel boundary before conversion to ordinal seam sides.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/316",
+          "segovb/READ-L12-746.json via ASSESSMENT-GARMENT-FIT-95E.json",
+          "segovb/READ-L12-CONNECTED-TEAM-003.json via ASSESSMENT-GARMENT-FIT-95E.json"
+        ],
+        "relationship_qualification": "Original delegate746 and its independently registered connected reads retain their original6533 authorship, exact ranges and zero ordered credit; current views are separately attributed. No global alias asserted.",
+        "discovery": "partial; selected producer, retained name maps and cloth ordinal consumer traced; all native callers, uniqueness and alias inventory remain open",
+        "connected_repair_direction": "Determine the canonical authored panel identity and carry it through stitch references, retained panel state and the cloth boundary under an explicit missing/duplicate policy.",
+        "future_acceptance": "After audit and authorization, cover real authored names, duplicate and missing references, skipped panels and any chosen native format boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-GARMENT-FIT-PANEL-IDENTITY-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          4,
+          5,
+          6,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; duplicate panel identity",
+        "classification": "The pattern lookup picks the first duplicate panel name while the fitter name map picks the last usable duplicate.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/316",
+          "segovb/READ-L12-CONNECTED-TEAM-003.json via ASSESSMENT-GARMENT-FIT-95E.json"
+        ],
+        "relationship_qualification": "Original connected review already raised duplicate and merge policy; the precise first-versus-last source consequence is newly traced, conditional on duplicate usable panels. No pattern or product ran.",
+        "discovery": "partial; public panel storage, first lookup and fitted map traced; admission, real producers and aliases open",
+        "connected_repair_direction": "Choose and enforce one unambiguous panel-identity rule consistently at pattern admission and stitch resolution.",
+        "future_acceptance": "After audit and authorization, cover duplicate names, replacement/merge and stitched lookup under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-GARMENT-FIT-UNRESOLVED-STITCH-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; stitch reference disposition",
+        "classification": "A missing panel or out-of-range edge in a stitch is silently skipped by the fitter.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/316",
+          "segovb/READ-L12-CONNECTED-TEAM-003.json via ASSESSMENT-GARMENT-FIT-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "missing panel",
+            "first_failure": "name lookup fails and loop continues without a recorded stitch error"
+          },
+          {
+            "scope": "out-of-range stitch edge",
+            "first_failure": "edge bound check fails and loop continues without a recorded stitch error"
+          }
+        ],
+        "relationship_qualification": "Original review already left missing-reference policy open. The creator rejects reported skipped panels, but the shown adapter does not add missing stitch references to that report. No malformed pattern or mesh ran.",
+        "discovery": "partial; adapter and selected creator reporting traced; native producer validity, desired policy and aliases open",
+        "connected_repair_direction": "Decide the error or reporting contract for each unresolved stitch while preserving distinct missing-panel and invalid-edge context.",
+        "future_acceptance": "After audit and authorization, cover both unresolved conditions, intentionally skipped panels and valid stitched patterns through the chosen boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-GARMENT-FIT-EDGE-SHAPE-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; public edge payload admission",
+        "classification": "Pattern edge vertex indices and curvature control-point counts are consumed with direct indexing before a fallible fit result can report malformed input.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/316"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "edge endpoint",
+            "first_failure": "vertex slice indexed by a public edge endpoint"
+          },
+          {
+            "scope": "curve control point",
+            "first_failure": "quadratic or cubic parameter vector indexed at a required slot"
+          }
+        ],
+        "relationship_qualification": "These are separate source operations for malformed public PatternSpec values. Whether upstream admitted types already guarantee them for real callers remains open; no curve or index operation ran.",
+        "discovery": "partial; public edge shapes, adapter sampling and direct consumer indices traced; input policy and aliases open",
+        "connected_repair_direction": "Enforce endpoint bounds and curvature payload cardinality in the owning admitted pattern representation or fallible adapter.",
+        "future_acceptance": "After audit and authorization, cover invalid endpoints, short quadratic/cubic payloads and supported valid edges independently.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-GARMENT-FIT-PATTERN-UNITS-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; pattern unit declaration",
+        "classification": "The fit adapter applies centimetre conversion even when the public pattern metadata declares a different units-per-metre value.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/156",
+          "segovb/READ-L12-CONNECTED-TEAM-003.json via ASSESSMENT-GARMENT-FIT-95E.json"
+        ],
+        "relationship_qualification": "Default and observed producer metadata use100; an alternate unit is a conditional public-value example, not a demonstrated supported production input. The original section-grid units finding has a different source and physical contract.",
+        "discovery": "partial; pattern metadata and fixed conversion traced; actual authoring/import policy and aliases open",
+        "connected_repair_direction": "Make the pattern unit owner explicit and reject unsupported declarations or convert consistently at the adapter boundary.",
+        "future_acceptance": "After audit and authorization, cover the centimetre contract and chosen handling of alternate or invalid unit metadata.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-GARMENT-FIT-CLEARANCE-BOUND-95E",
+        "lens": 8,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12
+        ],
+        "severity": "unassigned; conditional body clearance",
+        "classification": "The clearance path promises to lift every interior particle but its nearest-surface search is limited to half a metre.",
+        "historical_related_records": [],
+        "relationship_qualification": "Conditional on an interior point farther than0.5m from every surface triangle; no such body, point or query ran. Bounded exact-term search in recovered059 queue found no clear_body or closest_point match; broader aliases remain open.",
+        "discovery": "partial; clearance comment, bound and BVH pruning traced; realistic geometry range and intended completeness policy open",
+        "connected_repair_direction": "Align the clearance search bound, admitted body geometry and documented completion guarantee.",
+        "future_acceptance": "After audit and authorization, cover near and beyond-bound interior positions under the selected clearance policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
+      },
+      {
+        "id": "REVIEW-GARMENT-FIT-COLLISION-AUTHORITY-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; collision surface authority",
+        "classification": "Updating the GPU collision mesh does not update the host body retained for later clearance.",
+        "historical_related_records": [],
+        "relationship_qualification": "The selected creator intentionally installs the wearer as host body and may install wearer plus obstacles as the GPU mesh. Different surfaces may be deliberate; this records a reset/clearance policy question, not an observed defect.",
+        "discovery": "partial; set_body, set_collision_mesh, selected creator and reset traced; other callers and obstacle semantics open",
+        "connected_repair_direction": "Define which surface owns clearance and collision at each stage, including reset after obstacle changes.",
+        "future_acceptance": "After audit and authorization, cover wearer-only and combined-obstacle cases and the intended reset semantics.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GARMENT-FIT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1656.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1701.json"
 }

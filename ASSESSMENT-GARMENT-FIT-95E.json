@@ -1,0 +1,880 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2265–2266 garment-fit manifest and library, selected current pattern, cloth, particle, BVH and creator boundaries, with recovered historical panel evidence.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2265-2266.json",
+  "git_membership_evidence": "GARMENT-FIT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a174000164ca846029e3dec2891843a1f434e40",
+      "sha256": "091a579552af6da77a2bbcf091a6a7afddf4784dd6f488460940b9eb9fa77ee9",
+      "bytes": 17439,
+      "lines": 582,
+      "ranges": [
+        [
+          1,
+          134
+        ],
+        [
+          211,
+          270
+        ],
+        [
+          300,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c9f3d8223f5dcbfc591928e356e5904d574bd61b",
+      "sha256": "78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "bytes": 15510,
+      "lines": 442,
+      "ranges": [
+        [
+          56,
+          99
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "94db2f0bda1af6552398a438309bbc48725ec550",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "bytes": 16037,
+      "lines": 455,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "bytes": 5979,
+      "lines": 171,
+      "ranges": [
+        [
+          65,
+          136
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cce2234ffe0149de2de1eff56704d9100d1b2897",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "bytes": 16479,
+      "lines": 462,
+      "ranges": [
+        [
+          292,
+          325
+        ],
+        [
+          413,
+          440
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/placement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "497db5a2a5b182fab4985542aacf589bfcf1ca60",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "bytes": 2820,
+      "lines": 76,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "753031e1c18fdb2720429f321bc7b7593db74263",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "bytes": 12914,
+      "lines": 334,
+      "ranges": [
+        [
+          94,
+          123
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-fit-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-GARMENT-MEASUREMENT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Historical panel identity and connected source",
+      "trace": "PatternSpec retains named panels and StitchSide panel strings; stitched_segments builds a name-to-index map and build_garment converts names into ordinal SeamSide references and preserves panel names in cloth Panel. Original delegate746 had read2266 fully and later independently read registered connected ranges of PatternSpec and cloth; original root adoption recorded zero personal rereads and no ordered-source credit.",
+      "remaining": "Original316 already identified string propagation, duplicate/merge and missing reference policies as open. The exact historical connected receipt and registrations are retained with their original6533 attribution; new95e bounded source views do not grant full future role2629 or2631 credit."
+    },
+    {
+      "contract": "Duplicate panel identity",
+      "trace": "PatternSpec.panels is a public Vec and PatternSpec.panel finds the first matching name. build_garment inserts each retained name into panel_index, so a later usable duplicate replaces an earlier value. Thus for a symbolic input with two usable panels named the same, PatternSpec.panel selects the first while a stitch lookup in the fitter selects the last.",
+      "remaining": "Original connected reviewer already raised duplicate-name policy. The first-versus-last distinction is a current source comparison, conditional on duplicates surviving admission; no pattern or mesh ran. Whether duplicates should be rejected, merged or otherwise resolved and exact aliases remain open."
+    },
+    {
+      "contract": "Unresolved stitch references",
+      "trace": "Both stitched_segments and build_garment continue past a stitch whose named panel is absent or whose edge index is outside its panel. build_garment separately records panels with too-short outlines in skipped, but it does not record a missing stitch reference there. The selected creator explicitly rejects nonempty skipped panels or empty mesh after build.",
+      "remaining": "Original316 already identified missing-reference and skipped-panel policy as unresolved. A valid usable panel plus a stitch naming a nonexistent panel is a conditional malformed PatternSpec case; whether the library must reject or report it and exact consumers remain open. No pattern, mesher or creator ran."
+    },
+    {
+      "contract": "Edge payload admission",
+      "trace": "EdgeSpec exposes endpoint indices and Curvature quadratic/cubic parameter Vecs. The fit samples panel edges through edge_as_curve, which directly indexes both vertices and the required one or two control points. A symbolic public edge with an out-of-bounds endpoint, or a quadratic with an empty params Vec, reaches distinct direct index operations rather than the fallible build_garment boundary returning an error.",
+      "remaining": "Malformed PatternSpec values and supported external producer/schema policies are not established. The endpoint and control-point failures are distinct first operations; no pattern, index, curve or panic ran. Other native pattern consumers and aliases remain open."
+    },
+    {
+      "contract": "Pattern unit declaration and fitting",
+      "trace": "PatternSpec.properties publicly stores units_in_meter with default100 and serializes that field. build_garment unconditionally multiplies panel coordinates and translations by CM_TO_M=0.01; its documented input is centimetres. A symbolic PatternSpec whose numeric coordinates are in metres and units_in_meter=1 would therefore be interpreted as centimetres by this adapter.",
+      "remaining": "No producer is shown to supply non-centimetre patterns, and the contract may intentionally restrict fitting to centimetres. Whether non-100 declarations should be rejected or honored, and whether a single canonical unit owner exists, remain open. No pattern or mesh ran."
+    },
+    {
+      "contract": "Clearance search bound",
+      "trace": "Fit.clear_body says it lifts every inside particle and describes a host query as not radius-limited, but passes reach=0.5 metres to TriangleBvh.closest_point. The BVH traversal squares that limit and returns only candidates within it. If a hypothetical interior particle is more than0.5m from every triangle, the query returns None and the loop continues without lifting it.",
+      "remaining": "This is a source-level conditional contradiction with the broad comment, not an observed fit failure; realistic wearer extent and desired maximum clearance are unestablished. No particle, triangle query, BVH or GPU ran."
+    },
+    {
+      "contract": "CPU and GPU collision surfaces",
+      "trace": "Fit.set_body installs the supplied surface both as GPU collision mesh and retained host body before clear_body. The selected creator may subsequently call set_collision_mesh with a combined body-and-obstacle surface, updating the GPU collision mesh without updating the retained host body; Fit.reset later uses the host body for clear_body.",
+      "remaining": "The split may be intentional because clear_body names the wearer rather than every obstacle. No assumed error or ordinary scenario is claimed. Required reset/obstacle clearance authority, other callers and native synchronization remain open."
+    },
+    {
+      "contract": "Rejected pose-velocity suspicion",
+      "trace": "Fit.set_pose calls particles.write_positions; that delegates to Particles.write, which uploads both current and previous positions and at-rest velocities. The source therefore supports the stated rest reset on the successful path.",
+      "remaining": "No write, pose, solver or runtime ran. Partial device-write errors and all other pose behavior were not assessed by this rejection."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "SEGOVB-L12-GARMENT-PANEL-REFERENCE-PROPAGATION",
+      "queue": 316,
+      "qualification": "Original delegate746 panel-reference propagation and later separately registered connected proof retained; no ordered credit transfer."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-GARMENT-FIT-PANEL-IDENTITY-95E",
+      "qualification": "Current95e conditional source trace or owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-FIT-UNRESOLVED-STITCH-95E",
+      "qualification": "Current95e conditional source trace or owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-FIT-EDGE-SHAPE-95E",
+      "qualification": "Current95e conditional source trace or owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-FIT-PATTERN-UNITS-95E",
+      "qualification": "Current95e conditional source trace or owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-FIT-CLEARANCE-BOUND-95E",
+      "qualification": "Current95e conditional source trace or owner/policy question; no product execution and no global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-FIT-COLLISION-AUTHORITY-95E",
+      "qualification": "Current95e conditional source trace or owner/policy question; no product execution and no global alias determination."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/garment-fit-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/garment-fit-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/garment-fit-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/garment-fit-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/garment-fit-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/garment-fit-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/garment-fit-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler scoped historical receipt",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/garment-fit-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler scoped historical receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1120.json",
+      "sha256": "9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b",
+      "bytes": 801,
+      "git_blob": "e4e807949b2628ddb4d937b680fc1d1b9f057f59",
+      "preserved_bytes": "recovered/garment-fit-059/9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b.gz",
+      "published_sha256": "9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b",
+      "published_bytes": 801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1121.json",
+      "sha256": "f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b",
+      "bytes": 807,
+      "git_blob": "bbce4ba0efa82157091bc7edd74e71be4f0c6c28",
+      "preserved_bytes": "recovered/garment-fit-059/f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b.gz",
+      "published_sha256": "f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b",
+      "published_bytes": 807,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1122.json",
+      "sha256": "5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192",
+      "bytes": 812,
+      "git_blob": "b136d7f23466eca0e446925c28b252dcea751416",
+      "preserved_bytes": "recovered/garment-fit-059/5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192.gz",
+      "published_sha256": "5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192",
+      "published_bytes": 812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1123.json",
+      "sha256": "10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2",
+      "bytes": 816,
+      "git_blob": "74ef5d74248190462f0e85134139b9a69fe1db2a",
+      "preserved_bytes": "recovered/garment-fit-059/10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2.gz",
+      "published_sha256": "10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2",
+      "published_bytes": 816,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1124.json",
+      "sha256": "4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce",
+      "bytes": 800,
+      "git_blob": "05f76f130d91996e2be2b58d4fbc6cb722020684",
+      "preserved_bytes": "recovered/garment-fit-059/4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce.gz",
+      "published_sha256": "4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce",
+      "published_bytes": 800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1125.json",
+      "sha256": "e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0",
+      "bytes": 803,
+      "git_blob": "d511a515c31bed3e011f5df745b0bd6f813d086a",
+      "preserved_bytes": "recovered/garment-fit-059/e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0.gz",
+      "published_sha256": "e58f658f47683b1b537046ae385e194aa87de5f3132cf73d643f97c617e22ca0",
+      "published_bytes": 803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1126.json",
+      "sha256": "a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf",
+      "bytes": 799,
+      "git_blob": "02cc4cd7667c4567537328058db19d750c12b5a6",
+      "preserved_bytes": "recovered/garment-fit-059/a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf.gz",
+      "published_sha256": "a8684dd10756bd765b356342b41b203449dd1c8a0963b6f3fd2ddc386e542ccf",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1127.json",
+      "sha256": "6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e",
+      "bytes": 799,
+      "git_blob": "efc885138642d021d39258f117395edc35d6c933",
+      "preserved_bytes": "recovered/garment-fit-059/6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e.gz",
+      "published_sha256": "6c4f2fb1fcdd5ccaa2c9ad643b89b83ef3289029123e4101c0f42401bd3fe78e",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1128.json",
+      "sha256": "6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3",
+      "bytes": 801,
+      "git_blob": "91d490db7164e15b422df20af22e87c01784e5bf",
+      "preserved_bytes": "recovered/garment-fit-059/6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3.gz",
+      "published_sha256": "6b64ea3946e5a23ac9532ccfdb701dc497d95eb227988084844d84bb7af5b2f3",
+      "published_bytes": 801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1129.json",
+      "sha256": "a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631",
+      "bytes": 802,
+      "git_blob": "0e588056051aae2ccd9797b2aaad66931ca89709",
+      "preserved_bytes": "recovered/garment-fit-059/a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631.gz",
+      "published_sha256": "a493e29fc96d5d784b55c13b1d3ed70e2df6fa0f9cc515594341176fc7030631",
+      "published_bytes": 802,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1130.json",
+      "sha256": "5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd",
+      "bytes": 799,
+      "git_blob": "5f35aebfcf693331ae287cfc03c64fcf291c9504",
+      "preserved_bytes": "recovered/garment-fit-059/5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd.gz",
+      "published_sha256": "5bb426255802eac6d2b2bdbeb3424fe9fe29af80ec226406de74d4ed20312dfd",
+      "published_bytes": 799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1131.json",
+      "sha256": "243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d",
+      "bytes": 808,
+      "git_blob": "3d8d4ab4b9d03b6a6b03af0159a7f35beedf058b",
+      "preserved_bytes": "recovered/garment-fit-059/243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d.gz",
+      "published_sha256": "243e59673943ddc09e0622c119c24931a546fab079b4bddb5964c549dbd9aa3d",
+      "published_bytes": 808,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1132.json",
+      "sha256": "b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284",
+      "bytes": 792,
+      "git_blob": "cd615a78def809477bdadf9434a9af7167f30477",
+      "preserved_bytes": "recovered/garment-fit-059/b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284.gz",
+      "published_sha256": "b8a7c607c1788b6896cd02c20afbec8511b193f26be90e64d3095cde8cb7a284",
+      "published_bytes": 792,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-360.json",
+      "sha256": "ff6c769caddb6bbdaad985a427151f9f8a3cdcd635a85fc5393cc2842d22be7a",
+      "bytes": 657,
+      "git_blob": "b3b58a318ba9bd78393bc8e18657a886d9c74063",
+      "preserved_bytes": "recovered/garment-fit-059/ff6c769caddb6bbdaad985a427151f9f8a3cdcd635a85fc5393cc2842d22be7a.gz",
+      "published_sha256": "ff6c769caddb6bbdaad985a427151f9f8a3cdcd635a85fc5393cc2842d22be7a",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-361.json",
+      "sha256": "58655110305b681616700c1632b9d320d8ccee0339187869e6398c64f328e148",
+      "bytes": 690,
+      "git_blob": "e3b3261dfced68bc8f696a5e6fd265b7727cdffb",
+      "preserved_bytes": "recovered/garment-fit-059/58655110305b681616700c1632b9d320d8ccee0339187869e6398c64f328e148.gz",
+      "published_sha256": "58655110305b681616700c1632b9d320d8ccee0339187869e6398c64f328e148",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-360.json",
+      "sha256": "611a852f5612e8b5d1b90cc5e034803ebf666e242373c77af5ea27ce7962009b",
+      "bytes": 52199,
+      "git_blob": "80bd8348bdefc4e6eb40d136b1b6fb6630bafbd6",
+      "preserved_bytes": "recovered/garment-fit-059/611a852f5612e8b5d1b90cc5e034803ebf666e242373c77af5ea27ce7962009b.gz",
+      "published_sha256": "611a852f5612e8b5d1b90cc5e034803ebf666e242373c77af5ea27ce7962009b",
+      "published_bytes": 52199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-361.json",
+      "sha256": "458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b",
+      "bytes": 32979,
+      "git_blob": "2b4dc39d49489c6c1b92ef6d188313a26651cb39",
+      "preserved_bytes": "recovered/garment-fit-059/458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b.gz",
+      "published_sha256": "458346602ca98ecfc9e3738dbf7abdabc1ec0cb91a4c7578e60e86ad181aa16b",
+      "published_bytes": 32979,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-746.json",
+      "sha256": "7dd20df9dcdf51d8158f1b4749304516bd83b4bb7dcf33aeed53a06325e91018",
+      "bytes": 12921,
+      "git_blob": "e5a31fd4a9a03ba0f9ba618fb98c9fbff75ca933",
+      "preserved_bytes": "recovered/garment-fit-059/7dd20df9dcdf51d8158f1b4749304516bd83b4bb7dcf33aeed53a06325e91018.gz",
+      "published_sha256": "7dd20df9dcdf51d8158f1b4749304516bd83b4bb7dcf33aeed53a06325e91018",
+      "published_bytes": 12921,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2629-WINDOWS-JSON.json",
+      "sha256": "06fd513de2fa52bb90e6ca48ae9dec7538b98d683cc760ff198f5099da8acc48",
+      "bytes": 1379,
+      "git_blob": "42a9e7cbc754acc28e1e58a25770b84f00ae3758",
+      "preserved_bytes": "recovered/garment-fit-059/06fd513de2fa52bb90e6ca48ae9dec7538b98d683cc760ff198f5099da8acc48.gz",
+      "published_sha256": "06fd513de2fa52bb90e6ca48ae9dec7538b98d683cc760ff198f5099da8acc48",
+      "published_bytes": 1379,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original connected panel proof",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2629-WINDOWS.json",
+      "sha256": "f3b88582c068749e0ca00113dd2e1ca76acfdc0015ce76b24540201aca4bbedb",
+      "bytes": 972,
+      "git_blob": "569aca237bbc5bbd175ce9271d20d39e4cba80b7",
+      "preserved_bytes": "recovered/garment-fit-059/f3b88582c068749e0ca00113dd2e1ca76acfdc0015ce76b24540201aca4bbedb.gz",
+      "published_sha256": "f3b88582c068749e0ca00113dd2e1ca76acfdc0015ce76b24540201aca4bbedb",
+      "published_bytes": 972,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original connected panel proof",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2631-WINDOWS.json",
+      "sha256": "b14d0ceedf26ad2bea6cb4190b9d4f42838d4d90c67184da443a600c2f887886",
+      "bytes": 948,
+      "git_blob": "19fd48a498a16fc251e146f8d4f2b4c5ff22e4ee",
+      "preserved_bytes": "recovered/garment-fit-059/b14d0ceedf26ad2bea6cb4190b9d4f42838d4d90c67184da443a600c2f887886.gz",
+      "published_sha256": "b14d0ceedf26ad2bea6cb4190b9d4f42838d4d90c67184da443a600c2f887886",
+      "published_bytes": 948,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original connected panel proof",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-746-PANEL-IDENTITY.json",
+      "sha256": "f1a66e9a5daac3494e5c6901348e6b4f54e97a7eeead7a7aac0afc04b58bbffa",
+      "bytes": 7790,
+      "git_blob": "33727a366f16036e9be4e2bfa0807ce815758009",
+      "preserved_bytes": "recovered/garment-fit-059/f1a66e9a5daac3494e5c6901348e6b4f54e97a7eeead7a7aac0afc04b58bbffa.gz",
+      "published_sha256": "f1a66e9a5daac3494e5c6901348e6b4f54e97a7eeead7a7aac0afc04b58bbffa",
+      "published_bytes": 7790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original delegated panel connected receipt",
+        "Original delegated panel connected receipt",
+        "Original delegated panel connected receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-221.json",
+      "sha256": "9cc59202048ef9a989c67d46b21a34a66131ea59bf249b00b25b89fe06aec190",
+      "bytes": 764,
+      "git_blob": "f3ae7489cf807f154483d7c1fb78836139a1f56d",
+      "preserved_bytes": "recovered/garment-fit-059/9cc59202048ef9a989c67d46b21a34a66131ea59bf249b00b25b89fe06aec190.gz",
+      "published_sha256": "9cc59202048ef9a989c67d46b21a34a66131ea59bf249b00b25b89fe06aec190",
+      "published_bytes": 764,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-222.json",
+      "sha256": "fe692db89668ac33f28b939ddc57e3cb4caae52efa5dd6a3bac243759b6b841e",
+      "bytes": 766,
+      "git_blob": "d9877d118628929026c2e35c3cb7905f4cb59579",
+      "preserved_bytes": "recovered/garment-fit-059/fe692db89668ac33f28b939ddc57e3cb4caae52efa5dd6a3bac243759b6b841e.gz",
+      "published_sha256": "fe692db89668ac33f28b939ddc57e3cb4caae52efa5dd6a3bac243759b6b841e",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-223.json",
+      "sha256": "6b71f2f774ede668d3ad219433a7d614a344c1f511ea85095f91d131b3bf7209",
+      "bytes": 758,
+      "git_blob": "c18a7f99084314ec42932a8ca510e942382859c0",
+      "preserved_bytes": "recovered/garment-fit-059/6b71f2f774ede668d3ad219433a7d614a344c1f511ea85095f91d131b3bf7209.gz",
+      "published_sha256": "6b71f2f774ede668d3ad219433a7d614a344c1f511ea85095f91d131b3bf7209",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-224.json",
+      "sha256": "53069c8ff4ab66c3f9eb17a0c75d9abd7e3f2d4603a2ab826b4a7904a786a86e",
+      "bytes": 766,
+      "git_blob": "7452a3080cfbd721fef9fe8b0b651e1cc797abb1",
+      "preserved_bytes": "recovered/garment-fit-059/53069c8ff4ab66c3f9eb17a0c75d9abd7e3f2d4603a2ab826b4a7904a786a86e.gz",
+      "published_sha256": "53069c8ff4ab66c3f9eb17a0c75d9abd7e3f2d4603a2ab826b4a7904a786a86e",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-225-CONNECTED-ORIGINAL2629.json",
+      "sha256": "72c51d0d5bbd190332edf8fcf361784965f6bfde148a27ff2e62d369d50c492e",
+      "bytes": 1355,
+      "git_blob": "2bbdcf084fef69c8f5f0a9b7ebeeed7e63003504",
+      "preserved_bytes": "recovered/garment-fit-059/72c51d0d5bbd190332edf8fcf361784965f6bfde148a27ff2e62d369d50c492e.gz",
+      "published_sha256": "72c51d0d5bbd190332edf8fcf361784965f6bfde148a27ff2e62d369d50c492e",
+      "published_bytes": 1355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original delegated connected prospective registration",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-226-CONNECTED-ORIGINAL2631.json",
+      "sha256": "6b324643b21c622ee48cf9accccf22e92ca2cdc8be3b72fb7bc30d1baee93918",
+      "bytes": 1339,
+      "git_blob": "99d7f14eaf6de2d861c7577cfcb150782983fcad",
+      "preserved_bytes": "recovered/garment-fit-059/6b324643b21c622ee48cf9accccf22e92ca2cdc8be3b72fb7bc30d1baee93918.gz",
+      "published_sha256": "6b324643b21c622ee48cf9accccf22e92ca2cdc8be3b72fb7bc30d1baee93918",
+      "published_bytes": 1339,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original delegated connected prospective registration",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-227-CONNECTED-ORIGINAL2629-JSON.json",
+      "sha256": "af126fce4b727f89f4ea4933ff2589ab8e3b1e124b35f1b46971420f68bec698",
+      "bytes": 1290,
+      "git_blob": "23650e588e41c08985b04a9a8a433374f7667471",
+      "preserved_bytes": "recovered/garment-fit-059/af126fce4b727f89f4ea4933ff2589ab8e3b1e124b35f1b46971420f68bec698.gz",
+      "published_sha256": "af126fce4b727f89f4ea4933ff2589ab8e3b1e124b35f1b46971420f68bec698",
+      "published_bytes": 1290,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected panel proof",
+        "Original delegated connected prospective registration",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-746.json",
+      "sha256": "3a5f0632fb0711fae506272b826fd64c346876009a2bf9f509b36bd19585cac3",
+      "bytes": 12297,
+      "git_blob": "e57c9d66021feca196b322a3a5cad63505671dcf",
+      "preserved_bytes": "recovered/garment-fit-059/3a5f0632fb0711fae506272b826fd64c346876009a2bf9f509b36bd19585cac3.gz",
+      "published_sha256": "3a5f0632fb0711fae506272b826fd64c346876009a2bf9f509b36bd19585cac3",
+      "published_bytes": 12297,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads",
+        "Original059 queue316 direct evidence",
+        "Original059 queue316 direct evidence",
+        "Original059 queue316 direct evidence",
+        "Original059 queue316 direct evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-003.json",
+      "sha256": "cc28f6f148a66d2e40a6c405511591efdea1783152f9255bea8bba7464db59e5",
+      "bytes": 13030,
+      "git_blob": "cfbbbf73b2852582963384384089fdd9a649feae",
+      "preserved_bytes": "recovered/garment-fit-059/cc28f6f148a66d2e40a6c405511591efdea1783152f9255bea8bba7464db59e5.gz",
+      "published_sha256": "cc28f6f148a66d2e40a6c405511591efdea1783152f9255bea8bba7464db59e5",
+      "published_bytes": 13030,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of necessary delegated panel-source evidence; no ordered credit",
+        "Original059 panel finding connected evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-746.json",
+      "sha256": "f19c313760afc2abea2db84a67d9b624b5f97b4c691ce86a5ddf5e5c894d3185",
+      "bytes": 2410,
+      "git_blob": "8b0b61bc9bb5b9636e3992bbea5b7c2e48b5cf98",
+      "preserved_bytes": "recovered/garment-fit-059/f19c313760afc2abea2db84a67d9b624b5f97b4c691ce86a5ddf5e5c894d3185.gz",
+      "published_sha256": "f19c313760afc2abea2db84a67d9b624b5f97b4c691ce86a5ddf5e5c894d3185",
+      "published_bytes": 2410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-746.json",
+      "sha256": "04ac6ac5c7adf0a4e5e295af620a3f5954f9305e553158fdcd245a5a6c51cbee",
+      "bytes": 667,
+      "git_blob": "9e3fe8be7c2c57fa3e18b78ff73b4ec67b314ce5",
+      "preserved_bytes": "recovered/garment-fit-059/04ac6ac5c7adf0a4e5e295af620a3f5954f9305e553158fdcd245a5a6c51cbee.gz",
+      "published_sha256": "04ac6ac5c7adf0a4e5e295af620a3f5954f9305e553158fdcd245a5a6c51cbee",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Original root and rig suppliers, Adler360/361 and delegate746 have separately attributed full and scoped readings. Connected delegate future roles2629/2631 were separately registered, adopted with zero root rereads and zero ordered credit. New current support displays do not enlarge earlier scopes.",
+  "remaining": "Continue original2267 and all thirteen lenses. Pattern admission, units, seam and collision policies, actual producers, aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

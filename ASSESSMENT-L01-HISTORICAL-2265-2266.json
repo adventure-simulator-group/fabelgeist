@@ -1,0 +1,160 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2265,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2265",
+      "original_locator": "crates/fabelgeist-garment-fit/Cargo.toml",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 15,
+          "read_ranges": [
+            [
+              1,
+              23
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "dd061849693685f8c417df0292bec4c57bcb03679ba2c6df37e3f5cbb7f8b28b",
+      "lines": 23,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GARMENT-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2265-2266.json",
+        "sha256": "4052964b771b25b48b05042f679669839f18fb3c9d4ac035b09619b947b9316e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-garment-fit/Cargo.toml",
+        "sha256": "dd061849693685f8c417df0292bec4c57bcb03679ba2c6df37e3f5cbb7f8b28b",
+        "bytes": 745,
+        "lines": 23,
+        "git_blob": "e39443ab26b003289ad584941a7f9818155a2583",
+        "preserved_bytes": "main-advance-95e/garment-fit-evidence/current-2265.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            23
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2266,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2266",
+      "original_locator": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 113,
+          "read_ranges": [
+            [
+              575,
+              625
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 203,
+          "read_ranges": [
+            [
+              1,
+              715
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              575,
+              625
+            ],
+            [
+              1,
+              715
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "lines": 715,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GARMENT-FIT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2265-2266.json",
+        "sha256": "4052964b771b25b48b05042f679669839f18fb3c9d4ac035b09619b947b9316e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current complete body displayed after local registration and exact historical6533 byte equality verified. Historical reviewer and supplier scopes are separately attributed.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+        "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+        "bytes": 27692,
+        "lines": 715,
+        "git_blob": "833060e83af63f490cbdea7f82582edc7dee7246",
+        "preserved_bytes": "main-advance-95e/garment-fit-evidence/current-2266.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            715
+          ]
+        ],
+        "qualification": "Current full body displayed after registration; exact historical byte identity verified. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    }
+  ],
+  "observations": [
+    "Current95e garment-fit manifest23 and library715 were prospectively registered and personally displayed in bounded untruncated ranges; exact historical6533 byte identity verified. Original root supplier read2265 full23; original rig supplier recorded both scoped575–625 and full1–715 reads of2266, separately retained in registry order.",
+    "Adler360 read2265 full and Adler361 read2266 full. Lens12 delegate746 independently read both full, with root adoption recording zero personal rereads and zero accepted unique-count change. Separately registered delegated future producer/consumer reads of2629 and2631 were adopted with zero ordered credit; root adoption has no personal reread.",
+    "The fresh current displays do not change original supplier or reviewer scopes and do not transfer other-lens verdicts. No pattern, solver, GPU, particle, clearance, tests or product ran. Local registration time is not independently attested."
+  ],
+  "qualification": "Original root/rig supplier observations, Adler receipts, delegated ordered and separately connected source reads, and new current displays remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2267
+}
