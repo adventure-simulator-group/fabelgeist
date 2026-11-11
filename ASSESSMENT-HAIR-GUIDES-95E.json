@@ -1,0 +1,1116 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2287–2288 guide sources, selected host and shader consumers, original source receipts and pending records.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2287-2288.json",
+  "git_membership_evidence": "HAIR-GUIDES-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/hairdo.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3949e0448856562442d7079cea95529aef6ac02b",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "bytes": 28924,
+      "lines": 710,
+      "ranges": [
+        [
+          160,
+          198
+        ],
+        [
+          210,
+          244
+        ],
+        [
+          580,
+          591
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/hairdo/tied.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb4fa34b76790b9fd963a40519e861013888ff6e",
+      "sha256": "cfc6af7986e8029ebca3d23cf4a7d67e0478f87af9972c3a8908baa6d31a0786",
+      "bytes": 4709,
+      "lines": 111,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/haircut.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f15779431faf91da819915cfe40771a4161f4c2",
+      "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+      "bytes": 12855,
+      "lines": 409,
+      "ranges": [
+        [
+          144,
+          174
+        ],
+        [
+          315,
+          320
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73594775643839d9ee3755ac9b84b8e6f5c71b1e",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "bytes": 14821,
+      "lines": 448,
+      "ranges": [
+        [
+          25,
+          129
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "235ec63cc1a36e313beb09103cb814d750dbb7f8",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "bytes": 36796,
+      "lines": 1129,
+      "ranges": [
+        [
+          363,
+          432
+        ],
+        [
+          608,
+          616
+        ],
+        [
+          825,
+          860
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dfe3c6b201df280bc59ca776faf45be17e67871a",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "bytes": 15902,
+      "lines": 412,
+      "ranges": [
+        [
+          84,
+          128
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/grow.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8edf6ab1f9c277d2a75276993d33a7a3e80f1d3a",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "bytes": 34174,
+      "lines": 876,
+      "ranges": [
+        [
+          118,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/look.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00f465173e02af5239d89591c2143234fc97c20d",
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "bytes": 21029,
+      "lines": 469,
+      "ranges": [
+        [
+          35,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-guide-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges credited; complete bytes preserved. Original future roles retain their own ordered status."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIR-GROWTH-95E.json",
+    "ASSESSMENT-HAIR-GPU-GROW-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Guide count and rejected product suspicion",
+      "trace": "Hairdo.guide_count returns only 110, 140 or 160 on its three branches. record_guide_roots multiplies that selected value by40, at most6400, so the previously questioned wanted*40 cannot overflow on this inspected producer. The separate wanted+boundary u32 addition still depends on scalp boundary cardinality.",
+      "remaining": "This rejects only the selected multiplication suspicion; extremely large scalp boundary production, upload limits, and the separate addition remain conditional and unexecuted."
+    },
+    {
+      "contract": "Maximum guide path and shader offset",
+      "trace": "Haircut public f32 lengths feed longest_guide and then ceil(longest/0.002) as u32, max301, plus2. With a directly supplied infinite top length and finite zero variation, the floating cast saturates to u32::MAX before that addition. The guide shader separately forms g*hairdo.max_path in u32 for an index, while host path storage is sized in u64.",
+      "remaining": "Original delegate752 explicitly noted the conditional max_path issue. Whether nonfinite or enormous inputs are admitted and whether earlier GPU stages or allocations fail remains open. The host increment and shader multiplication are distinct first operations; no GPU or product ran."
+    },
+    {
+      "contract": "Tied-axis progress",
+      "trace": "For non-bun tied styles, Tied::new repeatedly increments f32 s by0.002 while s<Haircut.longest(). At s=65536, f32 spacing is 1/128 and half spacing is1/256; a0.002 increment is less than half and rounds back to the same value under standard round-to-nearest.",
+      "remaining": "This is symbolic progress reasoning, not a claim that a normal haircut reaches that state. Very large length, earlier resource exhaustion, actual supported bounds and any earlier GPU error remain open. No loop was executed."
+    },
+    {
+      "contract": "Host guide aggregate",
+      "trace": "upload_guides takes public Strands, resamples them, then indexes attributes and root using length from root_uv. Strands fields are public; matching resample point counts cause a clone before those indexes, with no aggregate shape check in the inspected code.",
+      "remaining": "Original q379 and delegate760 already named independent parallel-array extents; this traces its selected GPU-guide caller but does not prove an ordinary malformed producer. No GPU upload or index executed."
+    },
+    {
+      "contract": "Packed source order and optional modes",
+      "trace": "Static source comparison expands the Rust HairdoGpu three-float arrays into scalar components and finds 65 scalar names and primitive types in the same order as the shader Hairdo record. Packed first two whorls come from canonical Follicles.field, which creates at most two; absent tie uses two zero axis slots and an explicit tied flag.",
+      "remaining": "This is a bounded source-order comparison, not native layout, offset or GPU validation. Original delegate752 identified the deliberate optional defaults and correct canonical whorl bound. No shader parsed or ran."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "SEGOVB-L12-CONNECTED-HAIR-STRANDS-PARALLEL-ARRAY-ADMISSION",
+      "queue": 379,
+      "qualification": "Original independent array admission finding; selected host GPU-guide caller traced, full reconciliation and aliases remain open."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-GUIDE-MAX-PATH-95E",
+      "qualification": "Conditional current source candidate; earlier numeric and host-shape questions retain their original reviewer attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GUIDE-PATH-INDEX-95E",
+      "qualification": "Conditional current source candidate; earlier numeric and host-shape questions retain their original reviewer attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-TIED-AXIS-PROGRESS-95E",
+      "qualification": "Conditional current source candidate; earlier numeric and host-shape questions retain their original reviewer attribution."
+    },
+    {
+      "id": "REVIEW-HAIR-GUIDE-BOUNDARY-COUNT-95E",
+      "qualification": "Conditional current source candidate; earlier numeric and host-shape questions retain their original reviewer attribution."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/hair-guides-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/hair-guides-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/hair-guides-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/hair-guides-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/hair-guides-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/hair-guides-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/hair-guides-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/hair-guides-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/hair-guides-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/hair-guides-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-364.json",
+      "sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "bytes": 10812,
+      "git_blob": "404f67ba8ba50a9362cb5324a4c268a374d6d52d",
+      "preserved_bytes": "recovered/hair-guides-059/8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86.gz",
+      "published_sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1144.json",
+      "sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "bytes": 786,
+      "git_blob": "45e115191bffc9b2ec297c67cba438bad4b33166",
+      "preserved_bytes": "recovered/hair-guides-059/73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84.gz",
+      "published_sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "published_bytes": 786,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1145.json",
+      "sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "bytes": 785,
+      "git_blob": "796997a377b4b9022c743d472d430f8d2f3cfb37",
+      "preserved_bytes": "recovered/hair-guides-059/588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12.gz",
+      "published_sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1146.json",
+      "sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "bytes": 787,
+      "git_blob": "af7f7cf4cdbb2333d6ec346d9b286b89614ca80a",
+      "preserved_bytes": "recovered/hair-guides-059/b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a.gz",
+      "published_sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1147.json",
+      "sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "bytes": 793,
+      "git_blob": "d11c68c4aac6d78e7324b07110edc0ed0d2820bb",
+      "preserved_bytes": "recovered/hair-guides-059/f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a.gz",
+      "published_sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "published_bytes": 793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-364.json",
+      "sha256": "0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990",
+      "bytes": 646,
+      "git_blob": "7339e4b37c24b7bf5ccc3bc07a275a1ded6a55a3",
+      "preserved_bytes": "recovered/hair-guides-059/0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990.gz",
+      "published_sha256": "0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-364.json",
+      "sha256": "113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8",
+      "bytes": 35135,
+      "git_blob": "a19a4300d695363f57bdd1895c9af9d9917bdd98",
+      "preserved_bytes": "recovered/hair-guides-059/113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8.gz",
+      "published_sha256": "113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8",
+      "published_bytes": 35135,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-865-872.json",
+      "sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+      "bytes": 127118,
+      "git_blob": "fccb889d933da9547450667ebdb72a1810a12ff7",
+      "preserved_bytes": "recovered/hair-guides-059/eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111.gz",
+      "published_sha256": "eb560c13f7fae40f5a450feb3d98a9c6c14775a070631f561a48feb8271f4111",
+      "published_bytes": 127118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+      "sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df",
+      "bytes": 161225,
+      "git_blob": "f65305cc664923e2468734806b8b139a49a0240c",
+      "preserved_bytes": "recovered/hair-guides-059/2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df.gz",
+      "published_sha256": "d3e495a630bc4b871a92509bacfbdbf7bc81a09dd807a5762e952083da2c3345",
+      "published_bytes": 160383,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-740.json",
+      "sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+      "bytes": 21674,
+      "git_blob": "ab6becb9dafd9ce71bf4455405b62e4add52f49e",
+      "preserved_bytes": "recovered/hair-guides-059/9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28.gz",
+      "published_sha256": "9855f241e3f695bea19fcf0ed15b28d48f70bdec9b9c89a5d7f2f5b5ba6d1e28",
+      "published_bytes": 21674,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-741.json",
+      "sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871",
+      "bytes": 14462,
+      "git_blob": "d1bccf69616b475b48bc4c0d10030c1885aee067",
+      "preserved_bytes": "recovered/hair-guides-059/0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871.gz",
+      "published_sha256": "0d0f60a95eee15694e7434de8a61069c3312c3a77a7d0a59023b7d1168c7f871",
+      "published_bytes": 14462,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-748.json",
+      "sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+      "bytes": 49355,
+      "git_blob": "a362e94ce709b99c4fe8c6db2640426901ae7cf2",
+      "preserved_bytes": "recovered/hair-guides-059/60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7.gz",
+      "published_sha256": "60e17991fd6792d27eeb55f444f1ec138aa949e2f0659efcc5d17e10b74e9cb7",
+      "published_bytes": 49355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-749.json",
+      "sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+      "bytes": 54170,
+      "git_blob": "bfe116e40ae6462698f06afac4015250093e1e3e",
+      "preserved_bytes": "recovered/hair-guides-059/faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada.gz",
+      "published_sha256": "faacc76f3739556c9abf074427dd358ae0e3fa41170ade9c8f0419557938dada",
+      "published_bytes": 54170,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-752.json",
+      "sha256": "547954e4bfd407d6399dc57f6efcebdd54f54642bab7ed98f7bc4c58c52c8f26",
+      "bytes": 5776,
+      "git_blob": "0db744c5deb787b9374299554b61f7bec455d821",
+      "preserved_bytes": "recovered/hair-guides-059/547954e4bfd407d6399dc57f6efcebdd54f54642bab7ed98f7bc4c58c52c8f26.gz",
+      "published_sha256": "547954e4bfd407d6399dc57f6efcebdd54f54642bab7ed98f7bc4c58c52c8f26",
+      "published_bytes": 5776,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-760.json",
+      "sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+      "bytes": 13902,
+      "git_blob": "85199a8e571c578aa4fa839578c167665b091da8",
+      "preserved_bytes": "recovered/hair-guides-059/6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a.gz",
+      "published_sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+      "published_bytes": 13902,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-865.json",
+      "sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "bytes": 11726,
+      "git_blob": "50b93d1ff02ccf8e506663da64f3da612eca6d53",
+      "preserved_bytes": "recovered/hair-guides-059/2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6.gz",
+      "published_sha256": "2b4747313712490dbb67ebded104bd3b0b5c4e6b9d53181dbab4ce3d4a3789e6",
+      "published_bytes": 11726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-867.json",
+      "sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "bytes": 9188,
+      "git_blob": "7d662c3e80e76c4b5bb81bb63d984b3cb4ccaeaf",
+      "preserved_bytes": "recovered/hair-guides-059/bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce.gz",
+      "published_sha256": "bbb120232639b85ecf3acb119f2fd2130dc0c980a078b120359aa096b49b37ce",
+      "published_bytes": 9188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-873-FASTPATH-EXACT-REUSE.json",
+      "sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90",
+      "bytes": 5317,
+      "git_blob": "e0fffc38042674ab9b0c05e7a3c1ed7d79c431aa",
+      "preserved_bytes": "recovered/hair-guides-059/ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90.gz",
+      "published_sha256": "ddf8a5cf10c03d3106a14e4621bbcae273376955dc79af9c6d2bba19277c3e90",
+      "published_bytes": 5317,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2635-WINDOWS.json",
+      "sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688",
+      "bytes": 1791,
+      "git_blob": "7c23b6e46d60523689c86af64033e9a95c727c1d",
+      "preserved_bytes": "recovered/hair-guides-059/230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688.gz",
+      "published_sha256": "230f934ab874e43ac808fbb96f9f0b04cf95072c45ba86d8bf069d83e6506688",
+      "published_bytes": 1791,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2636-WINDOWS.json",
+      "sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f",
+      "bytes": 1773,
+      "git_blob": "bdbdcf7acb7155dc4245f026a30341e20e221d6a",
+      "preserved_bytes": "recovered/hair-guides-059/e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f.gz",
+      "published_sha256": "e854d5b5932c8b1c63ba6fbb6def7da924a0f57791ee0a18e7e7fb03fe92908f",
+      "published_bytes": 1773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-873-GPU-PARAMETER-OWNERS.json",
+      "sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c",
+      "bytes": 54820,
+      "git_blob": "fffcb8f68ad7e1e5380031bd04a7d77fa87c704c",
+      "preserved_bytes": "recovered/hair-guides-059/1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c.gz",
+      "published_sha256": "1f89792dcb18202d97da6821264a6d08dc9ba6ff0ed6ac02c81ac5b9dc20814c",
+      "published_bytes": 54820,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+      "sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+      "bytes": 14887,
+      "git_blob": "5e9b0c5c4737432784eba96d4aae31d7214d3038",
+      "preserved_bytes": "recovered/hair-guides-059/ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5.gz",
+      "published_sha256": "ae1d2c8357b4daa0cc747d392b133a32b449a8c7dabb7501015c5c93b4ba68c5",
+      "published_bytes": 14887,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-197.json",
+      "sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "bytes": 774,
+      "git_blob": "4fc8e0825480e18d0e90ad03bbced3b9d784c6c7",
+      "preserved_bytes": "recovered/hair-guides-059/76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f.gz",
+      "published_sha256": "76cc22d5e5b09d0dc234b84422b549a70167cdd112b61e53298e335fa20fb00f",
+      "published_bytes": 774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-198.json",
+      "sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "bytes": 773,
+      "git_blob": "a21f8c6adc90ab1c583cedc4f2d0390933ec0078",
+      "preserved_bytes": "recovered/hair-guides-059/28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4.gz",
+      "published_sha256": "28fd93b2110b8abb13aa2528b913518a081b39bc5849367bb52428ebc7c050f4",
+      "published_bytes": 773,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-233.json",
+      "sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "bytes": 1058,
+      "git_blob": "42127b0e72e64192641b433b7b81ee7efd59878b",
+      "preserved_bytes": "recovered/hair-guides-059/36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782.gz",
+      "published_sha256": "36596738d433d0a5671ef6697e099958f5a8450c3b9bf26e5a5c9d0547cc3782",
+      "published_bytes": 1058,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-238.json",
+      "sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "bytes": 1070,
+      "git_blob": "019a4e0fa90aa0d35666f86b8c28f24751a38a0f",
+      "preserved_bytes": "recovered/hair-guides-059/22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152.gz",
+      "published_sha256": "22cb4cb2902950f3eeda633bd5cebadf70c47bd3e66f5b89ace6c92834e8f152",
+      "published_bytes": 1070,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-239.json",
+      "sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "bytes": 1076,
+      "git_blob": "dc5b6cabe9085d4700bea0c92b2007460d584773",
+      "preserved_bytes": "recovered/hair-guides-059/9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f.gz",
+      "published_sha256": "9a5b419dfda25c0c3131ca2ac2137542a0b1607e0067a858c6dd21738fb6d82f",
+      "published_bytes": 1076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-240.json",
+      "sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "bytes": 1064,
+      "git_blob": "f7d57bc38164abbd56fe8d1a7aa3bb02c9dfd8df",
+      "preserved_bytes": "recovered/hair-guides-059/9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8.gz",
+      "published_sha256": "9906a5e1baeebebb994fb8652d33749a0a3e9d2b215ae7ca5b55b37f58c079f8",
+      "published_bytes": 1064,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-242.json",
+      "sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "bytes": 1046,
+      "git_blob": "8248c0178a2916a96e7678594ff25dc2c49dce0a",
+      "preserved_bytes": "recovered/hair-guides-059/2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9.gz",
+      "published_sha256": "2730e34a660220add7aa8f41d65ae9faf371a967fef79b5dc01092ee0c6a4ed9",
+      "published_bytes": 1046,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-243-CONNECTED-ORIGINAL2635.json",
+      "sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+      "bytes": 1297,
+      "git_blob": "3e395a34cd4c0c82daf485ae248d2638b3e45e6e",
+      "preserved_bytes": "recovered/hair-guides-059/ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c.gz",
+      "published_sha256": "ecc02b4bd6a32cc936ecb000b9ba97462c25a046250518cb34548116ef7d6f1c",
+      "published_bytes": 1297,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-244-CONNECTED-ORIGINAL2636.json",
+      "sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+      "bytes": 1291,
+      "git_blob": "d9c45bdeb2102f9107e05ba372d49dabd744dcf0",
+      "preserved_bytes": "recovered/hair-guides-059/a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57.gz",
+      "published_sha256": "a9d1e5b6a014bae96b1ee5a30d0a4ebb54bcca4fb85167293ded931f28feab57",
+      "published_bytes": 1291,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-248.json",
+      "sha256": "02f3ff39a964bafa3e072693bd1827780248de62f4f3d1371d8ebd595f9bfc70",
+      "bytes": 803,
+      "git_blob": "8b6f79a8aba6ce8880e0175fead7802741b196d9",
+      "preserved_bytes": "recovered/hair-guides-059/02f3ff39a964bafa3e072693bd1827780248de62f4f3d1371d8ebd595f9bfc70.gz",
+      "published_sha256": "02f3ff39a964bafa3e072693bd1827780248de62f4f3d1371d8ebd595f9bfc70",
+      "published_bytes": 803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-249.json",
+      "sha256": "546f97a09109d119860baa02dc209fbbf464d3d01c763d3b5a977eac5ebd1770",
+      "bytes": 815,
+      "git_blob": "0310468067a5137ab3eb4aaa5ec5672e060f2339",
+      "preserved_bytes": "recovered/hair-guides-059/546f97a09109d119860baa02dc209fbbf464d3d01c763d3b5a977eac5ebd1770.gz",
+      "published_sha256": "546f97a09109d119860baa02dc209fbbf464d3d01c763d3b5a977eac5ebd1770",
+      "published_bytes": 815,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-269.json",
+      "sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+      "bytes": 876,
+      "git_blob": "5f67f0dcdde8530d5f3c5d98ebf1577f05b5a149",
+      "preserved_bytes": "recovered/hair-guides-059/09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e.gz",
+      "published_sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+      "published_bytes": 876,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-740.json",
+      "sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33",
+      "bytes": 16433,
+      "git_blob": "82b2e62737038b85ebfafca8b7a788dbaed2a026",
+      "preserved_bytes": "recovered/hair-guides-059/31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33.gz",
+      "published_sha256": "31a7fe720b8a5efbda8688242f9c0b4f68a8c06978b4139c7f7b3e10f18adb33",
+      "published_bytes": 16433,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-741.json",
+      "sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b",
+      "bytes": 11190,
+      "git_blob": "07f8fe808ea74a3435551000682abde68361dba0",
+      "preserved_bytes": "recovered/hair-guides-059/dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b.gz",
+      "published_sha256": "dc7237e08cd1a81a11255bf086b37eb14d12b9726e401d2c413f90449c54750b",
+      "published_bytes": 11190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-748.json",
+      "sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1",
+      "bytes": 14885,
+      "git_blob": "a6b750e7ec678ae9a8fd85c0ec8951df7d5b5c3f",
+      "preserved_bytes": "recovered/hair-guides-059/70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1.gz",
+      "published_sha256": "70154592ccbcb328569d1da867c6f9c3d79f3c55c4e24bd3444bd4de07a682c1",
+      "published_bytes": 14885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue317 linked historical evidence",
+        "Original059 queue317 linked historical evidence",
+        "Original059 queue317 linked historical evidence",
+        "Original059 queue317 linked historical evidence",
+        "Original059 queue317 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-749.json",
+      "sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e",
+      "bytes": 15671,
+      "git_blob": "a247634ac2e6918dfbd667f57fc023ef756b8369",
+      "preserved_bytes": "recovered/hair-guides-059/6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e.gz",
+      "published_sha256": "6ebe7a3d59b6ac45d8caef4d98ec80cec3451f039f7ebc01160114aadb9bed4e",
+      "published_bytes": 15671,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-752.json",
+      "sha256": "4b44fbc0b2460e2a7770df8a6714bd96feba72e8f8c6d06f1689bf998a26acac",
+      "bytes": 6614,
+      "git_blob": "87a288732c688e8f263a801ddf76d332df8b9d61",
+      "preserved_bytes": "recovered/hair-guides-059/4b44fbc0b2460e2a7770df8a6714bd96feba72e8f8c6d06f1689bf998a26acac.gz",
+      "published_sha256": "4b44fbc0b2460e2a7770df8a6714bd96feba72e8f8c6d06f1689bf998a26acac",
+      "published_bytes": 6614,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-760.json",
+      "sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "bytes": 5646,
+      "git_blob": "31eabc248939ee6efb05a83fef0e21d6795fbec9",
+      "preserved_bytes": "recovered/hair-guides-059/29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d.gz",
+      "published_sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "published_bytes": 5646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state",
+        "Original059 queue379 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-004.json",
+      "sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f",
+      "bytes": 23940,
+      "git_blob": "679f1bbec93ed608ba813b9af9ce785904631f82",
+      "preserved_bytes": "recovered/hair-guides-059/5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f.gz",
+      "published_sha256": "5819092ffecdc6495aeb3da3ef87d34f843027de8cc1e7190956eb2e05f70f7f",
+      "published_bytes": 23940,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence",
+        "Original059 queue2331 linked historical evidence"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-752.json",
+      "sha256": "727e05feb4fb9aaaba5d1fd1089112bbbb773335f552fa3d4cd09fa8e36b1295",
+      "bytes": 1640,
+      "git_blob": "66ec21dac34d4a8a7e28aa92fb30f457555d2419",
+      "preserved_bytes": "recovered/hair-guides-059/727e05feb4fb9aaaba5d1fd1089112bbbb773335f552fa3d4cd09fa8e36b1295.gz",
+      "published_sha256": "727e05feb4fb9aaaba5d1fd1089112bbbb773335f552fa3d4cd09fa8e36b1295",
+      "published_bytes": 1640,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-760.json",
+      "sha256": "edb174883c87b7bcd199bd2e168dd96be9da6ac3393b907e90418bbe3ac13784",
+      "bytes": 1255,
+      "git_blob": "1df7063cf7d9c9e6981d88d35b27e89cd1e51cbd",
+      "preserved_bytes": "recovered/hair-guides-059/edb174883c87b7bcd199bd2e168dd96be9da6ac3393b907e90418bbe3ac13784.gz",
+      "published_sha256": "edb174883c87b7bcd199bd2e168dd96be9da6ac3393b907e90418bbe3ac13784",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-752.json",
+      "sha256": "ae4b3b677b2dffe9249c933221443206a8f6e3e48875b2f1fc443e3b86fe3d99",
+      "bytes": 667,
+      "git_blob": "6c3652b7b06c284746f2db1e644bb5f7ec17bb90",
+      "preserved_bytes": "recovered/hair-guides-059/ae4b3b677b2dffe9249c933221443206a8f6e3e48875b2f1fc443e3b86fe3d99.gz",
+      "published_sha256": "ae4b3b677b2dffe9249c933221443206a8f6e3e48875b2f1fc443e3b86fe3d99",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-760.json",
+      "sha256": "313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b",
+      "bytes": 667,
+      "git_blob": "1bfb4152a582c2462f8ddb4a0de8a6f7e90df535",
+      "preserved_bytes": "recovered/hair-guides-059/313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b.gz",
+      "published_sha256": "313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Rig supplier/producer, Adler364 and delegate752 retain separate roles; delegate760 independently recorded the Strand array issue. Original root adoption involved zero personal historical rereads.",
+  "remaining": "Continue original2289 and all thirteen lenses, trace admitted hair sizes and producers, other shader/native layout contracts, and exact aliases. Original3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

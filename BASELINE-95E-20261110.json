@@ -11336,7 +11336,8 @@
         "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
         "further_current_evidence": [
           "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json",
-          "ASSESSMENT-HAIR-GPU-GROW-95E.json"
+          "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+          "ASSESSMENT-HAIR-GUIDES-95E.json"
         ]
       },
       {
@@ -12937,7 +12938,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-HAIR-GROWTH-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-HAIR-GPU-GROW-95E.json"
+          "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+          "ASSESSMENT-HAIR-GUIDES-95E.json"
         ]
       },
       {
@@ -13175,7 +13177,10 @@
         "future_acceptance": "After audit and authorization, cover the supported mode and its boundary cases in the relevant implementation.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-HAIR-GPU-GROW-95E.json"
+        "record": "ASSESSMENT-HAIR-GPU-GROW-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-HAIR-GUIDES-95E.json"
+        ]
       },
       {
         "id": "REVIEW-HAIR-GPU-MAP-GRID-EXTENT-95E",
@@ -13202,8 +13207,146 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-HAIR-GPU-GROW-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-HAIR-STRANDS-PARALLEL-ARRAY-ADMISSION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          13
+        ],
+        "severity": "unassigned; historical parallel-array admission",
+        "classification": "Public independent positions/root_uv/root_normal/id/group/radius32..46 permit mismatched extents; len75 uses root_uv while attachment109..113 indexes others",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/379",
+          "segovb/READ-L12-760.json via ASSESSMENT-HAIR-GUIDES-95E.json"
+        ],
+        "relationship_qualification": "Original delegate760 finding retained; current selected GPU guide upload is one connected recipient, with producers and exact aliases open.",
+        "discovery": "partial; current host array fields, resampling and guide upload traced; all callers and admission policy open",
+        "connected_repair_direction": "Admit strand positions and each attachment array as one coherent collection before indexing or upload.",
+        "future_acceptance": "After audit and authorization, cover coherent and inconsistent arrays through supported guide input modes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GUIDE-MAX-PATH-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional numerical source contract",
+        "classification": "Public haircut length can reach a saturating float-to-u32 maximum followed by an unchecked +2 for guide path capacity.",
+        "historical_related_records": [
+          "segovb/READ-L12-752.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "baseline-059/queue.json#/entries/1837"
+        ],
+        "relationship_qualification": "Earlier delegate752 explicitly identified this input-dependent arithmetic. Earlier GPU stages, input policy and allocation can intervene.",
+        "discovery": "partial; selected producer, current operation and prior attribution traced; supported input policy and exact aliases open",
+        "connected_repair_direction": "Admit finite bounded guide length and compute path capacity without overflow.",
+        "future_acceptance": "After audit and authorization, cover accepted values and the chosen boundary behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GUIDE-PATH-INDEX-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional numerical source contract",
+        "classification": "The guide shader indexes a flattened path with u32 guide index times u32 max_path, while host sizing uses u64.",
+        "historical_related_records": [
+          "segovb/READ-L12-752.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "baseline-059/queue.json#/entries/1837"
+        ],
+        "relationship_qualification": "Conditional on admitted large path/count and successful earlier setup; this multiplication is separate from max_path construction.",
+        "discovery": "partial; selected producer, current operation and prior attribution traced; supported input policy and exact aliases open",
+        "connected_repair_direction": "Admit a path extent representable by shader indexing before allocation and dispatch.",
+        "future_acceptance": "After audit and authorization, cover accepted values and the chosen boundary behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-TIED-AXIS-PROGRESS-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional numerical source contract",
+        "classification": "Tied-axis sampling advances a f32 distance by a fixed 0.002 and can stop making numerical progress at sufficiently large finite distance.",
+        "historical_related_records": [
+          "segovb/READ-L12-752.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "baseline-059/queue.json#/entries/1837"
+        ],
+        "relationship_qualification": "The nonprogress condition is a symbolic IEEE-754 observation; huge lengths, loop reachability and resource exhaustion remain unresolved.",
+        "discovery": "partial; selected producer, current operation and prior attribution traced; supported input policy and exact aliases open",
+        "connected_repair_direction": "Bound the admitted length or use an iteration and progress contract that terminates for every supported value.",
+        "future_acceptance": "After audit and authorization, cover accepted values and the chosen boundary behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GUIDE-BOUNDARY-COUNT-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional numerical source contract",
+        "classification": "Guide-root capacity adds wanted and scalp boundary counts in u32 before widening.",
+        "historical_related_records": [
+          "segovb/READ-L12-752.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GUIDES-95E.json",
+          "baseline-059/queue.json#/entries/1837"
+        ],
+        "relationship_qualification": "The selected wanted producer is bounded by160; overflow remains conditional on an extremely large boundary and successful earlier storage.",
+        "discovery": "partial; selected producer, current operation and prior attribution traced; supported input policy and exact aliases open",
+        "connected_repair_direction": "Check the combined capacity in the appropriate extent type before allocating or dispatching.",
+        "future_acceptance": "After audit and authorization, cover accepted values and the chosen boundary behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GUIDES-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1809.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1816.json"
 }
