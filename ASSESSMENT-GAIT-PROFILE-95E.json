@@ -1,0 +1,1617 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three original animation roles and bounded current profile configuration, phase producers and support consumers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1767-1769.json",
+  "git_membership_evidence": "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "318bc19a9b047c1e427668a1982d05434073a7da",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "bytes": 7479,
+      "lines": 212,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          1134,
+          1228
+        ],
+        [
+          1257,
+          1315
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a83ffa8beeede1de72e5d5c508a303cea83f74b",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "bytes": 10398,
+      "lines": 272,
+      "ranges": [
+        [
+          202,
+          271
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c8620f71c0d3110b6c695d5edaf3b48c656b4f7",
+      "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "bytes": 5460,
+      "lines": 153,
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fcde79c797a4df12522675f7d722322168ca4569",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "bytes": 35002,
+      "lines": 867,
+      "ranges": [
+        [
+          50,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6eebd304f9ddbbb89dc150ef4b03013b9fdc2b8",
+      "sha256": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+      "bytes": 3131,
+      "lines": 90,
+      "ranges": [
+        [
+          55,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "85eef569f2b82179937b3e73573cdb0cf51208f0",
+      "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+      "bytes": 19134,
+      "lines": 526,
+      "ranges": [
+        [
+          58,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5eff44d2c63c470fef92210078d199f5d299ab45",
+      "sha256": "1316d55883c31826dcf78b1c36f80116faf40dee3aa3cf8a4bc82646030d19e3",
+      "bytes": 139647,
+      "lines": 2973,
+      "ranges": [
+        [
+          215,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5da6a5849801b0ecff6adb2687a9f61f755e4735",
+      "sha256": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c",
+      "bytes": 5034,
+      "lines": 124,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b1c06fb10a4034af5132474367304371b496bbe3",
+      "sha256": "e54bd673db78d4b343707613e348b7d7fb4f74d34b8a454fefe73f426145a045",
+      "bytes": 10812,
+      "lines": 320,
+      "ranges": [
+        [
+          216,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e864a8aeb3f26bac221de14ae07dbaabb4f97bf",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "bytes": 1218,
+      "lines": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358e87fe07305e77249296a95bbb8cf7cbeba4c3",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "bytes": 4763,
+      "lines": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6922c0b9fd561e03f11ef1d098a70768a599d9b2",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e",
+      "bytes": 13300,
+      "lines": 336,
+      "ranges": [
+        [
+          119,
+          198
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          174,
+          184
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gait-profile-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Other original roles, independent lenses and all producers are not credited. Product and source tests were not executed."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Current profile math",
+      "trace": "Current ordinary_step_distance selects a typed zero-speed distance from runtime config and uses checked inverse interpolation; historical6533 used a literal0.9 and raw scalar lerp. Current locomotion_profile uses typed inverse lerp for the run blend.",
+      "remaining": "Supported alternate tuning and all arithmetic edge behavior require distinct assessment; no broad equivalence or full migration closure is inferred."
+    },
+    {
+      "contract": "Normal phase boundaries",
+      "trace": "The deserialization path and standard ground-cycle setter wrap gait phase, guard footwork writes bounded phases, and current evaluation wraps cycle samples. The unwrapped-input question is therefore a public API/possible direct-writer issue, not evidence of observed ordinary replicated-state failure.",
+      "remaining": "All lifecycle and external callers remain open."
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-LOCOMOTION-PROFILE-ADMISSION",
+      "lens": 11,
+      "additional_current_lenses": [
+        1,
+        3,
+        7
+      ],
+      "classification": "Existing original059 Adler6533 source-qualified role-weakening finding explicitly reassessed at95e; not a new historical or checkpoint3821 finding.",
+      "canonical_owner": "Existing PositiveSpeed and PositiveAnimationDuration when a retained profile field genuinely promises a positive gait reference or landing recovery interval; measured speed and elapsed time remain zero-permitting.",
+      "first_failed_contract": "The public serializable gait and landing profiles store the configured positive reference and recovery in wider zero-permitting leaf owners, so the source guarantee is not carried by those fields themselves.",
+      "trace": "Current AnimationGaitConfig stores PositiveSpeed and validates run reference > walk reference; AnimationLandingConfig stores PositiveAnimationDuration and orders compression bounds. Current gait_profile widens reference speed to NonnegativeSpeed, and landing_profile projects positive duration to AnimationElapsed. LocomotionProfile and LandingProfile have public fields and derive serialization/deserialization; HeightSpeed::recovery takes an AnimationElapsed and checks the resulting quotient.",
+      "safeguards": "The traced configured factory cannot supply zero through its positive leaves, and the normal recovery route uses that factory; no configured zero recovery or observed failure is shown. gait step math includes a separate 0.01 distance floor. Whether every public/profile deserialization path needs the stronger guarantee is an API/producer policy question; direct serde instantiation or other callers have not been demonstrated. The positive-but-tiny representability issue in ASSESSMENT-LANDING-SETTLE-95E.json is related but has a distinct first failure and is not assumed an alias.",
+      "prior_attribution": "Adler259 originally raised the role question at6533. Adler282 and283 subsequently confirmed the positive configuration owners and explicitly rejected a configured-zero runtime claim. Segovb571 connected the same historical first failure under its own Lens12 assessment. All retain their own attribution and accepted-count qualifications.",
+      "dependencies": [
+        "Trace all profile struct construction, serialization/deserialization, retention and consumer paths; establish whether positive profile semantics apply to each.",
+        "Compare existing positive owners with actual measured zero modes and cross-profile constraints; reconcile exact aliases and distinct positive-tiny overflow."
+      ],
+      "later_acceptance": [
+        "Retained fields and operations express the intended positive guarantee wherever required without globally rejecting ordinary measured zero.",
+        "Preserve supported gait, timing and transient tactical authority, with no compatibility shims; later validation is separately authorized."
+      ],
+      "discovery": "partial; current source and prior qualified finding connected; exact public inputs, consumers and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-GAIT-SUPPORT-PERIODICITY-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        3,
+        7,
+        8,
+        13
+      ],
+      "classification": "New95e source-level periodic operation question connected to earlier059 phase-scope qualifications; no live impact observed.",
+      "canonical_owner": "gait_support_weights periodic phase operation or a narrower explicitly wrapped phase owner at its caller boundary.",
+      "first_failed_contract": "The public support-weight operation accepts a finite unwrapped CyclePhase but computes a cyclic distance as if the phase were already in the unit cycle.",
+      "trace": "CyclePhase admits any finite signed cycle coordinate and its documentation defers wrapping until a periodic operation. gait_support_weights uses phase.cycles() directly and forms min(abs(phase-contact), 1-abs(phase-contact)) before smoothstep. One IK helper passes skeleton.gait_phase directly; another explicitly wraps it. Pose-sample cycle construction wraps the phase.",
+      "symbolic_example": "For a non-raised run profile with support radius0.175 cycles, phase1.25 gives a left distance min(1.25,-0.25)=-0.25 and right distance0.25, so the source smoothstep endpoint branches yield support(1,0). The equivalent wrapped phase0.25 gives distances0.25 for both feet and support(0,0). These quantities compare comfortably beyond the smoothing edges. The arithmetic is source-directed and exact for the quarter-cycle values, not a product run or visible-animation observation.",
+      "safeguards": "The normal authoritative ground-cycle update wraps the phase, the wire decoder wraps it, the with_gait_phase builder wraps it, and an IK call and generated PoseSampling::Cycle also explicitly wrap. The state field and operation remain public, but no supported live writer or decoded state producing an unwrapped phase on the traced path has been observed. Different cyclic phase owners need not globally become bounded fractions.",
+      "dependencies": [
+        "Trace all production and external callers/constructors, public direct state mutation and native presentation flows; establish the input contract and whether any actual producer reaches an unwrapped phase.",
+        "Resolve the periodic operation at its proper boundary without changing unwrapped CyclePhase semantics needed elsewhere.",
+        "Reconcile the earlier Adler259 and Segovb571 pending phase question and any exact aliases without transferring reviewer credit."
+      ],
+      "later_acceptance": [
+        "Supported equivalent cycle phases produce equivalent gait support, or a narrower input contract rejects/normalizes unwrapped values explicitly.",
+        "Preserve real gait support, zero-radius edge policy and server/client authority. Later behavior validation is separately authorized."
+      ],
+      "discovery": "partial; concrete public input and conditional symbolic source result, ordinary normalization safeguards and two callers connected; live reachability and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/97",
+        "/entries/845",
+        "/entries/1449"
+      ],
+      "qualification": "Original059 scopes partially connected only. Adler and Segovb original6533 and earlier e275 attributions remain separate; no checkpoint3821 transfer."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-LOCOMOTION-PROFILE-ADMISSION"
+      ],
+      "qualification": "Original finding and later positive-owner qualifications retained, with explicit current source reassessment."
+    },
+    {
+      "file": "ASSESSMENT-LANDING-SETTLE-95E.json",
+      "qualification": "Positive-but-tiny recovery rate question has a distinct first failure; exact alias remains open."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/gait-profile-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "bytes": 12598,
+      "git_blob": "90a28ed99ca21b61895e44f56d29f3abad161731",
+      "preserved_bytes": "recovered/gait-profile-059/b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801.gz",
+      "published_sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "published_bytes": 12598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "bytes": 7769,
+      "git_blob": "d563e583ecc5c2413b2d14a29bc66e12b00f68a4",
+      "preserved_bytes": "recovered/gait-profile-059/2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e.gz",
+      "published_sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "published_bytes": 7769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "bytes": 13714,
+      "git_blob": "20c134892a8bebb3d8e9924ab9f9b646884583d8",
+      "preserved_bytes": "recovered/gait-profile-059/0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec.gz",
+      "published_sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "published_bytes": 13714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "bytes": 17859,
+      "git_blob": "75db69485b5727f787c0a1722d74f1878d10f499",
+      "preserved_bytes": "recovered/gait-profile-059/47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330.gz",
+      "published_sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "published_bytes": 17859,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-246.json",
+      "sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5",
+      "bytes": 13069,
+      "git_blob": "489872df88aab587506c5b415056973f2ad95a1b",
+      "preserved_bytes": "recovered/gait-profile-059/183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5.gz",
+      "published_sha256": "183524b1c6e40a4c18926e43dd2c6bea50b919d422b1911d579fe0141ed6a9c5",
+      "published_bytes": 13069,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-250.json",
+      "sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f",
+      "bytes": 14251,
+      "git_blob": "e1573670497f204446fc35edcbd86f5293921fa2",
+      "preserved_bytes": "recovered/gait-profile-059/0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f.gz",
+      "published_sha256": "0ab04ff9b4c5befdbdd0ee2ba7405075381da0d279b9e300ecc2a9ee97666d2f",
+      "published_bytes": 14251,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-251.json",
+      "sha256": "54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a",
+      "bytes": 11976,
+      "git_blob": "fc08228abd6f8125855e0b90532562cdfd705881",
+      "preserved_bytes": "recovered/gait-profile-059/54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a.gz",
+      "published_sha256": "54a12494f41f525a231ff50d16e2180e42d501dcb280890e87cc1e02bc006b4a",
+      "published_bytes": 11976,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-252.json",
+      "sha256": "e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529",
+      "bytes": 6874,
+      "git_blob": "0df85f246ab75f55631b362200eb9e5bba919605",
+      "preserved_bytes": "recovered/gait-profile-059/e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529.gz",
+      "published_sha256": "e7729603daaf9fae26dc8b8392783c032e0e0459260816ab4c6ca2ff0471b529",
+      "published_bytes": 6874,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-253.json",
+      "sha256": "dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88",
+      "bytes": 10741,
+      "git_blob": "a07a7e223316e5909e6e25a60f633207ab0bdee4",
+      "preserved_bytes": "recovered/gait-profile-059/dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88.gz",
+      "published_sha256": "dbcb9b6fdb116f020d207508f9d2ea34b7f77533dd27b37a9c8ed5453827db88",
+      "published_bytes": 10741,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-254.json",
+      "sha256": "ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f",
+      "bytes": 17339,
+      "git_blob": "26526a313f1876ee2c46690afcefd1be22307e5a",
+      "preserved_bytes": "recovered/gait-profile-059/ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f.gz",
+      "published_sha256": "ed04a9af432005743576305fd8de7d2c3ea25b2246d96ea205689b19625d763f",
+      "published_bytes": 17339,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-255.json",
+      "sha256": "8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7",
+      "bytes": 8678,
+      "git_blob": "6dc742d0f232035f6466feb1d78ef3d18ca07937",
+      "preserved_bytes": "recovered/gait-profile-059/8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7.gz",
+      "published_sha256": "8ef17f37d109d1c2710b41634a4f9f4b0a622db3410bff2119702130d65d13d7",
+      "published_bytes": 8678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-256.json",
+      "sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137",
+      "bytes": 15395,
+      "git_blob": "fd0d90a8a9dea9d3055fefeff63ed9a10cfda9e6",
+      "preserved_bytes": "recovered/gait-profile-059/c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137.gz",
+      "published_sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137",
+      "published_bytes": 15395,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-257.json",
+      "sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a",
+      "bytes": 13128,
+      "git_blob": "44904df21fbdcbf0db261040dbd3f03f62925032",
+      "preserved_bytes": "recovered/gait-profile-059/1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a.gz",
+      "published_sha256": "1fe54fde464e5e7b3b748a84acee48704be886d33cd7f9c36bf0c67ad4c8199a",
+      "published_bytes": 13128,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-258.json",
+      "sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82",
+      "bytes": 8889,
+      "git_blob": "26ced69c963f50bcd4f7002f7fb450efd7863a7a",
+      "preserved_bytes": "recovered/gait-profile-059/91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82.gz",
+      "published_sha256": "91fbecd78d6d9291aa4e785b0866608ff4c69638d842d0c8d4d2f17b59fcff82",
+      "published_bytes": 8889,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "bytes": 17171,
+      "git_blob": "f0e945891587ec93a64192c5c32065748eb5995b",
+      "preserved_bytes": "recovered/gait-profile-059/eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771.gz",
+      "published_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "published_bytes": 17171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler6533 Lens11 review or later qualification",
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-263.json",
+      "sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1",
+      "bytes": 10408,
+      "git_blob": "a9cfdde732d28ca26801c9b7b6cd682fefdf931e",
+      "preserved_bytes": "recovered/gait-profile-059/4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1.gz",
+      "published_sha256": "4f1c40badf291a83880e79502db8094ed6db7327de7dfed77acc077b49a562f1",
+      "published_bytes": 10408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-264.json",
+      "sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc",
+      "bytes": 9143,
+      "git_blob": "4b9b8fd967505e5e07c2cfb659eb08f225c16b9f",
+      "preserved_bytes": "recovered/gait-profile-059/0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc.gz",
+      "published_sha256": "0cce59f4f0ec5dcd14ae822d7e0ef92e2e84ea33b356364a56bd0b04f368f9bc",
+      "published_bytes": 9143,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/gait-profile-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-268.json",
+      "sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a",
+      "bytes": 8007,
+      "git_blob": "c85e260f8d387a8ac63a0cfae16cbe76a01ef576",
+      "preserved_bytes": "recovered/gait-profile-059/b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a.gz",
+      "published_sha256": "b5413b9cc004828f8ac1a43b56423e9f461f20c714de6c38706c883e4c7b7e1a",
+      "published_bytes": 8007,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-269.json",
+      "sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773",
+      "bytes": 10639,
+      "git_blob": "998b658ef54cb0fc91fe49384bf0efb78c11f2ca",
+      "preserved_bytes": "recovered/gait-profile-059/fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773.gz",
+      "published_sha256": "fc8d370a5eeefdf3ea8cdd9de8173fabffc67a26fda6a1822689d33b192a8773",
+      "published_bytes": 10639,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b",
+      "bytes": 12533,
+      "git_blob": "0fc8807de8dab2af10b28e06017fd45f39b61b2a",
+      "preserved_bytes": "recovered/gait-profile-059/e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b.gz",
+      "published_sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b",
+      "published_bytes": 12533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/gait-profile-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-272.json",
+      "sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f",
+      "bytes": 9297,
+      "git_blob": "64a51f42ec74f65a253bc9fc4b7278b4927134a7",
+      "preserved_bytes": "recovered/gait-profile-059/35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f.gz",
+      "published_sha256": "35b60435bb78f200471ebf07c89713af991d2cb90a52b434e4bcccf6ceb7ad6f",
+      "published_bytes": 9297,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "bytes": 12123,
+      "git_blob": "bdd561888e4bca8bdaf6956ed56cada4863d6b71",
+      "preserved_bytes": "recovered/gait-profile-059/ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b.gz",
+      "published_sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "published_bytes": 12123,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "bytes": 9944,
+      "git_blob": "e072050becf60dde23ac603c52ac4b125de87408",
+      "preserved_bytes": "recovered/gait-profile-059/7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91.gz",
+      "published_sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "published_bytes": 9944,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-275.json",
+      "sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450",
+      "bytes": 13321,
+      "git_blob": "f26e496c2ca6e53f746c533d6980012645e14283",
+      "preserved_bytes": "recovered/gait-profile-059/a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450.gz",
+      "published_sha256": "a6cec4d4cfcf939d571330e3bfd99a9776ac3098891988460b184e9f3bd66450",
+      "published_bytes": 13321,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-276.json",
+      "sha256": "01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae",
+      "bytes": 10818,
+      "git_blob": "fbea9a7dfc3550fe49b84143ed05b8d779cf6b32",
+      "preserved_bytes": "recovered/gait-profile-059/01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae.gz",
+      "published_sha256": "01b6e6ba6853277399a71bf77d7d6b2bbb7865022bca906ad4bc8cec8adf0aae",
+      "published_bytes": 10818,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-277.json",
+      "sha256": "3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02",
+      "bytes": 9203,
+      "git_blob": "43be814febdd2bf2d91ccf4d8013570b315b91fe",
+      "preserved_bytes": "recovered/gait-profile-059/3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02.gz",
+      "published_sha256": "3a59ce224639206868fc150f0ebdffc1cb18604e7c7cfad38ae403b842b47a02",
+      "published_bytes": 9203,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-278.json",
+      "sha256": "9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a",
+      "bytes": 12997,
+      "git_blob": "85f9c41b2acd4638081e807a0219063cfed6060e",
+      "preserved_bytes": "recovered/gait-profile-059/9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a.gz",
+      "published_sha256": "9d22b717fd830e3402946d343cb8d63be302ee98f292903964ffa5739a89d47a",
+      "published_bytes": 12997,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/gait-profile-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7",
+      "bytes": 8313,
+      "git_blob": "1bf2710b4c0e9552ae6bd3e688e60dde4c5fd9fd",
+      "preserved_bytes": "recovered/gait-profile-059/098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7.gz",
+      "published_sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7",
+      "published_bytes": 8313,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-281.json",
+      "sha256": "7df0652b431f991b40f6cb387c3d72a3028b954211bdad089b882147cd2a981b",
+      "bytes": 8884,
+      "git_blob": "0245c47bbb8705415093f7283d3285e9f447c5c0",
+      "preserved_bytes": "recovered/gait-profile-059/7df0652b431f991b40f6cb387c3d72a3028b954211bdad089b882147cd2a981b.gz",
+      "published_sha256": "7df0652b431f991b40f6cb387c3d72a3028b954211bdad089b882147cd2a981b",
+      "published_bytes": 8884,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler prior same-lens context only",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/gait-profile-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler6533 Lens11 review or later qualification",
+        "Adler prior same-lens context only"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/gait-profile-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler6533 Lens11 review or later qualification"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-598.json",
+      "sha256": "d8cd81d98e66ddfc3d8cd574af82203064c85811ad09cb65c17160c7c214f668",
+      "bytes": 738,
+      "git_blob": "31929646a8f240bbc5e4c1a9435162e8757bedeb",
+      "preserved_bytes": "recovered/gait-profile-059/d8cd81d98e66ddfc3d8cd574af82203064c85811ad09cb65c17160c7c214f668.gz",
+      "published_sha256": "d8cd81d98e66ddfc3d8cd574af82203064c85811ad09cb65c17160c7c214f668",
+      "published_bytes": 738,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-599.json",
+      "sha256": "5c0fa143f6580a4d451ee73c313f19c9c7cb947f62395c4921a6a4ff958bd787",
+      "bytes": 733,
+      "git_blob": "cb0fc7c678e304995da6e0e9a8b6dfe1de3526bc",
+      "preserved_bytes": "recovered/gait-profile-059/5c0fa143f6580a4d451ee73c313f19c9c7cb947f62395c4921a6a4ff958bd787.gz",
+      "published_sha256": "5c0fa143f6580a4d451ee73c313f19c9c7cb947f62395c4921a6a4ff958bd787",
+      "published_bytes": 733,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-600.json",
+      "sha256": "c1c00a86fbe096187f3c282bb038c7cb9ae41ea91a55ca429cd8520a3393ccf6",
+      "bytes": 740,
+      "git_blob": "a2aea31d8f53ed1383434560cbf80f0936515d3d",
+      "preserved_bytes": "recovered/gait-profile-059/c1c00a86fbe096187f3c282bb038c7cb9ae41ea91a55ca429cd8520a3393ccf6.gz",
+      "published_sha256": "c1c00a86fbe096187f3c282bb038c7cb9ae41ea91a55ca429cd8520a3393ccf6",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-601.json",
+      "sha256": "2b1e4bb99c6cdcdf906b3f4def4052158d48222cfe1b11b816592bbf6ea9c640",
+      "bytes": 747,
+      "git_blob": "fb5e187d680131a53a9b6a9f3fa19cff3139f4f7",
+      "preserved_bytes": "recovered/gait-profile-059/2b1e4bb99c6cdcdf906b3f4def4052158d48222cfe1b11b816592bbf6ea9c640.gz",
+      "published_sha256": "2b1e4bb99c6cdcdf906b3f4def4052158d48222cfe1b11b816592bbf6ea9c640",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-602.json",
+      "sha256": "08927e3e0d0e34f65c89c54be0eb3496f40fb6c4c846ecbdea4d1385317a34f5",
+      "bytes": 741,
+      "git_blob": "c59bb9b1082a8875501f552e67ea066912b55fd5",
+      "preserved_bytes": "recovered/gait-profile-059/08927e3e0d0e34f65c89c54be0eb3496f40fb6c4c846ecbdea4d1385317a34f5.gz",
+      "published_sha256": "08927e3e0d0e34f65c89c54be0eb3496f40fb6c4c846ecbdea4d1385317a34f5",
+      "published_bytes": 741,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-603.json",
+      "sha256": "2ade886a2c8cd26b85f3158a15169e3d5eae51b745239a931223b62388bfd6b9",
+      "bytes": 735,
+      "git_blob": "39e466e159a06d89612bc9c01160816011acea8a",
+      "preserved_bytes": "recovered/gait-profile-059/2ade886a2c8cd26b85f3158a15169e3d5eae51b745239a931223b62388bfd6b9.gz",
+      "published_sha256": "2ade886a2c8cd26b85f3158a15169e3d5eae51b745239a931223b62388bfd6b9",
+      "published_bytes": 735,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-604.json",
+      "sha256": "f834c85f455e2d33bd6ce741e9a155c113ec5998f954b827a3b9eba3e49868e4",
+      "bytes": 739,
+      "git_blob": "e9232764cdc54652bdb60bf336c1ccca670b34e7",
+      "preserved_bytes": "recovered/gait-profile-059/f834c85f455e2d33bd6ce741e9a155c113ec5998f954b827a3b9eba3e49868e4.gz",
+      "published_sha256": "f834c85f455e2d33bd6ce741e9a155c113ec5998f954b827a3b9eba3e49868e4",
+      "published_bytes": 739,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-605.json",
+      "sha256": "d9c2ae19ef72ded718ce2983a96abe17aea22b813beb6e63e8e0cfbe401263ef",
+      "bytes": 740,
+      "git_blob": "0da0d613c3197decbae3f44836751c66fa7c9e08",
+      "preserved_bytes": "recovered/gait-profile-059/d9c2ae19ef72ded718ce2983a96abe17aea22b813beb6e63e8e0cfbe401263ef.gz",
+      "published_sha256": "d9c2ae19ef72ded718ce2983a96abe17aea22b813beb6e63e8e0cfbe401263ef",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-606.json",
+      "sha256": "f4220dd35488568c21f3b05804812a0301ccf2143de8b1041ecae3b9ccebd579",
+      "bytes": 717,
+      "git_blob": "fd20cf8040ebc6943870f4dcd6628abd32b7a963",
+      "preserved_bytes": "recovered/gait-profile-059/f4220dd35488568c21f3b05804812a0301ccf2143de8b1041ecae3b9ccebd579.gz",
+      "published_sha256": "f4220dd35488568c21f3b05804812a0301ccf2143de8b1041ecae3b9ccebd579",
+      "published_bytes": 717,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-696.json",
+      "sha256": "fc357dcd8075d631f5359c0b068ed26cb4684d66882a43f6af13872941f5f349",
+      "bytes": 684,
+      "git_blob": "4bffc43d58e94d6cc2f9b91f48edde20265e80b8",
+      "preserved_bytes": "recovered/gait-profile-059/fc357dcd8075d631f5359c0b068ed26cb4684d66882a43f6af13872941f5f349.gz",
+      "published_sha256": "fc357dcd8075d631f5359c0b068ed26cb4684d66882a43f6af13872941f5f349",
+      "published_bytes": 684,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-697.json",
+      "sha256": "9654f6fc37720ecb419dc348716bfa4881a7a24f8f1256e3f546c66bb86c57af",
+      "bytes": 680,
+      "git_blob": "858c9daefbe22e31f79da195e2b69aeebd5e94ed",
+      "preserved_bytes": "recovered/gait-profile-059/9654f6fc37720ecb419dc348716bfa4881a7a24f8f1256e3f546c66bb86c57af.gz",
+      "published_sha256": "9654f6fc37720ecb419dc348716bfa4881a7a24f8f1256e3f546c66bb86c57af",
+      "published_bytes": 680,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-698.json",
+      "sha256": "5be781a33ca8f5d08931387fd8591275e15331b708f92abe0425a556522f71da",
+      "bytes": 657,
+      "git_blob": "0a1b7191527a824dff99b7ac6023ab9f71bd3c75",
+      "preserved_bytes": "recovered/gait-profile-059/5be781a33ca8f5d08931387fd8591275e15331b708f92abe0425a556522f71da.gz",
+      "published_sha256": "5be781a33ca8f5d08931387fd8591275e15331b708f92abe0425a556522f71da",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-699.json",
+      "sha256": "e775f3a69b6887bc5ddbb23f6bb68727d0fc8970b0a26f2a5ed57f979b391c0b",
+      "bytes": 631,
+      "git_blob": "e52ce3608810542080d5c7c22a72f1d170195efd",
+      "preserved_bytes": "recovered/gait-profile-059/e775f3a69b6887bc5ddbb23f6bb68727d0fc8970b0a26f2a5ed57f979b391c0b.gz",
+      "published_sha256": "e775f3a69b6887bc5ddbb23f6bb68727d0fc8970b0a26f2a5ed57f979b391c0b",
+      "published_bytes": 631,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-700.json",
+      "sha256": "95235098c697fd39c37b299d8fb0c56cff723196d347f3b491cc09e6157514f4",
+      "bytes": 655,
+      "git_blob": "b5390040f56a630151f8b599bf387c073500757c",
+      "preserved_bytes": "recovered/gait-profile-059/95235098c697fd39c37b299d8fb0c56cff723196d347f3b491cc09e6157514f4.gz",
+      "published_sha256": "95235098c697fd39c37b299d8fb0c56cff723196d347f3b491cc09e6157514f4",
+      "published_bytes": 655,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-701.json",
+      "sha256": "c265dcb72cc115197e1fcd8563e24f422b4f203fd098a68da05d25d9b0f6e3d0",
+      "bytes": 638,
+      "git_blob": "27eb70dbf455c467f2644e617282d039ef03e0a5",
+      "preserved_bytes": "recovered/gait-profile-059/c265dcb72cc115197e1fcd8563e24f422b4f203fd098a68da05d25d9b0f6e3d0.gz",
+      "published_sha256": "c265dcb72cc115197e1fcd8563e24f422b4f203fd098a68da05d25d9b0f6e3d0",
+      "published_bytes": 638,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-702.json",
+      "sha256": "f4eedd5340982181424cb088d2548aca0f83203afe687cd2e386c1771f7d329b",
+      "bytes": 660,
+      "git_blob": "39f27b9328632bac73d5e0aee1832aca32b1dd37",
+      "preserved_bytes": "recovered/gait-profile-059/f4eedd5340982181424cb088d2548aca0f83203afe687cd2e386c1771f7d329b.gz",
+      "published_sha256": "f4eedd5340982181424cb088d2548aca0f83203afe687cd2e386c1771f7d329b",
+      "published_bytes": 660,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-703.json",
+      "sha256": "d19a5a0b29fe5506acf77523ceb6979ba7efaf15142423113ebbad071337ca9d",
+      "bytes": 678,
+      "git_blob": "d19a02cb6d8f5d71062e08f265e19075f0c388dc",
+      "preserved_bytes": "recovered/gait-profile-059/d19a5a0b29fe5506acf77523ceb6979ba7efaf15142423113ebbad071337ca9d.gz",
+      "published_sha256": "d19a5a0b29fe5506acf77523ceb6979ba7efaf15142423113ebbad071337ca9d",
+      "published_bytes": 678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-704.json",
+      "sha256": "5ff7da8bff080e9446f38a35c1c7dd03cd9f8ca4ae00af023a8933ca59d8942a",
+      "bytes": 693,
+      "git_blob": "475b4eb0cc1d69a45b100d99a978c782b008d01a",
+      "preserved_bytes": "recovered/gait-profile-059/5ff7da8bff080e9446f38a35c1c7dd03cd9f8ca4ae00af023a8933ca59d8942a.gz",
+      "published_sha256": "5ff7da8bff080e9446f38a35c1c7dd03cd9f8ca4ae00af023a8933ca59d8942a",
+      "published_bytes": 693,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-705.json",
+      "sha256": "ebf2c6fdfd1820f20d06acb618e031905e7c68b7cc567f36745571dc0e7f5368",
+      "bytes": 677,
+      "git_blob": "24b6e443ad0408f60b7fa708528a9e67ae32b083",
+      "preserved_bytes": "recovered/gait-profile-059/ebf2c6fdfd1820f20d06acb618e031905e7c68b7cc567f36745571dc0e7f5368.gz",
+      "published_sha256": "ebf2c6fdfd1820f20d06acb618e031905e7c68b7cc567f36745571dc0e7f5368",
+      "published_bytes": 677,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-706.json",
+      "sha256": "f0b05684f6124ef18ee27ec2ead302694792f488ebc4432ffd1510c0753fe744",
+      "bytes": 679,
+      "git_blob": "22e02fccfc10e5571fe4d85414554f42481c6876",
+      "preserved_bytes": "recovered/gait-profile-059/f0b05684f6124ef18ee27ec2ead302694792f488ebc4432ffd1510c0753fe744.gz",
+      "published_sha256": "f0b05684f6124ef18ee27ec2ead302694792f488ebc4432ffd1510c0753fe744",
+      "published_bytes": 679,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-707.json",
+      "sha256": "4758c1aaadd9bb4138eb8662ed403a31822ccad8c3145d0f4f076a6806945adb",
+      "bytes": 678,
+      "git_blob": "25aa75f2b47807f4a7893b0ecd79b60df0897739",
+      "preserved_bytes": "recovered/gait-profile-059/4758c1aaadd9bb4138eb8662ed403a31822ccad8c3145d0f4f076a6806945adb.gz",
+      "published_sha256": "4758c1aaadd9bb4138eb8662ed403a31822ccad8c3145d0f4f076a6806945adb",
+      "published_bytes": 678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-708.json",
+      "sha256": "55ac635a8be6d68b4ab30a3d579c1ceb35a93e8e1a9e17a65da165e91db7ce14",
+      "bytes": 681,
+      "git_blob": "4e52517cec128ee85c6996022abb677253815ce9",
+      "preserved_bytes": "recovered/gait-profile-059/55ac635a8be6d68b4ab30a3d579c1ceb35a93e8e1a9e17a65da165e91db7ce14.gz",
+      "published_sha256": "55ac635a8be6d68b4ab30a3d579c1ceb35a93e8e1a9e17a65da165e91db7ce14",
+      "published_bytes": 681,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-709.json",
+      "sha256": "51b785da5673dd31574895c6288ba6f769e2ddaf42a6f931bb03bb057604d68f",
+      "bytes": 680,
+      "git_blob": "2af82f69e9e75ad5bb79574ac226b2146f5d9a63",
+      "preserved_bytes": "recovered/gait-profile-059/51b785da5673dd31574895c6288ba6f769e2ddaf42a6f931bb03bb057604d68f.gz",
+      "published_sha256": "51b785da5673dd31574895c6288ba6f769e2ddaf42a6f931bb03bb057604d68f",
+      "published_bytes": 680,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-710.json",
+      "sha256": "29be82a3f55c728181348a430b7b80b294b64e1bfb21b8c653826daf163fe175",
+      "bytes": 678,
+      "git_blob": "4b1fe9bbc1d365c5ad494658b86bee82b5226805",
+      "preserved_bytes": "recovered/gait-profile-059/29be82a3f55c728181348a430b7b80b294b64e1bfb21b8c653826daf163fe175.gz",
+      "published_sha256": "29be82a3f55c728181348a430b7b80b294b64e1bfb21b8c653826daf163fe175",
+      "published_bytes": 678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-711.json",
+      "sha256": "34dbe784bc2b4a90d89a234bcb6a33471ad46bba6d21c99a9a8a0fd45df72779",
+      "bytes": 677,
+      "git_blob": "23f1cda9fef25c8e2ab20d7dda32978cb02bac9e",
+      "preserved_bytes": "recovered/gait-profile-059/34dbe784bc2b4a90d89a234bcb6a33471ad46bba6d21c99a9a8a0fd45df72779.gz",
+      "published_sha256": "34dbe784bc2b4a90d89a234bcb6a33471ad46bba6d21c99a9a8a0fd45df72779",
+      "published_bytes": 677,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Adler original registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-259.json",
+      "sha256": "94314925f6f409071c888d1c65d2ab4efa98bf098c1768386c9e80a72e32231f",
+      "bytes": 701,
+      "git_blob": "cb6e4332b7c0052aa6d7d36cf374825dcfefbcdc",
+      "preserved_bytes": "recovered/gait-profile-059/94314925f6f409071c888d1c65d2ab4efa98bf098c1768386c9e80a72e32231f.gz",
+      "published_sha256": "94314925f6f409071c888d1c65d2ab4efa98bf098c1768386c9e80a72e32231f",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-282.json",
+      "sha256": "098725ea8e33a5ed3292fb6994d3b19bb3538120252c4dc37195f1d3d923328d",
+      "bytes": 679,
+      "git_blob": "9938fd63904280d240e34cdd026a1fdcd17d1035",
+      "preserved_bytes": "recovered/gait-profile-059/098725ea8e33a5ed3292fb6994d3b19bb3538120252c4dc37195f1d3d923328d.gz",
+      "published_sha256": "098725ea8e33a5ed3292fb6994d3b19bb3538120252c4dc37195f1d3d923328d",
+      "published_bytes": 679,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-283.json",
+      "sha256": "7d6805412196b6e647a4287a9b021748547499c90f43350e61498953c4ae6329",
+      "bytes": 701,
+      "git_blob": "d514ed5a3bd2cc20e264b2e10f90bb8dbb71f9bf",
+      "preserved_bytes": "recovered/gait-profile-059/7d6805412196b6e647a4287a9b021748547499c90f43350e61498953c4ae6329.gz",
+      "published_sha256": "7d6805412196b6e647a4287a9b021748547499c90f43350e61498953c4ae6329",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-259.json",
+      "sha256": "f05950ee5e08e3ead536d288ac3ac50c7146b0e566d67f75be49f008099a9da9",
+      "bytes": 34370,
+      "git_blob": "107c844101216960c2bac8aef7fa54d52ed61b9c",
+      "preserved_bytes": "recovered/gait-profile-059/f05950ee5e08e3ead536d288ac3ac50c7146b0e566d67f75be49f008099a9da9.gz",
+      "published_sha256": "f05950ee5e08e3ead536d288ac3ac50c7146b0e566d67f75be49f008099a9da9",
+      "published_bytes": 34370,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-282.json",
+      "sha256": "75b350169317bb067906b3060300528dfb7a25900a31a5987c8f133ea8792c21",
+      "bytes": 66551,
+      "git_blob": "a57c04c79a2bccdc25f0fe9757651da40cb1448b",
+      "preserved_bytes": "recovered/gait-profile-059/75b350169317bb067906b3060300528dfb7a25900a31a5987c8f133ea8792c21.gz",
+      "published_sha256": "75b350169317bb067906b3060300528dfb7a25900a31a5987c8f133ea8792c21",
+      "published_bytes": 66551,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-283.json",
+      "sha256": "2734954edc2864f9382be96118bd1f3fd6e2845590f2b3fdb59adcd5aa212fff",
+      "bytes": 36480,
+      "git_blob": "7f46d3a86ef823689eb60002fc3a19ad7f7bc59f",
+      "preserved_bytes": "recovered/gait-profile-059/2734954edc2864f9382be96118bd1f3fd6e2845590f2b3fdb59adcd5aa212fff.gz",
+      "published_sha256": "2734954edc2864f9382be96118bd1f3fd6e2845590f2b3fdb59adcd5aa212fff",
+      "published_bytes": 36480,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-571.json",
+      "sha256": "438571de697c44ac78425f3a7e4bab3e6722f73a775dc7623d833fabf87f4d5e",
+      "bytes": 1689,
+      "git_blob": "1931c04921a469f73860421e6e199a246ef6859c",
+      "preserved_bytes": "recovered/gait-profile-059/438571de697c44ac78425f3a7e4bab3e6722f73a775dc7623d833fabf87f4d5e.gz",
+      "published_sha256": "438571de697c44ac78425f3a7e4bab3e6722f73a775dc7623d833fabf87f4d5e",
+      "published_bytes": 1689,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier plan"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-568.json",
+      "sha256": "58ed1dfaa7ade5035f33482cbafcf56434bce75e9ba2d55698c57a0a2eaef714",
+      "bytes": 9652,
+      "git_blob": "8f5145a7f982d95b80d299d86ef2e392d18364f6",
+      "preserved_bytes": "recovered/gait-profile-059/58ed1dfaa7ade5035f33482cbafcf56434bce75e9ba2d55698c57a0a2eaef714.gz",
+      "published_sha256": "58ed1dfaa7ade5035f33482cbafcf56434bce75e9ba2d55698c57a0a2eaef714",
+      "published_bytes": 9652,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt without a fresh read"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-569.json",
+      "sha256": "8d2c4adcaf897c7ac8339dba94151963419755d7cc57620b352f7f909bf9f0ee",
+      "bytes": 10971,
+      "git_blob": "cc14e8c684e94cbfcb356a811a7b5ffb1e9b1d97",
+      "preserved_bytes": "recovered/gait-profile-059/8d2c4adcaf897c7ac8339dba94151963419755d7cc57620b352f7f909bf9f0ee.gz",
+      "published_sha256": "8d2c4adcaf897c7ac8339dba94151963419755d7cc57620b352f7f909bf9f0ee",
+      "published_bytes": 10971,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt without a fresh read"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-570.json",
+      "sha256": "cef203d8e02e5cc7f62bf9983b02a2731cc77907af038b965f7df3f8a00e3aad",
+      "bytes": 12746,
+      "git_blob": "b35f2cdd064b02cc1c5f310b30526a9c46d6acce",
+      "preserved_bytes": "recovered/gait-profile-059/cef203d8e02e5cc7f62bf9983b02a2731cc77907af038b965f7df3f8a00e3aad.gz",
+      "published_sha256": "cef203d8e02e5cc7f62bf9983b02a2731cc77907af038b965f7df3f8a00e3aad",
+      "published_bytes": 12746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens receipt without a fresh read"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-571.json",
+      "sha256": "40e5b6c41615c4393f6175264b104bfde19cc02db6ae4d07d1efb1b87fbaa83a",
+      "bytes": 15964,
+      "git_blob": "84b77b19773a4c727f52082228c68dd5a71b2a5c",
+      "preserved_bytes": "recovered/gait-profile-059/40e5b6c41615c4393f6175264b104bfde19cc02db6ae4d07d1efb1b87fbaa83a.gz",
+      "published_sha256": "40e5b6c41615c4393f6175264b104bfde19cc02db6ae4d07d1efb1b87fbaa83a",
+      "published_bytes": 15964,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb6533 Lens12 review"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-665.json",
+      "sha256": "53e0b819e02d9171564d65ddf4bf10472e38a2cd117ff2202beee023fca61544",
+      "bytes": 1203,
+      "git_blob": "b4ba060b38b291491e062298cd324c1796e90896",
+      "preserved_bytes": "recovered/gait-profile-059/53e0b819e02d9171564d65ddf4bf10472e38a2cd117ff2202beee023fca61544.gz",
+      "published_sha256": "53e0b819e02d9171564d65ddf4bf10472e38a2cd117ff2202beee023fca61544",
+      "published_bytes": 1203,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified same-lens registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-667.json",
+      "sha256": "367e5cb0ac13309160c9fd3da9a08eae6a5ab45cc500eb60a2cfe546ddb1e154",
+      "bytes": 1236,
+      "git_blob": "47a453aef98bc62b1ff51a8d500396837f55c4c1",
+      "preserved_bytes": "recovered/gait-profile-059/367e5cb0ac13309160c9fd3da9a08eae6a5ab45cc500eb60a2cfe546ddb1e154.gz",
+      "published_sha256": "367e5cb0ac13309160c9fd3da9a08eae6a5ab45cc500eb60a2cfe546ddb1e154",
+      "published_bytes": 1236,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified same-lens registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-671.json",
+      "sha256": "52b5346ae95c38e2eced935a94c2257baea8b7e64579012d044578edf06cdc6e",
+      "bytes": 1229,
+      "git_blob": "8dc91d0f05c416d2e21b10b65a8a748df923feba",
+      "preserved_bytes": "recovered/gait-profile-059/52b5346ae95c38e2eced935a94c2257baea8b7e64579012d044578edf06cdc6e.gz",
+      "published_sha256": "52b5346ae95c38e2eced935a94c2257baea8b7e64579012d044578edf06cdc6e",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified same-lens registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-674.json",
+      "sha256": "839518020e4f4e0681b439a7c3b91156607d1482845ef84e59df2db3808097ea",
+      "bytes": 1211,
+      "git_blob": "e04f31030f3bb380de8c14ba593a77de13fe7640",
+      "preserved_bytes": "recovered/gait-profile-059/839518020e4f4e0681b439a7c3b91156607d1482845ef84e59df2db3808097ea.gz",
+      "published_sha256": "839518020e4f4e0681b439a7c3b91156607d1482845ef84e59df2db3808097ea",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-675.json",
+      "sha256": "ad980a9dca8a44722eba66a9747bfb0bc53d0e1699201e9e442ad9bbec5025cd",
+      "bytes": 1213,
+      "git_blob": "132bc2346c0b2eefafe8b768c82d8475f4593076",
+      "preserved_bytes": "recovered/gait-profile-059/ad980a9dca8a44722eba66a9747bfb0bc53d0e1699201e9e442ad9bbec5025cd.gz",
+      "published_sha256": "ad980a9dca8a44722eba66a9747bfb0bc53d0e1699201e9e442ad9bbec5025cd",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-676.json",
+      "sha256": "51ad6d7de1c68e0f42d600125c60b0afb2c82787627ee4a6f79277f50a8abd24",
+      "bytes": 1195,
+      "git_blob": "6ed1a4aa622c1588c4946299a1d6d8379451d84e",
+      "preserved_bytes": "recovered/gait-profile-059/51ad6d7de1c68e0f42d600125c60b0afb2c82787627ee4a6f79277f50a8abd24.gz",
+      "published_sha256": "51ad6d7de1c68e0f42d600125c60b0afb2c82787627ee4a6f79277f50a8abd24",
+      "published_bytes": 1195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier registration"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-571.json",
+      "sha256": "34e1a2b63ce34fd632960d82719583db41991d1d0efedcf2703b58ef7b638c82",
+      "bytes": 840,
+      "git_blob": "fe40b23585da64f574437c6f57fd1cbf22732779",
+      "preserved_bytes": "recovered/gait-profile-059/34e1a2b63ce34fd632960d82719583db41991d1d0efedcf2703b58ef7b638c82.gz",
+      "published_sha256": "34e1a2b63ce34fd632960d82719583db41991d1d0efedcf2703b58ef7b638c82",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-571.json",
+      "sha256": "939c8d1a6a23ff9ceab30c7552c1dc9eb41cca3a345a9158281d8ffc1c228253",
+      "bytes": 558,
+      "git_blob": "079ae4d3d683316087e79696ef6e44948f248a88",
+      "preserved_bytes": "recovered/gait-profile-059/939c8d1a6a23ff9ceab30c7552c1dc9eb41cca3a345a9158281d8ffc1c228253.gz",
+      "published_sha256": "939c8d1a6a23ff9ceab30c7552c1dc9eb41cca3a345a9158281d8ffc1c228253",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range, context and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1770; establish actual profile serde and phase lifecycle, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
