@@ -190,6 +190,9 @@ question through seeded kin and the outbreak exception. Ordinary player-visible
 reachability and qualifying-family policy remain open.
 `ASSESSMENT-L09-POINT-PREVENTION-95E.json` records the conditional covered-zero
 versus missing-history ambiguity and selected current-minute food/water paths.
+`ASSESSMENT-L05-EVIDENCE-PROVENANCE-95E.json` connects a generated action
+and physical inspection to the same single-source evidence-knowledge row.
+Player reachability, source policy and transaction behavior remain open.
 `ASSESSMENT-L04-BELIEF-REVISION-95E.json` and
 `ASSESSMENT-L05-TESTIMONY-CORRECTION-95E.json` revisit distinct earlier
 belief-revision and correction contracts. Selected generated producer bounds
@@ -257,6 +260,8 @@ container body, which differs from the separately preserved 95e source.
 action, provenance and route sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1123-1125.json` records historical investigation
 capability, claim and geometry sources without expanding current coverage.
+`ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
+module composition and evidence state without expanding current coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

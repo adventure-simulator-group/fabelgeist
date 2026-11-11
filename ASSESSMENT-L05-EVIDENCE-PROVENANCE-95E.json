@@ -1,0 +1,551 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 5,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected generated action and physical inspection sources for one evidence knowledge row; aggregate-state and connected-contract lenses remain incomplete.",
+  "source_reasoning": "Static source and tracked content inspection plus recovered evidence verification only; no product, catalog compilation, build, test, fixture, browser, database or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4359a97ae3781a18dff6a45594152fd03fd35b91",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "bytes": 47311,
+      "lines": 1399,
+      "ranges": [
+        [
+          109,
+          140
+        ],
+        [
+          535,
+          580
+        ],
+        [
+          587,
+          655
+        ],
+        [
+          725,
+          808
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d7a19ff713ecd625d5f9abe11524c2df61ac58d9",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "bytes": 72039,
+      "lines": 1861,
+      "ranges": [
+        [
+          160,
+          215
+        ],
+        [
+          240,
+          285
+        ],
+        [
+          1480,
+          1510
+        ],
+        [
+          1750,
+          1785
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions/result_provenance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "081fca7655d4ddeb3460672c92e13fc5b87916ff",
+      "sha256": "b6df0b98697c4b507e4570230628b5682ac09dce9375b700f1ae5f9d4399c85d",
+      "bytes": 1961,
+      "lines": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a0675335c6d33fe15613737466870ae93dc0daf0",
+      "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+      "bytes": 48739,
+      "lines": 1343,
+      "ranges": [
+        [
+          900,
+          935
+        ],
+        [
+          945,
+          975
+        ],
+        [
+          1010,
+          1105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1195e0eb4a8d55de4cb66ee8549342f720b345bf",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "bytes": 21969,
+      "lines": 617,
+      "ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          456,
+          550
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bd1ffdf65672c95c22b7b04d463887fee2f124f5",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "bytes": 63916,
+      "lines": 1801,
+      "ranges": [
+        [
+          175,
+          325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/evidence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "11ac21de00681dfe7494874433e12eea12fe61b9",
+      "sha256": "11fbfd64e630573337eef87f4a4046264f76af8060d812b153b5f5c7af4af96e",
+      "bytes": 7892,
+      "lines": 235,
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bf9af89bd643c5f72ef92b42615c0ae9eb6e065",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "bytes": 61438,
+      "lines": 1443,
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          110,
+          125
+        ],
+        [
+          185,
+          195
+        ],
+        [
+          220,
+          252
+        ],
+        [
+          410,
+          445
+        ],
+        [
+          460,
+          500
+        ],
+        [
+          800,
+          870
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/solver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e47c1e1291104a974d70517880bece2b96300d0e",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "bytes": 40679,
+      "lines": 979,
+      "ranges": [
+        [
+          680,
+          710
+        ],
+        [
+          755,
+          810
+        ],
+        [
+          890,
+          930
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "20e160d016e79a9e59e0f4ed20d1cd373f7981f8",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "bytes": 19252,
+      "lines": 506,
+      "ranges": [
+        [
+          205,
+          288
+        ],
+        [
+          295,
+          323
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          175,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          2290,
+          2335
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          733,
+          750
+        ],
+        [
+          1025,
+          1050
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/investigation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db292e533405f8ea4a313f742cae6b25ec7808d9",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "bytes": 37029,
+      "lines": 1154,
+      "ranges": [
+        [
+          700,
+          725
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/investigation.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fee2233ce87d25b1be1335e8a119a773fdcd1d25",
+      "sha256": "cbc2e2744c54dc81a69f7e9ae2d3f7eef5ef8adc8842adde9cf20780a4c2640b",
+      "bytes": 13888,
+      "lines": 50,
+      "ranges": [
+        [
+          13,
+          13
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/evidence-provenance-sources/14.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/evidence-provenance-search.txt",
+    "sha256": "ad06ad443c408faece3c6bd57e62310169398202a18dcf11e6db02dd46dfb9a6",
+    "bytes": 578,
+    "lines": 4,
+    "query": "git grep exact record_evidence_knowledge( spelling under pinned SpacetimeDB module source",
+    "qualification": "Tracked exact spellings only; renamed, indirect, generated or external sources are not excluded."
+  },
+  "authored_content_inventory": {
+    "source_path": "content/quests/investigation.yaml",
+    "source_sha256": "cbc2e2744c54dc81a69f7e9ae2d3f7eef5ef8adc8842adde9cf20780a4c2640b",
+    "scope": "All 11 evidence entries in this tracked JSON-subset YAML file; ID and reveals_clue flags only. Ledger entry was separately inspected. This is authored source inventory, not generated catalog, compilation or runtime evidence.",
+    "entries": [
+      {
+        "id": "night_sylph_castings",
+        "revealing_topics": [
+          "distribution"
+        ]
+      },
+      {
+        "id": "nymph_grave_mould",
+        "revealing_topics": [
+          "filaments"
+        ]
+      },
+      {
+        "id": "salamander_rye_galls",
+        "revealing_topics": [
+          "awns"
+        ]
+      },
+      {
+        "id": "pygmy_ore_biofilm",
+        "revealing_topics": [
+          "vapour"
+        ]
+      },
+      {
+        "id": "footprints",
+        "revealing_topics": [
+          "edges"
+        ]
+      },
+      {
+        "id": "cloth_scrap",
+        "revealing_topics": [
+          "snag"
+        ]
+      },
+      {
+        "id": "bone_dust",
+        "revealing_topics": [
+          "residue"
+        ]
+      },
+      {
+        "id": "bloodless_corpse",
+        "revealing_topics": [
+          "wounds"
+        ]
+      },
+      {
+        "id": "dropped_token",
+        "revealing_topics": [
+          "edge"
+        ]
+      },
+      {
+        "id": "drag_marks",
+        "revealing_topics": [
+          "interruptions"
+        ]
+      },
+      {
+        "id": "ledger_entry",
+        "revealing_topics": [
+          "correction"
+        ]
+      }
+    ]
+  },
+  "historical_source_assessment": "ASSESSMENT-L01-HISTORICAL-1126-1127.json",
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/current_connected_dispositions/127/disposition",
+      "qualification": "Earlier e275 Lens 11 multiple-revealing-topic question, accepted unique count zero. Same knowledge-owner concern; this separately traced action-versus-inspection producer is not automatically an exact alias."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/44",
+      "qualification": "Earlier role 1127 first-source policy and other occupancy/journal scope remain open."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/17",
+      "qualification": "Earlier pr-working model read, not a current or cross-lens verdict."
+    }
+  ],
+  "historical_current_read": {
+    "receipt": "segovb/READ-L11-594.json",
+    "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "source_sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+    "qualification": "Earlier agent read at e275; equal source bytes do not transfer semantic coverage to another lens or reconstruct checkpoint 3821.",
+    "git_object_proof": "E275-INVESTIGATION-MODEL-PROOF.json"
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L11-594.json",
+      "sha256": "c8fc93d33524b9cbc0031a6b29b190759084ac0e8333e270e638ba5a495bf801",
+      "bytes": 10388,
+      "git_blob": "de32316678c84b1d7fbb0212202e771ec19335c3",
+      "preserved_bytes": "recovered/evidence-provenance-059/c8fc93d33524b9cbc0031a6b29b190759084ac0e8333e270e638ba5a495bf801.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L12-252.json",
+      "sha256": "301ab8671fab68a12f7f3b69f936ddaa2b14239294075f1a526364f457264b61",
+      "bytes": 19756,
+      "git_blob": "3968f817c7fcce5045b388c3ce7ad266a5454212",
+      "preserved_bytes": "recovered/evidence-provenance-059/301ab8671fab68a12f7f3b69f936ddaa2b14239294075f1a526364f457264b61.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l11-20261029/READ-058.json",
+      "sha256": "e73be025aa5f4327ed621e8b31093f1d0fe9830cf76595194a353701f51ee55b",
+      "bytes": 9063,
+      "git_blob": "f53d40ae1d3a3187f95e1f28163d6c80a8f8a4c0",
+      "preserved_bytes": "recovered/evidence-provenance-059/e73be025aa5f4327ed621e8b31093f1d0fe9830cf76595194a353701f51ee55b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-058.json",
+      "sha256": "7382fb225401f915f86d465fbb58f28c72f27ea82e6d1c48a6e5f14c1b4e4679",
+      "bytes": 324,
+      "git_blob": "eb508db5788c5ea0f23272fffa351f3c304a0198",
+      "preserved_bytes": "recovered/evidence-provenance-059/7382fb225401f915f86d465fbb58f28c72f27ea82e6d1c48a6e5f14c1b4e4679.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-046.json",
+      "sha256": "393f9ce8aa6993af1a92fb0ce908415f90853e6e5566fac53ade855b7eb21674",
+      "bytes": 3079,
+      "git_blob": "60feddaeffc67e2e04bf13161c8712c9fbaf3973",
+      "preserved_bytes": "recovered/evidence-provenance-059/393f9ce8aa6993af1a92fb0ce908415f90853e6e5566fac53ade855b7eb21674.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-252.json",
+      "sha256": "7eaee251e1370b58832e93a8c79570614c445b39fe1ef5779870549c9ceaba4f",
+      "bytes": 718,
+      "git_blob": "c4c9952a961a203bd779382c2264a19a105ce14d",
+      "preserved_bytes": "recovered/evidence-provenance-059/7eaee251e1370b58832e93a8c79570614c445b39fe1ef5779870549c9ceaba4f.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-034.json",
+      "sha256": "6bd0e4c2b87483fc11381efb85ed7ab0e3435b1c3a1382b3605de3dc916a8dbf",
+      "bytes": 1237,
+      "git_blob": "65f131d54770766c38b02133f62b3d3542129d8c",
+      "preserved_bytes": "recovered/evidence-provenance-059/6bd0e4c2b87483fc11381efb85ed7ab0e3435b1c3a1382b3605de3dc916a8dbf.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-594.json",
+      "sha256": "562ddb471618c7ffa1176b3508be723b1276b490bda5281c99a42dd0e646e401",
+      "bytes": 407,
+      "git_blob": "0a84b80ffa67e898fb3e0f2cc61138cc50ef9f6d",
+      "preserved_bytes": "recovered/evidence-provenance-059/562ddb471618c7ffa1176b3508be723b1276b490bda5281c99a42dd0e646e401.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/STATE-L11-594.json",
+      "sha256": "174a506fc0bda50e361f058e1fe383f8fbd263485b367f3b87ee59cf18499dca",
+      "bytes": 668,
+      "git_blob": "b0b56cab2d7b4062dfa64eed6201f8f55a1274c2",
+      "preserved_bytes": "recovered/evidence-provenance-059/174a506fc0bda50e361f058e1fe383f8fbd263485b367f3b87ee59cf18499dca.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-252.json",
+      "sha256": "8b7c304b71a50995c7c90c14bead7fb4a3e6026101b4f45196aba1b1bd06b149",
+      "bytes": 557,
+      "git_blob": "50379b0f6f6ae9b6d1e9e06cff0d657422de1eaf",
+      "preserved_bytes": "recovered/evidence-provenance-059/8b7c304b71a50995c7c90c14bead7fb4a3e6026101b4f45196aba1b1bd06b149.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/STATE-L12-252.json",
+      "sha256": "18e7650e363719cab291b3831928839c8fd98475f4a264574a2263ce756bd536",
+      "bytes": 839,
+      "git_blob": "5802de9ec00b3f4e184b51005aad3b3a3ae188f9",
+      "preserved_bytes": "recovered/evidence-provenance-059/18e7650e363719cab291b3831928839c8fd98475f4a264574a2263ce756bd536.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt, directly referenced plan, registration, verification, state or delegated proposal. This bounded set is not a complete transitive chain or checkpoint 3821 authority."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-EVIDENCE-ACTION-INSPECTION-PROVENANCE-001",
+      "severity": "unassigned; source-established conflicting source path under admitted-action and inspection preconditions, no observed incident",
+      "classification": "A generated action and physical inspection can identify one evidence object with distinct source strings, while the knowledge row accepts only its first source.",
+      "trace": "The ordinary generated case constructs pattern_evidence_id as a ledger entry at its initially known evidence site. The recurring-depredation Watch action and disappearance-or-loss LocateContact action each output that same ID. Generated outputs are retained with the capability; a successful fresh action publishes the output as evidence knowledge for its owner and canonical case. When no outbreak authority exists, the selected source helper returns None and the action uses its compound attempt ID as source. The authored ledger_entry correction topic has reveals_clue true. After a passed inspection at the matching physical evidence site, the inspection supplies evidence-inspection:{evidence_id}:correction. The knowledge identity uses owner, case and evidence only; an existing row with a different source returns the conflicting-provenance error. The compound action ID begins with a length-framed attempt component and differs from the inspection prefix.",
+      "preconditions_and_effect": "Assume the generated authority and catalog load successfully, the selected action succeeds and records that evidence, the actor later occupies the disclosed site and passes the correction topic, and no earlier guard or duplicate receipt returns. The subsequent inspection reaches the conflicting-provenance error; the selected web route maps a reducer-call error to HTTP 409. Conversely, if the successful revealing inspection records first and a fresh output-producing action reaches the same grant, that grant encounters the different source. These are conditional source paths, not an observed session, compiled catalog, completed transaction, rollback claim or proof every player can reach the sequence.",
+      "safeguards_and_limits": "The gateway view projects evidence only for matching validated generated authority and exact site pins, and the web route checks owner/site before the reducer; the reducer checks actor, physical authority, site and topic, and exact action retry. The source inventory shows all 11 tracked authored evidence definitions have one revealing topic each, including ledger_entry correction, so the earlier multiple-topic hypothesis is not established by this file. The distinct action-versus-inspection source is a newly traced related producer relationship, not proof that all historical scopes are aliases. Other knowledge writers, outbreak source-provenance semantics, normal generation/build success, cross-observer cases and transaction/error policy remain open.",
+      "connected_repair": "After the audit gate, decide whether knowledge owns one first source or a set of independently valid acquisitions. Reconcile the generated action, physical inspection, outbreak source provenance, retained knowledge and observer projections so a legitimate second acquisition has deliberate success and provenance behavior. Preserve exact retry, privacy and authority checks; do not simply drop provenance validation.",
+      "later_acceptance": "After separately authorized implementation and validation, cover action then inspection and inspection then action for one observer/case/evidence, repeated same source, genuinely conflicting authority, distinct observers, multiple authored topics, outbreak material provenance and transaction outcomes.",
+      "discovery": "partial; admitted play sequence and transaction behavior, source-cardinality policy, all producers and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
