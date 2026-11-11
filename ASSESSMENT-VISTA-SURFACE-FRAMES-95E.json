@@ -1,0 +1,1090 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original vista ground/mesh roles, bounded current scene ownership, LOD frame, clipping, mesh seam and tree-root source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1642-1646.json",
+  "git_membership_evidence": "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/details.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "52b0f51114ab35c54f958df3a898a72b303a7eb2",
+      "sha256": "a660783b19504ceda614f69993a3ce39e1eb934621e1f0b8f6ca16c18eac3ac4",
+      "bytes": 12554,
+      "lines": 345,
+      "ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/streams.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e10647860085f3d78a0a533b71c38dd2045b31d7",
+      "sha256": "6228c896920a340129a62aef4dd0d8d0973ee23f11d0ddebf5201c0caf783d10",
+      "bytes": 2140,
+      "lines": 45,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/owned/clip.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b1a5ab9f0bef0f59641492df68b4a3a759e51d56",
+      "sha256": "4e14903e00a1840de0492898616f4971787fe47e206cf9aa86be0677cfceba62",
+      "bytes": 5649,
+      "lines": 173,
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/owned/exterior.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e8b8082fe6e557cc109bacde4656d5f1121cbf49",
+      "sha256": "14bec49a7133afd8e2a87a8a4476e35a6d192e118f024ca9347d09995a8799a6",
+      "bytes": 7420,
+      "lines": 205,
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8fceaec18f244e1dda95c333dbe70fb211fb7be1",
+      "sha256": "46de07541d21c23ef7533675e901fb632dbe0b7d321900d053603c56426f559d",
+      "bytes": 6539,
+      "lines": 192,
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/prepared.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f3b0063a5f1423cea2ad1388bbd6edbada57be06",
+      "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+      "bytes": 2066,
+      "lines": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9361ed8a2d2931a1bcf88fea73231642145c3efc",
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "bytes": 5591,
+      "lines": 168,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7b20a13f624a0724a0b5071b01fcd036d4835597",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "bytes": 17257,
+      "lines": 420,
+      "ranges": [
+        [
+          90,
+          125
+        ],
+        [
+          151,
+          162
+        ],
+        [
+          225,
+          276
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "83d612b92546e41e5e8aa2b8c6d361a25205f2df",
+      "sha256": "df8bdf7862fa0f4e105fc553679c0bc6c4555bf21001b8d1ae52c3f9f166fba7",
+      "bytes": 12948,
+      "lines": 322,
+      "ranges": [
+        [
+          125,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aaabc328d2ea8563c38944007e64ea05eb0f7213",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "bytes": 15643,
+      "lines": 480,
+      "ranges": [
+        [
+          1,
+          479
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          427,
+          467
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d2935bd735cfa600328abf870a8a4fdcccbdfcce",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "bytes": 40769,
+      "lines": 978,
+      "ranges": [
+        [
+          31,
+          38
+        ],
+        [
+          408,
+          444
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. No product, mesh, support query, RNG, render, future ordered historical role or other-lens execution/credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a7fbe35525bc0e222e93cbedfac379560fbf4f0c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "bytes": 6550,
+      "lines": 170,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/vista-surface-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Boundary clamping and triangle interpolation source were read; no support query, constructor or product execution."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1647,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/clip.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "4e14903e00a1840de0492898616f4971787fe47e206cf9aa86be0677cfceba62",
+      "bytes": 5649,
+      "lines": 173,
+      "git_blob": "b1a5ab9f0bef0f59641492df68b4a3a759e51d56",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Adler Lens11 READ236 and Segovb Lens12 READ522 at6533; exact source scopes remain in their receipts.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role is identity-proved only at this checkpoint. The current95e supporting body was inspected separately; it does not confer historical ordered role or checkpoint3821 credit."
+    },
+    {
+      "original_index": 1648,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/owned/exterior.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "14bec49a7133afd8e2a87a8a4476e35a6d192e118f024ca9347d09995a8799a6",
+      "bytes": 7420,
+      "lines": 205,
+      "git_blob": "e8b8082fe6e557cc109bacde4656d5f1121cbf49",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Segovb Lens12 READ522 at6533; exact source scopes remain in their receipts.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Future historical role is identity-proved only at this checkpoint. The current95e supporting body was inspected separately; it does not confer historical ordered role or checkpoint3821 credit."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Natural and owned source selection",
+      "trace": "SceneTerrain property_surface presence selects accepted settlement geometry; absence selects a sampled ring with a playable stitch only for the first matching inner extent. Owned trees and rocks query support directly; sampled rocks use stitched VistaVertexGeometry and a normal gate.",
+      "remaining": "Exact renderer, scattering and accepted producer guarantees are not established by reading these bodies."
+    },
+    {
+      "contract": "Earlier frame observations",
+      "trace": "Adler Lens11 READ236 records at6533 that sampled tree root queries use a world ScenePlanPoint while the tree caller emits local coordinates, and flags owned centred clipping as a dependency. Its accepted unique count change is zero and current source was not reconciled.",
+      "remaining": "The earlier pending contracts remain attributed to Adler, not checkpoint3821; the current symbolic arguments do not settle whole historical contracts or aliasing."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-VISTA-OWNED-SURFACE-ORIGIN-FRAME-001",
+      "lens": 8,
+      "classification": "New95e bounded reassessment of an earlier6533 frame dependency; conditional source argument, not a checkpoint3821 finding.",
+      "canonical_owner": "The scene-coordinate accepted settlement support and the VistaLod-local rectangle/mesh frame at the tactical presentation boundary.",
+      "first_failed_contract": "Owned source triangles retain scene-metre coordinates while the vista mesher clips them against LOD-local rectangles and the presentation later adds the LOD origin as the chunk translation.",
+      "trace": "BoundedSettlementTerrain exposes natural triangles as native scene-metre points and admits Position<Scene>; the same stored natural coordinates feed the collision adapter. ground::vista_lod_meshes_with_morph selects owned::vista_meshes when a property surface is present. That function derives its rectangles from width, depth and spacing around local zero, without origin adjustment; GroundPresentation selects accepted source triangles against those bounds and PreparedTriangle returns an interior triangle unchanged. Owned mesh positions use those coordinates directly, while ActiveVistaSurface.present_chunk adds the LOD origin to the mesh transform and urban retained ground-support mesh.",
+      "symbolic_example": "Take a hypothetical accepted natural triangle at scene coordinates (20,7,20), (20,7,21), (21,7,20), an 11x11 ring with 50m spacing and east origin100m, north origin0m, and inner half extent1m. The source triangle lies wholly inside the chunk rectangle [1,250]x[0,250] selected by the inspected bounds and the interior clip branch retains its coordinates. If it passes the collar and color preparation and the resulting chunk transform is applied, the mesh positions move east by100m (to x120..121), while the source support points remain at x20..21. This is symbolic source arithmetic; no scene, constructor, clipping, mesh, collision, query or renderer ran.",
+      "safeguards": "Finite origins pass the inspected source-origin predicate, but the inspected normal geographic producer emits zero, where this added offset vanishes. A complete admitted scene, accepted triangle construction, nonzero-origin producer, native transform application and visibility were not demonstrated. Actual property/foundation topology, material/color results, all scene producer frames and supported origin policy remain open. The earlier Adler Lens11 READ236 at6533 anticipated the owned-centred clipping dependency and separately recorded the tree frame; preserve that attribution.",
+      "dependencies": [
+        "Trace all supported origin producers, acceptance, original1960/1964 historical helpers and each sampled/owned/focused and retained-ground consumer, including clipping and hole boundaries.",
+        "Compare the earlier Adler/Segovb dependencies and current tree-origin question by exact owner and behavior before deduplicating; a shared frame alone does not establish an alias."
+      ],
+      "acceptance_requirements": [
+        "For each supported LOD origin, accepted scene support, clipping, uploaded mesh positions and retained ground support use a coherent coordinate frame without changing physical support or intentional ring partitioning."
+      ],
+      "discovery": "partial; symbolic source frame and historical context traced, supported producer and alias status open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-VISTA-TREE-SAMPLED-SEAM-HEIGHT-001",
+      "lens": 8,
+      "classification": "New95e conditional source comparison of sampled tree root and first-ring stitched triangle; no checkpoint3821 or runtime finding.",
+      "canonical_owner": "The first sampled vista ring geometry and scenery height policy at the playable-to-vista seam.",
+      "first_failed_contract": "In unowned sampled terrain tree_root_height uses presented_height_at without the playable seam, while the first sampled ring mesh constructs its vertices using the playable-stitched VistaVertexGeometry policy.",
+      "trace": "The first ring passes playable terrain to sampled_vista_lod_meshes_with_morph when its inner half extent matches that terrain. Its generated rectangle vertices sample VistaVertexGeometry, which applies the playable edge stitch over one LOD spacing. By contrast tree_root_height for terrain without property_surface returns the raw presented vista height, with no stitch. Tree candidates skip the rectangle bounded by playable_half_extent+7m, but the stitch band can be much wider: the inspected normal producer specifies first-ring spacing50m. Source-only ground tests compare sampled tree roots to raw presented_height_at and sampled rock elevation to the stitched vertex policy; this is evidence of the explicit current distinctions, not proof they were executed or intended for all seam cases.",
+      "symbolic_example": "Consider a hypothetical unowned flat3x3 playable grid at0m with 1m spacing (half extent1m), an 11x11 zero-origin first ring with 50m spacing and constant100m heights, no selected coarser ring, and a conditional tree candidate at local (9m,0.5m). The candidate is beyond the +7m exclusion. In the mesh cell [0,50]x[0,50], the clipped/subdivided rectangle [1,50]x[0,1] has stitched vertex elevations0m at x1 and98m at x50, so its triangle interpolation at x9 is16m. The tree height query returns100m, a source-expression difference of84m. The sample and grid expressions satisfy inspected local shape, height, spacing and exclusion predicates but do not establish a complete scene or an actual random candidate.",
+      "safeguards": "No tree, candidate seed, surface, mesh, camera, shader or visual result was produced. Actual terrain gradients, source canopy, selection, asset availability, tree card near-distance gate and tolerance/intended policy remain unproved. The source test uses a different point and does not compare the tree to the stitched triangle; no assertion from that test was run. Owned property terrain follows a separate support path.",
+      "dependencies": [
+        "Trace candidate generation and intended tree seating/stand-card approximation across supported terrains, LOD selection, visibility and camera policies.",
+        "Compare the sampled ring triangle, retained surface and scattering height/normal consumers at boundary and interior points; reconcile overlaps with existing ring-selection and tree-frame ledger entries."
+      ],
+      "acceptance_requirements": [
+        "An explicit scenery seating policy preserves or bounds any discrepancy between displayed sampled terrain and tree-root elevation across the playable seam."
+      ],
+      "discovery": "partial; conditional symbolic source expressions and unexecuted source fixture distinction recorded, real incidence and policy open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1364",
+        "/entries/1365",
+        "/entries/1366",
+        "/entries/1367",
+        "/entries/1368",
+        "/entries/1604",
+        "/entries/1609"
+      ],
+      "qualification": "Only bounded partial reassessments; original1960/1964 ordered roles, aliases and full connected contracts remain open. No checkpoint3821 transfer."
+    },
+    {
+      "file": "ASSESSMENT-VISTA-CARD-BATCHING-95E.json",
+      "qualification": "Related tree-origin and card-distance questions; frame paths are connected, not automatically aliases."
+    },
+    {
+      "file": "ASSESSMENT-VISTA-SELECTED-LOD-95E.json",
+      "qualification": "Selected and retained ring source; separate from seam comparison and not automatically an alias."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-205.json",
+      "sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0",
+      "bytes": 13574,
+      "git_blob": "bd5b37f06661bd5823afa2dd3832555555697499",
+      "preserved_bytes": "recovered/vista-surface-059/9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0.gz",
+      "published_sha256": "9aac84d8a209f12d187262c27489e28fdbbce436938d39d68e6aa5e2f4bf78a0",
+      "published_bytes": 13574,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-206.json",
+      "sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428",
+      "bytes": 10076,
+      "git_blob": "bdef465d85fc43250665e32018d90918091422a1",
+      "preserved_bytes": "recovered/vista-surface-059/a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428.gz",
+      "published_sha256": "a692e8d7bc53a71f2c75a1892fe82a872008656ea62ceec9b794edeb6fc08428",
+      "published_bytes": 10076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-214.json",
+      "sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "bytes": 29295,
+      "git_blob": "12f78ab54e0ca5709963ce605b8f843a317b34bf",
+      "preserved_bytes": "recovered/vista-surface-059/ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047.gz",
+      "published_sha256": "ca848558bd1a33db4a32287947a39e72b9603e4aad96ef2536fdb80b71488047",
+      "published_bytes": 29295,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-215.json",
+      "sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "bytes": 11750,
+      "git_blob": "fbe4f308b78f40fd7504dc32c0a426653743263b",
+      "preserved_bytes": "recovered/vista-surface-059/79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac.gz",
+      "published_sha256": "79af28f93aa97f541d149b9f7f806ae6692316ad9abb364c4390223c7f8431ac",
+      "published_bytes": 11750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-216.json",
+      "sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "bytes": 20180,
+      "git_blob": "752ede0dde7695e901a75a8b65cc5dadf3beffa1",
+      "preserved_bytes": "recovered/vista-surface-059/d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7.gz",
+      "published_sha256": "d0b0a57ed6eb8dd8fc44edd962a0be8451aeb6367cf51ce9cb57f02e3f7abda7",
+      "published_bytes": 20180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/vista-surface-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-218.json",
+      "sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "bytes": 28862,
+      "git_blob": "95edfc8fdd908cdbab5fffe854ef97f8864d31cb",
+      "preserved_bytes": "recovered/vista-surface-059/5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca.gz",
+      "published_sha256": "5ef68648c0e28bb9a104f28b9a09e36e55cf214d4d1ad94acca41a99e639f4ca",
+      "published_bytes": 28862,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-219.json",
+      "sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5",
+      "bytes": 21212,
+      "git_blob": "0536d442e7e82cc0140fcf14eb0f50fe1c3b3eee",
+      "preserved_bytes": "recovered/vista-surface-059/2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5.gz",
+      "published_sha256": "2b8699438fc65c9fc4e17d5f991b958f358e08f5a71da036bf69cff932af55e5",
+      "published_bytes": 21212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "bytes": 22794,
+      "git_blob": "952796dee871a39c4b4718abe1f720b50bb7332d",
+      "preserved_bytes": "recovered/vista-surface-059/5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389.gz",
+      "published_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "published_bytes": 22794,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "bytes": 10621,
+      "git_blob": "25bb8a4a591ee3909127f214e44fb93350adcbea",
+      "preserved_bytes": "recovered/vista-surface-059/5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42.gz",
+      "published_sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "published_bytes": 10621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-222.json",
+      "sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019",
+      "bytes": 18625,
+      "git_blob": "f0405686c5fde34b32763163fdcb95a8d7da2bee",
+      "preserved_bytes": "recovered/vista-surface-059/b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019.gz",
+      "published_sha256": "b6d24bf0244f09ddf2fe9a90480dda633a4f944bbe8f849502b329be7c606019",
+      "published_bytes": 18625,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-223.json",
+      "sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440",
+      "bytes": 20076,
+      "git_blob": "810881188d3757dbd1b5c5a13986193c4cf49c04",
+      "preserved_bytes": "recovered/vista-surface-059/f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440.gz",
+      "published_sha256": "f5bb1d1a0895e5e7002feab7792a684b809ce541f34dffe8f71b68c62c36c440",
+      "published_bytes": 20076,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-224.json",
+      "sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7",
+      "bytes": 13262,
+      "git_blob": "5735c5a6bc5b69867b6e2b914fd392d60771d013",
+      "preserved_bytes": "recovered/vista-surface-059/5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7.gz",
+      "published_sha256": "5192b4c763acb3cba73be3d10fdced3fe2b700cc82635adbb37c2a3d431763f7",
+      "published_bytes": 13262,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-225.json",
+      "sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d",
+      "bytes": 14808,
+      "git_blob": "fbbab8f486901271b95be297d07441388f48fe5e",
+      "preserved_bytes": "recovered/vista-surface-059/9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d.gz",
+      "published_sha256": "9d09890331a543d4553f4935b32124825eb78d59c2d8e5793d87d556c4bd323d",
+      "published_bytes": 14808,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-226.json",
+      "sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b",
+      "bytes": 6004,
+      "git_blob": "b750ec3d308133cda742b7b61795c48e649071df",
+      "preserved_bytes": "recovered/vista-surface-059/fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b.gz",
+      "published_sha256": "fb2a0bfc2f41cbe1916921182342f41ccd65e867774469dc0b788dc9a1d6486b",
+      "published_bytes": 6004,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-227.json",
+      "sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5",
+      "bytes": 9381,
+      "git_blob": "dc829a237106bae51d162ed2594d5e34f5d1e5e2",
+      "preserved_bytes": "recovered/vista-surface-059/ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5.gz",
+      "published_sha256": "ef3966445740bcd7a8c7881a63076ef75523675642e8e5efb14cfbd9d8a2f5f5",
+      "published_bytes": 9381,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-228.json",
+      "sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "bytes": 12598,
+      "git_blob": "90a28ed99ca21b61895e44f56d29f3abad161731",
+      "preserved_bytes": "recovered/vista-surface-059/b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801.gz",
+      "published_sha256": "b2b0b9c1dc906ebb8945b12fbd0840a5158987ea0a0c14ce9a94a38ae136a801",
+      "published_bytes": 12598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-229.json",
+      "sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "bytes": 7769,
+      "git_blob": "d563e583ecc5c2413b2d14a29bc66e12b00f68a4",
+      "preserved_bytes": "recovered/vista-surface-059/2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e.gz",
+      "published_sha256": "2e35b4b39759a17b78bc5fa0f1638d74565658986228b28ca74389b91abd5d6e",
+      "published_bytes": 7769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-230.json",
+      "sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "bytes": 13714,
+      "git_blob": "20c134892a8bebb3d8e9924ab9f9b646884583d8",
+      "preserved_bytes": "recovered/vista-surface-059/0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec.gz",
+      "published_sha256": "0963bc7ce3d679a5312cfa776181429d73db241c67dd0b9caace2769d6a833ec",
+      "published_bytes": 13714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-231.json",
+      "sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "bytes": 28619,
+      "git_blob": "933b2f20628d6089414bb9e1cd52abc5a9b51384",
+      "preserved_bytes": "recovered/vista-surface-059/482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f.gz",
+      "published_sha256": "482ac6d5bce82184973ceccf90b77e2bf089125885dc49b35417426bc57faf7f",
+      "published_bytes": 28619,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-232.json",
+      "sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "bytes": 12351,
+      "git_blob": "f94fb7bf5fa58c50328fc55a6d29800df744f74c",
+      "preserved_bytes": "recovered/vista-surface-059/16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e.gz",
+      "published_sha256": "16f6f052264da13c0f31ce87b313b808ab8f8a961639bf5147db6d78593dd98e",
+      "published_bytes": 12351,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-233.json",
+      "sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "bytes": 19400,
+      "git_blob": "b6d53cc4ad9ab3120b059d081bf8239919b03dd2",
+      "preserved_bytes": "recovered/vista-surface-059/4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2.gz",
+      "published_sha256": "4831bc7c2c30cab943473a81129fa0cdeb2f6feba0c07a277d09a6626a4f88f2",
+      "published_bytes": 19400,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-234.json",
+      "sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "bytes": 14490,
+      "git_blob": "bc0f773eeb8695793e91db5321f4a69482370794",
+      "preserved_bytes": "recovered/vista-surface-059/422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136.gz",
+      "published_sha256": "422f9dc005213ace39a30a3fb804f9ad95dca1fe29ffca7913167fbd391bb136",
+      "published_bytes": 14490,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-235.json",
+      "sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "bytes": 18811,
+      "git_blob": "36a766aac5ad6c9426d59d658ed3a8d73a60d2f4",
+      "preserved_bytes": "recovered/vista-surface-059/8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509.gz",
+      "published_sha256": "8fa6c851be9577703b6739e7ed069c47cc16d0d5e5a1feeded4eb69e23744509",
+      "published_bytes": 18811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler same-lens context receipt; no new body or verdict credit"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-236.json",
+      "sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "bytes": 18188,
+      "git_blob": "87fe5a523b60caf394c0c69c8e52a2980136d13b",
+      "preserved_bytes": "recovered/vista-surface-059/e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48.gz",
+      "published_sha256": "e5f6ce8d6aa743c46567aea00a814ebd27847aa5643b5f66fbce064067767f48",
+      "published_bytes": 18188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Adler Lens11 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-475.json",
+      "sha256": "f2a060917b9a1ff3476e72cdf84e574351e51ad03f06c7c85a75afc2ec577a34",
+      "bytes": 737,
+      "git_blob": "62dfb4ce6ebc92b32cd1700442b00dbf5c8181b0",
+      "preserved_bytes": "recovered/vista-surface-059/f2a060917b9a1ff3476e72cdf84e574351e51ad03f06c7c85a75afc2ec577a34.gz",
+      "published_sha256": "f2a060917b9a1ff3476e72cdf84e574351e51ad03f06c7c85a75afc2ec577a34",
+      "published_bytes": 737,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-476.json",
+      "sha256": "f46c613deaedd1f3bc986fff62687469248efe8b9c0897167eb0ebfd578cbfc5",
+      "bytes": 732,
+      "git_blob": "3d0c6a66c0aa8f52e9e8aab0207a8de191c8d1a4",
+      "preserved_bytes": "recovered/vista-surface-059/f46c613deaedd1f3bc986fff62687469248efe8b9c0897167eb0ebfd578cbfc5.gz",
+      "published_sha256": "f46c613deaedd1f3bc986fff62687469248efe8b9c0897167eb0ebfd578cbfc5",
+      "published_bytes": 732,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-477.json",
+      "sha256": "e6d9387283f2344ee8c4aefa4a61eb023a314920bc64f707dafa401b5ec7e1fb",
+      "bytes": 738,
+      "git_blob": "62c92f6847cd66ce48d3d02cca8ff05ed79efdb4",
+      "preserved_bytes": "recovered/vista-surface-059/e6d9387283f2344ee8c4aefa4a61eb023a314920bc64f707dafa401b5ec7e1fb.gz",
+      "published_sha256": "e6d9387283f2344ee8c4aefa4a61eb023a314920bc64f707dafa401b5ec7e1fb",
+      "published_bytes": 738,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-478.json",
+      "sha256": "5f68e20f79ac5b0cb4108ed52221bc9d741cf5f8e35a3c13e3fdd3431458c703",
+      "bytes": 733,
+      "git_blob": "615f9a26e66ec495ff1b5898828a8d7d785db8a7",
+      "preserved_bytes": "recovered/vista-surface-059/5f68e20f79ac5b0cb4108ed52221bc9d741cf5f8e35a3c13e3fdd3431458c703.gz",
+      "published_sha256": "5f68e20f79ac5b0cb4108ed52221bc9d741cf5f8e35a3c13e3fdd3431458c703",
+      "published_bytes": 733,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-479.json",
+      "sha256": "dfef65ccee676716d2343045ef60ddfef61d603e5fad2cd16520f4dfc93e5725",
+      "bytes": 731,
+      "git_blob": "057455556b91497b5e0ed64bb60075c3d7258548",
+      "preserved_bytes": "recovered/vista-surface-059/dfef65ccee676716d2343045ef60ddfef61d603e5fad2cd16520f4dfc93e5725.gz",
+      "published_sha256": "dfef65ccee676716d2343045ef60ddfef61d603e5fad2cd16520f4dfc93e5725",
+      "published_bytes": 731,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-480.json",
+      "sha256": "0219aeb78b393f1e5f394dfab56feb78fe09bf042b5dd19fbd6a07d39bc0c7b6",
+      "bytes": 736,
+      "git_blob": "0f235b49da5d7fbeecaeebff3be4c5fb10460877",
+      "preserved_bytes": "recovered/vista-surface-059/0219aeb78b393f1e5f394dfab56feb78fe09bf042b5dd19fbd6a07d39bc0c7b6.gz",
+      "published_sha256": "0219aeb78b393f1e5f394dfab56feb78fe09bf042b5dd19fbd6a07d39bc0c7b6",
+      "published_bytes": 736,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-236.json",
+      "sha256": "f4087c29cb0d66deeb4764c7829c23070fa9a2b6e0e8191cef67380cb400e893",
+      "bytes": 668,
+      "git_blob": "9e191548b56d600f8711f3112bc4f82018b081b8",
+      "preserved_bytes": "recovered/vista-surface-059/f4087c29cb0d66deeb4764c7829c23070fa9a2b6e0e8191cef67380cb400e893.gz",
+      "published_sha256": "f4087c29cb0d66deeb4764c7829c23070fa9a2b6e0e8191cef67380cb400e893",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-236.json",
+      "sha256": "9a61539b50c59743829a3ec8ad190bd7e83e222b91cbf238a89fdfa43a2ada30",
+      "bytes": 33453,
+      "git_blob": "ee428c868bbbb98238ff59b0c65947cffcb19c79",
+      "preserved_bytes": "recovered/vista-surface-059/9a61539b50c59743829a3ec8ad190bd7e83e222b91cbf238a89fdfa43a2ada30.gz",
+      "published_sha256": "9a61539b50c59743829a3ec8ad190bd7e83e222b91cbf238a89fdfa43a2ada30",
+      "published_bytes": 33453,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-521.json",
+      "sha256": "d137461c99820b4391e8540d2978a095458b24e53fc65c0114d99a52980a2d9a",
+      "bytes": 1725,
+      "git_blob": "4966fd3baf51c4b98c3247e5a8aa737dc3c52d55",
+      "preserved_bytes": "recovered/vista-surface-059/d137461c99820b4391e8540d2978a095458b24e53fc65c0114d99a52980a2d9a.gz",
+      "published_sha256": "d137461c99820b4391e8540d2978a095458b24e53fc65c0114d99a52980a2d9a",
+      "published_bytes": 1725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-522.json",
+      "sha256": "a3ed64d096602244498bc624fffe660f12d503f3ab2eb29a2cef709c6f918e23",
+      "bytes": 1729,
+      "git_blob": "a26bc635dea9b7756142ef6093fa3221eccba672",
+      "preserved_bytes": "recovered/vista-surface-059/a3ed64d096602244498bc624fffe660f12d503f3ab2eb29a2cef709c6f918e23.gz",
+      "published_sha256": "a3ed64d096602244498bc624fffe660f12d503f3ab2eb29a2cef709c6f918e23",
+      "published_bytes": 1729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-521.json",
+      "sha256": "dda94623b60946ea9cdc5807a93b9c62b6c63da0cbbb56439f84270deb61d502",
+      "bytes": 11896,
+      "git_blob": "1e0f97c54f696666f54705209decc1309adc4b00",
+      "preserved_bytes": "recovered/vista-surface-059/dda94623b60946ea9cdc5807a93b9c62b6c63da0cbbb56439f84270deb61d502.gz",
+      "published_sha256": "dda94623b60946ea9cdc5807a93b9c62b6c63da0cbbb56439f84270deb61d502",
+      "published_bytes": 11896,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-522.json",
+      "sha256": "a8cb28a60d50f2e78e3e9965e208b2a7dfd8c3ab997855871c13bf6404f3b341",
+      "bytes": 12511,
+      "git_blob": "17cea330b21432b6c1fa3c500c6334d8d955490a",
+      "preserved_bytes": "recovered/vista-surface-059/a8cb28a60d50f2e78e3e9965e208b2a7dfd8c3ab997855871c13bf6404f3b341.gz",
+      "published_sha256": "a8cb28a60d50f2e78e3e9965e208b2a7dfd8c3ab997855871c13bf6404f3b341",
+      "published_bytes": 12511,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-550.json",
+      "sha256": "22d734bbaddff772ef8feb41d1c7435c552b93f556c78b41223e5b8a99558b47",
+      "bytes": 1190,
+      "git_blob": "6629195457d6a75f2f893edef00dd1fb6b0c460b",
+      "preserved_bytes": "recovered/vista-surface-059/22d734bbaddff772ef8feb41d1c7435c552b93f556c78b41223e5b8a99558b47.gz",
+      "published_sha256": "22d734bbaddff772ef8feb41d1c7435c552b93f556c78b41223e5b8a99558b47",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-551.json",
+      "sha256": "102675d7dc2762f0ad9b6aaf30d3959cc6c6f3deb5908311831bdff65f5e79e5",
+      "bytes": 1202,
+      "git_blob": "c5684e402f03337d3eae7a650bf9f5b40d9daa2f",
+      "preserved_bytes": "recovered/vista-surface-059/102675d7dc2762f0ad9b6aaf30d3959cc6c6f3deb5908311831bdff65f5e79e5.gz",
+      "published_sha256": "102675d7dc2762f0ad9b6aaf30d3959cc6c6f3deb5908311831bdff65f5e79e5",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-552.json",
+      "sha256": "a2943ce788d1d4723e932517b1b512dc1a2091a31d7fa95e7889b52fc783422e",
+      "bytes": 1192,
+      "git_blob": "0fa4d9d9ea29a6668d29c6b5b93294cc7861839f",
+      "preserved_bytes": "recovered/vista-surface-059/a2943ce788d1d4723e932517b1b512dc1a2091a31d7fa95e7889b52fc783422e.gz",
+      "published_sha256": "a2943ce788d1d4723e932517b1b512dc1a2091a31d7fa95e7889b52fc783422e",
+      "published_bytes": 1192,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-553.json",
+      "sha256": "e903f41a3c00118a0764947b4a17e9971b69aae6a8b308609f9087a402b5474c",
+      "bytes": 1190,
+      "git_blob": "770bb5fbe5fd5e53c3f07e46c850bc1f1ec76803",
+      "preserved_bytes": "recovered/vista-surface-059/e903f41a3c00118a0764947b4a17e9971b69aae6a8b308609f9087a402b5474c.gz",
+      "published_sha256": "e903f41a3c00118a0764947b4a17e9971b69aae6a8b308609f9087a402b5474c",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-554.json",
+      "sha256": "56aeea669129ad0ebc360c265a76eafe7e65e1bd19f0a5507a1699c8dcf1e9fc",
+      "bytes": 1200,
+      "git_blob": "249f0ffcfe5495fe56cf274e031b2f23ad78a636",
+      "preserved_bytes": "recovered/vista-surface-059/56aeea669129ad0ebc360c265a76eafe7e65e1bd19f0a5507a1699c8dcf1e9fc.gz",
+      "published_sha256": "56aeea669129ad0ebc360c265a76eafe7e65e1bd19f0a5507a1699c8dcf1e9fc",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-555.json",
+      "sha256": "d6030b77c50430b198592d0fec3872fdfcb344947353533e210b17264bcef8ed",
+      "bytes": 1208,
+      "git_blob": "6bba80440cc311a0f8d95387d613d78aa57566f6",
+      "preserved_bytes": "recovered/vista-surface-059/d6030b77c50430b198592d0fec3872fdfcb344947353533e210b17264bcef8ed.gz",
+      "published_sha256": "d6030b77c50430b198592d0fec3872fdfcb344947353533e210b17264bcef8ed",
+      "published_bytes": 1208,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-521.json",
+      "sha256": "e3c24f5a3e16fd8195aa91ae74c3258d77cfc69433cc463edcc3f15c71a5d9e6",
+      "bytes": 840,
+      "git_blob": "ec040092ea6d327935ba8546985ff83941e85f77",
+      "preserved_bytes": "recovered/vista-surface-059/e3c24f5a3e16fd8195aa91ae74c3258d77cfc69433cc463edcc3f15c71a5d9e6.gz",
+      "published_sha256": "e3c24f5a3e16fd8195aa91ae74c3258d77cfc69433cc463edcc3f15c71a5d9e6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-522.json",
+      "sha256": "059b674fa7aa899b867d660e7e206a73f211b9f0dfb8413decff241178199fd0",
+      "bytes": 840,
+      "git_blob": "34d56341655a778e140e8b08e582cf2e2245007c",
+      "preserved_bytes": "recovered/vista-surface-059/059b674fa7aa899b867d660e7e206a73f211b9f0dfb8413decff241178199fd0.gz",
+      "published_sha256": "059b674fa7aa899b867d660e7e206a73f211b9f0dfb8413decff241178199fd0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-521.json",
+      "sha256": "368ede2cd85a0c70c6d530c73a9ec358a7739b6fe652d7c4bc5ddd9199ce79b7",
+      "bytes": 558,
+      "git_blob": "b76bdc1ad2598498ead890f3b507e8f468733dc1",
+      "preserved_bytes": "recovered/vista-surface-059/368ede2cd85a0c70c6d530c73a9ec358a7739b6fe652d7c4bc5ddd9199ce79b7.gz",
+      "published_sha256": "368ede2cd85a0c70c6d530c73a9ec358a7739b6fe652d7c4bc5ddd9199ce79b7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-522.json",
+      "sha256": "f9d08621d4ab442f7b8e6e3259765c9fa1fef81f7b3234c2bdff2dae71c7fa4a",
+      "bytes": 558,
+      "git_blob": "f2231797aebdf53032622a4db1a406d5348a10f9",
+      "preserved_bytes": "recovered/vista-surface-059/f9d08621d4ab442f7b8e6e3259765c9fa1fef81f7b3234c2bdff2dae71c7fa4a.gz",
+      "published_sha256": "f9d08621d4ab442f7b8e6e3259765c9fa1fef81f7b3234c2bdff2dae71c7fa4a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source, ranges and earlier attributions retained; no checkpoint3821 or other-lens transfer."
+    }
+  ],
+  "remaining": "Trace supported origins, ring/physical mesh and scenery policies, related historical source and aliasing, original1647 onward, all13 lenses and connected ledger. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
