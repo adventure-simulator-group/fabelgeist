@@ -1847,8 +1847,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L12-SOCIAL-ACTION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-HOSTILE-THREAT-DROP-PRIVATE-READMISSION",
+        "lens": 12,
+        "severity": "unassigned; repeated private admission, with no observed canonical-value failure",
+        "classification": "95e revisit of the same earlier Lens12 contract, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/228",
+          "segovb/READ-L12-284.json via ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json",
+          "ASSESSMENT-L11-THREAT-ID-95E.json"
+        ],
+        "relationship_qualification": "Same earlier first-failed boundary revisited. The two private conversions are related but not automatically aliases; the catalog-admission caveat and all earlier fragment qualifications remain open.",
+        "discovery": "partial; all callers, roster/loot consumers, transaction semantics, exact aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GENERATED-THREAT-PRIVATE-READMISSION",
+        "lens": 12,
+        "severity": "unassigned; typed generated identity becomes a string before a private helper and is parsed again",
+        "classification": "95e revisit of the same earlier Lens12 contract, not a new unique historical defect; related to but not automatically an alias of the separate drop-helper finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/241",
+          "segovb/READ-L12-301.json via ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json",
+          "ASSESSMENT-L11-THREAT-ID-95E.json"
+        ],
+        "relationship_qualification": "Same earlier first-failed boundary revisited. The two private conversions are related but not automatically aliases; the catalog-admission caveat and all earlier fragment qualifications remain open.",
+        "discovery": "partial; generated admission, all group callers, aliases, roster, native consumers and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0234.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0238.json"
 }
