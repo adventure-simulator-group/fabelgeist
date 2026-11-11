@@ -190,6 +190,9 @@ question through seeded kin and the outbreak exception. Ordinary player-visible
 reachability and qualifying-family policy remain open.
 `ASSESSMENT-L09-POINT-PREVENTION-95E.json` records the conditional covered-zero
 versus missing-history ambiguity and selected current-minute food/water paths.
+`ASSESSMENT-L09-INVESTIGATION-RECEIPT-95E.json` revisits the earlier
+receipt-owner finding and its dialogue-origin mode. A malformed history
+example is conditional; actual native admission remains unproved.
 `ASSESSMENT-L08-INVENTORY-LOOKUP-95E.json` revisits the predecessor
 indexed-row lookup concern at the current pin, retaining its conditional
 malformed-state premise and the separately attributed historical scan.
@@ -246,6 +249,8 @@ projections and source-test reads without expanding current semantic coverage.
 herbal preparation and measured inventory without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1119.json` records the historical inventory
 container body, which differs from the separately preserved 95e source.
+`ASSESSMENT-L01-HISTORICAL-1120-1122.json` records historical foraging,
+action, provenance and route sources without expanding current coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

@@ -1,0 +1,348 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 9,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected private investigation receipt shape, bounded history and referred-contact producer; full enum-shape and connected-contract lenses remain incomplete.",
+  "source_reasoning": "Static source and source-test inspection plus recovered evidence verification; no product, parser, database, build, test, fixture or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d7a19ff713ecd625d5f9abe11524c2df61ac58d9",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "bytes": 72039,
+      "lines": 1861,
+      "ranges": [
+        [
+          1023,
+          1148
+        ],
+        [
+          1170,
+          1205
+        ],
+        [
+          1475,
+          1525
+        ],
+        [
+          1588,
+          1612
+        ],
+        [
+          1710,
+          1755
+        ],
+        [
+          1770,
+          1800
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a0675335c6d33fe15613737466870ae93dc0daf0",
+      "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+      "bytes": 48739,
+      "lines": 1343,
+      "ranges": [
+        [
+          740,
+          835
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4359a97ae3781a18dff6a45594152fd03fd35b91",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "bytes": 47311,
+      "lines": 1399,
+      "ranges": [
+        [
+          960,
+          1010
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3132453e712ded942c1965d43f607e1e84674170",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "bytes": 25561,
+      "lines": 648,
+      "ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ede23ada463add73e9261ac8fb1aee5f74e04368",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "bytes": 20443,
+      "lines": 586,
+      "ranges": [
+        [
+          175,
+          220
+        ],
+        [
+          350,
+          405
+        ],
+        [
+          465,
+          535
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/investigation_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "987af89d8fd05b449ec3aaca5eb7caba7ade4565",
+      "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "bytes": 46479,
+      "lines": 1291,
+      "ranges": [
+        [
+          275,
+          335
+        ],
+        [
+          700,
+          720
+        ],
+        [
+          918,
+          970
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "848dadf550fbd4a7ed4126d4c53c5c5a4493c4fd",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "bytes": 41036,
+      "lines": 1230,
+      "ranges": [
+        [
+          825,
+          870
+        ],
+        [
+          1000,
+          1075
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/investigation-receipt-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/investigation-receipt-search.txt",
+    "sha256": "63cb557cee2b1d17f5e03bd8504849c75fd84fa6fdcb25571460833c08bc9403",
+    "bytes": 2955,
+    "lines": 17,
+    "query": "git grep exact attempt-construction and private-receipt field spellings at pinned revision under the SpacetimeDB module source",
+    "qualification": "Exact tracked spelling includes definitions and tests; indirect, generated, aliased or external producers and consumers are not excluded."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/discovery_findings_and_dependencies/SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER",
+      "qualification": "Original retained finding and three action-path modes, at recorded pr-working identity; not checkpoint 3821."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/31",
+      "qualification": "Earlier native receipt owner and current-source dependencies remain open."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/35",
+      "qualification": "Earlier additive dialogue-source fourth mode, not a distinct unique finding."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/14",
+      "qualification": "Earlier action and adapters receipt; source identity does not transfer other-lens coverage."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/15",
+      "qualification": "Earlier dialogue-source additive receipt; no personal full historical read of role 1123 is claimed here."
+    }
+  ],
+  "historical_source_assessment": "ASSESSMENT-L01-HISTORICAL-1120-1122.json",
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L12-249.json",
+      "sha256": "b78ddd59a6fd441ec0b99c69e71429272fab7e3f4d51f11ec5ca8a3245178ec9",
+      "bytes": 24478,
+      "git_blob": "fdc9bd1991d53d9f884bb81c479ab8e0f2562ff0",
+      "preserved_bytes": "recovered/investigation-receipt-059/b78ddd59a6fd441ec0b99c69e71429272fab7e3f4d51f11ec5ca8a3245178ec9.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L12-250.json",
+      "sha256": "0d361a69261e781948a8784d12174d262d59e5c9e76e5e203e7ab15530077a98",
+      "bytes": 15549,
+      "git_blob": "c7cae06499965d188e325f9cfd8f1c0ff3854228",
+      "preserved_bytes": "recovered/investigation-receipt-059/0d361a69261e781948a8784d12174d262d59e5c9e76e5e203e7ab15530077a98.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "segovb/PLAN-L12-249.json",
+      "sha256": "bb61b8c44578f7a467096f89ed960b3bdbbcb30df8496be7b209938a29788eff",
+      "bytes": 1724,
+      "git_blob": "1ac82cc56e1f55e31777bc9a1405ebb91a1d853d",
+      "preserved_bytes": "recovered/investigation-receipt-059/bb61b8c44578f7a467096f89ed960b3bdbbcb30df8496be7b209938a29788eff.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-027.json",
+      "sha256": "d31ddb0f4f9fac03072a6b1454bf567208ac20ebb15f4689adfd5e32d237d5db",
+      "bytes": 1259,
+      "git_blob": "875c75bb8f325c173ebf6e0cf2589d43f0f96b2d",
+      "preserved_bytes": "recovered/investigation-receipt-059/d31ddb0f4f9fac03072a6b1454bf567208ac20ebb15f4689adfd5e32d237d5db.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-028.json",
+      "sha256": "13479cadf63ca0bd367963b4208a329d9ab5599ec0a659ff1e89abf8560ac5e0",
+      "bytes": 1291,
+      "git_blob": "508ae1bfd03ea087b669e1aeacc1943e1c41c6ec",
+      "preserved_bytes": "recovered/investigation-receipt-059/13479cadf63ca0bd367963b4208a329d9ab5599ec0a659ff1e89abf8560ac5e0.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-029.json",
+      "sha256": "a0b6b3f64fc1ee3f451e1cb25238b7f3a91ce99e847e4ea16a88f1910fbe62cf",
+      "bytes": 1287,
+      "git_blob": "f2a3309f587e7d2c64e1a8704fffabb3906b26bb",
+      "preserved_bytes": "recovered/investigation-receipt-059/a0b6b3f64fc1ee3f451e1cb25238b7f3a91ce99e847e4ea16a88f1910fbe62cf.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-250.json",
+      "sha256": "ed3578e9bf153cb0b989116a512565cbbf079ab4923ba7f75b38179a0b497569",
+      "bytes": 725,
+      "git_blob": "0ccae86a11e5fda525b0ea9fffdee461ff1b363f",
+      "preserved_bytes": "recovered/investigation-receipt-059/ed3578e9bf153cb0b989116a512565cbbf079ab4923ba7f75b38179a0b497569.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-030.json",
+      "sha256": "a2b7b614c31518b568410f45e3b8a79134c64a5ac22a659b770a2c4815391e36",
+      "bytes": 1256,
+      "git_blob": "0ba0f66a47ceb816f581eadaf6f8cc1745179e4f",
+      "preserved_bytes": "recovered/investigation-receipt-059/a2b7b614c31518b568410f45e3b8a79134c64a5ac22a659b770a2c4815391e36.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-249.json",
+      "sha256": "35457872e03a56144cdfb692de483918a56af10fcdea660790de0dbfcee84898",
+      "bytes": 557,
+      "git_blob": "8298ff989056f226236bcbf057a52610badac5dd",
+      "preserved_bytes": "recovered/investigation-receipt-059/35457872e03a56144cdfb692de483918a56af10fcdea660790de0dbfcee84898.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/STATE-L12-249.json",
+      "sha256": "b02eeda7faf059dcfeda3ded0b7e735a726d8df01b71c4dd82fd085b2e077791",
+      "bytes": 839,
+      "git_blob": "05d47c2eb407e92e5953d8cf536f63031951bbf0",
+      "preserved_bytes": "recovered/investigation-receipt-059/b02eeda7faf059dcfeda3ded0b7e735a726d8df01b71c4dd82fd085b2e077791.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-250.json",
+      "sha256": "771861c96c44ebbd232361375b99bf3f80690ef3a079e0299e070d4f5b84e681",
+      "bytes": 557,
+      "git_blob": "721596237f7bf2dfcfb6cc6b9c764eb28b8a189e",
+      "preserved_bytes": "recovered/investigation-receipt-059/771861c96c44ebbd232361375b99bf3f80690ef3a079e0299e070d4f5b84e681.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/STATE-L12-250.json",
+      "sha256": "c6a815066dc4315815f648750a57f67df0c4aa8a42c3740bddae94921b2af8c6",
+      "bytes": 839,
+      "git_blob": "073bfeaef7cb7310e7164fb3cb8957e8f51da20d",
+      "preserved_bytes": "recovered/investigation-receipt-059/c6a815066dc4315815f648750a57f67df0c4aa8a42c3740bddae94921b2af8c6.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and directly linked plan, registration, verification or state. This bounded set does not establish a complete transitive support chain or checkpoint 3821 authority."
+    }
+  ],
+  "symbolic_invalid_bounded_payload": {
+    "resolution": {
+      "result": "no_new_information",
+      "success": false,
+      "cost": {
+        "minutes": 1,
+        "fatigue": 0,
+        "food_units": 0,
+        "water_units": 0
+      },
+      "resulting_uncertainty_bps": 9000,
+      "risk_bps": 0,
+      "risk_triggered": false,
+      "effective_skill_bps": 0
+    },
+    "attempt_number": null,
+    "persistent_progress_bps": null,
+    "success_threshold_bps": null,
+    "guaranteed_by_attempt": null
+  },
+  "symbolic_qualification": "Constructed from the selected source-level valid-resolution example with null bounded metadata. It is a hypothetical evidence illustration, not an executed fixture or proof a native producer admits it.",
+  "candidates": [
+    {
+      "id": "SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER",
+      "severity": "unassigned; source-established private schema ownership gap with conditional malformed-state consequences",
+      "classification": "Independent 95e enum-shape revisit of an earlier retained receipt-owner finding, including the separately recorded dialogue-origin mode; not another unique defect.",
+      "producer_and_history_trace": "The action path writes a bare typed Resolution for unbounded actions, a five-key map populated from BoundedProgressResolution for generated bounded actions, or an interrupted status map. A separate referred-contact path writes a dialogue-source map. The native InvestigationActionAttempt stores these in a String. The history consumer handles successful attempts as Break, parses unsuccessful JSON dynamically, accepts a seven-key bare failed Resolution or a five-key bounded shape when only its nested Resolution decodes and is failed, and treats interruption, unknown shapes and gaps as breaks. It counts contiguous matching capability, owner, method and prior versions before calling the bounded resolver. The selected core referred-contact transition sets attempt_success true, so its selected dialogue receipt reaches the success break rather than being interpreted as a failed bounded action.",
+      "conditional_counterexample": "Assume a stored unsuccessful prior attempt whose capability, owner, method and immediately preceding version match, with an otherwise valid failed nested Resolution and exactly the bounded five keys, but each of the four progress fields set to JSON null. The selected history predicate checks those four names, not their values, so source reasoning indicates it counts the record as a completed failure; BoundedProgressResolution declares those fields as u32 or u16 and could not represent null as typed numeric values. One such counted history entry can contribute to the next bounded resolution; its 1,900 basis-point per-failure increment is capped by the core formula. No actual malformed row, producer, database, parser, test, reducer, random outcome or player incident was observed.",
+      "safeguards_and_limits": "Selected current writers derive bounded numeric fields from the typed core result. The selected source assertions expect gaps, success, interrupted and the empty-object malformed example to break; they were read only and do not establish behavior for every invalid receipt. The exact-spelling inventory is not an exhaustive all-writer or external-client proof. Native admission, persisted-row reachability, transaction behavior and handling policy for malformed records remain open. The historical record explicitly recognized legitimate unbounded and bounded modes; the word historical in a comment is not alone proof of a compatibility shim.",
+      "first_unresolved_contract": "Determine the full producer and native-reader inventory, admitted native receipt invariants and malformed-history policy; reconcile the dialogue source and exact replay with the retained finding before choosing the authoritative receipt representation.",
+      "connected_repair": "After audit completion, give each supported current receipt mode an explicit shared owner that reuses Resolution and BoundedProgressResolution, covers dialogue-origin and interruption semantics, and makes writer, storage codec and history classification agree. Decide malformed admission and break policy, and preserve exact actor/method/version retry and failure-history behavior. Use the clean final schema directly, without compatibility shims or retaining historical encodings as a requirement.",
+      "later_acceptance": "After separately authorized implementation and validation, cover current completed bounded and unbounded failures and successes, dialogue success, interruptions, gaps, invalid field values, actor/method/version separation and replay, with native receipt admission and selected external readers. No product validation is performed here.",
+      "discovery": "partial; all native producers/readers, invalid-row reachability, exact replay and malformed-history policy, related aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

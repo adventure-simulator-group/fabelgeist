@@ -1,0 +1,17 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1051:fn failed_attempt_history_kind(private_resolution_json: &str) -> AttemptHistoryKind {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1060:    let Ok(value) = serde_json::from_str::<serde_json::Value>(private_resolution_json) else {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1133:                failed_attempt_history_kind(&attempt.private_resolution_json)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1730:            .insert(InvestigationActionAttempt {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1743:                private_resolution_json: private_interrupted_action_resolution_json(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1781:        .insert(InvestigationActionAttempt {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/actions.rs:1792:            private_resolution_json: private_action_resolution_json(resolution, bounded_progress)?,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/capabilities.rs:797:        .insert(InvestigationActionAttempt {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/capabilities.rs:808:            private_resolution_json: serde_json::json!({
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/model.rs:979:pub struct InvestigationActionAttempt {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/model.rs:993:    pub private_resolution_json: String,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs:963:    let receipt = reducer.find("private_resolution_json").unwrap();
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs:190:) -> InvestigationActionAttempt {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs:191:    InvestigationActionAttempt {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs:202:        private_resolution_json: format!(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs:64:    interrupted.private_resolution_json = serde_json::json!({
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs:86:    malformed.private_resolution_json = "{}".into();

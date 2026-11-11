@@ -1492,6 +1492,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L08-INVENTORY-LOOKUP-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER",
+        "lens": 9,
+        "severity": "unassigned; source-established private schema ownership gap with conditional malformed-state consequences",
+        "classification": "Independent 95e enum-shape revisit of an earlier retained receipt-owner finding, including the separately recorded dialogue-origin mode; not another unique defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/211",
+          "baseline-059/queue.json#/entries/921",
+          "baseline-059/queue.json#/entries/925",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-INVESTIGATION-PRIVATE-RECEIPT-OWNER"
+        ],
+        "relationship_qualification": "Same canonical checkpoint 059 finding independently revisited at 95e; the dialogue mode was already recorded additively, so neither is a new unique historical defect. Version-exhaustion policy is related but a distinct open contract.",
+        "discovery": "partial; all native producers/readers, invalid-row reachability, exact replay and malformed-history policy, related aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L09-INVESTIGATION-RECEIPT-95E.json"
       }
     ]
   },
