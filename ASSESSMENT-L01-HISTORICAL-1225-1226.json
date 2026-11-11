@@ -1,0 +1,95 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1225,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; exact source hash controls identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1225",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "lines": 3250,
+      "new_personal_read_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-INVENTORY-LOOKUP.json",
+          "ranges": [
+            "1-159",
+            "490-525"
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-ROW-IDENTITY.json",
+          "ranges": [
+            "1-56",
+            "490-525",
+            "2200-2277",
+            "2506-2548",
+            "2640-2648",
+            "2692-2731",
+            "2829-2904"
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MISSION-ID-SERDE.json",
+          "ranges": [
+            [
+              1208,
+              1232
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1226,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; exact source hash controls identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1226",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "lines": 908,
+      "new_personal_read_ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen inventory/trade body (3250 lines) and journey/camp body (908 lines) were personally read through actual EOF, including source-only tests without execution. Prior bounded 95e observations on role 1225 remain individually attributed; physical-p16 role 287 remains a separate historical identity.",
+    "Earlier Lens12 batch 299 credited five consecutive, individually qualified partial reads rather than a whole-file single-call reread, plus bounded supporting rereads with zero new original population credit. Batch 300 independently read role 1226; both retain accepted-unique-count zero, current reconciliation false, other-lens nontransfer and open implementation gate. Direct receipts, all five partials, referenced support registrations, plans, state and verification are hash-checked and preserved.",
+    "Selected current sender admission, grant, route and temporary-stake traces are separate bounded records, not 3821 recovery, full lens completion or automatic cross-lens coverage."
+  ],
+  "remaining": "Continue role 1227; review all other inventory, party, travel, native policy, independent lenses, family and alias scopes."
+}

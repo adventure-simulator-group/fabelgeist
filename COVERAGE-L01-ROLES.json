@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1578,
+    "unassessed": 1577,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 98,
+    "bounded-current-trace-only": 97,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1166,
+    "full-historical-body-trace-open": 1168,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1221–1224 have now been read. Continue at role 1225; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1225–1226 have now been read. Continue at role 1227; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -17119,7 +17119,7 @@
       "historical_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
       "registry_pointer": "/files/1225",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
       "current_git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
       "current_observations": [
@@ -17152,7 +17152,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1225-1226.json"
     },
     {
       "original_index": 1226,
@@ -17162,7 +17163,9 @@
       "historical_sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
       "registry_pointer": "/files/1226",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1225-1226.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 1227,

@@ -1,0 +1,900 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    3,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected inventory, party and storefront actor-admission paths and three earlier internal-contract revisits at 95e; deployment reachability unverified.",
+  "source_reasoning": "Pinned source inspection and evidence-byte verification only. Source tests read without execution; no product build, test, simulation, runtime, database, browser or network probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "bytes": 31853,
+      "lines": 908,
+      "ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          980
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          317,
+          330
+        ],
+        [
+          680,
+          710
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f3ff58f7dc39a872385ba9550a72e7036b3cb83b",
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "bytes": 22266,
+      "lines": 610,
+      "ranges": [
+        [
+          253,
+          278
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          40,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11bb9964c14b7ce",
+      "sha256": "d3fa07b94a49cbd1c54ba90e00a9e76cad9b757990279309e2abf171466ac28a",
+      "bytes": 1987,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          528,
+          610
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "bytes": 14490,
+      "lines": 496,
+      "ranges": [
+        [
+          17,
+          58
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18f0d1bdc2189552642b19d8acae7ef75a025abb",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "bytes": 6706,
+      "lines": 200,
+      "ranges": [
+        [
+          23,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f29528cec924edd2801d66251bd82045f98f44a",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "bytes": 13773,
+      "lines": 455,
+      "ranges": [
+        [
+          165,
+          185
+        ],
+        [
+          200,
+          320
+        ],
+        [
+          340,
+          360
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/transfers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "51627d171471c4fb56c5ca1a0bc721fe7b8995af",
+      "sha256": "77739810b7f83db5b07c97e45d67f1ffe199c658b39c59a9abadb5665b00e162",
+      "bytes": 7354,
+      "lines": 228,
+      "ranges": [
+        [
+          1,
+          155
+        ],
+        [
+          170,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5150aade7681ef4e6b37589a698aa4faed0d06a1",
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "bytes": 29838,
+      "lines": 898,
+      "ranges": [
+        [
+          373,
+          465
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/parties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "218243ae0fd9abac57faeb4aa77ff0d2398369e0",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "bytes": 27498,
+      "lines": 878,
+      "ranges": [
+        [
+          823,
+          852
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ceeec2cf3a9ba5786df3822fd56e285c9641f9d0",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "bytes": 35092,
+      "lines": 930,
+      "ranges": [
+        [
+          225,
+          247
+        ],
+        [
+          291,
+          316
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/discard_inventory_items_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6c2126ee18dd792afce75f04ec1efbecd80f90ee",
+      "sha256": "dc3b3b9a4a9a8854aa70b0c9736e4416a25e25c37c447646a180c8d766fd43c5",
+      "bytes": 3258,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/transfer_party_item_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "861a43e5ea18ac6ffd3f151e938beffa81c594fa",
+      "sha256": "16c994de93f0bd1765f64bc39ac425d84ac4a7b5deca72a545cd02fb859d21c6",
+      "bytes": 3458,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/finalize_party_offer_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "466c421aa639c36518dc0a1bf3ffda96c2e7f828",
+      "sha256": "b6794a88e44e73fec8ed2f3d746cb5a0d3a96e872336cad77edf24cf8c2be315",
+      "bytes": 3595,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/17.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/deposit_party_inventory_item_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6be30fda0e2a996b71b7f63e2c1f279c40c8e233",
+      "sha256": "e8ddbaa3dc483f86aac85b5d1a90a5d9ab17e8f7c92956f74cc3ff6df0d2943e",
+      "bytes": 3273,
+      "lines": 91,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/18.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/withdraw_party_inventory_item_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa1424f51a03a6aff78d18f17df36598bd1453e",
+      "sha256": "b43bbef9736b46b6cf3b5e49ae3448ea3eaa1898abe2a7cccbd8d7024a785015",
+      "bytes": 3397,
+      "lines": 96,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/19.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/liquidate_party_inventory_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "88fcb961d5acdeabecc377dd52ca864439eb9ff2",
+      "sha256": "62af9feb8fd4c9562498b7da65ac8b4c32367a141536ee225a4683b547be66b4",
+      "bytes": 3628,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/20.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/leave_party_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b52d26201e5f9e565da4a86e81182dd093220b73",
+      "sha256": "dcba9cead157142f79d5f448a9e827b112c5664ffcc43e1321a4e620bca9bf9d",
+      "bytes": 2520,
+      "lines": 72,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/21.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/remove_party_member_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ee9a79d88a916aec9c73bf481a40e944fa49505",
+      "sha256": "8b8b2006e12e05ae6cc71acfea1d5a03ac4b17eeec015220f674f467279891a7",
+      "bytes": 3025,
+      "lines": 85,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/22.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/disband_party_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8eba3257aede62c53fb90b0c8e83186eade2a2a3",
+      "sha256": "a0571a247d2b979dd2fb7215fe1efafab846faa2a87c148e7af33b456db1671e",
+      "bytes": 2750,
+      "lines": 81,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/23.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/finalize_storefront_trade_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e0a1758c851d780a2cd4408776e602f82cd572c5",
+      "sha256": "c1e1cea8604d3d964a2c816e1136c525ddec81ab9e148150885ac93fffa92704",
+      "bytes": 4869,
+      "lines": 138,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/24.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/finalize_merchant_trade_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a14050e5e9af5bedf4cbdadd9ba5330b79c62e28",
+      "sha256": "ccefd962628d419b4fbf0b9d2e30e7e7ca3bae0f510d4c5260fb3a10d75c0fdb",
+      "bytes": 4277,
+      "lines": 124,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-admission-sources/25.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/current_connected_dispositions/132",
+      "qualification": "Earlier e275 native registration/actor-admission chain; no automatic alias or historical read transfer to newly inspected endpoints."
+    },
+    {
+      "file": "ASSESSMENT-INVENTORY-MUTATION-95E.json",
+      "qualification": "Separate current generic change_inventory_item admission, quantity and grant contracts; related authority owner but different endpoints."
+    },
+    {
+      "file": "ASSESSMENT-L03-PARTY-ACTOR-95E.json",
+      "qualification": "Separate current party request/dismiss/vote sender trace."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/238",
+      "qualification": "Same earlier party grant error erasure."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/239",
+      "qualification": "Same earlier private storefront route readmission."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/240",
+      "qualification": "Same earlier temporary-member stake chain; separate related Lens13 record queue entry 16 retains its original scope."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/990",
+      "qualification": "Broad role1225 scope and unresolved connected contracts; selected partial traces only."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1225-1226.json",
+      "qualification": "Separate historical Lens1 body reads and preserved earlier Lens12 receipt attribution."
+    }
+  ],
+  "native_source_evidence": [
+    {
+      "file": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+      "qualification": "Pinned locked documentation and source; not evidence of deployed host admission."
+    },
+    {
+      "file": "recovered/l2-native-registration-evidence/archives/spacetimedb-bindings-macro-2.6.1.crate",
+      "qualification": "Previously pinned reducer registration source; earlier delegated attribution retained."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-299-001.json",
+      "sha256": "bd8c11588b06f4cb52c4dd100f253bf231559e362c28b846dbdac6babda0bb35",
+      "bytes": 4507,
+      "git_blob": "a73fb8e97e0e374396e0a45b7c23869a51b81221",
+      "preserved_bytes": "recovered/inventory-admission-059/bd8c11588b06f4cb52c4dd100f253bf231559e362c28b846dbdac6babda0bb35.gz",
+      "published_sha256": "bd8c11588b06f4cb52c4dd100f253bf231559e362c28b846dbdac6babda0bb35",
+      "published_bytes": 4507,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-299-002.json",
+      "sha256": "90b3fbaa08bf1248009f4cb380560821acafba8f0951e4019cb729293f9b6702",
+      "bytes": 4979,
+      "git_blob": "7e8543f698c4b94db5f07c553f6038dcbf9fab08",
+      "preserved_bytes": "recovered/inventory-admission-059/90b3fbaa08bf1248009f4cb380560821acafba8f0951e4019cb729293f9b6702.gz",
+      "published_sha256": "90b3fbaa08bf1248009f4cb380560821acafba8f0951e4019cb729293f9b6702",
+      "published_bytes": 4979,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-299-003.json",
+      "sha256": "7ed29225e881cf514779d34e04400e3876cc486173521466d2ccf2918d474397",
+      "bytes": 5492,
+      "git_blob": "07052e2b124111a9d43411d99fddfe98956b930a",
+      "preserved_bytes": "recovered/inventory-admission-059/7ed29225e881cf514779d34e04400e3876cc486173521466d2ccf2918d474397.gz",
+      "published_sha256": "7ed29225e881cf514779d34e04400e3876cc486173521466d2ccf2918d474397",
+      "published_bytes": 5492,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-299-004.json",
+      "sha256": "8689754dc86c4ae6faca1a722b0722758f3c636587626c56f7d35c6324f40359",
+      "bytes": 5354,
+      "git_blob": "a477c767926f33eb5fefe7adf8b8bd29635f6cbc",
+      "preserved_bytes": "recovered/inventory-admission-059/8689754dc86c4ae6faca1a722b0722758f3c636587626c56f7d35c6324f40359.gz",
+      "published_sha256": "8689754dc86c4ae6faca1a722b0722758f3c636587626c56f7d35c6324f40359",
+      "published_bytes": 5354,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-299-005-EOF.json",
+      "sha256": "ec9fc1b31490c67236eb4fe79b1b68d6d7af19a9fe8dc8f92403ca95f7e042b4",
+      "bytes": 7355,
+      "git_blob": "067af2507dafe33fa0957136a35fe48c5981c9d9",
+      "preserved_bytes": "recovered/inventory-admission-059/ec9fc1b31490c67236eb4fe79b1b68d6d7af19a9fe8dc8f92403ca95f7e042b4.gz",
+      "published_sha256": "ec9fc1b31490c67236eb4fe79b1b68d6d7af19a9fe8dc8f92403ca95f7e042b4",
+      "published_bytes": 7355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-299.json",
+      "sha256": "02c1279b6cee7f14a467bfa0012a14f0b02889f010a062b4b8d21e1ec43ad1b7",
+      "bytes": 726,
+      "git_blob": "5bcf52be27ee94067e39a3ee872d5216cf5b6344",
+      "preserved_bytes": "recovered/inventory-admission-059/02c1279b6cee7f14a467bfa0012a14f0b02889f010a062b4b8d21e1ec43ad1b7.gz",
+      "published_sha256": "02c1279b6cee7f14a467bfa0012a14f0b02889f010a062b4b8d21e1ec43ad1b7",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-300.json",
+      "sha256": "e2b466dd5782a141726db6127e437d3ca6e598da0cdbf3a4539144d10e905462",
+      "bytes": 721,
+      "git_blob": "35c35111e1cd7a84d017a5136bd930f63641f436",
+      "preserved_bytes": "recovered/inventory-admission-059/e2b466dd5782a141726db6127e437d3ca6e598da0cdbf3a4539144d10e905462.gz",
+      "published_sha256": "e2b466dd5782a141726db6127e437d3ca6e598da0cdbf3a4539144d10e905462",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-299.json",
+      "sha256": "b4bdfe8431ede6498cf10c38100721bc8901c89628de2e2b600fd4b433dca550",
+      "bytes": 21017,
+      "git_blob": "a8f13dfba726f02a58702600926d4fa0e89a2d8e",
+      "preserved_bytes": "recovered/inventory-admission-059/b4bdfe8431ede6498cf10c38100721bc8901c89628de2e2b600fd4b433dca550.gz",
+      "published_sha256": "b4bdfe8431ede6498cf10c38100721bc8901c89628de2e2b600fd4b433dca550",
+      "published_bytes": 21017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-300.json",
+      "sha256": "8799daef5d2e30e6ab7fd5046ba983b2e6d79dfc0257f38f90490b5baa017b8f",
+      "bytes": 10150,
+      "git_blob": "a7d390ff3db59c9e95ee1ae9d7e6063d6d2f1bef",
+      "preserved_bytes": "recovered/inventory-admission-059/8799daef5d2e30e6ab7fd5046ba983b2e6d79dfc0257f38f90490b5baa017b8f.gz",
+      "published_sha256": "8799daef5d2e30e6ab7fd5046ba983b2e6d79dfc0257f38f90490b5baa017b8f",
+      "published_bytes": 10150,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-043.json",
+      "sha256": "139b719e5d2b79a5bee71c9a733332c27870badbb667fc3712dd37ac0963d804",
+      "bytes": 1201,
+      "git_blob": "86870a5aa9394f2a40a8b0371e3636e8ebc27f4b",
+      "preserved_bytes": "recovered/inventory-admission-059/139b719e5d2b79a5bee71c9a733332c27870badbb667fc3712dd37ac0963d804.gz",
+      "published_sha256": "139b719e5d2b79a5bee71c9a733332c27870badbb667fc3712dd37ac0963d804",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier bounded supporting-read registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-045.json",
+      "sha256": "9b681d076c9af07bc2c9ccc8f0787ea3acaae5eff00519c275f7490059f3bf80",
+      "bytes": 1484,
+      "git_blob": "ee8b6ea092e5b74044f8eada1f6d1a8cb6e0bf56",
+      "preserved_bytes": "recovered/inventory-admission-059/9b681d076c9af07bc2c9ccc8f0787ea3acaae5eff00519c275f7490059f3bf80.gz",
+      "published_sha256": "9b681d076c9af07bc2c9ccc8f0787ea3acaae5eff00519c275f7490059f3bf80",
+      "published_bytes": 1484,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier bounded supporting-read registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-132.json",
+      "sha256": "7c38e55500d7874e8109cc99161e4a21de44e020ee31e5ccf1d2aba814369237",
+      "bytes": 1226,
+      "git_blob": "a228dac6c92a0d7837ba42696a2abc051831454a",
+      "preserved_bytes": "recovered/inventory-admission-059/7c38e55500d7874e8109cc99161e4a21de44e020ee31e5ccf1d2aba814369237.gz",
+      "published_sha256": "7c38e55500d7874e8109cc99161e4a21de44e020ee31e5ccf1d2aba814369237",
+      "published_bytes": 1226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-133.json",
+      "sha256": "6bbb687cacb7a12969e0805b176bcd46e7a0181ecf2214b35da1bc3fd29d7e1c",
+      "bytes": 1154,
+      "git_blob": "70875eed03760d1a07af207f87d06816acd22952",
+      "preserved_bytes": "recovered/inventory-admission-059/6bbb687cacb7a12969e0805b176bcd46e7a0181ecf2214b35da1bc3fd29d7e1c.gz",
+      "published_sha256": "6bbb687cacb7a12969e0805b176bcd46e7a0181ecf2214b35da1bc3fd29d7e1c",
+      "published_bytes": 1154,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-299.json",
+      "sha256": "df8ea65905fb049a6c5bc9a3b823b546579144bfe51777d80a0d620374a887e3",
+      "bytes": 840,
+      "git_blob": "dbfe4d9510f5c9d45c6efc8bf2896002ca9f8824",
+      "preserved_bytes": "recovered/inventory-admission-059/df8ea65905fb049a6c5bc9a3b823b546579144bfe51777d80a0d620374a887e3.gz",
+      "published_sha256": "df8ea65905fb049a6c5bc9a3b823b546579144bfe51777d80a0d620374a887e3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-300.json",
+      "sha256": "f62c708496dec26617f0af104138e5c098bc0c204f75e381ee18c563b0ae4ed9",
+      "bytes": 840,
+      "git_blob": "4467b53dcb7aa882a099f9765defc63ae6b9e40c",
+      "preserved_bytes": "recovered/inventory-admission-059/f62c708496dec26617f0af104138e5c098bc0c204f75e381ee18c563b0ae4ed9.gz",
+      "published_sha256": "f62c708496dec26617f0af104138e5c098bc0c204f75e381ee18c563b0ae4ed9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-299.json",
+      "sha256": "8a7424863f0cab33a4836e919176ac2ee5748e7a220d67cd4c4a0ec25c5eae72",
+      "bytes": 558,
+      "git_blob": "efad0a313d2b8064f1cb8197bf2e15cb8d9c1269",
+      "preserved_bytes": "recovered/inventory-admission-059/8a7424863f0cab33a4836e919176ac2ee5748e7a220d67cd4c4a0ec25c5eae72.gz",
+      "published_sha256": "8a7424863f0cab33a4836e919176ac2ee5748e7a220d67cd4c4a0ec25c5eae72",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-300.json",
+      "sha256": "47a5f1d12022096b5b0dd9aaab69b4754a61dec489301e60c9d9f1c7bc9f4405",
+      "bytes": 558,
+      "git_blob": "a9ce05e625a96e688b55e4288f1074379f69a62b",
+      "preserved_bytes": "recovered/inventory-admission-059/47a5f1d12022096b5b0dd9aaab69b4754a61dec489301e60c9d9f1c7bc9f4405.gz",
+      "published_sha256": "47a5f1d12022096b5b0dd9aaab69b4754a61dec489301e60c9d9f1c7bc9f4405",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, role, attribution, partial-read qualifications and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-INVENTORY-DISCARD-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "discard_inventory_items checks actor life, an absence of a blocking encounter, aligned positive unique quantities, item ownership/availability, unequipped state and exact physical-object custody, then removes a full or partial row or its carried subtree. It has no explicit sender/gateway or actor-ownership gate. Personal inventory rows are public in the inspected schema; knowledge of exact rows, applicable host access and a successful call remain premises.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Bind a supported caller to the character or trusted gateway before the destructive operation, preserving existing quantity, equipment, object/custody, encounter and rollback contracts.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-TRANSFER-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "transfer_party_item checks two living distinct characters, same-party membership, an available unequipped source row and operation-specific stable-object, food, measured, durable and quantity handling, but no sender-to-participant or gateway gate in the inspected body. The selected web route obtains an active character from the session and permits it to be either the source or recipient; therefore source-only ownership is not assumed to be the intended policy.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Determine supported source/recipient and gateway/simulation authorization, then apply that policy before transfer while preserving both valid directions, exact custody, amount and side-state handling.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-OFFER-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "finalize_party_offer admits aligned positive typed lines, verifies each actor is living, each line has distinct same-party participants and an owned unequipped source item, then calls transfer_party_item for each line. Its body has no caller-to-participant or gateway check; the selected web handler limits submitted IDs to its session actor and displayed counterpart. Per-line same-party validation is not a sender check, and separate lines need not share one party in the inspected parser and body.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Reconcile caller and consent policy for every line and all offer producers before granting a supported sender authority; retain typed positive quantities and full per-line custody and atomicity semantics. Do not treat this as automatically identical to the single-transfer endpoint.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-DEPOSIT-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "deposit_party_inventory_item requires a living character, no blocking encounter, owned available unequipped personal inventory and valid physical custody, then moves the item to that character’s party and credits their stake. It does not explicitly bind the sender to that character. The selected web deposit derives character ID from session; fallible-party-grant error erasure is a distinct earlier contract.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Admit the supported character/gateway caller before deposit and separately reconcile object state, stake valuation and fallible grant propagation.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-WITHDRAW-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "withdraw_party_inventory_item requires a living character, no blocking encounter, a row of that character’s party and a valid quantity, applies stake and any personal-coin top-up, then transfers pooled inventory into that character’s custody. The inspected reducer has no explicit sender-to-character or gateway gate; the selected web withdrawal uses session character ID.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Bind the supported caller before withdrawal while retaining stake/top-up, exact subtree, measured material, food and equipment semantics. Keep this distinct from deposit and liquidation.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-LIQUIDATE-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "liquidate_party_inventory checks a living character at the stated settlement, market or general-store service, the character’s party, unique valid noncurrency pool rows and checked value before deleting staged assets and crediting party currency. It has no explicit sender-to-character or gateway gate; the selected web path uses its session actor. A party member’s intended right to liquidate and the deploy-time access rules remain policy questions.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Decide member/leader and gateway policy and enforce caller admission before liquidation, preserving item and subtree valuation, coin conservation and all service/location rules.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-REMOVAL-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "leave_party passes the supplied character as both actor and member to remove_party_member. The latter checks the living actor, same party, self-or-leader role, encounter, camp fireplace and stake requirements, then removes membership and normalizes leadership; neither inspected entry body explicitly binds sender to actor. The selected web leave action uses the session character. Existing temporary positive-stake settlement is a separate earlier defect.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Reconcile supported self-leave and leader-dismiss policies, then bind caller or trusted gateway to the acting character before any mutation; preserve fireplace, stake, membership, vote and solo-party transitions.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-DISBAND-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "disband_party checks an unresolved encounter, a living supplied leader matching the target party, fireplace and location rules, reportable contracts, zero member stakes, and pooled inventory/reserve constraints before distributing any reserve, withdrawing a contract and creating solo parties. It does not explicitly bind the sender to the leader. The selected web action gets its actor from session and uses the party-action approval path.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Require the supported sender-to-leader or trusted gateway authority while retaining all explicit disband gates, reserve/contract settlement and solo-party creation. Do not merge this with vote or request admission by shared remedy.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-STOREFRONT-TRADE-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "severity": "unassigned; source-level missing explicit caller admission conditional on deployment access and intended caller policy",
+      "classification": "New bounded 95e operation-specific admission trace; relationship to earlier generic native actor chain and other endpoints remains open.",
+      "trace": "finalize_merchant_trade and finalize_storefront_trade dispatch into the same private execution with an external character ID. The selected private body checks living state, personal chronology, settlement, service/provider/presence, stock, quantities, physical custody and funds, but neither public entry nor that body explicitly uses the existing sender-bound actor/gateway gate. The selected ordinary web storefront handler takes the active character from session. The separate stake-funded purchase explicitly invokes the existing actor guard before its preflight.",
+      "effect_and_limits": "If an unrelated identity is allowed by deployment and native caller policy to invoke the reducer and all operation-specific state checks succeed, supplied actor IDs are not tied to that caller in the inspected entry body. Generated SDK bindings expose the selected calls and the separately preserved locked native dispatch evidence explains the conditional port; no deployment, invocation, user loss or exploit was observed.",
+      "connected_repair": "Establish supported native/storefront caller policy and guard each public trade admission while preserving valid personal and pooled trade, provider/time, stock, price, payment and subtree semantics. The route representation roundtrip and quote authorization remain separate contracts.",
+      "discovery": "partial; deployment permissions, sender policy, exact native callers, transaction behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-PARTY-GRANT-ERROR-ERASURE",
+      "lens": 12,
+      "severity": "unassigned; definite private Result erasure with actual admitted failure and transaction impact conditional",
+      "classification": "95e revisit of the same earlier party grant-wrapper contract, not a new unique historical defect.",
+      "trace": "add_to_party_inventory discards the Result from add_to_party_inventory_checked. The checked helper can report errors from food, object or weapon initialization, and selected store_battle_loot, deposit and currency callers continue after the unit-returning wrapper. A real reachable failure, resulting database state and complete caller set are not demonstrated. The checked storefront party-purchase path propagates its error; the separate personal-item grant wrapper and successful party-merge food reinitialization have their own current records.",
+      "connected_repair": "Trace every success-bearing party-grant caller and admitted initializer failure before propagating the checked result; preserve zero-quantity no-op and all physical-object, food, weapon, amount, stake and coin invariants. Do not alias the personal grant by a common Result remedy.",
+      "discovery": "partial; reachable failures, transaction semantics, all callers and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-STOREFRONT-ROUTE-PRIVATE-READMISSION",
+      "lens": 12,
+      "severity": "unassigned; private typed-value representation roundtrip, no failing canonical service demonstrated",
+      "classification": "95e revisit of the same earlier route-retention contract, not a new unique historical defect.",
+      "trace": "The stake-funded personal purchase preflight parses MerchantStorefrontRoute from service_id to check its storefront and location but returns only party ID and quote. StorefrontTradeExecution then retains the original service_id String, and the private final executor parses it again. Other public storefront entries start with external native text and remain distinct admission boundaries; provider presence, chronology, quote and payment rechecks have independent purposes.",
+      "connected_repair": "Carry the existing parsed MerchantStorefrontRoute through the private preflight/execution boundary where appropriate, while preserving all provider, freshness, stock, quote, payment, native codec and service variants. Do not collapse independent revalidation or assume all callers have already admitted the route.",
+      "discovery": "partial; all route consumers, native callers, price policy and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-COND-TEMP-COMPANION-STAKE-SETTLEMENT",
+      "lens": 12,
+      "severity": "unassigned; source-established conflicting settlement and removal guards under an unverified positive-stake temporary-member state",
+      "classification": "95e revisit of the same helper-to-removal chain recorded independently in earlier Lens12 and CONT-TEMP-STAKE-SETTLEMENT-GUARD; no new historical unique-count change or global alias closure.",
+      "trace": "When a leader removes a temporary member, remove_party_member invokes settle_temporary_member_stake. For a positive stake, that helper transfers the corresponding party currency into personal inventory but does not debit the PartyStake row. After a successful transfer the caller still finds the same positive stake and returns the withdrawal-required error before removing membership. The supported producer for a positive-stake temporary member and the native transaction/rollback effects remain unverified; no committed payment, duplication or actual failed dismissal is claimed.",
+      "connected_repair": "First establish whether the state is supported and reconcile party-currency, personal-currency and entitlement ownership; if it is, settle exactly once and clear the corresponding stake coherently before the removal guard while retaining insufficient-funds and transaction behavior. Do not alias the separate erased grant result by the shared coin path.",
+      "discovery": "partial; admitted temporary-positive-stake producer, policy, native transaction behavior and exact global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Discover intended sender policy and external permissions, all operation callers and row/custody lifecycles, temporary-character producers, trade/receipt transactions, exact aliases and all independent lenses. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
