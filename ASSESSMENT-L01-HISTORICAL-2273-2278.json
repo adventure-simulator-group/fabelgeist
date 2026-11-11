@@ -1,0 +1,396 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2273,
+      "source_id": "pr-working:crates/fabelgeist-gpu/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2273",
+      "original_locator": "crates/fabelgeist-gpu/Cargo.toml",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 17,
+          "read_ranges": [
+            [
+              1,
+              43
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 67,
+          "read_ranges": [
+            [
+              1,
+              43
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+          "receipt": "ROOT-PPS-BOUNDARY-METADATA-028",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              43
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "lines": 43,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2267-2273-PROSPECTIVE.json",
+        "sha256": "975bb5eb040265069402a896b86be44e981f47073458eb9c621de9641dbf661e"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 manifest2273 and current95e manifest were displayed separately after their earlier registration. Source roles2274–2278 use complete current displays with exact historical byte equality. Earlier reviewers retain their own scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/Cargo.toml",
+        "sha256": "460e9c3fcc4cb794358e3a25ba96b2e877dbeffaac6404703ff493aa6cb58e18",
+        "bytes": 2020,
+        "lines": 44,
+        "git_blob": "43ec5b14cd4adbd6b00cdafe60851d46ccb247bd",
+        "preserved_bytes": "main-advance-95e/gpu-bind-buffer-evidence/current-2273.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "qualification": "Current full body displayed after the appropriate registration. Manifest2273 differs from the separately displayed historical body; other roles are byte-identical. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2274,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2274",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 538,
+          "read_ranges": [
+            [
+              1,
+              303
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "lines": 303,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2274-2278.json",
+        "sha256": "681f7d38f89995b2226b117228c0ca2a77ae34687ba208bc0503d18caee40961"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 manifest2273 and current95e manifest were displayed separately after their earlier registration. Source roles2274–2278 use complete current displays with exact historical byte equality. Earlier reviewers retain their own scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+        "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+        "bytes": 12835,
+        "lines": 303,
+        "git_blob": "c3ec2cf4c80e2a7506a197a3c49995fe88c10be4",
+        "preserved_bytes": "main-advance-95e/gpu-bind-buffer-evidence/current-2274.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            303
+          ]
+        ],
+        "qualification": "Current full body displayed after the appropriate registration. Manifest2273 differs from the separately displayed historical body; other roles are byte-identical. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2275,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2275",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 62,
+          "read_ranges": [
+            [
+              1,
+              53
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "lines": 53,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2274-2278.json",
+        "sha256": "681f7d38f89995b2226b117228c0ca2a77ae34687ba208bc0503d18caee40961"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 manifest2273 and current95e manifest were displayed separately after their earlier registration. Source roles2274–2278 use complete current displays with exact historical byte equality. Earlier reviewers retain their own scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+        "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+        "bytes": 1386,
+        "lines": 53,
+        "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+        "preserved_bytes": "main-advance-95e/gpu-bind-buffer-evidence/current-2275.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "qualification": "Current full body displayed after the appropriate registration. Manifest2273 differs from the separately displayed historical body; other roles are byte-identical. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2276,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2276",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 65,
+          "read_ranges": [
+            [
+              1,
+              178
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "lines": 178,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2274-2278.json",
+        "sha256": "681f7d38f89995b2226b117228c0ca2a77ae34687ba208bc0503d18caee40961"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 manifest2273 and current95e manifest were displayed separately after their earlier registration. Source roles2274–2278 use complete current displays with exact historical byte equality. Earlier reviewers retain their own scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+        "bytes": 6193,
+        "lines": 178,
+        "git_blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+        "preserved_bytes": "main-advance-95e/gpu-bind-buffer-evidence/current-2276.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            178
+          ]
+        ],
+        "qualification": "Current full body displayed after the appropriate registration. Manifest2273 differs from the separately displayed historical body; other roles are byte-identical. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2277,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2277",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 66,
+          "read_ranges": [
+            [
+              1,
+              89
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "lines": 89,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2274-2278.json",
+        "sha256": "681f7d38f89995b2226b117228c0ca2a77ae34687ba208bc0503d18caee40961"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 manifest2273 and current95e manifest were displayed separately after their earlier registration. Source roles2274–2278 use complete current displays with exact historical byte equality. Earlier reviewers retain their own scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+        "bytes": 2729,
+        "lines": 89,
+        "git_blob": "aaa1c0645df5f8181ea8ff2bb3134b6b959ab4f8",
+        "preserved_bytes": "main-advance-95e/gpu-bind-buffer-evidence/current-2277.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            89
+          ]
+        ],
+        "qualification": "Current full body displayed after the appropriate registration. Manifest2273 differs from the separately displayed historical body; other roles are byte-identical. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    },
+    {
+      "original_index": 2278,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2278",
+      "original_locator": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 539,
+          "read_ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "lines": 58,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GPU-BIND-BUFFER-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2274-2278.json",
+        "sha256": "681f7d38f89995b2226b117228c0ca2a77ae34687ba208bc0503d18caee40961"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 manifest2273 and current95e manifest were displayed separately after their earlier registration. Source roles2274–2278 use complete current displays with exact historical byte equality. Earlier reviewers retain their own scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+        "bytes": 1655,
+        "lines": 58,
+        "git_blob": "d01b5ec7a10f45da81f1ebb8835554bd671aa1c2",
+        "preserved_bytes": "main-advance-95e/gpu-bind-buffer-evidence/current-2278.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "qualification": "Current full body displayed after the appropriate registration. Manifest2273 differs from the separately displayed historical body; other roles are byte-identical. No product code executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim.",
+      "prior_current_observations": [],
+      "prior_role_qualification": null
+    }
+  ],
+  "observations": [
+    "Original6533 manifest2273 full43 and changed95e manifest full44 were separately displayed after their earlier prospective registration. Current95e roles2274–2278 were prospectively registered and fully displayed; each exactly equals its historical6533 source bytes. The manifest adds a direct derive_more dependency; the same package version already appears in the historical lock, so that dependency line is not proof of a newly introduced lock package.",
+    "Original supplier scopes remain as recorded. Adler361 read2273, Adler362 read2274–2275 and Adler363 read2276–2278 in full. Lens12 delegate747 independently read2273 and delegate748 independently read2274–2278 in full; root adoption recorded zero personal rereads and zero accepted unique-count change.",
+    "New95e complete views do not change earlier supplier/reviewer scopes, broaden the historical matrix suspicion or grant other-lens verdicts. No buffer, shader, GPU, queue, native error, test or product ran. Local registration timestamps are not independently attested."
+  ],
+  "qualification": "Changed historical/current manifest versions, original supplier/Adler/delegate evidence and new current displays remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2279
+}

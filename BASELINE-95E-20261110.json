@@ -9619,7 +9619,11 @@
         "future_acceptance": "After audit and authorization, cover wrong scalar and vector kinds, bounds, padding, missing fields, valid layouts and both dispatch paths.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-KERNEL-95E.json"
+        "record": "ASSESSMENT-KERNEL-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "further_evidence_qualification": "Original ABI parent identity remains; current public helper Mat3 slice example is conditional and separate from actual ComputePass and cached packers."
       },
       {
         "id": "SEGOVB-L12-GPU-BUFFER-LOGICAL-ZERO-NONZERO-PANIC",
@@ -11224,8 +11228,630 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GEOMETRY-OWNERS-95E.json"
+      },
+      {
+        "id": "ADLER-L11-BUFFER-WRITE-EXTENT-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; buffer write extent",
+        "classification": "The zero-offset Buffer.write convenience path does not perform the logical-extent check used by Buffer.write_at.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/157",
+          "adler/READ-L11-363.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "Original Adler363 already documented the same operation; the same-length from_upload path is distinct and normally satisfies the extent. No native queue outcome or product ran.",
+        "discovery": "partial; selected source, wrapper extent and native queue handoff traced; usage, alignment and caller policies open",
+        "connected_repair_direction": "Unify applicable upload extent admission at the buffer owner while preserving native device and error behavior under the chosen contract.",
+        "future_acceptance": "After audit and authorization, cover oversized zero-offset writes, offset overflow, logical bounds and successful construction uploads.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "ADLER-L11-BUFFER-READBACK-ERROR-OWNERSHIP",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; buffer readback errors",
+        "classification": "Buffer.read formats or discards native mapping errors and ignores polling results, while the separate compute readback owner retains source-bearing native errors.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/158",
+          "baseline-059/queue.json#/entries/334",
+          "baseline-059/queue.json#/entries/335",
+          "segovb/ALIAS-L11-GPU-SUBCONTRACTS-005.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "native map cause",
+            "original_id": "SEGOVB-L12-GPU-BUFFER-NATIVE-MAP-CAUSE-ERASURE",
+            "first_failure": "native BufferAsyncError debug-formatted at map result"
+          },
+          {
+            "scope": "WASM map cause",
+            "original_id": "SEGOVB-L12-GPU-BUFFER-WASM-MAP-CAUSE-ERASURE",
+            "first_failure": "WASM BufferAsyncError discarded at map result"
+          },
+          {
+            "scope": "poll progress",
+            "first_failure": "native poll results discarded, with policy and outcome conditional"
+          }
+        ],
+        "relationship_qualification": "Original059 explicitly records delegate334/335 as respective Adler158 subcontracts; other native/WASM channel and host-copy reasons are not merged. No mapping, polling or GPU ran.",
+        "discovery": "partial; wrapper mapping, compute error owner and native unit error type traced; consumers and actual error outcomes open",
+        "connected_repair_direction": "Retain or translate native map/poll outcomes at the appropriate shared boundary while preserving the initialized aligned host-copy path.",
+        "future_acceptance": "After audit and authorization, cover native and WASM map failures, channel closure, poll outcomes and valid padded host copies independently.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-SHADER-PARAMETER-NAME-PROPAGATION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; shader parameter identity",
+        "classification": "The public bind-group helper retains reflected member and resource names as strings and rematches them against supplied parameter names.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/317",
+          "baseline-059/queue.json#/entries/2331",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "The earlier own finding and later producer context retain their independent identities; shader namespaces may be arbitrary native identifiers, and a closed gameplay enum is not assumed.",
+        "discovery": "partial; public helper and reflected name state traced; actual producers, native symbol owner and aliases open",
+        "connected_repair_direction": "Determine the correct native shader-parameter identity and carry it through reflection, retained state and resource binding without inventing a closed external namespace.",
+        "future_acceptance": "After audit and authorization, cover supported shader names, name resolution and mismatch reporting through actual producers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-LAYOUT-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups layout index not found becomes closed prose at19",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/318",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-BUFFER-PARAMETER-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups buffer parameter name absent becomes closed prose at159",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/319",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-BUFFER-PARAMETER-KIND-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups parameter is not Buffer becomes closed prose at175",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/320",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-TEXTURE-PARAMETER-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups texture parameter absent becomes closed prose at187",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/321",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-TEXTURE-PARAMETER-KIND-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups parameter is not supported Texture variant becomes closed prose at212",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/322",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-TEXTURE-FORMAT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups actual provided native texture format differs from expected becomes closed prose at223",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/323",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-TEXTURE-DIMENSION-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups native texture view dimension differs becomes closed prose at233",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/324",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-TEXTURE-VIEW-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups texture wrapper has no native view becomes closed prose at248",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/325",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-SAMPLER-PARAMETER-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups sampler name absent becomes closed prose at258",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/326",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-SAMPLER-RESOURCE-MISSING-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups Sampler wrapper has no native resource becomes closed prose at274",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/327",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BIND-SAMPLER-PARAMETER-KIND-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "create_bind_groups parameter is not Sampler becomes closed prose at281",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/328",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BUFFER-ZERO-EXTENT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "new zero extent28 first becomes primitive prose29",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/329",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BUFFER-WRITE-OFFSET-OVERFLOW-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "checked offset plus upload length overflows139..141 first becomes primitive prose141",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/330",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BUFFER-WRITE-EXTENT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "write end exceeds retainedsize142 first becomes primitive prose144",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/331",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BUFFER-NATIVE-CHANNEL-CLOSED-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "native oneshot receiver closed100 first becomes primitive prose100",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/332",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-BUFFER-WASM-CHANNEL-CLOSED-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "wasm oneshot await Canceled converted to prose108 first becomes primitive prose108",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/333",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-READBACK-ZERO-SIZED-ELEMENT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "Readback::new11..26 element_size==0 emitsclosedreasonprose16",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/336",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-READBACK-PARTIAL-ELEMENT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "Readback::new11..26 byte_len not multiple of elementsize emitsclosedreasonprose20",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/337",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-READBACK-TRUNCATED-BYTES-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historically distinct closed reason",
+        "classification": "Readback::copy_from28..44 bytes.len less than promised byte_len emitsclosedreasonprose30",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/338",
+          "segovb/READ-L12-748.json via ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        ],
+        "relationship_qualification": "This is the original separately named first predicate, retained independently even where a repair may share an error owner. Source uses closed-reason prose; no external cause erasure or global alias is inferred.",
+        "discovery": "partial; selected current first source branch traced; actual consumers, error policy and aliases open",
+        "connected_repair_direction": "Determine whether the consuming API needs an owned reason while retaining this exact operation and any useful context.",
+        "future_acceptance": "After audit and authorization, cover this branch independently with the chosen error contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-UNIFORM-MAT3-BOUNDS-95E",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; conditional uniform packing bounds",
+        "classification": "A mismatched public Mat3 parameter and short reflected member can pass the coarse size check and request a slice beyond the uniform byte vector.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/151",
+          "baseline-059/queue.json#/entries/2331",
+          "ASSESSMENT-KERNEL-95E.json"
+        ],
+        "relationship_qualification": "Earlier reviewers already recorded the uniform ABI family and left Mat3 stride/bounds admission open. The symbolic size12/offset0 case is conditional on supplied reflection and parameter metadata; no valid shader, layout, GPU or panic ran. Actual ComputePass and cached paths are separately owned.",
+        "discovery": "partial; public reflection shape, helper guard and per-element writes traced; real producer validity, other packers and aliases open",
+        "connected_repair_direction": "Admit the reflected member type, size and matrix stride before packing, and preserve the selected native shader ABI.",
+        "future_acceptance": "After audit and authorization, cover matched matrices, mismatched short members and standard/cached path contracts separately.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-BUFFER-METADATA-AUTHORITY-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; buffer authority",
+        "classification": "Public Buffer wrapper size and usage can diverge from the shared native allocation and influence bounds or mapping decisions.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/157",
+          "baseline-059/queue.json#/entries/352"
+        ],
+        "relationship_qualification": "Constructor initializes matching metadata, while public fields and clones permit conditional drift. A logical extent may deliberately differ from allocation extent; no mutation, buffer, native failure or global alias is claimed.",
+        "discovery": "partial; wrapper allocation, clone, fields and pinned native accessors traced; actual external producers and logical extent semantics open",
+        "connected_repair_direction": "Define authoritative logical extent and native usage ownership and prevent unsupported metadata drift through admitted construction and mutation.",
+        "future_acceptance": "After audit and authorization, cover intended logical versus allocated sizes, cloned handles and usage-based read/write selection.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1705.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1710.json"
 }
