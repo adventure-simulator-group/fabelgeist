@@ -3411,8 +3411,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json"
+      },
+      {
+        "id": "Q-L12-0254ab406e2111036ed0",
+        "lens": 12,
+        "severity": "unassigned; conditional diagnostic state and policy",
+        "classification": "Earlier 059 queue obligation and segovb Lens12 batch455 conditional question re-assessed at 95e; no new accepted historical unique finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1289",
+          "ASSESSMENT-L01-HISTORICAL-333-338.json#/historical_source_roles/5"
+        ],
+        "relationship_qualification": "Previously recorded question, newly re-assessed at 95e; no new historical unique count or checkpoint3821 transfer.",
+        "discovery": "partial; valid transition, scheduling, logging policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-PLAYER-QUICKSTEP-TRACE-95E.json"
+      },
+      {
+        "id": "REVIEW-QUICKSTEP-RECOVERY-TRACE-001",
+        "lens": 5,
+        "severity": "unassigned; conditional diagnostic state and policy",
+        "classification": "New 95e source-supported conditional diagnostic candidate; no actual warning, supported transition incidence or gameplay defect observed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1289",
+          "ASSESSMENT-L01-HISTORICAL-333-338.json#/historical_source_roles/5"
+        ],
+        "relationship_qualification": "Queue1289 concerns lunge-only changes not triggering a log; bounded-recovery warning classification is a related but different conditional operation. Exact global aliases remain open.",
+        "discovery": "partial; actual state visibility, diagnostic intent, consumers and global aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-PLAYER-QUICKSTEP-TRACE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0613.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0618.json"
 }

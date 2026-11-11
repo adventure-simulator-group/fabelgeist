@@ -1,0 +1,168 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "1eb5fa781fea0961ce23d4e2b28c539c33d7e966": {
+      "git_object": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966",
+      "sha256": "62bc3665c081bcdfb6d0d2e82975bdd01936cef523e2773d40d21c9b9f21e3db",
+      "bytes": 132,
+      "preserved_bytes": "main-advance-95e/player-trace-evidence/git-objects/1eb5fa781fea0961ce23d4e2b28c539c33d7e966.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-tactical-client/src/player.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "player.rs",
+          "mode": "100644",
+          "child": "ad8ef59e860df91568bb704b4e061e843dcb2447"
+        }
+      ],
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944
+    },
+    "crates/adventuresim-tactical-client/src/player/action_clock.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "player",
+          "mode": "40000",
+          "child": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966"
+        },
+        {
+          "tree": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966",
+          "name": "action_clock.rs",
+          "mode": "100644",
+          "child": "620f82dc615a29f62ac98adc446b064f17984a53"
+        }
+      ],
+      "git_blob": "620f82dc615a29f62ac98adc446b064f17984a53",
+      "sha256": "1b21e39987ef8116d961373662e3566233e45bff974103bf29e399d4defaa9dd",
+      "bytes": 6679,
+      "lines": 201
+    },
+    "crates/adventuresim-tactical-client/src/player/attack_start.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "player",
+          "mode": "40000",
+          "child": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966"
+        },
+        {
+          "tree": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966",
+          "name": "attack_start.rs",
+          "mode": "100644",
+          "child": "5c8385e48c5add1fd6609c3ae0a8cebff24a0629"
+        }
+      ],
+      "git_blob": "5c8385e48c5add1fd6609c3ae0a8cebff24a0629",
+      "sha256": "9217876cb451796dde9e82c22f7a9533fbe263ebe21068756fb672e66eb622cf",
+      "bytes": 14266,
+      "lines": 453
+    },
+    "crates/adventuresim-tactical-client/src/player/quickstep_trace.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "player",
+          "mode": "40000",
+          "child": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966"
+        },
+        {
+          "tree": "1eb5fa781fea0961ce23d4e2b28c539c33d7e966",
+          "name": "quickstep_trace.rs",
+          "mode": "100644",
+          "child": "d884f2eeb358a58b6a9b9ed444b5619ec921827d"
+        }
+      ],
+      "git_blob": "d884f2eeb358a58b6a9b9ed444b5619ec921827d",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "bytes": 4426,
+      "lines": 128
+    }
+  },
+  "qualification": "Previously preserved raw public commit/tree objects plus exact additional subtrees prove the original committed blobs; no review credit follows solely from identity."
+}
