@@ -118,7 +118,8 @@ for ref in doc['historical_sources']:
     assert role['source_id']==ref['source_id'] and role['historical_sha256']==ref['historical_sha256']
     assert ref['byte_identical']==(ref['historical_sha256']==ref['current_sha256'])
 assert work['roles'][856]['historical_assessment']=='ASSESSMENT-L01-HISTORICAL-856.json'
-assert work['roles'][1090]['status']=='unassessed'
+assert work['roles'][1090]['status']=='full-historical-body-trace-open'
+assert work['roles'][1090]['historical_assessment']=='ASSESSMENT-L01-HISTORICAL-1090-1092.json'
 base=json.loads((root/'BASELINE-95E-20261110.json').read_text())
 progress=json.loads((root/'CONTINUATION-PROGRESS-95E.json').read_text())
 for candidate in doc['candidates']:

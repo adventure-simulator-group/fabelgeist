@@ -1,0 +1,366 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 7,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected ordinary corpse-family authority, seeded kin producers and outbreak exception; redundant-authority and connected-contract lenses remain incomplete.",
+  "source_reasoning": "Static source reading, exact-spelling tracked-source search and historical evidence recovery only; no product, reducer, simulation, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/corpse.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "35a6f6761eb009760c87bc566bb7b277f5a50e52",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "bytes": 70545,
+      "lines": 2121,
+      "ranges": [
+        [
+          1,
+          2121
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          300,
+          455
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          810,
+          990
+        ],
+        [
+          1265,
+          1310
+        ],
+        [
+          1920,
+          2005
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6699e06a7d607c12662906017129627e02c5676",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "bytes": 8876,
+      "lines": 267,
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "bytes": 14490,
+      "lines": 496,
+      "ranges": [
+        [
+          40,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6181873c7c538b9efe2dfcd6fec548ec61ba5578",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "bytes": 16999,
+      "lines": 481,
+      "ranges": [
+        [
+          1,
+          255
+        ],
+        [
+          315,
+          400
+        ],
+        [
+          435,
+          481
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/commitments.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "245a87d8379577dde4ef2a030132edcde24d7c1c",
+      "sha256": "ec754c7ccdd1dee1a7441ab99e805a8b36102e4db96b24cf221c0c3c369b48cc",
+      "bytes": 11826,
+      "lines": 332,
+      "ranges": [
+        [
+          90,
+          230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34d3a48a63c21a8a80f83c6df853cf5d689f1755",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "bytes": 27326,
+      "lines": 759,
+      "ranges": [
+        [
+          410,
+          465
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fe0deb9c9e94fe0212bcd21b384da8922e57d761",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "bytes": 10033,
+      "lines": 299,
+      "ranges": [
+        [
+          1,
+          235
+        ],
+        [
+          260,
+          299
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7661ec80c449adb86c163f0d0d3cd2d9f2e65019",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "bytes": 18955,
+      "lines": 585,
+      "ranges": [
+        [
+          1,
+          390
+        ],
+        [
+          430,
+          485
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/corpse-family-sources/09.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/corpse-family-callsite-search.txt",
+    "sha256": "8d4314815ab958cfdd7f26bf67f0f18688370880d631ffa3867d5394e4a7211c",
+    "bytes": 1341,
+    "query": "git grep three exact symbol/assignment spellings at the pinned revision under module source",
+    "qualification": "Exact spellings and tracked files only; indirect, dynamically named, external or differently spelled paths are not excluded."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-240.json",
+      "sha256": "c0a8335ccb7b728557d190b4d4f41b26f318efa58bdb0686582cb40ccc8bacf1",
+      "bytes": 24942,
+      "git_blob": "e877ac63b7b3dcac66c4a426fd0136eaa95f4c22",
+      "preserved_bytes": "recovered/corpse-family-059/c0a8335ccb7b728557d190b4d4f41b26f318efa58bdb0686582cb40ccc8bacf1.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-242.json",
+      "sha256": "9ecccfbccffcac46087e52e9d3a3fe39932bdcdaaa7ce8be6ab739fc87e8429d",
+      "bytes": 18694,
+      "git_blob": "bafc355bd2a2b09a1db4bd992097626ff1613342",
+      "preserved_bytes": "recovered/corpse-family-059/9ecccfbccffcac46087e52e9d3a3fe39932bdcdaaa7ce8be6ab739fc87e8429d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-242.json",
+      "sha256": "e0b802ca3aa86acad5fbbe0db4b2c41befe9fc6bfe54b44b281d5f8bc48062ba",
+      "bytes": 1145,
+      "git_blob": "9d7a54bd976ce303aa9b8434946009098f90854f",
+      "preserved_bytes": "recovered/corpse-family-059/e0b802ca3aa86acad5fbbe0db4b2c41befe9fc6bfe54b44b281d5f8bc48062ba.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-239-246-v4.json",
+      "sha256": "a6b705c0bc46f90581d3235cdd55efc1df8971e2b214c55f8fb4c82cb2614843",
+      "bytes": 194776,
+      "git_blob": "19f65f2fe6a3345dc19b1273f06a7841bbe9a3b8",
+      "preserved_bytes": "recovered/corpse-family-059/a6b705c0bc46f90581d3235cdd55efc1df8971e2b214c55f8fb4c82cb2614843.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-242.json",
+      "sha256": "8bce01315476cdd7b3fa3fed143d956f9ae4c304ad2f9235b471759a0aff796e",
+      "bytes": 2587,
+      "git_blob": "6eab72dd77be4dc654ca025e7a574b2f55ff005f",
+      "preserved_bytes": "recovered/corpse-family-059/8bce01315476cdd7b3fa3fed143d956f9ae4c304ad2f9235b471759a0aff796e.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-242-PARTIAL-001.json",
+      "sha256": "95831fd472cc7c3ffb8b4b8716d57366094545c3e40757063afb91e281ba4136",
+      "bytes": 2666,
+      "git_blob": "d776494f26056d53bacce9b7ebef1139df314426",
+      "preserved_bytes": "recovered/corpse-family-059/95831fd472cc7c3ffb8b4b8716d57366094545c3e40757063afb91e281ba4136.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-242-PARTIAL-002.json",
+      "sha256": "d2e692710eecebd2c10e40263c69a1f1ffa6f655b22c37cf94380c07759ad1a8",
+      "bytes": 4229,
+      "git_blob": "89a8567a09a871ed2b0f1561f177ed036d787bf2",
+      "preserved_bytes": "recovered/corpse-family-059/d2e692710eecebd2c10e40263c69a1f1ffa6f655b22c37cf94380c07759ad1a8.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve its original reader and partial range attribution, with no checkpoint 3821 transfer."
+    }
+  ],
+  "later_hash_matched_reconstructions": [
+    {
+      "path": "recovered/transcript-hash-matched/REGISTRATION-CORPSE-FAMILY-L13-3778.json",
+      "sha256": "07395f30ac7fae5333c12fc6ccbfc907c66a33bdc289f1c622f797bf0707fb09",
+      "bytes": 1429,
+      "attribution": "hash-matched reconstructed registration",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "qualification": "Recovered from printed/linked evidence and checked against its historical referenced SHA; not a checkpoint 3821 ledger or queue."
+    },
+    {
+      "path": "recovered/linked-literal-evidence/objects/c1cc3e6fcaa8427d03434a17a4e9a1eba9d986dc5b04e5a1fbedb091c01f09d1",
+      "sha256": "c1cc3e6fcaa8427d03434a17a4e9a1eba9d986dc5b04e5a1fbedb091c01f09d1",
+      "bytes": 1009,
+      "attribution": "hash-matched reconstructed markdown",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "qualification": "Recovered from printed/linked evidence and checked against its historical referenced SHA; not a checkpoint 3821 ledger or queue."
+    },
+    {
+      "path": "recovered/printed-reference-json/objects/c874a02be4632dd97174372ec0be0135d8a3826032ea92798e466b822877dc3d",
+      "sha256": "c874a02be4632dd97174372ec0be0135d8a3826032ea92798e466b822877dc3d",
+      "bytes": 1610,
+      "attribution": "hash-matched reconstructed qualification",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "qualification": "Recovered from printed/linked evidence and checked against its historical referenced SHA; not a checkpoint 3821 ledger or queue."
+    },
+    {
+      "path": "recovered/printed-reference-json/objects/2075ec2cd8101fb92f8fb5b5bca42db98c0e08252cc864bbf68bafb2d1f8c3e1",
+      "sha256": "2075ec2cd8101fb92f8fb5b5bca42db98c0e08252cc864bbf68bafb2d1f8c3e1",
+      "bytes": 955,
+      "attribution": "hash-matched reconstructed partial plan",
+      "revision": "ff9c1d7d0ea168b7e14eedc5e44879ee7b84fb04",
+      "qualification": "Recovered from printed/linked evidence and checked against its historical referenced SHA; not a checkpoint 3821 ledger or queue."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/322",
+      "qualification": "Pointer is verified below before use; PL13-242 ordinary corpse-family policy remains historical and open."
+    },
+    {
+      "file": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+      "normalized_sha256": "8678826a0032efb8d5269c6230036ed145eacad1a39e2a3dee40ae6c5f589566",
+      "qualification": "Printed ff9c scoped disposition; historical source discovery only, no 3821 authority."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1088,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/continuity.rs",
+      "historical_sha256": "90ac44f54e67bb703e77edc0d8c56f9221e9e31aeaaa3e897cbc0d5ff8759e7a",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1086-1089.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no cross-lens or checkpoint 3821 transfer."
+    },
+    {
+      "original_index": 1090,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "historical_sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1090-1092.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no cross-lens or checkpoint 3821 transfer."
+    },
+    {
+      "original_index": 1091,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "historical_sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1090-1092.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no cross-lens or checkpoint 3821 transfer."
+    },
+    {
+      "original_index": 1092,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "historical_sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1090-1092.json",
+      "qualification": "Separately recorded full historical Lens 1 body; no cross-lens or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-CORPSE-FAMILY-COMMON-DEATH-001",
+      "severity": "unassigned; conditional policy and player-visible reachability",
+      "classification": "Ordinary character corpse creation supplies an empty family set even when separately stored explicit resident kin can exist; outbreak materialization later supplies kin on its selected path.",
+      "trace": "Death transition invokes persist_character_death_corpse. That function creates the corpse and invokes materialize_corpse_family_bindings with an empty slice; its comment says authoritative kinship does not exist. The binding helper accepts up to eight supplied IDs and requires each to have a resident profile in the same settlement. It does not derive relatives itself. Family permissions, unauthorized-handling and cremation consequences consult the resulting binding rows. A source search finds explicit non-empty binding production in the demo and in outbreak patient materialization, where directed CharacterKinship edges are mapped to same-settlement resident profiles after the death transition.",
+      "producer_evidence": "Settlement population groups finalized ambient drafts in fours, persists each draft as a same-settlement resident profile, and records directed parent/child/sibling kinship edges for four-member groups. Successful seeded population can therefore provide resident relatives meeting the helper’s profile/settlement checks; this is conditional on successful population and is not proof that a particular corpse, death or available relative exists. Marriage settlement separately writes spouse edges. Neither household labels nor unqualified family membership alone are treated as authorization.",
+      "native_reachability": "For an ordinary non-outbreak death, an initially empty family binding set follows directly from the selected creator. Player-facing effect additionally requires an eligible resident relative, a corpse accessible to a living observer in the discovering party at the right place and time, and no later relevant binding producer. Those combined conditions and intended qualifying-family policy remain unproven. Outbreak patient corpse materialization explicitly supplies matching kin and discovery can assign its party; it is not described as empty merely because common creation began with an empty slice. No death, case, dialogue, reducer or runtime probe ran.",
+      "historical_attribution": "Checkpoint 059 PL13-242 already identified the ordinary empty set despite kinship authority, left intended policy and eligible reachability open, and accepted zero unique findings. Its original role 1090 was read as 1–680, fresh 681–1700, then fresh 1701–2121; do not collapse the delegate’s partial receipts into a new current or 3821 assessment. Later historical ff9c checkpoint 3778 recorded a scoped source disposition and partial plan, still leaving eligibility and policy open and recording no accepted unique finding; its hash-matched reconstructed records retain that revision and do not become the missing 3821 ledger.",
+      "connected_repair": "After the audit gate, decide which explicit and effective-dated relationships authorize family permission or social response for ordinary deaths. Reconcile common and outbreak producers against that policy, the eight-person limit, same-settlement residence, temporal/privacy boundaries and current demo behavior. Preserve authoritative relationships rather than inferring kin from household display text.",
+      "later_acceptance": "After separately authorized implementation and validation, inspect ordinary and outbreak deaths with qualifying and nonqualifying residents, relationship timing, more than eight eligible relatives, discovered-party access, family permission and social consequences. No product validation is performed here.",
+      "discovery": "partial; ordinary player-visible reachability, explicit-family policy, temporal and alias inventory remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed",
+  "targeted_local_evidence_search": {
+    "scope": "Read-only filename search in the two previously named older handoff collections, 726-handoff-20261030-prep and 726-return-transport-3b9728c.",
+    "query": "Names containing CORPSE-FAMILY-CLOSURE or CORPSE-FAMILY-L13-3778.",
+    "result": "No matching filenames in those collections. Hash-matched records reconstructed from previously published printed and linked evidence are separately listed; this bounded name search does not prove global absence or substitute for checkpoint 3821 bytes."
+  }
+}

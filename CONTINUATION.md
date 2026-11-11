@@ -184,6 +184,9 @@ generator source reads. Test source was inspected only.
 `ASSESSMENT-L04-DISINFECTANT-VOLUME-95E.json` records a conditional
 short-serving dose mismatch. The three selected current catalog servings
 are at least 25 ml; no surgery or inventory operation was run.
+`ASSESSMENT-L07-CORPSE-FAMILY-95E.json` follows the earlier family-binding
+question through seeded kin and the outbreak exception. Ordinary player-visible
+reachability and qualifying-family policy remain open.
 `ASSESSMENT-L05-RUNE-ROUTE-95E.json` traces an earlier no-repeat
 validation gap to the selected view and replay boundaries. The symbolic
 case is not an observed stored puzzle or executed validation.
@@ -214,6 +217,8 @@ combat projection source reads. No combat model or source test ran.
 weapon-carry source reads. The historical carry source differs from 95e.
 `ASSESSMENT-L01-HISTORICAL-1086-1089.json` records the historical condition,
 fear and continuity source reads without expanding current semantic coverage.
+`ASSESSMENT-L01-HISTORICAL-1090-1092.json` records the historical corpse,
+autopsy context and draw reads without expanding current semantic coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

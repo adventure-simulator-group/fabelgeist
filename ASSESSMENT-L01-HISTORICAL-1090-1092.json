@@ -1,0 +1,90 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1090,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1090",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "lines": 2121,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2121
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1091,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1091",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "lines": 25,
+      "new_personal_read_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1092,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1092",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "lines": 27,
+      "new_personal_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Roles 1090–1092 cover the historical corpse, autopsy context and deterministic draws. The older Lens 13 corpse-family policy question is separately attributed; reading these bodies does not close it.",
+    "Each historical/current byte comparison is recorded individually; identical hashes do not transfer semantic coverage across the thirteen lenses or reconstruct checkpoint 3821.",
+    "Source tests, examples and fixtures were read only; no product, fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Continue at original role 1093; all independent lenses, connected scopes and historical aliases remain open."
+}
