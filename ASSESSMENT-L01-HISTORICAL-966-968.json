@@ -1,0 +1,91 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 966,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/966",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "lines": 1630,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1630
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 967,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/967",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "lines": 1526,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1526
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 968,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/968",
+      "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "lines": 79,
+      "new_personal_read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Role 966 defines the quest catalogue schema, typed runtime compilation, source mapping, conditional dialogue variants, threat and evidence validation. Earlier bounded current traces retain their attribution.",
+    "Role 967 validates raw quest authoring data, numeric field bounds, cross-reference closure, demographic overlap and required relation families. The earlier delegated Lens 13 record explicitly retained the mass-underflow stage-disagreement question; its separate attribution and qualification are preserved.",
+    "Role 968 parses closed sex selectors and determines overlap; absence and invalid shape remain typed errors, while an empty selection intentionally represents no restriction.",
+    "Source tests, examples and fixtures were read only; no product, fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Continue at original role 969; all independent lenses, connected scopes and historical aliases remain open."
+}

@@ -166,6 +166,12 @@ capacity bounds. Earlier delegated water questions retain attribution.
 `ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json` compares departure
 estimates with capacity-aware physical refill and other carried water.
 The earlier fill assumption and uncertain reachability remain explicit.
+`ASSESSMENT-L03-QUEST-WEIGHT-NARROWING-95E.json` traces the existing
+quest mass narrowing question through authoring, typed admission and the
+current authored corpus. Decoder features and actual runtime remain open.
+`ASSESSMENT-L01-HISTORICAL-966-968.json` preserves frozen quest
+catalogue, admission validation and demographic selector reads. The earlier
+delegated numeric assessment remains separately attributed.
 `ASSESSMENT-L01-HISTORICAL-961-965.json` preserves separate frozen
 organization validation, personality, custody, physiology and provisioning
 reads. Independent current lenses remain open.

@@ -1225,6 +1225,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json"
+      },
+      {
+        "id": "REVIEW-QUEST-MONSTER-WEIGHT-NARROWING-001",
+        "lens": 3,
+        "severity": "unassigned; hypothetical authoring value and feature-dependent decoder path, no current incident",
+        "classification": "bounded quest monster mass f64-to-f32 authoring/runtime admission question",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/291",
+          "ASSESSMENT-L03-CATALOG-DIMENSIONS-95E.json"
+        ],
+        "relationship_qualification": "The same mass stage disagreement was already identified by delegated PL13-186 without a historical accepted finding; the equipment dimension question has a distinct validator and consumer.",
+        "discovery": "partial; feature resolution, corpus policy, consumers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L03-QUEST-WEIGHT-NARROWING-95E.json"
       }
     ]
   },
