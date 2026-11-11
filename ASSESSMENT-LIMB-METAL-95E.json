@@ -1,0 +1,1565 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2189–2193 full current bodies, historical independent reviews, selected limb validators, buffer error boundaries and metal seeded-draw sources.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2189-2193.json",
+  "git_membership_evidence": "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-armor/src/limb_armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9f03dc271915ee2cc5859a086c053ab23fc2ad0",
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "bytes": 12448,
+      "lines": 376,
+      "ranges": [
+        [
+          95,
+          165
+        ],
+        [
+          245,
+          315
+        ],
+        [
+          310,
+          375
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/joint_cup_design.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "99239ff94d6d89821e2c6b1d4576c727a9bd8a96",
+      "sha256": "d17b22a1167a4cce7caa2b0c4fc225bf17e0ec1574caa262354fe4b95dde56b9",
+      "bytes": 4546,
+      "lines": 128,
+      "ranges": [
+        [
+          100,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/joint_extension.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b9da935ccf598c90044c2de96cd41a413501dc72",
+      "sha256": "998bb87a75985df4a4018b59e368d6422593f3d390e85572ad6ac914fd1396fb",
+      "bytes": 1716,
+      "lines": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/radial_fluting.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4f7a41b7294c320db522a7696a97a1b3cd18788a",
+      "sha256": "54b0aee7ee7d1790d7538a1ecfaacd1d17d20de9dd6bd49124546eb087f854b7",
+      "bytes": 1559,
+      "lines": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/besagew.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2977579c60d1a1e654849d8083f36aa953008773",
+      "sha256": "c3d0aae65c57d8a1406448595b81bbfa2c44b45caa68ff39a849da5189bca7db",
+      "bytes": 1496,
+      "lines": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4806c2451a2351e4dbc0360d1f836506ae1ee4",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "bytes": 3464,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bbcb5a1191d3a11d78673cdedd259cc191457ca6",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "bytes": 11764,
+      "lines": 335,
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          180,
+          245
+        ],
+        [
+          245,
+          335
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/metal/wgsl.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "90b9922194f0d53900c22ad8eee1c8657a5fc030",
+      "sha256": "90083b6c258f47bcf6e52babf50abc2cda917c32ea982b0404edcd75b8157f83",
+      "bytes": 2037,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "bytes": 6193,
+      "lines": 178,
+      "ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          150,
+          178
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aaa1c0645df5f8181ea8ff2bb3134b6b959ab4f8",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "bytes": 2729,
+      "lines": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "68076e0e9b697e09e35de7465b8284e1a64cbc04",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "bytes": 14883,
+      "lines": 406,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          175,
+          215
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9716f938f35b1f40c552344ada1d9b73adfc1ad5",
+      "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+      "bytes": 13112,
+      "lines": 323,
+      "ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          180,
+          210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/limb-metal-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Original roles2194–2196 and other reviewers or lenses receive no current read credit."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HELMET-FOOTWEAR-95E.json",
+    "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Selected limb and extension admission",
+      "trace": "LimbShape::shape calls LimbArmorDesign::validate before its match. The validated greave calf height is450..800 permille, so neither calf height nor one minus calf height is zero at the examined WGSL branch. JointCupDesign validates JointExtension and rejects an extension on RaisedCop; validated extension has lame_count1..4, and joint-cup code handles lames==1 separately before using lames-1 for the multi-lame branch. Besagew validates RadialFluting, whose count4..48 and twelve samples per spoke produce48..576 candidate columns, then the selected spaulder applies a96-column minimum.",
+      "remaining": "Source and bounded integer reasoning only; no shape, mesh, frame, shader, test or device ran. Other ratios, frame finiteness, geometric intersections, arbitrary helper callers and native acceptance remain open."
+    },
+    {
+      "contract": "Public metal bake bounds",
+      "trace": "The selected public textures entry validates Metal and restricts size32..1024 before size*size. This bounds texels at1,048,576; a three-word finish buffer has at most12,582,912 bytes, and scratch_density at most3000 with five draws per scratch bounds scratch_draws at15,000. The private bake function itself does not perform that validation.",
+      "remaining": "Arithmetic derives from selected source contracts; no buffer, image, texture, device or build was run. Other direct internal callers, GPU limits and device execution remain open."
+    },
+    {
+      "contract": "Connected metal and native readback error boundaries",
+      "trace": "Original independent Adler346 extended original engraving error ownership family to MetalGpu::device_error, which formats reusable GPU errors into String. The current native Buffer::read converts the native asynchronous mapping error to anyhow text before the MetalGpu wrapper formats it again; its WASM branch checks the mapping outcome but replaces the underlying error with a generic message separately. Original q2265 and q2266 identify distinct earlier first operations, not aliases of the later outer wrapper.",
+      "remaining": "No I/O, image, GPU operation or failure ran. Classifications of all underlying kernel/context/native failures and all error-family aliases remain open. The historical q2266 wording says the outcome is discarded; the current source instead propagates a generic error, so only the underlying cause is discarded."
+    },
+    {
+      "contract": "Metal sequence use across finish, scratches and per-texel roughness",
+      "trace": "Scratch id.y=0 starts at lcg_skip(seed,0), then advances once before its first draw. Finish layer0 lattice (i=0,j=0) uses lcg_skip(seed,1), and the same metal.seed is supplied to both passes; the source-defined state is equal without executing the generator. For default scratch_density500, scratch_draws=2500; on an admitted1024 texture the per-texel roughness index1,046,076 and finish layer1 lattice (i=0,j=0) both use step1,048,577. Finish layers themselves remain separated by their documented stride.",
+      "remaining": "Exact integer/source relationship, not a generated texture, shader execution, observed visual artifact or proof that statistical independence is required. Intended sharing policy, effect and preservation of seeded behavior remain open."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-ARMOR-ENGRAVING-ERROR-OWNERSHIP",
+      "queue": 136,
+      "qualification": "Original Adler346 extends the same engraving error family to outer MetalGpu formatting; original native and WASM first-operation questions remain distinct."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-METAL-SEED-DRAW-OVERLAP-95E",
+      "qualification": "New source-derived shared-state question, not a proven defect or output observation."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "bytes": 14487,
+      "git_blob": "0727226370cf6e317b0b0b399143af1d60dab423",
+      "preserved_bytes": "recovered/limb-metal-059/013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b.gz",
+      "published_sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "published_bytes": 14487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "bytes": 17595,
+      "git_blob": "37209f8639a30afb09ce02f25762823a60f84b12",
+      "preserved_bytes": "recovered/limb-metal-059/33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506.gz",
+      "published_sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "published_bytes": 17595,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "bytes": 21125,
+      "git_blob": "b1ff53cd461863a08e8170f7451b9abbb6e081ef",
+      "preserved_bytes": "recovered/limb-metal-059/af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea.gz",
+      "published_sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "published_bytes": 21125,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "bytes": 27452,
+      "git_blob": "e267554248f8329c0f4ec09a8026cdc70c705e26",
+      "preserved_bytes": "recovered/limb-metal-059/6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea.gz",
+      "published_sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "published_bytes": 27452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "bytes": 22456,
+      "git_blob": "fa8502f3db92aa4c3078db978f1662cede4baf11",
+      "preserved_bytes": "recovered/limb-metal-059/96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b.gz",
+      "published_sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "published_bytes": 22456,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "bytes": 11067,
+      "git_blob": "92e69019423222de343906ffbdf10758743816d3",
+      "preserved_bytes": "recovered/limb-metal-059/149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9.gz",
+      "published_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "published_bytes": 11067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "bytes": 18061,
+      "git_blob": "3d3dfaa6da80c4dd1f87de4cebc7d2d4ca6af48d",
+      "preserved_bytes": "recovered/limb-metal-059/04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938.gz",
+      "published_sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "published_bytes": 18061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "bytes": 19279,
+      "git_blob": "7cd7cbdfc96edad375a8557ca4cfc842ac016484",
+      "preserved_bytes": "recovered/limb-metal-059/a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17.gz",
+      "published_sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "published_bytes": 19279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "bytes": 11860,
+      "git_blob": "cd4ba47186f20cd9ec174beae4bf3ca1c9c80bbc",
+      "preserved_bytes": "recovered/limb-metal-059/7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2.gz",
+      "published_sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "bytes": 15252,
+      "git_blob": "6b3497c6889858a09aa3da87f2bcff57ca8cb22d",
+      "preserved_bytes": "recovered/limb-metal-059/8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb.gz",
+      "published_sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "published_bytes": 15252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "bytes": 23129,
+      "git_blob": "177099df66cc6ca9051b8c72421afd1680f8e950",
+      "preserved_bytes": "recovered/limb-metal-059/c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9.gz",
+      "published_sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "bytes": 11573,
+      "git_blob": "633c5904872e62cbfa3ad647c18f209cb61a4da7",
+      "preserved_bytes": "recovered/limb-metal-059/7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85.gz",
+      "published_sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "published_bytes": 11573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "bytes": 14118,
+      "git_blob": "01662cefc50ccf57c6550d14bde65ac9a7267e14",
+      "preserved_bytes": "recovered/limb-metal-059/c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1.gz",
+      "published_sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "published_bytes": 14118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "bytes": 14866,
+      "git_blob": "e2cb145ed01f79ca3573e725d230e15701b9c56c",
+      "preserved_bytes": "recovered/limb-metal-059/b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c.gz",
+      "published_sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "published_bytes": 14866,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "bytes": 6833,
+      "git_blob": "f30dff7da2604497d37978130eb835b365fc4f33",
+      "preserved_bytes": "recovered/limb-metal-059/aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763.gz",
+      "published_sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "published_bytes": 6833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "bytes": 8777,
+      "git_blob": "52ef60a72862f9c7260c4bd4312d6031771d395b",
+      "preserved_bytes": "recovered/limb-metal-059/ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916.gz",
+      "published_sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "published_bytes": 8777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/limb-metal-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "bytes": 6922,
+      "git_blob": "8f7d49f37cd084d0544e74223bdfb3f38fedcb52",
+      "preserved_bytes": "recovered/limb-metal-059/8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c.gz",
+      "published_sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "published_bytes": 6922,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "bytes": 15835,
+      "git_blob": "d00c3a915d6cfcd5c8863bbc98964c6a3d6df510",
+      "preserved_bytes": "recovered/limb-metal-059/51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903.gz",
+      "published_sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "published_bytes": 15835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original059 queue136 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue136 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue136 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue136 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue136 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue136 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "bytes": 15189,
+      "git_blob": "bd313a98e130ebc0cf6415fab33ab87d75e292b2",
+      "preserved_bytes": "recovered/limb-metal-059/06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702.gz",
+      "published_sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "published_bytes": 15189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50",
+      "bytes": 10780,
+      "git_blob": "59e5b8248ad0dde6081963cac3ecac64e056b965",
+      "preserved_bytes": "recovered/limb-metal-059/d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50.gz",
+      "published_sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50",
+      "published_bytes": 10780,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a",
+      "bytes": 16649,
+      "git_blob": "c8f56e84fec0c2b5a31f27aa854bd6610b8f753b",
+      "preserved_bytes": "recovered/limb-metal-059/ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a.gz",
+      "published_sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a",
+      "published_bytes": 16649,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Adler historical receipt; includes original2194 without a new current read"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1046.json",
+      "sha256": "d068d56d8c60f004e3f9e01a1ddfcaec62caedbc807a64b3e0efd57e5fe868b2",
+      "bytes": 785,
+      "git_blob": "84aa9750db2379bd22aa59c6529cd9fb233bfee5",
+      "preserved_bytes": "recovered/limb-metal-059/d068d56d8c60f004e3f9e01a1ddfcaec62caedbc807a64b3e0efd57e5fe868b2.gz",
+      "published_sha256": "d068d56d8c60f004e3f9e01a1ddfcaec62caedbc807a64b3e0efd57e5fe868b2",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1047.json",
+      "sha256": "dba3b0b4dcfd7f48d830001e97293f65a07af9276eb45ad130f045e29adf1faf",
+      "bytes": 795,
+      "git_blob": "3da8d39a70dc7201050259fa97d9da913476d679",
+      "preserved_bytes": "recovered/limb-metal-059/dba3b0b4dcfd7f48d830001e97293f65a07af9276eb45ad130f045e29adf1faf.gz",
+      "published_sha256": "dba3b0b4dcfd7f48d830001e97293f65a07af9276eb45ad130f045e29adf1faf",
+      "published_bytes": 795,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1048.json",
+      "sha256": "7603789d6df720392299ef22c3617533736cbb31f2351365f4aea74a67c2e59a",
+      "bytes": 791,
+      "git_blob": "0baf2ce0a78122fb43fb15948f6fb7dae88e8a75",
+      "preserved_bytes": "recovered/limb-metal-059/7603789d6df720392299ef22c3617533736cbb31f2351365f4aea74a67c2e59a.gz",
+      "published_sha256": "7603789d6df720392299ef22c3617533736cbb31f2351365f4aea74a67c2e59a",
+      "published_bytes": 791,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1049.json",
+      "sha256": "0e00b707463adbe4de838c34070a5d2e63cbda50bf590a30bdb30e9e55d95954",
+      "bytes": 793,
+      "git_blob": "45643316c0be057ba09c26032601f0722d723972",
+      "preserved_bytes": "recovered/limb-metal-059/0e00b707463adbe4de838c34070a5d2e63cbda50bf590a30bdb30e9e55d95954.gz",
+      "published_sha256": "0e00b707463adbe4de838c34070a5d2e63cbda50bf590a30bdb30e9e55d95954",
+      "published_bytes": 793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1050.json",
+      "sha256": "bdac60b4f2ce1501da502642a0024ab32d25faf7ec217d976ce01e858186525b",
+      "bytes": 790,
+      "git_blob": "0a00aa44e747f1fff66e1ebc472d248cd2e56ed1",
+      "preserved_bytes": "recovered/limb-metal-059/bdac60b4f2ce1501da502642a0024ab32d25faf7ec217d976ce01e858186525b.gz",
+      "published_sha256": "bdac60b4f2ce1501da502642a0024ab32d25faf7ec217d976ce01e858186525b",
+      "published_bytes": 790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1051.json",
+      "sha256": "63d99a1ea22d2d3d9371998d4f16bf34e1253f299b103399311b56a35cad1377",
+      "bytes": 795,
+      "git_blob": "339aa0387fcdae6d0c43513f50ddbfdf7752af20",
+      "preserved_bytes": "recovered/limb-metal-059/63d99a1ea22d2d3d9371998d4f16bf34e1253f299b103399311b56a35cad1377.gz",
+      "published_sha256": "63d99a1ea22d2d3d9371998d4f16bf34e1253f299b103399311b56a35cad1377",
+      "published_bytes": 795,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-346.json",
+      "sha256": "15cc21fed7891f0c5b4f56de9b3566d3857c97692110708ad6a7be362908daec",
+      "bytes": 668,
+      "git_blob": "e66b477e0445b719ba015d28790411b0c23605ae",
+      "preserved_bytes": "recovered/limb-metal-059/15cc21fed7891f0c5b4f56de9b3566d3857c97692110708ad6a7be362908daec.gz",
+      "published_sha256": "15cc21fed7891f0c5b4f56de9b3566d3857c97692110708ad6a7be362908daec",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-346.json",
+      "sha256": "3aa806deebe8019993c0c3962327a818df85cdcb383c98efe245622c8bc746ac",
+      "bytes": 35383,
+      "git_blob": "7155c84f6cdacdcf5a5d3cdc2ed91c4e94760d04",
+      "preserved_bytes": "recovered/limb-metal-059/3aa806deebe8019993c0c3962327a818df85cdcb383c98efe245622c8bc746ac.gz",
+      "published_sha256": "3aa806deebe8019993c0c3962327a818df85cdcb383c98efe245622c8bc746ac",
+      "published_bytes": 35383,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-021.json",
+      "sha256": "ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535",
+      "bytes": 153154,
+      "git_blob": "dc04603180c75a8ea301250b6c2acb6f0f8f7750",
+      "preserved_bytes": "recovered/limb-metal-059/ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535.gz",
+      "published_sha256": "ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535",
+      "published_bytes": 153154,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-039.json",
+      "sha256": "6eb2677d43434721082bef2a524bed69f5b100b71d5320b7fb9727be81068eed",
+      "bytes": 501702,
+      "git_blob": "c570e8028840767b4831fae68411d7cc32d8b7d6",
+      "preserved_bytes": "recovered/limb-metal-059/6eb2677d43434721082bef2a524bed69f5b100b71d5320b7fb9727be81068eed.gz",
+      "published_sha256": "6eb2677d43434721082bef2a524bed69f5b100b71d5320b7fb9727be81068eed",
+      "published_bytes": 501702,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-097.json",
+      "sha256": "c124b0b8f16ae420dcbe7a1e5fc5274565f26bccd8a2fd9850792e0685182c59",
+      "bytes": 3452,
+      "git_blob": "0b17c96f7e48a1c357a9377f4d701a897d57981e",
+      "preserved_bytes": "recovered/limb-metal-059/c124b0b8f16ae420dcbe7a1e5fc5274565f26bccd8a2fd9850792e0685182c59.gz",
+      "published_sha256": "c124b0b8f16ae420dcbe7a1e5fc5274565f26bccd8a2fd9850792e0685182c59",
+      "published_bytes": 3452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-176.json",
+      "sha256": "e383fde40c7feea9e7cf5cf256644a3f3fcdba4df3158774cd0994c70afd3e0d",
+      "bytes": 3419,
+      "git_blob": "ae8205df299d0d4ba130a9a67b81b4619148fb08",
+      "preserved_bytes": "recovered/limb-metal-059/e383fde40c7feea9e7cf5cf256644a3f3fcdba4df3158774cd0994c70afd3e0d.gz",
+      "published_sha256": "e383fde40c7feea9e7cf5cf256644a3f3fcdba4df3158774cd0994c70afd3e0d",
+      "published_bytes": 3419,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-177.json",
+      "sha256": "192a96962a71d29407c625f76abcc8ff6b004abef601b3886b55748e2ef2636b",
+      "bytes": 6607,
+      "git_blob": "fd88f701a464b40e827b5b05ea60bb84b0407e74",
+      "preserved_bytes": "recovered/limb-metal-059/192a96962a71d29407c625f76abcc8ff6b004abef601b3886b55748e2ef2636b.gz",
+      "published_sha256": "0012a5f503a9614de7be9adac3aae177f077e4faa2bc6f7cc392cd75fed2068f",
+      "published_bytes": 5938,
+      "redacted_local_path_occurrences": 8,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-181.json",
+      "sha256": "a243d30ab845124d64f1c17aa2a7033a6058aeed7994c2b55a0580e3cc14241a",
+      "bytes": 3381,
+      "git_blob": "71dcd164803dc3cee1ee9cc18a688d10985a91a7",
+      "preserved_bytes": "recovered/limb-metal-059/a243d30ab845124d64f1c17aa2a7033a6058aeed7994c2b55a0580e3cc14241a.gz",
+      "published_sha256": "a243d30ab845124d64f1c17aa2a7033a6058aeed7994c2b55a0580e3cc14241a",
+      "published_bytes": 3381,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-182.json",
+      "sha256": "4e12ed25d35d84cb85e4cf68074d5f264d27c78dafc927763c9da42a2b8e48da",
+      "bytes": 1781,
+      "git_blob": "1f91010eafdabe1ee0e7e9849df599d5e7e828ff",
+      "preserved_bytes": "recovered/limb-metal-059/4e12ed25d35d84cb85e4cf68074d5f264d27c78dafc927763c9da42a2b8e48da.gz",
+      "published_sha256": "4e12ed25d35d84cb85e4cf68074d5f264d27c78dafc927763c9da42a2b8e48da",
+      "published_bytes": 1781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-CLOSURE-001-02.json",
+      "sha256": "03235d81308266292156dccd07581956ea9d2c44416bcbc790e0e70892614488",
+      "bytes": 277876,
+      "git_blob": "08618e299280a25f8c845d184d1bac5c993cd364",
+      "preserved_bytes": "recovered/limb-metal-059/03235d81308266292156dccd07581956ea9d2c44416bcbc790e0e70892614488.gz",
+      "published_sha256": "9396909b3aaa5d2f4c6b1ecf24bc4b2cb3a8e161ac7ab1e430dc355f2f132139",
+      "published_bytes": 274239,
+      "redacted_local_path_occurrences": 42,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-007.json",
+      "sha256": "0fb270acb891df449a9be536f25cfe3d6db038bc0bc06ee91f22683cd9232219",
+      "bytes": 181149,
+      "git_blob": "5a70fdd77a8804f525f4729f12c7656281e48a0d",
+      "preserved_bytes": "recovered/limb-metal-059/0fb270acb891df449a9be536f25cfe3d6db038bc0bc06ee91f22683cd9232219.gz",
+      "published_sha256": "0fb270acb891df449a9be536f25cfe3d6db038bc0bc06ee91f22683cd9232219",
+      "published_bytes": 181149,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-047.json",
+      "sha256": "19846118bf843a14303d582eb022f9f3974f36995310289145cca6ea65d42f96",
+      "bytes": 30452,
+      "git_blob": "d14cbb03a0c17047aed477d052e17e2c94811df0",
+      "preserved_bytes": "recovered/limb-metal-059/19846118bf843a14303d582eb022f9f3974f36995310289145cca6ea65d42f96.gz",
+      "published_sha256": "19846118bf843a14303d582eb022f9f3974f36995310289145cca6ea65d42f96",
+      "published_bytes": 30452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-094.json",
+      "sha256": "3b2cb2ec4ce71e688dee197c2a35312196fce355fae8b0e2dc840aabff4108d3",
+      "bytes": 11670,
+      "git_blob": "a93f9592c84a046c8d6e2926acb3a0c1b8d1d194",
+      "preserved_bytes": "recovered/limb-metal-059/3b2cb2ec4ce71e688dee197c2a35312196fce355fae8b0e2dc840aabff4108d3.gz",
+      "published_sha256": "3b2cb2ec4ce71e688dee197c2a35312196fce355fae8b0e2dc840aabff4108d3",
+      "published_bytes": 11670,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-156.json",
+      "sha256": "692db43dde5c973a80ecffacc0447dceca7a0f168094ee2fc47deb7ade63006a",
+      "bytes": 10530,
+      "git_blob": "a95860e98c67730f088f48ab05b0a93557935cbb",
+      "preserved_bytes": "recovered/limb-metal-059/692db43dde5c973a80ecffacc0447dceca7a0f168094ee2fc47deb7ade63006a.gz",
+      "published_sha256": "692db43dde5c973a80ecffacc0447dceca7a0f168094ee2fc47deb7ade63006a",
+      "published_bytes": 10530,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-157.json",
+      "sha256": "1578e6cb70fb1dd8b2d6cd6f917aada4f761553ffe3dc9ef00ce386602935e69",
+      "bytes": 13291,
+      "git_blob": "1c755dcb54050045b2010963049f670a2a5a4cc9",
+      "preserved_bytes": "recovered/limb-metal-059/1578e6cb70fb1dd8b2d6cd6f917aada4f761553ffe3dc9ef00ce386602935e69.gz",
+      "published_sha256": "61bc57f8aaadb1cd4f052dbface3e09cf652df3e78df3fc3dede9143df291635",
+      "published_bytes": 12622,
+      "redacted_local_path_occurrences": 8,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-161.json",
+      "sha256": "1e45c4245862480844d0ec2c6ef13769a5f78d091b189d891dc9855482a57a3d",
+      "bytes": 14205,
+      "git_blob": "345991e3ea1f78893220ab89fd19e1600809dad2",
+      "preserved_bytes": "recovered/limb-metal-059/1e45c4245862480844d0ec2c6ef13769a5f78d091b189d891dc9855482a57a3d.gz",
+      "published_sha256": "1e45c4245862480844d0ec2c6ef13769a5f78d091b189d891dc9855482a57a3d",
+      "published_bytes": 14205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-730.json",
+      "sha256": "a5dbfc3fe47ecb26d1957cedd6eedc107c21ad2c94cc0ad839d0d663ec9e0acc",
+      "bytes": 6860,
+      "git_blob": "346e3b01f6652061086657f3846ae7a38687a853",
+      "preserved_bytes": "recovered/limb-metal-059/a5dbfc3fe47ecb26d1957cedd6eedc107c21ad2c94cc0ad839d0d663ec9e0acc.gz",
+      "published_sha256": "a5dbfc3fe47ecb26d1957cedd6eedc107c21ad2c94cc0ad839d0d663ec9e0acc",
+      "published_bytes": 6860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-731.json",
+      "sha256": "5b62075aa40a552d5bb5a61b2d108dab7c1e998c5f6e5c8fe5264e75ee034715",
+      "bytes": 16470,
+      "git_blob": "237afaac5f8e0d95f841d7d07e72320a9aeef242",
+      "preserved_bytes": "recovered/limb-metal-059/5b62075aa40a552d5bb5a61b2d108dab7c1e998c5f6e5c8fe5264e75ee034715.gz",
+      "published_sha256": "5b62075aa40a552d5bb5a61b2d108dab7c1e998c5f6e5c8fe5264e75ee034715",
+      "published_bytes": 16470,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-143.json",
+      "sha256": "3ad006b43068cd8155734ac4af0cfc2563ee7722e44d30f7c06cfac66abea579",
+      "bytes": 764,
+      "git_blob": "5f0adfadf0ef673234038203b237299b9360dca7",
+      "preserved_bytes": "recovered/limb-metal-059/3ad006b43068cd8155734ac4af0cfc2563ee7722e44d30f7c06cfac66abea579.gz",
+      "published_sha256": "3ad006b43068cd8155734ac4af0cfc2563ee7722e44d30f7c06cfac66abea579",
+      "published_bytes": 764,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-144.json",
+      "sha256": "e507133b21d4c254e6da00883c8fd1e8a7be69de1e63fd136d661e42a2ea6015",
+      "bytes": 784,
+      "git_blob": "747d27efb06e30aefa3d3e23b2d61f250950b0f7",
+      "preserved_bytes": "recovered/limb-metal-059/e507133b21d4c254e6da00883c8fd1e8a7be69de1e63fd136d661e42a2ea6015.gz",
+      "published_sha256": "e507133b21d4c254e6da00883c8fd1e8a7be69de1e63fd136d661e42a2ea6015",
+      "published_bytes": 784,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-145.json",
+      "sha256": "04567cc3c65a8106e7bad3b69a29199de0123ee9c58344e2105373934d2a9a3f",
+      "bytes": 776,
+      "git_blob": "a95c4e33653720b5f4137adf24e521a20a60be13",
+      "preserved_bytes": "recovered/limb-metal-059/04567cc3c65a8106e7bad3b69a29199de0123ee9c58344e2105373934d2a9a3f.gz",
+      "published_sha256": "04567cc3c65a8106e7bad3b69a29199de0123ee9c58344e2105373934d2a9a3f",
+      "published_bytes": 776,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-146.json",
+      "sha256": "7e8fe29be1279e7896db70c12f4490cbba8ce7d379d0bec3eecab8ddad72f437",
+      "bytes": 780,
+      "git_blob": "63b086f07dacfd0b6a544711a55cfa2cb92e1b78",
+      "preserved_bytes": "recovered/limb-metal-059/7e8fe29be1279e7896db70c12f4490cbba8ce7d379d0bec3eecab8ddad72f437.gz",
+      "published_sha256": "7e8fe29be1279e7896db70c12f4490cbba8ce7d379d0bec3eecab8ddad72f437",
+      "published_bytes": 780,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-147.json",
+      "sha256": "c8d97c43eb78fb51df44b5aa31bb0ae49859d823633cae92af76f68a3c65d1ee",
+      "bytes": 774,
+      "git_blob": "24d1eddd1892ecb322d15ef7d572fbd68cb3ccba",
+      "preserved_bytes": "recovered/limb-metal-059/c8d97c43eb78fb51df44b5aa31bb0ae49859d823633cae92af76f68a3c65d1ee.gz",
+      "published_sha256": "c8d97c43eb78fb51df44b5aa31bb0ae49859d823633cae92af76f68a3c65d1ee",
+      "published_bytes": 774,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-148.json",
+      "sha256": "166c2abcae0a6fd3801532def363ec700c9bdf202edfa5e1de8340760a7d6526",
+      "bytes": 984,
+      "git_blob": "8fb257801d0203c699a2b0f658a321333432d375",
+      "preserved_bytes": "recovered/limb-metal-059/166c2abcae0a6fd3801532def363ec700c9bdf202edfa5e1de8340760a7d6526.gz",
+      "published_sha256": "166c2abcae0a6fd3801532def363ec700c9bdf202edfa5e1de8340760a7d6526",
+      "published_bytes": 984,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-149.json",
+      "sha256": "3ee91e38eb93e61e3fddf3b00228e9d972f12d20ead0caa8bf6adc6eaac8a234",
+      "bytes": 784,
+      "git_blob": "3bff93097cd6c14423849c46949dd262ae0480d5",
+      "preserved_bytes": "recovered/limb-metal-059/3ee91e38eb93e61e3fddf3b00228e9d972f12d20ead0caa8bf6adc6eaac8a234.gz",
+      "published_sha256": "3ee91e38eb93e61e3fddf3b00228e9d972f12d20ead0caa8bf6adc6eaac8a234",
+      "published_bytes": 784,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration, including original later roles without new current read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-543.json",
+      "sha256": "255a723d55753ecf123d7533f5c090c531666d23c13ffda991d89dbfc4725f2a",
+      "bytes": 226116,
+      "git_blob": "f07558a4f281d576bba0ff317d5b637c8674d170",
+      "preserved_bytes": "recovered/limb-metal-059/255a723d55753ecf123d7533f5c090c531666d23c13ffda991d89dbfc4725f2a.gz",
+      "published_sha256": "255a723d55753ecf123d7533f5c090c531666d23c13ffda991d89dbfc4725f2a",
+      "published_bytes": 226116,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-583.json",
+      "sha256": "c116d2d6c6aea50f34e496a9abd57ce0ecc25ecbc1f97eccf57ad9934d9e36e1",
+      "bytes": 33825,
+      "git_blob": "ba2181fc24b46a24b73f2a7705e6df5cecfe66ff",
+      "preserved_bytes": "recovered/limb-metal-059/c116d2d6c6aea50f34e496a9abd57ce0ecc25ecbc1f97eccf57ad9934d9e36e1.gz",
+      "published_sha256": "c116d2d6c6aea50f34e496a9abd57ce0ecc25ecbc1f97eccf57ad9934d9e36e1",
+      "published_bytes": 33825,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-630.json",
+      "sha256": "9175583eb1a1274b7d7f97a54413d0629cc4bb3cfe532b594c5e2899986ed53a",
+      "bytes": 15090,
+      "git_blob": "c813a191498cae860dd7bb2770f19b0e08c3b915",
+      "preserved_bytes": "recovered/limb-metal-059/9175583eb1a1274b7d7f97a54413d0629cc4bb3cfe532b594c5e2899986ed53a.gz",
+      "published_sha256": "9175583eb1a1274b7d7f97a54413d0629cc4bb3cfe532b594c5e2899986ed53a",
+      "published_bytes": 15090,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-692.json",
+      "sha256": "15de6d5faaab0eb8f2a9570092f82db4779e50792683b6c89b15666a323c5cf7",
+      "bytes": 13459,
+      "git_blob": "6bbd889ce78c4cb947f8201e5526064b98c102a1",
+      "preserved_bytes": "recovered/limb-metal-059/15de6d5faaab0eb8f2a9570092f82db4779e50792683b6c89b15666a323c5cf7.gz",
+      "published_sha256": "15de6d5faaab0eb8f2a9570092f82db4779e50792683b6c89b15666a323c5cf7",
+      "published_bytes": 13459,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-693.json",
+      "sha256": "bec1ace7f7ec0b0beba450e1ceefa1377d2d16d1ff6c9e12a34bc6b19c33c984",
+      "bytes": 17961,
+      "git_blob": "2c847f64b3e71837836fbe1fb380dc7d6210155c",
+      "preserved_bytes": "recovered/limb-metal-059/bec1ace7f7ec0b0beba450e1ceefa1377d2d16d1ff6c9e12a34bc6b19c33c984.gz",
+      "published_sha256": "095b44fc421134ca551f8396439025eda31bbd77e8b69ea22807b107f2cde59b",
+      "published_bytes": 17292,
+      "redacted_local_path_occurrences": 8,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-697.json",
+      "sha256": "2ff5c48154b555ac7af7415adcdddbc4b6fa3a9a7511a462af2d0e272fc365a1",
+      "bytes": 18186,
+      "git_blob": "5cd605afacead120f513f80955e9b10e0967f2ce",
+      "preserved_bytes": "recovered/limb-metal-059/2ff5c48154b555ac7af7415adcdddbc4b6fa3a9a7511a462af2d0e272fc365a1.gz",
+      "published_sha256": "2ff5c48154b555ac7af7415adcdddbc4b6fa3a9a7511a462af2d0e272fc365a1",
+      "published_bytes": 18186,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2265 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue2266 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-729.json",
+      "sha256": "2231a8bb7716254b167b14b70b936e2ab6fa1dde5f15976e0fd144dc0b57a6c2",
+      "bytes": 6199,
+      "git_blob": "911ffe474457c4ff3e3b3fb87c1fa1a93bac2c27",
+      "preserved_bytes": "recovered/limb-metal-059/2231a8bb7716254b167b14b70b936e2ab6fa1dde5f15976e0fd144dc0b57a6c2.gz",
+      "published_sha256": "2231a8bb7716254b167b14b70b936e2ab6fa1dde5f15976e0fd144dc0b57a6c2",
+      "published_bytes": 6199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue1814 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue1814 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-730.json",
+      "sha256": "eb9f0cd76cf3d73d5ca27a8f9bbf55b9f7d1e062fc15a33ac949aa1ab30fd502",
+      "bytes": 7933,
+      "git_blob": "322902e725ed544f98066491652d796e1a1033f5",
+      "preserved_bytes": "recovered/limb-metal-059/eb9f0cd76cf3d73d5ca27a8f9bbf55b9f7d1e062fc15a33ac949aa1ab30fd502.gz",
+      "published_sha256": "eb9f0cd76cf3d73d5ca27a8f9bbf55b9f7d1e062fc15a33ac949aa1ab30fd502",
+      "published_bytes": 7933,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-731.json",
+      "sha256": "7f095894e014a4c8b39f7a8e5321a65bd7db97767420bea2d8034ee7a3241ab6",
+      "bytes": 18688,
+      "git_blob": "b31f69b82d5982e95d30ae32966ad74c78314731",
+      "preserved_bytes": "recovered/limb-metal-059/7f095894e014a4c8b39f7a8e5321a65bd7db97767420bea2d8034ee7a3241ab6.gz",
+      "published_sha256": "7f095894e014a4c8b39f7a8e5321a65bd7db97767420bea2d8034ee7a3241ab6",
+      "published_bytes": 18688,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-730.json",
+      "sha256": "ce6ac51cf1a77e86951d7005124777b86f0ed584ffde9d4c8869a35f1d1bad07",
+      "bytes": 1640,
+      "git_blob": "15f33c06686fd3bffd25df22122d5d51641a5aa0",
+      "preserved_bytes": "recovered/limb-metal-059/ce6ac51cf1a77e86951d7005124777b86f0ed584ffde9d4c8869a35f1d1bad07.gz",
+      "published_sha256": "ce6ac51cf1a77e86951d7005124777b86f0ed584ffde9d4c8869a35f1d1bad07",
+      "published_bytes": 1640,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-731.json",
+      "sha256": "8d3d2444b1a27c8fb1a3fc88813ab5605f01d19b62da5d72e0a7056f2f747aa5",
+      "bytes": 2795,
+      "git_blob": "413a38b55d63a8ed3839a004c99bc20c858ea528",
+      "preserved_bytes": "recovered/limb-metal-059/8d3d2444b1a27c8fb1a3fc88813ab5605f01d19b62da5d72e0a7056f2f747aa5.gz",
+      "published_sha256": "8d3d2444b1a27c8fb1a3fc88813ab5605f01d19b62da5d72e0a7056f2f747aa5",
+      "published_bytes": 2795,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-730.json",
+      "sha256": "6526b48dc58219c466a87cb5265b3c78f7ccd88018bfb63ae8d031e509ec7689",
+      "bytes": 667,
+      "git_blob": "30c30ba4b5d0e4f834c40c72fad576a0af4ec52d",
+      "preserved_bytes": "recovered/limb-metal-059/6526b48dc58219c466a87cb5265b3c78f7ccd88018bfb63ae8d031e509ec7689.gz",
+      "published_sha256": "6526b48dc58219c466a87cb5265b3c78f7ccd88018bfb63ae8d031e509ec7689",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-731.json",
+      "sha256": "e1c87e176a55ac90f21c1bce313c7a20da8255a3577dc7fbe4977a21a7ded4cd",
+      "bytes": 667,
+      "git_blob": "88fca04d6e14f9bc37c78319cbf736dc43bd4b19",
+      "preserved_bytes": "recovered/limb-metal-059/e1c87e176a55ac90f21c1bce313c7a20da8255a3577dc7fbe4977a21a7ded4cd.gz",
+      "published_sha256": "e1c87e176a55ac90f21c1bce313c7a20da8255a3577dc7fbe4977a21a7ded4cd",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-183.json",
+      "sha256": "02d32014de5cd744f5350338918bd99013b4b6dc8096afb1d427f27d2bf762b6",
+      "bytes": 2780,
+      "git_blob": "24d52ef7ca9b3fe9b58b6aa9249ad06c865e65fb",
+      "preserved_bytes": "recovered/limb-metal-059/02d32014de5cd744f5350338918bd99013b4b6dc8096afb1d427f27d2bf762b6.gz",
+      "published_sha256": "02d32014de5cd744f5350338918bd99013b4b6dc8096afb1d427f27d2bf762b6",
+      "published_bytes": 2780,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-002-02.json",
+      "sha256": "951854a0517e846f3c4c21400eacdf43019e4b30b86b9e97a38a6261f4ae8fea",
+      "bytes": 244492,
+      "git_blob": "c64b9006039e54bebe3beec6943816d53d309023",
+      "preserved_bytes": "recovered/limb-metal-059/951854a0517e846f3c4c21400eacdf43019e4b30b86b9e97a38a6261f4ae8fea.gz",
+      "published_sha256": "1f3e58548c9859c1a6a010c8d8961abc3fbc8897322e5a171c9418ecbdf61741",
+      "published_bytes": 240087,
+      "redacted_local_path_occurrences": 51,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-162.json",
+      "sha256": "ffd5a55334c9611cadd3c3120a46597bf5cb9eb331ee4edc4d5ab4dc87b7c7d4",
+      "bytes": 12113,
+      "git_blob": "5426db596bf65bb2e8ca867ea16a9b2a6c06b517",
+      "preserved_bytes": "recovered/limb-metal-059/ffd5a55334c9611cadd3c3120a46597bf5cb9eb331ee4edc4d5ab4dc87b7c7d4.gz",
+      "published_sha256": "ffd5a55334c9611cadd3c3120a46597bf5cb9eb331ee4edc4d5ab4dc87b7c7d4",
+      "published_bytes": 12113,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-698.json",
+      "sha256": "0194cee643f930748ac69531984d565f62f2ff53bb519525f10437e26a6d7918",
+      "bytes": 14755,
+      "git_blob": "3258c3a510ff74c5b336dc57fe9ddc12b53aa1ba",
+      "preserved_bytes": "recovered/limb-metal-059/0194cee643f930748ac69531984d565f62f2ff53bb519525f10437e26a6d7918.gz",
+      "published_sha256": "0194cee643f930748ac69531984d565f62f2ff53bb519525f10437e26a6d7918",
+      "published_bytes": 14755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-699.json",
+      "sha256": "89f9f064f3ff3cbf27e05212fa36b9b8872916f4bd9b0daa1f11abd95a9c169e",
+      "bytes": 19960,
+      "git_blob": "dd1fcda3914627c5a7aa8624d28048719deb4757",
+      "preserved_bytes": "recovered/limb-metal-059/89f9f064f3ff3cbf27e05212fa36b9b8872916f4bd9b0daa1f11abd95a9c169e.gz",
+      "published_sha256": "89f9f064f3ff3cbf27e05212fa36b9b8872916f4bd9b0daa1f11abd95a9c169e",
+      "published_bytes": 19960,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-700.json",
+      "sha256": "b0cad05e39eba4fccb97243a364377df933cebfa08fad2036ad7ac9d8b841fe3",
+      "bytes": 20640,
+      "git_blob": "888b4a1c57895e6e0a65598f9de025c75870c8e6",
+      "preserved_bytes": "recovered/limb-metal-059/b0cad05e39eba4fccb97243a364377df933cebfa08fad2036ad7ac9d8b841fe3.gz",
+      "published_sha256": "7d1f60b72376acf41114884449d4931163140393b56735252f1da29f3e20160f",
+      "published_bytes": 19783,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-701.json",
+      "sha256": "476c71c6977a3f12b2dab6f4710a2455573ae367f0f538cf7a32f4b147158b37",
+      "bytes": 21606,
+      "git_blob": "1b969958f56bd05a983793a30c492503af4f1101",
+      "preserved_bytes": "recovered/limb-metal-059/476c71c6977a3f12b2dab6f4710a2455573ae367f0f538cf7a32f4b147158b37.gz",
+      "published_sha256": "aa1a7859e497c613758229a879a35b4c08594f778ae472f8cd5494593d663f0e",
+      "published_bytes": 20606,
+      "redacted_local_path_occurrences": 12,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-702.json",
+      "sha256": "95ca2d84546c3c236ca25ec91605f67332b5a2d52b03cec2e6e0dbbcc8cd6b20",
+      "bytes": 18637,
+      "git_blob": "11f7eda50ff1296ac00be0bd809f57a8ba4f4dc4",
+      "preserved_bytes": "recovered/limb-metal-059/95ca2d84546c3c236ca25ec91605f67332b5a2d52b03cec2e6e0dbbcc8cd6b20.gz",
+      "published_sha256": "29fc18d343c416348eb357a5733d4e5383774c2fdcb5bd7c74cd46ac0986588c",
+      "published_bytes": 17793,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-703.json",
+      "sha256": "6f2c4a5061b20a22e419488f474056eae14c629933c56540ca85f6d51f49102a",
+      "bytes": 10051,
+      "git_blob": "44ae003ebc4fb3e277c189072802cfdac51b03cb",
+      "preserved_bytes": "recovered/limb-metal-059/6f2c4a5061b20a22e419488f474056eae14c629933c56540ca85f6d51f49102a.gz",
+      "published_sha256": "e15cc4c71007b821e49ff58311973249f6408fe301746534c7eba781c7e808a8",
+      "published_bytes": 9885,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-698.json",
+      "sha256": "d753e10c325e9a46e9a3e3c75e17fb33b374c7d4d2a6baae482d31839b5d2d75",
+      "bytes": 1017,
+      "git_blob": "cc397f49fe12cf35092848bebbf3886217fb7b56",
+      "preserved_bytes": "recovered/limb-metal-059/d753e10c325e9a46e9a3e3c75e17fb33b374c7d4d2a6baae482d31839b5d2d75.gz",
+      "published_sha256": "d753e10c325e9a46e9a3e3c75e17fb33b374c7d4d2a6baae482d31839b5d2d75",
+      "published_bytes": 1017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-699.json",
+      "sha256": "e4210c5ad92f3d0ae3150edacdd692863d084c222d37532f644f851f1bb13af9",
+      "bytes": 1017,
+      "git_blob": "a2fd265392fc336be16cc724bca84c6b5f20584d",
+      "preserved_bytes": "recovered/limb-metal-059/e4210c5ad92f3d0ae3150edacdd692863d084c222d37532f644f851f1bb13af9.gz",
+      "published_sha256": "e4210c5ad92f3d0ae3150edacdd692863d084c222d37532f644f851f1bb13af9",
+      "published_bytes": 1017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-700.json",
+      "sha256": "e7bb407af8da40182dcd16e07c5114c8407c35c3c55a093bd58f45b79f30313c",
+      "bytes": 1017,
+      "git_blob": "1e4e19c733caa2137b39447d2405a398df7d513e",
+      "preserved_bytes": "recovered/limb-metal-059/e7bb407af8da40182dcd16e07c5114c8407c35c3c55a093bd58f45b79f30313c.gz",
+      "published_sha256": "e7bb407af8da40182dcd16e07c5114c8407c35c3c55a093bd58f45b79f30313c",
+      "published_bytes": 1017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-701.json",
+      "sha256": "edcca8c4da948271b58ef338486f585d22e57df5356fee5d9f3bd9ce02286510",
+      "bytes": 1017,
+      "git_blob": "9a78c4b134e643ff5994d883ad4db61c772c6166",
+      "preserved_bytes": "recovered/limb-metal-059/edcca8c4da948271b58ef338486f585d22e57df5356fee5d9f3bd9ce02286510.gz",
+      "published_sha256": "edcca8c4da948271b58ef338486f585d22e57df5356fee5d9f3bd9ce02286510",
+      "published_bytes": 1017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-702.json",
+      "sha256": "3535f51f2b8d5b432d06ae0298168dbbb21bff4e3158949c195ee9c0e141a378",
+      "bytes": 1017,
+      "git_blob": "7cd2812938d720b669f498836b28980d67af8252",
+      "preserved_bytes": "recovered/limb-metal-059/3535f51f2b8d5b432d06ae0298168dbbb21bff4e3158949c195ee9c0e141a378.gz",
+      "published_sha256": "3535f51f2b8d5b432d06ae0298168dbbb21bff4e3158949c195ee9c0e141a378",
+      "published_bytes": 1017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-703.json",
+      "sha256": "3371155b519e36883d037dede853cb195732ae37a66294b01f1d7d7eafa45ba3",
+      "bytes": 1017,
+      "git_blob": "23455301670bf3a935b5528f48c57efc9be89288",
+      "preserved_bytes": "recovered/limb-metal-059/3371155b519e36883d037dede853cb195732ae37a66294b01f1d7d7eafa45ba3.gz",
+      "published_sha256": "3371155b519e36883d037dede853cb195732ae37a66294b01f1d7d7eafa45ba3",
+      "published_bytes": 1017,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 q2280 directly referenced historical transport evidence or exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Original producer2189 and2190 scoped reads, Adler346 full historical reads, Lens12 delegate730/731 full historical reads, and current registered full reads are independently attributed. Receipt731 later roles and reused2196 do not gain new current credit.",
+  "remaining": "Continue original2194 and all thirteen lenses, native geometry, original queue reconciliation and all aliases. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed",
+  "historical_negative_dispositions": [
+    {
+      "queue": 2280,
+      "qualification": "Original Lens11 rejected-suspicion disposition for selected shader normalization, bindings and arithmetic. Its scoped result is retained; it did not assess whether finish lattice and other effects reuse sequence states, and does not settle the new independent-stream question."
+    }
+  ]
+}

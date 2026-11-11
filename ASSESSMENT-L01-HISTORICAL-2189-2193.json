@@ -1,0 +1,327 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2189,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2189",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/limb.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 245,
+          "read_ranges": [
+            [
+              1,
+              478
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "read_ranges_as_recorded": [
+            [
+              111,
+              478
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "e5efa7b1f098c5fd6844c77f4e7f14cd6b1bf626f09208a349deb98166db78aa",
+      "lines": 478,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2189-2193.json",
+        "sha256": "01c87cb625a03336f98b4556b622188bd397a23ec756e8b812d04ef87cd08d42"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/limb.rs",
+        "sha256": "e5efa7b1f098c5fd6844c77f4e7f14cd6b1bf626f09208a349deb98166db78aa",
+        "bytes": 15575,
+        "lines": 478,
+        "git_blob": "afb614b68a5ab666437e53413d53eabcd8cfd29c",
+        "preserved_bytes": "main-advance-95e/limb-metal-evidence/current-2189.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            478
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original producer scopes of2189 and2190 are limited; historical Adler and Lens12 delegate full reads and local current full reads are separately attributed."
+    },
+    {
+      "original_index": 2190,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2190",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 246,
+          "read_ranges": [
+            [
+              1,
+              268
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              172
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "412277a3c18b8e02e997ff34764650af39c0d0229d3fa6f3de23b4edaa9e5718",
+      "lines": 268,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2189-2193.json",
+        "sha256": "01c87cb625a03336f98b4556b622188bd397a23ec756e8b812d04ef87cd08d42"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          268
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs",
+        "sha256": "412277a3c18b8e02e997ff34764650af39c0d0229d3fa6f3de23b4edaa9e5718",
+        "bytes": 10482,
+        "lines": 268,
+        "git_blob": "0636c17754a7ceee9e30cc9fc8b32d8d3cc827db",
+        "preserved_bytes": "main-advance-95e/limb-metal-evidence/current-2190.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            268
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original producer scopes of2189 and2190 are limited; historical Adler and Lens12 delegate full reads and local current full reads are separately attributed."
+    },
+    {
+      "original_index": 2191,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2191",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 218,
+          "read_ranges": [
+            [
+              1,
+              262
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "lines": 262,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2189-2193.json",
+        "sha256": "01c87cb625a03336f98b4556b622188bd397a23ec756e8b812d04ef87cd08d42"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+        "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+        "bytes": 9381,
+        "lines": 262,
+        "git_blob": "b6c484fab4abad5079d8c80f727e4cffb87c1d88",
+        "preserved_bytes": "main-advance-95e/limb-metal-evidence/current-2191.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            262
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original producer scopes of2189 and2190 are limited; historical Adler and Lens12 delegate full reads and local current full reads are separately attributed."
+    },
+    {
+      "original_index": 2192,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2192",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 220,
+          "read_ranges": [
+            [
+              1,
+              134
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "lines": 134,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2189-2193.json",
+        "sha256": "01c87cb625a03336f98b4556b622188bd397a23ec756e8b812d04ef87cd08d42"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+        "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+        "bytes": 5433,
+        "lines": 134,
+        "git_blob": "12f8f4fc1c27c050033594a1e948f37e816bb959",
+        "preserved_bytes": "main-advance-95e/limb-metal-evidence/current-2192.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            134
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original producer scopes of2189 and2190 are limited; historical Adler and Lens12 delegate full reads and local current full reads are separately attributed."
+    },
+    {
+      "original_index": 2193,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2193",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 217,
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "lines": 126,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2189-2193.json",
+        "sha256": "01c87cb625a03336f98b4556b622188bd397a23ec756e8b812d04ef87cd08d42"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+        "bytes": 4349,
+        "lines": 126,
+        "git_blob": "824584b653442453cf8db7507b744819b8506904",
+        "preserved_bytes": "main-advance-95e/limb-metal-evidence/current-2193.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            126
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original producer scopes of2189 and2190 are limited; historical Adler and Lens12 delegate full reads and local current full reads are separately attributed."
+    }
+  ],
+  "observations": [
+    "Current95e full bodies2189–2193 were prospectively registered and personally displayed in bounded untruncated ranges; exact bytes match6533, without transferring historical reviewer credit. Prior current excerpts remain separately qualified.",
+    "Original2189 producer scope is111–478 and original2190 producer scope1–172; original supplier full bodies, independent Adler346 and Lens12 delegate730/731 full historical reads and current full reads are separately attributed. Root Lens12 adoptions had zero personal rereads and zero accepted unique-count change.",
+    "Historical Adler346 also includes2194; Lens12 adoption731 includes2194–2196, with2196 reused and fresh body reads empty. Their original credit is preserved in full receipts but no new current body credit is claimed for2194–2196. Local registration time is not independent timestamp proof."
+  ],
+  "qualification": "Original producer, independent historical reviewer and current personal reads remain distinct; no checkpoint3821 claim.",
+  "next_original_role": 2194
+}
