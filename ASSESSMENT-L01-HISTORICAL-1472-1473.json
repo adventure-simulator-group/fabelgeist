@@ -1,0 +1,79 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1472,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1472",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "lines": 376,
+      "new_personal_read_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/debug.rs",
+        "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+        "bytes": 12593,
+        "lines": 376,
+        "git_blob": "f2b8bef601aa33f1619016d7e9ca9ccffb9fe7b0",
+        "preserved_bytes": "main-advance-95e/diagnostic-capture-evidence/current-1472.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Byte equality supports only explicitly described current-source connections. It does not transfer earlier reviewer, lens or checkpoint coverage."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including fixture source as text only. No client, capture, output mutation, time/input probe, test or runtime execution ran. Earlier reviewers retain their own attribution and revision."
+    },
+    {
+      "original_index": 1473,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/diagnostics.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1473",
+      "sha256": "f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17",
+      "lines": 876,
+      "new_personal_read_ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/diagnostics.rs",
+        "sha256": "f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17",
+        "bytes": 30905,
+        "lines": 876,
+        "git_blob": "1aea772f05b8f774ba2c97899232f8dd6e71e2a3",
+        "preserved_bytes": "main-advance-95e/diagnostic-capture-evidence/current-1473.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Byte equality supports only explicitly described current-source connections. It does not transfer earlier reviewer, lens or checkpoint coverage."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including fixture source as text only. No client, capture, output mutation, time/input probe, test or runtime execution ran. Earlier reviewers retain their own attribution and revision."
+    }
+  ],
+  "observations": [
+    "Both historical debug and diagnostics bodies personally read through actual EOF, including fixture source as text only; both match 95e bytes.",
+    "Earlier independent segovb Lens12 batches 437/438 retain their own reviewer, snapshot, zero accepted unique count change and unreconciled current state. The 438 partial sequence and the qualified earlier same-lens role 1322 read are retained without new role, current or other-lens credit.",
+    "Earlier adler Lens11 batch 208 and its own source registrations were retained in ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json; its prior scope and zero credit are not reattributed to this read. None of these records becomes checkpoint 3821 authority.",
+    "No client, capture, output mutation, time/input probe, test or runtime execution ran."
+  ],
+  "remaining": "Continue role 1474; pending screenshot scheduling, full debug/diagnostic consumers, aliases, overlays and thirteen independent lenses remain open."
+}

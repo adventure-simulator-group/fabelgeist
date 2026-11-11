@@ -1,0 +1,508 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Two historical debug/diagnostic bodies, one conditional current capture-lifecycle candidate, four scoped earlier finding reassessments, and pinned screenshot target/extraction boundaries.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1472-1473.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+      "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+      "bytes": 22180,
+      "lines": 619,
+      "ranges": [
+        [
+          95,
+          145
+        ],
+        [
+          300,
+          335
+        ],
+        [
+          385,
+          414
+        ],
+        [
+          428,
+          479
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/diagnostic-capture-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. Cargo.lock dependency names and checksums were searched directly. No product execution."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          180,
+          204
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/diagnostic-capture-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. Cargo.lock dependency names and checksums were searched directly. No product execution."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1632,
+          1635
+        ],
+        [
+          2564,
+          2567
+        ],
+        [
+          2991,
+          2994
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/diagnostic-capture-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained. Cargo.lock dependency names and checksums were searched directly. No product execution."
+    }
+  ],
+  "native_connected_sources": [
+    {
+      "package": "bevy_render",
+      "version": "0.19.1",
+      "archive": "native-evidence/bevy_render-0.19.1/bevy_render-0.19.1.crate",
+      "archive_sha256": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+      "member": "bevy_render-0.19.1/src/view/window/screenshot.rs",
+      "member_sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "member_bytes": 27000,
+      "member_lines": 702,
+      "personally_inspected_ranges": [
+        [
+          47,
+          65
+        ],
+        [
+          90,
+          111
+        ],
+        [
+          133,
+          195
+        ],
+        [
+          197,
+          263
+        ],
+        [
+          631,
+          700
+        ]
+      ],
+      "qualification": "Exact source member from 95e Cargo.lock-pinned archive. Additional personally read ranges are stated here without changing earlier native evidence attribution; no feature-resolution or execution claim."
+    },
+    {
+      "package": "bevy_camera",
+      "version": "0.19.1",
+      "archive": "native-evidence/bevy_camera-0.19.1/bevy_camera-0.19.1.crate",
+      "archive_sha256": "96de20d0babfb51e3907eb4eb56f1e36096a6f8c77acd997f5de611df4ee067d",
+      "member": "bevy_camera-0.19.1/src/camera.rs",
+      "member_sha256": "c1994ad01318588e5d61bdb8c33439189d62873c4a7142b5017d6042c048bfff",
+      "member_bytes": 46743,
+      "member_lines": 1149,
+      "personally_inspected_ranges": [
+        [
+          888,
+          934
+        ]
+      ],
+      "qualification": "Exact source member from 95e Cargo.lock-pinned archive. Additional personally read ranges are stated here without changing earlier native evidence attribution; no feature-resolution or execution claim."
+    },
+    {
+      "package": "bevy_window",
+      "version": "0.19.1",
+      "archive": "native-evidence/bevy_window-0.19.1/bevy_window-0.19.1.crate",
+      "archive_sha256": "38373ee93a9248c14afe41d2025f4aa5e68b004b06ae7702816b180e72b39ea3",
+      "member": "bevy_window-0.19.1/src/window.rs",
+      "member_sha256": "c22b231a454a673fc0fe79d4859436dd7c812320a0903f7bdcb12c558afb0d2e",
+      "member_bytes": 59857,
+      "member_lines": 1554,
+      "personally_inspected_ranges": [
+        [
+          72,
+          95
+        ]
+      ],
+      "qualification": "Exact source member from 95e Cargo.lock-pinned archive. Additional personally read ranges are stated here without changing earlier native evidence attribution; no feature-resolution or execution claim."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-DIAGNOSTIC-CAPTURE-UNSETTLED-001",
+      "lens": 5,
+      "severity": "unassigned; conditional pending capture without completion event",
+      "classification": "New current-source conditional request-lifecycle candidate; related earlier diagnostic save-outcome and debug capture questions retain distinct first failures and unresolved exact alias status.",
+      "trace": "With a player present, drive_scripted_input processes consecutive instant Screenshot commands in one loop invocation. Each successfully prepared directory increments PendingDiagnosticCaptures, queues a separate Screenshot::primary_window with an entity-targeted ScreenshotCaptured observer, advances the command and continues. The only inspected decrement is that observer. Script-driven AppExit::Success after completion additionally requires pending==0.",
+      "duplicate_case": "If two queued requests for the same normalized primary window are present in one Bevy screenshot extraction, the pinned extractor admits the first and despawns every duplicate target without triggering ScreenshotCaptured. Even if the accepted request later emits its event and decrements once, a dropped diagnostic request has no corresponding decrement. This is conditional on both requests reaching the same extraction; no scheduler timing, captured image, hang or runtime result was observed.",
+      "headless_case": "The native debug headless configuration installs WindowPlugin with primary_window None and disables Winit. It configures a camera image and a HeadlessScreenshotTarget used by the F12 debug path, whereas scripted diagnostics always request the primary window. Pinned Bevy RenderTarget and WindowRef normalization return None for a primary window without an entity; extraction warns and skips that screenshot without a capture event. If no primary window is subsequently supplied and the request remains pending, script-driven completion remains gated. This source argument assumes the normal extractor is installed and reached; renderer availability, custom primary-window producers and actual execution were not tested.",
+      "limits": "Only the script-driven exit path is at issue. Frame timing has a separate AppExit::Success path, and other exit sources may exist. The unknown-target entity is skipped rather than despawned and could become eligible if a primary window later appears. Requests from other screenshot producers could interact with the target set; scheduling and complete producer inventory remain open. Directory preparation can also fail before incrementing; that is an earlier separately recorded success-outcome problem.",
+      "first_failed_contract": "Each admitted diagnostic capture must reach an explicit success, failure or cancellation outcome before script completion waits for it; target availability and simultaneous target requests must not silently strand a pending operation.",
+      "canonical_owner": "Diagnostic capture request and completion lifecycle, with the actual configured render target and explicit result for each request; native extractor target constraints are an external dependency.",
+      "connected_repair": "After full audit and separate implementation authorization, reconcile target selection with headless/windowed camera ownership, serialize or otherwise handle same-target requests, and settle rejected, cancelled and completed operations explicitly. Coordinate but do not merge the separate save-result contract merely because a result owner may serve both.",
+      "later_acceptance": "Only after separate product-validation authorization, cover same-target concurrent requests, unavailable and later-added primary windows, headless image targets, callback loss or cancellation, successful saves and explicit failure, and the independent timing-exit policy.",
+      "discovery": "partial; extraction scheduling, feature/plugin availability, actual headless target lifecycle, all capture producers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "CONT08-CAPTURE-SAVE-OUTCOME-ERASURE",
+      "lens": 8,
+      "severity": "unassigned; conditional directory or image persistence failure",
+      "classification": "Earlier 059 capture outcome family re-assessed only for its explicitly connected diagnostic source scope; no new historical finding or additional proven unique issue.",
+      "trace": "A diagnostic screenshot directory error is logged and the script advances without incrementing pending; after the script finishes the pending-zero exit gate can still issue success. On the success path the callback calls pinned Bevy save_to_disk and then decrements; its FnMut returns unit while conversion, unsupported format and native filesystem errors are logged. Pending zero therefore certifies neither that all requested saves succeeded nor that a requested directory was created.",
+      "limits": "No directory, image conversion, file write or exit was executed. Earlier CONT08 plant/export evidence, P17 and other aliases remain separately attributed; the diagnostic connection does not establish all those exact aliases or transfer other-lens body credit. This differs from a request that never receives its completion event.",
+      "first_failed_contract": "Diagnostic completion must preserve a requested artifact failure separately from whether an operation is in flight.",
+      "canonical_owner": "Explicit per-request diagnostic capture and persistence result, with filesystem or conversion cause at the appropriate boundary.",
+      "connected_repair": "Keep directory errors, capture completion and persistence outcomes distinct, and prevent failed requested artifacts from becoming an unconditional successful script verdict; preserve optional absence and scoped export policy.",
+      "later_acceptance": "Only after separate validation authorization, exercise directory, format, conversion, save and successful capture outcomes plus intentionally absent captures.",
+      "discovery": "partial; actual native filesystem outcomes, supported failure policy, all capture consumers and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-DIAGNOSTIC-OUTPUT-PREPARATION",
+      "lens": 11,
+      "severity": "unassigned; conditional invalid options or writer clone failure",
+      "classification": "Prior 059 finding re-assessed at byte-identical 95e source; preparation and clone elision remain distinct operations, not proven aliases.",
+      "trace": "DiagnosticPlugin::new reads and validates the optional input script, then creates the requested animation and timing files before checking script/exit coupling, paired timing arguments and timing bounds. create_diagnostic_file calls File::create, which can truncate an existing file. After admission, Plugin::build uses file.try_clone().ok() and skips the corresponding resource and its timing exit when cloning fails.",
+      "producer_safeguards": "Native Args uses requires for exit-after-script/input-script and timing-seconds/timing-log. Do not claim missing-script combinations are normally admitted by the CLI. The numeric timing option is declared as Option<f64> without a source-level positive bound, while the constructor rejects zero after creating outputs; actual clap parsing and earlier startup conditions were not executed.",
+      "first_failed_contract": "Complete option admission must precede output mutation; an installation failure for a requested writer must not be represented as an intentionally absent writer.",
+      "canonical_owner": "Admitted diagnostic options and a fallible prepared-writer installation outcome with owned path and error context.",
+      "connected_repair": "Resolve output and overwrite policy, validate configuration before effects and retain clone/install failures; separately decide whether these are two findings after full alias and operation inventory.",
+      "later_acceptance": "Only after separate validation authorization, cover invalid/valid options, existing outputs, writer setup failures, optional absence and timing exit semantics.",
+      "discovery": "partial; CLI parser, file and clone failure reachability, overwrite policy, exact first-contract granularity and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "ADLER-L11-DIAGNOSTIC-COMMAND-ENTRY-SENTINEL",
+      "lens": 11,
+      "severity": "unassigned; conditional repeated zero-delta timed command",
+      "classification": "Prior 059 finding re-assessed at byte-identical 95e source; no new historical finding or additional proven unique issue.",
+      "trace": "The timed-command loop computes command_start as command_elapsed==0, applies one-time turn, posture sequence, quickstep sequence or attack trigger, and then adds nonnegative frame delta to elapsed. Under repeated invocations with the player present, the same timed command and delta zero, elapsed stays zero and the entry actions repeat. Positive duration admission does not exclude a zero frame delta.",
+      "limits": "The F7 debug producer only sets quarter or normal speed; that source does not establish a pause or a repeated zero-delta invocation. Actual Bevy time scheduling, player presence and downstream input edge consumption remain unresolved. No time or input was run.",
+      "first_failed_contract": "A command entry edge is distinct from elapsed duration and should be emitted once per command even if no time advances.",
+      "canonical_owner": "Scripted command execution state and explicit entry transition, retaining existing downstream input/action sequence owners.",
+      "connected_repair": "Represent entry separately from elapsed time while preserving instant command progression, wait-signal behavior and ordinary timed input.",
+      "later_acceptance": "Only after separate validation authorization, cover repeated zero-time updates, next-command transition, input-edge consumers and normal positive-time scripts.",
+      "discovery": "partial; actual zero-time producer, input consumption and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-DIAGNOSTIC-COMMAND-PACE-TEXT-DISPATCH",
+      "lens": 12,
+      "severity": "unassigned; private command owner fit",
+      "classification": "Prior 059 finding re-assessed at byte-identical 95e source; no new historical finding or additional proven unique issue.",
+      "trace": "ScriptCommand is a typed enum, but its execution match projects the timed variant to a local string kind. diagnostic_command_pace branches on that text to assign Walk for dive and Sprint for slide, using selected pace otherwise, then stores the result in PlayerInputRequest. The same label is also retained in DiagnosticInputStatus for native reporting.",
+      "limits": "No wrong movement or output is asserted. Earlier role 1322 was a separately attributed same-lens supporting read only; its receipt and registration are recovered with zero fresh read/current/other-lens credit. Complete current downstream input and logging consumers and global aliases remain open.",
+      "first_failed_contract": "Command identity should remain with its typed owner for the private pace decision; textual status is appropriate at the reporting boundary.",
+      "canonical_owner": "Existing ScriptCommand execution and MovementPace policy, with diagnostic labels owned at the status/serialization boundary.",
+      "connected_repair": "Compute variant-specific pace while command identity is typed, preserving dive Walk, slide Sprint and selected pace for other commands; retain the existing status contract without an unnecessary parallel tag type.",
+      "later_acceptance": "Only after separate validation authorization, compare every timed command, selected pace, status output and actual input consumers.",
+      "discovery": "partial; downstream native request/status consumers, intended pace policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "Q-L12-e4f00f33bb5dcb2951fd",
+        "Q-L12-12d3e437142143ebdddc",
+        "REVIEW-DIAGNOSTIC-CAPTURE-UNSETTLED-001"
+      ],
+      "trace": "With a player present, drive_scripted_input processes consecutive instant Screenshot commands in one loop invocation. Each successfully prepared directory increments PendingDiagnosticCaptures, queues a separate Screenshot::primary_window with an entity-targeted ScreenshotCaptured observer, advances the command and continues. The only inspected decrement is that observer. Script-driven AppExit::Success after completion additionally requires pending==0. If two queued requests for the same normalized primary window are present in one Bevy screenshot extraction, the pinned extractor admits the first and despawns every duplicate target without triggering ScreenshotCaptured. Even if the accepted request later emits its event and decrements once, a dropped diagnostic request has no corresponding decrement. This is conditional on both requests reaching the same extraction; no scheduler timing, captured image, hang or runtime result was observed. The native debug headless configuration installs WindowPlugin with primary_window None and disables Winit. It configures a camera image and a HeadlessScreenshotTarget used by the F12 debug path, whereas scripted diagnostics always request the primary window. Pinned Bevy RenderTarget and WindowRef normalization return None for a primary window without an entity; extraction warns and skips that screenshot without a capture event. If no primary window is subsequently supplied and the request remains pending, script-driven completion remains gated. This source argument assumes the normal extractor is installed and reached; renderer availability, custom primary-window producers and actual execution were not tested.",
+      "limits": "Only the script-driven exit path is at issue. Frame timing has a separate AppExit::Success path, and other exit sources may exist. The unknown-target entity is skipped rather than despawned and could become eligible if a primary window later appears. Requests from other screenshot producers could interact with the target set; scheduling and complete producer inventory remain open. Directory preparation can also fail before incrementing; that is an earlier separately recorded success-outcome problem.",
+      "remaining": "partial; extraction scheduling, feature/plugin availability, actual headless target lifecycle, all capture producers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-12d3e437142143ebdddc",
+        "CONT08-CAPTURE-SAVE-OUTCOME-ERASURE",
+        "ADLER-L11-DIAGNOSTIC-OUTPUT-PREPARATION",
+        "ADLER-L11-DIAGNOSTIC-COMMAND-ENTRY-SENTINEL",
+        "SEGOVB-L12-DIAGNOSTIC-COMMAND-PACE-TEXT-DISPATCH"
+      ],
+      "trace": "Earlier distinct diagnostic output, persistence, timed-entry and typed-command policy questions are connected to the same byte-matched 95e body without assuming shared remedy means the same first failure.",
+      "remaining": "Original obligations, native consumers, exact aliases and current coverage remain open.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/CONT08-CAPTURE-SAVE-OUTCOME-ERASURE",
+        "/discovery_findings_and_dependencies/ADLER-L11-DIAGNOSTIC-OUTPUT-PREPARATION",
+        "/discovery_findings_and_dependencies/ADLER-L11-DIAGNOSTIC-COMMAND-ENTRY-SENTINEL",
+        "/discovery_findings_and_dependencies/SEGOVB-L12-DIAGNOSTIC-COMMAND-PACE-TEXT-DISPATCH"
+      ],
+      "qualification": "Earlier findings retain original reviewer, snapshot, dependencies, qualifications and zero new accepted unique credit."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1271",
+        "/entries/1272"
+      ],
+      "qualification": "Earlier source questions remain open; linked current evidence does not imply exact alias closure."
+    },
+    {
+      "file": "ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Previously retained original adler Lens11 batch 208 receipt/state/verification and source registrations retain their original attribution; no new body credit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-438-001.json",
+      "sha256": "ee40391654a1512b28a2e672fcd67cf54318c79ae808a4cbe4dadf0b43d84ccd",
+      "bytes": 5480,
+      "git_blob": "1d170ba74cd9d3ecda70c4311da76434fe5bb45c",
+      "preserved_bytes": "recovered/diagnostic-capture-059/ee40391654a1512b28a2e672fcd67cf54318c79ae808a4cbe4dadf0b43d84ccd.gz",
+      "published_sha256": "ee40391654a1512b28a2e672fcd67cf54318c79ae808a4cbe4dadf0b43d84ccd",
+      "published_bytes": 5480,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier ordered partial receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-438-002-EOF.json",
+      "sha256": "b9010798aa42f954ec276a81feaedbf8c254e82b503654ddff7785510e01ad2d",
+      "bytes": 5051,
+      "git_blob": "1eeae343587d37d098c0dfb97e29945adfd63399",
+      "preserved_bytes": "recovered/diagnostic-capture-059/b9010798aa42f954ec276a81feaedbf8c254e82b503654ddff7785510e01ad2d.gz",
+      "published_sha256": "b9010798aa42f954ec276a81feaedbf8c254e82b503654ddff7785510e01ad2d",
+      "published_bytes": 5051,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier ordered partial receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-437.json",
+      "sha256": "c0fc97ab88247dbded5e444a707085e10a512417c883c93ce8ec7875f27514e0",
+      "bytes": 708,
+      "git_blob": "7cb671b98681f224aa943d4efc6d90200a2fae49",
+      "preserved_bytes": "recovered/diagnostic-capture-059/c0fc97ab88247dbded5e444a707085e10a512417c883c93ce8ec7875f27514e0.gz",
+      "published_sha256": "c0fc97ab88247dbded5e444a707085e10a512417c883c93ce8ec7875f27514e0",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-438.json",
+      "sha256": "2e0b1a4ebb19a9e58a22834f3a91894301950797db5161164ae37c781fbf9940",
+      "bytes": 714,
+      "git_blob": "e0960a65c376310723b413f76ce47ec2f64de31b",
+      "preserved_bytes": "recovered/diagnostic-capture-059/2e0b1a4ebb19a9e58a22834f3a91894301950797db5161164ae37c781fbf9940.gz",
+      "published_sha256": "2e0b1a4ebb19a9e58a22834f3a91894301950797db5161164ae37c781fbf9940",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-361.json",
+      "sha256": "ca73d92b98a028f7201fc9311fb154ced9b853fe90566832024667509faf0127",
+      "bytes": 12213,
+      "git_blob": "352f3c17839f39ef8445d7cedd3c456262a2b99b",
+      "preserved_bytes": "recovered/diagnostic-capture-059/ca73d92b98a028f7201fc9311fb154ced9b853fe90566832024667509faf0127.gz",
+      "published_sha256": "ca73d92b98a028f7201fc9311fb154ced9b853fe90566832024667509faf0127",
+      "published_bytes": 12213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens supporting read, no new credit"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-437.json",
+      "sha256": "4ae0d9c5a300a59c87193c61dc4619d450ee698ba41397897c24232d8a6e3e70",
+      "bytes": 5605,
+      "git_blob": "f14e08b2dc322d6b925040585e24aa27179b3d02",
+      "preserved_bytes": "recovered/diagnostic-capture-059/4ae0d9c5a300a59c87193c61dc4619d450ee698ba41397897c24232d8a6e3e70.gz",
+      "published_sha256": "4ae0d9c5a300a59c87193c61dc4619d450ee698ba41397897c24232d8a6e3e70",
+      "published_bytes": 5605,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-438.json",
+      "sha256": "ce027a5be848a76551958b6fdc6175f757d993d1e3079f89aa54912f08a886f4",
+      "bytes": 10243,
+      "git_blob": "7728e8f71142a715f4ebcbb52023c4d408716e4a",
+      "preserved_bytes": "recovered/diagnostic-capture-059/ce027a5be848a76551958b6fdc6175f757d993d1e3079f89aa54912f08a886f4.gz",
+      "published_sha256": "ce027a5be848a76551958b6fdc6175f757d993d1e3079f89aa54912f08a886f4",
+      "published_bytes": 10243,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-229.json",
+      "sha256": "39da5621e0f480b80bed75a4cf2a9bb54d9436a2b37c0faf109038b3c6996559",
+      "bytes": 1214,
+      "git_blob": "2a42ed54b2df959dce0aa64d24c8dc36122ba12a",
+      "preserved_bytes": "recovered/diagnostic-capture-059/39da5621e0f480b80bed75a4cf2a9bb54d9436a2b37c0faf109038b3c6996559.gz",
+      "published_sha256": "39da5621e0f480b80bed75a4cf2a9bb54d9436a2b37c0faf109038b3c6996559",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier same-lens source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-379.json",
+      "sha256": "345a8b84bc894e85b447f2c121ad35f18e5c1a16ee13c981a8697772dad3a02d",
+      "bytes": 1155,
+      "git_blob": "f307d388a5217d512d7a8ed4975e29c392b43b9e",
+      "preserved_bytes": "recovered/diagnostic-capture-059/345a8b84bc894e85b447f2c121ad35f18e5c1a16ee13c981a8697772dad3a02d.gz",
+      "published_sha256": "345a8b84bc894e85b447f2c121ad35f18e5c1a16ee13c981a8697772dad3a02d",
+      "published_bytes": 1155,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-380.json",
+      "sha256": "5f032bad29bd97cf802e61d73947bf54df12c830c56b60e4cc67d1219aa2135b",
+      "bytes": 1213,
+      "git_blob": "df0877709bf4689f03c8911fc63768032d8bcf34",
+      "preserved_bytes": "recovered/diagnostic-capture-059/5f032bad29bd97cf802e61d73947bf54df12c830c56b60e4cc67d1219aa2135b.gz",
+      "published_sha256": "5f032bad29bd97cf802e61d73947bf54df12c830c56b60e4cc67d1219aa2135b",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-437.json",
+      "sha256": "5eff19a2e2ded8875104bf969a8865a863872f24259ea7bc6e3fb11ce87540cc",
+      "bytes": 840,
+      "git_blob": "7bf5f8f6d2acbd40601cabd6a2e4ec1e466510be",
+      "preserved_bytes": "recovered/diagnostic-capture-059/5eff19a2e2ded8875104bf969a8865a863872f24259ea7bc6e3fb11ce87540cc.gz",
+      "published_sha256": "5eff19a2e2ded8875104bf969a8865a863872f24259ea7bc6e3fb11ce87540cc",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-438.json",
+      "sha256": "08bb7b4a594c7b52cdde74f4ec9b5441fdd5314169f9e7bb3d84e1033dfb61bd",
+      "bytes": 840,
+      "git_blob": "ee943cd2006278cb3339e5c16add580c96b2fbfc",
+      "preserved_bytes": "recovered/diagnostic-capture-059/08bb7b4a594c7b52cdde74f4ec9b5441fdd5314169f9e7bb3d84e1033dfb61bd.gz",
+      "published_sha256": "08bb7b4a594c7b52cdde74f4ec9b5441fdd5314169f9e7bb3d84e1033dfb61bd",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-437.json",
+      "sha256": "a1952ebb4fab4f0104e7f5c857196fe5913408a549349866b679600841c7ebab",
+      "bytes": 558,
+      "git_blob": "bbf2cb981b7ebcc8f1f0cacf8695dfa180ded731",
+      "preserved_bytes": "recovered/diagnostic-capture-059/a1952ebb4fab4f0104e7f5c857196fe5913408a549349866b679600841c7ebab.gz",
+      "published_sha256": "a1952ebb4fab4f0104e7f5c857196fe5913408a549349866b679600841c7ebab",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-438.json",
+      "sha256": "9680a352c3dff4a2b66446523c29351118c5972bb2bca33905da2f7be823d085",
+      "bytes": 558,
+      "git_blob": "4a6a1342ab08882fcfa10ac256e87b88dc86a944",
+      "preserved_bytes": "recovered/diagnostic-capture-059/9680a352c3dff4a2b66446523c29351118c5972bb2bca33905da2f7be823d085.gz",
+      "published_sha256": "9680a352c3dff4a2b66446523c29351118c5972bb2bca33905da2f7be823d085",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision and source ranges retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual extraction and callback scheduling, configured render plugins, headless target lifecycle, every output/input consumer, native CLI/IO policies, exact aliases and all thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
