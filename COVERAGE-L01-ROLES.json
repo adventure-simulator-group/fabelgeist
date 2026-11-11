@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1645,
+    "unassessed": 1642,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 108,
+    "bounded-current-trace-only": 107,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1089,
+    "full-historical-body-trace-open": 1093,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1141–1147 have now been read. Continue at role 1148; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1148–1151 have now been read. Continue at role 1152; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -15925,7 +15925,7 @@
       "historical_sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
       "registry_pointer": "/files/1148",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/outbreak.rs",
       "current_git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
       "current_observations": [
@@ -15939,7 +15939,9 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens."
+      "qualification": "Only cited current source ranges were inspected; equal bytes do not assess this historical role or any independent lens.",
+      "historical_qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1148-1151.json"
     },
     {
       "original_index": 1149,
@@ -15949,7 +15951,9 @@
       "historical_sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
       "registry_pointer": "/files/1149",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1148-1151.json"
     },
     {
       "original_index": 1150,
@@ -15959,7 +15963,9 @@
       "historical_sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
       "registry_pointer": "/files/1150",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1148-1151.json"
     },
     {
       "original_index": 1151,
@@ -15969,7 +15975,9 @@
       "historical_sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
       "registry_pointer": "/files/1151",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1148-1151.json"
     },
     {
       "original_index": 1152,

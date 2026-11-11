@@ -1689,6 +1689,35 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L12-LOCAL-ROLE-PRIVILEGE-95E.json"
+      },
+      {
+        "id": "REVIEW-OUTBREAK-SITE-SOURCE-SELECTION-001",
+        "lens": 12,
+        "severity": "unassigned; source-established omission of site-scoped disease-pressure selection under the stated arrival and action conditions",
+        "classification": "New bounded 95e first-failure assessment linked to an earlier open outbreak exposure caller question.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/953"
+        ],
+        "relationship_qualification": "Earlier caller question remains open; typed source-kind issue is the same earlier first failure, whereas selection omission is distinct. No alias or accepted historical unique-count change is inferred.",
+        "discovery": "partial; all source enumeration and movement modes, actor/frontier limits, historical aliases and probability consequences remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-OUTBREAK-SITE-EXPOSURE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-OUTBREAK-SOURCE-KIND-RAW-DISPATCH",
+        "lens": 12,
+        "severity": "unassigned; duplicated source-kind authority and closed-string dispatch; malformed or divergent native state reachability unestablished",
+        "classification": "95e source revisit of the same 059 Lens12 source-kind contract; not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/220",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-OUTBREAK-SOURCE-KIND-RAW-DISPATCH"
+        ],
+        "relationship_qualification": "Earlier caller question remains open; typed source-kind issue is the same earlier first failure, whereas selection omission is distinct. No alias or accepted historical unique-count change is inferred.",
+        "discovery": "partial; all writers and native admissions, full variant semantics, ambient policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-OUTBREAK-SITE-EXPOSURE-95E.json"
       }
     ]
   },

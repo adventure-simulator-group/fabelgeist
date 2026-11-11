@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L12-OUTBREAK-SITE-EXPOSURE-95E.json` traces the selected
+generated source, site occupancy and disease-source selection, and revisits
+the earlier source-kind contract. `ASSESSMENT-L01-HISTORICAL-1148-1151.json`
+records separate historical body reads; source fixtures were not run.
 `ASSESSMENT-L12-LOCAL-ROLE-PRIVILEGE-95E.json` records a conditional
 role-only equipment privilege mismatch and the exact tracked catalog inventory;
 no current role carries those equipment grants.
