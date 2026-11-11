@@ -1,0 +1,156 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1219,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1219",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "lines": 1463,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1463
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-NARRATIVE-COMBAT.json",
+          "ranges": [
+            [
+              1018,
+              1055
+            ],
+            [
+              1065,
+              1096
+            ],
+            [
+              1182,
+              1220
+            ],
+            [
+              1244,
+              1269
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-ENCOUNTER-SCORES.json",
+          "ranges": [
+            [
+              340,
+              365
+            ],
+            [
+              465,
+              490
+            ],
+            [
+              1160,
+              1202
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1220",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "lines": 1653,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-RECRUITMENT-ROLE.json",
+          "ranges": [
+            [
+              756,
+              788
+            ],
+            [
+              800,
+              833
+            ],
+            [
+              836,
+              850
+            ],
+            [
+              880,
+              888
+            ],
+            [
+              963,
+              987
+            ],
+            [
+              1018,
+              1032
+            ],
+            [
+              1102,
+              1111
+            ],
+            [
+              1332,
+              1340
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "ranges": [
+            [
+              270,
+              330
+            ],
+            [
+              430,
+              482
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen encounter and party governance bodies were read in full including all source-only code. Previously bounded current observations remain individually attributed in the role registry and in this record. The strategic fatigue/status-to-escape-speed concern, recruitment requirements, leadership ballots and party merge side-state already have separately qualified current assessments; this body read does not create duplicate findings.",
+    "Earlier Lens12 batches 295–296 retain their original independent attribution and open connected contracts. The historical Lens11 native-dispatch disposition retained in checkpoint 059 was scoped to source revision e2755a732c84e67296b5e3441a4259a84f461b2f, with adopted delegate native source ranges, no retroactive root read, no other-lens transfer, no latest-target reconciliation and no global alias closure. Its directly referenced receipt, plans, proposal and verification are independently hash-verified and preserved with any machine-local paths redacted for publication.",
+    "Current source and generated SDK bindings are separately inspected below. Byte identity of the frozen role does not grant automatic current semantic coverage or checkpoint 3821 authority."
+  ],
+  "remaining": "Continue original role 1221; all independent lenses, families, aliases and extension populations remain open."
+}

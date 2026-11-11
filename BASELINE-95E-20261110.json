@@ -1968,8 +1968,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L12-DIALOGUE-SESSION-95E.json"
+      },
+      {
+        "id": "REVIEW-PARTY-ACTION-ACTOR-ADMISSION-001",
+        "lens": 3,
+        "severity": "conditional caller-authority gap; deployment access and intended native caller policy unverified",
+        "classification": "95e revisit of the request/dismiss portions of earlier 059 current-native-actor-admission-invocation-chain; not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/132",
+          "ASSESSMENT-L01-QUANTITY-TARGET-95E.json",
+          "baseline-059/queue.json#/entries/974"
+        ],
+        "relationship_qualification": "The request/dismiss boundary was expressly included in earlier e275 Lens11 disposition; the vote boundary is newly assessed here. Native host access, policy and aliases remain open; no delegated historical read becomes a current personal read.",
+        "discovery": "partial; actual host access, direct native caller policy, all actions, exact aliases and independent lenses open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L03-PARTY-ACTOR-95E.json"
+      },
+      {
+        "id": "REVIEW-PARTY-LEADER-VOTE-ACTOR-ADMISSION-001",
+        "lens": 3,
+        "severity": "conditional caller-authority gap affecting stored votes; deployment access and intended native caller policy unverified",
+        "classification": "New bounded 95e voting-entry assessment related to, but not automatically an alias of, the earlier native actor-admission chain; no historical unique-count change claimed.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/132",
+          "ASSESSMENT-L1-LEADER-BALLOTS.json",
+          "baseline-059/queue.json#/entries/987"
+        ],
+        "relationship_qualification": "The request/dismiss boundary was expressly included in earlier e275 Lens11 disposition; the vote boundary is newly assessed here. Native host access, policy and aliases remain open; no delegated historical read becomes a current personal read.",
+        "discovery": "partial; deployed access, actor-ID disclosure, supported direct callers, all ballot transitions and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L03-PARTY-ACTOR-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0245.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0249.json"
 }

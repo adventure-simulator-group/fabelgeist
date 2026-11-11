@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0245.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0249.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L03-PARTY-ACTOR-95E.json` traces selected party request and
+vote admissions, retaining the older native-dispatch attribution and host
+access qualification. `ASSESSMENT-L01-HISTORICAL-1219-1220.json` records
+separate full body reads and preserves earlier current observations.
 `ASSESSMENT-L12-DIALOGUE-SESSION-95E.json` revisits the language category
 and conditional NPC session reuse, with the earlier scoped Lens2 evidence.
 `ASSESSMENT-L01-HISTORICAL-1215-1218.json` records the separate body reads.

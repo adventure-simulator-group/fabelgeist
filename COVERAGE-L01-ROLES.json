@@ -11,12 +11,12 @@
   "status_counts": {
     "unassessed": 1582,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 100,
+    "bounded-current-trace-only": 98,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1160,
+    "full-historical-body-trace-open": 1162,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1215–1218 have now been read. Continue at role 1219; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1219–1220 have now been read. Continue at role 1221; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -16951,7 +16951,7 @@
       "historical_sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
       "registry_pointer": "/files/1219",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
       "current_git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
       "current_observations": [
@@ -16994,7 +16994,8 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1219-1220.json"
     },
     {
       "original_index": 1220,
@@ -17004,7 +17005,7 @@
       "historical_sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
       "registry_pointer": "/files/1220",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
       "current_git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
       "current_observations": [
@@ -17059,7 +17060,8 @@
           ]
         }
       ],
-      "qualification": "Only cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1219-1220.json"
     },
     {
       "original_index": 1221,

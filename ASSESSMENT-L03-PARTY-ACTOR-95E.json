@@ -1,0 +1,626 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 3,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected party request, dismissal and leader-vote actor admissions at 95e; no claim about deployed connectivity.",
+  "source_reasoning": "Pinned source inspection, source-derived arithmetic and historical evidence-byte verification only. Source tests read without execution. No product build, test, simulation, runtime, database, network or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [
+        [
+          1,
+          209
+        ],
+        [
+          259,
+          344
+        ],
+        [
+          620,
+          748
+        ],
+        [
+          751,
+          856
+        ],
+        [
+          1099,
+          1271
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          60,
+          213
+        ],
+        [
+          215,
+          269
+        ],
+        [
+          271,
+          315
+        ],
+        [
+          421,
+          488
+        ],
+        [
+          756,
+          788
+        ],
+        [
+          836,
+          850
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          966
+        ],
+        [
+          968,
+          980
+        ],
+        [
+          1533,
+          1573
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "bytes": 6013,
+      "lines": 173,
+      "ranges": [
+        [
+          69,
+          110
+        ],
+        [
+          142,
+          171
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          317,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f3ff58f7dc39a872385ba9550a72e7036b3cb83b",
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "bytes": 22266,
+      "lines": 610,
+      "ranges": [
+        [
+          253,
+          278
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/leadership.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a2c85a8a65f2fea94dd197dba58013eb3c8ddc06",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "bytes": 2824,
+      "lines": 89,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ceeec2cf3a9ba5786df3822fd56e285c9641f9d0",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "bytes": 35092,
+      "lines": 930,
+      "ranges": [
+        [
+          225,
+          247
+        ],
+        [
+          291,
+          316
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/parties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "218243ae0fd9abac57faeb4aa77ff0d2398369e0",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "bytes": 27498,
+      "lines": 878,
+      "ranges": [
+        [
+          122,
+          167
+        ],
+        [
+          759,
+          820
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/request_party_action_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b6c18024a6423a03220490c9fd3b0e43815dc4c",
+      "sha256": "d35058bc3761b41edac4d552db37a406b5a7c621007c98d389d8528ec4564854",
+      "bytes": 3280,
+      "lines": 97,
+      "ranges": [
+        [
+          7,
+          24
+        ],
+        [
+          31,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/dismiss_party_action_request_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3689d2102b48ec7c321bc01f1b038c84a9ca63dd",
+      "sha256": "824e4e4d732b08754a732a5d3f52c1b610a227d8941461f5c9f50d6a78a480f0",
+      "bytes": 2997,
+      "lines": 81,
+      "ranges": [
+        [
+          7,
+          19
+        ],
+        [
+          27,
+          39
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/vote_for_party_leader_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2797bab166e097c1608fac244fb8d087ef761c39",
+      "sha256": "e2b9e5783e36493b17795d7c89a71aef4366a06238ef663eeb44cee08f2e3326",
+      "bytes": 2886,
+      "lines": 81,
+      "ranges": [
+        [
+          7,
+          19
+        ],
+        [
+          27,
+          39
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/party-actor-sources/11.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/current_connected_dispositions/132",
+      "qualification": "Earlier e275 scoped native invocation/actor-admission chain expressly includes request and dismissal; adopted delegated source ranges, not this agent’s new 95e Lens11 coverage."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/974",
+      "qualification": "Earlier broad approval/category/actor and generated authority questions; selected request and dismissal only."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/987",
+      "qualification": "Earlier governance role, request and producer questions; selected bounded actor paths only."
+    },
+    {
+      "file": "ASSESSMENT-L01-QUANTITY-TARGET-95E.json",
+      "qualification": "Separate current setter actor admission, linked shared owner but not automatic alias."
+    },
+    {
+      "file": "ASSESSMENT-L1-LEADER-BALLOTS.json",
+      "qualification": "Separate current ballot-state analysis, related but not automatically the same actor admission failure."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1219-1220.json",
+      "qualification": "Two historical roles personally read for Lens1; previous current observations preserved unchanged."
+    }
+  ],
+  "native_source_evidence": [
+    {
+      "file": "native-evidence/spacetimedb-2.6.1/MANIFEST.json",
+      "qualification": "Pinned current lock archive and inspected library documentation; no deployed server or network evidence."
+    },
+    {
+      "file": "recovered/l2-native-registration-evidence/archives/spacetimedb-bindings-macro-2.6.1.crate",
+      "qualification": "Pinned archive already published for source recovery; earlier Lens11 receipt retains its own e275 source and delegate attribution."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "parallel-l11-20261029/PLAN-051.json",
+      "sha256": "e6dbaf9db95e9d6c5ecaa63c640f364218367244e4a316a221f1d07a156d227e",
+      "bytes": 4452,
+      "git_blob": "c1515a7fb0a3f1ad031f12eeb4abd6224b216dfd",
+      "preserved_bytes": "recovered/party-actor-059/e6dbaf9db95e9d6c5ecaa63c640f364218367244e4a316a221f1d07a156d227e.gz",
+      "published_sha256": "4a1b54d9727564bf5ae2041d373ffafe8d62f4f1f457212f50405f955dd98b99",
+      "published_bytes": 4249,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned 059 transport at the original path; verify its manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated prospective plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-052.json",
+      "sha256": "80510a103526a24d913e1f430eb0936a408f195acba8b879db86e73e7d42e819",
+      "bytes": 3198,
+      "git_blob": "47249d4856dad2ccf75aa31b1627c2981fbdf94b",
+      "preserved_bytes": "recovered/party-actor-059/80510a103526a24d913e1f430eb0936a408f195acba8b879db86e73e7d42e819.gz",
+      "published_sha256": "fd9a2830ca7398af4ec8039fe0e7d59677dbff7fce4144cbe53bd8fd65d35706",
+      "published_bytes": 3030,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned 059 transport at the original path; verify its manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated prospective plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-053.json",
+      "sha256": "dad570b15ae5054db6906857a8726a6e011b42577b06fd25f643eb2dd6d8653e",
+      "bytes": 4601,
+      "git_blob": "5879263c9c12eac7c769650819e4fb0314c7445b",
+      "preserved_bytes": "recovered/party-actor-059/dad570b15ae5054db6906857a8726a6e011b42577b06fd25f643eb2dd6d8653e.gz",
+      "published_sha256": "09343bc25cddfb577e48a5d2726620d31f76801f57d7db04e506de2f0b3357c3",
+      "published_bytes": 4432,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned 059 transport at the original path; verify its manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated prospective plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-055.json",
+      "sha256": "60146dcb63d36083e4b70c888164890137f96e8b7d85c5f73b982d8516cc913e",
+      "bytes": 4643,
+      "git_blob": "2e2b95c26069c6f5ef843842a1b5a39e02bd81b8",
+      "preserved_bytes": "recovered/party-actor-059/60146dcb63d36083e4b70c888164890137f96e8b7d85c5f73b982d8516cc913e.gz",
+      "published_sha256": "d4b91687a3546f4e9e79b2c4ee66909222ac06efe6a28926f57c622321f32333",
+      "published_bytes": 4474,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned 059 transport at the original path; verify its manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated prospective plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-061.json",
+      "sha256": "e089c0a2681eec35b8cd14acd1c157908e91923cb41d629ce6b3970be620a5b5",
+      "bytes": 19289,
+      "git_blob": "77f6d692e07a72da64f8f0792075b3504a1781b3",
+      "preserved_bytes": "recovered/party-actor-059/e089c0a2681eec35b8cd14acd1c157908e91923cb41d629ce6b3970be620a5b5.gz",
+      "published_sha256": "723fdea9c8c1cfe5484c30062acf426bb680494904128295bff0cb7a4d46eeb7",
+      "published_bytes": 18580,
+      "redacted_local_path_occurrences": 8,
+      "original_recovery": "Exact original from pinned 059 transport at the original path; verify its manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated Lens11 proposal"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-061.json",
+      "sha256": "2d120dfd92a28e844f58e0da2cb4af7d20eaf63c63e2c94a2b6452633b79f9ee",
+      "bytes": 373,
+      "git_blob": "e22f3a3fcc94a27410dbc8d2b72e1080fb60f06d",
+      "preserved_bytes": "recovered/party-actor-059/2d120dfd92a28e844f58e0da2cb4af7d20eaf63c63e2c94a2b6452633b79f9ee.gz",
+      "published_sha256": "2d120dfd92a28e844f58e0da2cb4af7d20eaf63c63e2c94a2b6452633b79f9ee",
+      "published_bytes": 373,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-295.json",
+      "sha256": "da508163ac976cdb373f70af48585ecd04272bf42a5b3fde82cd072363e69f4f",
+      "bytes": 721,
+      "git_blob": "daee7bdb25d2615f028247f90a0c16bd1b00f8da",
+      "preserved_bytes": "recovered/party-actor-059/da508163ac976cdb373f70af48585ecd04272bf42a5b3fde82cd072363e69f4f.gz",
+      "published_sha256": "da508163ac976cdb373f70af48585ecd04272bf42a5b3fde82cd072363e69f4f",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-296.json",
+      "sha256": "3e3ee32a9063dc86622fee8f3c011a18fae06e2e445a56d0ef3ae22c2fb8379b",
+      "bytes": 721,
+      "git_blob": "a923e0518915cacab18f693d97c399ea389f421f",
+      "preserved_bytes": "recovered/party-actor-059/3e3ee32a9063dc86622fee8f3c011a18fae06e2e445a56d0ef3ae22c2fb8379b.gz",
+      "published_sha256": "3e3ee32a9063dc86622fee8f3c011a18fae06e2e445a56d0ef3ae22c2fb8379b",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L11-597.json",
+      "sha256": "da4b840725cf77c20c23c887d453b0eba58a4ea8d72461dcf40f039d6c4e04d3",
+      "bytes": 22421,
+      "git_blob": "eeb5470386d73a730e25d24943eb315727137df9",
+      "preserved_bytes": "recovered/party-actor-059/da4b840725cf77c20c23c887d453b0eba58a4ea8d72461dcf40f039d6c4e04d3.gz",
+      "published_sha256": "6aed41637ef410e527f38cb8e768e53aba46379389ef78594252a1edf1153c40",
+      "published_bytes": 21712,
+      "redacted_local_path_occurrences": 8,
+      "original_recovery": "Exact original from pinned 059 transport at the original path; verify its manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier Lens11 adopted native-dispatch receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-295.json",
+      "sha256": "e3e0313c2000f5c08450ac2381b053b37025d5c583427f4f70de1931f0c915d0",
+      "bytes": 14833,
+      "git_blob": "9bb93e511a50a7d2261dfc75361f3b27bc8cfb43",
+      "preserved_bytes": "recovered/party-actor-059/e3e0313c2000f5c08450ac2381b053b37025d5c583427f4f70de1931f0c915d0.gz",
+      "published_sha256": "e3e0313c2000f5c08450ac2381b053b37025d5c583427f4f70de1931f0c915d0",
+      "published_bytes": 14833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-296.json",
+      "sha256": "4261d33c151b7b2ce8c47599013648be3bf3db088bcfbbe5b6073f205d91bbb4",
+      "bytes": 13412,
+      "git_blob": "6f9b27baa0d48d43e2b0e2e9fa70e2e94945226b",
+      "preserved_bytes": "recovered/party-actor-059/4261d33c151b7b2ce8c47599013648be3bf3db088bcfbbe5b6073f205d91bbb4.gz",
+      "published_sha256": "4261d33c151b7b2ce8c47599013648be3bf3db088bcfbbe5b6073f205d91bbb4",
+      "published_bytes": 13412,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-126.json",
+      "sha256": "01ee7a9bbae04482bf6fa1c5385d6f474f13da01c13a819aed9881192cef2bdd",
+      "bytes": 1176,
+      "git_blob": "4a46fc321172840a82d4507aafe95ed01941c76b",
+      "preserved_bytes": "recovered/party-actor-059/01ee7a9bbae04482bf6fa1c5385d6f474f13da01c13a819aed9881192cef2bdd.gz",
+      "published_sha256": "01ee7a9bbae04482bf6fa1c5385d6f474f13da01c13a819aed9881192cef2bdd",
+      "published_bytes": 1176,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-127.json",
+      "sha256": "77f036edcd2bddd6e0eeca9e0ac11f60594386e5c6fad8c72970e5234b29b73c",
+      "bytes": 1184,
+      "git_blob": "ee07c94199a6cba5ae49d7b9a1cb12613132a5a0",
+      "preserved_bytes": "recovered/party-actor-059/77f036edcd2bddd6e0eeca9e0ac11f60594386e5c6fad8c72970e5234b29b73c.gz",
+      "published_sha256": "77f036edcd2bddd6e0eeca9e0ac11f60594386e5c6fad8c72970e5234b29b73c",
+      "published_bytes": 1184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L11-597.json",
+      "sha256": "0510c9bed41deab79e67160e8aeccb97aa504a190a445e78a66b1fa55214898a",
+      "bytes": 668,
+      "git_blob": "ac0fed1d859e8dba3f1cfe3934ec0957d03a5370",
+      "preserved_bytes": "recovered/party-actor-059/0510c9bed41deab79e67160e8aeccb97aa504a190a445e78a66b1fa55214898a.gz",
+      "published_sha256": "0510c9bed41deab79e67160e8aeccb97aa504a190a445e78a66b1fa55214898a",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-295.json",
+      "sha256": "d191e56389b661290e3f399ed1a036e09ef78a26a9dc5b9c8d2b9db8dd9950c4",
+      "bytes": 840,
+      "git_blob": "11a49a37aaab436971b3d13157a46ae8230d6265",
+      "preserved_bytes": "recovered/party-actor-059/d191e56389b661290e3f399ed1a036e09ef78a26a9dc5b9c8d2b9db8dd9950c4.gz",
+      "published_sha256": "d191e56389b661290e3f399ed1a036e09ef78a26a9dc5b9c8d2b9db8dd9950c4",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-296.json",
+      "sha256": "b490e9485b1e3b96965b44386894aff5de68b31c7483fe512d216099e0ed1395",
+      "bytes": 840,
+      "git_blob": "c54a9fd8aa064dd7024e8c229f229ebaff93e79d",
+      "preserved_bytes": "recovered/party-actor-059/b490e9485b1e3b96965b44386894aff5de68b31c7483fe512d216099e0ed1395.gz",
+      "published_sha256": "b490e9485b1e3b96965b44386894aff5de68b31c7483fe512d216099e0ed1395",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-597.json",
+      "sha256": "2386e6d9fb198ce4c474e8d709505b4e87656887932c1e9eba3c69344c491b32",
+      "bytes": 407,
+      "git_blob": "e34453df2a92c29ecacd4ee67ac97a267c842a5b",
+      "preserved_bytes": "recovered/party-actor-059/2386e6d9fb198ce4c474e8d709505b4e87656887932c1e9eba3c69344c491b32.gz",
+      "published_sha256": "2386e6d9fb198ce4c474e8d709505b4e87656887932c1e9eba3c69344c491b32",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-295.json",
+      "sha256": "bb6d499c148d07eb4cb08975ce537bcb279f31b5ab9baddb6e6b236c7b326fe1",
+      "bytes": 558,
+      "git_blob": "60f428b6989155b3d70a0e382f2c93a44d52ee0f",
+      "preserved_bytes": "recovered/party-actor-059/bb6d499c148d07eb4cb08975ce537bcb279f31b5ab9baddb6e6b236c7b326fe1.gz",
+      "published_sha256": "bb6d499c148d07eb4cb08975ce537bcb279f31b5ab9baddb6e6b236c7b326fe1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-296.json",
+      "sha256": "7fdc75de574aae44768c8f77520373f8352e049ead2dee2b446439a2eb246e06",
+      "bytes": 558,
+      "git_blob": "085d1feeea113032c0053595a1a08768f38afc2b",
+      "preserved_bytes": "recovered/party-actor-059/7fdc75de574aae44768c8f77520373f8352e049ead2dee2b446439a2eb246e06.gz",
+      "published_sha256": "7fdc75de574aae44768c8f77520373f8352e049ead2dee2b446439a2eb246e06",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-PARTY-ACTION-ACTOR-ADMISSION-001",
+      "severity": "conditional caller-authority gap; deployment access and intended native caller policy unverified",
+      "classification": "95e revisit of the request/dismiss portions of earlier 059 current-native-actor-admission-invocation-chain; not a new unique historical defect.",
+      "trace": "request_party_action accepts a requester ID, verifies a living character belongs to a party and is not its leader, and admits a listed action category. It coalesces prior travel or party-inventory requests for that requester and party, then stores the supplied summary and payload. dismiss_party_action_request accepts a leader ID, verifies that living character is the request party leader, and deletes the request. Neither body calls the existing sender-bound strategic gateway or character-authority guard. The selected generated SDK exposes both remote reducer calls. If an independently connected caller can invoke them with another valid actor ID and the specified row preconditions hold, the caller can create or replace that member’s pending request or dismiss a request as the leader. No request, deployed connection or actor spoofing was performed.",
+      "safeguards": "Actual approval still requires the trusted strategic gateway and current living leader, decodes ApprovedPartyAction and compares its category to the requested category before execution. The selected web deny route obtains leader ID from the authenticated session; a selected web party-target form obtains actor ID from the session before the helper queues its action. These guards do not themselves establish host restrictions on direct native invocation. The existing actor gate permits the trusted gateway or the owner of a disposable simulation character; those are legitimate distinct caller modes.",
+      "connected_repair": "After complete caller and deployment policy discovery, bind supported actor-bearing request and dismissal entry points to the established actor/gateway authority, retaining leader approval, simulation ownership, coalescing, exact payload/action checks and valid internal paths. Do not merge unrelated HTTP error handling or the target setter by shared remedy.",
+      "discovery": "partial; actual host access, direct native caller policy, all actions, exact aliases and independent lenses open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-PARTY-LEADER-VOTE-ACTOR-ADMISSION-001",
+      "severity": "conditional caller-authority gap affecting stored votes; deployment access and intended native caller policy unverified",
+      "classification": "New bounded 95e voting-entry assessment related to, but not automatically an alias of, the earlier native actor-admission chain; no historical unique-count change claimed.",
+      "trace": "vote_for_party_leader accepts voter and candidate IDs, requires a living voter, a party without an unresolved encounter and a living candidate in that party, then upserts the party/voter ballot and runs normalize_and_elect_party_leader. It does not compare sender to voter or invoke the existing actor/gateway guard; the generated SDK exposes this reducer. The selected web vote handler uses the authenticated session character. If an independent caller may invoke the native reducer and supply another member’s ID, those operation-specific checks still apply but do not bind that caller to the voter.",
+      "symbolic_effect": "For a three-living-member party with a living leader, no unresolved encounter and a valid challenger, two different qualifying ballots for the challenger satisfy the core threshold: 2×100 is at least 3×66. If a caller can submit both voter IDs under those preconditions and no other state changes, normalization can elect that challenger. This is source-derived arithmetic and control-flow reasoning, not an executed vote, connection, takeover or observed game state.",
+      "connected_repair": "After audit and caller-policy reconciliation, require the supported sender-to-voter/gateway admission before writing a ballot while preserving living membership, unresolved encounter protection, correct vote replacement, election threshold and owned simulation mode. Reconcile this path with the earlier ballot-state assessment without assuming aliases.",
+      "discovery": "partial; deployed access, actor-ID disclosure, supported direct callers, all ballot transitions and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Decide supported native sender policy and external host restrictions; trace all party action and voting callers, source identities, transactions, ballot lifecycle, exact aliases and every independent lens and population. Final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
