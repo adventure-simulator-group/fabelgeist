@@ -2675,7 +2675,10 @@
         "discovery": "partial; simulator acquisition, supported mass differences and threshold reachability, party authority, subscriptions, object-cache coherence, native rounding and exact aliases remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-SIM-JOURNEY-MASS-95E.json"
+        "record": "ASSESSMENT-SIM-JOURNEY-MASS-95E.json",
+        "related_current_traces": [
+          "ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json: full historical and selected current survival source assessed; instance-mass reachability remains conditional."
+        ]
       },
       {
         "id": "REVIEW-SIM-PUBLIC-FRACTION-EXPECT-001",
@@ -2755,8 +2758,41 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SETTLEMENT-WAIT-METRICS-95E.json"
+      },
+      {
+        "id": "REVIEW-GENERATED-SAFE-START-OVERWRITE-001",
+        "lens": 8,
+        "severity": "unassigned; conditional source-derived departure-time mismatch",
+        "classification": "New bounded current first-contract trace within an earlier broad pending route-time question; no historical unique-count change is implied.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1083 (route-time subset)",
+          "baseline-059/queue.json#/entries/1085 (source-test subset)",
+          "segovb/READ-L12-344.json via ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json"
+        ],
+        "relationship_qualification": "Earlier records retain original revision, attribution, partial-read limits and rejected short-wait suspicion. The broad pending question and distinct native exposure omission are not global aliases or checkpoint 3821 authority.",
+        "discovery": "partial; selected route reachability, state and callback interleavings, actual native acceptance, weather safety and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-FORECAST-WEATHER-DAY-ANCHOR-001",
+        "lens": 7,
+        "severity": "unassigned; conditional forecast versus native weather-time authority question",
+        "classification": "New bounded current clock-authority trace within the earlier broad pending route-time question; distinct from the lost-start setter.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1083 (route-time subset)",
+          "baseline-059/queue.json#/entries/1085 (source-test subset)",
+          "segovb/READ-L12-344.json via ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json",
+          "ASSESSMENT-L01-PLANNED-EXPOSURE-95E.json (distinct omitted movement exposure)"
+        ],
+        "relationship_qualification": "Earlier records retain original revision, attribution, partial-read limits and rejected short-wait suspicion. The broad pending question and distinct native exposure omission are not global aliases or checkpoint 3821 authority.",
+        "discovery": "partial; official/personal divergence reachability, midnight and multi-day route policy, native camp/condition behavior, actual safety differences and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GENERATED-ROUTE-TIME-AUTHORITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0348.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0353.json"
 }

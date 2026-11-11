@@ -1,0 +1,40 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1292,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1292",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "lines": 2550,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2550
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic or independent-lens coverage."
+      },
+      "qualification": "Full historical body personally read; connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen survival body was personally read through actual line 2550 EOF in this continuation. Equal current bytes do not grant independent-lens completion.",
+    "Earlier independent Lens12 batch 344 used five consecutive partials: 1–600, 601–1200, 1201–1800, 1801–2400 and 2401–2550; each records its own then-unread tail and zero new population credit. Its final receipt records full earlier body, zero unique-count change and no current reconciliation.",
+    "The earlier native camp support read is limited to its explicitly recorded lines 1–160, and rejected the short-wait wrong-venue suspicion because field rest is permitted at a settlement. It does not grant unrecorded support ranges.",
+    "No simulation, fixture, test, product build, database, weather query or runtime was executed."
+  ],
+  "remaining": "Continue role 1293; actual timing, weather, SDK, clinical, provider, exact alias and independent-lens contracts remain open."
+}

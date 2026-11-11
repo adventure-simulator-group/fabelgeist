@@ -1,0 +1,609 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    7,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected generated safe-departure itinerary propagation and native journey weather clock authority; no product execution.",
+  "source_reasoning": "Pinned source inspection, source-byte identity and symbolic clock comparison only. Source tests were read as text, not executed; no weather value, route, database or simulator was run.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "131df694f5c1d05161ba0205938704f61e18cc3a",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "bytes": 115819,
+      "lines": 2550,
+      "ranges": [
+        [
+          492,
+          542
+        ],
+        [
+          993,
+          1050
+        ],
+        [
+          1058,
+          1082
+        ],
+        [
+          1175,
+          1188
+        ],
+        [
+          1287,
+          1295
+        ],
+        [
+          1533,
+          1652
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a242d1635898c0a22239056a894f130f6a14ddb0",
+      "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+      "bytes": 118715,
+      "lines": 2736,
+      "ranges": [
+        [
+          2104,
+          2238
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "19240e5d15f58c7516f10c54fe78e136ecd7b21a",
+      "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "bytes": 89463,
+      "lines": 2043,
+      "ranges": [
+        [
+          1653,
+          1717
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "dcb63291712b01d1ad38f331570f7a464e06e196",
+      "sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "bytes": 38101,
+      "lines": 964,
+      "ranges": [
+        [
+          250,
+          325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "70352ff68b8563b6c4db55252799949a7f458286",
+      "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+      "bytes": 12059,
+      "lines": 343,
+      "ranges": [
+        [
+          41,
+          59
+        ],
+        [
+          81,
+          89
+        ],
+        [
+          91,
+          172
+        ],
+        [
+          237,
+          283
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/tests/survival_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ab8d0acd6b0426e95e8e0deaa5e33dcf3aa8034c",
+      "sha256": "58aa106387bc8d6beb61be8b432c16afeb58f164c9ef2760ef0fb4f0571c1d72",
+      "bytes": 58518,
+      "lines": 1478,
+      "ranges": [
+        [
+          147,
+          170
+        ],
+        [
+          1226,
+          1263
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_time.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb9f536cb9ea5069fe8b7b2a143dcab75e4d9d2d",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "bytes": 30716,
+      "lines": 860,
+      "ranges": [
+        [
+          18,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "bytes": 39483,
+      "lines": 1029,
+      "ranges": [
+        [
+          1,
+          9
+        ],
+        [
+          73,
+          94
+        ],
+        [
+          130,
+          191
+        ],
+        [
+          249,
+          286
+        ],
+        [
+          804,
+          853
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "bytes": 31853,
+      "lines": 908,
+      "ranges": [
+        [
+          113,
+          167
+        ],
+        [
+          544,
+          578
+        ],
+        [
+          616,
+          629
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          568,
+          608
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42c114ce4ad6a791efe54af557c0fb88c909df38",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "bytes": 3763,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          304,
+          325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-core/src/weather.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d6bd8ececcd29c69a9a19d4d68478dbb28a07a7",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "bytes": 31155,
+      "lines": 958,
+      "ranges": [
+        [
+          14,
+          21
+        ],
+        [
+          173,
+          196
+        ],
+        [
+          602,
+          625
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          300,
+          343
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "bytes": 14946,
+      "lines": 378,
+      "ranges": [
+        [
+          15,
+          32
+        ],
+        [
+          62,
+          73
+        ],
+        [
+          189,
+          201
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "bytes": 20026,
+      "lines": 582,
+      "ranges": [
+        [
+          75,
+          145
+        ],
+        [
+          231,
+          259
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34d3a48a63c21a8a80f83c6df853cf5d689f1755",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "bytes": 27326,
+      "lines": 759,
+      "ranges": [
+        [
+          214,
+          232
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/route-time-evidence/16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read without execution."
+    }
+  ],
+  "clock_illustration": {
+    "personal_start": "D 23:00",
+    "proposed_wait_minutes": 120,
+    "simulator_candidate": "D+1 01:00",
+    "native_official_anchor_day": "D",
+    "same_local_time_on_native_anchor": "D 01:00",
+    "qualification": "A symbolic comparison conditional on chosen clocks and same local minute. The separate ReadyWithItinerary branch can overwrite that minute; no weather output or reachable run is asserted."
+  },
+  "safeguards": [
+    "The generated caller revalidates after configuring the proposed local time, checks public medical/departure readiness, and follows at most one proposed wait in this selected loop. The zero-state preliminary candidate alone does not prove actual travel was accepted.",
+    "The selected native camp reducer explicitly allows field rest at a settlement, subject to authority, location, unresolved encounter and shelter guards. The earlier wrong-short-wait-venue suspicion remains rejected.",
+    "SettlementResidentPresence has character_id as its primary key, so the selected provider re-lookup by character_id does not by itself establish multiple presence rows or a wrong-row selection. Other native provider and callback scope remains open.",
+    "The cited source assertions check presence of revalidation-related source text; they were not executed and do not establish that the final configured time equals the revalidated time.",
+    "Planned movement uses a separately recorded time advancement path that omits weather exposure; this trace does not infer movement exposure from a different native function."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1292.json",
+      "qualification": "Separate full historical role 1292 read and five earlier individually qualified partials."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1083",
+        "/entries/1085"
+      ],
+      "qualification": "Earlier broad pending questions remain distinct and partial; no checkpoint 3821 promotion."
+    },
+    {
+      "file": "ASSESSMENT-L01-PLANNED-EXPOSURE-95E.json",
+      "qualification": "Related distinct planned-movement weather exposure omission; neither finding automatically aliases the other."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-344-001.json",
+      "sha256": "a29fc07c9f2298a703c304a4ef23574118ff35c8c046bcc8ccb2896ea3e51d8b",
+      "bytes": 6208,
+      "git_blob": "a524d54eef91ab11a355d9a8f55130ee7c2c0a91",
+      "preserved_bytes": "recovered/route-time-059/a29fc07c9f2298a703c304a4ef23574118ff35c8c046bcc8ccb2896ea3e51d8b.gz",
+      "published_sha256": "a29fc07c9f2298a703c304a4ef23574118ff35c8c046bcc8ccb2896ea3e51d8b",
+      "published_bytes": 6208,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-344-002.json",
+      "sha256": "6148142b64b8517fc388cc24c7f6d7a7fcf0202e2ec106e81d56f7a86fd4fe1b",
+      "bytes": 6069,
+      "git_blob": "1c1eb1b149760654ef66edf54d9ceccaee1d4cdc",
+      "preserved_bytes": "recovered/route-time-059/6148142b64b8517fc388cc24c7f6d7a7fcf0202e2ec106e81d56f7a86fd4fe1b.gz",
+      "published_sha256": "6148142b64b8517fc388cc24c7f6d7a7fcf0202e2ec106e81d56f7a86fd4fe1b",
+      "published_bytes": 6069,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-344-003.json",
+      "sha256": "3bc5fcf07c41be64b2335760e84a1820991bd62a71562cb7c0b371d25808af0b",
+      "bytes": 5364,
+      "git_blob": "fa12b9505e55c5b506d32fec580d8fa7cc66a18d",
+      "preserved_bytes": "recovered/route-time-059/3bc5fcf07c41be64b2335760e84a1820991bd62a71562cb7c0b371d25808af0b.gz",
+      "published_sha256": "3bc5fcf07c41be64b2335760e84a1820991bd62a71562cb7c0b371d25808af0b",
+      "published_bytes": 5364,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-344-004.json",
+      "sha256": "7584b6e2704e7e10b30d12de74c96666d0dabbe4b346c16f544dfd3b290f3a2e",
+      "bytes": 5474,
+      "git_blob": "4bc22e1257103b0a1f6ab33c2f8ba481990f465c",
+      "preserved_bytes": "recovered/route-time-059/7584b6e2704e7e10b30d12de74c96666d0dabbe4b346c16f544dfd3b290f3a2e.gz",
+      "published_sha256": "7584b6e2704e7e10b30d12de74c96666d0dabbe4b346c16f544dfd3b290f3a2e",
+      "published_bytes": 5474,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-344-005-EOF.json",
+      "sha256": "9ee39fba2435fafa7ef7817cc976e1997adc1d8099ce8b5cc68b59a842e2e70b",
+      "bytes": 4447,
+      "git_blob": "e17bed4170ad7a369019d08369c7b8cad488c1cc",
+      "preserved_bytes": "recovered/route-time-059/9ee39fba2435fafa7ef7817cc976e1997adc1d8099ce8b5cc68b59a842e2e70b.gz",
+      "published_sha256": "9ee39fba2435fafa7ef7817cc976e1997adc1d8099ce8b5cc68b59a842e2e70b",
+      "published_bytes": 4447,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-344.json",
+      "sha256": "e5650b74af29fefd3a22419757e5df33b46af388b740474660c3760f84caa47d",
+      "bytes": 721,
+      "git_blob": "e1f7081a9d753dd65046539761fa1ff15285c56c",
+      "preserved_bytes": "recovered/route-time-059/e5650b74af29fefd3a22419757e5df33b46af388b740474660c3760f84caa47d.gz",
+      "published_sha256": "e5650b74af29fefd3a22419757e5df33b46af388b740474660c3760f84caa47d",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-344.json",
+      "sha256": "527a43abee7d9acf5ac2bfea7a846571604393fa8dd98227ba8363ee48b5f58e",
+      "bytes": 12760,
+      "git_blob": "51d036e27875e5eb5747189dd4c13995e15cabf3",
+      "preserved_bytes": "recovered/route-time-059/527a43abee7d9acf5ac2bfea7a846571604393fa8dd98227ba8363ee48b5f58e.gz",
+      "published_sha256": "527a43abee7d9acf5ac2bfea7a846571604393fa8dd98227ba8363ee48b5f58e",
+      "published_bytes": 12760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-154.json",
+      "sha256": "1bec1d60fc2ea1fc639f75cdc8f107d44b74e13cadfd471c2725950107cdac36",
+      "bytes": 1438,
+      "git_blob": "cd2af983ce2c2ceaab90344c7a4b3097f4822161",
+      "preserved_bytes": "recovered/route-time-059/1bec1d60fc2ea1fc639f75cdc8f107d44b74e13cadfd471c2725950107cdac36.gz",
+      "published_sha256": "1bec1d60fc2ea1fc639f75cdc8f107d44b74e13cadfd471c2725950107cdac36",
+      "published_bytes": 1438,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier native support registration, only recorded ranges credited"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-199.json",
+      "sha256": "d8c10d22e06dfe7851d5286c09c196c95e933ca713a0f6108e19a69323c9e811",
+      "bytes": 1226,
+      "git_blob": "76cda21828d2584427f1ab81fd548f9da255e2d2",
+      "preserved_bytes": "recovered/route-time-059/d8c10d22e06dfe7851d5286c09c196c95e933ca713a0f6108e19a69323c9e811.gz",
+      "published_sha256": "d8c10d22e06dfe7851d5286c09c196c95e933ca713a0f6108e19a69323c9e811",
+      "published_bytes": 1226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-344.json",
+      "sha256": "f0976322fb2b533a4e3f11c897360735d595675bc058c270790deb556947d9a5",
+      "bytes": 840,
+      "git_blob": "5911fa5be586326ba7c289d59e2634572cf45d9a",
+      "preserved_bytes": "recovered/route-time-059/f0976322fb2b533a4e3f11c897360735d595675bc058c270790deb556947d9a5.gz",
+      "published_sha256": "f0976322fb2b533a4e3f11c897360735d595675bc058c270790deb556947d9a5",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-344.json",
+      "sha256": "29d492345c446ecd76fad13fadffca933366b96c0a7e28e5a080faea34148c8a",
+      "bytes": 558,
+      "git_blob": "6ce7a76a0eb7e953f5521969f702cded6640d1cf",
+      "preserved_bytes": "recovered/route-time-059/29d492345c446ecd76fad13fadffca933366b96c0a7e28e5a080faea34148c8a.gz",
+      "published_sha256": "29d492345c446ecd76fad13fadffca933366b96c0a7e28e5a080faea34148c8a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, individual unread tails, rejected short-wait suspicion and bounded support remain unchanged; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-GENERATED-SAFE-START-OVERWRITE-001",
+      "lens": 8,
+      "severity": "unassigned; conditional source-derived departure-time mismatch",
+      "classification": "New bounded current first-contract trace within an earlier broad pending route-time question; no historical unique-count change is implied.",
+      "trace": "For a generated case, the planner may return WaitForSafeDeparture. When the party is at a settlement, the 60..=one-day wait helper configures an explicit journey-local minute of day derived from the current public party clock plus the wait; it does not perform a settlement rest. The caller then checks medical/departure readiness and revalidates the route at the corresponding configured absolute minute. If that revalidation returns ReadyWithItinerary, the same loop immediately calls configure_safe_departure_itinerary with None. None maps to 08:00 for a daytime itinerary or 20:00 for a night itinerary, and the native itinerary reducer updates the stored start minute when the settlement party has no wilderness anchor. Thus, conditional on a successful explicit time C, a successful ready revalidation and a later accepted default D different from C, the last setter replaces C with D before the selected travel call. Subsequent provisioning, callback/cache ordering, native acceptance and an admitted route where the safety decision differs remain unproven. The initial planner can use optimistic zero fatigue/thermal state for positive candidate waits, but the inspected caller does perform a separate revalidation using the current state for a zero-additional-wait candidate; this finding does not claim that initial forecast alone authorizes travel.",
+      "connected_repair": "Carry the selected journey-local start as part of the typed itinerary through revalidation, the final setter and travel; revalidate the exact committed time and do not convert journey-local configuration into personal rest. Preserve role, walking window, nighttime, bounded follow-up and weather authority. After separately authorized implementation, use a case where C differs from both defaults to verify the persisted time and travel projection; do not treat a substring assertion as execution evidence.",
+      "discovery": "partial; selected route reachability, state and callback interleavings, actual native acceptance, weather safety and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-SIM-FORECAST-WEATHER-DAY-ANCHOR-001",
+      "lens": 7,
+      "severity": "unassigned; conditional forecast versus native weather-time authority question",
+      "classification": "New bounded current clock-authority trace within the earlier broad pending route-time question; distinct from the lost-start setter.",
+      "trace": "The simulator route preflight obtains its observed start from the maximum visible personal character time and evaluates weather by adding absolute elapsed minutes. For native unplanned case-site travel, the selected journey-local departure is instead placed on an official world-clock day from refresh_clock, and wilderness environmental exposure wraps elapsed time within that anchored day. The native straight-line route also requests weather at this official-day departure. Therefore when those chosen personal and official day/time inputs differ, the forecast and native route or a subsequently reached camp exposure can query weather for different absolute intervals; actual weather values and safety decisions need not differ. For illustration, if personal time is D 23:00 and a proposed local wait is 120 minutes, the simulator candidate is D+1 01:00, while placing that same 01:00 on an official anchor day D yields D 01:00. This isolates the clock distinction and does not claim that 01:00 survives the separate default overwrite. The weather source uses six-hour absolute intervals. The separately recorded planned-movement exposure omission remains material: do not assume this particular travel movement itself applies native weather exposure. Supported clock divergence, route selection, camp reachability and policy remain open.",
+      "connected_repair": "Establish the shared journey environment clock authority and derive forecast samples from the same official-day anchor, selected start and wrapping semantics as the native journey, while preserving independent personal clocks, real clipping and the separately tracked movement-exposure repair. Avoid imposing a personal-time wait where only a journey-local clock was intended.",
+      "discovery": "partial; official/personal divergence reachability, midnight and multi-day route policy, native camp/condition behavior, actual safety differences and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Actual accepted route/configuration states and callback/cache order, official/personal clock divergence, camp and weather safety, provider/native behavior, exact aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
