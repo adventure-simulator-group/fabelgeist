@@ -3609,7 +3609,10 @@
         "discovery": "partial; static count counterexamples, supported deployment and native bounds open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json"
+        "record": "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json",
+        "supplemental_records": [
+          "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json"
+        ]
       },
       {
         "id": "ADLER-L11-GRAPHICS-CONFIG-ERROR-OWNERSHIP",
@@ -3642,8 +3645,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GENERATION-IDENTITY-95E.json"
+      },
+      {
+        "id": "ADLER-L11-SCENE-GROUND-WIRE-ADMISSION",
+        "lens": 11,
+        "severity": "unassigned; historical admission finding with supported reachability open",
+        "classification": "Historical 059 Lens11 admission finding newly reassessed at 95e; source-derived conditional malformed decoded grid, not an observed network or worker incident.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-SCENE-GROUND-WIRE-ADMISSION",
+          "baseline-059/queue.json#/entries/110"
+        ],
+        "relationship_qualification": "Same recovered 059 finding newly assessed at 95e; no historical unique count or checkpoint3821 transfer.",
+        "discovery": "partial; current bypass and bounded consumers source traced, supported malformed transport and policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-GROUND-RASTER-CHAMFER-CAPACITY-001",
+        "lens": 4,
+        "severity": "unassigned; conditional raster arithmetic and supported reachability question",
+        "classification": "New current source and symbolic arithmetic observation with a constructor-admitted extreme scale; supported product reachability and policy remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1310",
+          "baseline-059/queue.json#/entries/1311"
+        ],
+        "relationship_qualification": "New 95e static arithmetic issue; related ground obligations do not prove exact historical alias or add a historical unique count.",
+        "discovery": "partial; source and symbolic constructor witness documented, supported reachability and policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0645.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0648.json"
 }

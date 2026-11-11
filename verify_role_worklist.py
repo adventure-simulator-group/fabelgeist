@@ -157,8 +157,14 @@ for role in roles:
                 cursor = hi + 1
             if cursor != source_lines + 1:
                 raise ValueError('historical range union incomplete')
-        elif item['new_personal_read_ranges'] != [[1, source_lines]]:
-            raise ValueError('historical body range mismatch')
+        else:
+            cursor = 1
+            for lo, hi in item['new_personal_read_ranges']:
+                if lo != cursor or hi < lo:
+                    raise ValueError('historical body range gap or overlap')
+                cursor = hi + 1
+            if cursor != source_lines + 1:
+                raise ValueError('historical body range incomplete')
     elif status == 'deleted-base-trace-open':
         original = registry[role['original_index']]
         doc = json.loads((root / role['historical_assessment']).read_text())
