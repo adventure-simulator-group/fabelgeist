@@ -1,0 +1,692 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1882–1885, general and height marching, current field producer, immutable patch admission and selected native collider handoff.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1882-1885.json",
+  "git_membership_evidence": "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b3a37034bfaf67d010826f9972277a9e4b97547",
+      "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+      "bytes": 15538,
+      "lines": 395,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1ed9bffbcdb0200bccb84e7ffd4df69765261b43",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "bytes": 20430,
+      "lines": 526,
+      "ranges": [
+        [
+          1,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4316aed04dad6574def44b14293e8a962c66f2d9",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "bytes": 8089,
+      "lines": 217,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/patch.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdb67949f42ffeb9a1593dc191fcc7306476845",
+      "sha256": "f51a14125e8e313cd4e2fcfc73efc27b9c219f1804556cbeffaf224dfb4a31f8",
+      "bytes": 3155,
+      "lines": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0269eb4a8b5c39f71793bf10189d8ae91656d857",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "bytes": 660,
+      "lines": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          35,
+          147
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a7fbe35525bc0e222e93cbedfac379560fbf4f0c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "bytes": 6550,
+      "lines": 170,
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa3f51f1e19db0e2af765358447300b6ffbe537",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          410,
+          465
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2fa4044303d8f1b9d4b4034f696215ecdee43c4d",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "bytes": 2569,
+      "lines": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8d2b953b2b6d091ff765daa6c8ffd4fbd2670a81",
+      "sha256": "b2cee2e95142144d080ba8a82af82d52b5b53626c6217b990a8b65ad87cfdfd4",
+      "bytes": 11447,
+      "lines": 336,
+      "ranges": [
+        [
+          90,
+          216
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/marching-admission-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; full bytes preserved. No field, terrain, mesh, collider, renderer, simulation or product function executed."
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+      "member": "glam-0.32.1/src/f32/vec3.rs",
+      "ranges": [
+        [
+          949,
+          954
+        ]
+      ],
+      "qualification": "Pinned interpolation source; no arithmetic executed."
+    },
+    {
+      "manifest": "native-evidence/avian3d-0.7.0/MANIFEST.json",
+      "member": "avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "ranges": [
+        [
+          855,
+          925
+        ]
+      ],
+      "qualification": "Pinned adapter source; no physics or resolved feature graph."
+    },
+    {
+      "manifest": "native-evidence/parry3d-0.27.0/MANIFEST.json",
+      "member": "parry3d-0.27.0/src/shape/shared_shape.rs",
+      "ranges": [
+        [
+          400,
+          408
+        ]
+      ],
+      "qualification": "Pinned shared-shape source; no native collider created."
+    },
+    {
+      "manifest": "native-evidence/parry3d-0.27.0/MANIFEST.json",
+      "member": "parry3d-0.27.0/src/shape/trimesh.rs",
+      "ranges": [
+        [
+          570,
+          625
+        ],
+        [
+          685,
+          775
+        ]
+      ],
+      "qualification": "Pinned native constructor/flag source; no runtime result."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-LANDFORM-BOUNDS-95E.json",
+    "ASSESSMENT-TERRAIN-LANDFORM-95E.json",
+    "ASSESSMENT-SAMPLED-SUPPORT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "General versus height-specialized producers",
+      "trace": "The current general marching_tetrahedra call search finds erosional_terrain::patch and the comparison fixture. The separate fault extractor calls marching_height_surface with a closure whose X/Z depend on x/z and whose Y depends only on y. It checks recipe and side/vertical upper limits before marching; the height helper checks each shared elevation finite and strictly increasing, finite column endpoints and endpoint differences, and dimensions at least2.",
+      "remaining": "The finite recipe dimensions do not by themselves prove every intermediate support/field scalar or all native geometry; earlier late-bound preprocessing findings remain distinct. Tests are source only."
+    },
+    {
+      "contract": "Patch and native source boundary",
+      "trace": "Generated triangles use f64 for winding, f32 cross products for normals, discard exactly-zero normal triangles, normalize_or_zero accumulated vertex normals, then call the checked immutable patch constructor. The constructor checks finite arrays, shape and index bounds; collider concatenation checks total u32 vertex capacity, and client consumes admitted buffers for mesh attributes.",
+      "remaining": "The selected native source and explicit public-constructor counterexample do not establish runtime validity, renderer results, native flags in every build or a production malformed input."
+    },
+    {
+      "contract": "Authored scene admission",
+      "trace": "TacticalSceneInput validates grid dimensions and spacing and limits authored height samples to finite ±12,000m. The independent public SceneTerrain::from_heightmap validates grid cardinality, finite positive scale and finite samples but has no same height bound.",
+      "remaining": "Other generation/refinement and landform field arithmetic must be traced before extending either numerical bound to every caller."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-MARCHING-EDGE-INTERPOLATION",
+      "lens": 11,
+      "additional_current_lenses": [
+        1,
+        3,
+        4,
+        8,
+        13
+      ],
+      "severity": "unassigned; retained historical leaf issue with current actual-producer reachability open",
+      "first_contract": "A finite sign-changing field edge must place its crossing correctly or reject the arithmetic before producing a mesh.",
+      "classification": "Original059 Adler finding independently reassessed on the identical95e helper body; no new historical finding.",
+      "trace": "sample_field accepts finite field values and positions after near-zero snap. Every emitted edge is requested from an inside sample to an outside sample. For hypothetical start=-f32::MAX and end=+f32::MAX, their f32 subtraction becomes negative infinity and the fraction becomes positive zero rather than one half. Pinned glam Vec3::lerp at zero returns the finite start point. Symbolically, on a 2×2×2 unit lattice with the origin inside at -MAX and all other vertices outside at +MAX, all six tetrahedra touch the origin; their interpolated edge positions collapse there, their zero normals are discarded and build_surface returns EmptySurface. No closure, lattice, scalar operation, mesh or product ran.",
+      "safeguards_and_limits": "The only non-test current general caller is erosional_terrain::patch, with bounded recipe dimensions, fixed spacing, required finite support queries and per-sample field checks; no supported erosion field producing these extremes is established. The fault path uses the trimmed height specialization, which checks finite endpoint subtractions and monotone shared Y before extraction. TacticalSceneInput separately limits authored height samples to ±12,000m; public SceneTerrain accepts a broader finite range. The finite-buffer patch constructor rejects nonfinite output, so do not claim a nonfinite patch was published.",
+      "connected_repair_dependencies": [
+        "Trace the full supported erosional-field and SceneTerrain producer ranges and exact aliases; distinguish generic-helper admission from reachable production.",
+        "If the complete edge operation must support the larger finite domain, compute or reject the full ratio safely while preserving near-zero snap, stable edge keys, winding and ordinary mesh ordering.",
+        "Later authorized verification should cover sign-changing extremes, ordinary endpoints, snapped zeros, empty surfaces and the actual accepted producer; no product validation ran."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-MARCHING-EDGE-INTERPOLATION",
+        "baseline-059/queue.json#/entries/107",
+        "adler/READ-L11-286.json",
+        "adler/READ-L11-301.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; same current operation and symbolic leaf consequence established, actual supported field extremes and all aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-TERRAIN-PATCH-GEOMETRY-ADMISSION-001",
+      "lens": 3,
+      "additional_current_lenses": [
+        1,
+        4,
+        5,
+        7,
+        8,
+        11,
+        13
+      ],
+      "severity": "unassigned; conditional public patch geometry and native boundary policy",
+      "first_contract": "The admitted terrain-patch boundary and its native consumers need an explicit shared policy for degenerate triangles and zero or nonunit normals.",
+      "trace": "SceneTerrainPatch::from_mesh_buffers rejects empty buffers, unequal normal and vertex counts, too many vertices, non-triangle index counts, out-of-range indices and nonfinite components; its comment says producers supply unit normals. For a valid collar, three identical finite positions, three zero normals and indices [0,1,2] satisfy the shown checks, as does a nonzero finite but nonunit normal. PatchWire deserialization calls the same constructor. The public collider path forwards positions and index triples to Avian Collider::trimesh; the inspected Avian adapter delegates to Parry SharedShape::trimesh, whose TriMesh::new selects empty preprocessing flags. This establishes a source-level admission and handoff question, not an executed collider or a claimed panic.",
+      "safeguards_and_limits": "The generated marching path filters zero-area triangles before final admission and normalizes with normalize_or_zero; zero accumulated normals can be a deliberate representation for unused or canceling vertices. Normal scene production creates a checked patch internally and does not replicate SceneTerrainPatch in the selected registry. No real serialized malformed patch, native renderer/collider result, ordinary generated degenerate output or violated promised consumer requirement has been demonstrated. Parry source with empty flags does not justify inferring duplicate-vertex rejection merely from Avian documentation.",
+      "connected_repair_dependencies": [
+        "Determine supported public/wire patch ingress and the actual Bevy/Avian contracts for geometry, normals, duplicate positions and triangle winding; trace every normal producer and consumer before changing admission.",
+        "If a stricter invariant is required, enforce it at the patch owner or propagate a typed native rejection while preserving intentional zero-normal/unused-vertex and tiny valid triangle behavior.",
+        "Later authorized verification should distinguish zero-area, duplicate-position, valid small triangles, nonunit normals and ordinary generated patches; no physics or renderer ran."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1558",
+        "adler/READ-L11-301.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; exact constructor gap and selected native handoff shown, supported ingress, native requirements, consumer impact and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/marching-admission-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/marching-admission-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-723.json",
+      "sha256": "eaa2fcf1a19102bae33b19405b018ffeb046fcafd39deca27703f99c01005773",
+      "bytes": 697,
+      "git_blob": "2cdf503d2a79f5d2fe8d330be780eebb150920db",
+      "preserved_bytes": "recovered/marching-admission-059/eaa2fcf1a19102bae33b19405b018ffeb046fcafd39deca27703f99c01005773.gz",
+      "published_sha256": "eaa2fcf1a19102bae33b19405b018ffeb046fcafd39deca27703f99c01005773",
+      "published_bytes": 697,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-724.json",
+      "sha256": "7dcff363d1e28cd45e29a3946164d61e040386bee17edc6b502853a04971de60",
+      "bytes": 711,
+      "git_blob": "9c1d9bad25f8f6ba7c2daba1f0d5a5be015380b9",
+      "preserved_bytes": "recovered/marching-admission-059/7dcff363d1e28cd45e29a3946164d61e040386bee17edc6b502853a04971de60.gz",
+      "published_sha256": "7dcff363d1e28cd45e29a3946164d61e040386bee17edc6b502853a04971de60",
+      "published_bytes": 711,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-725.json",
+      "sha256": "6216134be650597943ba0c5d0ad05207a5efe3abff10aa2ad52d6978dfc8b4c4",
+      "bytes": 726,
+      "git_blob": "3794246e173127411a5a66505152f00ec894ecb2",
+      "preserved_bytes": "recovered/marching-admission-059/6216134be650597943ba0c5d0ad05207a5efe3abff10aa2ad52d6978dfc8b4c4.gz",
+      "published_sha256": "6216134be650597943ba0c5d0ad05207a5efe3abff10aa2ad52d6978dfc8b4c4",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-726.json",
+      "sha256": "40574593d323314d497ab48670784cc9eb4e130022a0d89fad2f6dab1d1956ff",
+      "bytes": 731,
+      "git_blob": "ec68039ff01e9c576af29953f6c588ea65e68d20",
+      "preserved_bytes": "recovered/marching-admission-059/40574593d323314d497ab48670784cc9eb4e130022a0d89fad2f6dab1d1956ff.gz",
+      "published_sha256": "40574593d323314d497ab48670784cc9eb4e130022a0d89fad2f6dab1d1956ff",
+      "published_bytes": 731,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-808.json",
+      "sha256": "91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c",
+      "bytes": 721,
+      "git_blob": "f3bf0e319fa7d935ba4d74c379f0d31ac88bfb5a",
+      "preserved_bytes": "recovered/marching-admission-059/91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c.gz",
+      "published_sha256": "91a8c4947e459086692f3bd1f50734dd2c9a2b890ba0d1b3b68f50526bb9ca8c",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-809.json",
+      "sha256": "c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7",
+      "bytes": 726,
+      "git_blob": "daa541f844e18695020b64ba5e7ce88d872a337c",
+      "preserved_bytes": "recovered/marching-admission-059/c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7.gz",
+      "published_sha256": "c16b2a9197ba6d097f370702065be1473459ababa18b00fb283f179ebc0b15e7",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-810.json",
+      "sha256": "9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4",
+      "bytes": 726,
+      "git_blob": "ab82b91a73d1ef49d0bf6e4159b29deb44954935",
+      "preserved_bytes": "recovered/marching-admission-059/9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4.gz",
+      "published_sha256": "9595e1b8fb501c8947279063e2a71ec2532d6f3bf9e4c4ea304b32b923916cb4",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-811.json",
+      "sha256": "dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e",
+      "bytes": 726,
+      "git_blob": "98c57af57a9e01a37500592f1d777df02c3f5f00",
+      "preserved_bytes": "recovered/marching-admission-059/dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e.gz",
+      "published_sha256": "dc0677361377d0b5e288816b564b6c7b2c08a14231c3f1f9b38badfbbd6a1b9e",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-812.json",
+      "sha256": "57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945",
+      "bytes": 732,
+      "git_blob": "68ee24afa822a4d2eca1da8bb37ea4d286784505",
+      "preserved_bytes": "recovered/marching-admission-059/57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945.gz",
+      "published_sha256": "57b2b71f8929a1a9efc6e1c37c233f2c7ca00191fee8bfc6430b64454646f945",
+      "published_bytes": 732,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-813.json",
+      "sha256": "65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8",
+      "bytes": 728,
+      "git_blob": "9dac2c2c2b7c54520939497c468a7ae05fd449d5",
+      "preserved_bytes": "recovered/marching-admission-059/65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8.gz",
+      "published_sha256": "65eaaeb6a8341d1feb01411f125f20049ac191a5d45e7c49f471c66a29ddfbf8",
+      "published_bytes": 728,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration; later source roles retain only original reviewer attribution"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-286.json",
+      "sha256": "aab80050fcf08f757bf64655a156186158606e404929bb9ed1a78d10d31ddc7e",
+      "bytes": 646,
+      "git_blob": "d5a0d22110a46359055d9729fd488303fe49c821",
+      "preserved_bytes": "recovered/marching-admission-059/aab80050fcf08f757bf64655a156186158606e404929bb9ed1a78d10d31ddc7e.gz",
+      "published_sha256": "aab80050fcf08f757bf64655a156186158606e404929bb9ed1a78d10d31ddc7e",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-301.json",
+      "sha256": "e7a3ff9b99884c79044ca93edf978a9f761566cf9eb6741d371fb01faa48958a",
+      "bytes": 668,
+      "git_blob": "4a8492be8eee8d668910e33626bba4e67f9c3cca",
+      "preserved_bytes": "recovered/marching-admission-059/e7a3ff9b99884c79044ca93edf978a9f761566cf9eb6741d371fb01faa48958a.gz",
+      "published_sha256": "e7a3ff9b99884c79044ca93edf978a9f761566cf9eb6741d371fb01faa48958a",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-286.json",
+      "sha256": "fb2f4e67091729ac46ae147f25984282a48f63b39bed17c48da520362ca6fd33",
+      "bytes": 42843,
+      "git_blob": "41beb7716928ead0dc6f47f64e87c8f3452f35c3",
+      "preserved_bytes": "recovered/marching-admission-059/fb2f4e67091729ac46ae147f25984282a48f63b39bed17c48da520362ca6fd33.gz",
+      "published_sha256": "fb2f4e67091729ac46ae147f25984282a48f63b39bed17c48da520362ca6fd33",
+      "published_bytes": 42843,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-301.json",
+      "sha256": "ffd056a5734894c093b3f2e42be487e1ade2e7870df809fa782fa67cce943789",
+      "bytes": 50041,
+      "git_blob": "7c794ded36288c66dbcec2834d2d3cd815c4141c",
+      "preserved_bytes": "recovered/marching-admission-059/ffd056a5734894c093b3f2e42be487e1ade2e7870df809fa782fa67cce943789.gz",
+      "published_sha256": "ffd056a5734894c093b3f2e42be487e1ade2e7870df809fa782fa67cce943789",
+      "published_bytes": 50041,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-621.json",
+      "sha256": "e199d24f5bedd879623a87ce365b95a9d58978cf514a0f609157cc3911c07eea",
+      "bytes": 1241,
+      "git_blob": "091e460e575e56bd64b4d9986bfe24a0d0809626",
+      "preserved_bytes": "recovered/marching-admission-059/e199d24f5bedd879623a87ce365b95a9d58978cf514a0f609157cc3911c07eea.gz",
+      "published_sha256": "e199d24f5bedd879623a87ce365b95a9d58978cf514a0f609157cc3911c07eea",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-621.json",
+      "sha256": "ca9cafd62e8a8b3342ec51c9b516a9e2288bdfb0e1e3819eec0b40902228baf2",
+      "bytes": 3924,
+      "git_blob": "f337f07ac3c9782d330d7d616db99984cca9d885",
+      "preserved_bytes": "recovered/marching-admission-059/ca9cafd62e8a8b3342ec51c9b516a9e2288bdfb0e1e3819eec0b40902228baf2.gz",
+      "published_sha256": "ca9cafd62e8a8b3342ec51c9b516a9e2288bdfb0e1e3819eec0b40902228baf2",
+      "published_bytes": 3924,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-791.json",
+      "sha256": "e3b0af6b219356f8c0e784ab939818a5d7815fcd0b7aad3d4f1f17448d077665",
+      "bytes": 1199,
+      "git_blob": "41733822b4d32516241e5836dc04b49cb789d500",
+      "preserved_bytes": "recovered/marching-admission-059/e3b0af6b219356f8c0e784ab939818a5d7815fcd0b7aad3d4f1f17448d077665.gz",
+      "published_sha256": "e3b0af6b219356f8c0e784ab939818a5d7815fcd0b7aad3d4f1f17448d077665",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-792.json",
+      "sha256": "f3486d09f53dd296cf40fed1c34b6249ca776815fdfa214d03cbefbed87a992c",
+      "bytes": 1209,
+      "git_blob": "6efbac5dfc99bb479ae870971baf8c745f83b93e",
+      "preserved_bytes": "recovered/marching-admission-059/f3486d09f53dd296cf40fed1c34b6249ca776815fdfa214d03cbefbed87a992c.gz",
+      "published_sha256": "f3486d09f53dd296cf40fed1c34b6249ca776815fdfa214d03cbefbed87a992c",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-621.json",
+      "sha256": "e486847508fea1207ada34aa29b46c76db878de12731806ad5d150ec1d2982df",
+      "bytes": 840,
+      "git_blob": "19964f276014fed5736b422fbedd7f7fdb587d0c",
+      "preserved_bytes": "recovered/marching-admission-059/e486847508fea1207ada34aa29b46c76db878de12731806ad5d150ec1d2982df.gz",
+      "published_sha256": "e486847508fea1207ada34aa29b46c76db878de12731806ad5d150ec1d2982df",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-621.json",
+      "sha256": "83cfaa38644ba6c379434a128978d11e30a88f3ef0c15ce3bf45a9931c36e3f2",
+      "bytes": 558,
+      "git_blob": "9c8a3cb7f0ef1b3f2b16f83f18739e7eb16825a7",
+      "preserved_bytes": "recovered/marching-admission-059/83cfaa38644ba6c379434a128978d11e30a88f3ef0c15ce3bf45a9931c36e3f2.gz",
+      "published_sha256": "83cfaa38644ba6c379434a128978d11e30a88f3ef0c15ce3bf45a9931c36e3f2",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when explicitly recorded, range and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "prior_preserved_independent_receipts": {
+    "segovb/READ-L12-620.json": "ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json",
+    "qualification": "Original Segovb independently read historical roles1882–1883 in batch620; original attribution, ranges and current-unreconciled status remain separate."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/107",
+        "/entries/1558",
+        "/entries/1559"
+      ],
+      "qualification": "Original059 retained finding and pending obligations; no inferred checkpoint3821 state."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb620/621 and Adler286 retain their own earlier full historical reads. Adler301 independently read later historical roles1965–1970, which are not credited as this audit’s ordered Lens1 reads. No equality supplies missing per-row revision-as-recorded or moves an earlier record to checkpoint3821.",
+  "remaining": "Continue original1886 and all13 lenses, actual field and mesh producer ranges, public/wire ingress, native behavior, error precedence and exact global aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
