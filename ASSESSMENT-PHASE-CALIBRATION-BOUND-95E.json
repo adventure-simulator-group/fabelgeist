@@ -1,0 +1,570 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Eight historical tactical-core documentation/animation roles and bounded current calibration, config, continuation and delivery sources.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1750-1757.json",
+  "git_membership_evidence": "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          405,
+          485
+        ],
+        [
+          1860,
+          1910
+        ],
+        [
+          1925,
+          1955
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bb0d3caeb294352afa98c2e75e041776d9ddc9c",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "bytes": 21683,
+      "lines": 582,
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c8b8731eed7764182ac9925ce30512be258e500d",
+      "sha256": "c1787a5b36b9fd27891c2646fd70a7d5206d7a1eefe00b86d1b3068d4dba8b03",
+      "bytes": 3075,
+      "lines": 82,
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "27becb876d82c1e73cfa496b3938068d4107d276",
+      "sha256": "5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+      "bytes": 3113,
+      "lines": 80,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "08f0129773fa677e46ef8378530c38d657c81442",
+      "sha256": "6d2b74658ffa77e2c7d32635515ddbc3589a7aff449110421f754a56ca0e9cc6",
+      "bytes": 16169,
+      "lines": 434,
+      "ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a60c86f75946205d6422ff8c6dc2d3dd29b08c24",
+      "sha256": "bc7371531895550fdec30c4a70a75f549a9cf24c209efbef405f831df198b58a",
+      "bytes": 2495,
+      "lines": 59,
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f3cc5b2c458a41bc49c82502a39d1159c1e8f13",
+      "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+      "bytes": 73988,
+      "lines": 1894,
+      "ranges": [
+        [
+          643,
+          663
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9fbbfc135b598fdcf58aab78001cc46f152ae0ef",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "bytes": 2138,
+      "lines": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          400,
+          470
+        ],
+        [
+          605,
+          670
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          35,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          200,
+          230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "318bc19a9b047c1e427668a1982d05434073a7da",
+      "sha256": "37a5dba433aa5219b544716053897df30d3df49662fb5fd38794130c1b803946",
+      "bytes": 7479,
+      "lines": 212,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/calibration-bound-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Other source roles and lenses are not credited. Product and source tests were not executed."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Continuation tangent decode",
+      "trace": "IncomingAttackTangent direct construction and its ordinary scalar TryFrom reject finite negative values, whereas the dedicated deserialize_tangent checks finiteness then applies max(0). The current QueuedAttack, AttackSequence::Continuation and PoseSampling::ContinuationSpan fields explicitly use that decoder; a nonnegative finite invariant holds after either path. Runtime queued production uses from_arithmetic and propagates errors.",
+      "remaining": "The source comments describe preservation of an existing negative-normalization boundary; this is an explicitly different admission policy, not automatically a compatibility shim or a finding that invalid input occurs. Decide the clean final decoding contract from actual producer and consumer needs; all codecs, lifecycle and aliases remain open."
+    },
+    {
+      "contract": "Other checked owners",
+      "trace": "The original sources retain separate signed and nonnegative angles, a checked cadence cap with explicit out-of-range demand, and separate checked versus wrapping contact sequence operations. They do not alone establish all caller behavior or close additional lenses.",
+      "remaining": "Actual animation publication, math consumers, simultaneous configuration relations and native reflection remain open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-PHASE-CALIBRATION-INTERVAL-BOUND-001",
+      "lens": 3,
+      "additional_current_lenses": [
+        4,
+        13
+      ],
+      "classification": "New95e conditional calibration capacity and numeric precision question connected to original Segovb567 pending scope; not a new historical finding.",
+      "first_failed_contract": "The admitted phase calibration interval count has no shown upper bound even though a consumer traverses and collects one sample per interval plus the endpoint using f32 index conversions.",
+      "canonical_owner": "Phase calibration interval admission and the supported accuracy/work budget shared by server-loaded animation configuration and client fitting.",
+      "trace": "PhaseCalibrationIntervals::try_from(u32) rejects only counts below3. PoseBufferConfig owns that type and its shown validate function checks foot range and contact-window ordering, not the count. TacticalCombatConfig validates that projection, install_runtime_snapshot validates before retaining it, server startup accepts a specified YAML path, and the client config observer validates an incoming snapshot before installing it. The client fit_contact_spans reads pose_tuning().authored_phase_calibration_intervals, iterates 0..=intervals, converts index and interval to f32, samples each phase, collects a Vec and then smooths.",
+      "symbolic_example": "At count16,777,217, the inclusive sequence contains16,777,218 indices. IEEE binary32 rounds both integer indices16,777,216 and16,777,217 to16,777,216; the denominator also rounds there, so their computed physical phase coordinates coincide at1.0. This is a source-directed arithmetic illustration only, not a generated configuration, parsed YAML, allocation, fitted curve or product execution.",
+      "safeguards": "Committed combat YAML sets256 intervals, yielding257 points in this loop. Other full-config checks and source/native limits may constrain a complete alternative configuration; no valid large snapshot, successful contact fit, memory exhaustion, hang or visible animation defect has been observed. Iteration may return an error early, and endpoint/repeated-sample policy requires examination before deciding whether a numeric cap, different grid or another approach is appropriate. No network attack is claimed.",
+      "dependencies": [
+        "Trace complete supported configuration admission, server-to-client delivery, client calibration triggers, smoothing and resource budgets.",
+        "Establish intended phase-grid accuracy and endpoint/seam semantics, then choose a defensible admitted count or implementation strategy with typed ownership.",
+        "Reconcile original Segovb567 capacity question and any exact aliases without changing earlier attribution."
+      ],
+      "acceptance_requirements": [
+        "Every supported interval count has a documented, resource-bounded fitting path and sufficient phase resolution for its intended grid.",
+        "Invalid or unsupported tuning is rejected with the owning configuration context before expensive calibration work; normal authored motion and transient server authority are preserved."
+      ],
+      "discovery": "partial; type/config/call chain and symbolic repeated f32 coordinate connected; complete config reachability, actual fitting, operational cost and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1444",
+        "/entries/1445"
+      ],
+      "qualification": "Original059 pending scopes remain only partially connected; no checkpoint3821 transfer."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-566.json",
+      "sha256": "913abd1aadd7504437dee38e039218b193599a69d7fb590b6f4cb21866cbbc2b",
+      "bytes": 2179,
+      "git_blob": "faf7ec46706031c5f704b1214b0149b1d7b36274",
+      "preserved_bytes": "recovered/calibration-bound-059/913abd1aadd7504437dee38e039218b193599a69d7fb590b6f4cb21866cbbc2b.gz",
+      "published_sha256": "913abd1aadd7504437dee38e039218b193599a69d7fb590b6f4cb21866cbbc2b",
+      "published_bytes": 2179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-567.json",
+      "sha256": "baf55121debd21a5910fe2217fe25399b0cf97c189fac68e00a24e4c5102b1ce",
+      "bytes": 2209,
+      "git_blob": "818feb3b974ff894ea9950f1ebe3998ae391002a",
+      "preserved_bytes": "recovered/calibration-bound-059/baf55121debd21a5910fe2217fe25399b0cf97c189fac68e00a24e4c5102b1ce.gz",
+      "published_sha256": "baf55121debd21a5910fe2217fe25399b0cf97c189fac68e00a24e4c5102b1ce",
+      "published_bytes": 2209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-566.json",
+      "sha256": "f0dbd6f9bf61f29e762579576ec6b4f5d7b72f4dd9beff5a8e042f2f2b805df9",
+      "bytes": 14022,
+      "git_blob": "860b613a6a039a1d7a2751a7c5ef8596dd21e98f",
+      "preserved_bytes": "recovered/calibration-bound-059/f0dbd6f9bf61f29e762579576ec6b4f5d7b72f4dd9beff5a8e042f2f2b805df9.gz",
+      "published_sha256": "f0dbd6f9bf61f29e762579576ec6b4f5d7b72f4dd9beff5a8e042f2f2b805df9",
+      "published_bytes": 14022,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-567.json",
+      "sha256": "2b9321c0a8f4be2cb243543d77d021f03ca4cc113b24f075cc981c19d46f9eba",
+      "bytes": 12746,
+      "git_blob": "e4b405e4ebaf41183236386fe3320b48c449b5bf",
+      "preserved_bytes": "recovered/calibration-bound-059/2b9321c0a8f4be2cb243543d77d021f03ca4cc113b24f075cc981c19d46f9eba.gz",
+      "published_sha256": "2b9321c0a8f4be2cb243543d77d021f03ca4cc113b24f075cc981c19d46f9eba",
+      "published_bytes": 12746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-657.json",
+      "sha256": "94f8682f4408083a478eca83c8be52335e1dedd2c8c459dbc8b0c74d29b17773",
+      "bytes": 1208,
+      "git_blob": "855f66a85173b0fce70af736cb28a72508505c64",
+      "preserved_bytes": "recovered/calibration-bound-059/94f8682f4408083a478eca83c8be52335e1dedd2c8c459dbc8b0c74d29b17773.gz",
+      "published_sha256": "94f8682f4408083a478eca83c8be52335e1dedd2c8c459dbc8b0c74d29b17773",
+      "published_bytes": 1208,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-658.json",
+      "sha256": "8521d05fb26ae9351a5590fdcc71126ee3dfc763f5ed346112f9442a82b8b408",
+      "bytes": 1256,
+      "git_blob": "a514b217478494207a20924def9a8ecae6e40882",
+      "preserved_bytes": "recovered/calibration-bound-059/8521d05fb26ae9351a5590fdcc71126ee3dfc763f5ed346112f9442a82b8b408.gz",
+      "published_sha256": "8521d05fb26ae9351a5590fdcc71126ee3dfc763f5ed346112f9442a82b8b408",
+      "published_bytes": 1256,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-659.json",
+      "sha256": "6a1db7cbe2f8ecf6d27e41849f9d89227aa70b18c399bc96c66f81cb4e85a72b",
+      "bytes": 1252,
+      "git_blob": "f9994212655eefe59766181f1dc92f6c43dcd6c9",
+      "preserved_bytes": "recovered/calibration-bound-059/6a1db7cbe2f8ecf6d27e41849f9d89227aa70b18c399bc96c66f81cb4e85a72b.gz",
+      "published_sha256": "6a1db7cbe2f8ecf6d27e41849f9d89227aa70b18c399bc96c66f81cb4e85a72b",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-660.json",
+      "sha256": "5404e74aa4fef9e285cedd55e37c2704470cab156a51fde20feaea6a9fc68d89",
+      "bytes": 1250,
+      "git_blob": "c58f1aa8b402a32dfa7d61d1f2555131418cec8f",
+      "preserved_bytes": "recovered/calibration-bound-059/5404e74aa4fef9e285cedd55e37c2704470cab156a51fde20feaea6a9fc68d89.gz",
+      "published_sha256": "5404e74aa4fef9e285cedd55e37c2704470cab156a51fde20feaea6a9fc68d89",
+      "published_bytes": 1250,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-661.json",
+      "sha256": "910148085be5c420d6d98fcbec5c35f8be27688a0fcb1ea9063547e4dc098d6d",
+      "bytes": 1223,
+      "git_blob": "94e14e01d918a578838b62fd2d5b3f6e37beeaa4",
+      "preserved_bytes": "recovered/calibration-bound-059/910148085be5c420d6d98fcbec5c35f8be27688a0fcb1ea9063547e4dc098d6d.gz",
+      "published_sha256": "910148085be5c420d6d98fcbec5c35f8be27688a0fcb1ea9063547e4dc098d6d",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-662.json",
+      "sha256": "74f6753bb96e838184fc7e5154bea114e06e0cf970e3088f6f5df6ca505e75c0",
+      "bytes": 1193,
+      "git_blob": "0951fe2f6600a8121a436a68e1cbdb90cb2906c9",
+      "preserved_bytes": "recovered/calibration-bound-059/74f6753bb96e838184fc7e5154bea114e06e0cf970e3088f6f5df6ca505e75c0.gz",
+      "published_sha256": "74f6753bb96e838184fc7e5154bea114e06e0cf970e3088f6f5df6ca505e75c0",
+      "published_bytes": 1193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-663.json",
+      "sha256": "36673d6af06ecccc33adc182065b8a9a2abe6fac910fcac5913f4178b7c0eeb8",
+      "bytes": 1227,
+      "git_blob": "66e48025439bf3ddbcddd3e58a31c6ebdc8efff5",
+      "preserved_bytes": "recovered/calibration-bound-059/36673d6af06ecccc33adc182065b8a9a2abe6fac910fcac5913f4178b7c0eeb8.gz",
+      "published_sha256": "36673d6af06ecccc33adc182065b8a9a2abe6fac910fcac5913f4178b7c0eeb8",
+      "published_bytes": 1227,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-664.json",
+      "sha256": "61112369e80a5cbf6dd64a9eea75d35f024be61917bdeecb9e13dde43c3ee062",
+      "bytes": 1215,
+      "git_blob": "cdc0ea0f9092c5b85cc38531b18e766c506c3381",
+      "preserved_bytes": "recovered/calibration-bound-059/61112369e80a5cbf6dd64a9eea75d35f024be61917bdeecb9e13dde43c3ee062.gz",
+      "published_sha256": "61112369e80a5cbf6dd64a9eea75d35f024be61917bdeecb9e13dde43c3ee062",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-566.json",
+      "sha256": "40133ddc1ba2c15b011e74f1f46685d4c07e753e9752ca5468d0c3018dee7ef6",
+      "bytes": 840,
+      "git_blob": "c1863269ce0d8473b28b60d7b49859e278c60a4f",
+      "preserved_bytes": "recovered/calibration-bound-059/40133ddc1ba2c15b011e74f1f46685d4c07e753e9752ca5468d0c3018dee7ef6.gz",
+      "published_sha256": "40133ddc1ba2c15b011e74f1f46685d4c07e753e9752ca5468d0c3018dee7ef6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-567.json",
+      "sha256": "12a304179be116b03e39477922d4f5da51e9f624caec8b71eb6aa051f828f8c4",
+      "bytes": 840,
+      "git_blob": "4eae1b920381783217e15b39c35349dd70cb99b4",
+      "preserved_bytes": "recovered/calibration-bound-059/12a304179be116b03e39477922d4f5da51e9f624caec8b71eb6aa051f828f8c4.gz",
+      "published_sha256": "12a304179be116b03e39477922d4f5da51e9f624caec8b71eb6aa051f828f8c4",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-566.json",
+      "sha256": "0007e2b54d7604952e26067ddfdccafe978152406ff4a9601f196ed8c7945060",
+      "bytes": 558,
+      "git_blob": "e129d6301b54bb8e2122a1b3e7010b67a6ac88c0",
+      "preserved_bytes": "recovered/calibration-bound-059/0007e2b54d7604952e26067ddfdccafe978152406ff4a9601f196ed8c7945060.gz",
+      "published_sha256": "0007e2b54d7604952e26067ddfdccafe978152406ff4a9601f196ed8c7945060",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-567.json",
+      "sha256": "1261e661b15b8e6f0b1b5c722da73540a4cd67232de3462b306e7ae8472a77f8",
+      "bytes": 558,
+      "git_blob": "eb01888cb41d90c15f7a94a46f335cb7d95cca42",
+      "preserved_bytes": "recovered/calibration-bound-059/1261e661b15b8e6f0b1b5c722da73540a4cd67232de3462b306e7ae8472a77f8.gz",
+      "published_sha256": "1261e661b15b8e6f0b1b5c722da73540a4cd67232de3462b306e7ae8472a77f8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1758; establish full supported configuration, calibration precision/budget, continuation decoding and native publication, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
