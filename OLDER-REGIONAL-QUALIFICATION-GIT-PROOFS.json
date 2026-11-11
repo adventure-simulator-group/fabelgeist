@@ -1,0 +1,90 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "shared_commit_and_tree_objects": "recovered/older-774-git-objects/MANIFEST.json",
+  "additional_shared_tree_objects": [
+    "OLDER-MAP-QUALIFICATION-GIT-PROOFS.json",
+    "OLDER-INVENTORY-QUALIFICATION-GIT-PROOFS.json"
+  ],
+  "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+  "additional_tree_objects": {
+    "3e0cc157fe735a33f248b1db4fb124a1d5505eb0": {
+      "git_object": "3e0cc157fe735a33f248b1db4fb124a1d5505eb0",
+      "type": "tree",
+      "sha256": "9b2379f0d8c918b827dce8c5cb4200a976d7f049dd6937b496051114dec41acc",
+      "bytes": 1313,
+      "preserved_bytes": "recovered/older-774-regional-qualification/git-objects/3e0cc157fe735a33f248b1db4fb124a1d5505eb0.tree.gz"
+    }
+  },
+  "paths": {
+    "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl": {
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "child": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "adler-original",
+          "mode": "40000",
+          "child": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+        },
+        {
+          "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+          "name": "audit",
+          "mode": "40000",
+          "child": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+        },
+        {
+          "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+          "name": "records",
+          "mode": "40000",
+          "child": "fd82a1f6e41aa70561b116843c2222d6221a69e4"
+        },
+        {
+          "tree": "fd82a1f6e41aa70561b116843c2222d6221a69e4",
+          "name": "final-acceptance-20261021",
+          "mode": "40000",
+          "child": "e31898e591c6ae7284a63ba871ae3821963f4f3a"
+        },
+        {
+          "tree": "e31898e591c6ae7284a63ba871ae3821963f4f3a",
+          "name": "wave-01",
+          "mode": "40000",
+          "child": "b345eda25c3900bf7189c387158b5f62eda8cf19"
+        },
+        {
+          "tree": "b345eda25c3900bf7189c387158b5f62eda8cf19",
+          "name": "producer-supplement-after-owner",
+          "mode": "40000",
+          "child": "844a1b6bdb983fe0fedd42da2da58cf6373469f1"
+        },
+        {
+          "tree": "844a1b6bdb983fe0fedd42da2da58cf6373469f1",
+          "name": "root",
+          "mode": "40000",
+          "child": "3e0cc157fe735a33f248b1db4fb124a1d5505eb0"
+        },
+        {
+          "tree": "3e0cc157fe735a33f248b1db4fb124a1d5505eb0",
+          "name": "traces.jsonl",
+          "mode": "100644",
+          "child": "9ae38e6e156326a174de9a9c0b5c3bf9af8b80cd"
+        }
+      ],
+      "git_blob": "9ae38e6e156326a174de9a9c0b5c3bf9af8b80cd",
+      "sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "bytes": 581215,
+      "lines": 54
+    }
+  },
+  "qualification": "Exact earlier774 published root producer trace. Its package original/export hashes agree; the separately referenced locator044 remains only the path-normalized export. No checkpoint3821 attribution."
+}

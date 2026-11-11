@@ -1,0 +1,788 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1891–1894, earlier regional locator evidence, condition enrollment and idle recovery, input tick reconnect and bounded map-source consumers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1891-1894.json",
+  "git_membership_evidence": "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/attribute.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce1245495a46daa03ea3cb97a95a709df2591d37",
+      "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "bytes": 5676,
+      "lines": 164,
+      "ranges": [
+        [
+          92,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/essential.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "827be1d40f773c54c3d5183b81432bc9197fee2d",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "bytes": 1351,
+      "lines": 40,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/morale.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c385a3e0e7d8d977f3e459fc2656227661069a53",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "bytes": 19555,
+      "lines": 527,
+      "ranges": [
+        [
+          210,
+          244
+        ],
+        [
+          326,
+          350
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "bytes": 38950,
+      "lines": 1137,
+      "ranges": [
+        [
+          70,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76810b6057bd6a1206cb4d84dc4e4f6495c96991",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "bytes": 8871,
+      "lines": 263,
+      "ranges": [
+        [
+          61,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          168,
+          181
+        ],
+        [
+          202,
+          246
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          1264,
+          1279
+        ],
+        [
+          1335,
+          1398
+        ],
+        [
+          1880,
+          1927
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          330,
+          400
+        ],
+        [
+          492,
+          565
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          272,
+          290
+        ],
+        [
+          393,
+          424
+        ],
+        [
+          427,
+          480
+        ],
+        [
+          718,
+          753
+        ],
+        [
+          950,
+          1011
+        ],
+        [
+          1086,
+          1120
+        ],
+        [
+          1754,
+          1809
+        ],
+        [
+          1885,
+          1912
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          23,
+          46
+        ],
+        [
+          66,
+          75
+        ],
+        [
+          626,
+          659
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bf3afe1a222832e72c09014f44843936291d9a5",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "bytes": 5752,
+      "lines": 160,
+      "ranges": [
+        [
+          23,
+          102
+        ],
+        [
+          104,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "bytes": 39026,
+      "lines": 1148,
+      "ranges": [
+        [
+          478,
+          508
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          10,
+          21
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7b6beb569e352a783f8dd7c382dde92ce0ce5b6c",
+      "sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+      "bytes": 8575,
+      "lines": 241,
+      "ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/connections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6682608b13a48ef846c4cc0c88d4ffd476ed3c46",
+      "sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "bytes": 6939,
+      "lines": 217,
+      "ranges": [
+        [
+          1,
+          184
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "934bdca38cc6ce60186cc62d9b6a6542f02aff6b",
+      "sha256": "30ec1a75ea378ea1528986b6ba6fcd4a7f28985befe6dea1bb9b2b2d3f50ba1c",
+      "bytes": 7446,
+      "lines": 231,
+      "ranges": [
+        [
+          130,
+          139
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/map_environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e",
+      "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "bytes": 3274,
+      "lines": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d",
+      "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "bytes": 5028,
+      "lines": 142,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/condition-regional-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No config, state, character, request, ECS, network, map renderer, combat function or product ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-PRONE-EFFORT-95E.json",
+    "ASSESSMENT-L01-RANGED-FATIGUE-95E.json",
+    "ASSESSMENT-REGIONAL-MAP-SURFACE-95E.json",
+    "ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Strategic condition and one live pool",
+      "trace": "Strategic evaluation emits a typed breakdown and total, ConnectedPlayer passes them to transient tactical projection, and the update recalculates pain/blood, fatigue and encumbrance once. Action work updates the same fatigue field and adds its actual delta to total between ticks; projected increase is separate presentation data.",
+      "remaining": "All first-authority writes, gameplay/UI consumers and native schedules are not exhaustively assessed. Over-cap recovery is a separate conditional policy question from double counting; no tactical positions, damage, HP or enemies are persisted."
+    },
+    {
+      "contract": "Reconnect ordering safeguard",
+      "trace": "The server snapshots and reinserts the last accepted PlayerInputTick with the retained intent on a successful capability reconnect. The ordinary client initializes LocalInputTick and reconnect credential as application resources and increments the wrapping tick for each connected fixed send, so an ordinary transport reconnect within the same still-running app has a source safeguard against the imagined fresh-zero reset.",
+      "remaining": "Actual client/application lifecycle, alternate clients, half-range gaps, packet handling, resets and native scheduling remain unproved. The first tick accepts zero; do not propose nonwrapping clocks or infer a normal reconnect stall from a new-app counter alone."
+    },
+    {
+      "contract": "Regional connection admission and identity",
+      "trace": "The ordinary strategic HTTP source checks the pack digest, captures a clipped and simplified bounded road window and constructs RegionalEnvironment. The map bridge installs a source-matching environment; retained connection mesh identity compares source, request, width and city. Earlier REVIEW-REGIONAL-MAP-ENVIRONMENT-IDENTITY-001 already covers same-key differing content as a conditional aggregate identity question.",
+      "remaining": "The immutable source/request producer, browser cache, regional coordinate projection and all consumers need complete review. No duplicate issue or live stale rendering is asserted."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-STRATEGIC-OVERFATIGUE-TRANSFER-001",
+      "lens": 6,
+      "additional_current_lenses": [
+        1,
+        2,
+        3,
+        4,
+        7,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; conditional discarded over-threshold impairment and recovery policy",
+      "first_contract": "The strategic-to-tactical fatigue transfer and recovery need one explicit rule for impairment already above the incapacitation threshold.",
+      "trace": "The strategic producer computes fatigue_ratio as daily calories divided by health-adjusted endurance times1000, then fatigue incapacitation as the square of twice the excess over0.5; this expression has no upper clamp in the inspected body. Symbolically a healthy endurance3 character at4500 calories has ratio1.5 and fatigue contribution4. If pain, blood loss, fear, hunger, thirst, thermal impairment and tactical encumbrance are zero, the strategic total is4. The connected-player view passes both total4 and fatigue4. Tactical projection subtracts pain, blood loss and fatigue from its starting base and initializes the single state.fatigue with4 and total with4. On a later successful idle condition update, the movement addition is zero, update_fatigue clamps that field to1 and applies positive stationary recovery before recomputing the retained total. With the committed source values55/16000 and hypothetical elapsed1/64 second, ideal real arithmetic gives total 1−55/(16000×64), about0.999946, so the local >=1 incapacitation predicate would change to the staggered branch. No player, strategic condition, source config, time step, world or product arithmetic was run.",
+      "safeguards_and_limits": "The example requires a living, otherwise unburdened admitted participant with coherent strategic data, valid viewer/limbs, no movement or active action, positive elapsed and this selected tuning; actual upstream mission selection, state refresh, time rounding, observer scheduling and other incapacitation sources remain open. The shown enter_mission reducer requires a living authorized member but its selected body does not itself compare incapacitation; other gates may constrain enrollment. This result is a source/ideal-arithmetic question, not observed recovery or proof a player can act. One can intentionally define the fatigue pool as saturating at1, but then the consequences for rapid recovery of above-threshold strategic fatigue need an explicit policy. The earlier e275 delegated Lens11 record already notes above1 maps to terminal1 and leaves recovery/policy open; its narrow once-only assessment is preserved, not overwritten.",
+      "connected_repair_dependencies": [
+        "Determine supported over-threshold strategic fatigue, mission admission and desired recovery semantics across strategic, tactical and autoresolve, including the stored base and presentation cutoff.",
+        "Choose one authoritative general-fatigue representation or an explicit saturation/transfer rule; do not invent hidden parallel fatigue or additional movement-speed penalties. Preserve current pain, blood, encumbrance, injury and tactical transient-state boundaries.",
+        "Later authorized verification should cover at/below/above threshold, idle recovery, nonzero additional impairment, source projection, actual fixed/update timing, strategic and autoresolve handoff and displayed cutoff."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1563",
+        "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/157",
+        "segovb/READ-L11-609.json",
+        "segovb/READ-L12-625.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; connected current source and idealized counterexample recorded, upstream reachability, saturation policy and exact aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "parallel-l11-20261029/PLAN-074.json",
+      "sha256": "8ec24d7645107685b718e580190ed0a9523b5f99180ecaaf32451a5973dce484",
+      "bytes": 1640,
+      "git_blob": "8848481a895580617e4e8052ea60042e38d58ada",
+      "preserved_bytes": "recovered/condition-regional-059/8ec24d7645107685b718e580190ed0a9523b5f99180ecaaf32451a5973dce484.gz",
+      "published_sha256": "8ec24d7645107685b718e580190ed0a9523b5f99180ecaaf32451a5973dce484",
+      "published_bytes": 1640,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier delegated prospective plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-075.json",
+      "sha256": "0c9ec3f667bf9cc1d68bd0a9c2e97486c78ef0367f84d5bd1c5a210ecbf88631",
+      "bytes": 1677,
+      "git_blob": "3590b9f4cf83c499e2a2128daf4a8dab5121ba2b",
+      "preserved_bytes": "recovered/condition-regional-059/0c9ec3f667bf9cc1d68bd0a9c2e97486c78ef0367f84d5bd1c5a210ecbf88631.gz",
+      "published_sha256": "0c9ec3f667bf9cc1d68bd0a9c2e97486c78ef0367f84d5bd1c5a210ecbf88631",
+      "published_bytes": 1677,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier delegated prospective plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-073.json",
+      "sha256": "91af6cd3612dc81c499c96a3e5520f39be4e231bc624a75017ca22fdaec3565a",
+      "bytes": 9755,
+      "git_blob": "b1c524557c811d0bf9c4abf9e1d2e2f502f069da",
+      "preserved_bytes": "recovered/condition-regional-059/91af6cd3612dc81c499c96a3e5520f39be4e231bc624a75017ca22fdaec3565a.gz",
+      "published_sha256": "91af6cd3612dc81c499c96a3e5520f39be4e231bc624a75017ca22fdaec3565a",
+      "published_bytes": 9755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier delegated Lens11 proposal"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-073.json",
+      "sha256": "2a519622f0a952384352e3cb188ec35287e1f0070f18caadedc5844cad8e72d4",
+      "bytes": 805,
+      "git_blob": "fd8250f27d99146ffcae9464bdbcedcff3da62b4",
+      "preserved_bytes": "recovered/condition-regional-059/2a519622f0a952384352e3cb188ec35287e1f0070f18caadedc5844cad8e72d4.gz",
+      "published_sha256": "2a519622f0a952384352e3cb188ec35287e1f0070f18caadedc5844cad8e72d4",
+      "published_bytes": 805,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier delegated evidence-only verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-625.json",
+      "sha256": "ebc3c5b5476bed2597591bc2ad1e607fabc1cb9d28603109f3cbc1fcc502375f",
+      "bytes": 1689,
+      "git_blob": "56e7c2141cbe175f70bc4bf57fbd2ecf8107c4e2",
+      "preserved_bytes": "recovered/condition-regional-059/ebc3c5b5476bed2597591bc2ad1e607fabc1cb9d28603109f3cbc1fcc502375f.gz",
+      "published_sha256": "ebc3c5b5476bed2597591bc2ad1e607fabc1cb9d28603109f3cbc1fcc502375f",
+      "published_bytes": 1689,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-626.json",
+      "sha256": "af55afc4584300dd1fce0cefa6b1efc26a25806310e725c2bae83ca1cc6a039c",
+      "bytes": 721,
+      "git_blob": "709fcad3f10eb4df418f17643434afdf6e83e9d2",
+      "preserved_bytes": "recovered/condition-regional-059/af55afc4584300dd1fce0cefa6b1efc26a25806310e725c2bae83ca1cc6a039c.gz",
+      "published_sha256": "af55afc4584300dd1fce0cefa6b1efc26a25806310e725c2bae83ca1cc6a039c",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1894-LOCATOR.json",
+      "sha256": "e03ab8c35df599f8a43296c0b8ee57ba71ee90e4213b9dd722ce156f96fa45b9",
+      "bytes": 3671,
+      "git_blob": "9b680aa8ebda4b0030acb98bbb181b7c75a00b62",
+      "preserved_bytes": "recovered/condition-regional-059/e03ab8c35df599f8a43296c0b8ee57ba71ee90e4213b9dd722ce156f96fa45b9.gz",
+      "published_sha256": "e03ab8c35df599f8a43296c0b8ee57ba71ee90e4213b9dd722ce156f96fa45b9",
+      "published_bytes": 3671,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original exact Windows locator qualification, zero body coverage"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L11-609.json",
+      "sha256": "b7609dbbf724168714e8e86310f5fa834add8ee11cc17c69d231b0149f1ed41b",
+      "bytes": 12944,
+      "git_blob": "ff3502a7cd5069d9a478cafd122802d0c218da5d",
+      "preserved_bytes": "recovered/condition-regional-059/b7609dbbf724168714e8e86310f5fa834add8ee11cc17c69d231b0149f1ed41b.gz",
+      "published_sha256": "b7609dbbf724168714e8e86310f5fa834add8ee11cc17c69d231b0149f1ed41b",
+      "published_bytes": 12944,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier e275 root adoption of delegated Lens11 evidence"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-625.json",
+      "sha256": "3c03eab396cd114feaa2e97e2b65585ce45a90c8c95d8fbbea4aa09bef80f04d",
+      "bytes": 5370,
+      "git_blob": "80fbb299badb927741776ce8899d4d9f38ee7d36",
+      "preserved_bytes": "recovered/condition-regional-059/3c03eab396cd114feaa2e97e2b65585ce45a90c8c95d8fbbea4aa09bef80f04d.gz",
+      "published_sha256": "3c03eab396cd114feaa2e97e2b65585ce45a90c8c95d8fbbea4aa09bef80f04d",
+      "published_bytes": 5370,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-626.json",
+      "sha256": "a6cefa2c84616057faa8ef41811151b382b0bb591058d706d3c513a852d1fd32",
+      "bytes": 2791,
+      "git_blob": "3dd4ac7a1c7c9ac8d295c8bbc0af0c99e921c49e",
+      "preserved_bytes": "recovered/condition-regional-059/a6cefa2c84616057faa8ef41811151b382b0bb591058d706d3c513a852d1fd32.gz",
+      "published_sha256": "a6cefa2c84616057faa8ef41811151b382b0bb591058d706d3c513a852d1fd32",
+      "published_bytes": 2791,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-798.json",
+      "sha256": "48ee97a739b094e4bdf07b92957afdea803bfc938f215d3cd2d80404cc546329",
+      "bytes": 1146,
+      "git_blob": "0e9fa2369525b8dfec8cb287447f6cd0ad67da79",
+      "preserved_bytes": "recovered/condition-regional-059/48ee97a739b094e4bdf07b92957afdea803bfc938f215d3cd2d80404cc546329.gz",
+      "published_sha256": "48ee97a739b094e4bdf07b92957afdea803bfc938f215d3cd2d80404cc546329",
+      "published_bytes": 1146,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-799.json",
+      "sha256": "7279992fa887295e44fcdcfb7488cb2883402e5a862ccd5c5ef47a0330fca1ff",
+      "bytes": 1146,
+      "git_blob": "06dcd55d21d7c3e2cf573c9f7c114749d7b22733",
+      "preserved_bytes": "recovered/condition-regional-059/7279992fa887295e44fcdcfb7488cb2883402e5a862ccd5c5ef47a0330fca1ff.gz",
+      "published_sha256": "7279992fa887295e44fcdcfb7488cb2883402e5a862ccd5c5ef47a0330fca1ff",
+      "published_bytes": 1146,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-800.json",
+      "sha256": "0b54892f077af54596b335a1875040f2ffc1e3c34a5e7a28057aa5c58462697b",
+      "bytes": 1140,
+      "git_blob": "c3e285836c65fd197732a56ad987412dd133d9c5",
+      "preserved_bytes": "recovered/condition-regional-059/0b54892f077af54596b335a1875040f2ffc1e3c34a5e7a28057aa5c58462697b.gz",
+      "published_sha256": "0b54892f077af54596b335a1875040f2ffc1e3c34a5e7a28057aa5c58462697b",
+      "published_bytes": 1140,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-801.json",
+      "sha256": "f5be13f788512a84fedf417c3db9c2991772a7c50858fc27d88fb4e79763e6b7",
+      "bytes": 1508,
+      "git_blob": "88e773f9e2308e330bf8fbe449bbae471bf6e4c0",
+      "preserved_bytes": "recovered/condition-regional-059/f5be13f788512a84fedf417c3db9c2991772a7c50858fc27d88fb4e79763e6b7.gz",
+      "published_sha256": "f5be13f788512a84fedf417c3db9c2991772a7c50858fc27d88fb4e79763e6b7",
+      "published_bytes": 1508,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L11-609.json",
+      "sha256": "aa373ef25d863e0379e3376fc9492f1c4b6c7a34f20d2909ea610861c79ee43d",
+      "bytes": 668,
+      "git_blob": "e74da2e99781238f198ca543c38461de90812f1e",
+      "preserved_bytes": "recovered/condition-regional-059/aa373ef25d863e0379e3376fc9492f1c4b6c7a34f20d2909ea610861c79ee43d.gz",
+      "published_sha256": "aa373ef25d863e0379e3376fc9492f1c4b6c7a34f20d2909ea610861c79ee43d",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier e275 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-625.json",
+      "sha256": "47250391fc851feba1fd35f2fb6fb10ddd41ccc1ca1df7d5cc0f851ec971c7a4",
+      "bytes": 840,
+      "git_blob": "72995eabd76476de03553c2d7e11361184799bfd",
+      "preserved_bytes": "recovered/condition-regional-059/47250391fc851feba1fd35f2fb6fb10ddd41ccc1ca1df7d5cc0f851ec971c7a4.gz",
+      "published_sha256": "47250391fc851feba1fd35f2fb6fb10ddd41ccc1ca1df7d5cc0f851ec971c7a4",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-626.json",
+      "sha256": "52f94f79218868598ac741f29c357451c9502334d982606f1420fd1ef1665eb3",
+      "bytes": 840,
+      "git_blob": "19188df6d982c429c97cbb6450f1f865d7016d90",
+      "preserved_bytes": "recovered/condition-regional-059/52f94f79218868598ac741f29c357451c9502334d982606f1420fd1ef1665eb3.gz",
+      "published_sha256": "52f94f79218868598ac741f29c357451c9502334d982606f1420fd1ef1665eb3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-609.json",
+      "sha256": "6d998bef0b635d7244adc9ee5dd17e9d5f02d37cde5950cfb7e397c0da7cf114",
+      "bytes": 407,
+      "git_blob": "097ad9aeaed199653275ecb570a115bf90fea8d0",
+      "preserved_bytes": "recovered/condition-regional-059/6d998bef0b635d7244adc9ee5dd17e9d5f02d37cde5950cfb7e397c0da7cf114.gz",
+      "published_sha256": "6d998bef0b635d7244adc9ee5dd17e9d5f02d37cde5950cfb7e397c0da7cf114",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier root adoption verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-625.json",
+      "sha256": "e6e3ad960514d43623181150606dcd044bfebc2d24d31945fdd83bb524c29502",
+      "bytes": 558,
+      "git_blob": "0aef294f93d844fbe7713d4ddf0d93e9b6ff6aea",
+      "preserved_bytes": "recovered/condition-regional-059/e6e3ad960514d43623181150606dcd044bfebc2d24d31945fdd83bb524c29502.gz",
+      "published_sha256": "e6e3ad960514d43623181150606dcd044bfebc2d24d31945fdd83bb524c29502",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-626.json",
+      "sha256": "1583470f62a304c3db58e1b2ea8937e0c5ea67d73bea85263f41cf71a8c3f623",
+      "bytes": 558,
+      "git_blob": "60583434bc50e88b82e382efe27f74faed7a3862",
+      "preserved_bytes": "recovered/condition-regional-059/1583470f62a304c3db58e1b2ea8937e0c5ea67d73bea85263f41cf71a8c3f623.gz",
+      "published_sha256": "1583470f62a304c3db58e1b2ea8937e0c5ea67d73bea85263f41cf71a8c3f623",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "recovered_older_774_records": [
+    {
+      "path_in_774": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "older_publication_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "bytes": 581215,
+      "git_blob": "9ae38e6e156326a174de9a9c0b5c3bf9af8b80cd",
+      "preserved_bytes": "recovered/older-774-regional-qualification/6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583.gz",
+      "package_original_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "package_exported_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "qualification": "Exact complete earlier774 published root producer trace and matching older pre-export hash, independently attributed. Referenced native trace and path-normalized locator044 are preserved in ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json; record044 pre-export differs and the historic Segovb reviewer explicitly did not read that body. None is checkpoint3821."
+    }
+  ],
+  "older_774_git_membership_evidence": "OLDER-REGIONAL-QUALIFICATION-GIT-PROOFS.json",
+  "older_recovery_search": {
+    "scope": "Exact referenced producer path in the earlier local774 published worktree and its f82 Git tree; previous bounded target search and record044 search remain separately documented. Not an exhaustive search of every archive or remote.",
+    "result": "The complete earlier root trace exists in the older local worktree; its bytes match f82 and its package original/export SHA-256. The earlier native trace and package-manifest path-normalized locator044 were already preserved in the inventory checkpoint.",
+    "qualification": "Exact 059 locator is zero-body metadata and states the historical reviewer did not read record044. The two producer receipts retain their original author/ranges, the normalized record044 keeps its differing pre-export hash, and none is promoted to checkpoint3821 or credited as current personal review."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1563",
+        "/entries/1564"
+      ],
+      "qualification": "Original059 pending contracts remain open."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/segovb_continuation/current_connected_dispositions/157"
+      ],
+      "qualification": "Earlier e275 delegated agent and root adoption explicitly retain once-only findings, above1-to1 observation and unresolved recovery policy."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb625/626 independently read historic6533 ranges; Adler288 was preserved in the prior prone-effort checkpoint and its later1891–1894 reads remain Adler’s. The prior Lens8 batch and earlier774 producer receipts retain separate authorship. The e275 parallel lens11_reconcile body reads were delegated in an earlier session and root adopted them without a personal reread; this agent did not delegate or transfer their coverage. No source equality supplies an unrecorded revision or checkpoint3821 status.",
+  "remaining": "Continue original1895, all13 lenses, fatigue threshold policy and real actor admission, reconnect/native lifecycle, regional producer and consumer coverage and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
