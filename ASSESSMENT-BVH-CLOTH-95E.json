@@ -1,0 +1,1422 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2224–2231 BVH and cloth bodies, selected current ray consumers, shared material validation and mutation, and pinned float semantics.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2224-2231.json",
+  "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-bvh/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d0ab32b1f604b3926e017c22546c89312d5ded77",
+      "sha256": "d97a213f340f3c53ba001361d269390800705eb05431b18343583bf20e4db3d2",
+      "bytes": 887,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-bvh/src/cpu/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5d02268a24566a7f6d77600c3bbbb6c448bc61bb",
+      "sha256": "c14258b89a8481f0fb8fca8454b50ba99cdfb06b7da23d7cddc36bd9bf3f6b47",
+      "bytes": 12621,
+      "lines": 344,
+      "ranges": [
+        [
+          180,
+          260
+        ],
+        [
+          310,
+          344
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f94653afff5eb8c6566d6d0039cfa4fab8e4c679",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "bytes": 5816,
+      "lines": 263,
+      "ranges": [
+        [
+          145,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "32d94efceabd653bca7a8b6f5b99e608564dd85e",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828",
+      "bytes": 20222,
+      "lines": 592,
+      "ranges": [
+        [
+          156,
+          207
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/cloth_layer_support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e9ce06cf72755fd9dd99d22201487ba0e8ff63c9",
+      "sha256": "11d97f7e8c500afdfc98bd146ef6c2aa55e4e6b91bb55fb81036f3673bee1722",
+      "bytes": 6438,
+      "lines": 174,
+      "ranges": [
+        [
+          90,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c02101e64b29447ac9e38213ea5d579f7c50cfb1",
+      "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+      "bytes": 6993,
+      "lines": 196,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6d1dd01e76f8c05c199010bd58aceb2343c85dc0",
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "bytes": 1751,
+      "lines": 58,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "234159ab412f54e2e41919211a580a9b7321f89d",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "bytes": 14245,
+      "lines": 408,
+      "ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7cfe99eb130fe5854ed3cc07bfb8827b2d0e3528",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "bytes": 22063,
+      "lines": 588,
+      "ranges": [
+        [
+          15,
+          48
+        ],
+        [
+          95,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e0fad3dc3498f6ed704a9e9684cb09522e49098",
+      "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+      "bytes": 10647,
+      "lines": 292,
+      "ranges": [
+        [
+          35,
+          55
+        ],
+        [
+          250,
+          289
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "92210570bc4e1a921f43b1cdfcf49de969202c6b",
+      "sha256": "4487bcbbd210e05e934aa372373cb6095e69edcb35fa8e33b26d90b7baf93c15",
+      "bytes": 10513,
+      "lines": 301,
+      "ranges": [
+        [
+          50,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original-role and other-lens credit are not transferred."
+    }
+  ],
+  "native_reference_sources": [
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/num/f32.rs",
+      "sha256": "41d78dcc60e2f57fd8613ed4d62e6538cf2c6765ad5f57373f92ffc46ca2a026",
+      "qualification": "Pinned Rust core f32 min/max source; personally inspected lines1028–1080."
+    },
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/library/core/src/primitive_docs.rs.gz",
+      "sha256": "339d21cb6a937245e38a5d09e84b329b1c6c11a6bc35eeb829fc18cd644c8e3b",
+      "qualification": "Previously pinned Rust binary32 IEEE source; decompressed bytes hash."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-TRIM-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Ray direction and cached inverse",
+      "trace": "Ray::new stores the supplied public direction and a private reciprocal. Ray::hits uses the stored reciprocal, while ray_triangle uses the current public direction. For a hypothetical ray originating at (-1,0.5,0.5), construct with direction (0,1,0), then change its public direction to (1,0,0). Against unit box [0,1]^3, the new direction enters along x, while the cached zero-x reciprocal makes the x slab appear at positive infinity and can prune the box before the triangle callback. Selected garment and shell callers create a ray and immediately pass it to TriangleBvh::raycast; no direction mutation is shown in those inspected paths.",
+      "remaining": "Original Adler354 and queue144 already identified the authority mismatch. This is conditional source reasoning, not an observed call or claim that selected callers mutate rays. All callers, direction normalization policy and native query behavior remain open."
+    },
+    {
+      "contract": "Empty Aabb direct ray query",
+      "trace": "Aabb::EMPTY deliberately stores min +infinity and max -infinity. Ray::hits does not check is_empty before ordering reciprocal slab intersections. For an origin (0,0,0), direction (1,1,1), and finite positive limit, the ordered intervals are [-infinity,+infinity] and the source comparison permits entry at zero. Bvh::build of an empty bounds list instead creates no nodes, and walk returns before invoking a callback.",
+      "remaining": "Original Adler354 and queue145 identified the direct empty-box contract. No box, reciprocal, comparison, query or callback ran. Empty-tree behavior and direct empty sentinel are distinct from degenerate nonempty boxes; exact callers remain open."
+    },
+    {
+      "contract": "Upper endpoint ray hit",
+      "trace": "Ray::hits admits box entry <= max_distance and ray_triangle admits a positive primitive distance <= max_distance, while Bvh::raycast keeps a callback distance only when it is strictly less than its current limit. For a hypothetical triangle (-1,-1,1),(1,-1,1),(0,1,1), origin (0,0,0), direction (0,0,1) and max_distance1, the exact intersection is at1, accepted by the inclusive source predicates and discarded by the strict traversal comparison.",
+      "remaining": "Original Adler354 and queue146 identified this boundary mismatch. Integer/geometry reasoning only; no BVH, triangle, ray, comparison or product ran. Tie policy, actual call sites and epsilon behavior remain open."
+    },
+    {
+      "contract": "Parallel ray exactly on a slab boundary",
+      "trace": "Adler354 expressly left zero-times-infinity behavior unresolved pending actual vector min/max semantics. Current Vec3 min/max use f32 min/max; pinned Rust core documents that a single NaN returns the other operand. Under IEEE floating arithmetic, for triangle (0,0,0),(1,0,0),(0,0,1), its flat Aabb, and ray origin (0,-1,0.25) direction (0,1,0), x slab t0 is NaN and t1 is +infinity; both component min and max return +infinity. The y slab interval is [1,1], so enter becomes infinity and exit1, pruning the box. The exact ray intersects the triangle edge at t1 with barycentric coordinates (0,0.25), within the source triangle bounds and epsilon.",
+      "remaining": "This is new conditional source reasoning on Adler354's previously open question; no floating operation, ray, triangle, BVH, query, build or test ran. Existing selected caller paths use freshly constructed rays, but whether they reach an exactly aligned slab is not established. Native target/compiler rules and other boundary cases remain open."
+    },
+    {
+      "contract": "Degenerate triangle closest point",
+      "trace": "Adler354 also noted the duplicate-vertex early edge branch as a pending conditional. For A=B=(0,0,0), C=(2,0,0), and query (1,1,0), the source dot products are d1=d3=0 and d2=d4=2. The AB branch has zero denominator and returns A, although the closest point on the degenerate segment AC is (1,0,0). TriangleBvh::new and the direct closest function do not locally reject such a triangle.",
+      "remaining": "This is a symbolic malformed-or-degenerate-input example refining Adler354, not a demonstrated normal mesh failure. Whether degenerate triangles are supported, rejected upstream, or need a defined query policy, and all producers remain open. No point, triangle, calculation, BVH or test ran."
+    },
+    {
+      "contract": "Cloth material updates and admission",
+      "trace": "Cloth::new constructs a Shell and Shell::new validates its mesh and ShellMaterial. Fabric and ShellMaterial expose primitive mutable compliance fields. After construction, a direct caller can set Cloth.fabric.bend_compliance to a negative finite value and call apply_fabric: it copies the material and Shell::apply_material writes bending.compliance without invoking ShellMaterial::validate. ConstraintSet::record_solve subsequently inserts its stored compliance into pass parameters when enabled with a nonempty color. The initial ShellMaterial validator rejects negative and nonfinite fields and separately rejects zero thickness. Density is consumed into garment mesh masses before Shell creation; Shell::apply_material documents that masses require rebuilding.",
+      "remaining": "Original Adler355 and delegate738 left mutation and material admission open; queue3137 preserves the separate typed reason facets. No Cloth, update, constraint, pass, shader or numerical behavior ran. Selected producer edits, nonempty constraints, supported update policy and actual device effects remain unproven; density rebuild and explicit apply behavior should not be labeled accidental compatibility paths."
+    },
+    {
+      "contract": "Cloth facade and valid states",
+      "trace": "Fabric contains typed ParticleArealDensity and six named visual-fitting presets. ShellMaterial owns solver material validation. Cloth::apply_fabric explicitly propagates material controls, while step methods update thickness and settings derive damping. Its one-line surface_contact module reexports the shared Shell owner.",
+      "remaining": "Preset names, density/mass rebuild semantics, any deliberate caller synchronization and exact native error presentation remain open. The facade alone is not evidence of an obsolete compatibility alias."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-RAY-RECIPROCAL-OWNERSHIP",
+      "queue": 144,
+      "qualification": "Original cached-ray ownership finding reconnected with current source."
+    },
+    {
+      "id": "ADLER-L11-RAY-BOX-EMPTY-CONTRACT",
+      "queue": 145,
+      "qualification": "Original empty-box finding reconnected with direct and empty-tree source."
+    },
+    {
+      "id": "ADLER-L11-BVH-RAY-ENDPOINT-ADMISSION",
+      "queue": 146,
+      "qualification": "Original inclusive ray endpoint finding reconnected with current triangle and BVH source."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-BVH-PARALLEL-SLAB-BOUNDARY-95E",
+      "qualification": "Adler354 left parallel-boundary min/max semantics unresolved; current vector and pinned core source plus symbolic example refine it."
+    },
+    {
+      "id": "REVIEW-BVH-DEGENERATE-TRIANGLE-CLOSEST-95E",
+      "qualification": "Adler354 flagged duplicate-vertex degeneracy as pending; current symbolic direct input refines it."
+    },
+    {
+      "id": "REVIEW-CLOTH-MATERIAL-UPDATE-ADMISSION-95E",
+      "qualification": "Adler355 and delegate738 left material mutation/admission pending; current Shell and constraint source refine the condition."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "bytes": 14487,
+      "git_blob": "0727226370cf6e317b0b0b399143af1d60dab423",
+      "preserved_bytes": "recovered/bvh-cloth-059/013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b.gz",
+      "published_sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "published_bytes": 14487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "bytes": 17595,
+      "git_blob": "37209f8639a30afb09ce02f25762823a60f84b12",
+      "preserved_bytes": "recovered/bvh-cloth-059/33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506.gz",
+      "published_sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "published_bytes": 17595,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "bytes": 21125,
+      "git_blob": "b1ff53cd461863a08e8170f7451b9abbb6e081ef",
+      "preserved_bytes": "recovered/bvh-cloth-059/af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea.gz",
+      "published_sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "published_bytes": 21125,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "bytes": 27452,
+      "git_blob": "e267554248f8329c0f4ec09a8026cdc70c705e26",
+      "preserved_bytes": "recovered/bvh-cloth-059/6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea.gz",
+      "published_sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "published_bytes": 27452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "bytes": 22456,
+      "git_blob": "fa8502f3db92aa4c3078db978f1662cede4baf11",
+      "preserved_bytes": "recovered/bvh-cloth-059/96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b.gz",
+      "published_sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "published_bytes": 22456,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "bytes": 11067,
+      "git_blob": "92e69019423222de343906ffbdf10758743816d3",
+      "preserved_bytes": "recovered/bvh-cloth-059/149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9.gz",
+      "published_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "published_bytes": 11067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "bytes": 18061,
+      "git_blob": "3d3dfaa6da80c4dd1f87de4cebc7d2d4ca6af48d",
+      "preserved_bytes": "recovered/bvh-cloth-059/04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938.gz",
+      "published_sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "published_bytes": 18061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "bytes": 19279,
+      "git_blob": "7cd7cbdfc96edad375a8557ca4cfc842ac016484",
+      "preserved_bytes": "recovered/bvh-cloth-059/a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17.gz",
+      "published_sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "published_bytes": 19279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "bytes": 11860,
+      "git_blob": "cd4ba47186f20cd9ec174beae4bf3ca1c9c80bbc",
+      "preserved_bytes": "recovered/bvh-cloth-059/7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2.gz",
+      "published_sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "bytes": 15252,
+      "git_blob": "6b3497c6889858a09aa3da87f2bcff57ca8cb22d",
+      "preserved_bytes": "recovered/bvh-cloth-059/8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb.gz",
+      "published_sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "published_bytes": 15252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "bytes": 23129,
+      "git_blob": "177099df66cc6ca9051b8c72421afd1680f8e950",
+      "preserved_bytes": "recovered/bvh-cloth-059/c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9.gz",
+      "published_sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "bytes": 11573,
+      "git_blob": "633c5904872e62cbfa3ad647c18f209cb61a4da7",
+      "preserved_bytes": "recovered/bvh-cloth-059/7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85.gz",
+      "published_sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "published_bytes": 11573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "bytes": 14118,
+      "git_blob": "01662cefc50ccf57c6550d14bde65ac9a7267e14",
+      "preserved_bytes": "recovered/bvh-cloth-059/c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1.gz",
+      "published_sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "published_bytes": 14118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "bytes": 14866,
+      "git_blob": "e2cb145ed01f79ca3573e725d230e15701b9c56c",
+      "preserved_bytes": "recovered/bvh-cloth-059/b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c.gz",
+      "published_sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "published_bytes": 14866,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "bytes": 6833,
+      "git_blob": "f30dff7da2604497d37978130eb835b365fc4f33",
+      "preserved_bytes": "recovered/bvh-cloth-059/aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763.gz",
+      "published_sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "published_bytes": 6833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "bytes": 8777,
+      "git_blob": "52ef60a72862f9c7260c4bd4312d6031771d395b",
+      "preserved_bytes": "recovered/bvh-cloth-059/ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916.gz",
+      "published_sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "published_bytes": 8777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/bvh-cloth-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "bytes": 6922,
+      "git_blob": "8f7d49f37cd084d0544e74223bdfb3f38fedcb52",
+      "preserved_bytes": "recovered/bvh-cloth-059/8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c.gz",
+      "published_sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "published_bytes": 6922,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "bytes": 15835,
+      "git_blob": "d00c3a915d6cfcd5c8863bbc98964c6a3d6df510",
+      "preserved_bytes": "recovered/bvh-cloth-059/51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903.gz",
+      "published_sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "published_bytes": 15835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "bytes": 15189,
+      "git_blob": "bd313a98e130ebc0cf6415fab33ab87d75e292b2",
+      "preserved_bytes": "recovered/bvh-cloth-059/06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702.gz",
+      "published_sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "published_bytes": 15189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50",
+      "bytes": 10780,
+      "git_blob": "59e5b8248ad0dde6081963cac3ecac64e056b965",
+      "preserved_bytes": "recovered/bvh-cloth-059/d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50.gz",
+      "published_sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50",
+      "published_bytes": 10780,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-346.json",
+      "sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a",
+      "bytes": 16649,
+      "git_blob": "c8f56e84fec0c2b5a31f27aa854bd6610b8f753b",
+      "preserved_bytes": "recovered/bvh-cloth-059/ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a.gz",
+      "published_sha256": "ee80c06d576466a659c6aa0fc28a13500009059ccb1997c188bbdb5b772cfa3a",
+      "published_bytes": 16649,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-347.json",
+      "sha256": "b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8",
+      "bytes": 18766,
+      "git_blob": "8d4db89d136df58f53f1b576b81e7087df4e0701",
+      "preserved_bytes": "recovered/bvh-cloth-059/b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8.gz",
+      "published_sha256": "b7b08ad4dad155bfcf195bcc699b9610eafab357465b16b8e4b98f8b263158b8",
+      "published_bytes": 18766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-348.json",
+      "sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6",
+      "bytes": 14181,
+      "git_blob": "6aba9704ed5e66046b7e80f1fd9d1903c15a2702",
+      "preserved_bytes": "recovered/bvh-cloth-059/f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6.gz",
+      "published_sha256": "f0d025b2140115f122f63ffb2678ab70a287add4dd21273c6b454f1fcf81c2f6",
+      "published_bytes": 14181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-349.json",
+      "sha256": "0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb",
+      "bytes": 11620,
+      "git_blob": "b1f45333ad5a7c9b6beadc7ae506e44d0185fa38",
+      "preserved_bytes": "recovered/bvh-cloth-059/0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb.gz",
+      "published_sha256": "0bff5939fdb73a63c5a63325ffedcec3439554381099e28875b9fbb394cd3acb",
+      "published_bytes": 11620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-350.json",
+      "sha256": "4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97",
+      "bytes": 19467,
+      "git_blob": "00a4f949c175027bb09d431eca002eaff7e0a1ce",
+      "preserved_bytes": "recovered/bvh-cloth-059/4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97.gz",
+      "published_sha256": "4f1f0b4e94459f5aac9245aac4aea33f36f29161d85b81506cbeb21539b55a97",
+      "published_bytes": 19467,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-351.json",
+      "sha256": "3e294b193103b5cc026b79e866cf4d2fb60a598f6e9d78dcc51b87d393e94f78",
+      "bytes": 14886,
+      "git_blob": "76247ec49cc06bb078be295b9f81c75bdc6382f5",
+      "preserved_bytes": "recovered/bvh-cloth-059/3e294b193103b5cc026b79e866cf4d2fb60a598f6e9d78dcc51b87d393e94f78.gz",
+      "published_sha256": "3e294b193103b5cc026b79e866cf4d2fb60a598f6e9d78dcc51b87d393e94f78",
+      "published_bytes": 14886,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-352.json",
+      "sha256": "26aa4b9b61faf2cb4ad61457ec4ea4388b90e770dd87111a018abab73cc45a7e",
+      "bytes": 12306,
+      "git_blob": "6dea555fb955194316f2f04d94ca0949e531d235",
+      "preserved_bytes": "recovered/bvh-cloth-059/26aa4b9b61faf2cb4ad61457ec4ea4388b90e770dd87111a018abab73cc45a7e.gz",
+      "published_sha256": "26aa4b9b61faf2cb4ad61457ec4ea4388b90e770dd87111a018abab73cc45a7e",
+      "published_bytes": 12306,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-353.json",
+      "sha256": "379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7",
+      "bytes": 16575,
+      "git_blob": "1f874d91c884fc7123f61ba5ad71a296b2c555c9",
+      "preserved_bytes": "recovered/bvh-cloth-059/379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7.gz",
+      "published_sha256": "379300f02147011e3c4507c285801623bd889f810ad737b27d81529f39fd88d7",
+      "published_bytes": 16575,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context",
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/bvh-cloth-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Adler historical receipt",
+        "Original Adler same-lens context",
+        "Original059 queue144 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue144 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue144 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue145 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue145 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue145 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue146 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue146 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue146 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/bvh-cloth-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Adler historical receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1083.json",
+      "sha256": "dca216b5aa220da8be1b9b16942f5bbd6638d4e5769e644eb77119bf0cf32d3c",
+      "bytes": 759,
+      "git_blob": "54dac125196dbe93cde19d53a5b1ac12a702af4c",
+      "preserved_bytes": "recovered/bvh-cloth-059/dca216b5aa220da8be1b9b16942f5bbd6638d4e5769e644eb77119bf0cf32d3c.gz",
+      "published_sha256": "dca216b5aa220da8be1b9b16942f5bbd6638d4e5769e644eb77119bf0cf32d3c",
+      "published_bytes": 759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1084.json",
+      "sha256": "750c59fca120595b7d45bbf57e32f9ac1da9b6910a208743cc68f85d1e2f3819",
+      "bytes": 757,
+      "git_blob": "8885bfad8e7063945263a96151cd7830472bab4f",
+      "preserved_bytes": "recovered/bvh-cloth-059/750c59fca120595b7d45bbf57e32f9ac1da9b6910a208743cc68f85d1e2f3819.gz",
+      "published_sha256": "750c59fca120595b7d45bbf57e32f9ac1da9b6910a208743cc68f85d1e2f3819",
+      "published_bytes": 757,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1085.json",
+      "sha256": "8e5723da69dc91c2fef852d26894ac943b262de5ef2a3af91c784c5174632e53",
+      "bytes": 766,
+      "git_blob": "212a4a4ffa3089a8256b9a1e4686c458fc565c7f",
+      "preserved_bytes": "recovered/bvh-cloth-059/8e5723da69dc91c2fef852d26894ac943b262de5ef2a3af91c784c5174632e53.gz",
+      "published_sha256": "8e5723da69dc91c2fef852d26894ac943b262de5ef2a3af91c784c5174632e53",
+      "published_bytes": 766,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1086.json",
+      "sha256": "4859ba4d684293f90ca3fdeb28590a5d2752fcaa9a19a50e72104e0059159a97",
+      "bytes": 761,
+      "git_blob": "ee94a0012cee4eeeaeb5aa0bfe8aa059afdcf16b",
+      "preserved_bytes": "recovered/bvh-cloth-059/4859ba4d684293f90ca3fdeb28590a5d2752fcaa9a19a50e72104e0059159a97.gz",
+      "published_sha256": "4859ba4d684293f90ca3fdeb28590a5d2752fcaa9a19a50e72104e0059159a97",
+      "published_bytes": 761,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1087.json",
+      "sha256": "1377ebca0c96339ecc3176546e308a48182e38cdf7ee63253af161109b00ac77",
+      "bytes": 769,
+      "git_blob": "5968b70169e82fbae45bbf0d8b060b034bc43756",
+      "preserved_bytes": "recovered/bvh-cloth-059/1377ebca0c96339ecc3176546e308a48182e38cdf7ee63253af161109b00ac77.gz",
+      "published_sha256": "1377ebca0c96339ecc3176546e308a48182e38cdf7ee63253af161109b00ac77",
+      "published_bytes": 769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1088.json",
+      "sha256": "9c49a5402dae0a7096112acca797fb5a5a3ab31e4ce708786fb7568fc6a4e82e",
+      "bytes": 767,
+      "git_blob": "6126955119f7ce3d44017715c1674f5aaaa8e7e5",
+      "preserved_bytes": "recovered/bvh-cloth-059/9c49a5402dae0a7096112acca797fb5a5a3ab31e4ce708786fb7568fc6a4e82e.gz",
+      "published_sha256": "9c49a5402dae0a7096112acca797fb5a5a3ab31e4ce708786fb7568fc6a4e82e",
+      "published_bytes": 767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1089.json",
+      "sha256": "fd3244ecbbc4d5eb34f8c23304ce7608112563bb1859b1d2561f03c45d7695e3",
+      "bytes": 763,
+      "git_blob": "e189bc445fba2396a7d4c47fab0ea54d22354780",
+      "preserved_bytes": "recovered/bvh-cloth-059/fd3244ecbbc4d5eb34f8c23304ce7608112563bb1859b1d2561f03c45d7695e3.gz",
+      "published_sha256": "fd3244ecbbc4d5eb34f8c23304ce7608112563bb1859b1d2561f03c45d7695e3",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1090.json",
+      "sha256": "59fe8e2bbed53996773153d59c79d739e3c35eb7a2565bff530764b88f24f381",
+      "bytes": 772,
+      "git_blob": "0685ecbd8e535910581c8b7bf165ca692b2de518",
+      "preserved_bytes": "recovered/bvh-cloth-059/59fe8e2bbed53996773153d59c79d739e3c35eb7a2565bff530764b88f24f381.gz",
+      "published_sha256": "59fe8e2bbed53996773153d59c79d739e3c35eb7a2565bff530764b88f24f381",
+      "published_bytes": 772,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1091.json",
+      "sha256": "51cd7afd4f3faf91f1e0e03b8c59af12359b1dfb7653a222ab6d8544a5b128bd",
+      "bytes": 761,
+      "git_blob": "bcecf2caa409153bdd707e2d891ed35049f12381",
+      "preserved_bytes": "recovered/bvh-cloth-059/51cd7afd4f3faf91f1e0e03b8c59af12359b1dfb7653a222ab6d8544a5b128bd.gz",
+      "published_sha256": "51cd7afd4f3faf91f1e0e03b8c59af12359b1dfb7653a222ab6d8544a5b128bd",
+      "published_bytes": 761,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1092.json",
+      "sha256": "c8a03d478b4aeba843c4e9947dea1956295c9c34c8c44cd9c4538c58798daf80",
+      "bytes": 763,
+      "git_blob": "b2046a865fcd9d0973069713440d784ada60cc04",
+      "preserved_bytes": "recovered/bvh-cloth-059/c8a03d478b4aeba843c4e9947dea1956295c9c34c8c44cd9c4538c58798daf80.gz",
+      "published_sha256": "c8a03d478b4aeba843c4e9947dea1956295c9c34c8c44cd9c4538c58798daf80",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1094.json",
+      "sha256": "eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89",
+      "bytes": 903,
+      "git_blob": "3fc9b63d23bb33e38836b47d02751f8a6d592c52",
+      "preserved_bytes": "recovered/bvh-cloth-059/eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89.gz",
+      "published_sha256": "eb36e56ab29cd7fe1466d8039c9c1b1e9959a0d6c77610d312e08f05fccc9a89",
+      "published_bytes": 903,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-354.json",
+      "sha256": "92164094ee22cf835b02a64fc41538676cb89d8305baecb58659ee0edbef55e9",
+      "bytes": 635,
+      "git_blob": "18d75e53bb2e755995d2265e504b73bac94eb9e6",
+      "preserved_bytes": "recovered/bvh-cloth-059/92164094ee22cf835b02a64fc41538676cb89d8305baecb58659ee0edbef55e9.gz",
+      "published_sha256": "92164094ee22cf835b02a64fc41538676cb89d8305baecb58659ee0edbef55e9",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-355.json",
+      "sha256": "e4882ae81ac43e6c0a30b6ca1dd7276f0f87ef4b46a9ffc92916425ac34e314e",
+      "bytes": 690,
+      "git_blob": "aa995a551dadc32f1e0665be6926f5390c4758ef",
+      "preserved_bytes": "recovered/bvh-cloth-059/e4882ae81ac43e6c0a30b6ca1dd7276f0f87ef4b46a9ffc92916425ac34e314e.gz",
+      "published_sha256": "e4882ae81ac43e6c0a30b6ca1dd7276f0f87ef4b46a9ffc92916425ac34e314e",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-354.json",
+      "sha256": "9f514ad7ac0e781830af4ab7a22776c6395151661662cf4776b437112a462591",
+      "bytes": 34525,
+      "git_blob": "3d18f48f554090217b8436794dee352fecd6636b",
+      "preserved_bytes": "recovered/bvh-cloth-059/9f514ad7ac0e781830af4ab7a22776c6395151661662cf4776b437112a462591.gz",
+      "published_sha256": "9f514ad7ac0e781830af4ab7a22776c6395151661662cf4776b437112a462591",
+      "published_bytes": 34525,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-355.json",
+      "sha256": "3772a5d74ad607c8bc98e6ab497bb9e2a3781721d02254e27b4483bbda094739",
+      "bytes": 38282,
+      "git_blob": "e52a05ebc3bceff44f0d5e5ad270332425035d85",
+      "preserved_bytes": "recovered/bvh-cloth-059/3772a5d74ad607c8bc98e6ab497bb9e2a3781721d02254e27b4483bbda094739.gz",
+      "published_sha256": "3772a5d74ad607c8bc98e6ab497bb9e2a3781721d02254e27b4483bbda094739",
+      "published_bytes": 38282,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PARTIAL-PAR-L12-913-001.json",
+      "sha256": "44f41a78f5981434779ab841c7a4de72a4ff438827984acd18c0b609da1e28d8",
+      "bytes": 1931,
+      "git_blob": "463103f883dfb1cd6e053f7bdfabf03f52a0d292",
+      "preserved_bytes": "recovered/bvh-cloth-059/44f41a78f5981434779ab841c7a4de72a4ff438827984acd18c0b609da1e28d8.gz",
+      "published_sha256": "44f41a78f5981434779ab841c7a4de72a4ff438827984acd18c0b609da1e28d8",
+      "published_bytes": 1931,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-908-916.json",
+      "sha256": "1584ed5502715b7b57a82d3adce2829e7687f59380acb8857aaf7437b442d8d8",
+      "bytes": 127582,
+      "git_blob": "cd4754015c440dc701700ef384b83898c0d89ec1",
+      "preserved_bytes": "recovered/bvh-cloth-059/1584ed5502715b7b57a82d3adce2829e7687f59380acb8857aaf7437b442d8d8.gz",
+      "published_sha256": "1584ed5502715b7b57a82d3adce2829e7687f59380acb8857aaf7437b442d8d8",
+      "published_bytes": 127582,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-738.json",
+      "sha256": "2e4588e77a21dec8398ad8a6020357331ac30b2646d2ca49f1acfc9d9f135de7",
+      "bytes": 14211,
+      "git_blob": "42f4870887b57642fd1719750fa69d2c3bb14bdd",
+      "preserved_bytes": "recovered/bvh-cloth-059/2e4588e77a21dec8398ad8a6020357331ac30b2646d2ca49f1acfc9d9f135de7.gz",
+      "published_sha256": "2e4588e77a21dec8398ad8a6020357331ac30b2646d2ca49f1acfc9d9f135de7",
+      "published_bytes": 14211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-739.json",
+      "sha256": "84516b2c5f4c718fdb11c3d2d98d037e29a3f623cac626df68c2d8692c7049e9",
+      "bytes": 14157,
+      "git_blob": "8ae47afc84173c212340d9e7be58e9dba05d39e5",
+      "preserved_bytes": "recovered/bvh-cloth-059/84516b2c5f4c718fdb11c3d2d98d037e29a3f623cac626df68c2d8692c7049e9.gz",
+      "published_sha256": "84516b2c5f4c718fdb11c3d2d98d037e29a3f623cac626df68c2d8692c7049e9",
+      "published_bytes": 14157,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-177.json",
+      "sha256": "202132f40e7514d79eae05e3ad946122f42be4edecf5e0882d15960f41e50934",
+      "bytes": 748,
+      "git_blob": "484a0da13756de90b7cc427dc99c97a87f6b276e",
+      "preserved_bytes": "recovered/bvh-cloth-059/202132f40e7514d79eae05e3ad946122f42be4edecf5e0882d15960f41e50934.gz",
+      "published_sha256": "202132f40e7514d79eae05e3ad946122f42be4edecf5e0882d15960f41e50934",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-178.json",
+      "sha256": "6ca172c31f0f891c565fa6521969c390a6b1ce66b2506ae14c112dd45c30a428",
+      "bytes": 983,
+      "git_blob": "0018af222171c96204af6b55f22c5b7d7a360a91",
+      "preserved_bytes": "recovered/bvh-cloth-059/6ca172c31f0f891c565fa6521969c390a6b1ce66b2506ae14c112dd45c30a428.gz",
+      "published_sha256": "6ca172c31f0f891c565fa6521969c390a6b1ce66b2506ae14c112dd45c30a428",
+      "published_bytes": 983,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-179.json",
+      "sha256": "da5e35b183b19feab7454b17c33d44898e0c3538a21554600f05f5259da0b03d",
+      "bytes": 989,
+      "git_blob": "f67cd84cecffdc9c51f0aa2a7748a110f9ab61dd",
+      "preserved_bytes": "recovered/bvh-cloth-059/da5e35b183b19feab7454b17c33d44898e0c3538a21554600f05f5259da0b03d.gz",
+      "published_sha256": "da5e35b183b19feab7454b17c33d44898e0c3538a21554600f05f5259da0b03d",
+      "published_bytes": 989,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-180.json",
+      "sha256": "1c6ea6ef623fc27d243b59b1a41e1d088de3072f74cbf0118128fe697fab22c0",
+      "bytes": 752,
+      "git_blob": "637acc8c699c968d8b142f078d87f429dc6fecee",
+      "preserved_bytes": "recovered/bvh-cloth-059/1c6ea6ef623fc27d243b59b1a41e1d088de3072f74cbf0118128fe697fab22c0.gz",
+      "published_sha256": "1c6ea6ef623fc27d243b59b1a41e1d088de3072f74cbf0118128fe697fab22c0",
+      "published_bytes": 752,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-181.json",
+      "sha256": "d41d0ccb2fb070d72769c740c3467f614d5547e51c0f0465debb943a1cfff930",
+      "bytes": 764,
+      "git_blob": "f3d01ae98d5123a5ad843f57c7d5ae10b689aedc",
+      "preserved_bytes": "recovered/bvh-cloth-059/d41d0ccb2fb070d72769c740c3467f614d5547e51c0f0465debb943a1cfff930.gz",
+      "published_sha256": "d41d0ccb2fb070d72769c740c3467f614d5547e51c0f0465debb943a1cfff930",
+      "published_bytes": 764,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-182.json",
+      "sha256": "cf510131fb0ada3514fca01b2f3e6bf82240a4aa54feff305d790bf4e8f7fbdc",
+      "bytes": 760,
+      "git_blob": "0aee1fcd85b098ca396c2c80b6e128df76812df4",
+      "preserved_bytes": "recovered/bvh-cloth-059/cf510131fb0ada3514fca01b2f3e6bf82240a4aa54feff305d790bf4e8f7fbdc.gz",
+      "published_sha256": "cf510131fb0ada3514fca01b2f3e6bf82240a4aa54feff305d790bf4e8f7fbdc",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-183.json",
+      "sha256": "4a05ef359e589c5baea1cdbef54ef02f0992c2b96ca4cae76decb3e478c8c04c",
+      "bytes": 752,
+      "git_blob": "dfc7296e84e62b64e156659ff88ea6e7e4532c98",
+      "preserved_bytes": "recovered/bvh-cloth-059/4a05ef359e589c5baea1cdbef54ef02f0992c2b96ca4cae76decb3e478c8c04c.gz",
+      "published_sha256": "4a05ef359e589c5baea1cdbef54ef02f0992c2b96ca4cae76decb3e478c8c04c",
+      "published_bytes": 752,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-184.json",
+      "sha256": "6a8e963e4577c9b975fd98aae1f8f027faf99cf3fd25896bbdea403cc4813061",
+      "bytes": 775,
+      "git_blob": "9f2b5e89226e88112d55116cc0444921bd4567d2",
+      "preserved_bytes": "recovered/bvh-cloth-059/6a8e963e4577c9b975fd98aae1f8f027faf99cf3fd25896bbdea403cc4813061.gz",
+      "published_sha256": "6a8e963e4577c9b975fd98aae1f8f027faf99cf3fd25896bbdea403cc4813061",
+      "published_bytes": 775,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-185.json",
+      "sha256": "0249bcb6ee89369a9925adc19065e1f9ea4dca5ba24716ad0aed5bf80a82c94e",
+      "bytes": 753,
+      "git_blob": "3605084c7d8f0e1b878a2cbf9c0f3e51b7c4c72e",
+      "preserved_bytes": "recovered/bvh-cloth-059/0249bcb6ee89369a9925adc19065e1f9ea4dca5ba24716ad0aed5bf80a82c94e.gz",
+      "published_sha256": "0249bcb6ee89369a9925adc19065e1f9ea4dca5ba24716ad0aed5bf80a82c94e",
+      "published_bytes": 753,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-186.json",
+      "sha256": "90105dd8d8e5192e2bdc5dd7ab22320b112f4b4875aa6b24d6ae099ae4ac157c",
+      "bytes": 757,
+      "git_blob": "3e9f9f913f1b08ab5a687803baf8c7b5e57ac146",
+      "preserved_bytes": "recovered/bvh-cloth-059/90105dd8d8e5192e2bdc5dd7ab22320b112f4b4875aa6b24d6ae099ae4ac157c.gz",
+      "published_sha256": "90105dd8d8e5192e2bdc5dd7ab22320b112f4b4875aa6b24d6ae099ae4ac157c",
+      "published_bytes": 757,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-187.json",
+      "sha256": "623f7e41903ded5059810ef30ffc228c2d8faefde3e2521c4fe9729654dc5e98",
+      "bytes": 896,
+      "git_blob": "b3db941736d457abc6eeb133b901ccc92f751562",
+      "preserved_bytes": "recovered/bvh-cloth-059/623f7e41903ded5059810ef30ffc228c2d8faefde3e2521c4fe9729654dc5e98.gz",
+      "published_sha256": "623f7e41903ded5059810ef30ffc228c2d8faefde3e2521c4fe9729654dc5e98",
+      "published_bytes": 896,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-188.json",
+      "sha256": "7353b15d7da3dfcdf47be00c03a4d7a911524ec17f3d316258e2da6ea043e900",
+      "bytes": 753,
+      "git_blob": "90d42e54b1dbc01a078efd823b03e5a352bfdfb9",
+      "preserved_bytes": "recovered/bvh-cloth-059/7353b15d7da3dfcdf47be00c03a4d7a911524ec17f3d316258e2da6ea043e900.gz",
+      "published_sha256": "7353b15d7da3dfcdf47be00c03a4d7a911524ec17f3d316258e2da6ea043e900",
+      "published_bytes": 753,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-189.json",
+      "sha256": "4d67d51ff43801048cb4229dd4f0d76e1777a99a8f4cbfa0ab67c5df11f993d8",
+      "bytes": 759,
+      "git_blob": "819ed17cc62ac51bc109f5f3772f7a2b8c87f502",
+      "preserved_bytes": "recovered/bvh-cloth-059/4d67d51ff43801048cb4229dd4f0d76e1777a99a8f4cbfa0ab67c5df11f993d8.gz",
+      "published_sha256": "4d67d51ff43801048cb4229dd4f0d76e1777a99a8f4cbfa0ab67c5df11f993d8",
+      "published_bytes": 759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-190.json",
+      "sha256": "22016b7e9c6ed31109b2542b14a5b990988e34f1927d1b44cbb448d1a5566ac3",
+      "bytes": 904,
+      "git_blob": "c3f2c7058e2be8677ff91979f7317938cb128802",
+      "preserved_bytes": "recovered/bvh-cloth-059/22016b7e9c6ed31109b2542b14a5b990988e34f1927d1b44cbb448d1a5566ac3.gz",
+      "published_sha256": "22016b7e9c6ed31109b2542b14a5b990988e34f1927d1b44cbb448d1a5566ac3",
+      "published_bytes": 904,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-191-CONNECTED-ORIGINAL2234-TAIL.json",
+      "sha256": "9f4c4ea1192e93f0da1b6be5ed7cd76434c559a7c43c0c72f87d606953842107",
+      "bytes": 1134,
+      "git_blob": "7f6fcbc00a2c05ab29aa1a5484e853d8750f6fc4",
+      "preserved_bytes": "recovered/bvh-cloth-059/9f4c4ea1192e93f0da1b6be5ed7cd76434c559a7c43c0c72f87d606953842107.gz",
+      "published_sha256": "9f4c4ea1192e93f0da1b6be5ed7cd76434c559a7c43c0c72f87d606953842107",
+      "published_bytes": 1134,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration including later roles with no new current credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-712.json",
+      "sha256": "4d40b8efdeaefddc590818e3b478d5cdf370704d35e26c0fdd8620ab670c6b72",
+      "bytes": 3408,
+      "git_blob": "7134f4abb7c2bb6bb078f4c0102eee63d0cdee19",
+      "preserved_bytes": "recovered/bvh-cloth-059/4d40b8efdeaefddc590818e3b478d5cdf370704d35e26c0fdd8620ab670c6b72.gz",
+      "published_sha256": "4d40b8efdeaefddc590818e3b478d5cdf370704d35e26c0fdd8620ab670c6b72",
+      "published_bytes": 3408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained",
+        "Original059 queue3137 directly referenced transport evidence; historical revisions and attribution retained"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-738.json",
+      "sha256": "0e121251e1f9d36daa94bc7934ecae7ce948c9a8e8af0c5354797e5668f5f728",
+      "bytes": 17253,
+      "git_blob": "9c95bdf64e9496b13706d34c630cea0a768eab74",
+      "preserved_bytes": "recovered/bvh-cloth-059/0e121251e1f9d36daa94bc7934ecae7ce948c9a8e8af0c5354797e5668f5f728.gz",
+      "published_sha256": "0e121251e1f9d36daa94bc7934ecae7ce948c9a8e8af0c5354797e5668f5f728",
+      "published_bytes": 17253,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-739.json",
+      "sha256": "fa0e74c3b8cb3ca5b26de6f28fcd492f0767f4111c60015b0a449e4bd1768641",
+      "bytes": 20162,
+      "git_blob": "d32e20467ef168fa512704f40d00665ad858c91c",
+      "preserved_bytes": "recovered/bvh-cloth-059/fa0e74c3b8cb3ca5b26de6f28fcd492f0767f4111c60015b0a449e4bd1768641.gz",
+      "published_sha256": "fa0e74c3b8cb3ca5b26de6f28fcd492f0767f4111c60015b0a449e4bd1768641",
+      "published_bytes": 20162,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-738.json",
+      "sha256": "18ac1ec07b90dfc809f11a7df796f58715d8aa10eb8a6e3ec766c0936c319261",
+      "bytes": 3565,
+      "git_blob": "f09a2d91b70069754baa0d3b21aaa58089652e7f",
+      "preserved_bytes": "recovered/bvh-cloth-059/18ac1ec07b90dfc809f11a7df796f58715d8aa10eb8a6e3ec766c0936c319261.gz",
+      "published_sha256": "18ac1ec07b90dfc809f11a7df796f58715d8aa10eb8a6e3ec766c0936c319261",
+      "published_bytes": 3565,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-739.json",
+      "sha256": "e43870997fcbf63063523ddc04e3354c5e620731a78eb0ccb5ff4fa45afa9bd7",
+      "bytes": 3978,
+      "git_blob": "6a0b701ccb9f46aeb089a63b6d47b8cfba10559f",
+      "preserved_bytes": "recovered/bvh-cloth-059/e43870997fcbf63063523ddc04e3354c5e620731a78eb0ccb5ff4fa45afa9bd7.gz",
+      "published_sha256": "e43870997fcbf63063523ddc04e3354c5e620731a78eb0ccb5ff4fa45afa9bd7",
+      "published_bytes": 3978,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-738.json",
+      "sha256": "81e7e97654c6a6bbfc88b17ec7534da837fbb91dccd074c353f44fbc7832fd81",
+      "bytes": 667,
+      "git_blob": "ca49d765361269d555fe3c0e1d9adb6880d96541",
+      "preserved_bytes": "recovered/bvh-cloth-059/81e7e97654c6a6bbfc88b17ec7534da837fbb91dccd074c353f44fbc7832fd81.gz",
+      "published_sha256": "81e7e97654c6a6bbfc88b17ec7534da837fbb91dccd074c353f44fbc7832fd81",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-739.json",
+      "sha256": "540773bdf7520cbb4eef870c5997cd19691d19e4235e87a3a64465c666d2fea3",
+      "bytes": 667,
+      "git_blob": "3648d4b157fd7862eb94485b81a586ab2b77012b",
+      "preserved_bytes": "recovered/bvh-cloth-059/540773bdf7520cbb4eef870c5997cd19691d19e4235e87a3a64465c666d2fea3.gz",
+      "published_sha256": "540773bdf7520cbb4eef870c5997cd19691d19e4235e87a3a64465c666d2fea3",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Adler354/355 and delegates738/739 historical scopes are independent; root adoptions contain zero personal rereads. Later color roles in receipts have no new current display credit.",
+  "remaining": "Continue original2232, all thirteen lenses, exact native target/ray rules, supported geometry and material mutation policies, aliases and queue reconciliation. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

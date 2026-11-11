@@ -1,0 +1,594 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2224,
+      "source_id": "pr-working:crates/fabelgeist-bvh/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2224",
+      "original_locator": "crates/fabelgeist-bvh/Cargo.toml",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 9,
+          "read_ranges": [
+            [
+              1,
+              23
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "fc9b1f379eeea4867b58375107863be9dc93fead720fa2598f2a3a9f319fd73b",
+      "lines": 23,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-bvh/Cargo.toml",
+        "sha256": "fc9b1f379eeea4867b58375107863be9dc93fead720fa2598f2a3a9f319fd73b",
+        "bytes": 662,
+        "lines": 23,
+        "git_blob": "3b1acca163a4d74563d86dec1e3c600a1704fcc1",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2224.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            23
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2225,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2225",
+      "original_locator": "crates/fabelgeist-bvh/src/aabb.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 91,
+          "read_ranges": [
+            [
+              110,
+              145
+            ],
+            [
+              198,
+              299
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 224,
+          "read_ranges": [
+            [
+              150,
+              198
+            ],
+            [
+              273,
+              299
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              110,
+              299
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "lines": 299,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-bvh/src/aabb.rs",
+        "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+        "bytes": 8497,
+        "lines": 299,
+        "git_blob": "7f7a1244cff913e35856533911abaf28d72cf8f5",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2225.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            299
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2226",
+      "original_locator": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 89,
+          "read_ranges": [
+            [
+              270,
+              462
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 225,
+          "read_ranges": [
+            [
+              300,
+              462
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              270,
+              462
+            ],
+            [
+              300,
+              462
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "lines": 462,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          462
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-bvh/src/cpu/mod.rs",
+        "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+        "bytes": 16479,
+        "lines": 462,
+        "git_blob": "cce2234ffe0149de2de1eff56704d9100d1b2897",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2226.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            462
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2227,
+      "source_id": "pr-working:crates/fabelgeist-cloth/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2227",
+      "original_locator": "crates/fabelgeist-cloth/Cargo.toml",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 10,
+          "read_ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+      "lines": 21,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-cloth/Cargo.toml",
+        "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+        "bytes": 687,
+        "lines": 21,
+        "git_blob": "5d66ee22a6e06b894244a0d09af3d89d2db181c9",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2227.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            21
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2228,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2228",
+      "original_locator": "crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 119,
+          "read_ranges": [
+            [
+              1,
+              93
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 204,
+          "read_ranges": [
+            [
+              1,
+              93
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              93
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "lines": 93,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-cloth/src/cloth/mod.rs",
+        "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+        "bytes": 2754,
+        "lines": 93,
+        "git_blob": "f51e8e4c74bd9efe266e66f78deb43be5ea0fb40",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2228.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            93
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2229,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2229",
+      "original_locator": "crates/fabelgeist-cloth/src/fabric.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 120,
+          "read_ranges": [
+            [
+              1,
+              156
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              156
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "lines": 156,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-cloth/src/fabric.rs",
+        "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+        "bytes": 5313,
+        "lines": 156,
+        "git_blob": "8951adb271959842eda32f4d3866598550232d49",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2229.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            156
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2230,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2230",
+      "original_locator": "crates/fabelgeist-cloth/src/lib.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 118,
+          "read_ranges": [
+            [
+              1,
+              34
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              34
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "lines": 34,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-cloth/src/lib.rs",
+        "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+        "bytes": 1426,
+        "lines": 34,
+        "git_blob": "ccff5b5ec5fddad951922a8c7206feb6a605b86d",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2230.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            34
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    },
+    {
+      "original_index": 2231,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/surface_contact.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2231",
+      "original_locator": "crates/fabelgeist-cloth/src/surface_contact.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 74,
+          "read_ranges": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-023",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              1
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "fe0e9ecb46d3101535274523f58c8b35f92d8e1f4d69d6b37b5826cac9120001",
+      "lines": 1,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2224-2231.json",
+        "sha256": "e1927e3599e4720c963c238acf05515dc1d6ff0b3dd2eb8c87a465920d3a5811"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e complete body displayed after local registration; exact historical6533 byte equality independently verified. Historical supplier and reviewers keep only their own actual scopes.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-cloth/src/surface_contact.rs",
+        "sha256": "fe0e9ecb46d3101535274523f58c8b35f92d8e1f4d69d6b37b5826cac9120001",
+        "bytes": 46,
+        "lines": 1,
+        "git_blob": "fc472a4089c6f5a9097cee550e00b705d40d9610",
+        "preserved_bytes": "main-advance-95e/bvh-cloth-evidence/current-2231.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            1
+          ]
+        ],
+        "qualification": "Current full-body display is independent of prior supplier and reviewer credit."
+      },
+      "qualification": "Original suppliers and independent historical reviewers remain separate from the current display; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Current95e complete bodies2224–2231 were prospectively registered and personally displayed in bounded untruncated ranges; exact historical6533 equality is verified. Original supplier scopes for BVH source include partial ranges and are preserved exactly.",
+    "Original independent Adler354/355 and Lens12 delegate738/739 read their historical full ranges. Root adoptions had zero personal rereads and zero accepted unique-count change. Their historical receipts include later color roles without new current-body credit.",
+    "Current BVH test excerpts were inspected only; no test, ray, triangle, cloth, solver, GPU operation or product ran. Local registration time is not independently attested."
+  ],
+  "qualification": "Original supplier and reviewer scopes and the new current display remain independently attributed; no checkpoint3821 claim.",
+  "next_original_role": 2232
+}

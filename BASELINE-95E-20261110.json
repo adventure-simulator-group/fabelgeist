@@ -9223,8 +9223,164 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TRIM-95E.json"
+      },
+      {
+        "id": "ADLER-L11-RAY-RECIPROCAL-OWNERSHIP",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          8,
+          12
+        ],
+        "severity": "unassigned; ray authority",
+        "classification": "Original ray reciprocal finding reconnected: public direction can be changed without updating the reciprocal used by box traversal.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/144",
+          "adler/READ-L11-354.json via ASSESSMENT-BVH-CLOTH-95E.json"
+        ],
+        "relationship_qualification": "Adler354 identified the cached-authority gap; the current direct mutation example is symbolic and selected callers create fresh rays.",
+        "discovery": "partial; source fields, slab and primitive consumption and selected callers traced; all callers and direction policy remain open",
+        "connected_repair_direction": "Keep direction and reciprocal under one coherent ray owner through every allowed mutation without adding compatibility copies.",
+        "future_acceptance": "After audit and authorization, cover direction updates, parallel components, consistent slab and primitive queries and valid origin changes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BVH-CLOTH-95E.json"
+      },
+      {
+        "id": "ADLER-L11-RAY-BOX-EMPTY-CONTRACT",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          7,
+          12
+        ],
+        "severity": "unassigned; empty geometry contract",
+        "classification": "Original empty-box query finding reconnected: direct Ray::hits does not reject the empty sentinel before ordering slab intervals.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/145",
+          "adler/READ-L11-354.json via ASSESSMENT-BVH-CLOTH-95E.json"
+        ],
+        "relationship_qualification": "Adler354 identified this direct empty contract; the empty Bvh has no nodes and is a different path. No query ran.",
+        "discovery": "partial; sentinel, slab and empty-tree behavior source traced; all direct empty callers remain open",
+        "connected_repair_direction": "Preserve the empty aggregation identity and ensure a ray query rejects semantically empty bounds while retaining valid flat and grazing boxes.",
+        "future_acceptance": "After audit and authorization, cover empty/inverted boxes, flat boxes, grazing/parallel rays and empty BVH callbacks.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BVH-CLOTH-95E.json"
+      },
+      {
+        "id": "ADLER-L11-BVH-RAY-ENDPOINT-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          7,
+          12
+        ],
+        "severity": "unassigned; ray limit boundary",
+        "classification": "Original ray endpoint finding reconnected: primitive and box source accept an upper-bound hit that BVH traversal discards at equality.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/146",
+          "adler/READ-L11-354.json via ASSESSMENT-BVH-CLOTH-95E.json"
+        ],
+        "relationship_qualification": "Adler354 identified the strict-versus-inclusive mismatch; a current exact triangle example adds source context without executing a raycast.",
+        "discovery": "partial; source predicates and selected callers traced; ties, epsilon, other query implementations and caller contracts remain open",
+        "connected_repair_direction": "Make the shared ray limit policy coherent across broadphase, primitive and traversal while explicitly preserving tie and self-hit policy.",
+        "future_acceptance": "After audit and authorization, cover exact maximum, beyond limit, near-zero self hits and equal-distance tie behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BVH-CLOTH-95E.json"
+      },
+      {
+        "id": "REVIEW-BVH-PARALLEL-SLAB-BOUNDARY-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; parallel ray slab edge",
+        "classification": "A ray parallel to and exactly on one box boundary can be pruned before an intersecting boundary triangle is considered.",
+        "historical_related_records": [
+          "adler/READ-L11-354.json via ASSESSMENT-BVH-CLOTH-95E.json",
+          "baseline-059/queue.json#/entries/145"
+        ],
+        "relationship_qualification": "Adler354 explicitly deferred this parallel-boundary concern until Vec3 and f32 min/max semantics were read. The nonempty edge case is distinct from the empty sentinel.",
+        "discovery": "partial; current vector and pinned core semantics, exact hypothetical triangle and selected consumers traced; actual reachability and all boundary cases open",
+        "connected_repair_direction": "Define parallel-axis slab handling so supported boundary rays reach their primitive without regressing outside-parallel and empty cases.",
+        "future_acceptance": "After audit and authorization, cover both slab sides, flat triangles, axis-aligned interior/outside rays and signed-zero policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BVH-CLOTH-95E.json"
+      },
+      {
+        "id": "REVIEW-BVH-DEGENERATE-TRIANGLE-CLOSEST-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; degenerate triangle query policy",
+        "classification": "A duplicate-vertex triangle can return a nonclosest vertex from the direct closest-point branch.",
+        "historical_related_records": [
+          "adler/READ-L11-354.json via ASSESSMENT-BVH-CLOTH-95E.json"
+        ],
+        "relationship_qualification": "Adler354 had already recorded the duplicate-vertex conditional without a concrete accepted input. The example is symbolic and assumes the public direct query is meaningful for a degenerate triangle.",
+        "discovery": "partial; direct constructor and source branch traced; supported degenerate mesh policy and actual producers open",
+        "connected_repair_direction": "Decide degenerate triangle admission and define the canonical closest-point result or explicit rejection at its actual owner.",
+        "future_acceptance": "After audit and authorization, cover duplicate vertices, collinear triangles, coincident triangles and ordinary nondegenerate queries.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BVH-CLOTH-95E.json"
+      },
+      {
+        "id": "REVIEW-CLOTH-MATERIAL-UPDATE-ADMISSION-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; material update admission",
+        "classification": "A post-construction fabric update can install a negative compliance into the shell constraint without repeating the initial material validation.",
+        "historical_related_records": [
+          "adler/READ-L11-355.json via ASSESSMENT-BVH-CLOTH-95E.json",
+          "segovb/READ-L12-738.json via ASSESSMENT-BVH-CLOTH-95E.json",
+          "baseline-059/queue.json#/entries/1823",
+          "baseline-059/queue.json#/entries/3137"
+        ],
+        "relationship_qualification": "Original reviewers left material mutation policy open; q3137 concerns distinct validation-error reason facets. Direct malformed mutation is hypothetical and no solver ran.",
+        "discovery": "partial; initial validator, public update and selected constraint dispatch source traced; supported callers, mass rebuild policy and device behavior open",
+        "connected_repair_direction": "Keep validated material guarantees through supported updates at the owning shell/fabric boundary and preserve the documented density rebuild semantics.",
+        "future_acceptance": "After audit and authorization, cover valid updates, rejected nonfinite or negative controls, thickness and self-collision synchronization, and density rebuild.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BVH-CLOTH-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1612.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1615.json"
 }
