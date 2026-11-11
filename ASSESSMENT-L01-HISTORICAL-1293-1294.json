@@ -1,0 +1,67 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1293,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1293",
+      "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+      "lines": 812,
+      "new_personal_read_ranges": [
+        [
+          1,
+          812
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+        "byte_identical": true,
+        "qualification": "Byte equality only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical test-source body personally read only. No product assertion executed; connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1294,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/recovery_and_cases.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1294",
+      "sha256": "ef87ad4e9c4d24ebf86edbdf12067ecbb06855d80bd109c8d88da8d9fc18c684",
+      "lines": 1049,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1049
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "ef87ad4e9c4d24ebf86edbdf12067ecbb06855d80bd109c8d88da8d9fc18c684",
+        "byte_identical": true,
+        "qualification": "Byte equality only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical test-source body personally read only. No product assertion executed; connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen failure/security and recovery/case test-source bodies were personally read through their actual EOF; no tests or product code were executed.",
+    "Earlier independent Lens12 batches 345 and 346 each recorded their own full respective body read, no historical unique-count change and no current reconciliation. Batch 346 and its same-lens support retain their original records in ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json; batch 345 records are preserved in the connected current assessment.",
+    "Batch 346 explicitly recorded that the weaker local Option ordering is protected against missing recovery text by the separate presence assertion in the same source. It did not create a new unique finding from the weaker expression. Batch 346 also retained the distinct surrender-selector contract.",
+    "The inherited disease-read qualification remains unchanged; neither old receipts nor newly inspected Rust standard-library source grant current or other-lens coverage or checkpoint 3821 authority."
+  ],
+  "remaining": "Continue role 1295; all independent lenses, current and historical connected contracts, exact aliases and missing final checkpoint records remain open."
+}

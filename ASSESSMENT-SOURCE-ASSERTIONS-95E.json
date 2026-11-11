@@ -1,0 +1,393 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected source-string assertion bounds and a handmade golden-report fixture, with earlier Lens12 disposition; no product execution.",
+  "source_reasoning": "Pinned source and source-test inspection, evidence-only reconstruction of concat bytes and Rust Option comparison source; no assertion, compiler, product, fixture, test or runtime was run.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d4136526ec44f3f21f998a60408e23f32e4f3eff",
+      "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+      "bytes": 11704,
+      "lines": 260,
+      "ranges": [
+        [
+          141,
+          169
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/source-assertions-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally read; test code is evidence, not an executed test."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f29687879b95a347aa3b2b82cdab9091fe7a2269",
+      "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+      "bytes": 29892,
+      "lines": 812,
+      "ranges": [
+        [
+          1,
+          812
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/source-assertions-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally read; test code is evidence, not an executed test."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/tests/recovery_and_cases.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "51d4e590cacfe15ca64a8cde72aa9c9ea810b356",
+      "sha256": "ef87ad4e9c4d24ebf86edbdf12067ecbb06855d80bd109c8d88da8d9fc18c684",
+      "bytes": 41367,
+      "lines": 1049,
+      "ranges": [
+        [
+          1,
+          1049
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/source-assertions-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally read; test code is evidence, not an executed test."
+    }
+  ],
+  "reconstructed_live_core_source": {
+    "path": "main-advance-95e/source-assertions-evidence/live-core-source.concat.gz",
+    "encoding": "gzip",
+    "bytes": 744636,
+    "sha256": "b4f8a88c28c4f9abfa7edfaae4503f71717abc7f3b83564372d8cea477c4c87d",
+    "source_order": "The 26 include_str! entries in mod.rs lines 142–169, in textual order; exact raw bytes concatenated without added separators.",
+    "segments": [
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/config.rs",
+        "offset": 0,
+        "bytes": 6849,
+        "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+        "git_blob": "2448f1b939e36c8f9143f88066f6b1930bfdc0b6"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/events.rs",
+        "offset": 6849,
+        "bytes": 5338,
+        "sha256": "ad1df9028c6cd6b2b5b676aa9b7c3c48445f6e0db3eb11646f639b19b217b80e",
+        "git_blob": "6902d1266a04a21dfc023b5ffffebbed0a39a739"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/report.rs",
+        "offset": 12187,
+        "bytes": 6140,
+        "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+        "git_blob": "b04c0d1164ed4c81b863c05dc4a11959d422e29c"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+        "offset": 18327,
+        "bytes": 9425,
+        "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+        "git_blob": "76c18972bcaf38ad42b082aa139476f747de7200"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/departure_policy.rs",
+        "offset": 27752,
+        "bytes": 7774,
+        "sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+        "git_blob": "9f1815b1cb620ee633a9b360c38b9a6567985872"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+        "offset": 35526,
+        "bytes": 12059,
+        "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+        "git_blob": "70352ff68b8563b6c4db55252799949a7f458286"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/expedition_policy.rs",
+        "offset": 47585,
+        "bytes": 7866,
+        "sha256": "3445a120138cc90a66de9186ddcbd2e3fb8da430e9e6e506883baa6cc071c7e9",
+        "git_blob": "25a8237f2acf6596f76faede8cc90f146223d0a2"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+        "offset": 55451,
+        "bytes": 6959,
+        "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+        "git_blob": "6137c58a6669e3691c654c2fa05fe141491d3405"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+        "offset": 62410,
+        "bytes": 12188,
+        "sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+        "git_blob": "b47bed840003ae008f2490b0a2b07b2604c30503"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs",
+        "offset": 74598,
+        "bytes": 4645,
+        "sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+        "git_blob": "7b88032380f7855d87e783ddc559ff2073fd3dd0"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/discovery_policy.rs",
+        "offset": 79243,
+        "bytes": 13078,
+        "sha256": "ce9a63997e69ca2ab6dd04b3f95c73180ee30527716047bd527cc290f9fdc4f4",
+        "git_blob": "b0c90a085a3aad7e64161e6e3fe9b6b5ea43e68f"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+        "offset": 92321,
+        "bytes": 18149,
+        "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+        "git_blob": "c7004fe2582f75c7c14c2f34cc22f1b479c9a058"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/settlement_activity.rs",
+        "offset": 110470,
+        "bytes": 16024,
+        "sha256": "d63da6e7d914ed703ad1850a7f61871078405ae1ed305e011d36cb54e8f45636",
+        "git_blob": "069c500749974943899b443c46eb90ec2c245626"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/error.rs",
+        "offset": 126494,
+        "bytes": 14494,
+        "sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+        "git_blob": "da476d3540a58657f16e4d5cfcf67be9f4bf852e"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+        "offset": 140988,
+        "bytes": 834,
+        "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+        "git_blob": "834cbadb70e66345b5134bc9542ba7844e815f73"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/failure_projection.rs",
+        "offset": 141822,
+        "bytes": 16856,
+        "sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+        "git_blob": "8682c013943189bff978e18ea0330b395e5d34e6"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+        "offset": 158678,
+        "bytes": 23763,
+        "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+        "git_blob": "aa009164ea64b32ab286e9bd39137b8bc85e4a15"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+        "offset": 182441,
+        "bytes": 115819,
+        "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+        "git_blob": "131df694f5c1d05161ba0205938704f61e18cc3a"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/failure.rs",
+        "offset": 298260,
+        "bytes": 16755,
+        "sha256": "41b12232f4ba5a4d1f824b38338091fb5a01a3f79bf300903f02ba558c24e99b",
+        "git_blob": "b21400a64ba5eedd7bc12de81933a16972502e8c"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+        "offset": 315015,
+        "bytes": 70881,
+        "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+        "git_blob": "444fae6cd3e5e14a83eab832d06fc0af03c6ac1f"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+        "offset": 385896,
+        "bytes": 89463,
+        "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+        "git_blob": "19240e5d15f58c7516f10c54fe78e136ecd7b21a"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+        "offset": 475359,
+        "bytes": 53745,
+        "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+        "git_blob": "ff85a1c1b1d18ce534fdaf60e278e52878e955c6"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+        "offset": 529104,
+        "bytes": 118715,
+        "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+        "git_blob": "a242d1635898c0a22239056a894f130f6a14ddb0"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+        "offset": 647819,
+        "bytes": 38101,
+        "sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+        "git_blob": "dcb63291712b01d1ad38f331570f7a464e06e196"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+        "offset": 685920,
+        "bytes": 58364,
+        "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+        "git_blob": "643d744a82700c81d6f10c659269d9f345423fef"
+      },
+      {
+        "path": "crates/adventuresim-strategic-sim/src/live_core/tests.rs",
+        "offset": 744284,
+        "bytes": 352,
+        "sha256": "41b61300f731a244d90f6be3f1ec83a00b755fae9b966f8e97b37f7aaf566f35",
+        "git_blob": "9f90f9cd021571737ca900fc61b2822cb11600eb"
+      }
+    ],
+    "production_prefix_bytes": 744284,
+    "production_prefix_sha256": "9a4a906532e25a352efe730dd9e2e37025efdea997e6986c4c4e911c72fdd09f",
+    "cycle_tail_bytes": 29876,
+    "cycle_tail_sha256": "3de75d1d723f6bccac56d9ba9b38982ef5cf0fae37c7fc473f91c14ec4d998eb",
+    "cycle_recovery_offsets": [
+      2245,
+      17696
+    ],
+    "cycle_quest_decision_offsets": [
+      11438,
+      11498
+    ],
+    "qualification": "Evidence-byte reconstruction only. Joining full bytes is not a personal read or semantic audit of each included source. schema_types.rs is not in the concat; absence alone establishes no violation."
+  },
+  "option_ordering": {
+    "source": "native-evidence/rust-nightly-2026-07-13/library/core/src/option.rs.gz",
+    "inspected_ranges": [
+      [
+        370,
+        381
+      ],
+      [
+        2448,
+        2476
+      ]
+    ],
+    "local_assertion": "recovery_and_cases.rs:68 compares two Option<usize> values directly.",
+    "hypothetical": "If the selected cycle tail contained QuestDecision but no recovery marker, None < Some(offset) would be true in that assertion. If both markers were missing, None < None is false.",
+    "separate_safeguard": "The separate source test at lines 312–343 finds the same cycle tail and unwraps the recovery marker at line 341; it would require that marker to exist. This is a source-text safeguard, not evidence of execution or complete behavior coverage.",
+    "qualification": "The actual pinned tail has both recovery occurrences, with the first before the first QuestDecision. Local rust-src is newly inspected and a pinned toolchain date does not prove which compiler historical runs used."
+  },
+  "other_bounded_observations": [
+    "failure_security.rs:170–195 manually constructs a version-nine artifact and compares serde output to the checked-in fixture in source code. This does not establish that the fixture was produced by a current run or that the assertion passed.",
+    "The same source at lines 305–413 hand-constructs a coverage report including no profiles and one final agent. That test input does not demonstrate that ordinary production emits an empty roster; the separate earlier current trace records population and final-agent safeguards and the external trust question remains partial.",
+    "failure_security.rs:537–564 selects advance_generated_case_inner through the following turn_in_ready_direct_contract marker. In the pinned generated_cases.rs these markers exist once at lines 1614 and 2654, and the second follows the function close. This is a bounded source-selector safeguard only, not all-path or native causal proof.",
+    "The distinct surrender-selector weakness is already connected to the earlier unique ledger entry; do not merge it with the local recovery Option comparison or claim another historical finding."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1293-1294.json",
+      "qualification": "Two new personal full historical source reads; independent of earlier Lens12 reads."
+    },
+    {
+      "file": "ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json",
+      "qualification": "Earlier original READ-L12-346, its registration, plan, state, verification and same-lens support; the original surrender candidate and rejection of an unconditional Option finding remain unchanged."
+    },
+    {
+      "file": "ASSESSMENT-SIMULATION-WAIT-QUEUE-LINKS-95E.json",
+      "qualification": "Earlier selected static fixture/projection trace, still partial."
+    },
+    {
+      "file": "ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json",
+      "qualification": "Earlier normal producer safeguards and conditional external report trust remain partial."
+    },
+    {
+      "file": "ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json",
+      "qualification": "Preserves the inherited disease-read qualification; no completion credit or adoption transfer."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-345.json",
+      "sha256": "27bd6d26415fd0d8bc1c5223613be8cd5b02e556d7770307354614a0ee313483",
+      "bytes": 733,
+      "git_blob": "fd69392446ff2986d01118fcf4c31cea2d6a7eb5",
+      "preserved_bytes": "recovered/source-assertions-059/27bd6d26415fd0d8bc1c5223613be8cd5b02e556d7770307354614a0ee313483.gz",
+      "published_sha256": "27bd6d26415fd0d8bc1c5223613be8cd5b02e556d7770307354614a0ee313483",
+      "published_bytes": 733,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, disease-read qualification and zero current/unique credit remain unchanged; no checkpoint 3821 promotion."
+    },
+    {
+      "original_path": "segovb/READ-L12-345.json",
+      "sha256": "3726e6c2821b3ae62a139821e77757387f753a064368a1f190ef0dd55525256b",
+      "bytes": 9103,
+      "git_blob": "8197df3087530f857d9b75a564c4830b6d4bdade",
+      "preserved_bytes": "recovered/source-assertions-059/3726e6c2821b3ae62a139821e77757387f753a064368a1f190ef0dd55525256b.gz",
+      "published_sha256": "3726e6c2821b3ae62a139821e77757387f753a064368a1f190ef0dd55525256b",
+      "published_bytes": 9103,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier independently attributed Lens12 full source-read receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, disease-read qualification and zero current/unique credit remain unchanged; no checkpoint 3821 promotion."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-200.json",
+      "sha256": "b9c060e96a6592028bbec952228f7adc612a689e21b582d4a8e16734e6f12f3f",
+      "bytes": 1234,
+      "git_blob": "2396492543241d80b30fdd95a95da7cdfa9404ff",
+      "preserved_bytes": "recovered/source-assertions-059/b9c060e96a6592028bbec952228f7adc612a689e21b582d4a8e16734e6f12f3f.gz",
+      "published_sha256": "b9c060e96a6592028bbec952228f7adc612a689e21b582d4a8e16734e6f12f3f",
+      "published_bytes": 1234,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Lens12 registration"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, disease-read qualification and zero current/unique credit remain unchanged; no checkpoint 3821 promotion."
+    },
+    {
+      "original_path": "segovb/STATE-L12-345.json",
+      "sha256": "db73652d2f115f200ca5b593ab44ca49520fe03f0aa08fe387490eb19ccbe852",
+      "bytes": 840,
+      "git_blob": "116713037be299d435d3a64878f2a9151783f973",
+      "preserved_bytes": "recovered/source-assertions-059/db73652d2f115f200ca5b593ab44ca49520fe03f0aa08fe387490eb19ccbe852.gz",
+      "published_sha256": "db73652d2f115f200ca5b593ab44ca49520fe03f0aa08fe387490eb19ccbe852",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Lens12 scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, disease-read qualification and zero current/unique credit remain unchanged; no checkpoint 3821 promotion."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-345.json",
+      "sha256": "e206bccddff3ff3bcc20da2bcb1aec43b38d4267b7abb24441475e89b519677a",
+      "bytes": 558,
+      "git_blob": "0010574cf26244bab2b6d787e4675758e197b7df",
+      "preserved_bytes": "recovered/source-assertions-059/e206bccddff3ff3bcc20da2bcb1aec43b38d4267b7abb24441475e89b519677a.gz",
+      "published_sha256": "e206bccddff3ff3bcc20da2bcb1aec43b38d4267b7abb24441475e89b519677a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Earlier Lens12 evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, disease-read qualification and zero current/unique credit remain unchanged; no checkpoint 3821 promotion."
+    }
+  ],
+  "new_candidates": [],
+  "remaining": "Actual execution and full test effectiveness, complete producer/schema/native behavior, helper ownership, exact aliases and all independent lenses remain open; final 3821 ledger and queue are missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
