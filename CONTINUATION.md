@@ -172,6 +172,9 @@ current authored corpus. Decoder features and actual runtime remain open.
 `ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json` extends the earlier
 sampler-overflow question with a pinned dependency and current authored
 weight bound. The hypothetical context and historical attribution remain open.
+`ASSESSMENT-L01-HISTORICAL-1003-1010.json` preserves character creation,
+strategic planning, commerce and place-identity reads. Existing bounded
+observations and earlier delegated fixture qualifications remain distinct.
 `ASSESSMENT-L04-WITNESS-FAILED-FEEDBACK-95E.json` traces a conditional
 difference in failed witness morale events. Public-table access, event
 retention and actual reachability remain unverified.
