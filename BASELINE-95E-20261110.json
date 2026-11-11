@@ -2221,8 +2221,25 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-INVENTORY-ACTOR-ADMISSION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-STANDALONE-MISSION-ID-PRIVATE-READMISSION",
+        "lens": 12,
+        "severity": "unassigned; private typed-identifier representation roundtrip in a development-gated path; no invalid canonical mission or runtime failure shown",
+        "classification": "95e revisit of the same earlier 059 Lens12 contract, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/242",
+          "baseline-059/queue.json#/entries/995",
+          "segovb/READ-L12-301.json via ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json",
+          "segovb/READ-L12-302.json via ASSESSMENT-L12-STANDALONE-MISSION-95E.json"
+        ],
+        "relationship_qualification": "Same selected earlier first failure at its original revision; early retry, other callers, global aliases and all independent lenses remain open.",
+        "discovery": "partial; all callers, native retry policy, family aliases, independent lenses and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-STANDALONE-MISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0257.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0301.json"
 }

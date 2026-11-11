@@ -1,0 +1,325 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 12,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected development-only standalone mission-ID family admission and a bounded native roster source observation at 95e.",
+  "source_reasoning": "Pinned source inspection, historical source tests read without execution, and evidence-byte verification only. No product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          495,
+          535
+        ],
+        [
+          640,
+          750
+        ],
+        [
+          170,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standalone-mission-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ca73d338b41f5d1a90571a28c65b3e025ffbb73",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "bytes": 3831,
+      "lines": 112,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standalone-mission-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/mission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4cc46a9f8295c7f37e6e317bf7685d1baac117f9",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "bytes": 3506,
+      "lines": 106,
+      "ranges": [
+        [
+          17,
+          57
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standalone-mission-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "872374f9956f1825f664f87eabb367604bda0b4b",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "bytes": 3751,
+      "lines": 101,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standalone-mission-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0187ba7ac07c40de2aec1cbaa0b3217a1a51df2e",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "bytes": 3025,
+      "lines": 96,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standalone-mission-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          735,
+          850
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/standalone-mission-sources/05.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/242",
+      "qualification": "Earlier same standalone private readmission contract; no new historical defect."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/995",
+      "qualification": "Earlier exact connected extension; broader caller and alias work still open."
+    },
+    {
+      "file": "ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json",
+      "qualification": "Previously preserved earlier 301 receipt and five individually qualified partials; separate generated-threat boundary."
+    },
+    {
+      "file": "ASSESSMENT-L1-MISSION-ROSTERS.json",
+      "qualification": "Earlier c100 bounded source observation, revision retained."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1227-1234.json",
+      "qualification": "Eight separately attributed historical Lens1 body reads."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-302.json",
+      "sha256": "1a2e5505b02566707888d83c676b730cfeb394b8213b18f8d3fa08a39c63ff7d",
+      "bytes": 3693,
+      "git_blob": "1596bc65e34796ead2bb0b2dd792065dd2aca1e3",
+      "preserved_bytes": "recovered/standalone-mission-059/1a2e5505b02566707888d83c676b730cfeb394b8213b18f8d3fa08a39c63ff7d.gz",
+      "published_sha256": "1a2e5505b02566707888d83c676b730cfeb394b8213b18f8d3fa08a39c63ff7d",
+      "published_bytes": 3693,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-302.json",
+      "sha256": "5dbd97f1538ec9c285664e73fa302652316bcc3905621937fb60d5b569ba508c",
+      "bytes": 23415,
+      "git_blob": "96c6b532442de088074bff85d5b1a1d5248f8cec",
+      "preserved_bytes": "recovered/standalone-mission-059/5dbd97f1538ec9c285664e73fa302652316bcc3905621937fb60d5b569ba508c.gz",
+      "published_sha256": "5dbd97f1538ec9c285664e73fa302652316bcc3905621937fb60d5b569ba508c",
+      "published_bytes": 23415,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-135.json",
+      "sha256": "5ada1feae9d88cdc6c2ff074c7d6a80c9ec2b6108f2b156dd9c15930538134e9",
+      "bytes": 1208,
+      "git_blob": "5564297299d7a26a99ff56c7e011aa0dddbed317",
+      "preserved_bytes": "recovered/standalone-mission-059/5ada1feae9d88cdc6c2ff074c7d6a80c9ec2b6108f2b156dd9c15930538134e9.gz",
+      "published_sha256": "5ada1feae9d88cdc6c2ff074c7d6a80c9ec2b6108f2b156dd9c15930538134e9",
+      "published_bytes": 1208,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-136.json",
+      "sha256": "2b8a6718fa8b9b33fab64acf78878ab00245a16d0008d1da1716cb4c8dfb5dd2",
+      "bytes": 1200,
+      "git_blob": "19ae4315c99368eaf0a07eef9f5c7cbcdd1fb2e5",
+      "preserved_bytes": "recovered/standalone-mission-059/2b8a6718fa8b9b33fab64acf78878ab00245a16d0008d1da1716cb4c8dfb5dd2.gz",
+      "published_sha256": "2b8a6718fa8b9b33fab64acf78878ab00245a16d0008d1da1716cb4c8dfb5dd2",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-137.json",
+      "sha256": "ededa58ac746a7d1c07caf207c12dfd19cb2315c2ad3c8cf2840f217f469381f",
+      "bytes": 1180,
+      "git_blob": "b668209ea4e5a01b8a2badbd00c7a57c8e268bcf",
+      "preserved_bytes": "recovered/standalone-mission-059/ededa58ac746a7d1c07caf207c12dfd19cb2315c2ad3c8cf2840f217f469381f.gz",
+      "published_sha256": "ededa58ac746a7d1c07caf207c12dfd19cb2315c2ad3c8cf2840f217f469381f",
+      "published_bytes": 1180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-138.json",
+      "sha256": "e2679b6cf0fd7f7d972858da872d0ebe70cbe0482caf921421c7ba9dda41b09b",
+      "bytes": 1212,
+      "git_blob": "95b63b41292b9bb3ee97ed12fd759fad498b632d",
+      "preserved_bytes": "recovered/standalone-mission-059/e2679b6cf0fd7f7d972858da872d0ebe70cbe0482caf921421c7ba9dda41b09b.gz",
+      "published_sha256": "e2679b6cf0fd7f7d972858da872d0ebe70cbe0482caf921421c7ba9dda41b09b",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-139.json",
+      "sha256": "3a1ab0aa9bbc4e410256a80610e98dd6d8eec7aea63430fc190acc319d2813f9",
+      "bytes": 1156,
+      "git_blob": "9acf60470999b1f04573d62653da798ee359ea2f",
+      "preserved_bytes": "recovered/standalone-mission-059/3a1ab0aa9bbc4e410256a80610e98dd6d8eec7aea63430fc190acc319d2813f9.gz",
+      "published_sha256": "3a1ab0aa9bbc4e410256a80610e98dd6d8eec7aea63430fc190acc319d2813f9",
+      "published_bytes": 1156,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-140.json",
+      "sha256": "86ed7788e4bf004fa9faa0ec73586170c53000bad7fe9fe44e20d271f29914fa",
+      "bytes": 1182,
+      "git_blob": "73768c0f219470e106a40c04b384285176546b81",
+      "preserved_bytes": "recovered/standalone-mission-059/86ed7788e4bf004fa9faa0ec73586170c53000bad7fe9fe44e20d271f29914fa.gz",
+      "published_sha256": "86ed7788e4bf004fa9faa0ec73586170c53000bad7fe9fe44e20d271f29914fa",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-141.json",
+      "sha256": "59679c83f30201aa9c6d97b935d4a4fbd5fac05bab94adc7d29df19e2fd4a4ae",
+      "bytes": 1188,
+      "git_blob": "dfeb7d57554ed588f99fa9cd8c17e0cf57f7ff38",
+      "preserved_bytes": "recovered/standalone-mission-059/59679c83f30201aa9c6d97b935d4a4fbd5fac05bab94adc7d29df19e2fd4a4ae.gz",
+      "published_sha256": "59679c83f30201aa9c6d97b935d4a4fbd5fac05bab94adc7d29df19e2fd4a4ae",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 source registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-302.json",
+      "sha256": "30199a7772789dec50399f242aab4497ead19938e62ae5bb7a2e3bf6083a43fb",
+      "bytes": 840,
+      "git_blob": "58021289205581e8868d25a7bb373dc8b76daf60",
+      "preserved_bytes": "recovered/standalone-mission-059/30199a7772789dec50399f242aab4497ead19938e62ae5bb7a2e3bf6083a43fb.gz",
+      "published_sha256": "30199a7772789dec50399f242aab4497ead19938e62ae5bb7a2e3bf6083a43fb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-302.json",
+      "sha256": "61dd3689f17bb3df027dfb8ba3fe9c27f18330088869551a88cd2f5b2e8a8397",
+      "bytes": 558,
+      "git_blob": "216f450c41e8cc974be6c5668dade63589d2e5d1",
+      "preserved_bytes": "recovered/standalone-mission-059/61dd3689f17bb3df027dfb8ba3fe9c27f18330088869551a88cd2f5b2e8a8397.gz",
+      "published_sha256": "61dd3689f17bb3df027dfb8ba3fe9c27f18330088869551a88cd2f5b2e8a8397",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain original lens, source role, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "SEGOVB-L12-STANDALONE-MISSION-ID-PRIVATE-READMISSION",
+      "lens": 12,
+      "severity": "unassigned; private typed-identifier representation roundtrip in a development-gated path; no invalid canonical mission or runtime failure shown",
+      "classification": "95e revisit of the same earlier 059 Lens12 contract, not a new unique historical defect.",
+      "trace": "After development capability admission, fixture parsing and an early existing-request/server no-op, seed_standalone_tactical_mission validates the raw mission_id with MissionId::new and discards the typed result. It then passes the same original string to the private StandaloneMissionFamily::from_mission_id, which calls MissionId::new again before splitting the validated mission coordinate and classifying animation, diagnostic or general. Diagnostic and animation tags additionally require a nonempty suffix. Existing source-only tests call the private family helper directly with valid and invalid raw strings; they were read, not run.",
+      "connected_repair": "After discovering all production and source-only callers, retain the existing admitted MissionId across the private boundary or choose an equivalent owner that avoids discarding the already-validated value. Preserve native external String admission, the early existing-request behavior if intended, additional nonempty family-coordinate rules, exact diagnostic site distance and scene behavior, and the development capability gate. Do not conflate the separate mission-ID serde admission question or unrelated threat parse by a shared typed-value remedy.",
+      "discovery": "partial; all callers, native retry policy, family aliases, independent lenses and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "nonfinding": {
+    "question": "What does the selected 95e mission-roster source establish about enemy snapshot admission?",
+    "disposition": "The core MissionEnemyRoster requires a nonempty, unique vector with u32-representable count. capture_enemy_roster constructs it from the live hostile context and compares its count to the current hostile group; MissionAuthority::capture retains the resulting exact IDs. The stored enemy_roster reconstructs the typed vector and requires each referenced Character row to exist, without rereading live group size. The selected tactical request and autoresolve then consume the stored roster. This is a bounded current source trace, not proof of life-state parity, all roster producers, SDK policy, execution or complete reconciliation.",
+    "predecessor": "ASSESSMENT-L1-MISSION-ROSTERS.json is a separately attributed c100 trace; equal source bytes do not automatically promote it to 95e."
+  },
+  "remaining": "Review all standalone callers, family/native semantics, roster life and launch consistency, 13 independent lenses and every extension. Final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
