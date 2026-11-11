@@ -1,0 +1,465 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    4,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Seven original visibility/camera/furniture roles and bounded current litter target/obstacle producers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1706-1712.json",
+  "git_membership_evidence": "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          70,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/litter-clearance-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/rock_recipe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0f3dac10be103f1ea73c3a46b78211fe63c89d38",
+      "sha256": "93b82b73cb6f4f9c0501c47b0d15f1be447ab434585eb6bbb1ae6af22db8b40c",
+      "bytes": 1368,
+      "lines": 39,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/litter-clearance-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad9d38114235b0e092453ea952a484b0f3643358",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "bytes": 5866,
+      "lines": 166,
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/litter-clearance-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3a3d285c586a80aba24d32ea4ac8f085f75f1682",
+      "sha256": "53341d66b692914436cc93c298ff192d18515d23ac63384df82a84e25c9bd996",
+      "bytes": 39129,
+      "lines": 961,
+      "ranges": [
+        [
+          101,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/litter-clearance-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c5310d9a2598a21affcce66d268e095db7d90f4",
+      "sha256": "62a7640d999653991c48ac18f49aef2c03981b53739cdb02e46983582bb71b11",
+      "bytes": 4725,
+      "lines": 122,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/litter-clearance-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges inspected; complete bytes retained. Source tests and product were not executed; no historical or other-lens coverage inferred."
+    }
+  ],
+  "current_viewer_assessment": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+  "conditional_findings": [
+    {
+      "id": "REVIEW-LITTER-CAPTURE-OBSTACLE-CLEARANCE-001",
+      "lens": 8,
+      "severity": "unassigned; conditional review-target clearance policy",
+      "classification": "New95e symbolic analysis connected to an earlier Segovb547 pending question; not a new historical finding.",
+      "canonical_owner": "Litter capture target selection and its obstacle-clearance and camera-direction policy.",
+      "first_failed_contract_or_question": "The selection computes a radius-adjusted clearance for only the nearest obstacle centre; it is not necessarily the minimum clearance to all observed obstacle envelopes. Whether that minimum is required by the review contract remains open.",
+      "source_trace": [
+        "The capture viewer gathers generated paired dry-leaf/twig roots and all observed SceneObstacle transforms, requires a terrain sample and calls DebrisCaptureTarget::reviewable. The latter admits every observed obstacle before selection, then chooses the nearest centre, subtracts only its associated radius, rejects if that value is below1.25m, and points the camera away from that same centre.",
+        "Tree observations use a 1.8m capture radius, while normal generated rock recipes use the 0.75m collision radius from ROCK_RADIUS_METRES. The capture tree radius is a review heuristic: the source setup uses a 0.35m physical tree-trunk collider; do not equate the two. Litter pairs are produced from generated dry-leaf/twig anchors, ordered by separation and capped at64; no actual generated pair or combination was produced here.",
+        "Pure symbolic example: for a hypothetical focus at the origin, a rock centre 2.25m away with radius0.75m is nearer by centre than a tree centre 2.5m away with review radius1.8m. The code tests 2.25−0.75=1.50m and passes the 1.25m threshold, while the tree envelope has 2.5−1.8=0.70m clearance. If the centres lie on opposite sides, its camera direction points toward the tree. Other requirements such as terrain normal, edge clearance, paired roots, and camera support must also hold."
+      ],
+      "counterevidence": "No legal generated scene, source fixture, image, GPU or collision was produced. The producer may preclude this pair/obstacle arrangement, another target may win ranking, and the intended policy may intentionally be nearest-centre rather than minimum-envelope clearance. A low review-envelope clearance does not prove a physical collision or visible artifact.",
+      "prior_attribution": "Original Segovb Lens12 READ547 documented the nearest-centre/radius choice and expressly left valid geometry and minimum-clearance policy open; this later symbolic numeric example changes no historical count.",
+      "connected_repair_dependencies": [
+        "Establish whether every obstacle review envelope must satisfy the threshold and whether target/camera clearance or only center-distance ranking is intended.",
+        "Trace admitted generated pair and obstacle placement, sizes, transforms, terrain support and all target-ranking consumers.",
+        "If minimum clearance is required, compute the owner-consistent minimum over all observed envelopes while preserving checked optional target and camera modes."
+      ],
+      "later_acceptance": [
+        "An admitted target either satisfies the documented all-obstacle clearance policy or explicitly reports the narrower chosen policy; camera selection preserves checked terrain and target failure behavior."
+      ],
+      "discovery": "partial; earlier concern, current producers and symbolic geometry connected, valid generated combination, policy, impact and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Production review visibility",
+      "trace": "ProductionLeaves excludes isolated tree and understory specimens from deferred production visibility suppression; the source contains a filter test.",
+      "remaining": "The test was read only; actual native scheduling, all visibility writers and other lens coverage remain open."
+    },
+    {
+      "contract": "City camera and fixed camera contract",
+      "trace": "City review requires a clear supported street before computing nonempty placement bounds; fixed-city contract validates finite poses, version and seven exterior cameras.",
+      "remaining": "Actual corridor/pose admission, coordinate-frame policy and product execution remain separate."
+    },
+    {
+      "contract": "Furniture review readiness",
+      "trace": "The setup records expected furniture counts and recipe mesh batches, while readiness checks actual instances, batches, material bindings, GPU handles and ground; absent readiness and Configure are explicitly allowed modes.",
+      "remaining": "Actual producer identity, shared resources, scheduler, screenshot persistence and rendered output are not proved by these checks."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-SCENE-CAPTURE-PERSISTENCE-95E.json",
+      "qualification": "Earlier Segovb546 read roles1706–1707 without new personal full-read credit; later full read recorded here."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+      "qualification": "Current viewer call site independently read; capture was not executed."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-546.json",
+      "sha256": "68d8cfe7394fb95350f95a0b0c7db70b026c02721182e9982465406c25345f28",
+      "bytes": 1750,
+      "git_blob": "3130c9ebe4975e1c364720ec4c1a6337c1e9899c",
+      "preserved_bytes": "recovered/litter-clearance-059/68d8cfe7394fb95350f95a0b0c7db70b026c02721182e9982465406c25345f28.gz",
+      "published_sha256": "68d8cfe7394fb95350f95a0b0c7db70b026c02721182e9982465406c25345f28",
+      "published_bytes": 1750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-547.json",
+      "sha256": "495c0f2f6c67eeca4ed8d1dfd864ab8410fbb9dc6c511755e10517586c7a9717",
+      "bytes": 1249,
+      "git_blob": "b68e7b5508527f4ddb57874d24c70a6b635dc3ef",
+      "preserved_bytes": "recovered/litter-clearance-059/495c0f2f6c67eeca4ed8d1dfd864ab8410fbb9dc6c511755e10517586c7a9717.gz",
+      "published_sha256": "495c0f2f6c67eeca4ed8d1dfd864ab8410fbb9dc6c511755e10517586c7a9717",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-548.json",
+      "sha256": "0d60ffd59fbf0420e362cbee2d56633b2f220738479f3f377b67ce29ea8eec4f",
+      "bytes": 1760,
+      "git_blob": "64ff2b38ed85ff6934184669984223b4a9b78a39",
+      "preserved_bytes": "recovered/litter-clearance-059/0d60ffd59fbf0420e362cbee2d56633b2f220738479f3f377b67ce29ea8eec4f.gz",
+      "published_sha256": "0d60ffd59fbf0420e362cbee2d56633b2f220738479f3f377b67ce29ea8eec4f",
+      "published_bytes": 1760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-546.json",
+      "sha256": "a91796acf9d6596b61dd3d01d545819c6eff2f008041482c0aec040520f2b28c",
+      "bytes": 10219,
+      "git_blob": "0b81354ee712ead09a0698ceada3d0b743b570f3",
+      "preserved_bytes": "recovered/litter-clearance-059/a91796acf9d6596b61dd3d01d545819c6eff2f008041482c0aec040520f2b28c.gz",
+      "published_sha256": "a91796acf9d6596b61dd3d01d545819c6eff2f008041482c0aec040520f2b28c",
+      "published_bytes": 10219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-547.json",
+      "sha256": "54297360abcbffaac2f46b4582b786439a50437f260f0aef75bcc5b5b9802dbd",
+      "bytes": 9124,
+      "git_blob": "9ca8a27fa6b7477248daf85c2b96776d1cf2ed93",
+      "preserved_bytes": "recovered/litter-clearance-059/54297360abcbffaac2f46b4582b786439a50437f260f0aef75bcc5b5b9802dbd.gz",
+      "published_sha256": "54297360abcbffaac2f46b4582b786439a50437f260f0aef75bcc5b5b9802dbd",
+      "published_bytes": 9124,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-548.json",
+      "sha256": "c34f6c0b50891b4b16c38230ef3f9fbd589e1d996f283baddef1213a8287d97d",
+      "bytes": 10861,
+      "git_blob": "2a101fab8c5027a8c02cad218392a0ca7b5f3823",
+      "preserved_bytes": "recovered/litter-clearance-059/c34f6c0b50891b4b16c38230ef3f9fbd589e1d996f283baddef1213a8287d97d.gz",
+      "published_sha256": "c34f6c0b50891b4b16c38230ef3f9fbd589e1d996f283baddef1213a8287d97d",
+      "published_bytes": 10861,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-612.json",
+      "sha256": "a89bb718e458845ab32f1f9ee344e09eb50d4976dd94ec98160c1b63b6ece6c2",
+      "bytes": 1217,
+      "git_blob": "6e70ac10f01b67bca4c57efa498f1cef36fbff8d",
+      "preserved_bytes": "recovered/litter-clearance-059/a89bb718e458845ab32f1f9ee344e09eb50d4976dd94ec98160c1b63b6ece6c2.gz",
+      "published_sha256": "a89bb718e458845ab32f1f9ee344e09eb50d4976dd94ec98160c1b63b6ece6c2",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-613.json",
+      "sha256": "925eec9fd8e1fb5b50da573d2e76a6a3aee22dfd983bb56b08c793f7a5fded74",
+      "bytes": 1223,
+      "git_blob": "d6f5752ff3fa703eda73b559bb61aa48fbf58344",
+      "preserved_bytes": "recovered/litter-clearance-059/925eec9fd8e1fb5b50da573d2e76a6a3aee22dfd983bb56b08c793f7a5fded74.gz",
+      "published_sha256": "925eec9fd8e1fb5b50da573d2e76a6a3aee22dfd983bb56b08c793f7a5fded74",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-614.json",
+      "sha256": "a6775c42d61f703fe2036c79eba2f6ae02cfbc15e75568d4ba47b3a964fbcee5",
+      "bytes": 1213,
+      "git_blob": "3f5c1b2be99eff573544db2b1bbc14ab0e18a5f8",
+      "preserved_bytes": "recovered/litter-clearance-059/a6775c42d61f703fe2036c79eba2f6ae02cfbc15e75568d4ba47b3a964fbcee5.gz",
+      "published_sha256": "a6775c42d61f703fe2036c79eba2f6ae02cfbc15e75568d4ba47b3a964fbcee5",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-615.json",
+      "sha256": "f52e70d25f5c5d8c97ebf26b58f353e85a57d9c27e87dc4098fde71354354efe",
+      "bytes": 1231,
+      "git_blob": "977c6169d50c0a21922cf6e2fb7dfc160fc79030",
+      "preserved_bytes": "recovered/litter-clearance-059/f52e70d25f5c5d8c97ebf26b58f353e85a57d9c27e87dc4098fde71354354efe.gz",
+      "published_sha256": "f52e70d25f5c5d8c97ebf26b58f353e85a57d9c27e87dc4098fde71354354efe",
+      "published_bytes": 1231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-616.json",
+      "sha256": "f686a9fce4e4c49b77453b359aeca49bffde0291c5686435a62a158de4bb4fa8",
+      "bytes": 1239,
+      "git_blob": "9da9bf585f245a369a37a99c53cb819899b9c2f1",
+      "preserved_bytes": "recovered/litter-clearance-059/f686a9fce4e4c49b77453b359aeca49bffde0291c5686435a62a158de4bb4fa8.gz",
+      "published_sha256": "f686a9fce4e4c49b77453b359aeca49bffde0291c5686435a62a158de4bb4fa8",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-617.json",
+      "sha256": "4b7ae87ec0a64544ea3c564c134d5f894da0ecf7607a1ac69f6264d7ded6bb81",
+      "bytes": 1257,
+      "git_blob": "f76f70e3cb416c24159618676122e23b34d68173",
+      "preserved_bytes": "recovered/litter-clearance-059/4b7ae87ec0a64544ea3c564c134d5f894da0ecf7607a1ac69f6264d7ded6bb81.gz",
+      "published_sha256": "4b7ae87ec0a64544ea3c564c134d5f894da0ecf7607a1ac69f6264d7ded6bb81",
+      "published_bytes": 1257,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-618.json",
+      "sha256": "c98304d86c5561ed1c639886683b59dc8d497a8e1f5ce246a71fedea4f854574",
+      "bytes": 1255,
+      "git_blob": "297d9ba1f586c9fadcfbf3fe8f93926aeff81a0f",
+      "preserved_bytes": "recovered/litter-clearance-059/c98304d86c5561ed1c639886683b59dc8d497a8e1f5ce246a71fedea4f854574.gz",
+      "published_sha256": "c98304d86c5561ed1c639886683b59dc8d497a8e1f5ce246a71fedea4f854574",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-619.json",
+      "sha256": "fcddcaf75c0b146e51fbb823b88ed2c380853ead2d9ccb6c694eca92ff2164be",
+      "bytes": 1261,
+      "git_blob": "cb7d7f113a48edc00681977b7ddde5d5c4212d28",
+      "preserved_bytes": "recovered/litter-clearance-059/fcddcaf75c0b146e51fbb823b88ed2c380853ead2d9ccb6c694eca92ff2164be.gz",
+      "published_sha256": "fcddcaf75c0b146e51fbb823b88ed2c380853ead2d9ccb6c694eca92ff2164be",
+      "published_bytes": 1261,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-546.json",
+      "sha256": "f87b08f30ebc1f75b02100d66b4e143413b13ff32642e48a85e1f233e448e689",
+      "bytes": 840,
+      "git_blob": "9aef2648785f25b8a51b9edf118beff21402b3fc",
+      "preserved_bytes": "recovered/litter-clearance-059/f87b08f30ebc1f75b02100d66b4e143413b13ff32642e48a85e1f233e448e689.gz",
+      "published_sha256": "f87b08f30ebc1f75b02100d66b4e143413b13ff32642e48a85e1f233e448e689",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-547.json",
+      "sha256": "578e0e6884c348e2115603b8babc2068a5ea5a7f9ce84411a8371287a1b553f3",
+      "bytes": 840,
+      "git_blob": "c1e664a9142f439edc9205ed72246c8b69b3eafe",
+      "preserved_bytes": "recovered/litter-clearance-059/578e0e6884c348e2115603b8babc2068a5ea5a7f9ce84411a8371287a1b553f3.gz",
+      "published_sha256": "578e0e6884c348e2115603b8babc2068a5ea5a7f9ce84411a8371287a1b553f3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-548.json",
+      "sha256": "9763dba656bbd775114ee0601192df9c776304bc72e7af8e0963b3885307b248",
+      "bytes": 840,
+      "git_blob": "19bd6ad4a83a1147fea8672996914d1ecf34a947",
+      "preserved_bytes": "recovered/litter-clearance-059/9763dba656bbd775114ee0601192df9c776304bc72e7af8e0963b3885307b248.gz",
+      "published_sha256": "9763dba656bbd775114ee0601192df9c776304bc72e7af8e0963b3885307b248",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-546.json",
+      "sha256": "eb1747904e99b94a39936591228291f2ac902fd5f0232b1c5837eb95713688e0",
+      "bytes": 558,
+      "git_blob": "f65291b736a75bbb79729c53c6307a9cddb2acbb",
+      "preserved_bytes": "recovered/litter-clearance-059/eb1747904e99b94a39936591228291f2ac902fd5f0232b1c5837eb95713688e0.gz",
+      "published_sha256": "eb1747904e99b94a39936591228291f2ac902fd5f0232b1c5837eb95713688e0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-547.json",
+      "sha256": "12968d92f731e3b62ccbcca1e1dce42d98992aed3581d41cec846a9f59036748",
+      "bytes": 558,
+      "git_blob": "5f714d15bc1f33c25f90dd91430838c1249e9d2f",
+      "preserved_bytes": "recovered/litter-clearance-059/12968d92f731e3b62ccbcca1e1dce42d98992aed3581d41cec846a9f59036748.gz",
+      "published_sha256": "12968d92f731e3b62ccbcca1e1dce42d98992aed3581d41cec846a9f59036748",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-548.json",
+      "sha256": "69e5a35661cfac52a70c17682761e00e52ff6e9a3c2c065a8278bfb1e7299fa7",
+      "bytes": 558,
+      "git_blob": "316f604abe77c59319506e44c853a31effcc5eb4",
+      "preserved_bytes": "recovered/litter-clearance-059/69e5a35661cfac52a70c17682761e00e52ff6e9a3c2c065a8278bfb1e7299fa7.gz",
+      "published_sha256": "69e5a35661cfac52a70c17682761e00e52ff6e9a3c2c065a8278bfb1e7299fa7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1713; resolve actual litter/obstacle production, policy, impacts, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
