@@ -1,0 +1,607 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    6,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2152 map importer, historical worker error and conditional source parsing/terrain sample families.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2152.json",
+  "git_membership_evidence": "MAP-IMPORT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-terrain/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e7c455cbbc254d9ebb434ceecb22187ae13b53f5",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "bytes": 71074,
+      "lines": 2059,
+      "ranges": [
+        [
+          38,
+          95
+        ],
+        [
+          400,
+          545
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/map-import-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current support ranges credited; complete bytes preserved. No independent lens, future ordered role or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-world-import/src/error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e309874226871e80dc4a1d74d1df0fd6b796d1ca",
+      "sha256": "e68abbef1439219462c4e52da5e419ce9c1757906d9fe4156abd420e348055b6",
+      "bytes": 2070,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/map-import-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current support ranges credited; complete bytes preserved. No independent lens, future ordered role or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "457b4b0f8a3ef81218680f80fa91573f8faaaaf3",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "bytes": 172137,
+      "lines": 4796,
+      "ranges": [
+        [
+          30,
+          43
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/map-import-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current support ranges credited; complete bytes preserved. No independent lens, future ordered role or execution credit."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-TERRAIN-ADMISSION-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Worker error source ownership",
+      "trace": "run returns Box<dyn Error> and can propagate concrete I/O, JSON, terrain and world-import errors. The worker closure maps any run error to error.to_string(); main receives that String and constructs a new std::io::Error::other. The original concrete source and classification are no longer retained across this worker boundary. The final CLI can still display the message; preserving display text alone is not typed source preservation.",
+      "remaining": "Original delegated717 finding is reconnected to the identical95e body; 717 reports zero accepted unique-count change. Whether every native leaf and consumer requires downcastability, aggregate error representation and aliases remain open. No worker, error path, importer or product ran."
+    },
+    {
+      "contract": "Malformed WKT coordinate removal",
+      "trace": "For an active correctly classified CSV row whose WKT is LINESTRING(9 51,10 bad,11 51), coordinates splits the three comma-separated points and discards tokens that fail f64 parsing. The middle piece retains only one numeric value and is discarded; the two remaining endpoints are inside PLAYABLE_BOUNDS. clip_polyline can connect those endpoints as one segment, and validate_geometry checks retained point finiteness, bounds and minimum length rather than detecting the removed coordinate. Source sidecar size/digest checks establish byte consistency with the provided manifest, not WKT validity.",
+      "remaining": "Symbolic source trace only: no malformed file, parser, geometry, compiler or test ran. Actual source data quality, source authentication and policy for rejecting malformed or partial WKT are open. Adler336 already identified the source family as pending; this current example is not a new historical counted finding."
+    },
+    {
+      "contract": "Relief sampling drops terrain errors",
+      "trace": "The cultivation loop obtains its center and 4x4 usable-land samples with Result propagation. Its later five-point elevation iterator instead applies terrain.cell(...).ok().flatten(), omitting both absent cells and errors before calculating max-minus-min, with relief0 if no extrema exist. TerrainPack.cell may return a validation, lock, read, decode or corrupt-chunk error on the selected chunk. If prior center and usable-land reads succeed but a later relief-only sample errors, that error is omitted and the remaining samples alone determine relief.",
+      "remaining": "The scenario is conditional; no failing pack, affected cultivation ranking, source change or product run was observed. Earlier checks can fail before the relief step, and actual spatial/chunk reachability, intended missing-sample policy and allocation consumers require further evidence. Adler336 already left the family pending; no historical count change is claimed."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "SEGOVB-L12-MAP-BUILDER-WORKER-ERROR-ERASURE",
+      "queue": 283,
+      "qualification": "Original delegated059 worker error finding independently reconnected to identical95e source; accepted historical unique-count change remains zero."
+    }
+  ],
+  "new_current_candidates": [
+    "REVIEW-MAP-WKT-DROPPED-COORDINATE-001",
+    "REVIEW-MAP-RELIEF-SAMPLE-ERROR-001"
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-270.json",
+      "sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b",
+      "bytes": 12533,
+      "git_blob": "0fc8807de8dab2af10b28e06017fd45f39b61b2a",
+      "preserved_bytes": "recovered/map-import-059/e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b.gz",
+      "published_sha256": "e5fc1e7d3ea75134cd2ec3785060ee0ea21c6dea35d52a566d4b64c00d13b85b",
+      "published_bytes": 12533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/map-import-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/map-import-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/map-import-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/map-import-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-309.json",
+      "sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361",
+      "bytes": 11360,
+      "git_blob": "97d31521685a433d550211d99b51048b651bd923",
+      "preserved_bytes": "recovered/map-import-059/fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361.gz",
+      "published_sha256": "fd4d08d8a2820389e66268480770d6d03fd481e478a7d5bfcf0b1d650f966361",
+      "published_bytes": 11360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a",
+      "bytes": 11210,
+      "git_blob": "ce564c195b3299950bf09eaa40162535217da0cc",
+      "preserved_bytes": "recovered/map-import-059/37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a.gz",
+      "published_sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a",
+      "published_bytes": 11210,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-319.json",
+      "sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6",
+      "bytes": 17497,
+      "git_blob": "39e3804d77b22963ac55e801e91b59ceca5839e6",
+      "preserved_bytes": "recovered/map-import-059/b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6.gz",
+      "published_sha256": "b2840c0ddbd62f97d8f4f7a5aad6fe9df9d8c6b1764ba19e9fee6457c0a7e8c6",
+      "published_bytes": 17497,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-320.json",
+      "sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67",
+      "bytes": 17393,
+      "git_blob": "962c949d7e3251f3335823f83d406ffbe49b792d",
+      "preserved_bytes": "recovered/map-import-059/a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67.gz",
+      "published_sha256": "a464d3c8f55799205c8ee2c0b296f8514a87b4f00339d59c1c0bf6f792acab67",
+      "published_bytes": 17393,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-321.json",
+      "sha256": "2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613",
+      "bytes": 13594,
+      "git_blob": "c7fa7a953c5812128429ea4528827c74d9558b14",
+      "preserved_bytes": "recovered/map-import-059/2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613.gz",
+      "published_sha256": "2e9432b7679a30e7a11ef409431ec616e514bb620902fc13043834778eca3613",
+      "published_bytes": 13594,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-322.json",
+      "sha256": "49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1",
+      "bytes": 13859,
+      "git_blob": "514a4d2f8871283ae20446cdfc4f8b8dc25f3191",
+      "preserved_bytes": "recovered/map-import-059/49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1.gz",
+      "published_sha256": "49c7ef78eebe15793f1e55e7d6f502d702cf1bb5441e8a2966804cfb7996c4f1",
+      "published_bytes": 13859,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-323.json",
+      "sha256": "bdd4da522066f630a917409c133a91e1bfd2da7af2896c8c2fd5c54d726346fd",
+      "bytes": 13629,
+      "git_blob": "9e34c1ecd05c09a40385d03baf30d3461a000447",
+      "preserved_bytes": "recovered/map-import-059/bdd4da522066f630a917409c133a91e1bfd2da7af2896c8c2fd5c54d726346fd.gz",
+      "published_sha256": "bdd4da522066f630a917409c133a91e1bfd2da7af2896c8c2fd5c54d726346fd",
+      "published_bytes": 13629,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-324.json",
+      "sha256": "4b5876ec29d29d47b23c0238ca20fef5448a781db7ba1a63896e8919a25bbb02",
+      "bytes": 22756,
+      "git_blob": "be7d87b903c9610eff503d2361a97eb01055b59e",
+      "preserved_bytes": "recovered/map-import-059/4b5876ec29d29d47b23c0238ca20fef5448a781db7ba1a63896e8919a25bbb02.gz",
+      "published_sha256": "4b5876ec29d29d47b23c0238ca20fef5448a781db7ba1a63896e8919a25bbb02",
+      "published_bytes": 22756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "bytes": 14487,
+      "git_blob": "0727226370cf6e317b0b0b399143af1d60dab423",
+      "preserved_bytes": "recovered/map-import-059/013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b.gz",
+      "published_sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "published_bytes": 14487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "bytes": 17595,
+      "git_blob": "37209f8639a30afb09ce02f25762823a60f84b12",
+      "preserved_bytes": "recovered/map-import-059/33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506.gz",
+      "published_sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "published_bytes": 17595,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "bytes": 21125,
+      "git_blob": "b1ff53cd461863a08e8170f7451b9abbb6e081ef",
+      "preserved_bytes": "recovered/map-import-059/af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea.gz",
+      "published_sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "published_bytes": 21125,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "bytes": 27452,
+      "git_blob": "e267554248f8329c0f4ec09a8026cdc70c705e26",
+      "preserved_bytes": "recovered/map-import-059/6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea.gz",
+      "published_sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "published_bytes": 27452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "bytes": 22456,
+      "git_blob": "fa8502f3db92aa4c3078db978f1662cede4baf11",
+      "preserved_bytes": "recovered/map-import-059/96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b.gz",
+      "published_sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "published_bytes": 22456,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "bytes": 11067,
+      "git_blob": "92e69019423222de343906ffbdf10758743816d3",
+      "preserved_bytes": "recovered/map-import-059/149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9.gz",
+      "published_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "published_bytes": 11067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "bytes": 18061,
+      "git_blob": "3d3dfaa6da80c4dd1f87de4cebc7d2d4ca6af48d",
+      "preserved_bytes": "recovered/map-import-059/04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938.gz",
+      "published_sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "published_bytes": 18061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "bytes": 19279,
+      "git_blob": "7cd7cbdfc96edad375a8557ca4cfc842ac016484",
+      "preserved_bytes": "recovered/map-import-059/a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17.gz",
+      "published_sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "published_bytes": 19279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "bytes": 11860,
+      "git_blob": "cd4ba47186f20cd9ec174beae4bf3ca1c9c80bbc",
+      "preserved_bytes": "recovered/map-import-059/7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2.gz",
+      "published_sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "bytes": 15252,
+      "git_blob": "6b3497c6889858a09aa3da87f2bcff57ca8cb22d",
+      "preserved_bytes": "recovered/map-import-059/8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb.gz",
+      "published_sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "published_bytes": 15252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "bytes": 23129,
+      "git_blob": "177099df66cc6ca9051b8c72421afd1680f8e950",
+      "preserved_bytes": "recovered/map-import-059/c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9.gz",
+      "published_sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "bytes": 11573,
+      "git_blob": "633c5904872e62cbfa3ad647c18f209cb61a4da7",
+      "preserved_bytes": "recovered/map-import-059/7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85.gz",
+      "published_sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "published_bytes": 11573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1006.json",
+      "sha256": "f6bd9a6ad2ca19bfe5122042c6b8cb1d68bff560db7159f6ff6b17b69224e806",
+      "bytes": 778,
+      "git_blob": "8ef4fafadd3da8821a8396ecac59caee02650292",
+      "preserved_bytes": "recovered/map-import-059/f6bd9a6ad2ca19bfe5122042c6b8cb1d68bff560db7159f6ff6b17b69224e806.gz",
+      "published_sha256": "f6bd9a6ad2ca19bfe5122042c6b8cb1d68bff560db7159f6ff6b17b69224e806",
+      "published_bytes": 778,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration preserving full scopes"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-336.json",
+      "sha256": "6f5dbc719dabd71cf2baa8267df509d5e66fd28b5edd39f8f501b5e8e31f6cd6",
+      "bytes": 613,
+      "git_blob": "3a96cf43910c8b6df5394bf81ed87b3ea25c93f4",
+      "preserved_bytes": "recovered/map-import-059/6f5dbc719dabd71cf2baa8267df509d5e66fd28b5edd39f8f501b5e8e31f6cd6.gz",
+      "published_sha256": "6f5dbc719dabd71cf2baa8267df509d5e66fd28b5edd39f8f501b5e8e31f6cd6",
+      "published_bytes": 613,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-336.json",
+      "sha256": "f0e55ca06f18d06cbee1cb55e24d1010420af81aeb3aae73d10c7b1a1be9814e",
+      "bytes": 41288,
+      "git_blob": "06d7a21b605bb5bc5aaca51fbd2c46d0dea01363",
+      "preserved_bytes": "recovered/map-import-059/f0e55ca06f18d06cbee1cb55e24d1010420af81aeb3aae73d10c7b1a1be9814e.gz",
+      "published_sha256": "f0e55ca06f18d06cbee1cb55e24d1010420af81aeb3aae73d10c7b1a1be9814e",
+      "published_bytes": 41288,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-717.json",
+      "sha256": "c5735433e8c8bf7cb80ab9a458fe8c189a38a7cb308bb713371a32b9fa020b05",
+      "bytes": 8413,
+      "git_blob": "0886eff6c5dfc4033bf99eb7997acd4d79d9dbcc",
+      "preserved_bytes": "recovered/map-import-059/c5735433e8c8bf7cb80ab9a458fe8c189a38a7cb308bb713371a32b9fa020b05.gz",
+      "published_sha256": "c5735433e8c8bf7cb80ab9a458fe8c189a38a7cb308bb713371a32b9fa020b05",
+      "published_bytes": 8413,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-099.json",
+      "sha256": "49527926ae347cc5699348c6f6298308d226c191d9bd207113d16a132d29f7a2",
+      "bytes": 789,
+      "git_blob": "14946aa34091a0415f5a9ef29d4084dda88c6aa9",
+      "preserved_bytes": "recovered/map-import-059/49527926ae347cc5699348c6f6298308d226c191d9bd207113d16a132d29f7a2.gz",
+      "published_sha256": "49527926ae347cc5699348c6f6298308d226c191d9bd207113d16a132d29f7a2",
+      "published_bytes": 789,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-717.json",
+      "sha256": "74ef5898f9672eb684e931e3f72d7650143f14c55b1f35463d98b4853b8d0c63",
+      "bytes": 6705,
+      "git_blob": "6a6031dfe50c79b9e3b55c7d75df1a862207d1d6",
+      "preserved_bytes": "recovered/map-import-059/74ef5898f9672eb684e931e3f72d7650143f14c55b1f35463d98b4853b8d0c63.gz",
+      "published_sha256": "74ef5898f9672eb684e931e3f72d7650143f14c55b1f35463d98b4853b8d0c63",
+      "published_bytes": 6705,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption preserving delegated attribution, zero root rereads and zero count change"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-717.json",
+      "sha256": "46939a69028b38d9a19a59b63387a3ebe5b29fb2298a83cf7627565daea37a57",
+      "bytes": 1255,
+      "git_blob": "a135aa22bdc81eb378e7603c5ea99cddf317abf5",
+      "preserved_bytes": "recovered/map-import-059/46939a69028b38d9a19a59b63387a3ebe5b29fb2298a83cf7627565daea37a57.gz",
+      "published_sha256": "46939a69028b38d9a19a59b63387a3ebe5b29fb2298a83cf7627565daea37a57",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-717.json",
+      "sha256": "bbf9873af9744b8d81e6e59385962cf2f22c3eca1b3c7db3d5ba9634602c28cf",
+      "bytes": 667,
+      "git_blob": "a42888c98c8c17b1322c47069318f535bb9cda48",
+      "preserved_bytes": "recovered/map-import-059/bbf9873af9744b8d81e6e59385962cf2f22c3eca1b3c7db3d5ba9634602c28cf.gz",
+      "published_sha256": "bbf9873af9744b8d81e6e59385962cf2f22c3eca1b3c7db3d5ba9634602c28cf",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revisions, personal/reused ranges and obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Root Lens12 adoption717 retains delegate author, zero root rereads and zero accepted unique-count change despite its new_findings list. Adler336 independently read full2152 and kept WKT and relief families pending; no3821 promotion.",
+  "remaining": "Continue original2153; WKT source policy, failing chunk/actual allocation reachability, native errors, all13 lenses, queue obligations and aliases remain open. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -8032,8 +8032,79 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SHAFT-ADMISSION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-MAP-BUILDER-WORKER-ERROR-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          6,
+          11
+        ],
+        "severity": "unassigned; original worker error ownership",
+        "classification": "Original delegated worker error finding independently reconnected: source errors are formatted to String in the worker and replaced by io::Error at the join boundary.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/283"
+        ],
+        "relationship_qualification": "Original717 lists the finding but records zero accepted unique-count change; no new historical finding or3821 attribution. Error text may remain available at the CLI.",
+        "discovery": "partial; selected worker and native error types traced; actual leaf conversions, downstream clients and aliases remain open",
+        "connected_repair_direction": "Choose a Send-capable typed aggregate or other preserving boundary for worker results while maintaining intended CLI presentation.",
+        "future_acceptance": "After authorization, cover representative import, terrain and I/O causes through worker join and user-facing presentation.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MAP-IMPORT-95E.json"
+      },
+      {
+        "id": "REVIEW-MAP-WKT-DROPPED-COORDINATE-001",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; conditional malformed source case",
+        "classification": "A malformed middle WKT point can be omitted and the two surviving in-bounds points connected without a retained-geometry error. No parser or file ran.",
+        "historical_related_records": [
+          "adler/READ-L11-336.json via ASSESSMENT-MAP-IMPORT-95E.json",
+          "baseline-059/queue.json#/entries/283"
+        ],
+        "relationship_qualification": "Adler336 already identified a pending malformed-WKT family; this95e example adds a bounded source trace without changing historical counts. Distinct from worker error erasure.",
+        "discovery": "partial; selected native row, parsing, clipping and retained geometry checks traced; actual files, source authentication, format policy and aliases remain open",
+        "connected_repair_direction": "Decide and enforce an explicit source-geometry parse contract that preserves or reports malformed points before clipping, with contextual source errors.",
+        "future_acceptance": "After authorization, cover malformed tokens, incomplete points, valid clipped lines and polygons, and source attribution.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MAP-IMPORT-95E.json"
+      },
+      {
+        "id": "REVIEW-MAP-RELIEF-SAMPLE-ERROR-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional relief-sample failure",
+        "classification": "Relief sampling converts terrain cell errors to absent samples before computing a default or partial relief estimate. Earlier sample failures still propagate.",
+        "historical_related_records": [
+          "adler/READ-L11-336.json via ASSESSMENT-MAP-IMPORT-95E.json",
+          "baseline-059/queue.json#/entries/283"
+        ],
+        "relationship_qualification": "Adler336 already identified a pending terrain-error omission family; the current trace adds the fallible chunk source, without asserting an actual corrupt pack or historical count change. Distinct from final worker error formatting.",
+        "discovery": "partial; selected fallible terrain source and relief filter traced; spatial reachability, allocation impact, source policy and aliases remain open",
+        "connected_repair_direction": "Define fallible versus absent elevation sample policy and propagate or explicitly record source failures before deriving cultivation relief.",
+        "future_acceptance": "After authorization, cover valid, absent and failed samples after successful earlier terrain reads, including allocation behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MAP-IMPORT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1500.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1503.json"
 }

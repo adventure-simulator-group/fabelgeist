@@ -1,0 +1,53 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2152,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2152",
+      "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+      "lines": 1194,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1194
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MAP-IMPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+        "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+        "bytes": 42931,
+        "lines": 1194,
+        "git_blob": "82270ca85160e14c3450c6da0c961eb88d02f640",
+        "preserved_bytes": "main-advance-95e/map-import-evidence/current-2152.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            1194
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewers and earlier source observations remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Complete historical1194-line strategic map importer body personally read through EOF in bounded untruncated ranges, including test source; no importer, fixture, terrain, database or test ran.",
+    "The body matches95e. Root Lens12 adoption717 preserves delegate author, zero root rereads and zero accepted unique-count change even though its historical new_findings list names the worker error finding. Adler336 independently read full2152 and explicitly kept malformed WKT and cultivation sample errors as pending source families; no other-lens or checkpoint3821 credit follows."
+  ],
+  "qualification": "Historical Lens1 personal body and selected current observations only; no checkpoint3821 claim.",
+  "next_original_role": 2153
+}
