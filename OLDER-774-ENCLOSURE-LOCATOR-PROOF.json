@@ -1,0 +1,191 @@
+{
+  "schema": "726-older-git-recovery-proof-v1",
+  "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+  "shared_objects": "recovered/older-774-git-objects/MANIFEST.json",
+  "additional_shared_objects": [
+    "OLDER-774-NATIVE-GATE-PROOF.json"
+  ],
+  "additional_tree_objects": {
+    "3e0cc157fe735a33f248b1db4fb124a1d5505eb0": {
+      "git_object": "3e0cc157fe735a33f248b1db4fb124a1d5505eb0",
+      "sha256": "9b2379f0d8c918b827dce8c5cb4200a976d7f049dd6937b496051114dec41acc",
+      "bytes": 1313,
+      "preserved_bytes": "recovered/enclosure-older-774/git-objects/3e0cc157fe735a33f248b1db4fb124a1d5505eb0.tree.gz"
+    },
+    "cfaba92fe3871e45cba6a70d9de93e4a1d62924d": {
+      "git_object": "cfaba92fe3871e45cba6a70d9de93e4a1d62924d",
+      "sha256": "f09cd34de9803f062fcd797be5fd2801e915b68b9ad6fa2c8ab69ec978191249",
+      "bytes": 18452,
+      "preserved_bytes": "recovered/enclosure-older-774/git-objects/cfaba92fe3871e45cba6a70d9de93e4a1d62924d.tree.gz"
+    },
+    "266f242f43fd828cb5ae2ff4f2ae43b154ca6cec": {
+      "git_object": "266f242f43fd828cb5ae2ff4f2ae43b154ca6cec",
+      "sha256": "32ec9c454625e093bdfa3cf55157d9efc959e5c12e5c2c19e6a6698bcdbbe920",
+      "bytes": 8064,
+      "preserved_bytes": "recovered/enclosure-older-774/git-objects/266f242f43fd828cb5ae2ff4f2ae43b154ca6cec.tree.gz"
+    }
+  },
+  "paths": [
+    {
+      "label": "root-traces",
+      "path": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "original_sha256_as_manifested": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "exported_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "preserved_bytes": "recovered/enclosure-older-774/root-traces.jsonl.gz",
+      "path_proof": {
+        "chain": [
+          {
+            "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+            "name": "handoff",
+            "mode": "40000",
+            "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+          },
+          {
+            "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+            "name": "774",
+            "mode": "40000",
+            "child": "70cda9939284355c2264b601322aacba9399e65e"
+          },
+          {
+            "tree": "70cda9939284355c2264b601322aacba9399e65e",
+            "name": "adler-original",
+            "mode": "40000",
+            "child": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+          },
+          {
+            "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+            "name": "audit",
+            "mode": "40000",
+            "child": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+          },
+          {
+            "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+            "name": "records",
+            "mode": "40000",
+            "child": "fd82a1f6e41aa70561b116843c2222d6221a69e4"
+          },
+          {
+            "tree": "fd82a1f6e41aa70561b116843c2222d6221a69e4",
+            "name": "final-acceptance-20261021",
+            "mode": "40000",
+            "child": "e31898e591c6ae7284a63ba871ae3821963f4f3a"
+          },
+          {
+            "tree": "e31898e591c6ae7284a63ba871ae3821963f4f3a",
+            "name": "wave-01",
+            "mode": "40000",
+            "child": "b345eda25c3900bf7189c387158b5f62eda8cf19"
+          },
+          {
+            "tree": "b345eda25c3900bf7189c387158b5f62eda8cf19",
+            "name": "producer-supplement-after-owner",
+            "mode": "40000",
+            "child": "844a1b6bdb983fe0fedd42da2da58cf6373469f1"
+          },
+          {
+            "tree": "844a1b6bdb983fe0fedd42da2da58cf6373469f1",
+            "name": "root",
+            "mode": "40000",
+            "child": "3e0cc157fe735a33f248b1db4fb124a1d5505eb0"
+          },
+          {
+            "tree": "3e0cc157fe735a33f248b1db4fb124a1d5505eb0",
+            "name": "traces.jsonl",
+            "mode": "100644",
+            "child": "9ae38e6e156326a174de9a9c0b5c3bf9af8b80cd"
+          }
+        ],
+        "git_blob": "9ae38e6e156326a174de9a9c0b5c3bf9af8b80cd",
+        "sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+        "bytes": 581215,
+        "lines": 54
+      },
+      "qualification": "Exact older774 published bytes; original and export hashes match."
+    },
+    {
+      "label": "registration-export",
+      "path": "handoff/774/adler-original/audit/continuation/root/admission03/source-range-registration.jsonl",
+      "original_sha256_as_manifested": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+      "exported_sha256": "620a2b12f1a2138b2d87600fdde8c069520d97f50042e87c37dca0f305bf00cc",
+      "preserved_bytes": "recovered/enclosure-older-774/registration-export.jsonl.gz",
+      "path_proof": {
+        "chain": [
+          {
+            "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+            "name": "handoff",
+            "mode": "40000",
+            "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+          },
+          {
+            "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+            "name": "774",
+            "mode": "40000",
+            "child": "70cda9939284355c2264b601322aacba9399e65e"
+          },
+          {
+            "tree": "70cda9939284355c2264b601322aacba9399e65e",
+            "name": "adler-original",
+            "mode": "40000",
+            "child": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+          },
+          {
+            "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+            "name": "audit",
+            "mode": "40000",
+            "child": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+          },
+          {
+            "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+            "name": "continuation",
+            "mode": "40000",
+            "child": "ab7156f6d023931ad3d64952611ae14d1bdcab5a"
+          },
+          {
+            "tree": "ab7156f6d023931ad3d64952611ae14d1bdcab5a",
+            "name": "root",
+            "mode": "40000",
+            "child": "cfaba92fe3871e45cba6a70d9de93e4a1d62924d"
+          },
+          {
+            "tree": "cfaba92fe3871e45cba6a70d9de93e4a1d62924d",
+            "name": "admission03",
+            "mode": "40000",
+            "child": "266f242f43fd828cb5ae2ff4f2ae43b154ca6cec"
+          },
+          {
+            "tree": "266f242f43fd828cb5ae2ff4f2ae43b154ca6cec",
+            "name": "source-range-registration.jsonl",
+            "mode": "100644",
+            "child": "c358cde6d3126ba7a6ed95c47e182297705c460f"
+          }
+        ],
+        "git_blob": "c358cde6d3126ba7a6ed95c47e182297705c460f",
+        "sha256": "620a2b12f1a2138b2d87600fdde8c069520d97f50042e87c37dca0f305bf00cc",
+        "bytes": 46135,
+        "lines": 52
+      },
+      "qualification": "Older774 path-normalized export only. Original pre-export whole-file hash differs; its bytes have not been recovered."
+    }
+  ],
+  "evidence_manifest": "recovered/older-774-locator/03.gz",
+  "locator_export": "recovered/older-774-locator/04.gz",
+  "locator_entry": "/new_variant_identity_and_range_map/106",
+  "root_trace_line": 37,
+  "root_trace_line_sha256": "6df5fd45b1f40f28157a0e612503b67da9a4c8955b116788bc9634e98230fa09",
+  "native_trace": "recovered/gate-older-774/native-traces.jsonl.gz",
+  "native_trace_proof": "OLDER-774-NATIVE-GATE-PROOF.json",
+  "native_trace_line": 15,
+  "native_trace_line_sha256": "5c0806a084a13fa2450835bb34fa3881b941cb4e009504493fba17a748ded53e",
+  "registration_line": 22,
+  "registration_export_line_sha256": "a8938b6cdbcb20a6b1c5cc298e51202741bcfc565a9f3d7f4a20af908bec9dfa",
+  "original_record_semantically_matches_059_qualification": true,
+  "bounded_original_search": {
+    "method": "Read-only scan by exact basename source-range-registration.jsonl under16 local worktree target roots, excluding debug/release/incremental/.git/node_modules; symlinks not followed. The previously verified059 transport manifest was also checked for the exact hash.",
+    "matching_basename_files_hashed": 20,
+    "target_sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+    "exact_hash_matches": 0,
+    "qualification": "Only this bounded search; not proof of global absence or original unnormalized bytes."
+  },
+  "qualification": "Root/native historical scopes1–199 and separate material registration200–209 retain their original source and attribution. Registration is not proof the tail was read. Older locator export calls this a newly reached variant relative to its own frozen scope and awards no coverage. The 059 Segovb locator explicitly says its historical proof body was not then read; newly inspected older records do not alter that statement. Its scope prose contains encoding artifacts, preserved as recovered rather than silently repaired. These records are not checkpoint3821."
+}
