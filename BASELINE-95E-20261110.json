@@ -3802,8 +3802,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-UNDERSTORY-LITTER-95E.json"
+      },
+      {
+        "id": "REVIEW-PEBBLE-CHUNK-PATCH-EXTENT-001",
+        "lens": 4,
+        "severity": "unassigned; conditional source/reachability question",
+        "classification": "New conditional current source question: pebble chunk margin is fixed while patch mesh size follows grid spacing.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1320",
+          "baseline-059/queue.json#/entries/1321"
+        ],
+        "relationship_qualification": "New95e source question connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Exact aliases and supported outcomes remain open.",
+        "discovery": "partial; pinned source and symbolic spacing/edge example, actual scene/view and alias policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-PEBBLE-CHUNK-CELESTIAL-95E.json"
+      },
+      {
+        "id": "REVIEW-CELESTIAL-MATERIAL-NEW-ASSET-001",
+        "lens": 7,
+        "severity": "unassigned; conditional source/reachability question",
+        "classification": "New conditional current source question: a cached celestial write is not invalidated when a new material is created.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1320",
+          "baseline-059/queue.json#/entries/1321"
+        ],
+        "relationship_qualification": "New95e source question connected to earlier open obligations; no historical unique count or checkpoint3821 transfer. Exact aliases and supported outcomes remain open.",
+        "discovery": "partial; source-level conditional lifecycle and scheduling evidence, real order/impact and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-PEBBLE-CHUNK-CELESTIAL-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0659.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0703.json"
 }

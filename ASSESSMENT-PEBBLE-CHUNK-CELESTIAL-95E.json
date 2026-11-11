@@ -1,0 +1,611 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three original loose-stone/ground-scatter bodies, exact current diffs, and bounded pebble chunk and celestial material lifecycle traces.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1571-1573.json",
+  "git_membership_evidence": "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/batches.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "46209da30e9d9a3533ba9db643e16ed66b49e416",
+      "sha256": "9243489da94c5b4f2e1b93b9471ce63697c7028c2238db02c4b3be52658edb97",
+      "bytes": 4658,
+      "lines": 126,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/spawn.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c61a2fba7df041157f3252dcb19ddfe48d46f466",
+      "sha256": "dceb4f65084d06e5c58c2e7b00a86e4968b5ca6a3fa22598be3bfb280fa15a99",
+      "bytes": 4577,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "688a42369ae698c708e5dc662f3477c30e7b06e9",
+      "sha256": "e57c77ecdf7c28448ded39296a49ae590ed4c612021b0ae39736d8345dae8e3c",
+      "bytes": 3636,
+      "lines": 116,
+      "ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/chunk_instancing/queue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b944b2547013ee17b98fab2772ee3cadafcf32e",
+      "sha256": "e171e3975a749c9ff6e528d1af5daf3c3b1eabac43e8c9b71807b5dc8c6cbc18",
+      "bytes": 6924,
+      "lines": 201,
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1549d2533d927d16ef08afb6a54b6d89438076ca",
+      "sha256": "183b62660fadacb8f9bfe9a7051edcdc191c695358a95f4d75054095e52fd999",
+      "bytes": 21998,
+      "lines": 548,
+      "ranges": [
+        [
+          225,
+          242
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/celestial_materials.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "66f9b762395e03a2477e100e522962d826212390",
+      "sha256": "90b35990a745b6684e3f733c9a2b69a0c143e802ac968fdd594ac0d61e6bff06",
+      "bytes": 3241,
+      "lines": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2bcec2ed9eae812853b54bf66f6e68fad4fb3e36",
+      "sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "bytes": 30423,
+      "lines": 827,
+      "ranges": [
+        [
+          200,
+          315
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f2d500d8c8334accb9fea5059aa5bcc897d4a56",
+      "sha256": "ed476924038076fa25da5298c9bfb408b27eccc8210e5bbf01ddaa3c7cd6248d",
+      "bytes": 16427,
+      "lines": 411,
+      "ranges": [
+        [
+          230,
+          315
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "assets/shaders/tactical_pebble_instanced.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "62a2f579601522d50f0a3430178614c20eb554c2",
+      "sha256": "fef598bc8d25ea8c024fbe9f1264c7b836406a220c6feca3e034a5043f245d27",
+      "bytes": 3989,
+      "lines": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "assets/shaders/tactical_pebble_billboard_instanced.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4943bfbdd6e0b3f913d4ad1f9795235537d2a54d",
+      "sha256": "45f74a6e6a49f559eff2d5f44773dc5d455c85bd29898f726eb4224b5cde758c",
+      "bytes": 4785,
+      "lines": 124,
+      "ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          75,
+          90
+        ],
+        [
+          245,
+          305
+        ],
+        [
+          427,
+          456
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bba9b6f8d48e49b21a90f2213558e71a0894bbc",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "bytes": 3790,
+      "lines": 96,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5b519a2c494eb2918f19c3b6237d13ad5e91fdf8",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "bytes": 5729,
+      "lines": 182,
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pebble-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; full bytes retained. No product, asset generation, rendering, shader or test ran."
+    }
+  ],
+  "native_evidence": [
+    {
+      "manifest": "native-evidence/bevy_camera-0.19.1/MANIFEST.json",
+      "member": "bevy_camera-0.19.1/src/visibility/mod.rs",
+      "ranges": [
+        [
+          748,
+          855
+        ]
+      ],
+      "qualification": "Earlier inspected lock-matched archive; no native renderer ran."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Original to current renderer",
+      "trace": "The frozen pebble path created per-patch Bevy entities and a billboard box based on half_extent+0.3. Current source emits ChunkInstance batches and fixed InstanceReach; the celestial updater moved out of the original ground-scatter module.",
+      "remaining": "Byte differences are preserved; historical implementation does not prove current runtime behavior or other-lens review."
+    },
+    {
+      "contract": "Source-only conditional cases",
+      "trace": "See separate pebble patch-size and celestial asset lifecycle questions. The scene-input example covers local dimension and spacing guards, not complete document or actual prepared scene.",
+      "remaining": "No execution, asset, shader, scene, scheduler or camera result was observed."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-PEBBLE-CHUNK-PATCH-EXTENT-001",
+      "lens": 4,
+      "classification": "New conditional current source question: pebble chunk margin is fixed while patch mesh size follows grid spacing.",
+      "first_failed_contract": "A chunk bound may be narrower than its admitted pebble patch geometry.",
+      "canonical_owner": "Ground grid spacing, generated pebble patch mesh and InstanceReach for its chunk.",
+      "trace": "loose_stone::spawn sets patch half_extent = ground.grid_scale()*0.5 and builds hero, near and billboard meshes at that extent. Current pebble batches pass ground_scatter_reach(1.0) to Cell::bounds, regardless of that extent. A source grid with width/depth401 and spacing4m passes the local dimension/spacing checks; the upsample limit is floor(600/400)=1, so that path retains spacing4m and patch half_extent2m. The edge-column centre formula for a surviving candidate ranges beyond1.46m at that extent. For a non-woodland patch the source placement scale is 1.0; a singleton chunk with suitable yaw could therefore have mesh vertices outside its one-metre horizontal root bound. Woodland patches use 0.58 scale and require separate bounds analysis.",
+      "safeguards": "This is ideal source arithmetic, not a generated mesh or culling observation. Other scene-input constraints, an actually surviving edge pebble in a non-woodland patch, chunk root distribution, orientation and a camera rejecting the bound remain unproved. The prior renderer had a separate half_extent+0.3 billboard AABB; its historical behavior is not current validation.",
+      "dependencies": [
+        "Trace the complete source document, terrain preparation, accepted patch/seed and current Bevy visibility path.",
+        "Compare with the related grass deformation and shrub extent questions without automatically merging distinct size owners."
+      ],
+      "acceptance_requirements": [
+        "Every supported pebble patch bound covers the actual mesh/billboard extents and allowed placement scale while preserving LOD handoff."
+      ],
+      "discovery": "partial; pinned source and symbolic spacing/edge example, actual scene/view and alias policy open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-CELESTIAL-MATERIAL-NEW-ASSET-001",
+      "lens": 7,
+      "classification": "New conditional current source question: a cached celestial write is not invalidated when a new material is created.",
+      "first_failed_contract": "A newly created celestial-dependent material can retain default lighting when the global celestial cache reports no meaningful change.",
+      "canonical_owner": "PresentedCelestialLighting and per-material initialization/update lifecycle.",
+      "trace": "The current celestial material system returns when the celestial resource is unchanged, and also returns for a changed snapshot whose lighting and ambient differ from its last written values by less than1e-6 squared. The last-written state is global to the system, not keyed by asset. Pebble PatchAssets::new adds a billboard material initialized with fixed lighting/ambient values; the billboard shader consumes these fields. If the new material is added after the last write while celestial state remains unchanged or below the tolerance and its defaults differ from the snapshot, the shown updater does not write it until a sufficiently different snapshot arrives.",
+      "safeguards": "Actual Bevy scheduling, asset creation timing, default/snapshot equality and time of next celestial change are not observed. The updater is explicitly ordered after presented celestial updates and pending trees; its relative ordering with present_ground_scatter is not specified in the inspected schedule. Other material classes require separate tracing.",
+      "dependencies": [
+        "Trace creation, retention and change detection for every affected material and actual scene scheduling.",
+        "Preserve avoidance of redundant asset writes while ensuring new eligible materials receive the current snapshot."
+      ],
+      "acceptance_requirements": [
+        "Eligible newly created assets receive authoritative current lighting even if the global celestial values have not changed; subsequent updates remain efficient."
+      ],
+      "discovery": "partial; source-level conditional lifecycle and scheduling evidence, real order/impact and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1320",
+        "/entries/1321"
+      ],
+      "qualification": "Both are partial; 059 does not restore3821."
+    },
+    {
+      "file": "ASSESSMENT-GRASS-CHUNK-AND-CONFIG-95E.json",
+      "qualification": "Current chunk frustum and grass bound source, related but not automatic alias."
+    },
+    {
+      "file": "ASSESSMENT-UNDERSTORY-LITTER-95E.json",
+      "qualification": "Current shrub and litter bounds remain separate candidates."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-221.json",
+      "sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "bytes": 10621,
+      "git_blob": "25bb8a4a591ee3909127f214e44fb93350adcbea",
+      "preserved_bytes": "recovered/pebble-059/5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42.gz",
+      "published_sha256": "5b6969a348e597bd009db3a479bb598241cc1c57b4b6868f71ea2bb6244e7f42",
+      "published_bytes": 10621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent adler Lens11 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-399.json",
+      "sha256": "770b7a46def4e90e05aef51042ed80cc42061966082cc433bf252b333d9acca2",
+      "bytes": 757,
+      "git_blob": "656a5aa221b94553c3267590c2b38671618667bb",
+      "preserved_bytes": "recovered/pebble-059/770b7a46def4e90e05aef51042ed80cc42061966082cc433bf252b333d9acca2.gz",
+      "published_sha256": "770b7a46def4e90e05aef51042ed80cc42061966082cc433bf252b333d9acca2",
+      "published_bytes": 757,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-400.json",
+      "sha256": "77e9d56e9c911422b26a8c7d6c2654662243506440c204a7b5691c021b7074a7",
+      "bytes": 763,
+      "git_blob": "9e83c70bb521a9c339217b6ffc874c7903f77a7b",
+      "preserved_bytes": "recovered/pebble-059/77e9d56e9c911422b26a8c7d6c2654662243506440c204a7b5691c021b7074a7.gz",
+      "published_sha256": "77e9d56e9c911422b26a8c7d6c2654662243506440c204a7b5691c021b7074a7",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-401.json",
+      "sha256": "4e63251cd5a89262957ca3d7ed4640c080693ac899029bd5201b937bc1c72376",
+      "bytes": 763,
+      "git_blob": "b9ea73b546568284087eaaf2ece8d2c6ab276116",
+      "preserved_bytes": "recovered/pebble-059/4e63251cd5a89262957ca3d7ed4640c080693ac899029bd5201b937bc1c72376.gz",
+      "published_sha256": "4e63251cd5a89262957ca3d7ed4640c080693ac899029bd5201b937bc1c72376",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 source registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-221.json",
+      "sha256": "f5e0fd7be2423849f11864f8edff378aa14586f0a46a8ae825b151daea87fcf9",
+      "bytes": 635,
+      "git_blob": "f4a2baf189b9e07f3fc475ef81c7d95a76014264",
+      "preserved_bytes": "recovered/pebble-059/f5e0fd7be2423849f11864f8edff378aa14586f0a46a8ae825b151daea87fcf9.gz",
+      "published_sha256": "f5e0fd7be2423849f11864f8edff378aa14586f0a46a8ae825b151daea87fcf9",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-221.json",
+      "sha256": "58710ba2ab260defc529e67ebf6b172d69e6ac6d7b72f850f2eec9d1ba42f799",
+      "bytes": 26121,
+      "git_blob": "5a6a71fa31ff33f721b122f70ca00d4e34bb27f9",
+      "preserved_bytes": "recovered/pebble-059/58710ba2ab260defc529e67ebf6b172d69e6ac6d7b72f850f2eec9d1ba42f799.gz",
+      "published_sha256": "58710ba2ab260defc529e67ebf6b172d69e6ac6d7b72f850f2eec9d1ba42f799",
+      "published_bytes": 26121,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-486.json",
+      "sha256": "ec95ba7dea2ccc104d2639c5e449dcd10dfc4ae57dcc3ec08f3821e55fff9c40",
+      "bytes": 742,
+      "git_blob": "22e9757cc23ecaf2bc9f8847099c6b318150ae87",
+      "preserved_bytes": "recovered/pebble-059/ec95ba7dea2ccc104d2639c5e449dcd10dfc4ae57dcc3ec08f3821e55fff9c40.gz",
+      "published_sha256": "ec95ba7dea2ccc104d2639c5e449dcd10dfc4ae57dcc3ec08f3821e55fff9c40",
+      "published_bytes": 742,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-487.json",
+      "sha256": "a730eab30daa60d00aa8e1d94b8f4428c5e2ce44a69b9f825e7ca621872fca57",
+      "bytes": 1249,
+      "git_blob": "83d9b34ad45c9132dea6e8c862b1eba6b3ff7077",
+      "preserved_bytes": "recovered/pebble-059/a730eab30daa60d00aa8e1d94b8f4428c5e2ce44a69b9f825e7ca621872fca57.gz",
+      "published_sha256": "a730eab30daa60d00aa8e1d94b8f4428c5e2ce44a69b9f825e7ca621872fca57",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-486.json",
+      "sha256": "bce944db3c01c5c6014a3b1ebe55d1cf531babb1a77cfa1b221bc77cd5dc3736",
+      "bytes": 6101,
+      "git_blob": "9356e9e11e1aa7371214c8704b0cecb97e0c5a75",
+      "preserved_bytes": "recovered/pebble-059/bce944db3c01c5c6014a3b1ebe55d1cf531babb1a77cfa1b221bc77cd5dc3736.gz",
+      "published_sha256": "bce944db3c01c5c6014a3b1ebe55d1cf531babb1a77cfa1b221bc77cd5dc3736",
+      "published_bytes": 6101,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent segovb Lens12 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-487.json",
+      "sha256": "2edfce8c64415e9875d3979aea5be59009d98076c19af8f80f08956fab9abff0",
+      "bytes": 11336,
+      "git_blob": "2b46be2b4778102284e55b4db104ce84e0f73351",
+      "preserved_bytes": "recovered/pebble-059/2edfce8c64415e9875d3979aea5be59009d98076c19af8f80f08956fab9abff0.gz",
+      "published_sha256": "2edfce8c64415e9875d3979aea5be59009d98076c19af8f80f08956fab9abff0",
+      "published_bytes": 11336,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent segovb Lens12 receipt"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-478.json",
+      "sha256": "34b7b1d8fbd3a228e271d69aaf8747e2590a39ca56371d9283ab52986a62f168",
+      "bytes": 1204,
+      "git_blob": "76d2cd6d64f7e4187e2d2b496d2a662b2b4531e1",
+      "preserved_bytes": "recovered/pebble-059/34b7b1d8fbd3a228e271d69aaf8747e2590a39ca56371d9283ab52986a62f168.gz",
+      "published_sha256": "34b7b1d8fbd3a228e271d69aaf8747e2590a39ca56371d9283ab52986a62f168",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-479.json",
+      "sha256": "5a31f0e3f1cffd9aa08831415a559f50349af8000caf8c273e1f1d7288723484",
+      "bytes": 1228,
+      "git_blob": "4c48f58f5dda1a7d7520a456d85f8dd9ac4d00f5",
+      "preserved_bytes": "recovered/pebble-059/5a31f0e3f1cffd9aa08831415a559f50349af8000caf8c273e1f1d7288723484.gz",
+      "published_sha256": "5a31f0e3f1cffd9aa08831415a559f50349af8000caf8c273e1f1d7288723484",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-480.json",
+      "sha256": "c044a709e7a756993c9ba7b7d33ed334841bb42aef5842a3506d9e2baef254c7",
+      "bytes": 1200,
+      "git_blob": "e80ee269194e1f1864c47fea6669fc19fcea20fd",
+      "preserved_bytes": "recovered/pebble-059/c044a709e7a756993c9ba7b7d33ed334841bb42aef5842a3506d9e2baef254c7.gz",
+      "published_sha256": "c044a709e7a756993c9ba7b7d33ed334841bb42aef5842a3506d9e2baef254c7",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original registration"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-486.json",
+      "sha256": "d2ee855049668f556ec568804bce0495fc88174ab0f2c76fa9f7121b00053852",
+      "bytes": 840,
+      "git_blob": "4135b150c32cba0158754a857dfd154167d134a3",
+      "preserved_bytes": "recovered/pebble-059/d2ee855049668f556ec568804bce0495fc88174ab0f2c76fa9f7121b00053852.gz",
+      "published_sha256": "d2ee855049668f556ec568804bce0495fc88174ab0f2c76fa9f7121b00053852",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-487.json",
+      "sha256": "4a070030a7cfd89cbcc4f587130a38f87aace3a18e9187fb27b4539ac406e51b",
+      "bytes": 840,
+      "git_blob": "4fb76d31f71b7b9af672674cb3a413189d17600a",
+      "preserved_bytes": "recovered/pebble-059/4a070030a7cfd89cbcc4f587130a38f87aace3a18e9187fb27b4539ac406e51b.gz",
+      "published_sha256": "4a070030a7cfd89cbcc4f587130a38f87aace3a18e9187fb27b4539ac406e51b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-486.json",
+      "sha256": "b4be936f4322a7d1b6bbf029d371de095eb10080f9ee4dd742344a37697db753",
+      "bytes": 558,
+      "git_blob": "1d46b586ab852dfdd7a16953d1b9a8dc688eb32f",
+      "preserved_bytes": "recovered/pebble-059/b4be936f4322a7d1b6bbf029d371de095eb10080f9ee4dd742344a37697db753.gz",
+      "published_sha256": "b4be936f4322a7d1b6bbf029d371de095eb10080f9ee4dd742344a37697db753",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-487.json",
+      "sha256": "8fd2381beece7273409dc954836117fcc4e208e0a8ef99e8843d92b4c694659d",
+      "bytes": 558,
+      "git_blob": "fc68a57621ff0f3d1d1778a7b6254825de3631e8",
+      "preserved_bytes": "recovered/pebble-059/8fd2381beece7273409dc954836117fcc4e208e0a8ef99e8843d92b4c694659d.gz",
+      "published_sha256": "8fd2381beece7273409dc954836117fcc4e208e0a8ef99e8843d92b4c694659d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source scope and no-current-reconciliation qualification retained; no checkpoint3821 transfer."
+    }
+  ],
+  "remaining": "Complete valid source scene and pebble/view witness, asset/snapshot ordering, all caller and policy aliases, original1574 onward and thirteen lenses remain open. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
