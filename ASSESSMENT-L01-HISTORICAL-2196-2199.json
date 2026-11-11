@@ -1,0 +1,297 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2196,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2196",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 61,
+          "read_ranges": [
+            [
+              1,
+              331
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "lines": 331,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PAULDRON-PART-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2196-2199.json",
+        "sha256": "3e9372fbce60aadfb88ef1788268908924ea84716e8ea2ab3bf9f4bab8fd34db"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 bodies2196–2198 were separately displayed from current95e; for identical2199 the actual display used current bytes whose historic equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "sha256": "7fd6e10486c4bd4d5dadf31f9c579a1efd6f5e9be90609baa6622d6f63bf5f6f",
+        "bytes": 11660,
+        "lines": 361,
+        "git_blob": "17b46652cce1fd007c751d9c02c6187e8f639a23",
+        "preserved_bytes": "main-advance-95e/pauldron-part-evidence/current-2196.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            361
+          ]
+        ],
+        "qualification": "Both changed2196–2198 revisions were separately displayed; identical2199 uses the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2197 owner metadata extends beyond EOF362; its historical qualification preserves the raw claim with zero credit for363–369. Historical and current versions and reviewer attributions remain distinct."
+    },
+    {
+      "original_index": 2197,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2197",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/part.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 130,
+          "read_ranges": [
+            [
+              1,
+              160
+            ],
+            [
+              335,
+              369
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 214,
+          "read_ranges": [
+            [
+              1,
+              362
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              160
+            ],
+            [
+              335,
+              362
+            ]
+          ]
+        }
+      ],
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "lines": 362,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PAULDRON-PART-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2196-2199.json",
+        "sha256": "3e9372fbce60aadfb88ef1788268908924ea84716e8ea2ab3bf9f4bab8fd34db"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 bodies2196–2198 were separately displayed from current95e; for identical2199 the actual display used current bytes whose historic equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/part.rs",
+        "sha256": "8028b8d116319efad8f496411b9d503f9536f443df917ddab8951d6c0bc27a29",
+        "bytes": 15380,
+        "lines": 399,
+        "git_blob": "c25d6c84f410e31676bdd1bfe2a5c9ee06b1e5ab",
+        "preserved_bytes": "main-advance-95e/pauldron-part-evidence/current-2197.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            399
+          ]
+        ],
+        "qualification": "Both changed2196–2198 revisions were separately displayed; identical2199 uses the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2197 owner metadata extends beyond EOF362; its historical qualification preserves the raw claim with zero credit for363–369. Historical and current versions and reviewer attributions remain distinct."
+    },
+    {
+      "original_index": 2198,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2198",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 129,
+          "read_ranges": [
+            [
+              1,
+              289
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              289
+            ]
+          ]
+        }
+      ],
+      "sha256": "ff78ae8e0c6e40168541eebee2a17792bb8193146d0a4b93463143adcf71c626",
+      "lines": 289,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PAULDRON-PART-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2196-2199.json",
+        "sha256": "3e9372fbce60aadfb88ef1788268908924ea84716e8ea2ab3bf9f4bab8fd34db"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 bodies2196–2198 were separately displayed from current95e; for identical2199 the actual display used current bytes whose historic equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+        "sha256": "82a6a4729b279187a9e7012181e5b85601f4ab3924c707d3243816168a83bc62",
+        "bytes": 10650,
+        "lines": 311,
+        "git_blob": "2df5e7139a1230cb2478492b85d203fa22842198",
+        "preserved_bytes": "main-advance-95e/pauldron-part-evidence/current-2198.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            311
+          ]
+        ],
+        "qualification": "Both changed2196–2198 revisions were separately displayed; identical2199 uses the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2197 owner metadata extends beyond EOF362; its historical qualification preserves the raw claim with zero credit for363–369. Historical and current versions and reviewer attributions remain distinct."
+    },
+    {
+      "original_index": 2199,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2199",
+      "original_locator": "crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 247,
+          "read_ranges": [
+            [
+              1,
+              244
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-019",
+          "read_ranges_as_recorded": [
+            [
+              151,
+              244
+            ]
+          ]
+        }
+      ],
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "lines": 244,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "PAULDRON-PART-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2196-2199.json",
+        "sha256": "3e9372fbce60aadfb88ef1788268908924ea84716e8ea2ab3bf9f4bab8fd34db"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 bodies2196–2198 were separately displayed from current95e; for identical2199 the actual display used current bytes whose historic equality is verified. No historical reviewer reread credit follows.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/gpu/pauldron.rs",
+        "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+        "bytes": 8534,
+        "lines": 244,
+        "git_blob": "3a83532792106b444968dd7833c9ce5476b936b8",
+        "preserved_bytes": "main-advance-95e/pauldron-part-evidence/current-2199.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            244
+          ]
+        ],
+        "qualification": "Both changed2196–2198 revisions were separately displayed; identical2199 uses the current display with byte equivalence only. No earlier author or other-lens credit follows."
+      },
+      "qualification": "Original2197 owner metadata extends beyond EOF362; its historical qualification preserves the raw claim with zero credit for363–369. Historical and current versions and reviewer attributions remain distinct."
+    }
+  ],
+  "observations": [
+    "Original6533 historical bodies2196–2198 and their changed current95e counterparts were prospectively registered and independently displayed in full bounded ranges. Original2199 and current bytes are identical; one full current display has exact historical byte equivalence, without transferring reviewer credit.",
+    "Original2197 owner metadata includes a request335–369 although exact historical EOF is362. RawREG1055 remains preserved; original Adler registered effective1–362 in REG1063 before body reading. Original delegate qualification separately records effective335–362 and zero coverage363–369. No nonexistent lines or other-lens coverage are credited.",
+    "Original Lens12 adoption731 reused the earlier delegate personal full331 read for2196 with no new body read; adoption732 credits delegate full historical2197–2201. Adler347 separately read full historical2196–2197; Adler348 separately read2198–2199. Root Lens12 adoptions had zero personal rereads and zero accepted unique-count change. Their evidence does not expand to current changed files. Local registration time is not independently attested."
+  ],
+  "qualification": "Original metadata, exact EOF qualifications, independent historical reviewers and new old/current displays remain separate; no checkpoint3821 claim.",
+  "next_original_role": 2200
+}
