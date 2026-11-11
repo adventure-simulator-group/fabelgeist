@@ -1,0 +1,54 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2000,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2000",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "lines": 978,
+      "new_personal_read_ranges": [
+        [
+          1,
+          978
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+        "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+        "bytes": 40769,
+        "lines": 978,
+        "git_blob": "d2935bd735cfa600328abf870a8a4fdcccbdfcce",
+        "preserved_bytes": "main-advance-95e/scene-materialization-evidence/current-2000.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            978
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without a separate independent reviewer credit. Authored tests and product functions remain unexecuted."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Full historic scene provisioning/materialization source personally read through EOF, including authored tests; no source test, scene materialization, generator or product ran.",
+    "The body is byte-identical to95e. Earlier current landform and dispatcher source traces retain their own bounded scope; equality does not transfer another reviewer verdict.",
+    "Original Segovb670 and Adler309 retain independent attributions and qualified same-lens reuse; Adler309 includes future roles2001/2002 without new personal ordered credit."
+  ],
+  "qualification": "Personal historical Lens1 body with separately qualified current and installed Rust source connections. Original reviewer attribution and revision remain intact; none is checkpoint3821.",
+  "next_original_role": 2001
+}
