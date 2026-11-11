@@ -7324,8 +7324,58 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-RECONNECT-CONTINUITY-95E.json"
+      },
+      {
+        "id": "REVIEW-STARTUP-INPUT-UNBOUNDED-READ-001",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source-level failure",
+        "classification": "New95e conditional source finding: the scene and combat config size checks inspect metadata before separate whole-file reads; path replacement or concurrent growth can make the consumed bytes exceed the inspected cap. No file activity or product execution was observed.",
+        "historical_related_records": [
+          "SEGOVB-L12-TACTICAL-STARTUP-ERROR-OWNERSHIP"
+        ],
+        "relationship_qualification": "New95e source assessment connects earlier open evidence; not a new historical finding or3821 claim.",
+        "discovery": "partial; selected producer and consumer paths are connected, supported interleavings, policy and exact aliases remain open",
+        "connected_repair_direction": "Enforce the scene and config caps on the actual input bytes before parsing, retain source error causes, and preserve validated authored input behavior.",
+        "future_acceptance": "After authorization, cover growth or replacement between metadata and read, exact-limit boundaries and valid inputs.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-STARTUP-SUBSCRIPTION-95E.json"
+      },
+      {
+        "id": "REVIEW-TACTICAL-PLAYER-SUBSCRIPTION-FAILURE-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional source-level failure",
+        "classification": "New95e conditional source finding: the pinned SDK removes a failed connected-player subscription and returns Ok for the error message; the application callback only logs and the selected readiness setup does not show retry or fail-closed behavior. No SDK event, connection, database or player was observed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1655"
+        ],
+        "relationship_qualification": "New95e source assessment connects earlier open evidence; not a new historical finding or3821 claim.",
+        "discovery": "partial; selected producer and consumer paths are connected, supported interleavings, policy and exact aliases remain open",
+        "connected_repair_direction": "Give failed connected-player subscriptions an explicit retry or fail-closed owner, preserving callback registration, authorization, duplicate prevention and mission lifecycle.",
+        "future_acceptance": "After authorization, cover initial and later subscription errors, a healthy connection, recovery or visible failure, loading joins and duplicate callbacks.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-STARTUP-SUBSCRIPTION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1421.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1425.json"
 }
