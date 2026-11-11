@@ -1,0 +1,729 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1977–1981 and bounded terrain diagnostic, capture and controller-configuration connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1977-1981.json",
+  "git_membership_evidence": "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          120,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "70dd787c5f87370f4676d51434ec0825a81f65b9",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "bytes": 935,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          450,
+          504
+        ],
+        [
+          725,
+          729
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          90,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          66,
+          84
+        ],
+        [
+          120,
+          139
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "bytes": 72173,
+      "lines": 1738,
+      "ranges": [
+        [
+          332,
+          391
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "210041d58493da3cdd10df3622282c2a4f38de18",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "bytes": 678,
+      "lines": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "27475f5e3fad6f475cde51f1e8b2317feea85b95",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "bytes": 6269,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5e56f8ee47acbbf2ad88c04397640daf51cccc3d",
+      "sha256": "b273838e62fad2b7929676b8fc9099581cc0b60cf77abcdbb24b63a124864282",
+      "bytes": 1917,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-diagnostics-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No diagnostic, server, collision query, test or product ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-GARDEN-CLEARANCE-SAFEGUARDS-95E.json",
+    "ASSESSMENT-CLIENT-ENDPOINT-INPUT-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Four semantic terrain stages",
+      "trace": "The diagnostic constructs one source per role, resolves by enum equality, and reports height ranges and complete overlays. The selected main supplies all roles, while the fixed [StageSource;4] signature itself permits duplicates. The private lookup contains a production expect barred by the current crate guide.",
+      "remaining": "Other callers, representation/alias policy, native geometry and all independent lens coverage remain open; no crash is claimed."
+    },
+    {
+      "contract": "Diagnostic capture provenance",
+      "trace": "The ordinary producer constructs CompleteSceneContext after complete-context terrain preparation. PreparedTerrainCapture compares self-reported input digest and imported source before reconstructing its surface; its purpose is not checked by that method. The export helper labels metadata complete-context. The separate validate-city-support entrypoint deserializes a capture and invokes the same method without checking purpose; its report says purpose remains in the capture. Inspection TerrainStages separately verifies input/source identity.",
+      "remaining": "Actual alternate capture producers, whether isolated captures are acceptable to each diagnostic, capture authenticity, output atomicity and report consumers remain open. No false ordinary-producer witness is claimed."
+    },
+    {
+      "contract": "Garden walking threshold",
+      "trace": "The diagnostic derives its numeric grade from the compiled default. The server can select a validated file and installs that configuration into the resource read by the character motor. The selected motor threshold can therefore differ from the default diagnostic threshold.",
+      "remaining": "See the conditional finding for the ideal comparison and the explicit disclaimer; no actual scene, YAML, process, controller, movement or diagnostic was run."
+    },
+    {
+      "contract": "Contact and region diagnostics",
+      "trace": "The contact helper retains exact points in typed missing/unsupported errors; ray, nearest, cylinder and height outputs are distinct observations. Region comparison treats missing measurements as false and tracks area/coverage separately. The selected building filter rejects absent requested IDs and empty selection.",
+      "remaining": "Native cast-error distinctions, all geometry and output consumers, full identity/alias families and actual diagnostic operations remain unobserved."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "SEGOVB-L12-TERRAIN-STAGE-LOOKUP-PANIC",
+      "first_contract": "The applicable Rust guide prohibits expect outside tests; a source collection should own the stage membership required by its lookup.",
+      "source_witness": "The compare-city-terrain diagnostic calls expect on a find by TerrainStageRole. The fixed array is typed as four StageSource entries, but its element type does not enforce one of each role. The same function and guide rule are present at95e.",
+      "counterevidence": "The only selected ordinary main construction supplies all four distinct roles, and the authored role-reordering test constructs all four; neither supplies a missing role. The helper is private. No reachable missing-stage panic is asserted and no test ran.",
+      "effect_and_limits": "This is a documented repository rule and representation finding, not an observed crash. All callers, exact aliases and independent lenses remain open.",
+      "repair_direction": "When separately authorized, represent or handle the four stages explicitly while preserving the role meanings, diagnostic output and comparison scope.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/261",
+        "segovb/READ-L12-663.json",
+        "adler/READ-L11-305.json"
+      ],
+      "alias_qualification": "Same original059 identifier, recovered and newly checked at95e; not a second historical finding or a checkpoint3821 record.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-GARDEN-DIAGNOSTIC-DEFAULT-WALK-SLOPE-001",
+      "first_contract": "A diagnostic that presents a controller walkability limit needs its slope threshold associated with the configuration it is describing.",
+      "source_witness": "Garden measure_region derives walk_grade from TacticalCombatConfig::default, whose implementation clones compiled-in content/tactical/combat.yaml (40 degrees). Separately the tactical server accepts a combat-config path, validates that YAML, inserts it as a Bevy resource, and apply_character_motor passes its motor to apply_motor_config, which sets the controller minimum walk cosine from the selected maximum slope. Assuming an otherwise valid selected config with 30 degrees and a successful composed-region measurement at grade tan(35 degrees), the default diagnostic predicate compares tan(35) <= tan(40) and reports true, while the selected controller threshold is cos(30), above the ideal face normal cosine cos(35). This is conditional source/monotonicity reasoning only.",
+      "counterevidence": "The committed embedded default is 40 degrees and a server using the same authored config shares that threshold. The diagnostic explicitly disclaims traversal and collision-clearance certification; its report can be intentionally a default-config observation. Geometry measurement existence, native controller interpretation, scheduling and actual user output were not exercised.",
+      "effect_and_limits": "If readers interpret composed_grade_within_controller_bound as the separately selected tactical server configuration, a non-default server threshold can disagree with that field. The intended diagnostic policy, actual supplied configuration, terrain, report consumer and impact remain open; no traversal or runtime behavior is asserted.",
+      "repair_direction": "When separately authorized, bind any controller-specific diagnostic claim to the selected tuning or make the default-only policy and provenance explicit; assess all report consumers and connected geometry constraints.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1632",
+        "segovb/READ-L12-663.json",
+        "adler/READ-L11-305.json"
+      ],
+      "alias_qualification": "The original059 pending question is preserved and partially assessed; no historical unique count or exact alias is inferred.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "bytes": 12123,
+      "git_blob": "bdd561888e4bca8bdaf6956ed56cada4863d6b71",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b.gz",
+      "published_sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "published_bytes": 12123,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-280.json",
+      "sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7",
+      "bytes": 8313,
+      "git_blob": "1bf2710b4c0e9552ae6bd3e688e60dde4c5fd9fd",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7.gz",
+      "published_sha256": "098c1510df1eb989fbf6343e52711b0098bb347299c705d71424efa03294b7c7",
+      "published_bytes": 8313,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "bytes": 13832,
+      "git_blob": "e0d57c8d63b43f7316a36c36887ecedae0af0d74",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b.gz",
+      "published_sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "published_bytes": 13832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "bytes": 14121,
+      "git_blob": "9f4260dce5010eb14df055908d6ee3833f7001cb",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec.gz",
+      "published_sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "published_bytes": 14121,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "bytes": 12122,
+      "git_blob": "c01cb886745ed876e6caf0a782209a6ff12e519b",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203.gz",
+      "published_sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "published_bytes": 12122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-298.json",
+      "sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546",
+      "bytes": 17444,
+      "git_blob": "5adf966d01a1d89ba28fa4d535fb3c6dbe7e9b1c",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546.gz",
+      "published_sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546",
+      "published_bytes": 17444,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "bytes": 10759,
+      "git_blob": "8a875adb77b5a5923245dfda1d75a20bc9818e92",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6.gz",
+      "published_sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "published_bytes": 10759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-300.json",
+      "sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "bytes": 11459,
+      "git_blob": "a24ab095462a169485e442e22aced45eaaae7526",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d.gz",
+      "published_sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "published_bytes": 11459,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "bytes": 7451,
+      "git_blob": "508d1a77265adb8920c00b2ba0e81d774483a069",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8.gz",
+      "published_sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "published_bytes": 7451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-305.json",
+      "sha256": "9e39931ec49520696ab93ba8ab83b907f461c539121cc8efd39f8a133958f7cc",
+      "bytes": 12822,
+      "git_blob": "fea54431e72233de591cc15671817f650972cc18",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/9e39931ec49520696ab93ba8ab83b907f461c539121cc8efd39f8a133958f7cc.gz",
+      "published_sha256": "9e39931ec49520696ab93ba8ab83b907f461c539121cc8efd39f8a133958f7cc",
+      "published_bytes": 12822,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-820.json",
+      "sha256": "2bcf4df8a30b34895fc132c970c78ab8df323a9e21106de938cca6adf15e650f",
+      "bytes": 699,
+      "git_blob": "2ad1920093fa24afc49560eacb6c0a3b509858f0",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/2bcf4df8a30b34895fc132c970c78ab8df323a9e21106de938cca6adf15e650f.gz",
+      "published_sha256": "2bcf4df8a30b34895fc132c970c78ab8df323a9e21106de938cca6adf15e650f",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-821.json",
+      "sha256": "3b83734bc32b107e0e5d011066bbafea752c65b68514e314fe14edf8af6fe26b",
+      "bytes": 706,
+      "git_blob": "7aa594c9d44c800813ad33b91bad845f5307fc0b",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/3b83734bc32b107e0e5d011066bbafea752c65b68514e314fe14edf8af6fe26b.gz",
+      "published_sha256": "3b83734bc32b107e0e5d011066bbafea752c65b68514e314fe14edf8af6fe26b",
+      "published_bytes": 706,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-822.json",
+      "sha256": "28056ee45e8aae8d1bada7e9f96f818eec660ef6bbe9bd4191f55acf6926e10d",
+      "bytes": 713,
+      "git_blob": "bee56cecd6d5bd05aa300cddba733af10e105141",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/28056ee45e8aae8d1bada7e9f96f818eec660ef6bbe9bd4191f55acf6926e10d.gz",
+      "published_sha256": "28056ee45e8aae8d1bada7e9f96f818eec660ef6bbe9bd4191f55acf6926e10d",
+      "published_bytes": 713,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-823.json",
+      "sha256": "570488a7c14a865aaab0ff96e3b39518dd9c07f3126e5e52c6ea2d9834571a8b",
+      "bytes": 708,
+      "git_blob": "90df3ea47ce7931b26c3a5d2ebea953385c1df5b",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/570488a7c14a865aaab0ff96e3b39518dd9c07f3126e5e52c6ea2d9834571a8b.gz",
+      "published_sha256": "570488a7c14a865aaab0ff96e3b39518dd9c07f3126e5e52c6ea2d9834571a8b",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-824.json",
+      "sha256": "bc02cb5e52adeca76c427ac4e90f39082c55c942221b65bc631311bf3890b92e",
+      "bytes": 707,
+      "git_blob": "bd118154c2d51d914e41daf98078fce08d314ec7",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/bc02cb5e52adeca76c427ac4e90f39082c55c942221b65bc631311bf3890b92e.gz",
+      "published_sha256": "bc02cb5e52adeca76c427ac4e90f39082c55c942221b65bc631311bf3890b92e",
+      "published_bytes": 707,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-825.json",
+      "sha256": "2f3ecaa1d06726b05040d7b0699eb531e1acd46ca6fe47927de9f5c526bdbca1",
+      "bytes": 696,
+      "git_blob": "793b4b4849580d8f9e2bae2a1f076b37fc63b2b2",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/2f3ecaa1d06726b05040d7b0699eb531e1acd46ca6fe47927de9f5c526bdbca1.gz",
+      "published_sha256": "2f3ecaa1d06726b05040d7b0699eb531e1acd46ca6fe47927de9f5c526bdbca1",
+      "published_bytes": 696,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-305.json",
+      "sha256": "c1d3b4d954b0dbf736ccc50a3e98546fa45cf227ea5d16e3e821ef3c23decf47",
+      "bytes": 668,
+      "git_blob": "b78bd830cf81e63224d776cd5504c96c7bb24a46",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/c1d3b4d954b0dbf736ccc50a3e98546fa45cf227ea5d16e3e821ef3c23decf47.gz",
+      "published_sha256": "c1d3b4d954b0dbf736ccc50a3e98546fa45cf227ea5d16e3e821ef3c23decf47",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-305.json",
+      "sha256": "52c3df4b0e483c691cee58636428fa5dc36245c15be13f297f36e10996bf2b6d",
+      "bytes": 33254,
+      "git_blob": "1ba9f1ac8cc14ff201fcaf57f597c8c6e9b11634",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/52c3df4b0e483c691cee58636428fa5dc36245c15be13f297f36e10996bf2b6d.gz",
+      "published_sha256": "52c3df4b0e483c691cee58636428fa5dc36245c15be13f297f36e10996bf2b6d",
+      "published_bytes": 33254,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-663.json",
+      "sha256": "2a430f7e1425148e87ddbcc575233562339f85d5a9da28d91b3d22709cfe0037",
+      "bytes": 2799,
+      "git_blob": "fbd06ab6d91cece1fd779b358c9a7ad8f8d53b39",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/2a430f7e1425148e87ddbcc575233562339f85d5a9da28d91b3d22709cfe0037.gz",
+      "published_sha256": "2a430f7e1425148e87ddbcc575233562339f85d5a9da28d91b3d22709cfe0037",
+      "published_bytes": 2799,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-663.json",
+      "sha256": "67027abb984d42db6e79cfa166be081f82c980ee7fa08c9b7e966975f1a31064",
+      "bytes": 13906,
+      "git_blob": "83cf8dad2667f9da6fed3779eaf3d1cefa4c9854",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/67027abb984d42db6e79cfa166be081f82c980ee7fa08c9b7e966975f1a31064.gz",
+      "published_sha256": "67027abb984d42db6e79cfa166be081f82c980ee7fa08c9b7e966975f1a31064",
+      "published_bytes": 13906,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-884.json",
+      "sha256": "60813681762a12962a6da298b27f1fbc6496d6e6b7e1da992da96c43c19e0ffe",
+      "bytes": 1236,
+      "git_blob": "cfab21538cb2ea77224f5e8fdd93c5599e014de3",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/60813681762a12962a6da298b27f1fbc6496d6e6b7e1da992da96c43c19e0ffe.gz",
+      "published_sha256": "60813681762a12962a6da298b27f1fbc6496d6e6b7e1da992da96c43c19e0ffe",
+      "published_bytes": 1236,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-885.json",
+      "sha256": "20abaf3b72a1a9e3df1c02987809ec6e1a5399244db2317ee32b567ec4e7ccbd",
+      "bytes": 1250,
+      "git_blob": "e82da5a53ab5b455dba3f0ce8555df7d1ae060f4",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/20abaf3b72a1a9e3df1c02987809ec6e1a5399244db2317ee32b567ec4e7ccbd.gz",
+      "published_sha256": "20abaf3b72a1a9e3df1c02987809ec6e1a5399244db2317ee32b567ec4e7ccbd",
+      "published_bytes": 1250,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-886.json",
+      "sha256": "6faa16cdd1eabc4e966ca2de033216d6e98ce1b9d2aba4d766d7971f39f2a50c",
+      "bytes": 1264,
+      "git_blob": "518eae5f94b4195c26e0c8f4bdd6a2b430fb180f",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/6faa16cdd1eabc4e966ca2de033216d6e98ce1b9d2aba4d766d7971f39f2a50c.gz",
+      "published_sha256": "6faa16cdd1eabc4e966ca2de033216d6e98ce1b9d2aba4d766d7971f39f2a50c",
+      "published_bytes": 1264,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-887.json",
+      "sha256": "0d418813a6fd8eff7785c0b90345a9a865fbe3e77e4e7876d58c93cfdeb878fe",
+      "bytes": 1254,
+      "git_blob": "c2bf6a63d3b90cfaf51b06d3ee6a6d63e348f16e",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/0d418813a6fd8eff7785c0b90345a9a865fbe3e77e4e7876d58c93cfdeb878fe.gz",
+      "published_sha256": "0d418813a6fd8eff7785c0b90345a9a865fbe3e77e4e7876d58c93cfdeb878fe",
+      "published_bytes": 1254,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-888.json",
+      "sha256": "b2af87de32612bf3b6a10161b2766252a4cf3cd6ac001b3e9e7ee4f4c9d36900",
+      "bytes": 1252,
+      "git_blob": "c2bca054a330afe9ba747f375dbee8ea3609ae84",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/b2af87de32612bf3b6a10161b2766252a4cf3cd6ac001b3e9e7ee4f4c9d36900.gz",
+      "published_sha256": "b2af87de32612bf3b6a10161b2766252a4cf3cd6ac001b3e9e7ee4f4c9d36900",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-663.json",
+      "sha256": "81d8a421f17fd1edeb8344b7c51f27b77aca7c6632af556aa85a337d1a9c40b4",
+      "bytes": 840,
+      "git_blob": "b5e5f601e5cb29789700ea80a724da485f4922c9",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/81d8a421f17fd1edeb8344b7c51f27b77aca7c6632af556aa85a337d1a9c40b4.gz",
+      "published_sha256": "81d8a421f17fd1edeb8344b7c51f27b77aca7c6632af556aa85a337d1a9c40b4",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-663.json",
+      "sha256": "17aa8ff9633236b305fdcbcd1b906d26291c6391e6353a1b8ade3d603f8969a4",
+      "bytes": 558,
+      "git_blob": "d18052e54e65a1c642e2bcabd7b55aec2a515bce",
+      "preserved_bytes": "recovered/terrain-diagnostics-059/17aa8ff9633236b305fdcbcd1b906d26291c6391e6353a1b8ade3d603f8969a4.gz",
+      "published_sha256": "17aa8ff9633236b305fdcbcd1b906d26291c6391e6353a1b8ade3d603f8969a4",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb663 and Adler305 retain their original independent scopes and authors. Adler305 included role1982; its receipt does not confer a new ordered personal body read here. No record is promoted to3821.",
+  "remaining": "Continue original1982 and all13 lenses, exact stage aliases, capture purpose policy and report/config consumers. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

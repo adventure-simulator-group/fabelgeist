@@ -5886,8 +5886,55 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CLIENT-ENDPOINT-INPUT-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TERRAIN-STAGE-LOOKUP-PANIC",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          11,
+          13
+        ],
+        "severity": "unassigned; repository rule and stage representation, no demonstrated crash",
+        "classification": "Original059 finding: production diagnostic role lookup uses expect although selected main supplies all four distinct stages.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/261",
+          "segovb/READ-L12-663.json",
+          "adler/READ-L11-305.json"
+        ],
+        "relationship_qualification": "Same original059 identifier, recovered and newly checked at95e; not a second historical finding or a checkpoint3821 record.",
+        "discovery": "partial; current rule and source bound, aliases and other lenses open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TERRAIN-DIAGNOSTICS-95E.json"
+      },
+      {
+        "id": "REVIEW-GARDEN-DIAGNOSTIC-DEFAULT-WALK-SLOPE-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional diagnostic policy and configuration mismatch",
+        "classification": "A garden report derives its walkability threshold from compiled defaults while a separately selected tactical server configuration can supply another threshold.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1632",
+          "segovb/READ-L12-663.json",
+          "adler/READ-L11-305.json"
+        ],
+        "relationship_qualification": "The original059 pending question is preserved and partially assessed; no historical unique count or exact alias is inferred.",
+        "discovery": "partial; source comparison only, report/config consumers and policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TERRAIN-DIAGNOSTICS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1236.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1240.json"
 }
