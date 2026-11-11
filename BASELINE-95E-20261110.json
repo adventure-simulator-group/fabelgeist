@@ -1938,8 +1938,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CUSTODY-DIALOGUE-OBJECTIVES-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-DIALOGUE-LANGUAGE-CATEGORY-TEXT",
+        "lens": 12,
+        "severity": "unassigned; closed computed compatibility is passed through a generic textual fact",
+        "classification": "95e revisit of the same earlier Lens12 contract, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/231",
+          "segovb/READ-L12-293.json via ASSESSMENT-L12-DIALOGUE-SESSION-95E.json"
+        ],
+        "relationship_qualification": "Same earlier first-failed boundary revisited. The session finding retains its separate scoped Lens2 inherited supplier attribution and zero new body/unique-count credit; all aliases remain open.",
+        "discovery": "partial; all catalog and fact consumers, validation layers, exact aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-DIALOGUE-SESSION-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-COND-SESSION-NPC-REUSE-BINDING",
+        "lens": 12,
+        "severity": "conditional; same session ID may acknowledge a different requested NPC while retaining the original",
+        "classification": "95e revisit of the same earlier Lens12/Lens2 contract, not a new unique historical defect; session-request identity policy remains open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/232",
+          "segovb/READ-L12-294.json via ASSESSMENT-L12-DIALOGUE-SESSION-95E.json"
+        ],
+        "relationship_qualification": "Same earlier first-failed boundary revisited. The session finding retains its separate scoped Lens2 inherited supplier attribution and zero new body/unique-count credit; all aliases remain open.",
+        "discovery": "partial; admitted real-world state, all session producers, primary-role policy, race/retry semantics and exact aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L12-DIALOGUE-SESSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0242.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0245.json"
 }

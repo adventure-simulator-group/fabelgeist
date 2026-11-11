@@ -1,0 +1,730 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 12,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected compatibility-category and existing-session NPC binding at 95e; earlier Lens2 scoped attribution remains separate.",
+  "source_reasoning": "Pinned source inspection and historical evidence-byte verification only. Source tests read without execution. No product build, test, simulation, runtime, database, UI or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "bytes": 24372,
+      "lines": 616,
+      "ranges": [
+        [
+          115,
+          139
+        ],
+        [
+          357,
+          387
+        ],
+        [
+          389,
+          445
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8193eef1602b1845c5a58ecee2df265c5d6a3f83",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "bytes": 53120,
+      "lines": 1408,
+      "ranges": [
+        [
+          180,
+          263
+        ],
+        [
+          368,
+          400
+        ],
+        [
+          742,
+          803
+        ],
+        [
+          868,
+          891
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c5fffd572eb8f059f35e24d96942b42130873818",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "bytes": 25076,
+      "lines": 781,
+      "ranges": [
+        [
+          114,
+          175
+        ],
+        [
+          178,
+          192
+        ],
+        [
+          406,
+          456
+        ],
+        [
+          549,
+          658
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "92c9735c2c7d49e7eca00061cac622348d5fea17",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "bytes": 13850,
+      "lines": 351,
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34d3a48a63c21a8a80f83c6df853cf5d689f1755",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "bytes": 27326,
+      "lines": 759,
+      "ranges": [
+        [
+          373,
+          384
+        ],
+        [
+          427,
+          435
+        ],
+        [
+          461,
+          482
+        ],
+        [
+          487,
+          512
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7661ec80c449adb86c163f0d0d3cd2d9f2e65019",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "bytes": 18955,
+      "lines": 585,
+      "ranges": [
+        [
+          51,
+          101
+        ],
+        [
+          311,
+          382
+        ],
+        [
+          433,
+          481
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fe0deb9c9e94fe0212bcd21b384da8922e57d761",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "bytes": 10033,
+      "lines": 299,
+      "ranges": [
+        [
+          18,
+          31
+        ],
+        [
+          169,
+          179
+        ],
+        [
+          181,
+          200
+        ],
+        [
+          227,
+          238
+        ],
+        [
+          241,
+          265
+        ],
+        [
+          267,
+          285
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/dialogue/services.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3fe3dac15f6925914228d9f989a3fa65c29256ae",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "bytes": 38465,
+      "lines": 246,
+      "ranges": [
+        [
+          1,
+          16
+        ],
+        [
+          195,
+          204
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c74f764ff9c0d7af196810687ad877bd6fb54c1b",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "bytes": 9048,
+      "lines": 347,
+      "ranges": [
+        [
+          162,
+          180
+        ],
+        [
+          182,
+          213
+        ],
+        [
+          287,
+          292
+        ],
+        [
+          340,
+          347
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-dialogue/src/condition_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1dc717494cc66d2fa1885caae5f324ecf2ff4583",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "bytes": 1049,
+      "lines": 30,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-dialogue/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f22d9fdd444e756a612d59a63d64f520bda6cb5f",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "bytes": 65762,
+      "lines": 1785,
+      "ranges": [
+        [
+          439,
+          452
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/dialogue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "12479288a7088740a84536807f5ab2d08ebc9dd8",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "bytes": 66234,
+      "lines": 1897,
+      "ranges": [
+        [
+          1488,
+          1502
+        ],
+        [
+          1505,
+          1509
+        ],
+        [
+          1524,
+          1556
+        ],
+        [
+          1560,
+          1620
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/start_dialogue_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2d09f4daa6aef22394bacc0903b2ce1fb0e6d097",
+      "sha256": "9609e402029c24c080ad96615cc23439e74c9d54c20d6aba8e2eccbcb97ddb4c",
+      "bytes": 3817,
+      "lines": 117,
+      "ranges": [
+        [
+          36,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/dialogue-session-sources/12.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/231",
+      "contract_id": "SEGOVB-L12-DIALOGUE-LANGUAGE-CATEGORY-TEXT",
+      "qualification": "Earlier Lens12 category text boundary revisited."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/232",
+      "contract_id": "SEGOVB-L12-COND-SESSION-NPC-REUSE-BINDING",
+      "qualification": "Earlier conditional Lens12 session/NPC binding and explicitly scoped Lens2 adoption; both remain open with their original attribution."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/983",
+      "qualification": "Earlier prompt and action-retry questions; previous bounded 95e receipt trace remains distinct."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/984",
+      "qualification": "Earlier fact-value, language and participant questions; selected language path only."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/985",
+      "qualification": "Earlier session/NPC, source reference and gateway questions; selected start path only."
+    },
+    {
+      "file": "ASSESSMENT-L01-DIALOGUE-RECEIPT-95E.json",
+      "qualification": "Separate action-receipt retry mismatch, related but not automatically the same first failure."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1215-1218.json",
+      "qualification": "Four historical roles personally read for Lens1; earlier independent Lens12 and scoped Lens2 records retain original attribution."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "root-l2-extension-20261030/PROPOSAL-BUNDLE-ROOT-L2-EXT-055-066-v2.json",
+      "sha256": "d823d1947c091180c546686e000606045e7f2fda1895461920fbd261d12c6416",
+      "bytes": 21689,
+      "git_blob": "77e59cc6abfb28e8014bca1503d63b5fddb9750f",
+      "preserved_bytes": "recovered/dialogue-session-059/d823d1947c091180c546686e000606045e7f2fda1895461920fbd261d12c6416.gz",
+      "published_sha256": "d823d1947c091180c546686e000606045e7f2fda1895461920fbd261d12c6416",
+      "published_bytes": 21689,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 proposal"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/QUALIFIED-INHERITED-L2-EXT-055-058-060-061-001.json",
+      "sha256": "bd94d9ee48850460d399a43ad162a05de0601918d3f4431e50417b63d4e408d6",
+      "bytes": 18885,
+      "git_blob": "7a2ffc0092b0e04d9f33cba104e67839eb47b244",
+      "preserved_bytes": "recovered/dialogue-session-059/bd94d9ee48850460d399a43ad162a05de0601918d3f4431e50417b63d4e408d6.gz",
+      "published_sha256": "bd94d9ee48850460d399a43ad162a05de0601918d3f4431e50417b63d4e408d6",
+      "published_bytes": 18885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 inherited_same_lens_qualification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/QUALIFIED-INHERITED-L2-EXT-065-001.json",
+      "sha256": "c1721b84e9825edd8da8d19b5310340f6d13fbda6094354aba491a481e06b3aa",
+      "bytes": 3463,
+      "git_blob": "f418965147c9881189648aad6dc103c635f30855",
+      "preserved_bytes": "recovered/dialogue-session-059/c1721b84e9825edd8da8d19b5310340f6d13fbda6094354aba491a481e06b3aa.gz",
+      "published_sha256": "c1721b84e9825edd8da8d19b5310340f6d13fbda6094354aba491a481e06b3aa",
+      "published_bytes": 3463,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 inherited_same_lens_qualification",
+        "earlier scoped Lens2 inherited_same_lens_qualification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/READ-ROOT-L2-EXT-055-066.json",
+      "sha256": "b7fe7d69310e522f8ae05bdbeded0b382a244466b8b203a3e467f55f10ee418a",
+      "bytes": 32664,
+      "git_blob": "895a60276de91a70cae00aa08996c9f4c659afe8",
+      "preserved_bytes": "recovered/dialogue-session-059/b7fe7d69310e522f8ae05bdbeded0b382a244466b8b203a3e467f55f10ee418a.gz",
+      "published_sha256": "b7fe7d69310e522f8ae05bdbeded0b382a244466b8b203a3e467f55f10ee418a",
+      "published_bytes": 32664,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 receipt",
+        "earlier scoped Lens2 receipt",
+        "earlier scoped Lens2 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-055-063.json",
+      "sha256": "80050300f1444900b4e83feaa34cd9fff15e8e42d08d94240bc4600ab66109fd",
+      "bytes": 7987,
+      "git_blob": "9e0aae161d169bf060a607b3ca0f898ed0ef97ca",
+      "preserved_bytes": "recovered/dialogue-session-059/80050300f1444900b4e83feaa34cd9fff15e8e42d08d94240bc4600ab66109fd.gz",
+      "published_sha256": "80050300f1444900b4e83feaa34cd9fff15e8e42d08d94240bc4600ab66109fd",
+      "published_bytes": 7987,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-065.json",
+      "sha256": "377c39c171b2fb523ca135b2a84d8570dc2d9351195e5b847ece3d47121022fa",
+      "bytes": 1013,
+      "git_blob": "f9e3a456feca42c9912b9fa4e255f169b2df85e6",
+      "preserved_bytes": "recovered/dialogue-session-059/377c39c171b2fb523ca135b2a84d8570dc2d9351195e5b847ece3d47121022fa.gz",
+      "published_sha256": "377c39c171b2fb523ca135b2a84d8570dc2d9351195e5b847ece3d47121022fa",
+      "published_bytes": 1013,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-066.json",
+      "sha256": "210518ca286999cdf3c9539a0c698f9b800fd0fd6aeacea2af1e06814236fb1c",
+      "bytes": 1408,
+      "git_blob": "9dd84ec046f75c3467e2339a9bc84be08a598eb8",
+      "preserved_bytes": "recovered/dialogue-session-059/210518ca286999cdf3c9539a0c698f9b800fd0fd6aeacea2af1e06814236fb1c.gz",
+      "published_sha256": "210518ca286999cdf3c9539a0c698f9b800fd0fd6aeacea2af1e06814236fb1c",
+      "published_bytes": 1408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped Lens2 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-292.json",
+      "sha256": "4faf8fac52cc2ebabdf83127fd118a095150be2f514231a25cf8b24fc3f488a7",
+      "bytes": 725,
+      "git_blob": "9de99cdd3f47e08d0bb56e7ca0e92200e517e0b5",
+      "preserved_bytes": "recovered/dialogue-session-059/4faf8fac52cc2ebabdf83127fd118a095150be2f514231a25cf8b24fc3f488a7.gz",
+      "published_sha256": "4faf8fac52cc2ebabdf83127fd118a095150be2f514231a25cf8b24fc3f488a7",
+      "published_bytes": 725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-293.json",
+      "sha256": "9975dddab26f229bf769caf46669b4a5751892d3daf0a3d90d49a3b86d5b4625",
+      "bytes": 730,
+      "git_blob": "356cc7b4054fa06c84d209316b773377fb5fca31",
+      "preserved_bytes": "recovered/dialogue-session-059/9975dddab26f229bf769caf46669b4a5751892d3daf0a3d90d49a3b86d5b4625.gz",
+      "published_sha256": "9975dddab26f229bf769caf46669b4a5751892d3daf0a3d90d49a3b86d5b4625",
+      "published_bytes": 730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-294.json",
+      "sha256": "95a940f6ec2a48570577ce25b7a3fcc08f32fa6ed835f128dcec619a29eeb484",
+      "bytes": 1217,
+      "git_blob": "b61a6f7aafcccd2e9935f55902256a0d69bf4ba7",
+      "preserved_bytes": "recovered/dialogue-session-059/95a940f6ec2a48570577ce25b7a3fcc08f32fa6ed835f128dcec619a29eeb484.gz",
+      "published_sha256": "95a940f6ec2a48570577ce25b7a3fcc08f32fa6ed835f128dcec619a29eeb484",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-292.json",
+      "sha256": "264e505528a355a3568c24b7fb5b6c91a88c563f78e3c6ee456b94a11232f6c0",
+      "bytes": 9095,
+      "git_blob": "379d691da1607bd71bb6afaa4031575a615da9dc",
+      "preserved_bytes": "recovered/dialogue-session-059/264e505528a355a3568c24b7fb5b6c91a88c563f78e3c6ee456b94a11232f6c0.gz",
+      "published_sha256": "264e505528a355a3568c24b7fb5b6c91a88c563f78e3c6ee456b94a11232f6c0",
+      "published_bytes": 9095,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-293.json",
+      "sha256": "2f5ba1c21c599877d63868bca709ffb4ca54963f59acf5ab5e4a98a31bd5b053",
+      "bytes": 13373,
+      "git_blob": "8126870b4a1bfd5286b2bcaeef25037b829be498",
+      "preserved_bytes": "recovered/dialogue-session-059/2f5ba1c21c599877d63868bca709ffb4ca54963f59acf5ab5e4a98a31bd5b053.gz",
+      "published_sha256": "2f5ba1c21c599877d63868bca709ffb4ca54963f59acf5ab5e4a98a31bd5b053",
+      "published_bytes": 13373,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-294.json",
+      "sha256": "504b78899fcb2ebaebd586a33910cfe36733d9b4fdc81bd9b4404437f7f726ff",
+      "bytes": 16215,
+      "git_blob": "9b34bee8c0db49494979bce832bc98863b6403dd",
+      "preserved_bytes": "recovered/dialogue-session-059/504b78899fcb2ebaebd586a33910cfe36733d9b4fdc81bd9b4404437f7f726ff.gz",
+      "published_sha256": "504b78899fcb2ebaebd586a33910cfe36733d9b4fdc81bd9b4404437f7f726ff",
+      "published_bytes": 16215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-122.json",
+      "sha256": "eb76e78e7791cb030372510646f8152302a75df75d3cb2ab5d8702499815c8ae",
+      "bytes": 1169,
+      "git_blob": "f282933088b9a847c0017d838d1b485ae987e3fc",
+      "preserved_bytes": "recovered/dialogue-session-059/eb76e78e7791cb030372510646f8152302a75df75d3cb2ab5d8702499815c8ae.gz",
+      "published_sha256": "eb76e78e7791cb030372510646f8152302a75df75d3cb2ab5d8702499815c8ae",
+      "published_bytes": 1169,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-123.json",
+      "sha256": "cda9fcf7916b0e78caa89b8530b007e6bd73fc0fb4dd9fd075ec1148cd5c83b4",
+      "bytes": 1207,
+      "git_blob": "2930da654f6eb36d5752f4c5834daddee33d2bbd",
+      "preserved_bytes": "recovered/dialogue-session-059/cda9fcf7916b0e78caa89b8530b007e6bd73fc0fb4dd9fd075ec1148cd5c83b4.gz",
+      "published_sha256": "cda9fcf7916b0e78caa89b8530b007e6bd73fc0fb4dd9fd075ec1148cd5c83b4",
+      "published_bytes": 1207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-124.json",
+      "sha256": "e5716577f903d7ad52ac4d589b80cd8ebf322cc4f9e2e2298ab447659021d93b",
+      "bytes": 1184,
+      "git_blob": "9b64af9bb5bde75c976a07bfcc1f7dbdaf3c5a94",
+      "preserved_bytes": "recovered/dialogue-session-059/e5716577f903d7ad52ac4d589b80cd8ebf322cc4f9e2e2298ab447659021d93b.gz",
+      "published_sha256": "e5716577f903d7ad52ac4d589b80cd8ebf322cc4f9e2e2298ab447659021d93b",
+      "published_bytes": 1184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-125.json",
+      "sha256": "c7c53a3ea932505f31ab937a2ab8b20ccf0d494fa3edc002049aa22e24b13f93",
+      "bytes": 1188,
+      "git_blob": "0e047f693a4ff54577a229fb8b01dd3fe4e1d3ef",
+      "preserved_bytes": "recovered/dialogue-session-059/c7c53a3ea932505f31ab937a2ab8b20ccf0d494fa3edc002049aa22e24b13f93.gz",
+      "published_sha256": "c7c53a3ea932505f31ab937a2ab8b20ccf0d494fa3edc002049aa22e24b13f93",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-292.json",
+      "sha256": "2ab6751bc4dbb46bab43ea25cb643507c8162bfe038d00e66da98c19dfa44288",
+      "bytes": 840,
+      "git_blob": "be651c8945fb7751a7c68dfc0d0a252646d15c56",
+      "preserved_bytes": "recovered/dialogue-session-059/2ab6751bc4dbb46bab43ea25cb643507c8162bfe038d00e66da98c19dfa44288.gz",
+      "published_sha256": "2ab6751bc4dbb46bab43ea25cb643507c8162bfe038d00e66da98c19dfa44288",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-293.json",
+      "sha256": "5efcc1e1f7a13e4bf6cbad759d3e450ee2d2e22e155d7063df27b96a84eb1a85",
+      "bytes": 840,
+      "git_blob": "7019ae30b255e45427fb39b5f81837bb04e05dc7",
+      "preserved_bytes": "recovered/dialogue-session-059/5efcc1e1f7a13e4bf6cbad759d3e450ee2d2e22e155d7063df27b96a84eb1a85.gz",
+      "published_sha256": "5efcc1e1f7a13e4bf6cbad759d3e450ee2d2e22e155d7063df27b96a84eb1a85",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-294.json",
+      "sha256": "d14c80c59f07418a0b897820cd38ca50fc35f0051f0c5c7484ab7f9c3b347296",
+      "bytes": 840,
+      "git_blob": "a6265756419ee7b5ad5a83ee83f4a4128c5de859",
+      "preserved_bytes": "recovered/dialogue-session-059/d14c80c59f07418a0b897820cd38ca50fc35f0051f0c5c7484ab7f9c3b347296.gz",
+      "published_sha256": "d14c80c59f07418a0b897820cd38ca50fc35f0051f0c5c7484ab7f9c3b347296",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-292.json",
+      "sha256": "fbc675a454d6b5fa87ee5df1116923d8b0134a9d549881bc522f047ebd3c22e1",
+      "bytes": 558,
+      "git_blob": "47eab503373693c45f794989f3dc16cb30d78d68",
+      "preserved_bytes": "recovered/dialogue-session-059/fbc675a454d6b5fa87ee5df1116923d8b0134a9d549881bc522f047ebd3c22e1.gz",
+      "published_sha256": "fbc675a454d6b5fa87ee5df1116923d8b0134a9d549881bc522f047ebd3c22e1",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-293.json",
+      "sha256": "e6cad603d90f93c416a699115ff342144ed8acc041b17628b7b45cbfb202b908",
+      "bytes": 558,
+      "git_blob": "f68953b09cc16d9561f259c8fc4ff171c94ae7f4",
+      "preserved_bytes": "recovered/dialogue-session-059/e6cad603d90f93c416a699115ff342144ed8acc041b17628b7b45cbfb202b908.gz",
+      "published_sha256": "e6cad603d90f93c416a699115ff342144ed8acc041b17628b7b45cbfb202b908",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-294.json",
+      "sha256": "39ee7ccb70544f314d666ae573bf616f92114c6dd9294228670f65cf919df9c4",
+      "bytes": 558,
+      "git_blob": "2bcfcaf05f1fc5411779105b25f2f7a4f7a2998d",
+      "preserved_bytes": "recovered/dialogue-session-059/39ee7ccb70544f314d666ae573bf616f92114c6dd9294228670f65cf919df9c4.gz",
+      "published_sha256": "39ee7ccb70544f314d666ae573bf616f92114c6dd9294228670f65cf919df9c4",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "SEGOVB-L12-DIALOGUE-LANGUAGE-CATEGORY-TEXT",
+      "severity": "unassigned; closed computed compatibility is passed through a generic textual fact",
+      "classification": "95e revisit of the same earlier Lens12 contract, not a new unique historical defect.",
+      "trace": "participant_language_compatibility normalizes finite effective oral-language hours and instinct, then selects fluent, limited or poor and a related boolean using threshold checks. dialogue_fact_context inserts the category as FactValue::Text under the typed ParticipantLanguageCompatibility key; the dialogue condition runtime compares the generic value by equality. The selected authored service greeting tests the exact limited text. FactKey::authoring_value_is_valid restricts Sex only for the sex key and otherwise permits non-Sex FactValue forms; the selected condition validator checks that predicate and role names. Thus a hypothetical misspelled language category passes this specific key/value check but cannot equal any of the three outputs. Other validation and a complete malformed catalog are not assessed; the checked-in selected greeting uses the matching spelling.",
+      "connected_repair": "After audit completion give this closed category a shared semantic owner across computation, fact/condition admission and the authoring codec, while keeping authored non-closed text and unrelated fact categories valid. Preserve threshold boundaries, finite normalization, role binding, language boolean, priority and source presentation.",
+      "discovery": "partial; all catalog and fact consumers, validation layers, exact aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-COND-SESSION-NPC-REUSE-BINDING",
+      "severity": "conditional; same session ID may acknowledge a different requested NPC while retaining the original",
+      "classification": "95e revisit of the same earlier Lens12/Lens2 contract, not a new unique historical defect; session-request identity policy remains open.",
+      "trace": "start_dialogue validates the newly requested NPC, same settlement and place, time, conversation, owner-encoded session ID and catalog. For an existing ID it compares stored conversation, settlement, location and catalog and revalidates the original session participants, but does not compare the requested NPC to the originally bound NPC before returning success. For a hypothetical successful first session with resident A and a second admitted request using the same ID with different resident B at the same place and conversation, the function can return success while the session remains bound to A. This requires both residents and both live-presence checks to pass; no request, game state, browser or player incident was executed.",
+      "producer_and_gateway": "The selected ambient population source creates two non-service residents at residences, with distinct ordinal seeds; completed draft validation rejects duplicate character IDs. The persistence path assigns non-providers local-resident and stores their scheduled location; all four declared daily schedule windows overlap at minute 720. The local-resident catalog contains one NPC role. If both rows successfully materialize, remain alive and unsuppressed, the venue is navigable and all other live-presence predicates pass at that minute, they supply the required same-location/same-conversation premise. This does not prove an actual settlement snapshot or a collision. The web start handler chooses the target from the session-authenticated request and makes a fresh timestamp-derived session ID for each selection, then loads the view by ID; ordinary reuse is therefore not demonstrated and timestamp uniqueness is not guaranteed by this source alone.",
+      "connected_repair": "Decide whether a session ID commits to the requested primary resident. If so, bind or compare that resident while retaining exact same-request reuse, every live-presence and catalog guard, legitimate multi-NPC roles, and observer-safe gateway projections. Preserve the earlier scoped Lens2 inherited ranges and zero credited count; no alias based only on common remedy.",
+      "discovery": "partial; admitted real-world state, all session producers, primary-role policy, race/retry semantics and exact aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace actual admitted population state and request identity policy, all dialogue participants and native writers, complete FactKey/FactValue authoring validation, source references, aliases and every independent lens/population. Final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
