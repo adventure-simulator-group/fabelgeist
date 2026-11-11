@@ -1017,7 +1017,9 @@ fn resolve_timber_frame_assembly(
             }
             storey_member_ids.sort_unstable();
             storey_member_ids.dedup();
-            let jetty = (level == 1 && program.upper_storey_projection_metres > 0.01)
+            let jetty = (level == 1
+                && program.upper_storey_projection_metres
+                    > timber_floor_plan::MINIMUM_JETTY_PROJECTION_METRES)
                 .then(|| {
                     timber_jetty::JettyFrame {
                         projection: program.upper_storey_projection_metres,
@@ -1897,28 +1899,16 @@ fn resolve_timber_frame_assembly(
             (1_u64 << 60) | (u64::from(owner.0) << 32) | 0x0e00_0000 | u64::from(level + 1),
         );
         let floor_centre_y = base - 0.08;
-        let floor_rects = if level == 0 {
-            vec![(Vec2::splat(0.15), dimensions - Vec2::splat(0.15))]
-        } else {
-            let (cut_min, cut_max) = cut_bounds.expect("upper timber floor has stair cut");
-            vec![
-                (
-                    Vec2::new(0.15, 0.15),
-                    Vec2::new(cut_min.x, dimensions.y - 0.15),
-                ),
-                (
-                    Vec2::new(cut_max.x, 0.15),
-                    Vec2::new(dimensions.x - 0.15, dimensions.y - 0.15),
-                ),
-                (Vec2::new(cut_min.x, 0.15), Vec2::new(cut_max.x, cut_min.y)),
-                (
-                    Vec2::new(cut_min.x, cut_max.y),
-                    Vec2::new(cut_max.x, dimensions.y - 0.15),
-                ),
-            ]
-        };
+        let floor_pieces = timber_floor_plan::floor_pieces(
+            level,
+            program.upper_storey_projection_metres,
+            dimensions,
+            cut_bounds,
+        );
         let mut floor_solids = Vec::new();
-        for (index, (min, max)) in floor_rects.into_iter().enumerate() {
+        for (index, timber_floor_plan::FloorPiece { min, max }) in
+            floor_pieces.into_iter().enumerate()
+        {
             if (max - min).min_element() <= 0.05 {
                 continue;
             }
