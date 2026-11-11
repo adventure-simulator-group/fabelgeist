@@ -5652,7 +5652,10 @@
         "discovery": "partial; source formula and leaf admission established for symbolic input, full producer, spatial extent and allocation policy remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json"
+        "record": "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json",
+        "additional_current_evidence": [
+          "ASSESSMENT-INTERIOR-INSTALL-95E.json"
+        ]
       },
       {
         "id": "REVIEW-ROUNDED-POLYGON-TOPOLOGY-001",
@@ -5707,8 +5710,35 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SCENE-WEATHER-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-INTERIOR-INSTALL-PARTIAL-MUTATION-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional public mutation after typed error",
+        "classification": "A public fallible interior installation needs an explicit failure-state contract so retained furniture instances and their matching interior proof remain coherent after an error.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1586",
+          "baseline-059/queue.json#/entries/1594",
+          "segovb/READ-L12-644.json",
+          "adler/READ-L11-295.json"
+        ],
+        "relationship_qualification": "Original059 pending family explicitly preserved local discard for normal generate. The new direct in-memory ordinal case records a public partial mutation while retaining that safeguard; no historical unique increment or checkpoint3821 attribution.",
+        "discovery": "partial; direct public in-memory control-flow witness and selected local caller safeguards, actual direct callers and failure policy remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INTERIOR-INSTALL-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1209.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1213.json"
 }

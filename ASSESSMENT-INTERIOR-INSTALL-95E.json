@@ -1,0 +1,929 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1932–1939, interior-install failure state and connected occupancy-work question.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1932-1939.json",
+  "git_membership_evidence": "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/interior.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b2dd78df6ff308440857eb8249bb2a37a4e39c4",
+      "sha256": "6dfb61f15cc323392577e8773083c09ea549a3efaace1d3c92802e113ba026cd",
+      "bytes": 4816,
+      "lines": 129,
+      "ranges": [
+        [
+          36,
+          79
+        ],
+        [
+          83,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "884c0c55670969cb32c04e5e28e9fce2057d96fa",
+      "sha256": "ab00aade1ddd259c070bf761e9877e4c5f08ac7cf31913b4d7448ea389123509",
+      "bytes": 12154,
+      "lines": 317,
+      "ranges": [
+        [
+          180,
+          224
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/interior/placement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a46509770bbca05f2e90a1460661e4686de45f03",
+      "sha256": "bdb6ff8d669fb04becfeae5b400ac090c1e458b64a5fb54c215e62f43b4f23f3",
+      "bytes": 8661,
+      "lines": 213,
+      "ranges": [
+        [
+          18,
+          89
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "14a4e60f7fad806b742e07fdecc073924c0b3140",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "bytes": 4832,
+      "lines": 137,
+      "ranges": [
+        [
+          10,
+          27
+        ],
+        [
+          50,
+          61
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42b481358e265e409ee39c550b2d53f0a2c634ac",
+      "sha256": "2881b50dfcd55e6d008b3852ea37e34b90130da2739fc846e6b9e8d0f2282d49",
+      "bytes": 2645,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "01144b048b4dc05bc9dbbf130f614e282b808838",
+      "sha256": "5e4b722af6525a9d5d8be612acd50c57eedaeb97c3886fb264a0e73796cf5c0a",
+      "bytes": 5517,
+      "lines": 164,
+      "ranges": [
+        [
+          133,
+          163
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "487cb819ddb34f50834e990fbb194fabe417b8c8",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "bytes": 7323,
+      "lines": 204,
+      "ranges": [
+        [
+          11,
+          17
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c978fd6aa670b852e2f9fb36c5c4967c6ab9f2c0",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "bytes": 3347,
+      "lines": 105,
+      "ranges": [
+        [
+          65,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "284f12466c3961853425546574dfe49d6c413e0e",
+      "sha256": "2d944f76903a993e6124e546880e4e4b294c89ab1967f5f89b23e9413919ac11",
+      "bytes": 4060,
+      "lines": 122,
+      "ranges": [
+        [
+          33,
+          48
+        ],
+        [
+          70,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/interior-install-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No layout, furniture, occupancy index, source test, worker, scene or game ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-FURNITURE-VISTA-SUPPORT-95E.json",
+    "ASSESSMENT-URBAN-BUCKET-CAPACITY-95E.json",
+    "ASSESSMENT-SCENE-WEATHER-ADMISSION-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Interior partial publication",
+      "trace": "The fallible public install mutates instances per placement and appends its layout proof after the loop. StoreyIndex::new(65536) is constructible in memory and serialized_ordinal returns Err; placing it second after an assumed successful placement leaves an instance without that installation proof.",
+      "remaining": "Normal worker and tactical generate paths discard a local failed scene/result, and exact wire serialization of the out-of-range ordinal is rejected. No actual invalid layout, direct caller, worker, error, retry or product was executed."
+    },
+    {
+      "contract": "Connected occupancy capacity",
+      "trace": "Occupancy::cells enumerates every inclusive16m cell in a finite footprint bounding box and insert pushes the footprint per cell. Under the stated ordinary identity-rotation result, a finite centre-zero square with half extents1,000,000m has cell indices −62500..62500 on both axes, or 125001² = 15625250001 theoretical cell visits if enumeration completes. FurnitureFootprint admission checks finite corners and nonnegative finite extents, not this work budget.",
+      "remaining": "Occupancy is private and no actual reservation producer for that square has been established; allocations may fail before completion. Earlier urban index expansion may be encountered first for large street inputs. This is related to REVIEW-URBAN-BUCKET-SPAN-CAPACITY-001 but is a distinct implementation/consumer whose first-contract and alias relationship remain open; no extra finding or runtime cost is claimed."
+    },
+    {
+      "contract": "Site and reservations",
+      "trace": "Site recipes retain local collision-relative routes and convert them to checked scene footprints at placement; market perimeter and crossing routes are created before candidates, and obstacle footprints include the matching building and tree/rock reservations.",
+      "remaining": "Actual large reservation producers, all gate sweep/native physics and supporting-collision lifecycles remain open. Source test assertions are not execution."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-INTERIOR-INSTALL-PARTIAL-MUTATION-001",
+      "lens": 1,
+      "additional_current_lenses": [
+        3,
+        4,
+        6,
+        7,
+        8,
+        11,
+        12,
+        13
+      ],
+      "severity": "unassigned; conditional public mutation after typed error",
+      "first_contract": "A public fallible interior installation needs an explicit failure-state contract so retained furniture instances and their matching interior proof remain coherent after an error.",
+      "classification": "New current source assessment of the same original059 pending interior-install family; no historical unique-count increment.",
+      "trace": "FurnitureLayout::install_interior delegates to install, which converts and pushes each layout placement into instances in order, then appends InteriorBuildingLayout only after the loop. InteriorLayout and InteriorPlacement expose their fields, and StoreyIndex::new accepts usize while serialized_ordinal rejects values above u16::MAX. Assume a valid building and one placement p0 whose conversion succeeds. A direct caller supplies a layout with p0 followed by a copy whose storey is StoreyIndex::new(65536). The first instance is pushed; the second calls floor_height, which calls serialized_ordinal and returns a typed ordinal error. install returns Err before adding the interior proof, leaving the first instance in the caller-owned FurnitureLayout. This is a source-control-flow example; no building, layout, install, worker or product was executed.",
+      "safeguards_and_limits": "The constructed out-of-range StoreyIndex is an in-memory public-constructor case; its serializer itself rejects the value and its deserializer reads u16, so do not claim this exact example arrives on the wire. A successful first placement and valid building are assumptions, not constructed fixtures. The selected PreparedVenue worker furnishes the same recipe plan, and PreparedStrategicScene::from_products creates its scene locally and returns Err if installation fails; the selected TacticalSceneInput::generate also discards its local generated result on furnish_interiors failure. Those paths do not by themselves expose this partial local object. Actual direct callers, retry behavior, accepted worker output, intended atomicity and user impact remain unobserved. The related multi-building append can similarly have earlier successful work, but no separate duplicate finding is asserted.",
+      "connected_repair_dependencies": [
+        "Decide the public error-state and plan-association contract, and coordinate checked installation with validated worker recipes, instance identifiers, interior proof and repeated or multi-building append semantics.",
+        "Stage or otherwise make complete conversions reviewable before mutating the retained owner if atomic failure is required; preserve existing valid placement transforms and typed causes.",
+        "Later authorized verification should cover a valid placement followed by an out-of-range or missing-floor placement, a successful multi-placement case, existing contents and worker/scene error propagation; no product validation was performed."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1586",
+        "baseline-059/queue.json#/entries/1594",
+        "segovb/READ-L12-644.json",
+        "adler/READ-L11-295.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; direct public in-memory control-flow witness and selected local caller safeguards, actual direct callers and failure policy remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/interior-install-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "bytes": 9944,
+      "git_blob": "e072050becf60dde23ac603c52ac4b125de87408",
+      "preserved_bytes": "recovered/interior-install-059/7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91.gz",
+      "published_sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "published_bytes": 9944,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/interior-install-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/interior-install-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/interior-install-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/interior-install-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/interior-install-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "bytes": 13932,
+      "git_blob": "492f7a3770c7692e16bb1d1a6c1004a0817290db",
+      "preserved_bytes": "recovered/interior-install-059/28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0.gz",
+      "published_sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "published_bytes": 13932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "bytes": 12417,
+      "git_blob": "36c15abc3fc414b93ef16c17a4a8076ad21c0fef",
+      "preserved_bytes": "recovered/interior-install-059/16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a.gz",
+      "published_sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "published_bytes": 12417,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "bytes": 27097,
+      "git_blob": "3ad1e5257b2f549ce6fc40c59088c5b05fbf1467",
+      "preserved_bytes": "recovered/interior-install-059/88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1.gz",
+      "published_sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "published_bytes": 27097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "bytes": 9488,
+      "git_blob": "6ba539810f50cddd901d8215cc076a30e8583ab0",
+      "preserved_bytes": "recovered/interior-install-059/5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4.gz",
+      "published_sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "published_bytes": 9488,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "bytes": 13832,
+      "git_blob": "e0d57c8d63b43f7316a36c36887ecedae0af0d74",
+      "preserved_bytes": "recovered/interior-install-059/fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b.gz",
+      "published_sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "published_bytes": 13832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "bytes": 12596,
+      "git_blob": "dffd00fcc6d5b0105a477b0a926df0ddf08dcbe9",
+      "preserved_bytes": "recovered/interior-install-059/06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30.gz",
+      "published_sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "published_bytes": 12596,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-295.json",
+      "sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304",
+      "bytes": 17504,
+      "git_blob": "a9ae0fad1345e9947fb05ffbd7038d6ff443c960",
+      "preserved_bytes": "recovered/interior-install-059/4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304.gz",
+      "published_sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304",
+      "published_bytes": 17504,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "bytes": 14121,
+      "git_blob": "9f4260dce5010eb14df055908d6ee3833f7001cb",
+      "preserved_bytes": "recovered/interior-install-059/92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec.gz",
+      "published_sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "published_bytes": 14121,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt; later roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-781.json",
+      "sha256": "45afc6fab9e88e43ff371e6fedd2dee9f56c0032ec6a8a98d00ea09cb9efb76d",
+      "bytes": 717,
+      "git_blob": "4f1ddb1774c32a5f6fcd3097d8f88af0958ddca7",
+      "preserved_bytes": "recovered/interior-install-059/45afc6fab9e88e43ff371e6fedd2dee9f56c0032ec6a8a98d00ea09cb9efb76d.gz",
+      "published_sha256": "45afc6fab9e88e43ff371e6fedd2dee9f56c0032ec6a8a98d00ea09cb9efb76d",
+      "published_bytes": 717,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-782.json",
+      "sha256": "5817d6b999510385a4d2de729345ba918a070f3a700c7fa2772fb84cb9c68b3f",
+      "bytes": 733,
+      "git_blob": "27909a9c2110bff547be1452849079c842cc67ae",
+      "preserved_bytes": "recovered/interior-install-059/5817d6b999510385a4d2de729345ba918a070f3a700c7fa2772fb84cb9c68b3f.gz",
+      "published_sha256": "5817d6b999510385a4d2de729345ba918a070f3a700c7fa2772fb84cb9c68b3f",
+      "published_bytes": 733,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-783.json",
+      "sha256": "26771e4607ba560f30135fdef26b1ea1e4d33a8866e3fd33ab706f46ffe07e75",
+      "bytes": 709,
+      "git_blob": "84953a2f9d62a7970b6b6501c2956a113a6e9fd8",
+      "preserved_bytes": "recovered/interior-install-059/26771e4607ba560f30135fdef26b1ea1e4d33a8866e3fd33ab706f46ffe07e75.gz",
+      "published_sha256": "26771e4607ba560f30135fdef26b1ea1e4d33a8866e3fd33ab706f46ffe07e75",
+      "published_bytes": 709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-784.json",
+      "sha256": "5eae116325fd480dab5f3a7c4920f37c4cd40958d2d9de3cc01acc50edafc44c",
+      "bytes": 716,
+      "git_blob": "f71b4eaed6aecb13311f21a1f862dee61446ee05",
+      "preserved_bytes": "recovered/interior-install-059/5eae116325fd480dab5f3a7c4920f37c4cd40958d2d9de3cc01acc50edafc44c.gz",
+      "published_sha256": "5eae116325fd480dab5f3a7c4920f37c4cd40958d2d9de3cc01acc50edafc44c",
+      "published_bytes": 716,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-785.json",
+      "sha256": "b260c4dd67da3fcffbde0f70a362100edf4673709db1a8b2df7936e40670b322",
+      "bytes": 715,
+      "git_blob": "02aa191b8ff08ea0fa90138d0651d4da553c7d2c",
+      "preserved_bytes": "recovered/interior-install-059/b260c4dd67da3fcffbde0f70a362100edf4673709db1a8b2df7936e40670b322.gz",
+      "published_sha256": "b260c4dd67da3fcffbde0f70a362100edf4673709db1a8b2df7936e40670b322",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-786.json",
+      "sha256": "319f8ace0458056a0b1ee699a5475b703af603854a8be3970ecd2d0c38091505",
+      "bytes": 714,
+      "git_blob": "829ef04779b39a6f31c87050b3249173dc835893",
+      "preserved_bytes": "recovered/interior-install-059/319f8ace0458056a0b1ee699a5475b703af603854a8be3970ecd2d0c38091505.gz",
+      "published_sha256": "319f8ace0458056a0b1ee699a5475b703af603854a8be3970ecd2d0c38091505",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-296.json",
+      "sha256": "cfee28691aa7d2bcd96aa9a8835ac6734f538fe39071ab12812a8035390de826",
+      "bytes": 668,
+      "git_blob": "5a28cdd9cbd8ea2ca9f016fe65cd05deb303cfea",
+      "preserved_bytes": "recovered/interior-install-059/cfee28691aa7d2bcd96aa9a8835ac6734f538fe39071ab12812a8035390de826.gz",
+      "published_sha256": "cfee28691aa7d2bcd96aa9a8835ac6734f538fe39071ab12812a8035390de826",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-296.json",
+      "sha256": "9d3a7c41861af37477d38d6720a87e676c4dff11e7ccefdae4c98bb3dfc8c233",
+      "bytes": 37604,
+      "git_blob": "e6861f1a2c93f7723ef58867c92c13727da44dfc",
+      "preserved_bytes": "recovered/interior-install-059/9d3a7c41861af37477d38d6720a87e676c4dff11e7ccefdae4c98bb3dfc8c233.gz",
+      "published_sha256": "9d3a7c41861af37477d38d6720a87e676c4dff11e7ccefdae4c98bb3dfc8c233",
+      "published_bytes": 37604,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-644.json",
+      "sha256": "eb8572e2abe1dc8cb50f60ad2ebceb68490a0024abe52e147d8bdb79e073ec42",
+      "bytes": 2229,
+      "git_blob": "0beb739c30b0d84c5dae7ca082d08d72a634b70a",
+      "preserved_bytes": "recovered/interior-install-059/eb8572e2abe1dc8cb50f60ad2ebceb68490a0024abe52e147d8bdb79e073ec42.gz",
+      "published_sha256": "eb8572e2abe1dc8cb50f60ad2ebceb68490a0024abe52e147d8bdb79e073ec42",
+      "published_bytes": 2229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-645.json",
+      "sha256": "4c12ae2d36e1fb2a699d4b6406b3a5ebe50f104c44204728e1bb60491e6fedcc",
+      "bytes": 1729,
+      "git_blob": "e0bc4cb71f827970eb7eb4281cb80ab43cd4ef39",
+      "preserved_bytes": "recovered/interior-install-059/4c12ae2d36e1fb2a699d4b6406b3a5ebe50f104c44204728e1bb60491e6fedcc.gz",
+      "published_sha256": "4c12ae2d36e1fb2a699d4b6406b3a5ebe50f104c44204728e1bb60491e6fedcc",
+      "published_bytes": 1729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-646.json",
+      "sha256": "7a7b4dd3138f6b8813cdc215ed0a25db697a551e0e36b023806a94faf1dc3589",
+      "bytes": 1239,
+      "git_blob": "04539942114765d46ee404bc01d4a02c1c20262f",
+      "preserved_bytes": "recovered/interior-install-059/7a7b4dd3138f6b8813cdc215ed0a25db697a551e0e36b023806a94faf1dc3589.gz",
+      "published_sha256": "7a7b4dd3138f6b8813cdc215ed0a25db697a551e0e36b023806a94faf1dc3589",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-644.json",
+      "sha256": "2ecb5828454f73f96d25ca2027dddb165aef472307dcbb37e675426bdfb58431",
+      "bytes": 7423,
+      "git_blob": "8df2e111e06a1a20ab6fcb6c635a1b013ead4acd",
+      "preserved_bytes": "recovered/interior-install-059/2ecb5828454f73f96d25ca2027dddb165aef472307dcbb37e675426bdfb58431.gz",
+      "published_sha256": "2ecb5828454f73f96d25ca2027dddb165aef472307dcbb37e675426bdfb58431",
+      "published_bytes": 7423,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-645.json",
+      "sha256": "36c706b6e5db104384fac801191daadc1cb50c6c4c91b602c78eace3dff7da98",
+      "bytes": 8603,
+      "git_blob": "8c103d13ecd5056814715082c52a212f55ce3bdb",
+      "preserved_bytes": "recovered/interior-install-059/36c706b6e5db104384fac801191daadc1cb50c6c4c91b602c78eace3dff7da98.gz",
+      "published_sha256": "36c706b6e5db104384fac801191daadc1cb50c6c4c91b602c78eace3dff7da98",
+      "published_bytes": 8603,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-646.json",
+      "sha256": "a4c12af718cf9445db2bd41b3ea3b4c8aea432c820faa403d6cbc91b63926276",
+      "bytes": 4730,
+      "git_blob": "f9a47d4e861294035a093c208155b7300491592e",
+      "preserved_bytes": "recovered/interior-install-059/a4c12af718cf9445db2bd41b3ea3b4c8aea432c820faa403d6cbc91b63926276.gz",
+      "published_sha256": "a4c12af718cf9445db2bd41b3ea3b4c8aea432c820faa403d6cbc91b63926276",
+      "published_bytes": 4730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-839.json",
+      "sha256": "c29757502f1a0aeb3d0c9ad3432c653cffa79b05ef741c9f342219e31be5673c",
+      "bytes": 1230,
+      "git_blob": "a963950097155e6a67097b20c56dea9388ca8fca",
+      "preserved_bytes": "recovered/interior-install-059/c29757502f1a0aeb3d0c9ad3432c653cffa79b05ef741c9f342219e31be5673c.gz",
+      "published_sha256": "c29757502f1a0aeb3d0c9ad3432c653cffa79b05ef741c9f342219e31be5673c",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-840.json",
+      "sha256": "4f81aeb42a3fdcbf7d9931dea6d497a15e07098d678120003b8bbf27cf5dd340",
+      "bytes": 1240,
+      "git_blob": "f3249cab731065bd0eb6b545aa454065a1dc6051",
+      "preserved_bytes": "recovered/interior-install-059/4f81aeb42a3fdcbf7d9931dea6d497a15e07098d678120003b8bbf27cf5dd340.gz",
+      "published_sha256": "4f81aeb42a3fdcbf7d9931dea6d497a15e07098d678120003b8bbf27cf5dd340",
+      "published_bytes": 1240,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-841.json",
+      "sha256": "362f96f010fc159e800757b515b7d315a680ba657762defddc3686236af307d5",
+      "bytes": 1230,
+      "git_blob": "b211256ec1ca05e95fb0cfac09917c51228a5077",
+      "preserved_bytes": "recovered/interior-install-059/362f96f010fc159e800757b515b7d315a680ba657762defddc3686236af307d5.gz",
+      "published_sha256": "362f96f010fc159e800757b515b7d315a680ba657762defddc3686236af307d5",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-842.json",
+      "sha256": "c6d7c5980a24e9d7c534b5c8c24331b1316eeb73e7cf8ca83743de0987c8a8d8",
+      "bytes": 1232,
+      "git_blob": "36d647389af5db91349cda99d337249e9672506e",
+      "preserved_bytes": "recovered/interior-install-059/c6d7c5980a24e9d7c534b5c8c24331b1316eeb73e7cf8ca83743de0987c8a8d8.gz",
+      "published_sha256": "c6d7c5980a24e9d7c534b5c8c24331b1316eeb73e7cf8ca83743de0987c8a8d8",
+      "published_bytes": 1232,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-843.json",
+      "sha256": "0e5852f8612162b0ddc152af4754fb555d5daad8f14a0c59e35f1b6c98e5d56b",
+      "bytes": 1230,
+      "git_blob": "0e811e08a6d2f15874e1bb84f6fc2d34e05a99bf",
+      "preserved_bytes": "recovered/interior-install-059/0e5852f8612162b0ddc152af4754fb555d5daad8f14a0c59e35f1b6c98e5d56b.gz",
+      "published_sha256": "0e5852f8612162b0ddc152af4754fb555d5daad8f14a0c59e35f1b6c98e5d56b",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-844.json",
+      "sha256": "2c6d2634e3d4dca3291afb2b36f909cec63830703ed1fd6c552ff84ca32b83ed",
+      "bytes": 1216,
+      "git_blob": "8b6ac70484961b91808907e742a3ae551e3b26ff",
+      "preserved_bytes": "recovered/interior-install-059/2c6d2634e3d4dca3291afb2b36f909cec63830703ed1fd6c552ff84ca32b83ed.gz",
+      "published_sha256": "2c6d2634e3d4dca3291afb2b36f909cec63830703ed1fd6c552ff84ca32b83ed",
+      "published_bytes": 1216,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-845.json",
+      "sha256": "ce98ea3821d298681b35d72a0a954573fd32287fb163f25f82dd47bddda18ff5",
+      "bytes": 1226,
+      "git_blob": "c38c072f0f943287a0d91b81a55403d82ccc7e48",
+      "preserved_bytes": "recovered/interior-install-059/ce98ea3821d298681b35d72a0a954573fd32287fb163f25f82dd47bddda18ff5.gz",
+      "published_sha256": "ce98ea3821d298681b35d72a0a954573fd32287fb163f25f82dd47bddda18ff5",
+      "published_bytes": 1226,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-846.json",
+      "sha256": "ce7a23198057a644a5c8730a45591a633a7a5f2ed31aac2e343b0bfc8b36ceb0",
+      "bytes": 1205,
+      "git_blob": "bb518631408db1404909290207c42385c1eb1ded",
+      "preserved_bytes": "recovered/interior-install-059/ce7a23198057a644a5c8730a45591a633a7a5f2ed31aac2e343b0bfc8b36ceb0.gz",
+      "published_sha256": "ce7a23198057a644a5c8730a45591a633a7a5f2ed31aac2e343b0bfc8b36ceb0",
+      "published_bytes": 1205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-847.json",
+      "sha256": "937fac56f173680edc6f71b88b41d988ae485421992a5075d0e2382eb663ee41",
+      "bytes": 1237,
+      "git_blob": "9e31b09e6412cce9ab25abf2c1e9e0952b247cdb",
+      "preserved_bytes": "recovered/interior-install-059/937fac56f173680edc6f71b88b41d988ae485421992a5075d0e2382eb663ee41.gz",
+      "published_sha256": "937fac56f173680edc6f71b88b41d988ae485421992a5075d0e2382eb663ee41",
+      "published_bytes": 1237,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; future role1940 retains original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-644.json",
+      "sha256": "874a6c977395e4b84215c70f11d3ea2d6829acd9bf1754eb7d6e5567d607a972",
+      "bytes": 840,
+      "git_blob": "e86b6264c53f5e65f8ff8bc35a4457d7356c46df",
+      "preserved_bytes": "recovered/interior-install-059/874a6c977395e4b84215c70f11d3ea2d6829acd9bf1754eb7d6e5567d607a972.gz",
+      "published_sha256": "874a6c977395e4b84215c70f11d3ea2d6829acd9bf1754eb7d6e5567d607a972",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-645.json",
+      "sha256": "62fba561f1827c7329afa03a1b09dedfd73c34fe8489c72483f004b6f6d89bf0",
+      "bytes": 840,
+      "git_blob": "54da5bcfe08b596c9c2490b2938693a98019c16d",
+      "preserved_bytes": "recovered/interior-install-059/62fba561f1827c7329afa03a1b09dedfd73c34fe8489c72483f004b6f6d89bf0.gz",
+      "published_sha256": "62fba561f1827c7329afa03a1b09dedfd73c34fe8489c72483f004b6f6d89bf0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-646.json",
+      "sha256": "ea5a26d52dd3a7dfd56135af5fca5f43a001bc8217c183514c1133bc2365de8b",
+      "bytes": 840,
+      "git_blob": "14d38a9b234e4b732d68b5cd2632489edc18694a",
+      "preserved_bytes": "recovered/interior-install-059/ea5a26d52dd3a7dfd56135af5fca5f43a001bc8217c183514c1133bc2365de8b.gz",
+      "published_sha256": "ea5a26d52dd3a7dfd56135af5fca5f43a001bc8217c183514c1133bc2365de8b",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-644.json",
+      "sha256": "8a7af819bc968f16b8a4e12d7495690831b8679c131e761232960d33a7556ea8",
+      "bytes": 558,
+      "git_blob": "e8e39876b8c26347ad90c68cd763e53bbb0bf8e9",
+      "preserved_bytes": "recovered/interior-install-059/8a7af819bc968f16b8a4e12d7495690831b8679c131e761232960d33a7556ea8.gz",
+      "published_sha256": "8a7af819bc968f16b8a4e12d7495690831b8679c131e761232960d33a7556ea8",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-645.json",
+      "sha256": "31d3be8a1ea07d336f3fbf1a2c37a1ae783c684a32d0c319464c31b99eb79911",
+      "bytes": 558,
+      "git_blob": "b92fe0cebb8f0c1b75fbce14d87b6de9f597323e",
+      "preserved_bytes": "recovered/interior-install-059/31d3be8a1ea07d336f3fbf1a2c37a1ae783c684a32d0c319464c31b99eb79911.gz",
+      "published_sha256": "31d3be8a1ea07d336f3fbf1a2c37a1ae783c684a32d0c319464c31b99eb79911",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-646.json",
+      "sha256": "6cc7d00e21f065161cbf95a5c9644d3a45917cb8cf1fae5bd24d5d04bbad4a18",
+      "bytes": 558,
+      "git_blob": "154a63595a4ec35fc49bf5288ea333392804ff58",
+      "preserved_bytes": "recovered/interior-install-059/6cc7d00e21f065161cbf95a5c9644d3a45917cb8cf1fae5bd24d5d04bbad4a18.gz",
+      "published_sha256": "6cc7d00e21f065161cbf95a5c9644d3a45917cb8cf1fae5bd24d5d04bbad4a18",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1584",
+        "/entries/1585",
+        "/entries/1586",
+        "/entries/1589",
+        "/entries/1594"
+      ],
+      "qualification": "Earlier pending contracts and local-discard qualification remain unchanged and are not checkpoint3821."
+    },
+    {
+      "file": "ASSESSMENT-FURNITURE-VISTA-SUPPORT-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Original Adler295 already covers historical roles1932–1938 and retains original reviewer attribution."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb644–646 and Adler296 retain original author, scope and context; Segovb646 includes future1940 and Adler296 includes future1940–1944, with original reviewer credit only. Adler295 remains in the previous assessment. No future Lens1 role receives ordered credit.",
+  "remaining": "Continue original1940, all13 lenses, actual interior callers and plan binding, occupancy producers and prior-stage work budgets, native physics and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
