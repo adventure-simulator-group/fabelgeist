@@ -1,0 +1,82 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1470,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1470",
+      "sha256": "236a5328824e94bb189a8bde68dcf4f82154f9f48a4badb36397fe8f3fecf453",
+      "lines": 308,
+      "new_personal_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
+        "sha256": "f5360f6619eb44838dc1d5297e208282e42b407bd3bd4aebd00c7bf49216b651",
+        "bytes": 11569,
+        "lines": 321,
+        "git_blob": "048149792a65807d50064101c7e2a1be1a645ebb",
+        "preserved_bytes": "main-advance-95e/combat-effects-evidence/current-1470.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Current bytes bind only bounded current-source connections; original reviewer, snapshot and prior scope remain separately attributed; no checkpoint 3821 transfer.",
+        "diff": "main-advance-95e/combat-effects-evidence/original-1470-to-95e.diff",
+        "diff_sha256": "73d879e3d9d3a8db26d28dc909c301fbce95c5e3e0da674a139050dca9e3d7b9",
+        "difference": "Current audio output uses typed SoundFamily and sound_output playback with preload instead of spawning Bevy AudioPlayer components; the historical source remains distinct. No audio equivalence or playback result is inferred from this diff."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including fixture source as text only. No audio, event, geometry, image, simulation, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    },
+    {
+      "original_index": 1471,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact historical identity, not a claim of committed-tree equivalence.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1471",
+      "sha256": "3e00a08166bcf6b3d43e75aea399b0c990287a726a79642e49133cdf2f166066",
+      "lines": 337,
+      "new_personal_read_ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs",
+        "sha256": "3e00a08166bcf6b3d43e75aea399b0c990287a726a79642e49133cdf2f166066",
+        "bytes": 11148,
+        "lines": 337,
+        "git_blob": "60a83e4c3822b8f6d39ae29b668c0d7892fd228e",
+        "preserved_bytes": "main-advance-95e/combat-effects-evidence/current-1471.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Current bytes bind only bounded current-source connections; original reviewer, snapshot and prior scope remain separately attributed; no checkpoint 3821 transfer."
+      },
+      "qualification": "Full original historical source personally read through actual EOF, including fixture source as text only. No audio, event, geometry, image, simulation, test or runtime probe ran. Earlier reviewers retain original attribution and revision."
+    }
+  ],
+  "observations": [
+    "Two historical combat effects and blood decal bodies personally read through actual EOF, including fixture source as text only. Role 1471 matches 95e; role 1470 changed its audio-output path, and exact current bytes and diff are retained.",
+    "Earlier independent segovb Lens12 batches 435/436 and 687, adler Lens11 batch 208, and root e275 Lens1 receipts 002/003 retain their own reviewer, revision and zero accepted unique credit. Batch 687 covers later source roles 2042–2045 as earlier evidence; no new historical body credit for those roles is asserted here.",
+    "The earlier e275 Lens1 receipt has an explicit additive navigation correction; its original receipt and correction are preserved separately and the correction grants no extra source or unique-count credit. None of those earlier source reads becomes checkpoint 3821 authority.",
+    "No audio, event, geometry, image, simulation, test or runtime probe ran."
+  ],
+  "remaining": "Continue role 1472; complete event identity lifetimes, surface geometry, audio backends, aliases, overlays and thirteen independent lenses remain open."
+}

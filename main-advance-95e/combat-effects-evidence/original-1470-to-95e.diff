@@ -1,0 +1,131 @@
+--- historical-1470/crates/adventuresim-tactical-client/src/combat_effects.rs
++++ 95e/crates/adventuresim-tactical-client/src/combat_effects.rs
+@@ -1,12 +1,15 @@
+ use adventuresim_tactical_core::prelude::*;
+ use adventuresim_tactical_netcode::message::{ImpactSound, SuccessfulAttackResponse};
+-use bevy::audio::{PlaybackMode, Volume};
+ use bevy::ecs::system::SystemParam;
+ use bevy::prelude::*;
+ use fabelgeist_determinism::Seed;
+ use fabelgeist_determinism::StreamId;
+ 
+-use crate::{audio_config::TacticalAudioConfig, presentation::ProceduralTextureAssets};
++use crate::{
++    audio_config::TacticalAudioConfig,
++    presentation::ProceduralTextureAssets,
++    sound_output::{self, LinearVolume, PlaybackSpeed, SoundFamily, StereoGain},
++};
+ 
+ mod blood_decals;
+ use blood_decals::{BloodDecalPlugin, BloodMaskMaterial, BloodMaterialAssets, BloodSurfaceQuery};
+@@ -14,6 +17,14 @@
+ const SPARK_COUNT: usize = 10;
+ const BLOOD_COUNT: usize = 14;
+ const GRAVITY_METRES_PER_SECOND_SQUARED: f32 = 9.81;
++const IMPACT_SOUND_DIRECTORY: &str = "audio/combat/kenney-impact-sounds";
++const METAL_IMPACT: SoundFamily = SoundFamily::new(IMPACT_SOUND_DIRECTORY, "impactMetal_medium_00");
++const CUT_FLESH_IMPACT: SoundFamily =
++    SoundFamily::new(IMPACT_SOUND_DIRECTORY, "impactSoft_medium_00");
++const BLUNT_FLESH_IMPACT: SoundFamily =
++    SoundFamily::new(IMPACT_SOUND_DIRECTORY, "impactPunch_medium_00");
++const NON_METAL_WEAPON_IMPACT: SoundFamily =
++    SoundFamily::new(IMPACT_SOUND_DIRECTORY, "impactWood_medium_00");
+ 
+ pub struct CombatEffectsPlugin;
+ 
+@@ -22,6 +33,7 @@
+         app.add_plugins((crate::movement_audio::MovementAudioPlugin, BloodDecalPlugin))
+             .init_resource::<CombatEffectAssets>()
+             .add_observer(spawn_combat_effects)
++            .add_systems(Startup, preload_impact_sounds)
+             .add_systems(Update, (move_combat_particles, fade_sparks));
+     }
+ }
+@@ -62,7 +74,6 @@
+     images: ResMut<'w, Assets<Image>>,
+     blood_materials: ResMut<'w, Assets<BloodMaskMaterial>>,
+     assets: ResMut<'w, CombatEffectAssets>,
+-    asset_server: Res<'w, AssetServer>,
+     config: Res<'w, TacticalAudioConfig>,
+ }
+ 
+@@ -124,8 +135,6 @@
+         return;
+     };
+     play_impact_sound(
+-        &mut commands,
+-        &resources.asset_server,
+         event.impact_effects.sound,
+         world_point,
+         sound_seed,
+@@ -196,9 +205,18 @@
+     Some(StreamId::new("audio.combat-event").seed(Seed::from_u64(character_id), &[*sequence]))
+ }
+ 
++fn preload_impact_sounds() {
++    for family in [
++        METAL_IMPACT,
++        CUT_FLESH_IMPACT,
++        BLUNT_FLESH_IMPACT,
++        NON_METAL_WEAPON_IMPACT,
++    ] {
++        family.preload();
++    }
++}
++
+ fn play_impact_sound(
+-    commands: &mut Commands,
+-    asset_server: &AssetServer,
+     sound: ImpactSound,
+     world_point: Vec3,
+     seed: Seed,
+@@ -206,10 +224,10 @@
+ ) {
+     let family = match sound {
+         ImpactSound::None => return,
+-        ImpactSound::Metal => "impactMetal_medium_00",
+-        ImpactSound::CutFlesh => "impactSoft_medium_00",
+-        ImpactSound::BluntFlesh => "impactPunch_medium_00",
+-        ImpactSound::NonMetalWeapon => "impactWood_medium_00",
++        ImpactSound::Metal => METAL_IMPACT,
++        ImpactSound::CutFlesh => CUT_FLESH_IMPACT,
++        ImpactSound::BluntFlesh => BLUNT_FLESH_IMPACT,
++        ImpactSound::NonMetalWeapon => NON_METAL_WEAPON_IMPACT,
+     };
+     let context = [
+         u64::from(world_point.x.to_bits()),
+@@ -218,25 +236,20 @@
+     ];
+     let variant = StreamId::new("audio.combat-variant")
+         .rng(seed, &context)
+-        .index(3);
++        .index(SoundFamily::TAKES);
+     let pitch_fraction = StreamId::new("audio.combat-pitch")
+         .rng(seed, &context)
+         .inclusive_unit_f32();
+     let pitch = config.combat.impact_pitch_randomization;
+     let speed = pitch[0] + pitch_fraction * (pitch[1] - pitch[0]);
+-    let path = format!("audio/combat/kenney-impact-sounds/{family}{variant}.ogg");
+-    commands.spawn((
+-        Name::new("combat-impact-sound"),
+-        AudioPlayer::new(asset_server.load(path)),
+-        PlaybackSettings {
+-            mode: PlaybackMode::Despawn,
+-            speed,
+-            spatial: true,
+-            volume: Volume::Linear(config.combat.impact_relative_volume),
+-            ..default()
+-        },
+-        Transform::from_translation(world_point),
+-    ));
++    sound_output::play_spatial(
++        &family.take(variant),
++        StereoGain::at(
++            world_point,
++            LinearVolume::new(config.combat.impact_relative_volume),
++        ),
++        PlaybackSpeed::new(speed),
++    );
+ }
+ 
+ #[expect(
