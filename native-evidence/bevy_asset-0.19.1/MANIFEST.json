@@ -1,0 +1,69 @@
+{
+  "schema": "726-selected-registry-source-v1",
+  "package": "bevy_asset",
+  "version": "0.19.1",
+  "original_archive": "https://static.crates.io/crates/bevy_asset/bevy_asset-0.19.1.crate",
+  "archive_sha256": "1624eddbf2293441b2158506aba75e523432b898d9da26eb6ed3e20af4c7fd38",
+  "archive_bytes": 201681,
+  "lock": "Cargo.lock at 95e63628f9d70b8dd6e6fede64334696c6995009",
+  "qualification": "Exact registry archive verified locally against the pinned lock. An unrelated source member contains local-path-shaped examples and is not republished; the complete unmodified archive remains recoverable from the registry URL with this checksum. Selected source and license members are exact separately preserved gzip bytes. Only cited native source ranges were inspected, and no product or native asset behavior was executed.",
+  "inspected_members": [
+    {
+      "archive_member": "bevy_asset-0.19.1/Cargo.toml",
+      "sha256": "7946e532e7c6cfb9463ea5f789b4ffdacc685defc7e6ac6aadc1273ab4761278",
+      "bytes": 5910,
+      "preserved_bytes": "native-evidence/bevy_asset-0.19.1/member-00.gz",
+      "personally_inspected_ranges": []
+    },
+    {
+      "archive_member": "bevy_asset-0.19.1/LICENSE-APACHE",
+      "sha256": "a6cba85bc92e0cff7a450b1d873c0eaa2e9fc96bf472df0247a26bec77bf3ff9",
+      "bytes": 10173,
+      "preserved_bytes": "native-evidence/bevy_asset-0.19.1/member-01.gz",
+      "personally_inspected_ranges": []
+    },
+    {
+      "archive_member": "bevy_asset-0.19.1/LICENSE-MIT",
+      "sha256": "508a77d2e7b51d98adeed32648ad124b7b30241a8e70b2e72c99f92d8e5874d1",
+      "bytes": 1036,
+      "preserved_bytes": "native-evidence/bevy_asset-0.19.1/member-02.gz",
+      "personally_inspected_ranges": []
+    },
+    {
+      "archive_member": "bevy_asset-0.19.1/src/server/mod.rs",
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "bytes": 104444,
+      "preserved_bytes": "native-evidence/bevy_asset-0.19.1/member-03.gz",
+      "personally_inspected_ranges": [
+        [
+          1233,
+          1262
+        ],
+        [
+          1322,
+          1344
+        ],
+        [
+          2065,
+          2104
+        ],
+        [
+          2250,
+          2285
+        ]
+      ]
+    },
+    {
+      "archive_member": "bevy_asset-0.19.1/src/server/info.rs",
+      "sha256": "6c6d4d79051bd8abf92d8f9a25548f7a89ebea7df384b9f1d41091b3ddb42b65",
+      "bytes": 33542,
+      "preserved_bytes": "native-evidence/bevy_asset-0.19.1/member-04.gz",
+      "personally_inspected_ranges": [
+        [
+          638,
+          670
+        ]
+      ]
+    }
+  ]
+}

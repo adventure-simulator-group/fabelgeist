@@ -3062,8 +3062,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json"
+      },
+      {
+        "id": "ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE",
+        "lens": 11,
+        "severity": "unassigned; conditional required-asset load failure with source-derived status consequence",
+        "classification": "Previously recorded 059 historical finding, independently reconnected to the 95e source; not a new historical finding or additional proven unique issue.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE",
+          "baseline-059/queue.json#/entries/1252"
+        ],
+        "relationship_qualification": "Same previously recorded finding, newly re-assessed against bounded 95e source and pinned native code; no additional historical discovery or accepted unique count asserted. Final checkpoint 3821 and global aliases remain unavailable.",
+        "discovery": "partial; actual runtime/native outcomes, retry policy, other is_ready consumers and global exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ART-DEMO-RESIDENCY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0526.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0530.json"
 }
