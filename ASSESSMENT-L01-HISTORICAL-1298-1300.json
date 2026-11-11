@@ -1,0 +1,94 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1298,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/main.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1298",
+      "sha256": "9b6221a78408db588faf85ca8795c5004e6b3cf501828cd610d608205e1892f1",
+      "lines": 561,
+      "new_personal_read_ranges": [
+        [
+          1,
+          561
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "9b6221a78408db588faf85ca8795c5004e6b3cf501828cd610d608205e1892f1",
+        "byte_identical": true,
+        "qualification": "Byte equality only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical body personally read. Tests were read as text only; connected scope, all independent lenses, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1299,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/profile.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1299",
+      "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+      "lines": 789,
+      "new_personal_read_ranges": [
+        [
+          1,
+          789
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+        "byte_identical": true,
+        "qualification": "Byte equality only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical body personally read. Tests were read as text only; connected scope, all independent lenses, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1300,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/tests/core_loop_live.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1300",
+      "sha256": "034a4036833adfa442a315160a4f2c824770432c513ca8ea64d07d3a47e9d354",
+      "lines": 237,
+      "new_personal_read_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "034a4036833adfa442a315160a4f2c824770432c513ca8ea64d07d3a47e9d354",
+        "byte_identical": true,
+        "qualification": "Byte equality only; no automatic current or independent-lens completion."
+      },
+      "qualification": "Full historical body personally read. Tests were read as text only; connected scope, all independent lenses, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The historical CLI, profile and opt-in integration-test source bodies were personally read through actual EOF; no product code, test, fixture, filesystem scenario or runtime was executed.",
+    "Earlier independent Lens12 batches 350 and 351 each recorded their own full respective body read. Batch 352 recorded two full historical source roles: the integration test 1300 and tactical-client manifest 1301. Its original 1301 attribution is preserved, but that earlier record does not count as a new personal body read of role 1301 here.",
+    "Earlier batch 350 expressly left symlink-parent and native path behavior conditional; the connected current analysis adds a source-and-documentation-derived Linux scenario without rewriting the earlier disposition. Batch 352 qualified its global event-kind subsequence as no same-subject causal proof.",
+    "The inherited disease-read qualification remains unchanged; no earlier evidence is promoted into checkpoint 3821."
+  ],
+  "remaining": "Continue role 1301; other original, overlay, mandatory, native and independent-lens scope remains open."
+}

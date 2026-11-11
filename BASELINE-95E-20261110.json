@@ -2832,8 +2832,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json"
+      },
+      {
+        "id": "REVIEW-SIM-OUTPUT-PATH-ALIAS-001",
+        "lens": 8,
+        "severity": "P2 provisional; conditional overwrite and public/developer artifact separation failure",
+        "classification": "New bounded current source-derived output identity contract; the earlier 350 record left symbolic-link and parent-component semantics unresolved.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1090 (earlier CLI/output contract)",
+          "segovb/READ-L12-350.json via ASSESSMENT-SIM-OUTPUT-ALIAS-95E.json"
+        ],
+        "relationship_qualification": "Earlier symlink-parent question retains its original revision, attribution and unresolved status; new symbolic evidence does not alter historical unique counts or checkpoint 3821.",
+        "discovery": "partial; platform-specific APIs, supported path permissions, concurrency, actual evaluation output and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SIM-OUTPUT-ALIAS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0402.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0406.json"
 }

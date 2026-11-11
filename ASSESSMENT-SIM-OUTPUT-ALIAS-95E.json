@@ -1,0 +1,467 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    7,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected CLI output path identity, private/public artifacts and integration-test acceptance semantics; source-only reasoning.",
+  "source_reasoning": "Pinned repository source, newly inspected installed Rust documentation and Linux manual pages, and symbolic pathname reasoning only. No symlinks, hard links, output files, product process, tests, compiler or runtime probe were created or executed.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3399b9e5660bad7baa119dc9ea8994cb7909e8f5",
+      "sha256": "9b6221a78408db588faf85ca8795c5004e6b3cf501828cd610d608205e1892f1",
+      "bytes": 19815,
+      "lines": 561,
+      "ranges": [
+        [
+          1,
+          561
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/profile.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "94c77ead5e0ec3fd7bfb76a9063ca7dc2125e03e",
+      "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+      "bytes": 28065,
+      "lines": 789,
+      "ranges": [
+        [
+          1,
+          789
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/tests/core_loop_live.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d0e475f63e1bff3f1124de787721cbbddf4bc26a",
+      "sha256": "034a4036833adfa442a315160a4f2c824770432c513ca8ea64d07d3a47e9d354",
+      "bytes": 8693,
+      "lines": 237,
+      "ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f61a39cd09b33c559e7a1f115255ba7b217f31ad",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "bytes": 59967,
+      "lines": 1659,
+      "ranges": [
+        [
+          125,
+          138
+        ],
+        [
+          185,
+          196
+        ],
+        [
+          408,
+          450
+        ],
+        [
+          1012,
+          1042
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/investigation_eval/types.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3f9641c3e2e138404b4b7d6997325d30908946c3",
+      "sha256": "9decd52b1b06d2f20f0ef07bc2509058ad189e30df4a95526d7a34837bc68563",
+      "bytes": 13409,
+      "lines": 461,
+      "ranges": [
+        [
+          384,
+          397
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "643d744a82700c81d6f10c659269d9f345423fef",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "bytes": 58364,
+      "lines": 1325,
+      "ranges": [
+        [
+          147,
+          165
+        ],
+        [
+          544,
+          570
+        ],
+        [
+          1301,
+          1325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2448f1b939e36c8f9143f88066f6b1930bfdc0b6",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "bytes": 6849,
+      "lines": 171,
+      "ranges": [
+        [
+          55,
+          70
+        ],
+        [
+          110,
+          141
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/output-alias-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; source tests read without execution."
+    }
+  ],
+  "native_evidence": [
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/MANIFEST.json",
+      "qualification": "Installed date-pinned Rust source documentation, not a historical compiler-use receipt."
+    },
+    {
+      "path": "native-evidence/linux-man-pages-6.7/MANIFEST.json",
+      "qualification": "Installed Linux 6.7 manual source and package license, newly inspected; describes Linux semantics only, not observed platform behavior."
+    }
+  ],
+  "symbolic_path_scenario": {
+    "assumed_existing_directories": [
+      "/a",
+      "/b",
+      "/b/sub"
+    ],
+    "assumed_symlink": "/a/link -> /b/sub",
+    "input_public": "/a/link/../report.json",
+    "input_developer": "/b/report.json",
+    "validator_lexical_public": "/a/report.json",
+    "validator_lexical_developer": "/b/report.json",
+    "linux_resolved_public": "/b/report.json",
+    "linux_resolved_developer": "/b/report.json",
+    "qualification": "Symbolic consequence of the supplied paths and Linux pathname rules; no path or link was created, accessed or probed."
+  },
+  "safeguards_and_limits": [
+    "The CLI rejects identical normalized path strings and, without explicit overwrite, uses create_new. Its existing unexecuted source tests cover same spelling, a nonexistent lexical alias and ordinary symlinked parent, not the selected symlink-then-parent or distinct hard-link examples.",
+    "The public artifact is serialized and checked against selected high-entropy private canaries before the developer artifact is serialized; the selected file writes do not compare actual opened file identities. This is not proof that any actual data was disclosed or that the heuristic is otherwise complete.",
+    "The opt-in integration source is ignored by default and was not executed. Its ordered-subsequence helper advances only on event kind across the entire trace; it does not itself bind events to a party, case or agent. Earlier batch 352 records this as a scope limitation rather than an automatic defect.",
+    "CoreLoopConfig describes require_quest_coverage as fixture installation and requirement. The selected core wrapper returns its successful report directly; the CLI subsequently calls validate_quest_coverage when that flag is set. The inspected integration source calls the wrapper and performs its own assertions, so the intended acceptance requirement and full call graph remain open.",
+    "The profile generator uses typed activity, equipment and build roles and intentionally clones a generated profile for matched activity comparisons. Earlier batch 351 did not infer an identity invariant violation from the common seed."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1298-1300.json",
+      "qualification": "Three personal historical body reads; earlier independent 352 receipt also names 1301 without granting this audit a 1301 personal read."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1090",
+        "/entries/1091",
+        "/entries/1092"
+      ],
+      "qualification": "Prior CLI, profile and integration acceptance obligations remain partial."
+    },
+    {
+      "file": "ASSESSMENT-COVERAGE-TRUST-RECOVERED-LOCATOR-95E.json",
+      "qualification": "Separate report construction and external trust question remains partial."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-350.json",
+      "sha256": "88afd1fbc106eb7a8234b3f90f15633bc58a28ad9bd4dcafb11667ec730cb15a",
+      "bytes": 705,
+      "git_blob": "b13de431961fae5db27163f9d1350cd2d2ad7c2a",
+      "preserved_bytes": "recovered/output-alias-059/88afd1fbc106eb7a8234b3f90f15633bc58a28ad9bd4dcafb11667ec730cb15a.gz",
+      "published_sha256": "88afd1fbc106eb7a8234b3f90f15633bc58a28ad9bd4dcafb11667ec730cb15a",
+      "published_bytes": 705,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-351.json",
+      "sha256": "a6d8ad4f9bb4c82cbdfb76e9af84f0be621d59d648335b944afb338a05411a4b",
+      "bytes": 708,
+      "git_blob": "07626ea84922514a381bffed49329496b4e5ace7",
+      "preserved_bytes": "recovered/output-alias-059/a6d8ad4f9bb4c82cbdfb76e9af84f0be621d59d648335b944afb338a05411a4b.gz",
+      "published_sha256": "a6d8ad4f9bb4c82cbdfb76e9af84f0be621d59d648335b944afb338a05411a4b",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-352.json",
+      "sha256": "bb436df35838a840be0a78951dd1528c53cbcfcc1acac086647a634ec04b214e",
+      "bytes": 1190,
+      "git_blob": "3bae146ece5c782e67ff1348df28b234093e5620",
+      "preserved_bytes": "recovered/output-alias-059/bb436df35838a840be0a78951dd1528c53cbcfcc1acac086647a634ec04b214e.gz",
+      "published_sha256": "bb436df35838a840be0a78951dd1528c53cbcfcc1acac086647a634ec04b214e",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-350.json",
+      "sha256": "a29616ac655c27a0c30d6f23e914b4bef63a392231abd12800adf7c0ecaa26a6",
+      "bytes": 7439,
+      "git_blob": "b965d9dc6b7d6008d8be15f837acab9d3b3705a3",
+      "preserved_bytes": "recovered/output-alias-059/a29616ac655c27a0c30d6f23e914b4bef63a392231abd12800adf7c0ecaa26a6.gz",
+      "published_sha256": "a29616ac655c27a0c30d6f23e914b4bef63a392231abd12800adf7c0ecaa26a6",
+      "published_bytes": 7439,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-351.json",
+      "sha256": "c7fc99ebd65d6b25b76b960e4782b47dc5f615fc5dd9e2709806b4d3d8106d92",
+      "bytes": 7837,
+      "git_blob": "9b9cdd00a9d7cc0db1a972d370d6b86c317095bb",
+      "preserved_bytes": "recovered/output-alias-059/c7fc99ebd65d6b25b76b960e4782b47dc5f615fc5dd9e2709806b4d3d8106d92.gz",
+      "published_sha256": "c7fc99ebd65d6b25b76b960e4782b47dc5f615fc5dd9e2709806b4d3d8106d92",
+      "published_bytes": 7837,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-352.json",
+      "sha256": "ffeec001be07d83f8a0f9b4b267bfc93fad463e83dbf6aebca6bf052b63b73a4",
+      "bytes": 9785,
+      "git_blob": "4a15637d2843dcdadfe624745adfe15d631e7a66",
+      "preserved_bytes": "recovered/output-alias-059/ffeec001be07d83f8a0f9b4b267bfc93fad463e83dbf6aebca6bf052b63b73a4.gz",
+      "published_sha256": "ffeec001be07d83f8a0f9b4b267bfc93fad463e83dbf6aebca6bf052b63b73a4",
+      "published_bytes": 9785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-205.json",
+      "sha256": "5917379333df34c5002c30f3e286d8730efbb91d059a8bc429a6c7b51a043fd7",
+      "bytes": 1170,
+      "git_blob": "077edd5dcdebf731f49ded4db235e441ef9c40c8",
+      "preserved_bytes": "recovered/output-alias-059/5917379333df34c5002c30f3e286d8730efbb91d059a8bc429a6c7b51a043fd7.gz",
+      "published_sha256": "5917379333df34c5002c30f3e286d8730efbb91d059a8bc429a6c7b51a043fd7",
+      "published_bytes": 1170,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration; includes original 1301 attribution but no new read credit"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-206.json",
+      "sha256": "1bfa35ba26d7b162620306fd1f7140f9213bfaeda22b28655ac75ca207ab737d",
+      "bytes": 1175,
+      "git_blob": "eaaac4ef230ab20ede4bc8f232bacdbbe459935d",
+      "preserved_bytes": "recovered/output-alias-059/1bfa35ba26d7b162620306fd1f7140f9213bfaeda22b28655ac75ca207ab737d.gz",
+      "published_sha256": "1bfa35ba26d7b162620306fd1f7140f9213bfaeda22b28655ac75ca207ab737d",
+      "published_bytes": 1175,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration; includes original 1301 attribution but no new read credit"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-207.json",
+      "sha256": "d328cfb069a8408982467769ff4fd32f6d1fe8feabe353416c52671cbe1a7e33",
+      "bytes": 1224,
+      "git_blob": "8cd91e0b9370134fdcc3ade488316b53b362a59e",
+      "preserved_bytes": "recovered/output-alias-059/d328cfb069a8408982467769ff4fd32f6d1fe8feabe353416c52671cbe1a7e33.gz",
+      "published_sha256": "d328cfb069a8408982467769ff4fd32f6d1fe8feabe353416c52671cbe1a7e33",
+      "published_bytes": 1224,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration; includes original 1301 attribution but no new read credit"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-208.json",
+      "sha256": "132dbf401407b2eb0deed6b5063dab86fe4052397745fdde47b4365059c96cfa",
+      "bytes": 1202,
+      "git_blob": "ab02bc9d8c6590c8b8e67ede4cc5b957f8c59918",
+      "preserved_bytes": "recovered/output-alias-059/132dbf401407b2eb0deed6b5063dab86fe4052397745fdde47b4365059c96cfa.gz",
+      "published_sha256": "132dbf401407b2eb0deed6b5063dab86fe4052397745fdde47b4365059c96cfa",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration; includes original 1301 attribution but no new read credit"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-350.json",
+      "sha256": "cf7f3eba9c6ea60469c64a8eee0554b3ab3e661cb1e1032d129b4d46c225cd76",
+      "bytes": 840,
+      "git_blob": "25965187874b8370b4f079d08b4a10f687a9031e",
+      "preserved_bytes": "recovered/output-alias-059/cf7f3eba9c6ea60469c64a8eee0554b3ab3e661cb1e1032d129b4d46c225cd76.gz",
+      "published_sha256": "cf7f3eba9c6ea60469c64a8eee0554b3ab3e661cb1e1032d129b4d46c225cd76",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-351.json",
+      "sha256": "74df84028431737425139ec70b0573961a8aac1cffb42cfa96a005d26d22362a",
+      "bytes": 840,
+      "git_blob": "3d7edbdc58ce6834d362c75071f1e5c03b5aba55",
+      "preserved_bytes": "recovered/output-alias-059/74df84028431737425139ec70b0573961a8aac1cffb42cfa96a005d26d22362a.gz",
+      "published_sha256": "74df84028431737425139ec70b0573961a8aac1cffb42cfa96a005d26d22362a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-352.json",
+      "sha256": "ed2d15034f79faaa622382f3f0393d1d1b0f490fd92921685afc93c7de500c18",
+      "bytes": 840,
+      "git_blob": "d2108a63654889567f5cfd4f8f73ae6ca38eee70",
+      "preserved_bytes": "recovered/output-alias-059/ed2d15034f79faaa622382f3f0393d1d1b0f490fd92921685afc93c7de500c18.gz",
+      "published_sha256": "ed2d15034f79faaa622382f3f0393d1d1b0f490fd92921685afc93c7de500c18",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-350.json",
+      "sha256": "6256ea178af3bac76f4e0df201ebaedad5d52634a285886bab55ac75acc582d6",
+      "bytes": 558,
+      "git_blob": "f8789cb30a34f5b8bafce5ec665377ad053c405c",
+      "preserved_bytes": "recovered/output-alias-059/6256ea178af3bac76f4e0df201ebaedad5d52634a285886bab55ac75acc582d6.gz",
+      "published_sha256": "6256ea178af3bac76f4e0df201ebaedad5d52634a285886bab55ac75acc582d6",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-351.json",
+      "sha256": "2487babf4b6b40bbe974c62c3d41ee1496d0ec0af659cdbf44866e8c838f2999",
+      "bytes": 558,
+      "git_blob": "a9b55b47dc98f4800b6120238d1c70c6f7d7f8f3",
+      "preserved_bytes": "recovered/output-alias-059/2487babf4b6b40bbe974c62c3d41ee1496d0ec0af659cdbf44866e8c838f2999.gz",
+      "published_sha256": "2487babf4b6b40bbe974c62c3d41ee1496d0ec0af659cdbf44866e8c838f2999",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-352.json",
+      "sha256": "b5c13908c2ba897553a140366a18935cdd39df7332daa24a06664ddf7cac73ab",
+      "bytes": 558,
+      "git_blob": "4992f0b90f330f30af710199f14daee8d25c584a",
+      "preserved_bytes": "recovered/output-alias-059/b5c13908c2ba897553a140366a18935cdd39df7332daa24a06664ddf7cac73ab.gz",
+      "published_sha256": "b5c13908c2ba897553a140366a18935cdd39df7332daa24a06664ddf7cac73ab",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence-only verification"
+      ],
+      "qualification": "Earlier original lens, revision, attribution, unread scope and inherited disease qualification remain unchanged; no other-lens, current or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-SIM-OUTPUT-PATH-ALIAS-001",
+      "lens": 8,
+      "severity": "P2 provisional; conditional overwrite and public/developer artifact separation failure",
+      "classification": "New bounded current source-derived output identity contract; the earlier 350 record left symbolic-link and parent-component semantics unresolved.",
+      "trace": "QuestAnalyze asks validate_distinct_output_paths to separate public JSON, developer JSON and stories, then writes them in that order. The validator lexically removes ParentDir components before canonicalizing an existing ancestor. For a symbolic Linux example, assume /a and /b are distinct real directories, /b/sub exists, /a/link points to /b/sub, and both /a/report.json and /b/report.json initially do not exist. The validator maps /a/link/../report.json to /a/report.json and /b/report.json to itself, so it considers them distinct; ordinary Linux path resolution follows link before the parent component and both actual output names resolve to /b/report.json. If evaluation succeeds and --overwrite is enabled, the public write is followed by developer JSON truncating and replacing the same file. DeveloperCaseAnalysis is documented as unsuitable for public trace and includes canonical case identity, cause and true site; the existing privacy audit scans the public serialization before these writes, not the later file identity. This can leave the developer artifact at the path the caller supplied as public; actual publication, generated content, filesystem state and any disclosure were not observed. Without --overwrite, the second create_new fails after the first write rather than silently replacing it.",
+      "additional_identity_mechanism": "Two existing distinct hard-link names may also designate the same Linux file even if canonicalized path strings differ. Under explicit --overwrite, the same sequential truncation issue is source-derived; this is a separate alias mechanism within the same output-separation contract, and no hard links were created or inspected. Concurrent replacement and non-Linux platforms remain open.",
+      "connected_repair": "Define and enforce output separation using actual parent/path and existing-file identity rather than normalizing away symlink-sensitive parent components. Preserve create-new behavior and explicit overwrite while preventing or reporting same-file aliases, including symlink/parent and hard-link cases; consider safe staging and race-resistant handle identity so preflight alone is not treated as proof under concurrent changes. Keep private and public artifact boundaries explicit.",
+      "later_acceptance": "Only after separately authorized implementation and product validation, cover nonexistent leaves through a symlink followed by parent, existing hard-linked outputs, ordinary distinct paths, both overwrite modes, error/partial-write policy and appropriate platform controls.",
+      "discovery": "partial; platform-specific APIs, supported path permissions, concurrency, actual evaluation output and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Actual product invocation, filesystem and platform states, race and identity policy, generated private contents, integration acceptance intent, all native call paths and exact aliases remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
