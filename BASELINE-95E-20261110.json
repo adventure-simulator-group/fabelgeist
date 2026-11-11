@@ -1383,6 +1383,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L05-RUNE-ROUTE-95E.json"
+      },
+      {
+        "id": "REVIEW-DISINFECTANT-SHORT-SERVING-001",
+        "lens": 4,
+        "severity": "unassigned; conditional authored-content volume mismatch, current catalog instances are larger",
+        "classification": "conditional short-serving disinfection dose lost through capped one-item fraction",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/314",
+          "ASSESSMENT-L01-ALCOHOL-CALENDAR-95E.json#/candidates/0"
+        ],
+        "relationship_qualification": "Earlier PL13-235 left ratio errors and serving admission pending; this positive-serving clamped case is distinct from its error fallback question and the separate hydration contract.",
+        "discovery": "partial; dose policy, other item producers, inventory atomicity and historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L04-DISINFECTANT-VOLUME-95E.json"
       }
     ]
   },

@@ -1,0 +1,281 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected surgery disinfectant volume, capped fraction arithmetic, catalog admission and earlier delegated evidence. The operations lens remains incomplete.",
+  "source_reasoning": "Static source reading, symbolic fixed-point arithmetic and historical evidence recovery only; no inventory, item, reducer, surgery, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/alcohol.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6526cf7c40db70afb9454e6b2f93736e07b7e929",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "bytes": 23237,
+      "lines": 677,
+      "ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "bytes": 26593,
+      "lines": 804,
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "bytes": 50861,
+      "lines": 1435,
+      "ranges": [
+        [
+          1020,
+          1090
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f9f05f97786b7fc59390d020755d905363fbe0ce",
+      "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "bytes": 72750,
+      "lines": 2059,
+      "ranges": [
+        [
+          1270,
+          1340
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/alcohol.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fc42033726521ebdf6630bd5356d592ac0ffa552",
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "bytes": 25516,
+      "lines": 776,
+      "ranges": [
+        [
+          80,
+          130
+        ],
+        [
+          375,
+          400
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          105,
+          130
+        ],
+        [
+          258,
+          280
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          365,
+          390
+        ],
+        [
+          5975,
+          6000
+        ],
+        [
+          6080,
+          6102
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/disinfectant-volume-sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/disinfectant-volume-catalog-search.txt",
+    "sha256": "1adfeb88fdeb950c047e1130c4b84e78de53f5929d4a624754de9d0c3e3de6a6",
+    "bytes": 656,
+    "query": "git grep exact quoted serving_ml and disinfectant_effectiveness field spellings at the pinned revision under content",
+    "qualification": "Tracked content source only; generated, external, database and differently spelled producers are not excluded."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-233.json",
+      "sha256": "681053f70691caad13b455d4fad261e3833caef6696f125e2bd6672a1dbc8e4b",
+      "bytes": 16109,
+      "git_blob": "72120fe1abac929810b825df9c5b02d81cec5b3a",
+      "preserved_bytes": "recovered/disinfectant-volume-059/681053f70691caad13b455d4fad261e3833caef6696f125e2bd6672a1dbc8e4b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-235.json",
+      "sha256": "6a8a10577e7be7e7c995b7e4eddcab30b92b45e036587ff9409df7e3a847ecfb",
+      "bytes": 9306,
+      "git_blob": "ba17af7c9f267d163301e06aa7dcb5620c234ec5",
+      "preserved_bytes": "recovered/disinfectant-volume-059/6a8a10577e7be7e7c995b7e4eddcab30b92b45e036587ff9409df7e3a847ecfb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-235.json",
+      "sha256": "b44d75ec6660bfac805c0d3acd25c5fc623fe1e787c5b5c18601651851ff03eb",
+      "bytes": 628,
+      "git_blob": "c1b5cd8bb124d3f8e50b83b46a8521da201830a6",
+      "preserved_bytes": "recovered/disinfectant-volume-059/b44d75ec6660bfac805c0d3acd25c5fc623fe1e787c5b5c18601651851ff03eb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-233-235.json",
+      "sha256": "3b616570512acca63cb150fdf24fd14dad306756caf6e0ce18c92982b9e7ca1d",
+      "bytes": 17771,
+      "git_blob": "bdfeed224a49e81828cd929ee11debf3c9d9ce10",
+      "preserved_bytes": "recovered/disinfectant-volume-059/3b616570512acca63cb150fdf24fd14dad306756caf6e0ce18c92982b9e7ca1d.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-235.json",
+      "sha256": "bf8094332da2e10950ff696f0b4f1c3f99a1c3f96244149545021ea892a7e794",
+      "bytes": 3247,
+      "git_blob": "7fc16e03b5f607d9e0ed49f543bf7c93164544ca",
+      "preserved_bytes": "recovered/disinfectant-volume-059/bf8094332da2e10950ff696f0b4f1c3f99a1c3f96244149545021ea892a7e794.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-235-PARTIAL-001.json",
+      "sha256": "e40c6950756ca0b11b1625381197f8cb36fda8d38a9ead3cdf49aea6024cdd76",
+      "bytes": 1934,
+      "git_blob": "4832ae52de4758e5f25616b0fea5d1ab760b8a77",
+      "preserved_bytes": "recovered/disinfectant-volume-059/e40c6950756ca0b11b1625381197f8cb36fda8d38a9ead3cdf49aea6024cdd76.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-235-PARTIAL-002.json",
+      "sha256": "40a7ffbb5d44212bdb6f5ccceb93b1dafac92ac1f110a1937600be8e895e97ac",
+      "bytes": 1975,
+      "git_blob": "e8b56b7fca64b4bedbb28bdc38cbaacfa264ecc1",
+      "preserved_bytes": "recovered/disinfectant-volume-059/40a7ffbb5d44212bdb6f5ccceb93b1dafac92ac1f110a1937600be8e895e97ac.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced support; preserve distinct original partial ranges and reader attribution, with no checkpoint 3821 transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/314",
+      "qualification": "PL13-235 left selection/consume error and item-serving bounds open; preserve its distinct partial records and zero historical unique findings."
+    },
+    {
+      "file": "ASSESSMENT-L01-ALCOHOL-CALENDAR-95E.json",
+      "pointer": "/candidates/0",
+      "qualification": "Separate current catalog hydration contract and historical attribution; not an alias for the selected 25 ml dose question."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 112,
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "historical_sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-112-116.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the earlier delegate or checkpoint 3821."
+    },
+    {
+      "original_index": 933,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+      "historical_sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-931-936.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the earlier delegate or checkpoint 3821."
+    },
+    {
+      "original_index": 1073,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "historical_sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1071-1075.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the earlier delegate or checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-DISINFECTANT-SHORT-SERVING-001",
+      "severity": "unassigned; conditional authored-content volume mismatch, current catalog instances are larger",
+      "classification": "A positive serving smaller than the surgery dose is clamped to one whole item and can be selected as a full disinfection use.",
+      "trace": "The surgery path selects an alcohol disinfectant and consumes the selected inventory row before using its effectiveness in the infection-control bonus. Selection, count and consumption request SURGERY_DISINFECTANT_ML=25 divided by the item serving volume through ConsumableFractionMicros::try_from_ratio. That helper rounds up but clamps any positive ratio above one to WHOLE. Selection checks that the row has at least the resulting fraction, and the selected consume path uses the same clamped fraction.",
+      "conditional_counterexample": "For a hypothetical measured item with a 10 ml serving, positive effectiveness and one whole remaining row, 25/10 is clamped to WHOLE rather than rejected or represented as 2.5 items. That row meets the selection predicate, the count path counts one use, and the consume path requests one whole 10 ml item before the surgery bonus uses its effectiveness. This is source-derived arithmetic assuming the selected item wins ranking and all other surgery and inventory guards succeed; no item, reducer, transaction or surgery ran.",
+      "catalog_and_limits": "The local alcohol catalog checks allow serving_ml from 1 through 10000 and do not couple a positive disinfectant effectiveness to the 25 ml dose; a symbolic 10 ml, 5000 basis-point, zero-hydration, positive-effectiveness item satisfies those local alcohol checks, subject to all other catalog requirements. The exact tracked content search finds the three checked-in alcohol servings 100, 500 and 250 ml, so no current short-serving catalog item or player impact is established. Other producers and persisted data remain open.",
+      "historical_attribution": "Checkpoint 059 PL13-235 already raised the separate WHOLE-on-error versus consume-on-error question and left actual serving bounds and native effects open, with zero accepted unique findings. The present positive 10 ml case does not use that error fallback: the traced ratio operation succeeds by clamping. The earlier receipt’s two partials cover 1073 lines 1–460 and 1074 lines 1–460 separately; final fresh ranges are 461–677 and 461–567 respectively. Exact bytes preserve those reader qualifications and are not checkpoint 3821 evidence.",
+      "safeguards_and_limits": "The helper’s cap can be intentional for consumers that consume at most one item; this trace does not require changing it globally. All current named catalog disinfectants meet the selected 25 ml capacity. No claim is made about actual custom items, database rows, committed treatment, surgical outcome, transaction atomicity or medical effectiveness of any volume.",
+      "connected_repair": "Define the surgery dose authority and require enough physical volume at selection, count and consumption, either by rejecting undersized servings or by deliberately combining multiple measured units. Keep other one-item ratio consumers’ clamping policy and inventory custody/transaction rules intact; align catalog admission, durable item projection and surgical bonus with the chosen dose contract.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover positive servings below, equal to and above 25 ml; partial fractions, multiple rows, zero-serving rejection, catalog admission, selection/count/consumption consistency and surgical bonus.",
+      "discovery": "partial; dose policy, other item producers, inventory atomicity and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
