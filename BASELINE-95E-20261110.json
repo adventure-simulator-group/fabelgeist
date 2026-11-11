@@ -4386,8 +4386,38 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-ROAD-WEATHER-IDENTITY-95E.json"
+      },
+      {
+        "id": "REVIEW-STRATEGIC-ACTIVE-VIEW-RETENTION-001",
+        "lens": 12,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Newly assessed95e conditional active-scene image-retention budget question connected to earlier Segovb pending view/cache scope; no new historical finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1401",
+          "baseline-059/queue.json#/entries/1404"
+        ],
+        "relationship_qualification": "New current source question within earlier cached-view and travel pending scope; Segovb explicitly limited2/64MiB to history and did not establish whole-application memory.",
+        "discovery": "partial; source-only active-versus-history budget distinction, supported demand and native bytes open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-STRATEGIC-VIEW-RETENTION-95E.json"
+      },
+      {
+        "id": "REVIEW-STRATEGIC-RETAINED-PLACE-IDENTITY-001",
+        "lens": 8,
+        "severity": "unassigned; conditional source and policy question",
+        "classification": "Newly assessed95e conditional retained-place identity and readiness question connected to earlier broad Segovb venue and scene identity scopes; no historical finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1400",
+          "baseline-059/queue.json#/entries/1420"
+        ],
+        "relationship_qualification": "New current source question linked to broader venue and same-location identity questions; actual changing-place producer and exact aliases remain open.",
+        "discovery": "partial; source-only count-versus-identity trace, actual changing place producer and readiness outcome open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-STRATEGIC-VIEW-RETENTION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0847.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0853.json"
 }
