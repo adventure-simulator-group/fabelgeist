@@ -1,0 +1,121 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current equality is per role and does not transfer a lens verdict or supply a missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1886",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "lines": 1738,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1738
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/physics.rs",
+        "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+        "bytes": 72173,
+        "lines": 1738,
+        "git_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+        "preserved_bytes": "main-advance-95e/quickstep-force-evidence/current-1886.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            180,
+            228
+          ],
+          [
+            285,
+            330
+          ],
+          [
+            530,
+            598
+          ],
+          [
+            625,
+            650
+          ],
+          [
+            705,
+            720
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            1738
+          ]
+        ],
+        "qualification": "Exact equal bytes personally read historically to EOF; only listed ranges independently re-read from95e. Fixture bodies are unexecuted. No independent lens verdict transfers."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original Lens8, Segovb and Adler receipts retain separate authorship, ranges and revisions."
+    },
+    {
+      "original_index": 1887,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Current equality is per role and does not transfer a lens verdict or supply a missing revision-as-recorded.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1887",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "lines": 18,
+      "new_personal_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+        "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+        "bytes": 678,
+        "lines": 18,
+        "git_blob": "210041d58493da3cdd10df3622282c2a4f38de18",
+        "preserved_bytes": "main-advance-95e/quickstep-force-evidence/current-1887.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "qualification": "Exact equal bytes personally read historically to EOF; only listed ranges independently re-read from95e. Fixture bodies are unexecuted. No independent lens verdict transfers."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original Lens8, Segovb and Adler receipts retain separate authorship, ranges and revisions."
+    }
+  ],
+  "observations": [
+    "Complete historical tactical motor, controller config and test bodies were read to actual EOF; every fixture remains unexecuted source.",
+    "Controller speed, mass and configured motor fields can be written before a later fallible branch continues; the original Lens8 behavior observation and all eight associated source/delta pairs retain their historic authorship and coverage.",
+    "Physical burden and intentional limb health alter the motor’s mass and force, while this body does not demonstrate a separate hidden fatigue pool or a direct fatigue/total-incapacitation movement-speed penalty."
+  ],
+  "qualification": "Personal historical Lens1 source reads, independently read current ranges and bounded current owner traces; original059 evidence is not checkpoint3821.",
+  "next_original_role": 1888
+}

@@ -1,0 +1,935 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    7,
+    8,
+    11,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1886–1887, quickstep config/admission/sample clock/force consumer, retained historical acceleration and update-order observations.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1886-1887.json",
+  "git_membership_evidence": "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "bytes": 4147,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "69c5ba2736064f8b1155cc01260f3947883972a7",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "bytes": 2982,
+      "lines": 86,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b20ed6b41bb094a4223bbf1c042cdee6d4811c8",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "bytes": 3274,
+      "lines": 110,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "bytes": 2644,
+      "lines": 81,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c5ef0c62db0b8f4f8351b87c95aab9407e6c3559",
+      "sha256": "f5ad8a6a7302dc252a71454bc8be3571b0845e81a92ebfd5861462cdfb78a7a9",
+      "bytes": 6514,
+      "lines": 174,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          220,
+          295
+        ],
+        [
+          380,
+          545
+        ],
+        [
+          560,
+          730
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "403b0ec967d1fcb55613c9bdb59c9ed3da5340ab",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "bytes": 839,
+      "lines": 19,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          1220,
+          1310
+        ],
+        [
+          1335,
+          1365
+        ],
+        [
+          1390,
+          1417
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "11f421d7e66d1003923972430fa8cd4f1280cb72",
+      "sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "bytes": 10303,
+      "lines": 298,
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "bytes": 21008,
+      "lines": 640,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "bytes": 33413,
+      "lines": 944,
+      "ranges": [
+        [
+          720,
+          769
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          70,
+          110
+        ],
+        [
+          174,
+          181
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-force-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No parsed config, ECS world, physics step, product function or simulation ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-COMBAT-CONFIG-ERROR-95E.json",
+    "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+    "ASSESSMENT-PLAYER-QUICKSTEP-TRACE-95E.json",
+    "ASSESSMENT-L01-STACK-MASS-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Actuator producer and sample clock",
+      "trace": "Server input rejects nonfinite movement and quickstep direction, normalizes nonzero direction and requires raised guard plus grounded upright body before begin_authoritative_quickstep installs matching animation and QuickstepPush. The attack lunge path can separately install a push. The clock advances its phase by one sample, uses a minimum one action sample and limits late recovery.",
+      "remaining": "Other network, restore, NPC, native schedule and player-state paths remain open; client source explicitly does not independently predict only the skeleton for this action."
+    },
+    {
+      "contract": "Actual configuration and force owner",
+      "trace": "Startup loads and validates selected combat configuration before installing the runtime snapshot. The motor uses its movement resource; the committed source describes 9.81 gravity, 4.5 reference bodyweights, 9° takeoff, 0.5s quickstep and 64Hz locomotion. Config admission bounds some coefficients and accepts positive finite motor gravity without a shown upper limit.",
+      "remaining": "No YAML was parsed and no alternate tuning or real action was constructed. Source checks of a single field do not close the aggregate or prove all possible overflow paths."
+    },
+    {
+      "contract": "Preserved behavior and paused case",
+      "trace": "The motor accounts for biological and carried mass and per-leg health/attributes, and explicitly zeros native Ahoy horizontal acceleration and friction before own force integration. Quickstep tracking and ordinary approach guard zero elapsed; the missing-actuator recovery divides by fixed delta without the same guard.",
+      "remaining": "No supported paused scheduler plus missing actuator witness is established. The existing 1693 test source has zero initial fixed delta but does not place a quickstep mismatch in the query. Preserve the single general fatigue pool and the intentional physical mass and limb factors."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-QUICKSTEP-TARGET-ACCELERATION-ADMISSION",
+      "lens": 11,
+      "additional_current_lenses": [
+        1,
+        3,
+        4,
+        8,
+        13
+      ],
+      "severity": "unassigned; earlier checked helper arithmetic with runtime witness unestablished",
+      "first_contract": "A fallible quickstep trajectory calculation must not return a nonfinite acceleration alongside an admitted finite speed.",
+      "classification": "Original059 Adler finding reassessed on the identical95e helper; no historical unique increment.",
+      "trace": "AnimationElapsed accepts finite nonnegative seconds, and quickstep_motion_target admits phase0 and a monotone [0,0.25,0.5,0.75,1] profile. Symbolically with duration1e-25s and target displacement1e-20m, the first derivative at phase0 is zero, so SignedSpeed admits zero; the nonzero acceleration numerator divided by the underflowed duration square yields infinity even though the ideal magnitude is representable. No scalar, duration, config or product function ran.",
+      "safeguards_and_limits": "At the stated 64Hz runtime rate the actual sample clock rounds that tiny duration to one action sample and targets phase at least1, so this particular phase0 witness returns early with zero acceleration in the actual motor. Other sample rates, durations, input domains, tracking force and actual scheduling remain open; do not claim normal quickstep produces infinity from this leaf example. The separate force-overflow example has a different first arithmetic boundary.",
+      "connected_repair_dependencies": [
+        "Determine reachable runtime duration, profile, tick, target-distance and native integration domains before choosing a complete calculation or admission owner.",
+        "Preserve valid zero/end-phase, action quantization and ordinary finite motion; do not alter the single fatigue pool or physical limb/mass behavior.",
+        "Later authorized checks should cover representable acceleration with tiny positive divisors, normal target profiles, end phase and actual supported motor inputs."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-QUICKSTEP-TARGET-ACCELERATION-ADMISSION",
+        "baseline-059/queue.json#/entries/108",
+        "adler/READ-L11-287.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; current leaf and selected runtime clock counterevidence established, other inputs and exact aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "CONT08-MOTOR-FAILURE-UPDATE-ORDER",
+      "lens": 8,
+      "additional_current_lenses": [
+        1,
+        3,
+        4,
+        7,
+        11,
+        13
+      ],
+      "severity": "unassigned; retained source observation and rejection policy question",
+      "first_contract": "A fallible motor step needs an explicit policy for controller and mass changes already made before a later rejection.",
+      "classification": "Original059 Lens8 qualified observation reassessed at95e, not an accepted historical defect or new unique finding.",
+      "trace": "apply_character_motor applies configured controller fields before ordinary speed calculation. After speed succeeds it writes or queues Mass and sets jump height; later quickstep support-duration, trajectory-target or observed-speed rejection logs and continues. The grounded turn-speed rejection occurs later as well. The physics plugin schedules this motor before Ahoy MoveCharacters, so the source exposes an ordering dependency if a rejection occurs; it does not prove an ordinary rejected tick or native solver outcome.",
+      "safeguards_and_limits": "The current behavior may deliberately retain partial updates; no whole-step transaction is promised in the inspected source. Input, config and checked speed/duration admissions constrain failure, and native Ahoy behavior, deferred flush points and actual rejected states remain unresolved. The zero-delta partial-restore mismatch branch is a distinct conditional question and the normal paused fixture does not establish it.",
+      "connected_repair_dependencies": [
+        "Establish actual admitted rejection paths and whether previously updated controller/mass settings should be retained or staged atomically with the velocity update.",
+        "Trace server/client/restoration paths, plugin scheduling and native Ahoy processing; preserve legitimate initial/generic controller modes and intentional physical mass and limb effects.",
+        "Later authorized checks should exercise supported rejection boundaries and ordinary movement without inventing an unobserved paused mismatch."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/4",
+        "evidence/continuation-segovb/audit-resume-20261027/lens08/batch-015-originals1886-1893.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; same current writes, rejection and source scheduling traced; actual rejection and transaction policy open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-QUICKSTEP-PEAK-FORCE-OVERFLOW-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        1,
+        3,
+        7,
+        8,
+        11,
+        13
+      ],
+      "severity": "unassigned; conditional extreme finite tuning reaches unchecked physical force",
+      "first_contract": "An accepted motor configuration and admitted character inputs must produce finite force and velocity or fail at an owning boundary.",
+      "trace": "The current aggregate validation requires movement motor gravity to be finite and positive, with no upper bound in its gravity use. Symbolically retain the otherwise valid canonical motor values but use finite gravity1e37 m/s² and biological mass70kg. The multiplication 70×1e37 already exceeds binary32 maximum before the positive bodyweight multiplier, so quickstep_peak_horizontal_force_newtons returns infinity. If an authoritative raised-guard grounded quickstep is accepted and the first supported motor step reaches its ordinary positive force-curve and positive 9° takeoff tangent with finite positive mass and delta, the source multiplies this infinite maximum by the force scale and tangent and adds infinite vertical velocity before Ahoy MoveCharacters. No configuration, YAML, character, force, tick or product ran.",
+      "safeguards_and_limits": "This is a deliberately extreme alternative tuning, not the committed 9.81 value or a measured player incident. The full config must otherwise satisfy all validators and be parsed and installed; actual startup, action, support, native timing and floating-point feature behavior were not executed. The finite acceleration helper issue and the motor partial-update observation have distinct first contracts. A finite positive field check alone does not bound the product; do not add arbitrary gameplay restrictions without choosing an owner and physical policy.",
+      "connected_repair_dependencies": [
+        "Choose and document configuration and derived-force admission at the motor authority, including realistic physical bounds or checked complete arithmetic and a typed failure outcome.",
+        "Trace all force, traction, gravity, mass and leg-attribute consumers and coordinate any rejection with per-step update policy; retain legitimate encumbrance, limb and single-fatigue behavior.",
+        "Later authorized checks should cover ordinary canonical tuning, supported extremes, checked force/velocity and propagation through actual fixed-step consumers."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/1560",
+        "segovb/READ-L12-622.json",
+        "adler/READ-L11-287.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; source-accepted scalar and conditional overflow chain shown, real configuration/scene, native outcome and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/quickstep-force-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-727.json",
+      "sha256": "06c14cc58238c5b2629c3ed7efaef75ce3154ac53e9dfa5af43bc348a43e8ca7",
+      "bytes": 677,
+      "git_blob": "0a6585cdbd22f53a568629bec02d633375ca3f7d",
+      "preserved_bytes": "recovered/quickstep-force-059/06c14cc58238c5b2629c3ed7efaef75ce3154ac53e9dfa5af43bc348a43e8ca7.gz",
+      "published_sha256": "06c14cc58238c5b2629c3ed7efaef75ce3154ac53e9dfa5af43bc348a43e8ca7",
+      "published_bytes": 677,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-728.json",
+      "sha256": "2ce8cad7a261bd276f21f96d393317c833af196988e8188cdf0328d173c2b9b3",
+      "bytes": 681,
+      "git_blob": "88174912b72970266b6016c0a86471ede3e38675",
+      "preserved_bytes": "recovered/quickstep-force-059/2ce8cad7a261bd276f21f96d393317c833af196988e8188cdf0328d173c2b9b3.gz",
+      "published_sha256": "2ce8cad7a261bd276f21f96d393317c833af196988e8188cdf0328d173c2b9b3",
+      "published_bytes": 681,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-287.json",
+      "sha256": "ca9d7a61bd134c6ab95ae880bee0bf59b772077877803f6eef9e9c425dde38a7",
+      "bytes": 624,
+      "git_blob": "fba29839072b105d1ec4abb7e642f56f83554c76",
+      "preserved_bytes": "recovered/quickstep-force-059/ca9d7a61bd134c6ab95ae880bee0bf59b772077877803f6eef9e9c425dde38a7.gz",
+      "published_sha256": "ca9d7a61bd134c6ab95ae880bee0bf59b772077877803f6eef9e9c425dde38a7",
+      "published_bytes": 624,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-287.json",
+      "sha256": "84eafeee92301f750a3af530d6dea8990273de604a7854ae27401d9e87a994d6",
+      "bytes": 35971,
+      "git_blob": "050e37e66bdfc0c42e5171a4cd8511ca2ed03e50",
+      "preserved_bytes": "recovered/quickstep-force-059/84eafeee92301f750a3af530d6dea8990273de604a7854ae27401d9e87a994d6.gz",
+      "published_sha256": "84eafeee92301f750a3af530d6dea8990273de604a7854ae27401d9e87a994d6",
+      "published_bytes": 35971,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/REGISTRATION-033.json",
+      "sha256": "b289c397d84c7350482158a25aaec35a2152f66757573f554b869390bd2d2913",
+      "bytes": 7562,
+      "git_blob": "c0d148fefedbf7d09bbb4cef73e152d3c03adab7",
+      "preserved_bytes": "recovered/quickstep-force-059/b289c397d84c7350482158a25aaec35a2152f66757573f554b869390bd2d2913.gz",
+      "published_sha256": "b289c397d84c7350482158a25aaec35a2152f66757573f554b869390bd2d2913",
+      "published_bytes": 7562,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 prospective registration"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/batch-015-originals1886-1893.json",
+      "sha256": "01f6c1c31a1949b1d5b1e9c0b1f415e4e8e56ef8ae1b686a5fc08e4178529907",
+      "bytes": 7374,
+      "git_blob": "86479fc694888e3ac932120f9a9159dc1f59ca80",
+      "preserved_bytes": "recovered/quickstep-force-059/01f6c1c31a1949b1d5b1e9c0b1f415e4e8e56ef8ae1b686a5fc08e4178529907.gz",
+      "published_sha256": "01f6c1c31a1949b1d5b1e9c0b1f415e4e8e56ef8ae1b686a5fc08e4178529907",
+      "published_bytes": 7374,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 source and behavior observation"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1886.txt",
+      "sha256": "8bf4a4e46747704d092bcfa5174e1dc6f5d141fbbe077c60338a2951a82ef844",
+      "bytes": 55081,
+      "git_blob": "3696fd9238a7b860bef3c5dbf2ec5c0e08eb7e7d",
+      "preserved_bytes": "recovered/quickstep-force-059/8bf4a4e46747704d092bcfa5174e1dc6f5d141fbbe077c60338a2951a82ef844.gz",
+      "published_sha256": "8bf4a4e46747704d092bcfa5174e1dc6f5d141fbbe077c60338a2951a82ef844",
+      "published_bytes": 55081,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1887.txt",
+      "sha256": "936c25b5a5b64e39857c167d83889e67d5b2782ec7554202b248f460416d5f92",
+      "bytes": 731,
+      "git_blob": "235ceabff7483333f8e2626e9e373c25173a57ac",
+      "preserved_bytes": "recovered/quickstep-force-059/936c25b5a5b64e39857c167d83889e67d5b2782ec7554202b248f460416d5f92.gz",
+      "published_sha256": "936c25b5a5b64e39857c167d83889e67d5b2782ec7554202b248f460416d5f92",
+      "published_bytes": 731,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1888.txt",
+      "sha256": "0d78842310662976d453c754d1f7087e51cc4ac191596b9b99238ae55e19aff1",
+      "bytes": 21262,
+      "git_blob": "706c94e5ea8528a03bec0518d26a9977b0e772c4",
+      "preserved_bytes": "recovered/quickstep-force-059/0d78842310662976d453c754d1f7087e51cc4ac191596b9b99238ae55e19aff1.gz",
+      "published_sha256": "0d78842310662976d453c754d1f7087e51cc4ac191596b9b99238ae55e19aff1",
+      "published_bytes": 21262,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1889.txt",
+      "sha256": "9e7b3b84d75613f3bb7ef29864d669e61549cd824cf925aef5c20661f489698c",
+      "bytes": 2760,
+      "git_blob": "b18fae8ad2c15950efbb3fcd7fd62d11636ce5fb",
+      "preserved_bytes": "recovered/quickstep-force-059/9e7b3b84d75613f3bb7ef29864d669e61549cd824cf925aef5c20661f489698c.gz",
+      "published_sha256": "9e7b3b84d75613f3bb7ef29864d669e61549cd824cf925aef5c20661f489698c",
+      "published_bytes": 2760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1890.txt",
+      "sha256": "bfb5f81858897aec2604f08ec9029bb052c07f04d090f6792efa7391e55e62c5",
+      "bytes": 1996,
+      "git_blob": "c70df3de015401705a1452362fd7c3f413c056b5",
+      "preserved_bytes": "recovered/quickstep-force-059/bfb5f81858897aec2604f08ec9029bb052c07f04d090f6792efa7391e55e62c5.gz",
+      "published_sha256": "bfb5f81858897aec2604f08ec9029bb052c07f04d090f6792efa7391e55e62c5",
+      "published_bytes": 1996,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1891.txt",
+      "sha256": "87d2d0ea54bada51ea04b7b679f08d149451bb1ae3f8437359293a49c8e7e651",
+      "bytes": 1831,
+      "git_blob": "318aefe9d0cd5605d3ca4b8beb1082aa50635106",
+      "preserved_bytes": "recovered/quickstep-force-059/87d2d0ea54bada51ea04b7b679f08d149451bb1ae3f8437359293a49c8e7e651.gz",
+      "published_sha256": "87d2d0ea54bada51ea04b7b679f08d149451bb1ae3f8437359293a49c8e7e651",
+      "published_bytes": 1831,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1892.txt",
+      "sha256": "ddd97175b170487d1265657e65fb527dbd1b702371c80aa6a4bcbb75b35272b9",
+      "bytes": 770,
+      "git_blob": "59f76aefa30245ff0f4ff94f4f1d9769f567b4d6",
+      "preserved_bytes": "recovered/quickstep-force-059/ddd97175b170487d1265657e65fb527dbd1b702371c80aa6a4bcbb75b35272b9.gz",
+      "published_sha256": "ddd97175b170487d1265657e65fb527dbd1b702371c80aa6a4bcbb75b35272b9",
+      "published_bytes": 770,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/delta-original1893.txt",
+      "sha256": "4563c8f60fe5ffcaf903396810b0d0237f7eb26c673b64848ce0ad75c922e841",
+      "bytes": 1113,
+      "git_blob": "4d940db7dba118db42dc7392f98ac4b9d75e58be",
+      "preserved_bytes": "recovered/quickstep-force-059/4563c8f60fe5ffcaf903396810b0d0237f7eb26c673b64848ce0ad75c922e841.gz",
+      "published_sha256": "4563c8f60fe5ffcaf903396810b0d0237f7eb26c673b64848ce0ad75c922e841",
+      "published_bytes": 1113,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical delta; no newly assessed behavior inferred"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "bytes": 2644,
+      "git_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+      "preserved_bytes": "recovered/quickstep-force-059/10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223.gz",
+      "published_sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "published_bytes": 2644,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "bytes": 72173,
+      "git_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+      "preserved_bytes": "recovered/quickstep-force-059/14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b.gz",
+      "published_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "published_bytes": 72173,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "bytes": 20704,
+      "git_blob": "388c701c6204ccd0e6a6401cbed681a64d4da305",
+      "preserved_bytes": "recovered/quickstep-force-059/2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f.gz",
+      "published_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "published_bytes": 20704,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "bytes": 678,
+      "git_blob": "210041d58493da3cdd10df3622282c2a4f38de18",
+      "preserved_bytes": "recovered/quickstep-force-059/56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62.gz",
+      "published_sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "published_bytes": 678,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "bytes": 21008,
+      "git_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+      "preserved_bytes": "recovered/quickstep-force-059/7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645.gz",
+      "published_sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "published_bytes": 21008,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "bytes": 1755,
+      "git_blob": "5ccd947eb25e67f02f58de92f29a74d669a6dfc1",
+      "preserved_bytes": "recovered/quickstep-force-059/b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31.gz",
+      "published_sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "published_bytes": 1755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "bytes": 7093,
+      "git_blob": "0d7f18a63279bccc60edfc24de24dfb42c0482ae",
+      "preserved_bytes": "recovered/quickstep-force-059/bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37.gz",
+      "published_sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "published_bytes": 7093,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "bytes": 1045,
+      "git_blob": "e27d99ab1468c6a1a6ca46bd4cfa79760855bd6a",
+      "preserved_bytes": "recovered/quickstep-force-059/e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f.gz",
+      "published_sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "published_bytes": 1045,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens8 historical head bytes; no current ordered credit"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-622.json",
+      "sha256": "48bc52dae29490923b6709d0127b89655ee1065eccf090f8047cc385efe5f7f7",
+      "bytes": 710,
+      "git_blob": "124334b9b88c34e475806a424767bc75e760d752",
+      "preserved_bytes": "recovered/quickstep-force-059/48bc52dae29490923b6709d0127b89655ee1065eccf090f8047cc385efe5f7f7.gz",
+      "published_sha256": "48bc52dae29490923b6709d0127b89655ee1065eccf090f8047cc385efe5f7f7",
+      "published_bytes": 710,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-623.json",
+      "sha256": "f834336a6e49a8517172dfd7827b40393a412ecb9461fadc65d09fcc2da8590d",
+      "bytes": 1214,
+      "git_blob": "72256cc61390f8ece35079831054ffcae399e2bc",
+      "preserved_bytes": "recovered/quickstep-force-059/f834336a6e49a8517172dfd7827b40393a412ecb9461fadc65d09fcc2da8590d.gz",
+      "published_sha256": "f834336a6e49a8517172dfd7827b40393a412ecb9461fadc65d09fcc2da8590d",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-622.json",
+      "sha256": "66696707f37499f3792bad16eaae36365ab0b037c00090b94c2717850c3b512a",
+      "bytes": 4260,
+      "git_blob": "f9d08372dbbc6e3d96ab3cc91d6e1e4606e84220",
+      "preserved_bytes": "recovered/quickstep-force-059/66696707f37499f3792bad16eaae36365ab0b037c00090b94c2717850c3b512a.gz",
+      "published_sha256": "66696707f37499f3792bad16eaae36365ab0b037c00090b94c2717850c3b512a",
+      "published_bytes": 4260,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-623.json",
+      "sha256": "c0a39d5cc5417736e27421122c3430ff8b3afc6b5524634af39a2e0a2739643b",
+      "bytes": 4317,
+      "git_blob": "3b23cee357f825720cec64242ae5569d21d60a76",
+      "preserved_bytes": "recovered/quickstep-force-059/c0a39d5cc5417736e27421122c3430ff8b3afc6b5524634af39a2e0a2739643b.gz",
+      "published_sha256": "c0a39d5cc5417736e27421122c3430ff8b3afc6b5524634af39a2e0a2739643b",
+      "published_bytes": 4317,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-793.json",
+      "sha256": "9a3f47bf81aa2ae87061569c02b6155877446c29c1ed040f24ae6d5c98a6ac48",
+      "bytes": 1173,
+      "git_blob": "2a9f415d0c4a32a3c1bfb57a95a90d576219c8ba",
+      "preserved_bytes": "recovered/quickstep-force-059/9a3f47bf81aa2ae87061569c02b6155877446c29c1ed040f24ae6d5c98a6ac48.gz",
+      "published_sha256": "9a3f47bf81aa2ae87061569c02b6155877446c29c1ed040f24ae6d5c98a6ac48",
+      "published_bytes": 1173,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; later role keeps original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-794.json",
+      "sha256": "3cdf11af022ed0bdff5b14aeb341d04acc8393be015575d5c17d91501cafefcc",
+      "bytes": 1179,
+      "git_blob": "cb90ebafa91624a88cece6b5682c585a331cd7eb",
+      "preserved_bytes": "recovered/quickstep-force-059/3cdf11af022ed0bdff5b14aeb341d04acc8393be015575d5c17d91501cafefcc.gz",
+      "published_sha256": "3cdf11af022ed0bdff5b14aeb341d04acc8393be015575d5c17d91501cafefcc",
+      "published_bytes": 1179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; later role keeps original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-795.json",
+      "sha256": "15c534f5688a451dc2072472ea8cb53055240aa70910d4047c17d25b3a4c3b56",
+      "bytes": 1175,
+      "git_blob": "793ed844e8fc0809ac08e58449a2ab0493aff83c",
+      "preserved_bytes": "recovered/quickstep-force-059/15c534f5688a451dc2072472ea8cb53055240aa70910d4047c17d25b3a4c3b56.gz",
+      "published_sha256": "15c534f5688a451dc2072472ea8cb53055240aa70910d4047c17d25b3a4c3b56",
+      "published_bytes": 1175,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration; later role keeps original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-622.json",
+      "sha256": "45f91e794c76de4620be1a7d42f295079c98072efdea7c05a45c8f6c8c707247",
+      "bytes": 840,
+      "git_blob": "088a25258b67123e8fa260efaf6bec35687034c4",
+      "preserved_bytes": "recovered/quickstep-force-059/45f91e794c76de4620be1a7d42f295079c98072efdea7c05a45c8f6c8c707247.gz",
+      "published_sha256": "45f91e794c76de4620be1a7d42f295079c98072efdea7c05a45c8f6c8c707247",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-623.json",
+      "sha256": "3c75bbe436f04c5c00e2c41c8b8a1ddebea3a52a8358ff4edd479aa0caab7bb9",
+      "bytes": 840,
+      "git_blob": "34180a99645d071736bc46e18340021657564b28",
+      "preserved_bytes": "recovered/quickstep-force-059/3c75bbe436f04c5c00e2c41c8b8a1ddebea3a52a8358ff4edd479aa0caab7bb9.gz",
+      "published_sha256": "3c75bbe436f04c5c00e2c41c8b8a1ddebea3a52a8358ff4edd479aa0caab7bb9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-622.json",
+      "sha256": "cbe695307567e8f776f2efcb92369a6b908f04301353da0bbd908853b61b2fd0",
+      "bytes": 558,
+      "git_blob": "fb287de48334d5acb14d89d100bf1df054839b4e",
+      "preserved_bytes": "recovered/quickstep-force-059/cbe695307567e8f776f2efcb92369a6b908f04301353da0bbd908853b61b2fd0.gz",
+      "published_sha256": "cbe695307567e8f776f2efcb92369a6b908f04301353da0bbd908853b61b2fd0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-623.json",
+      "sha256": "962b63ccc4fa1a11304f50e937a9db382e6fef2f282b1aa616f526636b066741",
+      "bytes": 558,
+      "git_blob": "d999a993e87b82d8eff7bf79ddbf7c43c79cce3b",
+      "preserved_bytes": "recovered/quickstep-force-059/962b63ccc4fa1a11304f50e937a9db382e6fef2f282b1aa616f526636b066741.gz",
+      "published_sha256": "962b63ccc4fa1a11304f50e937a9db382e6fef2f282b1aa616f526636b066741",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, source revision as actually recorded, exact ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/4",
+        "/entries/108",
+        "/entries/1560"
+      ],
+      "qualification": "Original059 observation, retained finding and pending family; no inferred alias or checkpoint3821 state."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb622/623 and Adler287 retain their own earlier complete historical ranges; Segovb623 also independently read historical1888, which differs from current and is not ordered Lens1 credit. Lens8 batch015 and all eight head/delta objects retain their own frozen behavior attribution; no other-lens or later-checkpoint credit follows. Source equality never fills an unrecorded row revision.",
+  "remaining": "Continue original1888, independent lenses, complete supported force/clock/config domains, native paused/restore and all lifecycle paths, transaction policy and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
