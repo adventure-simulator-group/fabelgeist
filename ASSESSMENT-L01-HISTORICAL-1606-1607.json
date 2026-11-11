@@ -1,0 +1,147 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1606,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob and differs from95e; exact current bytes and diff retained separately.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1606",
+      "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "lines": 629,
+      "new_personal_read_ranges": [
+        [
+          1,
+          210
+        ],
+        [
+          211,
+          420
+        ],
+        [
+          421,
+          629
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+        "sha256": "a173d1f8f335f2e288ba87409185a85d4f8eba9813e1811cedf9fc293570a40c",
+        "bytes": 24941,
+        "lines": 627,
+        "git_blob": "82b7b562308d191aad6734631179f71f8f90f8df",
+        "preserved_bytes": "main-advance-95e/tree-stream-evidence/current-1606.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            210
+          ],
+          [
+            211,
+            345
+          ]
+        ],
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/tree-stream-evidence/diff-1606.txt.gz",
+          "sha256": "8316e2fd2bdb603ceab5eb30213c28da487cb5d83cb14da5f42f1aca453dab02",
+          "bytes": 2159,
+          "content_encoding": "gzip"
+        },
+        "qualification": "Exact complete diff inspected; only stated current body ranges personally read. Test-source changes and source expressions are not executed evidence."
+      },
+      "qualification": "Complete original body personally read through actual EOF. Test source is unexecuted and native rendering remains unvalidated."
+    },
+    {
+      "original_index": 1607,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob and differs from95e; exact current bytes and diff retained separately.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1607",
+      "sha256": "eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be",
+      "lines": 1392,
+      "new_personal_read_ranges": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          750
+        ],
+        [
+          751,
+          1000
+        ],
+        [
+          1001,
+          1200
+        ],
+        [
+          1201,
+          1392
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+        "sha256": "84e84f3131091565ab88b5dd04275305ba8cb8ad3481fc97c833a87abd35be58",
+        "bytes": 55082,
+        "lines": 1399,
+        "git_blob": "5495a01b719275d4b967751aa7907b84f0d19271",
+        "preserved_bytes": "main-advance-95e/tree-stream-evidence/current-1607.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            150
+          ],
+          [
+            205,
+            385
+          ],
+          [
+            399,
+            426
+          ],
+          [
+            474,
+            820
+          ]
+        ],
+        "exact_diff": {
+          "preserved_bytes": "main-advance-95e/tree-stream-evidence/diff-1607.txt.gz",
+          "sha256": "91d163f0322fc2eb5b1c59fce0750be0bf4f2ab0229c19d482c231138778f700",
+          "bytes": 1811,
+          "content_encoding": "gzip"
+        },
+        "qualification": "Exact complete diff inspected; only stated current body ranges personally read. Test-source changes and source expressions are not executed evidence."
+      },
+      "qualification": "Complete original body personally read through actual EOF. Test source is unexecuted and native rendering remains unvalidated."
+    }
+  ],
+  "observations": [
+    "Original materials and tree presentation bodies personally read through EOF; both differ at95e and exact diffs are retained. Tests and rendering were not run.",
+    "Adler Lens11 batches228–229 and Segovb Lens12 batches504–505 remain attributed to6533, including the three-part presenter chain and four qualified same-lens reuses. Adler batch246 is an earlier separate full reader of future viewer role1699; no personal future-frontier credit is transferred."
+  ],
+  "remaining": "Continue original1608; current bounded presentation, viewer and native-source reads do not complete all helper bodies, other lenses or runtime validation."
+}
