@@ -3579,8 +3579,55 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-CLOUD-BAKE-ADMISSION-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GRAPHICS-CONFIG-NONFINITE-ADMISSION",
+        "lens": 11,
+        "severity": "unassigned; existing source or conditional admission question",
+        "classification": "Existing 059 Lens11 finding re-assessed at 95e with pinned parser, Rust clamp source and current consumers; no parser or product was run and no new historical unique finding is asserted.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-GRAPHICS-CONFIG-NONFINITE-ADMISSION",
+          "baseline-059/queue.json#/entries/1303",
+          "ASSESSMENT-L01-AI-CONFIG-95E.json"
+        ],
+        "relationship_qualification": "Same original 059 finding newly re-assessed at 95e; no new historical unique count or checkpoint3821 transfer. Actual execution, policy and aliases remain explicit.",
+        "discovery": "partial; source-level admission and conditional panic argument, actual parse/interaction/render unperformed",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GRASS-TOPOLOGY-CAPACITY",
+        "lens": 11,
+        "severity": "unassigned; existing source or conditional admission question",
+        "classification": "Existing 059 Lens11 conditional capacity finding re-assessed at 95e using source and symbolic integer bounds; no generated mesh or new historical unique finding.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-GRASS-TOPOLOGY-CAPACITY",
+          "baseline-059/queue.json#/entries/1303"
+        ],
+        "relationship_qualification": "Same original 059 finding newly re-assessed at 95e; no new historical unique count or checkpoint3821 transfer. Actual execution, policy and aliases remain explicit.",
+        "discovery": "partial; static count counterexamples, supported deployment and native bounds open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GRAPHICS-CONFIG-ERROR-OWNERSHIP",
+        "lens": 11,
+        "severity": "unassigned; existing source or conditional admission question",
+        "classification": "Existing 059 Lens11 error-ownership finding re-assessed at 95e; the regional typed outer error remains distinct from the lost inner cause, with zero new historical unique count.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-GRAPHICS-CONFIG-ERROR-OWNERSHIP",
+          "baseline-059/queue.json#/entries/1303",
+          "baseline-059/queue.json#/entries/1305"
+        ],
+        "relationship_qualification": "Same original 059 finding newly re-assessed at 95e; no new historical unique count or checkpoint3821 transfer. Actual execution, policy and aliases remain explicit.",
+        "discovery": "partial; source cause conversion and regional wrapper confirmed, full consumers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0633.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0637.json"
 }

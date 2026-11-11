@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0633.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0637.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E.json` reconnects prior
+configuration, grass topology and error-ownership questions to current source.
+`ASSESSMENT-L01-HISTORICAL-1530-1534.json` preserves five original bodies
+and separates the prior bounded camera trace and exact configuration diff.
 `ASSESSMENT-CLOUD-BAKE-ADMISSION-95E.json` reconnects earlier cloud
 profile, browser admission and wind-identity questions to current source.
 `ASSESSMENT-L01-HISTORICAL-1526-1529.json` preserves four original reads,

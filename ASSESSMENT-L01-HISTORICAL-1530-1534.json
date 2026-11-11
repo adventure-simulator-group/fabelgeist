@@ -1,0 +1,194 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1530,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed blob. Current comparison is separate; identity does not transfer review credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1530",
+      "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "lines": 414,
+      "new_personal_read_ranges": [
+        [
+          1,
+          414
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+        "sha256": "4b39a948e24517a32a421b021307c7d1d7dad7a152be348ac952a3c88384f961",
+        "bytes": 12365,
+        "lines": 404,
+        "git_blob": "5c4c2ec877cde64942136a8291aa2da4daf047d8",
+        "preserved_bytes": "main-advance-95e/graphics-evidence/current-1530.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historic and other-lens review attribution remains distinct.",
+        "diff": {
+          "preserved_bytes": "main-advance-95e/graphics-evidence/role-1530.diff.gz",
+          "sha256": "7d52fbd293dcafb15b25dac33170e459fdb6dabc11bdd79d78b53f44b2b6aa20",
+          "bytes": 559,
+          "qualification": "Exact textual diff; current source removes a GrassShadowTiers field/type. No product behavior or build is inferred merely from the diff."
+        }
+      },
+      "qualification": "Full original body personally read through actual EOF; source fixtures/tests read as text only. Earlier reviewer, source revision and other-lens qualifications remain distinct. No config parsing, simulation, renderer, test or product ran."
+    },
+    {
+      "original_index": 1531,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/doors.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed blob. Current comparison is separate; identity does not transfer review credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1531",
+      "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+      "lines": 61,
+      "new_personal_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/doors.rs",
+        "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+        "bytes": 2010,
+        "lines": 61,
+        "git_blob": "720b93ef9ac84d38de2dea88b6fac6d24c6d4415",
+        "preserved_bytes": "main-advance-95e/graphics-evidence/current-1531.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historic and other-lens review attribution remains distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; source fixtures/tests read as text only. Earlier reviewer, source revision and other-lens qualifications remain distinct. No config parsing, simulation, renderer, test or product ran."
+    },
+    {
+      "original_index": 1532,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed blob. Current comparison is separate; identity does not transfer review credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1532",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "lines": 577,
+      "new_personal_read_ranges": [
+        [
+          1,
+          577
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CAMERA.json",
+          "ranges": "183-186, 202-224"
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+        "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+        "bytes": 21534,
+        "lines": 577,
+        "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+        "preserved_bytes": "main-advance-95e/graphics-evidence/current-1532.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historic and other-lens review attribution remains distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; source fixtures/tests read as text only. Earlier reviewer, source revision and other-lens qualifications remain distinct. No config parsing, simulation, renderer, test or product ran."
+    },
+    {
+      "original_index": 1533,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed blob. Current comparison is separate; identity does not transfer review credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1533",
+      "sha256": "07988f23128ecaaf0ea6916b865309979ba36c6f62650f7171667f470f848cf9",
+      "lines": 127,
+      "new_personal_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+        "sha256": "07988f23128ecaaf0ea6916b865309979ba36c6f62650f7171667f470f848cf9",
+        "bytes": 4198,
+        "lines": 127,
+        "git_blob": "a8432faf87e44653a84b00a4e47d70cde4db4985",
+        "preserved_bytes": "main-advance-95e/graphics-evidence/current-1533.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historic and other-lens review attribution remains distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; source fixtures/tests read as text only. Earlier reviewer, source revision and other-lens qualifications remain distinct. No config parsing, simulation, renderer, test or product ran."
+    },
+    {
+      "original_index": 1534,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; original body equals the 6533 committed blob. Current comparison is separate; identity does not transfer review credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1534",
+      "sha256": "80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+      "lines": 89,
+      "new_personal_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/presentation/generation.rs",
+        "sha256": "80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+        "bytes": 2962,
+        "lines": 89,
+        "git_blob": "94d2130447371ebc6e6b526458079cae80ce7743",
+        "preserved_bytes": "main-advance-95e/graphics-evidence/current-1534.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historic and other-lens review attribution remains distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; source fixtures/tests read as text only. Earlier reviewer, source revision and other-lens qualifications remain distinct. No config parsing, simulation, renderer, test or product ran."
+    }
+  ],
+  "observations": [
+    "Five original graphics configuration, door, environment, furniture and generation-module bodies personally read through actual EOF; all equal the 6533 committed blob. Roles1531–1534 equal current 95e; role1530 has an exact separately retained current diff removing GrassShadowTiers and its field. Original pr-working still denotes PR head plus recorded working state.",
+    "Role1532 previously carried only a bounded current camera trace, whose original assessment and ranges are preserved separately; this is the new full historical role read, not retroactive other-lens credit.",
+    "Earlier adler Lens11 batch217 covered1530–1534; segovb Lens12 batches469–471 covered1530–1536. Original reviewers, scopes, zero accepted unique change and no current reconciliation remain intact. This checkpoint personally reads original roles1530–1534 only; earlier roles1535–1536 confer no new historical-body or lens credit.",
+    "Source tests/fixtures were read only; no parser, generator, configuration fixture, shader, renderer, test or product execution ran."
+  ],
+  "remaining": "Continue original role1535. Actual native parsing, platform behavior, admission and consumers, aliases, populations and thirteen independent lenses remain open."
+}
