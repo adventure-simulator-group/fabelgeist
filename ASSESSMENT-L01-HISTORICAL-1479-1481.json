@@ -1,0 +1,115 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1479,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/preview.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this particular original body matches the 6533 committed-tree bytes and 95e bytes. Equality does not transfer reviewer or other-lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1479",
+      "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+      "lines": 437,
+      "new_personal_read_ranges": [
+        [
+          1,
+          437
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/preview.rs",
+        "sha256": "650387466e93e9e4fca78192a92d693a82d7df3669d21a2e4bf8990921d48e17",
+        "bytes": 14634,
+        "lines": 437,
+        "git_blob": "90c1252d2d84fc42a9b20e99a2666e0812e6add1",
+        "preserved_bytes": "main-advance-95e/preview-readiness-evidence/current-1479.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only the bounded current-source connections are asserted."
+      },
+      "qualification": "Full original historical body personally read through actual EOF, including test source as text only. Earlier reviewers and scope retain original attribution. No client, UI, renderer, network, filesystem output, test or runtime execution ran.",
+      "git_membership_evidence": "PREVIEW-HISTORICAL-GIT-PROOFS.json"
+    },
+    {
+      "original_index": 1480,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this particular original body matches the 6533 committed-tree bytes and 95e bytes. Equality does not transfer reviewer or other-lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1480",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "lines": 72,
+      "new_personal_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+        "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+        "bytes": 2594,
+        "lines": 72,
+        "git_blob": "1f53be4acbb7ebf1b9e88f114215007c14890b5a",
+        "preserved_bytes": "main-advance-95e/preview-readiness-evidence/current-1480.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only the bounded current-source connections are asserted."
+      },
+      "qualification": "Full original historical body personally read through actual EOF, including test source as text only. Earlier reviewers and scope retain original attribution. No client, UI, renderer, network, filesystem output, test or runtime execution ran.",
+      "git_membership_evidence": "PREVIEW-HISTORICAL-GIT-PROOFS.json"
+    },
+    {
+      "original_index": 1481,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this particular original body matches the 6533 committed-tree bytes and 95e bytes. Equality does not transfer reviewer or other-lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1481",
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "lines": 234,
+      "new_personal_read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+        "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+        "bytes": 8185,
+        "lines": 234,
+        "git_blob": "0296b659a40a3dd1f300399720eca41ccb4e1de1",
+        "preserved_bytes": "main-advance-95e/preview-readiness-evidence/current-1481.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only the bounded current-source connections are asserted."
+      },
+      "qualification": "Full original historical body personally read through actual EOF, including test source as text only. Earlier reviewers and scope retain original attribution. No client, UI, renderer, network, filesystem output, test or runtime execution ran.",
+      "git_membership_evidence": "PREVIEW-HISTORICAL-GIT-PROOFS.json"
+    }
+  ],
+  "observations": [
+    "Three original preview, readiness and render-binding bodies personally read through actual EOF; each matches both 6533 committed tree and 95e current bytes.",
+    "Earlier segovb Lens12 batch 445 also covered role 1482; this checkpoint preserves that receipt but does not claim a fresh personal role 1482 body read or transfer its credit.",
+    "Earlier adler Lens11 batch 210 explicitly records fresh_reads empty for role 1481. Its separate future reads of roles 1493 and 1495 carry zero ordered-frontier credit; preserve those qualifications and do not transfer them to this personal read or checkpoint 3821.",
+    "No UI, renderer, capture, physics, network, product test or runtime execution ran."
+  ],
+  "remaining": "Continue role 1482; exact component lifetime, appearance admission, fit errors, original and extension populations, all aliases and thirteen independent lenses remain open."
+}
