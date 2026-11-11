@@ -1,0 +1,433 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    5,
+    8,
+    9,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Earlier quickstep instance-identity question connected to current client presentation and selected authoritative source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1350-1355.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          1800,
+          1833
+        ],
+        [
+          1974,
+          2026
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes preserved for recovery. No action, server, client, network, test or viewer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "186e8554d29703a50a6048604c25c22e2f1c9b80",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "bytes": 3262,
+      "lines": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes preserved for recovery. No action, server, client, network, test or viewer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          1244,
+          1297
+        ],
+        [
+          1335,
+          1366
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/quickstep-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes preserved for recovery. No action, server, client, network, test or viewer ran."
+    }
+  ],
+  "current_plugin_changed_ranges": [
+    [
+      68,
+      103
+    ]
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-QUICKSTEP-PHASE-ACTION-IDENTITY",
+      "relationship": "Same earlier action-instance/phase owner question; no new unique candidate.",
+      "trace": "Current PresentedSkeleton retains quickstep_phase as Option<UnitInterval> without an action start or direction; its separate attack phase carries start, animation, hand and continuation identity. When both previous presented and new authoritative states are quicksteps, advance_presented_quickstep reuses the retained phase and advances a clone of the new source from its start tick without comparing action instance. A symbolic phase 0.75 from action A can therefore be applied to distinct action B if the client observes B while A remains presented.",
+      "authoritative_admission": "The current server input path invokes begin_authoritative_quickstep for a guarded upright grounded actor and valid direction. SkeletonState::begin_dodge rejects a second dodge while the authoritative action is still Dodge. ActionTimeline::sample and advance_action keep the end-tick sample at phase one and return to idle after the end tick, so a later new dodge is not ruled out by that action-busy guard once the first has completed. Further input gates and timing must still be established for any actual sequence.",
+      "guards_and_limits": "The visual tail deliberately smooths coalesced observations; when the authoritative state is not quickstep and no visual quickstep continues, or cached phase is one, the relevant clear guards operate. A just-entering action with no retained phase starts from the new source. The conditional example requires a valid later action, retained previous presentation and observation/coalescing timing that does not deliver a clearing idle state first. No server/client, input, packets, runtime timing, visual output or gameplay effects observed. Tactical state remains authoritative.",
+      "connected_repair": "Bind retained visual quickstep progress to the existing authoritative action identity (start tick and relevant action payload), reinitialize for a distinct instance, and preserve same-instance smoothing, permitted tail behavior and authoritative combat state. Trace all interrupt, direction and network timing policies before implementation.",
+      "later_acceptance": "After separate implementation and validation authorization, cover same-action coalescence and tail, a new action while an old visual phase is retained, a phase-one handoff, alternate directions and action-interrupt precedence.",
+      "discovery": "partial; network observation path, supported successive timing, complete action identity and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-QUICKSTEP-PHASE-ACTION-IDENTITY"
+      ],
+      "qualification": "Earlier 059 finding and separately attributed e275 corroboration retain original revision, limits and zero unique-count change."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/38",
+        "/entries/1145 through /entries/1150"
+      ],
+      "qualification": "Selected current source connections only; all other contract obligations remain open."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-184.json",
+      "sha256": "11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303",
+      "bytes": 13177,
+      "git_blob": "57e2604af3e387eb122b00d9a1bd29b687405167",
+      "preserved_bytes": "recovered/quickstep-059/11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303.gz",
+      "published_sha256": "11b67f5b3e5cdbd7c200ceaa155c1fc0d06582f2093356559de529284b7f5303",
+      "published_bytes": 13177,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed prior quickstep finding or e275 source connection"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/READ-ROOT-L1-CURRENT-047.json",
+      "sha256": "48f95349570591b964f986e7de7a55b2b7631aeda173130bdcb20a192dd92b44",
+      "bytes": 10627,
+      "git_blob": "d1b48a17a6d64101e837848b29fa5131ce45e770",
+      "preserved_bytes": "recovered/quickstep-059/48f95349570591b964f986e7de7a55b2b7631aeda173130bdcb20a192dd92b44.gz",
+      "published_sha256": "48f95349570591b964f986e7de7a55b2b7631aeda173130bdcb20a192dd92b44",
+      "published_bytes": 10627,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed prior quickstep finding or e275 source connection"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "root-l1-current-e275-20261029/VERIFY-ROOT-L1-CURRENT-047.json",
+      "sha256": "8f943e22b5924d809d2a21ebfbf19d2f3420ca380ad5d5f6042d6928ad937ce5",
+      "bytes": 533,
+      "git_blob": "9bc5d2e6d1804286240765828cc78540b039b2ff",
+      "preserved_bytes": "recovered/quickstep-059/8f943e22b5924d809d2a21ebfbf19d2f3420ca380ad5d5f6042d6928ad937ce5.gz",
+      "published_sha256": "8f943e22b5924d809d2a21ebfbf19d2f3420ca380ad5d5f6042d6928ad937ce5",
+      "published_bytes": 533,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed prior quickstep finding or e275 source connection"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-375.json",
+      "sha256": "dda8ebcf3745336353326b054fb79032cbc72c44a3272cf759b841eb17e7eb9c",
+      "bytes": 725,
+      "git_blob": "26c28ad6b6064f6753f6b4782dbe0fb1320f8dcb",
+      "preserved_bytes": "recovered/quickstep-059/dda8ebcf3745336353326b054fb79032cbc72c44a3272cf759b841eb17e7eb9c.gz",
+      "published_sha256": "dda8ebcf3745336353326b054fb79032cbc72c44a3272cf759b841eb17e7eb9c",
+      "published_bytes": 725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-376.json",
+      "sha256": "b258aea1253d610e35b91af683db34f5defbd9044fa39c7de30db00b3f7eb41e",
+      "bytes": 1736,
+      "git_blob": "2b30e7a5cdaf2214607cc20208137ba8952163e0",
+      "preserved_bytes": "recovered/quickstep-059/b258aea1253d610e35b91af683db34f5defbd9044fa39c7de30db00b3f7eb41e.gz",
+      "published_sha256": "b258aea1253d610e35b91af683db34f5defbd9044fa39c7de30db00b3f7eb41e",
+      "published_bytes": 1736,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-377.json",
+      "sha256": "ad7fe3f664a7eb4e8c985a0d71f9200c275502747a600ea39b44642560188a0e",
+      "bytes": 1231,
+      "git_blob": "9e498bd0115a5c7e3ad8bf6c2d9d0513a8144f2b",
+      "preserved_bytes": "recovered/quickstep-059/ad7fe3f664a7eb4e8c985a0d71f9200c275502747a600ea39b44642560188a0e.gz",
+      "published_sha256": "ad7fe3f664a7eb4e8c985a0d71f9200c275502747a600ea39b44642560188a0e",
+      "published_bytes": 1231,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/READ-L12-375.json",
+      "sha256": "e832dce090c4138a54e1dbd637501e35b54aab9be64275a02bf1e91af38efa88",
+      "bytes": 9367,
+      "git_blob": "a506e4c4968a1b1ee4fc36811c6a44e8cb8e2a80",
+      "preserved_bytes": "recovered/quickstep-059/e832dce090c4138a54e1dbd637501e35b54aab9be64275a02bf1e91af38efa88.gz",
+      "published_sha256": "e832dce090c4138a54e1dbd637501e35b54aab9be64275a02bf1e91af38efa88",
+      "published_bytes": 9367,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/READ-L12-376.json",
+      "sha256": "a39b35f6fe4967aa73e2da195ee00f597e2b2288f48b833f3adf69979df9bf17",
+      "bytes": 13676,
+      "git_blob": "99fe793d3da728d09db66827973308aa04937c67",
+      "preserved_bytes": "recovered/quickstep-059/a39b35f6fe4967aa73e2da195ee00f597e2b2288f48b833f3adf69979df9bf17.gz",
+      "published_sha256": "a39b35f6fe4967aa73e2da195ee00f597e2b2288f48b833f3adf69979df9bf17",
+      "published_bytes": 13676,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/READ-L12-377.json",
+      "sha256": "99e60a68fbdaef220215a6f09c407b941a3e55fa848fa556297667681ad90a3c",
+      "bytes": 10281,
+      "git_blob": "53cc8251b466a0ee84c9a677a9668dce601cb558",
+      "preserved_bytes": "recovered/quickstep-059/99e60a68fbdaef220215a6f09c407b941a3e55fa848fa556297667681ad90a3c.gz",
+      "published_sha256": "99e60a68fbdaef220215a6f09c407b941a3e55fa848fa556297667681ad90a3c",
+      "published_bytes": 10281,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-257.json",
+      "sha256": "0cc611da5e1822d9959364e0c02d7ca01646f1cadbda1c557ad106bb55a6b587",
+      "bytes": 1241,
+      "git_blob": "729f962ceace179c89292840d62640a2e8cf745d",
+      "preserved_bytes": "recovered/quickstep-059/0cc611da5e1822d9959364e0c02d7ca01646f1cadbda1c557ad106bb55a6b587.gz",
+      "published_sha256": "0cc611da5e1822d9959364e0c02d7ca01646f1cadbda1c557ad106bb55a6b587",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-258.json",
+      "sha256": "9bf7eb23115effe5dd663be10c6a17d7b1c5c3a483ef5dff56647b159e475099",
+      "bytes": 1241,
+      "git_blob": "ea25378e75b48f65d0213c1aa02000aeadd64225",
+      "preserved_bytes": "recovered/quickstep-059/9bf7eb23115effe5dd663be10c6a17d7b1c5c3a483ef5dff56647b159e475099.gz",
+      "published_sha256": "9bf7eb23115effe5dd663be10c6a17d7b1c5c3a483ef5dff56647b159e475099",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-259.json",
+      "sha256": "094ee980728dd3866fd783db5913298337a1e79750af898b322dc4c115c4dd14",
+      "bytes": 1241,
+      "git_blob": "4f9b2be03ebdb2d27d7e54af881ff877d786fc81",
+      "preserved_bytes": "recovered/quickstep-059/094ee980728dd3866fd783db5913298337a1e79750af898b322dc4c115c4dd14.gz",
+      "published_sha256": "094ee980728dd3866fd783db5913298337a1e79750af898b322dc4c115c4dd14",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-260.json",
+      "sha256": "b85ade3de662878b64d5700f7914b1e490df2abace1100dffe51e029f239dd06",
+      "bytes": 1255,
+      "git_blob": "9d44751965737e02ce74ea64c5e4e1689811080a",
+      "preserved_bytes": "recovered/quickstep-059/b85ade3de662878b64d5700f7914b1e490df2abace1100dffe51e029f239dd06.gz",
+      "published_sha256": "b85ade3de662878b64d5700f7914b1e490df2abace1100dffe51e029f239dd06",
+      "published_bytes": 1255,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-261.json",
+      "sha256": "6bfc12d688becc931574438182d48d3c50e5f0a5488b4329ce6ae94480ec1423",
+      "bytes": 1282,
+      "git_blob": "3b0d3ab471c2d1e9656f2981b41eace2f6348f86",
+      "preserved_bytes": "recovered/quickstep-059/6bfc12d688becc931574438182d48d3c50e5f0a5488b4329ce6ae94480ec1423.gz",
+      "published_sha256": "6bfc12d688becc931574438182d48d3c50e5f0a5488b4329ce6ae94480ec1423",
+      "published_bytes": 1282,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-262.json",
+      "sha256": "6eb67832a95d72b7a1fe184736dbe69eeb9279bf1a36d8f0df164e2235cba75e",
+      "bytes": 1282,
+      "git_blob": "fa0118c54948d5af2094d357cb1ae8e86e0948d0",
+      "preserved_bytes": "recovered/quickstep-059/6eb67832a95d72b7a1fe184736dbe69eeb9279bf1a36d8f0df164e2235cba75e.gz",
+      "published_sha256": "6eb67832a95d72b7a1fe184736dbe69eeb9279bf1a36d8f0df164e2235cba75e",
+      "published_bytes": 1282,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/STATE-L12-375.json",
+      "sha256": "19ca35c81026a9bd2016f6e6dc884d7e08755d77fc323af02cbc7162db521afa",
+      "bytes": 840,
+      "git_blob": "5eb00893ea0b0105dc5f445432baa09fa406f542",
+      "preserved_bytes": "recovered/quickstep-059/19ca35c81026a9bd2016f6e6dc884d7e08755d77fc323af02cbc7162db521afa.gz",
+      "published_sha256": "19ca35c81026a9bd2016f6e6dc884d7e08755d77fc323af02cbc7162db521afa",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/STATE-L12-376.json",
+      "sha256": "e7cdd35e12686236fcbe428a77e3cb40c3b1b35ba062e3a2906a593c823b9cb0",
+      "bytes": 840,
+      "git_blob": "08a39530e46ba4b16de1b7fcbb6570e6bef512dd",
+      "preserved_bytes": "recovered/quickstep-059/e7cdd35e12686236fcbe428a77e3cb40c3b1b35ba062e3a2906a593c823b9cb0.gz",
+      "published_sha256": "e7cdd35e12686236fcbe428a77e3cb40c3b1b35ba062e3a2906a593c823b9cb0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/STATE-L12-377.json",
+      "sha256": "b3f4f1c0f01d2fa75952a825d5ec2a10b42bf524682675886b0958269e486dcf",
+      "bytes": 840,
+      "git_blob": "9eab53eb452fabf0b68dc57e455ccc6f57a781d0",
+      "preserved_bytes": "recovered/quickstep-059/b3f4f1c0f01d2fa75952a825d5ec2a10b42bf524682675886b0958269e486dcf.gz",
+      "published_sha256": "b3f4f1c0f01d2fa75952a825d5ec2a10b42bf524682675886b0958269e486dcf",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scoped state"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-375.json",
+      "sha256": "0428e64e9fe0910203b31d4491cf6e8ba66c3656ea533a55e13b0a3ba75f6543",
+      "bytes": 558,
+      "git_blob": "03402ea04f62c3109e7fb89c13b9aab39213a396",
+      "preserved_bytes": "recovered/quickstep-059/0428e64e9fe0910203b31d4491cf6e8ba66c3656ea533a55e13b0a3ba75f6543.gz",
+      "published_sha256": "0428e64e9fe0910203b31d4491cf6e8ba66c3656ea533a55e13b0a3ba75f6543",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-376.json",
+      "sha256": "d39167fa7193fd635d2fdbbdf1c5b2fd61f6bbf7072e8e1e966d364b7377306e",
+      "bytes": 558,
+      "git_blob": "3bfe9bb47cb73e93a9e9be2919fe9607555d3a6e",
+      "preserved_bytes": "recovered/quickstep-059/d39167fa7193fd635d2fdbbdf1c5b2fd61f6bbf7072e8e1e966d364b7377306e.gz",
+      "published_sha256": "d39167fa7193fd635d2fdbbdf1c5b2fd61f6bbf7072e8e1e966d364b7377306e",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-377.json",
+      "sha256": "db665717d5c18205b21a4658fd515a4a19bfdd53c33962df1f46cda44ce44406",
+      "bytes": 558,
+      "git_blob": "efa4f59a719411224d47e6f4639f1f5c62b43a19",
+      "preserved_bytes": "recovered/quickstep-059/db665717d5c18205b21a4658fd515a4a19bfdd53c33962df1f46cda44ce44406.gz",
+      "published_sha256": "db665717d5c18205b21a4658fd515a4a19bfdd53c33962df1f46cda44ce44406",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, revision, lens and scope retained; earlier e275 evidence is not current or checkpoint 3821 credit."
+    }
+  ],
+  "new_unique_candidate_count": 0,
+  "remaining": "Actual successive input and client observation timing, scheduler/replication/native policy, exact aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue are missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
