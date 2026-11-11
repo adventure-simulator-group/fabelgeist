@@ -1,0 +1,793 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2261–2262 garment manifest and design/body source, selected current producer, CLI, garment program and existing owner. Earlier Adler and delegate ranges are separately attributed.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2261-2262.json",
+  "git_membership_evidence": "GARMENT-DESIGN-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c00101a3c197531af89e598751cd8737521c609e",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "bytes": 31384,
+      "lines": 791,
+      "ranges": [
+        [
+          300,
+          369
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/bin/garment_code.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "faf700f2cf5b7bf8395c0e60ce95af872efc8bc8",
+      "sha256": "92b05cc224994c36741b7dee184e845f9c6331b6d8ac7ae05688cfc7996139a5",
+      "bytes": 2656,
+      "lines": 104,
+      "ranges": [
+        [
+          11,
+          23
+        ],
+        [
+          50,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/programs/meta_garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61e71c903945de26e48f812bc40842060af58672",
+      "sha256": "8c9a68849975e5c51ab1543ab9e85c78a959607951207aaf9f7c4893b1bc7f7a",
+      "bytes": 6726,
+      "lines": 198,
+      "ranges": [
+        [
+          17,
+          50
+        ],
+        [
+          63,
+          74
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/programs/bodice.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cfd61a1daa2c8a33b2dc993ae7af2042c9540bce",
+      "sha256": "b94d7d7d5459e6239e53c6c39c0a7f98fe243033abc0c481cbdbb962e9200af9",
+      "bytes": 22503,
+      "lines": 668,
+      "ranges": [
+        [
+          261,
+          277
+        ],
+        [
+          603,
+          617
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/programs/tee.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "85f345d1c02618f89846c5f5dd8af5c4345fd31f",
+      "sha256": "6998a718879185f34e05ac1a7af63b6cbd91b3e8bb7ebb3ec1fca9487a19fb30",
+      "bytes": 3204,
+      "lines": 104,
+      "ranges": [
+        [
+          15,
+          35
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/pattern.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34112d8b2be4cbb5b4909e50741141678e5cfb2d",
+      "sha256": "f04e842dbfdef80aa9e6cc4c86494a7fddb61b095c38803bf0b8947d598c56d4",
+      "bytes": 11277,
+      "lines": 328,
+      "ranges": [
+        [
+          202,
+          245
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/src/assets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "718dd794eff9b8b84736dd6852715cd51ffb301a",
+      "sha256": "8f97167a940077d96bf91c26fb53ba8c084ca88db31f826250fc186b5dbde402",
+      "bytes": 1710,
+      "lines": 54,
+      "ranges": [
+        [
+          39,
+          49
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/assets/design_params/t-shirt.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c7778f11b5de35174dd5102cca6d6f19746edf4a",
+      "sha256": "edb80d740c9fea59b548c2d41c39e1ac22a50e1c59e727b7d0b75637175d4083",
+      "bytes": 14450,
+      "lines": 885,
+      "ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/fabelgeist-garment-code/README.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f20a6e33b9d883d4c671fd8d342e483d363563bb",
+      "sha256": "2e32a2d86f481ac2021f8b0893358e1ee7101bd57e6be831e0857c302d768cb1",
+      "bytes": 7618,
+      "lines": 158,
+      "ranges": [
+        [
+          40,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "bytes": 26593,
+      "lines": 804,
+      "ranges": [
+        [
+          118,
+          153
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          123,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garment-design-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only the stated current support ranges were personally inspected; complete bytes are preserved. No future original-role or other-lens credit is transferred."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-FILESYSTEM-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Historical Body loader and staged builder",
+      "trace": "Body.from_yaml_str accepts a body mapping of string keys and numeric values, then calls eval_dependencies. Its first required lookup is height and Body.get panics if missing. A hypothetical parsed empty body mapping therefore reaches the missing-height panic instead of returning a loader error. CLI main uses Body.load with a caller-supplied body path. Body.insert intentionally permits partial staging; the selected Measurer fills 26 named values before evaluation.",
+      "remaining": "Original Adler155 and delegate310 independently recorded this same selected operation and even the empty-body example; preserve both identities without claiming an exhaustive global alias. No YAML, loader, CLI, file, geometry or product executed. Exact admission schema and custom measurements remain open."
+    },
+    {
+      "contract": "Program-specific measurement completeness",
+      "trace": "Body.eval_dependencies reads its own nine required input labels, with vert_bust_line optional, but garment programs require additional inputs. A complete hypothetical mapping for those derive inputs can omit bust and still pass that evaluation. In a selected Shirt path, MetaGarment.build_upper calls shirt with fitted=false; shirt calls bodice_half; that selects tee.torso_half_panel, which reads body.get(\"bust\") after reading the design width.",
+      "remaining": "This is a distinct downstream missing-measurement consumer from the original first missing derive input. The route assumes a successfully admitted body, a design whose earlier accesses succeed, and selection of Shirt. The schema needed by each program, actual producer coverage and earlier aliases remain open; no pattern or input executed."
+    },
+    {
+      "contract": "Measurement identity and existing owner fit",
+      "trace": "Measurer.body emits 26 literal labels through a name:&str closure into Body.insert and retained String map/order; Body.eval_dependencies rematches named inputs and stores named derived outputs. The selected torso program reads a named bust measurement. Inventory MeasurementKind/Profile/Basis instead describe depletable, bulk or containerized inventory with capacity, mass and value, not anatomical measurement labels.",
+      "remaining": "Original delegate314 already identified this producer-to-state propagation; current support read is partial2263 and historical delegate745 full scope is separate. No global proof that no suitable existing owner exists; body units include physical lengths and angles, and custom-name policy remains open."
+    },
+    {
+      "contract": "Design admission and first program access",
+      "trace": "Design.from_yaml_str checks parse success and the top-level design key, then wraps the converted Value without validating garment-required paths or kinds. The CLI loads the supplied design and calls MetaGarment.new, whose first design access is s(\"meta.upper\"); Design.value_of panics if that value path is missing. A hypothetical successfully parsed empty design mapping therefore does not establish a usable MetaGarment design.",
+      "remaining": "The CLI, parser and garment were not run. The bundled t-shirt preset is a concrete ordinary producer rather than evidence that malformed custom inputs occur. Supported external design contract, error owner, dependent fields and actual aliases need further assessment."
+    },
+    {
+      "contract": "Nested containers in the design writer",
+      "trace": "Public Value and Design.from_value admit nested maps and lists; YAML conversion also recursively represents them. For a nonempty list inside a map, write_yaml passes each item to scalar_yaml. That function emits every List as [] and every Map as {}, regardless of contents. A symbolic list containing a nonempty map therefore serializes the map as {}, losing its contents. The README describes to_yaml as writing an edited design tree.",
+      "remaining": "The writer comment says only empty containers reach scalar_yaml; the public Value shape does not enforce that restriction. Supported design schemas may deliberately exclude nested containers, so admit/reject versus lossless serialization is an open policy decision. No YAML was parsed, serialized or round-tripped; no claim is made that bundled presets contain a nested container."
+    },
+    {
+      "contract": "Dot-separated parameter identity",
+      "trace": "collect_params joins arbitrary map-key strings with a dot into ParamSpec.path; node, sub and value_of split the path at dots. If a typed parameter key itself contains a dot, the reported path cannot distinguish that one key from multiple nested keys. For example a single typed key a.b is reported as a.b but a later b(\"a.b\") seeks separate a and b keys.",
+      "remaining": "ParamSpec documents the path as ready for Design access; a closed admitted key grammar or escaping scheme could resolve the mismatch. No fixture, YAML, GUI or product ran, and no claim is made that the bundled preset uses dotted keys. Exact customer input policy and aliases are open."
+    },
+    {
+      "contract": "Select option and scalar identity",
+      "trace": "param_kind maps select and select_null range entries using as_str().map(...). Value::Null, Int, Bool and container values all become None, while ParamKind documentation assigns None specifically to a YAML null option. Numeric/bool options and null are therefore represented identically if those values enter the tree.",
+      "remaining": "The visible bundled select examples contain strings or null; support for other option types, rejection policy and actual controls remain open. No YAML or front end ran; this is a conditional schema-policy question."
+    },
+    {
+      "contract": "Production unchecked operations",
+      "trace": "Design.set_v uses unreachable! after forcing a map and unwrap after inserting a missing key. The Rust source rule prohibits production unwrap/expect, but under the shown sequential map code the just-inserted key is present.",
+      "remaining": "The direct rule violation is distinct from evidence of an ordinary panic: none is demonstrated for that guarded lookup. No product or panic ran. Panic-based public design/body access has separate admission questions."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-GARMENT-BODY-ADMISSION",
+      "queue": 155,
+      "qualification": "Adler155 and delegate310 retain independent historical identities for the same selected Body loading operation; no global alias asserted."
+    },
+    {
+      "id": "SEGOVB-L12-GARMENT-MEASUREMENT-KEY-PROPAGATION",
+      "queue": 314,
+      "qualification": "Original delegate745 measurement-key producer; current only bounded support range, not complete original role2263."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-GARMENT-BODY-PROGRAM-REQUIREMENTS-95E",
+      "qualification": "Newly assessed current95e source and qualified symbolic scenario; no product execution or global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-DESIGN-ADMISSION-95E",
+      "qualification": "Newly assessed current95e source and qualified symbolic scenario; no product execution or global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-DESIGN-NESTED-LIST-WRITER-95E",
+      "qualification": "Newly assessed current95e source and qualified symbolic scenario; no product execution or global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-DESIGN-PARAMETER-PATH-95E",
+      "qualification": "Newly assessed current95e source and qualified symbolic scenario; no product execution or global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-DESIGN-SELECT-OPTIONS-95E",
+      "qualification": "Newly assessed current95e source and qualified symbolic scenario; no product execution or global alias determination."
+    },
+    {
+      "id": "REVIEW-GARMENT-DESIGN-UNCHECKED-OPERATIONS-95E",
+      "qualification": "Newly assessed current95e source and qualified symbolic scenario; no product execution or global alias determination."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/garment-design-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/garment-design-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/garment-design-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/garment-design-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/garment-design-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/garment-design-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler scoped historical receipt",
+        "Original059 queue155 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue155 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue155 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue155 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue155 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1120.json",
+      "sha256": "9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b",
+      "bytes": 801,
+      "git_blob": "e4e807949b2628ddb4d937b680fc1d1b9f057f59",
+      "preserved_bytes": "recovered/garment-design-059/9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b.gz",
+      "published_sha256": "9e00d37188a8030d82cc89aa5b15e97022a9573aff70fd83ea2d323c330a547b",
+      "published_bytes": 801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1121.json",
+      "sha256": "f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b",
+      "bytes": 807,
+      "git_blob": "bbce4ba0efa82157091bc7edd74e71be4f0c6c28",
+      "preserved_bytes": "recovered/garment-design-059/f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b.gz",
+      "published_sha256": "f0803a1302eeb2784bdbe2f7ac4a96a69dcf2a101782bbde36e74b100b95347b",
+      "published_bytes": 807,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1122.json",
+      "sha256": "5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192",
+      "bytes": 812,
+      "git_blob": "b136d7f23466eca0e446925c28b252dcea751416",
+      "preserved_bytes": "recovered/garment-design-059/5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192.gz",
+      "published_sha256": "5320c1c41119821daa0c4d24aa2a8681fdd9d2ade3a0913b2c5526dbfb508192",
+      "published_bytes": 812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1123.json",
+      "sha256": "10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2",
+      "bytes": 816,
+      "git_blob": "74ef5d74248190462f0e85134139b9a69fe1db2a",
+      "preserved_bytes": "recovered/garment-design-059/10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2.gz",
+      "published_sha256": "10b67376e35c64575ec105c5d05ededdc1fae357e8d764215c53f228a517e2a2",
+      "published_bytes": 816,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1124.json",
+      "sha256": "4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce",
+      "bytes": 800,
+      "git_blob": "05f76f130d91996e2be2b58d4fbc6cb722020684",
+      "preserved_bytes": "recovered/garment-design-059/4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce.gz",
+      "published_sha256": "4bebea7f5d9d6785b0da1a4e71c79098beb272ec6ebe8f2f75758aca68f32dce",
+      "published_bytes": 800,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-360.json",
+      "sha256": "ff6c769caddb6bbdaad985a427151f9f8a3cdcd635a85fc5393cc2842d22be7a",
+      "bytes": 657,
+      "git_blob": "b3b58a318ba9bd78393bc8e18657a886d9c74063",
+      "preserved_bytes": "recovered/garment-design-059/ff6c769caddb6bbdaad985a427151f9f8a3cdcd635a85fc5393cc2842d22be7a.gz",
+      "published_sha256": "ff6c769caddb6bbdaad985a427151f9f8a3cdcd635a85fc5393cc2842d22be7a",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-360.json",
+      "sha256": "611a852f5612e8b5d1b90cc5e034803ebf666e242373c77af5ea27ce7962009b",
+      "bytes": 52199,
+      "git_blob": "80bd8348bdefc4e6eb40d136b1b6fb6630bafbd6",
+      "preserved_bytes": "recovered/garment-design-059/611a852f5612e8b5d1b90cc5e034803ebf666e242373c77af5ea27ce7962009b.gz",
+      "published_sha256": "611a852f5612e8b5d1b90cc5e034803ebf666e242373c77af5ea27ce7962009b",
+      "published_bytes": 52199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-744.json",
+      "sha256": "18aab37e78847047c3e419fd27395f527f43efbe0578a05d62d99189a1fa46b1",
+      "bytes": 19875,
+      "git_blob": "259a92722e3a1241f0d216a10e38d04d240caa25",
+      "preserved_bytes": "recovered/garment-design-059/18aab37e78847047c3e419fd27395f527f43efbe0578a05d62d99189a1fa46b1.gz",
+      "published_sha256": "18aab37e78847047c3e419fd27395f527f43efbe0578a05d62d99189a1fa46b1",
+      "published_bytes": 19875,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-745.json",
+      "sha256": "91a5b5ebb54b37b00ca88b74b571819938f29ffa5134ea552b21902c71899220",
+      "bytes": 13020,
+      "git_blob": "bd14713a0c8ac329f51c0ebfc4b3acfc70e3a6b8",
+      "preserved_bytes": "recovered/garment-design-059/91a5b5ebb54b37b00ca88b74b571819938f29ffa5134ea552b21902c71899220.gz",
+      "published_sha256": "91a5b5ebb54b37b00ca88b74b571819938f29ffa5134ea552b21902c71899220",
+      "published_bytes": 13020,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-744-ORIGINAL2260-FS-API.json",
+      "sha256": "8aca6459dfda1658321bfe7741f56f43f745e10898188f29c399f2756f14afbf",
+      "bytes": 4983,
+      "git_blob": "dba63e2f0222759f60daa04bb7b8375444393749",
+      "preserved_bytes": "recovered/garment-design-059/8aca6459dfda1658321bfe7741f56f43f745e10898188f29c399f2756f14afbf.gz",
+      "published_sha256": "8aca6459dfda1658321bfe7741f56f43f745e10898188f29c399f2756f14afbf",
+      "published_bytes": 4983,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original separately attributed connected receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-212.json",
+      "sha256": "b0b9c9c4d484877ff46679d6ef935137ba7054ef6f03fe6d14fe19eec21c33fe",
+      "bytes": 765,
+      "git_blob": "b6de49be0953cb94e1d0857c2be39a8d48d64af0",
+      "preserved_bytes": "recovered/garment-design-059/b0b9c9c4d484877ff46679d6ef935137ba7054ef6f03fe6d14fe19eec21c33fe.gz",
+      "published_sha256": "b0b9c9c4d484877ff46679d6ef935137ba7054ef6f03fe6d14fe19eec21c33fe",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-213.json",
+      "sha256": "cbeee6ed86a8c77207d16cc28cb8a46259c4e1587d0de59e9d59e35447e4bbe4",
+      "bytes": 747,
+      "git_blob": "8f8d874d44f33d26b5745b7bf1247bd64e49cfa4",
+      "preserved_bytes": "recovered/garment-design-059/cbeee6ed86a8c77207d16cc28cb8a46259c4e1587d0de59e9d59e35447e4bbe4.gz",
+      "published_sha256": "cbeee6ed86a8c77207d16cc28cb8a46259c4e1587d0de59e9d59e35447e4bbe4",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-214.json",
+      "sha256": "7e8c1114481e84a15c62b6788535e40643d1d7a5451cbc083056d74dffe9f195",
+      "bytes": 946,
+      "git_blob": "984ba990ee97bd2ce9b558994295c4815d776fb3",
+      "preserved_bytes": "recovered/garment-design-059/7e8c1114481e84a15c62b6788535e40643d1d7a5451cbc083056d74dffe9f195.gz",
+      "published_sha256": "7e8c1114481e84a15c62b6788535e40643d1d7a5451cbc083056d74dffe9f195",
+      "published_bytes": 946,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-215.json",
+      "sha256": "ee607800a626abc11a245f0813e525a4afca29a0e83b4123dd86acefca21071c",
+      "bytes": 767,
+      "git_blob": "b4e2b2bdf395237dcd63940cc85621618f90bec2",
+      "preserved_bytes": "recovered/garment-design-059/ee607800a626abc11a245f0813e525a4afca29a0e83b4123dd86acefca21071c.gz",
+      "published_sha256": "ee607800a626abc11a245f0813e525a4afca29a0e83b4123dd86acefca21071c",
+      "published_bytes": 767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-216.json",
+      "sha256": "72d571cb674a5486298be6bce4c8279c680a34a7a8488a17caf74107481bd13d",
+      "bytes": 938,
+      "git_blob": "39ac8054ec2e14acb99c159d5db01550ea7ebc6c",
+      "preserved_bytes": "recovered/garment-design-059/72d571cb674a5486298be6bce4c8279c680a34a7a8488a17caf74107481bd13d.gz",
+      "published_sha256": "72d571cb674a5486298be6bce4c8279c680a34a7a8488a17caf74107481bd13d",
+      "published_bytes": 938,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-217.json",
+      "sha256": "9cd8471ab1b9322a1c8a886e40a3fb2bdb321f9c2bcf4a16d2d93733dbb3c24f",
+      "bytes": 785,
+      "git_blob": "b0f0936a54d0daea01a790c92e142ff59717d58f",
+      "preserved_bytes": "recovered/garment-design-059/9cd8471ab1b9322a1c8a886e40a3fb2bdb321f9c2bcf4a16d2d93733dbb3c24f.gz",
+      "published_sha256": "9cd8471ab1b9322a1c8a886e40a3fb2bdb321f9c2bcf4a16d2d93733dbb3c24f",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-218-CONNECTED-ORIGINAL2260-FS-API.json",
+      "sha256": "5718d4cd7143cd54373dfbd3d628b64bc021c1a991367db782c50f85614d273f",
+      "bytes": 1326,
+      "git_blob": "05725bd02edb1815c1ebe8a9b936b9a7872c8b2c",
+      "preserved_bytes": "recovered/garment-design-059/5718d4cd7143cd54373dfbd3d628b64bc021c1a991367db782c50f85614d273f.gz",
+      "published_sha256": "5718d4cd7143cd54373dfbd3d628b64bc021c1a991367db782c50f85614d273f",
+      "published_bytes": 1326,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration",
+        "Original connected prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-219-CONNECTED-ORIGINAL2260-URI.json",
+      "sha256": "51c1baaac5dc5367b914cfb5472c25ac5fbac492268e59c96288049bd4a8ac31",
+      "bytes": 1112,
+      "git_blob": "ebdcd5be2f51285ac9fdfc3007b57f2ef7d582d5",
+      "preserved_bytes": "recovered/garment-design-059/51c1baaac5dc5367b914cfb5472c25ac5fbac492268e59c96288049bd4a8ac31.gz",
+      "published_sha256": "51c1baaac5dc5367b914cfb5472c25ac5fbac492268e59c96288049bd4a8ac31",
+      "published_bytes": 1112,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration",
+        "Original connected prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-220.json",
+      "sha256": "57a9db8749beba62f244f65cd23d0ce4e278cf3ced15ff6e13bd79c42cec4d55",
+      "bytes": 782,
+      "git_blob": "7b1522bbe5e3f46759f48ad7fd48c1697ec36114",
+      "preserved_bytes": "recovered/garment-design-059/57a9db8749beba62f244f65cd23d0ce4e278cf3ced15ff6e13bd79c42cec4d55.gz",
+      "published_sha256": "57a9db8749beba62f244f65cd23d0ce4e278cf3ced15ff6e13bd79c42cec4d55",
+      "published_bytes": 782,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-744.json",
+      "sha256": "15ad1a10d0db1b4655ac7e8ee7a6c29d1122e55ec513a07af38feb55e5451e32",
+      "bytes": 21083,
+      "git_blob": "d7658500421916839862d536723c6d5969b7004c",
+      "preserved_bytes": "recovered/garment-design-059/15ad1a10d0db1b4655ac7e8ee7a6c29d1122e55ec513a07af38feb55e5451e32.gz",
+      "published_sha256": "15ad1a10d0db1b4655ac7e8ee7a6c29d1122e55ec513a07af38feb55e5451e32",
+      "published_bytes": 21083,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue310 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-745.json",
+      "sha256": "a240fbca7284f0adc274dd80e7dc18441c7af9c92e5e25f8b7eea370cd02b978",
+      "bytes": 8558,
+      "git_blob": "5857ea1d11d7e6766790b3462093979460599193",
+      "preserved_bytes": "recovered/garment-design-059/a240fbca7284f0adc274dd80e7dc18441c7af9c92e5e25f8b7eea370cd02b978.gz",
+      "published_sha256": "a240fbca7284f0adc274dd80e7dc18441c7af9c92e5e25f8b7eea370cd02b978",
+      "published_bytes": 8558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads",
+        "Original059 queue314 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue314 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-744.json",
+      "sha256": "bb38fc2e7fbc0d64caec41baa102e2169701a5dd1718e41b857dee917ed30e9b",
+      "bytes": 3622,
+      "git_blob": "8eddf6bff05fd431611b53c5b76f309959a18144",
+      "preserved_bytes": "recovered/garment-design-059/bb38fc2e7fbc0d64caec41baa102e2169701a5dd1718e41b857dee917ed30e9b.gz",
+      "published_sha256": "bb38fc2e7fbc0d64caec41baa102e2169701a5dd1718e41b857dee917ed30e9b",
+      "published_bytes": 3622,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-745.json",
+      "sha256": "6857f73c5087bf891d94b36143505bc13bfe4b3a41f36564688e85a87c1c07fb",
+      "bytes": 1640,
+      "git_blob": "bebc7f8c70bedab75afc15615092263325739597",
+      "preserved_bytes": "recovered/garment-design-059/6857f73c5087bf891d94b36143505bc13bfe4b3a41f36564688e85a87c1c07fb.gz",
+      "published_sha256": "6857f73c5087bf891d94b36143505bc13bfe4b3a41f36564688e85a87c1c07fb",
+      "published_bytes": 1640,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-744.json",
+      "sha256": "833242914b34990727598b8f29d074713372af1de366d03c4117b40c586eaebe",
+      "bytes": 667,
+      "git_blob": "8b6998b88674e0503fd06011f9b6101229ab9124",
+      "preserved_bytes": "recovered/garment-design-059/833242914b34990727598b8f29d074713372af1de366d03c4117b40c586eaebe.gz",
+      "published_sha256": "833242914b34990727598b8f29d074713372af1de366d03c4117b40c586eaebe",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-745.json",
+      "sha256": "db15a94b34f86036213a94f08bc5e03bae32ccf0144dec7d834f476a949b1074",
+      "bytes": 667,
+      "git_blob": "2faaaaa45435a69d07c895dee0552bce5be20968",
+      "preserved_bytes": "recovered/garment-design-059/db15a94b34f86036213a94f08bc5e03bae32ccf0144dec7d834f476a949b1074.gz",
+      "published_sha256": "db15a94b34f86036213a94f08bc5e03bae32ccf0144dec7d834f476a949b1074",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Supplier, Adler360 and delegate744 original2262 reads only472–608; delegate745 independently read original2263 full. Root adoption had zero personal rereads. New95e full display does not change prior ranges.",
+  "remaining": "Continue original2263 and all thirteen lenses. Body/design schema, callers, product requirements, exact aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
