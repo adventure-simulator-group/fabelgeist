@@ -1,0 +1,218 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 5,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected daily allocation aggregate, independent organization durations, direct construction and exact-spelling native/web callers. The aggregate lens remains incomplete.",
+  "source_reasoning": "Static source reading and symbolic integer comparisons only; no schedule, reducer, preview, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f7978724b74a070ff2f5f2c00324276d753a5015",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "bytes": 12334,
+      "lines": 364,
+      "ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/schedule-aggregate-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          680,
+          730
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/schedule-aggregate-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/activity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "62a15b112f0a0a67ec76b42bafe442b8e1217416",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "bytes": 9114,
+      "lines": 243,
+      "ranges": [
+        [
+          15,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/schedule-aggregate-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "bytes": 25367,
+      "lines": 698,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/schedule-aggregate-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4516fd30bc450d22c9fecf52b9b06580d6984c8",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "bytes": 9593,
+      "lines": 263,
+      "ranges": [
+        [
+          198,
+          263
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/schedule-aggregate-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f2eeab93e7131125349200683bc16abaaabd79b",
+      "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "bytes": 3624,
+      "lines": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/schedule-aggregate-sources/05.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/schedule-aggregate-search.txt",
+    "sha256": "721e1c61f39be6edc70876cf9694dff576841d1f2d5aefe26708ba5cc999dae1",
+    "bytes": 1676,
+    "query": "git grep -n -F validate_daily_allocation( at the pinned revision under crates",
+    "qualification": "Exact-spelling tracked-source search; aliases, external consumers and other languages are not excluded."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-208.json",
+      "sha256": "c6e670492328988c7246aa89ecfd0ce4be0d1f97acfd0a364e54e8d88a95ca25",
+      "bytes": 11439,
+      "git_blob": "a46cc4e7340a2448a4f6fa20c91a06be9263d851",
+      "preserved_bytes": "recovered/schedule-aggregate-059/c6e670492328988c7246aa89ecfd0ce4be0d1f97acfd0a364e54e8d88a95ca25.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-210.json",
+      "sha256": "ded6ad6315445887b6cda16407a83a6d13a9d821aefd8dd01e7c1ecce1d87a31",
+      "bytes": 6197,
+      "git_blob": "ade408d462730f0b70c19e81dc271fb849e5fcb7",
+      "preserved_bytes": "recovered/schedule-aggregate-059/ded6ad6315445887b6cda16407a83a6d13a9d821aefd8dd01e7c1ecce1d87a31.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-210.json",
+      "sha256": "412434ba3fe172aad9f373218dfeb1c80cd8bd9e2ff57c6c097ae649803846d2",
+      "bytes": 628,
+      "git_blob": "ba8f88d198ab136761d08e495cde93bf4743a1fa",
+      "preserved_bytes": "recovered/schedule-aggregate-059/412434ba3fe172aad9f373218dfeb1c80cd8bd9e2ff57c6c097ae649803846d2.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-210.json",
+      "sha256": "64eadd98aa8e2fa064c084d709bb1c42bab60168a46cde70403b38345398dab7",
+      "bytes": 1721,
+      "git_blob": "637d9c97b7b1d48679adcf075e9ffcfc95215388",
+      "preserved_bytes": "recovered/schedule-aggregate-059/64eadd98aa8e2fa064c084d709bb1c42bab60168a46cde70403b38345398dab7.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-209-211.json",
+      "sha256": "1f4b5cccab2fe987f3bc549ff9ba937089857caf4589bc0ae09654944a402d7a",
+      "bytes": 12312,
+      "git_blob": "f2e35409d7462fb0b9f6e056f0771d6673f8f2fd",
+      "preserved_bytes": "recovered/schedule-aggregate-059/1f4b5cccab2fe987f3bc549ff9ba937089857caf4589bc0ae09654944a402d7a.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-210-PARTIAL-001.json",
+      "sha256": "d944caddaf3b4ec56ac2e2e1d2df71232ea168743a6d7f242fdc87d249474628",
+      "bytes": 1887,
+      "git_blob": "7617091e7087d9c269bc37fa5585f167ca40f414",
+      "preserved_bytes": "recovered/schedule-aggregate-059/d944caddaf3b4ec56ac2e2e1d2df71232ea168743a6d7f242fdc87d249474628.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-210-PARTIAL-002.json",
+      "sha256": "d4a4fc706aa794ab321ee6b5c420fd78694775b130802ea4bada2a75c13f1322",
+      "bytes": 1918,
+      "git_blob": "de253c3dd7bce914d58d429b4257c163c7f1c2e5",
+      "preserved_bytes": "recovered/schedule-aggregate-059/d4a4fc706aa794ab321ee6b5c420fd78694775b130802ea4bada2a75c13f1322.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read union and attribution, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/discovery_receipts/207",
+      "qualification": "Delegated PL13-210 identified the daily bounds and explicitly left parallel organization-minute consistency and native adapter contract unproved; no unique historical finding was accepted. Its two partial receipts record cumulative prefixes 1–460 and 1–920; its union records the subsequent fresh ranges 461–920 and 921–1363. Preserve their raw attribution and do not treat either prefix as an independent complete read."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1014,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "historical_sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1011-1020.json",
+      "qualification": "Separate full historical Lens 1 read; no transfer to the prior delegated reader, aggregate lens closure or checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-SCHEDULE-PARALLEL-ALLOCATION-001",
+      "severity": "unassigned; possible aggregate API strengthening with matching selected callers",
+      "classification": "Representable inconsistent schedule plan and validator input; no demonstrated bad native admission or player-visible failure.",
+      "trace": "validate_daily_allocation separately accepts a ten-element array and two organization allocations. It checks only the array total against one 1440-minute day, validates each array element and parses the separate allocations, but does not compare the array apprenticeship and practice slots to the independently supplied allocation minutes. DailySchedulePlan exposes both representations publicly.",
+      "conditional_counterexample": "For a hypothetical direct call, use ten zero activity minutes, plus apprenticeship and practice tuples each containing 1440 minutes and a nonempty organization ID. Array sum is zero, each supplied duration is a multiple of 15 and each tuple passes the local organization parse. The returned plan represents zero in its activity array and 1440 in each separate organization allocation; a consumer that assembles a schedule from both separate durations would obtain 2880 minutes. This is a source-derived construction, not an executed call, established organization membership, or persisted schedule.",
+      "mutation_and_direct_construction": "ActivityMinutes::try_from(0) accepts zero, and public OrganizationAllocation::Scheduled and DailySchedulePlan fields can also be assembled or changed directly without the parser; for example, a scheduled zero-duration empty-ID value is representable. The private ValidatedSchedule wrapper independently checks a DailySchedule total and quarter-hour increments, but does not validate organization membership and is not automatically applied to every DailySchedulePlan.",
+      "caller_evidence": "The inspected native update_training_schedule and web schedule::validate pass the same apprenticeship and practice fields both in array positions 7 and 8 and in their respective tuples. The native reducer then rebuilds those two fields from the parsed allocations and validates organization policy before writing. The web adapter retains its original matching numeric fields while storing parsed IDs. The pinned exact-spelling search found these two production calls plus the owner and source tests; this does not rule out aliases or external/future callers.",
+      "safeguards_and_limits": "Both selected production callers preserve equality by construction, so the hypothetical mismatch is not an alleged native schedule or ordinary user incident. The pure helper does not claim organization authorization; its native adapter performs a separate check. Whether the public result itself promises a durable aggregate invariant is an API contract question.",
+      "connected_repair": "If DailySchedulePlan is intended to certify a single day and paired organization allocation, derive each organization duration from one authoritative slot or reject mismatches before constructing it, and restrict mutation/direct construction enough to preserve the contract. Retain quarter-hour, total-day, ID normalization and native membership checks; reconcile other schedule consumers before selecting a shared remedy.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover mismatched parallel durations, 1440-minute boundaries, zero and empty organization cases, direct-construction policy, matching native/web conversion, and current membership checks.",
+      "discovery": "partial; public API contract, external callers and connected schedule aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
