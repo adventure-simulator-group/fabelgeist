@@ -1,0 +1,625 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five original animation roles and bounded current config, semantic routing, presentation coalescing and native scheduler/event sources.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1758-1762.json",
+  "git_membership_evidence": "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          75,
+          128
+        ],
+        [
+          230,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3554bcdff8a61da471c8dd0dc0a4be5439dd5228",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "bytes": 2253,
+      "lines": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "11d15d656eba0778f47cbaf382fd9f5876715825",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "bytes": 7219,
+      "lines": 253,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "edf3021d5b8d198a7d04dbc1d60f77a1fafbbc0f",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "91cf9565c678ebd173d27d7dc54ec099bcc1746d",
+      "sha256": "e03c51c5d1f80bc6961802e1e70e9cac962661c3f83c44e275a2c5800d422d3c",
+      "bytes": 1511,
+      "lines": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9fc0b9ae56069f7636c4fb5508e5d272922c0ba7",
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "bytes": 5662,
+      "lines": 174,
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9d20e485651cedabc0b3a980b476ba73949ccc0c",
+      "sha256": "754a5ea02732df10071edad99a78c5fc1524236ac1232401129c06da611834ee",
+      "bytes": 5565,
+      "lines": 118,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1f893809c543298d7e5bd6c51cce255160f12d3c",
+      "sha256": "503b335e2aaa99a5cb283b02af958b8990b0e2fce6817b437b56e1bc8900e6e1",
+      "bytes": 5065,
+      "lines": 145,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6922c0b9fd561e03f11ef1d098a70768a599d9b2",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e",
+      "bytes": 13300,
+      "lines": 336,
+      "ranges": [
+        [
+          119,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          2029,
+          2049
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          920,
+          1047
+        ],
+        [
+          1942,
+          1951
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          200,
+          230
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          1785,
+          1788
+        ],
+        [
+          2632,
+          2635
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/animation-evaluation-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. No separate original role, other-lens clearance, test or product execution is credited."
+    }
+  ],
+  "native_archive_members": [
+    {
+      "package": "bevy_replicon 0.41.1",
+      "archive": "native-evidence/bevy_replicon-0.41.1/bevy_replicon-0.41.1.crate",
+      "archive_sha256": "a25105650eb1b27c6ada888e06bb38ff7e326a94c7c5b4d75fb5aee50c5ae45e",
+      "member": "bevy_replicon-0.41.1/src/shared/message/server_event.rs",
+      "member_sha256": "7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "member_bytes": 7801,
+      "lines": 233,
+      "personal_ranges": [
+        [
+          68,
+          82
+        ],
+        [
+          120,
+          163
+        ]
+      ],
+      "qualification": "Exact registry archive bytes match current Cargo.lock. Selected source ranges only; no compiled feature graph, runtime scheduling, event delivery or all-lifecycle behavior is claimed."
+    },
+    {
+      "package": "bevy_ecs 0.19.1",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "archive_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "member": "bevy_ecs-0.19.1/src/schedule/executor/multi_threaded.rs",
+      "member_sha256": "e409a9b71ce0f2db78a2b244cf784976d18a147296557f5f78384ea207812fe4",
+      "member_bytes": 35356,
+      "lines": 902,
+      "personal_ranges": [
+        [
+          293,
+          297
+        ],
+        [
+          650,
+          708
+        ],
+        [
+          778,
+          788
+        ]
+      ],
+      "qualification": "Exact registry archive bytes match current Cargo.lock. Selected source ranges only; no compiled feature graph, runtime scheduling, event delivery or all-lifecycle behavior is claimed."
+    },
+    {
+      "package": "bevy_ecs 0.19.1",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "archive_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "member": "bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "member_sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "member_bytes": 111800,
+      "lines": 3134,
+      "personal_ranges": [
+        [
+          1165,
+          1171
+        ]
+      ],
+      "qualification": "Exact registry archive bytes match current Cargo.lock. Selected source ranges only; no compiled feature graph, runtime scheduling, event delivery or all-lifecycle behavior is claimed."
+    },
+    {
+      "package": "bevy_ecs 0.19.1",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "archive_sha256": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "member": "bevy_ecs-0.19.1/src/system/commands/command.rs",
+      "member_sha256": "12bec363d3474c0b87b56e08fbd24876e099cb39269f83f54f56275deb207f32",
+      "member_bytes": 9977,
+      "lines": 315,
+      "personal_ranges": [
+        [
+          277,
+          285
+        ]
+      ],
+      "qualification": "Exact registry archive bytes match current Cargo.lock. Selected source ranges only; no compiled feature graph, runtime scheduling, event delivery or all-lifecycle behavior is claimed."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Evaluation and inverse interpolation",
+      "trace": "Current evaluation selects typed posture/action samples and propagates checked errors before constructing AnimationEvaluation. Current dive and airborne blends use typed clamped inverse lerps; current locomotion computes a run blend from independently acquired walk and run profiles using NonnegativeSpeed::clamped_inverse_lerp. This rejects non-increasing bounds. Each complete AnimationLocomotionConfig checks run reference speed strictly exceeds walk and blend speed exceeds the initial speed.",
+      "remaining": "No assertion of bitwise equivalence with6533 raw floating arithmetic, all SkeletonState inputs or authored clips is made. Attack animation absence/default policy and native pose/curve semantics remain separately open."
+    },
+    {
+      "contract": "Snapshot coherence across independent reads",
+      "trace": "The runtime snapshot is process-global and copied behind a RwLock with versioned thread-local caches. The walk and run helpers separately read it, and gait_profile also obtains landing tuning independently. A single validated snapshot guarantees run>walk; as a symbolic conditional example only, if reads could span two valid snapshots with (walk,run)=(5,6) then (1,2), the mixed lower5/upper2 would fail the checked inverse lerp. The semantic-route source warns and removes its trace when evaluation returns an error.",
+      "safeguard": "The client observer validates and installs a received config; server join and reconnect send one. Pinned Bevy Replicon source queues a trigger, Bevy Commands queues the world trigger, and the Bevy multi-thread executor applies deferred commands with exclusive access or after systems complete. This is evidence against assuming the ordinary same-world observer interleaves with that evaluation; it does not prove every process-wide installation, multiple-world setup, public caller, or scheduler lifecycle is serialized. No concurrent run or actual mixed snapshot was observed.",
+      "remaining": "Identify all supported installers and process/world lifetimes, establish whether any read can span versions, and decide whether shared-core rule applies. Preserve startup and legitimate config changes. This is connected to existing059 queue1550/1624, not counted as an independent new finding."
+    },
+    {
+      "contract": "Presentation coalescing budget",
+      "trace": "CoalescedEventBudget accepts a nonzero u64 and its contains compares a full-width span. The current contact presenter first checks the observed non-wrapping delta against the configured budget and then iterates/reverses the offsets and collects a vector; landing presentation emits only the latest in-budget event. The shown playback validation adds no upper bound for this budget; committed YAML sets8. The authoritative contact-identity helper has a separate handoff loop.",
+      "safeguard": "This is a configured bound on presentation event count, not proof of an arbitrary unbounded production delta, configuration reachability, allocation failure, denial of service, or an actual dropped event. Producers, observation gaps and independent core handoff work need separate tracing. Non-wrapping/reset policy and native audio/capture behavior remain open.",
+      "remaining": "Reconcile historical059 queue99,822,1447 without assuming their first failures are aliases, establish supported event-volume and work contracts, and preserve count, parity, event order and normal nonzero budget semantics."
+    },
+    {
+      "contract": "Opaque fraction reflection",
+      "trace": "Historical fraction reflection imports canonical UnitInterval and declares an opaque remote Bevy reflection/serde wrapper; source attributes alone do not prove expanded macro mutation or decode semantics.",
+      "remaining": "Inspect pinned native generated behavior only if material; avoid transferring semantic coverage from one adapter to another."
+    }
+  ],
+  "conditional_findings": [],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/99",
+        "/entries/822",
+        "/entries/1446",
+        "/entries/1447",
+        "/entries/1550",
+        "/entries/1624"
+      ],
+      "qualification": "Original059 scopes partially connected only; distinct producer and presentation concerns, prior e275 and6533 attributions and checkpoint3821 gap preserved."
+    },
+    {
+      "file": "ASSESSMENT-PHASE-CALIBRATION-BOUND-95E.json",
+      "qualification": "Previous current-support-only read of attack/evaluation source remains as originally recorded and receives no retroactive historical credit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-568.json",
+      "sha256": "9c2f3046ae655782d6f6252aa2276f8fc43920bcffdabaa0f2be144c98cde66a",
+      "bytes": 1214,
+      "git_blob": "71110e6568d217fac9b9ce6eea7bdb2ba78b388e",
+      "preserved_bytes": "recovered/animation-evaluation-059/9c2f3046ae655782d6f6252aa2276f8fc43920bcffdabaa0f2be144c98cde66a.gz",
+      "published_sha256": "9c2f3046ae655782d6f6252aa2276f8fc43920bcffdabaa0f2be144c98cde66a",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-569.json",
+      "sha256": "64a022f48a5499530d6456f73ab84d7b17896afffb46ab7476f1e64f3b1f6d2b",
+      "bytes": 1713,
+      "git_blob": "bba995c063cfacde941efc6870860780494315b4",
+      "preserved_bytes": "recovered/animation-evaluation-059/64a022f48a5499530d6456f73ab84d7b17896afffb46ab7476f1e64f3b1f6d2b.gz",
+      "published_sha256": "64a022f48a5499530d6456f73ab84d7b17896afffb46ab7476f1e64f3b1f6d2b",
+      "published_bytes": 1713,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-568.json",
+      "sha256": "58ed1dfaa7ade5035f33482cbafcf56434bce75e9ba2d55698c57a0a2eaef714",
+      "bytes": 9652,
+      "git_blob": "8f5145a7f982d95b80d299d86ef2e392d18364f6",
+      "preserved_bytes": "recovered/animation-evaluation-059/58ed1dfaa7ade5035f33482cbafcf56434bce75e9ba2d55698c57a0a2eaef714.gz",
+      "published_sha256": "58ed1dfaa7ade5035f33482cbafcf56434bce75e9ba2d55698c57a0a2eaef714",
+      "published_bytes": 9652,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-569.json",
+      "sha256": "8d2c4adcaf897c7ac8339dba94151963419755d7cc57620b352f7f909bf9f0ee",
+      "bytes": 10971,
+      "git_blob": "cc14e8c684e94cbfcb356a811a7b5ffb1e9b1d97",
+      "preserved_bytes": "recovered/animation-evaluation-059/8d2c4adcaf897c7ac8339dba94151963419755d7cc57620b352f7f909bf9f0ee.gz",
+      "published_sha256": "8d2c4adcaf897c7ac8339dba94151963419755d7cc57620b352f7f909bf9f0ee",
+      "published_bytes": 10971,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-665.json",
+      "sha256": "53e0b819e02d9171564d65ddf4bf10472e38a2cd117ff2202beee023fca61544",
+      "bytes": 1203,
+      "git_blob": "b4ba060b38b291491e062298cd324c1796e90896",
+      "preserved_bytes": "recovered/animation-evaluation-059/53e0b819e02d9171564d65ddf4bf10472e38a2cd117ff2202beee023fca61544.gz",
+      "published_sha256": "53e0b819e02d9171564d65ddf4bf10472e38a2cd117ff2202beee023fca61544",
+      "published_bytes": 1203,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-666.json",
+      "sha256": "3515ece239480fb3946e5951862204a9a276b29ca0fa286be2d6bdae5f4a42a8",
+      "bytes": 1215,
+      "git_blob": "ace5281bc8827283671f5c3de292a7fee6a47e4b",
+      "preserved_bytes": "recovered/animation-evaluation-059/3515ece239480fb3946e5951862204a9a276b29ca0fa286be2d6bdae5f4a42a8.gz",
+      "published_sha256": "3515ece239480fb3946e5951862204a9a276b29ca0fa286be2d6bdae5f4a42a8",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-667.json",
+      "sha256": "367e5cb0ac13309160c9fd3da9a08eae6a5ab45cc500eb60a2cfe546ddb1e154",
+      "bytes": 1236,
+      "git_blob": "47a453aef98bc62b1ff51a8d500396837f55c4c1",
+      "preserved_bytes": "recovered/animation-evaluation-059/367e5cb0ac13309160c9fd3da9a08eae6a5ab45cc500eb60a2cfe546ddb1e154.gz",
+      "published_sha256": "367e5cb0ac13309160c9fd3da9a08eae6a5ab45cc500eb60a2cfe546ddb1e154",
+      "published_bytes": 1236,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-668.json",
+      "sha256": "f7e6a17349ef4aa3069a26419a158cb88e63fcd1a696f84b8cd45fc9f26758c0",
+      "bytes": 1212,
+      "git_blob": "02b7f515c5d1ef8d50186b5b8a4993fc5018dfeb",
+      "preserved_bytes": "recovered/animation-evaluation-059/f7e6a17349ef4aa3069a26419a158cb88e63fcd1a696f84b8cd45fc9f26758c0.gz",
+      "published_sha256": "f7e6a17349ef4aa3069a26419a158cb88e63fcd1a696f84b8cd45fc9f26758c0",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-669.json",
+      "sha256": "d88df97a2158e71dc7419e8ec661110e4819d688559f86fc6fedc0eb19f66a88",
+      "bytes": 1230,
+      "git_blob": "c3534e61c3e0347f063f63d850e723e6bb5a60a1",
+      "preserved_bytes": "recovered/animation-evaluation-059/d88df97a2158e71dc7419e8ec661110e4819d688559f86fc6fedc0eb19f66a88.gz",
+      "published_sha256": "d88df97a2158e71dc7419e8ec661110e4819d688559f86fc6fedc0eb19f66a88",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-568.json",
+      "sha256": "f7e36cee0e3bbf9589f934f8b081e45fb21cd7ebe08911dd7f0285d2c40b2966",
+      "bytes": 840,
+      "git_blob": "4485df89339176f25a9bda2ff0fe9deb40b8cba9",
+      "preserved_bytes": "recovered/animation-evaluation-059/f7e36cee0e3bbf9589f934f8b081e45fb21cd7ebe08911dd7f0285d2c40b2966.gz",
+      "published_sha256": "f7e36cee0e3bbf9589f934f8b081e45fb21cd7ebe08911dd7f0285d2c40b2966",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-569.json",
+      "sha256": "50d715d3553a5b1f1d979391565e6de5da4f9345577fb297fae4c40f9317247a",
+      "bytes": 840,
+      "git_blob": "fc87dc2c41c5dbf6407a649cd60d6a7e8be6e8f9",
+      "preserved_bytes": "recovered/animation-evaluation-059/50d715d3553a5b1f1d979391565e6de5da4f9345577fb297fae4c40f9317247a.gz",
+      "published_sha256": "50d715d3553a5b1f1d979391565e6de5da4f9345577fb297fae4c40f9317247a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-568.json",
+      "sha256": "f6639a39ff59c970c0398018c1a9d949eb36eaae326b1ec141a86871439ef2f5",
+      "bytes": 558,
+      "git_blob": "8f345bfc96b9b24f4105b5d48e75c140582f5c6b",
+      "preserved_bytes": "recovered/animation-evaluation-059/f6639a39ff59c970c0398018c1a9d949eb36eaae326b1ec141a86871439ef2f5.gz",
+      "published_sha256": "f6639a39ff59c970c0398018c1a9d949eb36eaae326b1ec141a86871439ef2f5",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-569.json",
+      "sha256": "f64c7995a767cf50c8ae5b73ea4240221f46b4b06721c5fab09496fc0e8473f9",
+      "bytes": 558,
+      "git_blob": "fe9bf6ceb678026705c4f887487e4b11cd508068",
+      "preserved_bytes": "recovered/animation-evaluation-059/f64c7995a767cf50c8ae5b73ea4240221f46b4b06721c5fab09496fc0e8473f9.gz",
+      "published_sha256": "f64c7995a767cf50c8ae5b73ea4240221f46b4b06721c5fab09496fc0e8473f9",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1763; establish source-state and clip contracts, configuration lifecycles, event-volume bounds, other lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
