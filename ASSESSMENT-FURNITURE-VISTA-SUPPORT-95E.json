@@ -1,0 +1,1335 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1920–1931, furniture admission and current connection to recovered shifted-vista support finding.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1920-1931.json",
+  "git_membership_evidence": "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+  "historical_vista_source": {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+    "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+    "bytes": 15643,
+    "git_blob": "aaabc328d2ea8563c38944007e64ea05eb0f7213",
+    "source_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+    "git_membership_evidence": "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "same_as_current": true,
+    "qualification": "Original Segovb connected full read is separately attributed; only listed current helper ranges were personally reinspected now. Ordered Lens1 role1964 remains unassessed."
+  },
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aaabc328d2ea8563c38944007e64ea05eb0f7213",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "bytes": 15643,
+      "lines": 480,
+      "ranges": [
+        [
+          81,
+          92
+        ],
+        [
+          131,
+          199
+        ],
+        [
+          217,
+          277
+        ],
+        [
+          311,
+          324
+        ],
+        [
+          328,
+          379
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7ae67c059b31a55b801c569a787311ab2e528562",
+      "sha256": "f226a17d7921f5b1daa506cdfc8c4b0eac80e8bb72f3bde9d77a6b7f9753207f",
+      "bytes": 6142,
+      "lines": 180,
+      "ranges": [
+        [
+          12,
+          118
+        ],
+        [
+          121,
+          179
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "bytes": 10254,
+      "lines": 242,
+      "ranges": [
+        [
+          48,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/procedural.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c387aa5967c29fdae70a817ff12d4098819802a7",
+      "sha256": "9374a31dd00faa7d347212451bf0f2ff87b5b97246e068ec2db7894cc021b695",
+      "bytes": 860,
+      "lines": 31,
+      "ranges": [
+        [
+          17,
+          27
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "08a425eef43818d2b1449531a93e2a601931238e",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "bytes": 10026,
+      "lines": 291,
+      "ranges": [
+        [
+          91,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "84b69bcf6accde7de3a3b0b3ac6f760c7040cceb",
+      "sha256": "4930cfcf3aa850b3abf02601c818bcbbe62819d677490e50e96a823dcf3b7e8a",
+      "bytes": 12656,
+      "lines": 334,
+      "ranges": [
+        [
+          248,
+          315
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "770e2e6b38cbd651caef72242c2c1f98182a6d28",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "bytes": 830,
+      "lines": 20,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/furniture-vista-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No scene, furniture, vista, collider, source test, network or renderer ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-SCENE-WEATHER-ADMISSION-95E.json",
+    "RECONCILIATION-VISTA-TREE-FRAME-95E.json",
+    "ASSESSMENT-CLOUD-BAKE-ADMISSION-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Recovered shifted vista first contract",
+      "trace": "Original059 Adler finding ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME already records that vista_triangle_height converts a world point to LOD-local coordinates, then clips against an unshifted playable-centred half extent. PlacementGround::height_at calls that same helper after an absent terrain height. A source-only illustration retains the original assumptions: a flat scene terrain centred at0 with half extents1, a valid3×3 vista at spacing2 with origin (10,0), and a point at world (10,0). The point is outside the actual playable square but local (0,0). The local vista cell [0,2]×[0,2] is clipped into [1,2]×[0,2] and [0,1]×[1,2]; neither contains the point, so this helper returns None. A candidate requiring that support point is rejected by the selected accept path if it otherwise reaches the height check. No terrain, ring, furniture or test was run.",
+      "remaining": "The earlier finding and its symbolic shifted-origin witness retain Adler attribution, original revision, zero historical-count increment and same first contract. Normal occupied geographic reconstruction rejects shifted rings and the inspected normal dispatcher emits zero origins; alternate supported inputs, exact edge policy, all consumers and native behavior remain open. This does not prove a normal generated candidate, user impact or a distinct new defect."
+    },
+    {
+      "contract": "Aligned interior and candidate retention",
+      "trace": "The recovered independent Segovb connected1964 source record explicitly limits an earlier inside-playable fallback suspicion: with zero ring origin and a strict interior point, the clipped vista ring has no rectangle containing that point. The selected furniture path checks footprint scope, occupancy, market containment, activity, five sample heights, grade and item support points before retaining a group and routing instances to playable or vista output.",
+      "remaining": "Do not generalize the aligned strict-interior statement to shifted origins or edges. Candidate recipe/site validity, external mutation, all serializers and native physics/render consumers remain open; out-of-order reviewer1964 credit is not current ordered Lens1 credit."
+    },
+    {
+      "contract": "Environment and establishment admissions",
+      "trace": "SceneEnvironment is a public immutable component with derived Deserialize and raw digest/bps fields; it is registered for replication. One selected procedural consumer explicitly saturates basis points to the unit range. Establishment source builds a combined usage map and checks duplicate establishment/building/operator IDs and one settlement string; the separately traced full grounding rejects duplicate physical placement IDs.",
+      "remaining": "No malformed network payload or accepted duplicate complete scene is asserted. Other decoders, typed semantic owner, producer trust, all consumers, and scene/BusinessId settlement association remain open."
+    }
+  ],
+  "conditional_findings": [],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/furniture-vista-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-273.json",
+      "sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "bytes": 12123,
+      "git_blob": "bdd561888e4bca8bdaf6956ed56cada4863d6b71",
+      "preserved_bytes": "recovered/furniture-vista-059/ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b.gz",
+      "published_sha256": "ec50de3f3c7757177d91011a6d4561beaa8fabc6c84bb6bb52d13cc23375c27b",
+      "published_bytes": 12123,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "bytes": 9944,
+      "git_blob": "e072050becf60dde23ac603c52ac4b125de87408",
+      "preserved_bytes": "recovered/furniture-vista-059/7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91.gz",
+      "published_sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "published_bytes": 9944,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/furniture-vista-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/furniture-vista-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/furniture-vista-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/furniture-vista-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/furniture-vista-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "bytes": 13932,
+      "git_blob": "492f7a3770c7692e16bb1d1a6c1004a0817290db",
+      "preserved_bytes": "recovered/furniture-vista-059/28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0.gz",
+      "published_sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "published_bytes": 13932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "bytes": 12417,
+      "git_blob": "36c15abc3fc414b93ef16c17a4a8076ad21c0fef",
+      "preserved_bytes": "recovered/furniture-vista-059/16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a.gz",
+      "published_sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "published_bytes": 12417,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "bytes": 27097,
+      "git_blob": "3ad1e5257b2f549ce6fc40c59088c5b05fbf1467",
+      "preserved_bytes": "recovered/furniture-vista-059/88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1.gz",
+      "published_sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "published_bytes": 27097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "bytes": 9488,
+      "git_blob": "6ba539810f50cddd901d8215cc076a30e8583ab0",
+      "preserved_bytes": "recovered/furniture-vista-059/5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4.gz",
+      "published_sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "published_bytes": 9488,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "bytes": 13832,
+      "git_blob": "e0d57c8d63b43f7316a36c36887ecedae0af0d74",
+      "preserved_bytes": "recovered/furniture-vista-059/fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b.gz",
+      "published_sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "published_bytes": 13832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "bytes": 12596,
+      "git_blob": "dffd00fcc6d5b0105a477b0a926df0ddf08dcbe9",
+      "preserved_bytes": "recovered/furniture-vista-059/06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30.gz",
+      "published_sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "published_bytes": 12596,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt; later roles retain original reviewer credit only",
+        "Original same-lens context, no new personal credit",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-295.json",
+      "sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304",
+      "bytes": 17504,
+      "git_blob": "a9ae0fad1345e9947fb05ffbd7038d6ff443c960",
+      "preserved_bytes": "recovered/furniture-vista-059/4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304.gz",
+      "published_sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304",
+      "published_bytes": 17504,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt; later roles retain original reviewer credit only",
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "bytes": 14121,
+      "git_blob": "9f4260dce5010eb14df055908d6ee3833f7001cb",
+      "preserved_bytes": "recovered/furniture-vista-059/92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec.gz",
+      "published_sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "published_bytes": 14121,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "bytes": 12122,
+      "git_blob": "c01cb886745ed876e6caf0a782209a6ff12e519b",
+      "preserved_bytes": "recovered/furniture-vista-059/6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203.gz",
+      "published_sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "published_bytes": 12122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-298.json",
+      "sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546",
+      "bytes": 17444,
+      "git_blob": "5adf966d01a1d89ba28fa4d535fb3c6dbe7e9b1c",
+      "preserved_bytes": "recovered/furniture-vista-059/6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546.gz",
+      "published_sha256": "6785edc3c1cfe19f87b8331c619606660668a67868d763a1a692ee320a3a6546",
+      "published_bytes": 17444,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-299.json",
+      "sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "bytes": 10759,
+      "git_blob": "8a875adb77b5a5923245dfda1d75a20bc9818e92",
+      "preserved_bytes": "recovered/furniture-vista-059/c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6.gz",
+      "published_sha256": "c5ca5e4e387af5f2c8b5a645b9e236e4b22f705abf5cc17b773a230296202ae6",
+      "published_bytes": 10759,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-300.json",
+      "sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "bytes": 11459,
+      "git_blob": "a24ab095462a169485e442e22aced45eaaae7526",
+      "preserved_bytes": "recovered/furniture-vista-059/9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d.gz",
+      "published_sha256": "9efdb0883fd8786563aebae54818efc1d897809b682a2a09ff860c53df98582d",
+      "published_bytes": 11459,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt; later roles retain original reviewer credit only"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-766.json",
+      "sha256": "2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3",
+      "bytes": 696,
+      "git_blob": "06c3c6e3ca36417537eda1e173ee95c70ce63cdc",
+      "preserved_bytes": "recovered/furniture-vista-059/2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3.gz",
+      "published_sha256": "2ded3e3fe6fb8d8e2771563cf08233d1aab87ad4423e14c9cfbcc0f8b34fc4c3",
+      "published_bytes": 696,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-767.json",
+      "sha256": "9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4",
+      "bytes": 707,
+      "git_blob": "9d1df02ad1345b37e73d497a5c5678c50340d387",
+      "preserved_bytes": "recovered/furniture-vista-059/9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4.gz",
+      "published_sha256": "9a85e5aece4c69ae93b8d0167e265f9934914996778a1d6483ae3de023ffe1f4",
+      "published_bytes": 707,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-768.json",
+      "sha256": "c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28",
+      "bytes": 718,
+      "git_blob": "3112d247dd3edf5196f192f21616c90d06f4e5ce",
+      "preserved_bytes": "recovered/furniture-vista-059/c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28.gz",
+      "published_sha256": "c13bdde2d005e3e8191a353a7c34acb2a9ac03f24cbf8fc4f7d3423954f68e28",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-769.json",
+      "sha256": "ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546",
+      "bytes": 715,
+      "git_blob": "c415e788ab623669c4d93589cf57610218d75267",
+      "preserved_bytes": "recovered/furniture-vista-059/ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546.gz",
+      "published_sha256": "ad46ce987b6cea5c9b50894d1132cad5fba23a5e51f9fbd72bae749103232546",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-770.json",
+      "sha256": "2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2",
+      "bytes": 714,
+      "git_blob": "40b362176025a40d0abcd6b168a78a43446eb566",
+      "preserved_bytes": "recovered/furniture-vista-059/2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2.gz",
+      "published_sha256": "2e800b5f653f3ca48a2ada926ab10d15acd740550581d6d9366469979ae4e4d2",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-771.json",
+      "sha256": "93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24",
+      "bytes": 705,
+      "git_blob": "5c5bb9274826e118fa2a0e4f4a3eb6eae75bb620",
+      "preserved_bytes": "recovered/furniture-vista-059/93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24.gz",
+      "published_sha256": "93a6a4447c480ff9cea0b19379d612a82469b9b177b69e63361011c6c306bd24",
+      "published_bytes": 705,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-772.json",
+      "sha256": "dc1293012a5c342a55a6f4fe23f24d16373ea79ff688bc222e3aaecac5f787b6",
+      "bytes": 736,
+      "git_blob": "4a52ce60c01645abe605843661ec5d05e31d03b9",
+      "preserved_bytes": "recovered/furniture-vista-059/dc1293012a5c342a55a6f4fe23f24d16373ea79ff688bc222e3aaecac5f787b6.gz",
+      "published_sha256": "dc1293012a5c342a55a6f4fe23f24d16373ea79ff688bc222e3aaecac5f787b6",
+      "published_bytes": 736,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-773.json",
+      "sha256": "a36b75ce73252efa778bbc8134c54656a8c0de768f03b69b992080fd3ce28095",
+      "bytes": 732,
+      "git_blob": "d897745911506d489cb73b39c27cde03a647dee5",
+      "preserved_bytes": "recovered/furniture-vista-059/a36b75ce73252efa778bbc8134c54656a8c0de768f03b69b992080fd3ce28095.gz",
+      "published_sha256": "a36b75ce73252efa778bbc8134c54656a8c0de768f03b69b992080fd3ce28095",
+      "published_bytes": 732,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-774.json",
+      "sha256": "6cf6e77a8c63c487ed5711b99024f16295711fda6fafec331f97c4d6683070d3",
+      "bytes": 735,
+      "git_blob": "9ab69b9c5bd99a0835f6047abf41645bf9aea3dd",
+      "preserved_bytes": "recovered/furniture-vista-059/6cf6e77a8c63c487ed5711b99024f16295711fda6fafec331f97c4d6683070d3.gz",
+      "published_sha256": "6cf6e77a8c63c487ed5711b99024f16295711fda6fafec331f97c4d6683070d3",
+      "published_bytes": 735,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-775.json",
+      "sha256": "5e67c2d060da0839ed50b02ea5c96c3616733493f2e46b43bbe9b4c079dae33b",
+      "bytes": 740,
+      "git_blob": "53c1f7a901ec81f246f2036d8aff4da1607b46f0",
+      "preserved_bytes": "recovered/furniture-vista-059/5e67c2d060da0839ed50b02ea5c96c3616733493f2e46b43bbe9b4c079dae33b.gz",
+      "published_sha256": "5e67c2d060da0839ed50b02ea5c96c3616733493f2e46b43bbe9b4c079dae33b",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-776.json",
+      "sha256": "5b19e63ecba0703f5e4a9ad2d25a82b75971f97a97169a77061aa6a24a6b1ed9",
+      "bytes": 735,
+      "git_blob": "26646136fa8db0276d3cc67c7db89640243039b3",
+      "preserved_bytes": "recovered/furniture-vista-059/5b19e63ecba0703f5e4a9ad2d25a82b75971f97a97169a77061aa6a24a6b1ed9.gz",
+      "published_sha256": "5b19e63ecba0703f5e4a9ad2d25a82b75971f97a97169a77061aa6a24a6b1ed9",
+      "published_bytes": 735,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-777.json",
+      "sha256": "2bbe3bc6976ab419539b4bbc7bc91928ddf82933a00106885c4fe2d5f98fc6a3",
+      "bytes": 736,
+      "git_blob": "4b7fe18821d37aa8c00016453a76c3f745105f23",
+      "preserved_bytes": "recovered/furniture-vista-059/2bbe3bc6976ab419539b4bbc7bc91928ddf82933a00106885c4fe2d5f98fc6a3.gz",
+      "published_sha256": "2bbe3bc6976ab419539b4bbc7bc91928ddf82933a00106885c4fe2d5f98fc6a3",
+      "published_bytes": 736,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-778.json",
+      "sha256": "9362def29a83af3a18dc458f9c054d33c72856f0ee29bd7a9adc6c1b31a2d435",
+      "bytes": 739,
+      "git_blob": "9b5b126c2ec459fe27d4b8ba9700f47ed6e58245",
+      "preserved_bytes": "recovered/furniture-vista-059/9362def29a83af3a18dc458f9c054d33c72856f0ee29bd7a9adc6c1b31a2d435.gz",
+      "published_sha256": "9362def29a83af3a18dc458f9c054d33c72856f0ee29bd7a9adc6c1b31a2d435",
+      "published_bytes": 739,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-779.json",
+      "sha256": "3f03af3c009c167447d1a2e4eb9304d71b5609c9982f579c985affadf0d8889d",
+      "bytes": 732,
+      "git_blob": "a45f1f682a4c9fd44fbe1284c21063765862c297",
+      "preserved_bytes": "recovered/furniture-vista-059/3f03af3c009c167447d1a2e4eb9304d71b5609c9982f579c985affadf0d8889d.gz",
+      "published_sha256": "3f03af3c009c167447d1a2e4eb9304d71b5609c9982f579c985affadf0d8889d",
+      "published_bytes": 732,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-780.json",
+      "sha256": "bda228b688645c709fd0e42c9e38d88c1a978127bc76404cbc46836e58862e26",
+      "bytes": 737,
+      "git_blob": "5706fb3d4b47466dc7b96af955e42363667adeaf",
+      "preserved_bytes": "recovered/furniture-vista-059/bda228b688645c709fd0e42c9e38d88c1a978127bc76404cbc46836e58862e26.gz",
+      "published_sha256": "bda228b688645c709fd0e42c9e38d88c1a978127bc76404cbc46836e58862e26",
+      "published_bytes": 737,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-804.json",
+      "sha256": "837efb6b5ac1f28e14658eaaab1dbcd182557013ce2b74a81f872e03c8cb2fe2",
+      "bytes": 723,
+      "git_blob": "ccacfc5c777e921f72168ab0db41927f4dddcc33",
+      "preserved_bytes": "recovered/furniture-vista-059/837efb6b5ac1f28e14658eaaab1dbcd182557013ce2b74a81f872e03c8cb2fe2.gz",
+      "published_sha256": "837efb6b5ac1f28e14658eaaab1dbcd182557013ce2b74a81f872e03c8cb2fe2",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-805.json",
+      "sha256": "371bfc46167f2fc7a389ae1bd335bdfc305a5208e6f95ca92aea049fef972de1",
+      "bytes": 721,
+      "git_blob": "04e63198901341c9a342bf527b0e12a701ca8711",
+      "preserved_bytes": "recovered/furniture-vista-059/371bfc46167f2fc7a389ae1bd335bdfc305a5208e6f95ca92aea049fef972de1.gz",
+      "published_sha256": "371bfc46167f2fc7a389ae1bd335bdfc305a5208e6f95ca92aea049fef972de1",
+      "published_bytes": 721,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-806.json",
+      "sha256": "f968eeb71289036bbf742ced8d22ac6559d90ad6a8693231327d85d7cb265f14",
+      "bytes": 730,
+      "git_blob": "817f5f7f4eb1bafeaa0da909fce566a1e4e289d5",
+      "preserved_bytes": "recovered/furniture-vista-059/f968eeb71289036bbf742ced8d22ac6559d90ad6a8693231327d85d7cb265f14.gz",
+      "published_sha256": "f968eeb71289036bbf742ced8d22ac6559d90ad6a8693231327d85d7cb265f14",
+      "published_bytes": 730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-807.json",
+      "sha256": "a6d3163ea83681db6d8a7332edbd6139f90a1f2db4c368ce760f85b5dfe28179",
+      "bytes": 704,
+      "git_blob": "64e45d173d841b73f9bf30a9f6c371dac30b762a",
+      "preserved_bytes": "recovered/furniture-vista-059/a6d3163ea83681db6d8a7332edbd6139f90a1f2db4c368ce760f85b5dfe28179.gz",
+      "published_sha256": "a6d3163ea83681db6d8a7332edbd6139f90a1f2db4c368ce760f85b5dfe28179",
+      "published_bytes": 704,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration, future roles do not advance ordered Lens1 credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-294.json",
+      "sha256": "5806176874056bb896628d18204acaa6a92b84ee4c2d26ced8752826d4c52fb3",
+      "bytes": 668,
+      "git_blob": "5cb3af7b131a87d084ac344ff86fa7972b4aee7e",
+      "preserved_bytes": "recovered/furniture-vista-059/5806176874056bb896628d18204acaa6a92b84ee4c2d26ced8752826d4c52fb3.gz",
+      "published_sha256": "5806176874056bb896628d18204acaa6a92b84ee4c2d26ced8752826d4c52fb3",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-295.json",
+      "sha256": "6c85dff25394726cefb2c89133037810d16854f4b869b4c3122c8bd7fd849079",
+      "bytes": 701,
+      "git_blob": "332fe3ce78d7f002e9ef76618f7def5358013466",
+      "preserved_bytes": "recovered/furniture-vista-059/6c85dff25394726cefb2c89133037810d16854f4b869b4c3122c8bd7fd849079.gz",
+      "published_sha256": "6c85dff25394726cefb2c89133037810d16854f4b869b4c3122c8bd7fd849079",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-300.json",
+      "sha256": "6c72ed200e070c2d4ebdddc2d5418e079544b4a1385f82ef5ccb2951ea01fe41",
+      "bytes": 646,
+      "git_blob": "e588b1c55af9a2f55f11e2999551dd5c0fc6da30",
+      "preserved_bytes": "recovered/furniture-vista-059/6c72ed200e070c2d4ebdddc2d5418e079544b4a1385f82ef5ccb2951ea01fe41.gz",
+      "published_sha256": "6c72ed200e070c2d4ebdddc2d5418e079544b4a1385f82ef5ccb2951ea01fe41",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-294.json",
+      "sha256": "838d9fa182c5fb537d71d49933884b1d1f16294c4b9116a56acdda9e62b85676",
+      "bytes": 38290,
+      "git_blob": "39383621e11802281941a60add706c92f61a3b1d",
+      "preserved_bytes": "recovered/furniture-vista-059/838d9fa182c5fb537d71d49933884b1d1f16294c4b9116a56acdda9e62b85676.gz",
+      "published_sha256": "838d9fa182c5fb537d71d49933884b1d1f16294c4b9116a56acdda9e62b85676",
+      "published_bytes": 38290,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-295.json",
+      "sha256": "e60154784a8d974691cd9bbb669155475634379bed3158024e8d98521d566211",
+      "bytes": 36960,
+      "git_blob": "27994b5ce8a3cfdcf9fc8528b375d6875bd41d39",
+      "preserved_bytes": "recovered/furniture-vista-059/e60154784a8d974691cd9bbb669155475634379bed3158024e8d98521d566211.gz",
+      "published_sha256": "e60154784a8d974691cd9bbb669155475634379bed3158024e8d98521d566211",
+      "published_bytes": 36960,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-300.json",
+      "sha256": "878a69c326f00c74f904fec7c2cdc81deccb97df2c488a3a964fefdfa351f5d1",
+      "bytes": 42404,
+      "git_blob": "d8d6c1047fa6542a8548013abf570c13032bee33",
+      "preserved_bytes": "recovered/furniture-vista-059/878a69c326f00c74f904fec7c2cdc81deccb97df2c488a3a964fefdfa351f5d1.gz",
+      "published_sha256": "878a69c326f00c74f904fec7c2cdc81deccb97df2c488a3a964fefdfa351f5d1",
+      "published_bytes": 42404,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-641.json",
+      "sha256": "8a9cfdf941d4dcfa6b35a23d19296f2097e5043f0cdc59978476362184c06fae",
+      "bytes": 2191,
+      "git_blob": "79287c418f7424829e45f9b041f13089cb15da06",
+      "preserved_bytes": "recovered/furniture-vista-059/8a9cfdf941d4dcfa6b35a23d19296f2097e5043f0cdc59978476362184c06fae.gz",
+      "published_sha256": "8a9cfdf941d4dcfa6b35a23d19296f2097e5043f0cdc59978476362184c06fae",
+      "published_bytes": 2191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-642.json",
+      "sha256": "a50b4de34ee701d689c351b34d4c62a6d95783ec728f560e7d5d02cf32cbe8d5",
+      "bytes": 2239,
+      "git_blob": "653a69db014848ba6139f1b07bba3f8bac4f50e5",
+      "preserved_bytes": "recovered/furniture-vista-059/a50b4de34ee701d689c351b34d4c62a6d95783ec728f560e7d5d02cf32cbe8d5.gz",
+      "published_sha256": "a50b4de34ee701d689c351b34d4c62a6d95783ec728f560e7d5d02cf32cbe8d5",
+      "published_bytes": 2239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-643.json",
+      "sha256": "01e797923f221b914f037599254b83500a8dd024b67ec9f8f8183da17d87822a",
+      "bytes": 2230,
+      "git_blob": "91a607acc1199422a66203149268541e35451cd9",
+      "preserved_bytes": "recovered/furniture-vista-059/01e797923f221b914f037599254b83500a8dd024b67ec9f8f8183da17d87822a.gz",
+      "published_sha256": "01e797923f221b914f037599254b83500a8dd024b67ec9f8f8183da17d87822a",
+      "published_bytes": 2230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-CONNECTED-L12-644-1964.json",
+      "sha256": "4ee5f92eca75d886646eabf875faa6e428b154b31ab426c134f62b29034664ff",
+      "bytes": 5712,
+      "git_blob": "8b298ae34129f364970d2a6ad1cf66df9d38e152",
+      "preserved_bytes": "recovered/furniture-vista-059/4ee5f92eca75d886646eabf875faa6e428b154b31ab426c134f62b29034664ff.gz",
+      "published_sha256": "4ee5f92eca75d886646eabf875faa6e428b154b31ab426c134f62b29034664ff",
+      "published_bytes": 5712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb out-of-order Lens12 vista body read; no ordered role advance"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-641.json",
+      "sha256": "bab652146a27c4304dd1f3458e8713b787176b061106a1ce9ac0e57b92403c4e",
+      "bytes": 6827,
+      "git_blob": "b7046eb59c5f896d80e4092b04b96768cfa5ba51",
+      "preserved_bytes": "recovered/furniture-vista-059/bab652146a27c4304dd1f3458e8713b787176b061106a1ce9ac0e57b92403c4e.gz",
+      "published_sha256": "bab652146a27c4304dd1f3458e8713b787176b061106a1ce9ac0e57b92403c4e",
+      "published_bytes": 6827,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-642.json",
+      "sha256": "31f89fb2ee1d0afb7ec02ef0d63f1efe7512b6af3db4f8d75930dc7cfac8730a",
+      "bytes": 7167,
+      "git_blob": "057553e20e5fe4ab5ddd18f02a38b4b8aa4ac258",
+      "preserved_bytes": "recovered/furniture-vista-059/31f89fb2ee1d0afb7ec02ef0d63f1efe7512b6af3db4f8d75930dc7cfac8730a.gz",
+      "published_sha256": "31f89fb2ee1d0afb7ec02ef0d63f1efe7512b6af3db4f8d75930dc7cfac8730a",
+      "published_bytes": 7167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-643.json",
+      "sha256": "f99f1149cc9482ee4db060bb8b46be85e3becf1d0d3d4b860d68d6fc05422ebf",
+      "bytes": 7281,
+      "git_blob": "6c5f3725e1d314fdf3cfeb8b64e6e70ccb99e4f0",
+      "preserved_bytes": "recovered/furniture-vista-059/f99f1149cc9482ee4db060bb8b46be85e3becf1d0d3d4b860d68d6fc05422ebf.gz",
+      "published_sha256": "f99f1149cc9482ee4db060bb8b46be85e3becf1d0d3d4b860d68d6fc05422ebf",
+      "published_bytes": 7281,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-CONNECTED-L12-644-1964.json",
+      "sha256": "c6a98e999cc0e4b0a078f5225181680275525632f40808377656402aee5f38bf",
+      "bytes": 2019,
+      "git_blob": "9365c90b2c38a76572c109e9fb541639ac4f8259",
+      "preserved_bytes": "recovered/furniture-vista-059/c6a98e999cc0e4b0a078f5225181680275525632f40808377656402aee5f38bf.gz",
+      "published_sha256": "c6a98e999cc0e4b0a078f5225181680275525632f40808377656402aee5f38bf",
+      "published_bytes": 2019,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected prospective vista registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-827.json",
+      "sha256": "dc65d1da0cb984692112cd33f27e6f0d77f1fe0767e277e35d5677982929e2bd",
+      "bytes": 1239,
+      "git_blob": "30092ff408c2dbd757d1d42dc4ab8bfba632d865",
+      "preserved_bytes": "recovered/furniture-vista-059/dc65d1da0cb984692112cd33f27e6f0d77f1fe0767e277e35d5677982929e2bd.gz",
+      "published_sha256": "dc65d1da0cb984692112cd33f27e6f0d77f1fe0767e277e35d5677982929e2bd",
+      "published_bytes": 1239,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-828.json",
+      "sha256": "e788b14e12f82118057217210df9f6c42b8b9c5e3a038e408bbc04402b333a4c",
+      "bytes": 1229,
+      "git_blob": "53775765c4c4e526516273db3633bd80011c47aa",
+      "preserved_bytes": "recovered/furniture-vista-059/e788b14e12f82118057217210df9f6c42b8b9c5e3a038e408bbc04402b333a4c.gz",
+      "published_sha256": "e788b14e12f82118057217210df9f6c42b8b9c5e3a038e408bbc04402b333a4c",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-829.json",
+      "sha256": "adf129d5bccd2c94a12ce385eb055ac2267d2df0e5847feb331eecbe79a77292",
+      "bytes": 1217,
+      "git_blob": "966791ea498eea540cbff2c8bd35019f3d9130fd",
+      "preserved_bytes": "recovered/furniture-vista-059/adf129d5bccd2c94a12ce385eb055ac2267d2df0e5847feb331eecbe79a77292.gz",
+      "published_sha256": "adf129d5bccd2c94a12ce385eb055ac2267d2df0e5847feb331eecbe79a77292",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-830.json",
+      "sha256": "d4c88c6177159506b5cebfac119ed7141e862033cc22e7ad7f44d0860b6585ff",
+      "bytes": 1235,
+      "git_blob": "6b0a5e828d80dd87f6928b43105054d3f6aa8ca1",
+      "preserved_bytes": "recovered/furniture-vista-059/d4c88c6177159506b5cebfac119ed7141e862033cc22e7ad7f44d0860b6585ff.gz",
+      "published_sha256": "d4c88c6177159506b5cebfac119ed7141e862033cc22e7ad7f44d0860b6585ff",
+      "published_bytes": 1235,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-831.json",
+      "sha256": "4daaf20c292af72c06b6a4a55fc2f873d5aada0077a2b66456f19a9570828452",
+      "bytes": 1185,
+      "git_blob": "51b6b6eff34c6dd72319d79a44e07a10071fce32",
+      "preserved_bytes": "recovered/furniture-vista-059/4daaf20c292af72c06b6a4a55fc2f873d5aada0077a2b66456f19a9570828452.gz",
+      "published_sha256": "4daaf20c292af72c06b6a4a55fc2f873d5aada0077a2b66456f19a9570828452",
+      "published_bytes": 1185,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-832.json",
+      "sha256": "f99ae3d867039685388d876251cf18b83f42a3b15ecca84ccbbddcda49a6766d",
+      "bytes": 1207,
+      "git_blob": "1b2d1a1a830b034f56c095234ee7dc3e75cb6fa0",
+      "preserved_bytes": "recovered/furniture-vista-059/f99ae3d867039685388d876251cf18b83f42a3b15ecca84ccbbddcda49a6766d.gz",
+      "published_sha256": "f99ae3d867039685388d876251cf18b83f42a3b15ecca84ccbbddcda49a6766d",
+      "published_bytes": 1207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-833.json",
+      "sha256": "0473cafe7d0160d0c103a690830d75bae576639cb074db89e51a958ba8a38415",
+      "bytes": 1229,
+      "git_blob": "664a166ff98415bb654318c3d5631e8363bd2abd",
+      "preserved_bytes": "recovered/furniture-vista-059/0473cafe7d0160d0c103a690830d75bae576639cb074db89e51a958ba8a38415.gz",
+      "published_sha256": "0473cafe7d0160d0c103a690830d75bae576639cb074db89e51a958ba8a38415",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-834.json",
+      "sha256": "8207252f70d7a811edc0ecdc4681f40bd6637bf820c3e63ba196e9542ac68dc2",
+      "bytes": 1223,
+      "git_blob": "ba10cb22c6f49d8f7151fbfdc96e6f450bdac06b",
+      "preserved_bytes": "recovered/furniture-vista-059/8207252f70d7a811edc0ecdc4681f40bd6637bf820c3e63ba196e9542ac68dc2.gz",
+      "published_sha256": "8207252f70d7a811edc0ecdc4681f40bd6637bf820c3e63ba196e9542ac68dc2",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-835.json",
+      "sha256": "b1c3e16dfa090cbba1b32c9bf3141ef4ff3a11db711be8ecdff68b68f8630109",
+      "bytes": 1217,
+      "git_blob": "9f6471f3434e86265e0cdb6c21b459497c152297",
+      "preserved_bytes": "recovered/furniture-vista-059/b1c3e16dfa090cbba1b32c9bf3141ef4ff3a11db711be8ecdff68b68f8630109.gz",
+      "published_sha256": "b1c3e16dfa090cbba1b32c9bf3141ef4ff3a11db711be8ecdff68b68f8630109",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-836.json",
+      "sha256": "72206e2cee61ac153a0de4f3f0f55b6293de328b7ca9bfab67b1c5d871edf47d",
+      "bytes": 1199,
+      "git_blob": "c648d9bc1021b8449d8d5bac1d1afba26937f60a",
+      "preserved_bytes": "recovered/furniture-vista-059/72206e2cee61ac153a0de4f3f0f55b6293de328b7ca9bfab67b1c5d871edf47d.gz",
+      "published_sha256": "72206e2cee61ac153a0de4f3f0f55b6293de328b7ca9bfab67b1c5d871edf47d",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-837.json",
+      "sha256": "8eb276a8d4141c92ba8b1a93765073d845aed3d38ed69e936960cc530d10e56b",
+      "bytes": 1201,
+      "git_blob": "2463207dfbd691d69a155b8e3030ee39a7389535",
+      "preserved_bytes": "recovered/furniture-vista-059/8eb276a8d4141c92ba8b1a93765073d845aed3d38ed69e936960cc530d10e56b.gz",
+      "published_sha256": "8eb276a8d4141c92ba8b1a93765073d845aed3d38ed69e936960cc530d10e56b",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-838.json",
+      "sha256": "0df260d8aa7c0749047d745b3701af64e84f985159688d17988143c00de8a2f8",
+      "bytes": 1193,
+      "git_blob": "ce2ef9744b1336b048dfbe76d46c3e023099101c",
+      "preserved_bytes": "recovered/furniture-vista-059/0df260d8aa7c0749047d745b3701af64e84f985159688d17988143c00de8a2f8.gz",
+      "published_sha256": "0df260d8aa7c0749047d745b3701af64e84f985159688d17988143c00de8a2f8",
+      "published_bytes": 1193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-641.json",
+      "sha256": "340441e54c5ea11a0526a854378d9dae6b3acd3e8bb9c8fb64c747870f6d072f",
+      "bytes": 840,
+      "git_blob": "a8be155cfbf15877408b6e68d1eefac6c3227981",
+      "preserved_bytes": "recovered/furniture-vista-059/340441e54c5ea11a0526a854378d9dae6b3acd3e8bb9c8fb64c747870f6d072f.gz",
+      "published_sha256": "340441e54c5ea11a0526a854378d9dae6b3acd3e8bb9c8fb64c747870f6d072f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-642.json",
+      "sha256": "68089c3ca4d02db142519a7334d461373f2e9df4839ea54e4b263e639d1c23cc",
+      "bytes": 840,
+      "git_blob": "29ac5b53d78aa7d75a977b1089283bc973149790",
+      "preserved_bytes": "recovered/furniture-vista-059/68089c3ca4d02db142519a7334d461373f2e9df4839ea54e4b263e639d1c23cc.gz",
+      "published_sha256": "68089c3ca4d02db142519a7334d461373f2e9df4839ea54e4b263e639d1c23cc",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-643.json",
+      "sha256": "9a11ef2b6c15b03e99674b4403bd317aa9c96c42c23846e0e97db6e5fb2f44cf",
+      "bytes": 840,
+      "git_blob": "3267dbcc2c6f755cafa802fc2f976bde5a04b551",
+      "preserved_bytes": "recovered/furniture-vista-059/9a11ef2b6c15b03e99674b4403bd317aa9c96c42c23846e0e97db6e5fb2f44cf.gz",
+      "published_sha256": "9a11ef2b6c15b03e99674b4403bd317aa9c96c42c23846e0e97db6e5fb2f44cf",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-CONNECTED-L12-644-1964.json",
+      "sha256": "111ebf345b63f1d53411c559ef1d0a3cbe1e9773cf9ef0bd3bd85d3b4eb12967",
+      "bytes": 621,
+      "git_blob": "6fb01e15a0616e51599ff05b74adbbb317e0ffba",
+      "preserved_bytes": "recovered/furniture-vista-059/111ebf345b63f1d53411c559ef1d0a3cbe1e9773cf9ef0bd3bd85d3b4eb12967.gz",
+      "published_sha256": "111ebf345b63f1d53411c559ef1d0a3cbe1e9773cf9ef0bd3bd85d3b4eb12967",
+      "published_bytes": 621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original connected vista verification, no ordered advance"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-641.json",
+      "sha256": "c7001dbf6222306fb17f363dd7eedd43e0c41a94463e970533a9f8fd96e0e7d5",
+      "bytes": 558,
+      "git_blob": "e93c14972150665d3ff0f2bccddde5ea21b61f0e",
+      "preserved_bytes": "recovered/furniture-vista-059/c7001dbf6222306fb17f363dd7eedd43e0c41a94463e970533a9f8fd96e0e7d5.gz",
+      "published_sha256": "c7001dbf6222306fb17f363dd7eedd43e0c41a94463e970533a9f8fd96e0e7d5",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-642.json",
+      "sha256": "899c31b8b0f8af2873ae4f4488b158b92465ae17e974ed0d7ac41972a46d28ce",
+      "bytes": 558,
+      "git_blob": "8d50108e8834509ebc4660764248365bfdeab8e7",
+      "preserved_bytes": "recovered/furniture-vista-059/899c31b8b0f8af2873ae4f4488b158b92465ae17e974ed0d7ac41972a46d28ce.gz",
+      "published_sha256": "899c31b8b0f8af2873ae4f4488b158b92465ae17e974ed0d7ac41972a46d28ce",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-643.json",
+      "sha256": "8317a0484b6bc8c6c56de37342b8556cca5df4d0100c7aec928fcba197c975c2",
+      "bytes": 558,
+      "git_blob": "5a54d855363a51be008e0239e59cf9d45d2ae824",
+      "preserved_bytes": "recovered/furniture-vista-059/8317a0484b6bc8c6c56de37342b8556cca5df4d0100c7aec928fcba197c975c2.gz",
+      "published_sha256": "8317a0484b6bc8c6c56de37342b8556cca5df4d0100c7aec928fcba197c975c2",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME"
+      ],
+      "qualification": "Same existing finding and original acceptance, not a new accepted historical issue or checkpoint3821."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/112",
+        "/entries/1580",
+        "/entries/1582",
+        "/entries/1583",
+        "/entries/1584",
+        "/entries/1585",
+        "/entries/1587",
+        "/entries/1588"
+      ],
+      "qualification": "Pending families remain open."
+    },
+    {
+      "file": "ASSESSMENT-SCENE-WEATHER-ADMISSION-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Original Adler293 covers roles1920–1923 and retains original attribution."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb641–643 and Adler294/295/300 retain original author, scope and context; Adler295 includes future1932–1938 and Adler300 includes future1961–1964. The earlier Segovb connected1964 full read retains its own out-of-order independent Lens12 attribution, zero ordered advance and no new Lens1 credit.",
+  "remaining": "Continue original1932 and all13 lenses, exact vista origin producers and all furniture/environment consumers, supported domain, native paths and aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
