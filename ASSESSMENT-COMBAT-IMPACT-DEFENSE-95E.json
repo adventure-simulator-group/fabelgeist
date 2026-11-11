@@ -1,0 +1,1006 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2033–2034 and target-local impact, hitbox admission, defense commit and precision scaling contracts.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2033-2034.json",
+  "git_membership_evidence": "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          352,
+          365
+        ],
+        [
+          417,
+          447
+        ],
+        [
+          564,
+          586
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          27,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          64,
+          85
+        ],
+        [
+          119,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "bytes": 39026,
+      "lines": 1148,
+      "ranges": [
+        [
+          70,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b0abdab946bf4d48b812463afb3221312fb89bcc",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "bytes": 4251,
+      "lines": 129,
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+      "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "bytes": 3428,
+      "lines": 105,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "048149792a65807d50064101c7e2a1be1a645ebb",
+      "sha256": "f5360f6619eb44838dc1d5297e208282e42b407bd3bd4aebd00c7bf49216b651",
+      "bytes": 11569,
+      "lines": 321,
+      "ranges": [
+        [
+          90,
+          143
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "bytes": 15949,
+      "lines": 475,
+      "ranges": [
+        [
+          410,
+          432
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "bytes": 17181,
+      "lines": 473,
+      "ranges": [
+        [
+          374,
+          472
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a4243bb58fe6f6f84a23070ee8e4a8f8b579afe6",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "bytes": 6594,
+      "lines": 186,
+      "ranges": [
+        [
+          13,
+          94
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "edf3021d5b8d198a7d04dbc1d60f77a1fafbbc0f",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "lines": 97,
+      "ranges": [
+        [
+          1,
+          34
+        ],
+        [
+          69,
+          89
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/incapacitation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7aff8409c3027d0a43265d73e347728509c43497",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "bytes": 3835,
+      "lines": 115,
+      "ranges": [
+        [
+          28,
+          32
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          143,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          123,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/combat-impact-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, other-lens or execution credit."
+    }
+  ],
+  "native_source_evidence": {
+    "manifest": "native-evidence/glam-0.32.1/MANIFEST.json",
+    "archive": "native-evidence/glam-0.32.1/glam-0.32.1.crate",
+    "member": "glam-0.32.1/src/f32/vec3.rs",
+    "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+    "bytes": 59605,
+    "personally_inspected_ranges": [
+      [
+        550,
+        576
+      ],
+      [
+        645,
+        667
+      ]
+    ],
+    "qualification": "New personal source reading of lock-pinned archive member; no native operation, renderer, product or test ran. Existing earlier range metadata is unchanged."
+  },
+  "prior_current_evidence": [
+    "ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json",
+    "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json",
+    "ASSESSMENT-L01-UNARMED-95E.json",
+    "ASSESSMENT-BOT-REACTION-CONFIG-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Target-local impact boundary",
+      "trace": "canonical_impact_surface inverse-transforms the attacker position into the target Transform frame and returns local point and normal. Both melee and ranged outcome code forwards them in SuccessfulAttackResponse; its fields explicitly document hit-character local coordinates, and the client maps them through the target GlobalTransform before sound and visual effects.",
+      "remaining": "The selected producer and consumer agree on a local frame. A server-local Transform and a client GlobalTransform do not by themselves prove any mismatch; actual parent, tick, mapping and presentation lifecycles remain open. Existing sound-gate and blood-distance findings remain separate."
+    },
+    {
+      "contract": "Hitbox admission and symbolic slab overflow",
+      "trace": "The config validator requires seven unique body parts, finite centers and finite positive half extents, with no upper bound in the selected hitbox check. Consider an otherwise valid config whose selected box has center (0,0,0) and each half extent f32::MAX, target identity Transform and attacker position (1,0,1). Lock-pinned glam normalization yields direction approximately (1/sqrt(2),0,1/sqrt(2)); each MAX/abs(direction component) is +infinity under IEEE f32, including division by zero for y. All three finite filters discard the ratios, leaving the fold at +infinity. Multiplying the direction yields local point (+infinity,NaN,+infinity).",
+      "remaining": "This is source and symbolic IEEE reasoning only; no configuration was written, no attack, math implementation, network codec, particle, renderer, test or product ran. Ordinary authored hitboxes use small metre values. The existence of an admitted custom-config contact is conditional on the rest of startup and combat gates; downstream acceptance/visual impact must not be assumed. Repair must preserve target-local semantics and ordinary valid boxes."
+    },
+    {
+      "contract": "Missing target box and optional hit intent",
+      "trace": "Validated targeting has exactly seven unique body-part keys, so the selected missing-hitbox zero/Z fallback cannot occur while that validated set is intact. Initial melee contact may legitimately lack an optional target/body part, and a later resolver may bind a forced body part.",
+      "remaining": "Public config construction/mutation, all installation routes, timing and optional unarmed semantics remain open; completeness of ordinary startup is not a global verdict."
+    },
+    {
+      "contract": "Deferred defense and zero windows",
+      "trace": "Both requested-dodge paths reject timing outside their relevant window and handle zero explicitly before division. Melee completion prepares defense first, returns if authorization fails, and only after successful attacker authorization commits PreparedMeleeDefense, whose FinishTrade branch preserves the defender attack.",
+      "remaining": "Reciprocal opportunity has a separate earlier clock proof; all event scheduling and actual observer effects remain unexecuted and open. Do not conflate FinishTrade with an ordinary no-response state."
+    },
+    {
+      "contract": "Finite precision scaling",
+      "trace": "ReportedPrecision stores every finite f32, including negative and values above one. Current UnitInterval construction rejects nonfinite or outside[0,1] and combat performance returns that owner; multiplying a finite precision by its admitted finite factor in[0,1] remains finite. The selected melee completion then re-admits the result using a production expect, violating the explicit outside-test rule despite no reachable nonfinite product under those owned inputs.",
+      "remaining": "This is original SEGOVB-L12-REPORTED-PRECISION-CLOSED-SCALING-PANIC, not a demonstrated panic or AI source-admission alias. Its original historic UnitInterval proof was inherited at6533 with zero Segovb personal rereads, and current95e owner bytes were independently inspected here."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "SEGOVB-L12-REPORTED-PRECISION-CLOSED-SCALING-PANIC",
+      "kind": "recovered historical invariant-operation and rule finding independently reassessed at95e",
+      "historical": "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-REPORTED-PRECISION-CLOSED-SCALING-PANIC",
+      "queue": 271,
+      "qualification": "Original historic accepted unique-count change remains zero; no reachable panic under admitted finite precision and UnitInterval factor."
+    },
+    {
+      "id": "REVIEW-TARGET-HITBOX-SLAB-OVERFLOW-001",
+      "kind": "current finite-input arithmetic and admission candidate",
+      "queue": 1716,
+      "qualification": "The explicitly specified extreme finite config and ordinary finite relative position symbolically yield a nonfinite local impact point; config/contact occurrence and product effects remain unobserved."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-256.json",
+      "sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137",
+      "bytes": 15395,
+      "git_blob": "fd0d90a8a9dea9d3055fefeff63ed9a10cfda9e6",
+      "preserved_bytes": "recovered/combat-impact-059/c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137.gz",
+      "published_sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137",
+      "published_bytes": 15395,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "bytes": 17171,
+      "git_blob": "f0e945891587ec93a64192c5c32065748eb5995b",
+      "preserved_bytes": "recovered/combat-impact-059/eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771.gz",
+      "published_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "published_bytes": 17171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440",
+      "bytes": 15078,
+      "git_blob": "a48f8733c2c4465f9b259bb33c0b6822b00858ca",
+      "preserved_bytes": "recovered/combat-impact-059/66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440.gz",
+      "published_sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440",
+      "published_bytes": 15078,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d",
+      "bytes": 8472,
+      "git_blob": "10ae48359d230ab18b56b8bc790039915fd2b6ad",
+      "preserved_bytes": "recovered/combat-impact-059/3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d.gz",
+      "published_sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d",
+      "published_bytes": 8472,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "bytes": 8630,
+      "git_blob": "ee988ea2ae34edc4ae4b93853692d48df29003cc",
+      "preserved_bytes": "recovered/combat-impact-059/b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374.gz",
+      "published_sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "published_bytes": 8630,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/combat-impact-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/combat-impact-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/combat-impact-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/combat-impact-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "bytes": 13286,
+      "git_blob": "68f8f1e9df6d011c7f8e63b3d7827a313fac89a6",
+      "preserved_bytes": "recovered/combat-impact-059/0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b.gz",
+      "published_sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "published_bytes": 13286,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/combat-impact-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/combat-impact-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-301.json",
+      "sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "bytes": 12478,
+      "git_blob": "8a66f0a027598f95f575b11171cb359c9314a6aa",
+      "preserved_bytes": "recovered/combat-impact-059/6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e.gz",
+      "published_sha256": "6552dcabad3fb5b09fabec4f7774b0a741bbd14fcdbcb3e7a630a6d724940e0e",
+      "published_bytes": 12478,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-302.json",
+      "sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "bytes": 7451,
+      "git_blob": "508d1a77265adb8920c00b2ba0e81d774483a069",
+      "preserved_bytes": "recovered/combat-impact-059/42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8.gz",
+      "published_sha256": "42d85fb7de2c99f3d01504cba8d628c336d9796cac25447e26817f57323726f8",
+      "published_bytes": 7451,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/combat-impact-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/combat-impact-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "bytes": 9853,
+      "git_blob": "ba23ac9d50ba8cfabacc43b96b65a51272786616",
+      "preserved_bytes": "recovered/combat-impact-059/439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182.gz",
+      "published_sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "published_bytes": 9853,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-312.json",
+      "sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "bytes": 11309,
+      "git_blob": "f7209701bce0993d6c46760340940c88cfe8e1cb",
+      "preserved_bytes": "recovered/combat-impact-059/4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5.gz",
+      "published_sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "published_bytes": 11309,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "bytes": 17334,
+      "git_blob": "b41dd856071fb91562cde19343a12eadc3625865",
+      "preserved_bytes": "recovered/combat-impact-059/57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53.gz",
+      "published_sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "published_bytes": 17334,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "bytes": 10708,
+      "git_blob": "4a3e29709ecfbfe85e759a85a1caa1fef95c772e",
+      "preserved_bytes": "recovered/combat-impact-059/f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0.gz",
+      "published_sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "published_bytes": 10708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context without fresh personal credit"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "bytes": 14714,
+      "git_blob": "0d0cb53feee510953a06a8dd902de837cf7cf8a7",
+      "preserved_bytes": "recovered/combat-impact-059/68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050.gz",
+      "published_sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "published_bytes": 14714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-873.json",
+      "sha256": "7dd4088a5d6a535f6d544f65a5fefce17176c93458cd6380fdacdc7cf85932fa",
+      "bytes": 703,
+      "git_blob": "df9fad9243862d563f21ed734aaa5460dbfde76f",
+      "preserved_bytes": "recovered/combat-impact-059/7dd4088a5d6a535f6d544f65a5fefce17176c93458cd6380fdacdc7cf85932fa.gz",
+      "published_sha256": "7dd4088a5d6a535f6d544f65a5fefce17176c93458cd6380fdacdc7cf85932fa",
+      "published_bytes": 703,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-874.json",
+      "sha256": "1242aab1c18da1263e762961261828f8d6426e363b5abc4b4449751c9a5fdc82",
+      "bytes": 695,
+      "git_blob": "dcf0f2d05e00176411c77031fdb82c9f12710921",
+      "preserved_bytes": "recovered/combat-impact-059/1242aab1c18da1263e762961261828f8d6426e363b5abc4b4449751c9a5fdc82.gz",
+      "published_sha256": "1242aab1c18da1263e762961261828f8d6426e363b5abc4b4449751c9a5fdc82",
+      "published_bytes": 695,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-875.json",
+      "sha256": "d96256e03b65b3a9efd98f3fb9203bb7c1902fbdd96b722543f792ecc22ccfd8",
+      "bytes": 704,
+      "git_blob": "4ae71eaf4b1db55939bff83d249432bb5afc066b",
+      "preserved_bytes": "recovered/combat-impact-059/d96256e03b65b3a9efd98f3fb9203bb7c1902fbdd96b722543f792ecc22ccfd8.gz",
+      "published_sha256": "d96256e03b65b3a9efd98f3fb9203bb7c1902fbdd96b722543f792ecc22ccfd8",
+      "published_bytes": 704,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-876.json",
+      "sha256": "c0933819fb1e6f3f77a56d9721e4316cb1e95f75b5771211a3ff04b1276e1137",
+      "bytes": 699,
+      "git_blob": "9efcde5b0588e3255e575d5407c83c3bceb747e9",
+      "preserved_bytes": "recovered/combat-impact-059/c0933819fb1e6f3f77a56d9721e4316cb1e95f75b5771211a3ff04b1276e1137.gz",
+      "published_sha256": "c0933819fb1e6f3f77a56d9721e4316cb1e95f75b5771211a3ff04b1276e1137",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-877.json",
+      "sha256": "d38aa8ca1123cf27e9d4929d93a7cdfa47aed41a1ee1cf5d459d99f228a53917",
+      "bytes": 681,
+      "git_blob": "f1b38f3de533b7c219d074c64c9d5b737a081ccb",
+      "preserved_bytes": "recovered/combat-impact-059/d38aa8ca1123cf27e9d4929d93a7cdfa47aed41a1ee1cf5d459d99f228a53917.gz",
+      "published_sha256": "d38aa8ca1123cf27e9d4929d93a7cdfa47aed41a1ee1cf5d459d99f228a53917",
+      "published_bytes": 681,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-878.json",
+      "sha256": "496f29be4c9def1370482cefba4d392c321465b74c26ff92fa229a3556dc80d6",
+      "bytes": 695,
+      "git_blob": "22d0c476a0d0891f61ab4c0635961426ce696a53",
+      "preserved_bytes": "recovered/combat-impact-059/496f29be4c9def1370482cefba4d392c321465b74c26ff92fa229a3556dc80d6.gz",
+      "published_sha256": "496f29be4c9def1370482cefba4d392c321465b74c26ff92fa229a3556dc80d6",
+      "published_bytes": 695,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-315.json",
+      "sha256": "684b07bde3550bb8b6ec670a0163ccd81302217fb2ccaacf5ee03adc3a4d4006",
+      "bytes": 668,
+      "git_blob": "df765f0dbdd58f4c3ac2647fd48b2736a63e8c86",
+      "preserved_bytes": "recovered/combat-impact-059/684b07bde3550bb8b6ec670a0163ccd81302217fb2ccaacf5ee03adc3a4d4006.gz",
+      "published_sha256": "684b07bde3550bb8b6ec670a0163ccd81302217fb2ccaacf5ee03adc3a4d4006",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L12-234.json",
+      "sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0",
+      "bytes": 858,
+      "git_blob": "328fb9c31cb8654a0b8f69e3c466e9e9d9f57401",
+      "preserved_bytes": "recovered/combat-impact-059/f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0.gz",
+      "published_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0",
+      "published_bytes": 858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original incoming adopted state"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-315.json",
+      "sha256": "d4268ab857a2ac3678fa848a2eba7b392ccfb4282a63e9300ff156d83c8ba0a5",
+      "bytes": 64756,
+      "git_blob": "fca447eb4eada46f4be39a77df1cd262c9d91cb0",
+      "preserved_bytes": "recovered/combat-impact-059/d4268ab857a2ac3678fa848a2eba7b392ccfb4282a63e9300ff156d83c8ba0a5.gz",
+      "published_sha256": "d4268ab857a2ac3678fa848a2eba7b392ccfb4282a63e9300ff156d83c8ba0a5",
+      "published_bytes": 64756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+      "sha256": "040a43d6b339ee3ca6497633de9921c9ce2c056f80568a3260d7853ab648c5cc",
+      "bytes": 506042,
+      "git_blob": "7378ff54204287320d90d604cf64532041c46fc0",
+      "preserved_bytes": "recovered/combat-impact-059/040a43d6b339ee3ca6497633de9921c9ce2c056f80568a3260d7853ab648c5cc.gz",
+      "published_sha256": "ccb2090a4672b149c39d634ab62fd016ed31e18181f0c0236a1c8ff968674993",
+      "published_bytes": 506033,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original inherited prospective registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens12/receipt-209-originals1020-1022.json",
+      "sha256": "fbfb1a5c9b3763f1167db92018da074662282210185b9e837d842708cb0ee0f3",
+      "bytes": 8184,
+      "git_blob": "1cd85a1afe183d9cd5a4e32528f95c964bd35bc6",
+      "preserved_bytes": "recovered/combat-impact-059/fbfb1a5c9b3763f1167db92018da074662282210185b9e837d842708cb0ee0f3.gz",
+      "published_sha256": "fbfb1a5c9b3763f1167db92018da074662282210185b9e837d842708cb0ee0f3",
+      "published_bytes": 8184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original inherited Lens12 attestation; zero Segovb fresh rereads"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-682.json",
+      "sha256": "1d9f189d4fde3124a4cb68d301abb17496776901b3d72d76f158fc0723151634",
+      "bytes": 1201,
+      "git_blob": "bcc5b204befc118998bdf461b93583d9cf334775",
+      "preserved_bytes": "recovered/combat-impact-059/1d9f189d4fde3124a4cb68d301abb17496776901b3d72d76f158fc0723151634.gz",
+      "published_sha256": "1d9f189d4fde3124a4cb68d301abb17496776901b3d72d76f158fc0723151634",
+      "published_bytes": 1201,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-686.json",
+      "sha256": "b27598fd340ffb4cf27bda4be9fb75f9116612833acb5df7526d99056ade8828",
+      "bytes": 1212,
+      "git_blob": "c0c8d5f920f694cd789db1fe64c5f5a2f4e02e0b",
+      "preserved_bytes": "recovered/combat-impact-059/b27598fd340ffb4cf27bda4be9fb75f9116612833acb5df7526d99056ade8828.gz",
+      "published_sha256": "b27598fd340ffb4cf27bda4be9fb75f9116612833acb5df7526d99056ade8828",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-682.json",
+      "sha256": "2b0bcda2222a7969a1693b4e14a79dc2927fa578f92858f6e09ec7d8514f584f",
+      "bytes": 7280,
+      "git_blob": "c157f37165c5dfad318d8a732db78b6ab204a75a",
+      "preserved_bytes": "recovered/combat-impact-059/2b0bcda2222a7969a1693b4e14a79dc2927fa578f92858f6e09ec7d8514f584f.gz",
+      "published_sha256": "2b0bcda2222a7969a1693b4e14a79dc2927fa578f92858f6e09ec7d8514f584f",
+      "published_bytes": 7280,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-686.json",
+      "sha256": "b27d455682570a2ec090a7d303921698c231014402cee047bef530757f4dcda2",
+      "bytes": 9166,
+      "git_blob": "e2bc76b028becf4a40a988c2e6314e0418d10dd6",
+      "preserved_bytes": "recovered/combat-impact-059/b27d455682570a2ec090a7d303921698c231014402cee047bef530757f4dcda2.gz",
+      "published_sha256": "b27d455682570a2ec090a7d303921698c231014402cee047bef530757f4dcda2",
+      "published_bytes": 9166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-940.json",
+      "sha256": "2b8f47ff913cb8fda0b21c7c1f42d498e679bbbb556738d3b9a2a2b42a2f261b",
+      "bytes": 1147,
+      "git_blob": "7c96ecfb56fe8e68e1428f3f57f265a13cbcabfe",
+      "preserved_bytes": "recovered/combat-impact-059/2b8f47ff913cb8fda0b21c7c1f42d498e679bbbb556738d3b9a2a2b42a2f261b.gz",
+      "published_sha256": "2b8f47ff913cb8fda0b21c7c1f42d498e679bbbb556738d3b9a2a2b42a2f261b",
+      "published_bytes": 1147,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-941.json",
+      "sha256": "f64fe2de3f2a6acd55278ec8199ec0e944fbc6ff5e09372c5f2fdfd68e46bf97",
+      "bytes": 1147,
+      "git_blob": "de95dbe7bd3412edde86a5661995dc4e03150da7",
+      "preserved_bytes": "recovered/combat-impact-059/f64fe2de3f2a6acd55278ec8199ec0e944fbc6ff5e09372c5f2fdfd68e46bf97.gz",
+      "published_sha256": "f64fe2de3f2a6acd55278ec8199ec0e944fbc6ff5e09372c5f2fdfd68e46bf97",
+      "published_bytes": 1147,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-947.json",
+      "sha256": "5d97c5c2a4dfad79af823a3f79a72f2327134ae0cb23096503c9a612137b5bfa",
+      "bytes": 1166,
+      "git_blob": "2886be0a3bde808d1ac330177df4c7106f066cd5",
+      "preserved_bytes": "recovered/combat-impact-059/5d97c5c2a4dfad79af823a3f79a72f2327134ae0cb23096503c9a612137b5bfa.gz",
+      "published_sha256": "5d97c5c2a4dfad79af823a3f79a72f2327134ae0cb23096503c9a612137b5bfa",
+      "published_bytes": 1166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-948.json",
+      "sha256": "6a9030f44c9d4c348b8dc5c6a752cc26c79755abae7052dab5e0615c85ea277e",
+      "bytes": 1196,
+      "git_blob": "84af8f796f5f0ecc4fd972ac6788bd34a75f55ff",
+      "preserved_bytes": "recovered/combat-impact-059/6a9030f44c9d4c348b8dc5c6a752cc26c79755abae7052dab5e0615c85ea277e.gz",
+      "published_sha256": "6a9030f44c9d4c348b8dc5c6a752cc26c79755abae7052dab5e0615c85ea277e",
+      "published_bytes": 1196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-682.json",
+      "sha256": "7616417759a36960945b6f770a25cc2c5386e582cb4a5e9860299cf3257365dd",
+      "bytes": 840,
+      "git_blob": "0d4b7e0bc3c8deec7d5e2cd978403b8a63daeaa1",
+      "preserved_bytes": "recovered/combat-impact-059/7616417759a36960945b6f770a25cc2c5386e582cb4a5e9860299cf3257365dd.gz",
+      "published_sha256": "7616417759a36960945b6f770a25cc2c5386e582cb4a5e9860299cf3257365dd",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-686.json",
+      "sha256": "eb69cd117cb07e3746f935c601f0b3d59a88011d316bd51604f1e40ae7360c71",
+      "bytes": 840,
+      "git_blob": "b7e6313670a8f3d5114e1aeaaab770607692623a",
+      "preserved_bytes": "recovered/combat-impact-059/eb69cd117cb07e3746f935c601f0b3d59a88011d316bd51604f1e40ae7360c71.gz",
+      "published_sha256": "eb69cd117cb07e3746f935c601f0b3d59a88011d316bd51604f1e40ae7360c71",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-682.json",
+      "sha256": "422e416eb16bf5498c44cdcd73d68ebecab0710b97800f036d47f11b4cd53fa3",
+      "bytes": 558,
+      "git_blob": "3609d3dfcb3cfbc9e02178631ddb36c30eea3429",
+      "preserved_bytes": "recovered/combat-impact-059/422e416eb16bf5498c44cdcd73d68ebecab0710b97800f036d47f11b4cd53fa3.gz",
+      "published_sha256": "422e416eb16bf5498c44cdcd73d68ebecab0710b97800f036d47f11b4cd53fa3",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-686.json",
+      "sha256": "d7b58d00fc810b646227abd31d686bd16c7900d3261f7c6d3a25055ef4d8645d",
+      "bytes": 558,
+      "git_blob": "0c5d7da2bd73e663f103bb327654b0e55b2e3346",
+      "preserved_bytes": "recovered/combat-impact-059/d7b58d00fc810b646227abd31d686bd16c7900d3261f7c6d3a25055ef4d8645d.gz",
+      "published_sha256": "d7b58d00fc810b646227abd31d686bd16c7900d3261f7c6d3a25055ef4d8645d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original authors, lens, revision as recorded, ranges and inherited/connected obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb682 and Adler315 original personal scopes and revisions are retained. Segovb686 independently read later2040/2041 and qualified inherited original1022 evidence; zero Segovb fresh read of1022, no other-lens credit, no current equivalence assumed for the older owner. No checkpoint3821 promotion.",
+  "remaining": "Continue original2035, actual supported custom-hitbox admission, downstream native lifecycle, all13 lenses and global aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2033,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2033",
+      "sha256": "d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+      "lines": 161,
+      "new_personal_read_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/contact.rs",
+        "sha256": "d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+        "bytes": 5135,
+        "lines": 161,
+        "git_blob": "27f13ee2e22b8f1cde2d4fe384907aef7e708752",
+        "preserved_bytes": "main-advance-95e/combat-impact-evidence/current-2033.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            161
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not grant independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; historical reviewers and earlier current observations retain their original attribution.",
+      "preexisting_current_support_not_indexed_in_prior_role_row": []
+    },
+    {
+      "original_index": 2034,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2034",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "lines": 255,
+      "new_personal_read_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/defense.rs",
+        "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+        "bytes": 9410,
+        "lines": 255,
+        "git_blob": "86b56c1b59ef2dc60abf602ca03a97afcff2b888",
+        "preserved_bytes": "main-advance-95e/combat-impact-evidence/current-2034.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            255
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not grant independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; historical reviewers and earlier current observations retain their original attribution.",
+      "preexisting_current_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json",
+          "ranges": [
+            [
+              1,
+              255
+            ]
+          ],
+          "qualification": "Earlier bounded95e source observation preserved independently of this new historical personal read."
+        },
+        {
+          "assessment": "ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json",
+          "ranges": [
+            [
+              1,
+              130
+            ]
+          ],
+          "qualification": "Earlier bounded95e source observation preserved independently of this new historical personal read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-RANGED-SOURCE-ASSERTION-95E.json",
+          "ranges": [
+            [
+              1,
+              44
+            ]
+          ],
+          "qualification": "Earlier bounded95e source observation preserved independently of this new historical personal read."
+        }
+      ]
+    }
+  ],
+  "observations": [
+    "Full historical contact and defense bodies personally read through EOF, including authored source tests. No tests or product ran.",
+    "Both match95e bytes. Prior bounded current defense ranges, including one full current body, remain separately credited and do not create an independent historical read.",
+    "Segovb682 and Adler315 retain original personal ranges and attribution. Segovb686 is a later receipt for2040/2041 with inherited1022 attestation only; those roles do not gain fresh historical credit."
+  ],
+  "qualification": "Historical Lens1 personal bodies and bounded current observations only; no checkpoint3821 claim.",
+  "next_original_role": 2035
+}

@@ -6889,8 +6889,60 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-COMBAT-CONSEQUENCE-RECEIPTS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-REPORTED-PRECISION-CLOSED-SCALING-PANIC",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; outside-test rule and closed invariant operation, no reachable panic",
+        "classification": "Original historic accepted unique-count change remains zero; no reachable panic under admitted finite precision and UnitInterval factor.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/271",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-REPORTED-PRECISION-CLOSED-SCALING-PANIC",
+          "segovb/READ-L12-686.json"
+        ],
+        "relationship_qualification": "Original059 finding independently assessed at95e; accepted historical unique-count change stays zero, inherited prior read attribution and no3821 promotion.",
+        "discovery": "partial; selected admission, producer and consumer evidence recorded, supported lifecycle and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json"
+      },
+      {
+        "id": "REVIEW-TARGET-HITBOX-SLAB-OVERFLOW-001",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional admitted extreme finite input; product effect not observed",
+        "classification": "The explicitly specified extreme finite config and ordinary finite relative position symbolically yield a nonfinite local impact point; config/contact occurrence and product effects remain unobserved.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1716"
+        ],
+        "relationship_qualification": "New current source/IEEE candidate connected to original pending hitbox contract; exact aliases and checkpoint3821 state remain open.",
+        "discovery": "partial; selected admission, producer and consumer evidence recorded, supported lifecycle and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1337.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1341.json"
 }
