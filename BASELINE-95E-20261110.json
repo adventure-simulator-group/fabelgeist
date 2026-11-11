@@ -2847,8 +2847,42 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SIM-OUTPUT-ALIAS-95E.json"
+      },
+      {
+        "id": "REVIEW-ARMOR-FIXTURE-GLB-UNWRAP-001",
+        "lens": 8,
+        "severity": "unassigned; explicit outside-test rule violation and conditional fixture input panic",
+        "classification": "New bounded current fixture admission and rule trace, related to earlier GLB input questions without altering historical unique count.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1099 (earlier GLB/fixture admission question)",
+          "segovb/READ-L12-355.json via ASSESSMENT-ARMOR-FIXTURE-ADMISSION-95E.json",
+          "baseline-059/queue.json#/entries/1095 (browser probe question)"
+        ],
+        "relationship_qualification": "Earlier records retain original revision, attribution, body-read and native-input limits; shared geometry or potential repair does not establish a global alias or checkpoint 3821 authority.",
+        "discovery": "partial; exact accepted GLB witnesses, canonical-body input policy, all example callers and parser/version behavior remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ARMOR-FIXTURE-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-ARMOR-FIXTURE-ZERO-HEIGHT-CHART-001",
+        "lens": 6,
+        "severity": "unassigned; conditional nonfinite fixture surface-coordinate admission",
+        "classification": "New bounded source-derived arithmetic and aggregate-admission question; distinct producer and value from the earlier offline GLB body-normal export finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1099 (earlier GLB/fixture admission question)",
+          "segovb/READ-L12-355.json via ASSESSMENT-ARMOR-FIXTURE-ADMISSION-95E.json",
+          "baseline-059/queue.json#/entries/1095 (browser probe question)",
+          "ASSESSMENT-L01-GLB-BODY-NONFINITE-95E.json (distinct offline export normal)",
+          "ASSESSMENT-L01-CLOTHING-REFIT-95E.json (distinct face admission)"
+        ],
+        "relationship_qualification": "Earlier records retain original revision, attribution, body-read and native-input limits; shared geometry or potential repair does not establish a global alias or checkpoint 3821 authority.",
+        "discovery": "partial; GLB acceptance, other component/finite and topology producers, native device validation, intended fixture input scope and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ARMOR-FIXTURE-ADMISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0406.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0410.json"
 }

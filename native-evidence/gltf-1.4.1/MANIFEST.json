@@ -1,0 +1,59 @@
+{
+  "schema": "726-native-crate-evidence-v1",
+  "lockfile_source": "main-advance-95e/armor-fixture-evidence/01.source.gz",
+  "qualification": "Exact pinned locally cached archives and their bundled licenses; selected source inspection is newly assessed, not a historical read. No product or dependency was executed.",
+  "crates": [
+    {
+      "name": "gltf",
+      "version": "1.4.1",
+      "path": "gltf-1.4.1.crate",
+      "sha256": "e3ce1918195723ce6ac74e80542c5a96a40c2b26162c1957a5cd70799b8cacf7",
+      "bytes": 54366,
+      "lockfile_checksum": "e3ce1918195723ce6ac74e80542c5a96a40c2b26162c1957a5cd70799b8cacf7",
+      "inspected_members": [
+        {
+          "path": "gltf-1.4.1/src/lib.rs",
+          "sha256": "18f7f12e5408405a53ceb0ee7aeb2bc4a3b30c0fd373f67d2f1de1cd66c02403",
+          "bytes": 22177,
+          "qualification": "Selected source was inspected; the rest of the complete crate is retained only for recovery, not body-read credit."
+        },
+        {
+          "path": "gltf-1.4.1/src/mesh/mod.rs",
+          "sha256": "08c23941060902ab80238cbcad36484cca85bbf9f5e75520b39c515004278ba1",
+          "bytes": 15731,
+          "qualification": "Selected source was inspected; the rest of the complete crate is retained only for recovery, not body-read credit."
+        },
+        {
+          "path": "gltf-1.4.1/src/mesh/util/mod.rs",
+          "sha256": "39898889dbb7e565c997018597495844c09c26fb34013bd190723ac91147a023",
+          "bytes": 7987,
+          "qualification": "Selected source was inspected; the rest of the complete crate is retained only for recovery, not body-read credit."
+        }
+      ],
+      "qualification": "Complete locally cached crates.io archive equals the pinned Cargo.lock checksum; no compilation or execution."
+    },
+    {
+      "name": "gltf-json",
+      "version": "1.4.1",
+      "path": "gltf-json-1.4.1.crate",
+      "sha256": "e6176f9d60a7eab0a877e8e96548605dedbde9190a7ae1e80bbcc1c9af03ab14",
+      "bytes": 32291,
+      "lockfile_checksum": "e6176f9d60a7eab0a877e8e96548605dedbde9190a7ae1e80bbcc1c9af03ab14",
+      "inspected_members": [
+        {
+          "path": "gltf-json-1.4.1/src/mesh.rs",
+          "sha256": "c83141a98271b5a08b11eaa4de72a39bc4dcf6efb5091882f71db02e1b0113c1",
+          "bytes": 11663,
+          "qualification": "Selected source was inspected; the rest of the complete crate is retained only for recovery, not body-read credit."
+        },
+        {
+          "path": "gltf-json-1.4.1/src/validation.rs",
+          "sha256": "efda43d3371d995dab67fa5b41a0fd83fe9466169565d6f6a202eaaa62cdcb4f",
+          "bytes": 6238,
+          "qualification": "Selected source was inspected; the rest of the complete crate is retained only for recovery, not body-read credit."
+        }
+      ],
+      "qualification": "Complete locally cached crates.io archive equals the pinned Cargo.lock checksum; no compilation or execution."
+    }
+  ]
+}

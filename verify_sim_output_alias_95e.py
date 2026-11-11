@@ -31,7 +31,14 @@ for item in h['historical_source_roles']:
  assert item['new_personal_read_ranges']==[[1,item['lines']]]
  with tarfile.open(r/item['evidence_archive'],'r:gz') as ar:raw=ar.extractfile(item['sha256']).read()
  assert sha(raw)==item['sha256'] and len(raw.splitlines())==item['lines'] and raw==s[item['source_id'].split(':',1)[1]]
-assert work['roles'][1301]['status']=='unassessed'
+# The earlier 352 receipt named 1301, but this assessment did not claim its
+# body. A later independently recorded personal read may change its worklist
+# status without transferring credit backward to this checkpoint.
+assert all(x['original_index'] != 1301 for x in h['historical_source_roles'])
+if work['roles'][1301]['status']=='full-historical-body-trace-open':
+ later=load(work['roles'][1301]['historical_assessment'])
+ entry=next(x for x in later['historical_source_roles'] if x['original_index']==1301)
+ assert entry['new_personal_read_ranges']==[[1,entry['lines']]]
 main=s['crates/adventuresim-strategic-sim/src/main.rs']
 assert b'let lexical = lexical_normalize(&absolute);' in main and b'fs::canonicalize(existing)?.join(missing_tail)' in main
 assert b'Component::ParentDir => {\n                normalized.pop();' in main
