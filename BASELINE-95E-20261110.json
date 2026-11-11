@@ -5095,8 +5095,36 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TERRAIN-CUTFACE-95E.json"
+      },
+      {
+        "id": "ADLER-L11-SUPPORT-GRADE-NUMERIC-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          7,
+          8,
+          12
+        ],
+        "severity": "unassigned; public standalone measurement with selected-surface safeguard",
+        "classification": "A maximum physical grade operation should report its admitted finite non-flat support mesh accurately or explicitly identify an unmeasurable calculation.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/103",
+          "baseline-059/queue.json#/entries/1518",
+          "baseline-059/queue.json#/entries/1519",
+          "adler/READ-L11-274.json",
+          "adler/READ-L11-279.json",
+          "segovb/READ-L12-600.json"
+        ],
+        "relationship_qualification": "Current source-level reassessment of original059 Adler finding with original final-surface withdrawal; no added historical unique count, assumed alias or checkpoint3821 claim.",
+        "discovery": "partial; public standalone grade source example and final-surface rejection established, exact generated reachability and alias closure open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GEOGRAPHY-GRADE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1046.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1050.json"
 }
