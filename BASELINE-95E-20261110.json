@@ -6022,8 +6022,35 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-TERRAIN-STAGE-PROVENANCE-95E.json"
+      },
+      {
+        "id": "REVIEW-GROUND-CONTACT-ROUNDED-DEGENERATE-DISTANCE-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional rounded diagnostic contact-distance case",
+        "classification": "A nondegenerate contact can lose dimensionality in a large-coordinate f32 transform, after which the diagnostic polygon containment shortcut can report a zero post gap.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1646",
+          "segovb/READ-L12-667.json",
+          "adler/READ-L11-307.json",
+          "REVIEW-ROUNDED-POLYGON-TOPOLOGY-001"
+        ],
+        "relationship_qualification": "Original059 question is partially resolved by a new conditional current source example. The separately recorded rounded floor-polygon topology issue has a different consumer and failure; related, not asserted an exact alias. No checkpoint3821 finding inferred.",
+        "discovery": "partial; exact symbolic contact geometry and code path, accepted producer and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUND-CONTACT-DISTANCE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1247.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1249.json"
 }
