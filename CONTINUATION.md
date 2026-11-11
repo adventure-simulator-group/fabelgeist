@@ -3,11 +3,13 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1451.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1454.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
-lenses and the connected repair ledger remain open; no implementation or
+lenses and the connected repair ledger remain open; its entries include
+reconnected findings, reconstructed questions and newly assessed candidates,
+not a count of independent defects. No implementation or
 product validation is authorized here.
 
 `CONTINUATION-PROGRESS-95E.json` gives the current transition counts and
@@ -273,6 +275,8 @@ module composition and evidence state without expanding current coverage.
 face admission, paving support and conditional small-face filtering.
 `ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json` traces conditional owned
 surface origins and sampled-tree seam heights, preserving earlier attribution.
+`ASSESSMENT-PLATE-AND-DIMENSIONS-95E.json` traces the historical
+all-zero plate question through later construction guards.
 `ASSESSMENT-SHIELD-FORGE-95E.json` records handle-only shield fitting
 policy and the connected forge stock identity and requirement-unit traces.
 `ASSESSMENT-WEAPON-ORNAMENT-95E.json` connects the historical frame
