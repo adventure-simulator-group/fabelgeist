@@ -2911,8 +2911,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-POSE-LEG-BOUNDS-95E.json"
+      },
+      {
+        "id": "REVIEW-INERTIAL-BLEND-COEFFICIENT-OVERFLOW-001",
+        "lens": 4,
+        "severity": "unassigned; conditional client-presentation nonfinite transform",
+        "classification": "New bounded source-derived admitted-duration and inertial polynomial operation case; actual extreme tuning and transition reachability remain open.",
+        "historical_related_records": [
+          "segovb/READ-L12-370.json via ASSESSMENT-INERTIAL-COEFFICIENTS-95E.json (prior per-joint prepared commit; numeric/config scope open)",
+          "ASSESSMENT-BOUNCY-SPRING-ARITHMETIC-95E.json (distinct spring operation)"
+        ],
+        "relationship_qualification": "Prior source-read attribution and guards remain intact; shared config provenance is not an alias. Full current deduplication remains open.",
+        "discovery": "partial; supported custom tuning, actual plan inputs, full source/native aliases and live effects remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-INERTIAL-COEFFICIENTS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0421.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0424.json"
 }

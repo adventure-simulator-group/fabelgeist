@@ -1,0 +1,649 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    4,
+    5,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Validated inertial blend arithmetic and a separate existing locomotion interpolation-policy connection.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1334-1339.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9fbbfc135b598fdcf58aab78001cc46f152ae0ef",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "bytes": 2138,
+      "lines": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "bytes": 4147,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          600,
+          660
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          47,
+          67
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          44,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          215,
+          232
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f3cc5b2c458a41bc49c82502a39d1159c1e8f13",
+      "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+      "bytes": 73988,
+      "lines": 1894,
+      "ranges": [
+        [
+          360,
+          405
+        ],
+        [
+          540,
+          630
+        ],
+        [
+          765,
+          787
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddf51156a0b3e658d98d1c7afb5bb30e29d25099",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "bytes": 7524,
+      "lines": 217,
+      "ranges": [
+        [
+          125,
+          195
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1118986a2bc6f564e461ad4d76cef175f0b0d14b",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "bytes": 2231,
+      "lines": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/README.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "913768b7e60f156e3bbf4364db5488578a561bec",
+      "sha256": "1067fa9b47c67f86299296b67d8c342362d0cc5a42069e768078e31aa7f9857d",
+      "bytes": 49606,
+      "lines": 837,
+      "ranges": [
+        [
+          412,
+          445
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "37ce84a60849e27b7248e424638677cc1dbec945",
+      "sha256": "12d4b4e5ed4ce3940c78b7ee4420ec94e5efa83776b14d60afdbf2ba0d501f5d",
+      "bytes": 6458,
+      "lines": 190,
+      "ranges": [
+        [
+          110,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inertial-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges were inspected; complete bytes retained for recovery. No product, animation, test or float probe ran."
+    }
+  ],
+  "native_evidence": [
+    {
+      "path": "native-evidence/rust-nightly-2026-07-13/MANIFEST.json",
+      "qualification": "Pinned installed Rust float source documents IEEE round-to-even overflow and NaN propagation; no historical compiler use is inferred."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-INERTIAL-BLEND-COEFFICIENT-OVERFLOW-001",
+      "lens": 4,
+      "severity": "unassigned; conditional client-presentation nonfinite transform",
+      "classification": "New bounded source-derived admitted-duration and inertial polynomial operation case; actual extreme tuning and transition reachability remain open.",
+      "trace": "PositiveAnimationDuration admits any finite strictly positive f32 through AnimationElapsed; the PoseBufferConfig validator only checks the two stated range relationships and does not bound inertial_blend_seconds. Assuming other config fields valid, f32::MAX is admitted and can be installed as the shared validated runtime snapshot. During a plan change on an already displayed, nonculled authored rig, a joint with finite one-metre translation offset and zero relative velocity enters QuinticChannel::new with that blend. The duration squared overflows to infinity, a0 becomes signed zero, and a0 * t2 produces NaN under IEEE floating-point arithmetic. The checked duration remains finite, so the constructor can return Ok with nonfinite polynomial coefficients. The prepared per-joint capture then stores both channels; before the duration expires the offset evaluation can return NaN. If the corresponding entity transform is available, apply_pose_buffers writes the resulting translation without a finite check.",
+      "symbolic_example": "Take finite unit translation offset, zero relative linear velocity, identical finite rotations with zero relative angular velocity, and blend f32::MAX; all other config fields valid. At elapsed zero or an ordinary finite positive delta, duration is not expired. This is symbolic source-level reasoning, not an installed configuration, executed float computation, animation, render or observed nonfinite output.",
+      "guards_and_limits": "Shipped combat YAML uses 0.2 seconds. Already-finished zero channels are intentionally skipped; inactive rigs snap to the target rather than creating a displayed offset. Overshoot shortening applies only when v0 < 0 and x0 > 0; the zero-velocity example avoids it. Frozen rigs skip application, missing joint entities/transform queries skip writing, and checked elapsed arithmetic can reject nonfinite time. The prior prepare-both-channels-before-assignment guard remains effective for errors, but does not check coefficient finiteness. Actual authored extreme config, required plan transition, visual behavior and platform floating implementation remain unobserved. Client presentation only; no tactical or fatigue change claimed.",
+      "connected_repair": "Preserve the shared authoritative config boundary and ensure the entire polynomial channel and resulting pose are finite before retained state or native transform publication; reject or safely compute any unrepresentable blend at its owning admission/operation. Preserve ordinary transition continuity, exact zero/rest handling, interruption behavior and existing culling/physics ownership. Avoid local tuning fallbacks.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover normal blend and interruptions, extreme finite duration with nonzero offset, zero channel, finite output and frozen/physics paths with the project-required native diagnostic when applicable.",
+      "discovery": "partial; supported custom tuning, actual plan inputs, full source/native aliases and live effects remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-LOCOMOTION-ANCHOR-REPARAMETERIZATION",
+      "relationship": "Existing earlier policy discrepancy, zero new unique count; exact physical-phase/calibration composition remains open.",
+      "trace": "Current client README says active sparse anchor blending is linear with phase. Resolver passes sampled authored clip time plus a retained physical locomotion phase for WalkContact/RunContact; weighted clips preserve that option, and current pose sampling selects sparse locomotion when the option is present. The sparse kernel computes t*t*(3-2*t). At authored quarter-segment fraction t=1/4, exact rational smoothstep is 5/32 while linear is 1/4. The README statement and local sampler differ under those stated coordinates.",
+      "guards_and_limits": "The resolver can use an independently calibrated phase mapping before converting to clip time; thus an authored phase example does not prove visible physical-phase easing or actual ordinary locomotion output. Asset admission, complete calibration composition, current capture policy and intended documentation-versus-behavior choice remain open. Source tests checking boundaries and midpoint were read only.",
+      "connected_repair": "Determine the intended animation policy with actual calibrated composition and synchronize the owning source and documentation; preserve intended gait parity and independent continuity checks. No interpolation or documentation change during this audit.",
+      "discovery": "partial; prior 059 record remains open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-LOCOMOTION-ANCHOR-REPARAMETERIZATION"
+      ],
+      "qualification": "Earlier policy record and resolver/weighted proof retain original attribution and revision."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/37",
+        "/entries/1129 through /entries/1134"
+      ],
+      "qualification": "Only selected current source connections; other policy/native/alias obligations remain open."
+    },
+    {
+      "file": "ASSESSMENT-BOUNCY-SPRING-ARITHMETIC-95E.json",
+      "qualification": "Separate client-only spring frequency operation. It shares configuration provenance, not the inertial polynomial first failure."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-182.json",
+      "sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8",
+      "bytes": 16555,
+      "git_blob": "7c94f3d9f47f5d8a1a5b627e30d228c48f9d1732",
+      "preserved_bytes": "recovered/inertial-059/0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8.gz",
+      "published_sha256": "0d8e30123eb097c6d4393d3066e8a1ece0ec941ee7d27b888a138f401ccbbff8",
+      "published_bytes": 16555,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical locomotion proof"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-183.json",
+      "sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe",
+      "bytes": 8600,
+      "git_blob": "a43e22725d03bb860921964fc0bb065a50675424",
+      "preserved_bytes": "recovered/inertial-059/426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe.gz",
+      "published_sha256": "426bfc6879a2392003e9159723fc9a12a568985a3312adfc7ebc1863bbad1cbe",
+      "published_bytes": 8600,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical locomotion proof"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-198.json",
+      "sha256": "e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794",
+      "bytes": 21600,
+      "git_blob": "70ee522c9156b50585fd73b22a4cd1aeca7673cb",
+      "preserved_bytes": "recovered/inertial-059/e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794.gz",
+      "published_sha256": "e4012e75b26f5fc29410e92d361e299e4812206453c17fd86cb9c417ff25c794",
+      "published_bytes": 21600,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical locomotion proof"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-199.json",
+      "sha256": "78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e",
+      "bytes": 11058,
+      "git_blob": "ed6f0bbb887ac72ae0cc029d073bda85c1a9516f",
+      "preserved_bytes": "recovered/inertial-059/78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e.gz",
+      "published_sha256": "78bc988036910554fd798e86c2f77b7fad2c670ba9c24b1fb956851e206dd76e",
+      "published_bytes": 11058,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "separately attributed historical locomotion proof"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-369.json",
+      "sha256": "7b499dde9a4632e960c0bed1429396587994a576061e4496ed7d3fdc3af83a9e",
+      "bytes": 1249,
+      "git_blob": "7a984f469e4d7a5d4f5634c7f8bfb2e9a82a440d",
+      "preserved_bytes": "recovered/inertial-059/7b499dde9a4632e960c0bed1429396587994a576061e4496ed7d3fdc3af83a9e.gz",
+      "published_sha256": "7b499dde9a4632e960c0bed1429396587994a576061e4496ed7d3fdc3af83a9e",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-370.json",
+      "sha256": "10d582427b14a26fbe3a024d152164378b33883b28961e21c3add27bf3ce175c",
+      "bytes": 1241,
+      "git_blob": "b028999c634f85633a98921eda31986e6cae3536",
+      "preserved_bytes": "recovered/inertial-059/10d582427b14a26fbe3a024d152164378b33883b28961e21c3add27bf3ce175c.gz",
+      "published_sha256": "10d582427b14a26fbe3a024d152164378b33883b28961e21c3add27bf3ce175c",
+      "published_bytes": 1241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-371.json",
+      "sha256": "1da760943b9961caa92c9fcf38bf3842037ecd4b8c2a228de084bc5e29be394b",
+      "bytes": 1756,
+      "git_blob": "86787aae41044683a6a57fd750790d2485556992",
+      "preserved_bytes": "recovered/inertial-059/1da760943b9961caa92c9fcf38bf3842037ecd4b8c2a228de084bc5e29be394b.gz",
+      "published_sha256": "1da760943b9961caa92c9fcf38bf3842037ecd4b8c2a228de084bc5e29be394b",
+      "published_bytes": 1756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-369.json",
+      "sha256": "c432e71b644d1cfd18fa605d14978f2cd59c0675b628cf8b915ad785109653ed",
+      "bytes": 9143,
+      "git_blob": "42eb6519c094763cd869e12c6a5a57d1be2390cd",
+      "preserved_bytes": "recovered/inertial-059/c432e71b644d1cfd18fa605d14978f2cd59c0675b628cf8b915ad785109653ed.gz",
+      "published_sha256": "c432e71b644d1cfd18fa605d14978f2cd59c0675b628cf8b915ad785109653ed",
+      "published_bytes": 9143,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-370.json",
+      "sha256": "22a50abd4a774cb0ab280ea32c448c8908ea8c188d05de3fea1f2f9385c34163",
+      "bytes": 10843,
+      "git_blob": "e441b24348b0f6023c08ff5bd29c5ba538d588de",
+      "preserved_bytes": "recovered/inertial-059/22a50abd4a774cb0ab280ea32c448c8908ea8c188d05de3fea1f2f9385c34163.gz",
+      "published_sha256": "22a50abd4a774cb0ab280ea32c448c8908ea8c188d05de3fea1f2f9385c34163",
+      "published_bytes": 10843,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-371.json",
+      "sha256": "974ebaf2d25f1b44cf592150881a5a6b19f582c43a9ea51061e4e44d97e722f3",
+      "bytes": 14980,
+      "git_blob": "05b49d927d0d10981dd4ddd7ce4cb071247b6ec8",
+      "preserved_bytes": "recovered/inertial-059/974ebaf2d25f1b44cf592150881a5a6b19f582c43a9ea51061e4e44d97e722f3.gz",
+      "published_sha256": "974ebaf2d25f1b44cf592150881a5a6b19f582c43a9ea51061e4e44d97e722f3",
+      "published_bytes": 14980,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-241.json",
+      "sha256": "47ff27fc00d06611e50edf2d8559bbdc46ca5ff12d4e9cdb7eaf878a189fc4b5",
+      "bytes": 1286,
+      "git_blob": "e01893accaebfb04881888c02faa41e4075dbe19",
+      "preserved_bytes": "recovered/inertial-059/47ff27fc00d06611e50edf2d8559bbdc46ca5ff12d4e9cdb7eaf878a189fc4b5.gz",
+      "published_sha256": "47ff27fc00d06611e50edf2d8559bbdc46ca5ff12d4e9cdb7eaf878a189fc4b5",
+      "published_bytes": 1286,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-242.json",
+      "sha256": "baf4c144ef099cf8b7970576451049630f0a2e0015f08091935dc372c9708013",
+      "bytes": 1276,
+      "git_blob": "7a1ebb9a3652c9655855c2da934d975a7edc3830",
+      "preserved_bytes": "recovered/inertial-059/baf4c144ef099cf8b7970576451049630f0a2e0015f08091935dc372c9708013.gz",
+      "published_sha256": "baf4c144ef099cf8b7970576451049630f0a2e0015f08091935dc372c9708013",
+      "published_bytes": 1276,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-243.json",
+      "sha256": "adc45ed82a09831052147073e192785ac62474b255e63e33647256ca4d4fdd1a",
+      "bytes": 1253,
+      "git_blob": "4f8ac047ac9ed6884e22aa99dc975c9ea1159a1e",
+      "preserved_bytes": "recovered/inertial-059/adc45ed82a09831052147073e192785ac62474b255e63e33647256ca4d4fdd1a.gz",
+      "published_sha256": "adc45ed82a09831052147073e192785ac62474b255e63e33647256ca4d4fdd1a",
+      "published_bytes": 1253,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-244.json",
+      "sha256": "e75d8f382c8fcb6563241a3b4f1d8f09f3a3c340788b27fc1277829e3f66fb43",
+      "bytes": 1265,
+      "git_blob": "b2bbdcbfdabf4cd8315939f1921bb24d7b42a07c",
+      "preserved_bytes": "recovered/inertial-059/e75d8f382c8fcb6563241a3b4f1d8f09f3a3c340788b27fc1277829e3f66fb43.gz",
+      "published_sha256": "e75d8f382c8fcb6563241a3b4f1d8f09f3a3c340788b27fc1277829e3f66fb43",
+      "published_bytes": 1265,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-245.json",
+      "sha256": "b1f230ff5ca261893ac097af1edc06535ade04fe483825a8e0a30f384c1c0636",
+      "bytes": 1263,
+      "git_blob": "a5679d19e629584e62648eab28990d2ce2c14bd4",
+      "preserved_bytes": "recovered/inertial-059/b1f230ff5ca261893ac097af1edc06535ade04fe483825a8e0a30f384c1c0636.gz",
+      "published_sha256": "b1f230ff5ca261893ac097af1edc06535ade04fe483825a8e0a30f384c1c0636",
+      "published_bytes": 1263,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-246.json",
+      "sha256": "d0e1a5b0e8e8106ca48f52a3e4763b92855a946ec40535d0dbc68cfdfc94e941",
+      "bytes": 1277,
+      "git_blob": "06d7bbc0e882086ea092e261f7dfff7258bc99ec",
+      "preserved_bytes": "recovered/inertial-059/d0e1a5b0e8e8106ca48f52a3e4763b92855a946ec40535d0dbc68cfdfc94e941.gz",
+      "published_sha256": "d0e1a5b0e8e8106ca48f52a3e4763b92855a946ec40535d0dbc68cfdfc94e941",
+      "published_bytes": 1277,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-247.json",
+      "sha256": "a2272c4143523fa1d256c572c282c127211482e13e10e8c8883bd0691b2a8c93",
+      "bytes": 1273,
+      "git_blob": "0385bc97cfd8a4ed90d9fb8c3578d149570f2f15",
+      "preserved_bytes": "recovered/inertial-059/a2272c4143523fa1d256c572c282c127211482e13e10e8c8883bd0691b2a8c93.gz",
+      "published_sha256": "a2272c4143523fa1d256c572c282c127211482e13e10e8c8883bd0691b2a8c93",
+      "published_bytes": 1273,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier role registration"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-369.json",
+      "sha256": "fba4d379360c1c99c6882287c29b709d5b2653828037daab5c99d03b9b4fd564",
+      "bytes": 840,
+      "git_blob": "02869ebe8109514e29da523cc95ea6e5e0e20970",
+      "preserved_bytes": "recovered/inertial-059/fba4d379360c1c99c6882287c29b709d5b2653828037daab5c99d03b9b4fd564.gz",
+      "published_sha256": "fba4d379360c1c99c6882287c29b709d5b2653828037daab5c99d03b9b4fd564",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-370.json",
+      "sha256": "4824d590ec209a80929fdce1549bd96504cc959d80bcc1ea4204c69b7a59fb34",
+      "bytes": 840,
+      "git_blob": "c5740c3f37698b90cd959b32ab69632f69e8abe4",
+      "preserved_bytes": "recovered/inertial-059/4824d590ec209a80929fdce1549bd96504cc959d80bcc1ea4204c69b7a59fb34.gz",
+      "published_sha256": "4824d590ec209a80929fdce1549bd96504cc959d80bcc1ea4204c69b7a59fb34",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-371.json",
+      "sha256": "12ab873441f74f1a16e8b1424fa218cb7de768b9828e06bb051b0630b2864052",
+      "bytes": 840,
+      "git_blob": "52bad81b4f8322167eef9ee6a1c021968b51c108",
+      "preserved_bytes": "recovered/inertial-059/12ab873441f74f1a16e8b1424fa218cb7de768b9828e06bb051b0630b2864052.gz",
+      "published_sha256": "12ab873441f74f1a16e8b1424fa218cb7de768b9828e06bb051b0630b2864052",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-369.json",
+      "sha256": "b62fcad66cc8073d88dcf2edab6f11adb4bc04b672eb35fbc46502a0a2147a5a",
+      "bytes": 558,
+      "git_blob": "9a7057bac03c8cb4691e7467df590c24064b96e1",
+      "preserved_bytes": "recovered/inertial-059/b62fcad66cc8073d88dcf2edab6f11adb4bc04b672eb35fbc46502a0a2147a5a.gz",
+      "published_sha256": "b62fcad66cc8073d88dcf2edab6f11adb4bc04b672eb35fbc46502a0a2147a5a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-370.json",
+      "sha256": "70518ffb38e8d9eb16a203d81be95cccc78a1e939f9d1f6b30051fe11f0a087c",
+      "bytes": 558,
+      "git_blob": "d561f65e333dda18a0ee3705aedc475a93b76449",
+      "preserved_bytes": "recovered/inertial-059/70518ffb38e8d9eb16a203d81be95cccc78a1e939f9d1f6b30051fe11f0a087c.gz",
+      "published_sha256": "70518ffb38e8d9eb16a203d81be95cccc78a1e939f9d1f6b30051fe11f0a087c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-371.json",
+      "sha256": "c35e2d5ac52cb336bcf09a6ddeff8d8424d7daeae99b30176f37ef9c9f8f6d2a",
+      "bytes": 558,
+      "git_blob": "bfa06c2031edb0d70d4ed3c473fe3f51d439cfa2",
+      "preserved_bytes": "recovered/inertial-059/c35e2d5ac52cb336bcf09a6ddeff8d8424d7daeae99b30176f37ef9c9f8f6d2a.gz",
+      "published_sha256": "c35e2d5ac52cb336bcf09a6ddeff8d8424d7daeae99b30176f37ef9c9f8f6d2a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Earlier reviewer, revision, lens and original scope retained; no current-lens or final checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Supported custom config and plan behavior, exact current aliases and full calibration composition remain open. Final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
