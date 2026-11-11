@@ -4947,8 +4947,32 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-HOME-IDENTITY-95E.json"
+      },
+      {
+        "id": "ADLER-L11-SUPPORT-BINDING-ERROR-ROLE",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          5,
+          8,
+          9,
+          12
+        ],
+        "severity": "unassigned; conditional structured diagnostic mismatch",
+        "classification": "A support rejection should identify whether ground bearing or a directional threshold is absent while retaining the property and building identities.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/100",
+          "baseline-059/queue.json#/entries/1476",
+          "adler/READ-L11-266.json",
+          "segovb/READ-L12-585.json"
+        ],
+        "relationship_qualification": "Current reassessment of original059 Adler finding with independently attributed Segovb scope; zero historical unique count change and no checkpoint3821 claim.",
+        "discovery": "partial; current conditional diagnostic established; supported reachability and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GATE-AND-SUPPORT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1025.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1030.json"
 }

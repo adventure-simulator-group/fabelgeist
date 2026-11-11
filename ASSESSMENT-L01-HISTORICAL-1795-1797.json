@@ -1,0 +1,128 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1795,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; hashes do not transfer a lens verdict.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1795",
+      "sha256": "60ca372a1f75d3accd4461f56dea1305e81bf8b653ca03850af93866782dfd6a",
+      "lines": 127,
+      "new_personal_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+        "sha256": "60ca372a1f75d3accd4461f56dea1305e81bf8b653ca03850af93866782dfd6a",
+        "bytes": 4909,
+        "lines": 127,
+        "git_blob": "614604a3f128a5446f5949e405c2fba161942dcb",
+        "preserved_bytes": "main-advance-95e/gate-support-evidence/current-1795.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            127
+          ]
+        ],
+        "qualification": "Current body also separately inspected through EOF; source fixtures are not executed."
+      },
+      "qualification": "Complete historical role read at this identity only. Separate historical Lens11/Lens12 receipts retain their own ranges and authors; no other-lens transfer."
+    },
+    {
+      "original_index": 1796,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; hashes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1796",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "lines": 291,
+      "new_personal_read_ranges": [
+        [
+          1,
+          291
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+        "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+        "bytes": 10026,
+        "lines": 291,
+        "git_blob": "08a425eef43818d2b1449531a93e2a601931238e",
+        "preserved_bytes": "main-advance-95e/gate-support-evidence/current-1796.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            291
+          ]
+        ],
+        "qualification": "Current body also separately inspected through EOF; source fixtures are not executed."
+      },
+      "qualification": "Complete historical role read at this identity only. Separate historical Lens11/Lens12 receipts retain their own ranges and authors; no other-lens transfer."
+    },
+    {
+      "original_index": 1797,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Exact original PR working-state bytes match committed6533 and95e; hashes do not transfer a lens verdict.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1797",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "lines": 67,
+      "new_personal_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+        "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+        "bytes": 2965,
+        "lines": 67,
+        "git_blob": "73eed817520a3281a49af3e0724d60900ee6ac85",
+        "preserved_bytes": "main-advance-95e/gate-support-evidence/current-1797.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            67
+          ]
+        ],
+        "qualification": "Current body also separately inspected through EOF; source fixtures are not executed."
+      },
+      "qualification": "Complete historical role read at this identity only. Separate historical Lens11/Lens12 receipts retain their own ranges and authors; no other-lens transfer."
+    }
+  ],
+  "observations": [
+    "Gate sweep, compound support and street selection read in full at6533 and independently at95e, whose bytes match. Earlier Adler266 Lens11 credited gate1–100 only, while later Segovb584 Lens12 independently read1–127; neither transfers credit across lenses.",
+    "The original Segovb locator explicitly recorded that the older locator proof body had not then been read. The newly inspected older774 export entry and native trace are separately dated/proven historical evidence and do not rewrite that statement."
+  ],
+  "remaining": "Continue original1798; complete all13 lenses, connected native/source traces and aliases. Final original3821 ledger and queue remain missing."
+}

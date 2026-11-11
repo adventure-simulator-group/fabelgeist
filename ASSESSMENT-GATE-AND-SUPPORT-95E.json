@@ -1,0 +1,563 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    9,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Historical roles1795–1797, separate older774 gate evidence, and bounded gate/support producers and receivers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1795-1797.json",
+  "git_membership_evidence": "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+  "older_recovered_trace": "OLDER-774-NATIVE-GATE-PROOF.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-building-generator/src/doors.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "935e163f5ec9531e902575c1bcbb277c9fe3558d",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "bytes": 11431,
+      "lines": 295,
+      "ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/clearance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6d08f09d952d44091e3a7075bf4fbe749da7dd83",
+      "sha256": "3b24f23b5d97ab3d5972f16e995d7d8450f677065fbce6a69f4e080ca83d7216",
+      "bytes": 5524,
+      "lines": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e62670beef11b1362236688c88f6aa1ba9ed8585",
+      "sha256": "d9fb76fe3c22007ad7491c759dc3d5f4d6a2e9725cb73b08f6a349eade427d5e",
+      "bytes": 10716,
+      "lines": 266,
+      "ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          190,
+          265
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f153d59e12485f5e84875debc40e1749ca1d294",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "bytes": 2847,
+      "lines": 93,
+      "ranges": [
+        [
+          34,
+          67
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/collision.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a6c46810a4f99d21d7abcb28aba368f8a01654a",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "bytes": 16846,
+      "lines": 448,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cfec5bc06298a081389c02670805ff24211b2df7",
+      "sha256": "76849b38576c81c1060d2720809c0eea1ad64d3e318b70ea8ecb38719b3b17ee",
+      "bytes": 13985,
+      "lines": 393,
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/single_support/bearing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42e66f9e10984f7fe2df7afa08ac8eabd5e6ac99",
+      "sha256": "5db120967f3ce76c383d0df942a245b87dc2d8767b5d1073f0c881cf9177aa86",
+      "bytes": 2723,
+      "lines": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/recipes.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d02db957fc9ca6fa93c40a514c82443910c2f32",
+      "sha256": "c130a5b39fa51d6c33670e54db691c5b2f13ea68a7a08e09b96789252866d73b",
+      "bytes": 10251,
+      "lines": 278,
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2d7b2be58ebbe96a79b424fc9734d72dfae7e59b",
+      "sha256": "7c4add5a0ac115e04490a20e1f428918a2c70544b05b6f3be9d8e57771ebb775",
+      "bytes": 1891,
+      "lines": 45,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f985b075eb0b2bcd495ad7a66925aa1fec00613f",
+      "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+      "bytes": 5807,
+      "lines": 171,
+      "ranges": [
+        [
+          105,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/gate-support-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; full bytes preserved. Fixtures, tests and product code not executed."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Historical gate locator and trace",
+      "trace": "Original Segovb locator qualifies an exact Windows path,6533 SHA and EOF127 and expressly states its historical locator proof body was not read. Original Segovb584 independently claims a fresh full1–127 Lens12 read. Adler266 records1–100 Lens11 with no recorded source revision. Newly inspected older774 path-normalized locator entry105 classifies the gate as genuinely new relative to its older frozen scope with material/owner fit pending; its linked native trace line2 records1–100 as fixture prefix and no whole-fixture coverage. The native trace is recovered in full and bound to f82 via raw Git membership; these facts are from different scopes and do not change or promote either prior record.",
+      "remaining": "No full historical locator body review, cross-lens transfer, final3821 reconstruction or claim that pre-export locator bytes were recovered."
+    },
+    {
+      "contract": "Gate angle and sweep",
+      "trace": "clear calculates samples from abs(open_angle)/one degree, returning true after no loop when zero. DoorSpec accepts finite Radians including zero as a public field and via a checked decoder; however the shown sole production caller clear in property clearance constructs a CityGate door with ±FRAC_PI_2 via PropertySide::sign, so zero and huge DoorSpec angles are not shown reachable there. The caller includes fixed members and two building solid sets in the sweep and then adds the open leaf for route clearance. No collision or conservative-padding conclusion follows without the geometric kernels and supported coordinate bounds.",
+      "remaining": "Trace complete collision, projection, native consumers and all actual gate providers. No valid zero-angle clearance failure, runtime cost or collider outcome claimed."
+    },
+    {
+      "contract": "Radius and support street",
+      "trace": "DoorSpec computes a finite nonnegative radius from four corner lengths and returns raw f32; gate sweep uses it for candidate sphere and padding, while passage uses it in a platform endpoint before checked profile creation. Older NATIVE-PS-DOORS-002 proposed existing NonnegativeLength as a possible producer owner in its own scope; no current automatic owner or unique alias is inferred. Street select uses positive finite apron policy and retries the maximum only for four typed support constraints; other errors are returned.",
+      "remaining": "Assess all radius consumers and true-zero/underflow policy, access-region geometry and support composition before deciding owner fit or retry behavior. No generator, scene, fixture or geometry execution."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "ADLER-L11-SUPPORT-BINDING-ERROR-ROLE",
+      "lens": 11,
+      "additional_current_lenses": [
+        1,
+        5,
+        8,
+        9,
+        12
+      ],
+      "severity": "unassigned; conditional structured diagnostic mismatch",
+      "first_contract": "A support rejection should identify whether ground bearing or a directional threshold is absent while retaining the property and building identities.",
+      "trace": "At95e, plan_compound_support validates unique physical building IDs before building its map, clones its recipe palette and collects compound plans as a Result. member resolves the exact program and obtains ground_floor_contact_bounds. That API folds all fixed-solid ground-contact points into an Option, returning None when there are none, and propagates geometry errors separately. In member, Ok(None) invokes the same closure used for a missing directional door: it constructs MissingBinding with Threshold(outward). The single-property bearing path instead uses GroundBearing for the same absence. Invalid contact geometry maps to InvalidBearing. Recipe::for_program selects an exact program or compiles that same program; door_point returns None on zero or multiple outward doors.",
+      "safeguards_and_limits": "This is a current reassessment of the existing059 Adler finding, also independently observed in the original Segovb585 Lens12 receipt, not a new historical finding or proof of checkpoint3821. An admitted generated recipe with no ground-contact points, an actual top-level report, error source-chain behavior, and exact aliases were not established. No fixture, generator, test, repair or runtime was run. The source shows the conditional return identity and not a recorded failed settlement.",
+      "connected_repair_dependencies": [
+        "Trace supported recipe generation and its accepted collision solids to determine whether an absent ground contact can reach compound member; preserve exact property/building IDs and geometry errors.",
+        "If correcting this conditional diagnostic, distinguish ground bearing from a directional door threshold, including door_point non-uniqueness, and preserve the no-partial-plan behavior and native reporting context.",
+        "Reconcile prior sampled-support/error classification findings only with first-contract and source identity proof; do not merge by common remedy or transfer Lens11 and Lens12 scope."
+      ],
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/100",
+        "baseline-059/queue.json#/entries/1476",
+        "adler/READ-L11-266.json",
+        "segovb/READ-L12-585.json"
+      ],
+      "accepted_historical_unique_count_change": 0,
+      "discovery": "partial; current conditional diagnostic established; supported reachability and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/100",
+        "/entries/1474",
+        "/entries/1475",
+        "/entries/1476",
+        "/entries/1477"
+      ],
+      "qualification": "Original059 obligations retain authorship, revision-as-recorded and historical status; no restored3821 claim."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-266.json",
+      "sha256": "b72d261271583a8c9d18c8e7401745cd081b355ea69a23cd2ebe9cc56e5aa50a",
+      "bytes": 11596,
+      "git_blob": "8fb4a75254ad50ef93152dafb03677a1d25854c2",
+      "preserved_bytes": "recovered/gate-support-059/b72d261271583a8c9d18c8e7401745cd081b355ea69a23cd2ebe9cc56e5aa50a.gz",
+      "published_sha256": "c1bebcccd563a3de4bcc2976b619fad936696f68a806a4c1dd24e323e33fc8ad",
+      "published_bytes": 11596,
+      "redacted_local_path_occurrences": 5,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original Adler Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-629.json",
+      "sha256": "d5c1639911057b9d80922ce6fa7d11e1a23202663b7781d0f6a93f1e793e52ff",
+      "bytes": 761,
+      "git_blob": "7acad185290761a8b99acfe64ab20716ee6d9ecd",
+      "preserved_bytes": "recovered/gate-support-059/d5c1639911057b9d80922ce6fa7d11e1a23202663b7781d0f6a93f1e793e52ff.gz",
+      "published_sha256": "aa8c1e8f26bc65d7bb768ba57b2d5e5c82ce9002b7c7eeec7e1d00f92651fa99",
+      "published_bytes": 757,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-630.json",
+      "sha256": "39f33f52dbda9e2bdf478f9d06e23409f9a1e32603c86339ce8c0a9b2f2f459f",
+      "bytes": 763,
+      "git_blob": "9608fd645b6bc13a2d5bb4a619fdcbe009726c30",
+      "preserved_bytes": "recovered/gate-support-059/39f33f52dbda9e2bdf478f9d06e23409f9a1e32603c86339ce8c0a9b2f2f459f.gz",
+      "published_sha256": "9b9b8a0ff05b5d3fd671b1cbe7d8582aa355521b0e4204ec04388527079b0730",
+      "published_bytes": 759,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-631.json",
+      "sha256": "2b0189e538eab98d71b000358a1c97debb28dff174b1f6e61150bdbffd8bc48e",
+      "bytes": 751,
+      "git_blob": "955b66e38b8ad2e61600fea0619359b135a2eac6",
+      "preserved_bytes": "recovered/gate-support-059/2b0189e538eab98d71b000358a1c97debb28dff174b1f6e61150bdbffd8bc48e.gz",
+      "published_sha256": "ce1142971645c4028bde6fe0dd5549bef4db0c7bf0bc1b3ae1d3e58ab295f267",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-632.json",
+      "sha256": "61c68c05c669d395c49d80e4d8b38bc20d3c68b4263c1113453f037f68c25784",
+      "bytes": 766,
+      "git_blob": "a091f73ed5ffbf9a943fcac07403edebc5e80c17",
+      "preserved_bytes": "recovered/gate-support-059/61c68c05c669d395c49d80e4d8b38bc20d3c68b4263c1113453f037f68c25784.gz",
+      "published_sha256": "0eb6746093c1595385bc9bdad8f3bab6c76a28d48305f479cf3e317c8f32260a",
+      "published_bytes": 762,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-633.json",
+      "sha256": "e94a0d2be348acea97e62fc7eb16f84758952b475d3269ee3e550ff0fbc7931b",
+      "bytes": 756,
+      "git_blob": "e471d558f2cf252aef54894fa62c1d8a31b727aa",
+      "preserved_bytes": "recovered/gate-support-059/e94a0d2be348acea97e62fc7eb16f84758952b475d3269ee3e550ff0fbc7931b.gz",
+      "published_sha256": "3b47bb01dbdc014809adfc6b2ab3be6cc1734d706e8d03495b6601597467f5ab",
+      "published_bytes": 752,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/STATE-L11-266.json",
+      "sha256": "06ed2edbb80dcac008e2fd8d9cb14047c96ff37ae4deb0055d3c20c500580d98",
+      "bytes": 657,
+      "git_blob": "57e449d80ad18cd4a4bf8339546e27bbe44ae28b",
+      "preserved_bytes": "recovered/gate-support-059/06ed2edbb80dcac008e2fd8d9cb14047c96ff37ae4deb0055d3c20c500580d98.gz",
+      "published_sha256": "06ed2edbb80dcac008e2fd8d9cb14047c96ff37ae4deb0055d3c20c500580d98",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-266.json",
+      "sha256": "b142369cd34f0686001927de533d6feba9de6ea6bd1aca129f75dd8eb634b970",
+      "bytes": 41882,
+      "git_blob": "7a571ee3582efbdbf9f54f4991c260356ed044a0",
+      "preserved_bytes": "recovered/gate-support-059/b142369cd34f0686001927de533d6feba9de6ea6bd1aca129f75dd8eb634b970.gz",
+      "published_sha256": "b142369cd34f0686001927de533d6feba9de6ea6bd1aca129f75dd8eb634b970",
+      "published_bytes": 41882,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-584.json",
+      "sha256": "33c16cda1ab2eab801cd2a7ef6ec0f0f47795fcc11de9d3de0002d5f83b3058a",
+      "bytes": 741,
+      "git_blob": "2284c23d09fd9cac44c4f266e24e8a13a569f389",
+      "preserved_bytes": "recovered/gate-support-059/33c16cda1ab2eab801cd2a7ef6ec0f0f47795fcc11de9d3de0002d5f83b3058a.gz",
+      "published_sha256": "33c16cda1ab2eab801cd2a7ef6ec0f0f47795fcc11de9d3de0002d5f83b3058a",
+      "published_bytes": 741,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-585.json",
+      "sha256": "107ca11f4a552156251884fc40d674092ab083fc3eccaf3647a6a0de57dc1be5",
+      "bytes": 1230,
+      "git_blob": "c834a7e1f77bd6ff4abae4001deb9d42fca8199f",
+      "preserved_bytes": "recovered/gate-support-059/107ca11f4a552156251884fc40d674092ab083fc3eccaf3647a6a0de57dc1be5.gz",
+      "published_sha256": "107ca11f4a552156251884fc40d674092ab083fc3eccaf3647a6a0de57dc1be5",
+      "published_bytes": 1230,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 plan"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1795-LOCATOR.json",
+      "sha256": "28fc7976224753c5ca93d6af08cd444fb31b951d4a430af375cb10ae9bb6fc2e",
+      "bytes": 2491,
+      "git_blob": "2a6bea77899d9cdc87b084a296df79454f36db09",
+      "preserved_bytes": "recovered/gate-support-059/28fc7976224753c5ca93d6af08cd444fb31b951d4a430af375cb10ae9bb6fc2e.gz",
+      "published_sha256": "28fc7976224753c5ca93d6af08cd444fb31b951d4a430af375cb10ae9bb6fc2e",
+      "published_bytes": 2491,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original locator qualification, no body credit"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/READ-L12-584.json",
+      "sha256": "a85fb1c1337c88f6d4152a8f6f5da53f072afe7d78d472be7b32f070fce30228",
+      "bytes": 5119,
+      "git_blob": "0f5ea286935ea969afda4de93fe47692d361c2dd",
+      "preserved_bytes": "recovered/gate-support-059/a85fb1c1337c88f6d4152a8f6f5da53f072afe7d78d472be7b32f070fce30228.gz",
+      "published_sha256": "a85fb1c1337c88f6d4152a8f6f5da53f072afe7d78d472be7b32f070fce30228",
+      "published_bytes": 5119,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/READ-L12-585.json",
+      "sha256": "af04feb547db2cff32ab36b47796c27355e0d2f3dae75701ae985c2ceefd182c",
+      "bytes": 7676,
+      "git_blob": "0e5abe3969e46655166c7f6a10143e4d0083b2d2",
+      "preserved_bytes": "recovered/gate-support-059/af04feb547db2cff32ab36b47796c27355e0d2f3dae75701ae985c2ceefd182c.gz",
+      "published_sha256": "af04feb547db2cff32ab36b47796c27355e0d2f3dae75701ae985c2ceefd182c",
+      "published_bytes": 7676,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-702.json",
+      "sha256": "c325d40f3750bf90246d06eeb6a5a4994c59e5f05ca4aebce79181f208d8e412",
+      "bytes": 1602,
+      "git_blob": "182c8ebda412f54dfac9ab2385bfc70b8622c92a",
+      "preserved_bytes": "recovered/gate-support-059/c325d40f3750bf90246d06eeb6a5a4994c59e5f05ca4aebce79181f208d8e412.gz",
+      "published_sha256": "c325d40f3750bf90246d06eeb6a5a4994c59e5f05ca4aebce79181f208d8e412",
+      "published_bytes": 1602,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-703.json",
+      "sha256": "167f44abb11d60d22d4fbe98cab6a9653559cbf232d199938e51ae824bdb9aee",
+      "bytes": 1216,
+      "git_blob": "245cbd1d7b7294f4d112b6efd86145fd890d6053",
+      "preserved_bytes": "recovered/gate-support-059/167f44abb11d60d22d4fbe98cab6a9653559cbf232d199938e51ae824bdb9aee.gz",
+      "published_sha256": "167f44abb11d60d22d4fbe98cab6a9653559cbf232d199938e51ae824bdb9aee",
+      "published_bytes": 1216,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-704.json",
+      "sha256": "34a11e1f0e1f5603fb1cb377417f06bb0e1ee4e2947db1b6dc12543fd7eebd67",
+      "bytes": 1228,
+      "git_blob": "1bc8a5284d05e6b1ba37719dca1c73dfd5d98967",
+      "preserved_bytes": "recovered/gate-support-059/34a11e1f0e1f5603fb1cb377417f06bb0e1ee4e2947db1b6dc12543fd7eebd67.gz",
+      "published_sha256": "34a11e1f0e1f5603fb1cb377417f06bb0e1ee4e2947db1b6dc12543fd7eebd67",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/STATE-L12-584.json",
+      "sha256": "9cf5862a6dd079215bf92d2a69e329076b5777d5156f43eb98117435c2ea8540",
+      "bytes": 840,
+      "git_blob": "3949e0e7d867de73a31bc8182d38bad9cd1663a5",
+      "preserved_bytes": "recovered/gate-support-059/9cf5862a6dd079215bf92d2a69e329076b5777d5156f43eb98117435c2ea8540.gz",
+      "published_sha256": "9cf5862a6dd079215bf92d2a69e329076b5777d5156f43eb98117435c2ea8540",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/STATE-L12-585.json",
+      "sha256": "6546e2c4c07422fc6f2d80f3bfb0da6dc2131dc757029125131f902c39f4fcc6",
+      "bytes": 840,
+      "git_blob": "12e22b4f4aedd9df1fd311024d65f30770b06b57",
+      "preserved_bytes": "recovered/gate-support-059/6546e2c4c07422fc6f2d80f3bfb0da6dc2131dc757029125131f902c39f4fcc6.gz",
+      "published_sha256": "6546e2c4c07422fc6f2d80f3bfb0da6dc2131dc757029125131f902c39f4fcc6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-584.json",
+      "sha256": "17b20727f7209d5fad36d096433d84a1e04b099e8f56f0b67dc145871cf60612",
+      "bytes": 558,
+      "git_blob": "ce8fc6915dcdb54967bae9cf4639919a92b0868b",
+      "preserved_bytes": "recovered/gate-support-059/17b20727f7209d5fad36d096433d84a1e04b099e8f56f0b67dc145871cf60612.gz",
+      "published_sha256": "17b20727f7209d5fad36d096433d84a1e04b099e8f56f0b67dc145871cf60612",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-585.json",
+      "sha256": "61e8e92b7cc92e0338a4e6ade483d7346b54e8851cde9557d63ec877e3e7c943",
+      "bytes": 558,
+      "git_blob": "288541ec9c19967e906c953ffd7984f56df1c451",
+      "preserved_bytes": "recovered/gate-support-059/61e8e92b7cc92e0338a4e6ade483d7346b54e8851cde9557d63ec877e3e7c943.gz",
+      "published_sha256": "61e8e92b7cc92e0338a4e6ade483d7346b54e8851cde9557d63ec877e3e7c943",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision-as-recorded, ranges and pending dependencies preserved; no checkpoint3821 attribution."
+    }
+  ],
+  "remaining": "Continue original1798 and all13 independent lenses, connected consumers, historical aliases and prior queues. Final3821 original ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

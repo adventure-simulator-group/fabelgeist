@@ -1,0 +1,90 @@
+{
+  "schema": "726-older-git-recovery-proof-v1",
+  "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+  "shared_objects": "recovered/older-774-git-objects/MANIFEST.json",
+  "additional_tree_objects": {
+    "3f1a9c69e9c02f5050c0f8995d5d793fa03eea17": {
+      "git_object": "3f1a9c69e9c02f5050c0f8995d5d793fa03eea17",
+      "sha256": "f9bfd78a6dde4fd8426be7e623dc3ee17fc311e22396a0e7fdb53e6c8efc9a68",
+      "bytes": 165,
+      "preserved_bytes": "recovered/gate-older-774/git-objects/3f1a9c69e9c02f5050c0f8995d5d793fa03eea17.tree.gz"
+    }
+  },
+  "path": "handoff/774/adler-original/audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+  "path_proof": {
+    "chain": [
+      {
+        "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+        "name": "handoff",
+        "mode": "40000",
+        "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+      },
+      {
+        "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+        "name": "774",
+        "mode": "40000",
+        "child": "70cda9939284355c2264b601322aacba9399e65e"
+      },
+      {
+        "tree": "70cda9939284355c2264b601322aacba9399e65e",
+        "name": "adler-original",
+        "mode": "40000",
+        "child": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba"
+      },
+      {
+        "tree": "3a2b6d01672fbc0d98280b96c7a8c52e757e0aba",
+        "name": "audit",
+        "mode": "40000",
+        "child": "4600136a2483a4cb86c1f24ad935526bc0f3d53b"
+      },
+      {
+        "tree": "4600136a2483a4cb86c1f24ad935526bc0f3d53b",
+        "name": "records",
+        "mode": "40000",
+        "child": "fd82a1f6e41aa70561b116843c2222d6221a69e4"
+      },
+      {
+        "tree": "fd82a1f6e41aa70561b116843c2222d6221a69e4",
+        "name": "final-acceptance-20261021",
+        "mode": "40000",
+        "child": "e31898e591c6ae7284a63ba871ae3821963f4f3a"
+      },
+      {
+        "tree": "e31898e591c6ae7284a63ba871ae3821963f4f3a",
+        "name": "wave-01",
+        "mode": "40000",
+        "child": "b345eda25c3900bf7189c387158b5f62eda8cf19"
+      },
+      {
+        "tree": "b345eda25c3900bf7189c387158b5f62eda8cf19",
+        "name": "producer-supplement-after-owner",
+        "mode": "40000",
+        "child": "844a1b6bdb983fe0fedd42da2da58cf6373469f1"
+      },
+      {
+        "tree": "844a1b6bdb983fe0fedd42da2da58cf6373469f1",
+        "name": "native",
+        "mode": "40000",
+        "child": "3f1a9c69e9c02f5050c0f8995d5d793fa03eea17"
+      },
+      {
+        "tree": "3f1a9c69e9c02f5050c0f8995d5d793fa03eea17",
+        "name": "traces.jsonl",
+        "mode": "100644",
+        "child": "3ca408d30ca2635ee57002c3b48043571ff40504"
+      }
+    ],
+    "git_blob": "3ca408d30ca2635ee57002c3b48043571ff40504",
+    "sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+    "bytes": 631913,
+    "lines": 28
+  },
+  "preserved_bytes": "recovered/gate-older-774/native-traces.jsonl.gz",
+  "evidence_manifest": "recovered/older-774-locator/03.gz",
+  "locator_export": "recovered/older-774-locator/04.gz",
+  "locator_entry": "/new_variant_identity_and_range_map/105",
+  "trace_line": 2,
+  "trace_line_sha256": "fc1a024ba0763d018ffd28b58ee2649d8fafbc13838f04215d5632a573ff1b03",
+  "qualification": "Recovered exact native JSONL bytes from older published774 Git revision, not059 or3821; both original and export hashes in the774 evidence manifest match these bytes. The locator is the already preserved path-normalized export, whose original pre-export hash differs and was not recovered. Its older scope called the identity genuinely new and pending material/owner fit; later059 role1795 is a separate scope. A same-named local collection has a different SHA and is not this body. Only explicitly inspected locator entry and trace line are newly assessed; the full file is preserved as historical evidence, not a new full-body review."
+}
