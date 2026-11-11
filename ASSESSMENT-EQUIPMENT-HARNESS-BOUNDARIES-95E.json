@@ -1,0 +1,573 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical harness source bodies, exact earlier recovery qualifications, and bounded current readiness, binding and topology connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1422-1426.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "baa4d703d42972f53f071533ef579b237d46b536",
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "bytes": 4328,
+      "lines": 143,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "51e2b61bb697cf30215dc6e3f58f9d0076335b7a",
+      "sha256": "5f95d50f17638ad95c8d7848914f632321d38347685187be1dc0a7c6ea573874",
+      "bytes": 4231,
+      "lines": 116,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f560535b49d2c05d01c0baa9ffc89f48de03aea5",
+      "sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+      "bytes": 2417,
+      "lines": 75,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cdbbd4ed0e444db23e913bda3c21cbcd7299be13",
+      "sha256": "8fd8eb2ebae7206be3aa38b846ff7258857b16f4508ac77e1979d0d9aa32c93d",
+      "bytes": 16086,
+      "lines": 469,
+      "ranges": [
+        [
+          98,
+          160
+        ],
+        [
+          262,
+          291
+        ],
+        [
+          370,
+          388
+        ],
+        [
+          411,
+          468
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0296b659a40a3dd1f300399720eca41ccb4e1de1",
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "bytes": 8185,
+      "lines": 234,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cb713e359b54996725af8a913836c174c735f9e6",
+      "sha256": "471814441e963a1a7071318ba66328c2c35342833783aca64c5e9acc75b58492",
+      "bytes": 2879,
+      "lines": 82,
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9e3980223fdb3a8c516a194918b63ea7cd96781e",
+      "sha256": "7e1ddb323e8daf9aeb8c1a0270dda49ebb86500f4c346b18c2c06fc563ad41aa",
+      "bytes": 9143,
+      "lines": 251,
+      "ranges": [
+        [
+          125,
+          162
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/README.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1ffce6cda7d01566e1fa589566d11c50eb465d6",
+      "sha256": "969ac03bd20c5bbdba3da7113ba41c4ffde02a7c23cf7c71eee08dd13db75bb8",
+      "bytes": 2358,
+      "lines": 39,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/equipment-harness-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No product execution or rendering."
+    }
+  ],
+  "conditional_findings": [],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "Q-L12-29993b2b0835444e2cd2",
+        "Q-L12-2f8920dae30e11ea871b"
+      ],
+      "trace": "Earlier metadata-only lookup of the Windows snapshot path failed and earned zero body credit. Later segovb Lens12 batch 411 records an exact additive locator qualification, registration, source hash and a 1–66 personal read. The published recovered original registry archive independently supplies the same hash; this continuation personally read those exact original bytes and compared them with byte-identical 95e source. The qualification documents scoped mapping, not retroactive success of the earlier literal lookup, a general path fallback, or a claim that PR-working bytes necessarily equal the named commit tree.",
+      "remaining": "Catalogue identity, all native graph consumers, capacity guarantees and exact aliases remain open; neither q1213 nor q1223 is fully semantically reconciled.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-f063661d41d477bbba44"
+      ],
+      "trace": "The authenticated 1422 historical source has actual EOF 511. Its exact earlier qualification identifies declared evidence[2] 430–522, existing 430–511 and nonexistent 512–522. The qualification gives zero body coverage and does not weaken other range checks. Earlier segovb separately recorded a full personal Lens12 read; this continuation independently read all 511 original lines, and retained the 518-line current source and exact diff.",
+      "remaining": "Other source roles, lenses, connected contracts and all authority/revision qualifications remain open; no nonexistent or current tail is assigned to the historical source.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-75354e7a94fabc49690c",
+        "Q-L12-12fa572a48bf0dcceb35",
+        "Q-L12-3b98be323e90576feb91"
+      ],
+      "trace": "EquipmentVisualStatus requires a resolved, nonfailed root; at least one matching part; a CPU Mesh; valid nonempty four-primary-weight coefficients; source StandardMaterial and each present base-color, normal-map and occlusion Image; a nonempty SkinnedMesh with joint count matching the part joint-name count; and applicable morph/name requirements. The harness supplies no required part names and requires zero morph targets. Its state check does not inspect joint identities, inverse bindposes, joint indices, rendered InteriorMaterial assets or GPU residency; summary separately reports optional rendered material details. WeightSummary validates its coefficient array, not the entire mesh or binding.",
+      "safeguards": "The runtime skin system derives its ordered joint vector from part joint names and the owning rig, inserts the part inverse-bind handle when the vector changes or a skin is absent, and removes the skin when an owner/name is unavailable. In a normal fit replacement, key installation despawns old part children and attachment spawns new parts. Interior material preparation inserts the source marker and rendered material component together, and the equipment update systems are chained; material preparation is in PostUpdate. These source paths narrow hypothetical stale or source-only states but do not establish all scheduling, mutation, GPU or asset-lifetime behavior.",
+      "remaining": "Inspect actual supported producers, joint/name and inverse-bind lifecycle, asset failure and renderer policy before calling any readiness gap a product defect; no unsupported duplicate-rig, malformed mesh or actual GPU failure is asserted.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-b27b4f3d1818483088e4",
+        "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001"
+      ],
+      "trace": "Armor capture checks each selected placement and visual state. A failed visual exits through its failure path; missing/loading wait. It intentionally does not increment its frame budget while RuntimeEquipmentBodyCache.pending is present, accommodating asynchronous first-use device compilation. With no harness it returns immediately. This armor-only budget is separate from the previously recorded conditional pre-application animation/motion wait.",
+      "remaining": "Pending-task termination, asset failure, output failure, full startup policy and aliases remain unresolved; no actual task hang or capture was observed.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-2f8920dae30e11ea871b"
+      ],
+      "trace": "The fixture topology helper constructs body occupancies then selects the first preceding parent whose placement location, channel, order, positive capacity and accepted tag match. It uses capacity index zero and expects a compatible parent. An existing graph-placement test source covers a named subset of harness modes, including current GermanDress, and builds core EquipmentGraph placements; it was read as source, not run.",
+      "remaining": "Determine supported catalogue, simultaneous capacity use, parent ordering and actual consumer policy before asserting a panic or occupancy collision; not every harness mode is covered by the listed test source.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1213",
+        "/entries/1218 through /entries/1223"
+      ],
+      "qualification": "Earlier questions retain their original metadata/body scope, source attribution and unresolved status."
+    },
+    {
+      "file": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+      "pointers": [
+        "/conditional_findings/0"
+      ],
+      "qualification": "Previously recorded non-armor pre-application liveness candidate is distinct from armor wait accounting."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-409.json",
+      "sha256": "c82dc2ce8e60065c9385874fa8197ee2fe4f42e232c831d5fdfb008538a36a40",
+      "bytes": 1228,
+      "git_blob": "37b1cee2798c1080e4a75009466791e00614bc92",
+      "preserved_bytes": "recovered/equipment-harness-059/c82dc2ce8e60065c9385874fa8197ee2fe4f42e232c831d5fdfb008538a36a40.gz",
+      "published_sha256": "c82dc2ce8e60065c9385874fa8197ee2fe4f42e232c831d5fdfb008538a36a40",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-410.json",
+      "sha256": "89775b2273c1e77a8223651bdba8d276e0d5fdec5c64d78b9fb304d77de6f6b2",
+      "bytes": 1238,
+      "git_blob": "0e88b59a4d3fce9b676f74c38da61ee6b8d4018f",
+      "preserved_bytes": "recovered/equipment-harness-059/89775b2273c1e77a8223651bdba8d276e0d5fdec5c64d78b9fb304d77de6f6b2.gz",
+      "published_sha256": "89775b2273c1e77a8223651bdba8d276e0d5fdec5c64d78b9fb304d77de6f6b2",
+      "published_bytes": 1238,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-411.json",
+      "sha256": "7441b45a2242b3cfc1d05c8fcc41410dc7162f9c165a3aa9dc838c540921c142",
+      "bytes": 1719,
+      "git_blob": "ec2d01d2c917a9bf6c23bf9f9c33bae238141bdd",
+      "preserved_bytes": "recovered/equipment-harness-059/7441b45a2242b3cfc1d05c8fcc41410dc7162f9c165a3aa9dc838c540921c142.gz",
+      "published_sha256": "7441b45a2242b3cfc1d05c8fcc41410dc7162f9c165a3aa9dc838c540921c142",
+      "published_bytes": 1719,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1422-EOF-001.json",
+      "sha256": "a362e443b281f3cd582d3e6bbb8bcd85f67440c0bda43bc3a0860b1923c0fa2c",
+      "bytes": 1750,
+      "git_blob": "29d8e03e1e59b822d5ba7215eddac78936d1451a",
+      "preserved_bytes": "recovered/equipment-harness-059/a362e443b281f3cd582d3e6bbb8bcd85f67440c0bda43bc3a0860b1923c0fa2c.gz",
+      "published_sha256": "a362e443b281f3cd582d3e6bbb8bcd85f67440c0bda43bc3a0860b1923c0fa2c",
+      "published_bytes": 1750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact additive metadata qualification, zero body credit",
+        "original exact EOF qualification"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1426-LOCATOR.json",
+      "sha256": "c6426a92f05be94882f95f68de76a9fb902b2ba8970b6a16af26c604a192f55c",
+      "bytes": 3426,
+      "git_blob": "d5f5a2dde3081d44bd9ce1326d019bbf6bf3ff1a",
+      "preserved_bytes": "recovered/equipment-harness-059/c6426a92f05be94882f95f68de76a9fb902b2ba8970b6a16af26c604a192f55c.gz",
+      "published_sha256": "c6426a92f05be94882f95f68de76a9fb902b2ba8970b6a16af26c604a192f55c",
+      "published_bytes": 3426,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact additive metadata qualification, zero body credit",
+        "later scoped locator qualification"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1428-EOF-001.json",
+      "sha256": "b48959d4944b38324df72fa62b8cf00ac1d5a43d88fb0e682cfce60fd1323001",
+      "bytes": 1544,
+      "git_blob": "cc590d879d05f4ca12689fe70e24d63cce066321",
+      "preserved_bytes": "recovered/equipment-harness-059/b48959d4944b38324df72fa62b8cf00ac1d5a43d88fb0e682cfce60fd1323001.gz",
+      "published_sha256": "b48959d4944b38324df72fa62b8cf00ac1d5a43d88fb0e682cfce60fd1323001",
+      "published_bytes": 1544,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact additive metadata qualification, zero body credit"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-409.json",
+      "sha256": "32acf540fc248c55b60a74d6d6002c0e9ec94aaf22a70c7ae6b7add04469d497",
+      "bytes": 10129,
+      "git_blob": "8b303717fb540e3091c9011d4e2f0cc0db9f7b20",
+      "preserved_bytes": "recovered/equipment-harness-059/32acf540fc248c55b60a74d6d6002c0e9ec94aaf22a70c7ae6b7add04469d497.gz",
+      "published_sha256": "32acf540fc248c55b60a74d6d6002c0e9ec94aaf22a70c7ae6b7add04469d497",
+      "published_bytes": 10129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-410.json",
+      "sha256": "f63d0fc99a67273a72f68bff703b2b66bb421e321663ce64e7a5eec8d93319a6",
+      "bytes": 9084,
+      "git_blob": "b8d34c3ef71f4b20d11b6af2c0410a0e9087ba26",
+      "preserved_bytes": "recovered/equipment-harness-059/f63d0fc99a67273a72f68bff703b2b66bb421e321663ce64e7a5eec8d93319a6.gz",
+      "published_sha256": "f63d0fc99a67273a72f68bff703b2b66bb421e321663ce64e7a5eec8d93319a6",
+      "published_bytes": 9084,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-411.json",
+      "sha256": "e05b319c96750b2f17752aa7868efb60c79a51c6e27c8a49ceec8874ce3261c5",
+      "bytes": 13272,
+      "git_blob": "3898de564decf982133172a57c32bc2a67671ac0",
+      "preserved_bytes": "recovered/equipment-harness-059/e05b319c96750b2f17752aa7868efb60c79a51c6e27c8a49ceec8874ce3261c5.gz",
+      "published_sha256": "e05b319c96750b2f17752aa7868efb60c79a51c6e27c8a49ceec8874ce3261c5",
+      "published_bytes": 13272,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-329.json",
+      "sha256": "d5bba4b10c5e7f2a6eae5f090b40e5102afd70bc4b92d264c27db32fcf891d72",
+      "bytes": 1236,
+      "git_blob": "dfd1955f5f1f2aec0e6b0c3fd97851a0d924d437",
+      "preserved_bytes": "recovered/equipment-harness-059/d5bba4b10c5e7f2a6eae5f090b40e5102afd70bc4b92d264c27db32fcf891d72.gz",
+      "published_sha256": "d5bba4b10c5e7f2a6eae5f090b40e5102afd70bc4b92d264c27db32fcf891d72",
+      "published_bytes": 1236,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-330.json",
+      "sha256": "51ec792e0c8d86fb394dd92d3cb6420c0f482939335892a170414ba420b8835d",
+      "bytes": 1252,
+      "git_blob": "12cf36843e4d684ee1443160badade3c07c01a42",
+      "preserved_bytes": "recovered/equipment-harness-059/51ec792e0c8d86fb394dd92d3cb6420c0f482939335892a170414ba420b8835d.gz",
+      "published_sha256": "51ec792e0c8d86fb394dd92d3cb6420c0f482939335892a170414ba420b8835d",
+      "published_bytes": 1252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-331.json",
+      "sha256": "bd23fd7068b8199ca8df56bfb8a60fc516ae96e6268424c787a8e5fe732cefee",
+      "bytes": 1229,
+      "git_blob": "fb60590e54625911e21aa6b458a0b211f91f1ed6",
+      "preserved_bytes": "recovered/equipment-harness-059/bd23fd7068b8199ca8df56bfb8a60fc516ae96e6268424c787a8e5fe732cefee.gz",
+      "published_sha256": "bd23fd7068b8199ca8df56bfb8a60fc516ae96e6268424c787a8e5fe732cefee",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-332.json",
+      "sha256": "cf63d4174e1c2e3b5f198f8339362a91842bd15f740e30aba342cbde5b8112d8",
+      "bytes": 1225,
+      "git_blob": "d88011fbd75a4367e362358a26a4d615b07d180d",
+      "preserved_bytes": "recovered/equipment-harness-059/cf63d4174e1c2e3b5f198f8339362a91842bd15f740e30aba342cbde5b8112d8.gz",
+      "published_sha256": "cf63d4174e1c2e3b5f198f8339362a91842bd15f740e30aba342cbde5b8112d8",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-333.json",
+      "sha256": "5fab27115b42602e9c08d72b4c4d8597aefdb01a2f1bede604e7e79761baaac3",
+      "bytes": 1410,
+      "git_blob": "d633a73070ee9606fd4b6dd2cd4042cbf7ff2602",
+      "preserved_bytes": "recovered/equipment-harness-059/5fab27115b42602e9c08d72b4c4d8597aefdb01a2f1bede604e7e79761baaac3.gz",
+      "published_sha256": "5fab27115b42602e9c08d72b4c4d8597aefdb01a2f1bede604e7e79761baaac3",
+      "published_bytes": 1410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-334.json",
+      "sha256": "57d01832bab1b92d185d147a5a9d5333a8572105c055c1f4c67dd0abf45543b9",
+      "bytes": 1364,
+      "git_blob": "9d40706bc832f36b12a11b7fc90c18fb3aeeb5db",
+      "preserved_bytes": "recovered/equipment-harness-059/57d01832bab1b92d185d147a5a9d5333a8572105c055c1f4c67dd0abf45543b9.gz",
+      "published_sha256": "57d01832bab1b92d185d147a5a9d5333a8572105c055c1f4c67dd0abf45543b9",
+      "published_bytes": 1364,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-335.json",
+      "sha256": "4fb9fb95b26627a9debca0530ae6cee897ab01342a75eef70dacfe79e64e94d3",
+      "bytes": 1345,
+      "git_blob": "1a981e34ca3961e03a267383605300ff669daca8",
+      "preserved_bytes": "recovered/equipment-harness-059/4fb9fb95b26627a9debca0530ae6cee897ab01342a75eef70dacfe79e64e94d3.gz",
+      "published_sha256": "4fb9fb95b26627a9debca0530ae6cee897ab01342a75eef70dacfe79e64e94d3",
+      "published_bytes": 1345,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-409.json",
+      "sha256": "2734307c68c294d12acb1159afe922fadeac0bf513dbcaafb83c1e51cf5bcc6a",
+      "bytes": 840,
+      "git_blob": "0b6c61d2014b3c112962e063abe20fc0954dc1a4",
+      "preserved_bytes": "recovered/equipment-harness-059/2734307c68c294d12acb1159afe922fadeac0bf513dbcaafb83c1e51cf5bcc6a.gz",
+      "published_sha256": "2734307c68c294d12acb1159afe922fadeac0bf513dbcaafb83c1e51cf5bcc6a",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-410.json",
+      "sha256": "5d260a7a903c7f54b8144eaab73f8cf1c1a32b0ed88a61b5a98225d7b957e278",
+      "bytes": 840,
+      "git_blob": "103b104f22a03774cfa22558af8b2e3748982b1a",
+      "preserved_bytes": "recovered/equipment-harness-059/5d260a7a903c7f54b8144eaab73f8cf1c1a32b0ed88a61b5a98225d7b957e278.gz",
+      "published_sha256": "5d260a7a903c7f54b8144eaab73f8cf1c1a32b0ed88a61b5a98225d7b957e278",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-411.json",
+      "sha256": "5ff242ed0ffd6fdf8a044d357c9cc261f273300f1c3712e982dd45627ef12ff0",
+      "bytes": 840,
+      "git_blob": "1df8cdd7cc89f896c5f1f866a48ccfb6466cf791",
+      "preserved_bytes": "recovered/equipment-harness-059/5ff242ed0ffd6fdf8a044d357c9cc261f273300f1c3712e982dd45627ef12ff0.gz",
+      "published_sha256": "5ff242ed0ffd6fdf8a044d357c9cc261f273300f1c3712e982dd45627ef12ff0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-409.json",
+      "sha256": "d5f7505dc227e65d70812838b1017028a15f15c3ae7597f8f4e81fb260297456",
+      "bytes": 558,
+      "git_blob": "2740a344b026d253e49aedf5cf1cbab37bb13bf4",
+      "preserved_bytes": "recovered/equipment-harness-059/d5f7505dc227e65d70812838b1017028a15f15c3ae7597f8f4e81fb260297456.gz",
+      "published_sha256": "d5f7505dc227e65d70812838b1017028a15f15c3ae7597f8f4e81fb260297456",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-410.json",
+      "sha256": "d37f82f5057a5ff55717e1987d24a4afb2aab5bc9574dfa7488c8dc083e4117c",
+      "bytes": 558,
+      "git_blob": "99196ef0b468349f884015f7fb4b4ae4aff80255",
+      "preserved_bytes": "recovered/equipment-harness-059/d37f82f5057a5ff55717e1987d24a4afb2aab5bc9574dfa7488c8dc083e4117c.gz",
+      "published_sha256": "d37f82f5057a5ff55717e1987d24a4afb2aab5bc9574dfa7488c8dc083e4117c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-411.json",
+      "sha256": "8a8219eaefc84e197abf69127c1943acf2e8367dba2462bf9671ad59965c3efb",
+      "bytes": 558,
+      "git_blob": "1b32f141eb63bac8daa45c32664204b4171b3488",
+      "preserved_bytes": "recovered/equipment-harness-059/8a8219eaefc84e197abf69127c1943acf2e8367dba2462bf9671ad59965c3efb.gz",
+      "published_sha256": "8a8219eaefc84e197abf69127c1943acf2e8367dba2462bf9671ad59965c3efb",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, recorded source ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Supported catalogue and placement policy, actual native asset lifecycle, render certification, joint/bindpose guarantees, full source populations, aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
