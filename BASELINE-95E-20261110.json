@@ -4155,8 +4155,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-VISTA-SELECTED-LOD-95E.json"
+      },
+      {
+        "id": "REVIEW-VISTA-TREE-ORIGIN-FRAME-001",
+        "lens": 8,
+        "severity": "unassigned; conditional coordinate or visibility policy question",
+        "classification": "New95e source-derived conditional coordinate frame question; earlier6533 output uses the same local-position pattern, and no checkpoint3821 finding is claimed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1359",
+          "baseline-059/queue.json#/entries/1604",
+          "baseline-059/queue.json#/entries/1609"
+        ],
+        "relationship_qualification": "New95e bounded source assessment; prior6533 behavior and later historical questions retain their revision and scope. Exact aliases and accepted historical count unchanged; no checkpoint3821 transfer.",
+        "discovery": "partial; bounded current and earlier source show frame difference for conditional nonzero origin; supported producers and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-VISTA-CARD-BATCHING-95E.json"
+      },
+      {
+        "id": "REVIEW-VISTA-CARD-NEAR-DISTANCE-BEHAVIOR-001",
+        "lens": 10,
+        "severity": "unassigned; conditional coordinate or visibility policy question",
+        "classification": "New95e source comparison against6533 per-entity vista-card behavior; no runtime comparison or checkpoint3821 finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1359",
+          "baseline-059/queue.json#/entries/1604",
+          "baseline-059/queue.json#/entries/1609"
+        ],
+        "relationship_qualification": "New95e bounded source assessment; prior6533 behavior and later historical questions retain their revision and scope. Exact aliases and accepted historical count unchanged; no checkpoint3821 transfer.",
+        "discovery": "partial; historical/current source gates and conditional geometry traced, supported camera and runtime policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-VISTA-CARD-BATCHING-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0811.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0815.json"
 }
