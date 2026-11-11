@@ -1,0 +1,39 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1283,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1283",
+      "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+      "lines": 216,
+      "new_personal_read_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic or independent-lens coverage."
+      },
+      "qualification": "Full historical body personally read; connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen journey-policy body was personally read through actual line 216 EOF in this continuation. Equal current bytes do not grant current-lens completion.",
+    "Earlier independently attributed Lens12 batch 337 also reports its own full lines 1–216 read with zero accepted unique-count change and no current source reconciliation; the original receipt, both prospective registrations, state, verification and inherited disease partial-read qualification are preserved in ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json.",
+    "No simulation, test, product build or runtime was executed."
+  ],
+  "remaining": "Continue role 1284; all connected journey, fractional amount, death, policy and independent-lens contracts remain open."
+}

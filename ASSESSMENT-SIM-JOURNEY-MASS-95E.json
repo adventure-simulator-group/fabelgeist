@@ -1,0 +1,437 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    7,
+    8,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected journey diagnostic and quantity safeguards and conditional simulator/native instance-mass discrepancy; no product execution.",
+  "source_reasoning": "Pinned source inspection, source-byte identity, and symbolic rational illustration only. Tests were read as source without execution.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6137c58a6669e3691c654c2fa05fe141491d3405",
+      "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+      "bytes": 6959,
+      "lines": 216,
+      "ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "131df694f5c1d05161ba0205938704f61e18cc3a",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "bytes": 115819,
+      "lines": 2550,
+      "ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          143,
+          185
+        ],
+        [
+          187,
+          234
+        ],
+        [
+          237,
+          273
+        ],
+        [
+          275,
+          322
+        ],
+        [
+          375,
+          390
+        ],
+        [
+          916,
+          920
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "bytes": 1763,
+      "lines": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          31,
+          60
+        ],
+        [
+          62,
+          127
+        ],
+        [
+          328,
+          390
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bb81519c4516dca2344c64901baf2a8f25afc1a0",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "bytes": 6078,
+      "lines": 152,
+      "ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          71,
+          87
+        ],
+        [
+          88,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "643d744a82700c81d6f10c659269d9f345423fef",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "bytes": 58364,
+      "lines": 1325,
+      "ranges": [
+        [
+          182,
+          252
+        ],
+        [
+          351,
+          395
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/departure_policy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f1815b1cb620ee633a9b360c38b9a6567985872",
+      "sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+      "bytes": 7774,
+      "lines": 204,
+      "ranges": [
+        [
+          5,
+          14
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "bytes": 39225,
+      "lines": 1182,
+      "ranges": [
+        [
+          519,
+          528
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "bytes": 26593,
+      "lines": 804,
+      "ranges": [
+        [
+          30,
+          45
+        ],
+        [
+          66,
+          76
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "bytes": 7706,
+      "lines": 241,
+      "ranges": [
+        [
+          13,
+          31
+        ],
+        [
+          33,
+          66
+        ],
+        [
+          90,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/tests/survival_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ab8d0acd6b0426e95e8e0deaa5e33dcf3aa8034c",
+      "sha256": "58aa106387bc8d6beb61be8b432c16afeb58f164c9ef2760ef0fb4f0571c1d72",
+      "bytes": 58518,
+      "lines": 1478,
+      "ranges": [
+        [
+          837,
+          855
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "444fae6cd3e5e14a83eab832d06fc0af03c6ac1f",
+      "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+      "bytes": 70881,
+      "lines": 1587,
+      "ranges": [
+        [
+          725,
+          753
+        ],
+        [
+          756,
+          800
+        ],
+        [
+          815,
+          840
+        ],
+        [
+          1250,
+          1279
+        ],
+        [
+          1325,
+          1368
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ff85a1c1b1d18ce534fdaf60e278e52878e955c6",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "bytes": 53745,
+      "lines": 1273,
+      "ranges": [
+        [
+          95,
+          149
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "bytes": 14946,
+      "lines": 378,
+      "ranges": [
+        [
+          297,
+          306
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          333,
+          418
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "bytes": 31853,
+      "lines": 908,
+      "ranges": [
+        [
+          767,
+          805
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          115,
+          130
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/sim-journey-mass-evidence/16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support bounded source reasoning; source tests were read but not executed."
+    }
+  ],
+  "symbolic_illustration": {
+    "capacity_kg": "100",
+    "other_burden_kg": "77",
+    "catalog_instance_kg": "2",
+    "hypothetical_authenticated_instance_kg": "4",
+    "catalog_remaining_percent": "21",
+    "instance_remaining_percent": "19",
+    "simulator_margin_percent": "20",
+    "qualification": "Ideal exact rational comparison under stated hypothetical inputs, not a witnessed native item, actual simulation state, or equivalence between native per-person and simulator party policy."
+  },
+  "safeguards": [
+    "Selected journey classifiers map closed internal labels into formatted coherence errors at their shown consumers; no selected mechanical dispatch on those strings is demonstrated. Other error consumers remain open.",
+    "Journey camp separately classifies requested versus actual rest, derives terminal elapsed from observed member clocks, and emits both values. This is not proof that its journey clock is the same authority as a generated investigation wait.",
+    "The all-dead camp branch calls the inspected strategic teardown, which directly finishes journey authorities and does not directly delete party_member rows. The separately inspected finish_party_journey deletes three journey authorities. Other indirect cleanup, member projections, death causes and cache ordering remain open; no general death-membership disposition is inferred.",
+    "Selected native fraction initialization uses WHOLE and selected consume path derives the bounded remainder with checked subtraction; other writers and public admission remain open."
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1283.json",
+      "qualification": "Separate full historical role 1283 read."
+    },
+    {
+      "file": "ASSESSMENT-INVESTIGATION-METHOD-RANK-95E.json",
+      "qualification": "Earlier independent batch 337 receipt and both registrations, inherited disease qualification and paused handoff; none is checkpoint 3821 authority."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1070",
+        "/entries/1075",
+        "/entries/1877"
+      ],
+      "qualification": "Broader earlier questions retain their scope and attribution; distinct fraction consumers do not become aliases by sharing an owner."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-SIM-INSTANCE-MASS-READINESS-001",
+      "lens": 7,
+      "severity": "unassigned; conditional mismatch in selected carried-load estimate",
+      "classification": "New bounded current authority/consumer trace, related to but distinct from the forged-weapon Heavy capability and tactical stack-mass findings.",
+      "trace": "The simulator resolves a carried non-food inventory row to item.weight multiplied by quantity or its measured fraction, then includes that estimate in personal/party load, telemetry and the 2,000-basis-point departure margin. Native personal dry load instead obtains authenticated evaluated mass for registered parametric weapons and authenticated fitted-holder mass when available, falling back to catalog only for the appropriate holder case; food lots have their own native and simulator handling. The selected simulator subscription lists item, inventory object and amount rows, but does not list backend_weapon_instances or backend_weapon_holder_instances, although gateway views provide per-object recipe projections and rounded mass_grams. Conditional on a personal carried eligible object whose authenticated mass differs from catalog mass, and otherwise matching custody and contributions, that row contributes different mass to the two selected calculations. For purely illustrative rational inputs, 77 kg of other burden, a 2 kg catalog mass versus a 4 kg instance mass, and 100 kg capacity give 21% versus 19% remaining and straddle the simulator 20% margin; these numbers are not a demonstrated admitted item, actual simulation state or native party-wide policy. Native personal and simulator party aggregation are different scopes. Actual acquisition, supported default/custom mass differences and threshold reachability remain unproven.",
+      "connected_repair": "Determine the intended authoritative personal and party carry-mass projection and expose or consume it without losing physical-object identity, food and water, custody, fitted/unfitted and error rules. Preserve authenticated construction and account for rounding: a published mass_grams projection is rounded and is not automatically identical to native evaluated f32 mass. Coordinate with the distinct Heavy capability and tactical stack quantity findings without conflating their consumers.",
+      "later_acceptance": "Only after separately authorized implementation and validation, compare selected authenticated default, altered weapon and fitted-holder mass contributions against the simulator estimate, with ordinary catalog, food and water controls and a supported near-margin case.",
+      "discovery": "partial; simulator acquisition, supported mass differences and threshold reachability, party authority, subscriptions, object-cache coherence, native rounding and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-SIM-PUBLIC-FRACTION-EXPECT-001",
+      "lens": 8,
+      "severity": "unassigned; explicit repository rule violation in selected production source",
+      "classification": "New bounded rule-review source finding connected to earlier fraction-admission questions, without an observed invalid fraction or panic.",
+      "trace": "public_effective_inventory_quantity passes an optional public remaining_fraction_micros through ConsumableFractionMicros::try_new and calls expect before using its unit fraction; the pinned crates/AGENTS.md forbids expect outside tests. The core type rejects values above one million. Selected native amount initialization writes WHOLE and selected consumption derives its new remainder from validated checked subtraction; the native persisted_fraction helper itself expects the bounded invariant. These selected construction and mutation paths are safeguards, not proof of all producers, storage corruption, an SDK invalid value or a reachable simulator panic. With no amount row the function uses row quantity; a source test describes a present measured row as one measured object, but that test was not executed.",
+      "connected_repair": "Preserve the existing fraction owner through public admission and propagate an appropriate explicit failure at the simulator boundary rather than using expect; review every producer and missing-row distinction before deciding failure behavior. Coordinate with the separately identified native persisted-fraction invariant and other rule sites without asserting identical first failures.",
+      "discovery": "partial; all amount writers, transactional and projection guarantees, absent-row semantics, other callers, exact aliases and rule inventory remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Native instance and fraction producers, supported reachability, party/membership and actual time authority, public cache ordering, error consumers, exact aliases and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
