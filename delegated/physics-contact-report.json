@@ -1,0 +1,533 @@
+{
+  "schema": "726-delegated-physics-contact-audit-v1",
+  "created_utc": "2026-11-11 19:25:49 UTC",
+  "agent": "current-session delegate /root/rig_identity, third bounded scope",
+  "current_authoritative_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_product_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "baseline_qualification": "This is a bounded delegated contribution; the authoritative working baseline and all thirteen whole-repository lenses remain incomplete. The original final checkpoint3821 ledger and queue were not recovered. Do not promote 059, 774 or this new report to that checkpoint.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "8ec5e0ab49603c927de5519c53f646498c3bd403e15351ffaa0094967cb43f82",
+      "created_utc": "2026-11-11 19:12:10 UTC"
+    },
+    "support-registration.json": {
+      "sha256": "c8d154292d802cc768dc2a0f241cf1d721c9ee1b14be6c55feeefc1fa7832d4e",
+      "created_utc": "2026-11-11 19:13:18 UTC"
+    },
+    "support-registration-2.json": {
+      "sha256": "c69dde01cfb394c673301de25f6cf4e6aaa86fe90380755bf008693b41a4d156",
+      "created_utc": "2026-11-11 19:15:05 UTC"
+    },
+    "support-registration-3.json": {
+      "sha256": "0a41e4eb3eafb28255b3bba7a59ddc0b0846e7f8fd5a9fe2da35dc378daf095e",
+      "created_utc": "2026-11-11 19:16:07 UTC"
+    },
+    "support-registration-4.json": {
+      "sha256": "78959575225e7923ed7c8b5e42862146819faa7b4b77804c20c26edb2344243e",
+      "created_utc": "2026-11-11 19:17:23 UTC"
+    }
+  },
+  "original_roles": [
+    {
+      "original_index": 2327,
+      "source_id": "pr-working:crates/fabelgeist-physics/Cargo.toml",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "91c93380a6b93e8f00e036cca5dc7da6e4752393a6b5e07c4baa69881c545a12",
+      "git_blob": "a4dab07900848d5ab9549a3d95f6354232368d0a",
+      "bytes": 686,
+      "current_displayed_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "historical_personal_displayed_ranges": [],
+      "current_bytes": "sources/95e6/crates/fabelgeist-physics/Cargo.toml",
+      "historical_bytes": "sources/6533/crates/fabelgeist-physics/Cargo.toml",
+      "qualification": "Current body personally displayed after prospective registration; separate historical bytes retained and byte-identical by SHA-256, Git blob and tree proof. Historical body was not separately personally displayed by this delegate. Equality cannot transfer historical or other-lens credit."
+    },
+    {
+      "original_index": 2328,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "git_blob": "e433eefec37485a3b5e26e9f4047525cb1c97e4d",
+      "bytes": 8967,
+      "current_displayed_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "historical_personal_displayed_ranges": [],
+      "current_bytes": "sources/95e6/crates/fabelgeist-physics/src/contact.rs",
+      "historical_bytes": "sources/6533/crates/fabelgeist-physics/src/contact.rs",
+      "qualification": "Current body personally displayed after prospective registration; separate historical bytes retained and byte-identical by SHA-256, Git blob and tree proof. Historical body was not separately personally displayed by this delegate. Equality cannot transfer historical or other-lens credit."
+    },
+    {
+      "original_index": 2329,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "git_blob": "a8ac42559744595feacf342ba3227aac6516b839",
+      "bytes": 14023,
+      "current_displayed_ranges": [
+        [
+          1,
+          413
+        ]
+      ],
+      "historical_personal_displayed_ranges": [],
+      "current_bytes": "sources/95e6/crates/fabelgeist-physics/src/wgsl.rs",
+      "historical_bytes": "sources/6533/crates/fabelgeist-physics/src/wgsl.rs",
+      "qualification": "Current body personally displayed after prospective registration; separate historical bytes retained and byte-identical by SHA-256, Git blob and tree proof. Historical body was not separately personally displayed by this delegate. Equality cannot transfer historical or other-lens credit."
+    }
+  ],
+  "supporting_reads": [
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-physics/src/collider.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-physics/src/collider.rs",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "git_blob": "51bb1d16a3089f5187a857fb35c6b316c1349db1",
+      "actual_displayed_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-physics/src/contact/count.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-physics/src/contact/count.rs",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "git_blob": "b5629d9376c26e346a90399a617e91f2d33eb205",
+      "actual_displayed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-physics/src/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "git_blob": "c2967469bfb31ce002db43f88b8f4cf437001955",
+      "actual_displayed_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-physics/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-physics/src/lib.rs",
+      "sha256": "76a778f20fc9e9bbc59785fe99fc6bc7e409656ced089d74bd85caae683f6d2e",
+      "git_blob": "87d08dc57cd1d9640813d8a4314cadd588c98c42",
+      "actual_displayed_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "git_blob": "4c1982bd2804730df56574d30429cd3a17adab17",
+      "actual_displayed_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "git_blob": "cfcb7405a863ce860abc2eba4b5faecc29898845",
+      "actual_displayed_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "git_blob": "c7ea9cdb3014f1fc5c29fcdad844115c9c2dfd2f",
+      "actual_displayed_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration.json",
+      "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "git_blob": "d01b5ec7a10f45da81f1ebb8835554bd671aa1c2",
+      "actual_displayed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-2.json",
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "git_blob": "833060e83af63f490cbdea7f82582edc7dee7246",
+      "actual_displayed_ranges": [
+        [
+          375,
+          485
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-2.json",
+      "path": "crates/fabelgeist-xpbd/src/particles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "git_blob": "0bb18d1e97c3f10381646efac7c7dc7314709778",
+      "actual_displayed_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "additional_individual_rg_match_lines": [
+        162
+      ],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-2.json",
+      "path": "crates/fabelgeist-xpbd/src/solver.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-xpbd/src/solver.rs",
+      "sha256": "a7918c0ebe5c6fa1de3ea8bd7bc9eb76f4983ecc9c2d83d8d7063c46a334afde",
+      "git_blob": "5fdd6b99bd496b05199ae7c816aeec514cc28e15",
+      "actual_displayed_ranges": [
+        [
+          1,
+          105
+        ],
+        [
+          220,
+          280
+        ]
+      ],
+      "additional_individual_rg_match_lines": [
+        142,
+        163,
+        204
+      ],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-2.json",
+      "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-xpbd/src/wgsl.rs",
+      "sha256": "4487bcbbd210e05e934aa372373cb6095e69edcb35fa8e33b26d90b7baf93c15",
+      "git_blob": "92210570bc4e1a921f43b1cdfcf49de969202c6b",
+      "actual_displayed_ranges": [
+        [
+          80,
+          170
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-2.json",
+      "path": "crates/fabelgeist-physics/src/tests/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-physics/src/tests/mod.rs",
+      "sha256": "780d42de36720442876a73411f35e9c613a356659693a65e0bc9b5bc7ce2c240",
+      "git_blob": "6cb9aa4cff09f23feb85af00f3a8d8a3426b237c",
+      "actual_displayed_ranges": [
+        [
+          90,
+          132
+        ],
+        [
+          440,
+          490
+        ]
+      ],
+      "additional_individual_rg_match_lines": [
+        49,
+        53,
+        60,
+        64,
+        68,
+        77,
+        82,
+        86
+      ],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-3.json",
+      "path": "crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+      "git_blob": "2b2d0030a0e10afef4927d93f0cbc9e923a6b675",
+      "actual_displayed_ranges": [
+        [
+          390,
+          490
+        ]
+      ],
+      "additional_individual_rg_match_lines": [
+        7,
+        8,
+        15,
+        155,
+        227,
+        280,
+        314,
+        315,
+        319,
+        323,
+        378,
+        379
+      ],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    },
+    {
+      "registration": "support-registration-4.json",
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_bytes": "support/crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "git_blob": "f94653afff5eb8c6566d6d0039cfa4fab8e4c679",
+      "actual_displayed_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "additional_individual_rg_match_lines": [],
+      "qualification": "Bounded supporting source, zero original-role and cross-lens credit. Stored full bytes do not imply a full personal read; no tests or shaders were run."
+    }
+  ],
+  "read_scope_qualifications": [
+    "Historical 774 original registry records Cargo role2327 1-21 as full native-format metadata, with no producer proof recorded; contact role2328 is full 1-261 with findings and owner-fit delta pending. RIG-PPS-023 recorded contact 1-261 and materially reached WGSL role2329 1-385, with producer accounted and owner-fit delta pending.",
+    "Original 059 Adler Lens11 READ-L11-373 personally read WGSL 1-385 via REGISTRATION-ADLER-1189 and separately read the exact tail 386-413 via REGISTRATION-ADLER-1190; no implied frontier transfer.",
+    "Original 059 /root/lens12_frontier READ-L12-769 frontier covers WGSL 1-385 only. The same delegate separately personally read 386-413 as connected support after REGISTRATION-PAR-L12-298, reflected in READ-L12-CONNECTED-TEAM-006 /checked_rows/4 and READ-CONNECTED-PAR-L12-769-COLLISION-OWNERS /rows/4; that tail grants zero new ordered credit. The historical frontier receipt itself does not include it.",
+    "Root personal rereads were empty and the original connected contribution accepted zero unique scope count; no current reassessment is implied by its existence.",
+    "The new delegate personally read current WGSL 1-413 after its prospective registration. Byte equality with 6533 does not change historical read attestations or cover other lenses."
+  ],
+  "historical_evidence": {
+    "exact_059_records": "history-manifest.json:original_059_records (33 copied original transport records and verified manifest entries)",
+    "exact_774_receipts": "history-manifest.json:older_774_receipts (three older local originals plus two explicitly separate f82 historical-family variants)",
+    "older_local_receipt_details": [
+      "audit-existing-type-owners/root/coverage.jsonl physical line 22: Cargo 1-21 native-format metadata; no recorded Cargo producer proof.",
+      "audit-existing-type-owners/rig/additional-sources.jsonl physical line 209: contact 1-261, full current-lens body read, findings and owner-fit delta pending.",
+      "producer-supplement-after-owner/rig/traces.jsonl physical line 23: RIG-PPS-023 contact 1-261, WGSL 1-385; producer accounted with findings and owner-fit delta pending."
+    ],
+    "transport_qualification": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is the older 774 transport commit, not the product source revision or checkpoint3821. Two historical-family-execution files differ in whole bytes from adler-original and are stored separately without assuming equivalence.",
+    "source_selection_qualification": "registry-selection-reconstructed.json is a reconstructed selection of original registry data, not an original receipt. Original full registry and original 059 ledger/queue and transport manifest are preserved compressed with recoverable original bytes."
+  },
+  "evidence_files": {
+    "ordered_source_and_support": "registration.json, support-registration*.json, sources/, support/",
+    "original_059_queue": {
+      "path": "original-059-queue.json.gz",
+      "uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08"
+    },
+    "original_059_ledger": {
+      "path": "original-059-ledger.json.gz",
+      "uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac"
+    },
+    "transport": "original-transport-manifest.json.gz and original-registry.json.gz",
+    "independent_git_proofs": "git-proofs.json plus 46 preserved Git raw commit/tree objects under git-objects/ covering 26 source and older receipt paths",
+    "primary_language_contracts": "native-sign-contracts.json: newly observed external primary documentation, not a historical reviewer assertion",
+    "history": "history-manifest.json, historical-059/, historical-774/, historical-774-variant/"
+  },
+  "findings_and_open_questions": [
+    {
+      "id": "ADLER-L11-BOX-MEDIAL-NORMAL-PARITY",
+      "kind": "recovered historical finding, newly assessed",
+      "historical_relationship": "059 queue index 174 and original Adler READ-L11-373; historical finding not a new unique count.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/wgsl.rs:77-98,164-193",
+        "crates/fabelgeist-physics/src/collider.rs:172-195",
+        "crates/fabelgeist-math/src/vector/vec3.rs:187-211",
+        "native-sign-contracts.json"
+      ],
+      "condition_and_reasoning": "For identity rotation and box center local (0,0,0), distinct half-extents (1,2,3), the nearest face selects x; WGSL sign(0)=0 makes the inside normal zero, while Rust signum of either signed zero gives a unit signed x. For a movable particle with previous=position, the analytic response consumes this zero normal and produces no displacement even for positive separation.",
+      "limits": "This is a source plus official language-contract inference, not executed host/device behavior. The viewed Rust standard-library docs were 1.99.1, not proven to be the pinned project compiler. Signed-zero and tied-face selection policy, actual producers, and device conformance remain open.",
+      "future_repair_and_acceptance": "Choose one deterministic finite outward normal for interior medial-axis points and preserve it across CPU/GPU implementations, including signed zero and tied faces; later check actual host and shader results for center, axes and neighboring points when validation is authorized."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+      "kind": "recovered historical finding, conditional new source reasoning",
+      "historical_relationship": "059 queue index 479; /root/lens12_frontier historical personal connected read in READ-L12-CONNECTED-TEAM-006. No alias claimed with q480 or buffer q157.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/contact/count.rs:18-45",
+        "crates/fabelgeist-physics/src/contact.rs:71-89",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:127-150",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs:1-58"
+      ],
+      "condition_and_reasoning": "On a 64-bit host, a symbolic host count 2^32+1 narrows to 1 in fit and is treated as retained against initial capacity 16. An upload is passed to Buffer::write, whose Rust body has no length check and calls the native queue path; bind also narrows the count. Separately, count 2^31+1 triggers growth, rounds to 2^32 then narrows to 0. These are arithmetic inferences on representable integer values only; no vector was allocated.",
+      "limits": "Ordinary producers, actual memory and device limits, native queue validation/outcome, and feasible product reachability were not established. The host example does not claim a successful out-of-bounds GPU write. q157 ADLER-L11-BUFFER-WRITE-EXTENT-ADMISSION is a connected shared boundary, not proof of alias or replacement for count admission.",
+      "future_repair_and_acceptance": "Carry full cardinality to a checked native count/capacity boundary, reject unsupported sizes before state mutation or upload, and admit every upload against its live logical byte extent. Later verify boundary values and one shared admitted count through allocation, bind and dispatch."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+      "kind": "historical hypothesis with newly narrowed outcome",
+      "historical_relationship": "059 queue index 480, preserve its original larger-than-old-buffer hypothetical and open reconciliation; related to q479, not automatically identical.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/contact.rs:71-89",
+        "crates/fabelgeist-physics/src/contact/count.rs:25-45",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs:22-37",
+        "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs:119-133"
+      ],
+      "condition_and_reasoning": "Capacity is assigned before Buffer::new returns. For the symbolic 64-bit count 2^31+1, capacity rounds to 2^32 and truncates to zero; Buffer::new explicitly returns Err for zero bytes before its native allocation. The previous list and buffer remain, but the stored capacity becomes zero, an underestimate.",
+      "limits": "The inspected Buffer::new contains only the explicit zero-byte returned-Err branch; native allocate_native returns a buffer, not a Result. No assertion is made about panic, uncaptured device errors, or other native failures. This examined Err path does not establish the earlier hypothetical larger-than-live capacity or that an underestimate causes a later overrun.",
+      "future_repair_and_acceptance": "Compute and validate new capacity and allocation together, then commit buffer and associated capacity transactionally. Once validation is authorized, check failure leaves old aggregate coherent as well as successful growth."
+    },
+    {
+      "id": "physics-contact-capsule-nonzero-short-segment",
+      "kind": "newly assessed conditional candidate; alias unconfirmed",
+      "historical_relationship": "READ-L12-769 and Adler373 described a truly degenerate capsule as a deliberate sphere policy. This finite nonzero segment is a distinct conditional question; do not relabel that original nonfinding.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/collider.rs:27-33,73-88,153-170",
+        "crates/fabelgeist-physics/src/wgsl.rs:58-74,179-190",
+        "crates/AGENTS.md: numerical-presence and owned-error-budget guidance"
+      ],
+      "condition_and_reasoning": "For a=(0,0,0), b=(0,2^-24,0), radius 2^-28 and point b, with zero collider thickness and particle radius, the exactly representable nonzero squared segment length 2^-48 is below 1e-12. Both source branches set t=0. The host formula computes 2^-24-2^-28=15*2^-28 positive while the geometric segment-swept capsule distance at b is -2^-28. The analytic shader thus has negative penetration in the mathematical model and omits correction.",
+      "limits": "This is symbolic static arithmetic; no capsule, fixture or shader was executed. GPU floating operation accuracy/conformance, actual input scale, producer reachability and supported minimum geometry scale remain unknown. Zero-axis sphere semantics remain legitimate.",
+      "future_repair_and_acceptance": "Retain an explicit true-zero-segment mode; establish a justified supported scale and robust nearest-point computation for nonzero segments, with an owned error budget rather than an unmotivated cutoff. Later compare host and shader against geometric reference cases around the supported scale and endpoint."
+    },
+    {
+      "id": "physics-contact-closed-mesh-swept-candidates",
+      "kind": "newly assessed conditional candidate; acceptance policy open",
+      "historical_relationship": "Adler READ-L11-373 expressly warned swept AABB is not proof of continuous trajectory handling and left collision trajectory acceptance pending. This further static example does not retroactively claim that Adler proved a runtime tunneling defect.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/wgsl.rs:284-310,325-369",
+        "crates/fabelgeist-bvh/src/gpu/shaders.rs:433-480"
+      ],
+      "condition_and_reasoning": "Take a symbolic closed, outward-wound cube with faces at z=+1 and -1, shell 0<thickness<1, and a movable point whose previous position is (0.25,0,+2) and final position is (0.25,0,-2). Assume a valid shallow BVH returns both intersecting face triangles. The swept box includes them, but nearest to the final position is the back face at z=-1; its outward normal is -z, the side is positive, distance is 1 >= thickness, and the shader returns without correction although the path crossed the cube.",
+      "limits": "No fixture, GPU execution, simulated trajectory, practical substep displacement, or BVH instance was created. Deep-tree stack behavior is outside this example. The intended supported collision trajectory and producer displacement bounds need a design decision.",
+      "future_repair_and_acceptance": "Define the supported per-substep traversal and contact policy; if crossings must be stopped, retain path/entry-side evidence or a bounded continuous contact decision rather than choosing solely the nearest final surface. Later check outside-to-outside, inside, moving-surface and thin-shell cases with valid BVH candidates."
+    },
+    {
+      "id": "Q-L12-ea05afd0207ea4a3a80d",
+      "kind": "recovered question, bounded current analysis",
+      "historical_relationship": "059 queue index 1853 and READ-L12-769; no change to original resolution or unique count.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/contact.rs:151-203",
+        "crates/fabelgeist-xpbd/src/wgsl.rs:113-115,165-166",
+        "crates/fabelgeist-garment-fit/src/lib.rs:375-485"
+      ],
+      "condition_and_reasoning": "record_push_out records positions-to-previous even if mesh is None; record_mesh then does nothing. It also bypasses enabled, consistently with its separately documented static-recovery role. The copy does not directly write velocity. If submitted between prediction and finalize, the previous-position change could influence subsequent final velocity.",
+      "limits": "Scheduling and callers are not sufficiently established for an ordinary reset or product defect. A source path-only search found the API in its owner and physics test source, not a proof there are no indirect/external consumers. Fit host clear_body is a separate path.",
+      "future_repair_and_acceptance": "Set explicit no-mesh and disabled recovery semantics and scheduling ownership before changing anything. Later exercise no-mesh, disabled and intended recovery timing without changing ordinary stepping semantics."
+    },
+    {
+      "id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+      "kind": "recovered finding/question, not a new unique count",
+      "historical_relationship": "059 queue index 435. Separate semantic diagnostics concern from cardinality narrowing and shared buffer admission.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/contact.rs:92-105",
+        "crates/fabelgeist-physics/src/contact/count.rs:5-16"
+      ],
+      "condition_and_reasoning": "update_colliders compares complete host counts and formats mismatch to prose, losing an explicit structured held/provided error value at that boundary.",
+      "limits": "No caller failure or requirement to parse prose has been established; owner and error policy require central reconciliation.",
+      "future_repair_and_acceptance": "If typed recovery is desired, preserve held/provided count and native causes in a domain-owned structured error, while keeping useful diagnostics."
+    },
+    {
+      "id": "physics-mesh-post-admission-resource-coherence",
+      "kind": "open representability question",
+      "historical_relationship": "059 queue index 477 is initial mesh-triangle-index diagnostic ownership, which is related but not an automatic alias for later public resource replacement.",
+      "evidence": [
+        "crates/fabelgeist-physics/src/mesh.rs:21-71,95-152"
+      ],
+      "condition_and_reasoning": "MeshCollider::new rejects empty triangles and indices outside positions at construction. Positions, triangles, bounds, bvh and surface are exposed publicly while counts are private, so post-admission replacement can represent stale resource/count/BVH relationships.",
+      "limits": "No actual caller, stale device buffer or failure was demonstrated; write_positions asks callers to refit as an explicit contract. Native resource identity and intended public mutation policy remain open.",
+      "future_repair_and_acceptance": "Trace intended writers and define aggregate ownership, refit and resource/count synchronization. Later verify any admitted replacement maintains required geometry, counts and BVH identity."
+    }
+  ],
+  "thirteen_lens_dispositions": {
+    "producer_propagation": "Partial: full host collider count reaches narrowing, capacity, upload and binding; mesh previous/current trajectory reaches candidate query. Producers and native outcomes remain open.",
+    "existing_type_owners": "Partial: ColliderCount, ColliderCapacity and BufferByteLength are present but do not alone establish representable shared count or live-resource fit; preserve distinct roles.",
+    "admission_contracts": "Partial: mesh construction rejects empty/out-of-range indices; shape finiteness, geometry scale, native count and resource replacement policies require explicit boundaries.",
+    "invariant_operations": "Partial: count narrowing and next-power-of-two growth can lose the count; bounded static examples only; no allocation or operation executed.",
+    "aggregate_states": "Partial: capacity assignment can precede failed buffer creation; public mesh resources and private metadata can be independently represented; actual callers/open native error paths require tracing.",
+    "type_ownership": "Partial: shared buffer upload extent admission is connected to collider count ownership; do not conflate geometric shapes, native layout, count and particle radius.",
+    "redundant_authority": "Partial: host count, native count, capacity and buffer extent must describe a coherent relation but are semantically distinct; no broader duplication conclusion.",
+    "behavior_preservation": "Partial: ordered source blobs match across 6533 and 95e; protect static recovery, empty modes and genuine zero-axis capsule behavior when later defining repairs. No product runtime parity tested.",
+    "enum_shapes": "Partial: enabled=false and absent mesh have documented modes, while static recovery has distinct semantics; no unsupported mandate to merge these modes or treat them as legacy fallbacks.",
+    "derivability": "Partial: checked type wrappers and traits in assessed bounded scope; no safe derive replacement established, especially where ownership or admission must be retained.",
+    "type_granularity": "Partial: host cardinality, native cardinality, capacity, byte length, shell thickness and search radius differ; no proof that raw scalar values share a single valid domain.",
+    "magic_strings": "Partial: shader code and parameter/binding keys are compiler/interface boundary tokens; no closed business vocabulary or parse-dependent diagnostics assumed. Shared shader-parameter ownership is a possible dependency.",
+    "magic_numbers": "Partial: the capsule squared-axis threshold has a nonzero-scale counterexample; other shader guard thresholds need geometry, units and error-budget policy. No complete constant inventory or numerical conformance claim."
+  },
+  "nonfindings_and_limits": [
+    "Empty particles and disabled normal recording are explicit modes. Zero friction and immovable particles are valid modes. record_push_out is separately documented recovery and does not automatically violate disabled stepping.",
+    "Canonical MeshCollider construction checks empty triangles and index bounds before allocation. That does not prove post-admission public resource coherence or close a separate MHR mesh path.",
+    "Truly zero-length capsule to sphere is a recorded valid geometric policy; the newly assessed short nonzero segment is different.",
+    "WGSL shape branch defaults to box after a closed native kind encoding; no unrecognized-kind compatibility defect was established.",
+    "Historical source did not acquire new ordered credit from connected tail reads, current source equality or this report. No whole-lens completion or central finding-alias decision is asserted."
+  ],
+  "constraints_observed": [
+    "No implementation, repairs, source/product edits, shader executions, runtime probes, product builds, tests, fixture creation or simulations.",
+    "Only prospective source registration, static source/specification review, symbolic mathematical reasoning, evidence copying and integrity verification.",
+    "No writes to the user-provided extracted evidence directory or to the publication checkout."
+  ],
+  "status": "Bounded source review completed; central owner must reconcile aliases, whole-lens coverage, ledger and publication. Later product validation is expressly pending user authorization."
+}

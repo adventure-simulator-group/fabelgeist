@@ -1,0 +1,546 @@
+{
+  "schema": "726-delegated-mhr-layout-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Independent bounded current and historical full source reads of original roles 2323\u20132325; earlier separately registered support read remains separate. Central agent owns role status, ledger, exact aliases and publication.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "qualification": "All 13 lens questions considered only within this bounded family. Source tests are read as text, never executed. No whole-lens, original queue, 3821, repair, product build/test/probe/validation or runtime result is claimed.",
+  "evidence_files": {
+    "registration": "registration.json",
+    "personal_read": "read-receipt.json",
+    "support_registration": "support-registration.json",
+    "support_personal_read": "support-read-receipt.json",
+    "prior_support": "prior-support-index.json",
+    "git_proofs": "git-proofs.json",
+    "raw_git_objects": "git-objects/",
+    "historical_059_records": "historical-059-index.json",
+    "earlier_774_records": "older-774/INDEX.json",
+    "registry_reconstructed_selection": "registry-selected-reconstructed.json"
+  },
+  "historical_attribution": [
+    {
+      "source": "Original registry roles 2323\u20132325; older rig producer sources.json and owner coverage.jsonl",
+      "scope": "Rig producer and owner supplier each recorded historical full layout 1\u2013303, test source 1\u2013143 and skeleton state 1\u2013302. Producer records retain their own source-read-trace and accounting statuses; supplier coverage recorded findings and did not itself approve repairs or validate product.",
+      "evidence": "older-774/INDEX.json",
+      "qualification": "Earlier 774 original-record SHA verified against that export manifest; two differently normalized exports kept separately. Source bytes match historical 6533; no current or 3821 credit."
+    },
+    {
+      "source": "Original adler/READ-L11-372 and ADLER registrations 1183\u20131185",
+      "scope": "Adler independently recorded historical full fresh reads layout 1\u2013303, test source 1\u2013143, skeleton state 1\u2013302. Original receipt accepted_unique_count_change=0 and no current reconciliation or validation.",
+      "evidence": "historical-059-index.json"
+    },
+    {
+      "source": "Original segovb/READ-L12-767 and 768; original PAR registrations 286\u2013288 and proposals",
+      "scope": "Original /root/lens12_frontier separately recorded prospectively registered personal full reads for the same historical ranges. Original root adoption explicitly says root_personal_rereads=[] and accepted_unique_count_change=0.",
+      "evidence": "historical-059-index.json"
+    },
+    {
+      "source": "Earlier same-agent current support inspections",
+      "scope": "The earlier model-family bundle inspected current layout.rs 1\u2013303 as support, and earlier character-family bundle inspected current skel_state.rs 95\u2013155 as support. Neither was an original ordered-role assessment. This packet separately registered and personally read all current and historical bodies.",
+      "evidence": "prior-support-index.json"
+    }
+  ],
+  "findings_and_reconnections": [
+    {
+      "id": "public-parameter-column-membership",
+      "classification": "A source-level public API membership weakness; earlier cross-table risk already observed. No independent unique finding count asserted.",
+      "relationships": [
+        "Adler READ-L11-372 role2323 explicitly noted foreign table columns in the historical matrix",
+        "Original Lens12 delegate READ-L12-767 role2323 observed that a column from another table is not tied to a specific transform",
+        "059 q2410 and q2414 retain narrower owner/test-source qualifications; exact cross-family aliases remain open"
+      ],
+      "trace": "ModelParameterTable<T> and ModelParameterColumn are public reexports. push returns an ordinal; resize can shrink that same table; Index and IndexMut immediately use the stored ordinal as a Vec index. A column obtained from a table then retained after shrinking that table to zero is no longer a member. ModelParameterRow::get checks numeric length, but a same-index column obtained from a different transform can still select an unrelated coefficient because the ordinal carries no transform identity.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/lib.rs",
+          "lines": [
+            [
+              30,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              10,
+              14
+            ],
+            [
+              93,
+              106
+            ],
+            [
+              128,
+              135
+            ],
+            [
+              378,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+          "lines": [
+            [
+              20,
+              26
+            ],
+            [
+              40,
+              50
+            ],
+            [
+              206,
+              224
+            ],
+            [
+              231,
+              239
+            ],
+            [
+              248,
+              269
+            ],
+            [
+              272,
+              296
+            ]
+          ]
+        }
+      ],
+      "limits": "These are representable public inputs and symbolic outcomes, not an observed caller, actual constructed fixture or runtime panic. Normal parse_parameter_sets resolves a name from the same transform and indexes a table allocated to that transform's count, so no ordinary-parser mismatch is established. Whether cross-instance misuse merits an owning view/API change requires caller and policy review.",
+      "future_repair": "Provide checked table access for unproven/stale ordinals and an owning name/column iteration or equivalent source-aware selection where actual cross-transform association matters. Preserve normal insertion order and first-duplicate policy; do not impose unnecessary instance branding."
+    },
+    {
+      "id": "public-parent-cycle",
+      "classification": "Existing historical source finding reconnected to public current API and ordinary producer.",
+      "relationships": [
+        "059 q433 SEGOVB-L12-CONNECTED-MHR-FK-CYCLE-ADMISSION",
+        "Existing current REVIEW-FBX-MHR-CYCLIC-JOINT-GRAPH-95E concerns a distinct malformed FBX source cycle"
+      ],
+      "trace": "The exported skel_state::prefix_multiplication_levels accepts a public RigJointTable<Option<RigJointOrdinal>>. With one element whose parent is ordinal zero, its ancestor walk repeatedly selects itself and appends to a Vec, with no cycle check. The ordinary SkeletonBuilder appends a parent before its children and, for a terminating visit, supplies prior ordinals; an arbitrary public table can bypass that producer.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/lib.rs",
+          "lines": [
+            [
+              38,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "lines": [
+            [
+              123,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/table.rs",
+          "lines": [
+            [
+              8,
+              14
+            ],
+            [
+              44,
+              55
+            ],
+            [
+              88,
+              101
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+          "lines": [
+            [
+              69,
+              70
+            ],
+            [
+              101,
+              119
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+          "lines": [
+            [
+              8,
+              13
+            ]
+          ]
+        }
+      ],
+      "limits": "Static representable case only: no parent table was constructed or algorithm run. A cyclic FBX graph can fail earlier in recursive builder traversal and is a different route; duplicate graph identities and actual callers remain separately open.",
+      "future_repair": "Admit acyclic parent relationships at the actual public topology boundary or make invalid topology unrepresentable, with bounded error handling. Preserve valid roots, branches and ordinal order."
+    },
+    {
+      "id": "public-parent-membership",
+      "classification": "Existing historical source finding reconnected to public current API and receiving table.",
+      "relationships": [
+        "059 q434 SEGOVB-L12-CONNECTED-MHR-FK-PARENT-MEMBERSHIP-ADMISSION",
+        "059 q433 is related cycle admission but a distinct malformed topology"
+      ],
+      "trace": "For a one-row parent table containing Some(ordinal 1), the walk first obtains the parent then indexes parents[1] on the next iteration. RigJointOrdinal is a role, not proof of membership, and RigJointTable Index uses unchecked Vec access for an unproven ordinal; its get API is available for checked membership.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "lines": [
+            [
+              123,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-rig/src/table.rs",
+          "lines": [
+            [
+              44,
+              55
+            ],
+            [
+              94,
+              101
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+          "lines": [
+            [
+              101,
+              119
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/lib.rs",
+          "lines": [
+            [
+              38,
+              43
+            ]
+          ]
+        }
+      ],
+      "limits": "Symbolic input only; no table or runtime operation executed. Normal terminating builder creates each child after its own parent and does not establish this failure for ordinary imported data.",
+      "future_repair": "Check each parent against the exact receiving table before ancestor traversal or admit validated topology, preserving the parent/child index interpretation."
+    },
+    {
+      "id": "prefix-first-empty-level",
+      "classification": "Rejected suspicion by source and mathematical reasoning; original delegate had already recorded same qualification.",
+      "relationships": [
+        "Original READ-L12-768 delegate role2325 explicitly explained all intermediate depths of a tree exist"
+      ],
+      "trace": "For any finite acyclic parent forest with maximum depth D, every integer depth 0 through D appears along a maximum-depth chain. For each bit level l with 2^l <= D there is therefore a node at depth 2^l whose depth has bit l set; the collected source list cannot first become empty while a higher bit remains. When the bit is set, the selected ancestor index is between 0 and depth\u22121.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "lines": [
+            [
+              123,
+              157
+            ]
+          ]
+        }
+      ],
+      "limits": "Proof assumes finite acyclic, in-range parent topology; q433/q434 concern inputs that violate that premise. No implementation or simulation was executed.",
+      "future_repair": "No fix for the first-empty break under these assumptions; preserve valid scan behavior when addressing topology admission."
+    },
+    {
+      "id": "layout-matrix-historical-guards",
+      "classification": "Positive current source qualification for previously historical failures.",
+      "relationships": [
+        "059 q431 SEGOVB-L12-CONNECTED-MHR-MATRIX-SHRINK-EXTENT-ADMISSION",
+        "059 q432 SEGOVB-L12-CONNECTED-MHR-MATRIX-TRANSPOSE-EXTENT-ADMISSION",
+        "Earlier independent model-family current support trace"
+      ],
+      "trace": "The 6533 layout had a public ParameterMatrix with unchecked sizes and direct public shrink/transpose calls. At 95e it resides in a pub(crate) module; zeros admits checked row and tensor extents, append_columns rejects a width smaller than the previous width, and tensor_transpose rejects a prefix larger than the matrix.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+          "lines": [
+            [
+              8,
+              16
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+          "lines": [
+            [
+              11,
+              17
+            ],
+            [
+              40,
+              54
+            ],
+            [
+              103,
+              130
+            ]
+          ]
+        }
+      ],
+      "limits": "Only those specific source guards and visibility were checked, not allocation failure, all consumers, complete repair, historical q closure or runtime behavior. Historical and current test source were read but not run.",
+      "future_repair": "Retain checked construction and typed errors while centrally reconciling original identities and residual ordinal/instance associations."
+    },
+    {
+      "id": "public-skeleton-tensor-shape",
+      "classification": "Original delegated reviewer's public-input/shape question connected to current exports; open policy, not proven ordinary-path failure.",
+      "relationships": [
+        "Original READ-L12-768 role2325 explicitly noted normalized quaternion and tensor channel/shape preconditions",
+        "Related q575 Q-L11-413facc1ac8d60c72293 retains actual Character/transform/prefix/native Burn ownership pending"
+      ],
+      "trace": "Public tensor helpers narrow quaternion channels 0\u20133, Euler channels 0\u20132 and skeleton-state channels 0\u20137; rank-3 Tensor alone does not encode the channel extent or normalized-quaternion precondition. Mhr normally reshapes joint parameters to seven channels and constructs transform state from its pose/scale path before applying helpers.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/lib.rs",
+          "lines": [
+            [
+              38,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "lines": [
+            [
+              21,
+              28
+            ],
+            [
+              31,
+              44
+            ],
+            [
+              58,
+              62
+            ],
+            [
+              75,
+              81
+            ],
+            [
+              97,
+              120
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              373,
+              392
+            ]
+          ]
+        }
+      ],
+      "limits": "No malformed tensor, backend or native validation was constructed or executed. Documentation already states intended channel layouts and normalized input, so policy must decide whether direct callers require checked admission; do not label canonical model construction a demonstrated failure.",
+      "future_repair": "Assess a checked public aggregate or explicit fallible boundary if untrusted direct callers are supported; preserve valid tensor/native math and documented units."
+    },
+    {
+      "id": "layout-test-source-contract",
+      "classification": "Historical and current test-source evidence; no test results.",
+      "relationships": [
+        "059 q2414 REVIEW-L11-MHR-PARAMETER-TABLE-TEST-OWNER",
+        "059 q169 ADLER-L11-MHR-EXPRESSION-OFFSETS",
+        "059 q168 ADLER-L11-MHR-LIMIT-ADMISSION"
+      ],
+      "trace": "Current test source asserts joint/parameter ordering, scaled coefficient references, duplicate coefficient accumulation, one bare constant, valid set/limit handling, and appended zero columns. Compared with 6533, assertions are adapted to source-owned row access rather than raw joint row construction. A test of a single constant and a separate test of coefficient-only referenced rows do not establish multiple-constant or scaled-reference-offset behavior.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+          "lines": [
+            [
+              18,
+              81
+            ],
+            [
+              83,
+              126
+            ]
+          ]
+        }
+      ],
+      "limits": "These are source assertions only, not executed tests or proof of behavior. No fixture was constructed or changed. Historical 143-line and current 126-line test bodies remain separately archived.",
+      "future_repair": "For later authorized acceptance, preserve authored intended ordering and assess the identified unsupported expressions and invalid limit cases through the proper review workflow."
+    }
+  ],
+  "positive_and_open": [
+    {
+      "observation": "ParameterTransform creates source_joints, matrix, offsets and active rows from the same skeleton extent and returns rows borrowed from its own ordered state. Duplicate joint names deliberately use first match, while joints() retains duplicate slots.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              49,
+              70
+            ],
+            [
+              109,
+              135
+            ],
+            [
+              147,
+              170
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+          "lines": [
+            [
+              61,
+              81
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Fixed seven-element JointChannels indexing uses a closed JointChannel mapping of exactly seven variants, unlike an externally sourced dynamic ordinal; the ordinal itself does not imply table-instance membership.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+          "lines": [
+            [
+              32,
+              38
+            ],
+            [
+              53,
+              108
+            ],
+            [
+              148,
+              165
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Tests and doc examples are source artifacts; none was executed. Existing user instruction prohibits product tests and product validation in this audit.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+          "lines": [
+            [
+              1,
+              16
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "lines": [
+            [
+              160,
+              177
+            ],
+            [
+              243,
+              302
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "There are handwritten Index, conversion and Default implementations with distinct API/semantics; no project derive was shown equivalent without changing bounds, membership behavior or public interfaces.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+          "lines": [
+            [
+              123,
+              145
+            ],
+            [
+              154,
+              165
+            ],
+            [
+              258,
+              269
+            ],
+            [
+              291,
+              303
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lens_perspectives": {
+    "producer_propagation": "Typed channel and column roles flow through same-source row views and numerical matrix upload; callers beyond bounded support open.",
+    "existing_type_owners": "Reuse RigJointOrdinal, RigJointTable, ModelParameterColumn and JointChannel where contracts actually fit; ordinal identity does not prove membership.",
+    "admission": "Public ordinal staleness and parent membership/cycles are distinct representable admission gaps; tensor shape preconditions remain policy.",
+    "invariant_operations": "Resize and parent traversal can invalidate membership; checked matrix width/product paths documented.",
+    "aggregate_states": "Parent tables and parallel skeleton state need consistent topology; model row/source association and cache lifetime remain connected.",
+    "type_ownership": "MHR owns joint/parameter channel mapping, shared rig owns ordinal/table, NumPy owns native dimension; no duplication inferred.",
+    "redundant_authority": "Source-owned borrowed row view coordinates one transform; broader public Mhr host/cache snapshot is prior q170.",
+    "behavior_preservation": "Historical/current files and diff kept; first-match duplicate policy and test assertions remain source evidence only.",
+    "enum_shapes": "JointChannel is an explicit closed seven-role enum; PrefixMultiplicationLevel vectors may be externally unpaired, but normal builder constructs both together and no external consumer claim established.",
+    "derivability": "No manual trait implementation in scope shown equivalent to an existing derive with all semantics retained.",
+    "type_granularity": "Channel, joint ordinal and model column differ; table membership and instance identity are stronger than role labels.",
+    "magic_strings": "Model channel tokens are native format ingress; exact names and parameter sets remain bespoke identifiers.",
+    "magic_numbers": "Numeric channel offsets live at explicit tensor/array boundaries; full numerical caller and all-literal audit remains open."
+  },
+  "open_questions": [
+    "Actual external callers and target-native Burn shape/error contracts remain uninspected; no runtime behavior inferred.",
+    "Whether a column should be tied to a transform instance, or checked named lookup suffices, requires real consumers.",
+    "No additional unique defect or complete alias inventory asserted. All 13 lenses and original queue remain incomplete.",
+    "Original 3821 ledger and queue remain missing and no earlier evidence is promoted."
+  ],
+  "status": {
+    "ordered_roles_changed": false,
+    "central_ledger_changed": false,
+    "publication_changed": false,
+    "repair": "not started",
+    "product_validation": "not performed"
+  }
+}

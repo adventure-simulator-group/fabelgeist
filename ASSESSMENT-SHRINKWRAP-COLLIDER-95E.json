@@ -1,0 +1,101 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    3,
+    4,
+    5,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Current Shrinkwrap operation and separately registered Collider, selected Strands blur, and Vec3 support.",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/collider.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "653df570a4cb0ce007a7e1925886aeb5b519b08d",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "bytes": 5730,
+      "lines": 171,
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/shrinkwrap-collider-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "registration": "REGISTRATION-SHRINKWRAP-COLLIDER-SUPPORT.json",
+      "registration_sha256": "75d7720d6f054f468b3de4010116bd4acb13584e8ea65fac57114df020800267",
+      "qualification": "Only actual displayed current support ranges are credited; source body preserved exactly. No original ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73594775643839d9ee3755ac9b84b8e6f5c71b1e",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "bytes": 14821,
+      "lines": 448,
+      "ranges": [
+        [
+          300,
+          420
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/shrinkwrap-collider-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "registration": "REGISTRATION-SHRINKWRAP-COLLIDER-SUPPORT.json",
+      "registration_sha256": "75d7720d6f054f468b3de4010116bd4acb13584e8ea65fac57114df020800267",
+      "qualification": "Only actual displayed current support ranges are credited; source body preserved exactly. No original ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f94653afff5eb8c6566d6d0039cfa4fab8e4c679",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "bytes": 5816,
+      "lines": 263,
+      "ranges": [
+        [
+          1,
+          175
+        ],
+        [
+          176,
+          263
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/shrinkwrap-collider-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "registration": "REGISTRATION-SHRINKWRAP-VEC3-SUPPORT.json",
+      "registration_sha256": "733ae141f019e397fda62b0c5258d428b15f025ae81cea75b15048997d883372",
+      "qualification": "Only actual displayed current support ranges are credited; source body preserved exactly. No original ordered-role or other-lens credit."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIR-NATIVE-OPERATIONS-95E.json"
+  ],
+  "observations": [
+    {
+      "condition": "A two-point strand and a Collider implementation that reports +infinity with finite up direction for the root but a finite negative distance for the other point. This is a public trait-input condition, not a shown ordinary shipped producer or constructed fixture.",
+      "source_reasoning": "With default lock_roots=true, Shrinkwrap assigns the root zero weight but still evaluates p + up*(offset - infinity). Vec3 multiplication is componentwise; IEEE 0*infinity and then multiplying nonfinite movement by zero produce NaN. The inside second point sets any=true. For two points blur returns unchanged; the final loop adds every movement to its corresponding position, including the locked root. The no-collider implementation returns infinity for every point, for which any remains false and the operation returns before mutating.",
+      "historical_attribution": "Adler READ-L11-369 previously explicitly identified the conditional 0*infinity/mixed-any possibility but left actual Collider source uninspected; this bounded trace adds the current trait, NoCollider, vector operations and blur support. It is not a newly unique historical finding.",
+      "limitations": "No Collider implementation, points, float operation, fixture or product path was executed. A shipped mixed finite/infinite producer, impact, supported-distance policy and exact global aliases remain open. NoCollider alone is not a witness."
+    }
+  ],
+  "historical_related_records": [
+    "adler/READ-L11-369.json via ASSESSMENT-HAIR-NATIVE-OPERATIONS-95E.json",
+    "baseline-059/queue.json#/entries/1845"
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-SHRINKWRAP-MIXED-INFINITE-DISTANCE-95E",
+      "qualification": "Conditional source/IEEE reasoning; no established shipped mixed-distance producer and no independent historical unique count."
+    }
+  ],
+  "remaining": "Inspect all Collider implementations, admitted no-hit policies, exact q1845 aliases and all independent lens obligations.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1920.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1934.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -279,7 +279,14 @@ surface origins and sampled-tree seam heights, preserving earlier attribution.
 source-review bundles. `ASSESSMENT-DELEGATED-RECONCILIATION-95E.json`
 records central source dispositions and connected ledger relationships.
 `DELEGATED-EVIDENCE-CHECKPOINT-2.json` preserves three additional delegated
+source-review bundles. `ASSESSMENT-DELEGATED-RECONCILIATION-2-95E.json`
+records central source dispositions and connected ledger relationships.
+`DELEGATED-EVIDENCE-CHECKPOINT-3.json` preserves four additional delegated
 source-review bundles, pending central reconciliation and role credit.
+`DELEGATED-CHECKPOINT-3-QUALIFICATION.json` distinguishes the two older
+rig transport paths and their reconstructed public copies.
+`ASSESSMENT-SHRINKWRAP-COLLIDER-95E.json` connects an earlier conditional
+infinite-distance question to the current collider and vector source.
 `ASSESSMENT-HAIR-NATIVE-OPERATIONS-95E.json` reconnects the historical
 empty-rod admission and narrows one Trim resampling path.
 `ASSESSMENT-HAIR-MATERIAL-OPERATIONS-95E.json` reconnects the earlier

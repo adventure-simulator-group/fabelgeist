@@ -1,0 +1,92 @@
+{
+  "schema": "726-delegated-prospective-source-registration-v1",
+  "created_utc": "2026-11-11 19:02:28 UTC",
+  "clock_source": "clock__curr_time",
+  "reader": "current-session delegate rig_identity, second bounded scope",
+  "registration": "prospective before fresh full source displays; earlier rig-identity support reads remain separately attributed",
+  "ordered_current_roles": [
+    2336,
+    2337,
+    2338
+  ],
+  "entries": [
+    {
+      "original_role": 2336,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e",
+      "git_blob": "164ba310ec9f23be5f6bea385a88ee647c2460b8",
+      "bytes": 7932,
+      "planned_full_read": [
+        1,
+        239
+      ]
+    },
+    {
+      "original_role": 2336,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "git_blob": "a920b97c5d5dd76f32be3e3d2c799c28479d0645",
+      "bytes": 7326,
+      "planned_full_read": [
+        1,
+        226
+      ]
+    },
+    {
+      "original_role": 2337,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "330da7b3558ef374c2d60b787e0d32870a6b0b6f338f2f2ebb25f5b4c18ec511",
+      "git_blob": "bd35c56639297a571e2d3defe4027c8ff8f80b6d",
+      "bytes": 2998,
+      "planned_full_read": [
+        1,
+        108
+      ]
+    },
+    {
+      "original_role": 2337,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "git_blob": "875d6b9183c5c9e683488c771f332347bfbe8a80",
+      "bytes": 3011,
+      "planned_full_read": [
+        1,
+        108
+      ]
+    },
+    {
+      "original_role": 2338,
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/tests.rs",
+      "sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+      "git_blob": "7cd454c735f2f9189e263d19373bde5aa40287b2",
+      "bytes": 3343,
+      "planned_full_read": [
+        1,
+        108
+      ]
+    },
+    {
+      "original_role": 2338,
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-rig/src/tests.rs",
+      "sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+      "git_blob": "7cd454c735f2f9189e263d19373bde5aa40287b2",
+      "bytes": 3343,
+      "planned_full_read": [
+        1,
+        108
+      ]
+    }
+  ],
+  "constraints": [
+    "source inspection and static reasoning only",
+    "test source may be read, not executed",
+    "no implementations, builds, tests, product execution, runtime probes or simulated fixtures",
+    "historical source differences and prior reviewer attribution are kept distinct; no checkpoint3821 promotion"
+  ]
+}
