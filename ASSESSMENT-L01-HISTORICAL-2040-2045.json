@@ -1,0 +1,558 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2040,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2040",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "lines": 473,
+      "new_personal_read_ranges": [
+        [
+          1,
+          473
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-GEOMETRY.json",
+          "ranges": [
+            [
+              50,
+              125
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/melee.rs",
+        "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+        "bytes": 17181,
+        "lines": 473,
+        "git_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+        "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/current-2040.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            473
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier source observations remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-L1-CONTACT-GEOMETRY.json",
+          "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "ranges_as_recorded": [
+            [
+              50,
+              125
+            ]
+          ],
+          "qualification": "Prior c100 read is predecessor evidence, not new95e credit."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              374,
+              472
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-UNARMED-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              131,
+              169
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        }
+      ],
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited a c100 predecessor observation; byte equality does not transfer independent95e personal read credit."
+    },
+    {
+      "original_index": 2041,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2041",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "lines": 186,
+      "new_personal_read_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+        "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+        "bytes": 6594,
+        "lines": 186,
+        "git_blob": "a4243bb58fe6f6f84a23070ee8e4a8f8b579afe6",
+        "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/current-2041.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            186
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier source observations remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              13,
+              94
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              178
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-INVENTORY-CACHE-IDENTITY-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              145
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        }
+      ]
+    },
+    {
+      "original_index": 2042,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2042",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "lines": 129,
+      "new_personal_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "ranges": "39-90"
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+        "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+        "bytes": 4251,
+        "lines": 129,
+        "git_blob": "b0abdab946bf4d48b812463afb3221312fb89bcc",
+        "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/current-2042.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            129
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier source observations remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "ranges_as_recorded": "39-90",
+          "qualification": "Prior c100 read is predecessor evidence, not new95e credit."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              92
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              92
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        }
+      ],
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited a c100 predecessor observation; byte equality does not transfer independent95e personal read credit."
+    },
+    {
+      "original_index": 2043,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2043",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "lines": 86,
+      "new_personal_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/protocol.rs",
+        "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+        "bytes": 3135,
+        "lines": 86,
+        "git_blob": "25aad130cf09fc30d0f1643f7f0f888f271bbad9",
+        "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/current-2043.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            86
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier source observations remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              7,
+              32
+            ],
+            [
+              48,
+              86
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        }
+      ]
+    },
+    {
+      "original_index": 2044,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2044",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "lines": 325,
+      "new_personal_read_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+        "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+        "bytes": 10459,
+        "lines": 325,
+        "git_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+        "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/current-2044.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            325
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier source observations remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-COMBAT-CONSEQUENCE-RECEIPTS-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              85,
+              119
+            ],
+            [
+              230,
+              265
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              85,
+              119
+            ],
+            [
+              230,
+              279
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              325
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-RANGED-FATIGUE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              5,
+              31
+            ],
+            [
+              34,
+              81
+            ],
+            [
+              126,
+              143
+            ],
+            [
+              239,
+              290
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-RANGED-SOURCE-ASSERTION-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              120
+            ],
+            [
+              155,
+              265
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-PROTECTIVE-CONTACT-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              260,
+              315
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-STACK-MASS-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              83,
+              119
+            ],
+            [
+              210,
+              265
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-BOUNDARY-RANGED-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              325
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        }
+      ]
+    },
+    {
+      "original_index": 2045,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working body matches committed6533 and95e for this exact role; no other reviewer or lens credit follows.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2045",
+      "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "lines": 105,
+      "new_personal_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "ranges": "35-70"
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+        "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+        "bytes": 3428,
+        "lines": 105,
+        "git_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+        "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/current-2045.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            105
+          ]
+        ],
+        "qualification": "Complete historical body personally read; identical current content does not supply another independent reviewer or other-lens credit."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; original reviewer and earlier source observations remain separately attributed.",
+      "preexisting_current_and_predecessor_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "source_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "ranges_as_recorded": "35-70",
+          "qualification": "Prior c100 read is predecessor evidence, not new95e credit."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              105
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              105
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-PROTECTIVE-CONTACT-95E.json",
+          "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "ranges_as_recorded": [
+            [
+              1,
+              105
+            ]
+          ],
+          "qualification": "Prior bounded95e source observation retained separately from new historical read."
+        }
+      ],
+      "prior_worklist_observation_revision_qualification": "Prior worklist cited a c100 predecessor observation; byte equality does not transfer independent95e personal read credit."
+    }
+  ],
+  "observations": [
+    "Full historical melee, active defense, melee outcome, protocol, ranged and ranged outcome bodies personally read through EOF. No authored tests or product ran.",
+    "All six match95e. Earlier current observations and predecessor c100 traces remain separately attributed; three prior worklist citations were c100, not a95e personal read.",
+    "Segovb686/687 and Adler317/318 retain their own original ranges; the inherited original1022 UnitInterval proof is not a Segovb fresh read or a current-owner equivalence."
+  ],
+  "qualification": "Historical Lens1 personal bodies and selected current observations only; no checkpoint3821 claim.",
+  "next_original_role": 2046
+}

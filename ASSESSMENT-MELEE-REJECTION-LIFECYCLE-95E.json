@@ -1,0 +1,1306 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2040–2045 and rejected melee contact, reciprocal defense, body-part, config and event-kind connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2040-2045.json",
+  "git_membership_evidence": "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "bytes": 39026,
+      "lines": 1148,
+      "ranges": [
+        [
+          430,
+          475
+        ],
+        [
+          478,
+          509
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "bytes": 41432,
+      "lines": 1210,
+      "ranges": [
+        [
+          274,
+          304
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+      "sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+      "bytes": 22323,
+      "lines": 674,
+      "ranges": [
+        [
+          178,
+          183
+        ],
+        [
+          196,
+          226
+        ],
+        [
+          243,
+          250
+        ],
+        [
+          290,
+          300
+        ],
+        [
+          302,
+          336
+        ],
+        [
+          338,
+          366
+        ],
+        [
+          624,
+          663
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/authority/clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6e9dc1c104f98b845d1bca5cdab4981d9c9a8f11",
+      "sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "bytes": 1662,
+      "lines": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "86b56c1b59ef2dc60abf602ca03a97afcff2b888",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "bytes": 9410,
+      "lines": 255,
+      "ranges": [
+        [
+          51,
+          111
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4ec3c75e8a55254735b6a861d9721ba5b7e002a5",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "bytes": 17674,
+      "lines": 444,
+      "ranges": [
+        [
+          58,
+          77
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ddbb471042ffdc77b0b8c7e16b1e184b1a98963e",
+      "sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74",
+      "bytes": 71704,
+      "lines": 2067,
+      "ranges": [
+        [
+          944,
+          952
+        ],
+        [
+          1582,
+          1587
+        ],
+        [
+          1931,
+          1952
+        ],
+        [
+          1974,
+          2025
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/targeting.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b8bfc5cf6883356f2bb6ac2b61f6c9f34d53495c",
+      "sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "bytes": 15755,
+      "lines": 427,
+      "ranges": [
+        [
+          9,
+          17
+        ],
+        [
+          182,
+          211
+        ],
+        [
+          236,
+          255
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/composite.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "781cb7f9131a02b3f9b2e157cf1c32382fe69f2a",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "bytes": 12330,
+      "lines": 386,
+      "ranges": [
+        [
+          333,
+          357
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fff1a179c88fd24bff6e279d2dedefd0b4a1a140",
+      "sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "bytes": 11076,
+      "lines": 290,
+      "ranges": [
+        [
+          82,
+          88
+        ],
+        [
+          153,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          24
+        ],
+        [
+          36,
+          38
+        ],
+        [
+          91,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          27,
+          72
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "bytes": 28081,
+      "lines": 726,
+      "ranges": [
+        [
+          128,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          54,
+          68
+        ],
+        [
+          176,
+          178
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "bytes": 6430,
+      "lines": 163,
+      "ranges": [
+        [
+          11,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+      "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "bytes": 14020,
+      "lines": 427,
+      "ranges": [
+        [
+          300,
+          327
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34600de8b903bc261aef21df17939fc900c23c03",
+      "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+      "bytes": 6727,
+      "lines": 167,
+      "ranges": [
+        [
+          55,
+          129
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "186e8554d29703a50a6048604c25c22e2f1c9b80",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "bytes": 3262,
+      "lines": 89,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-lifecycle-evidence/support-action-timeline.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges credited; complete bytes preserved. No historical role, independent lens or execution credit."
+    }
+  ],
+  "native_source_evidence": [
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "member": "bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "bytes": 111800,
+      "personally_inspected_ranges": [
+        [
+          1162,
+          1172
+        ],
+        [
+          1720,
+          1730
+        ],
+        [
+          1998,
+          2007
+        ]
+      ],
+      "previously_indexed_member": true,
+      "qualification": "New source-only reading of exact lock-pinned archive member. Whole archive is already preserved; no Bevy, product, simulation or test ran."
+    },
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "member": "bevy_ecs-0.19.1/src/system/commands/command.rs",
+      "sha256": "12bec363d3474c0b87b56e08fbd24876e099cb39269f83f54f56275deb207f32",
+      "bytes": 9977,
+      "personally_inspected_ranges": [
+        [
+          275,
+          290
+        ]
+      ],
+      "previously_indexed_member": false,
+      "qualification": "New source-only reading of exact lock-pinned archive member. Whole archive is already preserved; no Bevy, product, simulation or test ran."
+    },
+    {
+      "manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "archive": "native-evidence/bevy_ecs-0.19.1/bevy_ecs-0.19.1.crate",
+      "member": "bevy_ecs-0.19.1/src/world/command_queue.rs",
+      "sha256": "1825f53bb9814a81be3a25bf423512c344c3196c39ef0968700f0748e5aa230a",
+      "bytes": 21168,
+      "personally_inspected_ranges": [
+        [
+          89,
+          110
+        ],
+        [
+          230,
+          275
+        ]
+      ],
+      "previously_indexed_member": true,
+      "qualification": "New source-only reading of exact lock-pinned archive member. Whole archive is already preserved; no Bevy, product, simulation or test ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json",
+    "ASSESSMENT-COMBAT-AUTHORITY-PROVENANCE-95E.json",
+    "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+    "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json",
+    "ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Rejected scheduled contact and retained authority",
+      "trace": "The pending-contact system queues removal of PendingMeleeContact then queues MeleeAttackIntent. Bevy0.19.1 source queues both and applies commands in order. On a targeted completion rejected by the cheap range gate, MeleeCompletion::prepare logs and returns without authorize or complete_miss; the prior windup and active attack remain in the per-entity authority. The untargeted-miss branch separately calls complete_miss.",
+      "remaining": "No actual queued commands or combat ran. The finding applies only when the selected completion is rejected and no other state transition clears/overwrites authority; all observer, scheduling and lifecycle alternatives remain open."
+    },
+    {
+      "contract": "Conditional stale FinishTrade sequence",
+      "trace": "Suppose A starts at tick0, B starts at tick8, B target is A and B contact at tick24 is rejected out of range, B attack remains in recovery through tick40, and A contacts B at tick32 after coming in range. At64Hz, B starts0.125 seconds after A, within the authored0.5-second reflex window. With no pending dodge, a blocking weapon and no shield, the selected reciprocal path still finds B active/windup, computes ready_at.elapsed_since(now)=0 via saturating subtraction, and the core committed-threat selector chooses FinishTrade. The scheduled B contact was already removed and its completion rejected.",
+      "remaining": "This is a hypothetical source-level timeline, not an observed actor, move, authority state, random draw, combat result or runtime test. Actual feasible authored weapon timings, ECS scheduling, movement and intended recovery/defense policy need qualification. Do not infer a globally reachable player incident or mandate a particular defense fallback."
+    },
+    {
+      "contract": "Same sampled body part",
+      "trace": "Initial melee selection and later unforced completion both use the retained contact_sample. The selected core targeting function chooses body part solely from weighted_body_part_and_local(sample, constant factor); gap targeting shifts the local surface coordinate afterward. Changing precision can alter the surface coordinate but not that body-part selection for the same admitted sample.",
+      "remaining": "This is a scoped counterexample to a suspected selected-body mismatch, not a full stance, armor, timing or numeric verdict. No targeting function ran."
+    },
+    {
+      "contract": "Config owner and ranged event scope",
+      "trace": "The lunge helper ignores its passed config, but core melee_lunge reads the process runtime melee snapshot. Selected startup validates and installs that snapshot before retaining the same config in the Bevy app. Ranged publication uses the common ApplyMeleeAttackResult and MeleeAttackResolved path with intended zero melee contact timing. Its selected iteration logger has a melee-shaped record; stock iteration spawn_weapon sets ranged=false.",
+      "remaining": "Later public snapshot installs or resource mutation may diverge but no supported drift was established. A different ranged event producer could reach a consumer that interprets the melee-shaped fields, yet no stock melee iteration ranged event or report ran. Both policy questions remain open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-MELEE-REJECTED-CONTACT-STALE-TRADE-001",
+      "kind": "conditional current action-lifecycle and defense decision",
+      "qualification": "A rejected targeted scheduled melee completion leaves active authority after pending removal; under the recorded later reciprocal-defense conditions it can be treated as a trade although that contact will not occur. No product event or supported timing witness was observed.",
+      "queues": [
+        1718,
+        1726,
+        1733
+      ]
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "bytes": 17171,
+      "git_blob": "f0e945891587ec93a64192c5c32065748eb5995b",
+      "preserved_bytes": "recovered/melee-lifecycle-059/eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771.gz",
+      "published_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "published_bytes": 17171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-260.json",
+      "sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440",
+      "bytes": 15078,
+      "git_blob": "a48f8733c2c4465f9b259bb33c0b6822b00858ca",
+      "preserved_bytes": "recovered/melee-lifecycle-059/66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440.gz",
+      "published_sha256": "66cbf28eb925ba2a800167bcb9f85717c2018e594dc51b8c30e7d3887c394440",
+      "published_bytes": 15078,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-262.json",
+      "sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d",
+      "bytes": 8472,
+      "git_blob": "10ae48359d230ab18b56b8bc790039915fd2b6ad",
+      "preserved_bytes": "recovered/melee-lifecycle-059/3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d.gz",
+      "published_sha256": "3a60c1fb5aacb7b88257fa2298849eda1d831eb145f1c8b9351ffaf2bd3a0f6d",
+      "published_bytes": 8472,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "bytes": 8630,
+      "git_blob": "ee988ea2ae34edc4ae4b93853692d48df29003cc",
+      "preserved_bytes": "recovered/melee-lifecycle-059/b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374.gz",
+      "published_sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "published_bytes": 8630,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-271.json",
+      "sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "bytes": 11760,
+      "git_blob": "6215e73adce4e51c62992d37dd261190433a79ea",
+      "preserved_bytes": "recovered/melee-lifecycle-059/52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba.gz",
+      "published_sha256": "52b821a1a8926b1eb1388d7386a468447ff6d5d48816466c586ca533fc1780ba",
+      "published_bytes": 11760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/melee-lifecycle-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/melee-lifecycle-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-285.json",
+      "sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "bytes": 13286,
+      "git_blob": "68f8f1e9df6d011c7f8e63b3d7827a313fac89a6",
+      "preserved_bytes": "recovered/melee-lifecycle-059/0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b.gz",
+      "published_sha256": "0d7c09d69692f80ea7776c9a37ad41ae65c269cb1be0f7beb5fec90f2a0cf98b",
+      "published_bytes": 13286,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/melee-lifecycle-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/melee-lifecycle-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/melee-lifecycle-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/melee-lifecycle-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "bytes": 9853,
+      "git_blob": "ba23ac9d50ba8cfabacc43b96b65a51272786616",
+      "preserved_bytes": "recovered/melee-lifecycle-059/439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182.gz",
+      "published_sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "published_bytes": 9853,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-312.json",
+      "sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "bytes": 11309,
+      "git_blob": "f7209701bce0993d6c46760340940c88cfe8e1cb",
+      "preserved_bytes": "recovered/melee-lifecycle-059/4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5.gz",
+      "published_sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "published_bytes": 11309,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-313.json",
+      "sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "bytes": 17334,
+      "git_blob": "b41dd856071fb91562cde19343a12eadc3625865",
+      "preserved_bytes": "recovered/melee-lifecycle-059/57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53.gz",
+      "published_sha256": "57a04e8df6a0c4b920158c92f7cccfe232f064761af94730510e9f903346db53",
+      "published_bytes": 17334,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-314.json",
+      "sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "bytes": 10708,
+      "git_blob": "4a3e29709ecfbfe85e759a85a1caa1fef95c772e",
+      "preserved_bytes": "recovered/melee-lifecycle-059/f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0.gz",
+      "published_sha256": "f336b3ab6181da73a064644c64794ec75e4242df0b4f7b895c0fcb15e29ecfd0",
+      "published_bytes": 10708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-315.json",
+      "sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "bytes": 14714,
+      "git_blob": "0d0cb53feee510953a06a8dd902de837cf7cf8a7",
+      "preserved_bytes": "recovered/melee-lifecycle-059/68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050.gz",
+      "published_sha256": "68c75afc5380aa60ca581eefa97cfe36aebcc540f3750f057ac3c45cae41b050",
+      "published_bytes": 14714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-316.json",
+      "sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7",
+      "bytes": 14101,
+      "git_blob": "39b53e0c3c04950afb869deb4a0a499a3fcf5d50",
+      "preserved_bytes": "recovered/melee-lifecycle-059/47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7.gz",
+      "published_sha256": "47242e89369ded0443a81ddd160d35a1a5c7ce1d272c4a0c2da499ba57c150e7",
+      "published_bytes": 14101,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens context",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-317.json",
+      "sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1",
+      "bytes": 9801,
+      "git_blob": "dcd6fd45bf080eaa1a48cb9498c3e695ffaeb872",
+      "preserved_bytes": "recovered/melee-lifecycle-059/5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1.gz",
+      "published_sha256": "5801cd803cf8ebff1797b5571c56b0a2d1a00fc534dd847d5fd97a01cad36cd1",
+      "published_bytes": 9801,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt",
+        "Original qualified same-lens context"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-318.json",
+      "sha256": "32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7",
+      "bytes": 8685,
+      "git_blob": "a49f57aef689de6907dbf44b04820f8a92ec7ecd",
+      "preserved_bytes": "recovered/melee-lifecycle-059/32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7.gz",
+      "published_sha256": "32707985195045901c315ee055171daede0e511e453b79148b272017e543f5c7",
+      "published_bytes": 8685,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-884.json",
+      "sha256": "b02670cb0f2b3050e94fbc8e150fca11744d66df424676e9c016a0d76333f3ff",
+      "bytes": 691,
+      "git_blob": "a72b2c36adbaa81f73b70d6562c7d8e4a5b32f4b",
+      "preserved_bytes": "recovered/melee-lifecycle-059/b02670cb0f2b3050e94fbc8e150fca11744d66df424676e9c016a0d76333f3ff.gz",
+      "published_sha256": "b02670cb0f2b3050e94fbc8e150fca11744d66df424676e9c016a0d76333f3ff",
+      "published_bytes": 691,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-885.json",
+      "sha256": "c74e629ab2f5af203b4a8c48dc8eee9967a0c0d6688d87d156ac95c1eb0ca460",
+      "bytes": 708,
+      "git_blob": "9aa35cf04f2f2f0b03b38f6677a1bcd6375c1f8e",
+      "preserved_bytes": "recovered/melee-lifecycle-059/c74e629ab2f5af203b4a8c48dc8eee9967a0c0d6688d87d156ac95c1eb0ca460.gz",
+      "published_sha256": "c74e629ab2f5af203b4a8c48dc8eee9967a0c0d6688d87d156ac95c1eb0ca460",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-886.json",
+      "sha256": "aeef58c4143f80ce888819d3bb337631f7991caf23754e001fec47d7ea58045e",
+      "bytes": 701,
+      "git_blob": "625f247f26e11c6b8b52c57787d844d0c1432545",
+      "preserved_bytes": "recovered/melee-lifecycle-059/aeef58c4143f80ce888819d3bb337631f7991caf23754e001fec47d7ea58045e.gz",
+      "published_sha256": "aeef58c4143f80ce888819d3bb337631f7991caf23754e001fec47d7ea58045e",
+      "published_bytes": 701,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-887.json",
+      "sha256": "b948b138fe2f6a74fb2a849bd6c42357429b40982091a4c3f24175dd9c905ebf",
+      "bytes": 695,
+      "git_blob": "0977b5cd886f56b6249d41a40e546b5bc570b03a",
+      "preserved_bytes": "recovered/melee-lifecycle-059/b948b138fe2f6a74fb2a849bd6c42357429b40982091a4c3f24175dd9c905ebf.gz",
+      "published_sha256": "b948b138fe2f6a74fb2a849bd6c42357429b40982091a4c3f24175dd9c905ebf",
+      "published_bytes": 695,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-888.json",
+      "sha256": "132f9d03480ab457a69b2bb0a60714f456c5a63b3b8422414f708271dc1f8168",
+      "bytes": 692,
+      "git_blob": "27bc28fddbff6c5ec328ed92198d7c2db5d252db",
+      "preserved_bytes": "recovered/melee-lifecycle-059/132f9d03480ab457a69b2bb0a60714f456c5a63b3b8422414f708271dc1f8168.gz",
+      "published_sha256": "132f9d03480ab457a69b2bb0a60714f456c5a63b3b8422414f708271dc1f8168",
+      "published_bytes": 692,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-889.json",
+      "sha256": "7b04a137f495e5c746e84f280e4f819f4fc110417dfa3bc75db8e2b1449ee61d",
+      "bytes": 688,
+      "git_blob": "dca86c08945371fbfebef0351cb198bda2bd2ecf",
+      "preserved_bytes": "recovered/melee-lifecycle-059/7b04a137f495e5c746e84f280e4f819f4fc110417dfa3bc75db8e2b1449ee61d.gz",
+      "published_sha256": "7b04a137f495e5c746e84f280e4f819f4fc110417dfa3bc75db8e2b1449ee61d",
+      "published_bytes": 688,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-317.json",
+      "sha256": "1c6a669a882ec09cecac0b83cbcb2c65f11658af5cb900b682662fa71ff40313",
+      "bytes": 635,
+      "git_blob": "b0d86ae89c6739cc88b95ad77742df20876948f5",
+      "preserved_bytes": "recovered/melee-lifecycle-059/1c6a669a882ec09cecac0b83cbcb2c65f11658af5cb900b682662fa71ff40313.gz",
+      "published_sha256": "1c6a669a882ec09cecac0b83cbcb2c65f11658af5cb900b682662fa71ff40313",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-318.json",
+      "sha256": "a9368a7c65bac0c10950753469be23e2c9625143f2aeac035c51383cf2437002",
+      "bytes": 635,
+      "git_blob": "ba7451d96841e0f892066ab3363b5c8da0ad0fee",
+      "preserved_bytes": "recovered/melee-lifecycle-059/a9368a7c65bac0c10950753469be23e2c9625143f2aeac035c51383cf2437002.gz",
+      "published_sha256": "a9368a7c65bac0c10950753469be23e2c9625143f2aeac035c51383cf2437002",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L12-234.json",
+      "sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0",
+      "bytes": 858,
+      "git_blob": "328fb9c31cb8654a0b8f69e3c466e9e9d9f57401",
+      "preserved_bytes": "recovered/melee-lifecycle-059/f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0.gz",
+      "published_sha256": "f0ca0b8abdddf96d78a62daa8f43495f3080edd05f96f136e83c83e9c0baece0",
+      "published_bytes": 858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Inherited1022 incoming state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-317.json",
+      "sha256": "5e4a8219ce5f08703d5c796be84f4659a332bf4d9d1c9e7dd4d806914dfb1dcb",
+      "bytes": 53523,
+      "git_blob": "9431ec2b74978c6ca4fe6cfec7d04097ba1dc68d",
+      "preserved_bytes": "recovered/melee-lifecycle-059/5e4a8219ce5f08703d5c796be84f4659a332bf4d9d1c9e7dd4d806914dfb1dcb.gz",
+      "published_sha256": "5e4a8219ce5f08703d5c796be84f4659a332bf4d9d1c9e7dd4d806914dfb1dcb",
+      "published_bytes": 53523,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-318.json",
+      "sha256": "52430515c2d379e16db41645cd0e146a354170e840654d60275399bbd8178fd9",
+      "bytes": 57570,
+      "git_blob": "04fa36c63335c0f9bedcb843d1b7668d75a063b3",
+      "preserved_bytes": "recovered/melee-lifecycle-059/52430515c2d379e16db41645cd0e146a354170e840654d60275399bbd8178fd9.gz",
+      "published_sha256": "52430515c2d379e16db41645cd0e146a354170e840654d60275399bbd8178fd9",
+      "published_bytes": 57570,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens12/prospective-sources-001.jsonl",
+      "sha256": "040a43d6b339ee3ca6497633de9921c9ce2c056f80568a3260d7853ab648c5cc",
+      "bytes": 506042,
+      "git_blob": "7378ff54204287320d90d604cf64532041c46fc0",
+      "preserved_bytes": "recovered/melee-lifecycle-059/040a43d6b339ee3ca6497633de9921c9ce2c056f80568a3260d7853ab648c5cc.gz",
+      "published_sha256": "ccb2090a4672b149c39d634ab62fd016ed31e18181f0c0236a1c8ff968674993",
+      "published_bytes": 506033,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Inherited1022 prospective registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "evidence/continuation-segovb/audit-resume-20261027/lens12/receipt-209-originals1020-1022.json",
+      "sha256": "fbfb1a5c9b3763f1167db92018da074662282210185b9e837d842708cb0ee0f3",
+      "bytes": 8184,
+      "git_blob": "1cd85a1afe183d9cd5a4e32528f95c964bd35bc6",
+      "preserved_bytes": "recovered/melee-lifecycle-059/fbfb1a5c9b3763f1167db92018da074662282210185b9e837d842708cb0ee0f3.gz",
+      "published_sha256": "fbfb1a5c9b3763f1167db92018da074662282210185b9e837d842708cb0ee0f3",
+      "published_bytes": 8184,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Inherited1022 receipt with zero Segovb fresh rereads"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-686.json",
+      "sha256": "b27598fd340ffb4cf27bda4be9fb75f9116612833acb5df7526d99056ade8828",
+      "bytes": 1212,
+      "git_blob": "c0c8d5f920f694cd789db1fe64c5f5a2f4e02e0b",
+      "preserved_bytes": "recovered/melee-lifecycle-059/b27598fd340ffb4cf27bda4be9fb75f9116612833acb5df7526d99056ade8828.gz",
+      "published_sha256": "b27598fd340ffb4cf27bda4be9fb75f9116612833acb5df7526d99056ade8828",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-687.json",
+      "sha256": "8e72964dbf5834a3ac85f43aaad0aa260e9d2ecd2ffc0cd2655f0691b64f3c8d",
+      "bytes": 2180,
+      "git_blob": "7f44c440b8475f42106d87c7fc3f3409b83b44ba",
+      "preserved_bytes": "recovered/melee-lifecycle-059/8e72964dbf5834a3ac85f43aaad0aa260e9d2ecd2ffc0cd2655f0691b64f3c8d.gz",
+      "published_sha256": "8e72964dbf5834a3ac85f43aaad0aa260e9d2ecd2ffc0cd2655f0691b64f3c8d",
+      "published_bytes": 2180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-435.json",
+      "sha256": "519a929a29008009af958848413f904018f3c5289b44ccd7246c35472cbb9d41",
+      "bytes": 6063,
+      "git_blob": "70449e993ff85428a29f78d4854dcc1dda64ab1b",
+      "preserved_bytes": "recovered/melee-lifecycle-059/519a929a29008009af958848413f904018f3c5289b44ccd7246c35472cbb9d41.gz",
+      "published_sha256": "519a929a29008009af958848413f904018f3c5289b44ccd7246c35472cbb9d41",
+      "published_bytes": 6063,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-680.json",
+      "sha256": "197d4e55f5b45469ee2e6c4dd4d98b55aab063ac7e5c5f2ec7aad108720518f8",
+      "bytes": 11530,
+      "git_blob": "9df03481ab6fd53d6cd09cfb4c0719ff31e5b8f4",
+      "preserved_bytes": "recovered/melee-lifecycle-059/197d4e55f5b45469ee2e6c4dd4d98b55aab063ac7e5c5f2ec7aad108720518f8.gz",
+      "published_sha256": "197d4e55f5b45469ee2e6c4dd4d98b55aab063ac7e5c5f2ec7aad108720518f8",
+      "published_bytes": 11530,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-683.json",
+      "sha256": "f83c1b835aa609a6cb4666b488a8688b737865c388f75c0fdd6fcdcc4ee217d5",
+      "bytes": 8241,
+      "git_blob": "e368a2f9460434a1243709617bd6d23ad8d8272b",
+      "preserved_bytes": "recovered/melee-lifecycle-059/f83c1b835aa609a6cb4666b488a8688b737865c388f75c0fdd6fcdcc4ee217d5.gz",
+      "published_sha256": "f83c1b835aa609a6cb4666b488a8688b737865c388f75c0fdd6fcdcc4ee217d5",
+      "published_bytes": 8241,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-686.json",
+      "sha256": "b27d455682570a2ec090a7d303921698c231014402cee047bef530757f4dcda2",
+      "bytes": 9166,
+      "git_blob": "e2bc76b028becf4a40a988c2e6314e0418d10dd6",
+      "preserved_bytes": "recovered/melee-lifecycle-059/b27d455682570a2ec090a7d303921698c231014402cee047bef530757f4dcda2.gz",
+      "published_sha256": "b27d455682570a2ec090a7d303921698c231014402cee047bef530757f4dcda2",
+      "published_bytes": 9166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-687.json",
+      "sha256": "d5e1aac627f160d08446de188b701f14a82be1c9e23669575d86e56bc69496a2",
+      "bytes": 15016,
+      "git_blob": "ad083caa946d677b71e95f25558d14117ec08369",
+      "preserved_bytes": "recovered/melee-lifecycle-059/d5e1aac627f160d08446de188b701f14a82be1c9e23669575d86e56bc69496a2.gz",
+      "published_sha256": "d5e1aac627f160d08446de188b701f14a82be1c9e23669575d86e56bc69496a2",
+      "published_bytes": 15016,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-377.json",
+      "sha256": "fe8dd333fd854f1f49c4182d4c027a630f7886346aa48843ff59588c266c1b2d",
+      "bytes": 1199,
+      "git_blob": "108b7dad2bd18e0c89683e4c6a955623a7781441",
+      "preserved_bytes": "recovered/melee-lifecycle-059/fe8dd333fd854f1f49c4182d4c027a630f7886346aa48843ff59588c266c1b2d.gz",
+      "published_sha256": "fe8dd333fd854f1f49c4182d4c027a630f7886346aa48843ff59588c266c1b2d",
+      "published_bytes": 1199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-934.json",
+      "sha256": "f38302ac60a4d687b57dcaf6d95f5fe39e73d137ec793a70d97c39fb29bf319b",
+      "bytes": 1158,
+      "git_blob": "0daf135ca9ae038f1d27f5220ad1bce86d177f42",
+      "preserved_bytes": "recovered/melee-lifecycle-059/f38302ac60a4d687b57dcaf6d95f5fe39e73d137ec793a70d97c39fb29bf319b.gz",
+      "published_sha256": "f38302ac60a4d687b57dcaf6d95f5fe39e73d137ec793a70d97c39fb29bf319b",
+      "published_bytes": 1158,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-942.json",
+      "sha256": "240859f5c24443583ada7db2ef93a150d1fe8ae58da9468179eaad5f0a68497d",
+      "bytes": 1181,
+      "git_blob": "8cd4f2697156bec527aecf9c6891753492d0bc66",
+      "preserved_bytes": "recovered/melee-lifecycle-059/240859f5c24443583ada7db2ef93a150d1fe8ae58da9468179eaad5f0a68497d.gz",
+      "published_sha256": "240859f5c24443583ada7db2ef93a150d1fe8ae58da9468179eaad5f0a68497d",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original qualified same-lens registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-947.json",
+      "sha256": "5d97c5c2a4dfad79af823a3f79a72f2327134ae0cb23096503c9a612137b5bfa",
+      "bytes": 1166,
+      "git_blob": "2886be0a3bde808d1ac330177df4c7106f066cd5",
+      "preserved_bytes": "recovered/melee-lifecycle-059/5d97c5c2a4dfad79af823a3f79a72f2327134ae0cb23096503c9a612137b5bfa.gz",
+      "published_sha256": "5d97c5c2a4dfad79af823a3f79a72f2327134ae0cb23096503c9a612137b5bfa",
+      "published_bytes": 1166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-948.json",
+      "sha256": "6a9030f44c9d4c348b8dc5c6a752cc26c79755abae7052dab5e0615c85ea277e",
+      "bytes": 1196,
+      "git_blob": "84af8f796f5f0ecc4fd972ac6788bd34a75f55ff",
+      "preserved_bytes": "recovered/melee-lifecycle-059/6a9030f44c9d4c348b8dc5c6a752cc26c79755abae7052dab5e0615c85ea277e.gz",
+      "published_sha256": "6a9030f44c9d4c348b8dc5c6a752cc26c79755abae7052dab5e0615c85ea277e",
+      "published_bytes": 1196,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-949.json",
+      "sha256": "ac64c11f22a9d3c43647437b3796c9ce5b5159033d30bdd6ee1617eeff974b01",
+      "bytes": 1179,
+      "git_blob": "81cfe6a3520af0adef9f8c8dc5e9128c94814f2a",
+      "preserved_bytes": "recovered/melee-lifecycle-059/ac64c11f22a9d3c43647437b3796c9ce5b5159033d30bdd6ee1617eeff974b01.gz",
+      "published_sha256": "ac64c11f22a9d3c43647437b3796c9ce5b5159033d30bdd6ee1617eeff974b01",
+      "published_bytes": 1179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-950.json",
+      "sha256": "aa001b8b675b4e70a6dd667ebb81134f17ec513eb9f41573e95a4c838c70a8ba",
+      "bytes": 1167,
+      "git_blob": "7169427d364b0bd0cf126b0da9135ff5a8d5f1da",
+      "preserved_bytes": "recovered/melee-lifecycle-059/aa001b8b675b4e70a6dd667ebb81134f17ec513eb9f41573e95a4c838c70a8ba.gz",
+      "published_sha256": "aa001b8b675b4e70a6dd667ebb81134f17ec513eb9f41573e95a4c838c70a8ba",
+      "published_bytes": 1167,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-951.json",
+      "sha256": "244da12e08b2908d6bd369e171d5f6e7a8cb7806f620a3239d869aba6ee884ac",
+      "bytes": 1165,
+      "git_blob": "d70f13c8ef34a0465473b9ae293be57b5c04a226",
+      "preserved_bytes": "recovered/melee-lifecycle-059/244da12e08b2908d6bd369e171d5f6e7a8cb7806f620a3239d869aba6ee884ac.gz",
+      "published_sha256": "244da12e08b2908d6bd369e171d5f6e7a8cb7806f620a3239d869aba6ee884ac",
+      "published_bytes": 1165,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-952.json",
+      "sha256": "17e434b7c1d420a1977c5188f41957c0dc35d2be279d2c8c2bf935d31b33279e",
+      "bytes": 1181,
+      "git_blob": "54d763d2926c4f83f0e7d2383b7390575fd10858",
+      "preserved_bytes": "recovered/melee-lifecycle-059/17e434b7c1d420a1977c5188f41957c0dc35d2be279d2c8c2bf935d31b33279e.gz",
+      "published_sha256": "17e434b7c1d420a1977c5188f41957c0dc35d2be279d2c8c2bf935d31b33279e",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-686.json",
+      "sha256": "eb69cd117cb07e3746f935c601f0b3d59a88011d316bd51604f1e40ae7360c71",
+      "bytes": 840,
+      "git_blob": "b7e6313670a8f3d5114e1aeaaab770607692623a",
+      "preserved_bytes": "recovered/melee-lifecycle-059/eb69cd117cb07e3746f935c601f0b3d59a88011d316bd51604f1e40ae7360c71.gz",
+      "published_sha256": "eb69cd117cb07e3746f935c601f0b3d59a88011d316bd51604f1e40ae7360c71",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-687.json",
+      "sha256": "caec7d009f70b9a09a274dc854be725577ca0b56622d3f92fdaa85e3ccdb0ba6",
+      "bytes": 840,
+      "git_blob": "aec8a17e64c03b4ed3f28ca4a354d6eacdbae103",
+      "preserved_bytes": "recovered/melee-lifecycle-059/caec7d009f70b9a09a274dc854be725577ca0b56622d3f92fdaa85e3ccdb0ba6.gz",
+      "published_sha256": "caec7d009f70b9a09a274dc854be725577ca0b56622d3f92fdaa85e3ccdb0ba6",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-686.json",
+      "sha256": "d7b58d00fc810b646227abd31d686bd16c7900d3261f7c6d3a25055ef4d8645d",
+      "bytes": 558,
+      "git_blob": "0c5d7da2bd73e663f103bb327654b0e55b2e3346",
+      "preserved_bytes": "recovered/melee-lifecycle-059/d7b58d00fc810b646227abd31d686bd16c7900d3261f7c6d3a25055ef4d8645d.gz",
+      "published_sha256": "d7b58d00fc810b646227abd31d686bd16c7900d3261f7c6d3a25055ef4d8645d",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-687.json",
+      "sha256": "1f7373cc03d386167e615d0ec27fedd3c0139f4c19150e6ed461ff8db18d00f0",
+      "bytes": 558,
+      "git_blob": "cfd4ed0930c349fe0edbc708c72b4475dc141736",
+      "preserved_bytes": "recovered/melee-lifecycle-059/1f7373cc03d386167e615d0ec27fedd3c0139f4c19150e6ed461ff8db18d00f0.gz",
+      "published_sha256": "1f7373cc03d386167e615d0ec27fedd3c0139f4c19150e6ed461ff8db18d00f0",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original verification"
+      ],
+      "qualification": "Original authors, revisions, personal and reused ranges and obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb686/687 and Adler317/318 original personal/reuse ranges and revisions remain intact; inherited original1022 remains zero Segovb fresh read. Previous c100 worklist observations retain predecessor attribution. The new conditional finding is current work, never3821.",
+  "remaining": "Continue original2046, prove actual admitted timing/lifecycle or policy for rejected attacks, inspect all13 lenses and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

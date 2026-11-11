@@ -6915,7 +6915,10 @@
         "discovery": "partial; selected admission, producer and consumer evidence recorded, supported lifecycle and aliases remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json"
+        "record": "ASSESSMENT-COMBAT-IMPACT-DEFENSE-95E.json",
+        "additional_current_evidence": [
+          "ASSESSMENT-MELEE-REJECTION-LIFECYCLE-95E.json"
+        ]
       },
       {
         "id": "REVIEW-TARGET-HITBOX-SLAB-OVERFLOW-001",
@@ -6968,7 +6971,10 @@
         "discovery": "partial; selected producer, state and consumers inspected; native lifecycle, supported admission, policy and aliases remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
+        "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json",
+        "additional_current_evidence": [
+          "ASSESSMENT-MELEE-REJECTION-LIFECYCLE-95E.json"
+        ]
       },
       {
         "id": "REVIEW-DODGE-REPEATED-INTENT-WORK-001",
@@ -7068,8 +7074,34 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-COMBAT-INGRESS-ACTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-MELEE-REJECTED-CONTACT-STALE-TRADE-001",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional stale action authority and defense decision",
+        "classification": "A rejected targeted scheduled melee completion leaves active authority after pending removal; under the recorded later reciprocal-defense conditions it can be treated as a trade although that contact will not occur. No product event or supported timing witness was observed.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1718",
+          "baseline-059/queue.json#/entries/1726",
+          "baseline-059/queue.json#/entries/1733"
+        ],
+        "relationship_qualification": "New bounded95e source-level lifecycle trace linked to earlier pending obligations; no historical unique-count or3821 claim.",
+        "discovery": "partial; selected queue and branch source support the hypothetical sequence; admitted timing, scheduling, policy and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REJECTION-LIFECYCLE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1346.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1351.json"
 }
