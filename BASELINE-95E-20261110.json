@@ -4763,7 +4763,10 @@
         "discovery": "partial; source-directed representability counterexample and rejection path connected, full config reachability, live landing and aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-LANDING-SETTLE-95E.json"
+        "record": "ASSESSMENT-LANDING-SETTLE-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+        ]
       },
       {
         "id": "REVIEW-SETTLE-SHAPING-SIGN-POLICY-001",
@@ -4810,7 +4813,10 @@
         "discovery": "partial; current source and prior qualified finding connected; exact public inputs, consumers and aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-GAIT-PROFILE-95E.json"
+        "record": "ASSESSMENT-GAIT-PROFILE-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+        ]
       },
       {
         "id": "REVIEW-GAIT-SUPPORT-PERIODICITY-001",
@@ -18619,7 +18625,10 @@
         "future_acceptance": "After audit and separate authorization, assess the exact boundary and applicable accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+        ]
       },
       {
         "id": "CAPTURE-GROUND-CLEARANCE-ADMISSION-95E",
@@ -18733,7 +18742,10 @@
         "future_acceptance": "After audit and separate authorization, assess the exact boundary and applicable accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+        ]
       },
       {
         "id": "P17-CONTINUITY-WINDOW-NO-WITNESS",
@@ -18828,7 +18840,10 @@
         "future_acceptance": "After audit and separate authorization, assess the exact boundary and applicable accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+        ]
       },
       {
         "id": "P17-LOOP-SEAM-NONFINITE-ROTATION",
@@ -18866,7 +18881,10 @@
         "future_acceptance": "After audit and separate authorization, assess the exact boundary and applicable accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+        ]
       },
       {
         "id": "P17-EXPECT-GUARDED-LOOKUP",
@@ -18886,8 +18904,108 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+      },
+      {
+        "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A stale existing image can satisfy nonempty artifact metadata when a later screenshot save fails.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json",
+          "ASSESSMENT-CAPTURE-ARTIFACT-CONNECTIONS-95E.json"
+        ],
+        "relationship_qualification": "This is the existing 059 q206 finding, independently connected at 95e and supported by pinned Bevy source; no new unique issue, actual save or completed report.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Carry the actual native screenshot save result into artifact certification.",
+        "future_acceptance": "After audit and separate authorization, assess applicable producer and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+      },
+      {
+        "id": "P17-HEIGHT-ADVANCE-TARGET-ROUNDING",
+        "lens": 4,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Binary32 cancellation can make a height advance cross a small positive target.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-9.json"
+        ],
+        "relationship_qualification": "The representable 1, 2^-30, 1 source derivation is conditional on the intended API contract; the shown landing caller does not establish that path.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Decide the no-crossing contract and preserve representable target behavior without weakening checked arithmetic.",
+        "future_acceptance": "After audit and separate authorization, assess applicable producer and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+      },
+      {
+        "id": "P17-SLIP-MISSING-OBSERVATION",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The local support-slip helper skips a missing qualifying foot sample rather than representing unavailable evidence.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-9.json"
+        ],
+        "relationship_qualification": "Current full-report completeness independently requires the feet; no whole-report false acceptance or actual missing sample shown.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Retain required sample coverage and intentional no-support applicability.",
+        "future_acceptance": "After audit and separate authorization, assess applicable producer and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+      },
+      {
+        "id": "P17-SLIP-THRESHOLD-OWNER",
+        "lens": 13,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Support and body-turn eligibility use local bare numeric thresholds in a report helper.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-9.json"
+        ],
+        "relationship_qualification": "Owner and broader alias search remain open; this is not a claim the values or runtime behavior are wrong.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Identify the appropriate review-policy owner while preserving the existing inclusive boundaries.",
+        "future_acceptance": "After audit and separate authorization, assess applicable producer and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+      },
+      {
+        "id": "REPORT-INCOMPLETE-QUALITY-ZERO-POLICY-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Incomplete report evidence is projected into zero-percent quality in the current report model.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-9.json"
+        ],
+        "relationship_qualification": "A current test source expects zero and acceptance separately fails; policy question only, no execution or false-pass claim.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Decide whether unavailable and measured zero should have distinct report semantics.",
+        "future_acceptance": "After audit and separate authorization, assess applicable producer and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-2247.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-2317.json"
 }

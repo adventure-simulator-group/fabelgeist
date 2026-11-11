@@ -1,0 +1,1530 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+  "source_roles": "ASSESSMENT-DELEGATED-P17-2460-2467.json",
+  "p17_git_path_proofs": "CENTRAL-P17-2460-2467-PATH-PROOFS.json",
+  "delegated_observations": [
+    {
+      "bundle_id": "p17-supported-slip",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-supported-slip-report.json",
+      "original_finding": {
+        "id": "P17-SLIP-INVALID-BODY-TURN",
+        "status": "previously assessed conditional first failure; exact same finding, zero additional unique delta",
+        "first_failed_contract": "A nonfinite derived body-turn angle can suppress every eligible slip calculation and leave local scalar zero instead of reporting the failed calculation.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              6,
+              14
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              30,
+              54
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              6,
+              14
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+            "range": [
+              101,
+              107
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+            "range": [
+              99,
+              109
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "range": [
+              714,
+              715
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "range": [
+              291,
+              297
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              192,
+              195
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "range": [
+              456,
+              466
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "range": [
+              653,
+              656
+            ]
+          }
+        ],
+        "condition_and_limits": "If the derived angle is NaN, its <= 0.5 comparison is false for each foot and the return remains zero; +infinity also fails that comparison. Old 90a checked the derived angle before choosing applicability. The code shown does not establish reachability of invalid subject rotation, the native quaternion result for all invalid inputs, absence of another error, or overall report acceptance. The current finite-transform check shown covers bone fields, not the subject body rotation. A quality category consumes the resulting maximum but independent drift and acceptance gates remain.",
+        "future_connected_repair_direction": "At the calculation boundary check the native derived angle using a suitable existing checked angular owner, propagate a typed failure, and distinguish no applicable plant from a genuinely measured zero; preserve established >0.5 degree exclusion, inactive/no-support cases, and current checked displacement behavior.",
+        "future_acceptance_criterion": "A deliberately invalid derived turn cannot be reported as a zero supported-foot measurement; valid low-turn measured zero, supported displacement and deliberate high-turn/inactive exclusion retain their meaning. Input reachability, native behavior and full-path validation must be resolved only in a later authorized phase.",
+        "relationships": "Exact same first failure and remedy as prior-facing P17-SLIP-INVALID-BODY-TURN; do not count twice. It is related to but not automatically the same as P17-CONTINUITY-NONFINITE-DERIVED-ROTATION or 774 NATIVE-OWNER-REPORT-METRICS-005."
+      }
+    },
+    {
+      "bundle_id": "p17-supported-slip",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-supported-slip-report.json",
+      "original_finding": {
+        "id": "P17-SLIP-MISSING-OBSERVATION",
+        "status": "source-local behavior difference; overall false acceptance not established; alias review pending",
+        "first_failed_contract": "A qualifying foot whose two samples are not both present is skipped while scalar zero or the other foot’s maximum is returned, rather than representing unavailable evidence.",
+        "evidence": [
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              34,
+              46
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              34,
+              54
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+            "range": [
+              35,
+              60
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+            "range": [
+              160,
+              175
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+            "range": [
+              29,
+              37
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              136,
+              150
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              192,
+              195
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              257,
+              258
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "range": [
+              158,
+              165
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "range": [
+              102,
+              110
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+            "range": [
+              6,
+              23
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "range": [
+              20,
+              24
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "range": [
+              653,
+              656
+            ]
+          }
+        ],
+        "condition_and_limits": "Given an eligible foot missing at either endpoint, old 90a directly returns Unavailable(MissingBone), whereas current helper silently omits it and may report zero or the measured other foot. Old continuity independently checked every required report bone before calling the helper. Current completeness independently requires both required feet in every planned frame; therefore this comparison establishes a local data/metric distinction, not a reachable passing final report. The current quality score uses the scalar for foot dragging, but other drift and validation gates may still fail. No active plant, support below threshold, and turns above the cutoff were deliberate old NotApplicable cases, not automatically missing evidence.",
+        "future_connected_repair_direction": "Carry applicability and measurement availability through per-pair aggregation and the scenario result, preserve checked NonnegativeLength until the actual presentation/serialization boundary, and make the applicable report consumer reject absent required observations while allowing deliberate NotApplicable states. Coordinate this with continuity window and other observation changes rather than create separate incompatible result models.",
+        "future_acceptance_criterion": "An eligible missing foot cannot masquerade as measured zero or a complete two-foot maximum, genuine measured zero stays valid, and intentional inactive/turn exclusions remain exempt; retain independent completeness and all existing thresholds. No product execution has established reachability or validated a repair.",
+        "relationships": "Related to P17-CONTINUITY-WINDOW-NO-WITNESS and broader observation-gap work but distinct immediate conditions; root must decide whether one connected repair subsumes it. 059 queue Q-L1-8634be2f29d31f348778 and 774 NATIVE-OWNER-REPORT-METRICS-005 contain related owner/measurement questions, not proven exact aliases."
+      }
+    },
+    {
+      "bundle_id": "p17-supported-slip",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-supported-slip-report.json",
+      "original_finding": {
+        "id": "P17-SLIP-THRESHOLD-OWNER",
+        "status": "bounded policy-owner migration gap; exact ledger alias pending",
+        "first_failed_contract": "Two local bare scalars encode which support confidence and body-turn magnitude qualify a physical slip observation without named typed ownership at this operation.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              15,
+              40
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              30,
+              37
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+            "range": [
+              8,
+              13
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+            "range": [
+              80,
+              86
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "range": [
+              21,
+              35
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "range": [
+              69,
+              79
+            ]
+          }
+        ],
+        "condition_and_limits": "Current helper compares UnitInterval fractions with 0.9 and a computed degree magnitude with 0.5. The original comment explicitly treats turns over the cutoff differently, so both encode review policy rather than generic dimensions. A current checked angle owner exists and 90a used its equivalent for the actual angle. This inspection does not prove a repository-wide policy owner is absent or that these exact numbers are wrong; zero initialization for a numerical maximum is a distinct operation.",
+        "future_connected_repair_direction": "Identify the existing review-policy owner or define appropriately named and unit/role-aware support and turn policy at its legitimate owner; preserve thresholds, endpoints and the intentional turning exemption. Coordinate angle admission with P17-SLIP-INVALID-BODY-TURN.",
+        "future_acceptance_criterion": "The 0.9 inclusive support and 0.5 degree inclusive turn boundaries have explicit owner, units, and unchanged semantics; consumers do not duplicate conflicting thresholds. Broader owner search and any policy approval remain future work.",
+        "relationships": "Potential overlap with 059 Q-L1-8634be2f29d31f348778 and general raw-number ledger is not an established alias; central reconciles ownership and exact connected change."
+      }
+    },
+    {
+      "bundle_id": "p17-supported-slip",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-supported-slip-report.json",
+      "original_finding": {
+        "id": "P17-SLIP-SUPPORT-SOURCE-AUTHORITY",
+        "status": "open question; no defect or exact alias asserted",
+        "first_failed_contract": "Determine which current support observation is authoritative for world-foot displacement and whether the selected frame field reflects final propagated contact.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+            "range": [
+              86,
+              115
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "range": [
+              638,
+              656
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "range": [
+              727,
+              739
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+            "range": [
+              17,
+              28
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+            "range": [
+              179,
+              181
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+            "range": [
+              85,
+              117
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+            "range": [
+              294,
+              309
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+            "range": [
+              443,
+              462
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "range": [
+              217,
+              230
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "range": [
+              245,
+              252
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              1010,
+              1029
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+            "range": [
+              1063,
+              1081
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+            "range": [
+              15,
+              39
+            ]
+          }
+        ],
+        "condition_and_limits": "Capture first admits cadence or required IK diagnostics, then selects initialized raised-footwork weights when present for FrameSample, storing optional IK weights separately. Slip reads the selected fields; some procedural toe/contact checks instead require IK diagnostics, and inactive IK can intentionally use cadence. These fields may describe distinct semantic facts; the displayed code does not prove a disagreement or which one is final propagated physical support.",
+        "future_connected_repair_direction": "Trace actual producer update/propagation ordering and ownership in P19, compare output consumers and policy, and choose a coherent source only if a concrete mismatch is shown. Keep semantic authored loading and solver contact distinct where appropriate.",
+        "future_acceptance_criterion": "Document which support is intended for the slip observation, distinguish valid inactive cadence from missing required IK, and verify any asserted final contact with its actual authoritative producer in a later authorized validation phase.",
+        "relationships": "059 Q-L1-0db31d057651d6fda8d7, Q-L1-8634be2f29d31f348778 and L1-P19-RAISED-SUPPORT-OBSERVATION-DISPATCH are related unresolved contexts; equality or a shared remedy is not yet proven."
+      }
+    },
+    {
+      "bundle_id": "p17-report-model",
+      "author": "/root/mhr_character",
+      "report": "delegated/p17-report-model-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+        "classification": "Independent pinned-current corroboration of existing 059 source-level finding; no new unique count.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+            "archive": "source/support-9.rs",
+            "lines": [
+              [
+                70,
+                78
+              ],
+              [
+                89,
+                115
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+            "archive": "source/support-10.rs",
+            "lines": [
+              [
+                23,
+                31
+              ],
+              [
+                112,
+                121
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "archive": "source/current-2461.rs",
+            "lines": [
+              [
+                23,
+                37
+              ],
+              [
+                39,
+                49
+              ],
+              [
+                89,
+                99
+              ],
+              [
+                102,
+                123
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/current-2462.rs",
+            "lines": [
+              [
+                12,
+                39
+              ],
+              [
+                183,
+                190
+              ],
+              [
+                241,
+                242
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "archive": "source/support-0.rs",
+            "lines": [
+              [
+                620,
+                623
+              ],
+              [
+                754,
+                772
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "archive": "source/support-3.rs",
+            "lines": [
+              [
+                20,
+                24
+              ],
+              [
+                538,
+                541
+              ],
+              [
+                595,
+                599
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "Cargo.lock",
+            "archive": "source/support-8.rs",
+            "lines": [
+              [
+                2563,
+                2567
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "archive": "source/report-p17-2461.rs",
+            "lines": [
+              [
+                33,
+                47
+              ],
+              [
+                112,
+                133
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "archive": "source/support-1.rs",
+            "lines": [
+              [
+                623,
+                626
+              ],
+              [
+                685,
+                698
+              ]
+            ]
+          }
+        ],
+        "native_refs": [
+          {
+            "archive": "source/native-screenshot.rs",
+            "lines": [
+              [
+                133,
+                148
+              ],
+              [
+                189,
+                194
+              ]
+            ],
+            "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+            "proof": "native-package-proof.json; exact crates.io archive SHA matches 95e Cargo.lock"
+          }
+        ],
+        "trace": "Current CLI has a reusable default output directory; startup creates it and removes only four report files, leaving PNGs. Each screenshot callback chooses the planned view/path, calls the native save observer then advances without a persisted outcome; Bevy 0.19.1 returns a unit observer and only logs conversion, format and native save errors. The report checks each planned screenshot path exists and is nonempty, then includes all_artifacts_written in the acceptance conjunction. P17 has the same relevant callback/invalidation/metadata shape, while the original 059 record described historical current-main 7a9 source and a separate root L1 read used e275; neither is claimed to be 95e.",
+        "conditions": "If a prior nonempty same-name PNG remains and the new screenshot callback fails before replacing it, e.g. the native image conversion fails before disk write, the per-artifact metadata check can still see the old file. A completed capture, an actual conversion failure or a whole report passing every independent gate is not observed. Native disk writing inside the callback is synchronous; no asynchronous disk race is claimed. Other report trace/manifest/HTML errors can still fail explicitly.",
+        "direction": "A future owning capture authority should retain a per-run result or other proven fresh-write receipt for each requested view before completion; preserve underlying image/format/I/O cause, legitimate output reuse and unrelated files. Exact alias to CONT08 and other viewer families needs central review.",
+        "relationships": [
+          "059 q206 retains this current-main finding and source/revision qualifications; 774 SEGOVB-INITIAL04-CONTRACT-589 independently recorded the P17 artifact authority question and native source behavior.",
+          "059 q12 CONT08-CAPTURE-SAVE-OUTCOME-ERASURE is related but exact alias is unresolved; no automatic consolidation.",
+          "059 q867 separately attributes prior native helper reading to root Segovb at e275; this packet independently verifies pinned 95e lock and exact cached crate/source."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p17-report-model",
+      "author": "/root/mhr_character",
+      "report": "delegated/p17-report-model-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L12-CAPTURE-VIEW-KEY-INTERNAL-STRING-PROPAGATION",
+        "classification": "Previously retained 059 P17 finding; independent same-shaped current source evidence, no additional unique finding or automatic alias.",
+        "source_refs": [
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/report-p17-2462.rs",
+            "lines": [
+              [
+                14,
+                40
+              ],
+              [
+                222,
+                225
+              ],
+              [
+                276,
+                280
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "archive": "source/report-p17-2461.rs",
+            "lines": [
+              [
+                123,
+                132
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+            "archive": "source/support-2.rs",
+            "lines": [
+              [
+                122,
+                128
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/current-2462.rs",
+            "lines": [
+              [
+                12,
+                38
+              ],
+              [
+                183,
+                186
+              ],
+              [
+                238,
+                242
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "archive": "source/current-2461.rs",
+            "lines": [
+              [
+                113,
+                122
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "archive": "source/support-0.rs",
+            "lines": [
+              [
+                751,
+                757
+              ]
+            ]
+          }
+        ],
+        "trace": "CaptureView owns three view variants, but both P17 and current capture convert view to an owned slug when retaining FrameSample.screenshots and the report regenerates the slug for semantic lookup before native filesystem access. P17 source receipt was an out-of-order fresh personal read by /root/lens12_frontier under its own registrations; the later ordered 831 row reuses that exact earlier evidence and reports no fresh reread.",
+        "conditions": "No slug collision, malformed user path, image-save failure or runtime behavior is needed or inferred for the retained private-key propagation concern; exact JSON/HTML adapter consequences and all consumers still require central ownership/alias review.",
+        "direction": "If the canonical owner decision is accepted, preserve CaptureView identity through private screenshot state and lookup; project native slug/filename at the filesystem or serialized boundary. Do not equate this type propagation with screenshot persistence merely because both touch view maps.",
+        "relationships": [
+          "059 q545 and TEAM-014 retain exact original authorship and trace. Current 95e independent bounded evidence is new; 774 owner records remain P17 only.",
+          "Related artifact freshness finding has a different first contract and requires no automatic alias."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p17-report-model",
+      "author": "/root/mhr_character",
+      "report": "delegated/p17-report-model-report.json",
+      "original_finding": {
+        "id": "REPORT-OBSERVATION-AND-COMPLETENESS-CONTEXT",
+        "classification": "Comparison and independently verified limitation, not a blanket new false-pass finding.",
+        "source_refs": [
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "archive": "source/report-p17-2461.rs",
+            "lines": [
+              [
+                112,
+                133
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "archive": "source/current-2461.rs",
+            "lines": [
+              [
+                102,
+                123
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/report-p17-2462.rs",
+            "lines": [
+              [
+                126,
+                164
+              ],
+              [
+                222,
+                246
+              ],
+              [
+                283,
+                299
+              ],
+              [
+                329,
+                335
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/current-2462.rs",
+            "lines": [
+              [
+                124,
+                152
+              ],
+              [
+                183,
+                209
+              ],
+              [
+                245,
+                260
+              ],
+              [
+                291,
+                297
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+            "archive": "source/support-4.rs",
+            "lines": [
+              [
+                45,
+                50
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+            "archive": "source/support-6.rs",
+            "lines": [
+              [
+                160,
+                175
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "archive": "source/support-3.rs",
+            "lines": [
+              [
+                20,
+                24
+              ],
+              [
+                595,
+                599
+              ],
+              [
+                632,
+                683
+              ]
+            ]
+          }
+        ],
+        "trace": "P17 stores explicit Observation with Measured/Unavailable/NotApplicable for many metrics; only NotApplicable exempts the when_applicable helper, while Unavailable fails it. Current retains raw scalar metrics and optional raw clearance. Both plan completeness checks compare cardinality, scenario/frame IDs and required bone presence, and both finite bone checks cover bone positions and quaternion components only. Neither check alone establishes terrain clearance, root/body arrays, unit quaternion, frame chronology, global trace validity or producer completeness. Current quality percentage is calculated from a defect subset and completeness separately from acceptance_passed.",
+        "conditions": "Other metric, capture, plan, validation and output gates may validate or reject these values; selected scenario semantics, producer reachability and valid zero versus unavailable need independent source tracing. No unsupported raw value or complete passing report is asserted.",
+        "direction": "For every required observation, resolve its producer, units/frame, applicability, numeric admission and exact consumer policy; preserve separate plan, finite, artifact, validation and quality contracts. Do not replace all geometry arrays, scores or native serializer strings solely by their types.",
+        "relationships": [
+          "/root/hair_ops REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E and /root/mhr_character CAPTURE-GROUND-CLEARANCE-ADMISSION-95E cover different absent vs nonfinite ground cases; prior packets retained separately, not merged.",
+          "059 q1216/q1231/q1235/q1236 and 774 SEGOVB-INITIAL04-CONTRACT-588/589 record related historical pending evidence and typed states; no automatic closure."
+        ]
+      }
+    },
+    {
+      "bundle_id": "p17-observation-validation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p17-observation-validation-hair-report.json",
+      "original_finding": {
+        "id": "REPORT-INCOMPLETE-QUALITY-ZERO-POLICY-95E",
+        "author": "/root/hair_ops",
+        "classification": "New bounded source-established policy question; not counted as independently confirmed defect or full-report false pass.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "ranges": [
+              [
+                632,
+                683
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "ranges": [
+              [
+                58,
+                64
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+            "ranges": [
+              [
+                39,
+                98
+              ],
+              [
+                102,
+                120
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+            "ranges": [
+              [
+                16,
+                24
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "ranges": [
+              [
+                457,
+                510
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+            "ranges": [
+              [
+                45,
+                50
+              ],
+              [
+                160,
+                175
+              ]
+            ]
+          }
+        ],
+        "trace": "Current quality score derives weighted category points independently, but assigns bare 0.0 whenever planned-frame or artifact completeness is false. Writer serializes the manifest and HTML summary before producing failed exit; HTML labels the zero as quality percent while also displaying acceptance failed. If a capture is incomplete while points are fewer than 31, the displayed 0% does not equal the complete-capture formula 100*(1−points/31). P17 instead uses Unavailable(IncompleteCapture), retains independent points and acceptance.",
+        "conditions": "Requires a completed-capture object with incomplete selected frames or missing/empty named artifact, successful manifest/HTML writes, and fewer than maximum defect points for the described discrepancy. Actual supported incomplete capture and category values have not been produced. Current 95e test source explicitly expects zero for incomplete capture, so conservative zero may be intentional; no false successful acceptance, viewer/browser, or runtime behavior is claimed.",
+        "future_repair_direction": "Decide whether the quality percentage represents a measured defect rubric or an intentional conservative incomplete penalty. If measurement is required, preserve unavailable reason through manifest and presentation while retaining explicit failed acceptance, weighted categories and intended incomplete-capture handling. No implementation in this audit.",
+        "historical_relationship": "774 SEGOVB-INITIAL04-CONTRACT-588/589 and CONT07-CONTRACT-570 documented P17 availability and score/acceptance separation, not the 95e representation. 059 READ-L12-832 independently observed P17 unavailable and stale test-name wording. CONT08-CAPTURE-SAVE-OUTCOME-ERASURE concerns whether each screenshot write succeeded for this capture; it is a different failure from interpreting a known incomplete score. Earlier ASSESSMENT-REPORT-EVENT-ORDERING-95E concerns complete-score/high-quality versus unweighted acceptance, also not an exact alias."
+      }
+    },
+    {
+      "bundle_id": "p17-observation-validation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p17-observation-validation-hair-report.json",
+      "original_finding": {
+        "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+        "authored_by": "/root/mhr_character",
+        "classification": "Existing conditional current finding, independently connected to fresh full validation role; do not duplicate or transfer original authorship.",
+        "prior_finding_as_recorded": {
+          "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+          "classification": "Newly assessed current source finding conditional on capture component absence and required landing semantics; central owns exact alias and ledger disposition.",
+          "source_refs": [
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+              "archive": "source/support-0.source",
+              "lines": [
+                [
+                  527,
+                  575
+                ],
+                [
+                  577,
+                  591
+                ],
+                [
+                  657,
+                  668
+                ],
+                [
+                  684,
+                  691
+                ]
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+              "archive": "source/support-2.source",
+              "lines": [
+                [
+                  183,
+                  204
+                ]
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+              "archive": "source/support-4.source",
+              "lines": [
+                [
+                  242,
+                  275
+                ]
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+              "archive": "source/report-p17-2443.rs",
+              "lines": [
+                [
+                  59,
+                  66
+                ]
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+              "archive": "source/support-3.source",
+              "lines": [
+                [
+                  222,
+                  241
+                ]
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+              "archive": "source/support-11.source",
+              "lines": [
+                [
+                  11,
+                  29
+                ]
+              ]
+            }
+          ],
+          "trace": "The current capture query admits an optional LocomotionHeightState and substitutes HeightDistance::ZERO when it is absent. The landing gate obtains the maximum from all saved values and regards its final compression <=0.005 as settled. If earlier measured landing compression provides the required 0.04–0.08 peak while final height state is absent, that absent last observation is represented as zero and can satisfy the final settled predicate. In P17 the sample preserves absent compression and landing_response_valid rejects any landing frame missing that observation.",
+          "conditions": "Requires the component to be absent at a selected landing frame, an otherwise present eligible subject/playback/route, at least one other measured frame satisfying the peak and knee gate, correct landing-sequence increment, and all other conditions for the landing predicate. Viewer lifecycle may maintain the component throughout; no actual absent component, passing report, live play or executed scenario is claimed. Other gates may reject independently.",
+          "future_repair_direction": "Determine when height observation is required and carry missing versus measured-zero through capture and landing validation, preserving deliberate absent/nonapplicable modes and existing acceptance thresholds. Do not fabricate measured values or weaken acceptance.",
+          "relationships": [
+            "059 READ-L11-404 and READ-L12-823 documented P17 optional height fields but did not adjudicate this current inline landing chain. 774 SEGOVB-INITIAL04-CONTRACT-586 records that the P17 landing gate requires all compression observations; no retroactive claim of an old current-95e finding. q842/q845 and q1157 concern separate height/config/landing producer questions, not automatic aliases."
+          ]
+        },
+        "fresh_connection": "Current capture.rs 527–590,684–691 substitutes zero for absent height; assigned 95e validation.rs 246–275 considers final <=0.005 alongside peak/event/knee checks. P17 assigned validation.rs 187–191 invokes registered P17 landing_validation.rs 11–29, which rejects missing selected-frame compression. Actual final component absence after a prior peak and overall acceptance remain unestablished."
+      }
+    },
+    {
+      "bundle_id": "p17-observation-validation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p17-observation-validation-hair-report.json",
+      "original_finding": {
+        "id": "REVIEW-REPORT-KNEE-AXIS-OBSERVATION-95E",
+        "authored_by": "/root/hair_ops",
+        "classification": "Prior candidate independently connected to 95e validation, no new count.",
+        "prior_finding_as_recorded": {
+          "id": "REVIEW-REPORT-KNEE-AXIS-OBSERVATION-95E",
+          "author": "/root/hair_ops",
+          "classification": "New source-established conditional candidate, central must resolve alias/priority/connected ledger. No demonstrated actual degenerate capture or whole-report pass.",
+          "source_refs": [
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "ranges": [
+                [
+                  119,
+                  135
+                ],
+                [
+                  240,
+                  246
+                ],
+                [
+                  275,
+                  279
+                ],
+                [
+                  450,
+                  510
+                ]
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+              "ranges": [
+                [
+                  20,
+                  24
+                ],
+                [
+                  435,
+                  479
+                ]
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+              "ranges": [
+                [
+                  102,
+                  110
+                ]
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+              "ranges": [
+                [
+                  291,
+                  297
+                ]
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+              "ranges": [
+                [
+                  116,
+                  142
+                ]
+              ]
+            }
+          ],
+          "trace": "Current metric loops each applicable frame and leg; a hip-to-foot direction that cannot normalize returns f32::INFINITY, then minimum reduction selects any finite observation. When some other included limb/frame has a valid nonnegative hemisphere dot, the undefined axis contributes no failing value and the scenario minimum can satisfy the >=0 hemisphere predicate. P17 counterpart returns Observation::Unavailable(DegenerateLegAxis) immediately. Current completeness requires report bone keys, and finite check requires finite components; neither check itself requires distinct hip/foot positions or nondegenerate axes.",
+          "conditions": "Requires a selected nonexempt scenario whose procedural leg gate applies, a selected frame with degenerate body-local hip-to-foot direction, at least one finite qualifying dot across remaining samples, and all other applicable predicates to hold for the larger biomechanics gate. Finite bone presence is not proof that such geometry is producible; rig topology, captured local transforms, other gates, and actual report acceptance remain unverified. No runtime, viewer, simulated fixture, observed invalid frame or full pass.",
+          "future_repair_direction": "Trace whether supported procedural rig geometry can become degenerate and decide required per-leg/per-frame evidence. For required measurements preserve or propagate undefined versus measured dots into aggregate validation; keep intentional nonapplicable no-IK scenarios and independent thresholds. No repairs authorized in this task.",
+          "relationships": [
+            "059 READ-L11-407 noted P17 availability, q565 and q876 retain knee/metric source-producer policy, and 774 SEGOVB-INITIAL04-CONTRACT-588 documented P17 explicit degeneracy without current-95e adjudication. No exact alias assumed.",
+            "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO concerns optional yaw telemetry substituted with zero, not the geometry-axis normalization/minimum fold. /root/mhr_character METRIC-OPTIONAL-COVERAGE-OPEN-95E is a broader open observation; central decides any identity overlap."
+          ]
+        },
+        "fresh_connection": "Current validation.rs 422–479 makes knee hemisphere >=0 one condition in selected procedural biomechanics; P17 registered biomechanics_validation.rs 45–55 requires a measured dot and assigned Observation::measured excludes unavailable. Supported degenerate geometry and full acceptance remain open."
+      }
+    },
+    {
+      "bundle_id": "p17-observation-validation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p17-observation-validation-hair-report.json",
+      "original_finding": {
+        "id": "P17-HEIGHT-DOUBLE-WARMUP",
+        "authored_by": "/root/rig_identity",
+        "classification": "Previously recorded conditional warmup finding connected to assigned phase gate; no duplicate or transferred reading.",
+        "prior_finding_as_recorded": {
+          "id": "P17-HEIGHT-DOUBLE-WARMUP",
+          "status": "source-established conditional coverage gap; occurrence and exact canonical alias unresolved",
+          "first_failed_contract": "A phase-height gate should evaluate every complete post-calibration review cycle that its stated policy requires, but phase-height inputs for terrain-classified scenarios are filtered through the first-wrap warmup twice.",
+          "evidence": [
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+              "range": [
+                5,
+                14
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+              "range": [
+                41,
+                48
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs",
+              "range": [
+                18,
+                32
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios.rs",
+              "range": [
+                150,
+                174
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+              "range": [
+                75,
+                80
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+              "range": [
+                65,
+                79
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                119,
+                130
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                195,
+                198
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                218,
+                228
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                708,
+                709
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                737,
+                758
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                785,
+                795
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                1272,
+                1281
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+              "range": [
+                165,
+                173
+              ]
+            },
+            {
+              "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+              "range": [
+                126,
+                144
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                90,
+                107
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+              "range": [
+                398,
+                407
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+              "range": [
+                121,
+                124
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+              "range": [
+                170,
+                173
+              ]
+            },
+            {
+              "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+              "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+              "range": [
+                217,
+                231
+              ]
+            }
+          ],
+          "reasoning": "FlatGridWalk20 and FlatGridRun55 carry FlatGrid, classify as Terrain and request a three-cycle selected plan. scenario_metrics removes the first observed wrap for all terrain metrics, then passes that already-filtered slice to phase range, contact-to-passing gain and visual peaks, each of which removes through the next wrap again. If at least two wraps occur in captured phase, the first post-calibration interval is absent from those three measurements. This contradicts the adjacent peak-loop comment that every complete post-warmup cycle is independently gated. The old P17 source has the same nested warmup calls for terrain-classified data.",
+          "qualification": "A full plan does not prove particular runtime phase wraps or values. The finding is conditional on an observed second wrap and a complete affected cycle; no viewer, scenario, fixture or whole-report acceptance was run. Other continuity and independent gates still inspect their own inputs. Exact intended calibration versus review-cycle policy requires an owner decision.",
+          "future_repair_direction": "Choose and retain a single explicit calibration boundary for applicable height measurements and their review-cycle coverage; ensure any required complete post-calibration cycle contributes without inventing data or altering legitimate trailing partial-cycle exclusions.",
+          "historical_relationship": "059 Q-L11-d6842eb24a1ea3ec418f and Q-L1-8634be2f29d31f348778 retain metric producer, warmup and measurement questions; 774 NATIVE-OWNER-REPORT-GATES-004 covers P17 observation and applicability. These are related contexts, not established exact aliases. 059 root e275 067/068 reviewed current metrics 1–430 and 431–1283 respectively; separate attribution remains intact."
+        },
+        "fresh_connection": "Current assigned validation.rs 126–143 consumes range, gain and peak output; registered 90a height_validation.rs 5–34 requires measured range/gain/peaks. Whether the excluded post-calibration cycle should be required and actual observed wraps remain open."
+      }
+    },
+    {
+      "bundle_id": "p17-observation-validation-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p17-observation-validation-hair-report.json",
+      "original_finding": {
+        "id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+        "classification": "Earlier 059/current yaw observation relationship, not an alias of degenerate knee-axis or landing-height cases.",
+        "prior_connection_as_recorded": {
+          "id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+          "classification": "Previously recorded 059/current missing yaw telemetry finding, current support connection only; not a duplicate of knee-axis candidate.",
+          "trace": "P17 pose.rs 144–160 returns unavailable if either optional leg yaw diagnostic is absent. Current metrics.rs 513–523 folds bare values from zero and validation.rs 480–481 checks <=22.6 where procedural gates apply; prior ASSESSMENT-REPORT-METRIC-SUPPORT-95E records producer/source conditions.",
+          "qualification": "No actual missing yaw observation, full report or runtime outcome established here."
+        },
+        "fresh_connection": "Current assigned validation.rs 480–481 checks numeric yaw threshold; P17 biomechanics_validation.rs 55 requires a measured value when applicable. Actual required missing telemetry remains conditional."
+      }
+    },
+    {
+      "bundle_id": "p17-core-measurement",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-core-measurement-report.json",
+      "original_finding": {
+        "id": "P17-HEIGHT-ADVANCE-TARGET-ROUNDING",
+        "status": "newly assessed representable API counterexample; actual caller reachability and desired rounding policy unresolved",
+        "first_failed_contract": "If advance_towards is intended never to cross a positive target when the delta is large enough, intermediate binary32 cancellation can produce a value below that target.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              44,
+              50
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              67,
+              81
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+            "range": [
+              22,
+              37
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              55,
+              60
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              77,
+              91
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+            "range": [
+              138,
+              160
+            ]
+          }
+        ],
+        "mathematical_witness": "For valid finite nonnegative self=1 metre, target=2^-30 metres, and maximum_delta=1 metre, exact binary32 round-to-nearest gives round_f32(2^-30 − 1) = −1 because the difference is much less than half the spacing below 1. The clamp retains −1; adding it to 1 yields 0, which is accepted by from_arithmetic and lies below the positive target. Each operand is an exactly representable f32. This is mathematical source reasoning, not product execution or a fixture.",
+        "condition_and_limits": "The same arithmetic appears at both 90a and 95e. The shown current landing caller advances upward only when below its positive target, and otherwise decreases toward ZERO; it does not demonstrate this positive-target decreasing witness. The public helper admits the representable values, but an actual runtime path, externally intended bounds and whether a no-crossing contract is required are not established. No visible or product failure is claimed.",
+        "future_connected_repair_direction": "If the owning API promises no overshoot, handle reaching/crossing the positive target without cancellation while preserving valid zero, checked overflow, rounding/error semantics and the current landing behavior; decide the contract with the height owner before implementation.",
+        "future_acceptance_criterion": "For every admitted self, target, and delta covered by the selected policy, a successful advance remains between self and target and reaches target when the delta covers the distance; preserve explicit finite/nonnegative admission and do not raise tolerances. Product validation is deferred.",
+        "relationships": "Related to, but not established as an alias of, the recovered height/report observation and landing recoverability records. Distinct operation and first failure from the existing positive profile admission and tiny-divisor overflow findings; central decides ledger identity."
+      }
+    },
+    {
+      "bundle_id": "p17-core-measurement",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-core-measurement-report.json",
+      "original_finding": {
+        "id": "ADLER-L11-LOCOMOTION-PROFILE-ADMISSION",
+        "status": "existing 059 finding; current connected reassessment, zero new unique count",
+        "first_failed_contract": "A retained landing profile widens an admitted positive recovery duration to zero-permitting elapsed and passes that wider role into recovery arithmetic.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+            "range": [
+              8,
+              15
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+            "range": [
+              51,
+              58
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+            "range": [
+              49,
+              56
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+            "range": [
+              234,
+              244
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              110,
+              120
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/elapsed.rs",
+            "range": [
+              9,
+              12
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/elapsed.rs",
+            "range": [
+              24,
+              43
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+            "range": [
+              169,
+              194
+            ]
+          }
+        ],
+        "condition_and_limits": "Configuration explicitly uses PositiveAnimationDuration and factory projects .elapsed() into the public serde LandingProfile. HeightSpeed::recovery accepts zero-permitting AnimationElapsed and rejects a nonfinite quotient. Normal configured projection cannot supply zero through that positive leaf; no ordinary zero recovery or observed product error is established. Direct arbitrary profile deserialization/admission or callers need separate source proof and policy.",
+        "future_connected_repair_direction": "Carry existing PositiveAnimationDuration through any recovery-specific profile and operation if that profile contract requires a positive divisor, preserving zero for independent observation elapsed and maintaining the checked quotient.",
+        "future_acceptance_criterion": "A zero recovery divisor cannot be accepted through a role that promises positivity; real zero observed elapsed remains supported; source producers, profile, API and consumers are addressed as one connected change.",
+        "relationships": "Exactly existing original 059 ADLER-L11-LOCOMOTION-PROFILE-ADMISSION, queue /entries/97 and associated Q-L1-a11146c45429bef91a6c / Q-L12-6ec9f2ce9513c34f9b2b; central ASSESSMENT-GAIT-PROFILE-95E is a current reassessment, not a new original finding. Adler 259/282/283 and Segovb571 remain independently attributed."
+      }
+    },
+    {
+      "bundle_id": "p17-core-measurement",
+      "author": "/root/rig_identity",
+      "report": "delegated/p17-core-measurement-report.json",
+      "original_finding": {
+        "id": "REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001",
+        "status": "existing current conditional representability question; zero new unique count",
+        "first_failed_contract": "A positive finite recovery divisor alone does not guarantee a finite f32 recovery rate for every admitted compression.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+            "range": [
+              8,
+              15
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+            "range": [
+              24,
+              31
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+            "range": [
+              51,
+              58
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              44,
+              50
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+            "range": [
+              110,
+              120
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+            "range": [
+              180,
+              194
+            ]
+          }
+        ],
+        "condition_and_limits": "For representable positive compression 2^-5 metres and duration 2^-140 seconds, the exact quotient 2^135 exceeds finite binary32 range; the helper returns typed Overflow rather than retaining an invalid speed. The displayed config leaf admits positive values and its local validator orders min/max; no complete extreme configuration, landing event or rejected frame was observed. The example is not the committed setting; admission on the complete configuration path and required support for extremes remain policy questions.",
+        "future_connected_repair_direction": "Evaluate the aggregate configured compression/duration relationship at its owning boundary and decide how to retain finite recovery without weakening individual quantities, positive duration or overflow handling. Preserve actual configured/wire behavior as determined by owner policy.",
+        "future_acceptance_criterion": "Every supported configuration has representable recovery or is rejected with an appropriate typed cause before a consuming update is partially published; out-of-policy extremes and the outcome order remain explicit.",
+        "relationships": "Same conditional source-first failure as central ASSESSMENT-LANDING-SETTLE-95E / REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001; no new duplicate. Different from the zero-permitting profile role and from target-rounding; do not infer exact alias."
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+      "relationship": "Original 059 q206 and earlier 95e assessment, independently supported by /root/mhr_character; no duplicate unique issue."
+    },
+    {
+      "identity": "P17-SLIP-INVALID-BODY-TURN",
+      "relationship": "Same current 95e first failure as checkpoint9, independently read at historical and current support-slip role; no new count."
+    },
+    {
+      "identity": "P17-HEIGHT-DOUBLE-WARMUP, CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E, REVIEW-REPORT-KNEE-AXIS-OBSERVATION-95E",
+      "relationship": "Existing current candidates independently connected to report validation by /root/hair_ops; no original author transfer."
+    },
+    {
+      "identity": "REPORT-INCOMPLETE-QUALITY-ZERO-POLICY-95E",
+      "relationship": "Open reporting-policy question, current test source expects zero and report acceptance separately rejects incomplete evidence; no product execution or blanket defect."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+    "P17-HEIGHT-ADVANCE-TARGET-ROUNDING",
+    "P17-SLIP-MISSING-OBSERVATION",
+    "P17-SLIP-THRESHOLD-OWNER",
+    "REPORT-INCOMPLETE-QUALITY-ZERO-POLICY-95E"
+  ],
+  "open": "This reconciles only four of the 27 checkpoint10 bundles; all other reports and checkpoint11 remain pending. All thirteen lenses and 3713 queue semantic reconciliations remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

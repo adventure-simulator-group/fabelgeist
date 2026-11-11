@@ -1,0 +1,600 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T22:57:07.260626+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2554,
+      2555
+    ],
+    "historical_snapshot": "physical-p16 dirty delta",
+    "historical_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Thirteen bounded perspectives only; no whole-lens completion, previous reader transfer or checkpoint3821 promotion."
+  },
+  "source_identity": {
+    "qualification": "P16 registry records 159 changed paths and full patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. The whole patch bytes were not recovered; this hash is a registry assertion, not verification of full delta. Central bounded search of 7,156 .patch/.diff files under specified older collections, each ≤100 MB, found no matching bytes; this does not establish absence elsewhere. Each recovered per-file object matches f82 evidence transport, 039329 catalog origin, a120 clean base, 6533 and 95e; this per-file equality does not reconstruct or clean the whole P16 snapshot. Full P16 and full 95e role files were separately personally displayed. 0393/a120/6533 source copies were verified only. P16 role2554 remains distinct from same-byte pr-working role2479.",
+    "material_scopes": "P16 role2554 original material is 79–90 and role2555 1–49. Remaining personally read material is newly registered extension. Storey92–137 and plan245–341 are test source text only, not executed."
+  },
+  "findings": [
+    {
+      "id": "REFINEMENT-PLAN-HULL-MIXED-SCALE-ORIENTATION",
+      "status": "independent corroboration and hull-specific source refinement of REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001; do not count the same first failure twice",
+      "first_contract": "ArchitecturalPlanPoint accepts all finite f32 coordinates. PlanPolygon promises finite, nondegenerate counterclockwise convex vertices and calculates its area using f64 differences after widening. PlanHull uses the same f64 difference-and-cross operation to distinguish segment and area.",
+      "symbolic_source_reasoning": "Let t=2^-100, exactly representable as a positive finite f32, and take A=(t,0), B=(2,2), C=(1,1). The exact real determinant (B−A)×(C−A) is t > 0, so A,B,C form a nondegenerate counterclockwise triangle. In binary64 subtraction, 2−t rounds to 2 and 1−t rounds to 1; the calculated translated vectors become (2,2) and (1,1), whose computed cross and signed area are zero. Source control flow therefore returns DegeneratePolygon before later checks. In the monotone-hull sorting order A,C,B, both forward and reverse crosses round to zero, so its source algorithm discards C and classifies the set as a Segment. This is symbolic IEEE-754 arithmetic, not a product invocation, generated fixture, probe or test.",
+      "consumers": "CollisionCuboid::ground_contact projects checked 3D corners/intersections to ArchitecturalPlanPoint and classifies via PlanHull. BuildingCollision::ground_floor_footprint returns Some only for an Area; compiled city seating and envelope paths map None to MissingBearing. These references establish possible downstream roles, not that any supported cuboid, building, or real plan can produce the symbolic point set.",
+      "condition": "The public ordered polygon API accepts finite input with the shown mixed exponent scale, but actual supported product coordinate bounds, geometry producer reachability, any physical misclassification and city output remain unproved. The q1646 source question about point/segment distance is a different consumer and must not be silently merged.",
+      "future_direction": "After the audit and explicit implementation authorization, resolve whether exact finite-input orientation is promised or whether narrower supported coordinates must be admitted first. Choose a robust sign/area strategy consistent with genuine zero area, distinct tiny coordinates, signed zero and rounding-aware scene projection; do not merge mathematical and rounded physical projection contracts.",
+      "historical_relation": "Current central ASSESSMENT-L01-POLYGON-PRECISION-95E.json already records REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001 with a different source-only exponent-gap ordered-polygon proof and explicitly leaves hull applicability open. This independently derived case addresses that same error and shows the hull predicate shares it; no additional accepted unique count. 774 SEGOVB-INITIAL04-CONTRACT-611 says f64 prevents range overflow and records selected tiny/large-offset behavior, not this cancellation. 059 q1575 is broader canonical polygon/rounded projection work; original aliases remain central decisions.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+          "lines": [
+            [
+              7,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing/envelope.rs",
+          "lines": [
+            [
+              3,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing/seating.rs",
+          "lines": [
+            [
+              4,
+              33
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ROOM-STOREY-ORDINAL-OWNER-RELATION",
+      "status": "historic owner and error-propagation relation; no new defect",
+      "first_contract": "P16 material role2554 defines one OrdinalError carrying a Storey or Room role, original usize ordinal and TryFromIntError cause. Current StoreyIndex can represent a native usize but checks u16 when serializing; current RoomIndex narrows at from_ordinal and preserves the same Room-tagged error. These are distinct ordinal identities with a shared error, not two interchangeable indices.",
+      "condition": "A representable index is not evidence of membership in a particular building. The bounded navigation represented_storey computes a rounded level but the shown function alone does not establish membership. No actual invalid accepted plan or consumer error is demonstrated.",
+      "future_direction": "Keep index domains, original failing ordinal, role and native cause while choosing the actual membership owner and preserving the existing station-rounding/serialization behavior.",
+      "historical_relation": "Original rig RIG-OWNER81-REGISTER-009 and ADDITIONAL-DEFINITION-009 read only P16 79–90 as RoomIndex error-signature dependency. 059 Segovb READ-L11-421 and /root/lens12_frontier L12-866 independently preserve that same P16 scope. Separate pr-working role2479 6533 1–137 and /root/mhr_character current paired reads are not P16 ordered-role credit.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+          "lines": [
+            [
+              8,
+              60
+            ],
+            [
+              63,
+              90
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/room_index.rs",
+          "lines": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+          "lines": [
+            [
+              351,
+              361
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ARCHITECTURAL-POINT-WALL-FRAME-OWNER",
+      "status": "historical owner-propagation relationship, not an automatically new unique issue",
+      "first_contract": "ArchitecturalPlanPoint is a checked finite X/Z point with readmission during deserialization and explicit numeric algorithm adapter. WallLocalFrame retains origin, tangent, outward and optional inside/outside rooms as raw public fields; checked point identity alone does not establish a coherent normalized frame or graph membership.",
+      "condition": "Actual supported producer and serializer/consumer policy, when these fields are authoritative, and any invalid admitted graph require separate tracing. No blanket claim that raw temporary arithmetic is invalid.",
+      "future_direction": "Trace the actual source-to-frame-to-consumer boundaries and decide a coherent position/frame admission owner, preserving legitimate diagonal orientation and existing numerical kernels.",
+      "historical_relation": "774 RIG-OWNER81-REGISTER-003/ADDITIONAL-DEFINITION-003 compares this exact P16 point owner with WallLocalFrame and CityGate uses, limited to 1–49; 059 SEGOVB-L13-WALL-LOCAL-FRAME-RETENTION q407 is the explicit related retained-frame issue. Distinct from polygon precision and storey membership.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+          "lines": [
+            [
+              119,
+              126
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "Any negative input elevation is an erroneous storey under the documented station rule",
+      "reason": "The function rounds before checking negative, so a small negative quotient can round to signed zero and be classified ground. That is the stated rounded-station policy; whether it fits any particular world context is separate.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+          "lines": [
+            [
+              8,
+              60
+            ],
+            [
+              63,
+              90
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+          "lines": [
+            [
+              351,
+              361
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Generic PlanHull must merge close points or reject all point/line contact",
+      "reason": "The source explicitly distinguishes Empty, Point, Segment and Area with geometric signed-zero equality and no proximity epsilon; the mixed-exponent cross failure is a narrower arithmetic concern.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+          "lines": [
+            [
+              7,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "The whole P16 dirty snapshot was restored because these roles match a120",
+      "reason": "Only two recovered file objects have been proven equal to individual clean-base files. The 159-path dirty snapshot and full patch are independent.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+          "lines": [
+            [
+              8,
+              60
+            ],
+            [
+              63,
+              90
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Current serialized point input bypasses finite checking through Serde",
+      "reason": "ArchitecturalPlanPoint manually deserializes through from_metres, which rejects nonfinite components. Other construction/reflection or aggregate boundaries are separate.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "What finite coordinate dynamic range is supported at the public polygon boundary and at actual ground-contact producers, and should exact mathematical orientation be part of the contract?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+          "lines": [
+            [
+              7,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can real cuboid transforms or aggregate ground contacts produce mixed-scale points that make the hull branch differ, and which city/scene consumers depend on the dimension?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+          "lines": [
+            [
+              7,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing/envelope.rs",
+          "lines": [
+            [
+              3,
+              43
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing/seating.rs",
+          "lines": [
+            [
+              4,
+              33
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Where is storey or room membership in a particular building guaranteed independently of representable u16/usize range?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+          "lines": [
+            [
+              8,
+              60
+            ],
+            [
+              63,
+              90
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/room_index.rs",
+          "lines": [
+            [
+              1,
+              40
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+          "lines": [
+            [
+              351,
+              361
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Which owning producer and consumer establish finite point, direction basis and reciprocal room relations on retained WallLocalFrame, including deserialized input?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+          "lines": [
+            [
+              119,
+              126
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "How should exact mathematical polygons, rounded scene projection, zero-area contact and truly degenerate geometry remain distinct in a future repair?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+          "lines": [
+            [
+              4,
+              49
+            ],
+            [
+              102,
+              160
+            ],
+            [
+              164,
+              242
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+          "lines": [
+            [
+              7,
+              68
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+          "lines": [
+            [
+              5,
+              26
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Plan-point admission retains a finite owner before hull calculations and selected consumers; WallLocalFrame retains raw origin/basis. Existing owner q407 and polygon precision finding remain distinct."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "RoomIndex and StoreyIndex are purpose-specific despite sharing OrdinalError; ArchitecturalPlanPoint already owns finite plan coordinates and must not be conflated with scene or spatial vectors."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Point constructors and Serde reject nonfinite pairs; ordered polygon checks size, area, direction and duplicates, yet a valid mixed-scale triangle can be falsely rejected by f64 cancellation."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Widening f32 inputs to f64 avoids range overflow but loses small offsets at wide exponent gaps; local orientation and area signs need the supported numeric contract."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Finite vertices do not alone establish a polygon; encoded ordinal does not establish membership; wall origin, tangent, outward and room links require correlated source context."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Architectural point, scene point, room/storey ordinal, wire representation and native coordinate arithmetic have distinct owners. Maintain error provenance through the actual external boundary."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "OrdinalError is intentionally shared error provenance rather than duplicate index authority; PlanHull and polygon admission share cross arithmetic but are not automatically the same recipient."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Each selected file is byte-identical across P16 object and compared revisions, not evidence the snapshot or runtime behaviors match. Preserve intentional round-before-below-ground and exact zero/point/segment semantics."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "GroundContact and PlanHull explicitly distinguish dimensional cases; RecipeOrdinalRole carries a semantic tag to the shared error. No semantic boolean replacement established."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Manual StoreyIndex Serialize performs checked narrowing and contextual error conversion; automatic transparent derive could change capacity behavior. ArchitecturalPlanPoint manual Deserialize re-admits finite components."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Finite point, counterclockwise convex polygon, actual ground-contact dimensionality and building-relative identity are different contracts; validity of one does not prove another."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "PlanGeometryError and ordinal errors use typed variants/source causes; display text is a presentation boundary, not evidence of an internal string protocol."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "u16 packing capacity, rounded elevation station and exact-zero geometric predicates have distinct semantics; avoiding overflow does not establish exact orientation."
+    }
+  ],
+  "historical_attribution": {
+    "059": "Segovb READ-L11-421 personally reads P16 storey79–90 and plan1–49 under registrations1460/1461. /root/lens12_frontier PROPOSAL-L12-866 personally reads the same P16 scopes after PAR597/598; READ-L12-866 root adoption does not claim a personal reread, and f82 is only transport. Separate pr-working role2479: Segovb READ-L11-411 and /root/lens12_frontier L12-840 read 6533 1–137; original source-specific Windows qualification 492 is preserved.",
+    "774": "Rig owner RIG-OWNER81-REGISTER-009/ADDITIONAL-DEFINITION-009 covers P16 storey79–90, and REGISTER-003/ADDITIONAL-DEFINITION-003 covers P16 point1–49, with producer supplement root-pending and no other-lens credit. CONT07-CONTRACT-590 also reads exactly those roles under redundant authority. SEGOVB-INITIAL04-CONTRACT-611 independently personally reads full P16 storey1–137 and plan1–341 under invariant operations. SEGOVB-INITIAL04-CONTRACT-595 concerns pr-working storey, and behavior-preservation group168 row651 covers pr-working plan, not P16 role substitution.",
+    "current_published": "Central ASSESSMENT-L01-POLYGON-PRECISION-95E at publication revision 1813aa5b4492908db6b55e7fa34de3dce65684b4 retains its own prior reviewer and source windows. Our symbolic hull relation is fresh work at 95e, not retroactive credit.",
+    "prior_current": "/root/mhr_character mixed-owner packet separately reads 6533/95e pr-working role2479 full and classifies ordinal/rounding policy. Their P16 collision packet and /root/hair_ops P16 member-shapes packet retain original author, exact scope, findings and manifest hashes.",
+    "queue": "059 q407 is existing WallLocalFrame retention, q1575 broader canonical polygon and rounded projection, q1646 ground-contact distance/cardinality policy; selections are reconstructed from the complete queue and retain their own statuses and source scopes, never checkpoint3821 evidence."
+  },
+  "limitations": [
+    "Source/evidence inspection, hashing and symbolic IEEE arithmetic only. No simulated fixture, product/collision/renderer execution, builds, tests, runtime probes, repairs or source/publication edits.",
+    "No actual physical cuboid or supported city input with the symbolic coordinates, product effect, acceptance result or repair demonstrated.",
+    "Central retains authoritative baseline, reconciliation, aliases and unique-count decision, ledger and checkpoint publication."
+  ]
+}

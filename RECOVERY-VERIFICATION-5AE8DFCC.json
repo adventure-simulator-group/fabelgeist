@@ -1,0 +1,14 @@
+{
+  "schema": "726-recovery-verification-record-v1",
+  "published_commit": "5ae8dfccf567c395feb38b4e131ffb13a1394fa6",
+  "remote_branch": "codex/726-audit-baseline-20261110",
+  "method": "Fetched the published branch and checked out the exact commit in a separate recovery checkout on the same machine, then ran check_published_evidence.py.",
+  "evidence_only_log": "RECOVERY-VERIFICATION-5AE8DFCC.log",
+  "log_sha256": "3ff466ddc8b566989d210537fbd1c69a162fbe65fae80f6c337e3a220f535a88",
+  "log_bytes": 66970,
+  "log_lines": 934,
+  "exit_status": 0,
+  "qualification": "The transcript records a same-machine recovery and evidence integrity check, not independent-machine attestation, source-audit completion, implementation or product validation. A transcript hash proves its bytes, not the execution event independently.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

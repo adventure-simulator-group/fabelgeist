@@ -1,0 +1,353 @@
+{
+  "schema": "726-pr-prefix-sum-assessment-v1",
+  "created_utc": "2026-11-11T23:03:29.276918+00:00",
+  "author": "/root/rig_identity",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original role 2558 only. Both old/current source bodies were independently displayed in full, with WGSL and existing tests as text only. Original role material is 19\u201323 and 44\u201364; all other personal reads are separately recorded support. Thirteen perspectives are bounded.",
+  "source_identity": {
+    "historical": "059 pr-working recorded file object is identical to the file at 6533e444fa37552927070cc8d8190907fd3b413e, the recovered object carried by f82adcabd9d89c4fa2dd7f99253a45297a0681ee, and the current 95e file. The f82 commit transports the recovered bytes and older evidence; it is not the product revision.",
+    "snapshot": "The recorded pr-working snapshot is 6533 head plus existing changes and lists four unrelated modified files. No whole-snapshot cleanliness or promotion to checkpoint 3821 is asserted.",
+    "object": {
+      "role": 2558,
+      "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "git_blob": "de8206991f810737256c56cc36f956de328408a0",
+      "original_material": [
+        [
+          19,
+          23
+        ],
+        [
+          44,
+          64
+        ]
+      ],
+      "personal_historical_and_current_display": [
+        [
+          1,
+          408
+        ]
+      ]
+    }
+  },
+  "findings": [
+    {
+      "id": "CANDIDATE-PREFIX-FOLDED-GRID-EXTRA-WORKGROUPS",
+      "status": "New conditional source-level GPU bounds/indexing finding; device admission, application reachability and runtime outcome remain unproved",
+      "condition": "A direct PrefixSum::record uses a count whose ceil(count/256) blocks exceed 65,535 and whose folded rectangular grid has more slots than logical blocks. The allocated first scratch level has fewer u32 slots than dispatched workgroups (in particular when capacity equals count). Source recording and all relevant native allocations/dispatches must be accepted for the shader to reach the operation.",
+      "observation": "grid chooses x = min(blocks, 65,535) and y = ceil(blocks/x), which can schedule padded groups. scan_blocks computes the linear block but only guards individual data accesses with index < count; lane 255 writes sums[block] whenever write_sums is set, without checking block < logical blocks. At count 16,776,961 and scratch capacity equal to count, logical blocks and first-level scratch slots are 65,536, while the grid has 131,070 groups; padded groups therefore address outside that bound. This is mathematical source reasoning, not a shader execution or generated fixture. The dated W3C WGSL draft classifies an executed out-of-bounds access as a dynamic error with multiple permitted outcomes; neither guaranteed corruption nor a particular backend response is asserted.",
+      "extreme_count_consequence": "With count u32::MAX, logical blocks are 2^24 and grid is 65,535 \u00d7 257. A padded group with linear block 2^24 computes block * 256 modulo 2^32 as zero, so its lanes pass index < count for the same low data indices as the real first group; add_offsets has the same indexing structure. These overlapping shader accesses and out-of-bounds scratch accesses are conditional on native acceptance and WGSL execution, not observed behavior. They are consequences of the same missing padded-block guard, not separate defect counts.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+          "ranges": [
+            [
+              66,
+              67
+            ],
+            [
+              69,
+              120
+            ],
+            [
+              126,
+              150
+            ],
+            [
+              156,
+              160
+            ],
+            [
+              174,
+              187
+            ],
+            [
+              240,
+              269
+            ],
+            [
+              272,
+              302
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+          "ranges": [
+            [
+              24,
+              28
+            ],
+            [
+              249,
+              290
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "ranges": [
+            [
+              15,
+              37
+            ]
+          ]
+        }
+      ],
+      "external_primary_source": {
+        "record": "external-references.json",
+        "integer_arithmetic": "https://www.w3.org/TR/2026/CRD-WGSL-20261106/#integer-types",
+        "out_of_bounds": "https://www.w3.org/TR/2026/CRD-WGSL-20261106/#out-of-bounds-access",
+        "qualification": "Newly inspected dated specification; not a historical reviewer record, runtime probe or proof that the selected device accepts this workload."
+      },
+      "historical_relation": "059 READ-L12-867 records full operation 1\u2013306 and leaves native dispatch layout/maximum bounds open; 774 rig RIG-ADMISSION03-ADDITIONAL-079 inventories folded workgroups, not this padded-block condition. Published REVIEW-RADIX-SORT-DISPATCH-DIMENSION-95E concerns the earlier x-only radix histogram dispatch and has a different first operation; REVIEW-L3-RADIX-SCRATCH-BUFFER-ADMISSION concerns public radix scratch identity. Do not automatically alias any of them.",
+      "future_direction": "Determine supported device/count limits and actual direct callers. If large folded scans are supported, constrain padded workgroups and overflowed linear index arithmetic while preserving uniform workgroup barrier participation, valid partial blocks, wrap-sum semantics, recursive ordering and existing errors. No implementation or validation is authorized."
+    },
+    {
+      "id": "PREFIX-SUM-SORT-CALLER-DIMENSION-RELATION",
+      "status": "Current source confirmation of an earlier separately published conditional finding; no new unique defect",
+      "observation": "SortScratch creates scan scratch for RADIX \u00d7 tiles and RadixSort records its histogram before the prefix scan. RADIX and TILE are both 256, so at sort count 16,776,961, tiles = 65,536 and the histogram is dispatched [65,536,1,1] before scan.record. Prior published evidence reports a device with max 65,535 groups per dimension would reject that separate dispatch. Actual device limits, preceding allocations and submission behavior remain unproved; this ordering prevents inferring that the sort path necessarily reaches the new prefix condition.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+          "ranges": [
+            [
+              34,
+              38
+            ],
+            [
+              158,
+              180
+            ],
+            [
+              233,
+              260
+            ],
+            [
+              268,
+              287
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+          "ranges": [
+            [
+              24,
+              28
+            ],
+            [
+              249,
+              276
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Previously published ASSESSMENT-READBACK-SORT-95E.json REVIEW-RADIX-SORT-DISPATCH-DIMENSION-95E; prior assessment inspected current prefix 1\u2013200 as separately attributed support. Hash-linked published assessment and native wgpu-types package evidence retain their own attribution. Do not transfer its scope to this role.",
+      "future_direction": "Reconcile device limits and the x-only radix shader indexing separately from prefix fold padding; do not assume one fix suffices for both."
+    },
+    {
+      "id": "PREFIX-SUM-RECORDED-BATCH-FAILURE-CONTRACT",
+      "status": "Conditional open lifecycle question, no accepted defect",
+      "observation": "record_level can record an initial scan dispatch and then return an error from deeper recursion or the add pass; an externally supplied KernelBatch remains in the caller\u2019s hands. The one-off run wrapper returns before submitting on error. A supported later error and caller policy to submit a partially recorded external batch are not established.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+          "ranges": [
+            [
+              240,
+              270
+            ],
+            [
+              272,
+              317
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+          "ranges": [
+            [
+              249,
+              290
+            ],
+            [
+              353,
+              360
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Related to 774 lower GPU error/cause and 059 parameter/batch questions, and the separate GpuBvh build-error state report; first operation and retained owner differ, so no automatic alias.",
+      "future_direction": "Determine whether a failed externally recorded batch may be reused/submitted and preserve typed ScanError and native cause according to the chosen API contract."
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "Zero count is an invalid scan requiring a new error.",
+      "reason": "record returns success without dispatch on zero, and scratch intentionally retains at least one native slot. This is a documented empty operation, distinct from the unrelated empty-BVH traversal condition.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+          "ranges": [
+            [
+              174,
+              196
+            ],
+            [
+              240,
+              249
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Wrapping u32 summation alone is an unintended overflow.",
+      "reason": "The API expressly documents wrapping values. This does not make workgroup address wrap or out-of-bounds indexing intentional.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+          "ranges": [
+            [
+              233,
+              239
+            ],
+            [
+              91,
+              120
+            ],
+            [
+              141,
+              150
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "ScratchTooSmall or BufferTooSmall requires unstructured error text.",
+      "reason": "ScanError retains typed count or byte extents, while Gpu wraps the native anyhow cause; record checks nonzero count before recording.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+          "ranges": [
+            [
+              19,
+              42
+            ],
+            [
+              240,
+              262
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "An empty padded GPU lane by itself proves an invalid access.",
+      "reason": "The shader intentionally substitutes zero for lanes with index >= count inside a real partial block. The issue is a padded workgroup outside the number of allocated block sums, a separate bound.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+          "ranges": [
+            [
+              91,
+              120
+            ],
+            [
+              174,
+              187
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which actual direct callers and device limits can admit a count above 16,776,960 and the associated data/scratch buffers?",
+    "How does the pinned wgpu stack handle a dynamically out-of-bounds WGSL store on each supported backend? W3C permits multiple outcomes; no backend was queried.",
+    "Can a supported direct caller approach u32::MAX, causing padded block index wrap, or are native byte limits always stricter?",
+    "Can an externally supplied KernelBatch be submitted after a failed scan recording, and what partial-record policy applies?",
+    "Do actual code paths maintain distinct scan count, native byte length, BVH primitive count and radix tile count authorities and any range proof?",
+    "Are cloned scratch buffers reused concurrently across independently recorded batches, and what ownership/ordering is required?",
+    "Does the existing native x-only radix dispatch limit need a separate owner from prefix folding, and which historical findings share an exact first contract?"
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "The data/sums/count/pad/write_sums names are native shader parameter identifiers matched by PassParameters. Existing 059 parameter-name owner question applies; no defect from literals alone."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "BLOCK=256 and MAX_GROUPS=65535 define dispatch and scratch geometry; 4 bytes per word and write_sums modes are ABI roles. Their cross-product bounds, not a blanket literal replacement, need ownership."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "ScanElementCount owns scan-word cardinality and is not an interchangeable triangle/BVH count; BufferByteLength owns byte extent. Preserve the 774 exact owner comparison."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Count and byte types are already used at the host API; native WGSL block and lane identities are projected into u32 at the shader boundary."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Logical elements, block counts, rectangular grid slots and scratch capacity are distinct units. The new condition arises when rectangular slots exceed logical block count."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Widened host byte sizing fits u64 for all u32 counts, while shader linear block\u00d7256 can wrap and padded block stores lack a logical bound."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Count, data byte size, scratch capacity, recursion levels and dispatch grid must correspond. Local checks bind count to capacity and input bytes but not padded grid slots to the level size."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "All u32 counts including zero are representable; accepted device memory/workgroup limits are separate. The folded-grid condition requires actual allocation and dispatch admission."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Native write_sums is a uniform two-state shader mode and unused buffer is a required binding. Its native ABI is distinct from an application policy enum."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Capacity and levels are private and created together, with checked grow replacement. Clone/native buffer concurrency and external data identity remain separate lifecycle questions."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Preserve documented wrapping sums, zero no-op, recursive dispatch order, workgroup barrier uniformity and native ScanError causes in any future change."
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Typed count becomes typed byte length before input check, then native count/parameters drive shader workgroups. 774 owner81 rejects reusing this count merely because a BVH or mesh count also uses u32."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "ScanElementCount already derives ordinary traits, while ScanError uses thiserror for cause preservation. No bespoke handwritten trait issue is established in this bounded role."
+    }
+  ],
+  "historical_attribution": {
+    "059_root": "Root Segovb READ-L11-421, registration1464, freshly read only 19\u201323 and 44\u201364 at historical pr-working; the algorithm and shader were explicitly outside that role.",
+    "059_delegated": "READ-L12-867 credits /root/lens12_frontier personal prospective untruncated historical 6533 read of 1\u2013306 after REG603, with exact Windows locator qualification; 307\u2013408 remained unread in that receipt and Root did not personally reread.",
+    "774_rig_native": "RIG-OWNER81-REGISTER-008 originally registered 19\u201323/44\u201364, but RIG-OWNER81-SCOPE-QUALIFICATION-008 credits 19\u201321/44\u201364, treating doc line23 as context. Separately RIG-ADMISSION03-REGISTER-079 prospectively registered 1\u201318/24\u201343/65\u2013306 and RIG-ADMISSION03-ADDITIONAL-079 records the supplier rig actual admission read, excluding run307+ and tests321+. Native owner81 index/summary are reconciliation records, not a native personal algorithm read or global owner acceptance.",
+    "prior_current": "Published ASSESSMENT-READBACK-SORT-95E records prior current prefix support 1\u2013200 with its own preserved source and prior sort/native-package authorship; earlier /root/rig_identity BVH packet has its own role/source/read receipt. Neither is borrowed as new personal role credit."
+  },
+  "limitations": [
+    "No product source/publication edits, implementation, shader compilation/execution, build, tests, GPU operation, runtime probe, fixture or simulation.",
+    "Reported arithmetic is source reasoning; no actual supported count, device limit, result, data race or failure was observed. WGSL reference is a dated external Candidate Recommendation Draft and is separately qualified.",
+    "Original 059/774 records, reconstructed selections, published prior current evidence, new current assessment and supplementary external reference remain distinct; no historical record is promoted into checkpoint 3821.",
+    "Central agent owns final baseline, cross-lens reconciliation, connected ledger and publication."
+  ]
+}

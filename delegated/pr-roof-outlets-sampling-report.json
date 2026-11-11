@@ -1,0 +1,621 @@
+{
+  "schema": "726-pr-roof-outlets-sampling-assessment-v1",
+  "created_utc": "2026-11-11T22:50:36.325854+00:00",
+  "author": "/root/rig_identity",
+  "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles 2544\u20132545 only, full separate historical/current personal displays and separately registered bounded support. Thirteen perspectives do not claim whole-lens completion.",
+  "source_identity": {
+    "historical": "059 pr-working recorded individual objects equal the files at 6533e444fa37552927070cc8d8190907fd3b413e and at pinned 95e; f82adcabd9d89c4fa2dd7f99253a45297a0681ee only transports recovered bytes and historical records.",
+    "snapshot": "Recorded pr-working is 6533 head plus existing changes, with four unrelated modified paths; no whole-snapshot cleanliness or reconstructed 3821 state is claimed.",
+    "objects": [
+      {
+        "role": 2544,
+        "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+        "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+        "git_blob": "0b5d9acd8ff05042f50173d7b2edce1bbed2db8c",
+        "old_and_current_personal_read": [
+          [
+            1,
+            1005
+          ]
+        ]
+      },
+      {
+        "role": 2545,
+        "path": "crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+        "sha256": "50afa2b0cf44d396c140986593eec1d3e893d83361c56178cb7c247b9c9ef559",
+        "git_blob": "5fdefa951255d41053742b83e8fc4ac87b855bf1",
+        "old_and_current_personal_read": [
+          [
+            1,
+            60
+          ]
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "CANDIDATE-ROOF-PARENT-DRIP-MINIMUM-GAP",
+      "status": "New conditional source arithmetic finding; supported program reachability, policy and exact alias remain unresolved",
+      "condition": "A parent candidate passes the selector condition recipient_y + 0.08 < source_low and produces the ParentRoofFace disposition. For actual computed f32 values the eventual reconstructed outlet-void centre is at or below (recipient_y + 0.06) + 0.08. This includes a real-arithmetic gap strictly between 0.08 and 0.21 metres when rounding is small; endpoints and large-coordinate precision require separate qualification. The station/network must reach the corresponding roof audit to obtain the stated audit issue.",
+      "observation": "Selection accepts any parent more than 0.08 m below source_low, but the emitted outlet is source_low \u2212 0.07 m and the discharge is recipient_y + 0.06 m. The audit requires reconstructed outlet centre > discharge + 0.08 m. Therefore the stated source-level interval can be selected yet fails fall_is_vertical, making that station invalid in the roof drainage check. The document path calls audit_plan and rejects issues, while generate directly calls generate_unchecked; no unsupported plan or emitted runtime instance has been demonstrated.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              146,
+              149
+            ],
+            [
+              217,
+              225
+            ],
+            [
+              241,
+              252
+            ],
+            [
+              481,
+              503
+            ],
+            [
+              813,
+              823
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "ranges": [
+            [
+              260,
+              290
+            ],
+            [
+              331,
+              370
+            ],
+            [
+              524,
+              552
+            ],
+            [
+              738,
+              775
+            ],
+            [
+              931,
+              950
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "ranges": [
+            [
+              7,
+              9
+            ],
+            [
+              49,
+              50
+            ],
+            [
+              153,
+              163
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+          "ranges": [
+            [
+              198,
+              207
+            ],
+            [
+              281,
+              286
+            ],
+            [
+              301,
+              309
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Related to 059 L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE and native NATIVE-ROOF-PPS-TRACE-016, but those records inventory fallback and require final audit proof; the selected-parent height gap is a different precise predicate and no automatic alias or accepted count is claimed. Reconcile with any existing drainage acceptance owner centrally.",
+      "future_direction": "Establish admitted parent/child gap and intended fall geometry. If supported, align candidate admission, authored offsets and the final audited fall contract; preserve valid parent and ground dispositions and source error policy."
+    },
+    {
+      "id": "ROOF-SAMPLING-CONVEX-COVERAGE-RECHECK-RELATION",
+      "status": "Current conditional continuation of 059 READ-L12-864 topology question; independent acceptance and actual supported nonconvex topology remain open",
+      "condition": "A finite nondegenerate face or cutout permits a fixed 5\u00d75 grid midpoint which the intended general weather-face containment classifies differently from the all-edge convex predicate, with equal nonzero signed-area orientations in both computations. The strongest vacuous case additionally has no expected midpoint under the convex predicate and an existing network with zero samples.",
+      "observation": "RoofPlanSampling projects a face and each cutout then applies an all-edge half-plane test to the 25 grid centres. The roof drainage audit independently recomputes a 5\u00d75 grid and the same orientation/all-edge predicate with the same side threshold. It therefore does not independently restore a grid point omitted by that same predicate. If expected and retained sample sets are empty, sample validity and coverage checks use all() over empty collections and count equality; those sample checks can pass if all other channel/station requirements pass. The separate weather recipient uses a general even/odd polygon query. Current child-cut construction takes a convex hull before storing those particular cutouts, which narrows rather than proves the topology question.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+          "ranges": [
+            [
+              11,
+              27
+            ],
+            [
+              28,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "ranges": [
+            [
+              316,
+              325
+            ],
+            [
+              405,
+              433
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+          "ranges": [
+            [
+              3,
+              16
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+          "ranges": [
+            [
+              17,
+              57
+            ],
+            [
+              245,
+              261
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+          "ranges": [
+            [
+              25,
+              37
+            ],
+            [
+              44,
+              66
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "ranges": [
+            [
+              123,
+              158
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "ranges": [
+            [
+              795,
+              845
+            ],
+            [
+              846,
+              871
+            ],
+            [
+              873,
+              945
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "059 /root/lens12_frontier READ-L12-864 left convex vs general topology admission open. 774 native NATIVE-ROOF-PPS-TRACE-020 documented convex sampling and separate general weather/tessellation without assuming global convexity. The audit replication and conditional empty-coverage consequence are newly inspected current support, not an accepted duplicate or proof of an admitted failing shape.",
+      "future_direction": "Establish what face/cutout topology is actually admitted and whether empty sampling is valid. If general nonconvex topology is supported, use an appropriate containment contract and independent coverage check while preserving numerical tolerance and accepted cutout behavior."
+    },
+    {
+      "id": "CANDIDATE-ROOF-PARENT-CANDIDATE-ORDER",
+      "status": "Conditional current source observation; alternative availability, obstacle case and required prioritization are unproved",
+      "condition": "The nearest obstacle-clear first-pass parent-face candidate is not below source_low by the required 0.08 m, while another first-pass candidate is sufficiently lower and obstacle-clear. The later cardinal fallback encounters a different lower contained face first whose fall is blocked.",
+      "observation": "The first pass ranks all obstacle-clear contained candidate/face pairs by plan distance before testing the winning face\u2019s height. If that winner is too high, it does not try the next obstacle-clear candidate; it switches to fallback, which tests containment and height but not obstacle clearance. The later roof audit can reject a resulting fall under its own collision criteria, whereas the source generator has already selected the fallback. The stated combination is a reasoning condition, not a demonstrated generated layout.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              139,
+              160
+            ],
+            [
+              161,
+              169
+            ],
+            [
+              210,
+              255
+            ],
+            [
+              481,
+              503
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "ranges": [
+            [
+              357,
+              390
+            ],
+            [
+              401,
+              455
+            ],
+            [
+              524,
+              552
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Connected to 059 L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE, but that prior record asks whether fallback is accepted and does not prove this candidate-selection ordering. Keep distinct from the arithmetic minimum-gap and junction namespace contracts pending exact alias reconciliation.",
+      "future_direction": "Determine supported overlapping parent face topology and intended preference ordering; if the condition is supported, consider selecting among candidates that satisfy both clearance and height before any explicitly qualified fallback."
+    },
+    {
+      "id": "ROOF-OUTLET-STATION-CAP-POLICY-RELATION",
+      "status": "Current confirmation of original 059 policy/documentation question; no new unique defect",
+      "observation": "The outlet source comment states principal gable/hip roofs have at most two stations, whereas the implementation sets the limit to four for every kind and the inspected roof audit describes and enforces a cap of four for each assembly. A reachable >2 principal station and which policy controls are not established.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              1,
+              4
+            ],
+            [
+              45,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "ranges": [
+            [
+              42,
+              78
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Exact existing 059 L12-CLOSURE-ROOF-OUTLET-STATION-COUNT-POLICY, Root Segovb READ-L11-420 and /root/lens12_frontier READ-L12-863; 774 NATIVE-ROOF-PPS-TRACE-016 also records all-kind four. Do not count as a new finding.",
+      "future_direction": "Resolve intended project gate and align authoritative code/documentation at the owning boundary; no product change is made."
+    },
+    {
+      "id": "ROOF-GROUND-FALLBACK-AUDIT-RELATION",
+      "status": "Partial current source resolution of 059 fallback acceptance question; no unique accepted defect",
+      "condition": "No candidate passes the source filter and the last candidate is chosen, then a retained network reaches the roof audit. Where that candidate fails the audit\u2019s own clearance, vertical fall, roof intersection, portal or stair predicates, station validity fails; the audit is not identical to the full generator search.",
+      "observation": "The source generator selects the last enumerated candidate on an exhausted search. The roof audit checks station fall clearance and disposition, and document generation rejects any issues. The plain generate function does not invoke that audit. These facts do not establish that all rejected source candidates fail every downstream audit or that any supported layout reaches fallback.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              619,
+              626
+            ],
+            [
+              737,
+              800
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "ranges": [
+            [
+              331,
+              370
+            ],
+            [
+              379,
+              390
+            ],
+            [
+              401,
+              455
+            ],
+            [
+              457,
+              470
+            ],
+            [
+              476,
+              523
+            ],
+            [
+              554,
+              567
+            ],
+            [
+              738,
+              775
+            ],
+            [
+              944,
+              950
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "ranges": [
+            [
+              7,
+              9
+            ],
+            [
+              49,
+              50
+            ],
+            [
+              153,
+              163
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+          "ranges": [
+            [
+              198,
+              207
+            ],
+            [
+              281,
+              286
+            ],
+            [
+              301,
+              309
+            ]
+          ]
+        }
+      ],
+      "historical_relation": "Exact continuation of L12-CLOSURE-ROOF-OUTLET-FALLBACK-ACCEPTANCE and 059 READ-L11-420/READ-L12-863, not a new duplicate. The 059 contract remains open for actual supported fall and full acceptance policy.",
+      "future_direction": "Trace the specific supported fallback, geometry and caller before deciding whether to return an explicit no-clear-outlet error or preserve a permitted free-drip mode."
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "A generic empty chunk or missing final offset panic follows from this body.",
+      "reason": "Empty owner networks are skipped; station count is at least one on the remaining branch, div_ceil yields positive chunks, and each selected offset list is a fixed nonempty literal.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              45,
+              52
+            ],
+            [
+              72,
+              78
+            ],
+            [
+              580,
+              609
+            ],
+            [
+              784,
+              787
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "The 0x7800 collector encoding necessarily collides for a current ordinary roof.",
+      "reason": "The local station count is bounded by four; member_slot is masked to five bits and two members 32 apart would collide, but an admitted chunk over 32 networks and surviving ID lookup scope are unproved. This is the existing 059 collector-ID domain question, separate from the 0x6000 junction/gutter collision.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              72,
+              78
+            ],
+            [
+              859,
+              899
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "An absent or uninspected _openings parameter means the generator ignores all apertures.",
+      "reason": "The helper checks wall-opening and access-portal voids in its host and ground candidate logic, though coverage and actual model admission are separate questions.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              9,
+              11
+            ],
+            [
+              311,
+              325
+            ],
+            [
+              389,
+              402
+            ],
+            [
+              765,
+              778
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "A parent-free-drip fallback necessarily produces an accepted blocked document.",
+      "reason": "The roof audit checks its own fall clearance and disposition and the document path rejects issues. This does not establish that every fallback necessarily fails those conditions.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+          "ranges": [
+            [
+              229,
+              255
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "ranges": [
+            [
+              379,
+              390
+            ],
+            [
+              401,
+              455
+            ],
+            [
+              524,
+              552
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+          "ranges": [
+            [
+              301,
+              309
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Can an admitted parent/child roof reach a parent recipient gap satisfying local selection yet failing the final fall minimum, after all earlier errors and rounding?",
+    "Can a nearer high obstacle-clear face and a farther lower clear face coexist, and should source selection exhaust all clear candidates before geometric fallback?",
+    "What polygon and cutout topology is admitted for every producer, and is a zero-sample drainage network acceptable? Can a grid point inside a supported nonconvex face be removed by the convex test?",
+    "Do separate independent roof/timber audit and editor acceptance reject every meaningful blocked fallback, including collector-only failures? Plain generate bypasses audit.",
+    "What is the intended station cap for gable/hip roofs, and can supported geometry actually produce more than two?",
+    "Can admitted walls shorter than 0.24 m reach either f32 clamp with ordered finite bounds; is a prior error boundary guaranteed?",
+    "Can any station contain more than 32 generated networks, and are ID namespace and recipients unique across all producers?",
+    "Is consolidation eligible to repeat on retained geometry? It clears stations but appends recipient surfaces and collectors and extends catchment state; actual lifecycle and cleanup are unproven.",
+    "How should route, station, recipient and topology owners express their aggregate invariants without conflating the already recorded 0x6000 junction collision, 0x7800 collector domain, and 774 checked-position producer propagation?"
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "No domain String API in assigned bodies; diagnostic expect labels are not string-based control flow. Closed drainage modes and structured source errors remain distinct."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Cap4, side tolerance 0.002, 5\u00d75 sampling, fall offsets, clearances and packed-ID masks encode different policy/units; named ownership and numerical error budgets require further reconciliation rather than one generic constant."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "RoofDrainageDisposition and Recipient are owned enums and IDs are typed, while outlet/station/face payload ownership and global ResolvedItemId namespace are the actual cross-owner questions."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "SpatialBounds and CollisionCuboid carry admitted architectural values while plan/height/normal values and sampled state remain raw; consult existing canonical geometric types before creating replacements."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "A station has independent disposition, optional host/downspout and recipient; only a supported aggregate contract justifies re-shaping it, not the mere presence of Option or a native index."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Parent gap arithmetic combines three different offsets; clamp ordering, normal denominator, near-zero projection and repeated geometry edits need operation-specific proofs."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "A network, station, edge, catchment, route, outlet, recipient surface, spout and disposition must agree. The roof audit checks many associations but does not by itself establish all admission and lifecycle guarantees."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "The parent selector admits a weaker height gap than the independent audited minimum; actual supported gap remains open. Local nonempty chunk/offset invariants are established by control flow."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Three dispositions and two recipient variants retain named roles, while their accompanying optional fields require supported combinations; do not infer a failure solely from enum/Option representation."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Sampler and drainage audit each recompute the same convex 5\u00d75 coverage, and station/network/catchment/route retain related IDs. Repeated state or a duplicated numerical predicate is not sufficient alone to claim unintended independent authority."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Preserve ordering, station grouping, host/free-drip/ground modes, deterministic offset candidates, native errors and checked-document versus plain-generation boundaries unless product policy deliberately changes."
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "774 NATIVE-ROOF-PPS-F001 concerns a specific earlier checked Architectural Position discarded before raw polygon retention; sampled and outlet fields are connected receivers but are not automatic duplicate findings."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No handwritten trait or serialization boilerplate in assigned bodies; support station/recipient records use derives. No change is proposed from these bounded bodies."
+    }
+  ],
+  "historical_attribution": {
+    "059_root": "Root Segovb READ-L11-420 records prospective 1450/1451 reads of historical pr-working outlets 1\u20131005 and sampling 1\u201360; actual outlet windows and pending contracts preserved.",
+    "059_delegated": "READ-L12-863 and 864 attribute prospectively registered historical 6533 full reads to /root/lens12_frontier; outlet partial records 001\u2013005 plus final account retained, root_personal_rereads empty. No other-lens or checkpoint 3821 credit.",
+    "774_native": "NATIVE-ROOF-SCOPE-010 and -018 registered before native reads without immediate credit; NATIVE-ROOF-PPS-SOURCE-016/-020 later record full ranges 1\u20131005/1\u201360 and traces 016/020, with Root global reconciliation required. f82 transports these historical records.",
+    "prior_current": "Earlier /root/rig_identity roof-dormers-drainage packet personally read only outlet support ranges 1\u2013155 and 790\u2013960; it and earlier roof geometry and /root/hair_ops roof-abutment evidence are copied as selected exact report/receipt/manifest records with independent attribution. The old cleanup finding is a related ID contract, not presumed equivalent."
+  },
+  "limitations": [
+    "No product source/publication edits, implementation, builds, tests, product execution, browser, fixture, simulation or runtime probe.",
+    "No admitted failing geometry, acceptance case, independent complete audit/lens, repair or whole-plan behavior is claimed; source and exact symbolic conditions only.",
+    "Personal read receipts distinguish actual bounded displays from complete archived bytes and distinguish original historical records, reconstructed selections, earlier reader reports and the new current assessment; no promotion to checkpoint 3821.",
+    "Central owns baseline, acceptance, cross-lens reconciliation, ledger and publication."
+  ]
+}

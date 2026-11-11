@@ -1,0 +1,1147 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T22:53:35.978291+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2548,
+      2549
+    ],
+    "historical_snapshot": "pr-working",
+    "historical_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Thirteen perspectives are bounded to actual read scopes and do not mean whole-lens completion, accepted unique count, checkpoint3821 promotion or transfer of another reviewer's reads."
+  },
+  "source_identity": {
+    "qualification": "Recorded pr-working has 6533 HEAD plus four staged/unstaged/untracked paths; it is not claimed clean. Each per-file registry/catalog object matches f82 transport and 6533/95e Git versions. I separately displayed full 6533 and 95e copies after registration. f82 copies were verified but not separately displayed. Original material scopes are shed 1–38 and enclosure 1–22; newly inspected shed 39–163 is test source text only and enclosure 23–63 is a production extension, neither historical frontier credit. Earlier /root/hair_ops 95e enclosure 1–63 and /root/mhr_character 95e shed 1–163 were separately attributed support reads."
+  },
+  "findings": [
+    {
+      "id": "CANDIDATE-GABLE-AUDIT-SHORT-ENCLOSURE-BEFORE-ROOF-CHECK",
+      "status": "conditional current source ordering and recipient observation; central alias and unique-count decision required",
+      "first_contract": "A reciprocal RoofGable wall and hosted opening are checked by gable_openings::valid. Once it finds a parentless roof with the source roof ID, a face with the source enclosure ID and inset_walls exactly [wall.id], it calls face.normal(), which indexes polygon[1], [0] and [2] without checking its length. If the matched polygon has fewer than three points and the call is reached, an index panic follows from source control flow. The roof audit has a length-at-least-three issue check, but audit_structural_assemblies calls enclosure/gable audit before that roof audit.",
+      "producer_and_disposition": "Normal gable-window resolution explicitly skips a face with fewer than three points before assigning its reciprocal wall and opening, so ordinary creation alone does not establish this state. Gable clipping can return a polygon shorter than three, and roof pitch reconstruction can replace the existing face polygon while retaining the other fields including inset_walls. The source has not established that a supported edit reaches such a result or that it returns an externally accepted plan.",
+      "condition": "Requires a matching parentless roof, linked face and singleton inset wall, a hosted RoofGable opening, polygon length below three, and all earlier plan audit stages reaching this call. Public mutable/serializable face fields make the shape representable, but no valid generated, edited or admitted plan and no actual earlier audit outcome have been demonstrated.",
+      "future_direction": "Establish the canonical enclosure admission and edit/validation lifecycle. Make the earliest responsible boundary reject or safely report malformed reciprocal geometry before an index-based consumer, while preserving valid singleton wall and aperture checks; retain source context and native error behavior.",
+      "historical_relation": "774 SEGOVB-INITIAL04-CONTRACT-608 already records the raw-cardinality precondition and existing admission/aggregate concern. 774 NATIVE-INITIAL05-GROUP-007 and NATIVE-ROOF-PPS-F001/RAW-SOURCE-002 record raw retained polygon gaps. /root/hair_ops prior gable-enclosure packet noted clipping can return fewer than three and pitch replacement; this observation adds a specific current recipient and audit ordering, without assuming a distinct accepted issue or earlier reader attribution.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+          "lines": [
+            [
+              11,
+              86
+            ],
+            [
+              90,
+              111
+            ],
+            [
+              114,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_openings.rs",
+          "lines": [
+            [
+              32,
+              44
+            ],
+            [
+              189,
+              204
+            ],
+            [
+              217,
+              224
+            ],
+            [
+              257,
+              259
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              202,
+              209
+            ],
+            [
+              270,
+              288
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_openings.rs",
+          "lines": [
+            [
+              11,
+              35
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              971,
+              989
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_enclosure.rs",
+          "lines": [
+            [
+              134,
+              156
+            ],
+            [
+              186,
+              192
+            ],
+            [
+              213,
+              223
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/enclosure.rs",
+          "lines": [
+            [
+              44,
+              54
+            ],
+            [
+              55,
+              87
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "lines": [
+            [
+              7,
+              9
+            ],
+            [
+              49,
+              50
+            ],
+            [
+              153,
+              163
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "lines": [
+            [
+              80,
+              94
+            ],
+            [
+              131,
+              147
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ROOF-ENCLOSURE-FIRST-THREE-NORMAL-CONDITION",
+      "status": "connected source refinement of retained polygon validity; not automatically an independent finding",
+      "first_contract": "The private constructor copies a polygon unchanged. normal computes the cross product of its first three vertices and normalize_or_zero; if those three are collinear or coincide the resulting zero normal yields a zero tangent even if later vertices would form nonzero area. The residual projection uses that tangent, and the tessellator checks only polygon length before using normal, tangent and the projected residual.",
+      "condition": "Requires a retained face with at least three vertices whose first three are degenerate, a later nondegenerate vertex, and a supported consumer path. The current constructor and length-only audit do not by themselves rule this out, but no actual generated, edited or admitted polygon with that arrangement has been established. Geometry-library behavior, triangulation outcome and physical effect remain unproved.",
+      "future_direction": "Decide the enclosure polygon's nondegenerate orientation and planarity admission contract at the owning construction or edit boundary, and ensure later valid operations cannot invalidate it. Preserve existing reciprocal cut and frame semantics.",
+      "historical_relation": "774 operations608 explicitly records first-three normal and raw cardinality concerns; 774 aggregate007 relates raw polygons to Root F001. Prior /root/hair_ops child-contact current support assessment already left finite/nondegenerate enclosure unresolved. This adds an exact collinear-first-three implication and downstream scope, not a new accepted count.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+          "lines": [
+            [
+              11,
+              86
+            ],
+            [
+              90,
+              111
+            ],
+            [
+              114,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_tessellation.rs",
+          "lines": [
+            [
+              107,
+              140
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              202,
+              209
+            ],
+            [
+              270,
+              288
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              971,
+              989
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_enclosure.rs",
+          "lines": [
+            [
+              134,
+              156
+            ],
+            [
+              186,
+              192
+            ],
+            [
+              213,
+              223
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              4,
+              39
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHED-SEAM-RESOLUTION-AND-PROFILE-RELATION",
+      "status": "bounded seam policy and pre-existing redundant-authority question; no demonstrated present seam failure",
+      "first_contract": "For a shed, the search considers depths k*0.01 m for integer k=1 through 800 and accepts the first depth where both cheek points have a parent surface at or above the modeled underside. DormerLayout maps None to InvalidRoofDormer. A hypothetical viable depth interval containing no sampled value, or lying outside the sampled range, is not discovered by this algorithm; no supported roof with such a viable interval is shown.",
+      "profile_relation": "The search uses an authored 0.13 m buildup and 22-degree pitch; the actual non-flat roof face producer separately assigns 0.13 m thickness and Shed recipe selects the same pitch. Current constants agree. underside_height uses the actual child face thickness and plane normal. A future one-sided profile change could separate the search from actual geometry; that is a maintenance relation, not a present observed mismatch.",
+      "condition": "Establish the supported parent geometry, required seam location/precision, boundary handling, and whether geometric acceptance can occur strictly between samples or outside 0.01–8.00 m. Non-shed fallback is a separate branch and cannot automatically be treated as shed behavior.",
+      "future_direction": "Choose one coherent build-up/profile authority and explicit search/absence policy if those domains need change. Preserve first-success ordering, both-cheek predicate, authored pitch, legitimate None/error and the independent non-shed fallback semantics.",
+      "historical_relation": "774 CONT07-CONTRACT-588 already identifies independently authored 0.13 constants and notes current agreement without a failed seam. 774 SEGOVB-INITIAL04-CONTRACT-608 and native TRACE-019 already document bounded search. /root/mhr_character PR-DORMER-SEAM-FALLBACK concerns non-shed fallback and remains separately attributed; no alias or new count inferred.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              12
+            ],
+            [
+              56,
+              105
+            ],
+            [
+              401,
+              445
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              14,
+              20
+            ],
+            [
+              332,
+              343
+            ],
+            [
+              391,
+              401
+            ],
+            [
+              580,
+              590
+            ],
+            [
+              593,
+              647
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHED-CHILD-FACE-AND-PARENT-ADMISSION",
+      "status": "connected historical source boundary; no new accepted finding",
+      "first_contract": "roof_dormers::append indexes assemblies[0] before layout; shed underside_height indexes child.faces[0] and divides by its plane normal. The regular shed face-polygon branch constructs one quadrilateral and resolution pushes a RoofFace for each surviving polygon, but finite positive size and nonzero plane normal depend on producer/admission context.",
+      "condition": "The empty parent issue requires a nonempty dormer set with no parent after preceding admissions. The empty child/nonzero normal question requires actual resolved child topology or an externally admitted malformed state. No unsupported input, runtime panic or validity outcome is established.",
+      "future_direction": "Reconcile the public building program domain, error ownership, actual shed face producer and plane/face aggregate contract. Preserve finite authored geometry, explicit seam failure and intended empty non-dormer cases.",
+      "historical_relation": "059 q2258 L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION already documents the CourtyardCastle/Rectangle/override conditional; q592 retains parent/support lifecycle. /root/rig_identity ROOF-DORMER-PARENT-SOURCE-CONDITION and /root/mhr_character PR-DORMER-NO-PARENT-ADMISSION are independently attributed later source refinements, not new unique counts.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+          "lines": [
+            [
+              5,
+              35
+            ],
+            [
+              171,
+              235
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              12
+            ],
+            [
+              56,
+              105
+            ],
+            [
+              401,
+              445
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              14,
+              20
+            ],
+            [
+              332,
+              343
+            ],
+            [
+              391,
+              401
+            ],
+            [
+              580,
+              590
+            ],
+            [
+              593,
+              647
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "The shed search always hangs or silently chooses a default on failure",
+      "reason": "Its source has 800 bounded samples and DormerLayout returns InvalidRoofDormer on None. Test source was displayed but not executed.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "All short enclosure polygons crash every tessellation",
+      "reason": "tessellate_roof_enclosure returns empty on fewer than three vertices; the separate reciprocal gable opening audit lacks this guard. A different consumer and condition are necessary.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_tessellation.rs",
+          "lines": [
+            [
+              107,
+              140
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_openings.rs",
+          "lines": [
+            [
+              11,
+              35
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "An empty inset_walls field is automatically invalid at construction",
+      "reason": "The constructor starts empty; the gable-window producer later adds a reciprocal wall ID when it constructs one. Other no-window face modes may legitimately remain empty.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_openings.rs",
+          "lines": [
+            [
+              32,
+              44
+            ],
+            [
+              189,
+              204
+            ],
+            [
+              217,
+              224
+            ],
+            [
+              257,
+              259
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "A matched wall ID alone removes any wall from a residual",
+      "reason": "The subtraction also requires WallSourceId::RoofGable carrying the same enclosure ID. This protects reciprocal provenance locally; graph consistency at all other mutations remains open.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_openings.rs",
+          "lines": [
+            [
+              32,
+              44
+            ],
+            [
+              189,
+              204
+            ],
+            [
+              217,
+              224
+            ],
+            [
+              257,
+              259
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_openings.rs",
+          "lines": [
+            [
+              11,
+              35
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Can any accepted pitch edit, deserialized plan, or other supported mutation retain a reciprocal gable wall/opening while reducing its enclosure polygon below three, and can it reach audit without earlier rejection?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+          "lines": [
+            [
+              11,
+              86
+            ],
+            [
+              90,
+              111
+            ],
+            [
+              114,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_openings.rs",
+          "lines": [
+            [
+              32,
+              44
+            ],
+            [
+              189,
+              204
+            ],
+            [
+              217,
+              224
+            ],
+            [
+              257,
+              259
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              202,
+              209
+            ],
+            [
+              270,
+              288
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_openings.rs",
+          "lines": [
+            [
+              11,
+              35
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/gable_enclosure.rs",
+          "lines": [
+            [
+              134,
+              156
+            ],
+            [
+              186,
+              192
+            ],
+            [
+              213,
+              223
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/enclosure.rs",
+          "lines": [
+            [
+              44,
+              54
+            ],
+            [
+              55,
+              87
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+          "lines": [
+            [
+              7,
+              9
+            ],
+            [
+              49,
+              50
+            ],
+            [
+              153,
+              163
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "lines": [
+            [
+              80,
+              94
+            ],
+            [
+              131,
+              147
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Are polygons with a collinear or duplicate leading triple possible in supported clipping/child paths, and where are nondegeneracy, planarity and winding guaranteed?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+          "lines": [
+            [
+              7,
+              61
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+          "lines": [
+            [
+              11,
+              86
+            ],
+            [
+              90,
+              111
+            ],
+            [
+              114,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/roof_tessellation.rs",
+          "lines": [
+            [
+              107,
+              140
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              202,
+              209
+            ],
+            [
+              270,
+              288
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              971,
+              989
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+          "lines": [
+            [
+              4,
+              39
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Do admissible shed parent weather planes allow a real cheek seam only between samples or outside the fixed 0.01–8 m range, and what acceptance/error policy is intended?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              12
+            ],
+            [
+              56,
+              105
+            ],
+            [
+              401,
+              445
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Who owns covering thickness, pitch and seam buildup, and how should future changes preserve consistency of search and resolved child underside?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              14,
+              20
+            ],
+            [
+              332,
+              343
+            ],
+            [
+              391,
+              401
+            ],
+            [
+              580,
+              590
+            ],
+            [
+              593,
+              647
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Is roof_surface_height_at allowed to rely on the first convex projected face and a nonzero plane normal for every actual parent, including shared boundaries and cutouts?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              12
+            ],
+            [
+              56,
+              105
+            ],
+            [
+              401,
+              445
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Does an admitted nonempty dormer set always have a parent and an accepted shed child first face, with a finite nonzero vertical normal?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+          "lines": [
+            [
+              4,
+              37
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+          "lines": [
+            [
+              13,
+              68
+            ],
+            [
+              109,
+              129
+            ],
+            [
+              132,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+          "lines": [
+            [
+              5,
+              35
+            ],
+            [
+              171,
+              235
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+          "lines": [
+            [
+              1,
+              12
+            ],
+            [
+              56,
+              105
+            ],
+            [
+              401,
+              445
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              14,
+              20
+            ],
+            [
+              332,
+              343
+            ],
+            [
+              391,
+              401
+            ],
+            [
+              580,
+              590
+            ],
+            [
+              593,
+              647
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Direction, pitch, search fractions and raw parent heights flow into the dormer recipe and retained enclosure polygon; native 774 F001/RAW-SOURCE-002 already owns the connected raw graph question."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "RoofAssemblyId, ResolvedItemId, WallAssemblyId, RoofMaterial and structural nodes carry distinct existing identities. A numerical kernel scalar is not automatically an independent retained bespoke value."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "The constructor stores raw vertices; roof audit checks count and support but its local check does not establish nondegenerate leading vertices. Actual generator, edit and deserialized input boundaries remain distinct."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Plane division requires nonzero finite normal.y, seam search uses finite discrete steps, normal uses first three vertices, and pitch reconstruction mutates polygon while retaining other fields."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "A reciprocal wall/opening/face graph and plane/polygon/thickness/support representation need correlated validity; a checked leaf or three-element count alone cannot establish it."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Physical cover thickness, modeled seam buildup, source wall, face identity and support node have different roles; prior 774 same-value profile question is an owner decision, not an automatic alias."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Residual polygon is derived on demand from the face and reciprocally linked wall, rather than stored as a competing residual. The separate 0.13 buildup and nonflat thickness currently agree but can drift."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Both assigned 6533 and 95e bodies are byte-identical; preserve bounded first seam, legitimate shed None/error, non-shed fallback and reciprocal wall-cut semantics. No whole-snapshot or behavior equivalence is claimed."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "DormerKind distinguishes shed from non-shed policy and WallSourceId::RoofGable carries roof/enclosure identity. No local semantic-boolean replacement established."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "The assigned production methods contain no handwritten serialization or trait boilerplate to derive; public model derives Serde but this does not enforce graph invariants."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "A plane, unit normal, arbitrary polygon and horizontal tangent encode different contracts; polygon count is weaker than finite, planar, nondegenerate leading points and reciprocal graph linkage."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Assigned production methods have no string-key protocol; named errors and audit issue codes serve different diagnostic boundaries."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "0.01 m search step, 800 steps, 0.13 m buildup, 22-degree pitch and roof admission tolerances have distinct physical and discretization roles. Evaluate domain and error budget, not blanket replacement."
+    }
+  ],
+  "historical_attribution": {
+    "059": "Segovb READ-L11-420 records fresh 6533 shed1–38 and enclosure1–22 under registrations 1454/1455. /root/lens12_frontier PROPOSAL-L12-864 records fresh 6533 same ranges under registrations 579/580; READ-L12-864 root adopts without personal reread. Its shed39–163 and enclosure23–63 were explicitly unread under that record.",
+    "774": "CONT07-CONTRACT-588 records 6533 shed1–38 and enclosure1–22 under redundant authority, including the separately authored 0.13 profile question. SEGOVB-INITIAL04-CONTRACT-608 independently records full 6533 shed1–163 and enclosure1–63 under invariant operations. NATIVE-INITIAL05-GROUP-007 records only 1–38 and 1–22 under aggregate states. These are supplier/record identities; do not invent named human reviewers or cross-lens credit.",
+    "native_774": "NATIVE-ROOF-SCOPE-017 registers shed1–38, SCOPE-024 enclosure1–22, with no body credit at registration; PPS-SOURCE/TRACE-019 and 024 later record exact native supplier body reads and F001/RAW-SOURCE-002 connections. Their producer scopes do not prove all consumers or other lenses.",
+    "queue": "059 q582 and q1931 are broad pending roof-family obligations; q592 is the pending parent/support lifecycle; q2258 already documents a CourtyardCastle/Rectangle conditional parent question and retains its documented-conditional status. Selected rows are reconstructed excerpts from an exact queue, not the full original and not checkpoint3821.",
+    "prior_current": "/root/mhr_character personally displayed 95e shed1–163 as support in prior_dormer support receipt; /root/hair_ops personally displayed 95e enclosure1–63 as support in prior_child_contacts receipt. Both are separate from the fresh ordered-role reads here. /root/rig_identity roof assemblies/cutting, /root/hair_ops gable/abutment and child/contact records retain original authors and conditional findings; hash links preserved.",
+    "qualification": "Historical source, receipts, revisions and reconstructed queue excerpts remain attributed and are not promoted to checkpoint3821."
+  },
+  "limitations": [
+    "Only source/evidence inspection, hashes, Git membership and mathematical reasoning; test text was read, not executed. No product, geometry or viewer execution, builds, tests, probes, simulations, repairs or source/publication edits.",
+    "No actual supported malformed plan, geometry witness, seam failure, audit execution result, product behavior or accepted repair demonstrated.",
+    "Central retains baseline ownership, cross-lens reconciliation, issue aliases, unique-count decision, ledger and checkpoint publication."
+  ]
+}

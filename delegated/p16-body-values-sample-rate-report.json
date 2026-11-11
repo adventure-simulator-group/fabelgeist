@@ -1,0 +1,541 @@
+{
+  "schema": "726-bounded-source-audit-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T23:04:46.090348+00:00",
+  "scope": {
+    "original_roles": [
+      2510,
+      2557
+    ],
+    "source_family": "P16 body-response quantities and animation sampling-rate owner",
+    "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "recorded_dirty_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "qualification": "Original P16 is a dirty frozen delta, f82 is object archive transport, and the complete dirty patch is not recovered. These two individual objects independently equal their a120 and 95e path bytes; this does not identify the whole snapshot as clean.",
+    "original_role_ranges": {
+      "2510": [
+        [
+          1,
+          85
+        ],
+        [
+          124,
+          147
+        ]
+      ],
+      "2557": [
+        [
+          1,
+          43
+        ]
+      ]
+    },
+    "expanded_qualification": "Both roles were personally displayed in full at old/current separately after registration. Lines beyond original ordered scopes are newly assessed source, not retrospective original review credit. Native 774 separately registered sample_rate 1–86 with its own admission qualification."
+  },
+  "baseline_and_recovery": {
+    "registry": "reference/original-registry.json.gz and historical-registry-selected.json",
+    "proofs": "Recovered 059 dirty objects plus f82 archived transport and a120/95e individual Git paths are evidenced by source registration and compressed commit/tree objects in git-proofs.json.",
+    "hashes": {
+      "2510": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "2557": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093"
+    },
+    "patch": "Recorded P16 full patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 has no recovered bytes. Central bounded search of 7156 patch/diff files <=100 MB under ae46 and user-provided 28ba target collections found no match; not a claim of global absence."
+  },
+  "personal_scope": {
+    "assigned": "registration.json/read-receipt.json record four complete, separate old/current body displays.",
+    "support": "support-registration*.json, support-read-receipt.json and navigation-exposures.json record current support windows and unread complements; some displayed source-only tests were not executed.",
+    "prior": "Previous delegate reports and original historical reads retain their own authors/revisions/ranges; no read credit transferred."
+  },
+  "historical_attribution": {
+    "2510_l11": "059 READ-L11-416 reused exact /root/adler 6533 READ-L11-186 full 1–211 at matching SHA; /root/segovb claimed no fresh P16 read, and the adopted original role was 1–85 and 124–147.",
+    "2510_l12": "059 READ-L12-853 adopted /root/lens12_frontier independent P16 object read 1–85 and 124–147; root_personal_rereads empty, f82 archive transport only.",
+    "2557_l11": "059 READ-L11-421 has /root/segovb fresh P16 read 1–43 and separately cites /root/adler READ-L11-260 full pr-working 6533 object 1–86; no transfer of prior read.",
+    "2557_l12": "READ-L12-867 adopted /root/lens12_frontier full P16 1–86 source read and exact identity-specific Windows qualification; root_personal_rereads empty.",
+    "774": "Registry preserves CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-001 for body 1–85/124–147, RIG-OWNER81-REGISTER-005 for frequency 1–43 and NATIVE-ADMISSION03-REG-059 for rate/frequency 1–86 plus original normalization qualifications. No standalone qualification was recreated and no scope credit inferred from metadata. Older camera/rig/native continuation files are copied as verbatim independently hashed evidence; rig F007 explicitly rejects name-only identity between AnimationFrequency and door motor frequency.",
+    "prior": "prior-references.json hash-links /root/hair_ops body-target packet and earlier /root/mhr_character animation/config packets. Their findings and exact scopes stay separate.",
+    "no_promotion": "No historical record is checkpoint3821 credit or a transferred author read."
+  },
+  "findings_and_questions": [
+    {
+      "id": "P16-POSE-BAKE-UNBOUNDED-GRID-WORK",
+      "kind": "conditional current source work-bound candidate",
+      "first_contract": "AnimationSampleRate admits a finite positive hertz value when its f32 reciprocal is a positive finite duration. PoseBufferConfig separately admits a positive minimum bake duration and its displayed validation does not bound their product. bake_clip checks that duration/interval is finite and fits usize, then samples every frame into three vectors for every joint; representability is not a practical work or memory bound.",
+      "condition": "For example, a validated configuration can contain pose sample_hz 1e9 and a minimum grid duration of 1 second, giving on the order of one billion samples per channel per joint while remaining below the usize representability check on ordinary 32-/64-bit targets. A successfully loaded finite-duration clip with at least one joint must reach baking, and platform/resource behavior is not observed. No configuration, fixture, product or runtime probe was executed.",
+      "future_direction": "Define an accepted frame/channel/joint work budget at the clip-bake owner before allocation, or reject excessively large sampling configurations with structured context. Preserve ordinary frame endpoints, duration rounding and existing native error behavior.",
+      "relationships": [
+        "Related to 059 Q-L1-aad423b852c6981cae42 on baked-grid admission and broader sample-rate/current producer obligations, but a resource budget is a separate condition from nonfinite/usize overflow; root determines exact repair identity. No alias inferred solely from another unbounded geometric-work issue."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+          "lines": [
+            [
+              18,
+              22
+            ],
+            [
+              31,
+              42
+            ],
+            [
+              45,
+              53
+            ],
+            [
+              66,
+              79
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+          "lines": [
+            [
+              10,
+              19
+            ],
+            [
+              33,
+              45
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "lines": [
+            [
+              53,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              36,
+              55
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+          "lines": [
+            [
+              11,
+              19
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "lines": [
+            [
+              628,
+              651
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/sample_values.rs",
+          "lines": [
+            [
+              22,
+              35
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+          "lines": [
+            [
+              657,
+              663
+            ],
+            [
+              672,
+              695
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+          "lines": [
+            [
+              15,
+              18
+            ],
+            [
+              35,
+              54
+            ],
+            [
+              176,
+              225
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-POSE-BAKE-RUNTIME-CONFIG-CACHE-IDENTITY",
+      "kind": "conditional current retained-cache consistency candidate",
+      "first_contract": "BakedClipBank is keyed by skeleton family and animation clip asset ID. get_or_bake returns a hit under that key before consulting pose sample interval or minimum grid duration; a new bake stores frame_dt and duration from current configuration. A validated runtime snapshot can replace animation configuration, and the client receives snapshots through an observer. The inspected clip-revision invalidator removes entries for changed assets, not a configuration version.",
+      "condition": "A clip must already be cached, a later accepted snapshot must change pose sample_hz or minimum_baked_grid_seconds, and the same cache, family and clip ID must remain without another asset event or external reset. Whether such configuration changes occur during supported sessions and whether old interpolation resolution is permitted are open; no running client was observed.",
+      "future_direction": "Define whether pose bake configuration is immutable for the bank lifetime; if live replacement is supported, include the relevant settings or configuration generation in cache identity or invalidate affected entries atomically.",
+      "relationships": [
+        "Related to 059 Q-L1-7a0bd4b17923316f48a7 and Q-L12-b8dd4e40595f414c5f59 asset-revision and cache-lifecycle evidence, but this specific configuration dependency is not automatically the same historical contract. AuthoredLocomotionStrides has its own separately scoped configuration invalidation; no other cache credit inferred."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+          "lines": [
+            [
+              83,
+              87
+            ],
+            [
+              336,
+              339
+            ],
+            [
+              657,
+              663
+            ],
+            [
+              672,
+              695
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+          "lines": [
+            [
+              101,
+              125
+            ],
+            [
+              148,
+              173
+            ],
+            [
+              176,
+              188
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+          "lines": [
+            [
+              10,
+              18
+            ],
+            [
+              33,
+              45
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              36,
+              55
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+          "lines": [
+            [
+              26,
+              38
+            ],
+            [
+              51,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/clip_revision.rs",
+          "lines": [
+            [
+              17,
+              30
+            ],
+            [
+              76,
+              95
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+          "lines": [
+            [
+              75,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "lines": [
+            [
+              10,
+              18
+            ],
+            [
+              38,
+              55
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001",
+      "kind": "existing current conditional observation, independently corroborated; no new count",
+      "first_contract": "ReferenceAcceleration admits any finite strictly positive f32, and body target divides an acceleration component by it before multiplying by an authored angle. A sufficiently small positive reference and finite acceleration can produce a nonfinite ratio/product; BodyAngle admission rejects it before the subsequent clamp.",
+      "condition": "A validated installed tuning with the relevant small reference and positive/nonzero angle, a finite input acceleration reaching the body-response branch, and intended support for that extreme domain are needed. A mathematical example is reference 1e-40 and acceleration 1, without claiming such tuning was installed or gameplay observed. The ordinary shipped reference values are not inferred to fail.",
+      "future_direction": "Clarify supported authored reference/acceleration domain and prevent or explicitly classify overflow at the owning numerical operation while preserving intended clamp, finite error and normal response behavior.",
+      "relationships": [
+        "The separately attributed /root/hair_ops body-target packet and earlier central ASSESSMENT-PACK-RESPONSE-95E already identify this exact ratio-to-angle operation as REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001. This packet corroborates it; no duplicate count or historical reviewer promotion."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "lines": [
+            [
+              45,
+              58
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+          "lines": [
+            [
+              84,
+              123
+            ],
+            [
+              125,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+          "lines": [
+            [
+              43,
+              58
+            ],
+            [
+              59,
+              75
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "lines": [
+            [
+              31,
+              48
+            ],
+            [
+              53,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+          "lines": [
+            [
+              27,
+              35
+            ],
+            [
+              49,
+              77
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "kind": "existing historical frame relationship, no new count",
+      "first_contract": "Body-local velocity and acceleration types contain finite components without recording the coordinate basis. The response path converts the current world observations using the current owner rotation but reuses previous local velocity and filtered acceleration; the target path compares prior local velocity with current acceleration.",
+      "condition": "A change of body orientation between relevant eligible observations plus nonzero components is needed for a frame-mismatch effect. Reset conditions, same-tick behavior, actual replicated turn rates and visual consequences remain separately qualified.",
+      "future_direction": "Carry the frame or an equivalent world-space observation so compared values share a basis; separately decide the intended frame for filtered acceleration without conflating it with numerical range ownership.",
+      "relationships": [
+        "Exact existing Q39 ADLER-L11-BODY-OBSERVATION-FRAME and /root/hair_ops body-target current independent corroboration; no duplicate finding or automatic checkpoint3821 credit."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+          "lines": [
+            [
+              15,
+              22
+            ],
+            [
+              101,
+              109
+            ],
+            [
+              124,
+              132
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+          "lines": [
+            [
+              17,
+              42
+            ],
+            [
+              49,
+              65
+            ],
+            [
+              93,
+              98
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+          "lines": [
+            [
+              29,
+              48
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-SAMPLE-RATE-SPAN-CONVERSION",
+      "kind": "open supported-domain and error-propagation question",
+      "first_contract": "AnimationSampleSpan stores a u64 and duration conversion deliberately casts the sample count to f32 before division by hertz, then re-admits elapsed time. Distinct large counts can therefore round to the same f32, and sufficiently large spans at sufficiently low valid sample rates can yield a nonfinite duration and return an error. The displayed AttackFacing caller propagates that error.",
+      "condition": "The actual supported range of active deadline spans, sample rates and failure policy is not established; this source behavior alone does not demonstrate a product failure. Zero spans remain valid and reciprocal construction is checked.",
+      "future_direction": "Establish supported clock and deadline domains, then decide whether to retain the documented f32 count-before-division behavior, bound inputs, or use a more precise domain at the authoritative time conversion while preserving intended errors and zero semantics.",
+      "relationships": [
+        "059 Adler READ-L11-260 already preserved count-before-division and left large-span/low-rate caller behavior open; this bounded current consumer connection does not promote that historical read or close the queue."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+          "lines": [
+            [
+              45,
+              63
+            ],
+            [
+              66,
+              79
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+          "lines": [
+            [
+              27,
+              45
+            ],
+            [
+              83,
+              108
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+          "lines": [
+            [
+              83,
+              95
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "AnimationFrequency admits finite positive multipliers even where a reciprocal cannot be represented; AnimationSampleRate checks its reciprocal separately. They are distinct admission contracts, not interchangeable wrappers.",
+    "Body velocity and acceleration reject nonfinite components and independently guard planar squared overflow; those checks do not preserve observation frame identity.",
+    "Validated procedural tuning rejects a maximum response at or below the 1e-6-radian reporting margin. The simple zero/tiny maximum cap concern is therefore not established on the displayed validated installation path; private alternate callers and any other ingress remain separate.",
+    "capture_fixed_clock converts the rate to f64 reciprocal, checks native Duration conversion, and explicitly rejects zero duration before Time creation; no failed clock admission is asserted.",
+    "AnimationSampleSpan quantization deliberately retains multiply, round, minimum-one and saturating cast order; zero and overflow semantics must not be silently changed based on wrapper names."
+  ],
+  "perspectives": {
+    "producer-propagation": "Body quantities retain frame-specific semantic wrappers but the retained observation lacks a changing-frame basis. Frequency/interval reach configuration, clip grid and native clock through distinct boundaries.",
+    "existing-type-owners": "AnimationFrequency, AnimationSampleRate, BodyAngle, ReferenceAcceleration, elapsed and sample span own distinct roles; source/reciprocal and local/world frames are not interchangeable.",
+    "admission": "Rate validates finite positive reciprocal, but clip-grid work budget is a separate resource admission contract. Procedural aggregate validation guards response margin.",
+    "invariant-operations": "Acceleration/reference multiplication can reject nonfinite intermediate before clamp; elapsed/span and caps have explicit finite, overflow, saturating and rounding semantics.",
+    "aggregate-states": "BakedClip has correlated duration, interval and channel sizes; its cache identity must also cover live configuration dependencies when replacement is supported.",
+    "type-ownership": "AnimationFrequency is an animation reference multiplier, not automatically the authority for door motor frequency; 774 rig F007 preserves this distinction.",
+    "redundant-authority": "Rate retains both original hertz and derived reciprocal intentionally; private fields and constructor keep the pair coupled. The configuration-sensitive cached grid is a distinct stale-derived-state question.",
+    "behavior-preservation": "Individual old/current source bytes match; preserve subnormal and signed/zero behavior, original frequency bits, count-before-division, sample endpoint/rounding and existing error boundaries until policy is settled.",
+    "enum-shapes": "BrakingLeanScale/UnitInterval, signed BodyAngle, nonnegative angular cap and Action SampleSpan represent different semantic modes; no arbitrary new enum demanded.",
+    "derivability": "The displayed serde and From/TryFrom forms implement actual scalar conversions and checks; no unnecessary handwritten boilerplate proved removable.",
+    "type-granularity": "Scalar reference frequency, reciprocal-capable sampling rate, sample count and elapsed duration have different units/admission; pose-specific resource budgets should not silently narrow all frequency uses.",
+    "magic-strings": "Typed AnimationValueError/quantity and fixed native logging messages are not an unproven private string dispatch.",
+    "magic-numbers": "The 1e-6 reporting margin, u64-to-f32 count projection, native grid limit and configured rates have distinct numerical purposes; no replacement without preserving operation semantics."
+  },
+  "open_questions": [
+    "Can a supported installed pose config and real clip produce a very large finite bake grid, and what resource bound is intended?",
+    "Can a cached clip survive a server snapshot that changes pose rate or minimum grid extent; should existing grids be reused?",
+    "What numerical range is supported for reference acceleration and sampled deadline spans, including rejected intermediate overflow?",
+    "How are body-local old observations transformed across changes in owner orientation?",
+    "All unread source complements, full historical 059/774 obligations, native validation, canonical ledger and cross-lens reconciliation remain open."
+  ],
+  "constraints": "Source inspection, mathematical reasoning and evidence hashing/Git verification only; no repairs, implementation, builds, tests, fixtures, runtime probes, viewer, simulation or product validation."
+}

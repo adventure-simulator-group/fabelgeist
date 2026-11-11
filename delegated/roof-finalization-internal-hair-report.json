@@ -1,0 +1,1010 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T22:50:28.219460+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2542,
+      2543
+    ],
+    "historical_snapshot": "pr-working",
+    "historical_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Thirteen bounded perspectives only; no whole-lens completion, cross-lens unique count, 3821 promotion or transfer of another reviewer's personal reads."
+  },
+  "source_identity": {
+    "qualification": "The recorded pr-working snapshot has 6533 HEAD and four staged, unstaged or untracked paths; per-file comparison does not establish a clean snapshot. Each role object in 059 inventory and older catalog has exactly the same bytes as the f82 transport object, 6533 and 95e Git source. f82 is the evidence transport revision, not the whole pr-working product snapshot. The 6533 and 95e full copies were personally displayed separately after registration; the byte-equal f82 copy was verified and not separately displayed."
+  },
+  "findings": [
+    {
+      "id": "REFINEMENT-ROOF-INTERNAL-CLEARANCE-DEGENERATE-EDGE",
+      "status": "source-mathematical refinement of earlier conditional clearance and graph-coherence questions; no new accepted unique count",
+      "first_contract": "For a finite nonzero edge whose strict interior interval is (low, high), the two retained lengths, in real arithmetic before floating-point rounding, are max(low*L - 0.08, 0) and max((1-high)*L - 0.08, 0). Thus an outside portion no longer than 0.08 m produces a zero edge, and one no longer than 0.10 m produces an edge at most 0.02 m; near the boundary floating-point comparisons require their actual values. The implementation appends the second edge without checking either retained edge length. The separate roof audit reports invalid_roof_edge for a duplicate ID or length <= 0.02 m if that edge reaches it.",
+      "downstream": "The same child path immediately invokes split_caps then the independent planar treatment trimmer. split_caps skips changing a treatment if either cap remainder is nonpositive. The later trimmer and final alignment cleanup can remove, retain, or change treatments depending on their actual geometry and other edges; finalization does not create a missing retained cap. The source does not establish that an originally corresponding cap and edge have identical cut parameters.",
+      "condition": "Requires an admitted attached child and finite parent edge with that near-endpoint interior interval, and the short edge surviving intervening graph stages into the audited plan. The actual supported input, completed plan, audit invocation outcome, treatment consequences, and acceptance policy are not established by this source-only analysis.",
+      "future_direction": "First resolve the intended topology and treatment policy for a cut with a too-short outside segment, including whether to reject, omit, or represent one side. Preserve checked geometry admission and synchronize edge, physical cap, bearing and references; compare to the earlier 5–8 cm endpoint-trimmer case rather than assuming a common failure.",
+      "historical_relation": "774 NATIVE-INITIAL05-GROUP-012 already records near-zero outside halves, the edge-versus-cap gate and unresolved coherent topology. /root/lens12_frontier 059 PROPOSAL-L12-862 already records strict interior and nonpositive cap skip. /root/rig_identity CANDIDATE-ROOF-CUT-END-CLEARANCE-NEGATIVE-EXTENT is a different 2D trimmer branch; CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE is a different source of a degenerate edge. These are related, not automatic aliases.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              1130,
+              1135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "lines": [
+            [
+              323,
+              359
+            ],
+            [
+              361,
+              410
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REFINEMENT-ROOF-SPLIT-CAP-INTERFACE-IDENTITY",
+      "status": "strengthened 059/774 conditional identity question; no new accepted unique count",
+      "first_contract": "For the non-church-apse branch, hip, half-hip and pavilion plate_specs supply four support nodes and each original roof edge-treatment solid retains the full support_nodes vector. On an actual split_caps path with both residual lengths positive, the second solid inherits that vector and emits one SupportInterface per support node using the same ID derived solely from the second solid. Four support relations therefore share one ID in that conditional path.",
+      "downstream": "ResolvedGeometry::interface and interface_mut return the first matching ID. The separately inspected timber audit collects interfaces into an ID-keyed HashMap, and refit updates only the first interface matching the treatment-derived ID. Those operations have different representations of duplicate-key relations; bearing::audit_positive_bearing instead matches owner/node/bounds and does not require ID lookup. The source alone does not prove any timber member or caller references this particular split cap ID, an incorrect consumed node, stale bounds, or accepted invalid plan.",
+      "condition": "An admitted multi-support roof must reach a genuine interior cut of an actual treatment with both positive cap remnants; subsequent consumers and identity namespace must require individually addressable relations. Source producer multiplicity is demonstrated, but reachability and observed downstream effect are not.",
+      "future_direction": "Establish whether the ID denotes the bearing contact or its parent physical fragment and trace all actual recipient lookups. If relations require independent identity, allocate and retain one stable relation identity per node with coordinated cleanup; otherwise expose an explicit multi-relation lookup contract. Preserve valid multiple support nodes.",
+      "historical_relation": "/root/lens12_frontier 059 PROPOSAL-L12-862 and 774 NATIVE-INITIAL05-GROUP-012 already explicitly identify multiple interfaces with the same ID; current producer multiplicity and first-versus-map recipients narrow their open question rather than create an independent count.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              117,
+              154
+            ],
+            [
+              172,
+              174
+            ],
+            [
+              495,
+              557
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "lines": [
+            [
+              78,
+              99
+            ],
+            [
+              445,
+              461
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "lines": [
+            [
+              41,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+          "lines": [
+            [
+              8,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REFINEMENT-ROOF-FINAL-JUNCTION-YAW-PROXY",
+      "status": "historical yaw-only concern connected to separate current contacts candidate; same underlying issue or distinct defect remains for central reconciliation",
+      "first_contract": "bind_roof_junctions considers different-owner solid pairs when one owner is a roof and accepts overlap of locally computed yaw-only axis-aligned bounds; it ignores longfall and crossfall. It then creates bounds, area and penetration values for a JunctionBond. An earlier caller creates roof apron flashing with crossfall -0.10 radians and size Y=0.045 m, Z=0.34 m; for a fully rotated cuboid its vertical extent is 0.045*cos(0.10)+0.34*sin(0.10), whereas this local yaw bound uses 0.045 m.",
+      "downstream": "The caller creates abutment contours immediately before final alignment and junction binding. The separately inspected overlap audit consults bonds and geometry-specific bearing policy and separately checks retained bonds. This packet establishes neither accepted false contacts nor omitted needed contacts or the outcome of those checks.",
+      "condition": "Requires a supported surviving oriented solid pair whose contact classification differs materially between the yaw-only proxy and the intended physical-contact policy. Actual geometry and acceptance not demonstrated; an AABB is not by itself proof of exact oriented contact.",
+      "future_direction": "Clarify whether this producer is a broad phase or authoritative contact declaration, then use one explicit, appropriately tolerant physical-contact policy at the true authority boundary. Preserve intentional corner contacts and other geometry-specific allowances.",
+      "historical_relation": "059 Segovb READ-L11-420 and /root/lens12_frontier L12-862, and 774 NATIVE-INITIAL05-GROUP-012 already recorded yaw-only bounds and unresolved contract. /root/hair_ops previous CANDIDATE-ROOF-YAW-BOUNDS-CONTACT-PROXY concerns roof_contacts::touching, a different function and producer/recipient; its source relation is real but an alias or independent count is not assumed.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              6
+            ],
+            [
+              33,
+              45
+            ],
+            [
+              67,
+              103
+            ],
+            [
+              123,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              344,
+              362
+            ],
+            [
+              376,
+              387
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ROOF-JUNCTION-AND-SPLIT-SLOT-IDENTITY-OPEN",
+      "status": "connected existing 059/774 namespace and lifecycle questions; not an accepted new defect",
+      "first_contract": "The junction builder allocates IDs from local roof_bonds.len() starting at zero and extends the existing geometry bonds. The earlier abutment code also appends tagged bonds to that geometry. Split edge and cap IDs separately bitwise-OR a fixed 0xF00000 slot with collection-derived serials and owner/assembly shifts; the source has no local capacity or collision guard at those lines.",
+      "condition": "An existing and new bond must occupy the same actual ID namespace/value, or admitted collection counts must make relevant packed bits overlap, and an identified consumer must require uniqueness. No supported input reaches a collision, no repeated finalizer invocation, and no recipient impact is established.",
+      "future_direction": "Identify the allocation authority, actual count/input bounds, all ID consumers, and finalizer call lifecycle; preserve distinct domains until exact alias evidence exists.",
+      "historical_relation": "059 L12-862 already asks about the local bond counter, packed fragment slots and consumer. 774 NATIVE-INITIAL05-GROUP-012 already relates these to F002 allocator context. /root/rig_identity split-eave serial-bit observation has a different packed expression and is not automatically the same ID contract.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              6
+            ],
+            [
+              33,
+              45
+            ],
+            [
+              67,
+              103
+            ],
+            [
+              123,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              1130,
+              1135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "lines": [
+            [
+              78,
+              99
+            ],
+            [
+              445,
+              461
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "topic": "A skipped short cap proves a retained cap through the opening",
+      "reason": "split_caps can leave the original unchanged, but the following trimmer and finalizer perform additional clipping and orphan retirement. Their conditional results have not been demonstrated for an input.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "lines": [
+            [
+              323,
+              359
+            ],
+            [
+              361,
+              410
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Every duplicate interface ID produces a wrong support result",
+      "reason": "The bearing audit checks owner, node and overlap without an ID lookup. An actual identifier-based consumer for the split cap and relevant accepted input still must be demonstrated.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "lines": [
+            [
+              78,
+              99
+            ],
+            [
+              445,
+              461
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "lines": [
+            [
+              41,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+          "lines": [
+            [
+              8,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Every yaw AABB overlap proves or disproves a physical junction",
+      "reason": "The approximating box and the physical policy are distinct; later source checks and other predicates must be traced before any outcome is claimed.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              6
+            ],
+            [
+              33,
+              45
+            ],
+            [
+              67,
+              103
+            ],
+            [
+              123,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              344,
+              362
+            ],
+            [
+              376,
+              387
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "An intermediate mutation before an error necessarily publishes partial state",
+      "reason": "The bodies mutate before later fallible admissions, but outer ownership, discard and publication were not fully traced.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    {
+      "question": "Which admitted roof/child configurations produce an interior intersection within the 8 cm clearance or the extra 2 cm edge-audit threshold, and do graph stages preserve the affected edge until audit?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+          "lines": [
+            [
+              1130,
+              1135
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Which identity domain owns split-cap bearing relations, and do consumers address these particular relation IDs, aggregate by owner/node, or require one interface per physical solid?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+          "lines": [
+            [
+              117,
+              154
+            ],
+            [
+              172,
+              174
+            ],
+            [
+              495,
+              557
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "lines": [
+            [
+              78,
+              99
+            ],
+            [
+              445,
+              461
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+          "lines": [
+            [
+              41,
+              46
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+          "lines": [
+            [
+              8,
+              56
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Can the finalizer see pre-existing IDs from other junction producers or be invoked twice on a retained geometry, and are bond IDs required unique across that whole collection?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              6
+            ],
+            [
+              33,
+              45
+            ],
+            [
+              67,
+              103
+            ],
+            [
+              123,
+              145
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Is yaw-only overlap an intentional broad-phase candidate or final physical contact authority; which downstream acceptance path actually governs roof bonds?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+          "lines": [
+            [
+              1,
+              6
+            ],
+            [
+              33,
+              45
+            ],
+            [
+              67,
+              103
+            ],
+            [
+              123,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "lines": [
+            [
+              344,
+              362
+            ],
+            [
+              376,
+              387
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Are a cut endpoint or fully covered treatment supposed to be rejected or delegated to another clipping stage, and who owns valid finite edge and cap geometry at admission?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+          "lines": [
+            [
+              323,
+              359
+            ],
+            [
+              361,
+              410
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "question": "Does fallible mutation remain private and get discarded on error in every caller, including regeneration and retained-state updates?",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+          "lines": [
+            [
+              8,
+              40
+            ],
+            [
+              43,
+              117
+            ],
+            [
+              122,
+              143
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+          "lines": [
+            [
+              1,
+              80
+            ],
+            [
+              82,
+              138
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+          "lines": [
+            [
+              38,
+              105
+            ],
+            [
+              262,
+              277
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "The child caller sends typed cut bounds through raw fraction arithmetic into retained graph edges, checked treatment positions and support interfaces; 774 NATIVE-ROOF-PPS-F001/RAW-SOURCE-002 already connects the raw producer chain. Current local alignment is not full native or consumer proof."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "RoofAssemblyId, GeometryOwnerId, ResolvedItemId, SpatialBounds, Position and CuboidDimensions each own distinct existing representation; current raw t/length intermediates need kernel and admission decisions, not blanket wrappers."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Strict interior interval is established locally under finite ordinary inputs; no local graph-length guard after clearance, no general source admission or namespace/capacity proof. Treatment position and size are re-admitted and errors propagated."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Clearance clamping can leave short or zero edges; split cap positivity and treatment trimmer guards operate at different sites. Each numerical tolerance carries a distinct relationship."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Edge fragments, treatment pieces, per-node bearings, flashing links and final bonds form coupled state; skipping a cap or removing orphans cannot alone prove full retained graph coherence."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Owner, graph-edge, solid, support relation and bond IDs are semantically distinct despite sharing ResolvedItemId; their actual identity authorities and lifetime need separate proof."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "refit deliberately derives treatment alignment and interface bounds from final edges and solids; this is not automatically competing authority. Differing multiple support relations with one ID and differing lookups remain conditional."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "The two full assigned 6533 and 95e bodies are byte-identical; that does not establish whole-snapshot identity or runtime behavior. Preserve strict internal cut, meaningful multi-node supports, final cleanup and native error identity when deciding future repair."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Only Ridge and Hip are internally split; GableVerge is independently eligible for final treatment alignment. The inspected typed enum roles have clear local selection, without an established misplaced boolean payload."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Assigned functions do not expose manual serialization or trait boilerplate requiring a derivation; no derivability finding from this bounded source."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "One scalar cut fraction and local AABB are not interchangeable with a bounded retained edge, checked physical geometry, fully oriented contact, or identity-bearing support relation."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Neither assigned function uses string-dispatch authority; the audit diagnostic invalid_roof_edge is a diagnostic identifier, not evidence of an untyped product protocol."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "0.08 m cut clearance, 0.02 m audited edge limit, 0.075 m alignment tolerance, 0.001 m overlap, and packed ID bits serve different jobs. Their scope and error budgets require independent review."
+    }
+  ],
+  "historical_attribution": {
+    "059": "Segovb READ-L11-420 personally read historical 6533 finalization 1–138 and internal_cut 1–143 with registrations 1448/1449. /root/lens12_frontier PROPOSAL-L12-862 personally read the same historical bodies with registrations 573/574; READ-L12-862 is root adoption, not root personal reread. Separate parallel lens11_reconcile agent READ-L11-647 reads finalization 1–138 at e2755a732c84e67296b5e3441a4259a84f461b2f; root adopted without claiming reread. e275 attribution is preserved, not relabeled as 95e.",
+    "774": "CONT07-CONTRACT-586 records independent historical 6533 redundant-authority reads finalization 1–138 and internal_cut 1–143; CONT07-CONTRACT-658 separately records finalization 1–83. SEGOVB-INITIAL04-CONTRACT-607 records full bodies under invariant operations. NATIVE-INITIAL05-GROUP-012 records full bodies under aggregate states. Original names are record/supplier attribution; do not invent an individual reviewer name.",
+    "native_774": "NATIVE-ROOF-SCOPE-002 and 012 register internal_cut 1–42 then 43–143; SCOPE-009 and 015 register finalization 1–123 then 124–138. PPS-SOURCE-008/015 and PPS-TRACE-008/015 record later fresh supplier reads and explicit F001/RAW-SOURCE-002 connections. Registrations alone had no read credit; native supplier scope does not transfer other lens credit.",
+    "queue": "059 rows 582 Q-L11-1f255e4a529b1484b496 and 1931 Q-L12-daa19af99971265e71a0 are reconstructed exact selections of broader pending source-family obligations, not original whole queue nor specific finding identity; their statuses remain open.",
+    "prior_current": "/root/rig_identity physical-roof-geometry and roof-assemblies-cutting reports retain their own sources, reviewer and conditional findings. /root/hair_ops prior abutment and child-contacts packets retain separate scopes and yaw/contact findings. Reports and full manifest hashes are retained in historical-manifest.json; no prior read credit transfers.",
+    "qualification": "Historical records and reconstructed selections retain their original revisions and authors and are never promoted into checkpoint3821."
+  },
+  "limitations": [
+    "Source and evidence inspection, hash/Git membership and mathematical reasoning only; no product, geometry or viewer execution, builds, tests, probes, simulated fixtures, validation, repairs or source/publication edits.",
+    "No admitted witness, final retained graph, actual identity consumer result, product behavior or accepted/rejected plan is established.",
+    "Central agent retains baseline, reconciliation, alias/unique-count decisions, connected ledger and checkpoint publication."
+  ]
+}
