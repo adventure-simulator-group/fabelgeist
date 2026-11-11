@@ -1,0 +1,559 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:06:56.534146+00:00",
+  "scope": "Original report-p17 roles 2436–2437 plus pinned current comparison; bounded support only, no global lens/population/ledger closure.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "frozen_report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "snapshot_proof": {
+    "registry": "reference/original-registry.json.gz",
+    "pointer": "/snapshots/2",
+    "snapshot_as_recorded": {
+      "id": "report-p17",
+      "root": "SNAPSHOTS/report-p17",
+      "base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "meaning": "Mandatory P17 source delta90a; shared motor dependency still pending",
+      "changed_variants": 32,
+      "patch_sha256": "3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd",
+      "status_porcelain": []
+    },
+    "original_role_records": "/files/2436 and /files/2437",
+    "git_membership": "git-proofs.json",
+    "older_recovered_copies": "older-continuation-index.json",
+    "qualification": "Clean recorded report-p17 head and matching original registry SHA-256, recovered 774 source copy, and Git commit/tree/blob identity. Historical variant is not 6533."
+  },
+  "assigned_source_identity": [
+    {
+      "original_role": 2436,
+      "kind": "report-p17",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "archive": "source/report-p17-2436.rs",
+      "bytes": 5302,
+      "lines": 147,
+      "sha256": "10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee",
+      "git_blob_sha1": "dde7180ab198a33527d6b5c740e60f98df857cdd",
+      "planned_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          147
+        ]
+      ],
+      "source_provenance": "recorded clean registry snapshot head, exact Git tree object and separate 774 snapshot copy agree"
+    },
+    {
+      "original_role": 2436,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "archive": "source/current-2436.rs",
+      "bytes": 5142,
+      "lines": 142,
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "git_blob_sha1": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+      "planned_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          142
+        ]
+      ],
+      "source_provenance": "central pinned current Git tree"
+    },
+    {
+      "original_role": 2437,
+      "kind": "report-p17",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "archive": "source/report-p17-2437.rs",
+      "bytes": 17083,
+      "lines": 492,
+      "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+      "git_blob_sha1": "eba1766db46b56a154a6f579d1cdae534d8fa026",
+      "planned_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          240
+        ],
+        [
+          241,
+          360
+        ],
+        [
+          361,
+          480
+        ],
+        [
+          481,
+          492
+        ]
+      ],
+      "source_provenance": "recorded clean registry snapshot head, exact Git tree object and separate 774 snapshot copy agree"
+    },
+    {
+      "original_role": 2437,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "archive": "source/current-2437.rs",
+      "bytes": 16263,
+      "lines": 471,
+      "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+      "git_blob_sha1": "9107cba3a3d24cb85558aa3c11067df21b1c7ac2",
+      "planned_display_chunks": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          240
+        ],
+        [
+          241,
+          360
+        ],
+        [
+          361,
+          471
+        ]
+      ],
+      "source_provenance": "central pinned current Git tree"
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registrations": [
+    "support-registration.json",
+    "support-registration-02.json",
+    "support-registration-03.json"
+  ],
+  "support_read_receipt": "support-read-receipt.json",
+  "revision_comparison": {
+    "orientation": "P17 adds admitted Radians::max; current lacks it. See orientation-revision-diff.patch.",
+    "bouncy": "P17 replaces raw max telemetry with per-observation GeometryResult<Radians>, first-error propagation and capture admission; current retains raw f32 aggregation. Kernel and other behavior require exact patch, not an assumption of total equivalence. See bouncy-revision-diff.patch.",
+    "base_identity": "18360 p17 base, 6533 pr-working tree and 95e current have identical source blobs for these paths; metadata-only base objects have zero personal read credit and raw Git membership proofs."
+  },
+  "recovered_history": [
+    {
+      "record": "historical-059/segovb/READ-L11-403.json",
+      "author": "original segovb reviewer",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "registrations": [
+        "segovb/REGISTRATION-SEGOVB-1329.json",
+        "segovb/REGISTRATION-SEGOVB-1332.json"
+      ],
+      "scope": "P17 orientation 1–147; bouncy 1–160,161–320,321–492. Tests read only. The record distinguished admitted observation from unchecked spring state and retained q560."
+    },
+    {
+      "record": "historical-059/segovb/READ-L11-475.json",
+      "author": "original segovb and earlier native registration authors as recorded",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "scope": "P17 orientation 1–43 historical native admission registration/qualification only; no broader inherited read or lens credit."
+    },
+    {
+      "record": "historical-059/segovb/READ-L12-820.json",
+      "author": "/root/lens12_frontier",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "registrations": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-445.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-446.json"
+      ],
+      "scope": "P17 orientation 1–147 and bouncy 1–492 personal source read; retain original authored timing and no cross-lens transfer.",
+      "important_qualification": "For role2436, exact source snapshot/hash and range preflight preceded body reads, but nested Windows locator fields were independently qualified only after body reads. Exact later qualification grants no new body credit or retroactive prospectivity."
+    },
+    {
+      "record": "older-774-index.json and older-continuation-index.json",
+      "author": "original root, rig, native and segovb reviewers separately as recorded",
+      "source_revision": "report-p17 or pr-working as each original explicitly records, no transport revision substitution",
+      "scope": "Original/root orientation row57 and rig additional-sources row28 and native additional row111; native bouncy coverage rows298/637 and bounded producer proof NATIVE-PS-MOTION-008; previous native canonical row14 NATIVE-INITIAL05-F013 is explicitly pr-working and separately linked to P17 only for same kernel shape. Original and normalized exports and historical 391 summary retained."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "NATIVE-INITIAL05-F013",
+      "classification": "Existing 774 native canonical numerical-closure finding, reconnected to current source; no new unique finding or repair.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+          "archive": "source/current-2437.rs",
+          "lines": [
+            [
+              173,
+              187
+            ],
+            [
+              203,
+              208
+            ],
+            [
+              218,
+              238
+            ],
+            [
+              261,
+              289
+            ],
+            [
+              328,
+              368
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+          "archive": "source/support-8.source",
+          "lines": [
+            [
+              95,
+              118
+            ],
+            [
+              417,
+              420
+            ],
+            [
+              652,
+              670
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+          "archive": "source/support-9.source",
+          "lines": [
+            [
+              477,
+              489
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+          "archive": "source/report-p17-2437.rs",
+          "lines": [
+            [
+              175,
+              189
+            ],
+            [
+              205,
+              211
+            ],
+            [
+              242,
+              262
+            ],
+            [
+              285,
+              314
+            ],
+            [
+              352,
+              389
+            ]
+          ]
+        }
+      ],
+      "trace": "The current validator admits finite, nonnegative tuning and positive frequency and half-life, with transmission bounded to one; it does not impose a maximum frequency. For a finite nonrest spring and admitted very large frequency, TAU * frequency can overflow f32, sin_cos can receive infinity, and spring_step commits nonfinite offset and velocity without result admission. Coupling and kick accumulate into the same retained state. The P17 spring kernel remains materially the same even though P17 telemetry later reports errors.",
+      "conditions": "Requires an otherwise valid configuration with an extreme admitted parameter, a nonrest spring and positive render delta (or another path producing nonfinite state). No live event, authored extreme configuration, observed NaN, test result or ordinary shipped-data failure is asserted. The old source witness and its attribution are preserved rather than simulated here.",
+      "future_repair_direction": "Coordinate config ranges with numerically closed operations or explicitly reject nonfinite complete proposed spring state before publication; preserve ordinary oscillator order, zero transmission/strength/clamp policies, cosmetic ownership, decay and frame semantics. Telemetry error alone does not repair poisoned spring state.",
+      "relationships": [
+        "774 NATIVE-INITIAL05-F013 row14 is the canonical retained finding; SEGOVB-INITIAL04-CONTRACT-391 maps SEGOVB-04-BOUNCY-SPRING-FINITE-OVERFLOW-CANDIDATE-001 to it and explicitly records no shipped-config/live witness. 059 q560 leaves runtime config/kick producer and exact alias/current reconciliation open."
+      ]
+    },
+    {
+      "id": "NATIVE-INITIAL05-F013-CURRENT-TELEMETRY-MASKING",
+      "classification": "Current downstream consequence of already recorded 774 nonfinite state and telemetry masking, not a new unique historical finding.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+          "archive": "source/current-2437.rs",
+          "lines": [
+            [
+              183,
+              208
+            ],
+            [
+              351,
+              368
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              527,
+              545
+            ],
+            [
+              657,
+              668
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              183,
+              195
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-6.source",
+          "lines": [
+            [
+              526,
+              536
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+          "archive": "source/report-p17-2437.rs",
+          "lines": [
+            [
+              197,
+              239
+            ],
+            [
+              375,
+              389
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "archive": "source/report-p17-2436.rs",
+          "lines": [
+            [
+              10,
+              41
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "archive": "source/support-10.source",
+          "lines": [
+            [
+              24,
+              41
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-1.source",
+          "lines": [
+            [
+              663,
+              685
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-3.source",
+          "lines": [
+            [
+              222,
+              234
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-7.source",
+          "lines": [
+            [
+              351,
+              361
+            ]
+          ]
+        }
+      ],
+      "trace": "Current Spring::at_rest treats NaN components as nonzero, but maximum_deflection_radians folds with f32::max, which selects the non-NaN operand. A NaN length can therefore be omitted from a finite maximum while active_springs is positive. The current capture retains this raw aggregate and bouncy-only validation checks that maximum is finite, under the configured cap, and either there is an active spring or the maximum is zero. The report-p17 version admits every observed length as finite Radians, retains the first GeometryResult error, and its capture maps that error to rejected admission.",
+      "conditions": "A NaN spring must be present during observation; no such state or completed capture was observed. Other report checks may independently reject the scene; this analysis establishes only that this bouncy-only summary can hide the NaN, not that a whole report passes or gameplay is wrong. P17 error reporting does not make the underlying spring integration safe.",
+      "future_repair_direction": "Preserve finite/error-bearing observation through the actual report boundary while fixing or rejecting nonfinite spring state at its owner. Reconcile the P17 delta with current API and intentional valid zero/cap behavior; do not merely hide, saturate or zero errors.",
+      "relationships": [
+        "774 SEGOVB-INITIAL04-CONTRACT-391 explicitly recorded f32::max can hide NaN and its relationship to NATIVE-INITIAL05-F013; this independently traces current capture and validation plus P17 error propagation. 059 READ-L11-403 observed the P17 error type and q560 kept native aliases open."
+      ]
+    },
+    {
+      "id": "REPORT-P17-ANGLE-DIRECTION-ADMISSION",
+      "classification": "Nonfinding plus bounded source contract; no derived product verdict.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "archive": "source/report-p17-2436.rs",
+          "lines": [
+            [
+              10,
+              43
+            ],
+            [
+              45,
+              86
+            ],
+            [
+              89,
+              111
+            ],
+            [
+              114,
+              147
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "archive": "source/current-2436.rs",
+          "lines": [
+            [
+              10,
+              38
+            ],
+            [
+              40,
+              81
+            ],
+            [
+              84,
+              106
+            ],
+            [
+              109,
+              142
+            ]
+          ]
+        }
+      ],
+      "trace": "Both revisions admit finite unwrapped Radians through checked constructor and deserialization; P17 adds a maximum operation on admitted values. Frame-marked directions normalize inputs on one constructor and require normalized vectors on another and deserialize accordingly; rotations require finite normalized native quaternion. This is distinct from positive magnitudes or bounded cap semantics.",
+      "conditions": "The exact native framework normalization/error tolerances and all possible reflection or producer paths are outside this bounded assessment; no bypass or current invalid input is inferred.",
+      "future_repair_direction": "Reuse appropriate existing geometry owner for measured values while keeping frame, unit, signed/unwrapped angle and runtime cap distinctions; trace native constructors and consumer policies before narrowing anything.",
+      "relationships": [
+        "059 READ-L11-403 and READ-L12-820 identified these contracts. The 059 original2436 Windows locator qualification was added after the source display and grants no retroactive preflight/body credit; preserve timing."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No live event, invalid spring, viewer output, successful/failed capture, frame, native process or test was observed.",
+    "P17 finite/error telemetry is an observation improvement; it does not reject or repair nonfinite spring integration at the spring-state owner.",
+    "Per-bone parent links and fixed-sized table have bounded indices under their authored structure; not an inferred arbitrary index defect.",
+    "Frozen and ragdoll modes continue spring decay while skipping the rig walk; preserve this intentional state distinction.",
+    "The user explicitly forbids runtime validation and repairs even though animation AGENTS describes native diagnostic authority for later authorized validation."
+  ],
+  "open_questions": [
+    "Can a valid live or authored runtime source reach extreme admitted bouncy tuning or another nonfinite calculation; what finite closure policy is intended for legitimate large inputs?",
+    "Should a single subject capture use only that subject’s springs or intentionally aggregate all live rigs, and can non-subject rigs coexist in supported capture runs?",
+    "What exact typed spring-state and shared geometry owner preserve world frame, angular velocity, native quaternion and accepted tuning without changing ordinary float behavior?",
+    "Does typed P17 observation remain needed for current capture API and what are all downstream report serialization/error semantics? No test or runtime inference.",
+    "Do Direction/rotation framework constructors and reflection support any additional construction paths beyond the shown serde/constructor APIs?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Radians constructor and serde enforce finite unwrapped scalar; P17 telemetry additionally admits each observed length. Current spring state itself has no equivalent computed-state check. Framework reflection and all ingress routes remain unproved.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Config fields individually finite and positive do not guarantee jointly finite oscillator result; NATIVE-INITIAL05-F013. Capture one subject versus a resource aggregating all rigs is a separate policy/reachability question.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 retains checked observation and error through sample admission while 95e carries a raw f32. Both comparison bodies differ; current matches p17 base and pr-working tree for these exact paths only. Preserve zero, damping and hierarchy semantics in any later repair.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Manual Deserialize delegates admission for finite angle, normalized directions and unit rotations; replacing it with blind derivation would need to preserve these checks. No boilerplate-only finding.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "BodyPart to BoneRole exhaustive mapping and Option parent/tip express different valid roles; no blanket Boolean or enum conversion is justified.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Radians owns finite unwrapped angle; frame-parameterized directions and RigidRotation remain distinct. A vector offset and angular velocity carry different world-space dimensions, and no unsupported wholesale type reuse is asserted.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Finite checked configuration can overflow during frequency, oscillator, coupling or impulse math before writing retained state; preserved native F013 and first-error telemetry observations.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Oscillator lower bounds, squared rest threshold, chain gain cutoff and per-role response are numerical/tuning concepts; their frame, units and intended approximation policies need owner review rather than cosmetic renaming. Native time and fixed topology indices remain meaningful boundaries.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Assigned Rust source has no business string classifier; serde diagnostics, error names and test labels are boundary or human text. No arbitrary prose alias inferred.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Runtime config and successful-attack event feed BoneKick, world spring state, aggregate telemetry and capture/report. P17 carries typed error to sample admission but retained kernel still needs independent repair.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Telemetry summarizes spring state and can lose NaN before report validation. Runtime config owns bouncy tuning and single sample subject is separate from global rig aggregation; do not turn the presentation report into simulation authority.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Finite unwrapped angle is not a nonnegative magnitude or bounded spring cap; per-rig spring, aggregate count and per-subject report observation are distinct scopes. P17 typed summary does not enforce oscillator or sign range by itself.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Geometry owns angle/direction/rotation admission, config owns tuning, client animation owns cosmetic spring state, capture owns observation admission. Parent owns exact finding alias and connected repair grouping.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "No repairs, tests, viewer, browser, native diagnostics, fixture generation, product builds or runtime probes. Historical proposed witness is retained as source reasoning, never executed.",
+    "Original earlier records, reconstructed 059 queue/registry subsets, exact recovered snapshot bytes, current Git source and newly assessed support remain separate. Never promote earlier work to missing checkpoint3821.",
+    "Central owns baseline, all-lens/cross-source reconciliation, queue aliases, repair ledger and publication."
+  ]
+}

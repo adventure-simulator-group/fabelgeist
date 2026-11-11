@@ -1,0 +1,701 @@
+{
+  "schema": "delegated-bespoke-audit-evidence-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11T21:16:46.861939+00:00",
+  "scope": "P17 original roles 2444–2445, separate pinned-current comparison, and registered connected support; thirteen notes are bounded perspectives only.",
+  "baseline_qualification": "95e63628f9d70b8dd6e6fede64334696c6995009 is the source baseline. Original P17 snapshot 90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696 differs in both roles from 6533e444fa37552927070cc8d8190907fd3b413e, which matches 95e for these bodies. Original snapshot and 059 histories are not checkpoint3821.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "d8f9494d5dbfa2c08582a11f7255b09075cda91fc23caa1314c6bba72ed598ef"
+  },
+  "role_records": [
+    {
+      "original_index": 2444,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "snapshot": "report-p17",
+      "snapshot_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_source": "source/2444-90a4.rs",
+      "fresh_personal_snapshot_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "pr_working_source": "source/2444-6533.rs",
+      "pr_working_personal_display_ranges": [],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "source/2444-95e6.rs",
+      "fresh_personal_current_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "current_unread_ranges": [],
+      "qualification": "P17 differs from 6533 and 95e. 6533 and 95e are identical, with only current 95e displayed for that pair; role2444 current was newly displayed after registration and its earlier same-agent support read remains separate.",
+      "p17_to_current_diff": {
+        "path": "2444-p17-to-current.diff",
+        "sha256": "3e5df7ea768e6ba9a75d10229b1ba5a9ec39c9a85ce57a72b8495b4d8f826fc4"
+      }
+    },
+    {
+      "original_index": 2445,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "snapshot": "report-p17",
+      "snapshot_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_source": "source/2445-90a4.rs",
+      "fresh_personal_snapshot_ranges": [
+        [
+          1,
+          144
+        ],
+        [
+          145,
+          288
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "pr_working_source": "source/2445-6533.rs",
+      "pr_working_personal_display_ranges": [],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_source": "source/2445-95e6.rs",
+      "fresh_personal_current_ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          111,
+          220
+        ]
+      ],
+      "current_unread_ranges": [],
+      "qualification": "P17 differs from 6533 and 95e. 6533 and 95e are identical, with only current 95e displayed for that pair; role2444 current was newly displayed after registration and its earlier same-agent support read remains separate.",
+      "p17_to_current_diff": {
+        "path": "2445-p17-to-current.diff",
+        "sha256": "8eae9df8e7448e66eb578160afbdbf0818c519139848b8c34098f54885f6932e"
+      }
+    }
+  ],
+  "support_registrations": [
+    {
+      "path": "support-registration.json",
+      "sha256": "db5cc35ba3100c14bea35d7598f4bbcba50f1d22256e26fbc01ec6901627092d"
+    },
+    {
+      "path": "support-registration-02.json",
+      "sha256": "22862e78affd4e41247e1de71883710a7c943ab299fbb1891cffd0513ab5248c"
+    },
+    {
+      "path": "support-registration-03.json",
+      "sha256": "686cfdd2fbab779f28f6797a4e69c7eb054a3a82405e11c1e56b6acb6acc4fdb"
+    }
+  ],
+  "support": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "local_path": "support/00-95e6-validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "actual_body_ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          125,
+          155
+        ],
+        [
+          210,
+          235
+        ],
+        [
+          430,
+          505
+        ],
+        [
+          580,
+          625
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        45,
+        47,
+        67,
+        85,
+        135,
+        183,
+        197,
+        225,
+        444,
+        445,
+        453,
+        454,
+        492,
+        493,
+        544,
+        555,
+        601,
+        612,
+        647,
+        759,
+        770
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "local_path": "support/01-95e6-metrics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "actual_body_ranges": [
+        [
+          120,
+          245
+        ],
+        [
+          950,
+          1060
+        ],
+        [
+          1150,
+          1198
+        ],
+        [
+          1250,
+          1285
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        200,
+        233,
+        234,
+        239,
+        265,
+        966,
+        1010,
+        1159,
+        1257,
+        1369,
+        1372,
+        1376,
+        1382,
+        1388,
+        1391,
+        1395,
+        1399,
+        1403,
+        1795,
+        1812,
+        1915,
+        1917,
+        1921
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "local_path": "support/02-95e6-model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "actual_body_ranges": [
+        [
+          180,
+          205
+        ],
+        [
+          256,
+          261
+        ],
+        [
+          291,
+          297
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        105,
+        152
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "local_path": "support/03-95e6-mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "actual_body_ranges": [
+        [
+          90,
+          123
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "local_path": "support/04-95e6-capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "actual_body_ranges": [],
+      "navigation_only_displayed_line_numbers": [
+        638,
+        649,
+        671
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "local_path": "support/05-95e6-scenarios.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "actual_body_ranges": [],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "local_path": "support/06-90a4-validation.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "sha256": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+      "actual_body_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        26,
+        51,
+        58,
+        60,
+        62,
+        74,
+        84,
+        124,
+        138,
+        166,
+        337,
+        338,
+        368,
+        369,
+        380,
+        425,
+        426,
+        437,
+        471,
+        479,
+        480,
+        584,
+        585,
+        596
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "local_path": "support/07-90a4-metrics.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+      "actual_body_ranges": [
+        [
+          70,
+          125
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        7,
+        100,
+        495,
+        498,
+        502,
+        508,
+        514,
+        517,
+        521,
+        525,
+        529,
+        1044,
+        1046,
+        1050
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "local_path": "support/08-90a4-model.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "sha256": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+      "actual_body_ranges": [
+        [
+          120,
+          172
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        107,
+        130,
+        163
+      ],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "local_path": "support/09-95e6-root_motion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "actual_body_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "local_path": "support/10-95e6-queries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "actual_body_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "local_path": "support/11-90a4-clearance.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "sha256": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd",
+      "actual_body_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs",
+      "local_path": "support/12-95e6-inspection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c3de8aecc1b589906a434397d0d78e51dc0b78c77453936e6f8c904a97a1bb7a",
+      "actual_body_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "local_path": "support/13-95e6-setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "actual_body_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "qualification": "Only listed body windows and sparse matches personally displayed after registration; archived full bytes are recoverable, not whole-body or ordered-role credit."
+    }
+  ],
+  "navigation_receipts": [
+    {
+      "path": "support-navigation-limits.txt",
+      "sha256": "d7ecc4db4612cc09c7bbf9d105f7d85beffa1ac00921a7c35e03045275a49554",
+      "qualification": "Sparse matching lines displayed after support registration, no whole-body coverage."
+    },
+    {
+      "path": "support-navigation-clearance.txt",
+      "sha256": "de0c8e0adeba9d5ec4fe1a0a78998cb172a2c4e6248a8aee59a94a04be68465c",
+      "qualification": "Sparse matching lines displayed after support registration, no whole-body coverage."
+    },
+    {
+      "path": "support-navigation-p17.txt",
+      "sha256": "1241db4aaab4f55803c2dc8611ca99b29e671ef2d9dd966e20fa5e49b55717fd",
+      "qualification": "Sparse matching lines displayed after support registration, no whole-body coverage."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "segovb/READ-L11-405.json",
+      "author": "Original segovb Lens11 reviewer as recorded",
+      "revision": "report-p17 90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges_by_original_index": {
+        "2444": [
+          [
+            1,
+            179
+          ]
+        ],
+        "2445": [
+          [
+            1,
+            288
+          ]
+        ]
+      },
+      "qualification": "Original fresh personal scopes prospectively registered in 1339/1340. Review remains P17, no current/other-lens transfer."
+    },
+    {
+      "records": [
+        "parallel-l12-20261029/PROPOSAL-L12-824.json",
+        "segovb/READ-L12-824.json"
+      ],
+      "author": "/root/lens12_frontier personal prospective read; root adoption with zero root reread",
+      "revision": "report-p17 90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges_by_original_index": {
+        "2444": [
+          [
+            1,
+            179
+          ]
+        ],
+        "2445": [
+          [
+            1,
+            288
+          ]
+        ]
+      },
+      "qualification": "Original fresh L12 scopes 453/454 adopted in historical ordered audit; no new other-lens transfer or replacement of earlier attribution."
+    },
+    {
+      "record": "older 774 native coverage.jsonl",
+      "author": "native supplier",
+      "revision": "report-p17 as recorded; 90a equality established independently here",
+      "ranges_by_original_index": {
+        "2444": [
+          [
+            1,
+            179
+          ]
+        ],
+        "2445": [
+          [
+            1,
+            288
+          ]
+        ]
+      },
+      "qualification": "Exact original supplier inventory rows 274/275 and repeated inventory rows 613/614 retained; repeated accounting does not mean two source reads."
+    },
+    {
+      "records": [
+        "SEGOVB-INITIAL04-CONTRACT-585",
+        "SEGOVB-INITIAL04-CONTRACT-586",
+        "CONT07-CONTRACT-565",
+        "CONT07-CONTRACT-566"
+      ],
+      "author": "SEGOVB and CONT07 as named; individual CONT07 reviewer not specified",
+      "revision": "report-p17 source identity and P17-specific 90a source hashes",
+      "qualification": "L04 record586 personally assessed acceptance 1–288; L07 record566 assessed its own full body and describes explicit observed vs unavailable thresholds. L04/07 record585/565 contextualize prior module. No transfer of their conclusions or reads into 95e; no execution."
+    },
+    {
+      "record": "ASSESSMENT-L01-HISTORICAL-1427-1432.json",
+      "author": "Earlier central historical L1 reviewer as recorded, no reassignment",
+      "revision": "pr-working 6533, later same-byte current comparison 95e",
+      "ranges_by_original_index": {
+        "1428": [
+          [
+            1,
+            179
+          ]
+        ],
+        "1429": [
+          [
+            1,
+            220
+          ]
+        ]
+      },
+      "qualification": "These are separate original PR roles 1428/1429. The inherited 1428 proof declared 145–180 with actual EOF179; nonexistent line180 retains zero credit. Earlier 1–150 bounded current observation and independent historical full reads remain distinct."
+    },
+    {
+      "record": "<LOCAL_PATH_0>",
+      "author": "/root/hair_ops",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "support_path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "support_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "qualification": "Previous packet support-only reading of mod.rs 1–179 was not ordered role credit; the present prospective registration and fresh current role display are independent. Prior packet and exact source retained."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 35,
+      "id": "ADLER-L11-JITTER-MEASUREMENT-COVERAGE",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 42,
+      "id": "ADLER-L11-KNEE-YAW-MISSING-OBSERVATION-ZERO",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 45,
+      "id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+      "status_as_recovered": "open-required-recipient-current-and-alias-qualification"
+    },
+    {
+      "index": 46,
+      "id": "ADLER-L11-CAPTURE-SCENARIO-ADMISSION-PANIC",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 48,
+      "id": "ADLER-L11-CAPTURE-ORBIT-ADMISSION",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 206,
+      "id": "SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATION",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 545,
+      "id": "SEGOVB-L12-CAPTURE-VIEW-KEY-INTERNAL-STRING-PROPAGATION",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 562,
+      "id": "Q-L11-d5968b0abca93312a6aa",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 565,
+      "id": "Q-L11-d6842eb24a1ea3ec418f",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 566,
+      "id": "Q-L11-ae1dd408c7af4822f98f",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 1216,
+      "id": "Q-L12-b6dcd6fe5ccef1032847",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 1231,
+      "id": "Q-L12-8833b27cadc8e525c194",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 1236,
+      "id": "Q-L12-5b5eb80d7c27584d8c03",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 1243,
+      "id": "Q-L12-b3d70674340ae8f11ff0",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 1905,
+      "id": "Q-L12-d972a4212680bbbcd122",
+      "status_as_recovered": "open-evidence-or-disposition"
+    }
+  ],
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "1147685f22b2c9fba34cf440959b7f609594964036386210b744efb882453b11"
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "dce63dd7452887d560e681ff4b9b45bb447d498f1248aa3a322fbde06b5b7e2b"
+  },
+  "older_774_selection": {
+    "path": "reference/older-774-selection.json",
+    "sha256": "6e7cd745fbaf83bbe901a7e61c0bc4c844ff58708933d438ab118b36540e0cf4"
+  },
+  "prior_current_selection": {
+    "path": "reference/prior-current-selection.json",
+    "sha256": "cbe7d34191ce338adb70fcf64b1a02266a02396218b04f13dc225f45083536f9"
+  },
+  "prior_own_support": {
+    "path": "reference/prior-own-support.json",
+    "sha256": "547925f468fd18fb1375ad79b6c7e63082183b847fccbbf0ff5c15867d4a6806"
+  },
+  "findings_and_relationships": [
+    {
+      "candidate_id": "REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E",
+      "status": "conditional source-level missing-observation finding; supported producer and global alias pending",
+      "first_contract": "When a selected terrain report requires a foot-ground observation, unavailable required sample(s) must remain unavailable rather than be treated as a measured zero clearance or zero terrain relief.",
+      "source_trace": [
+        "Current capture/root_motion.rs 18–47 samples each mapped bone position; with CaptureGround::Terrain an absent valid-coordinate terrain.height_at becomes BoneSample.terrain_clearance_metres=None. Current scene/queries.rs 61–68,86–89,106–125 shows height_at is optional and out-of-grid points can return None, while required_height_at explicitly distinguishes MissingSupport.",
+        "Current report/metrics.rs 1155–1182 skips feet with missing bones or clearances, then emits 0.0 when no finite relief survives; partial missing samples are omitted. The computed value is retained by scenario_metrics 201–239 and report/model.rs 152.",
+        "Current report/metrics.rs 966–1007 and 1010–1044 skip missing required contact/toe clearances and return (0,0) or 0 when none survive; actual support selection and independently required-IK guard still apply.",
+        "Current report/acceptance_limits.rs 140–159 adds relief to the terrain vertical bound; validation.rs 67–94,444–454,492–493 compares these scalars. With missing relevant observations, 0.0 can satisfy the individual nonpenetration threshold and can be used as if it were measured flat relief.",
+        "report/mod.rs 102–110 requires planned frame/bone presence and report/model.rs 291–297 tests finite bone positions and rotations, but neither of these checks proves present terrain clearance; other independent validation, artifacts, rig, scheduling and geometry gates still apply."
+      ],
+      "conditions": "A supported selected terrain scenario must supply a captured finite required foot/toe role whose terrain footprint query returns no surface (e.g. an out-of-grid foot while its root remains admitted), or a required contact observation has no applicable samples. No such supported ordinary capture, exact footprint, full accepted report, native rendering or runtime outcome has been observed. If only some observations are missing, the source silently computes over the available subset; no direction of bias is assumed. Disabled IK/authored-plane and legitimately nonapplicable flight/contact must remain distinct.",
+      "historical_relationship": "059 q1216, q1231 and q1236 explicitly left terrain optionality, missing geometry and current report gates open; q562/q565 request related current owners. P17 SEGOVB-INITIAL04-CONTRACT-586 and CONT07-CONTRACT-566 describe separate historical typed observation behavior, corroborated in P17 clearance.rs 47–89,138–163 and acceptance_limits.rs 24–46. Do not assume exact alias or historical current proof; central reviewer determines ledger identity.",
+      "future_repair_direction": "First establish the owning required observation/selected scenario policy and an actually supported missing-footprint producer, then keep measured/unavailable/nonapplicable distinct through metric and expected-bound construction. Preserve optional no-IK, no-contact and authored-plane semantics and all independent report gates. Only after separate implementation/product-validation authorization, acceptance should distinguish a missing applicable foot clearance from a genuine measured zero and show valid off-mode behavior."
+    },
+    {
+      "id": "ADLER-L11-CAPTURE-SCENARIO-ADMISSION-PANIC",
+      "classification": "Existing 059 q46 and prior current assessment, not new unique",
+      "source_trace": "Current mod.rs 101–108 converts provided scenario and calls CaptureSequence::new; previous capture-source packet personally inspected assertion at current capture.rs 94–106. Prior central ASSESSMENT-SCENARIO-LABEL-ADMISSION-95E.json traces actual CLI and metadata selection."
+    },
+    {
+      "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+      "classification": "Existing prior current candidate; related startup authority, no duplicate",
+      "source_trace": "Current mod.rs installs actual diagnostic plugins and resources, while previous capture packet separately inspected readiness and timeout scheduling. This module alone cannot prove that a selected asset fails or a viewer hangs."
+    },
+    {
+      "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+      "classification": "Existing current candidate; related rate/timing policy, no automatic alias",
+      "source_trace": "Both P17 and current acceptance limit comments calibrate several per-frame bounds against 64 Hz; prior current assessment independently traces alternate selected sample rates and selected turn timestamps. Whether per-frame thresholds should scale with non-64 rates requires applicable scenario/measurement policy, not inferred failure from comments."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "inspection.publish creates its output directory in inspection.rs 30–34 before writing inspection.json, despite mod.rs invoking it before its own directory creation. That ordering alone does not establish missing-directory failure; two mkdir calls and native fs errors remain separate concerns.",
+    "cadence_contacts_valid returns true for no cadence frames, but capture_scenarios_complete compares every frame against the nonempty selected plan and checks all report bone roles. Non-selected cadence is legitimately optional; no whole-report bypass is proved by the helper alone.",
+    "Individual foot, knee, seam and height constants are authored scenario limits. Comments describe earlier measurement and selected 64 Hz assumptions, but no fresh visual, physical, safety or product acceptance result was obtained.",
+    "P17 typed ExpectedScenarioBounds, ExpectedVisualHeight and Observation retain semantics absent in this current module; source identity and policy remain P17 historical only. The current report cannot be said to use those owners without a new source-backed change.",
+    "Potential screenshot saving failure, unknown scenario panic, pre-applied readiness and IK/raised-foot support each have existing distinct 059/current identities. This packet does not merge them or claim full report validity.",
+    "Registered support capture.rs and scenarios.rs were only displayed as sparse navigation matches in this packet; earlier personal support reads from the previous packet are recorded independently. Native terrain, all frames/scenario generators, all producers, every report gate, renderer and actual output files remain beyond this bounded scope."
+  ],
+  "lens_notes": {
+    "producer_propagation": "Terrain surface query -> optional per-bone clearance -> metric reduction -> scenario bound and terrain penetration checks. P17 explicitly carries unavailable observations; current code collapses some missing samples to zero. The actual supported missing-clearance producer and final report policy remain open.",
+    "type_ownership": "Scenario metadata owns applicability; ExpectedScenarioBounds P17 owns typed expected thresholds separately from measured observations. CaptureSequence and native App own diagnostic lifetime; do not promote P17 types into current baseline by byte comparison.",
+    "type_granularity": "In P17 ExpectedVisualHeight binds min, max and peak count; current returns an Option tuple. Observation measured/unavailable/not-applicable are distinct from scalar zero. UnitInterval, HeightDistance and NonnegativeLength serve distinct semantics when actually owned by their snapshot.",
+    "admission_contracts": "P17 constructs checked length bounds and adjusted SignedLength before use; current foot values are raw fixed f32 and scenario distances are computed without equivalent local readmission. Actual finite supported plan inputs and all aggregate admissions remain to be traced.",
+    "invariant_operations": "Current foot relief folds only available samples and uses zero for no finite extrema; contact/toe minima also use zero on no finite samples. P17 preserves explicit unavailable. Arithmetic overflow and native float semantics outside source-supported cases remain conditional.",
+    "enum_shapes": "Optional scenario selection, armor, body proportions, terrain and hidden window are deliberate modes. Missing terrain observation during an applicable terrain check must be distinguished from legitimate no-contact or nonapplicable scenarios before a repair shape is chosen.",
+    "aggregate_states": "A valid report binds requested plan, frames, every required bone and applicable physical observations; bone presence and finite transforms alone do not prove per-bone ground clearance. Multiple gate booleans represent independent validation obligations, not necessarily one exclusive state.",
+    "magic_numbers": "Distance and angle margins are scenario-specific authored review policies, many annotated against 64 Hz captures. Fixed test-derived numbers are not runtime measurement evidence; selected alternate sample rate and threshold calibration are a connected policy question, not an automatic arbitrary-type defect.",
+    "magic_strings": "CaptureOptions scenario is a native CLI String converted into ScenarioMetadata before plan creation; empty selection assertion remains existing q46. Native output path/title and diagnostic messages are boundary values; unknown labels or output prose need actual producer policy.",
+    "existing_type_owners": "Existing P17 NonnegativeLength, HeightDistance and Observation demonstrate possible owners in that snapshot. At 95e decide actual required measurement boundaries and current type APIs first; do not restore the historical branch or introduce wrappers for every local constant.",
+    "redundant_authority": "Authored scenario thresholds and observed gait/ground ranges are expected and measured roles, not duplicated gameplay authority. Expected plan and retained capture frames jointly validate selection; optional empty cadence helper is not by itself an accepted incomplete report.",
+    "behavior_preservation": "Keep valid no-IK authored-plane, no-flight, ragdoll, special transition and scenario-specific gates while preventing absent required observations from masquerading as measurements. Preserve exact selected-plan validation and error provenance; no threshold weakening assumed.",
+    "derivability": "Existing Serialize/Debug derives and named structs supply native report protocol shapes. No unneeded manual trait implementation or automatic serialization substitution established in bounded bodies."
+  },
+  "limitations": [
+    "Source inspection and evidence-integrity verification only. No repairs, builds, product tests, fixtures, viewer execution, browser, runtime probes or validation.",
+    "Original P17, PR-working, prior current and 059 histories keep separate revisions, read scopes and reviewers; nothing promoted into checkpoint3821.",
+    "Central coordinator owns baseline establishment, ledger/alias reconciliation and checkpoint publication."
+  ]
+}

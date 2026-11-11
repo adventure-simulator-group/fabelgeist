@@ -1,0 +1,829 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11T21:20:40.035345+00:00",
+  "scope": "Original report-p17 roles 2450\u20132451 and bounded current/old support; 13 partial lenses only. Source inspection and evidence integrity only.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "snapshot_proof": {
+    "registry": {
+      "path": "reference/registry.json.gz",
+      "sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "bytes": 1205722
+    },
+    "snapshot_pointer": "/snapshots/2",
+    "roles_pointers": [
+      "/files/2450",
+      "/files/2451"
+    ],
+    "git_membership": {
+      "path": "git-proofs.json",
+      "sha256": "50857db97968a0fd369d811f7b4f7449d9a9918a6ff6040721e12359ab816a37",
+      "bytes": 31987
+    },
+    "git_nonmembership": {
+      "path": "git-absence-proofs.json",
+      "sha256": "c56387f6522758b998c3c6a6f2467a384efa1dc2aa9c2a0e2e258299d9394264",
+      "bytes": 2999
+    },
+    "older_handoff": {
+      "path": "reference/older-774-selection.json",
+      "sha256": "70a03497fad62014bbaa3d2f3a65a9d9df5d9c94e560cae7e3092226ec00868b",
+      "bytes": 3979
+    },
+    "qualification": "Frozen registry selects 90a for report-p17; source object, archived original copies, raw Git commit/tree membership and older 774 handoff manifest agree. Historical context is not checkpoint3821."
+  },
+  "registration": {
+    "path": "registration.json",
+    "sha256": "3a8fe05a20b63f007e0d4ca6538a73cec0d945bde947dcebfaecdfee32bcd6d8",
+    "bytes": 4767
+  },
+  "read_receipt": {
+    "path": "read-receipt.json",
+    "sha256": "148d98e406dd05fea315554ace7b5877f5093d8b8ad6f1fd2df4945a04a36c57",
+    "bytes": 1955
+  },
+  "role_records": [
+    {
+      "original_index": 2450,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "revision_objects": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "present": true,
+          "local_path": "source/2450-90a4.rs",
+          "bytes": 11845,
+          "lines": [
+            1,
+            142
+          ],
+          "sha256": "ad225bb5b1a00479327871963669e407028cc5e4550fe10134be12a2030bacf1",
+          "git_blob": "33c271f132a3416f1113f981bd33ab7a7d7f6502",
+          "frozen_catalog_object": "<LOCAL_PATH_0>",
+          "archive_local_present": true,
+          "handoff_archive_present": true,
+          "archive_local": "<LOCAL_PATH_1>",
+          "handoff_archive": "<LOCAL_PATH_2>"
+        },
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": true,
+          "local_path": "source/2450-6533.rs",
+          "bytes": 7343,
+          "lines": [
+            1,
+            99
+          ],
+          "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+          "git_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": true,
+          "local_path": "source/2450-95e6.rs",
+          "bytes": 7343,
+          "lines": [
+            1,
+            99
+          ],
+          "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+          "git_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939"
+        }
+      ],
+      "personal_display_receipt": {
+        "original_index": 2450,
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+        "p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+        "fresh_p17_actual_display_ranges": [
+          [
+            1,
+            50
+          ],
+          [
+            51,
+            100
+          ],
+          [
+            101,
+            142
+          ]
+        ],
+        "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "fresh_current_actual_display_ranges": [
+          [
+            1,
+            50
+          ],
+          [
+            51,
+            99
+          ]
+        ],
+        "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "pr_working_actual_display_ranges": [],
+        "qualification": "A separately archived identical 6533 copy was hash-verified but not separately displayed; the personal current display is 95e."
+      },
+      "p17_unread_ranges": [],
+      "current_unread_ranges": [],
+      "pr_working_personal_display_ranges": [],
+      "p17_to_current_diff": {
+        "path": "2450-p17-to-current.diff",
+        "sha256": "c3271837c9d0ca665a283b58c0b9a4503fd5e9097dab1164a1d0631b5a6fd000",
+        "bytes": 13563
+      }
+    },
+    {
+      "original_index": 2451,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "revision_objects": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "present": true,
+          "local_path": "source/2451-90a4.rs",
+          "bytes": 1443,
+          "lines": [
+            1,
+            30
+          ],
+          "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+          "git_blob": "b4fba27afce6337c2591492b12b78b3de72e86f3",
+          "frozen_catalog_object": "<LOCAL_PATH_3>",
+          "archive_local_present": true,
+          "handoff_archive_present": true,
+          "archive_local": "<LOCAL_PATH_4>",
+          "handoff_archive": "<LOCAL_PATH_5>"
+        },
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": false,
+          "absence_proof": "exact Git tree lookup excludes the file",
+          "tree_exact_lookup": []
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": false,
+          "absence_proof": "exact Git tree lookup excludes the file",
+          "tree_exact_lookup": []
+        }
+      ],
+      "personal_display_receipt": {
+        "original_index": 2451,
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+        "p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+        "fresh_p17_actual_display_ranges": [
+          [
+            1,
+            30
+          ]
+        ],
+        "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "current_actual_display_ranges": [],
+        "pr_working_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "pr_working_actual_display_ranges": [],
+        "qualification": "Path absent at both 6533 and 95e; inline 95e validator only separately registered support."
+      },
+      "p17_unread_ranges": [],
+      "current_unread_ranges": "not applicable: path absent; inline validator is support only",
+      "pr_working_personal_display_ranges": []
+    }
+  ],
+  "support_registration": {
+    "path": "support-registration.json",
+    "sha256": "15a8218f8bf834ad7db4f93702975bc256b642d7c7a73dcbda7865c3b60125a3",
+    "bytes": 6316
+  },
+  "support_read_receipt": {
+    "path": "support-read-receipt.json",
+    "sha256": "3461e1c9e617a5842b7bfbb7401fceec42c791c4bcaf523a3b54153a620b03ba",
+    "bytes": 6128
+  },
+  "support": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/00-95e6-capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "eof": 1021,
+      "actual_body_display_ranges": [
+        [
+          65,
+          110
+        ],
+        [
+          190,
+          260
+        ],
+        [
+          527,
+          590
+        ],
+        [
+          675,
+          700
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/01-95e6-validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "eof": 792,
+      "actual_body_display_ranges": [
+        [
+          232,
+          285
+        ],
+        [
+          600,
+          620
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/02-95e6-model.rs",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "eof": 352,
+      "actual_body_display_ranges": [
+        [
+          175,
+          210
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/03-95e6-sample_state.rs",
+      "sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "eof": 73,
+      "actual_body_display_ranges": [
+        [
+          1,
+          73
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/04-95e6-procedural.rs",
+      "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+      "eof": 1813,
+      "actual_body_display_ranges": [
+        [
+          425,
+          495
+        ],
+        [
+          515,
+          590
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/05-95e6-mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "eof": 810,
+      "actual_body_display_ranges": []
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/06-95e6-height.rs",
+      "sha256": "ae1dcc0043d5bd5a98744dfb43a3f172a259b3ac3b5e0fe0743c31b83e00327e",
+      "eof": 336,
+      "actual_body_display_ranges": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/07-95e6-scenarios.rs",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "eof": 1409,
+      "actual_body_display_ranges": [
+        [
+          350,
+          375
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/08-95e6-setup.rs",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "eof": 94,
+      "actual_body_display_ranges": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "archive": "support/09-95e6-animation_viewer_main.rs",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "eof": 132,
+      "actual_body_display_ranges": [
+        [
+          30,
+          50
+        ],
+        [
+          108,
+          129
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/10-90a4-sample.rs",
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "eof": 132,
+      "actual_body_display_ranges": [
+        [
+          1,
+          78
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/11-90a4-validation.rs",
+      "sha256": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+      "eof": 618,
+      "actual_body_display_ranges": [
+        [
+          175,
+          200
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "archive": "support/12-90a4-model.rs",
+      "sha256": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+      "eof": 390,
+      "actual_body_display_ranges": [
+        [
+          217,
+          244
+        ]
+      ]
+    }
+  ],
+  "navigation_receipts": [
+    {
+      "path": "support-navigation-height.txt",
+      "sha256": "7af0dcf59ef04a4032398d35d0d52be614a4e9cfc29ab7a4df6141bce259545e",
+      "bytes": 5634
+    },
+    {
+      "path": "support-navigation-p17.txt",
+      "sha256": "12ed147abb0e5d009a688cd623c79c45f60239c234eb840172eb15f7757617f1",
+      "bytes": 1833
+    },
+    {
+      "path": "support-navigation-schedule.txt",
+      "sha256": "689d5ea338c0e6a0ff74871fa1e136daf2c467d72960b6803c71536ae636cdb2",
+      "bytes": 320
+    },
+    {
+      "path": "support-navigation-label-narrow.txt",
+      "sha256": "c3badb6623a0acd43caa0c14a6d9144bd376ff2b42949b2e2fdf1591dfd670a6",
+      "bytes": 8024
+    },
+    {
+      "path": "support-navigation-scenarios.txt",
+      "sha256": "bab9130a66b5fde632702ca3b000c17c132d719f98c909c47360d2f5a8514278",
+      "bytes": 30211
+    }
+  ],
+  "navigation_qualification": "The broad scenario scan was truncated in the tool output and confers no complete body credit; other navigation files show search hits only, not continuous body coverage. Only the receipt states actual body windows.",
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "518d1acbf7a5ee4de4e597ed9b814e4d973ae6995346dfb6333fe96563d78304",
+    "bytes": 3327
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "1ac6b20b350a1cd1e8c391947ae8c3670857db6152bb468943584e9f7bf34b8e",
+    "bytes": 2497
+  },
+  "older_774_selection": {
+    "path": "reference/older-774-selection.json",
+    "sha256": "70a03497fad62014bbaa3d2f3a65a9d9df5d9c94e560cae7e3092226ec00868b",
+    "bytes": 3979
+  },
+  "prior_current_selection": {
+    "path": "reference/prior-current-selection.json",
+    "sha256": "414ea1fd168bf859520adf479337a2a24b39d7b432c620720f4aee79693a1fcd",
+    "bytes": 19665
+  },
+  "prior_packet": {
+    "author": "/root/mhr_character",
+    "original_path": "<LOCAL_PATH_6>",
+    "archive": {
+      "path": "prior-packets/p17-capture.tar.gz",
+      "sha256": "ceab832ad8b8e059ce70953bbd0d815481f926fabffa25baa2454e1b577fe6db",
+      "bytes": 12498617
+    },
+    "original_bundle_manifest_sha256": "323a22ea0c4e47d7624bfb28b194b7b2678e41dc0f25cf40e1bca0565d3e82df",
+    "qualification": "Entire earlier frozen packet archived intact. It and its reported personal source ranges belong to its own author; no transfer of reading or ordered role credit."
+  },
+  "historical_review_attribution": [
+    {
+      "record": "segovb/READ-L11-405.json",
+      "author": "segovb original reviewer as identified by receipt",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2450": [
+          [
+            1,
+            142
+          ]
+        ],
+        "2451": [
+          [
+            1,
+            30
+          ]
+        ]
+      },
+      "registers": [
+        "segovb/REGISTRATION-SEGOVB-1345.json",
+        "segovb/REGISTRATION-SEGOVB-1346.json"
+      ],
+      "qualification": "Independent original lens11 work, pending connected evidence, with no accepted unique count change or current reconciliation."
+    },
+    {
+      "record": "segovb/READ-L12-826.json",
+      "author": "/root/lens12_frontier original prospective personal read, adopted by original root without root reread",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2450": [
+          [
+            1,
+            142
+          ]
+        ],
+        "2451": [
+          [
+            1,
+            30
+          ]
+        ]
+      },
+      "registers": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-459.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-460.json"
+      ],
+      "qualification": "Original proposal and verification retained. Adoption is not a separate root personal read; current not reconciled."
+    },
+    {
+      "record": "SEGOVB-INITIAL04-CONTRACT-586",
+      "author": "Original 774 SEGOVB lens04 as recorded",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2450": [
+          [
+            1,
+            142
+          ]
+        ],
+        "2451": [
+          [
+            1,
+            30
+          ]
+        ]
+      },
+      "qualification": "Historical P17 landing gate and HTML availability/presentation observations, no runtime execution or finding that current 95e was assessed."
+    },
+    {
+      "record": "CONT07-CONTRACT-566",
+      "author": "Original 774 continuation lens07 as recorded",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": {
+        "2450": [
+          [
+            1,
+            142
+          ]
+        ],
+        "2451": [
+          [
+            1,
+            30
+          ]
+        ]
+      },
+      "qualification": "Historical redundant-authority scope; q playback policy unresolved in that record."
+    },
+    {
+      "record": "774 native existing-type-owners coverage.jsonl",
+      "author": "Original 774 native supplier as recorded",
+      "revision": "report-p17 90a source objects",
+      "zero_based_rows": {
+        "2450": [
+          280,
+          619
+        ],
+        "2451": [
+          281,
+          620
+        ]
+      },
+      "qualification": "Later rows repeat same underlying 319/320 inventory with later disposition; not extra independent source reads or transfer into 3821."
+    },
+    {
+      "record": "ASSESSMENT-L01-HISTORICAL-1427-1432.json",
+      "author": "Earlier central personal L1 reviewer as recorded; no reassignment",
+      "revision": "pr-working 6533, 95e comparison byte-identical",
+      "original_index": 1432,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "qualification": "Separate original 6533 HTML source role and historical personal reading, not a 2450 P17 read; byte equality does not by itself create new current reviewer body credit."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 842,
+      "id": "Q-L1-b4c70cf7e4568551f263",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "first_unresolved_question_as_recovered": "P04 height operations now reach the actual complete numerical kernels with checked result admission. Actual procedural configuration and landing recovery duration producers remain connected; zero-permitting public elapsed does not establish an ordinary zero-duration caller.",
+      "qualification": "Preserved older 059 queue record; related source-family context, not automatic alias, closure or checkpoint3821 advancement."
+    },
+    {
+      "index": 845,
+      "id": "Q-L1-a11146c45429bef91a6c",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "first_unresolved_question_as_recovered": "Procedural height configuration now assessed at exact current revision. Actual LandingConfig recovery duration and locomotion profile conversion remain the next connected sources; the public zero-permitting recovery operation is not an ordinary zero-duration witness.",
+      "qualification": "Preserved older 059 queue record; related source-family context, not automatic alias, closure or checkpoint3821 advancement."
+    },
+    {
+      "index": 1157,
+      "id": "Q-L12-40270cf20b21e063d638",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "first_unresolved_question_as_recovered": {
+        "source_original_index": 1362,
+        "status": "Full frozen L12 original; core/native/current conditional contracts open",
+        "contracts": [
+          "Actual core height/config/sequence/profile bounds/native transform before translation overflow finding.",
+          "Actual landing_compression_for_action all callers/current and intended action policy; no automatic obsolete-wrapper finding."
+        ]
+      },
+      "qualification": "Preserved older 059 queue record; related source-family context, not automatic alias, closure or checkpoint3821 advancement."
+    },
+    {
+      "index": 1230,
+      "id": "Q-L12-f41c2756cd4608736e10",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "first_unresolved_question_as_recovered": {
+        "source_original_index": 1432,
+        "status": "Full frozen L12 HTML port source; actual supported labels/report/current pending",
+        "contracts": [
+          "RawHTMLattr/text and inlineJSON script actual supported label producer/grammar before injectionfinding.",
+          "UI worldplants wording vsactual FrameSample support provenance/reportpolicy/current."
+        ]
+      },
+      "qualification": "Preserved older 059 queue record; related source-family context, not automatic alias, closure or checkpoint3821 advancement."
+    },
+    {
+      "index": 1245,
+      "id": "Q-L12-96bf280e7b1c15aac5ae",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "first_unresolved_question_as_recovered": {
+        "source_original_index": 1448,
+        "status": "Full frozen L12 CLI actualexternalproducer, exactnative/current pending",
+        "contracts": [
+          "Unsupportedselectedscenario -> intendedResult/exit bypass exactscopedexistingfinding.",
+          "Externalraworbit -> nativeQuat/camera needactualnativeparser/nonfinite/current.",
+          "Assetrootnoexistscheck -> requiredmotionload/readinesswait initialframe/nativefailedload/termination/current.",
+          "Configsample_hz actualsupportednon64/core/nativeclock vsHTMLhardcoded64playback83 andUITextlabels; no ratefindingwithoutactualvalidconfig."
+        ]
+      },
+      "qualification": "Preserved older 059 queue record; related source-family context, not automatic alias, closure or checkpoint3821 advancement."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+      "authored_by": "/root/mhr_character",
+      "classification": "Existing newly assessed conditional current-source finding, independently corroborated in this packet; no new unique finding and no transfer of authorship.",
+      "prior_finding_as_recorded": {
+        "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+        "classification": "Newly assessed current source finding conditional on capture component absence and required landing semantics; central owns exact alias and ledger disposition.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+            "archive": "source/support-0.source",
+            "lines": [
+              [
+                527,
+                575
+              ],
+              [
+                577,
+                591
+              ],
+              [
+                657,
+                668
+              ],
+              [
+                684,
+                691
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/support-2.source",
+            "lines": [
+              [
+                183,
+                204
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+            "archive": "source/support-4.source",
+            "lines": [
+              [
+                242,
+                275
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+            "archive": "source/report-p17-2443.rs",
+            "lines": [
+              [
+                59,
+                66
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+            "archive": "source/support-3.source",
+            "lines": [
+              [
+                222,
+                241
+              ]
+            ]
+          },
+          {
+            "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+            "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+            "archive": "source/support-11.source",
+            "lines": [
+              [
+                11,
+                29
+              ]
+            ]
+          }
+        ],
+        "trace": "The current capture query admits an optional LocomotionHeightState and substitutes HeightDistance::ZERO when it is absent. The landing gate obtains the maximum from all saved values and regards its final compression <=0.005 as settled. If earlier measured landing compression provides the required 0.04\u20130.08 peak while final height state is absent, that absent last observation is represented as zero and can satisfy the final settled predicate. In P17 the sample preserves absent compression and landing_response_valid rejects any landing frame missing that observation.",
+        "conditions": "Requires the component to be absent at a selected landing frame, an otherwise present eligible subject/playback/route, at least one other measured frame satisfying the peak and knee gate, correct landing-sequence increment, and all other conditions for the landing predicate. Viewer lifecycle may maintain the component throughout; no actual absent component, passing report, live play or executed scenario is claimed. Other gates may reject independently.",
+        "future_repair_direction": "Determine when height observation is required and carry missing versus measured-zero through capture and landing validation, preserving deliberate absent/nonapplicable modes and existing acceptance thresholds. Do not fabricate measured values or weaken acceptance.",
+        "relationships": [
+          "059 READ-L11-404 and READ-L12-823 documented P17 optional height fields but did not adjudicate this current inline landing chain. 774 SEGOVB-INITIAL04-CONTRACT-586 records that the P17 landing gate requires all compression observations; no retroactive claim of an old current-95e finding. q842/q845 and q1157 concern separate height/config/landing producer questions, not automatic aliases."
+        ]
+      },
+      "independent_trace": "95e capture.rs 527\u2013590 and 684\u2013691 accepts optional height and substitutes HeightDistance::ZERO; report/model.rs 183\u2013204 retains bare height; report/validation.rs 246\u2013275 selects landing samples and tests final <=0.005m together with earlier maximum 0.04\u20130.08m, one landing event and knee flexion >=10 degrees. If the final eligible frame has no height component but earlier measured samples and all other predicates satisfy the required conditions, missing final data can satisfy the settled predicate. This establishes neither a successful full report nor normal production reachability.",
+      "producer_context": "95e procedural.rs 450\u2013477 obtains an optional height state and, after a successful advance, uses deferred commands to insert it if missing; rejected advance logs and continues without insertion. setup.rs 35\u201349 spawns the capture subject without explicitly listing the state. These local facts do not prove that final-frame absence after an earlier measured peak occurs or is impossible; scheduling, component requirements and removals remain open.",
+      "p17_comparison": "P17 capture/sample.rs 59\u201366 and report/model.rs 236\u2013240 preserve optional compression; assigned landing_validation.rs 11\u201330 rejects any missing compression among selected landing frames. Nonselected empty set is accepted by this helper, subject to separate plan completeness.",
+      "future_repair_direction": "Keep missing observation distinct from measured zero through producer, retained sample and applicable validation, once lifecycle and scenario policy are decided; preserve nonapplicable scenarios, thresholds, event-wrap and sample-tie semantics. No implementation authorized here.",
+      "historical_relationship": "059 READ-L11-404/READ-L12-823 and 774 SEGOVB-INITIAL04-CONTRACT-586 are prior P17 documentation, not earlier current finding. 059 q842/q845/q1157 are separate upstream configuration/action owner questions, not automatic aliases."
+    },
+    {
+      "id": "Q-L12-f41c2756cd4608736e10",
+      "classification": "Historical q1230 and prior current source-family connection, no newly asserted injection finding.",
+      "trace": "P17 HTML 8\u201335 and 40\u201354, current HTML 8\u201335 and 71\u201384 interpolate scenario label and inline JSON. Current CaptureSequence::new 65\u2013106 restricts or filters plan and asserts if empty. Earlier central assessment records open metadata, reviewed authored selection and calls for full supported producer and encoding-policy review.",
+      "qualification": "No malicious supported scenario or browser execution established; no automatic finding or disposition."
+    },
+    {
+      "id": "Q-L12-96bf280e7b1c15aac5ae",
+      "classification": "Historical q1245 and prior current clock assessment, not a new exact alias or independently counted issue.",
+      "trace": "Current HTML line83 fixed 1000/64; current scenarios.rs 357\u2013365 derives airborne sample times from locomotion_sample_rate(). Earlier ASSESSMENT-CAPTURE-SETUP-VIEW-95E records selected non64 configuration and separate REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001.",
+      "qualification": "Supported actual configuration, intended playback policy and full outcomes remain open; no renderer, clock or capture ran."
+    }
+  ],
+  "nonfindings": [
+    "P17 empty landing list returns true in the local per-scenario helper; it does not itself establish an accepted empty capture or incorrect selected-plan policy.",
+    "P17 HTML zero-frame branch removes image source; modulo by zero in the timer is no standalone failure without a supported empty manifest and browser behavior.",
+    "A quality percentage and full acceptance boolean represent distinct policy values; no false-success claim follows without the report aggregator and supported caller.",
+    "The different conditional ground-clearance-to-zero candidate and nonfinite clearance admission finding are related by report observations but are not aliases of missing landing compression.",
+    "No product, viewer, browser, tests, builds, runtime probes, fixtures or simulations were run."
+  ],
+  "open_questions": [
+    "Can a supported lifecycle omit/remove LocomotionHeightState at the final landing frame after an earlier measured valid peak, given producer scheduling, deferred insertion, requires and error handling?",
+    "What is the correct required/optional/not-applicable height policy for each capture mode and selected scenario; how does completion distinguish deliberate omitted scenario from missing observations?",
+    "Are supported runtime configuration sample rates other than 64 intended to change HTML playback speed and labels; how are selected timestamps and playback authority related?",
+    "Which exact labels can programmatic and all supported plan producers place into HTML or inline script, and what encoding policy applies at that native boundary?",
+    "Are all prior report metric, quality, view, observation and native-owner relationships fully reconciled across current and snapshot variants? Central must resolve aliases and connected ledger."
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "95e capture admits optional height state and collapses absence into zero; P17 landing frame observations preserve None and reject it for selected nonempty landing frames. The prior landing finding remains conditional; no normal missing state is established.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Landing result is joint evidence of event-span one, peak range, last settled compression and knee flexion at the chosen maximum sample; a numeric zero alone cannot prove the final observation existed. Empty landing set is separately an applicability decision.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 and 95e HTML are different exact objects; P17 landing_validation file is absent in both 6533 and 95e, whose validation logic is inline. Comparison is of snapshots and semantics, not proof of chronological regression or runtime behavior.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Fallible bone-name serialization and P17 measurement/unavailability formatting have explicit boundary semantics. No evidence here supports deriving away admission/error or observation handling.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "P17 Observation distinguishes Measured, Unavailable and NotApplicable in display; empty selected scenario versus missing required measurement are different contracts. The current bare HeightDistance cannot express absence for landing compression.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "HeightDistance and LandingSequence own distinct quantity and event concepts. HTML report serializes a named bone role at the boundary; avoid replacing semantic identities with string labels as internal authority.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "P17 comparator total_cmp keeps the last equal peak; current maximum comparator and floating max are distinct operations. One wrapped event and selected sample knee are required, while unchecked availability substitution remains the proven conditional concern.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Both HTML variants use 64Hz timer; current scenario frames use selected locomotion sample rate. Related q1245 and prior timestamp finding are not automatic aliases; intended playback policy and admitted config remain open. Landing thresholds 0.04\u20130.08m, 0.005m and 10 degrees are existing review policy, not proof of defective numbers.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "HTML attribute/text and inline script embed labels; 059 q1230 and prior current producer trace qualify this as an open boundary question. Unknown CLI choice ordinarily filters to empty and asserts; do not claim arbitrary input reaches browser or injection.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Current subject capture receives optional LocomotionHeightState, retains HeightDistance, and inline validation consumes it; procedural advance normally inserts missing component on success, rejects updates on error. Complete absence-after-peak lifecycle is not established.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Fixed HTML playback timer is a separate report presentation rate from scenario configured sample clock; whether deliberately independent is open. Landing compression source and missing-value surrogate must not become independent authorities. No new duplicate finding here.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Measured zero, unavailable observation, and not-applicable scenario are distinct; event span, bone angle and distance maintain different units and semantics. No stronger type merge/split finding follows from this scope.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Capture owns admission and retained availability, procedural state owns compression, landing validation owns selected applicability and gates, and HTML owns contextual encoding at the native output boundary; shared fix/alias decisions remain central.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Distinct snapshots and original reviewers are retained; no prior record is promoted into missing checkpoint3821.",
+    "Archived full source copies and navigation hits do not convey personal body read credit beyond the exact receipt; 6533 HTML was hash-verified but not separately displayed in this packet.",
+    "No whole-lens, population, product acceptance, repair or implementation completion claimed. Central owns baseline, cross-lens reconciliation, repair ledger and publication."
+  ]
+}

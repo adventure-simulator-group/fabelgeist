@@ -1,0 +1,527 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:16:01.025111+00:00",
+  "scope": "Original report-p17 roles 2446–2447 and current comparison; bounded support only, no whole-lens/population/ledger closure.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "frozen_report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "snapshot_proof": {
+    "registry": "reference/original-registry.json.gz",
+    "pointer": "/snapshots/2",
+    "snapshot_as_recorded": {
+      "id": "report-p17",
+      "root": "SNAPSHOTS/report-p17",
+      "base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "meaning": "Mandatory P17 source delta90a; shared motor dependency still pending",
+      "changed_variants": 32,
+      "patch_sha256": "3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd",
+      "status_porcelain": []
+    },
+    "original_role_records": "/files/2446 and /files/2447",
+    "git_membership": "git-proofs.json",
+    "git_nonmembership": "git-absence-proofs.json",
+    "older_recovered_copies": "older-continuation-index.json",
+    "qualification": "Registry clean P17 head, exact source hashes, two recovered 774 copies and Git commit/tree/blob membership agree. The absent current standalone biomechanics path is proved by raw current parent tree."
+  },
+  "assigned_source_identity": [
+    {
+      "original_role": 2446,
+      "kind": "report-p17",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "archive": "source/report-p17-2446.rs",
+      "bytes": 4324,
+      "lines": 64,
+      "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+      "git_blob_sha1": "e2be0d8297db7ba68a57a5fce617b7153bdbfaf4",
+      "planned_display_chunks": [
+        [
+          1,
+          64
+        ]
+      ],
+      "source_provenance": "P17 recorded clean snapshot head, 774 recovered copy and exact Git blob agree"
+    },
+    {
+      "original_role": 2447,
+      "kind": "report-p17",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "archive": "source/report-p17-2447.rs",
+      "bytes": 5417,
+      "lines": 103,
+      "sha256": "bd29a229e56b7d1e2bf3637893267470180968b4d88e10c970ab9067d78c2439",
+      "git_blob_sha1": "c742e20564ccfa820379f757547f87026dd4db6f",
+      "planned_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          103
+        ]
+      ],
+      "source_provenance": "P17 recorded clean snapshot head, 774 recovered copy and exact Git blob agree"
+    },
+    {
+      "original_role": 2447,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "archive": "source/current-2447.rs",
+      "bytes": 5278,
+      "lines": 133,
+      "sha256": "b3292ab6c13201b261d597d9aa15c5e07143c7503fd78ecb229aab8c7bb967ca",
+      "git_blob_sha1": "c84ff5c18d0b5e0559285f78822f34dfe5be1060",
+      "planned_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          133
+        ]
+      ],
+      "source_provenance": "pinned current Git tree"
+    }
+  ],
+  "absent_current_sources": [
+    {
+      "original_role": 2446,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "qualification": "No such path in current tree; prove Git tree nonmembership independently. No current body to display and no identity transfer."
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registrations": [
+    "support-registration.json",
+    "support-registration-02.json"
+  ],
+  "support_read_receipt": "support-read-receipt.json",
+  "revision_comparison": {
+    "biomechanics": "P17 independent biomechanics_validation.rs absent at the exact current path; related current gate lies in report/validation.rs:422–510 and was independently registered/read as support.",
+    "body_response": "P17 typed optional observations and checked signed range differ from current raw extrema/zero fallback; exact body-response-diff.patch retained."
+  },
+  "recovered_history": [
+    {
+      "record": "historical-059/segovb/READ-L11-405.json",
+      "author": "original segovb reviewer",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "registrations": [
+        "segovb/REGISTRATION-SEGOVB-1341.json",
+        "segovb/REGISTRATION-SEGOVB-1342.json"
+      ],
+      "scope": "P17 biomechanics 1–64 and body_response 1–103 fresh personal L11 reads. It explicitly retained missing-body response, P17 optional scenarios, unresolved body_local/metric and overall aggregation."
+    },
+    {
+      "record": "historical-059/segovb/READ-L12-825.json",
+      "author": "/root/lens12_frontier",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "registrations": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-455.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-456.json"
+      ],
+      "scope": "Fresh P17 full 1–64 and 1–103 prospective L12 bodies, current and other-lens/required-cohort questions open; no ownership transfer."
+    },
+    {
+      "record": "older-774-index.json and older-continuation-index.json",
+      "author": "original native and segovb reviewers separately as recorded",
+      "source_revision": "P17 for owner coverage and SEGOVB-INITIAL04-CONTRACT-586; pr-working for NATIVE-INITIAL05-F016, source identity never inferred from transport",
+      "scope": "native owner coverage zero-based rows276/615 for biomechanics and 277/616 for body response. Historical 586 records P17 checked signed bounds and explicit missing observation, with no report/native execution. Native F016 concerns jitter missing/empty/nonfinite cohort, related but not automatic exact alias."
+    }
+  ],
+  "prior_packets": {
+    "index": "prior-packets-index.json",
+    "qualification": "Prior P17 capture packet, including its nested earlier orientation packet, preserved intact with original manifests and distinct personal-read scopes."
+  },
+  "findings_and_reconciliations": [
+    {
+      "id": "BODY-RESPONSE-SWAY-MISSING-BONE-AS-ZERO-95E",
+      "classification": "Newly assessed conditional source finding in current local straight-run sway gate; central owns alias and repair grouping.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+          "archive": "source/current-2447.rs",
+          "lines": [
+            [
+              49,
+              58
+            ],
+            [
+              115,
+              132
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              271,
+              279
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "archive": "source/support-10.source",
+          "lines": [
+            [
+              18,
+              47
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              242,
+              245
+            ],
+            [
+              595,
+              609
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-5.source",
+          "lines": [
+            [
+              285,
+              297
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+          "archive": "source/report-p17-2447.rs",
+          "lines": [
+            [
+              39,
+              43
+            ],
+            [
+              88,
+              103
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              45,
+              50
+            ],
+            [
+              160,
+              175
+            ]
+          ]
+        }
+      ],
+      "trace": "Current body_local returns None if the requested bone is missing; body_lateral_range filters those missing observations out and returns zero if none remain. For an applicable straight run, sway gate compares chest/head range to positive limits, so missing every observation of a required bone can satisfy that local range comparison as zero; partial missing frames can also leave a range based only on the remaining observations. P17 returns Unavailable(MissingBone) on the first missing frame and when_applicable treats Unavailable as false, while no matching scenario remains NotApplicable.",
+      "conditions": "Requires a selected run scenario with absent chest or head in at least one captured frame (and the other side/other comparisons satisfying their own gates). Actual rig population and full capture admission may prevent or separately reject the case. No missing bone, whole report success or runtime behavior was observed; finite-transform check only examines present bones, but other report gates remain independently material.",
+      "future_repair_direction": "Reconcile required-bone/cohort authority and distinguish absent or partial observations from a measured zero range in the applicable sway gate. Preserve valid absent scenarios and existing sway thresholds; coordinate with independent completeness checks.",
+      "relationships": [
+        "059 READ-L11-405 documented P17 body-relative sway and left actual body_local/current aggregation open. 774 SEGOVB-INITIAL04-CONTRACT-586 preserved P17 missing-observation distinctions. 059 q1232/q1235 and 774 NATIVE-INITIAL05-F016 concern separately scoped missing-bone or jitter/cohort questions; do not automatically alias."
+      ]
+    },
+    {
+      "id": "BODY-RESPONSE-MISSING-LEAN-AS-ZERO-95E",
+      "classification": "Newly assessed conditional current body-response gate consequence, connected to prior capture missing-height finding; central owns alias decision.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-7.source",
+          "lines": [
+            [
+              527,
+              575
+            ],
+            [
+              577,
+              591
+            ],
+            [
+              684,
+              689
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-5.source",
+          "lines": [
+            [
+              183,
+              204
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+          "archive": "source/current-2447.rs",
+          "lines": [
+            [
+              10,
+              46
+            ],
+            [
+              59,
+              93
+            ],
+            [
+              100,
+              113
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "archive": "source/support-8.source",
+          "lines": [
+            [
+              24,
+              29
+            ],
+            [
+              59,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+          "archive": "source/report-p17-2447.rs",
+          "lines": [
+            [
+              23,
+              38
+            ],
+            [
+              44,
+              56
+            ],
+            [
+              63,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              160,
+              175
+            ]
+          ]
+        }
+      ],
+      "trace": "Current capture permits optional LocomotionBodyResponseState and substitutes zero pitch/roll when missing. In an applicable HardStop scenario, all-missing response can yield zero minimum, zero adjacent changes and zero settled final magnitude, satisfying those corresponding body_response_valid clauses if other scenario clauses also hold. P17 retains Option signed angles, treats missing response as Unavailable, and its consecutive and final checks require actual angles.",
+      "conditions": "Requires missing body-response component in one or more relevant frames and other measured range/gate clauses to satisfy their conditions. Actual live/viewer lifecycle may ensure it is always present; no successful report, observed component loss or product run is claimed. A zero angle is legitimate when measured; the concern is lost availability.",
+      "future_repair_direction": "Decide required observation per scenario and propagate missing separately from measured zero through capture and report, preserving legitimate nonapplicable cases and established thresholds.",
+      "relationships": [
+        "Related to /root/mhr_character prior CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E because both arise from separate optional component defaults at the same current capture site; lean and height have different semantics and gates, so no automatic exact alias. 059 READ-L11-405 and 774 contract586 documented P17 missing-body-response distinction, not a current 95e verdict."
+      ]
+    },
+    {
+      "id": "BIOMECHANICS-DIVE-MISSING-AXIS-AS-ZERO-95E",
+      "classification": "Newly assessed conditional local biomechanics gate gap; no whole-report or runtime success inferred.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              195,
+              205
+            ],
+            [
+              248,
+              256
+            ],
+            [
+              588,
+              609
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              422,
+              426
+            ],
+            [
+              595,
+              609
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+          "archive": "source/support-11.source",
+          "lines": [
+            [
+              1,
+              15
+            ],
+            [
+              109,
+              146
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+          "archive": "source/report-p17-2446.rs",
+          "lines": [
+            [
+              5,
+              19
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              45,
+              50
+            ],
+            [
+              160,
+              175
+            ]
+          ]
+        }
+      ],
+      "trace": "Current dive-axis metric skips absent head/pelvis, short projected axes and unnormalizable travel, then folds an empty iterator from 0. The current dive biomechanics gate accepts a result <=20 degrees, so if every candidate is skipped it accepts this local metric as zero. P17 distinguishes a missing bone, no motion and no stable axis as Unavailable; the P17 dive gate requires a measured angle.",
+      "conditions": "Requires an applicable dive scenario with no usable axis/travel observations, or partial skipped samples concealing a larger error. The authored pose/plan, actual native producer or independent completeness/finite/penetration gates may preclude or reject it; no real scene, execution or full acceptance is claimed.",
+      "future_repair_direction": "Preserve unavailable and measured dive-axis outcomes and require applicable evidence before the existing limit check, while retaining the deliberate upright-unstable-frame skip and exact head/pelvis/travel frame meaning.",
+      "relationships": [
+        "059 READ-L11-405 and 774 SEGOVB-INITIAL04-CONTRACT-586/587 retained P17 measured-versus-unavailable and metric-source qualifications; this independently assesses current metric/gate. NATIVE-INITIAL05-F016 is a distinct jitter/cohort finding until centrally reconciled."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No viewer, test, fixture, browser, product build, live/native diagnostic or runtime probe was performed. No actual missing bone, body component, or completed report was observed.",
+    "P17 and current deliberately exempt different posture/scenario classes from particular gait gates; no single omitted gait check proves all validation passes.",
+    "A nonapplicable scenario is a deliberate distinct state; no demand to fabricate a zero or mandatory data for an absent scenario.",
+    "Native body frame and all report completeness gates remain separate from a local sway or dive finding."
+  ],
+  "open_questions": [
+    "Can an actual capture with an otherwise accepted plan contain a missing chest/head sample, missing body-response component or no eligible dive axis?",
+    "Which outer completeness gates independently reject these cases, and must every applicable frame or only an eligible sample set be present?",
+    "How should connected landing-height and body-response missing-observation cases share repair ownership without merging distinct quantities or gate policies?",
+    "Does native body-local transformation always carry finite unit orientation and finite inputs, and how do exact other metric owners respond to failure?",
+    "What P17 scenario exemptions and thresholds are intentional in current behavior? No threshold recalibration authorized."
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "P17 Observation distinguishes Measured, Unavailable and NotApplicable; current raw scalar defaults in the traced gates can conflate a missing observation with zero. Actual producer/capture admission and supported scenario scope remain conditional.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "A local gate result depends on applicable scenario, complete required observations and threshold. All three are not implied by separately valid scalars or by a nonempty report.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 2446 is absent as a standalone current file, with related current biomechanics inline; 2447 changed. Preserve specific scenario exemptions, stable-axis skip, measured zero and threshold policies during any future repair.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "P17 explicit observation and checked result handling carry domain policy; no blanket derived default/serde substitution or boilerplate finding.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "ScenarioId/Feature and Observation alternatives own distinct roles; local lean component Pitch versus RollMagnitude is a semantic enum. Boolean result fields are independent gate outcomes, not automatically one state.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "P17 SignedAngleDegrees and NonnegativeLength carry unit and finite admission, and existing Observation owns availability. Current body-local Vec3 is native frame calculation; reuse owners only at actual semantic boundaries.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Current f32 minima/maxima skip missing observations and can return default zero; P17 checks computed signed ranges and nonnegative spread. Numeric vector frame, overflow and real producer bounds remain separate questions.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Angle/height/sway bounds are review criteria and scenario applicability, not random literals to rename. No threshold changes or product-policy conclusions from source alone.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Both assigned sources use typed scenario/feature and BoneRole values rather than text dispatch. No business prose classification finding.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Captured optional body state and bone presence flow through native frame samples into scenario-specific gate results and outer validation; P17 error/availability propagation is separately traced.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "A computed gate boolean is an observation summary, while capture and cohort owners determine whether evidence exists. Do not equate independent finite-transform checks with required-bone coverage.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Pitch, roll magnitude, signed coordinate range, rotational angle and linear distance have distinct units/frames; absent vs measured zero and no applicable scenario are different states.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Capture owns observation availability, metric functions own calculations, report aggregation owns selected-plan completeness and specific gates; central coordinates alias/repair. Preserve prior reviewers and native threshold authority.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection/evidence integrity only: no repairs, tests, fixture generation, viewer, browser, product builds, native diagnostics or runtime probes.",
+    "Historical original records, reconstructed queue/registry selections, separate earlier packets and current/source assessment remain distinctly attributed; no checkpoint3821 promotion.",
+    "Central owns baseline, cross-lens and alias reconciliation, connected repair ledger and checkpoint publication."
+  ]
+}

@@ -1,0 +1,556 @@
+{
+  "schema": "726-report-p17-bounded-audit-v1",
+  "created_utc": "2026-11-11 21:11:32 UTC",
+  "auditor": "current-session delegate /root/rig_identity",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "original_roles": [
+    {
+      "original_role": 2440,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+      "historical_git_blob": "bcc4726130c3cb2b39453116687048745deb9152",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "historical_personal_reads": [
+        [
+          1,
+          59
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+      "current_git_blob": "8ad94ae223b371f7988bd6fadc583f9eab4819c5",
+      "current_source": "sources/95e6/crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "current_personal_reads": [
+        [
+          1,
+          59
+        ]
+      ],
+      "byte_identical": false,
+      "prior_role_and_reviewer": "original-attribution.json; historical source report-p17 is 90a, not pr-working 6533 or transport f82"
+    },
+    {
+      "original_role": 2441,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+      "historical_git_blob": "eb76b2912977d52ef400cca81acf5d4877206576",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "historical_personal_reads": [
+        [
+          1,
+          263
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+      "current_git_blob": "e2b590c68fed0574cdb31aba96c00972513575cd",
+      "current_source": "sources/95e6/crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "current_personal_reads": [
+        [
+          1,
+          214
+        ]
+      ],
+      "byte_identical": false,
+      "prior_role_and_reviewer": "original-attribution.json; historical source report-p17 is 90a, not pr-working 6533 or transport f82"
+    }
+  ],
+  "registrations": {
+    "old-registration.json": "3dbb1e37c3cfca38b5d9133d01d74ede035ad4e78cdd146f580db847ba63759c",
+    "current-registration.json": "0389e24ab6c62ec4255a9c3a0ebcd26bc722ff1312b6490f7d585c463a333cae",
+    "support-registration.json": "94953d6764c6a69114187028811251ad629467e615215a447912b681a5506905",
+    "support2-registration.json": "2650d45d54529a276d2d78d7d26af4dd5065ab7fee66f340c5d0c09204260e7a",
+    "support3-registration.json": "c30ef97a86019d2a40fb97e7f547050d4cdb32d29c60d300c2e0f37ecfca85c0",
+    "rules-registration.json": "ee485570dc694b2d00ff9df9678574edf77f280f9760891d5b84950c5653a205"
+  },
+  "read_scope_receipt": "personal-read-receipt.json",
+  "historical_source_discovery": {
+    "059_original": "original-attribution.json (original 059/774 records independently frozen before current comparison)",
+    "059_prior_current": "historical-current-receipts.json and related-059-receipts.json; e275 root Segovb full global bones, e275 lens11_reconcile full repeat, separately attributed. Old pr-working 6533 is original PR HEAD plus separately recorded dirty state; READ-L11-201 is Adler pr-working original roles1416/1419/1420 and exact byte identities match current role bodies, no current-review transfer.",
+    "older_774": "NATIVE-OWNER-CAPTURE-001 native full historical report-p17 and pr-working coverage, duplicate rows do not imply independent readers; NATIVE-PS-MOTION-008 has separate bounded producer evidence. f82 is transport only.",
+    "related_queue": "Q-L1-b44c11007d630cdedbd8, Q-L1-2d5af0b5756515372d49, Q-L1-5055306fdd9a6d9cdda6 remain pending; see original-059-queue.json.gz entries858\u2013860. No 3821 state promotion."
+  },
+  "findings_and_qualified_questions": [
+    {
+      "id": "P17-ROTATION-IDENTITY-TOLERANCE",
+      "status": "source-established mathematical mismatch; trigger occurrence unproven; canonical ledger alias centrally pending",
+      "first_failed_contract": "The direct quaternion-dot identity shortcut admits some real unit-quaternion rotations above the documented 0.05 degree comparison tolerance.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            108,
+            123
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            146,
+            169
+          ]
+        }
+      ],
+      "reasoning": "For unit quaternions separated by 0.1 degrees, |dot|=cos(0.05 degrees)\u22480.999999619, above the shortcut threshold 0.999999. The comparison therefore reports zero before evaluating the 0.05 degree angular limit. The threshold corresponds to approximately 0.162 degrees. This is mathematical source reasoning, no generated fixture or run.",
+      "qualification": "Both 90a and 95e contain this shortcut. It is conditional on a valid differing rotation in the actual later-view capture; no occurrence or total report acceptance established. f32 angle precision was the stated reason for the shortcut, so preserve its numerical intent when choosing a repair.",
+      "future_repair_direction": "Decide the intended error budget, then retain a comparison that handles f32 precision while distinguishing real changes beyond that budget; keep quaternion domain and other conditions explicit.",
+      "historical_relationship": "059 READ-L12-823 / lens12_frontier explicitly leaves dot-clamping and numeric tolerance investigation to its proper lens; 774 NATIVE-OWNER-CAPTURE-001 acknowledges existing dot-identity threshold. Neither source is assumed an exact canonical alias."
+    },
+    {
+      "id": "P17-NONFINITE-LATER-VIEW-MISMATCH",
+      "status": "source-established conditional gap; connects existing 059 observation coverage rather than automatic new unique count",
+      "first_failed_contract": "A NaN position distance is not a greater-than tolerance violation, so a later-view invalid sample can compare as matching when the other compared quantities match.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "range": [
+            19,
+            47
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            624,
+            630
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            91,
+            128
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            630,
+            637
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            657,
+            663
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            754,
+            760
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            20,
+            24
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            595,
+            623
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            132,
+            173
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            99,
+            110
+          ]
+        }
+      ],
+      "reasoning": "Raw native transforms flow into each view sample. For a first view with finite retained bones and a later view with NaN position, the NaN distance does not satisfy >0.0005; if rotation and other required state match, repeated_bone_mismatch can return None. Only first-view FrameSample bones enter the separate finite_transforms gate; later-view evaluation samples are not pushed into frames. The prior 90a implementation admitted delta values through checked finite constructors and returned InvalidObservation.",
+      "qualification": "No source here proves the actual engine can emit the malformed later transform in an ordinary capture. A first-view nonfinite retained sample is still caught by the final finite gate; other mandatory report checks remain independently decisive. Do not claim overall successful capture or serialize a NaN as a specific JSON value.",
+      "future_repair_direction": "Own valid/invalid repeated observations at the actual capture and comparison boundary, retaining structural causes; preserve the independent first-view finite/plan and native acceptance checks.",
+      "historical_relationship": "059 ADLER-L11-JITTER-MEASUREMENT-COVERAGE /connected_capture_observation_proof already records the NaN comparison; this packet adds the separately scoped later-view versus first-view finite gate distinction. The jitter derivative-window coverage and this repeat comparison are related but not automatically identical first failures."
+    },
+    {
+      "id": "P17-IK-PRESENCE-COLLAPSE",
+      "status": "source-established conditional gap; exact canonical alias pending",
+      "first_failed_contract": "Absent LegIkState and a present state with default diagnostics become indistinguishable during repeated-view comparison.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            533,
+            545
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            624,
+            629
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+          "range": [
+            191,
+            211
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            131,
+            179
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            175,
+            193
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "range": [
+            86,
+            115
+          ]
+        }
+      ],
+      "qualification": "If view0 is absent and a later view has Some(default diagnostics), or the converse, 95e compares the same default values; 90a compares None and Some as different. On view0, ordinary active terrain-IK support is separately required by admission; optional/non-owning modes can instead use cadence. The existence of a lifecycle transition in actual capture is not proven and legitimate no-IK modes must remain supported.",
+      "future_repair_direction": "Preserve presence separately from measured default diagnostics and choose explicit applicability for no-IK/required-IK modes; retain the existing active-support admission.",
+      "historical_relationship": "774 NATIVE-OWNER-CAPTURE-001 already contrasts P17 OptionLegIkDiagnostics with pr-working default diagnostics. Related to 059 P17-L11-CURRENT-REPORT-OBSERVATION-GAP, but its exact first-failure alias is not decided."
+    },
+    {
+      "id": "P17-OMITTED-LOGICAL-TICK",
+      "status": "existing 059 related obligation independently current-source-supported; no unique count added",
+      "first_failed_contract": "The repeated logical-tick snapshot does not record or compare the skeleton locomotion sample tick that the first-view FrameSample retains.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            5,
+            13
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            15,
+            38
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            42,
+            59
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            624,
+            629
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            657,
+            663
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            183,
+            190
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            560,
+            566
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            595,
+            623
+          ]
+        }
+      ],
+      "qualification": "A tick-only change with all recorded fields equal is unobservable to this comparison, but actual scheduling or occurrence of that change is not proved. Comparison reaches final validation and native writer, but no run is claimed.",
+      "future_repair_direction": "Retain and compare the existing canonical AnimationSampleTick alongside the other snapshot facts; preserve same-tick behavior and the final gate.",
+      "historical_relationship": "059 P17-L11-CURRENT-REPEATED-TICK-OMISSION at /segovb_continuation/current_connected_dispositions/64,78; prior e275 lens11_reconcile reader READ-012/021, root adopted READ-L11-548/557 without personal reread. Related historical NATIVE-PP-012, exact canonical alias remains root-pending."
+    },
+    {
+      "id": "P17-STRUCTURAL-MISMATCH-SENTINEL",
+      "status": "existing 059 report-observation obligation independently current-source-supported",
+      "first_failed_contract": "Missing and unexpected bones are represented by the same numeric (infinity, infinity) tuple used for measured mismatch values, losing structural direction and cause.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            91,
+            105
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            60,
+            72
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            19,
+            37
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            132,
+            145
+          ]
+        }
+      ],
+      "qualification": "Missing key is still detected, so this is a diagnostic/state-shape loss, not a false-match claim. The ordinary equal-key lookup is guarded by prior key checks.",
+      "future_repair_direction": "Retain structural missing/unexpected and invalid/measured outcomes distinctly and project to warning only at the native boundary.",
+      "historical_relationship": "059 P17-L11-CURRENT-REPORT-OBSERVATION-GAP /segovb_continuation/current_connected_dispositions/65 identifies this separately from tick omission. 774 NATIVE-OWNER-CAPTURE-001 records the original P17 typed mismatch."
+    },
+    {
+      "id": "P17-EXPECT-GUARDED-LOOKUP",
+      "status": "source-established production rule exception; not a demonstrated panic",
+      "first_failed_contract": "Production lookup uses expect although the governing Rust guide prohibits unwrap/expect outside tests.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "range": [
+            95,
+            105
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/AGENTS.md",
+          "range": [
+            123,
+            127
+          ]
+        }
+      ],
+      "qualification": "Prior set-equality checks and immutable local maps establish that the key should exist, so no panic path is asserted. This style/rule observation is distinct from malformed-input and mismatch-shape findings.",
+      "future_repair_direction": "Use a readable guaranteed-pair traversal or explicit handled branch consistent with the chosen structural mismatch representation.",
+      "historical_relationship": "May be addressed in the same future source family; no historical canonical identity established."
+    },
+    {
+      "id": "P17-GLOBAL-TRACE-COVERAGE",
+      "status": "scope/policy question; no unqualified defect or whole-report success inference",
+      "first_failed_contract": "The final finite_transforms predicate checks tracked FrameSample bone positions/rotations, not every subject and bone transform in the separate global trace.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+          "range": [
+            18,
+            26
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+          "range": [
+            31,
+            58
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            630,
+            637
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            256,
+            282
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            20,
+            24
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "range": [
+            39,
+            65
+          ]
+        }
+      ],
+      "qualification": "Global capture may include owned animation targets beyond tracked report bones and copies translation, rotation, scale and subject components into a separate JSONL. Whether each trace field must be finite, how producer invariants establish it and what native serialization does are open; no malformed input, serialization outcome or full-report pass observed.",
+      "future_repair_direction": "Decide trace admissibility/coverage and tie any required checks to the actual producer and artifact destination without narrowing valid optional or named data.",
+      "historical_relationship": "Related to 059 Q-L1-2d5af0b5756515372d49 (native global trace and report gate qualification) and Q-L1-b44c11007d630cdedbd8 (lifecycle/required observations). Same source context alone does not establish an alias or closure."
+    }
+  ],
+  "nonfindings": [
+    "Both old and current repeat compare key sets before pairing; unequal sets are detected, so an unchecked zip-truncation finding is rejected for this code.",
+    "Current ordinary capture begins view_index=0, records a baseline at that view and advances the index in the screenshot callback only after record_repeated_evaluation; the removed missing-baseline branch is a lost defensive check but no reachable ordinary missing baseline is established by this slice.",
+    "Required active terrain IK support has a separate admission check; do not claim all missing IK becomes acceptable. Optional default and None compare equal inside particular fields by design, without proving an observation is required.",
+    "A source test named repeated_evaluation_diagnostics_detect_hidden_ik_state_mutation only asserts two diagnostics differ; it does not invoke repeated_leg_ik_matches. It was read, not executed, and it is not evidence of acceptance.",
+    "The tracked finite gate protects retained first-view samples. It does not by itself attest later-view or all-target global observations; no whole-report successful malformed case is asserted."
+  ],
+  "open_questions": [
+    "What upstream guarantees ensure Bevy global bone transforms remain finite and rotations meet the dot-comparison domain for every view?",
+    "Can a state-absent to present-default IK transition occur within an admitted no-IK or optional capture? Which modes require presence versus intentional absence?",
+    "What error budget and stable numerical method should define repeated angular identity on f32 inputs?",
+    "Are per-target global trace transforms required finite/complete beyond the separate tracked-frame acceptance gate, and how should native serialization failures be surfaced?",
+    "Can screenshot ordering or admission establish a reachable missing baseline? The inspected ordinary sequence does not prove one.",
+    "Where is the exact canonical alias for tick, IK presence, finite observation, and structural mismatch across the recovered ledger? Central owns this reconciliation."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Trace native GlobalTransform to per-view BoneSample, repeated snapshot, first-view FrameSample, final validation and global JSONL. Full engine provenance and report graph remain open."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Historical P17 uses NonnegativeLength and AngularMagnitudeDegrees for admitted deltas and canonical AnimationSampleTick exists for the actual captured tick. Avoid assuming narrower quaternion or vector owners fit all native frames."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Checked historical delta constructors reject nonfinite values; current repeated values lack local finite admission and current optional LegIkState defaults. Global trace admission and actual upstream transform invariants remain open."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "NaN > tolerance does not signal mismatch and the dot identity envelope exceeds documented angle tolerance. The math applies to the named operation and conditional input, not an observed runtime defect."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Scenario/frame, tick, transforms, contacts, landing, event count and applicable IK observations are independent facts; equal individual fields do not witness an equal tick or required observation presence."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Old P17 source supplied invalid mismatch, structural alternatives and Option IK while current source differs; preserve valid zero, intentional no-IK, finite checks, numeric f32 behavior and asynchronous view sequencing in future repairs."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "The 0.0005 position, 0.05 degree and 0.000001 dot thresholds have distinct units/error-budget roles; the dot and angle thresholds are mathematically inconsistent. Confirm separate IK versus bone tolerance ownership before reuse."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "<unnamed> is display fallback; target identity remains AnimationTargetId until native serialization and sorting. Scenario labels and log prose are output roles, not automatically closed catalog classifiers."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "First-view retained frames and all-target global trace have related but distinct coverage; do not equate them or transfer an observation guarantee merely because their source is shared."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "No safe derive or serde boilerplate simplification is established by these two files; handwritten numerical and observation decisions cannot be removed as boilerplate."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Current infinity tuple collapses missing/unexpected into measurement, and optional IK presence collapses into default; history had explicit enum and Option distinctions. Preserve optional policy rather than blanket reject."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Tick identity, scenario frame, physical distance, angular magnitude and absent/invalid observation represent distinct roles. None/None in optional IK is not by itself required-observation failure."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial source-family assessment; no whole-lens completion or reviewer-credit transfer",
+      "assessment": "Capture owns native observation, repeated comparator owns agreement, report owns retained gate and JSONL is native output. Central ledger reconciles historical owner/alias and actual repair coordination."
+    }
+  ],
+  "publication_qualification": "Recoverable evidence packet and reconstructed selections are evidence, not product validation or original checkpoint3821. Central owns baseline, connected ledger and publication.",
+  "product_changes": false,
+  "implementation": false,
+  "builds_tests_runtime_probes": false
+}

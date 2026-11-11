@@ -1,0 +1,595 @@
+{
+  "schema": "726-p17-continuity-bounded-audit-v1",
+  "created_utc": "2026-11-11 21:18:19 UTC",
+  "auditor": "current-session delegate /root/rig_identity",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "original_roles": [
+    {
+      "original_role": 2448,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_sha256": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0",
+      "historical_git_blob": "1c6e34334e0fac6023c06b4b27fb7c1be49ec24f",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "historical_personal_reads": [
+        [
+          1,
+          27
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_status": "path absent; raw Git nonmembership proof",
+      "current_source": null,
+      "current_personal_reads": [],
+      "current_counterpart": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs bounded support; not same path or historical body",
+      "qualification": "Preserve original role/reviewer revision; never promote it into checkpoint3821."
+    },
+    {
+      "original_role": 2449,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_sha256": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+      "historical_git_blob": "2f46d65446f7aaf0dc311fbb8f0e03213798d2f8",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "historical_personal_reads": [
+        [
+          1,
+          35
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_status": "path absent; raw Git nonmembership proof",
+      "current_source": null,
+      "current_personal_reads": [],
+      "current_counterpart": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs bounded support; not same path or historical body",
+      "qualification": "Preserve original role/reviewer revision; never promote it into checkpoint3821."
+    }
+  ],
+  "registrations": {
+    "old-registration.json": "f585889ba8865fe40d6054a1e047750887351f1745e115356cadff6f7b5b7cd4",
+    "current-registration.json": "08393f9ffc3e587a082bc1d0295fb75d9edb3db0ec586fd4846f8faaba262a66",
+    "support-registration.json": "88d90576c6e3d8ae31caa68ae8cc8a413f9ef0c8c90c78470415159f274afcbd",
+    "support2-registration.json": "590048f1b1b22775c2da7dd443ad05702cce5c0315a55275f28d131c3d957c83",
+    "support3-registration.json": "cd0e870fb225c2eb7e8a8442b00e0d6113d9375e45fe9aed915cc4f831466caa",
+    "support4-registration.json": "dd1742b1424f1a475bfe73159f971ea68f3d18fb6d31cc6c405ce9c34b67be1b",
+    "support5-registration.json": "069acea62afadaf6bdaff39da449b5e84f1771de2d9162773fbec0cafc034a8e",
+    "support6-registration.json": "495eafe740473d668a6f95570bd2c715b9d37f0aab5c8fa3eca993e44e0ccb60",
+    "rules-registration.json": "80642c009bd65a1180e45bc3ab5393cb5019e2113f94a6f8e5ce1ed0b53c0f76"
+  },
+  "read_scope_receipt": "personal-read-receipt.json",
+  "historical_source_discovery": {
+    "original_059": "original-attribution.json: Segovb READ-L11-405 / REG1343/1344 and lens12_frontier READ-L12-825 / PAR457/458 are separate personal 90a reads; both accepted unique delta0 and retain pending contracts.",
+    "older_774": "native coverage rows278/617 and279/618 retain earlier producer-open and later receiver-closure dispositions; duplicates are not independent reviewer reads. NATIVE-OWNER-REPORT-MODEL-003/GATES-004 preserves findings and exact source; f82 is transport only.",
+    "prior_current_059": "related-059-receipts.json: root Segovb e275 personal metrics 1\u2013430 in READ-ROOT-L1-CURRENT-067 then 431\u20131283 in 068; tests 1284\u20132050 unread. e275 061/062 model/validation scope and L11 548/557 delegated lens11_reconcile are separate reviewers; no attribution transferred. Identical current source blobs are proven separately.",
+    "pending_contracts": "original-059-queue.json.gz entries 565 and 876 retain Q-L11-d6842eb24a1ea3ec418f and Q-L1-8634be2f29d31f348778; retain locator, historical journal and open status. No evidence promoted into checkpoint3821."
+  },
+  "findings_and_qualified_questions": [
+    {
+      "id": "P17-HEIGHT-DOUBLE-WARMUP",
+      "status": "source-established conditional coverage gap; occurrence and exact canonical alias unresolved",
+      "first_failed_contract": "A phase-height gate should evaluate every complete post-calibration review cycle that its stated policy requires, but phase-height inputs for terrain-classified scenarios are filtered through the first-wrap warmup twice.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+          "range": [
+            5,
+            14
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+          "range": [
+            41,
+            48
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs",
+          "range": [
+            18,
+            32
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios.rs",
+          "range": [
+            150,
+            174
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            75,
+            80
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "range": [
+            65,
+            79
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            119,
+            130
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            195,
+            198
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            218,
+            228
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            708,
+            709
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            737,
+            758
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            785,
+            795
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            1272,
+            1281
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+          "range": [
+            165,
+            173
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            126,
+            144
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            90,
+            107
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            398,
+            407
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "range": [
+            121,
+            124
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "range": [
+            170,
+            173
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "range": [
+            217,
+            231
+          ]
+        }
+      ],
+      "reasoning": "FlatGridWalk20 and FlatGridRun55 carry FlatGrid, classify as Terrain and request a three-cycle selected plan. scenario_metrics removes the first observed wrap for all terrain metrics, then passes that already-filtered slice to phase range, contact-to-passing gain and visual peaks, each of which removes through the next wrap again. If at least two wraps occur in captured phase, the first post-calibration interval is absent from those three measurements. This contradicts the adjacent peak-loop comment that every complete post-warmup cycle is independently gated. The old P17 source has the same nested warmup calls for terrain-classified data.",
+      "qualification": "A full plan does not prove particular runtime phase wraps or values. The finding is conditional on an observed second wrap and a complete affected cycle; no viewer, scenario, fixture or whole-report acceptance was run. Other continuity and independent gates still inspect their own inputs. Exact intended calibration versus review-cycle policy requires an owner decision.",
+      "future_repair_direction": "Choose and retain a single explicit calibration boundary for applicable height measurements and their review-cycle coverage; ensure any required complete post-calibration cycle contributes without inventing data or altering legitimate trailing partial-cycle exclusions.",
+      "historical_relationship": "059 Q-L11-d6842eb24a1ea3ec418f and Q-L1-8634be2f29d31f348778 retain metric producer, warmup and measurement questions; 774 NATIVE-OWNER-REPORT-GATES-004 covers P17 observation and applicability. These are related contexts, not established exact aliases. 059 root e275 067/068 reviewed current metrics 1\u2013430 and 431\u20131283 respectively; separate attribution remains intact."
+    },
+    {
+      "id": "P17-CONTINUITY-WINDOW-NO-WITNESS",
+      "status": "source-established conditional local gate gap; no whole-report success claim",
+      "first_failed_contract": "Continuity maxima initialized to zero do not distinguish a measured stationary sequence from the absence of the required post-warmup adjacent frame pairs.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            129,
+            150
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            201,
+            210
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            1272,
+            1281
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            25,
+            66
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "range": [
+            14,
+            21
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "range": [
+            33,
+            46
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+          "range": [
+            5,
+            10
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "range": [
+            102,
+            111
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "range": [
+            44,
+            47
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "range": [
+            65,
+            79
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "range": [
+            550,
+            563
+          ]
+        }
+      ],
+      "qualification": "If the filtered metric_frames contain fewer than three frames, windows(2).skip(1) executes no comparison, yet current scalar maxima remain zero and the local continuity gate can pass. P17 explicitly returned NoAdjacentFrames and its gate rejects unavailable continuity. Current final completeness independently requires matching plan and all REPORT_BONES, and built-in ragdoll/steady plans include multiple frames and terrain plans deliberately add cycles. Whether any actual admitted captured phases leave an undersized filtered tail is not established; no overall success inference.",
+      "future_repair_direction": "Carry an explicit measured/unavailable coverage witness through continuity gating and retain intentional first-pair skip, per-scenario limits and independent completeness.",
+      "historical_relationship": "Related to Q-L11-d6842eb24a1ea3ec418f and Q-L1-2ddab09732c995d81877; do not equate repeat, jitter and continuity first failures solely because all need coverage. 774 NATIVE-OWNER-REPORT-GATES-004 distinguishes required observation from not applicable."
+    },
+    {
+      "id": "P17-PELVIS-STEP-UNAVAILABLE-ZERO",
+      "status": "source-established conditional local gate gap; actual producer reachability unproved",
+      "first_failed_contract": "The pelvis vertical-step calculation folds missing or nonfinite comparisons into a measured-looking zero, which can satisfy the upper-bound gate for applicable transitions.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            662,
+            670
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            61,
+            65
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            126,
+            144
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "range": [
+            62,
+            87
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+          "range": [
+            5,
+            15
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+          "range": [
+            6,
+            8
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "range": [
+            102,
+            111
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            687,
+            695
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "range": [
+            114,
+            126
+          ]
+        }
+      ],
+      "qualification": "No adjacent pair or missing pelvis makes the local fold zero. Current whole-report completeness independently requires the pelvis in every retained frame, so a missing-bone-only whole-report pass is not claimed. Separately, if retained root Y is NaN, root-relative differences can be NaN and f32::max ignores those NaNs when folding from zero; the bone finite predicate checks bone components, not root_position, and the terrain-enabled branch of capture_ground does not itself admit subject Y. Actual nonfinite root production and all other report gates remain unproved; disabled terrain instead checks the authored plane elevation locally.",
+      "future_repair_direction": "Preserve required/optional applicability and distinguish no adjacent or invalid derived height from measured zero; retain independent required-bone, finite and scenario-completeness defenses.",
+      "historical_relationship": "059 P17-L11-CURRENT-REPORT-OBSERVATION-GAP and 774 NATIVE-OWNER-REPORT-GATES-004 are related observation/applicability families; exact first-failure alias remains central. P17 90a carried NoAdjacentFrames and MissingBone explicitly."
+    },
+    {
+      "id": "P17-CONTINUITY-NONFINITE-DERIVED-ROTATION",
+      "status": "conditional numeric source risk, not proven native behavior or runtime occurrence",
+      "first_failed_contract": "Finite captured quaternion components alone do not witness a valid normalization or finite derived angular measurement, yet a NaN derived rotation does not update the scalar maximum.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            149,
+            183
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            270,
+            279
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            412,
+            419
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            25,
+            31
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "range": [
+            85,
+            102
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "range": [
+            90,
+            107
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            99,
+            110
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            710,
+            715
+          ]
+        }
+      ],
+      "qualification": "The final finite-bone predicate tests component finiteness, not nonzero quaternion norm or frame body rotation. Current metrics normalizes captured bone quaternions and later tests `rotation > maximum`; if that operation yields NaN, the comparison cannot increase the max, including ragdoll\u2019s local rotation gate. The actual native normalization behavior, zero/nonunit input reachability, and other independently effective gates have not been proved. Historical P17 passed computed rotation through AngularMagnitudeDegrees::from_degrees, whose checked_nonnegative rejects nonfinite values.",
+      "future_repair_direction": "Determine native transform and quaternion admission domain; propagate invalid derived measurements distinctly from valid zero while preserving valid nonunit native policies and existing final gates.",
+      "historical_relationship": "Related to 059 ADLER-L11-JITTER-MEASUREMENT-COVERAGE and Q-L1-8634be2f29d31f348778 as finite/coverage evidence, but jitter, repeat and continuity are different consumers; no new unique count or canonical alias inferred."
+    }
+  ],
+  "nonfindings": [
+    "Current whole-report completion requires exact selected plan and every REPORT_BONES key, including pelvis, with separately required finite bone components; missing bone alone is not proof of successful report.",
+    "A missing expected phase-height scenario is an explicit optional mode; old and current displayed choices select the same four named scenarios. Do not turn every None into failure.",
+    "For applicable phase-height scenarios, no complete measured cycle makes visual_height_peaks return (0,false), and zero fallback range/gain fails the positive 0.025m minimum. Thus those particular empty inputs are not a demonstrated successful height gate.",
+    "Both historical and current logic deliberately excludes initial setup pair and trailing partial cycles; future coverage changes must preserve policy rather than treating all exclusions as defective.",
+    "Exact full other support bodies, prior root reader scopes, product behavior and unseen derived quaternion semantics are not claimed."
+  ],
+  "open_questions": [
+    "Does the intended FlatGrid plan require both complete post-calibration cycles for phase-height evidence, and can actual captured gait phase exhibit the second wrap?",
+    "Can selected complete plans or post-warmup phase behavior leave fewer than three filtered frames, and which scenarios require continuity measurement?",
+    "What upstream source invariants establish finite root positions, valid body rotations and nonzero bone quaternion norms at every admitted capture frame?",
+    "Which missing/invalid/applicable measurement states belong in the canonical current report model and which historical obligations are exact aliases?",
+    "Do later scenario-metric, screenshot, visual and native acceptance paths independently reject each candidate observation gap?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Trace old Observation and current raw frame/metric scalars from selected plan through warmup, continuity/height producers and validation/native exit; full engine provenance is not read."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "P17 uses HeightDistance, SignedLength, NonnegativeLength, AngularMagnitudeDegrees and Observation for distinct roles; current expected height tuple and metric f32 values must be considered at their actual owner and boundary, not assigned one universal wrapper."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Required old measurements reject unavailable and checked historical derived rotation rejects nonfinite; current source keeps explicit independent plan/bone finite gates but local derived measurement availability remains distinct."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Two first-wrap slices can discard an additional review cycle; zero-fold and NaN greater-than comparisons can mask unmeasurable derived data under named conditions."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "A scenario identity, calibration boundary, phase cycle, required bone set, measured range/gain/peaks and complete plan are separate witnesses; equal scalar zero alone cannot establish observation."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Preserve P17 explicit unavailable states, valid zeros and negative signed gain, actual warmup and trailing partial-cycle policy, ragdoll exemptions, independent plan/finite gates and ordered acceptance."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Current height lower/upper values and peak counts match P17 authored scenario choices for the displayed cases; 0.75 gain ratio, angle and displacement thresholds are separate scenario policy decisions, not blanket numerical-equivalence evidence."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Assigned old helpers branch on typed ScenarioId/ScenarioKind/ScenarioFeature; no string-dependent classifier found in these bodies. Open label admission is bounded contextual support, not blanket concern."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "The prefilter and each phase helper both derive a warmup boundary from the same phase stream; tracing the second application is necessary to maintain one intended calibration authority."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "No safe derive or boilerplate replacement established from these bounded source slices; Observation semantics and named scenario bounds are behavioral state."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Old Observation distinguishes measured, unavailable and not applicable; current scalar metric fields and booleans erase some witness details. `expected_visual_height` None remains an explicit legitimate applicability choice."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Height distance, signed contact-to-passing gain, angular magnitude, sample coverage and expected peak count have different semantic and admissibility roles; do not equate physical ranges with generic unit fractions."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial source-family assessment; no whole-lens completion or prior-reader transfer",
+      "assessment": "Scenario classification and plan determine applicability, metric producer owns coverage and derived values, validation consumes them, and native writer owns final output. Central agent owns cross-family ledger alias/repair reconciliation."
+    }
+  ],
+  "publication_qualification": "Losslessly recoverable evidence and reconstructed selections are not original checkpoint3821 or product validation. Central owns baseline, connected repair ledger and publication.",
+  "product_changes": false,
+  "implementation": false,
+  "builds_tests_runtime_probes": false
+}

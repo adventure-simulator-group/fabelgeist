@@ -1,0 +1,715 @@
+{
+  "schema": "delegated-bespoke-audit-evidence-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11T21:04:03.025874+00:00",
+  "scope": "Original role 2435 plus explicitly registered bounded current support; thirteen perspectives are local only, not thirteen whole-lens completions.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_equality": "Both exact Git bodies separately obtained and SHA/Git blob checked identical; one full current copy displayed, no separate historical read inferred.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "c364d5637eeb072d3ed7403cf98956386b1e705c70a4ac271ec0089554c47c84"
+  },
+  "role_records": [
+    {
+      "original_index": 2435,
+      "path": "vendor/bevy_ahoy/src/lib.rs",
+      "current_source": "source/95e6-lib.rs",
+      "historical_source": "source/6533-lib.rs",
+      "fresh_personal_display_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "fresh_personal_display_path": "source/95e6-lib.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          420
+        ],
+        [
+          421,
+          552
+        ]
+      ],
+      "unread_assigned_ranges": [],
+      "historical_body_personal_display_ranges": [],
+      "historical_qualification": "Historical source archived separately and independently Git checked; identical body displayed only once at current revision. Prior other reviewer credit never transferred."
+    }
+  ],
+  "support_registrations": [
+    {
+      "path": "support-registration-01.json",
+      "sha256": "7d553a422d529a3948f26debfa3147b519bdc8b40feeaaad01c51bfb50821f54"
+    },
+    {
+      "path": "support-registration-02.json",
+      "sha256": "6027d19416a75ddadcbcff88e598305f5970db94e23504501bdf1c310733d663"
+    }
+  ],
+  "support": [
+    {
+      "path": "vendor/bevy_ahoy/Cargo.toml",
+      "local_path": "support/00-Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "01c89a0e0b79fb3c3b4eeb375b06827df0e81d6696b3b2df8fdd282f4fa8c4ef",
+      "actual_body_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "vendor/bevy_ahoy/src/camera.rs",
+      "local_path": "support/01-camera.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3ca7ef4508a3f74830192327e26973f4fadfccc4fc747d8021e7e06422a6391b",
+      "actual_body_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        8,
+        33,
+        37,
+        47,
+        59,
+        75,
+        76,
+        77,
+        79,
+        87,
+        88,
+        92,
+        93,
+        94,
+        150,
+        158,
+        163,
+        176,
+        197,
+        198
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "vendor/bevy_ahoy/src/kcc.rs",
+      "local_path": "support/02-kcc.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "actual_body_ranges": [
+        [
+          1,
+          230
+        ],
+        [
+          970,
+          1060
+        ],
+        [
+          1260,
+          1338
+        ],
+        [
+          1610,
+          1645
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        19,
+        20,
+        39,
+        46,
+        47,
+        50,
+        57,
+        102,
+        111,
+        112,
+        113,
+        118,
+        120,
+        164,
+        183,
+        198,
+        200,
+        219,
+        311,
+        312,
+        356,
+        361,
+        372,
+        380,
+        409,
+        413,
+        454,
+        458,
+        574,
+        580,
+        583,
+        584,
+        593,
+        599,
+        605,
+        616,
+        620,
+        627,
+        633,
+        641,
+        646,
+        703,
+        704,
+        707,
+        715,
+        717,
+        719,
+        735,
+        757,
+        768,
+        815,
+        908,
+        951,
+        962,
+        992,
+        1052,
+        1214,
+        1223,
+        1224,
+        1326,
+        1446,
+        1467,
+        1483,
+        1484,
+        1501,
+        1511,
+        1512,
+        1538,
+        1541,
+        1560,
+        1561,
+        1619,
+        1628,
+        1635,
+        1637,
+        1638,
+        1641,
+        1643,
+        1644
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "vendor/bevy_ahoy/src/input.rs",
+      "local_path": "support/03-input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3b0f3cbaed495fdf4a14d0c1efd66be88681040a229587334d5bab58df8401df",
+      "actual_body_ranges": [],
+      "navigation_only_displayed_line_numbers": [
+        4,
+        6,
+        108,
+        112,
+        115,
+        116,
+        117,
+        131,
+        135,
+        136,
+        145,
+        157,
+        169,
+        175,
+        184,
+        192,
+        209,
+        226
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "vendor/bevy_ahoy/src/dynamics.rs",
+      "local_path": "support/04-dynamics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "e8fadb295c0bb98d67236738831137d03e7a92d2a308422c06451421b3ea6693",
+      "actual_body_ranges": [],
+      "navigation_only_displayed_line_numbers": [
+        3,
+        19
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "local_path": "support/05-physics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "actual_body_ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          295,
+          485
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        6,
+        64,
+        65,
+        68,
+        71,
+        74,
+        88,
+        89,
+        94,
+        95,
+        96,
+        99,
+        100,
+        108,
+        122,
+        136,
+        163,
+        205,
+        209,
+        237,
+        240,
+        277,
+        295,
+        341,
+        396,
+        398,
+        403,
+        405,
+        411,
+        468,
+        500,
+        586,
+        588,
+        636,
+        638,
+        650,
+        694,
+        698,
+        699,
+        753,
+        764,
+        785,
+        949,
+        952,
+        1001,
+        1018,
+        1028,
+        1040,
+        1045,
+        1047,
+        1051,
+        1054,
+        1055,
+        1057,
+        1058,
+        1072,
+        1086,
+        1099,
+        1100,
+        1102,
+        1144,
+        1172,
+        1173,
+        1523,
+        1557,
+        1558,
+        1606,
+        1617,
+        1628,
+        1639,
+        1650,
+        1667,
+        1687,
+        1699,
+        1704,
+        1711,
+        1715,
+        1720,
+        1722,
+        1726,
+        1730,
+        1734
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/lib.rs",
+      "local_path": "support/06-lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "244fd713d736e5e7da01d379afdcae5c77cd5705016504d882221057490eef26",
+      "actual_body_ranges": [],
+      "navigation_only_displayed_line_numbers": [
+        144,
+        145
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "local_path": "support/07-player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "actual_body_ranges": [
+        [
+          180,
+          240
+        ],
+        [
+          390,
+          435
+        ],
+        [
+          745,
+          785
+        ],
+        [
+          1150,
+          1185
+        ],
+        [
+          1370,
+          1420
+        ],
+        [
+          2005,
+          2030
+        ],
+        [
+          2143,
+          2154
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        23,
+        58,
+        82,
+        93,
+        117,
+        128,
+        160,
+        199,
+        209,
+        211,
+        212,
+        222,
+        224,
+        225,
+        226,
+        407,
+        423,
+        769,
+        770,
+        1174,
+        1176,
+        1178,
+        1197,
+        1202,
+        1206,
+        1277,
+        1329,
+        1339,
+        1364,
+        1373,
+        1401,
+        1403,
+        1408,
+        1490,
+        1537,
+        1538,
+        1551,
+        1556,
+        1557,
+        1559,
+        1560,
+        1594,
+        1609,
+        1649,
+        1662,
+        1697,
+        1762,
+        2020,
+        2021,
+        2151,
+        2325,
+        2332,
+        2442,
+        2455,
+        2643,
+        2689,
+        2727,
+        2728,
+        2730,
+        2861,
+        3181,
+        3224,
+        3225,
+        3240,
+        3241,
+        3277,
+        3296,
+        3297,
+        3315,
+        3316,
+        3319,
+        3332,
+        3333,
+        3449,
+        3453
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+      "local_path": "support/08-replication.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+      "actual_body_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        45,
+        175
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player.rs",
+      "local_path": "support/09-player.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "actual_body_ranges": [
+        [
+          420,
+          495
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        15,
+        173,
+        435,
+        487,
+        537
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "local_path": "support/10-rig.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "actual_body_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "navigation_only_displayed_line_numbers": [
+        6,
+        32,
+        34
+      ],
+      "unread_qualification": "Full Git object preserved; only listed body ranges and sparse navigation matches displayed. No role or full-support credit for other lines."
+    }
+  ],
+  "navigation_receipts": [
+    {
+      "path": "support-navigation-physics.txt",
+      "sha256": "6532b95dc37b12ea7100c83a6dbab113d3e432f5f7af1764064e660d3a9887ff",
+      "qualification": "Exact sparse matching lines personally displayed after registration; not whole-function/body credit."
+    },
+    {
+      "path": "support-navigation-general.txt",
+      "sha256": "8cb946b1a3e63df71a2add3e569403e7c8c34f1ee2edb1cdeb3d88b95ca2f2e9",
+      "qualification": "Exact sparse matching lines personally displayed after registration; not whole-function/body credit."
+    },
+    {
+      "path": "support-navigation-player.txt",
+      "sha256": "ad2d327a4f69cba7af65894700b19dcb65c10b592b8bac6e6468896b02b8d9c6",
+      "qualification": "Exact sparse matching lines personally displayed after registration; not whole-function/body credit."
+    },
+    {
+      "path": "support-navigation-camera.txt",
+      "sha256": "7510b186eb06938cbb06791985faac1390301d2211ee5dd0721f7d304253e695",
+      "qualification": "Exact sparse matching lines personally displayed after registration; not whole-function/body credit."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "parallel-l12-20261029/READ-FUTURE-PAR-L12-819-ORIGINAL2435.json",
+      "author": "/root/lens12_frontier",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "qualification": "Original prospective out-of-order personal full read carried zero ordered credit then; segovb/READ-L12-819 adopts it once when ordered, with no root reread, no global/other-lens credit. Numeric admission and current source remained separately pending."
+    },
+    {
+      "record": "segovb/READ-L11-403.json",
+      "author": "original historical own Lens11 reviewer (segovb receipt; no reassignment)",
+      "revision": "pr-working, Git source matched 6533",
+      "ranges": [
+        [
+          282,
+          331
+        ],
+        [
+          332,
+          352
+        ],
+        [
+          353,
+          369
+        ]
+      ],
+      "qualification": "Fresh bounded windows; actual native producer and MoveHitData consumers pending. Later segovb/READ-L11-569 adopts only same-lens 332–369 for e275 with no agent/root personal reread or inherited verdict."
+    },
+    {
+      "record": "older 774 SEGOVB-INITIAL04-CONTRACT-583",
+      "author": "SEGOVB as named by contract",
+      "revision": "pr-working source hash a0b156...; exact Git source at 6533/95e independently matches",
+      "ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "qualification": "Full personally read L04 and bounded KCC 145–195 plus cached Bevy 0.19.1 stopwatch 115–165 per old record; claimed no findings and qualified arbitrary shapes/config, no SDK execution. Record itself does not spell out full source revision, so do not replace its pr-working identity with a new revision."
+    },
+    {
+      "record": "older 774 CONT07-CONTRACT-564",
+      "author": "CONT07 record; individual personal author not specified",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "ranges": [
+        [
+          282,
+          331
+        ]
+      ],
+      "qualification": "Earlier L07 body explicitly source-backed; look and movement-state orientation not shown to be same current fact. No new local findings or cross-lens credit."
+    },
+    {
+      "records": [
+        "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "authors": [
+        "camera supplier",
+        "native supplier"
+      ],
+      "revision": "pr-working identity as recorded; SHA matches 6533 and 95e vendor object",
+      "ranges": [
+        [
+          282,
+          331
+        ]
+      ],
+      "qualification": "Original full supplier JSONL retained and manifest verified, not reconstructed summaries. Exact native receiver proof directly describes CharacterLook conversion. Do not transfer their personal source credit or other historical P16 source chronology."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 4,
+      "id": "CONT08-MOTOR-FAILURE-UPDATE-ORDER",
+      "status_as_recovered": "open-reconciliation",
+      "relationship": "Motor failure/update ordering is neighboring motor family; this setup-loop condition has a different trigger and scope, not automatically an alias."
+    },
+    {
+      "index": 1560,
+      "id": "Q-L12-1d38d69a4d3f33d858ec",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "relationship": "Physics config, actuator, native Ahoy and zero-delta producer/consumer obligations remain open. KCC platform divide is an additional bounded support observation, not proof of the specified mismatch condition or automatic alias."
+    },
+    {
+      "index": 1632,
+      "id": "Q-L12-8b54f55dbc540b8b185d",
+      "status_as_recovered": "open-evidence-or-disposition",
+      "relationship": "Garden diagnostic default versus authored config remains a separate provenance question; tactical factory overrides vendor defaults."
+    },
+    {
+      "index": 2345,
+      "id": "REVIEW-L1-CAMERA-QUERY-POPULATION-HISTORY-POLICY",
+      "status_as_recovered": null,
+      "relationship": "Existing custom-multicamera support-policy finding relates to camera population, but disabled-smoothing early return is a distinct conditional behavior and no ordinary multiple-camera witness is established."
+    }
+  ],
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "354dd5c0dca7bd1a5605c1e7fdf5d6f0cedd0744d495560952ef5c36bf0ea47a"
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "91f92d1e0f356160a66303112b24bc51a3cce10906cac38ff20e217d31252824"
+  },
+  "older_774_selection": {
+    "path": "reference/older-774-selection.json",
+    "sha256": "b7b773706c6f65f466333c00318bc8695bf5a041b0b27b1124026d46420faf6f"
+  },
+  "findings_and_relationships": [
+    {
+      "candidate_id": "REVIEW-AHOY-COLLIDER-SETUP-POPULATION-95E",
+      "status": "conditional source finding; reachability and policy unproved",
+      "owner": "vendor/bevy_ahoy/src/kcc.rs setup_collider, with supported Fabelgeist actor lifecycle owner to be established",
+      "first_contract": "Under a pass containing multiple eligible controllers, a failed Collider query for an earlier controller must not prevent later independently valid controllers from receiving their own setup.",
+      "trace": [
+        "lib.rs 153–165 requires CharacterControllerDerivedProps and native components; 384–394 describes derived collider state.",
+        "kcc.rs 41–67 iterates eligible controllers and returns from the system on failed collider get; lines 68–102 derive collider/filter and queue the completion marker.",
+        "kcc.rs 106–122 and 159–201 uses controller state/derived props in the kcc context; this source does not itself prove when a skipped actor runs or SDK default-collider semantics.",
+        "Current player_projection.rs 2012–2021,2150–2151 creates a tactical controller and cylinder. The observed source does not produce a disabled/missing collider, prove multiple candidates or stable iteration order."
+      ],
+      "condition": "One matching controller refers to a collider not returned by the query, an independent eligible controller follows it in that invocation; persistence across passes additionally requires the failure and ordering to persist. The source log mentions Disabled as one possible cause but reachability is not established.",
+      "future_repair_direction": "Clarify admitted actor/collider lifecycle and initialization policy, preserve per-actor diagnostics and retry, and prevent one actor from suppressing unrelated ready actors if such populations are supported. Later authorized acceptance should cover failed actor plus valid peer and recovery when collider becomes available, without using tests during this audit.",
+      "history": "No exact collider setup identity found in searched recovered queue contract descriptions or selected old supplier records; q4 is connected motor failure ordering, not the same proof. Central ledger owns alias determination."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "The public camera sync loop returns after a disabled-smoothing camera (camera.rs 102–123), which could skip later cameras only if such a population is supported and occurs in that order. Current player.rs 432–487 uses a Single gameplay camera and CameraOf::new defaults smoothing true. q2345 concerns unsupported/custom multicamera history policy; separate conditional question, not a proven production incident or automatic alias.",
+    "KCC 1326 divides platform movement by time.delta_secs() when calculate_platform_movement is reached. Actual schedule/time and producer reachability of zero delta were not established; q1560 already requires an actual reachable mismatch/zero-delta chain, and its case is not proved or closed by this observation.",
+    "KCC mantle helper 992–996 adds shape radius to offsets, and lib.rs 437 returns Infinity for HalfSpace. The ordinary player producer uses cylinder; native supported shape restrictions/other actor producers and impact remain open, so no ordinary invalid-shape or overflow finding.",
+    "Historical original L04 583 reports Bevy Stopwatch saturating elapsed addition from exact 0.19.1 source; I did not inspect that SDK source and do not claim independent verification. Preserve the original bounded attribution and source/runtime qualifications.",
+    "Current native package version 0.2.0 and pickup/serialize feature declarations are visible in registered Cargo.toml 12–58; effective feature unification and target/SDK behavior were not established.",
+    "Direct/serde/Reflect admission of arbitrary invalid floats and rotations remains a policy question; one finite validated server input path does not prove all producers or untrusted reflection are reachable.",
+    "Assessed vendor dynamics.rs/input.rs/core lib.rs only sparse navigation matches, not full body reads. Native Avian/Bevy source, scheduling, actor failure producer, all consumers and 059 queue aliases beyond bounded searches remain open."
+  ],
+  "lens_notes": {
+    "producer_propagation": "Server validate_player_input normalizes finite look to Radians then projects at the actual Ahoy CharacterLook boundary; native camera and KCC consume and replicate it. Tactical speed/config may be updated before Ahoy solver. Only exact bounded producer/consumer paths inspected; other producers and native SDK behavior remain open.",
+    "type_ownership": "Vendored Bevy/Avian controller owns native ECS components, collider and quaternion ports; Fabelgeist owns tactical movement configuration and validated player inputs. No blanket conversion of third-party native structures is justified by their raw fields.",
+    "type_granularity": "Controller config, retained state, derived colliders and transient per-step output have different roles; grounded/mantle options and their timers are not interchangeable. A separate finite frame or support-shape contract requires actual caller policy.",
+    "admission_contracts": "Public and optional serde/Reflect native fields permit direct construction in this library; normal server input explicitly rejects nonfinite look, wraps yaw and clamps pitch. That admission cannot prove all reflected, deserialized, direct or camera producers valid. Supported collider and configuration policies remain open.",
+    "invariant_operations": "Defaults feed motion and native shape operations. KCC updates orientation and clocks, and derives colliders. HalfSpace radius intentionally Infinity; actual supported actor shape must be known. Historical contract 583 alone documents a scoped saturating Stopwatch native read; it is not my native SDK read.",
+    "enum_shapes": "Option<grounded> and Option<mantle> represent distinct locomotion facts; crouching selects collider and can coexist with state. No mutually exclusive whole-state sum type established; shape variants are Avian native enum.",
+    "aggregate_states": "Standing/crouching/hand colliders derive from controller plus one collider; supported dimensions and readiness across failed setup need an explicit coherent state policy. setup early-return is a conditional per-population failure, not demonstrated ordinary reachability.",
+    "magic_numbers": "Controller defaults carry distinct physical values and durations; Fabelgeist tactical factory overrides several including motor ownership. Zero acceleration and friction are intentional handoff to tactical motor, not automatic missing behavior. Range/invariant admission at all factories remains pending.",
+    "magic_strings": "Feature flags, include documentation, doc aliases and tracing diagnostics are native configuration or display leaves; the assigned body has no business string API. Do not infer string-lens closure elsewhere.",
+    "existing_type_owners": "Reuse Radians upstream of native CharacterLook, preserve native boundary conversion and distinct frame/shape semantics. Existing speed and duration types should be traced at actual producer and recipient before proposing broader propagation.",
+    "redundant_authority": "CharacterLook is current input while CharacterControllerState.orientation is movement state updated from look or transform, not proven independently competing same fact. Tactical motor and Ahoy acceleration roles are explicitly coordinated in factory; other schedules remain pending.",
+    "behavior_preservation": "Preserve typed valid yaw/pitch projection, roll-preserving camera apply versus zero-roll to_quat, optional look fallback, exact native shape meanings, sentinel timers and transient tactical authority. Repair guidance must preserve valid per-actor setup and retry semantics.",
+    "derivability": "Derives on components and optional serialize are feature-gated, native framework adapters; actual trait contracts and feature unification were not independently resolved, so no boilerplate rewrite is claimed."
+  },
+  "limitations": [
+    "Source inspection and evidence-integrity checks only; no implementation, tests, builds, execution, browser, probes, simulation, or product validation.",
+    "All source references are to exact registered 95e objects unless expressly identified otherwise. Historical records remain historical, never promoted to checkpoint3821.",
+    "Central coordinator owns authoritative baseline, cross-lens reconciliation, acceptance, connected repair ledger and publication."
+  ]
+}

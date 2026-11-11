@@ -1,0 +1,663 @@
+{
+  "schema": "726-delegated-quality-rules-report-v1",
+  "created_utc": "2026-11-11 21:05:56 UTC",
+  "status": "bounded source assessment; all thirteen repository-wide lenses incomplete; no product validation or implementation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "earlier_059_current_assessment_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "older_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger and queue unavailable; 059 and 774 are earlier records and are never promoted."
+  },
+  "scope": "Role 2354 personally displayed in full at both pinned revisions. Role 2434 personally displayed only the exact prospectively registered ranges; all remaining source lines explicitly unread. Whole-byte parsing, deltas, hashes and retained source do not confer full personal body-read credit. Connected consumers are bounded support only.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "23a6333f6a4b7be77d4ebbdb2c5ec37e8978f2d23d7d4cb4cff36fd859062fc1"
+    },
+    "selected-registration.json": {
+      "sha256": "890656bad960244d8791d8c94b97d70823a3685d1937ba0e1eff84469ae3421e"
+    },
+    "pattern-registration.json": {
+      "sha256": "b0eaa0a8542742e7836ce33d63c28ec6171d4df8a0e777a5f54b63a15e260e95"
+    },
+    "support-registration.json": {
+      "sha256": "cb23c7cc80e13475b4e21b3760954372ed834bdfbb1a2893e2c3be84ba466ebc"
+    },
+    "support-registration-2.json": {
+      "sha256": "48cae38efb2ee79f9b784f2d8c60dc2e8f32e95001b0e61af0bd6f705287f2cf"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "4ddc5ce6d4ab6a73419d4281d3d6ef3fb7f42c2c9370f8084b63dff99fd41dd2"
+    },
+    "historical-e275-registration.json": {
+      "sha256": "83d118bc02e8384d44bec59c3adf80cb747a1f46296478fd3b1fc11889911c3d"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2354,
+      "path": "crates/strategic-web/AGENTS.md",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/AGENTS.md",
+      "historical_source": "sources/6533/crates/strategic-web/AGENTS.md",
+      "current_sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "historical_sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "current_git_blob": "ec2bb5a23913cc293692f21cf3e8b48576aae1f4",
+      "historical_git_blob": "ec2bb5a23913cc293692f21cf3e8b48576aae1f4",
+      "byte_identical": true,
+      "current_line_count": 39,
+      "historical_line_count": 39,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "current_unread_ranges": [],
+      "historical_unread_ranges": [],
+      "reader": "current-session delegate /root/rig_identity; source ranges displayed after prospective registration; archived bytes and structural parse do not confer personal full-body read",
+      "structural_parse_only_entire_file": false
+    },
+    {
+      "original_role": 2434,
+      "path": "rust-quality-baseline.toml",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/rust-quality-baseline.toml",
+      "historical_source": "sources/6533/rust-quality-baseline.toml",
+      "current_sha256": "8e83b77456e90d3ad376eda65cc6fc23ddf8123acf15b2bbea103191db52fb38",
+      "historical_sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "current_git_blob": "c0db7a6f165eeb9f0ab8c89cfc26ea2d427a3f81",
+      "historical_git_blob": "50cad5a054fb06e3e75c68966a6b8c42ba84c348",
+      "byte_identical": false,
+      "current_line_count": 12812,
+      "historical_line_count": 12847,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          525,
+          544
+        ],
+        [
+          820,
+          850
+        ],
+        [
+          3230,
+          3265
+        ],
+        [
+          3280,
+          3310
+        ],
+        [
+          6983,
+          7017
+        ],
+        [
+          9461,
+          9509
+        ],
+        [
+          9992,
+          10020
+        ],
+        [
+          12738,
+          12812
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          525,
+          544
+        ],
+        [
+          565,
+          580
+        ],
+        [
+          830,
+          860
+        ],
+        [
+          2280,
+          2300
+        ],
+        [
+          2388,
+          2400
+        ],
+        [
+          3258,
+          3293
+        ],
+        [
+          3308,
+          3338
+        ],
+        [
+          7011,
+          7045
+        ],
+        [
+          8643,
+          8658
+        ],
+        [
+          9496,
+          9544
+        ],
+        [
+          10027,
+          10055
+        ],
+        [
+          12773,
+          12847
+        ]
+      ],
+      "current_unread_ranges": [
+        [
+          101,
+          524
+        ],
+        [
+          545,
+          819
+        ],
+        [
+          851,
+          3229
+        ],
+        [
+          3266,
+          3279
+        ],
+        [
+          3311,
+          6982
+        ],
+        [
+          7018,
+          9460
+        ],
+        [
+          9510,
+          9991
+        ],
+        [
+          10021,
+          12737
+        ]
+      ],
+      "historical_unread_ranges": [
+        [
+          101,
+          524
+        ],
+        [
+          545,
+          564
+        ],
+        [
+          581,
+          829
+        ],
+        [
+          861,
+          2279
+        ],
+        [
+          2301,
+          2387
+        ],
+        [
+          2401,
+          3257
+        ],
+        [
+          3294,
+          3307
+        ],
+        [
+          3339,
+          7010
+        ],
+        [
+          7046,
+          8642
+        ],
+        [
+          8659,
+          9495
+        ],
+        [
+          9545,
+          10026
+        ],
+        [
+          10056,
+          12772
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity; source ranges displayed after prospective registration; archived bytes and structural parse do not confer personal full-body read",
+      "structural_parse_only_entire_file": true
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/AGENTS.md",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "current_source": "support/crates/AGENTS.md",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/AGENTS.md",
+      "historical_sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/config.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "39c47caab802ebfd7fac9e7fe4431c95f850b82fe4aed4ad144fc623b474aa83",
+      "current_source": "support/crates/fabelgeist-rust-quality/src/config.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-rust-quality/src/config.rs",
+      "historical_sha256": "39c47caab802ebfd7fac9e7fe4431c95f850b82fe4aed4ad144fc623b474aa83",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "current_source": "support/crates/fabelgeist-rust-quality/src/analyze.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          125
+        ],
+        [
+          158,
+          315
+        ],
+        [
+          320,
+          430
+        ],
+        [
+          945,
+          978
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-rust-quality/src/analyze.rs",
+      "historical_sha256": "c2493fa9ef6a4189e7e7f4e65dfe63895c952137311aa2ffac6e14e502fc46fa",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/main.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "current_source": "support/crates/fabelgeist-rust-quality/src/main.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-rust-quality/src/main.rs",
+      "historical_sha256": "88554dff8e59f2d11a96cb35e16b6a9c1c0ded514c17802df98c9f0b6982d42e",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "current_source": "support/crates/fabelgeist-rust-quality/src/scan.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-rust-quality/src/scan.rs",
+      "historical_sha256": "e7e87476917f162adedf94b0e9c279796b3ecb0e1e867c51717a3aa37a03f500",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-rust-quality/Cargo.toml",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "4d56c125de69bd16834bd650945e1c8aa63d555d8b807f89710d614b093160ae",
+      "current_source": "support/crates/fabelgeist-rust-quality/Cargo.toml",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-rust-quality/Cargo.toml",
+      "historical_sha256": "4d56c125de69bd16834bd650945e1c8aa63d555d8b807f89710d614b093160ae",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "rust-quality.toml",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5",
+      "current_source": "support/rust-quality.toml",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          180,
+          200
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/rust-quality.toml",
+      "historical_sha256": "9d0d3916352c4808958a17c7c58e323d8f1a5cc4cc104ab40807be5ed6fa3c15",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/corpse.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "current_source": "support/crates/adventuresim-stdb-module/src/corpse.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          380,
+          455
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/corpse.rs",
+      "historical_sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-fbx/src/animation.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+      "current_source": "support/crates/fabelgeist-fbx/src/animation.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          90,
+          170
+        ],
+        [
+          175,
+          215
+        ],
+        [
+          245,
+          305
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-fbx/src/animation.rs",
+      "historical_sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/material.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "current_source": "support/crates/fabelgeist-hair/src/material.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          105,
+          155
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output is retained separately; snippets do not add body-range credit.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/fabelgeist-hair/src/material.rs",
+      "historical_sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only. Exact full archived bytes and hash identity do not expand personal read or other-lens credit."
+    }
+  ],
+  "recovered_history": {
+    "adler_2354": "Adler READ-L11-378/REG1220 records original frozen strategic AGENTS 1\u201339 as a fresh full rule read. It is a rule source, not executable body coverage.",
+    "delegated_2354": "READ-L12-777 records /root/lens12_frontier prospectively personally full 2354 1\u201339 at 6533 under PAR322. Root personal rereads empty, adoption is not a fresh root read, accepted unique delta 0 and current source unreconciled.",
+    "segovb_2434": "Root Segovb READ-L11-402/REG1323 records full 6533 baseline 1\u201312847 as the union of six exact untruncated READ-L11-402-PARTIAL-001 through -006; earlier partial records did not credit completion. Connected config REG1324/1325 and analyzer/main REG1326/1327 have their original independent scopes. The final receipt retains pending native quality-rule/current/alias questions and no product validation.",
+    "delegated_2434": "READ-L12-819/REG-PAR443 credits /root/lens12_frontier historical 6533 full 1\u201312847 from nine exact untruncated partial receipts. Its final fresh portion is 12481\u201312847; previously assessed 1\u201312480 is qualified same-lens partial union, not a fresh full reread. The earlier unbounded truncated attempt is preserved as zero credit. Root personal rereads empty, other-lens transfer 0 and current-source unreconciled.",
+    "earlier_e275_059": "q2940/READ-194 attributes /root/lens11_reconcile personal e275 1\u2013180; q3442/READ-196 attributes fresh e275 remainder 181\u201312833, raw 181\u2013500 plus lossless grouped ordered field values 501\u201312833, reusing prior same-lens prefix only. The complete catalogue scope is a qualified union, not a fresh whole reread; it grants no scanner, code, current95e or other-lens clearance. Root adoption READ730/732 does not change reviewer attribution. Exact e275 source bytes are independently recovered and Git proved but not personally displayed now.",
+    "older_774": "For role2354, camera owner additional-sources zero-based row375 records 1\u201339 under CAM-OWN-ROUTE-SOURCE-054; rig RIG-PPS-038 /fresh_current_source_reads/6 records full 1\u201339, while CONT-CAMERA-PP-008 /exact_source_proofs/6 and rig continuation /source_dispositions/6 explicitly verify/reuse that proof rather than claim fresh reads. For role2434, root owner coverage zero-based row25 / physical line26 records full 1\u201312847 under ROOT-OWNER-METADATA-001 and classifies it native-format metadata, not application owner clearance. Preserve pr-working snapshot, source hash and historical attribution; f82 is transport only.",
+    "prior_current": "Prior /root/rig_identity strategic-scripts and scene reports and /root/mhr_character report/registrations remain distinct; this structural metadata observation about MHR path relocation transfers no source author, exact alias or credit.",
+    "reconstruction": "registry-selection-reconstructed.json selects the two rows from the earlier exact registry; it is not an original checkpoint3821 ledger/queue. Original 059 queue/ledger/transport and 774 receipts remain separate from new parsed metadata and this report.",
+    "source_delta": "Strategic AGENTS is byte-identical 6533/95e. Quality baseline differs: exact diff and structural multiset delta retained; changed ceilings appear as removed/added pairs. Current rust-quality.toml support differs from 6533; remaining nine supporting source objects are byte-identical. Historical support bodies were not personally displayed."
+  },
+  "findings_and_connected_questions": [
+    {
+      "id": "QUALITY-MATCH-PATTERN-SPACE-FINGERPRINT-95E",
+      "classification": "newly assessed bounded current quality-tool source finding; no historical exact alias established",
+      "title": "Match-pattern fingerprinting removes spaces inside string literals",
+      "source": [
+        "crates/fabelgeist-rust-quality/src/scan.rs:140-159,284-305,320-329,356-369",
+        "crates/fabelgeist-rust-quality/src/analyze.rs:158-168,175-185,207-213,386-401",
+        "crates/adventuresim-stdb-module/src/corpse.rs:426-440",
+        "crates/fabelgeist-fbx/src/animation.rs:182-193,286-290",
+        "rust-quality-baseline.toml:6983-6988,7004-7016,9461-9480,9489-9508"
+      ],
+      "trace": "For a match arm, visit_expr_match converts the pattern to tokens, compact_tokens removes every ASCII space from the resulting token text, and quoted_strings reparses that text before reading string literals. Thus spaces inside literals are removed along with formatting whitespace. The current corpse source matches left arm and right arm, while the exact current baseline rows record leftarm and rightarm. The FBX match accepts Lcl Translation, while its collect_layer baseline records LclTranslation; the separate if-let takes path and baseline retain the spaced spelling. validate_findings keys baseline occurrences by rule, path, item and fingerprint.",
+      "conditions": "The source establishes a lossy identity transform and matching baseline examples. A whitespace-only alteration of a match literal can leave the same normalized fingerprint and count when the same scope still allows the finding and rule/path/item and other occurrences stay unchanged; that is conditional static reasoning, not an observed edit, executed scanner, stale-check result or validated product incident. Different values can collapse only within the same finding key fields; the example contrasts source and metadata without asserting an actual duplicate entry.",
+      "future_repair_direction": "Extract literal values directly from the original syntax tree rather than whitespace-normalized source text, preserve exact decoded string identity and intentionally retain native format boundaries. Reconcile impacted existing baseline keys and count changes as part of the later authorized repair; do not weaken deliberate boundary-adapter scopes or treat a baseline tuple alone as a product defect.",
+      "relationships": [
+        "059 q3442 reviewed complete e275 catalogue as metadata and explicitly left the named scanner/actual implementation independent; it did not prove this 95e consumer behavior. Segovb READ-L11-402 inspected the 6533 baseline and analyzer/config but did not credit scan.rs body or identify this exact match-pattern first failure. Targeted historical inventories located the relevant old tuples but no proven exact alias; central owns full reconciliation."
+      ]
+    },
+    {
+      "id": "QUALITY-BASELINE-DUPLICATE-CONSUMER-KEY-QUESTION",
+      "classification": "existing 059 READ-L11-402 admission question narrowed by new structural inventories, not an active duplicate finding",
+      "title": "Both pinned catalogues have unique consumed keys",
+      "source": [
+        "crates/fabelgeist-rust-quality/src/config.rs:62-89,147-155",
+        "crates/fabelgeist-rust-quality/src/analyze.rs:158-168,225-236,265-282,386-401"
+      ],
+      "trace": "Baseline deserialization uses vectors of debt and finding records, while the current analyzer collects file, function and finding keys into maps. The full-byte independent TOML structural inventory finds no duplicate consumed keys, no missing function identity, and no nonpositive ceiling or occurrence value in either pinned baseline.",
+      "conditions": "These properties concern the two exact parsed byte snapshots, not a scanner result, actual source sizes, equality of all files or proof that arbitrary alternate baselines cannot contain duplicate keys. The displayed consumer has no demonstrated separate baseline uniqueness admission in this bounded scope; whether rejection is a required policy remains open.",
+      "future_repair_direction": "Clarify and enforce one authoritative admission policy only if duplicate or malformed baseline records are disallowed; preserve exact rule/path/item/fingerprint identities, valid optional file item fields and intentional no-growth ceiling semantics.",
+      "relationships": [
+        "Segovb READ-L11-402 already recorded vector-to-map duplicate semantic-key admission as an open question, with no accepted defect. This independent 95e/6533 structural inventory rejects an actual duplicate in these exact snapshots only; it does not erase the historical uncertainty or establish broader parser guarantees."
+      ]
+    },
+    {
+      "id": "STRATEGIC-INTERFACE-OWNERSHIP-CONTRACT",
+      "classification": "documented bounded nonfinding and cross-lens ownership constraint",
+      "title": "The strategic interface rules retain separate presentation and authority owners",
+      "source": [
+        "crates/strategic-web/AGENTS.md:3-5,23-37",
+        "crates/AGENTS.md:21-44,69-71"
+      ],
+      "trace": "The unchanged strategic rules apply to in-world strategic interfaces, exclude the tactical interface and character selection, require one persistent Bevy canvas/runtime, assign continuous 3D interaction to Bevy and document/forms/accessibility to HTML, and require semantic commands and stable IDs while strategic state remains in server and database owners. Rust rules independently call for meaningful bespoke types and explicit boundary conversion.",
+      "conditions": "These are authoring contracts; they do not verify any inspected renderer, HTML flow, current product behavior or tactical server lifecycle. The tactical interface exclusion must not be silently converted into a repository-wide exemption.",
+      "future_repair_direction": "Apply these scope and ownership rules when central reconciles existing scene, identity, observer and presentation issues; preserve original owners, stable identities and strategic/tactical authority boundary.",
+      "relationships": [
+        "Prior /root/rig_identity scene and strategic-scripts packets contain separately attributed source assessments of the persistent renderer and native command identities. The rule itself grants no executable-source coverage, repair acceptance or runtime evidence."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "Whole-file structural parsing yields 207/481/1368 file/function/finding records at 95e and 209/485/1369 at 6533. Every record has the expected key shape; selected per-record source ranges alone were personally displayed.",
+      "source": [
+        "rust-quality-baseline.toml:1-7,829-842,3238-3250"
+      ]
+    },
+    {
+      "text": "The current baseline has no duplicate file paths, function (path,item) keys, or finding (rule,path,item,fingerprint) keys, and no nonpositive parsed ceilings/counts; the same holds for the exact 6533 snapshot. This is structural extraction, not a product or scanner check.",
+      "source": [
+        "crates/fabelgeist-rust-quality/src/config.rs:62-89",
+        "crates/fabelgeist-rust-quality/src/analyze.rs:158-168,225-236,274-282,386-401"
+      ]
+    },
+    {
+      "text": "A stored ceiling is an authored maximum, not current production size. The analyzer compares live scanned counts against it, rejects stale entries, and its existing source test describes shrinkage remaining below a saved ceiling as intentional. No test was executed.",
+      "source": [
+        "crates/fabelgeist-rust-quality/src/analyze.rs:225-260,274-315,945-977"
+      ]
+    },
+    {
+      "text": "Finding keys group by rule, path, item and fingerprint; an occurrence total is not unique audit repair identity. Scopes, native format tokens and human labels need their own producers and authority.",
+      "source": [
+        "crates/fabelgeist-rust-quality/src/analyze.rs:158-168,386-401,419-430",
+        "crates/fabelgeist-rust-quality/src/scan.rs:140-159"
+      ]
+    },
+    {
+      "text": "The analyzer makes machine-epsilon a separate audited-exception rule instead of baseline allowance, and the census command is advisory. These source paths do not establish any runtime checker outcome.",
+      "source": [
+        "crates/fabelgeist-rust-quality/src/analyze.rs:94-101,175-180,320-346",
+        "crates/fabelgeist-rust-quality/src/main.rs:31-45"
+      ]
+    },
+    {
+      "text": "The structural delta moves two MHR fingerprint records from character.rs to character/skeleton.rs and character/skin.rs; the metadata alone neither establishes functional equivalence nor transfers previous MHR source authorship.",
+      "source": [
+        "rust-quality-baseline.toml:10000-10012"
+      ]
+    }
+  ],
+  "open_questions": [
+    "What exact literal-string identity and token normalization should the quality scanner preserve across match patterns, if-let patterns, comments, escapes and external format strings?",
+    "Should invalid duplicate baseline keys be rejected at admission, and how should this differ from deliberately grouped occurrences?",
+    "Which same-path ceiling and fingerprint changes correspond to source moves versus changed behavior, and what reconciliation is required before any later authorized baseline refresh?",
+    "Are Fixture, AuthoredCatalog and ShaderSource scopes intentionally treated differently from BoundaryAdapter for match-arm pattern literals despite record_branch suppressing all four? No mismatch is asserted until the policy and actual scoped source examples are reviewed.",
+    "What is the exact relationship of existing MHR path-relocation records to the original reviewer findings? No alias or behavior transfer follows from metadata alone.",
+    "Full current and historical quality-baseline body remainder remains personally unread; affected production source, actual scanner results and all-lens/global repair ledger remain separate obligations."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "A Rust syntax match pattern flows through compacted token text into a lossy finding fingerprint and baseline keyed comparison; address this distinct scanner/metadata boundary without treating listed paths as source coverage."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Baseline rule/path/item/fingerprint/count tuples describe quality policy input; they are not application gameplay types or new canonical semantic owners. Semantic commands and IDs remain owned by actual strategic/native boundaries."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Exact TOML arrays parse successfully in structural extraction, and consumed keys are unique in both snapshots; general duplicate admission and policy remain open. Config scopes/exceptions carry their own validation."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Whitespace normalization inside quoted match literals changes the very string being keyed, potentially conflating distinct source patterns. Ceiling comparison is a separate numeric no-growth policy."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "File and function debt, finding identities, occurrence counts, scanner state and scoped exceptions are independent. An incomplete or parsed-only baseline is not a completed source audit or validation result."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Preserve legitimate external FBX identifiers, exact spaces, scope boundaries, intentional no-growth debt and the persistent strategic presentation/authority split in any future coordinated repair."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "500/100 policy values are authored checker limits, not game dimensions. Ceilings and counts describe metadata and cannot prove actual size without authorized scanning; 0/1 scope rules have distinct native meaning."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Raw-string finding labels can refer native file-format keys or human text; they require the named source owner. Match pattern string fingerprints must preserve their contents without conflating token-format whitespace."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "The baseline snapshot and actual scanned findings are different historical policy and current observation inputs. A stored row alone does not supersede scanner facts or another lens ledger."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Config types intentionally use Serde/TOML metadata representations; no safe derive replacement or application schema owner is shown by this bounded review."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "ScopeKind is a typed closed set; fixture, catalog, shader and boundary-adapter semantics differ. The match-pattern and if-condition paths treat scope kinds differently, and intended parity needs a separate owner decision."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Rule, path, item and fingerprint jointly identify a finding; occurrence count and debt ceiling have separate roles. Similar MHR fingerprints at moved paths require explicit semantic comparison, not automatic alias."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Quality scanner owns its fingerprinting contract; baseline owns stored policy entries; strategic rules constrain in-world presentation ownership. Central agent reconciles actual repair owner and historical identifiers."
+    }
+  ],
+  "limitations": [
+    "Role2354 each pinned revision personally displayed fully; role2434 only actual current/historical ranges listed in original_roles were displayed. Exact unread complements are recorded there.",
+    "Structured parsing/delta and duplicate-key inventories consume whole exact baseline bytes as evidence-only metadata; they are not claimed as human-style personal body display, a product run or scanner validation.",
+    "All historical support and e275 bodies were archived solely for identity/proof; none were personally displayed in this assignment. 95e rust-quality.toml differs from its 6533 object.",
+    "No product source edits, repairs, builds, lint, scanner, tests, browsers, service calls, runtime probes, fixtures or simulations.",
+    "No actual scanner output, changed source, escaped-literal impact, production failure, player impact or exact new alias was observed.",
+    "Final checkpoint3821 ledger/queue remain unavailable; earlier originals, prior summaries, reconstructed metadata and newly assessed work retain their own revisions and attributions."
+  ]
+}

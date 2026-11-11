@@ -1,0 +1,33 @@
+{
+  "schema": "726-evidence-incident-and-restoration-v1",
+  "scope": "A temporary, already-frozen delegated P17 metrics packet; not the user's read-only extracted evidence collection.",
+  "reported_collision_utc": "2026-11-11 21:23:17 UTC",
+  "incident": "A second delegate mistakenly used the occupied packet directory when preparing roles 2458–2459, overwriting register.py and registration.json and adding four new source copies. The delegate stopped, moved its own prospective registration and four added source copies to its uniquely named packet, and removed only those added copies from the first packet. No pre-existing source-body filename was reported overwritten.",
+  "later_delegate_prospective_registration": {
+    "scope": "roles 2458–2459, separately attributed to /root/hair_ops",
+    "sha256": "2fe917162dc7fecf5df5ea159dd5f591ab542de58a5d5587f9d4f099d4e1e787",
+    "qualification": "The same timestamped registration bytes existed before that delegate displayed its source chunks; the later move preserved the hash and was not a retroactive registration."
+  },
+  "original_packet": {
+    "agent": "/root/mhr_character",
+    "scope": "report-p17 original roles 2452–2453",
+    "unchanged_manifest_sha256": "37bcb5b846b69729e3de0128bc6b57537badfe1e523795fa680eeb84fbe4c2bc",
+    "original_manifest_files": 82,
+    "restored_files": [
+      {
+        "name": "register.py",
+        "sha256": "fbe533e38d5945fe599cf23bd41d48b56d3cd96353328a69d453c319ec05ad47",
+        "method": "The original author reversed the known path and role substitutions in the second delegate's derived script. The reconstructed bytes matched the original manifest hash before restoration."
+      },
+      {
+        "name": "registration.json",
+        "sha256": "c155ec39edbdf13e894f34dbb35c3a4ecf844d3016e57fe65ac30b88c9af4f3c",
+        "method": "The original author ran the recovered registration script in a separate scratch directory against the same Git objects and registry, using the original timestamp 2026-11-11T21:17:57.071596+00:00 from the previously displayed exact record. Reconstructed bytes matched the original manifest hash before restoration. This was evidence reconstruction, not product execution."
+      }
+    ],
+    "verification": "The original author and the central coordinator each independently checked the final inventory and byte lengths and SHA-256 hashes of all 82 manifest-listed files; no extra or missing files remained. The manifest itself retained its original hash. This proves final equality to that frozen manifest, not that no other file was ever touched during the incident."
+  },
+  "recovery_qualification": "The restored bytes are reconstructed to the original manifest digests, rather than represented as an uninterrupted original copy. Original source revisions, reviewer attribution, prospective registration and unread scopes are unchanged. The user's extracted 28ba directory was not written or restored onto.",
+  "product_implementation": "not started",
+  "product_validation": "not performed"
+}

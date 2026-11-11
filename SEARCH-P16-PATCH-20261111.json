@@ -1,0 +1,15 @@
+{
+  "schema": "726-bounded-recovery-search-v1",
+  "object": "The patch bytes recorded for the frozen physical-p16 dirty snapshot",
+  "recorded_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+  "historical_context": "The recovered original registry records base HEAD a120390947c89b703dc74c4255a13c035d054c50, a dirty status and this patch digest. The dirty snapshot is not identified with that clean commit.",
+  "search": {
+    "locations": ["older ae46 evidence target collection", "user-provided 28ba target collection, read-only"],
+    "method": "Enumerated hidden and ignored files in these two collections and SHA-256 hashed files with .patch or .diff suffix and size at most 100,000,000 bytes.",
+    "files_hashed": 7156,
+    "bytes_hashed": 1196853550,
+    "matches": 0
+  },
+  "qualification": "No match was found in this bounded suffix, size and location search. Other names, archives, larger files and other locations were not excluded; the recorded patch digest is not a recovered patch. Individual P16 source objects may independently match clean-base or current Git bytes without proving the whole dirty delta clean or restored.",
+  "product_validation": "not performed"
+}

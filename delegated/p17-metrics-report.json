@@ -1,0 +1,441 @@
+{
+  "schema": "726-delegate-source-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:19:58.274608+00:00",
+  "scope": {
+    "roles": [
+      2452,
+      2453
+    ],
+    "authoritative_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "frozen_P17": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "P17_registry_snapshot_pointer": "/snapshots/2",
+    "original_current_2453_path_absent": true,
+    "identity_evidence": [
+      "registration.json",
+      "git-proofs.json",
+      "git-absence-proofs.json",
+      "older-continuation-index.json"
+    ],
+    "personal_receipt": "read-receipt.json",
+    "support_receipt": "support-read-receipt.json",
+    "test_bodies_unread": [
+      "P17 metrics 410–1184",
+      "current metrics 1284–2050"
+    ],
+    "qualification": "Whole exact source bytes are archived but unread ranges do not receive personal or ordered-role credit; P17 and current source are different objects. Tests source only, no execution."
+  },
+  "historical_provenance": [
+    {
+      "source": "059 segovb/READ-L11-406.json and REGISTRATION-SEGOVB-1347",
+      "author": "segovb, lens 11",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "range": [
+        1,
+        1184
+      ],
+      "qualification": "Earlier reviewer states full P17 body incl source-only tests; this agent personally displayed only 1–409."
+    },
+    {
+      "source": "059 segovb/READ-L11-407.json and REGISTRATION-SEGOVB-1348",
+      "author": "segovb, lens 11",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "range": [
+        1,
+        182
+      ],
+      "qualification": "Earlier historical clearance analysis, other rows of batch remain their own roles."
+    },
+    {
+      "source": "059 READ-PARTIAL-PAR-L12-827, PROPOSAL-L12-827, READ-L12-827 and REGISTRATION-PAR-L12-461",
+      "author": "/root/lens12_frontier, lens 12",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": [
+        [
+          1,
+          555
+        ],
+        [
+          556,
+          1184
+        ]
+      ],
+      "qualification": "Partial no ordered credit then continuation: earlier fresh 556–1184 and qualified previous 1–555; no transfer to this author."
+    },
+    {
+      "source": "059 PROPOSAL-L12-828, READ-L12-828 and REGISTRATION-PAR-L12-462",
+      "author": "/root/lens12_frontier, lens 12",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "range": [
+        1,
+        182
+      ],
+      "qualification": "Earlier full fresh role body; no transfer."
+    },
+    {
+      "source": "774 native coverage rows 289/628 and 290/629, NATIVE-OWNER-REPORT-METRICS-005",
+      "author": "native historical supplier",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "2452 1–1184; 2453 1–182",
+      "qualification": "Recovered original and separately path-normalized exports; historical supplier source responsibility does not imply repair ownership or later-lens credit."
+    },
+    {
+      "source": "774 SEGOVB-INITIAL04-CONTRACT-587 and CAMERA-INITIAL07-F065 row64",
+      "author": "segovb operations summary and original camera reviewer",
+      "revision": "P17 90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696 for 587; original camera pr-working head 6533e444fa37552927070cc8d8190907fd3b413e with recorded frozen working snapshot qualification",
+      "qualification": "Original 587 is a historical contract summary explicitly cross-referencing canonical F065; no captured custom run. Records copied and two older local transport copies compared."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E",
+      "classification": "Independent corroboration of /root/hair_ops conditional observation; first discovery attribution retained; no automatic ledger identity or historical checkpoint credit.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "archive": "source/support-2.rs",
+          "lines": [
+            [
+              18,
+              47
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+          "archive": "source/support-3.rs",
+          "lines": [
+            [
+              61,
+              68
+            ],
+            [
+              86,
+              89
+            ],
+            [
+              106,
+              125
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/current-2452.rs",
+          "lines": [
+            [
+              119,
+              135
+            ],
+            [
+              200,
+              201
+            ],
+            [
+              229,
+              239
+            ],
+            [
+              966,
+              1007
+            ],
+            [
+              1010,
+              1045
+            ],
+            [
+              1155,
+              1182
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-4.rs",
+          "lines": [
+            [
+              146,
+              152
+            ],
+            [
+              256,
+              260
+            ],
+            [
+              291,
+              297
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              20,
+              24
+            ],
+            [
+              67,
+              94
+            ],
+            [
+              444,
+              454
+            ],
+            [
+              480,
+              493
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              140,
+              162
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+          "archive": "source/report-p17-2453.rs",
+          "lines": [
+            [
+              21,
+              45
+            ],
+            [
+              47,
+              90
+            ],
+            [
+              92,
+              135
+            ],
+            [
+              140,
+              182
+            ]
+          ]
+        }
+      ],
+      "trace": "CaptureGround::Terrain requests optional terrain height at each bone. Missing height becomes None; contact/toe clearance and terrain-relief metric functions omit absent samples, then use scalar zero when no finite samples survive. ScenarioMetrics retains those values; selected terrain nonpenetration and vertical range gates can evaluate zero as a measured value. P17 clearance explicitly carries unavailable per required missing bone or clearance, no-contact unavailable and no-flight NotApplicable instead. Model finite-transforms gate checks position/rotation rather than this clearance. Some IK support absences already produce required_ik_support errors independently.",
+      "conditions": "Only if a supported selected scenario requires one or more such foot/toe observations and its capture yields absent terrain support or no required applicable contact samples; an out-of-grid foot while root remains admitted is a source-permitted candidate, not a demonstrated supported trajectory. Some missing samples may be hidden by a partial aggregate; direction of its bias is not assumed. Other independent gates and artifacts may reject. No full accepted report, defect severity, supported missing footprint or runtime outcome established.",
+      "direction": "Establish the selected-scenario applicability and supported missing-ground producer first; then maintain measured/unavailable/nonapplicable through capture, metrics, derived acceptance bound and consumer. Retain authored-plane and off-mode semantics, independent thresholds and other gates. This is a future repair direction only.",
+      "relationships": [
+        "First attributed to /root/hair_ops in prior-packets/viewer-limits.tar.gz; this independent observation adds assigned-source and current support proof, no duplicated finding count.",
+        "Historical 059 q562, q565, q1216, q1231, q1236 left related provenance/policy open; those are not exact aliases.",
+        "Historical P17 partial availability resembles older SEGOVB-INITIAL04-CONTRACT-586 and CONT07-CONTRACT-566, but applicability and acceptance differences prevent automatic aliasing.",
+        "Earlier CAPTURE-GROUND-CLEARANCE-ADMISSION-95E in prior-packets/p17-capture.tar.gz concerns present but nonfinite derived clearance; distinct from absent valid terrain support."
+      ]
+    },
+    {
+      "id": "CAMERA-INITIAL07-F065",
+      "classification": "Previously recorded canonical discrepancy; assigned current and P17 source independently corroborate, no new unique count.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/current-2452.rs",
+          "lines": [
+            [
+              947,
+              964
+            ],
+            [
+              966,
+              1007
+            ],
+            [
+              1098,
+              1115
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+          "archive": "source/report-p17-2453.rs",
+          "lines": [
+            [
+              21,
+              45
+            ],
+            [
+              47,
+              90
+            ]
+          ]
+        }
+      ],
+      "trace": "Flight sole clearance subtracts fixed 0.085 metres; contact clearance and reported support use measured_ankle_sole_offset_metres(). P17 flight and contact preserve the same separate geometric authorities. Original camera record at older-continuation/camera-initial07-findings.jsonl row64 attributes its custom-config path and counterexample to the earlier reviewer and pr-working source, not this personal support reading.",
+      "conditions": "Old record identifies default agreement and an admitted 0.1 m custom setting as a static 0.015 m difference; no test or actual capture was performed. P17 config installation was not independently established; no output threshold crossing or ordinary bad run asserted.",
+      "direction": "Reconcile one configured or captured generation-specific ankle-to-sole measurement between flight and contact while preserving different support selection and independent acceptance limits; applicability and missing-data policies remain separate.",
+      "relationships": [
+        "SEGOVB-INITIAL04-CONTRACT-587 explicitly identifies this existing canonical CAMERA-INITIAL07-F065 alias with no new unique count.",
+        "Historical original source object has same SHA256 as pinned current metrics, but original reviewer and pr-working snapshot remain separately attributed.",
+        "Earlier 774 acceptance preserving raw absence/sentinels was scoped to this offset repair; the distinct missing-terrain observation requires policy reconciliation, not automatic rejection or substitution."
+      ]
+    },
+    {
+      "id": "METRIC-OPTIONAL-COVERAGE-OPEN-95E",
+      "classification": "Open cross-lens source observation, not a claimed additional finding.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/current-2452.rs",
+          "lines": [
+            [
+              76,
+              116
+            ],
+            [
+              149,
+              157
+            ],
+            [
+              421,
+              447
+            ],
+            [
+              588,
+              610
+            ],
+            [
+              642,
+              670
+            ],
+            [
+              1063,
+              1117
+            ],
+            [
+              1257,
+              1270
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/report-p17-2452.rs",
+          "lines": [
+            [
+              38,
+              79
+            ],
+            [
+              306,
+              362
+            ]
+          ]
+        }
+      ],
+      "trace": "Various predicates and extrema handle absent bones/directions differently: both-feet-behind resets and eventually false; minimum inter-foot separation filters missing frames; dive-axis error folds missing projections to zero; root-relative range and step can fold missing samples to zero. Quickstep return in reported_support_contacts makes its later nested quickstep toe branch unreachable. These local conditions do not by themselves show the selected full report admits missing required evidence or that the unreachable branch violates intended policy.",
+      "conditions": "Exact planned capture and required-bone admission, legitimate scenario modes, final gate scope, partial cohorts, and existing aliases need tracing; prior 059 READ-L11-406/407 and /root/mhr_character biomechanics report already preserved several distinct observations.",
+      "direction": "For each selected measurement, decide what completeness and availability evidence its owning consumer requires before retaining a numeric extremum; preserve intended nonapplicable modes and independent policy. No blanket wrapper or merged contract is implied.",
+      "relationships": [
+        "059 q565 and q1231 are historical open navigation, not proof of exact identity.",
+        "Prior /root/mhr_character biomechanics independently recorded dive-axis issue; not an additional unique finding here.",
+        "Original 059 reviewer segovb and /root/lens12_frontier recorded the quickstep branch and qualified policy as unresolved."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "P17 authored-phase contact when procedural solve is inactive is an explicit measurement mode, not a compatibility path.",
+    "P17 no-flight and no-contact are intentionally distinct; a missing value must be judged in scenario context.",
+    "Current minimum_foot_clearance returns -1.0 when no finite foot clearance survives, unlike current contact/toe zero; do not generalize one sentinel across all collectors.",
+    "Required IK support produces an error in selected paths and many independent report gates remain; local zero cannot establish a complete accepted report."
+  ],
+  "open_questions": [
+    "Which supported scenarios require every foot/toe observation and can an actual planned subject position reach missing terrain support while root and all other gates remain valid?",
+    "Can sampled partial missing observations affect a final acceptance decision, and what does the actual output consumer intend for no-flight/no-contact?",
+    "Which configuration instance or generation owns ankle-to-sole measurement in P17 and current, and does an actual supported non-default capture cross any independent bound?",
+    "Do remaining source children, chronology and selected plan guarantee complete cohorts, finite directions and nonzero quaternions before downstream predicates?",
+    "How should prior F065 repair acceptance preserving sentinels be reconciled with independently established missing-observation policy without conflating contracts?",
+    "Test bodies and imported child metric modules are unread by this agent, so neither their coverage nor whole-lens completion is asserted."
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Capture stores optional raw ground clearance; finite bone transforms alone do not admit its derived value. Missing and invalid conditions remain distinct.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Partial scenario samples can be omitted while survivors define a numeric aggregate; required cohort/selected-scenario policy and independent checks remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 uses explicit unavailable/not-applicable and current uses numeric sentinels. Respect current legitimate flight/contact/IK modes when reconciling and do not assume P17 can be installed as a current fix.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No personally established safe derivation or boilerplate removal; current scalar and P17 typed families have different observation semantics.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Foot side, support/contact/flight and present/unavailable/not-applicable are distinct; local booleans do not alone prove an invalid state or required enum.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "P17 SignedLength/HeightDistance and Observation encode related unit/availability semantics; current reuse requires exact owner/frame/admission and consumer compatibility.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Fixed flight subtraction and configured contact offset corroborate known F065; prior nonfinite derived-clearance admission remains a separate arithmetic closure.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "0.085 has an existing geometric owner under F065; support/contact thresholds and independent acceptance tolerances are not automatically aliases.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Metrics grouping uses ScenarioMetadata and BoneRole; side labels in local policy are not proved runtime business identity. Test-only string inventory unread personally.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Current optional terrain producer → BoneSample → metrics → scenario and validation is traced in bounded support; supported capture route and every output consumer remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Known flight/contact offset discrepancy corroborated; actual P17 configuration installation and any other independently stored measurements remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Signed clearance, terrain relief, relative height, angle and sample applicability carry different units, frames and conditions; no single generic optional float supplies all contracts.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Current source assigns measurement/acceptance to metrics and report policy; exact canonical repair owner and whether support footprint is required must be settled centrally.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection and evidence integrity only; no product builds, tests, fixtures, viewers, browsers, probes, simulations, shader execution or repairs.",
+    "Old records and older summaries retain authors, revisions, ranges, and pending qualifications; no checkpoint3821 reconstruction or credit inferred.",
+    "Central agent owns ordered-role, exact alias, ledger and publication decisions."
+  ]
+}

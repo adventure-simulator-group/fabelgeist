@@ -1,0 +1,28 @@
+{
+  "schema": "726-redacted-original-evidence-qualification-v1",
+  "entries": [
+    {
+      "original_059_transport_path": "segovb/READ-L12-818.json",
+      "public_member": "historical-059/segovb/READ-L12-818.json",
+      "original_sha256": "800b37f3b4744b175d34e25019f71f6875d18c9dfb92e906afa143cb2ed0de0f",
+      "original_git_blob": "049bc5edfcca8a36d6f49ad00e71ae6fe23eccbe",
+      "original_bytes": 10834,
+      "published_sha256": "193b542b8505bff1a40497c9926d4af8193834d7d7fbf5b9c830adde2a11791a",
+      "local_path_redactions": 1,
+      "read_only_extraction_verification": "Original SHA-256, length and Git blob independently rechecked against the user-provided extraction before publication.",
+      "qualification": "The public member is a reconstructed local-path-redacted copy, not byte-identical to the exact 059 original. Original attribution, 6533 scope and original transport hashes remain distinct; not checkpoint3821 evidence."
+    },
+    {
+      "original_059_transport_path": "parallel-l12-20261029/PROPOSAL-L12-818.json",
+      "public_member": "historical-059/parallel-l12-20261029/PROPOSAL-L12-818.json",
+      "original_sha256": "434809485a8384c1bf97ca1d9588c9c0c5cf695b458f5e9d74a5952112c208ad",
+      "original_git_blob": "9f8bcab7e730f5d6ea1e0c7458b997bdfeaa990d",
+      "original_bytes": 10381,
+      "published_sha256": "f1b42bdb60f3bd281776ca8cfad4c7e2bb144524e36a7779aab92f7b5bd520e1",
+      "local_path_redactions": 1,
+      "read_only_extraction_verification": "Original SHA-256, length and Git blob independently rechecked against the user-provided extraction before publication.",
+      "qualification": "The public member is a reconstructed local-path-redacted copy, not byte-identical to the exact 059 original. Original attribution, 6533 scope and original transport hashes remain distinct; not checkpoint3821 evidence."
+    }
+  ],
+  "qualification": "Two 059 records from the scene-tests packet contain one nonessential local path each; their public copies are reconstructed and their exact originals were verified read-only against the original transport."
+}

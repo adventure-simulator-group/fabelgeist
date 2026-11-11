@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-2106.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-2206.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -298,7 +298,18 @@ records central source dispositions and connected ledger relationships.
 source-review bundles. `ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json`
 records their centrally reconciled source scopes and ledger relationships.
 `DELEGATED-EVIDENCE-CHECKPOINT-8.json` preserves nine additional delegated
+source-review bundles. `ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json`
+records central source dispositions and connected ledger relationships.
+`DELEGATED-EVIDENCE-CHECKPOINT-9.json` preserves fifteen additional delegated
 source-review bundles, pending central reconciliation and role credit.
+`EVIDENCE-INCIDENT-20261111-P17-METRICS.json` records an accidental
+temporary packet overwrite, hash-matched reconstruction and full inventory
+verification; the original extraction was not written. P17 metrics and the
+quality baseline retain their expressly partial personal-read qualifications.
+`DELEGATED-CHECKPOINT-9-QUALIFICATION.json` records two public-redacted 059
+records and read-only checks of their exact originals.
+`SEARCH-P16-PATCH-20261111.json` records a bounded unsuccessful search for
+the historical P16 patch; the dirty snapshot remains separately qualified.
 `DELEGATED-CHECKPOINT-5-QUALIFICATION.json` identifies one path-redacted
 059 provenance record and its exact original transport hashes.
 `DELEGATED-CHECKPOINT-4-QUALIFICATION.json` records two exact older

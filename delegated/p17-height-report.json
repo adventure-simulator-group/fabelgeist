@@ -1,0 +1,443 @@
+{
+  "schema": "726-delegate-source-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:25:01.786375+00:00",
+  "scope": {
+    "original_roles": [
+      2456,
+      2457
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "frozen_P17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "P17_registry_snapshot_pointer": "/snapshots/2",
+    "assigned_P17_files_fully_displayed": true,
+    "current_original_paths_absent": true,
+    "qualification": "Two raw Git tree nonmembership proofs establish exact-path absence at 95e; current inlined logic was separately registered and personally displayed as support."
+  },
+  "identity_evidence": [
+    "registration.json",
+    "git-proofs.json",
+    "git-absence-proofs.json",
+    "older-continuation-index.json"
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_receipt": "support-read-receipt.json",
+  "historical_provenance": [
+    {
+      "record": "segovb/READ-L11-407.json and REGISTRATION-SEGOVB-1351/1352",
+      "author": "segovb lens 11",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "guard_liveness 1–108; height 1–254",
+      "qualification": "Historical complete personal reads; batch includes other separately assigned roles."
+    },
+    {
+      "record": "segovb/READ-L12-829.json, PROPOSAL-L12-829 and REGISTRATION-PAR-L12-469/470",
+      "author": "/root/lens12_frontier lens 12",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "guard_liveness 1–108; height 1–254",
+      "qualification": "Earlier fresh personally read full bodies; no transferred credit."
+    },
+    {
+      "record": "774 native source coverage rows 293/632 and 294/633, NATIVE-OWNER-REPORT-METRICS-005",
+      "author": "native historical supplier",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "ranges": "guard_liveness 1–108; height 1–254",
+      "qualification": "Older original and separately path-normalized export preserved; supplier scope is not repair ownership."
+    },
+    {
+      "record": "774 SEGOVB-INITIAL04-CONTRACT-587 and SEGOVB-INITIAL04-CONTRACT-588",
+      "author": "segovb",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "qualification": "Original historical contract summaries preserve explicit reading, finite values, optionality and outstanding chronology; no test/native/GPU execution and no automatic current alias."
+    },
+    {
+      "record": "059 queue entries 565, 873, 876, 1231",
+      "author": "original queue authors and source readers retained within original queue",
+      "revision": "per entry; historical pr-working and P17 contexts must remain separate",
+      "qualification": "Reconstructed navigation subset, not evidence closure or checkpoint3821."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "P17-HEIGHT-DOUBLE-WARMUP",
+      "classification": "Independent source corroboration of /root/rig_identity conditional finding, with P17 assigned height body newly read; no additional unique finding or automatic historical alias.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              81,
+              107
+            ],
+            [
+              398,
+              407
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "archive": "source/report-p17-2457.rs",
+          "lines": [
+            [
+              6,
+              35
+            ],
+            [
+              121,
+              124
+            ],
+            [
+              170,
+              193
+            ],
+            [
+              217,
+              232
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              119,
+              130
+            ],
+            [
+              195,
+              198
+            ],
+            [
+              222,
+              228
+            ],
+            [
+              708,
+              709
+            ],
+            [
+              737,
+              758
+            ],
+            [
+              785,
+              795
+            ],
+            [
+              1272,
+              1281
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+          "archive": "source/support-2.rs",
+          "lines": [
+            [
+              5,
+              14
+            ],
+            [
+              41,
+              48
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs",
+          "archive": "source/support-3.rs",
+          "lines": [
+            [
+              18,
+              32
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios.rs",
+          "archive": "source/support-4.rs",
+          "lines": [
+            [
+              150,
+              174
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-8.rs",
+          "lines": [
+            [
+              75,
+              80
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "archive": "source/support-5.rs",
+          "lines": [
+            [
+              65,
+              79
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+          "archive": "source/support-6.rs",
+          "lines": [
+            [
+              165,
+              172
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-7.rs",
+          "lines": [
+            [
+              126,
+              144
+            ]
+          ]
+        }
+      ],
+      "trace": "For terrain-kind scenarios the parent first applies phase_validation_frames, slicing after the first phase wrap. P17 ScenarioHeightMetrics then applies the same helper again for contact-to-passing height, visual peaks, and phase-height range, on the already filtered frames. Current metrics does the same. When the filtered slice contains another phase wrap, the second call drops all remaining frames through that wrap; a complete first post-calibration cycle in that slice cannot contribute to these three height measures. The adjacent peak-loop comment says every complete post-warmup cycle is independently gated, subject to the explicitly excluded trailing partial cycle.",
+      "conditions": "FlatGridWalk20 and FlatGridRun55 carry FlatGrid, map to Terrain kind, receive a selected three-cycle plan and have current height expectations, as shown by bounded support; a plan does not prove actual captured phase, wrap count or a complete affected cycle. Whether the first post-calibration cycle must count and whether any independent gates reject such a run remain owner/policy questions. No execution, supported phase sequence, rejected/accepted report or runtime impact shown.",
+      "direction": "Resolve one owned calibration boundary and required phase-cycle coverage, retain deliberate trailing partial-cycle exclusion and legitimate non-terrain behavior, and keep independent quality thresholds. Future direction only.",
+      "relationships": [
+        "First attributed to /root/rig_identity; exact prior packet preserved in prior-packets/p17-continuity.tar.gz. Newly read P17 height.rs establishes the nested helper calls independently; the prior agent’s reads remain theirs.",
+        "059 queue entries 565, 873, 876 and 1231 preserve metric/warmup and producer questions; 774 SEGOVB-INITIAL04-CONTRACT-588 and native owner records are related historical scopes, not established exact aliases."
+      ]
+    },
+    {
+      "id": "GUARD-LIVENESS-COVERAGE-OPEN",
+      "classification": "Unresolved policy and cohort evidence question, not an accepted new finding.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+          "archive": "source/report-p17-2456.rs",
+          "lines": [
+            [
+              21,
+              59
+            ],
+            [
+              62,
+              95
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-0.rs",
+          "lines": [
+            [
+              90,
+              99
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              41,
+              53
+            ],
+            [
+              281,
+              390
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-7.rs",
+          "lines": [
+            [
+              115,
+              118
+            ]
+          ]
+        }
+      ],
+      "trace": "Both P17 and current make liveness required only if the first metadata identifies a repeatable procedural raised-guard scenario and every supplied frame exceeds the stationary speed limit. P17 returns NotApplicable otherwise; current returns default required=false, which current gate exempts. A single stationary or slow frame thus affects the whole liveness cohort, but the source alone does not show that any supported intended steady scenario may legitimately produce such a frame. For a required half step, P17 requires swing-foot bone and clearance in every frame; current requires endpoints but filters missing interior clearance before the max. Missing interior samples alone cannot prove a false liveness success or absent terrain policy failure.",
+      "conditions": "Need the authoritative selected-plan coverage, actual speed producer/admission, intended transitions and whether every swing-foot terrain observation is required even after a sufficient observed clearance; other finite, capture, support and geometry gates remain independent.",
+      "direction": "Specify scenario-level applicability and required input cohort from the plan, preserving authored/nonrepeatable/nonmoving modes and the count and visibility bounds; trace real supported producers before accepting any separate repair item.",
+      "relationships": [
+        "059 READ-L11-407 and /root/lens12_frontier L12-829 explicitly left all-moving applicability and sequence coverage pending; no previously resolved finding assumed.",
+        "Related to /root/hair_ops missing-terrain observation and earlier /root/mhr_character capture-admission finding, but this liveness consumer and its possible conservatism differ; no automatic alias or duplicate count."
+      ]
+    },
+    {
+      "id": "HEIGHT-MISSING-AVAILABILITY-COMPARISON",
+      "classification": "Source comparison; current consumer impact or unique alias remains open.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "archive": "source/report-p17-2457.rs",
+          "lines": [
+            [
+              40,
+              59
+            ],
+            [
+              62,
+              87
+            ],
+            [
+              121,
+              167
+            ],
+            [
+              170,
+              214
+            ],
+            [
+              217,
+              231
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "archive": "source/support-1.rs",
+          "lines": [
+            [
+              708,
+              735
+            ],
+            [
+              737,
+              782
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-7.rs",
+          "lines": [
+            [
+              126,
+              144
+            ]
+          ]
+        }
+      ],
+      "trace": "P17 required height samples return typed Unavailable for missing pelvis, missing contact or passing, and no completed peak cycle; current contact/passing height returns zero when no finite cohort survives, and current peak function returns (0,false) on no complete cycle. Current phase-height gate requires positive range, gain and expected peaks, so these zero/false examples alone fail that local expected-height gate; they are not proof of a full-report false pass.",
+      "conditions": "Partial missing observations, current per-frame admission, native output and effect on other gates must be traced independently; P17 is separately frozen evidence, not installed current behavior.",
+      "direction": "Retain genuinely measured values, missing/invalid observations and nonapplicable phases distinctly according to the owning selected-scenario policy; do not turn intentionally disabled gait modes into mandatory measurements.",
+      "relationships": [
+        "Related 774 SEGOVB-INITIAL04-CONTRACT-588 and 059 q1231 preserve historical observation and incomplete-parent questions; earlier current missing-terrain zero is a distinct measurement path."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "P17 returns NotApplicable for liveness outside its explicit applicability predicate, and unavailable for no completed half step; neither case is automatically malformed.",
+    "P17 returns no-completed-cycle unavailable and intentionally ignores trailing incomplete cycle; no claim that all partial cycles must be measured.",
+    "Current phase-owned-height gate rejects zero gain and missing peak witnesses for the explicitly expected scenarios, so missing availability alone does not establish an accepted final report."
+  ],
+  "open_questions": [
+    "Does a selected supported flat-grid capture provide two observed wraps with a complete first post-calibration cycle, and does policy require that cycle to be gated?",
+    "Can a supported intended raised-guard steady cohort contain a low-speed frame, and should it disable all half-step liveness or require a selected-plan applicability boundary?",
+    "When endpoints and enough intermediate swing samples are present, is every terrain clearance required for liveness evidence, and can a supported ground query be unavailable in that interval?",
+    "Do frame plans enforce monotonic time and validated phase progression before elapsed and cycle calculations, and how are root/body frames admitted?",
+    "How do P17 Observation, current acceptance and native/report outputs reconcile without equating historical summaries or sentinel differences?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Height and half-step quantities are checked when built in P17; current scalar collectors differ. Raw positions, clock chronology, and ground support producer contracts remain bounded support questions.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Complete half-step endpoints and interior support/clearance belong to one cohort; phase boundaries and height samples need a single intended review-cycle scope.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Preserve authored/nonrepeatable/nonmoving modes, explicit no-completed-step/no-cycle reasons, trailing partial-cycle exclusion and independent current gates; P17 is historical, not current implementation.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No specific boilerplate removal follows from these source bodies; derived records must retain observation and unit contracts.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Measured, Unavailable and NotApplicable differ; foot side and support ownership must not be replaced by an undifferentiated boolean without tracing payload semantics.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "P17 SignedLength, HeightDistance, UnitInterval and AnimationElapsed convey distinct signed, nonnegative, normalized and temporal contracts; exact current owner reuse needs consumer reconciliation.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Checked P17 derived height and clearance gain preserve finite admission; duration calculation assumes frame chronology, which older 774 explicitly left to outer authority.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "P17 contact/passing phase windows, minimum span and support thresholds encode different policies; do not collapse calibration boundary, thresholds and independent oracles.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Assigned source uses typed ScenarioId, BoneRole and availability reasons; no personally established string-valued business authority within these bodies.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Selected flat-grid plan and classification lead to parent warmup and phase consumers in bounded sources; actual frame producer, complete native/output paths and phase capture remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Parent and phase helpers each derive a warmup boundary from the same stream; keep one intentional policy, while preserving independent acceptance oracle and data coverage.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Root/controller heights, body-relative signed heights, horizontal swing travel, support fractions and frame time have different units, frames and availability.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Central must resolve authoritative scenario and calibration policy, current metric owner, historical observation owner and repair identity; source family responsibility alone is not ownership transfer.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection and evidence integrity only; no repairs, viewer, builds, tests, runtime probes, simulations or product validation.",
+    "Historical originals and summaries retain their reviewers, revisions and limits; do not promote them into checkpoint3821 or transfer personal reads.",
+    "Central agent owns exact alias decisions, source order, connected ledger and publication."
+  ]
+}

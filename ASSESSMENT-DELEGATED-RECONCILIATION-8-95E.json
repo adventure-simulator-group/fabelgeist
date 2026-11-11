@@ -1,0 +1,1605 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+  "source_roles": "ASSESSMENT-DELEGATED-SOURCE-ROLES-8.json",
+  "central_support": "CENTRAL-SUPPORT-EVIDENCE-8.json",
+  "delegated_observations": [
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/health-template-report.json",
+      "finding": {
+        "id": "HEALTH-TIMELINE-REFERENCE",
+        "classification": "Current receiver trace of historical q198",
+        "trace": "The route reads the target current minute and sanitize uses it to select active medications, but MedicalPresentation does not retain that minute. The notebook takes the latest reading as last_minute, passes it as today to relative labels, and labels the last endpoint Today; all event, gap and observation ages are relative to last observation.",
+        "conditions_and_limits": "If the latest authorized observation predates the legitimate observer-relative reference date by at least a day, its displayed age is materially wrong. Which personal frontier is authorized for each viewing context must be resolved rather than blindly using a subject future minute; no live chart was exercised.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                707,
+                725
+              ],
+              [
+                740,
+                764
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/medical.rs",
+            "lines": [
+              [
+                38,
+                47
+              ],
+              [
+                127,
+                131
+              ],
+              [
+                169,
+                169
+              ],
+              [
+                210,
+                223
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                721,
+                728
+              ],
+              [
+                866,
+                891
+              ],
+              [
+                919,
+                997
+              ],
+              [
+                999,
+                1056
+              ],
+              [
+                1091,
+                1105
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Direct continuation of q198 ADLER-L11-MEDICAL-TIMELINE-REFERENCE-DATE and Adler READ-L11-391. Earlier /root/hair_ops and /root/rig_identity source packets remain independently attributed.",
+        "future_repair_direction": "Carry an explicitly authorized reference minute separately from observation extent, preserve observer-relative history and correctly label a stale last reading.",
+        "later_acceptance_criteria": "A last observation older than the viewing reference has an accurate age and does not become Today; trend extents, event placement and observer boundaries remain correct."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/health-template-report.json",
+      "finding": {
+        "id": "HEALTH-INJURY-FAILURE-BLUNT",
+        "classification": "Conditional available-limb versus unavailable-injury type misrepresentation",
+        "trace": "The stats route queries limb and injury projections separately and maps injury query error to an empty list. The health bar takes the first matching injury if present; when none exists, PhysicalDamage assigns all known physical damage to blunt, and bandaged/splinted markers are absent.",
+        "conditions_and_limits": "Requires an available damaged limb and an injury query error (or another absent-row situation whose authoritative contract is unknown). In that case genuine cut, frostbite or fracture would be mislabeled blunt, but no actual failure, database contents or runtime result was observed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                629,
+                633
+              ],
+              [
+                653,
+                660
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                1360,
+                1381
+              ],
+              [
+                1404,
+                1443
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+            "lines": [
+              [
+                37,
+                70
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adjacent to but not automatically identical with q197 ADLER-L11-LIMB-HEALTH-AVAILABILITY: q197 concerns an absent limb projection, while this concerns injury classification when limb health exists. Central decides alias and canonical owner.",
+        "future_repair_direction": "Carry injury-query availability separately from a known empty injury and show unclassified known damage when component evidence is unavailable; align both projections to a consistent observation.",
+        "later_acceptance_criteria": "A failed injury read never turns unknown damage into confirmed blunt or clears treatment state; coherent known injury rows retain correct segments."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/health-template-report.json",
+      "finding": {
+        "id": "HEALTH-LIMB-UNAVAILABLE",
+        "classification": "Current corroboration of historical q197",
+        "trace": "The route maps a failed limb query to an empty vector. If attributes are available, the health rail maps absent limbs to 1.0 for each region, so an unavailable live limb projection appears fully healthy.",
+        "conditions_and_limits": "Requires live query failure or missing row with attributes present. Intentional previews can have a different contract; no actual database failure was tested.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                619,
+                633
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                1179,
+                1198
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Historical q197 and READ-L11-391 already record this finding; prior character-details packet independently connected the same route.",
+        "future_repair_direction": "Distinguish unavailable live limb health from intentional preview and confirmed full health.",
+        "later_acceptance_criteria": "A failed or missing live projection is shown as unknown, while complete records and deliberate previews retain their semantics."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/health-template-report.json",
+      "finding": {
+        "id": "HEALTH-READING-PRECISION",
+        "classification": "Source-proven documentation/representation mismatch; precision policy unresolved",
+        "trace": "The trend projection uses the i16 basis-point value for x geometry and explicitly comments that accessible labels retain exact values. Reading bars and point aria labels divide integer values by 100 before formatting, discarding all sub-percent remainder. For a nonzero magnitude below 100 basis points, the plotted coordinate is displaced but the textual percentage becomes zero.",
+        "conditions_and_limits": "The arithmetic follows directly from source; whether producers can emit such non-whole-percent values and whether disclosure should preserve that precision remain open. The comment is stronger than the shown accessibility representation; no accessibility tooling or product behavior was run.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                744,
+                764
+              ],
+              [
+                807,
+                826
+              ],
+              [
+                847,
+                863
+              ],
+              [
+                1091,
+                1117
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/medical.rs",
+            "lines": [
+              [
+                57,
+                65
+              ],
+              [
+                132,
+                151
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adler READ-L11-391 noted signed integer conversion and left precision policy pending. This is a current source comparison, not an inferred duplicate accepted finding.",
+        "future_repair_direction": "Decide the authorized observation precision and align visual, textual and accessible representations and their documentation.",
+        "later_acceptance_criteria": "If sub-percent variation is meaningful, equivalent exposed readings retain it accessibly; if deliberately rounded, the chart and explanation do not promise exact values."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/health-template-report.json",
+      "finding": {
+        "id": "HEALTH-GAP-ADMINISTRATION",
+        "classification": "Existing prior-session policy candidate independently confirmed at receiver",
+        "trace": "The chart plots administration starts/stops whose timestamps fall between the first and last observations and shows labels for gaps as Not in party. It does not exclude event timestamps inside a gap. The medical route grants administration history to self or an observer with any chart row and sanitize retains the returned administrations.",
+        "conditions_and_limits": "Requires separated observation spans and an administration event within the gap. Whether authorization for any observation intentionally grants complete history is an unsettled product and privacy policy; no actual disclosure, patient record or runtime behavior was observed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                707,
+                739
+              ],
+              [
+                767,
+                773
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/medical.rs",
+            "lines": [
+              [
+                127,
+                131
+              ],
+              [
+                169,
+                180
+              ],
+              [
+                210,
+                223
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                913,
+                917
+              ],
+              [
+                929,
+                992
+              ],
+              [
+                999,
+                1057
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Same DELEGATE-MEDICAL-GAP-EVENT-DISCLOSURE-95E previously assessed by /root/hair_ops in web-data and independently reconnected by /root/rig_identity in web-medical. Their complete retained packets retain their own readers and scopes. q179, q193 and q198 are adjacent, not automatic exact aliases.",
+        "future_repair_direction": "Decide whether history is complete or limited to authorized observation/presence and observation band; enforce the chosen policy at the source while preserving self access.",
+        "later_acceptance_criteria": "All timeline events follow the decided visibility policy across gap boundaries and observation bands, without confusing data unavailability and an empty history."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/health-template-report.json",
+      "finding": {
+        "id": "HEALTH-SEGMENT-COHERENCE",
+        "classification": "Conditional projection coherence question, normal owner alignment confirmed",
+        "trace": "PhysicalDamage partitions a present injury as cut, frostbite and max(bruise, fracture), capping each against physical health damage; the surgery owner computes projection from the same components and treats fracture as part of blunt. Under coherent nonnegative values the segment sum tracks the projected physical damage. The route obtains injury and limb values independently, however, so a mismatched snapshot can leave unrepresented damage or misleading classification.",
+        "conditions_and_limits": "A stale, unavailable or otherwise inconsistent pair must reach the receiver; separately fetched rows alone do not prove such a snapshot arose. Normal coherent owner-derived data and fracture-within-blunt are explicit nonfindings.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+            "lines": [
+              [
+                102,
+                116
+              ],
+              [
+                187,
+                190
+              ],
+              [
+                222,
+                250
+              ],
+              [
+                276,
+                292
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                619,
+                633
+              ],
+              [
+                653,
+                660
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+            "lines": [
+              [
+                37,
+                70
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                1360,
+                1379
+              ],
+              [
+                1397,
+                1407
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to q179 observer snapshot and q197 availability, but this is not established as either exact defect. Earlier reviewer Lens12 already qualified native aggregate and source invariants.",
+        "future_repair_direction": "Specify and preserve a consistent availability/snapshot contract for the related projections and leave unknown portions unclassified when needed.",
+        "later_acceptance_criteria": "A coherent injury projection partitions correctly and a missing or inconsistent component cannot be silently asserted as a different known injury type."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/skill-templates-report.json",
+      "finding": {
+        "id": "REVIEW-READING-TRAINING-PREVIEW-OMITTED-95E",
+        "classification": "new bounded source-derived presentation mismatch; no observed player session or executed product",
+        "first_contract": "The selected-book preview records a positive literacy-based reading rate and the Reading row passes it as training_multiplier, but activity_training_cell matches no reading_minutes arm and defaults to an empty breakdown. It therefore emits an empty data-training-rates, no-skill-training title, zero-hour accessible text and dash for the reading training cell even when a readable advancing book and positive effective reading allocation are present.",
+        "sources": [
+          "templates/settlement/character_skills.rs:651-779,1196-1210,1227-1231,2236-2279,2301-2310,2342-2348",
+          "adventuresim-core/src/book.rs:6-10,67-73,83-119",
+          "adventuresim-stdb-module/src/time/schedule.rs:411-415,641-721",
+          "strategic-web/static/training-schedule.js:156-181,315-333"
+        ],
+        "conditions": "Preview has a qualifying selected book, positive medium effective rank and positive effective reading time; the missing match arm yields an empty server-side training breakdown irrespective of the rate. Client code reads the same empty rates after preview updates. The native schedule source can apply book training under its own eligibility and cap checks; no claim is made that actual gain always equals the simple uncapped rate, because a book may finish or a later title may be chosen. No runtime/browser/build/test or actual inventory/session was inspected.",
+        "relationship": "q200 concerns dispatching Prayer semantics by human label; both meet activity_training_cell but are distinct first failures. q540 reward enum and q2491 fame parity are also separate. Searched 059 queue and root current assessments for the reading-preview no-training case; no exact prior alias found, but central review owns final reconciliation.",
+        "future_repair_direction": "After the audit gate, propagate the selected reading target and its rate through the native training-preview contract, define how finite book caps and title changes affect an estimate, and preserve legitimately unavailable or zero-reading behavior."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/skill-templates-report.json",
+      "finding": {
+        "id": "ADLER-L11-TERRAIN-FAMILY-HOURS-CARDINALITY",
+        "current_assessment": "REVIEW-TERRAIN-FAMILY-HOURS-CARDINALITY-001",
+        "classification": "recovered q199, corroborated by prior current assessment and this independent source read; not a new issue",
+        "sources": [
+          "templates/settlement/character_skills.rs:88-107,1260-1358,1911-1945,1971-2003",
+          "templates/settlement/character_skills/rank.rs:31-75"
+        ],
+        "detail": "Six terrain entries feed direct mean divided by six and effective sum divided by five. Tooltip constructs correlated hours from effective minus direct and emits accessible and structured fields; for finite positive effective sum the effective aggregate is 20% above the six-entry mean. The actual terrain rank separately averages six capped ranks. No skill gain, stored hours or gameplay effect is inferred.",
+        "relationship": "Exact q199 Adler and earlier 95e REVIEW-TERRAIN-FAMILY-HOURS-CARDINALITY-001; keep their attribution and statuses; this is corroboration only."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/skill-templates-report.json",
+      "finding": {
+        "id": "ADLER-L11-ACTIVITY-TRAINING-LABEL-DISPATCH",
+        "classification": "recovered q200; current source relationship",
+        "sources": [
+          "templates/settlement/character_skills.rs:1215-1225,2244-2255"
+        ],
+        "detail": "Prayer and Meditation share prayer_minutes, but training preview selects Religion by comparing human label to Prayer. Separate semantic activity intent from display wording; no label localization or user-visible error is observed. Reading omission is distinct."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/skill-templates-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-PROFESSION-PREVIEW-REWARD-ENUM-STRING",
+        "classification": "recovered q540; current source relationship",
+        "sources": [
+          "templates/settlement/character_skills.rs:528-569,806-868"
+        ],
+        "detail": "Existing ActivityReward Gold/Fame is retained as string and compared to fame before choosing preview values. It is an owner-fit issue, not established fame parity or runtime discrepancy."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/skill-templates-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-COMBAT-GOVERNING-APTITUDE-PROSE-CONDITION",
+        "classification": "recovered q543; current source relationship",
+        "sources": [
+          "templates/settlement/character_skills.rs:1758-1803"
+        ],
+        "detail": "Description prose is compared to Agility to choose a family governing label; preserve existing typed aptitude owner and distinguish display string from semantic decision."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/trade-templates-report.json",
+      "finding": {
+        "id": "DELEGATE-EQUIPMENT-REPLACEMENT-SET-VISIBILITY-95E",
+        "classification": "new current source finding conditional on authored/persisted data, graph state, action admission and intended replacement-legibility policy; aliases and repair ownership unresolved",
+        "title": "The equipment key can identify only one of multiple displaced items",
+        "source": [
+          "content/items/catalog.yaml:724-768,1192-1227,9211-9246",
+          "crates/adventuresim-core/src/equipment.rs:25-36,121-130",
+          "crates/adventuresim-core/src/item_catalog_schema.rs:147-180,183-199",
+          "crates/adventuresim-core/src/item_catalog_fit.rs:35-45",
+          "crates/adventuresim-stdb-module/src/item.rs:140-162,290-301",
+          "crates/strategic-web/src/spacetimedb/types.rs:821-905",
+          "crates/strategic-web/src/templates/settlement/trade/equipment.rs:433-448,568-605,607-617,750-763",
+          "crates/strategic-web/static/equipment-toggle.js:32-42,90-99,118-162,175-230,272-285,413-428",
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:278-329",
+          "crates/adventuresim-stdb-module/src/character/occupancy.rs:63-120",
+          "crates/adventuresim-stdb-module/src/character.rs:2857-2876,2941-2971,3098-3110"
+        ],
+        "trace": "The authored burgonet occupies rigid-armor head and the gorget occupies rigid-armor neck, so the canonical conflict predicate allows them to coexist. The barbute occupies head, face and neck, and conflicts with both. The shared t input addresses all three body locations. For one placement, template inputOccupants collects at most one conflicting occupant per requirement and then chooses only the maximum occupant for that input; the generated keyboard option can therefore carry just one of the two displaced objects. The equipment dialog presents one icon and accessible name for that input, while selection is sent with replace_occupied=true. The authoritative reducer independently collects every conflicting root into a set, validates displaced items and removes every accepted conflict. The older full placement label computes multiple conflicts, but this inspected dialog uses structured inputOccupants and does not present that complete label or a replacement-set confirmation.",
+        "conditions": "Requires both appropriate pieces already equipped without protected children, a compatible authorized current actor and the submitted replacement succeeding; assumes stored catalog projection matches the authored definitions. No current player state, loss, browser rendering, actual click or successful reducer operation was observed. Equipment remains in inventory rather than being destroyed; no claim of irreversible loss. Whether the interface must explicitly show/confirm the entire set is a product-legibility decision; a single icon cannot represent both distinct identities.",
+        "future_repair_direction": "Derive the complete preview of the authoritative displacement set for the selected placement and present the affected items before a replacement is committed, coordinated with current graph freshness, attachment capacity, child constraints and server authority. Avoid transferring UI preview into authority; preserve legitimate multi-slot atomic replacement.",
+        "relationships": [
+          "059 q548 Q-L11-59ea61c2883569e0af7b notes distinct placement ranks, occupants and capacity and seeks producer/receiver trace; no exact alias assumed. q1749 Q-L12-8ece8ae977efd724e6cf concerns attachment greedy allocation and fit; q513–516 concern four separate graph observation failures. Reconcile centrally rather than collapsing these first cuts. Historical Adler READ-L11-395 observed the placement UI but did not record this authored multi-displacement witness; this is newly assessed current work."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/trade-templates-report.json",
+      "finding": {
+        "id": "Q-L11-59ea61c2883569e0af7b",
+        "classification": "existing 059 q548 pending native-identity question refined by current exact source, not an automatically new unique historical finding",
+        "title": "Parent and occupant u64 identities are serialized as JavaScript numbers",
+        "source": [
+          "crates/adventuresim-stdb-module/src/item.rs:40-50",
+          "crates/strategic-web/src/templates/settlement/trade/equipment.rs:327-341,505-525",
+          "crates/strategic-web/static/equipment-toggle.js:17-25,50-56,77-80,90-98,272-281",
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:50-65,302-315",
+          "crates/adventuresim-stdb-module/src/character.rs:2997-3035,3083-3095"
+        ],
+        "trace": "Inventory item IDs are auto-increment u64 primary keys. The template inserts parentInventoryItemId and occupant inventoryItemId as JSON numeric values. JavaScript parses them as Number, sorts parent IDs by numeric subtraction, and serializes selected parent IDs into attachment_targets; the server decodes that field as u64. An ID above 2^53 can lose integer precision in this path, and two distinct valid u64 values may become the same Number. The root moving item is independently sent from an HTML data attribute as a string.",
+        "conditions": "Requires an inventory ID outside the exact Number integer range and an affected attachment or display path; no such actual database value, collision, wrong parent or successful operation was observed. Server still validates parent ownership, compatible point and tags, required location and cycle, so no authorization bypass follows. No runtime probe or fabricated fixture was used.",
+        "future_repair_direction": "Preserve exact identity at JSON/native boundaries, such as canonical decimal strings with checked server admission and coordinated comparison; validate all producers/consumers and tie-breaking without a compatibility shim. The authoritative schema remains the identity owner.",
+        "relationships": [
+          "059 q548 explicitly identified native ID subtraction safe-integer proof and requested producer/receiver trace; this narrows that question without claiming historical first-cut closure or deduping it against the distinct multi-replacement presentation."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/trade-templates-report.json",
+      "finding": {
+        "id": "EQUIPMENT-GRAPH-OBSERVATION-513-516",
+        "classification": "existing four 059 first-cut records reconnected to current receiver; no new unique claim",
+        "source": [
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:67-159",
+          "crates/strategic-web/src/templates/settlement/trade/equipment.rs:232-274,382-394,433-448,486-546,568-605",
+          "crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs:4-25",
+          "crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs:6-38"
+        ],
+        "trace": "Four independent worn, occupancy, inventory and definitions queries are unwrapped to empty on failure before CharacterEquipmentGraph construction. The template then uses that graph for equipped flags, conflicts, roots and attachment choices, which can look like genuine empty state or omit candidates under a failed input.",
+        "conditions": "No failed query or incorrect rendered decision was observed. Different missing inputs and valid empty results are separate states; some incomplete graphs conservatively restrict or overstate conflict. The reducer independently validates before mutations and errors remain authoritative.",
+        "future_repair_direction": "Retain each source observation and completeness through the graph aggregate and establish explicit unavailable presentation and diagnostics; preserve normal unworn/empty modes and authoritative reducer checks.",
+        "relationships": [
+          "059 q513, q514, q515, q516 are distinct retained worn/occupancy/inventory/definitions first failures; no automatic merge. READ-L12-789 assesses 1–898 using the same agent earlier 1–390 partial receipt plus fresh 391–898, not a fresh full reread. Prior /root/hair_ops web-equipment assessment concerns encumbrance input availability separately."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/trade-templates-report.json",
+      "finding": {
+        "id": "EQUIPMENT-FIT-CATALOG-SOURCE-QUESTION-95E",
+        "classification": "conditional open policy/consistency question, no established false-fit defect",
+        "source": [
+          "crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs:6-38",
+          "crates/adventuresim-core/src/item_catalog_fit.rs:35-45",
+          "crates/adventuresim-stdb-module/src/character/occupancy.rs:63-120",
+          "crates/adventuresim-stdb-module/src/item.rs:140-162,290-301",
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:67-103"
+        ],
+        "trace": "The UI reconstructs an occupied fit_zone from the compiled core catalog using item name, placement ID and requirement index; a missing lookup becomes None. The core conflict rule treats None as whole-location reservation, so this fallback is conservative for otherwise matching location/channel/order. The reducer calculates conflicts from persisted item placement definitions, and init projects authored definitions into the database.",
+        "conditions": "A compiled web catalog and persisted database catalog may be synchronized; no catalog skew, missing graph row or false conflict has been observed. A missing UI graph entry and a legitimate whole-location None are distinct facts despite shared value. Current catalog versioning/update/deployment policy remains open.",
+        "future_repair_direction": "Establish catalog identity and synchronized projection contract, and distinguish unavailable lookup from authored whole-location value if mismatch is possible; keep exact typed fit rules and authoritative current reducer validation.",
+        "relationships": [
+          "059 q1749 explicitly left fit_zone None semantics pending; this read establishes that None conflicts with all zones in same location/channel/order, while catalog-coherence/authority remains pending. 059 q1557 names a broader canonical placement identity/fit owner question, not automatically this same first cut."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-chrome-report.json",
+      "finding": {
+        "id": "CHROME-RESIDENCE-LEISURE-PREMIUM",
+        "classification": "Source-established value/meaning mismatch under standard offer economy",
+        "trace": "The core tier economy specifies leisure_morale_basis_points of 11,000, 13,000 and 16,000. Backend offer creation stores those values and the available-property projection carries them unchanged. The template prints them as 110%, 130% and 160% “Leisure morale bonus.” The core bonus computation explicitly subtracts the 10,000-basis-point baseline and applies only the premium, giving 10%, 30% and 60% of realized baseline before integer rounding.",
+        "conditions_and_limits": "Requires a displayed standard-tier offer; the source establishes the values and conversions but no actual offer or UI was executed. The displayed total multiplier and incremental premium are both meaningful and should not be conflated.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/courtship.rs",
+            "lines": [
+              [
+                215,
+                237
+              ],
+              [
+                470,
+                480
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/residence.rs",
+            "lines": [
+              [
+                359,
+                389
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+            "lines": [
+              [
+                100,
+                132
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+            "lines": [
+              [
+                122,
+                145
+              ],
+              [
+                158,
+                171
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+            "lines": [
+              [
+                137,
+                157
+              ],
+              [
+                313,
+                320
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to recovered q224 SEGOVB-L12-RESIDENCE-LEISURE-SOURCE-DISPATCH by the broader residence morale family; q224 concerns event-kind string reclassification, not this label/amount mismatch. Historical q1890 leaves native housing receiver contracts open. Central decides exact aliasing.",
+        "future_repair_direction": "Expose the incremental premium with a bonus label, or explicitly name the full multiplier; carry baseline and premium semantics through the shared owner so downstream wording cannot drift.",
+        "later_acceptance_criteria": "Each tier’s displayed benefit matches the actual additional effect and rounding policy; any displayed total multiplier is clearly identified as such."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-chrome-report.json",
+      "finding": {
+        "id": "CHROME-HOUSEHOLD-REDACTED-BILLING-DATE",
+        "classification": "Source-established conditional redaction/presentation mismatch",
+        "trace": "Backend residence projection intentionally replaces billing times with StrategicMinute::ZERO for household occupants who are not the holder. The route returns holdings for the active character, including non-holder households. The template always formats next_due_minute as a Next payment or overdue date even when it labels that entry Household home.",
+        "conditions_and_limits": "Requires a returned non-holder household row; no database rows or runtime output were inspected. The backend redaction is intentional and should not be bypassed to obtain a private owner date.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/residence.rs",
+            "lines": [
+              [
+                244,
+                304
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+            "lines": [
+              [
+                122,
+                145
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+            "lines": [
+              [
+                189,
+                220
+              ],
+              [
+                323,
+                325
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adjacent to q517 residence clock availability but distinct: q517 concerns a missing character time, while this concerns intentionally redacted owner billing projected as a real zero date. No automatic alias or historical finding claim.",
+        "future_repair_direction": "Represent owner billing date as authorized/available rather than a zero sentinel and suppress or accurately mark unavailable data for household occupants.",
+        "later_acceptance_criteria": "A non-holder never sees a fabricated zero-date next payment or overdue label; the legitimate holder retains accurate billing information and privacy is preserved."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-chrome-report.json",
+      "finding": {
+        "id": "CHROME-PARTY-FIRST-LEADER",
+        "classification": "Current source trace of historical q201",
+        "trace": "Party member lookup reads the party leader separately, drops missing/failed member rows, filters members ahead of the observer, and sorts the remaining list with the actual leader first only when present. The self profile passes this list to profile_membership, which treats its first element as leader and conditionally shows Leave.",
+        "conditions_and_limits": "If the true leader is filtered or not loaded while an active nonleader is the first remaining member, the leave action is hidden. If the active leader row is absent while another remains, an offer can be shown for the leader. Neither product data nor reducer success was observed; the UI button itself confers no backend authority.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+            "lines": [
+              [
+                356,
+                407
+              ],
+              [
+                482,
+                483
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+            "lines": [
+              [
+                97,
+                116
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+            "lines": [
+              [
+                307,
+                315
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+            "lines": [
+              [
+                153,
+                167
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/data.rs",
+            "lines": [
+              [
+                20,
+                36
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Directly revisits q201 ADLER-L11-PROFILE-PARTY-LEADER-IDENTITY and Adler READ-L11-393. Preserve observer-frontier filtering; do not restore a hidden leader merely to establish UI order.",
+        "future_repair_direction": "Carry actual leadership and party availability as explicit authorized data to the profile action rather than reconstructing from filtered ordering.",
+        "later_acceptance_criteria": "Leader/nonleader actions remain correct when another row is unavailable or legitimately filtered, with unknown leadership handled explicitly and backend authority preserved."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-chrome-report.json",
+      "finding": {
+        "id": "CHROME-PORTRAIT-OMITTED-ACTIVE",
+        "classification": "Conditional degraded party projection loses self navigation",
+        "trace": "The active character is loaded independently, while each party member is separately looked up and failed/missing lookups are flattened away. Portraits fall back to the active character only if the entire member list is empty; if another party row remains but the active member is missing, no portrait for the active character is added.",
+        "conditions_and_limits": "Requires the active member lookup to fail or be missing while another member survives. No actual service failure, missing membership, or runtime presentation was witnessed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+            "lines": [
+              [
+                265,
+                277
+              ],
+              [
+                356,
+                388
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+            "lines": [
+              [
+                64,
+                74
+              ],
+              [
+                86,
+                95
+              ],
+              [
+                127,
+                150
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to q201 filtered party projection but the missing active navigation is not automatically the same first failed contract. Central may reconcile with broader availability records.",
+        "future_repair_direction": "Retain an authorized active self portrait independently from the completeness of the party list and represent incomplete membership without inventing absent members.",
+        "later_acceptance_criteria": "The active character remains navigable when the party projection is partial; genuine solo and fully available party states preserve their behavior."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-chrome-report.json",
+      "finding": {
+        "id": "CHROME-RESIDENCE-CLOCK-ZERO",
+        "classification": "Current source trace of historical q517",
+        "trace": "read_family maps both missing and failed character clock reads to StrategicMinute::ZERO. The same returned minute filters property offers and calculates wedding and pregnancy countdowns; the receiver presents those countdowns and progress as ordinary current values.",
+        "conditions_and_limits": "Requires missing/failed clock with offers and/or relationship dates. A legitimate minute zero is distinct. No real clock failure or product output was tested.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+            "lines": [
+              [
+                122,
+                145
+              ],
+              [
+                177,
+                199
+              ],
+              [
+                229,
+                244
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+            "lines": [
+              [
+                259,
+                290
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Directly revisits q517 SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT, originally /root/lens12_frontier READ-L12-791 6533 source.",
+        "future_repair_direction": "Carry clock availability instead of substituting epoch zero and preserve a legitimate zero-minute state.",
+        "later_acceptance_criteria": "Missing or failed time cannot suppress eligible properties or invent countdowns; valid zero/current times and non-clock-dependent family information remain available under policy."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-chrome-report.json",
+      "finding": {
+        "id": "CHROME-FAMILY-READ-AVAILABILITY",
+        "classification": "Conditional family projection availability collapse",
+        "trace": "The route reads relationship and authorized child rows independently, converts a relationship error to None and a children error to an empty vector, and the template either omits the whole family panel or renders no child entries.",
+        "conditions_and_limits": "Requires a relevant query error or missing row; no actual error, missing relationship row with children, or family data was inspected. Whether a legitimate absent relationship row may coexist with children needs the backend contract before asserting another defect.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+            "lines": [
+              [
+                177,
+                205
+              ],
+              [
+                220,
+                258
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+            "lines": [
+              [
+                259,
+                268
+              ],
+              [
+                292,
+                305
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adjacent to q517 because both occur in read_family, but a failed family projection is not the same clock contract. Historical q1890 left household authorization and source policy pending.",
+        "future_repair_direction": "Preserve failure and confirmed empty states separately and render an appropriate unavailable state without disclosing private family information.",
+        "later_acceptance_criteria": "A failed relationship or child query is not presented as a confirmed absence, while intentional no-family and authorized family projections remain distinct."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/settlement-templates-report.json",
+      "finding": {
+        "id": "REVIEW-CAMP-PLANNER-ACTIVE-LEG-ROUNDTRIP-95E",
+        "classification": "new source-derived conditional planner projection mismatch; no observed gameplay state or rendering",
+        "first_contract": "Native case-site start stores the outbound active leg, its forecast camp intervals and elapsed time only. The camp template treats a case-site destination as a round trip, passes outbound-plus-return movement total to the planner and synthesizes persisted movement up to twice the outbound duration inside the stored outbound elapsed time. The client positions both the quest turnaround and the return End on this mixed representation.",
+        "sources": [
+          "adventuresim-stdb-module/src/strategic/travel_reducers.rs:249-286",
+          "adventuresim-stdb-module/src/strategic/journey_camp.rs:113-190,200-218",
+          "templates/settlement/travel.rs:484-525,536-546,696-797,827-848,952-965",
+          "strategic-web/static/travel-planner.js:15-18,47-54,325-336,368-383"
+        ],
+        "conditions": "An active journey to a case site reaches camp with a remaining walking interval and its camp page receives a stored journey. For outbound movement A, a synthetic trailing walking interval ending at 2A is compressed into the native outbound-only elapsed interval; if an independently stored return B differs from A, another field instead says A+B. Client interpolation may place the quest/return markers before the corresponding active-leg arrival. This is symbolic source reasoning, not an observed user session, runtime, actual asymmetric route, or claim the stored authority moves a character incorrectly.",
+        "safeguards": "Native case-site route admission validates outgoing and independently planned return; a later return starts its own active journey. Map pre-departure round-trip forecasting is a separate intended view. Preserve camp status, actual-versus-forecast boundaries and correct duration authority.",
+        "relationship": "q1002 records a broader return-route and timing policy question; old strategic calendar assessment previously read travel.rs:455–548 at c100 but did not establish this active-leg-to-display mismatch. Current 059 identities and prior assessments searched without exact alias found. The neighboring mirrored terrain case is a distinct transformation in the same planner family.",
+        "future_repair_direction": "After the audit gate, define whether the camp timeline represents the actual active leg or a separate full round-trip projection; compute movement, elapsed, return route and markers coherently from the same declared authority, including independently timed return legs."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/settlement-templates-report.json",
+      "finding": {
+        "id": "REVIEW-CAMP-PLANNER-TERRAIN-DOUBLE-MIRROR-95E",
+        "classification": "new source-derived conditional duplicate terrain projection; no browser/render execution",
+        "first_contract": "Camp template serializes outbound spans followed by separately stored return-route spans with outward-time offset. For a planner marked round-trip, terrainPieces then adds a mirrored copy of every already-present span across the total route, while renderTerrain creates a node and accessible-list item for every resulting piece.",
+        "sources": [
+          "templates/settlement/travel.rs:486-499,536-546,952-965,1204-1235",
+          "adventuresim-stdb-module/src/strategic/travel_planning.rs:213-235,260-288",
+          "strategic-web/static/travel-planner.js:19-40,253-282,285-304,368-383"
+        ],
+        "conditions": "Camp page has a nonempty valid outward and return terrain path, a case-site destination, positive total/turnaround and itinerary walking segments. Every original and mirrored path can overlap for the same elapsed interval; with different leg surfaces or checks labels may disagree. Source shows two representations, but no actual route data, rendered overlay, accessibility output or consumer runtime has been observed.",
+        "relationship": "Connected to the active-leg/round-trip mismatch through camp planner state but caused by a distinct JS mirroring transformation; do not automatically merge them. Prior water forecast and terrain cache issues concern different first cuts.",
+        "future_repair_direction": "After the audit gate, make the route-span protocol explicitly distinguish one-way from fully assembled round-trip data and map each actual segment once, preserving separate outbound and independently planned return terrain."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/settlement-templates-report.json",
+      "finding": {
+        "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+        "classification": "historical 059 q202, existing current trace; no new duplicate",
+        "sources": [
+          "templates/settlement/rest.rs:105-165",
+          "reference/prior-same-agent-web-travel-report.json"
+        ],
+        "detail": "Soap and alcohol presentation outputs confirmed absence or consumption from plain preview fields. Earlier independently traced producer error-to-default conditions remain qualified in web-travel report. No supply read failure, predicted wash or rendering observed."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/settlement-templates-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-SOCIAL-PERSONALITY-AXIS-SLUG-ROUNDTRIP",
+        "classification": "historical 059 q541, source relationship",
+        "sources": [
+          "templates/settlement/social.rs:157-188"
+        ],
+        "detail": "Typed PersonalityAxis is converted to a slug and matched again before final explanatory prose. Preserve earlier author, owner, revision and pending status; no unsupported unrecognized value observed."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/settlement-templates-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-SOCIAL-FAITH-DISPLAY-NONE-CONDITION",
+        "classification": "historical 059 q542, related older 774 M56",
+        "sources": [
+          "templates/settlement/social.rs:451-467",
+          "reference/older-774-ledger.json /findings/79"
+        ],
+        "detail": "The About response branches on the human label None rather than the underlying optional faith. The older M56 documents a broader producer/type/renunciation family including this exact presentation boundary in an earlier unfinished review. No false religion belief or invalid current state observed."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/settlement-templates-report.json",
+      "finding": {
+        "id": "L2-REST-DURATION-PRESENTATION-OWNER-QUALIFICATION",
+        "classification": "historical q2457 open owner qualification",
+        "sources": [
+          "templates/settlement/rest.rs:66-103,282-350,387-419"
+        ],
+        "detail": "A wake minute-of-day, whole-day service duration and recommended minutes have different semantics; current full producer and admission scope remain required. No numerical defect established from raw representations alone."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/strategic-scripts-report.json",
+      "finding": {
+        "id": "CONDITION-ALL-WHEELS-REJECT-95E",
+        "classification": "current source finding refining existing 059 q552; distinct first failure subject to central alias reconciliation",
+        "title": "One failed subject request prevents all wheels in the refresh from applying",
+        "source": [
+          "crates/strategic-web/static/strategic-condition.js:6-11,36-64",
+          "crates/strategic-web/static/background-fetch.js:38-46,55-67",
+          "crates/strategic-web/src/routes/characters.rs:52-86"
+        ],
+        "trace": "Refresh awaits Promise.all before rendering any wheel. strategicBackgroundFetch calls strategicFetch, which throws on every non-OK response before the response.ok fallback can execute. The condition route returns 401, 404, or 403 for authentication/observation/frontier/party/location failures. One rejection therefore causes the aggregate await to reject and none of that refresh's successful wheel results are applied; independent fetches may continue. A 200 JSON null separately renders the individual unavailable state, including when the condition query fails or returns no row.",
+        "conditions": "Requires a refresh containing at least one failed request and at least one wheel. No actual network failure, rendered outcome or user data was observed. Wheels can remain loading or retain their previously rendered value; no claim that every underlying request fails. When null is rendered, the previous data-condition-status attribute is not cleared, but no red ring or visual consequence is claimed without rendering evidence.",
+        "future_repair_direction": "Resolve results per subject, preserving authorized observation and individual unknown/error states, without exposing restricted data; keep newer-generation freshness and cancel semantics explicit. Define distinct missing versus backend failure only after tracing producer/error policy.",
+        "relationships": [
+          "059 q552 Q-L11-166d8c725fa6521a3142 explicitly requested availability, producer and encumbrance reconciliation. READ-L11-399 historically recorded that exceptions retain the earlier wheel until global reporting; this is a newly assessed precise Promise.all/fetch/403 trace, not a claim the historical observation was novel or already closed."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/strategic-scripts-report.json",
+      "finding": {
+        "id": "PHYSICAL-EVIDENCE-SELECTION-RESPONSE-95E",
+        "classification": "new bounded current source finding; related to 059 q547 without asserting exact alias",
+        "title": "A completed inspection can replace a newer selection in the same mount",
+        "source": [
+          "crates/strategic-web/static/physical-evidence.js:112-133,136-172,180-200",
+          "crates/strategic-web/src/routes/evidence.rs:59-92,158-201",
+          "crates/adventuresim-stdb-module/src/investigation/model.rs:142-169,426-435,587-675,718-730,799-805",
+          "crates/strategic-web/static/strategic-navigation.js:91-100,117-133"
+        ],
+        "trace": "An inspection POST uses the selected topic and independently awaits a response. Clicking another evidence item while that request is pending changes selectedId and details, but completion unconditionally replaces the returned item and calls selectEvidence(updated, button), restoring the older item and its description/conversation. The reducer keys an exact action receipt by action ID/actor/evidence/topic and the underlying attempt by actor/evidence/topic; already attempted results are reused, with successful results potentially augmented by newly learned lore.",
+        "conditions": "Requires a pending request and selection change before its successful response in the same mount; no click, request, live data, accepted action or user-visible race was observed. A per-click action ID is not by itself proof of a duplicate inspection attempt or universal exactly-once contract. The request is not bound to the mount signal, but detached references do not by themselves prove stale mutation of a live page.",
+        "future_repair_direction": "Bind view publication to its originating selection and mount identity while separately retaining permitted authoritative result/cache updates. Trace current mount replacement and decide stale error reporting independently of backend action receipt guarantees.",
+        "relationships": [
+          "059 q547 Q-L11-d405c7e56b251cc465c6 already posed physical evidence mount lifetime, action IDs and native receipt questions without adjudicating first failure. This separate same-mount selection trace refines that family; central decides whether any exact identity relationship is warranted."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/strategic-scripts-report.json",
+      "finding": {
+        "id": "ERRANTRY-ACTION-STATUS-RESET-95E",
+        "classification": "new current source finding, qualifying the historical wrapper-only assessment; actual retry failure unproven",
+        "title": "The errantry retry helper cannot observe the HTTP statuses it handles",
+        "source": [
+          "crates/strategic-web/static/dialogue-client.js:53-68,263-271,596-617",
+          "crates/strategic-web/static/background-fetch.js:38-46",
+          "crates/strategic-web/src/routes/dialogue.rs:278-312",
+          "crates/adventuresim-stdb-module/src/strategic/challenges.rs:313-324,1988-2060"
+        ],
+        "trace": "createRetriableAction retains its action ID after failures except 409/422, where it intends to clear it. Its request wrapper would attach error.status for non-OK responses, but strategicFetch throws a plain Error first, so that wrapper's non-OK branch cannot execute. The current errantry route maps every DB call error to 422; a failed call reaches the retry helper without numeric status and retains its previous ID. The native owner checks exact session/action receipt first, confirms actor and current case/contract, and otherwise validates live dialogue presence, issuer and materialization before creating a receipt.",
+        "conditions": "Requires an acceptance request returning a non-OK response, particularly the reachable 422 mapping. Retention is a source-proven mismatch with the helper's explicit branch, not proof that a later retry fails, mutates twice, or needs a fresh ID: a failed request lacking an existing receipt may later succeed with the same ID, and exact lost-response retries benefit from stable identity. The route also combines all DB failures as 422, so blindly resetting all such failures could lose a needed replay identity. No network, reducer or browser execution occurred.",
+        "future_repair_direction": "Preserve structured status/cause at the fetch boundary and define an authority-aware distinction between definitive rejection and ambiguous delivery, coordinating action identity and native receipt reuse. Preserve authorized actor/presence checks and exact replay semantics.",
+        "relationships": [
+          "READ-L12-811 historical Lens12 summary described the wrapper as retaining numeric status and the helper clearing 409/422. That is a historical summary of its scoped inspection; this separately registered fetch boundary contradicts the assumed actual call chain at 95e and must be attached as a qualification, not rewritten into its original record or attributed to its reviewer. ROOT-ADMISSION03-REG-040 historically materialized helper lines 4–72 and 100–108 only; see older 774 attribution below."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/strategic-scripts-report.json",
+      "finding": {
+        "id": "SEGOVB-L11-STALE-RESIDENT-SELECTION",
+        "classification": "existing 059 q203 finding reconnected to current exact source; no new unique count",
+        "title": "A completed obsolete resident load can publish a global selection",
+        "source": [
+          "crates/strategic-web/static/dialogue-client.js:145-149,734-765,770-825",
+          "crates/strategic-web/static/strategic-scene.js:11-24,341-350",
+          "crates/strategic-web/static/strategic-navigation.js:91-100,117-133"
+        ],
+        "trace": "The mount awaits a shared loadPeople promise and then calls selectNpc without checking the originating mount after success. Unmount aborts listener lifecycle, but loadPeople uses a shared request promise without a per-consumer signal or freshness check; selectNpc dispatches a global selection event, and the strategic scene handler updates its own selection. Its catch checks the aborted signal, unlike the successful completion.",
+        "conditions": "Requires an old mount response to arrive after navigation/unmount and a current scene listener; whether the native renderer accepts, changes, or shows the selected character was not established. No completed request, wrong visible NPC, authorization effect, or runtime race observed.",
+        "future_repair_direction": "Guard each consumer publication by its own current mount identity after await while preserving shared in-flight cache and current mount behavior. Trace native membership/selection and exact alias family separately.",
+        "relationships": [
+          "The 059 queue q203 and Segovb READ-L11-400/REG1316–1318 already record this exact first contract and connected stale-success trace. Root independent own-L3 historical fresh body 6533 1–825 and its later e275 own-L3 byte-equality qualification are distinct; the e275 qualification explicitly has no fresh current read. No historical body or other-lens credit is transferred."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/strategic-scripts-report.json",
+      "finding": {
+        "id": "CONDITION-WHEEL-ENCUMBRANCE-QUESTION-95E",
+        "classification": "existing 059 q552 cross-owner policy question; no confirmed combat defect",
+        "title": "The strategic portrait wheel omits the separately computed tactical burden",
+        "source": [
+          "crates/strategic-web/src/templates/settlement/chrome/portraits.rs:136-142",
+          "crates/strategic-web/static/strategic-condition.js:16-39",
+          "crates/adventuresim-stdb-module/src/condition.rs:85-118,1344-1395",
+          "crates/adventuresim-core/src/morale.rs:210-230",
+          "crates/adventuresim-tactical-server/src/combat/condition.rs:63-78",
+          "crates/adventuresim-core/src/combat/incapacitation.rs:28-31,56-64",
+          "crates/strategic-web/src/templates/interface_help.rs:95-100"
+        ],
+        "trace": "The strategic portrait mounts a wheel and its projected condition contains seven components and their total, not encumbrance; the browser renders those components capped at 360 degrees. The strategic projection explicitly excludes live tactical impairment. The tactical combat server separately adds its computed encumbrance once to its combat total.",
+        "conditions": "The repository instructions require encumbrance to contribute once to combat incapacitation and be shown in translucent grey. The inspected sources do not decide whether this separate strategic pre-combat portrait must anticipate the burden or how an authorized estimate becomes available. No current double penalty or tactical movement-speed penalty follows; no product validation. Interface help describes grey as available when shown.",
+        "future_repair_direction": "Determine the display contract for the strategic portrait and, if required, use an authorized, availability-aware burden estimate while keeping tactical tick state transient and the combat sum single-counted. Coordinate the inventory/encumbrance input-completeness owner separately.",
+        "relationships": [
+          "059 q552 expressly asks for encumbrance, component finiteness, total and availability reconciliation. Prior /root/hair_ops web-equipment report discusses encumbrance aggregate input availability, which is related by data ownership but not automatically the same first failure."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/strategic-scripts-report.json",
+      "finding": {
+        "id": "REGIONAL-MAP-READINESS-COVERAGE-QUESTION-95E",
+        "classification": "conditional current source policy question; no product defect claimed",
+        "title": "Map ready and terrain coverage are published as separate facts",
+        "source": [
+          "crates/strategic-web/static/regional-map-view.js:87-103,135-152",
+          "crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs:91-169"
+        ],
+        "trace": "The browser's data-regional-map-ready marker depends on prepared request, acknowledgment and native state.ready; its status text independently reports unavailable terrain when state.covered is false and can report failed or loading city detail. Native readiness requires a settled matching viewport, environment readiness and no failure or capacity overflow, while covered independently requires a drawn surface. Thus a prepared, acknowledged, settled but not drawn surface can meet ready while the status says terrain unavailable.",
+        "conditions": "Whether ready means a settled renderer with graceful missing-terrain fallback or usable geographic terrain is not established. Native failures and route/connection capacity overflow do prevent native readiness, and no claim is made that these report ready. No actual map state or UI was observed. The native status source changed since 6533; the supporting historical bytes are archived but not personally read or represented as the current contract.",
+        "future_repair_direction": "Specify readiness, terrain coverage and city-detail semantics for each consumer, and enforce the agreed distinction while preserving existing error messages, scope identity, overlay acknowledgment and valid fallback modes.",
+        "relationships": [
+          "The separately authored /root/rig_identity web-map packet covers original server roles 2364–2368 and map geometry/source identity questions; it does not establish this browser/native readiness policy, and no alias is assumed."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-trade-scripts-report.json",
+      "finding": {
+        "id": "Q-L11-02f8c444a6bad5f27e22-CONNECTED-MERCHANT-PREVIEW-95E",
+        "classification": "Newly assessed conditional current source evidence extending 059 q549; central owns alias/ledger decision.",
+        "title": "Merchant gold preview nets distinct buy and sell operations and applies first sale-row price",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/party-trade.js",
+            "archive": "source/current-2418.js",
+            "lines": [
+              [
+                205,
+                227
+              ],
+              [
+                311,
+                329
+              ],
+              [
+                486,
+                542
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+            "archive": "source/support-1.source",
+            "lines": [
+              [
+                193,
+                221
+              ],
+              [
+                250,
+                272
+              ],
+              [
+                302,
+                315
+              ],
+              [
+                370,
+                410
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/inventory_forms.rs",
+            "archive": "source/support-2.source",
+            "lines": [
+              [
+                98,
+                117
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/strategic_inventory.rs",
+            "archive": "source/support-10.source",
+            "lines": [
+              [
+                196,
+                282
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "archive": "source/support-3.source",
+            "lines": [
+              [
+                2525,
+                2548
+              ],
+              [
+                2640,
+                2692
+              ],
+              [
+                2720,
+                2744
+              ],
+              [
+                2752,
+                2813
+              ],
+              [
+                2822,
+                2827
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/css/strategic.css",
+            "archive": "source/support-12.source",
+            "lines": [
+              [
+                637,
+                654
+              ],
+              [
+                1822,
+                1823
+              ]
+            ]
+          }
+        ],
+        "trace": "The script keys buys by catalog item and sales by inventory row, preserves separate lists on submission, yet preview first nets quantities by catalog item and chooses one buy price or the first matching sale-row price. A sale then same-item buy leaves both maps populated; one each yields net zero despite reducer computing separate purchase cost and row-specific proceeds. Template quotes buy and sale separately. For a food lot, template sell price is calculated from the lot total and server quotes the complete lot once, while the preview multiplies that lot quote by the number of units in the staged row. Same-item rows can have separately computed food lot prices, yet the preview uses the first row price for all net sales.",
+        "conditions": "For spread: eligible stocked item and owned sale row in the same scope, successful sale-then-buy staging, non-equal valid buy and sell quotes, and successful reducer admission. For food-lot multiplication: valid sellable complete lot quantity n>1 with nonzero quoted price and matched quote context. For multi-row first-price issue: at least two accepted same-item sale rows with distinct prices. The source-only centered-dialog CSS did not reveal a full-screen backdrop in these bounded rules, but real user interaction, actual stock/data, full navigation/focus routing, currency rounding, successful transaction and UI display remain unverified. No unauthorized mutation or runtime witness is claimed.",
+        "future_repair_direction": "Reconcile the staged operation model and preview with authoritative separately priced buy and exact sale rows, including whole-lot and nested/measured terms; retain reducer authority, explicit quote freshness, stock and validation checks. Decide timing of any later product verification separately.",
+        "relationships": [
+          "059 q549 already recorded the price netting/first-sale question as conditional and sought the native producer and reducer. This extends that question rather than inventing a different historical finding. The reset/provisioning concerns within q549 remain separately open."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-trade-scripts-report.json",
+      "finding": {
+        "id": "DELEGATE-EQUIPMENT-REPLACEMENT-SET-VISIBILITY-95E",
+        "classification": "Prior /root/rig_identity finding with independently assessed assigned receiver; not this agent’s historical finding or transferred support read.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/equipment-toggle.js",
+            "archive": "source/current-2417.js",
+            "lines": [
+              [
+                32,
+                42
+              ],
+              [
+                48,
+                99
+              ],
+              [
+                118,
+                162
+              ],
+              [
+                272,
+                281
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+            "archive": "source/support-0.source",
+            "lines": [
+              [
+                480,
+                625
+              ],
+              [
+                730,
+                770
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "archive": "source/support-4.source",
+            "lines": [
+              [
+                278,
+                329
+              ]
+            ]
+          }
+        ],
+        "trace": "The receiver gathers selected attachment occupants but retains a single selected occupant, and only one icon/name is presented; the mutation requests replace_occupied. Earlier frozen trade-template packet supplies independently authored catalog/graph/reducer evidence that multiple roots may be displaced in a suitable authored placement.",
+        "conditions": "Prior source example requires both appropriate compatible equipped pieces without protected children, a valid actor/current graph, successful placement and product policy requiring complete replacement legibility. No successful action, data loss, destroyed item or browser observation has been shown.",
+        "future_repair_direction": "Reconcile the authoritative displacement set and communicate all affected items before committed replacement, preserving graph freshness, admission and atomic placement semantics.",
+        "relationships": [
+          "Prior /root/rig_identity packet is preserved as prior-packets/trade-templates.tar.gz, with its own support reads and exact catalog/reducer references. This role read independently confirms the receiver logic but does not transfer their ownership/coverage."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-trade-scripts-report.json",
+      "finding": {
+        "id": "Q-L11-59ea61c2883569e0af7b-NATIVE-IDENTITY-95E",
+        "classification": "Existing 059 q548 refined by separately attributed previous producer trace and fresh receiver read.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/equipment-toggle.js",
+            "archive": "source/current-2417.js",
+            "lines": [
+              [
+                6,
+                25
+              ],
+              [
+                50,
+                80
+              ],
+              [
+                90,
+                99
+              ],
+              [
+                272,
+                281
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+            "archive": "source/support-0.source",
+            "lines": [
+              [
+                310,
+                345
+              ],
+              [
+                480,
+                625
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "archive": "source/support-4.source",
+            "lines": [
+              [
+                50,
+                65
+              ],
+              [
+                302,
+                329
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/item.rs",
+            "archive": "source/support-5.source",
+            "lines": [
+              [
+                40,
+                50
+              ]
+            ]
+          }
+        ],
+        "trace": "InventoryItem IDs are u64, equipment target form decodes parent IDs as u64, and selected parent identifiers pass through parsed JSON JS Number, numeric subtraction and JSON serialization. Root selected inventory ID uses its HTML string. Values beyond exact JS integer range can round and distinct valid IDs can coincide.",
+        "conditions": "An affected inventory ID must exceed the exactly representable Number integer range and be used on an attachment/display path; no actual such value, wrong selection or successful operation is established. Server-side conditions remain authoritative; this evidence alone shows no authorization bypass.",
+        "future_repair_direction": "Carry exact identity across the producer, browser and checked server boundary, with exact comparison and graph-validation policy; preserve intended authority and avoid compatibility aliases.",
+        "relationships": [
+          "059 q548 identified native ID safe-integer and structured attachment questions. /root/rig_identity independently traced this at current revision in trade-templates report. Maintain the earlier attribution and unresolved native policy."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-trade-scripts-report.json",
+      "finding": {
+        "id": "Q-L11-a822e43c64bf770b3e99-TARGET-ACKNOWLEDGMENT-95E",
+        "classification": "Existing 059 q546 and READ-L11-588 front-end observation reconnected to independently read current source; presentation policy/native authority remain open.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/party-trade.js",
+            "archive": "source/current-2418.js",
+            "lines": [
+              [
+                91,
+                135
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/background-fetch.js",
+            "archive": "source/support-6.source",
+            "lines": [
+              [
+                38,
+                47
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "archive": "source/support-4.source",
+            "lines": [
+              [
+                40,
+                46
+              ]
+            ]
+          }
+        ],
+        "trace": "The target editor displays a value, changes row dataset and title before issuing strategicFetch without awaiting or locally catching its Promise. The fetch helper reports non-OK responses and rethrows; the bounded target save code shows no local rollback or save acknowledgment.",
+        "conditions": "A failed or out-of-order target save can matter only when the application intends those visible values to represent accepted state, and this scope does not establish native target order, durable result, source of truth or actual failure. Earlier receipt recorded the same front-end concern at e275.",
+        "future_repair_direction": "Resolve optimistic presentation, acknowledgment, rollback, concurrent edit ordering and server ownership together; preserve independent validation and error reporting.",
+        "relationships": [
+          "059 q546 is open pending target policy and complete native owner chain. This is distinct from loot-to-target aggregation and merchant preview; no automatic alias or status change."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-trade-scripts-report.json",
+      "finding": {
+        "id": "DELEGATE-QUEST-LOOT-TARGET-PARTY-ROW-AGGREGATION-95E",
+        "classification": "Previous /root/rig_identity conditional finding, receiver independently corroborated here; prior author owns producer/reducer reads.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/party-trade.js",
+            "archive": "source/current-2418.js",
+            "lines": [
+              [
+                362,
+                367
+              ],
+              [
+                379,
+                397
+              ]
+            ]
+          }
+        ],
+        "trace": "The loot-target handler stages target minus the row’s data-current and already staged amount. Prior quest-template packet traces the producer as the first same-item party row instead of a sum of all matching inventory rows.",
+        "conditions": "Requires intended target semantics to aggregate multiple eligible physical rows and an available matching loot row, plus actual target-mode interaction; nested/conditioned inclusion and successful transfer remain unverified. Do not infer duplicate loot-row staging or actual loss.",
+        "future_repair_direction": "Define target aggregation and relevant inventory membership first, then connect native target owner, exact per-instance identity, staging and checked transfer without broadening unrelated groupings.",
+        "relationships": [
+          "The separate previous quest-template report supplies producer, route and reducer source reads. 059 q188 and q629 concern pair/empty-token admission; q546 concerns target-save acknowledgment. Keep distinct pending central reconciliation."
+        ]
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/generation-js-report.json",
+      "finding": {
+        "id": "REVIEW-GENERATED-CACHE-DIGEST-FAILURE-READINESS-95E",
+        "classification": "conditional source-level cache availability question; no observed failure or supported browser reachability established",
+        "first_contract": "When IndexedDB is enabled, cache.get computes SHA-256 for the job address before the guarded storage transaction. A rejection/throw from that digest, or from checksum digest on an existing record, escapes cache.get; coordinator resolveJob does not catch it, the pool closes and rethrows, and preparation is cancelled rather than regenerating as an optional-cache miss.",
+        "sources": [
+          "strategic-generation-cache.js:22-23,45-64,66-98,99,159-175",
+          "strategic-generation-pool.js:85-105,128-148",
+          "strategic-generation.js:30-37,56-58,62-98,102-115",
+          "strategic-renderer.js:166-189",
+          "UNIFIED_RENDERER.md:60-93"
+        ],
+        "conditions": "The cache is enabled and a subsequent crypto.subtle.digest invocation for a job key or existing stored checksum throws or rejects, despite successful startup. Normal renderer startup already requires an initial SHA-256 digest of the Wasm binary, so a browser wholly lacking crypto.subtle fails earlier and is not an established ordinary path to this cache case. Actual supported browser API, intermittent platform failure, runtime reuse and alternate callers are uninspected; no crypto fault or failed scene was observed.",
+        "safeguards": "Missing IndexedDB, blocked open and transaction timeouts use explicit cache-unavailable/miss paths; malformed product decoding is evicted only for specific Rust product errors. Writes are deferred and failure reported separately, not on this lookup path. Prior SHA-256 over stored bytes checks integrity but is not authentication.",
+        "relationship": "q1899 is the broader original product-address/cache boundary obligation; prior worker-trust and 774 CONT07-560/SEGOVB-INITIAL04-581 summaries are related but do not establish this particular digest-rejection first cut. The old operations summary that optional-cache failure does not gate readiness did not document this escaping pre-transaction call; preserve that as an older qualified summary, not a retroactive historical finding. Central decides final aliases and whether this supported-failure policy is actionable.",
+        "future_repair_direction": "After the audit gate, decide the browser crypto/readiness contract and distinguish optional-cache-only digest failures from mandatory Wasm product or dependency failures; preserve typed invalid-product eviction and authoritative Rust admission."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/generation-js-report.json",
+      "finding": {
+        "id": "REVIEW-REGIONAL-CITY-FINISH-GRAPHICS-IDENTITY-001",
+        "classification": "earlier current assessment, related context only",
+        "record": "reference/prior-assessment-0.json",
+        "detail": "Earlier source assessment leaves the supported regional finish/document/graphics identity policy open; this read does not infer that all discovered jobs were absent or that graphics changed."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/generation-js-report.json",
+      "finding": {
+        "id": "REVIEW-STRATEGIC-DESTINATION-ERROR-IDENTITY-001",
+        "classification": "earlier current assessment, related context only",
+        "record": "reference/prior-assessment-1.json",
+        "detail": "An earlier conditional retained-scene error association question concerns different Rust destination lifecycle; no alias to optional cache hashing inferred."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/generation-js-report.json",
+      "finding": {
+        "id": "Q-L12-ba25fccbf4ff81c29772",
+        "classification": "recovered q1385 and earlier current city-ground wire admission assessment",
+        "record": "reference/prior-assessment-3.json",
+        "detail": "Earlier source assessment traces independently decoded geometry buffers and aggregate Mesh admission; ordinary worker source generates typed CBOR, and cache checksum is not provenance authentication. No malformed product or renderer execution observed."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/generation-js-report.json",
+      "finding": {
+        "id": "SEGOVB-INITIAL04-CONTRACT-581-COMPRESSED-SIZE-QUESTION",
+        "classification": "earlier 774 explicitly retained cache efficiency question, not a new unique finding",
+        "record": "reference/older-774-operations__contract-groups-581.json",
+        "sources": [
+          "strategic-generation-cache.js:114-151,168-175"
+        ],
+        "detail": "Write checks decoded bytes against 128 MiB but stored compressed size may exceed that bound; pruning or next read can remove it. The old record explicitly classified compression expansion and regeneration as optional-cache efficiency, not corrupt asset publication. Actual expansion and supported product sizes were not observed."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/scene-report.json",
+      "finding": {
+        "id": "RIG-SUPP-PP-006",
+        "classification": "existing original 774 actionable identity precision finding reconnected to current source; no new unique count",
+        "title": "Tactical entry passes a full-width character ID through JavaScript Number",
+        "source": [
+          "crates/adventuresim-core/src/starting_character.rs:519-526,606-607",
+          "crates/adventuresim-stdb-module/src/character.rs:1292-1306,1323-1349",
+          "crates/strategic-web/src/routes/missions.rs:114-124,183-191,282-288",
+          "crates/strategic-web/src/spacetimedb/types.rs:239-251",
+          "crates/strategic-web/src/templates/mission.rs:130-136",
+          "crates/strategic-web/static/strategic-renderer.js:245-255",
+          "crates/adventuresim-tactical-client/src/main.rs:219-224",
+          "crates/adventuresim-tactical-client/src/browser_runtime.rs:35-42,60-64,189-197,264-283",
+          "crates/adventuresim-tactical-client/src/presentation/venues.rs:6-17",
+          "crates/adventuresim-core/src/equipment_presentation.rs:1-7,44-48"
+        ],
+        "trace": "Generated starting candidates set bit 63 on their u64 ID, and the gateway reducer retains and grants spec.id. A mission page checks viewer party membership, then supplies viewer.id to MissionServerView; the HTML data attribute carries the decimal representation. The persistent tactical click handler converts that string to JavaScript Number and serializes it in the command, whose native EnterTactical field is u64 and is copied into the local character/client request. JavaScript Number cannot exactly represent every integer in this range; the separate strategic portrait/equipment presentation deliberately carries a decimal string.",
+        "conditions": "Generated starting IDs are at least 2^63, outside JavaScript's universally safe integer range; some individual values may happen to be representable. A changed identity or native u64 decode failure depends on the particular ID and numeric serialization; no actual candidate ID, browser connection, server admission or control outcome was observed. This finding does not establish an authorization bypass or wrong-player control.",
+        "future_repair_direction": "Preserve the original exact decimal identity through the browser command and checked native u64/CharacterId admission, then preserve authorized mission/actor assignment and existing full-width wire semantics. Audit downstream identity carriers rather than weakening authentication or adding a compatibility shim.",
+        "relationships": [
+          "The original 774 rig finding RIG-SUPP-PP-006 is the exact same tactical Number boundary. RIG-SUPP-STRATEGIC-001/002, supplemental-root-receivers-007 /20 and 008 /37, and RIG-PPS-021 preserve the original trace, rig_garments ownership, frozen source and preexisting baseline3a50 classification. Independently reconstructed 3a50b708381ad00c116445c2c999a49c3943088b Git membership proves the old renderer object equals 6533; this delegate did not read that older body. 059 Segovb READ-L11-400 anticipated safe-range comparison, not a new 059 discovery. Current high-bit candidate/grant trace adds bounded reachability evidence; q548 is a separate inventory parent/occupant ID boundary, no automatic alias."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/scene-report.json",
+      "finding": {
+        "id": "SCENE-ROSTER-FAILED-AS-COMPLETE-95E",
+        "classification": "new bounded current source finding conditional on request failure and later readiness; aliases unresolved",
+        "title": "A failed resident-place request can leave an incomplete roster eligible for scene readiness",
+        "source": [
+          "crates/strategic-web/static/strategic-scene.js:11-24,122-134,137-164,241-276,323-338",
+          "crates/adventuresim-tactical-client/src/strategic_scene/status.rs:125-168"
+        ],
+        "trace": "On entering a new settlement, mount clears roster and calls preload for the set of places. preload awaits Promise.all; any rejected place request discards all successful entries, sets rosterPending false and reports a scene failure, but retains no roster-error/incomplete flag. The catch does not itself schedule a new sync. On a subsequent sync, people may be supplied from the current DOM and a scene can be prepared with the partial/empty roster. Browser readiness checks !rosterPending but no roster-error flag; native readiness tests the people actually supplied in that view, not an independent complete roster.",
+        "conditions": "Requires a failed place request, later scheduling, enough remaining DOM/current data to prepare a scene, and all other native asset/equipment/revision readiness conditions to succeed. The view may contain some DOM people, so this does not assert a completely empty scene or that every request failed. A later live update can refresh the roster. No real request failure, missing resident, readiness transition or UI was observed.",
+        "future_repair_direction": "Retain roster observation completeness and per-place failures separately from valid empty results, and gate or clearly qualify the view readiness according to policy. Keep successful authorized place data and generation guards, avoiding disclosure beyond existing route authority.",
+        "relationships": [
+          "059 q203 covers a stale resident selection dispatched by an obsolete dialogue mount, not this preload completeness boundary. q556 concerns scene location key and command acknowledgment. They are connected by resident presentation but are not asserted exact aliases. Segovb READ-L11-400 observed generation guarding preload, not this precise failed aggregate trace."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/scene-report.json",
+      "finding": {
+        "id": "Q-L11-08658d7d58e5a27cd191-QUEUE-ACK",
+        "classification": "current source refinement of existing 059 q556; actual command failure unobserved",
+        "title": "Prepared scene state is published without waiting for command queue acceptance",
+        "source": [
+          "crates/strategic-web/static/strategic-scene-request.js:13-51",
+          "crates/strategic-web/static/strategic-scene.js:85-95,271-277,323-332",
+          "crates/strategic-web/static/strategic-renderer.js:12-14",
+          "crates/adventuresim-tactical-client/src/main.rs:219-224",
+          "crates/adventuresim-tactical-client/src/browser_runtime.rs:35-42,189-197,220-225,511-522",
+          "crates/strategic-web/scene-requests.md:3-7,28-34"
+        ],
+        "trace": "After worker preparation and an abort check, load calls install synchronously, sets residentLocation and publishes prepared. The install callback calls command, which schedules wasm_command in a Promise and catches/logs rejection; load neither awaits nor receives that rejection, so its synchronous catch cannot cancel a ticket for an asynchronous queue failure. wasm_command returns the native queue_json Result and serde decode or queue lock can fail. The request documentation defines prepared as CPU products plus the exact document queued; native activation and GPU/view readiness are separate later steps.",
+        "conditions": "Requires a command rejection or inability to queue to observe the persistent discrepancy; source establishes the missing acknowledgment and exception boundary but not a real failure. If queueing succeeds, later activation/readiness still has its own native checks; this is not an unconditional GPU-readiness or gameplay-state claim. The current location may be treated as reusable even when its document was never queued.",
+        "future_repair_direction": "Distinguish successful native queue admission from CPU preparation and surface a failed queue cause before marking a candidate resident/reusable; handle cancellation, supersession, cleanup and delayed native activation with exact ticket ownership and native status semantics.",
+        "relationships": [
+          "059 q556 specifically left async command acknowledgment and native ownership pending; Segovb READ-L11-400 had already noticed command swallowing errors and location-key scope. This current native trace advances that historical question without claiming its entire contract or distinct first cuts closed."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/scene-report.json",
+      "finding": {
+        "id": "Q-L11-08658d7d58e5a27cd191-VENUES",
+        "classification": "conditional current consequence refining existing 059 q556; normal update reachability remains open",
+        "title": "Changing the place set without changing location does not rebuild retained venues",
+        "source": [
+          "crates/strategic-web/static/strategic-scene.js:137-164,181-184,241-276,293-300",
+          "crates/strategic-web/static/strategic-scene-request.js:55-65",
+          "crates/adventuresim-tactical-client/src/strategic_scene/world.rs:51-76,122-160",
+          "crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs:67-83,111-120,138-178",
+          "crates/adventuresim-tactical-client/src/strategic_scene/mod.rs:46-57,98-121",
+          "crates/adventuresim-tactical-client/src/strategic_scene/status.rs:131-143",
+          "crates/strategic-web/src/routes/scene_assets.rs:38-43,48-81,94-105",
+          "crates/strategic-web/src/routes/scene_preparation.rs:15-25,81-100"
+        ],
+        "trace": "The browser derives its current places from nav DOM but reuses a prepared scene by location. Native retain_scene prepares venues only when the location differs or root is missing and stores next_place as the initial view length. Native status requires next_place to equal current view.places.len(); retain_people skips a person whose place is absent from the old venue map. Thus, if a retained same-location nav changes place count, this particular readiness conjunct remains false until the root/location is reset; with a same-count substitution, the new place can remain missing from the old map even though the count matches. Scene assets also capture current official minute and operator profile, whose freshness is not in the location key.",
+        "conditions": "Requires an admitted same-location place-set update and a retained root with the same location. Normal service/DOM update reachability, whether scene time and profile must refresh, and whether another lifecycle resets the root first remain unproven. No observed missing person, stuck scene, data race or visual rendering is claimed.",
+        "future_repair_direction": "Define the identity/version of the generated scene and venue set and rebuild or incrementally reconcile the native venue map when material inputs change, preserving intentional cached products, route authority, cancellation and live tactical boundary.",
+        "relationships": [
+          "059 q556 expressly asked whether same-location changing venue/revision invalidates scene reuse. This is a source-derived consequence under stated conditions, not proof that the historical question is globally closed or an alias to the separate failed-roster observation."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/scene-report.json",
+      "finding": {
+        "id": "SEGOVB-L11-STALE-RESIDENT-SELECTION",
+        "classification": "existing 059 q203 and prior current strategic-scripts finding reconnected to full scene source; no new unique count",
+        "title": "Shared resident request can outlive the consumer that publishes selected identity",
+        "source": [
+          "crates/strategic-web/static/strategic-scene.js:11-24,341-350",
+          "crates/strategic-web/static/strategic-navigation.js:91-100,117-133"
+        ],
+        "trace": "loadPeople caches a request promise by path and has no per-consumer cancellation. The scene listens to global strategic-character-selected events without a mount-origin check. Earlier independently registered dialogue source in the preserved prior packet awaits this shared request and can publish selection after its listener lifecycle was aborted.",
+        "conditions": "Requires an obsolete dialogue load to complete after its page is unmounted and a current global scene consumer. No native wrong-rendered character, authorization effect, actual request or UI outcome was observed.",
+        "future_repair_direction": "Guard each asynchronous consumer by its own mount freshness without breaking shared in-flight request reuse; reconcile native identity/scene membership and dialogue publication contracts centrally.",
+        "relationships": [
+          "Exact 059 queue q203, Segovb READ-L11-400/REG1316–1318 and prior /root/rig_identity strategic-scripts assessment establish this existing first contract. Root own-L3 6533 full fresh dialogue body and later e275 qualified reuse preserve their distinct original scope; no new source-read or cross-lens credit is inferred."
+        ]
+      }
+    }
+  ],
+  "central_decisions": [
+    "The three /root/hair_ops packets display current 95e once per byte-identical role; no separate historical read is inferred. The other six separately displayed both revision bodies. Role2413 retains its prior bounded trace and 2428 differs across revisions.",
+    "The receiver renders an injury-query failure as empty: known physical damage may then be labelled blunt, while q197 separately concerns a missing limb projection. Normal coherent injury components track projected damage; no unconditional omitted-damage defect is claimed.",
+    "q198 latest-reading-as-today, q199 terrain aggregate, q200 human-label dispatch and the selected-book reading allocation omission have distinct causes; the terrain issue reconnects the earlier current candidate rather than adding a duplicate.",
+    "The equipment replacement preview can expose only one occupant even where the authored barbute conflicts with both burgonet and gorget; actual persisted catalog, actor admission and required legibility remain open. q548 is a distinct inventory u64 JSON-number identity path; graph observations q513–516 retain separate causes.",
+    "Residence tier basis points encode a total multiplier but the offer labels them a bonus. A non-holder household projection redacts due times to zero while the template displays a payment date. Each remains conditional on its relevant view and persisted data.",
+    "Camp planner active-leg accounting and double-mirrored terrain are separate source transformations; no renderer, scene, timing or player session was executed. q202, q541/q542 and q2457 remain separately attributed.",
+    "The shared fetch wrapper throws before attaching HTTP status to errantry errors; native receipt behavior does not prove retry failure or duplication. Per-wheel Promise.all failure, stale physical-evidence response and existing q203 stale resident selection are distinct lifecycle conditions.",
+    "q549 merchant netting and food-lot price conditions extend the original pending price/state question, not a new historical count. q546 target acknowledgment, q548 inventory identity and the prior quest target aggregation remain separate.",
+    "A cache digest failure after the initial Wasm hash can cancel scene preparation instead of a cache miss. The missing-crypto example is not an ordinary supported-path witness because initial renderer hashing also requires it; q1899 remains open.",
+    "Tactical Number conversion is exactly older 774 RIG-SUPP-PP-006 and predecessor NEW-TACTICAL-ENTRY-CHARACTER-ID-001. The high-bit producer strengthens current reachability but some individual IDs remain exactly representable; no live ID, wrong control or authorization bypass is asserted.",
+    "q556 queue acknowledgment and changed-venue reuse are separate consequences under the same historical scene contract. Roster failure, regional map covered-versus-ready and strategic-versus-tactical wheel burden remain qualified availability or policy questions.",
+    "All thirteen repository-wide lenses and the 059 queue remain incomplete. Original 3821 ledger and queue are missing; no implementation or product validation was performed."
+  ],
+  "open": "Actual actor/data populations, user-visible policy, temporal authority, async transport and exact aliases remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

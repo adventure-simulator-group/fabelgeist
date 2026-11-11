@@ -1,0 +1,489 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:03:23.248257+00:00",
+  "scope": "Original roles 2431–2433; assigned test/helper files are source text only. Bounded current support is not ordered-role coverage. No whole-lens, population, checkpoint or connected-ledger closure.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "assigned_source_identity": [
+    {
+      "original_role": 2431,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/tests/startup-deadline.cjs",
+      "archive": "source/historical-2431.cjs",
+      "bytes": 402,
+      "lines": 9,
+      "sha256": "adf96c3faaada273cd2b0d0f73fd1c5eb7bf75aa6a9dea92ca9e40f70cbc9c74",
+      "git_blob_sha1": "56fc2525e374b37128763555a3d1aa7d427314bd",
+      "planned_display_chunks": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "original_role": 2431,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/tests/startup-deadline.cjs",
+      "archive": "source/current-2431.cjs",
+      "bytes": 402,
+      "lines": 9,
+      "sha256": "adf96c3faaada273cd2b0d0f73fd1c5eb7bf75aa6a9dea92ca9e40f70cbc9c74",
+      "git_blob_sha1": "56fc2525e374b37128763555a3d1aa7d427314bd",
+      "planned_display_chunks": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "original_role": 2432,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/tests/startup-fixtures.cjs",
+      "archive": "source/historical-2432.cjs",
+      "bytes": 4881,
+      "lines": 85,
+      "sha256": "3fe66637ca232035be76155934eb77978356cc9f82a33c4654f85d2e9d54b948",
+      "git_blob_sha1": "74ea6a7da99f294205d1b5aa818407401118654c",
+      "planned_display_chunks": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "original_role": 2432,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/tests/startup-fixtures.cjs",
+      "archive": "source/current-2432.cjs",
+      "bytes": 4881,
+      "lines": 85,
+      "sha256": "3fe66637ca232035be76155934eb77978356cc9f82a33c4654f85d2e9d54b948",
+      "git_blob_sha1": "74ea6a7da99f294205d1b5aa818407401118654c",
+      "planned_display_chunks": [
+        [
+          1,
+          85
+        ]
+      ]
+    },
+    {
+      "original_role": 2433,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "archive": "source/historical-2433.cjs",
+      "bytes": 39529,
+      "lines": 551,
+      "sha256": "d81e56d4369d714a8cb955a4da905fcda52f0596641fc14329768b4fd5f74c91",
+      "git_blob_sha1": "6f56214b71c0d3ddb22ec7a5bf4f533e5bc4a738",
+      "planned_display_chunks": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          551
+        ]
+      ]
+    },
+    {
+      "original_role": 2433,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "archive": "source/current-2433.cjs",
+      "bytes": 39609,
+      "lines": 551,
+      "sha256": "25b40b88b7bf24fd81bfceb46882f1a01ec02daf9b072a0aea8236ab3a284c5b",
+      "git_blob_sha1": "0275c6d5272648767f06e3cf48fbe68e72401d35",
+      "planned_display_chunks": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          450
+        ],
+        [
+          451,
+          551
+        ]
+      ]
+    }
+  ],
+  "read_receipt": "read-receipt.json",
+  "support_prospective_registrations": [
+    "support-registration.json",
+    "support-registration-02.json"
+  ],
+  "support_read_receipt": "support-read-receipt.json",
+  "git_proofs": "git-proofs.json",
+  "revision_comparison": {
+    "roles_2431_2432": "Identical source bytes and blob across 6533 and 95e; both independently read.",
+    "role_2433": "Only two additions of /tactical/sfx.js to fixture HTML, at current lines 37 and 52; exact diff in scene-test-revision-diff.patch. No runtime, audio or HUD behavior inferred."
+  },
+  "recovered_history": [
+    {
+      "record": "historical-059/segovb/READ-L11-400.json",
+      "revision_as_recorded": "pr-working; no commit inferred",
+      "author": "original segovb reviewer",
+      "registrations": [
+        "segovb/REGISTRATION-SEGOVB-1314.json",
+        "segovb/REGISTRATION-SEGOVB-1315.json"
+      ],
+      "scope": "deadline 1–9 and fixtures 1–85; explicitly diagnostic/source-only and noncancelling race observed."
+    },
+    {
+      "record": "historical-059/segovb/READ-L11-401.json",
+      "revision_as_recorded": "pr-working; no commit inferred",
+      "author": "original segovb reviewer",
+      "registration": "segovb/REGISTRATION-SEGOVB-1322.json",
+      "scope": "browser test 1–551, chunks 1–130,131–260,261–390,391–551; no test execution; conditional mode limits and native error alias open."
+    },
+    {
+      "record": "historical-059/segovb/READ-L12-818.json",
+      "revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "author": "/root/lens12_frontier",
+      "registrations": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-440.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-441.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-442.json"
+      ],
+      "scope": "independent full historical source read of all three; original Lens12 attribution and qualifiers retained."
+    },
+    {
+      "record": "older-774-index.json",
+      "revision_as_recorded": "pr-working with original historical workstation locators; no commit inferred",
+      "author": "rig",
+      "scope": "supplemental-root-receivers-008.json rows 5 and 6: fixtures 1–85 and deadline 1–9 RIG-SUPP-STRATEGIC-002. supplemental-root-sources.json row18: browser test 1–551 and RIG-SUPP-STRATEGIC-001/002/003, with RIG-SUPP-PP-006 linked. Owner coverage rows 551–553 preserve RIG-OWNER-JS-GENERATION-BRIDGE-080. Original and normalized export copies both included."
+    }
+  ],
+  "prior_packets": {
+    "index": "prior-packets-index.json",
+    "qualification": "Entire scene (/root/rig_identity) and generation-js (/root/hair_ops) upstream packets retained. Three nested manifest files omitted by scene packet’s top-level inventory are additionally captured and individually hashed. Neither prior read nor finding is transferred."
+  },
+  "findings_and_reconciliations": [
+    {
+      "id": "SCENE-TEST-LATE-LAUNCH-DEADLINE-LIFECYCLE-95E",
+      "classification": "Conditional source-only test-harness lifecycle concern, extending explicit historical observation; no runtime witness or product defect.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/startup-deadline.cjs",
+          "archive": "source/current-2431.cjs",
+          "lines": [
+            [
+              1,
+              9
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+          "archive": "source/current-2433.cjs",
+          "lines": [
+            [
+              153,
+              157
+            ],
+            [
+              173,
+              187
+            ],
+            [
+              265,
+              287
+            ],
+            [
+              529,
+              550
+            ]
+          ]
+        }
+      ],
+      "trace": "withDeadline races an already-started operation against a rejecting timer and clears only the timer. The cold initialization await includes chromium.launchServer; the browserServer variable is assigned only after that promise resolves. The outer failure path eventually tries to kill only the currently assigned browserServer, and catches close/kill errors.",
+      "conditions": "If launchServer resolves after the cold deadline and after finally has observed browserServer as undefined, its late continuation may own a browser process that the prior cleanup did not kill. Whether a real launch can reach that ordering, what external timeout/process supervisor does, and process termination outcome are unobserved. A timeout is not itself evidence a process survives.",
+      "future_repair_direction": "For later harness work, bind cancellation and owned process cleanup to the full asynchronous lifetime, including late launch resolution and timeout/error cases; retain diagnostic deadline and bounded cleanup without asserting new product readiness.",
+      "relationships": [
+        "059 segovb READ-L11-400 already observed Promise.race does not cancel and does not prove renderer termination; READ-L11-401 separately recorded launchServer cleanup. This adds a specific late-assignment condition, not a new historical discovery."
+      ]
+    },
+    {
+      "id": "SCENE-TEST-MOCK-MAP-READY-MODE-95E",
+      "classification": "Source-defined test-mode compatibility gap; intended mode policy and runtime reachability remain open.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/startup-fixtures.cjs",
+          "archive": "source/current-2432.cjs",
+          "lines": [
+            [
+              64,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+          "archive": "source/current-2433.cjs",
+          "lines": [
+            [
+              103,
+              106
+            ],
+            [
+              153,
+              155
+            ],
+            [
+              265,
+              267
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/regional-map-view.js",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              87,
+              105
+            ],
+            [
+              135,
+              145
+            ]
+          ]
+        }
+      ],
+      "trace": "Canonical map readiness requires state.covered, a requested city and a ready city installation. In non-real mode the provided WebAssembly status stub returns covered:false and omits city_requested. Regional view publishes its parsed native status as metrics.mapState. The test selects canonical map readiness for STRATEGIC_TRAVEL_PLACE=map but its visible startup precondition only requires captures for STRATEGIC_TRAVEL_BENCHMARK.",
+      "conditions": "With the stub actually installed, the map predicate selected and no external instrumentation replacing the state, the predicate cannot be satisfied from that stub. The intended benchmark may be restricted to real renderer; this source does not establish that the combination is supported or was attempted.",
+      "future_repair_direction": "Document or enforce supported mode combinations; if mock map readiness is intended, make its contract model the required status fields without using it as proof of native GPU, environment or city behavior.",
+      "relationships": [
+        "059 READ-L11-401 explicitly distinguishes mock bridge, hardware and conditional benchmark branches; this narrows their mode interaction and does not infer runtime acceptance. Prior regional map and scene sources remain independently attributed."
+      ]
+    },
+    {
+      "id": "SCENE-TEST-OPTIONAL-GENERATION-METRIC-ORACLE-95E",
+      "classification": "Conditional test-oracle gap, not established missing production metrics or a passing run.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+          "archive": "source/current-2433.cjs",
+          "lines": [
+            [
+              325,
+              332
+            ],
+            [
+              496,
+              498
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/strategic-generation.js",
+          "archive": "source/support-3.source",
+          "lines": [
+            [
+              10,
+              16
+            ],
+            [
+              30,
+              43
+            ]
+          ]
+        }
+      ],
+      "trace": "The no-new-generation assertion compares optional window.strategicGenerationMetrics?.scene snapshots. If both are undefined, equality alone cannot establish that generation did not occur. The ordinary scene coordinator creates and publishes a fresh owner metric when its preparation starts, so absent instrumentation is not presumed on that path.",
+      "conditions": "The concern requires metrics to be absent in both snapshots, or for actual generation not to be reflected by the compared metrics. Whether either condition can arise in supported ready states has not been established; screenshots, timing, cache and generation behavior were not observed.",
+      "future_repair_direction": "Specify the intended instrumentation lifetime and require its presence and authoritative generation identity/count before treating equal snapshots as proof; distinguish reused jobs, optional cache, canceled generation and true new preparation.",
+      "relationships": [
+        "Related to prior /root/hair_ops optional cache failure question and q1899 address/cache/receipt chain, but not an automatic alias. Prior scene readiness q556 remains a separate command acknowledgment boundary."
+      ]
+    },
+    {
+      "id": "SCENE-TEST-KNOWN-FAILURE-COVERAGE-95E",
+      "classification": "Source-only reconnection to previous separately authored current findings; not a new duplicate product claim.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/strategic-scene.browser.cjs",
+          "archive": "source/current-2433.cjs",
+          "lines": [
+            [
+              55,
+              73
+            ],
+            [
+              98,
+              106
+            ],
+            [
+              215,
+              231
+            ],
+            [
+              265,
+              267
+            ],
+            [
+              421,
+              444
+            ],
+            [
+              496,
+              498
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/tests/startup-fixtures.cjs",
+          "archive": "source/current-2432.cjs",
+          "lines": [
+            [
+              24,
+              44
+            ],
+            [
+              64,
+              84
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/strategic-renderer.js",
+          "archive": "source/support-1.source",
+          "lines": [
+            [
+              12,
+              14
+            ]
+          ]
+        }
+      ],
+      "trace": "The scene harness serves mock place rosters and mocked wasm bridge with success-shaped returns; its warm assertions check requests, canvas and observed metric equality. The separately assessed real scene packet records a conditional partial-roster readiness concern and an asynchronous command queue acknowledgment concern; the generation packet records a conditional optional cache digest failure. These source branches do not inject those previously identified failures.",
+      "conditions": "No product behavior, case execution or other tests were inspected here. This is a gap in this specific harness source, not proof the repository has no separate coverage or that any previously asserted fault occurred.",
+      "future_repair_direction": "Preserve explicit error/partial-data and queue/cancellation boundaries in the central repair ledger; choose later validation only after the audit stop gate and without treating this text as a passed check.",
+      "relationships": [
+        "/root/rig_identity scene packet owns SCENE-ROSTER-FAILED-AS-COMPLETE-95E and q556 queue acknowledgment; /root/hair_ops generation-js owns REVIEW-GENERATED-CACHE-DIGEST-FAILURE-READINESS-95E and relates it to q1899. No reader credit, finding ownership or alias is transferred."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No test, fixture, browser, product, runtime, GPU, shader, or build execution occurred. Assertions are authored intentions only.",
+    "Mock low character IDs and synthetic equipment are not proof that native full-width character identity is safe; existing prior RIG-SUPP-PP-006 remains independently assessed.",
+    "The renderer installs HUD before runtime boot in the bounded current support, and the changed test fixtures include the SFX script; this comparison alone does not show that sound, HUD or a page succeeds.",
+    "Default mock and optional diagnostic/real branches have distinct intended purposes; no unsupported combination is necessarily a product regression."
+  ],
+  "open_questions": [
+    "Which travel/map benchmark modes are supported, and should unsupported mock combinations fail immediately?",
+    "What owns launch/cleanup if a deadline expires before browser process creation resolves, and what can the external process supervisor guarantee?",
+    "Is scene generation instrumentation always present by the time a supported scene is considered ready, and are metrics independently sufficient to prove no new generation?",
+    "Do canonical capture metadata/environment sets have a validated nonempty, unique source/place/origin identity, and is existing fixture text authoritative for any production data claim?",
+    "Which independent test sources cover roster failures, command rejections and optional cache digest failure? No search-based absence claim.",
+    "How should structured native errors and cross-lifecycle readiness assertions interact with diagnostic browser console text?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Fixture file metadata, origin, source and scale checks are explicit, but fixture authenticity and nonempty environment remain preconditions; production admission is not exercised.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Map readiness composes identity, requested/presented origin, city and coverage; mock state does not meet canonical predicate. Do not collapse ready, covered, city installed and stale roster.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Historic and current deadline/fixture bytes match; current browser harness adds only two sfx script inclusions. Test text and external dependencies do not prove unchanged behavior or passed coverage.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "The assigned CJS test files contain no handwritten Rust trait/serde implementation; no conclusion on production derivability.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Environment flags deliberately select mock, real, profiling, travel and reload modes. Their mixed combinations need a defined support contract rather than an invented blanket type migration.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Source/place/origin/scale in fixture route are test native identities. Prior scene packet establishes different exact string presentation vs numeric tactical identity; mock small numeric IDs do not disprove u64 precision.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Deadline races observation without cancellation; cleanup and late assignment have the stated lifecycle risk. Quantity or viewport constants in fixture are test parameters, not proof of native invariant violation.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Deadline, viewport, pixels and timing values are test-native measurement parameters; sources justify different boundaries but do not prove chosen thresholds reflect product policy.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Timeout and console patterns are diagnostics; mutable browser error prose and fixture strings are not durable gameplay owners. Older 059 already noted mojibake fixture text; no production rendering claim.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Fixture adapters produce mock HTTP/Wasm states, regional map view publishes metrics and test predicates consume them; separately traced real scene/generation producers remain distinct.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Test expects identity consistency between fixture metadata, requested/presented geographic scope and live metrics. The mock and canonical readiness predicates are different modeled authorities; actual authority remains in native/current production sources.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Test fixture place, generation owner, scene revision, city request and terrain coverage are distinct facts. Do not substitute a mock scene status for native command acceptance or test generation counters for exact jobs.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Test harness owns diagnostics and process lifecycle; native scene/generation own execution and receipts. Prior agents own their findings; central coordinates any connected repair ownership.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection and evidence verification only; test intentions are not product or test validation. No repairs, builds, tests, browsers, fixture generation or runtime probes.",
+    "Recovered originals, reconstructed registry/queue selections, earlier assessment packets and newly assessed work remain distinct; nothing is promoted to missing checkpoint3821.",
+    "The central agent owns baseline, cross-lens reconciliation, queue aliases, connected repair ledger and publication."
+  ]
+}

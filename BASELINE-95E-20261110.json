@@ -505,7 +505,10 @@
         "historical_related_candidates": [
           "ADLER-L11-TERRAIN-FAMILY-HOURS-CARDINALITY"
         ],
-        "relationship_qualification": "The recovered 059 finding has the same source hash, function, denominator and first failed display-cardinality contract. It retains its historical attribution, independent Lens 3 facet, current_reconciled false and zero accepted unique-count change. This separate 95e source trace does not grant independent lens credit or restore checkpoint 3821."
+        "relationship_qualification": "The recovered 059 finding has the same source hash, function, denominator and first failed display-cardinality contract. It retains its historical attribution, independent Lens 3 facet, current_reconciled false and zero accepted unique-count change. This separate 95e source trace does not grant independent lens credit or restore checkpoint 3821.",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ]
       },
       {
         "id": "REVIEW-REPLICON-GENERIC-BUFFER-CONTIGUITY-001",
@@ -15360,7 +15363,8 @@
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json",
         "further_current_evidence": [
           "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
-          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
         ]
       },
       {
@@ -15944,7 +15948,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
         ]
       },
       {
@@ -16220,7 +16225,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-6-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
         ]
       },
       {
@@ -16811,7 +16817,10 @@
         "future_acceptance": "After audit and authorization, assess the exact failure and valid success or absence cases under the chosen contract.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ]
       },
       {
         "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
@@ -16829,7 +16838,10 @@
         "future_acceptance": "After audit and authorization, assess the exact failure and valid success or absence cases under the chosen contract.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
@@ -16847,7 +16859,10 @@
         "future_acceptance": "After audit and authorization, assess the exact failure and valid success or absence cases under the chosen contract.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-QUERY-LOCAL-REPUTATION-OBSERVATION-ERROR-DISCARD",
@@ -17716,7 +17731,10 @@
         "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ]
       },
       {
         "id": "REVIEW-CHARACTER-NONE-PARTY-ACTION-95E",
@@ -17774,8 +17792,656 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-7-95E.json"
+      },
+      {
+        "id": "ADLER-L11-MEDICAL-TIMELINE-REFERENCE-DATE",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The latest medical reading is used as the present reference date for the notebook timeline.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/198"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Carry the actual reference minute separately from each observation timestamp.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "ADLER-L11-ACTIVITY-TRAINING-LABEL-DISPATCH",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Training semantics depend on an activity display label in the inspected dispatch.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/200"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Carry an admitted activity identity through the training preview.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "ADLER-L11-PROFILE-PARTY-LEADER-IDENTITY",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Filtered party display order is used as a proxy for authoritative party leadership.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/201"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Carry the actual party leader identity to profile controls.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L11-STALE-RESIDENT-SELECTION",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A completed resident request can publish a global selection after its originating mount is stale.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/203"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Bind successful async result admission to the current mount and target identity.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-PROFESSION-PREVIEW-REWARD-ENUM-STRING",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A profession reward enum is converted to prose and reclassified before numeric use.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/540"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Preserve reward semantics through the internal preview.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-SOCIAL-PERSONALITY-AXIS-SLUG-ROUNDTRIP",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A typed social personality axis is converted to a slug and then reclassified.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/541"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Preserve axis identity until the final presentation boundary.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-SOCIAL-FAITH-DISPLAY-NONE-CONDITION",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A human faith display string controls the distinction between absent and professed faith.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/542"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Carry optional affiliation semantics separately from final human wording.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-COMBAT-GOVERNING-APTITUDE-PROSE-CONDITION",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A human aptitude description controls combat metadata classification.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/543"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Use the underlying aptitude identity before final display.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "Q-L11-a822e43c64bf770b3e99",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Inventory target UI is updated before an unawaited save result is acknowledged.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/546"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Reconcile optimistic state with authoritative success or explicit failure.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "Q-L11-d405c7e56b251cc465c6",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The physical-evidence request lifecycle and action receipt require source-specific freshness admission.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/547"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Preserve selected identity and request generation through asynchronous result handling.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "Q-L11-59ea61c2883569e0af7b",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Equipment parent and occupant u64 identities pass through JavaScript numeric JSON representation.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/548"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Preserve full-width identity from native projection through the actual form boundary.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "Q-L11-02f8c444a6bad5f27e22",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Merchant preview nets by catalog item and reuses a first price while settlement computes per-row buy and sale facts.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/549"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Reconcile exact per-item and lot quotation semantics with authoritative separate totals.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "Q-L11-166d8c725fa6521a3142",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Condition wheel availability and strategic-versus-tactical burden projection require explicit shared policy.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/552"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Preserve per-subject observation completeness and reconcile display with actual authority.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "Q-L11-08658d7d58e5a27cd191",
+        "lens": 11,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Scene preparation, native queue acknowledgment and same-location venue identity have open contracts.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/556"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Tie preparation and reuse to accepted queue work and relevant scene/venue identity.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-INVENTORY-MEDICAL-EQUIPMENT-GRAPH-WORN-OBSERVATION-DISCARD",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The equipment graph worn query failure is converted to an empty collection.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/513"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Retain this distinct unavailable observation and its valid empty case through graph construction.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-INVENTORY-MEDICAL-EQUIPMENT-GRAPH-OCCUPANCIES-OBSERVATION-DISCARD",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The equipment graph occupancy query failure is converted to an empty collection.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/514"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Retain this distinct unavailable observation and its valid empty case through graph construction.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-INVENTORY-MEDICAL-EQUIPMENT-GRAPH-INVENTORY-OBSERVATION-DISCARD",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The equipment graph inventory query failure is converted to an empty collection.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/515"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Retain this distinct unavailable observation and its valid empty case through graph construction.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-INVENTORY-MEDICAL-EQUIPMENT-GRAPH-DEFINITIONS-OBSERVATION-DISCARD",
+        "lens": 12,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The equipment graph definition query failure is converted to an empty collection.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/516"
+        ],
+        "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+        "discovery": "partial; selected current source and support assessed, broader policy and producers open",
+        "connected_repair_direction": "Retain this distinct unavailable observation and its valid empty case through graph construction.",
+        "future_acceptance": "After audit and authorization, assess exact failure and valid success or absence under the chosen contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "NEW-TACTICAL-ENTRY-CHARACTER-ID-001",
+        "lens": 1,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; existing predecessor and 774 source finding",
+        "classification": "Persistent tactical entry passes a full-width character ID through JavaScript Number.",
+        "historical_related_records": [
+          "BASELINE-20261110.json#/repair_ledger/entries",
+          "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json"
+        ],
+        "relationship_qualification": "This is the same earlier 774 RIG-SUPP-PP-006 and c100 predecessor identity, not a new unique issue. The 95e high-bit producer adds bounded reachability, while some values remain representable; no observed ID, control or authorization outcome.",
+        "discovery": "partial; current source and high-bit producer traced, selected value and server outcome open",
+        "connected_repair_direction": "Preserve full-width selected identity across the actual browser/native boundary and retain existing authority checks.",
+        "future_acceptance": "After audit and authorization, assess exact representability and existing authorization across all entry paths.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-HEALTH-INJURY-OBSERVATION-AVAILABILITY-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A failed injury query can make known physical damage appear blunt and omit treatment markers.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional query failure with available limb damage; q197 concerns a distinct missing limb projection.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve injury availability distinctly from a successful empty injury list.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-HEALTH-TREND-TEXT-PRECISION-95E",
+        "lens": 8,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Accessible trend labels truncate basis-point values while plotted coordinates retain them.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Source comment claims exactness but accessible precision policy is open; no rendered output observed.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Decide label precision and align text with the intended numeric meaning.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-READING-TRAINING-PREVIEW-OMITTED-95E",
+        "lens": 8,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Eligible book reading passes a rate but the activity allocation dispatch has no reading arm.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional readable advancing book and positive allocation; q200 label dispatch is distinct, no exact future gain asserted.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve reading activity identity and its training preview through the receiver.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "DELEGATE-EQUIPMENT-REPLACEMENT-SET-VISIBILITY-95E",
+        "lens": 7,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "One equipment input can show one occupant while an accepted replacement displaces multiple equipped items.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Authored burgonet, gorget and barbute witness requires matching persisted definitions, eligibility and successful submission; no item loss observed.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Present the complete authoritative replacement set under an explicit user-legibility policy.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-RESIDENCE-LEISURE-PREMIUM-LABEL-95E",
+        "lens": 8,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "The offer calls the total 110%, 130% or 160% multiplier a bonus although its premium is 10%, 30% or 60%.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Source-established standard tiers; persisted offer visibility and actual UI not observed.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Align displayed bonus or multiplier with the core economy owner.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-RESIDENCE-REDACTED-BILLING-DATE-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A household non-holder billing timestamp intentionally redacted to zero is rendered as a real payment date.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional non-holder household view; preserve billing privacy and legitimate zero.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Represent authorized billing availability and do not label the redaction as a real date.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-PORTRAIT-ACTIVE-OBSERVATION-AVAILABILITY-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "An independently failed active party-member lookup can remove the active portrait when other members remain.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional lookup failure and surviving party member; q201 leader identity is distinct.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve per-member completeness and the active character navigation contract.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-RESIDENCE-FAMILY-OBSERVATION-AVAILABILITY-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Failed relationship or child observations become absent or empty family presentation.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional query failure; successful absence and single-parent policy remain distinct.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve relationship and child availability independently.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-CAMP-PLANNER-ACTIVE-LEG-ROUNDTRIP-95E",
+        "lens": 7,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A case-site camp planner mixes outbound active-leg elapsed with outbound-plus-return movement.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional case-site stored route and different return timing; no gameplay or rendering observed.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Define active leg and round-trip preview ownership before projection.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-CAMP-PLANNER-TERRAIN-DOUBLE-MIRROR-95E",
+        "lens": 7,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Terrain spans already containing outbound and return legs are mirrored again for a round-trip planner.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional nonempty return route and planner output; separate from active-leg elapsed mismatch.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve one explicitly owned direction and duration for each displayed terrain span.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-CONDITION-ALL-WHEELS-REJECT-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "One failed condition request can reject the aggregate before other successful wheels update.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional one failed or non-OK request; related q552, no observed browser refresh.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Retain per-subject success and explicit failure or stale state across the refresh.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-PHYSICAL-EVIDENCE-SELECTION-RESPONSE-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A late inspection response can reselect older evidence after a newer selection.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional overlapping user actions and response order; q547 lifecycle is related, no duplicate mutation claimed.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Admit results only for their intended current selection and request generation.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-ERRANTRY-ACTION-STATUS-RESET-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "The shared fetch throws before the wrapper can attach status for the retry helper reset branch.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "A 422 route maps all DB errors; native receipts do not prove retry failure or duplication.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve typed failure status and distinguish terminal from retryable outcomes.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-REGIONAL-MAP-READY-COVERAGE-POLICY-95E",
+        "lens": 3,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A settled map can be marked ready while its terrain coverage is unavailable.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "An open semantic policy question, not a proved product defect.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Define whether ready denotes settled processing or usable terrain and align consumers.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-GENERATED-CACHE-DIGEST-FAILURE-READINESS-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A later cache address or checksum digest failure can escape and cancel generation.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Initial renderer hashing already needs crypto; later rejection or another caller is conditional and unobserved.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Decide optional-cache fallback while preserving integrity and explicit fatal failures.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+      },
+      {
+        "id": "REVIEW-SCENE-ROSTER-OBSERVATION-AVAILABILITY-95E",
+        "lens": 5,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A failed per-place roster request can leave incomplete people eligible for later readiness.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
+        ],
+        "relationship_qualification": "Conditional failed request and subsequent scheduling; q203/q556 related but distinct, no rendering observed.",
+        "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+        "connected_repair_direction": "Preserve roster completeness and error status across later scene preparation.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-8-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-2106.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-2206.json"
 }

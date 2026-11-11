@@ -1,0 +1,572 @@
+{
+  "schema": "726-p17-metric-facing-bounded-audit-v1",
+  "created_utc": "2026-11-11 21:26:53 UTC",
+  "auditor": "current-session delegate /root/rig_identity",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "original_roles": [
+    {
+      "original_role": 2454,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_sha256": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3",
+      "historical_git_blob": "4896743e504394ccc522c5115f703b56e48ef530",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "historical_personal_reads": [
+        [
+          1,
+          186
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_status": "path absent; raw Git nonmembership proof",
+      "current_source": null,
+      "current_personal_reads": [],
+      "current_counterpart": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs bounded support; not the historical path",
+      "qualification": "Original reviewer and source revision remain distinct from recovered checkpoint summaries."
+    },
+    {
+      "original_role": 2455,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "historical_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "historical_sha256": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671",
+      "historical_git_blob": "47580184de64db4df6e8926163d9b55fa1d225d2",
+      "historical_source": "sources/90a4/crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "historical_personal_reads": [
+        [
+          1,
+          146
+        ]
+      ],
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_status": "path absent; raw Git nonmembership proof",
+      "current_source": null,
+      "current_personal_reads": [],
+      "current_counterpart": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs bounded support; not the historical path",
+      "qualification": "Original reviewer and source revision remain distinct from recovered checkpoint summaries."
+    }
+  ],
+  "registrations": {
+    "old-registration.json": "7d090969526dcdc7c50adf0addddca18498d6ab20dbd6b8aca7cdbf0e34eb84b",
+    "current-registration.json": "aec08c695afab83172254f0cb8dcd3dd90d979a519cacfca3802cd6c2fa06962",
+    "support-registration.json": "daf1e884371b8826611ae45a4f1d750f86e8ef6eb8f774603ee226249abcbb9c",
+    "support2-registration.json": "0ba86f51613b55df31a645dd8d965990f919e37b8b51803fb23489f94b4b37fa",
+    "support3-registration.json": "7530eada05148bc31cb9eca0afa00206e3d95d7a154e28668bb503f05781c89d",
+    "support4-registration.json": "cd20a687476c331372230019c3784a9efce1f1e4455c943ce9fc7c5c054d8bdc",
+    "rules-registration.json": "82d1a1b724c5f2eb74c6215502c17842225aad6dd70c6f93d9ee1a7f035ad99b"
+  },
+  "read_scope_receipt": "personal-read-receipt.json",
+  "historical_source_discovery": {
+    "original_059": "original-attribution.json: Segovb READ-L11-407 / REG1349/1350 and lens12_frontier READ-L12-828/PAR467 + READ-L12-829/PAR468 are separately attributed complete personal 90a reads with zero accepted count delta.",
+    "older_774": "native owner rows291/630 and292/631 are historical duplicate dispositions, not independent readers; NATIVE-OWNER-REPORT-METRICS-005 preserves Observation and producer scope. f82 is transport only.",
+    "prior_059": "Segovb L12-414 original 6533 pr-working role1433 read source1\u20132050 via 4 sequential exact partials: partial001 ended at600 within the dive closure, 002 resumed601\u20131200, 003 and004 reached EOF; historical partial status remains preserved. Root Segovb e275 L1 067 personally read1\u2013430 and 068 read431\u20131283; the latter did not read test tail. Same blob 95e proven without authorship transfer.",
+    "prior_current_agent": "prior-continuity/REPORT.json and personal-read-receipt.json plus original manifest bind this delegate earlier 90a continuity support1\u2013130, not a full earlier role read; exact prior SHA and scopes preserved.",
+    "pending_contracts": "Original 059 queue Q-L11-d6842eb24a1ea3ec418f / Q-L1-8634be2f29d31f348778 remain open with original locator and status. No checkpoint3821 promotion."
+  },
+  "findings_and_qualified_questions": [
+    {
+      "id": "P17-STATIONARY-DIVE-UNMEASURED-ZERO",
+      "status": "source-established selected-plan observation gap; actual capture and intended policy unproved",
+      "first_failed_contract": "The dive-axis gate reports zero degrees when the selected stationary-dive plan contains no measurable travel direction, conflating unmeasured orientation with measured alignment.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "range": [
+            428,
+            454
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+          "range": [
+            692,
+            714
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs",
+          "range": [
+            18,
+            32
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+          "range": [
+            5,
+            29
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+          "range": [
+            110,
+            117
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "range": [
+            693,
+            702
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            245,
+            255
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            588,
+            610
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            422,
+            426
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            535,
+            548
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            595,
+            600
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+          "range": [
+            109,
+            145
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+          "range": [
+            5,
+            10
+          ]
+        }
+      ],
+      "reasoning": "The four authored DiveForward/Backward/Left/Right posture-transition scenarios each plan 81 frames with local_direction Vec2::ZERO and zero speed. Their authored feature is Dive. Capture projects that zero direction through the finite zero-yaw controller rotation and normalize_or_zero into world_travel_direction. For these planned frames, the dive-axis iterator either skips an unstable axis or fails try_normalize on zero travel, so its zero-initialized maximum represents no angle; the current Dive gate nevertheless accepts a maximum <=20. The P17 90a metric instead produces Unavailable for no motion or stable axis, and its Dive gate requires a measured value.",
+      "qualification": "This is source reasoning about selected planned frames if they reach report assembly; no viewer execution, measured axis, final report success or runtime observation is claimed. A stationary posture arc may intentionally have no travel; the owner must decide whether its axis gate is inapplicable or should compare with the actual authored dive direction. Existing complete-plan, finite-bone, other biomechanical and visual gates remain separate.",
+      "future_repair_direction": "Preserve an explicit unmeasured/not-applicable distinction and resolve the stationary-arc direction contract using the real authored scenario identity; do not invent a launch vector or weaken moving-dive checks.",
+      "historical_relationship": "774 NATIVE-OWNER-REPORT-METRICS-005 and 059 Q-L11-d6842eb24a1ea3ec418f / Q-L1-8634be2f29d31f348778 retain observation-policy and source-producer context. 059 Segovb L12-414 fully read old pr-working metrics through four partials, and e275 root L1 067/068 read production ranges; neither automatically establishes an exact canonical alias."
+    },
+    {
+      "id": "P17-FACING-NONFINITE-TRACKING-ZERO",
+      "status": "conditional local measurement gap; no actual malformed heading or whole-report pass shown",
+      "first_failed_contract": "A nonfinite derived facing-tracking angle can be discarded by the maximum fold and represented as zero, although a required motion comparison was not measured.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            539,
+            555
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+          "range": [
+            83,
+            86
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            245,
+            253
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            480,
+            483
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            204,
+            209
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+          "range": [
+            39,
+            62
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "range": [
+            90,
+            107
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            99,
+            110
+          ]
+        }
+      ],
+      "qualification": "If the measured angular expression is NaN, f32::max with the zero accumulator ignores it. Bone-component finiteness does not itself certify body/desired direction vectors. Historical P17 admits each angle through a finite AngularMagnitudeDegrees constructor before folding. Current final_facing_error uses a different path and can independently fail, and actual invalid vector production remains unproved; no blanket claim that all facing errors pass.",
+      "future_repair_direction": "Carry per-pair applicability and invalid derived heading separately from measured zero, preserve the native turn budget and the independently checked final-facing gate.",
+      "historical_relationship": "Related to 059 Q-L1-8634be2f29d31f348778 and historical observation model, and to prior P17-CONTINUITY-NONFINITE-DERIVED-ROTATION; tracking and bone continuity have distinct inputs and first failures, so no alias solely from common nonfinite handling."
+    },
+    {
+      "id": "P17-SLIP-INVALID-BODY-TURN",
+      "status": "conditional local plant observation gap; separate source path from bone continuity",
+      "first_failed_contract": "An invalid computed body-turn angle can suppress all supported-slip comparisons and leave an apparently measured zero.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            6,
+            14
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            30,
+            54
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            149,
+            150
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            192,
+            195
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            456,
+            466
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            6,
+            14
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "range": [
+            30,
+            47
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            99,
+            110
+          ]
+        }
+      ],
+      "qualification": "If body_turn is NaN, `body_turn <= 0.5` is false and no distance is measured; the final NonnegativeLength can still contain zero. The P17 source admits the derived body-turn angle before choosing applicability. Upstream invalid body rotation, resulting native angle and all other gates are unproved. Missing required feet separately violate current plan completeness; legitimate inactive, flight and deliberately turning cases must not become failures merely due this observation.",
+      "future_repair_direction": "Represent invalid turn separately from no eligible support and measured zero, while preserving the existing body-turn exclusion, inactive modes and current finite-distance checks.",
+      "historical_relationship": "Related to prior P17-CONTINUITY-NONFINITE-DERIVED-ROTATION and 774 NATIVE-OWNER-REPORT-METRICS-005, but supported world-foot slip and body-local continuity are different first-failure contracts; root reconciliation needed."
+    },
+    {
+      "id": "P17-LOOP-SEAM-NONFINITE-ROTATION",
+      "status": "conditional loop-specific measurement risk; no demonstrated runtime input",
+      "first_failed_contract": "A nonfinite derived upper-body loop-seam angle can be ignored by the scalar maximum and presented as zero for an otherwise present seam.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            56,
+            72
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            271,
+            278
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            410,
+            419
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            612,
+            640
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            494,
+            511
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "range": [
+            291,
+            297
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "range": [
+            131,
+            155
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "range": [
+            90,
+            107
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "range": [
+            99,
+            110
+          ]
+        }
+      ],
+      "qualification": "Only if a phase seam is found and a derived angle is NaN can f32::max retain zero; required-bone completeness, other report gates and actual quaternion native behavior remain independent and unproved. No-wrap for an expected seam already yields None and is rejected by current is_some_and, so that is not an unqualified false-pass case. The historical P17 seam admitted each angular value before max.",
+      "future_repair_direction": "Carry invalid derived seam values and missing measured seam as explicit states through the existing expected-seam gate while preserving upper-body-only and not-applicable policy.",
+      "historical_relationship": "Same broad nonfinite-observation family as prior continuity report, but loop-seam wrap windows and upper-body scope differ from adjacent-frame continuity; no automatic exact alias."
+    },
+    {
+      "id": "P17-CONTINUITY-WINDOW-NO-WITNESS",
+      "status": "same first-failure source finding as immediately preceding frozen continuity packet; no unique addition",
+      "first_failed_contract": "No post-warmup adjacent pair is represented by the same zero maxima as stationary measured continuity.",
+      "evidence": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            129,
+            150
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            201,
+            210
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "range": [
+            1269,
+            1282
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "range": [
+            25,
+            31
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "range": [
+            14,
+            20
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "range": [
+            102,
+            110
+          ]
+        }
+      ],
+      "qualification": "Current metric_frames fewer than three makes windows(2).skip(1) empty; P17 returns NoAdjacentFrames. Exact plan and required-bone checks remain independent, and actual post-warmup short windows or successful report are unproved.",
+      "future_repair_direction": "Retain explicit continuity measurement coverage without altering intentional initial-pair and terrain-calibration exclusions.",
+      "historical_relationship": "Directly same current function, source identity, condition and first failure as prior-continuity/REPORT.json P17-CONTINUITY-WINDOW-NO-WITNESS; this record links it without incrementing accepted unique counts. Previous personal old scope was only1\u2013130 as support."
+    }
+  ],
+  "nonfindings": [
+    "For expected repeatable loop seams, current code returns None if no phase-wrap pair and the actual validation requires Some; no no-wrap successful gate is claimed.",
+    "A stationary/no-moving or no-plant mode can be intentionally inapplicable. Historical when_applicable explicitly accepts NotApplicable while rejecting Unavailable; replacing all missing measurements with failures would change semantics.",
+    "Current completion requires the entire selected plan and every REPORT_BONES role; missing foot, head or pelvis alone is not evidence of whole-report success.",
+    "Both versions deliberately exclude leg bones from loop seam and preserve turning/no-plant exclusions for supported-slip. Their physical frame and windows differ; do not equate them with generic continuity.",
+    "Final facing and tracking-excess are separate values. A NaN final value directly compared <=3 does not become a successful comparison; no blanket heading falsepass claim."
+  ],
+  "open_questions": [
+    "Should stationary authored dive arcs be exempt from the travel-alignment gate or checked against their authored directional identity?",
+    "What producer invariants admit finite nonzero body-forward, desired-forward and bone quaternions at every captured frame?",
+    "What empirical clock/turn policy should distinguish a permitted faster response from a mismatch in the absolute tracking-residual comparison? No product execution is authorized here.",
+    "Which support modes require a measured slip/plant witness, and which are deliberately inapplicable during turns or flight?",
+    "Which continuity, loop, facing, jitter and report observation cases are exact canonical aliases in the central ledger?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Trace planned dive direction through camera projection, FrameSample, axis filtering, ScenarioMetrics and final gate; current and historical input identities and actual reader ranges remain separate."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "P17 uses AngularMagnitudeDegrees, NonnegativeLength, BoneRole and Observation; current retained scalar fields must preserve the owning units and absence semantics before native serialization."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Stationary zero direction is a planned input and may be a valid mode, but should not masquerade as measured alignment. P17 checked derived angles; current component finite check does not alone prove all vector operations finite."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "NaN comparisons and max folds can turn invalid heading, body turn or seam into zero; `windows(2).skip(1)` has no comparison with fewer than three frames. All cases retain their distinct conditions."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "An authored Dive identity, travel applicability, stable body axis, usable motion, measured value and final validation are independent facts; a scalar 0 cannot witness all of them."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Keep deliberate stationary arcs, upper-body seam versus foot plant, turn exclusions, full-plan/bone gates, P17 measured/unavailable distinctions and fixed tick arithmetic; clarify policy before changing any gate."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "0.25m dive-axis stability, 20\u00b0 dive gate, 0.9 support and 0.5\u00b0 body-turn limit are different scenario-specific contracts; no blanket threshold or shared numeric owner is inferred."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Historical metric source uses typed ScenarioFeature and BoneRole; raw labels are not used to decide these source bodies. Human diagnostics and native serialization remain distinct."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "The authored dive direction is distinct from world travel sampled from PlannedFrame local_direction; reconcile at the actual scenario contract rather than treating one source as a universal replacement."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "No safe derive-based simplification follows from these algorithms or their stateful maximum/Observation contracts."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Measured/unavailable/not-applicable are materially different from scalar zero; current None for loop seam still distinguishes gate applicability externally, so its loss of cause alone is not a full success claim."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Heading error, turn budget, world foot slip, planted drift, body-local continuity and loop seam differ in units, frame and required scope; identical scalar magnitude is not proof of same owner."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded source-family assessment; no whole-lens completion or transferred reviewer credit",
+      "assessment": "Plan and scenario metadata own direction/applicability; capture owns observations, metrics own finite measurement and coverage, validation owns gate; central agent reconciles cross-lens historical aliases and repair ledger."
+    }
+  ],
+  "publication_qualification": "Recoverable original records, reconstructed selection and newly assessed evidence are distinct; none is original checkpoint3821 or product validation. Central owns baseline, connected ledger and publication.",
+  "product_changes": false,
+  "implementation": false,
+  "builds_tests_runtime_probes": false
+}
