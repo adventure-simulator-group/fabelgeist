@@ -1,0 +1,919 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles2013–2017, native report aggregation, selected fixture skills, shield contact and multi-file reviewer outputs.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2013-2017.json",
+  "git_membership_evidence": "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-core/src/skill.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "bytes": 41590,
+      "lines": 1165,
+      "ranges": [
+        [
+          1,
+          117
+        ],
+        [
+          704,
+          730
+        ],
+        [
+          779,
+          790
+        ],
+        [
+          1128,
+          1155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "bytes": 39225,
+      "lines": 1182,
+      "ranges": [
+        [
+          320,
+          432
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "795f62b1832f802b658d5bca24477088fdff1b38",
+      "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "bytes": 31415,
+      "lines": 866,
+      "ranges": [
+        [
+          1,
+          105
+        ],
+        [
+          108,
+          155
+        ],
+        [
+          174,
+          225
+        ],
+        [
+          228,
+          246
+        ],
+        [
+          257,
+          296
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0186d4895b4022c3fcdbda24b64713d2ed79e8ca",
+      "sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "bytes": 4707,
+      "lines": 127,
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7be0b2ef2c085026b7b6a5c77ffb2c17c1417913",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "bytes": 8414,
+      "lines": 221,
+      "ranges": [
+        [
+          65,
+          101
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/power.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f4c6df68225fa92dfbf3b8d372aeaa05afbb625e",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "bytes": 6098,
+      "lines": 168,
+      "ranges": [
+        [
+          82,
+          101
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "bytes": 100462,
+      "lines": 2878,
+      "ranges": [
+        [
+          481,
+          500
+        ],
+        [
+          506,
+          623
+        ],
+        [
+          637,
+          735
+        ],
+        [
+          751,
+          765
+        ],
+        [
+          818,
+          855
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "bytes": 22474,
+      "lines": 595,
+      "ranges": [
+        [
+          105,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "bytes": 13868,
+      "lines": 391,
+      "ranges": [
+        [
+          92,
+          125
+        ],
+        [
+          332,
+          360
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/starting_character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "552ccde3ca27d125ef75b3609a3bd3bb76d5db83",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "bytes": 70536,
+      "lines": 1936,
+      "ranges": [
+        [
+          108,
+          130
+        ],
+        [
+          384,
+          470
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          802,
+          875
+        ],
+        [
+          1981,
+          2045
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. Future original roles gain no historical personal read credit. No command, combat, serialization, source test or product ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "bytes": 22289,
+      "lines": 614,
+      "ranges": [
+        [
+          1,
+          107
+        ],
+        [
+          124,
+          128
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges inspected; complete bytes preserved. Build script, catalogue parser and product were not run."
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b52bdfb043c8018a2c24c8d3355d16aea1748215",
+      "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "bytes": 18941,
+      "lines": 614,
+      "ranges": [
+        [
+          465,
+          486
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges inspected; complete bytes preserved. Build script, catalogue parser and product were not run."
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "bytes": 19279,
+      "lines": 511,
+      "ranges": [
+        [
+          74,
+          81
+        ],
+        [
+          222,
+          285
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/melee-aggregation-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current source ranges inspected; complete bytes preserved. Build script, catalogue parser and product were not run."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json",
+    "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+    "ASSESSMENT-L1-ITERATION-TIMEOUT.json"
+  ],
+  "observations": [
+    {
+      "contract": "One-fighter outcome cardinality",
+      "trace": "The selected runner calls resolve_battle with one owned Combatant per side. Within the inspected resolve_battle source the initializers and round/opening handlers receive mutable slices, and the successful BattleOutcome maps each input vector into outcomes. Therefore, on this selected successful route, both indexed outcome[0] reads have a preserved element.",
+      "remaining": "This is source control-flow reasoning for the selected caller; early Err still aborts, and other callers, index consumers and all lenses remain open. No battle or test ran."
+    },
+    {
+      "contract": "Reviewer training curve and fixture hours",
+      "trace": "Each of Polearm, Axe, Bludgeon, Sword and Knife has max_hours8000 and the same self-dependent training formula. Weighted hours are combined before the curve in reviewer_combatant. On the selected ordinary successful build/catalogue path, the authored halberd has equal polearm/axe/bludgeon weights; purpose_build initializes polearm and bludgeon from rank4 but leaves raw axe at zero.",
+      "remaining": "See separate aggregation and fixture-policy candidates. The symbolic ideal comparison does not model f32 rounding, skill transfers, aptitude, injury or actual packet output."
+    },
+    {
+      "contract": "Effective active defense classification",
+      "trace": "A physical shield Block records defender_contact_item_id from the defender defense slot, and the aggregate route separates it from the melee weapon when IDs differ. Per-combatant causal accounting increments effective_weapon_contacts for any Block/Parry that is Blocked, before testing implement identity.",
+      "remaining": "See the conditional shield-contact candidate. The fixed militia installs a buckler and arming sword but actual block, ID uniqueness, report policy and consumer were not observed."
+    },
+    {
+      "contract": "Report artifact generation",
+      "trace": "Zero seed arguments are rejected before creating output. The selected command writes acceptance evidence before running matchups and publishes the top-level index last. Batches open trace files before work and propagate errors before new completed summaries.",
+      "remaining": "Fresh directories and an error-aware consumer may be safe; reuse with an intermediate failure is a hypothetical mixed-generation case, no filesystem or process observed."
+    },
+    {
+      "contract": "Native measurement invariants",
+      "trace": "Native f32 inputs are widened to f64 once, finite-checked, and accumulated with checked finite arithmetic; zero samples retain the existing zero mean while extrema remain optional. Semantic unit roles distinguish tactical, autoresolve and wall clocks.",
+      "remaining": "Finite-only admission does not itself prove nonnegativity or all cross-field relationships; exact producer policies and native serialization remain open."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-AUTORESOLVE-SHIELD-CONTACT-CLASSIFICATION-001",
+      "first_contract": "Per-combatant weapon-contact accounting must distinguish an effective shield block from contact by the equipped weapon when the field denotes weapon contacts.",
+      "source_witness": "record_autoresolve_combatant_causal increments defender.effective_weapon_contacts whenever defender_response is Block or Parry and the outcome is Blocked, without checking defender_contact_item_id. The selected core recorder sets Blocked for physical ToAttacker contact, and for Block chooses defense_item_id before melee_weapon_id. The separate aggregate classifier compares the contact ID with the defender weapon ID, incrementing shield_contacts for a nonmatching present ID. The militia fixture installs an arming-sword weapon and buckler defense item.",
+      "counterevidence": "The branch is conditioned on a successful physical contact, and the aggregate report does preserve a separate shield count when IDs differ. No such battle, ID collision, event, summary or consumer was observed. If effective_weapon_contacts intentionally means all active implements, that broader label must be made explicit before choosing a remedy. To reach a completed summary, assume the later optional telemetry and all other fallible measurements also succeed.",
+      "effect_and_limits": "For a hypothetical shield Block with present distinct shield and weapon IDs, the same event increments the per-combatant weapon-named field and aggregate shield count. This is source-only reasoning, not a gameplay defect or measured result.",
+      "repair_direction": "When authorized, use the actual defensive implement identity or an explicitly named broader contact category consistently across per-combatant and aggregate report boundaries; preserve legitimate absent IDs and block/parry semantics.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1682",
+        "segovb/READ-L12-675.json",
+        "adler/READ-L11-312.json"
+      ],
+      "alias_qualification": "A bounded text search of recovered059 queue and ledger found no exact effective_weapon_contacts or defender_contact_item_id record. This is not global alias proof or a historical unique-count update; checkpoint3821 remains missing.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-MELEE-REVIEWER-WEIGHTED-TRAINING-RANK-001",
+      "first_contract": "A reviewer-facing aggregate rank must define whether ranks are combined before or after the nonlinear training curve, and retain the intended distinction from effective combat checks.",
+      "source_witness": "reviewer_combatant computes a weighted mean of raw weapon skill hours, then passes that number to Skill::Sword.training_rank. All five selected melee skill variants have equal 8000-hour max parameters, so choosing Sword alone does not change their curve. On the ordinary successful build and catalogue path, the authored halberd distributes weight equally over polearm, axe and bludgeon; purpose_build sets polearm and bludgeon hours from rank4 but leaves axe at StartingSkills::default zero.",
+      "counterevidence": "In ideal real arithmetic, rank4 maps to16000 hours; equally weighted raw hours are 32000/3 and the curve yields 40/11 (about3.64). Averaging the three individual raw training ranks instead yields 8/3 (about2.67). Exact f32 roundoff is not evaluated. Actual combat checks also include effective-hours transfers, aptitude and injury, so neither number is asserted to be an effective combat value. No packet was produced. The source path through build.rs, embedded catalogue and authored-weapon projection is inspected but none was executed.",
+      "effect_and_limits": "These two reasonable meanings of primary_weapon_rank differ for this explicitly mixed fixture; whether the report intends rank of average hours or average of training ranks is an unresolved owner/presentation decision, not proof of a wrong rank.",
+      "repair_direction": "When authorized, choose and name the intended aggregate; if meant to match a combat-derived metric, use its real owner and preserve effective-hours/aptitude/limb distinctions instead of equating it to either idealized number.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1686",
+        "segovb/READ-L12-675.json"
+      ],
+      "alias_qualification": "Original059 pending rank question remains attributed as recorded. This selected source and arithmetic narrow its Sword-curve suspicion and expose a distinct aggregation-policy question, without historical unique-count or checkpoint3821 credit.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-MELEE-FIXTURE-SKILL-RANK-INTENT-001",
+      "first_contract": "The fixture author must decide whether its skill_rank input describes one primary skill or all skills seeded from it; the source must not silently imply equal ranks if it means equal hours.",
+      "source_witness": "purpose_build obtains one hours value with Skill::Sword.hours_for_rank(skill_rank), assigns it to sword, polearm, bludgeon, knife, dodge, block, will and balance, and leaves axe at the default. Sword/polearm/bludgeon/knife use max_hours8000; dodge uses20000, block12000, will5000 and balance30000. The helper explicitly uses skill_rank4 for the polearm veteran.",
+      "counterevidence": "For that rank, source algebra gives 16000 hours before any f32 rounding. Equal raw hours produce training-only ranks 4 for the 8000-hour melee curves, about3.08 for Dodge, 3.64 for Block, 4.32 for Will and 2.58 for Balance. The fixture may deliberately intend equal training hours, and descriptions do not prove a requirement for equal ranks. Actual combat checks add independent transfers, aptitude and condition. No fixture or report ran.",
+      "effect_and_limits": "A bounded fixture-authoring policy ambiguity, distinct from the reviewer aggregation ordering. Axe remains zero in the raw starting skills; no actual balance outcome or harmful fixture is asserted.",
+      "repair_direction": "When authorized, express distinct intended per-skill ranks through each skill owner if that is the fixture contract, or name the value as shared hours if equal exposure is intended; retain deliberate mixed-skill and physical differences.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1686",
+        "segovb/READ-L12-675.json"
+      ],
+      "alias_qualification": "Related rank investigation, but the first boundary is fixture construction rather than reviewer aggregation. No common-repair alias or original historical count is inferred.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-MELEE-OUTPUT-GENERATION-MIX-001",
+      "first_contract": "The owner of a multi-file reviewer packet must decide how consumers distinguish a complete single run from partial or stale files when an existing output directory is reused.",
+      "source_witness": "run creates the chosen directory, immediately writes acceptance-evidence.json, then runs each matchup and writes top-level summary, acceptance audit and reviewer index only afterward. Each batch creates its NDJSON trace before executing all seeds and can return an error before its summary. No selected source removes an earlier reviewer index before these operations or binds the separate files to a run identifier.",
+      "counterevidence": "The command propagates errors and does not return a successful new complete summary after a failing batch. The output directory may be fresh or the consumer may correctly honor failure status; no actual path, I/O failure, reader or stale evidence was observed.",
+      "effect_and_limits": "If a previously complete directory is deliberately reused and a later run fails after overwriting evidence but before replacing index/summary, the directory can contain a mixture of generations. This is source-order and hypothetical file-state reasoning, not an executed filesystem probe or demonstrated user incident.",
+      "repair_direction": "When authorized, establish output ownership and success policy, then publish or identify complete run artifacts in a way that preserves useful diagnostics without presenting partial/stale files as a current packet.",
+      "related_historical": [
+        "baseline-059/queue.json#/entries/1680",
+        "baseline-059/queue.json#/entries/1687",
+        "segovb/READ-L12-675.json"
+      ],
+      "alias_qualification": "Recovered059 explicitly left stale files and provenance open; this is a conditional connected current case, not an accepted historical duplicate or checkpoint3821 recovery.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-259.json",
+      "sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "bytes": 17171,
+      "git_blob": "f0e945891587ec93a64192c5c32065748eb5995b",
+      "preserved_bytes": "recovered/melee-aggregation-059/eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771.gz",
+      "published_sha256": "eac5536819c73f8aafa8fc1a459ccfb194019e43e6b5c451e21060dc4703e771",
+      "published_bytes": 17171,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-265.json",
+      "sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "bytes": 8630,
+      "git_blob": "ee988ea2ae34edc4ae4b93853692d48df29003cc",
+      "preserved_bytes": "recovered/melee-aggregation-059/b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374.gz",
+      "published_sha256": "b87089647bb0e6026a1f77a644023e3d78e39346dc538994cff2fb66329f6374",
+      "published_bytes": 8630,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/melee-aggregation-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-283.json",
+      "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "bytes": 16199,
+      "git_blob": "af46a230b77aa7f4c26f30c588438d00ba14507e",
+      "preserved_bytes": "recovered/melee-aggregation-059/21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8.gz",
+      "published_sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+      "published_bytes": 16199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/melee-aggregation-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/melee-aggregation-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-303.json",
+      "sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "bytes": 7583,
+      "git_blob": "f947e14e1d4038d2b61fdb68dd1b4956d1ed72dd",
+      "preserved_bytes": "recovered/melee-aggregation-059/9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99.gz",
+      "published_sha256": "9666142cdb29fdfd470c200ab9d2fc59baef4897ad7b2033308372f7962c8c99",
+      "published_bytes": 7583,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-304.json",
+      "sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "bytes": 6729,
+      "git_blob": "5466efc73a0ea970be2f052c22ee776d9212a9f6",
+      "preserved_bytes": "recovered/melee-aggregation-059/94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2.gz",
+      "published_sha256": "94afb02c4fb474fc7991529bc4370c9afd7821b393c84ebd900a9279a7ec08b2",
+      "published_bytes": 6729,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-310.json",
+      "sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a",
+      "bytes": 11210,
+      "git_blob": "ce564c195b3299950bf09eaa40162535217da0cc",
+      "preserved_bytes": "recovered/melee-aggregation-059/37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a.gz",
+      "published_sha256": "37b72ab64670db0b5b185ff8a85f66033bf05949eea8d326d7449118d666cc6a",
+      "published_bytes": 11210,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-311.json",
+      "sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "bytes": 9853,
+      "git_blob": "ba23ac9d50ba8cfabacc43b96b65a51272786616",
+      "preserved_bytes": "recovered/melee-aggregation-059/439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182.gz",
+      "published_sha256": "439ffb9271af8848734d56228d9dad8f33cbb0a0a531fc16bc5cef4f2a907182",
+      "published_bytes": 9853,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-312.json",
+      "sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "bytes": 11309,
+      "git_blob": "f7209701bce0993d6c46760340940c88cfe8e1cb",
+      "preserved_bytes": "recovered/melee-aggregation-059/4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5.gz",
+      "published_sha256": "4b668a59e6178be6bf3ceffd3a8f96de526c42128ffb7ec710768523dd6c73c5",
+      "published_bytes": 11309,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-857.json",
+      "sha256": "94ce7e63dc88096300ff8aeba761a2190a56aeedf799a13db64bb3608c9fc3cc",
+      "bytes": 699,
+      "git_blob": "3511f0a4a04a18f4950f15f3851f10be515a8ad0",
+      "preserved_bytes": "recovered/melee-aggregation-059/94ce7e63dc88096300ff8aeba761a2190a56aeedf799a13db64bb3608c9fc3cc.gz",
+      "published_sha256": "94ce7e63dc88096300ff8aeba761a2190a56aeedf799a13db64bb3608c9fc3cc",
+      "published_bytes": 699,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-858.json",
+      "sha256": "41db010e31f312d2124b36cfd714f68e1acb7eb31ea45fc7589013cea0569d28",
+      "bytes": 691,
+      "git_blob": "a42ac3b50512ad9b849b5f54ca593b29b6680a70",
+      "preserved_bytes": "recovered/melee-aggregation-059/41db010e31f312d2124b36cfd714f68e1acb7eb31ea45fc7589013cea0569d28.gz",
+      "published_sha256": "41db010e31f312d2124b36cfd714f68e1acb7eb31ea45fc7589013cea0569d28",
+      "published_bytes": 691,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-859.json",
+      "sha256": "db1ce82183146e04f9abe295d4e50c51f97b7ff05eba539a275726f2f32d47a1",
+      "bytes": 694,
+      "git_blob": "e49fe936bd294969b20c13f89912b0e17065e6c8",
+      "preserved_bytes": "recovered/melee-aggregation-059/db1ce82183146e04f9abe295d4e50c51f97b7ff05eba539a275726f2f32d47a1.gz",
+      "published_sha256": "db1ce82183146e04f9abe295d4e50c51f97b7ff05eba539a275726f2f32d47a1",
+      "published_bytes": 694,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-860.json",
+      "sha256": "7912ac6ed40f4238de2adb5b2e5ef7f0651353db92c480dc04e8edb1f59baa80",
+      "bytes": 697,
+      "git_blob": "cf74c820eb1a59500a2f7d77e0206be8ce09dc53",
+      "preserved_bytes": "recovered/melee-aggregation-059/7912ac6ed40f4238de2adb5b2e5ef7f0651353db92c480dc04e8edb1f59baa80.gz",
+      "published_sha256": "7912ac6ed40f4238de2adb5b2e5ef7f0651353db92c480dc04e8edb1f59baa80",
+      "published_bytes": 697,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-861.json",
+      "sha256": "eba557cf14f1682b4894016f5cdbb75457898ff87fbc705238f2e2bc8600e5aa",
+      "bytes": 696,
+      "git_blob": "03a3058bd96e7853cfeb180000cfed1431b89cba",
+      "preserved_bytes": "recovered/melee-aggregation-059/eba557cf14f1682b4894016f5cdbb75457898ff87fbc705238f2e2bc8600e5aa.gz",
+      "published_sha256": "eba557cf14f1682b4894016f5cdbb75457898ff87fbc705238f2e2bc8600e5aa",
+      "published_bytes": 696,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-312.json",
+      "sha256": "cc8fa075d0434296e6aab643aaae8047a1fd5f106d807223cd2d5c99df4d83b8",
+      "bytes": 657,
+      "git_blob": "30486d16fbfec653eab201c9d0110c8419a5955a",
+      "preserved_bytes": "recovered/melee-aggregation-059/cc8fa075d0434296e6aab643aaae8047a1fd5f106d807223cd2d5c99df4d83b8.gz",
+      "published_sha256": "cc8fa075d0434296e6aab643aaae8047a1fd5f106d807223cd2d5c99df4d83b8",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-312.json",
+      "sha256": "f72157e7aaf9a79e4e71fa662c1fd54cf5024ced768e797a358a51e1cb7f8bf0",
+      "bytes": 48311,
+      "git_blob": "c5ddfd2f0bef4d277fc3cf66d3fe1caa525837af",
+      "preserved_bytes": "recovered/melee-aggregation-059/f72157e7aaf9a79e4e71fa662c1fd54cf5024ced768e797a358a51e1cb7f8bf0.gz",
+      "published_sha256": "f72157e7aaf9a79e4e71fa662c1fd54cf5024ced768e797a358a51e1cb7f8bf0",
+      "published_bytes": 48311,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-674.json",
+      "sha256": "276fbc5e0de824f48f0548a6caf481079c5597f82eedaf44bb6544195d2641e7",
+      "bytes": 2256,
+      "git_blob": "b9f9a5a4a62bb9f4944296228a1d7a4a957e3ffb",
+      "preserved_bytes": "recovered/melee-aggregation-059/276fbc5e0de824f48f0548a6caf481079c5597f82eedaf44bb6544195d2641e7.gz",
+      "published_sha256": "276fbc5e0de824f48f0548a6caf481079c5597f82eedaf44bb6544195d2641e7",
+      "published_bytes": 2256,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-675.json",
+      "sha256": "5e9dfad9658debcdfc65e5dfdd1c88fd009f0d5aa6c1e71e0868da153f05a2e9",
+      "bytes": 1742,
+      "git_blob": "61256d414978332b763294d841e47313cf841a7e",
+      "preserved_bytes": "recovered/melee-aggregation-059/5e9dfad9658debcdfc65e5dfdd1c88fd009f0d5aa6c1e71e0868da153f05a2e9.gz",
+      "published_sha256": "5e9dfad9658debcdfc65e5dfdd1c88fd009f0d5aa6c1e71e0868da153f05a2e9",
+      "published_bytes": 1742,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-674.json",
+      "sha256": "01d7f6f89aba9fd4b5fbf1bc69fedd76ed24a0feaa6052c932d8cd6c76d20625",
+      "bytes": 15420,
+      "git_blob": "3a7a746fef667fe8637f2ebb2ae73be3eecaafd2",
+      "preserved_bytes": "recovered/melee-aggregation-059/01d7f6f89aba9fd4b5fbf1bc69fedd76ed24a0feaa6052c932d8cd6c76d20625.gz",
+      "published_sha256": "01d7f6f89aba9fd4b5fbf1bc69fedd76ed24a0feaa6052c932d8cd6c76d20625",
+      "published_bytes": 15420,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-675.json",
+      "sha256": "5900ed2d280d01bdcea63dcca52c0015b8e63162fe9ebf1db87dee6844420dd8",
+      "bytes": 13643,
+      "git_blob": "929452b3622553c638a08d026217df4036d275c6",
+      "preserved_bytes": "recovered/melee-aggregation-059/5900ed2d280d01bdcea63dcca52c0015b8e63162fe9ebf1db87dee6844420dd8.gz",
+      "published_sha256": "5900ed2d280d01bdcea63dcca52c0015b8e63162fe9ebf1db87dee6844420dd8",
+      "published_bytes": 13643,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-918.json",
+      "sha256": "35be057d6662d5a6ffcc93774002cffa2be9d72bcca6fb3eac95194bde5e9c80",
+      "bytes": 1209,
+      "git_blob": "65797fca9076c7501a441b5d6edbc95dcf6b24da",
+      "preserved_bytes": "recovered/melee-aggregation-059/35be057d6662d5a6ffcc93774002cffa2be9d72bcca6fb3eac95194bde5e9c80.gz",
+      "published_sha256": "35be057d6662d5a6ffcc93774002cffa2be9d72bcca6fb3eac95194bde5e9c80",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-919.json",
+      "sha256": "18a2422a70618b8981488a7d6e020e4d3213029846156d34b488bec57d025506",
+      "bytes": 1181,
+      "git_blob": "5c0d775612266757227bb64bc8feb265567513f4",
+      "preserved_bytes": "recovered/melee-aggregation-059/18a2422a70618b8981488a7d6e020e4d3213029846156d34b488bec57d025506.gz",
+      "published_sha256": "18a2422a70618b8981488a7d6e020e4d3213029846156d34b488bec57d025506",
+      "published_bytes": 1181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-920.json",
+      "sha256": "9a612f0068ffcf77eb2e7fadda08090aa5fe63d736e0c970c9e56fe517488f78",
+      "bytes": 1195,
+      "git_blob": "e93644e6b5a5312a9492db1bdf77697fda9ec2d5",
+      "preserved_bytes": "recovered/melee-aggregation-059/9a612f0068ffcf77eb2e7fadda08090aa5fe63d736e0c970c9e56fe517488f78.gz",
+      "published_sha256": "9a612f0068ffcf77eb2e7fadda08090aa5fe63d736e0c970c9e56fe517488f78",
+      "published_bytes": 1195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-921.json",
+      "sha256": "5acc03be4f91a761a9817e6ca20475e35a9bcf88f34e6bf0d564d2ef4b92cf89",
+      "bytes": 1179,
+      "git_blob": "f94bcf14b8d09f330031746eecdb912cabad34b4",
+      "preserved_bytes": "recovered/melee-aggregation-059/5acc03be4f91a761a9817e6ca20475e35a9bcf88f34e6bf0d564d2ef4b92cf89.gz",
+      "published_sha256": "5acc03be4f91a761a9817e6ca20475e35a9bcf88f34e6bf0d564d2ef4b92cf89",
+      "published_bytes": 1179,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-922.json",
+      "sha256": "e346b02ae7444465244ef27a03845170bc05a9d02ee04b87f1c58b7d635adbac",
+      "bytes": 1223,
+      "git_blob": "8e1c9b41327e8f860237004efb4464ae83f94a5d",
+      "preserved_bytes": "recovered/melee-aggregation-059/e346b02ae7444465244ef27a03845170bc05a9d02ee04b87f1c58b7d635adbac.gz",
+      "published_sha256": "e346b02ae7444465244ef27a03845170bc05a9d02ee04b87f1c58b7d635adbac",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-923.json",
+      "sha256": "db4964c301ce535099b63f3294bc32b58c8adbbf7a4c8b9ac5b2080f6fbf5119",
+      "bytes": 1225,
+      "git_blob": "d9a97d5708b2eafe2d6d77e8f232b826cc8121c0",
+      "preserved_bytes": "recovered/melee-aggregation-059/db4964c301ce535099b63f3294bc32b58c8adbbf7a4c8b9ac5b2080f6fbf5119.gz",
+      "published_sha256": "db4964c301ce535099b63f3294bc32b58c8adbbf7a4c8b9ac5b2080f6fbf5119",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-924.json",
+      "sha256": "9178a928ef2767397bdadfea2fcdd1307ded9b7ff398f75563e41793c1172e76",
+      "bytes": 1223,
+      "git_blob": "ed953f2f66c78449ad5df53530b675e16269cee6",
+      "preserved_bytes": "recovered/melee-aggregation-059/9178a928ef2767397bdadfea2fcdd1307ded9b7ff398f75563e41793c1172e76.gz",
+      "published_sha256": "9178a928ef2767397bdadfea2fcdd1307ded9b7ff398f75563e41793c1172e76",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-674.json",
+      "sha256": "c6c35e39cb50cc151de20a213e21317ff7fa25540750d710b2b792e0efc61ff3",
+      "bytes": 840,
+      "git_blob": "b8df386b63eaf9fa27346daf7f3fabd0d43635c5",
+      "preserved_bytes": "recovered/melee-aggregation-059/c6c35e39cb50cc151de20a213e21317ff7fa25540750d710b2b792e0efc61ff3.gz",
+      "published_sha256": "c6c35e39cb50cc151de20a213e21317ff7fa25540750d710b2b792e0efc61ff3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-675.json",
+      "sha256": "dd05e8438859af91ff857ceb960293a044d4c1bc8075ba80aa2547b97b961315",
+      "bytes": 840,
+      "git_blob": "957a222ff9c0b8cab5fd99b0b028bbd02362eb21",
+      "preserved_bytes": "recovered/melee-aggregation-059/dd05e8438859af91ff857ceb960293a044d4c1bc8075ba80aa2547b97b961315.gz",
+      "published_sha256": "dd05e8438859af91ff857ceb960293a044d4c1bc8075ba80aa2547b97b961315",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-674.json",
+      "sha256": "98ada84de0551e9a5a6dc5bf51d2da7c6faf9d0a164b8878714f1d6be027c034",
+      "bytes": 558,
+      "git_blob": "1e9197fd85fbbdf07335fee05fb8ef0b48ba327d",
+      "preserved_bytes": "recovered/melee-aggregation-059/98ada84de0551e9a5a6dc5bf51d2da7c6faf9d0a164b8878714f1d6be027c034.gz",
+      "published_sha256": "98ada84de0551e9a5a6dc5bf51d2da7c6faf9d0a164b8878714f1d6be027c034",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-675.json",
+      "sha256": "5496e65f07ef846770ead844642489a24e0675efa67da8b747fae81061a1fdf7",
+      "bytes": 558,
+      "git_blob": "685840383eab46d3ac158c406484eca8c840c986",
+      "preserved_bytes": "recovered/melee-aggregation-059/5496e65f07ef846770ead844642489a24e0675efa67da8b747fae81061a1fdf7.gz",
+      "published_sha256": "5496e65f07ef846770ead844642489a24e0675efa67da8b747fae81061a1fdf7",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb674/675 and Adler312 retain original independent lenses, ranges and original revisions; previous-role rows in 674 do not gain fresh personal credit. Future-role current support is not a new historical personal read. No record is promoted to3821.",
+  "remaining": "Continue original2018 and all13 lenses, exact output consumers and policies, alternate event producers, all extensions and exact aliases. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

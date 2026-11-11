@@ -6341,8 +6341,110 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
+      },
+      {
+        "id": "REVIEW-AUTORESOLVE-SHIELD-CONTACT-CLASSIFICATION-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional report contract",
+        "classification": "Per-combatant weapon-contact accounting must distinguish an effective shield block from contact by the equipped weapon when the field denotes weapon contacts.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1682",
+          "segovb/READ-L12-675.json",
+          "adler/READ-L11-312.json"
+        ],
+        "relationship_qualification": "A bounded text search of recovered059 queue and ledger found no exact effective_weapon_contacts or defender_contact_item_id record. This is not global alias proof or a historical unique-count update; checkpoint3821 remains missing.",
+        "discovery": "partial; selected source and conditional case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-AGGREGATION-95E.json"
+      },
+      {
+        "id": "REVIEW-MELEE-REVIEWER-WEIGHTED-TRAINING-RANK-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional report contract",
+        "classification": "A reviewer-facing aggregate rank must define whether ranks are combined before or after the nonlinear training curve, and retain the intended distinction from effective combat checks.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1686",
+          "segovb/READ-L12-675.json"
+        ],
+        "relationship_qualification": "Original059 pending rank question remains attributed as recorded. This selected source and arithmetic narrow its Sword-curve suspicion and expose a distinct aggregation-policy question, without historical unique-count or checkpoint3821 credit.",
+        "discovery": "partial; selected source and conditional case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-AGGREGATION-95E.json"
+      },
+      {
+        "id": "REVIEW-MELEE-FIXTURE-SKILL-RANK-INTENT-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional report contract",
+        "classification": "The fixture author must decide whether its skill_rank input describes one primary skill or all skills seeded from it; the source must not silently imply equal ranks if it means equal hours.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1686",
+          "segovb/READ-L12-675.json"
+        ],
+        "relationship_qualification": "Related rank investigation, but the first boundary is fixture construction rather than reviewer aggregation. No common-repair alias or original historical count is inferred.",
+        "discovery": "partial; selected source and conditional case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-AGGREGATION-95E.json"
+      },
+      {
+        "id": "REVIEW-MELEE-OUTPUT-GENERATION-MIX-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed conditional report contract",
+        "classification": "The owner of a multi-file reviewer packet must decide how consumers distinguish a complete single run from partial or stale files when an existing output directory is reused.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1680",
+          "baseline-059/queue.json#/entries/1687",
+          "segovb/READ-L12-675.json"
+        ],
+        "relationship_qualification": "Recovered059 explicitly left stale files and provenance open; this is a conditional connected current case, not an accepted historical duplicate or checkpoint3821 recovery.",
+        "discovery": "partial; selected source and conditional case recorded, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-AGGREGATION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1309.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1314.json"
 }
