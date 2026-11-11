@@ -2238,8 +2238,113 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L12-STANDALONE-MISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-TRAVEL-ITINERARY-ACTOR-ADMISSION-001",
+        "lens": 3,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "New bounded current native caller-admission question, distinct from other party operations.",
+        "historical_related_records": [
+          "ASSESSMENT-L03-PARTY-ACTOR-95E.json",
+          "baseline-059/queue.json#/entries/1003"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-CAMP-FATIGUE-ACTOR-ADMISSION-001",
+        "lens": 3,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "New bounded current native caller-admission question, distinct from itinerary and voting.",
+        "historical_related_records": [
+          "ASSESSMENT-L03-PARTY-ACTOR-95E.json",
+          "baseline-059/queue.json#/entries/1003"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "REVIEW-APPROVED-TRAVEL-ID-ADMISSION-001",
+        "lens": 3,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "New bounded current raw approved-action admission question, related to but not automatically the same contract as travel private retention or request actor authority.",
+        "historical_related_records": [
+          "ASSESSMENT-L03-PARTY-ACTOR-95E.json",
+          "baseline-059/queue.json#/entries/1003"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TRAVEL-ORIGIN-TEXT-DISPATCH",
+        "lens": 12,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "95e revisit of the earlier travel-origin string dispatch, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/243",
+          "segovb/READ-L12-303/304/305 via ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TRAVEL-CASE-SITE-PRIVATE-RETENTION",
+        "lens": 12,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "95e revisit of the earlier private case-site identifier flattening, not a new unique historical defect.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/244",
+          "segovb/READ-L12-303/304/305 via ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "Q-L12-90869165a5e467c9e544",
+        "lens": 12,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "95e source-text resolution of the earlier conditional mission entropy assertion question; no historical unique-count change.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/998",
+          "segovb/READ-L12-303/304/305 via ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+      },
+      {
+        "id": "Q-L12-d560b788dea590d225d7",
+        "lens": 12,
+        "severity": "unassigned; source-derived conditional finding; no product execution",
+        "classification": "95e source-text resolution of the earlier conditional storefront time assertion question; no historical unique-count change.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/999",
+          "segovb/READ-L12-303/304/305 via ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
+        ],
+        "relationship_qualification": "Preserve historical source, revision, attribution and original conditional status; shared remedy does not establish exact alias.",
+        "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRAVEL-ADMISSION-SOURCE-ASSERTIONS-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0301.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0304.json"
 }

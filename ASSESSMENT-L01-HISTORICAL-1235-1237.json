@@ -1,0 +1,93 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1235,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1235",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "lines": 761,
+      "new_personal_read_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1236,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1236",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "lines": 346,
+      "new_personal_read_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1237,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1237",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "lines": 1029,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen source-only strategic assertions, travel planning and travel reducer bodies were personally read through actual EOF. Assertions were never executed; source include/concat does not credit included source bodies.",
+    "Earlier Lens12 batches 303–305 independently read these same historical role identities with zero unique-count increase, no current-source reconciliation, no other-lens transfer and an open implementation gate. Their directly cited receipts, plans, registrations, states and verifications are independently hash-checked and preserved.",
+    "The selected 95e travel and source-selector observations are separately bounded; predecessor or historical bytes do not establish 3821 authority or complete any lens."
+  ],
+  "remaining": "Continue role 1238; travel lifecycle, codec, policy, aliases and all independent lenses remain open."
+}

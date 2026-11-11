@@ -1,0 +1,937 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    3,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected travel actor and typed-ID boundaries and source-only assertion selector evidence at 95e; no product execution.",
+  "source_reasoning": "Pinned source and static selector-byte inspection, not a build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e177d466256fc58322137873341a7fdb6744ac45",
+      "sha256": "32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870",
+      "bytes": 3576,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0cd470ccfb604d38577aee07a7b75ddd1fda77f9",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "bytes": 29213,
+      "lines": 761,
+      "ranges": [
+        [
+          201,
+          219
+        ],
+        [
+          510,
+          577
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "bytes": 39483,
+      "lines": 1029,
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          130,
+          360
+        ],
+        [
+          470,
+          710
+        ],
+        [
+          770,
+          875
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42fbacec718b1b161484c20a58624cbb4737c999",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "bytes": 12475,
+      "lines": 346,
+      "ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "872374f9956f1825f664f87eabb367604bda0b4b",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "bytes": 3751,
+      "lines": 101,
+      "ranges": [
+        [
+          35,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_place.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b5577ab4ed4a6b743f800a6255da755b1d0ff71",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "bytes": 34905,
+      "lines": 998,
+      "ranges": [
+        [
+          17,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "289b92ad39c34ef33bec683d35880ee1cd3f8df5",
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "bytes": 43965,
+      "lines": 1246,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          317,
+          330
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "273eafd632bcd254869f05ba77a9b7be4cf94d72",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "bytes": 51546,
+      "lines": 1586,
+      "ranges": [
+        [
+          940,
+          966
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/set_party_camp_fatigue_percent_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "366849d72a06d74c49171e6fb18ac98931d7eb87",
+      "sha256": "065cfbc1cb0cb86513d8d85720ac9dae5d6f4594d6989c7bca9600fa1ae90d4d",
+      "bytes": 3116,
+      "lines": 85,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-client/src/set_party_travel_itinerary_reducer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d3adb44bdc6904487a9747a5e4f9fe818578c2b0",
+      "sha256": "3977ee4d43a2e3f2d5a1ddb94cbbad836910705211bded72e6ff3d0932577bc4",
+      "bytes": 3735,
+      "lines": 103,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only cited ranges establish this selected current trace."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fda46bba04799966f56fd65eae206557df5c6afe",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "bytes": 8849,
+      "lines": 235,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6c1541b3ffab6a3a26941618591f16d82c7caea3",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "bytes": 867,
+      "lines": 29,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "40c6e218895a82ddffe77ad339ebaa1a0575ca88",
+      "sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "bytes": 6680,
+      "lines": 198,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdf15701efea4303425b67cfc3453ec2b8944e32",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "bytes": 41257,
+      "lines": 1159,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "bytes": 6013,
+      "lines": 173,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          69,
+          110
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Selected current source ranges; additional archived bytes are retained only for exact source-selector recovery."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c5fffd572eb8f059f35e24d96942b42130873818",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "bytes": 25076,
+      "lines": 781,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "92c9735c2c7d49e7eca00061cac622348d5fea17",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "bytes": 13850,
+      "lines": 351,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8193eef1602b1845c5a58ecee2df265c5d6a3f83",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "bytes": 53120,
+      "lines": 1408,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cff95893978abd26ca4493f9d353343f57d8e68",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "bytes": 40825,
+      "lines": 1095,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "bytes": 24372,
+      "lines": 616,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/20.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e1fbeb0fd5784cdd7b875fc184d728ba84dc42a9",
+      "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+      "bytes": 24314,
+      "lines": 636,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/21.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          61,
+          134
+        ],
+        [
+          169,
+          213
+        ],
+        [
+          215,
+          260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/22.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Selected current source ranges; additional archived bytes are retained only for exact source-selector recovery."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          2514,
+          2998
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/23.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Selected current source ranges; additional archived bytes are retained only for exact source-selector recovery."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6d02bd9eed6c85970d80fd8942b749ed320649be",
+      "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+      "bytes": 23742,
+      "lines": 687,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/24.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4f0b1423fe99c9da19befa58f92099bc7b6d5c12",
+      "sha256": "f1b6b291bd216720319051244c99925d2f4797fef16883a2f37d1bbb6350d2ba",
+      "bytes": 14013,
+      "lines": 417,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/25.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "09dba058c8452a935fbb298b9cdb04042d8b6ca3",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "bytes": 12487,
+      "lines": 384,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/26.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "bytes": 23893,
+      "lines": 703,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/27.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c12f381c26ad99b55cafc502f1352bae63bfdd4",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "bytes": 31853,
+      "lines": 908,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/28.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "bytes": 54084,
+      "lines": 1463,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/29.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "59c7882b45f9590acd8edcf1e156a609f33bf7ee",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "bytes": 59463,
+      "lines": 1677,
+      "ranges": [
+        [
+          1419,
+          1677
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/30.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Selected current source ranges; additional archived bytes are retained only for exact source-selector recovery."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d336b75c2c065000266b0c87514cfcf1920d4a",
+      "sha256": "95917e848a7696eed59a6878365b3b9171c9257d530a6254819270c59cead7e7",
+      "bytes": 11510,
+      "lines": 312,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/31.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "90fd40b6d65ee941335c3ddc666b579141e56028",
+      "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "bytes": 19279,
+      "lines": 573,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/32.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/tactical_enemy_fixture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3f5dfd1df6f31913876cc7e95f7263374ec6cd6f",
+      "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "bytes": 1618,
+      "lines": 43,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/33.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/34.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "bytes": 112976,
+      "lines": 2815,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/35.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "88bddd2570cde3aef78828ee26715df2d75bb676",
+      "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "bytes": 2707,
+      "lines": 80,
+      "ranges": [],
+      "preserved_bytes": "main-advance-95e/travel-contract-sources/36.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Empty ranges denote mechanically preserved concatenation bytes, not a personal full-body read."
+    }
+  ],
+  "source_selector_evidence": {
+    "strategic_source_include_order": [
+      "autoresolve.rs",
+      "combat_error.rs",
+      "party_readiness.rs",
+      "world_import.rs",
+      "authority_model.rs",
+      "approved_action.rs",
+      "dialogue_schema.rs",
+      "dialogue_sessions.rs",
+      "dialogue_provenance.rs",
+      "dialogue_bindings.rs",
+      "dialogue_prompts.rs",
+      "dialogue_effects.rs",
+      "governance.rs",
+      "inventory_trade.rs",
+      "hostile_negotiation.rs",
+      "hostile_surrender.rs",
+      "contracts.rs",
+      "travel_planning.rs",
+      "incidents.rs",
+      "journey_camp.rs",
+      "encounters.rs",
+      "travel_reducers.rs",
+      "custody_objectives.rs",
+      "development_gallery.rs",
+      "development_scenarios.rs",
+      "tactical_enemy_fixture.rs",
+      "mission_bootstrap.rs",
+      "challenges.rs",
+      "challenge_state.rs"
+    ],
+    "mission_selector_sha256": "a6489429926ddf448973cecd560612ba9d07ee3dcceeaa080fd0d88b3b9516d9",
+    "mission_selector_bytes": 37584,
+    "mission_selector_end": "first #[reducer] in development_scenarios.rs line 470 after custody_objectives.rs and development_gallery.rs",
+    "merchant_selector_sha256": "f29c2e456179999c1c9c532606abb278ff0ddfa5e1c406f91291cf8ef1010a5f",
+    "merchant_selector_bytes": 19923,
+    "qualification": "Exact textual selections only; not executed product assertions. Empty-range inputs were mechanically searched and do not receive body-read credit."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/243",
+      "qualification": "Same earlier travel origin kind text boundary."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/244",
+      "qualification": "Same earlier case-site private retention boundary."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/998",
+      "qualification": "Earlier conditional mission selector question."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/999",
+      "qualification": "Earlier conditional storefront selector question."
+    },
+    {
+      "file": "ASSESSMENT-L03-PARTY-ACTOR-95E.json",
+      "qualification": "Related but distinct request and approval actor source trace."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1235-1237.json",
+      "qualification": "Three historical Lens1 body reads, separately attributed."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-303.json",
+      "sha256": "13943dc72be84da76e48b48e63bc4c84d9fecc15d78d5b991504ff82e7d94853",
+      "bytes": 739,
+      "git_blob": "819c6005e294345eacffbd07ee939771852f9f00",
+      "preserved_bytes": "recovered/travel-contract-059/13943dc72be84da76e48b48e63bc4c84d9fecc15d78d5b991504ff82e7d94853.gz",
+      "published_sha256": "13943dc72be84da76e48b48e63bc4c84d9fecc15d78d5b991504ff82e7d94853",
+      "published_bytes": 739,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-304.json",
+      "sha256": "05d72031243a2342f489f8dfb6a86e3506892b7ad5d6f844b87c312a33f4e014",
+      "bytes": 724,
+      "git_blob": "6159f2b847ee9d86b9d4e21024e05ecf46e91cf6",
+      "preserved_bytes": "recovered/travel-contract-059/05d72031243a2342f489f8dfb6a86e3506892b7ad5d6f844b87c312a33f4e014.gz",
+      "published_sha256": "05d72031243a2342f489f8dfb6a86e3506892b7ad5d6f844b87c312a33f4e014",
+      "published_bytes": 724,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-305.json",
+      "sha256": "ce6a148e6d4cd7414b9200bcb50f68c403b1f498255ea7ccdc31a11985dd7ef8",
+      "bytes": 726,
+      "git_blob": "004b005018830973e8c4a7424ec0398b620117da",
+      "preserved_bytes": "recovered/travel-contract-059/ce6a148e6d4cd7414b9200bcb50f68c403b1f498255ea7ccdc31a11985dd7ef8.gz",
+      "published_sha256": "ce6a148e6d4cd7414b9200bcb50f68c403b1f498255ea7ccdc31a11985dd7ef8",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-303.json",
+      "sha256": "8193ff4ae5eb62b9877325e3d80fb45192a31b778a78c26956b9437c4a56b684",
+      "bytes": 6458,
+      "git_blob": "96d7f25318774de2e56fe09c14c6712e7f9668c6",
+      "preserved_bytes": "recovered/travel-contract-059/8193ff4ae5eb62b9877325e3d80fb45192a31b778a78c26956b9437c4a56b684.gz",
+      "published_sha256": "8193ff4ae5eb62b9877325e3d80fb45192a31b778a78c26956b9437c4a56b684",
+      "published_bytes": 6458,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-304.json",
+      "sha256": "6dbfaef5ebaca50f09157c29a11b09e59e129bf8eb8008e5fadc6a8369a4aed6",
+      "bytes": 5686,
+      "git_blob": "f2fab03a770e36805cf872648478f5e8f6ab93c5",
+      "preserved_bytes": "recovered/travel-contract-059/6dbfaef5ebaca50f09157c29a11b09e59e129bf8eb8008e5fadc6a8369a4aed6.gz",
+      "published_sha256": "6dbfaef5ebaca50f09157c29a11b09e59e129bf8eb8008e5fadc6a8369a4aed6",
+      "published_bytes": 5686,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-305.json",
+      "sha256": "96c7da8908b6bf4485ec83136d3f572ecfab3ef213398eee976bdbdede5b88d8",
+      "bytes": 9294,
+      "git_blob": "45dac24ccec1bad681b82d2d6c65ced6365f8b98",
+      "preserved_bytes": "recovered/travel-contract-059/96c7da8908b6bf4485ec83136d3f572ecfab3ef213398eee976bdbdede5b88d8.gz",
+      "published_sha256": "96c7da8908b6bf4485ec83136d3f572ecfab3ef213398eee976bdbdede5b88d8",
+      "published_bytes": 9294,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-142.json",
+      "sha256": "0d8d40a8687c459c9c31b963d7057222e3fd8a3242007ec27151b4e9a07f23f4",
+      "bytes": 1204,
+      "git_blob": "c928ff272772d390fedd1a1485acb3d3b00c74b9",
+      "preserved_bytes": "recovered/travel-contract-059/0d8d40a8687c459c9c31b963d7057222e3fd8a3242007ec27151b4e9a07f23f4.gz",
+      "published_sha256": "0d8d40a8687c459c9c31b963d7057222e3fd8a3242007ec27151b4e9a07f23f4",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-143.json",
+      "sha256": "975b73e920909e6db0f8bbef1819d05887f856da48a7216af0b0a1a5e74b5940",
+      "bytes": 1149,
+      "git_blob": "148567c9cfa2c8a01a9e46346975b34338752153",
+      "preserved_bytes": "recovered/travel-contract-059/975b73e920909e6db0f8bbef1819d05887f856da48a7216af0b0a1a5e74b5940.gz",
+      "published_sha256": "975b73e920909e6db0f8bbef1819d05887f856da48a7216af0b0a1a5e74b5940",
+      "published_bytes": 1149,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-144.json",
+      "sha256": "7e25e0d8a0114f15dcd143e5042d329e0d5525124b221748e1584e1caf0411a3",
+      "bytes": 1172,
+      "git_blob": "6ff95a4de21499ae4c2e374a2ff41ed52b92e520",
+      "preserved_bytes": "recovered/travel-contract-059/7e25e0d8a0114f15dcd143e5042d329e0d5525124b221748e1584e1caf0411a3.gz",
+      "published_sha256": "7e25e0d8a0114f15dcd143e5042d329e0d5525124b221748e1584e1caf0411a3",
+      "published_bytes": 1172,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-303.json",
+      "sha256": "32e2a8496d29133aa777e6d879bda20cbd26ab226bdfe4ccbf0d4305bd8aaa60",
+      "bytes": 840,
+      "git_blob": "1b766aa4ca061e0141e74c9654df2f85ac700b90",
+      "preserved_bytes": "recovered/travel-contract-059/32e2a8496d29133aa777e6d879bda20cbd26ab226bdfe4ccbf0d4305bd8aaa60.gz",
+      "published_sha256": "32e2a8496d29133aa777e6d879bda20cbd26ab226bdfe4ccbf0d4305bd8aaa60",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-304.json",
+      "sha256": "b7f0fd915b296fb6eeb3b770dbc9d90a1eef39cd346ed4535f0e29a3c46b30cb",
+      "bytes": 840,
+      "git_blob": "cc5d53c4346f85d6e5a022eb798fa653d372f16a",
+      "preserved_bytes": "recovered/travel-contract-059/b7f0fd915b296fb6eeb3b770dbc9d90a1eef39cd346ed4535f0e29a3c46b30cb.gz",
+      "published_sha256": "b7f0fd915b296fb6eeb3b770dbc9d90a1eef39cd346ed4535f0e29a3c46b30cb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-305.json",
+      "sha256": "dbdabd1c89d2545d198ebc8ea54dbd0d820190e1db6cb9cc7681cbb8becce868",
+      "bytes": 840,
+      "git_blob": "69838dbf53f7cbeea42ecc1937e7e43593189d16",
+      "preserved_bytes": "recovered/travel-contract-059/dbdabd1c89d2545d198ebc8ea54dbd0d820190e1db6cb9cc7681cbb8becce868.gz",
+      "published_sha256": "dbdabd1c89d2545d198ebc8ea54dbd0d820190e1db6cb9cc7681cbb8becce868",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-303.json",
+      "sha256": "99ef7a9a797e4519a352ac36e77f1e933dee6468cb180eb5dc78f97d632811ea",
+      "bytes": 558,
+      "git_blob": "08f09b19abf417c422971581ef855cbbda7d6b0f",
+      "preserved_bytes": "recovered/travel-contract-059/99ef7a9a797e4519a352ac36e77f1e933dee6468cb180eb5dc78f97d632811ea.gz",
+      "published_sha256": "99ef7a9a797e4519a352ac36e77f1e933dee6468cb180eb5dc78f97d632811ea",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-304.json",
+      "sha256": "20fb0d34f0db0885820eabc2621a89fefb9c8f61801b3f1812a74813cc55a631",
+      "bytes": 558,
+      "git_blob": "44616d6fc62980ae0587e7b41c857e2664b487b5",
+      "preserved_bytes": "recovered/travel-contract-059/20fb0d34f0db0885820eabc2621a89fefb9c8f61801b3f1812a74813cc55a631.gz",
+      "published_sha256": "20fb0d34f0db0885820eabc2621a89fefb9c8f61801b3f1812a74813cc55a631",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-305.json",
+      "sha256": "9d3e0c757b706b0d858faaa71b01cafd0c29813390758e12ae4296d9a29c474f",
+      "bytes": 558,
+      "git_blob": "3cc117005af0dfe905c9b696bce92525c2461016",
+      "preserved_bytes": "recovered/travel-contract-059/9d3e0c757b706b0d858faaa71b01cafd0c29813390758e12ae4296d9a29c474f.gz",
+      "published_sha256": "9d3e0c757b706b0d858faaa71b01cafd0c29813390758e12ae4296d9a29c474f",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes retain their original lens, source revision, attribution and pending contracts; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-TRAVEL-ITINERARY-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "classification": "New bounded current native caller-admission question, distinct from other party operations.",
+      "trace": "set_party_travel_itinerary checks that the supplied character is living and the party leader, validates walking duration and minute-of-day, prevents changing the departure clock once the wilderness anchor exists, stores walking/night/time settings and refreshes the forecast when camped. The selected native body lacks an explicit sender-bound actor or gateway check. An independent caller must still be allowed by deployment policy, know a living leader ID and satisfy all stated checks; no connection, call, database effect or unauthorized use was observed. The selected web form obtains character ID from the authenticated session.",
+      "connected_repair": "After supported sender and gateway/simulation policy is known, bind the caller to the leader at admission while preserving time bounds, wilderness restrictions and camp forecast behavior.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-CAMP-FATIGUE-ACTOR-ADMISSION-001",
+      "lens": 3,
+      "classification": "New bounded current native caller-admission question, distinct from itinerary and voting.",
+      "trace": "set_party_camp_fatigue_percent checks a living supplied leader and the inclusive 10–100 value range, then stores the camp setting on that party. The selected native body lacks an explicit sender-bound actor or gateway check. An independent caller must still be allowed by deployment policy, know a living leader ID and satisfy all stated checks; no connection, call, database effect or unauthorized use was observed. The selected source search did not establish an ordinary web caller, and its absence from that bounded search is not a global caller inventory.",
+      "connected_repair": "Resolve intended native caller policy and bind the supported sender before changing the party setting, retaining the existing bounds and the single-fatigue gameplay contract.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-APPROVED-TRAVEL-ID-ADMISSION-001",
+      "lens": 3,
+      "classification": "New bounded current raw approved-action admission question, related to but not automatically the same contract as travel private retention or request actor authority.",
+      "trace": "request_party_action stores a caller-supplied JSON payload for an admitted travel category; approve_party_action_request requires the strategic gateway and living party leader, deserializes ApprovedPartyAction and checks its kind. The TravelToCaseSite variant retains an unrestricted String. For an otherwise valid newly pending travel request whose JSON case_site_id is empty, serde can represent the field and the category matches; the unplanned execute branch calls CaseSiteId::from, whose implementation calls expect after the rejecting constructor. Source predicts a panic at this conversion under these preconditions, not a normal invalid-ID Result. The planned approval branch passes the raw string to the private travel helper instead and is a separate path. No malformed request, approval, panic, network access or database transaction was executed.",
+      "connected_repair": "Admit the existing CaseSiteId safely at the real payload boundary and carry it through both planned and unplanned approval paths, returning the agreed rejection for malformed external data. Preserve gateway/leader, request-kind, exact-site knowledge, route and fresh-state checks; audit all valid payload producers and native error/transaction behavior.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-TRAVEL-ORIGIN-TEXT-DISPATCH",
+      "lens": 12,
+      "classification": "95e revisit of the earlier travel-origin string dispatch, not a new unique historical defect.",
+      "trace": "travel_to_settlement_impl chooses an origin from settlement or case site and stores a private origin_kind text plus ID/name, compares it during revalidation, and matches it again to construct an existing JourneyEndpoint. Only those two strings are produced in the selected branches; no unknown normal value or runtime failure is claimed.",
+      "connected_repair": "After tracing all travel producers, retain the existing endpoint/appropriate typed origin through revalidation and journey creation, preserving exact ID admission, location synchronization and intentional settlement versus site behavior.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-TRAVEL-CASE-SITE-PRIVATE-RETENTION",
+      "lens": 12,
+      "classification": "95e revisit of the earlier private case-site identifier flattening, not a new unique historical defect.",
+      "trace": "Both native case-site travel reducers accept CaseSiteId then lower it into String for travel_to_case_site_impl, which queries exact observer knowledge and eventually reconstructs CaseSiteId for the persisted endpoint or arrival. Planned party approval is a distinct raw String producer and must be admitted rather than presumed typed.",
+      "connected_repair": "Retain CaseSiteId through private travel where already admitted and explicitly validate the planned approval input; preserve exact knowledge, route freshness, synchronization and native codec boundaries.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-90869165a5e467c9e544",
+      "lens": 12,
+      "classification": "95e source-text resolution of the earlier conditional mission entropy assertion question; no historical unique-count change.",
+      "trace": "The source-only assertion mission_binding_entropy_and_terminal_replays_fail_closed selects STRATEGIC_SOURCE after ensure_bound_mission_authority until the next reducer marker. At 95e this spans the rest of custody_objectives.rs, all development_gallery.rs and the prefix of development_scenarios.rs; the exact literal outcome_entropy: ctx.random() is absent. The selected binding calls MissionAuthority::capture, whose separate mission_roster module assigns outcome_entropy: ctx.random(). If this assertion is compiled and reached, its required substring is absent from its selected text. This is source-selector reasoning only; no product test or build ran and no claim is made about all other assertions.",
+      "connected_repair": "After discovery and authorization, align the source assertion with the actual constructor boundary or replace it with an appropriate existing contract check without weakening entropy, roster or retry requirements.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-d560b788dea590d225d7",
+      "lens": 12,
+      "classification": "95e source-text resolution of the earlier conditional storefront time assertion question; no historical unique-count change.",
+      "trace": "The source-only merchant_trade_is_bound_to_a_closed_storefront_and_persistent_provider assertion selects the final storefront executor using the last function marker up to leave_party, then requires the literal let problem_minute = StrategicMinute::new(. The selected current executor instead reads character_time and defaults to StrategicMinute::ZERO; the required literal is absent from the selected body. If this assertion is compiled and reached, that substring cannot be found. This is source inspection only; no product test or runtime execution occurred.",
+      "connected_repair": "Reconcile the assertion with the intended authoritative personal-time and missing-clock policy, preserving provider availability and chronology checks rather than restoring an obsolete literal merely to satisfy a text search.",
+      "severity": "unassigned; source-derived conditional finding; no product execution",
+      "discovery": "partial; all callers, native policy, transactions, exact historical aliases and independent lenses remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Trace all sender and approval policies, route and retry callers, source-assertion scopes, native transactions, exact aliases and all independent lenses. Final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
