@@ -1,0 +1,379 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Six original view-spec roles, four current static fixture slug/index comparisons, bounded building-review camera producer and tree residency source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1725-1730.json",
+  "git_membership_evidence": "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "101b34feca545b567c15bde7148c92e977c19fa5",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "bytes": 6073,
+      "lines": 186,
+      "ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/cameras.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4cfd22d1cf28537525d3219d5ec595439386019e",
+      "sha256": "339321b37e85cb2c1b1e2fcc138cac67330b953e40a94cf2797cdfcee382ae5e",
+      "bytes": 9261,
+      "lines": 224,
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5495a01b719275d4b967751aa7907b84f0d19271",
+      "sha256": "84e84f3131091565ab88b5dd04275305ba8cb8ad3481fc97c833a87abd35be58",
+      "bytes": 55082,
+      "lines": 1399,
+      "ranges": [
+        [
+          540,
+          720
+        ]
+      ],
+      "inspection": "source lines",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/shop-sign-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7bae1b66ec934250c5828eace11553d671db4692",
+      "sha256": "ed93b33b147c3e35cdcbf7f778f370875ee32cf04e5ef397ff532fb0e60b8a5b",
+      "bytes": 4801,
+      "lines": 276,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; workplace lines1–105 additionally inspected as source text",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/workplace-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ec07cc9de65565a2eee8ce0a12607a5993a9dd8b",
+      "sha256": "e9136467b36d4e65ed23be8a2319b01ec6e0d2ec36968df0dfb81b73a9e7b641",
+      "bytes": 11728,
+      "lines": 763,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "inspection": "JSON views[*].slug mechanically extracted; workplace lines1–105 additionally inspected as source text",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/compound-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bd19bc7efe652fb1758ce78e70807a8f32244416",
+      "sha256": "40a617716d6afeabbffb629f10256a1baf23367ea2d9e4916d3b8ff007bc6e24",
+      "bytes": 1770,
+      "lines": 121,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; workplace lines1–105 additionally inspected as source text",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    },
+    {
+      "path": "assets/tactical-scenes/facade-review.review.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4231b0ccc73f4bcf9bd1fdfaa226e80cf62ce4f",
+      "sha256": "e95c33cd0e488e97f4ca6aeb9072c7adb2598b508bba6796eab0bf245a7240d6",
+      "bytes": 6311,
+      "lines": 382,
+      "ranges": [],
+      "inspection": "JSON views[*].slug mechanically extracted; workplace lines1–105 additionally inspected as source text",
+      "preserved_bytes": "main-advance-95e/view-spec-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated text ranges and/or JSON slug fields inspected; complete bytes retained. Product and source tests not executed. No historical or independent-lens credit inferred."
+    }
+  ],
+  "static_fixture_mapping": "VIEW-FIXTURE-SLUG-INDEX-95E.json",
+  "earlier_current_viewer": "ASSESSMENT-L01-HISTORICAL-1699-COMPLETE.json",
+  "earlier_current_camera": "ASSESSMENT-L01-HISTORICAL-1720-1724.json",
+  "earlier_current_manifest": "ASSESSMENT-L01-HISTORICAL-1717-1719.json",
+  "observations": [
+    {
+      "contract": "Current fixture slug and camera association",
+      "trace": "Building review setup loads ReviewFixture, checks fixture view count and zips fixture slugs with selected non-warmup view-spec slugs in order, then constructs cameras in fixture order. The CityExterior pose independently carries a camera index that the view-camera consumer uses to select that vector. Static extraction shows matching slugs and camera indices0..N−1 for all18 shop,62 workplace,7 compound and31 facade rows in these current files.",
+      "remaining": "A hypothetical edit swapping only the camera numbers of barn-exterior and barn-interior would leave the fixture slug and count checks intact while selecting the other fixture camera, assuming both authored cameras construct successfully. No current mismatch, actual camera, image, GPU or gate result was observed. Related furniture-catalog association has a different producer and is not declared an exact alias. Whether a unified typed identity or another policy is warranted remains open."
+    },
+    {
+      "contract": "Understory catalogue and existing finding",
+      "trace": "The current parent CaptureViewSpec retains understory_species as an optional common-name string, and actual parent view factories specify common hazel, blackthorn and common hawthorn. The previously inspected viewer compares this value with the review specimen common_name for visibility and focus. This is additional parent-source evidence for existing SEGOVB-L12-UNDERSTORY-REVIEW-SPECIES-LABEL-AUTHORITY, not a new unique finding.",
+      "remaining": "All child factories, specimen producers, production isolation, native rendering and exact aliases remain open; present literals match the previously inspected producers."
+    },
+    {
+      "contract": "Cold traversal semantics at two revisions",
+      "trace": "Both parent tables contain one warmup,16 first-approach,8 retreat and16 repeated-approach views. The historical6533 comment calls this demand-driven residency; the current95e comment instead says the first request makes all tiers resident. Current streaming source passes EVERY_TREE_TIER and no selected leaf to the residency helper; the current manifest compares corresponding first/warm canopy pixel values for complete traversal.",
+      "remaining": "These are source and comment observations only: actual residency, load scheduling, frame sequence, gates, images and numerical quality were not observed. Cold-labelled slugs alone do not prove cold generation on approach. Keep ADLER-L11-TREE-LOD-ADMISSION and unrelated visual/fixture policies separate."
+    }
+  ],
+  "new_unique_findings": [],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/82",
+        "/entries/258",
+        "/entries/1432",
+        "/entries/1433",
+        "/entries/1434",
+        "/entries/1435"
+      ],
+      "qualification": "Original059 entries remain distinct and only partially connected; no checkpoint3821 transfer."
+    },
+    {
+      "file": "ASSESSMENT-PLANT-WORK-AND-SPECIES-95E.json",
+      "qualification": "Existing shrub-species finding and original Segovb555 evidence retain earlier attribution and qualifications."
+    },
+    {
+      "file": "ASSESSMENT-TREE-ASSET-LOD-95E.json",
+      "qualification": "Existing tree tier admission is separate from traversal imagery and residency claims."
+    },
+    {
+      "file": "ASSESSMENT-CATALOG-ROW-IDENTITY-95E.json",
+      "qualification": "Related independent furniture catalog association; no exact alias inferred."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-556.json",
+      "sha256": "3febd25ba4a4aaa12e8f93e242001cdddb98b993aabd09bdfe275f0856b8a355",
+      "bytes": 751,
+      "git_blob": "835e005eb4a565d8508a6211adbe5de5891db193",
+      "preserved_bytes": "recovered/view-spec-059/3febd25ba4a4aaa12e8f93e242001cdddb98b993aabd09bdfe275f0856b8a355.gz",
+      "published_sha256": "3febd25ba4a4aaa12e8f93e242001cdddb98b993aabd09bdfe275f0856b8a355",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-557.json",
+      "sha256": "6dbdb2495eb2425229ce0197c5e01fd5acf30372d8d905edf121620a14a41d65",
+      "bytes": 2270,
+      "git_blob": "fb8db95afa2dc26b4ce77a0759b6829e58565831",
+      "preserved_bytes": "recovered/view-spec-059/6dbdb2495eb2425229ce0197c5e01fd5acf30372d8d905edf121620a14a41d65.gz",
+      "published_sha256": "6dbdb2495eb2425229ce0197c5e01fd5acf30372d8d905edf121620a14a41d65",
+      "published_bytes": 2270,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-556.json",
+      "sha256": "2fcc9e16323896b5548794eed199048010201b32704a8c6ca833048072b7003d",
+      "bytes": 4794,
+      "git_blob": "bed5cb8e1ad7cb168f69c09e5b851cb93dc9cc68",
+      "preserved_bytes": "recovered/view-spec-059/2fcc9e16323896b5548794eed199048010201b32704a8c6ca833048072b7003d.gz",
+      "published_sha256": "2fcc9e16323896b5548794eed199048010201b32704a8c6ca833048072b7003d",
+      "published_bytes": 4794,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-557.json",
+      "sha256": "973389e5456f916f55577ae7a605e3eaaf5dd7d4e5bdb79e7207fa9ffcf33123",
+      "bytes": 12472,
+      "git_blob": "863c19d7cce0a8a1676ec258aed2c660ac032add",
+      "preserved_bytes": "recovered/view-spec-059/973389e5456f916f55577ae7a605e3eaaf5dd7d4e5bdb79e7207fa9ffcf33123.gz",
+      "published_sha256": "973389e5456f916f55577ae7a605e3eaaf5dd7d4e5bdb79e7207fa9ffcf33123",
+      "published_bytes": 12472,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-633.json",
+      "sha256": "b875cb0c98c4f963111ab33dcfd6550e919fcb04aa5e1ea5e13f2efdbeac989c",
+      "bytes": 1284,
+      "git_blob": "21d8f2fec1dcf152466851366f9da2e090941d59",
+      "preserved_bytes": "recovered/view-spec-059/b875cb0c98c4f963111ab33dcfd6550e919fcb04aa5e1ea5e13f2efdbeac989c.gz",
+      "published_sha256": "b875cb0c98c4f963111ab33dcfd6550e919fcb04aa5e1ea5e13f2efdbeac989c",
+      "published_bytes": 1284,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-634.json",
+      "sha256": "76c511af53bf15fda1f44516a31e84dd01734592c4c74b887eca460162e9df25",
+      "bytes": 1229,
+      "git_blob": "46611dcb20173ba171440a94a30139a71c309832",
+      "preserved_bytes": "recovered/view-spec-059/76c511af53bf15fda1f44516a31e84dd01734592c4c74b887eca460162e9df25.gz",
+      "published_sha256": "76c511af53bf15fda1f44516a31e84dd01734592c4c74b887eca460162e9df25",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-635.json",
+      "sha256": "1420f7e7c894f5a704587666535ddc836cf8dcb2491e7ebcbc8cee2447bd3516",
+      "bytes": 1237,
+      "git_blob": "52ce9dc2fbfbf9d1cfb8df43dd617ca465514e6f",
+      "preserved_bytes": "recovered/view-spec-059/1420f7e7c894f5a704587666535ddc836cf8dcb2491e7ebcbc8cee2447bd3516.gz",
+      "published_sha256": "1420f7e7c894f5a704587666535ddc836cf8dcb2491e7ebcbc8cee2447bd3516",
+      "published_bytes": 1237,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-636.json",
+      "sha256": "2935090531d2f3384f19d57c61daf4e0aa70169effe188c4afa9a096bde188ff",
+      "bytes": 1245,
+      "git_blob": "909bb15f6d48331b57ef2b5b7e0e39ea26a859bc",
+      "preserved_bytes": "recovered/view-spec-059/2935090531d2f3384f19d57c61daf4e0aa70169effe188c4afa9a096bde188ff.gz",
+      "published_sha256": "2935090531d2f3384f19d57c61daf4e0aa70169effe188c4afa9a096bde188ff",
+      "published_bytes": 1245,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-637.json",
+      "sha256": "4fe497d61790ce9e7ea2a2e6754d357661d7c69e5fadb332717239b7501ea6f4",
+      "bytes": 1235,
+      "git_blob": "1c4bbf9104ba0e839733c196476bc17135bd7238",
+      "preserved_bytes": "recovered/view-spec-059/4fe497d61790ce9e7ea2a2e6754d357661d7c69e5fadb332717239b7501ea6f4.gz",
+      "published_sha256": "4fe497d61790ce9e7ea2a2e6754d357661d7c69e5fadb332717239b7501ea6f4",
+      "published_bytes": 1235,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-556.json",
+      "sha256": "4af52d4552e1a4b0624542687095c84eaccefdfb5d84fbd6661a916f7fe289ee",
+      "bytes": 840,
+      "git_blob": "e68ae452fdee52347699d8247c3b33da7948a9ef",
+      "preserved_bytes": "recovered/view-spec-059/4af52d4552e1a4b0624542687095c84eaccefdfb5d84fbd6661a916f7fe289ee.gz",
+      "published_sha256": "4af52d4552e1a4b0624542687095c84eaccefdfb5d84fbd6661a916f7fe289ee",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-557.json",
+      "sha256": "5c3a668bc8e42d7be3651092f49bbbd3c4f6d8fdcef65614730c20e42fc452a7",
+      "bytes": 840,
+      "git_blob": "946707496d5158d27110b85d996341db4f8e2c0e",
+      "preserved_bytes": "recovered/view-spec-059/5c3a668bc8e42d7be3651092f49bbbd3c4f6d8fdcef65614730c20e42fc452a7.gz",
+      "published_sha256": "5c3a668bc8e42d7be3651092f49bbbd3c4f6d8fdcef65614730c20e42fc452a7",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-556.json",
+      "sha256": "1ed8eeafc8c277f847dadcb68b3e38b3bf0ac1fe000164438f55316f5d295add",
+      "bytes": 558,
+      "git_blob": "9a0575410629cb75404e339eb27c9c7b6ec4e9f7",
+      "preserved_bytes": "recovered/view-spec-059/1ed8eeafc8c277f847dadcb68b3e38b3bf0ac1fe000164438f55316f5d295add.gz",
+      "published_sha256": "1ed8eeafc8c277f847dadcb68b3e38b3bf0ac1fe000164438f55316f5d295add",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-557.json",
+      "sha256": "85917618f49bbeddb5457bbb89039e4604e760d0f4f9978627178fd8d7fcf6bc",
+      "bytes": 558,
+      "git_blob": "842f96665f8c9ce0970665bc75f8c6679f5fd558",
+      "preserved_bytes": "recovered/view-spec-059/85917618f49bbeddb5457bbb89039e4604e760d0f4f9978627178fd8d7fcf6bc.gz",
+      "published_sha256": "85917618f49bbeddb5457bbb89039e4604e760d0f4f9978627178fd8d7fcf6bc",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, source revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1731; establish profile and fixture semantic ownership, native camera/render policies, independent aliases, all13 lenses and semantic queue. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

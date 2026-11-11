@@ -1,0 +1,748 @@
+{
+  "schema": "726-static-review-view-fixture-map-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "method": "Mechanically extract CaptureViewSpec::new slug and CityExterior camera index from authored role source and compare with JSON views[*].slug in order, excluding warmup. No camera computation, target interpretation or product execution.",
+  "profiles": [
+    {
+      "profile": "shop-sign-review",
+      "source_role": 1726,
+      "fixture_path": "assets/tactical-scenes/shop-sign-review.review.json",
+      "count": 18,
+      "rows": [
+        {
+          "position": 0,
+          "spec_slug": "grenze-wall",
+          "camera_index": 0,
+          "fixture_slug": "grenze-wall"
+        },
+        {
+          "position": 1,
+          "spec_slug": "grenze-projecting",
+          "camera_index": 1,
+          "fixture_slug": "grenze-projecting"
+        },
+        {
+          "position": 2,
+          "spec_slug": "fraktur-wall",
+          "camera_index": 2,
+          "fixture_slug": "fraktur-wall"
+        },
+        {
+          "position": 3,
+          "spec_slug": "fraktur-projecting",
+          "camera_index": 3,
+          "fixture_slug": "fraktur-projecting"
+        },
+        {
+          "position": 4,
+          "spec_slug": "reverse",
+          "camera_index": 4,
+          "fixture_slug": "reverse"
+        },
+        {
+          "position": 5,
+          "spec_slug": "long-name",
+          "camera_index": 5,
+          "fixture_slug": "long-name"
+        },
+        {
+          "position": 6,
+          "spec_slug": "street",
+          "camera_index": 6,
+          "fixture_slug": "street"
+        },
+        {
+          "position": 7,
+          "spec_slug": "mounting-detail",
+          "camera_index": 7,
+          "fixture_slug": "mounting-detail"
+        },
+        {
+          "position": 8,
+          "spec_slug": "window-glass",
+          "camera_index": 8,
+          "fixture_slug": "window-glass"
+        },
+        {
+          "position": 9,
+          "spec_slug": "plaster-facade",
+          "camera_index": 9,
+          "fixture_slug": "plaster-facade"
+        },
+        {
+          "position": 10,
+          "spec_slug": "facade-lod",
+          "camera_index": 10,
+          "fixture_slug": "facade-lod"
+        },
+        {
+          "position": 11,
+          "spec_slug": "shell-lod",
+          "camera_index": 11,
+          "fixture_slug": "shell-lod"
+        },
+        {
+          "position": 12,
+          "spec_slug": "trade-bread-peel",
+          "camera_index": 12,
+          "fixture_slug": "trade-bread-peel"
+        },
+        {
+          "position": 13,
+          "spec_slug": "trade-hammer",
+          "camera_index": 13,
+          "fixture_slug": "trade-hammer"
+        },
+        {
+          "position": 14,
+          "spec_slug": "trade-shuttle",
+          "camera_index": 14,
+          "fixture_slug": "trade-shuttle"
+        },
+        {
+          "position": 15,
+          "spec_slug": "matched-detail",
+          "camera_index": 15,
+          "fixture_slug": "matched-detail"
+        },
+        {
+          "position": 16,
+          "spec_slug": "matched-facade",
+          "camera_index": 16,
+          "fixture_slug": "matched-facade"
+        },
+        {
+          "position": 17,
+          "spec_slug": "matched-shell",
+          "camera_index": 17,
+          "fixture_slug": "matched-shell"
+        }
+      ]
+    },
+    {
+      "profile": "workplace-review",
+      "source_role": 1726,
+      "fixture_path": "assets/tactical-scenes/workplace-review.review.json",
+      "count": 62,
+      "rows": [
+        {
+          "position": 0,
+          "spec_slug": "barn-exterior",
+          "camera_index": 0,
+          "fixture_slug": "barn-exterior"
+        },
+        {
+          "position": 1,
+          "spec_slug": "barn-interior",
+          "camera_index": 1,
+          "fixture_slug": "barn-interior"
+        },
+        {
+          "position": 2,
+          "spec_slug": "barn-distant",
+          "camera_index": 2,
+          "fixture_slug": "barn-distant"
+        },
+        {
+          "position": 3,
+          "spec_slug": "stable-exterior",
+          "camera_index": 3,
+          "fixture_slug": "stable-exterior"
+        },
+        {
+          "position": 4,
+          "spec_slug": "stable-interior",
+          "camera_index": 4,
+          "fixture_slug": "stable-interior"
+        },
+        {
+          "position": 5,
+          "spec_slug": "stable-distant",
+          "camera_index": 5,
+          "fixture_slug": "stable-distant"
+        },
+        {
+          "position": 6,
+          "spec_slug": "granary-exterior",
+          "camera_index": 6,
+          "fixture_slug": "granary-exterior"
+        },
+        {
+          "position": 7,
+          "spec_slug": "granary-interior",
+          "camera_index": 7,
+          "fixture_slug": "granary-interior"
+        },
+        {
+          "position": 8,
+          "spec_slug": "granary-distant",
+          "camera_index": 8,
+          "fixture_slug": "granary-distant"
+        },
+        {
+          "position": 9,
+          "spec_slug": "smithy-exterior",
+          "camera_index": 9,
+          "fixture_slug": "smithy-exterior"
+        },
+        {
+          "position": 10,
+          "spec_slug": "smithy-interior",
+          "camera_index": 10,
+          "fixture_slug": "smithy-interior"
+        },
+        {
+          "position": 11,
+          "spec_slug": "smithy-distant",
+          "camera_index": 11,
+          "fixture_slug": "smithy-distant"
+        },
+        {
+          "position": 12,
+          "spec_slug": "bakehouse-exterior",
+          "camera_index": 12,
+          "fixture_slug": "bakehouse-exterior"
+        },
+        {
+          "position": 13,
+          "spec_slug": "bakehouse-interior",
+          "camera_index": 13,
+          "fixture_slug": "bakehouse-interior"
+        },
+        {
+          "position": 14,
+          "spec_slug": "bakehouse-distant",
+          "camera_index": 14,
+          "fixture_slug": "bakehouse-distant"
+        },
+        {
+          "position": 15,
+          "spec_slug": "market-hall-exterior",
+          "camera_index": 15,
+          "fixture_slug": "market-hall-exterior"
+        },
+        {
+          "position": 16,
+          "spec_slug": "market-hall-interior",
+          "camera_index": 16,
+          "fixture_slug": "market-hall-interior"
+        },
+        {
+          "position": 17,
+          "spec_slug": "market-hall-distant",
+          "camera_index": 17,
+          "fixture_slug": "market-hall-distant"
+        },
+        {
+          "position": 18,
+          "spec_slug": "brewery-exterior",
+          "camera_index": 18,
+          "fixture_slug": "brewery-exterior"
+        },
+        {
+          "position": 19,
+          "spec_slug": "brewery-interior",
+          "camera_index": 19,
+          "fixture_slug": "brewery-interior"
+        },
+        {
+          "position": 20,
+          "spec_slug": "brewery-work-bay",
+          "camera_index": 20,
+          "fixture_slug": "brewery-work-bay"
+        },
+        {
+          "position": 21,
+          "spec_slug": "brewery-facade",
+          "camera_index": 21,
+          "fixture_slug": "brewery-facade"
+        },
+        {
+          "position": 22,
+          "spec_slug": "brewery-distant",
+          "camera_index": 22,
+          "fixture_slug": "brewery-distant"
+        },
+        {
+          "position": 23,
+          "spec_slug": "malthouse-exterior",
+          "camera_index": 23,
+          "fixture_slug": "malthouse-exterior"
+        },
+        {
+          "position": 24,
+          "spec_slug": "malthouse-interior",
+          "camera_index": 24,
+          "fixture_slug": "malthouse-interior"
+        },
+        {
+          "position": 25,
+          "spec_slug": "malthouse-work-bay",
+          "camera_index": 25,
+          "fixture_slug": "malthouse-work-bay"
+        },
+        {
+          "position": 26,
+          "spec_slug": "malthouse-facade",
+          "camera_index": 26,
+          "fixture_slug": "malthouse-facade"
+        },
+        {
+          "position": 27,
+          "spec_slug": "malthouse-distant",
+          "camera_index": 27,
+          "fixture_slug": "malthouse-distant"
+        },
+        {
+          "position": 28,
+          "spec_slug": "timber-yard-exterior",
+          "camera_index": 28,
+          "fixture_slug": "timber-yard-exterior"
+        },
+        {
+          "position": 29,
+          "spec_slug": "timber-yard-interior",
+          "camera_index": 29,
+          "fixture_slug": "timber-yard-interior"
+        },
+        {
+          "position": 30,
+          "spec_slug": "timber-yard-work-bay",
+          "camera_index": 30,
+          "fixture_slug": "timber-yard-work-bay"
+        },
+        {
+          "position": 31,
+          "spec_slug": "timber-yard-facade",
+          "camera_index": 31,
+          "fixture_slug": "timber-yard-facade"
+        },
+        {
+          "position": 32,
+          "spec_slug": "timber-yard-distant",
+          "camera_index": 32,
+          "fixture_slug": "timber-yard-distant"
+        },
+        {
+          "position": 33,
+          "spec_slug": "carpenter-exterior",
+          "camera_index": 33,
+          "fixture_slug": "carpenter-exterior"
+        },
+        {
+          "position": 34,
+          "spec_slug": "carpenter-interior",
+          "camera_index": 34,
+          "fixture_slug": "carpenter-interior"
+        },
+        {
+          "position": 35,
+          "spec_slug": "carpenter-work-bay",
+          "camera_index": 35,
+          "fixture_slug": "carpenter-work-bay"
+        },
+        {
+          "position": 36,
+          "spec_slug": "carpenter-facade",
+          "camera_index": 36,
+          "fixture_slug": "carpenter-facade"
+        },
+        {
+          "position": 37,
+          "spec_slug": "carpenter-distant",
+          "camera_index": 37,
+          "fixture_slug": "carpenter-distant"
+        },
+        {
+          "position": 38,
+          "spec_slug": "craft-street",
+          "camera_index": 38,
+          "fixture_slug": "craft-street"
+        },
+        {
+          "position": 39,
+          "spec_slug": "warehouse-exterior",
+          "camera_index": 39,
+          "fixture_slug": "warehouse-exterior"
+        },
+        {
+          "position": 40,
+          "spec_slug": "warehouse-interior",
+          "camera_index": 40,
+          "fixture_slug": "warehouse-interior"
+        },
+        {
+          "position": 41,
+          "spec_slug": "warehouse-loading-bay",
+          "camera_index": 41,
+          "fixture_slug": "warehouse-loading-bay"
+        },
+        {
+          "position": 42,
+          "spec_slug": "warehouse-facade",
+          "camera_index": 42,
+          "fixture_slug": "warehouse-facade"
+        },
+        {
+          "position": 43,
+          "spec_slug": "warehouse-distant",
+          "camera_index": 43,
+          "fixture_slug": "warehouse-distant"
+        },
+        {
+          "position": 44,
+          "spec_slug": "dyer-exterior",
+          "camera_index": 44,
+          "fixture_slug": "dyer-exterior"
+        },
+        {
+          "position": 45,
+          "spec_slug": "dyer-interior",
+          "camera_index": 45,
+          "fixture_slug": "dyer-interior"
+        },
+        {
+          "position": 46,
+          "spec_slug": "dyer-work-bay",
+          "camera_index": 46,
+          "fixture_slug": "dyer-work-bay"
+        },
+        {
+          "position": 47,
+          "spec_slug": "dyer-drying-detail",
+          "camera_index": 47,
+          "fixture_slug": "dyer-drying-detail"
+        },
+        {
+          "position": 48,
+          "spec_slug": "dyer-facade",
+          "camera_index": 48,
+          "fixture_slug": "dyer-facade"
+        },
+        {
+          "position": 49,
+          "spec_slug": "dyer-distant",
+          "camera_index": 49,
+          "fixture_slug": "dyer-distant"
+        },
+        {
+          "position": 50,
+          "spec_slug": "tannery-exterior",
+          "camera_index": 50,
+          "fixture_slug": "tannery-exterior"
+        },
+        {
+          "position": 51,
+          "spec_slug": "tannery-interior",
+          "camera_index": 51,
+          "fixture_slug": "tannery-interior"
+        },
+        {
+          "position": 52,
+          "spec_slug": "tannery-work-bay",
+          "camera_index": 52,
+          "fixture_slug": "tannery-work-bay"
+        },
+        {
+          "position": 53,
+          "spec_slug": "tannery-drying-detail",
+          "camera_index": 53,
+          "fixture_slug": "tannery-drying-detail"
+        },
+        {
+          "position": 54,
+          "spec_slug": "tannery-facade",
+          "camera_index": 54,
+          "fixture_slug": "tannery-facade"
+        },
+        {
+          "position": 55,
+          "spec_slug": "tannery-distant",
+          "camera_index": 55,
+          "fixture_slug": "tannery-distant"
+        },
+        {
+          "position": 56,
+          "spec_slug": "horse-mill-exterior",
+          "camera_index": 56,
+          "fixture_slug": "horse-mill-exterior"
+        },
+        {
+          "position": 57,
+          "spec_slug": "horse-mill-interior",
+          "camera_index": 57,
+          "fixture_slug": "horse-mill-interior"
+        },
+        {
+          "position": 58,
+          "spec_slug": "horse-mill-millstone",
+          "camera_index": 58,
+          "fixture_slug": "horse-mill-millstone"
+        },
+        {
+          "position": 59,
+          "spec_slug": "horse-mill-sweep",
+          "camera_index": 59,
+          "fixture_slug": "horse-mill-sweep"
+        },
+        {
+          "position": 60,
+          "spec_slug": "horse-mill-facade",
+          "camera_index": 60,
+          "fixture_slug": "horse-mill-facade"
+        },
+        {
+          "position": 61,
+          "spec_slug": "horse-mill-distant",
+          "camera_index": 61,
+          "fixture_slug": "horse-mill-distant"
+        }
+      ]
+    },
+    {
+      "profile": "compound-review",
+      "source_role": 1728,
+      "fixture_path": "assets/tactical-scenes/compound-review.review.json",
+      "count": 7,
+      "rows": [
+        {
+          "position": 0,
+          "spec_slug": "property-overview",
+          "camera_index": 0,
+          "fixture_slug": "property-overview"
+        },
+        {
+          "position": 1,
+          "spec_slug": "left-street-gate",
+          "camera_index": 1,
+          "fixture_slug": "left-street-gate"
+        },
+        {
+          "position": 2,
+          "spec_slug": "left-side-passage",
+          "camera_index": 2,
+          "fixture_slug": "left-side-passage"
+        },
+        {
+          "position": 3,
+          "spec_slug": "right-street-gate",
+          "camera_index": 3,
+          "fixture_slug": "right-street-gate"
+        },
+        {
+          "position": 4,
+          "spec_slug": "right-side-passage",
+          "camera_index": 4,
+          "fixture_slug": "right-side-passage"
+        },
+        {
+          "position": 5,
+          "spec_slug": "rear-store",
+          "camera_index": 5,
+          "fixture_slug": "rear-store"
+        },
+        {
+          "position": 6,
+          "spec_slug": "court-exit",
+          "camera_index": 6,
+          "fixture_slug": "court-exit"
+        }
+      ]
+    },
+    {
+      "profile": "facade-review",
+      "source_role": 1730,
+      "fixture_path": "assets/tactical-scenes/facade-review.review.json",
+      "count": 31,
+      "rows": [
+        {
+          "position": 0,
+          "spec_slug": "cottage-detail",
+          "camera_index": 0,
+          "fixture_slug": "cottage-detail"
+        },
+        {
+          "position": 1,
+          "spec_slug": "cottage-facade",
+          "camera_index": 1,
+          "fixture_slug": "cottage-facade"
+        },
+        {
+          "position": 2,
+          "spec_slug": "cottage-shell",
+          "camera_index": 2,
+          "fixture_slug": "cottage-shell"
+        },
+        {
+          "position": 3,
+          "spec_slug": "hall-detail",
+          "camera_index": 3,
+          "fixture_slug": "hall-detail"
+        },
+        {
+          "position": 4,
+          "spec_slug": "hall-facade",
+          "camera_index": 4,
+          "fixture_slug": "hall-facade"
+        },
+        {
+          "position": 5,
+          "spec_slug": "hall-shell",
+          "camera_index": 5,
+          "fixture_slug": "hall-shell"
+        },
+        {
+          "position": 6,
+          "spec_slug": "town-detail",
+          "camera_index": 6,
+          "fixture_slug": "town-detail"
+        },
+        {
+          "position": 7,
+          "spec_slug": "town-facade",
+          "camera_index": 7,
+          "fixture_slug": "town-facade"
+        },
+        {
+          "position": 8,
+          "spec_slug": "town-shell",
+          "camera_index": 8,
+          "fixture_slug": "town-shell"
+        },
+        {
+          "position": 9,
+          "spec_slug": "merchant-detail",
+          "camera_index": 9,
+          "fixture_slug": "merchant-detail"
+        },
+        {
+          "position": 10,
+          "spec_slug": "merchant-facade",
+          "camera_index": 10,
+          "fixture_slug": "merchant-facade"
+        },
+        {
+          "position": 11,
+          "spec_slug": "merchant-shell",
+          "camera_index": 11,
+          "fixture_slug": "merchant-shell"
+        },
+        {
+          "position": 12,
+          "spec_slug": "shutter-closed-detail",
+          "camera_index": 12,
+          "fixture_slug": "shutter-closed-detail"
+        },
+        {
+          "position": 13,
+          "spec_slug": "shutter-closed-facade",
+          "camera_index": 13,
+          "fixture_slug": "shutter-closed-facade"
+        },
+        {
+          "position": 14,
+          "spec_slug": "shutter-open-detail",
+          "camera_index": 14,
+          "fixture_slug": "shutter-open-detail"
+        },
+        {
+          "position": 15,
+          "spec_slug": "shutter-open-facade",
+          "camera_index": 15,
+          "fixture_slug": "shutter-open-facade"
+        },
+        {
+          "position": 16,
+          "spec_slug": "glazed-closed-detail",
+          "camera_index": 16,
+          "fixture_slug": "glazed-closed-detail"
+        },
+        {
+          "position": 17,
+          "spec_slug": "glazed-closed-facade",
+          "camera_index": 17,
+          "fixture_slug": "glazed-closed-facade"
+        },
+        {
+          "position": 18,
+          "spec_slug": "glazed-open-detail",
+          "camera_index": 18,
+          "fixture_slug": "glazed-open-detail"
+        },
+        {
+          "position": 19,
+          "spec_slug": "glazed-open-facade",
+          "camera_index": 19,
+          "fixture_slug": "glazed-open-facade"
+        },
+        {
+          "position": 20,
+          "spec_slug": "barred-open-detail",
+          "camera_index": 20,
+          "fixture_slug": "barred-open-detail"
+        },
+        {
+          "position": 21,
+          "spec_slug": "barred-open-facade",
+          "camera_index": 21,
+          "fixture_slug": "barred-open-facade"
+        },
+        {
+          "position": 22,
+          "spec_slug": "door-open-detail",
+          "camera_index": 22,
+          "fixture_slug": "door-open-detail"
+        },
+        {
+          "position": 23,
+          "spec_slug": "door-open-facade",
+          "camera_index": 23,
+          "fixture_slug": "door-open-facade"
+        },
+        {
+          "position": 24,
+          "spec_slug": "fixed-glass-open-detail",
+          "camera_index": 24,
+          "fixture_slug": "fixed-glass-open-detail"
+        },
+        {
+          "position": 25,
+          "spec_slug": "fixed-glass-open-facade",
+          "camera_index": 25,
+          "fixture_slug": "fixed-glass-open-facade"
+        },
+        {
+          "position": 26,
+          "spec_slug": "cottage-tile-courses",
+          "camera_index": 26,
+          "fixture_slug": "cottage-tile-courses"
+        },
+        {
+          "position": 27,
+          "spec_slug": "hall-tile-courses",
+          "camera_index": 27,
+          "fixture_slug": "hall-tile-courses"
+        },
+        {
+          "position": 28,
+          "spec_slug": "shed-flue-exterior",
+          "camera_index": 28,
+          "fixture_slug": "shed-flue-exterior"
+        },
+        {
+          "position": 29,
+          "spec_slug": "shed-flue-roof-detail",
+          "camera_index": 29,
+          "fixture_slug": "shed-flue-roof-detail"
+        },
+        {
+          "position": 30,
+          "spec_slug": "shed-flue-roof-facade",
+          "camera_index": 30,
+          "fixture_slug": "shed-flue-roof-facade"
+        }
+      ]
+    }
+  ],
+  "qualification": "Equality of these current authored fields is not proof of geometry, fixture admissibility, native rendering or other profile mappings."
+}
