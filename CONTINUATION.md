@@ -169,6 +169,12 @@ The earlier fill assumption and uncertain reachability remain explicit.
 `ASSESSMENT-L03-QUEST-WEIGHT-NARROWING-95E.json` traces the existing
 quest mass narrowing question through authoring, typed admission and the
 current authored corpus. Decoder features and actual runtime remain open.
+`ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json` extends the earlier
+sampler-overflow question with a pinned dependency and current authored
+weight bound. The hypothetical context and historical attribution remain open.
+`ASSESSMENT-L01-HISTORICAL-969-974.json` preserves separate frozen
+quest assembly, model, projection and sampling reads. Existing historical
+numeric and admission questions remain independently attributed.
 `ASSESSMENT-L01-HISTORICAL-966-968.json` preserves frozen quest
 catalogue, admission validation and demographic selector reads. The earlier
 delegated numeric assessment remains separately attributed.
