@@ -1,0 +1,670 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Eight original animation role bodies and bounded current pack, configuration, body-response, timing and codec source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1770-1777.json",
+  "git_membership_evidence": "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b1bd2c131c0b9ea412e65cd8bc52227bc2ad92ba",
+      "sha256": "24dd229e7467ac0a4b6a11b398e06290949923b614b3deebfa972f03ab93e1d3",
+      "bytes": 9479,
+      "lines": 264,
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9cc8f25516d91650f9eb528c16bb1fa971a511da",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "bytes": 13401,
+      "lines": 390,
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "28d3ac89af3ab47510d9443514c2111edefe4d19",
+      "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+      "bytes": 76703,
+      "lines": 1969,
+      "ranges": [
+        [
+          138,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1f893809c543298d7e5bd6c51cce255160f12d3c",
+      "sha256": "503b335e2aaa99a5cb283b02af958b8990b0e2fce6817b437b56e1bc8900e6e1",
+      "bytes": 5065,
+      "lines": 145,
+      "ranges": [
+        [
+          99,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6bb0d3caeb294352afa98c2e75e041776d9ddc9c",
+      "sha256": "93bf8878500fe7902fc616643b4678bfbc4c8f091c94dcd68b2a42a6ccb377af",
+      "bytes": 21683,
+      "lines": 582,
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7d549460870d2e41d86f1ef10932d2b099a58084",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "bytes": 3223,
+      "lines": 66,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "beebd3799c939e0ca1da808a35b2160b6b5b7e90",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "bytes": 6019,
+      "lines": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "37c18d48d09ea063ced1a36203af2560f481df85",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "bytes": 7449,
+      "lines": 211,
+      "ranges": [
+        [
+          40,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7eabeba200454f0b7cd34886a92049342e7d1c44",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "bytes": 19821,
+      "lines": 490,
+      "ranges": [
+        [
+          1,
+          165
+        ],
+        [
+          195,
+          216
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a83ffa8beeede1de72e5d5c508a303cea83f74b",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "bytes": 10398,
+      "lines": 272,
+      "ranges": [
+        [
+          40,
+          113
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "96ba096e60314683c71611623bda86c6e9e67711",
+      "sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+      "bytes": 68840,
+      "lines": 1813,
+      "ranges": [
+        [
+          669,
+          715
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f3cc5b2c458a41bc49c82502a39d1159c1e8f13",
+      "sha256": "4b41d158f102b67dd8ec40b40179456bbb348084165de92c33cf57fd8981b5da",
+      "bytes": 73988,
+      "lines": 1894,
+      "ranges": [
+        [
+          643,
+          663
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3554bcdff8a61da471c8dd0dc0a4be5439dd5228",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "bytes": 2253,
+      "lines": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fcde79c797a4df12522675f7d722322168ca4569",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "bytes": 35002,
+      "lines": 867,
+      "ranges": [
+        [
+          50,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "bytes": 53907,
+      "lines": 1514,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/startup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "416b6c9007352d1fa110f10ed68f6b542484dbe0",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "bytes": 4837,
+      "lines": 120,
+      "ranges": [
+        [
+          35,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          243,
+          255
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/pack-response-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated95e ranges personally inspected; complete bytes retained. Test source is evidence of intended assertions, not a test run. Other original roles, independent lenses and all producers remain open."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Pack capabilities",
+      "trace": "Pack validation explicitly distinguishes structure from complete content and supports fallback/semantic/mirrored resolution. The loaded client library is constructed from actually available clip anchors; selected capabilities are then copied into a presented skeleton.",
+      "remaining": "No asset, renderer or game was run. Existing source-test assertions are recorded as authored expectations only."
+    },
+    {
+      "contract": "Clock and scalar owners",
+      "trace": "AnimationSampleRate retains the original admitted frequency together with a checked positive reciprocal interval, while AnimationFrequency alone has no reciprocal requirement. AnimationSampleTick and AnimationSampleSpan own different checked, saturating and wrapping methods.",
+      "remaining": "Actual all-call-site clock policy and native behaviors remain open; cached representations are not assumed independent authority by naming alone."
+    },
+    {
+      "contract": "Native divisor and progress adapters",
+      "trace": "Current guarded camera look clamps after distributing its angle, while body-angle creation rejects nonfinite products before clamping. Owned progress decoding explicitly rejects nonfinite input and clamps finite values; direct UnitInterval admission differs.",
+      "remaining": "Trace each producer and intended boundary policy; do not classify normalization or bool serialization as a compatibility shim merely by comments."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-PACK-ATTACK-INHERITANCE-DOC-001",
+      "lens": 8,
+      "additional_current_lenses": [
+        1,
+        7,
+        12,
+        13
+      ],
+      "classification": "New95e source-level documentation versus capability-selection discrepancy, connected to Segovb572; the intended gameplay/content policy remains to be decided.",
+      "canonical_owner": "AnimationPackLibrary::attack_animations contract and authored main/offhand capability inheritance.",
+      "first_failed_contract": "The function documentation says that a pack owning any attack owns the complete attack choice, but the implementation selects main-hand attacks and offhand capability independently across the fallback chain.",
+      "trace": "attack_animations chooses the nearest pack with swing or thrust as its main set, while OR-ing an available offhand attack from each visited pack until both main and offhand are present. Current source test child_attack_set_is_all_or_nothing_and_empty_child_inherits describes a child containing AttackSwing over a parent containing AttackOffhand and expects child swing with inherited offhand. Runtime source builds its library from loaded clip anchors and semantic routing reads attack_animations for the equipped pack.",
+      "safeguards": "This establishes a source documentation/code and source-assertion mismatch, not a run test, observed missing clip, actual authored partial-load condition or proof that split inheritance is wrong. Incomplete-art packs and deliberate content inheritance are supported modes, not automatically compatibility shims. Earlier Segovb572 identified this policy/comment ambiguity without accepting a finding.",
+      "dependencies": [
+        "Confirm the desired main-hand/offhand inheritance policy and inspect actual loaded-content and gameplay/presentation consumers.",
+        "Align the owning contract and implementation around the chosen policy; preserve optional incomplete-art and legitimate independent capability modes where intended.",
+        "Reconcile original059 queue1450 and exact aliases without changing earlier reviewer attribution."
+      ],
+      "later_acceptance": [
+        "The documented capability selection and source behavior agree for a child with only a main attack, only an offhand attack, and no attacks.",
+        "Preserve supported attack and content-loading behavior; any later tests or runtime checks require separate authorization."
+      ],
+      "discovery": "partial; present source contradiction and unexecuted asserted example identified, intended policy, real assets and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        3,
+        7,
+        8,
+        13
+      ],
+      "classification": "New95e conditional representability question for a configured reference acceleration and presentation angle; no live failure observed.",
+      "canonical_owner": "BodyResponseConfig reference-acceleration admission and the consuming body-angle scaling operation, with physical acceleration remaining a separately measured quantity.",
+      "first_failed_contract": "A finite positive acceleration divisor alone does not guarantee a finite component/reference ratio before the consumer constructs and caps a body angle.",
+      "trace": "ReferenceAcceleration rejects zero/nonfinite/negative but permits arbitrarily small positive finite f32 values. ProceduralAnimationConfig validates the presentation gap and response cap but has no shown additional bound on the two reference acceleration fields. Inertial lean divides smoothed body-local acceleration by the configured forward/lateral reference; BodyAngle::from_authored_scale checks the multiplied angle before subsequent clamping. The copied presentation body-response state is rejected and not published when the operation errors.",
+      "symbolic_example": "A positive reference 2^-140 and a finite nonzero component 0.5 give the exact quotient 2^139, above the largest finite binary32 value (<2^128). Both operands are representable binary32 values. The committed YAML uses forward12.0 and lateral10.0 with nonzero forward lean10 degrees. This is exact source-directed arithmetic, not a parsed configuration, motion sample, animation or product run.",
+      "safeguards": "A normal result requires a continuous, grounded, unguarded, no-action presentation path and a nonzero filtered acceleration; the source resets response in several other modes. The current authority projection clamps acceleration magnitude to80 after checking it. No full extreme configuration was parsed or installed, no matching smoothed sample or rejected frame observed, and support for such tuning is undecided. A positive-but-tiny landing recovery issue in ASSESSMENT-LANDING-SETTLE-95E.json has a different owner and operation; no exact alias is assumed.",
+      "dependencies": [
+        "Trace supported configuration admission, acceleration producers and smoothing, native angle conversion, all call sites and field policy.",
+        "Define a representable/meaningful input relationship or an explicit bounded computation before publication while preserving normal authored response.",
+        "Reconcile original059 queue1452 and prior quantity-context question without treating BodyAngle reattribution alone as a string or correctness defect."
+      ],
+      "later_acceptance": [
+        "Every supported reference and measured component reaches a defined finite body-angle result or is rejected with owning context before presentation.",
+        "Preserve legitimate zero acceleration, normal positive authored tuning and presentation-only behavior; later validation is separately authorized."
+      ],
+      "discovery": "partial; divisor, actual consumer, rejection path and exact hypothetical ratio connected; full configuration/sample reachability and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1450",
+        "/entries/1451",
+        "/entries/1452"
+      ],
+      "qualification": "Original059 pending scopes only partially connected; original6533 reviewer and earlier qualifications remain separate from current assessment."
+    },
+    {
+      "file": "ASSESSMENT-LANDING-SETTLE-95E.json",
+      "qualification": "Different positive-divisor numeric owner and consumer; no alias inferred."
+    },
+    {
+      "file": "ASSESSMENT-GAIT-PROFILE-95E.json",
+      "qualification": "Prior current periodic support case remains separately attributed; no historical role credit transferred."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-572.json",
+      "sha256": "117e3b1bdaf5f22b11c71cbad612e9370a931abe381dd533c06a90bf27cef074",
+      "bytes": 2186,
+      "git_blob": "ac3f58b3fa9ec3db8572d7e2ebe7578257bcf668",
+      "preserved_bytes": "recovered/pack-response-059/117e3b1bdaf5f22b11c71cbad612e9370a931abe381dd533c06a90bf27cef074.gz",
+      "published_sha256": "117e3b1bdaf5f22b11c71cbad612e9370a931abe381dd533c06a90bf27cef074",
+      "published_bytes": 2186,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-573.json",
+      "sha256": "d665cf34578e1a281f86e1f332ff0e91e5f11428e3a6f83c4f1a560e30522c35",
+      "bytes": 2197,
+      "git_blob": "92729f40fe5f7e84b94d14578aa8e940483c9c6a",
+      "preserved_bytes": "recovered/pack-response-059/d665cf34578e1a281f86e1f332ff0e91e5f11428e3a6f83c4f1a560e30522c35.gz",
+      "published_sha256": "d665cf34578e1a281f86e1f332ff0e91e5f11428e3a6f83c4f1a560e30522c35",
+      "published_bytes": 2197,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-572.json",
+      "sha256": "66a3002db73b1fa1cf40783c7187d886f61347b93005c3c6c9d8cf6d41c60a0f",
+      "bytes": 13880,
+      "git_blob": "fedbe387abe121abb9b0fe984b7af76ce32d7c70",
+      "preserved_bytes": "recovered/pack-response-059/66a3002db73b1fa1cf40783c7187d886f61347b93005c3c6c9d8cf6d41c60a0f.gz",
+      "published_sha256": "66a3002db73b1fa1cf40783c7187d886f61347b93005c3c6c9d8cf6d41c60a0f",
+      "published_bytes": 13880,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-573.json",
+      "sha256": "6934fb90e4321724ee4b81f417e736b53f8c736261c8b6fef664e4bab4cac309",
+      "bytes": 7296,
+      "git_blob": "1ffc67f796f78e7c1cd2bf53a2f06cc91eef0db0",
+      "preserved_bytes": "recovered/pack-response-059/6934fb90e4321724ee4b81f417e736b53f8c736261c8b6fef664e4bab4cac309.gz",
+      "published_sha256": "6934fb90e4321724ee4b81f417e736b53f8c736261c8b6fef664e4bab4cac309",
+      "published_bytes": 7296,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Segovb original Lens12 review at6533; no personal full-read transfer"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-677.json",
+      "sha256": "86c75b89200d69739dba9a1d70bf10aeb9bd580aaefded92e79dd66dbfd7e08d",
+      "bytes": 1205,
+      "git_blob": "06678543cd6e828670db097d198251e21123dbe8",
+      "preserved_bytes": "recovered/pack-response-059/86c75b89200d69739dba9a1d70bf10aeb9bd580aaefded92e79dd66dbfd7e08d.gz",
+      "published_sha256": "86c75b89200d69739dba9a1d70bf10aeb9bd580aaefded92e79dd66dbfd7e08d",
+      "published_bytes": 1205,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-678.json",
+      "sha256": "9c351bb961db7af4f3154eef7375759cc3349ccba2b05845dad5638d0864d278",
+      "bytes": 1193,
+      "git_blob": "9a905565dc9bdaff156900c3a8254a179c82837b",
+      "preserved_bytes": "recovered/pack-response-059/9c351bb961db7af4f3154eef7375759cc3349ccba2b05845dad5638d0864d278.gz",
+      "published_sha256": "9c351bb961db7af4f3154eef7375759cc3349ccba2b05845dad5638d0864d278",
+      "published_bytes": 1193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-679.json",
+      "sha256": "b8202826a1af4a08da3b4a40797232f2ce0881b47dce7582950d5f8b97661ecc",
+      "bytes": 1209,
+      "git_blob": "0fe111b7d3b1daa0c2087699554c2b9ea8be46c4",
+      "preserved_bytes": "recovered/pack-response-059/b8202826a1af4a08da3b4a40797232f2ce0881b47dce7582950d5f8b97661ecc.gz",
+      "published_sha256": "b8202826a1af4a08da3b4a40797232f2ce0881b47dce7582950d5f8b97661ecc",
+      "published_bytes": 1209,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-680.json",
+      "sha256": "1363bce62d5cef53287392f79b8671b08ef0129b0c2e4ed9f55313884c0363fd",
+      "bytes": 1213,
+      "git_blob": "1592e9922dd449865799b6f696efc3c14e438574",
+      "preserved_bytes": "recovered/pack-response-059/1363bce62d5cef53287392f79b8671b08ef0129b0c2e4ed9f55313884c0363fd.gz",
+      "published_sha256": "1363bce62d5cef53287392f79b8671b08ef0129b0c2e4ed9f55313884c0363fd",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-681.json",
+      "sha256": "0478cbb8e641edd46130f0d611d5d0287758ccf3f6e16b5a5a05cad2eec420e3",
+      "bytes": 1229,
+      "git_blob": "b021fb47e7f9a0d3fb8b99d06dfb5c5d8c029b5c",
+      "preserved_bytes": "recovered/pack-response-059/0478cbb8e641edd46130f0d611d5d0287758ccf3f6e16b5a5a05cad2eec420e3.gz",
+      "published_sha256": "0478cbb8e641edd46130f0d611d5d0287758ccf3f6e16b5a5a05cad2eec420e3",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-682.json",
+      "sha256": "d6812ee5385d6c48d125399d807b4aafa5eb727bc2e526eefef14d502ccafd5a",
+      "bytes": 1211,
+      "git_blob": "b23a5e43af8d82649737489cca80267422b18c5c",
+      "preserved_bytes": "recovered/pack-response-059/d6812ee5385d6c48d125399d807b4aafa5eb727bc2e526eefef14d502ccafd5a.gz",
+      "published_sha256": "d6812ee5385d6c48d125399d807b4aafa5eb727bc2e526eefef14d502ccafd5a",
+      "published_bytes": 1211,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-683.json",
+      "sha256": "f8796b9e174d1caa8c953ba5edb7f856a9f640ddda0a5024b7586171e4f256a4",
+      "bytes": 1213,
+      "git_blob": "ff59c389a2431b3caecec2bef83504637557ae79",
+      "preserved_bytes": "recovered/pack-response-059/f8796b9e174d1caa8c953ba5edb7f856a9f640ddda0a5024b7586171e4f256a4.gz",
+      "published_sha256": "f8796b9e174d1caa8c953ba5edb7f856a9f640ddda0a5024b7586171e4f256a4",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-684.json",
+      "sha256": "ee9b08db53a32a85e1ddffa08f216990fe5cdb61580cf0e7e5f66c3d87f1dad9",
+      "bytes": 1217,
+      "git_blob": "c5398d5e58b51bcac7b141abb49d05f4c1c80d58",
+      "preserved_bytes": "recovered/pack-response-059/ee9b08db53a32a85e1ddffa08f216990fe5cdb61580cf0e7e5f66c3d87f1dad9.gz",
+      "published_sha256": "ee9b08db53a32a85e1ddffa08f216990fe5cdb61580cf0e7e5f66c3d87f1dad9",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-572.json",
+      "sha256": "e74bdc77c101a8f6202c7f3458aca3f781e0b65eb67e6d1e39d7364157bc7ab3",
+      "bytes": 840,
+      "git_blob": "adf8690dfc6855e4b1bee46e0e2753cc13505c73",
+      "preserved_bytes": "recovered/pack-response-059/e74bdc77c101a8f6202c7f3458aca3f781e0b65eb67e6d1e39d7364157bc7ab3.gz",
+      "published_sha256": "e74bdc77c101a8f6202c7f3458aca3f781e0b65eb67e6d1e39d7364157bc7ab3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-573.json",
+      "sha256": "d085471c22209884ade9dca31183367459e771d123eecaf289fc7961540b5fcb",
+      "bytes": 840,
+      "git_blob": "82a0d2fa30d3fda1b23fa8a07e3bf7346db0d36a",
+      "preserved_bytes": "recovered/pack-response-059/d085471c22209884ade9dca31183367459e771d123eecaf289fc7961540b5fcb.gz",
+      "published_sha256": "d085471c22209884ade9dca31183367459e771d123eecaf289fc7961540b5fcb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier state"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-572.json",
+      "sha256": "40fcc9e9dccb6bcfb1d018bdcf82b3be723232dd04091a731f12c28f1bc184af",
+      "bytes": 558,
+      "git_blob": "c2479ffafcca7bb2f6a8e70de146f89745f26c12",
+      "preserved_bytes": "recovered/pack-response-059/40fcc9e9dccb6bcfb1d018bdcf82b3be723232dd04091a731f12c28f1bc184af.gz",
+      "published_sha256": "40fcc9e9dccb6bcfb1d018bdcf82b3be723232dd04091a731f12c28f1bc184af",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-573.json",
+      "sha256": "695d8f6135182c6646c5ea16f53e629f0520f4ffe6494e940d592f75c746a193",
+      "bytes": 558,
+      "git_blob": "7bebe134f7ea6e9985bcf023ade836d05fac5b43",
+      "preserved_bytes": "recovered/pack-response-059/695d8f6135182c6646c5ea16f53e629f0520f4ffe6494e940d592f75c746a193.gz",
+      "published_sha256": "695d8f6135182c6646c5ea16f53e629f0520f4ffe6494e940d592f75c746a193",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier verification"
+      ],
+      "qualification": "Original reviewer, revision, range and prior attribution preserved; no checkpoint3821 or independent-lens transfer."
+    }
+  ],
+  "remaining": "Continue original1778; establish intended capability and numeric policy, actual content and source inputs, all13 lenses, semantic queue and aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
