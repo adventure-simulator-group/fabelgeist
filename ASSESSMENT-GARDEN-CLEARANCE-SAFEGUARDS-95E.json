@@ -1,0 +1,858 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original roles1940–1948, garden support, selected validation sequencing and controller-clearance counterevidence.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1940-1948.json",
+  "git_membership_evidence": "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "bytes": 72173,
+      "lines": 1738,
+      "ranges": [
+        [
+          86,
+          104
+        ],
+        [
+          378,
+          391
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "210041d58493da3cdd10df3622282c2a4f38de18",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "bytes": 678,
+      "lines": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          2150,
+          2152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b958d10442f73b18c46f5e12869eeecaabc09f0b",
+      "sha256": "6a7c0f94142f4921348b6ce263465973968879d77cb1b0880ef647a72402a3be",
+      "bytes": 24076,
+      "lines": 649,
+      "ranges": [
+        [
+          227,
+          236
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0cc7a809becdfcc5e2ea4af7e6441dc17134f55f",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "bytes": 19525,
+      "lines": 488,
+      "ranges": [
+        [
+          41,
+          42
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fb361cce7e4baecc411cbe9ff3faab3ae49ced41",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "bytes": 2242,
+      "lines": 56,
+      "ranges": [
+        [
+          15,
+          43
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7a8109a7fbc6969b4d2ed502091b48a48ea78bd4",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "bytes": 2908,
+      "lines": 64,
+      "ranges": [
+        [
+          20,
+          27
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "bytes": 39530,
+      "lines": 1026,
+      "ranges": [
+        [
+          427,
+          467
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/garden-clearance-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only listed current ranges inspected; complete bytes preserved. No garden, input, controller, source test, scene or game ran."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-INTERIOR-INSTALL-95E.json",
+    "ASSESSMENT-GARDEN-ADMISSION-95E.json",
+    "ASSESSMENT-SAMPLED-SUPPORT-95E.json",
+    "ASSESSMENT-GROUND-CARDINALITY-95E.json",
+    "RECONCILIATION-VISTA-TREE-FRAME-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Garden root admission and required support",
+      "trace": "SceneGarden::project maps every garden plant through terrain.height_at and collects all results before from_support; absence becomes GardenSupportError::MissingSoil with plant and owner context. SceneGarden::from_support checks nonzero owner/plant identities, ordered one-to-one support membership and cardinality. The parent scene source validates garden ownership and geometry; generated active gardens are filtered to active buildings, while the source tests describe distant presentation separately.",
+      "remaining": "The public and derived-decoder from_support route does not itself prove full garden geometry or terrain-elevation agreement. Tiny sampled-grid numerical failure and Garden MissingSoil classification have related but not automatically identical contracts. No garden, decode, terrain or source test ran."
+    },
+    {
+      "contract": "Selected obstacle clearance and controller skin",
+      "trace": "support_obstacles::remove reserves HUMANOID_COLLISION_RADIUS_METRES plus CharacterController::default().move_and_slide.skin_width. The selected tactical_character_controller uses a struct update from default without setting move_and_slide, and apply_motor_config changes acceleration, friction, gravity, step size and slope but does not set skin width. The selected player and iteration collider source uses the same humanoid radius constant.",
+      "remaining": "This is bounded structural counterevidence to assuming the selected motor configuration changes skin; native default values, other writers, component replacement, nonhumanoid bodies, support geometry and physical movement were not executed or globally proven."
+    },
+    {
+      "contract": "Generation and report scope",
+      "trace": "prepare_supported_terrain calls self.validate before prepare_geographic_terrain, which separately calls validate_source before upsampling and ground construction. Grid validation requires matching heights/environment sizes. A source-only report_terrain_delta helper skips missing query pairs and prints maxima; no maximum assertion appears in that helper.",
+      "remaining": "Other entry paths, floating source-index behavior, generated data and any consumer outside the selected source remain open. Authored tests are specifications only."
+    }
+  ],
+  "conditional_findings": [],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-267.json",
+      "sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "bytes": 22626,
+      "git_blob": "b0b7fae53ef99de5954a3fa93d47a3da655bfd19",
+      "preserved_bytes": "recovered/garden-clearance-059/e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e.gz",
+      "published_sha256": "e0c84822759651b19ebcec7a8ae87946abf451ac2009caa43bf3cd753b0c276e",
+      "published_bytes": 22626,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-274.json",
+      "sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "bytes": 9944,
+      "git_blob": "e072050becf60dde23ac603c52ac4b125de87408",
+      "preserved_bytes": "recovered/garden-clearance-059/7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91.gz",
+      "published_sha256": "7ab192deddbcd16844276bf01cb88f14d0601001a8dd2d5b39d97b9ab0d5ba91",
+      "published_bytes": 9944,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-279.json",
+      "sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "bytes": 9700,
+      "git_blob": "30bff15c9967db3e6f6f3c7727bef93f7ce5c919",
+      "preserved_bytes": "recovered/garden-clearance-059/d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7.gz",
+      "published_sha256": "d344ed37dfa45445a015627aa974b0022927a5dc9f3ea0b934d4d8a0cebe56e7",
+      "published_bytes": 9700,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-282.json",
+      "sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "bytes": 15035,
+      "git_blob": "45ee5dcfa447994407de51ae6b68f85de63c1ac4",
+      "preserved_bytes": "recovered/garden-clearance-059/bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3.gz",
+      "published_sha256": "bf8eb6347998447d0c9ae1f4df96c96db5c7e6101fb94adcd0d561e94be94da3",
+      "published_bytes": 15035,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-286.json",
+      "sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "bytes": 12115,
+      "git_blob": "f0857f21383fa7232908947c1df1dd955d94cf4a",
+      "preserved_bytes": "recovered/garden-clearance-059/58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de.gz",
+      "published_sha256": "58b97605544fa43304e177b38701274a5ce42dee249061ec7dd5402069da06de",
+      "published_bytes": 12115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-287.json",
+      "sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "bytes": 6941,
+      "git_blob": "84f8363af8a5a6f039846f29fc14e050b87737cf",
+      "preserved_bytes": "recovered/garden-clearance-059/88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29.gz",
+      "published_sha256": "88aac5502017e16a62102d4671540f36c4ec89d57ae4a758277de45ef2e66f29",
+      "published_bytes": 6941,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-288.json",
+      "sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "bytes": 15183,
+      "git_blob": "bc06bba74b5bf5a40366ea8765844e638608e231",
+      "preserved_bytes": "recovered/garden-clearance-059/a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f.gz",
+      "published_sha256": "a009a8e759c9d2ff8409178e816f07d1d22a0a4ee5c1882ff6ab8ee7553d879f",
+      "published_bytes": 15183,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-289.json",
+      "sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "bytes": 13932,
+      "git_blob": "492f7a3770c7692e16bb1d1a6c1004a0817290db",
+      "preserved_bytes": "recovered/garden-clearance-059/28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0.gz",
+      "published_sha256": "28f09d07db10454b72e88fcbc8a940f2c7601caf7353e6dcc2ddb8e85a1aefa0",
+      "published_bytes": 13932,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-290.json",
+      "sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "bytes": 12417,
+      "git_blob": "36c15abc3fc414b93ef16c17a4a8076ad21c0fef",
+      "preserved_bytes": "recovered/garden-clearance-059/16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a.gz",
+      "published_sha256": "16112ab77d4f8b483a3dcd2924241390f9bdc664455c6dd1fde23876dc9c4c1a",
+      "published_bytes": 12417,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-291.json",
+      "sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "bytes": 27097,
+      "git_blob": "3ad1e5257b2f549ce6fc40c59088c5b05fbf1467",
+      "preserved_bytes": "recovered/garden-clearance-059/88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1.gz",
+      "published_sha256": "88a366a9e9b9c27fa28af39f5c4ce5561d70e8c1974fb5d08dbdad55479dbba1",
+      "published_bytes": 27097,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-292.json",
+      "sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "bytes": 9488,
+      "git_blob": "6ba539810f50cddd901d8215cc076a30e8583ab0",
+      "preserved_bytes": "recovered/garden-clearance-059/5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4.gz",
+      "published_sha256": "5c26ba04d65cdc40be9513f91a368a207f0a7048a48a5698e894774bbbc514c4",
+      "published_bytes": 9488,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-293.json",
+      "sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "bytes": 13832,
+      "git_blob": "e0d57c8d63b43f7316a36c36887ecedae0af0d74",
+      "preserved_bytes": "recovered/garden-clearance-059/fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b.gz",
+      "published_sha256": "fc9f8cdef666db693a8341757a99f0b69436b89823f5f522cb231b7162424f5b",
+      "published_bytes": 13832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-294.json",
+      "sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "bytes": 12596,
+      "git_blob": "dffd00fcc6d5b0105a477b0a926df0ddf08dcbe9",
+      "preserved_bytes": "recovered/garden-clearance-059/06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30.gz",
+      "published_sha256": "06411713eb5707bc635ae63d828c6fc8201daf18ae8c2e11190d6cbac9b9be30",
+      "published_bytes": 12596,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-295.json",
+      "sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304",
+      "bytes": 17504,
+      "git_blob": "a9ae0fad1345e9947fb05ffbd7038d6ff443c960",
+      "preserved_bytes": "recovered/garden-clearance-059/4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304.gz",
+      "published_sha256": "4451a2fcc92cc1668f57c5c305d0f5c574993b790bb03fe0f98dd2108d4de304",
+      "published_bytes": 17504,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-296.json",
+      "sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "bytes": 14121,
+      "git_blob": "9f4260dce5010eb14df055908d6ee3833f7001cb",
+      "preserved_bytes": "recovered/garden-clearance-059/92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec.gz",
+      "published_sha256": "92425386e808fe506fae1a85a1acef4394f2219df503b1598a6fb69e148deeec",
+      "published_bytes": 14121,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context, no new personal credit"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-297.json",
+      "sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "bytes": 12122,
+      "git_blob": "c01cb886745ed876e6caf0a782209a6ff12e519b",
+      "preserved_bytes": "recovered/garden-clearance-059/6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203.gz",
+      "published_sha256": "6c4f62e52946e14edc7ebeb67ff618cc01dc9a4e1cfcfaa9605d12c7a521c203",
+      "published_bytes": 12122,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent Lens11 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-787.json",
+      "sha256": "506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012",
+      "bytes": 790,
+      "git_blob": "c97162041dbfa214b59fe941583cceb2881a6701",
+      "preserved_bytes": "recovered/garden-clearance-059/506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012.gz",
+      "published_sha256": "506dc570f996a673ad6f077e490a4497bca1d2d9629199e712222a3e29e67012",
+      "published_bytes": 790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-788.json",
+      "sha256": "c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7",
+      "bytes": 704,
+      "git_blob": "3d2c8f67e00e8ca0bdf57df8c2becc5fac33560a",
+      "preserved_bytes": "recovered/garden-clearance-059/c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7.gz",
+      "published_sha256": "c260d73d985639dd9539ae93720d57610d03f3c227c0a81409b0cd98155b11e7",
+      "published_bytes": 704,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-789.json",
+      "sha256": "ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45",
+      "bytes": 708,
+      "git_blob": "cb512d727979ee21b21993ce093b4c5bb5720ac6",
+      "preserved_bytes": "recovered/garden-clearance-059/ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45.gz",
+      "published_sha256": "ee615d63114c92976e4feaedd3d8fc3adfb42349f4e48f3e3ab4157f76b4ef45",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-790.json",
+      "sha256": "cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f",
+      "bytes": 708,
+      "git_blob": "cb4644aaad002a9b7e4631df67a258ac23e2670f",
+      "preserved_bytes": "recovered/garden-clearance-059/cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f.gz",
+      "published_sha256": "cf8b2dd21021f8058fa5e43b49b918222e85f04a14a5a4bd2432982754912c3f",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-791.json",
+      "sha256": "776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a",
+      "bytes": 709,
+      "git_blob": "3a823639ed1e66085875a927805df15b3986c79a",
+      "preserved_bytes": "recovered/garden-clearance-059/776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a.gz",
+      "published_sha256": "776bb99713b5012b3f168ca643d083cd585f05fb458b30478b3b35d624634d4a",
+      "published_bytes": 709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-297.json",
+      "sha256": "1f7efdc8f947e018f56f775fb5e066c882e8ee7ab3c3070965d6a5c53395d406",
+      "bytes": 646,
+      "git_blob": "488d1ee8f590248317ea285ec68a76c6d2c00968",
+      "preserved_bytes": "recovered/garden-clearance-059/1f7efdc8f947e018f56f775fb5e066c882e8ee7ab3c3070965d6a5c53395d406.gz",
+      "published_sha256": "1f7efdc8f947e018f56f775fb5e066c882e8ee7ab3c3070965d6a5c53395d406",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-297.json",
+      "sha256": "b512cab86281bdef415f76374060f51ab6ea3391a7cd15a595472cfa50526b3f",
+      "bytes": 32853,
+      "git_blob": "b4615794c2d10510de6c05a1396e2d1d208ccb71",
+      "preserved_bytes": "recovered/garden-clearance-059/b512cab86281bdef415f76374060f51ab6ea3391a7cd15a595472cfa50526b3f.gz",
+      "published_sha256": "b512cab86281bdef415f76374060f51ab6ea3391a7cd15a595472cfa50526b3f",
+      "published_bytes": 32853,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-647.json",
+      "sha256": "c8e51d17d34cc560e2558a30217250cb92a980c35255291a57ea9badfbb379ee",
+      "bytes": 1213,
+      "git_blob": "2600fedbbd4125bfeb66d7a67e8e0754dfa4edae",
+      "preserved_bytes": "recovered/garden-clearance-059/c8e51d17d34cc560e2558a30217250cb92a980c35255291a57ea9badfbb379ee.gz",
+      "published_sha256": "c8e51d17d34cc560e2558a30217250cb92a980c35255291a57ea9badfbb379ee",
+      "published_bytes": 1213,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-648.json",
+      "sha256": "3d5e34409a97bac0056fcd457fbb8ed5880727dc404eae82416fa06f14ffa95e",
+      "bytes": 1216,
+      "git_blob": "f63357f230eafbc523a156129c9fa935f761a601",
+      "preserved_bytes": "recovered/garden-clearance-059/3d5e34409a97bac0056fcd457fbb8ed5880727dc404eae82416fa06f14ffa95e.gz",
+      "published_sha256": "3d5e34409a97bac0056fcd457fbb8ed5880727dc404eae82416fa06f14ffa95e",
+      "published_bytes": 1216,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-649.json",
+      "sha256": "2332deea4072fae768db5cc64fa3d82d297420ff088a75f1f52dcf74907f3551",
+      "bytes": 2249,
+      "git_blob": "42f4c2dd3d3d8dc6cdacc293900f4e2fb015558e",
+      "preserved_bytes": "recovered/garden-clearance-059/2332deea4072fae768db5cc64fa3d82d297420ff088a75f1f52dcf74907f3551.gz",
+      "published_sha256": "2332deea4072fae768db5cc64fa3d82d297420ff088a75f1f52dcf74907f3551",
+      "published_bytes": 2249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 prospective plan"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-647.json",
+      "sha256": "c33725a392cc8458353cec526a318dab474a09938d0219e8fafebe1e6fea5ee6",
+      "bytes": 4526,
+      "git_blob": "ef5894b637c412c1c579dfdf5baa8be770e58b42",
+      "preserved_bytes": "recovered/garden-clearance-059/c33725a392cc8458353cec526a318dab474a09938d0219e8fafebe1e6fea5ee6.gz",
+      "published_sha256": "c33725a392cc8458353cec526a318dab474a09938d0219e8fafebe1e6fea5ee6",
+      "published_bytes": 4526,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-648.json",
+      "sha256": "449ec4bae5e5b2ad670de9dae3d13709589ce816524cd15521aad754fea0aacb",
+      "bytes": 4714,
+      "git_blob": "06a1551037791f954b3c50bb7fa6b0a1abed2657",
+      "preserved_bytes": "recovered/garden-clearance-059/449ec4bae5e5b2ad670de9dae3d13709589ce816524cd15521aad754fea0aacb.gz",
+      "published_sha256": "449ec4bae5e5b2ad670de9dae3d13709589ce816524cd15521aad754fea0aacb",
+      "published_bytes": 4714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-649.json",
+      "sha256": "44ec0a2756ddbd4893ca036a85aa92a5b44a92368660e1fdd24189da35fd35d0",
+      "bytes": 7159,
+      "git_blob": "d05ed8dfcdc38471b99316141c3e54eb38bd14e7",
+      "preserved_bytes": "recovered/garden-clearance-059/44ec0a2756ddbd4893ca036a85aa92a5b44a92368660e1fdd24189da35fd35d0.gz",
+      "published_sha256": "44ec0a2756ddbd4893ca036a85aa92a5b44a92368660e1fdd24189da35fd35d0",
+      "published_bytes": 7159,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Segovb independent Lens12 receipt"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-848.json",
+      "sha256": "ab5002e80afa95f3fbadec0aafb7f8717c68e930fa503360673f7562030bf780",
+      "bytes": 1186,
+      "git_blob": "2f91bdece9eb5b5e327fea32ef649010cb730a51",
+      "preserved_bytes": "recovered/garden-clearance-059/ab5002e80afa95f3fbadec0aafb7f8717c68e930fa503360673f7562030bf780.gz",
+      "published_sha256": "ab5002e80afa95f3fbadec0aafb7f8717c68e930fa503360673f7562030bf780",
+      "published_bytes": 1186,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-849.json",
+      "sha256": "527e3d0f52e325004fa83aec3675d056d52766d0731a49666e054301706749e6",
+      "bytes": 1200,
+      "git_blob": "8ee123aac95b22fa4eeca302fed0eb0a809f4548",
+      "preserved_bytes": "recovered/garden-clearance-059/527e3d0f52e325004fa83aec3675d056d52766d0731a49666e054301706749e6.gz",
+      "published_sha256": "527e3d0f52e325004fa83aec3675d056d52766d0731a49666e054301706749e6",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-850.json",
+      "sha256": "40cb9d9ac8cf01b42ff398971293cba158ba61fb500b0bc839404fba8e992842",
+      "bytes": 1204,
+      "git_blob": "cfff941d8f919b224569d48961e4c85593f64ce8",
+      "preserved_bytes": "recovered/garden-clearance-059/40cb9d9ac8cf01b42ff398971293cba158ba61fb500b0bc839404fba8e992842.gz",
+      "published_sha256": "40cb9d9ac8cf01b42ff398971293cba158ba61fb500b0bc839404fba8e992842",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-851.json",
+      "sha256": "17f1c7dfab46fdee033f92317e42eb72e900f1ce1f9f200eed2ceba0dbe6e677",
+      "bytes": 1198,
+      "git_blob": "6f1f7b783c88ca688372d462ac9c41c832227092",
+      "preserved_bytes": "recovered/garden-clearance-059/17f1c7dfab46fdee033f92317e42eb72e900f1ce1f9f200eed2ceba0dbe6e677.gz",
+      "published_sha256": "17f1c7dfab46fdee033f92317e42eb72e900f1ce1f9f200eed2ceba0dbe6e677",
+      "published_bytes": 1198,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-852.json",
+      "sha256": "f220088efe2673ecf48a0a11d270391f8f5712ed795b5f14a1aa63e8e62a92e4",
+      "bytes": 1190,
+      "git_blob": "45f9590206f465b9265dd8b9e89ff40eec3137a7",
+      "preserved_bytes": "recovered/garden-clearance-059/f220088efe2673ecf48a0a11d270391f8f5712ed795b5f14a1aa63e8e62a92e4.gz",
+      "published_sha256": "f220088efe2673ecf48a0a11d270391f8f5712ed795b5f14a1aa63e8e62a92e4",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-853.json",
+      "sha256": "d45ca6e63ea9687bb6e7c895324cc74a61d326f2822958ba5e280415ad01eef0",
+      "bytes": 1202,
+      "git_blob": "53ce5efcb1b2d19b2ab5b2b56bceabc02b86cf3f",
+      "preserved_bytes": "recovered/garden-clearance-059/d45ca6e63ea9687bb6e7c895324cc74a61d326f2822958ba5e280415ad01eef0.gz",
+      "published_sha256": "d45ca6e63ea9687bb6e7c895324cc74a61d326f2822958ba5e280415ad01eef0",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-854.json",
+      "sha256": "dfd1022a091ea6e1bbf42f72a90a6250b5c33cee8c1aecd2835163a30c25d672",
+      "bytes": 1202,
+      "git_blob": "6c62005ccc5ed41130b126a90fbf6e3c5232b569",
+      "preserved_bytes": "recovered/garden-clearance-059/dfd1022a091ea6e1bbf42f72a90a6250b5c33cee8c1aecd2835163a30c25d672.gz",
+      "published_sha256": "dfd1022a091ea6e1bbf42f72a90a6250b5c33cee8c1aecd2835163a30c25d672",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-855.json",
+      "sha256": "2fcaf30fef6c3c55d7fcdc41a027cbad6b4ecf02330a0df9cbd795c9acc582e0",
+      "bytes": 1204,
+      "git_blob": "dee3b87210e799baa09e4cccdb0c91cd47f92e83",
+      "preserved_bytes": "recovered/garden-clearance-059/2fcaf30fef6c3c55d7fcdc41a027cbad6b4ecf02330a0df9cbd795c9acc582e0.gz",
+      "published_sha256": "2fcaf30fef6c3c55d7fcdc41a027cbad6b4ecf02330a0df9cbd795c9acc582e0",
+      "published_bytes": 1204,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 registration"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-647.json",
+      "sha256": "345215bc85d04324ad84ca129eaf6d79b5e8926ccbc54b37e9630a405cb2d9cb",
+      "bytes": 840,
+      "git_blob": "5d8e303a5c0897c20cb473eaca13cd5cf1036abf",
+      "preserved_bytes": "recovered/garden-clearance-059/345215bc85d04324ad84ca129eaf6d79b5e8926ccbc54b37e9630a405cb2d9cb.gz",
+      "published_sha256": "345215bc85d04324ad84ca129eaf6d79b5e8926ccbc54b37e9630a405cb2d9cb",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-648.json",
+      "sha256": "d5cb587c32af77dcb960915db0b7c6e91b0cbd7930e3764008c382312cfba0c9",
+      "bytes": 840,
+      "git_blob": "03b81d0af93979fcb132a20d148e45460f1ce55c",
+      "preserved_bytes": "recovered/garden-clearance-059/d5cb587c32af77dcb960915db0b7c6e91b0cbd7930e3764008c382312cfba0c9.gz",
+      "published_sha256": "d5cb587c32af77dcb960915db0b7c6e91b0cbd7930e3764008c382312cfba0c9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-649.json",
+      "sha256": "c437283ee2b42a3cff4305625bd5a3466423003a6e2bf4fcbdb75235d9983166",
+      "bytes": 840,
+      "git_blob": "7bc893b3d5704f40c7c74be157966400814dade3",
+      "preserved_bytes": "recovered/garden-clearance-059/c437283ee2b42a3cff4305625bd5a3466423003a6e2bf4fcbdb75235d9983166.gz",
+      "published_sha256": "c437283ee2b42a3cff4305625bd5a3466423003a6e2bf4fcbdb75235d9983166",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-647.json",
+      "sha256": "b36545ea8c360a4ae50666014dc076679e53fbe978f44b801fd9d86694896de3",
+      "bytes": 558,
+      "git_blob": "c95e122f9c9cd7b8cb2e98cd2e2d51bf54c49fe0",
+      "preserved_bytes": "recovered/garden-clearance-059/b36545ea8c360a4ae50666014dc076679e53fbe978f44b801fd9d86694896de3.gz",
+      "published_sha256": "b36545ea8c360a4ae50666014dc076679e53fbe978f44b801fd9d86694896de3",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-648.json",
+      "sha256": "94166ba1f6ba7aac1360dd83b365af772ea6a235459825939c353759b907edef",
+      "bytes": 558,
+      "git_blob": "58997dd226b1d5dbd0725a3247011a8d57addd46",
+      "preserved_bytes": "recovered/garden-clearance-059/94166ba1f6ba7aac1360dd83b365af772ea6a235459825939c353759b907edef.gz",
+      "published_sha256": "94166ba1f6ba7aac1360dd83b365af772ea6a235459825939c353759b907edef",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-649.json",
+      "sha256": "00a49e2f844e5a68c00705170eb3ffe164faed913918c455b607288af9a55f28",
+      "bytes": 558,
+      "git_blob": "01a7e3b9ee9e34fca6e256f20b39cfa8e5486f59",
+      "preserved_bytes": "recovered/garden-clearance-059/00a49e2f844e5a68c00705170eb3ffe164faed913918c455b607288af9a55f28.gz",
+      "published_sha256": "00a49e2f844e5a68c00705170eb3ffe164faed913918c455b607288af9a55f28",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 verification"
+      ],
+      "qualification": "Original author, lens, revision when actually recorded, ranges and pending obligations retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1590",
+        "/entries/1591",
+        "/entries/1592",
+        "/entries/1593",
+        "/entries/1595",
+        "/entries/1596",
+        "/entries/1601"
+      ],
+      "qualification": "Earlier pending families remain open, not checkpoint3821."
+    },
+    {
+      "file": "ASSESSMENT-INTERIOR-INSTALL-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Original Segovb646 and Adler296 cover historical role1940 and roles1941–1944 respectively, retaining their original reviewer attribution."
+    }
+  ],
+  "historical_attribution_qualification": "Segovb647–649 and Adler297 retain original author, scope and context; Segovb646 and Adler296 are preserved in the preceding checkpoint. Independent reviewer records are not imported as new personal or checkpoint3821 credit.",
+  "remaining": "Continue original1949 and all13 lenses, source-to-native garden admission, all controller writers and physical clearance, exact aliases and report consumers. Original3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
