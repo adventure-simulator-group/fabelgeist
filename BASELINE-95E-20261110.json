@@ -8730,7 +8730,10 @@
         "future_acceptance": "After audit and authorization, cover maximal bevel and hole clearance alongside valid default scales and lames.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json"
+        "record": "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json",
+        "additional_current_records": [
+          "ASSESSMENT-TILING-GRID-95E.json"
+        ]
       },
       {
         "id": "REVIEW-PARTFRAME-FINITE-TRANSFORM-95E",
@@ -9036,8 +9039,112 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-STAGING-TASSETS-95E.json"
+      },
+      {
+        "id": "ADLER-L11-TILING-BUDGET-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          7,
+          8,
+          12
+        ],
+        "severity": "unassigned; resource budget",
+        "classification": "Original tiling budget finding reconnected: a grid's row and candidate allocations occur before the public 20000-plate limit is checked.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/141",
+          "adler/READ-L11-351.json via ASSESSMENT-TILING-GRID-95E.json"
+        ],
+        "relationship_qualification": "Adler351 identified the late budget before this session; the newly assessed finite planar-grid example supplies current caller context. No grid, calculation, allocation or product ran.",
+        "discovery": "partial; current check ordering and conditional candidate count traced; supported body bounds and all capacity aliases remain open",
+        "connected_repair_direction": "Enforce a coherent candidate, row and accepted-plate budget before expensive per-grid allocation and walking, retaining the explicit TooManyPlates outcome.",
+        "future_acceptance": "After audit and authorization, cover within-budget grids, over-budget single grids, many small grids and limits on candidate work.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TILING-GRID-95E.json"
+      },
+      {
+        "id": "REVIEW-ARMOR-SURFACE-GRID-ADMISSION-95E",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; grid admission",
+        "classification": "Public grid construction and later spanning checks do not establish nonzero columns, checked dimensions and source-index bounds before remainder or indexing.",
+        "historical_related_records": [
+          "adler/READ-L11-350.json via ASSESSMENT-TILING-GRID-95E.json",
+          "adler/READ-L11-351.json via ASSESSMENT-TILING-GRID-95E.json",
+          "baseline-059/queue.json#/entries/1819"
+        ],
+        "relationship_qualification": "Earlier Adler350/351 recorded the zero-column constructor and unchecked span arithmetic; current source examples are deliberately malformed public inputs, not observed normal output. Their first operations remain separately identified.",
+        "discovery": "partial; zero-column and overflowing-dimension cases and selected internal producers traced; other producers and complete grid/source admission remain open",
+        "connected_repair_direction": "Establish checked grid dimensions, matching cardinality and source bounds at their actual owner before constructor arithmetic and surface traversal.",
+        "future_acceptance": "After audit and authorization, cover empty/nonempty zero-column inputs, overflowing dimensions, out-of-range source indices and valid spanning grids.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TILING-GRID-95E.json"
+      },
+      {
+        "id": "REVIEW-SURFACE-COLUMN-BRACKET-EXTREME-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          7,
+          11,
+          12
+        ],
+        "severity": "unassigned; numerical boundary",
+        "classification": "A public SurfaceColumn bracket at the u32 maximum can round its bounds to2^32 and reach unchecked first+1 after a saturating cast.",
+        "historical_related_records": [
+          "adler/READ-L11-350.json via ASSESSMENT-TILING-GRID-95E.json",
+          "baseline-059/queue.json#/entries/1819"
+        ],
+        "relationship_qualification": "Adler350 already flagged high-u32 rounding as conditional. This direct public argument example needs no huge grid but no cast or bracket ran; normal producers use much smaller columns.",
+        "discovery": "partial; integer/IEEE and pinned Rust cast rules traced; complete public caller policy and representable coordinate semantics remain open",
+        "connected_repair_direction": "Define supported column cardinality and bracket arithmetic at the SurfaceColumn owner, avoiding unchecked overflow while preserving continuous coordinates.",
+        "future_acceptance": "After audit and authorization, cover zero/one columns, last valid column, extreme u32 values and fractional boundaries.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TILING-GRID-95E.json"
+      },
+      {
+        "id": "REVIEW-ARMOR-TILING-SKIN-WEIGHT-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          6,
+          7,
+          11,
+          12
+        ],
+        "severity": "unassigned; skin weight admission",
+        "classification": "The public constructed-tiling path can propagate nonfinite source skin weights through interpolation without a local weight admission check.",
+        "historical_related_records": [
+          "adler/READ-L11-350.json via ASSESSMENT-TILING-GRID-95E.json",
+          "baseline-059/queue.json#/entries/167",
+          "REVIEW-ARMOR-BODY-SURFACE-ADMISSION-95E"
+        ],
+        "relationship_qualification": "Adler350 flagged nonfinite skin inputs as conditional; MHR q167 and GPU body-surface admission are related upstream or parallel contracts, not assumed aliases of this CPU constructed-armor boundary. The malformed input and output remain symbolic.",
+        "discovery": "partial; current public source weights, selected grid-corner shares, rig ordinal owner and blend propagation traced; upstream valid-skin guarantees and all consumers remain open",
+        "connected_repair_direction": "Establish finite normalized skin influence admission at the canonical source and propagate that guarantee through construction without duplicating rig authority.",
+        "future_acceptance": "After audit and authorization, cover valid weights, zero-weight policy, nonfinite or negative inputs and reconstructed tiled skins.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TILING-GRID-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1603.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1609.json"
 }

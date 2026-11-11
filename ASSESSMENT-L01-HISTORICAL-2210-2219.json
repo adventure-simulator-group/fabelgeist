@@ -1,0 +1,652 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2210,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2210",
+      "original_locator": "crates/fabelgeist-armor/src/surface_grid.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 134,
+          "read_ranges": [
+            [
+              1,
+              108
+            ]
+          ]
+        },
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 213,
+          "read_ranges": [
+            [
+              1,
+              108
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-025",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              108
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+      "lines": 108,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/surface_grid.rs",
+        "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+        "bytes": 3686,
+        "lines": 108,
+        "git_blob": "429de6f4bbfd9b162797345aa87d64137188b9ae",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2210.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            108
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2211,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2211",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 248,
+          "read_ranges": [
+            [
+              1,
+              115
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "6c7f84f8e6b242d32e19ddecedfa1cfdb5f849bd984008eda7b0ea1da79e5345",
+      "lines": 115,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/embedded.rs",
+        "sha256": "6c7f84f8e6b242d32e19ddecedfa1cfdb5f849bd984008eda7b0ea1da79e5345",
+        "bytes": 4121,
+        "lines": 115,
+        "git_blob": "bcebce7310c07eb3090bbb70363313d0ce66d27b",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2211.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            115
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2212,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2212",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 249,
+          "read_ranges": [
+            [
+              1,
+              321
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+      "lines": 321,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/lacing.rs",
+        "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+        "bytes": 11891,
+        "lines": 321,
+        "git_blob": "8a353352d1cdc7a835f6a3a60ebbb56429ed36b5",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2212.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            321
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2213,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2213",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/layout.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 131,
+          "read_ranges": [
+            [
+              1,
+              342
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-025",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              342
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+      "lines": 342,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/layout.rs",
+        "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+        "bytes": 13055,
+        "lines": 342,
+        "git_blob": "6d92b52bb931cd91796a51491c54d7560afe3dac",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2213.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            342
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2214,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/mod.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2214",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/mod.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 250,
+          "read_ranges": [
+            [
+              1,
+              137
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+      "lines": 137,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/mod.rs",
+        "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+        "bytes": 5304,
+        "lines": 137,
+        "git_blob": "647ff4b304f03d3f441f80f862b603dfac351f9c",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2214.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            137
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2215,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/surface.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2215",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/surface.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 133,
+          "read_ranges": [
+            [
+              1,
+              441
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-025",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              441
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "b11e892b1c5cebf91866d5ffeed3801659fd98201fe446753a33aadf65598020",
+      "lines": 441,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/surface.rs",
+        "sha256": "b11e892b1c5cebf91866d5ffeed3801659fd98201fe446753a33aadf65598020",
+        "bytes": 16024,
+        "lines": 441,
+        "git_blob": "2bb9967f1717de928f628ad592fc92c9da3d25de",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2215.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            441
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2216,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/template.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2216",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/template.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 251,
+          "read_ranges": [
+            [
+              1,
+              317
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "a1cd00e8c02d5c25d675041927317755b24262122ac4096db8fec9a5b1ac16c8",
+      "lines": 317,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/template.rs",
+        "sha256": "a1cd00e8c02d5c25d675041927317755b24262122ac4096db8fec9a5b1ac16c8",
+        "bytes": 12594,
+        "lines": 317,
+        "git_blob": "5e3236b03aace8dc4b3fb54d2c25944a60c08760",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2216.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            317
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2217,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tests.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2217",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/tests.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 252,
+          "read_ranges": [
+            [
+              1,
+              192
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+      "lines": 192,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/tests.rs",
+        "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+        "bytes": 7156,
+        "lines": 192,
+        "git_blob": "6e7f29e9e4f3c45d5954b95977e7d008dbb0108b",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2217.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            192
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2218,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2218",
+      "original_locator": "crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 132,
+          "read_ranges": [
+            [
+              1,
+              115
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-025",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              115
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "2acac8447a7f7a9347382ff425f74de58a7aeef6786c43d1d352412cbaff4065",
+      "lines": 115,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/tiling/tile_map.rs",
+        "sha256": "2acac8447a7f7a9347382ff425f74de58a7aeef6786c43d1d352412cbaff4065",
+        "bytes": 4886,
+        "lines": 115,
+        "git_blob": "53de0926d1a7b6bc148c121ade204f1eb5b86d81",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2218.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            115
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    },
+    {
+      "original_index": 2219,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2219",
+      "original_locator": "crates/fabelgeist-armor/src/trim.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 253,
+          "read_ranges": [
+            [
+              1,
+              128
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+      "lines": 128,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2210-2219.json",
+        "sha256": "93d9f5777e55740441199c5ce504f869b7f2cc91b66c7903a1217e1432dd9712"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "new_personal_read_range_qualification": "Current95e full source was displayed after local registration; exact bytes match6533. Prior source excerpts and historical reviewer scopes remain separately credited.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-armor/src/trim.rs",
+        "sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+        "bytes": 4299,
+        "lines": 128,
+        "git_blob": "ed3ec9b59a797af61c626d366239a31c3ce838df",
+        "preserved_bytes": "main-advance-95e/tiling-grid-evidence/current-2219.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            128
+          ]
+        ],
+        "qualification": "Current full-body personal display is independent of original producer and reviewer scopes."
+      },
+      "qualification": "Original supplier, independent Adler and Lens12 delegate historical reads and local current full displays are separately attributed."
+    }
+  ],
+  "observations": [
+    "Current95e full bodies2210–2219 were prospectively registered and personally displayed in bounded untruncated ranges; exact bytes match6533, without transferring historical reviewer credit. Prior current excerpts remain separately qualified.",
+    "Original independent Adler350–353 and Lens12 delegate734–736 read their recorded historical full ranges; root Lens12 adoptions had zero personal rereads and zero accepted unique-count change. Their receipts include additional earlier or later historical roles without new current body credit.",
+    "The full source display includes test modules but no test, fixture, product operation or shader was run. Local registration time is not independently attested."
+  ],
+  "qualification": "Original supplier and reviewer scopes and newly displayed current bytes remain independently attributed; no checkpoint3821 claim.",
+  "next_original_role": 2220
+}
