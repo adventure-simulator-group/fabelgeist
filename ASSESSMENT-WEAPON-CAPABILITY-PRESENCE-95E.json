@@ -1,0 +1,748 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    7,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected 95e weapon mass and recipe-failure boundaries plus bounded contextual presence safeguards; no product execution.",
+  "source_reasoning": "Pinned source inspection and evidence-byte verification only. Source tests and guarded fixtures were read without execution; no product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "bytes": 15554,
+      "lines": 445,
+      "ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1806559e22bbf47846f34b178458f115313c0e7d",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "bytes": 2396,
+      "lines": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bb81519c4516dca2344c64901baf2a8f25afc1a0",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "bytes": 6078,
+      "lines": 152,
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "bytes": 26410,
+      "lines": 694,
+      "ranges": [
+        [
+          77,
+          142
+        ],
+        [
+          278,
+          346
+        ],
+        [
+          479,
+          518
+        ],
+        [
+          575,
+          606
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "bytes": 1763,
+      "lines": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6afcadbc4bd449d2d7ffd3a73a8d3dbbb79c4b31",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "bytes": 3775,
+      "lines": 103,
+      "ranges": [
+        [
+          54,
+          70
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b8acf8846028016dd5ff77c2a6dd6a100da593d2",
+      "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "bytes": 3145,
+      "lines": 85,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-core/src/capability.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+      "sha256": "6e0a321cc3add825f92a96426d7bd4b3af413ad02381e547a2db66fdd8676d82",
+      "bytes": 19356,
+      "lines": 552,
+      "ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          130,
+          200
+        ],
+        [
+          245,
+          325
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/07.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/smithing.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8e1caf0ff581f66e34d198f3e2fafbf28cac6662",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "bytes": 4455,
+      "lines": 119,
+      "ranges": [
+        [
+          56,
+          119
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/08.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          140,
+          149
+        ],
+        [
+          336,
+          407
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/09.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "bytes": 52793,
+      "lines": 1653,
+      "ranges": [
+        [
+          1102,
+          1111
+        ],
+        [
+          1260,
+          1355
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b038461f411ea5c0cd39b2149bf724495835394",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "bytes": 3860,
+      "lines": 131,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "bytes": 51100,
+      "lines": 1353,
+      "ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0aba340639a491ee78bb57255124267aafb5a499",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "bytes": 6264,
+      "lines": 196,
+      "ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "675c3de540b7e2be7b08960bc93f4e5dcb2a7323",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "bytes": 946,
+      "lines": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/weapon-presence-sources/14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges support these bounded current traces."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/1040",
+      "qualification": "Same earlier combat-geometry failure-boundary question."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/1046",
+      "qualification": "Same broader earlier world-actor presence and producer question."
+    },
+    {
+      "file": "ASSESSMENT-L01-STACK-MASS-95E.json",
+      "qualification": "Distinct tactical stacked-item mass trace, not automatically an alias for Heavy capability."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1257-1264.json",
+      "qualification": "Eight independently recorded historical Lens1 reads and earlier Lens12 receipts and partials."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PARTIAL-L12-322-001.json",
+      "sha256": "5e8b3c6f625f065c5d2fe801c45b0b372f68ee6cc3b6410ecc865121eb4ea12e",
+      "bytes": 6575,
+      "git_blob": "ac0f466011cd18b7d1cbda28b965c3fb89a004e8",
+      "preserved_bytes": "recovered/weapon-presence-059/5e8b3c6f625f065c5d2fe801c45b0b372f68ee6cc3b6410ecc865121eb4ea12e.gz",
+      "published_sha256": "5e8b3c6f625f065c5d2fe801c45b0b372f68ee6cc3b6410ecc865121eb4ea12e",
+      "published_bytes": 6575,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-322-002-EOF.json",
+      "sha256": "b9d768bed9fbd3577529c1e9fe3c141337823dfdc6eafd34adde7f9d71faf639",
+      "bytes": 5038,
+      "git_blob": "56405f26c889b23a9ebd2ca6484cb5b81a599b02",
+      "preserved_bytes": "recovered/weapon-presence-059/b9d768bed9fbd3577529c1e9fe3c141337823dfdc6eafd34adde7f9d71faf639.gz",
+      "published_sha256": "b9d768bed9fbd3577529c1e9fe3c141337823dfdc6eafd34adde7f9d71faf639",
+      "published_bytes": 5038,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier individually qualified partial read"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-320.json",
+      "sha256": "4adc90f197ed64a986705930080b597400016913d895a94ddc7e8bc21ff24a71",
+      "bytes": 714,
+      "git_blob": "c26065fa675006f279199a289906317c5b7a5b5c",
+      "preserved_bytes": "recovered/weapon-presence-059/4adc90f197ed64a986705930080b597400016913d895a94ddc7e8bc21ff24a71.gz",
+      "published_sha256": "4adc90f197ed64a986705930080b597400016913d895a94ddc7e8bc21ff24a71",
+      "published_bytes": 714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-321.json",
+      "sha256": "7ff7aa64ce099888a84c37cf5114ae12575226e19af03388c2db711899495fdb",
+      "bytes": 1215,
+      "git_blob": "f82380366a9bbe544db07ff792adf711b814747a",
+      "preserved_bytes": "recovered/weapon-presence-059/7ff7aa64ce099888a84c37cf5114ae12575226e19af03388c2db711899495fdb.gz",
+      "published_sha256": "7ff7aa64ce099888a84c37cf5114ae12575226e19af03388c2db711899495fdb",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-322.json",
+      "sha256": "cf0005f15f51d4e5f7fd73aa3265a1957b44915ca22c2852e72dca4553e8ece1",
+      "bytes": 712,
+      "git_blob": "52e85c49905de9e63e6f48c166cdf6a809858e74",
+      "preserved_bytes": "recovered/weapon-presence-059/cf0005f15f51d4e5f7fd73aa3265a1957b44915ca22c2852e72dca4553e8ece1.gz",
+      "published_sha256": "cf0005f15f51d4e5f7fd73aa3265a1957b44915ca22c2852e72dca4553e8ece1",
+      "published_bytes": 712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-323.json",
+      "sha256": "3bcac1206007ba34a1c9b50198120a31cfc559d8350986ae9e363f0c8fb85e1c",
+      "bytes": 2193,
+      "git_blob": "8fb45631fc033d6613ff163ef49c3abcf209579b",
+      "preserved_bytes": "recovered/weapon-presence-059/3bcac1206007ba34a1c9b50198120a31cfc559d8350986ae9e363f0c8fb85e1c.gz",
+      "published_sha256": "3bcac1206007ba34a1c9b50198120a31cfc559d8350986ae9e363f0c8fb85e1c",
+      "published_bytes": 2193,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-320.json",
+      "sha256": "c87861aba9a7331ad1f2fad7a8127bc32bede5e0325adc3a6ae1a77c8d5e5887",
+      "bytes": 7187,
+      "git_blob": "296a480b8bad072d4ff72a8053d9836fa2758290",
+      "preserved_bytes": "recovered/weapon-presence-059/c87861aba9a7331ad1f2fad7a8127bc32bede5e0325adc3a6ae1a77c8d5e5887.gz",
+      "published_sha256": "c87861aba9a7331ad1f2fad7a8127bc32bede5e0325adc3a6ae1a77c8d5e5887",
+      "published_bytes": 7187,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-321.json",
+      "sha256": "0dd1b531361d02a33d6630590f4f90bac95c43c040342df3bd35f91683f53739",
+      "bytes": 8511,
+      "git_blob": "51ca644470972bffbdf4a15ef4ab6a0d5e910e57",
+      "preserved_bytes": "recovered/weapon-presence-059/0dd1b531361d02a33d6630590f4f90bac95c43c040342df3bd35f91683f53739.gz",
+      "published_sha256": "0dd1b531361d02a33d6630590f4f90bac95c43c040342df3bd35f91683f53739",
+      "published_bytes": 8511,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-322.json",
+      "sha256": "4b4776803c145c4e68743414b6fcb94f044e45a576724da8d5264f627a202ba3",
+      "bytes": 8229,
+      "git_blob": "1be019762e265c1f1bf00356452f90dce86305ce",
+      "preserved_bytes": "recovered/weapon-presence-059/4b4776803c145c4e68743414b6fcb94f044e45a576724da8d5264f627a202ba3.gz",
+      "published_sha256": "4b4776803c145c4e68743414b6fcb94f044e45a576724da8d5264f627a202ba3",
+      "published_bytes": 8229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-323.json",
+      "sha256": "42453e1f713da2ffa2fc86ddf758815074f8506c5f2f8b0ac56855c44427cfbf",
+      "bytes": 14036,
+      "git_blob": "a9a403d5834692d6dbbdbbb39bccb9092d9a6e79",
+      "preserved_bytes": "recovered/weapon-presence-059/42453e1f713da2ffa2fc86ddf758815074f8506c5f2f8b0ac56855c44427cfbf.gz",
+      "published_sha256": "42453e1f713da2ffa2fc86ddf758815074f8506c5f2f8b0ac56855c44427cfbf",
+      "published_bytes": 14036,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-164.json",
+      "sha256": "99df00b7218be6e68f73a0ecbca449f98ebc40a74b8e0eb1fc4b3f80a4e35569",
+      "bytes": 1152,
+      "git_blob": "52e7a62c66d575b8630dbf72941c2749637232a9",
+      "preserved_bytes": "recovered/weapon-presence-059/99df00b7218be6e68f73a0ecbca449f98ebc40a74b8e0eb1fc4b3f80a4e35569.gz",
+      "published_sha256": "99df00b7218be6e68f73a0ecbca449f98ebc40a74b8e0eb1fc4b3f80a4e35569",
+      "published_bytes": 1152,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-165.json",
+      "sha256": "51f292c72c8125f326b418d2c57fa857f9f93c3e9e2f4620af0b2152c4cd41d0",
+      "bytes": 1166,
+      "git_blob": "73de43bd8ea32effaca8c27aa9b516d7f289bb2b",
+      "preserved_bytes": "recovered/weapon-presence-059/51f292c72c8125f326b418d2c57fa857f9f93c3e9e2f4620af0b2152c4cd41d0.gz",
+      "published_sha256": "51f292c72c8125f326b418d2c57fa857f9f93c3e9e2f4620af0b2152c4cd41d0",
+      "published_bytes": 1166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-166.json",
+      "sha256": "a97f9b9d96dcbea81bf888cbe0732d99fd3b5d139b449c8a1e74221404f1cd0f",
+      "bytes": 1168,
+      "git_blob": "5063645c2dbac86bbb25299af6cdb51d2fd08f25",
+      "preserved_bytes": "recovered/weapon-presence-059/a97f9b9d96dcbea81bf888cbe0732d99fd3b5d139b449c8a1e74221404f1cd0f.gz",
+      "published_sha256": "a97f9b9d96dcbea81bf888cbe0732d99fd3b5d139b449c8a1e74221404f1cd0f",
+      "published_bytes": 1168,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-167.json",
+      "sha256": "260eab3e20dd152e10ab4dbbad4e5bcc6d4ec653e9fa4be78578b83c0c8a524d",
+      "bytes": 1178,
+      "git_blob": "ac1accdb5e057adbb098cd65eab3cf378b5bde2c",
+      "preserved_bytes": "recovered/weapon-presence-059/260eab3e20dd152e10ab4dbbad4e5bcc6d4ec653e9fa4be78578b83c0c8a524d.gz",
+      "published_sha256": "260eab3e20dd152e10ab4dbbad4e5bcc6d4ec653e9fa4be78578b83c0c8a524d",
+      "published_bytes": 1178,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-168.json",
+      "sha256": "2287264bf8fa3c74fa3ec08bc32664d8942ba5ef0ec6313194053b5c9bb95ec9",
+      "bytes": 1194,
+      "git_blob": "d143a354d34eb58489db75a8f3b38e78048deddf",
+      "preserved_bytes": "recovered/weapon-presence-059/2287264bf8fa3c74fa3ec08bc32664d8942ba5ef0ec6313194053b5c9bb95ec9.gz",
+      "published_sha256": "2287264bf8fa3c74fa3ec08bc32664d8942ba5ef0ec6313194053b5c9bb95ec9",
+      "published_bytes": 1194,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-169.json",
+      "sha256": "93dfb2110b08c45d1eb2a2410b80f9b915f5b62766ffa90e6e66833575889c7b",
+      "bytes": 1212,
+      "git_blob": "f8d2c4d66413b802b68272b69836a2510acc22ff",
+      "preserved_bytes": "recovered/weapon-presence-059/93dfb2110b08c45d1eb2a2410b80f9b915f5b62766ffa90e6e66833575889c7b.gz",
+      "published_sha256": "93dfb2110b08c45d1eb2a2410b80f9b915f5b62766ffa90e6e66833575889c7b",
+      "published_bytes": 1212,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-170.json",
+      "sha256": "b7044ff126423edcdcb1d14c2c4bf248577ffd36b1667dc0e4f203b916674681",
+      "bytes": 1182,
+      "git_blob": "ab2c76d7ce0f0b8f74673bbc262a9946f39b7953",
+      "preserved_bytes": "recovered/weapon-presence-059/b7044ff126423edcdcb1d14c2c4bf248577ffd36b1667dc0e4f203b916674681.gz",
+      "published_sha256": "b7044ff126423edcdcb1d14c2c4bf248577ffd36b1667dc0e4f203b916674681",
+      "published_bytes": 1182,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-171.json",
+      "sha256": "f4e1c4c23dc95fe3d26045eed2a03b0967c952a50ebade11729f158b74ed3258",
+      "bytes": 1176,
+      "git_blob": "91f48d0a90f057365f31dde7432caf878a73b792",
+      "preserved_bytes": "recovered/weapon-presence-059/f4e1c4c23dc95fe3d26045eed2a03b0967c952a50ebade11729f158b74ed3258.gz",
+      "published_sha256": "f4e1c4c23dc95fe3d26045eed2a03b0967c952a50ebade11729f158b74ed3258",
+      "published_bytes": 1176,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-320.json",
+      "sha256": "c74d70be4f90dc32b2821854b9c886e3bd3de9b0c5fe3c4fbc12c69c01d3526c",
+      "bytes": 840,
+      "git_blob": "91394c658092782c1864361a6eb8036726c43d95",
+      "preserved_bytes": "recovered/weapon-presence-059/c74d70be4f90dc32b2821854b9c886e3bd3de9b0c5fe3c4fbc12c69c01d3526c.gz",
+      "published_sha256": "c74d70be4f90dc32b2821854b9c886e3bd3de9b0c5fe3c4fbc12c69c01d3526c",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-321.json",
+      "sha256": "6845a904751bbf2aec7a194da929a2ddb4ff183136113a2004b95b4dafd80ac9",
+      "bytes": 840,
+      "git_blob": "07d5c7df55f2dd5147af324eca5dad1a7cc6c5f4",
+      "preserved_bytes": "recovered/weapon-presence-059/6845a904751bbf2aec7a194da929a2ddb4ff183136113a2004b95b4dafd80ac9.gz",
+      "published_sha256": "6845a904751bbf2aec7a194da929a2ddb4ff183136113a2004b95b4dafd80ac9",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-322.json",
+      "sha256": "db4ec851a8006e238ce21ca751c66de0492277b9712ed8572f6976f80f78f111",
+      "bytes": 840,
+      "git_blob": "5beeed1f259e715b78dc6e7d395245a385145534",
+      "preserved_bytes": "recovered/weapon-presence-059/db4ec851a8006e238ce21ca751c66de0492277b9712ed8572f6976f80f78f111.gz",
+      "published_sha256": "db4ec851a8006e238ce21ca751c66de0492277b9712ed8572f6976f80f78f111",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-323.json",
+      "sha256": "df2d1750d4f18177359b643e79f1373516f956920fbe4375cac5531dffa50d09",
+      "bytes": 840,
+      "git_blob": "93fb660a19387c41c6eeb1c9f7c25eb9bcd8342f",
+      "preserved_bytes": "recovered/weapon-presence-059/df2d1750d4f18177359b643e79f1373516f956920fbe4375cac5531dffa50d09.gz",
+      "published_sha256": "df2d1750d4f18177359b643e79f1373516f956920fbe4375cac5531dffa50d09",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-320.json",
+      "sha256": "695815e1afef6e2c45ffec44eb762995821ba18e6a4b2a3f31b05508b081ad90",
+      "bytes": 558,
+      "git_blob": "f7483d19d0a781bc509d6a7bd656d71bd3c627ec",
+      "preserved_bytes": "recovered/weapon-presence-059/695815e1afef6e2c45ffec44eb762995821ba18e6a4b2a3f31b05508b081ad90.gz",
+      "published_sha256": "695815e1afef6e2c45ffec44eb762995821ba18e6a4b2a3f31b05508b081ad90",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-321.json",
+      "sha256": "e27a92df1bccd757d746eeceb0d2777242b319c97d69260eb5b670e499b55413",
+      "bytes": 558,
+      "git_blob": "6a6d3cecd88d9fed634a1cc803ed5b2ea2f6ca7a",
+      "preserved_bytes": "recovered/weapon-presence-059/e27a92df1bccd757d746eeceb0d2777242b319c97d69260eb5b670e499b55413.gz",
+      "published_sha256": "e27a92df1bccd757d746eeceb0d2777242b319c97d69260eb5b670e499b55413",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-322.json",
+      "sha256": "33d56134a41526d9084196293835f43a4b15dd3d7eba2ace0682e003020a3cf6",
+      "bytes": 558,
+      "git_blob": "829cef982e1583b162dcbed6b8ae7a4e2480f462",
+      "preserved_bytes": "recovered/weapon-presence-059/33d56134a41526d9084196293835f43a4b15dd3d7eba2ace0682e003020a3cf6.gz",
+      "published_sha256": "33d56134a41526d9084196293835f43a4b15dd3d7eba2ace0682e003020a3cf6",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-323.json",
+      "sha256": "24328e1e59f6d22e65e9c86344b4bfd735a1e02a0d2c21885f6c83a325dec4e6",
+      "bytes": 558,
+      "git_blob": "701261735bcbb070041da38473b2d98f69e7aa27",
+      "preserved_bytes": "recovered/weapon-presence-059/24328e1e59f6d22e65e9c86344b4bfd735a1e02a0d2c21885f6c83a325dec4e6.gz",
+      "published_sha256": "24328e1e59f6d22e65e9c86344b4bfd735a1e02a0d2c21885f6c83a325dec4e6",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport retains original lens, revision, attribution and exact partial limits; no checkpoint 3821 authority or other-lens/current transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-FORGED-WEAPON-HEAVY-CAPABILITY-MASS-001",
+      "lens": 7,
+      "severity": "unassigned; conditional difference between catalog and authenticated instance mass",
+      "classification": "New bounded current producer-to-consumer authority question; no product execution or established player impact.",
+      "trace": "forge_weapon admits a bounded decoded design on a registered melee chassis, obtains a quote, checks character/forge/materials, spends time, creates a physical inventory object and replaces its default design with the authenticated evaluated design. The instance stores per-object recipe, hash and rounded mass; combat geometry re-evaluates and authenticates those properties. StrategicEquipment uses the derived geometry mass for carried weight and combat weapon projection, but its PlayerEquipment::weapon_weight method returns the effective Item weight, whose producer projects authored catalog weight and whose wear adjustments do not replace weight. evaluate_capabilities computes the Heavy flag from that method at 4.0 kg plus an arm-strength threshold. A join request stores whether the resulting capabilities meet the role requirements.",
+      "conditional_example": "If the selected first weapon is a valid, successfully forged and equipped per-object design whose derived mass is on the opposite side of 4.0 kg from its chassis catalog Item weight, and arm strength meets the 3.0 threshold, the selected Heavy flag follows the catalog side while combat and carried-mass projections use the derived side. Source tests describe distinct recipes and masses for one chassis but were not executed; no actual threshold-crossing recipe, generated state, recruitment effect or runtime result has been demonstrated. Whether Heavy intentionally denotes authored chassis class rather than actual equipped mass is a policy question.",
+      "safeguards_and_limits": "Recipe size, supported chassis, quote, forge service, material ownership, personal time, stable object, evaluation, catalog identity and full persisted-projection authentication are guarded. The inspected actor can have other equipped items, and first-weapon selection, all recipe admissibility bounds, tactical PlayerEquipment, catalog invariants, live capability consumers, native transactions and policy remain open. Do not infer an invalid recipe or physical mass from an assumed threshold example.",
+      "connected_repair": "Determine whether Heavy describes actual equipped mass; if so, use the authenticated selected weapon geometry consistently in the capability projection while retaining legitimate nonparametric and ranged item paths, strength requirement, equipment choice, material/recipe authentication, combat and carrying semantics. Do not change strategic/tactical tick authority or introduce a second fatigue pool.",
+      "later_acceptance": "After implementation and product validation are separately authorized, cover accepted variants around the 4 kg boundary on the same chassis, catalog-only items, multiple hand selections, strength threshold, refresh and recruitment projection; verify forged and unmodified physical properties remain coherent.",
+      "discovery": "partial; admitted threshold-crossing designs, actual producer/consumer states, policy, native transactions and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-5724af7ed9632f9ad9e4",
+      "lens": 12,
+      "severity": "unassigned; earlier conditional recipe failure-boundary question",
+      "classification": "Bounded current revisit of the same 059 combat-geometry error/absence question; no new unique historical defect.",
+      "trace": "combat_geometry maps object lookup error, missing identity, failed authenticated instance, or failed geometry construction to None. The inspected StrategicEquipment loader explicitly panics when a held melee weapon has a registered default design but the geometry is absent; the inventory mass path expects valid geometry for every registered parametric inventory weapon. These selected consumers therefore do not silently fall back to catalog geometry on this particular registered path. An item with no registered default is handled as a separate nonparametric case; holder mass has its own Result and valid unfitted None case.",
+      "connected_repair": "Determine whether persisted corruption or lookup failures are admitted and what native error boundary should handle them; preserve strict recipe authentication and legitimate nonparametric/unfitted modes, without assuming a panic was observed or adding a compatibility fallback. Trace all producers, consumers, transaction behavior and exact aliases.",
+      "discovery": "partial; supported invalid state, intended error boundary, all callers, native rollback and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "Q-L12-09e949f0c0a4f8354fa8",
+      "lens": 12,
+      "severity": "unassigned; earlier contextual presence and producer question",
+      "classification": "Bounded current revisit of the same 059 world-actor source family; no new unique historical defect.",
+      "trace": "The selected world-actor owner models membership with entered/left interval and revision, materializes or rebinds context rosters with collision checks, and filters observer-relative case-site presence through exact-site knowledge and membership time. Contact requires actor authority, bounded action ID, living participants, exact context selection, revision and permission; exact repeated action payload returns its prior receipt, while conflicting payload is rejected. Contextual treatment binds the selected membership claim/revision and preserves refused, unavailable and narrow emergency-bandage decisions. Closure retains the first interval end. These are source safeguards, not proof of all core presence, UI, temporal paths, actions or actual transaction behavior.",
+      "connected_repair": "Continue through all actual context producers, strategic presence core, observer timelines, UI/native boundaries, retry and lifetime consumers, and reconcile exact prior contracts before proposing any changes; preserve non-applicable context modes and emergency/refusal distinctions.",
+      "discovery": "partial; core presence, all producers/UI, actual timelines, transactions and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Establish accepted threshold-crossing weapon designs, heavy capability policy, real native error handling, all contextual producers and timelines, exact aliases and all thirteen independent lenses. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
