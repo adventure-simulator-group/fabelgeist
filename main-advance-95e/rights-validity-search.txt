@@ -1,0 +1,20 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:11:pub use validity::RightsValidity;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:484:pub struct PermissionGrant<
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:496:    validity: RightsValidity,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:508:> PermissionGrant<S, R, O, J, G, C>
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:515:        validity: RightsValidity,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:557:    pub const fn validity(&self) -> RightsValidity {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:604:pub fn assess_permission_grant<
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:613:    grant: &PermissionGrant<S, R, O, J, G, C>,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:713:    PermissionGrant(RightsGrantId),
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:863:        PermissionGrant<Subject, Resource, Operation, Jurisdiction, Source, CommittedOutcome>;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:901:        assess_permission_grant(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:915:        PermissionGrant::try_new(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:920:            RightsValidity::try_new(StrategicMinute::new(100), Some(StrategicMinute::new(200)))
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:980:        let before: Result<Grant, _> = PermissionGrant::try_new(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:985:            RightsValidity::try_new(StrategicMinute::new(100), Some(StrategicMinute::new(200)))
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:996:        let boundary: Result<Grant, _> = PermissionGrant::try_new(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:1001:            RightsValidity::try_new(StrategicMinute::new(100), Some(StrategicMinute::new(200)))
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights.rs:1160:            assess_permission_grant(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights/validity.rs:7:pub struct RightsValidity {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/rights/validity.rs:12:impl RightsValidity {

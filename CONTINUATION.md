@@ -172,6 +172,12 @@ current authored corpus. Decoder features and actual runtime remain open.
 `ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json` extends the earlier
 sampler-overflow question with a pinned dependency and current authored
 weight bound. The hypothetical context and historical attribution remain open.
+`ASSESSMENT-L03-RIGHTS-VALIDITY-95E.json` records a possible validity
+invariant strengthening and the active fail-closed behavior. The earlier
+delegated observation and bounded caller search remain explicit.
+`ASSESSMENT-L01-HISTORICAL-985-986.json` preserves rights and validity
+source reads. The earlier inverted-window observation remains attributed
+to its delegated reader, with active access failing closed.
 `ASSESSMENT-L01-HISTORICAL-980-984.json` preserves quest test-source,
 generated-case validation, reducer-code and reputation reads. No product
 tests were run and independent current lenses remain open.

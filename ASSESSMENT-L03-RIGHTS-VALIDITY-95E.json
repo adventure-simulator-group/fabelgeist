@@ -1,0 +1,155 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 3,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected rights validity construction routes, active grant admission and exact-spelling caller search. The admission lens remains incomplete.",
+  "source_reasoning": "Static source inspection and symbolic time comparison only; no rights decision, transaction, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/rights.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "21fbd7061dc7211edffdebc57e74a219d81d46ba",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "bytes": 40194,
+      "lines": 1224,
+      "ranges": [
+        [
+          1,
+          1224
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rights-validity-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/rights/validity.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "669f7d780fa34059dd860e7c89d5d4892aacb634",
+      "sha256": "72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "bytes": 1001,
+      "lines": 32,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/rights-validity-sources/01.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/rights-validity-search.txt",
+    "sha256": "656b723993285fa617bfd07f8623a05bd6b8e27085515502bb96bd188c16872b",
+    "bytes": 2695,
+    "query": "git grep -n -E (PermissionGrant|RightsValidity|assess_permission_grant) at the pinned revision under crates",
+    "qualification": "Exact-spelling tracked source text search, not exhaustive proof against aliases, generated or non-Rust consumers."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-196.json",
+      "sha256": "c19fb20894a5f82b98ccda5e50e82d7f8266cda2b55999d3d6551114b7882071",
+      "bytes": 9930,
+      "git_blob": "9e1056c038bea1afaab693da5d6cd7d64b65da24",
+      "preserved_bytes": "recovered/rights-validity-059/c19fb20894a5f82b98ccda5e50e82d7f8266cda2b55999d3d6551114b7882071.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-198.json",
+      "sha256": "29d1f02d00985464feae3f242930f1af54920fff60fd2cd64a96988c608b5ad6",
+      "bytes": 5785,
+      "git_blob": "51a88b4117a02edd9ab4b903bd70a74bfb27a8ac",
+      "preserved_bytes": "recovered/rights-validity-059/29d1f02d00985464feae3f242930f1af54920fff60fd2cd64a96988c608b5ad6.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-198.json",
+      "sha256": "c4a21756266b372c433419539cfd7790ae6dd5821e1f1d622021f1a50364b526",
+      "bytes": 627,
+      "git_blob": "871691f9ecbb65eff7a01dfedcc9c910e78fffb2",
+      "preserved_bytes": "recovered/rights-validity-059/c4a21756266b372c433419539cfd7790ae6dd5821e1f1d622021f1a50364b526.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-198.json",
+      "sha256": "20fe06a0f4bdf5982c26df727514991e26432c67bfa8a0691de8bb05d74e5d73",
+      "bytes": 1671,
+      "git_blob": "99349d3421256c5d9a12e3b0a330b09255631c77",
+      "preserved_bytes": "recovered/rights-validity-059/20fe06a0f4bdf5982c26df727514991e26432c67bfa8a0691de8bb05d74e5d73.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-197-199.json",
+      "sha256": "811ce81ab9f79667ac1f44bdb166790f356b4bc9188b7fa732f46c20ee384df9",
+      "bytes": 18354,
+      "git_blob": "6702f1060583738780f6c6c49e37681b4423bc6c",
+      "preserved_bytes": "recovered/rights-validity-059/811ce81ab9f79667ac1f44bdb166790f356b4bc9188b7fa732f46c20ee384df9.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-198-PARTIAL-001.json",
+      "sha256": "83822cbf9e6cdff5cd0e0aff3064edec472c3d924e1379f956fc63db1df3aab9",
+      "bytes": 1787,
+      "git_blob": "d89632179044d6190eb26ce698547f9858870c24",
+      "preserved_bytes": "recovered/rights-validity-059/83822cbf9e6cdff5cd0e0aff3064edec472c3d924e1379f956fc63db1df3aab9.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-198-PARTIAL-002.json",
+      "sha256": "a203207464d8f0043ddda13fea066e5c06fbd2ce2403b1efeae00c05eb78f699",
+      "bytes": 1839,
+      "git_blob": "79b6372e1099748ae106294a7435da7754ceaab8",
+      "preserved_bytes": "recovered/rights-validity-059/a203207464d8f0043ddda13fea066e5c06fbd2ce2403b1efeae00c05eb78f699.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced supporting record; original partial-read union and attribution remain intact, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/discovery_receipts/195",
+      "qualification": "PL13-198 explicitly observed public inverted-window construction and that an active inverted grant has no usable instant; the delegated reader recorded no accepted finding and left native authority open. Preserve original partial read union and no new historical unique-count claim."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 985,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+      "historical_sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-985-986.json",
+      "qualification": "Separate full historical Lens 1 read; old delegated Lens 13 credit and current admission trace remain distinct."
+    },
+    {
+      "original_index": 986,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights/validity.rs",
+      "historical_sha256": "72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-985-986.json",
+      "qualification": "Separate full historical Lens 1 read; hash identity transfers no lens closure."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-RIGHTS-VALIDITY-INVERTED-WINDOW-001",
+      "severity": "unassigned; possible contract strengthening with fail-closed active assessment, not an observed authorization failure",
+      "classification": "Previously observed public-construction invariant gap, assessed as a possible strengthening rather than a demonstrated product defect.",
+      "trace": "RightsValidity::try_new rejects an end before its start, but both fields are public, allowing a caller to construct an inverted value directly. PermissionGrant::try_new validates grant lifecycle and consumed receipt provenance but does not revalidate this value. For a hypothetical active grant with from=100 and through=90, every minute below 100 is NotYetValid and every minute at or above 100 is Expired, assuming the exact question matches; contains also has no valid minute. Thus the selected active assessment does not grant access from that inverted window.",
+      "caller_evidence": "An exact-spelling tracked-source search under crates finds declarations and references in the rights owner and its test module, with no separate production call site in those results. This bounded text search does not rule out aliases, external consumers, generated code or future use. The value has no Serde or SpacetimeDB derives in the inspected type; no untrusted wire admission is claimed.",
+      "safeguards_and_limits": "Reusable/consumed lifecycle and revoked/receipt revision safeguards are independent. Consumed exact-provenance replay is intentionally checked before active-window validity, and the fail-closed claim applies only to Active state, not replay semantics. Whether invalid windows should be unrepresentable or allowed as unavailable state is an API policy question. No native invalid grant, transaction, player impact, or bypass of an existing authorization was established.",
+      "connected_repair": "If a valid inclusive interval is intended as an invariant of RightsValidity, make construction checked and prevent unchecked field mutation while providing the needed read access; alternatively, validate at each native admission if representable invalid observations are intentional. Preserve inclusive boundaries, unbounded ends, expired/not-yet-valid distinctions and exact consumed replay behavior. Review future native grant construction and reconcile with PL13-198 before deduplication.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover equal endpoints, unbounded end, before/after boundaries, inverted construction, grant lifecycle and idempotent replay without permitting an active invalid window.",
+      "discovery": "partial; API policy, aliases and future/native consumers remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

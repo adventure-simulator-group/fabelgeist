@@ -1255,6 +1255,20 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json"
+      },
+      {
+        "id": "REVIEW-RIGHTS-VALIDITY-INVERTED-WINDOW-001",
+        "lens": 3,
+        "severity": "unassigned; possible contract strengthening with fail-closed active assessment, not an observed authorization failure",
+        "classification": "possible rights validity invariant strengthening; active inverted window fails closed",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens13/discovery_receipts/195"
+        ],
+        "relationship_qualification": "Delegated PL13-198 already recorded the exact public-field and active fail-closed behavior with zero accepted historical findings; this is a current scoped strengthening question, not a demonstrated authorization bypass.",
+        "discovery": "partial; API policy and unobserved native or external callers open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L03-RIGHTS-VALIDITY-95E.json"
       }
     ]
   },
