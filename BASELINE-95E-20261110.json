@@ -9625,7 +9625,8 @@
         "record": "ASSESSMENT-KERNEL-95E.json",
         "further_current_evidence": [
           "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
-          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+          "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+          "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
         ],
         "further_evidence_qualification": "Original ABI parent identity remains; current public helper Mat3 slice example is conditional and separate from actual ComputePass and cached packers."
       },
@@ -11332,7 +11333,10 @@
         "future_acceptance": "After audit and authorization, cover supported shader names, name resolution and mismatch reporting through actual producers.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json"
+        "record": "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-GPU-BIND-LAYOUT-MISSING-REASON",
@@ -12570,8 +12574,238 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GPU-PASS-PIPELINE-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; historical contract",
+        "classification": "Fallible GPU context creation must retain native request failure ownership while adding readable setup context.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/159",
+          "adler/READ-L11-363.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "Original source and prior reviewer attribution retained; open current policy, consumer and global alias questions are not silently resolved.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-SHADER-LANGUAGE-STRING-DISPATCH",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historical contract",
+        "classification": "detect_from_code43 constructs exactly glsl45/wgsl47 Strings, parse_naga retains54/rematches56 ratherthanadmittedclosedchoice",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/359",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "Original source and prior reviewer attribution retained; open current policy, consumer and global alias questions are not silently resolved.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-SHADER-GLSL-PARSE-CAUSE-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historical contract",
+        "classification": "NagaGLSL frontend.parse typedcause debugformatted66",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/360",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "Original source and prior reviewer attribution retained; open current policy, consumer and global alias questions are not silently resolved.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-GPU-SHADER-WGSL-PARSE-CAUSE-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; historical contract",
+        "classification": "NagaWGSL parse_str typedParseError68 projected to diagnosticString69 then onlytext70",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/361",
+          "segovb/READ-L12-749.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "Original source and prior reviewer attribution retained; open current policy, consumer and global alias questions are not silently resolved.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP#adapter-request-cause240",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; exact historical subcontract",
+        "classification": "ActualRequestAdapterError atrequest_adapter233..239 isdiscarded toconstanttext240 beforecontextResult/caller.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2269",
+          "baseline-059/queue.json#/entries/364",
+          "segovb/ALIAS-L11-GPU-CONTEXT-SUBCONTRACTS-006.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "The recorded Lens12 context finding is an exact alias only of this named parent subcontract, with zero historical unique-count change; the four operations remain distinct.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP#device-request-cause247",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; exact historical subcontract",
+        "classification": "ActualRequestDeviceError atrequest_device244..246 isdiscarded toconstanttext247 beforecontextResult/caller.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2270",
+          "baseline-059/queue.json#/entries/365",
+          "segovb/ALIAS-L11-GPU-CONTEXT-SUBCONTRACTS-006.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "The recorded Lens12 context finding is an exact alias only of this named parent subcontract, with zero historical unique-count change; the four operations remain distinct.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP#browser-canvas-js-cause204",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; exact historical subcontract",
+        "classification": "OffscreenCanvas::new203 returnsResult<OffscreenCanvas,JsValue> andactualfirstparty204 dropsarbitraryJSvalue before internalResult.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2271",
+          "baseline-059/queue.json#/entries/362",
+          "segovb/ALIAS-L11-GPU-CONTEXT-SUBCONTRACTS-006.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "The recorded Lens12 context finding is an exact alias only of this named parent subcontract, with zero historical unique-count change; the four operations remain distinct.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "ADLER-L11-GPU-CONTEXT-ERROR-OWNERSHIP#browser-surface-cause207",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          12
+        ],
+        "severity": "unassigned; exact historical subcontract",
+        "classification": "OffscreenCanvas create_surface206 returnsCreateSurfaceError andfirstparty207 discardsowner beforeinternalResult.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2272",
+          "baseline-059/queue.json#/entries/363",
+          "segovb/ALIAS-L11-GPU-CONTEXT-SUBCONTRACTS-006.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+        ],
+        "relationship_qualification": "The recorded Lens12 context finding is an exact alias only of this named parent subcontract, with zero historical unique-count change; the four operations remain distinct.",
+        "discovery": "partial; selected current and pinned native source reconnected; actual callers, policy and aliases open",
+        "connected_repair_direction": "Preserve the exact operation, required native cause or language decision, and useful context through the appropriate admitted owner.",
+        "future_acceptance": "After audit and authorization, cover supported inputs and this specific boundary under the selected contract.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "REVIEW-GPU-CONTEXT-PART-COHERENCE-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          6,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; context aggregate policy",
+        "classification": "Public context construction and fields retain independently supplied instance, adapter, device and queue without an explicit coherence check.",
+        "historical_related_records": [
+          "segovb/READ-L12-750.json via ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json",
+          "baseline-059/queue.json#/entries/159"
+        ],
+        "relationship_qualification": "Earlier delegate750 already raised this conditional state; it is distinct from the four actual construction-error conversion sites. No mismatched handles, native backend or product ran.",
+        "discovery": "partial; public construction and retained state traced; actual producers, native constraints and admission policy open",
+        "connected_repair_direction": "Choose a context ownership boundary that makes the permitted device and queue relationship explicit and keeps it coherent through mutation.",
+        "future_acceptance": "After audit and authorization, cover supported owned and borrowed construction and rejected incompatible components under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1746.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1756.json"
 }
