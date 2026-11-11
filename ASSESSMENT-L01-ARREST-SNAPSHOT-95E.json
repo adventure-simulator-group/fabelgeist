@@ -1,0 +1,480 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected production activity-arrest creation and charge snapshot guard at 95e; source identity, all aliases and other independent lenses remain open.",
+  "source_reasoning": "Pinned source inspection and historical evidence-byte verification only. No product build, test, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/reputation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "18abc362b697e962fa2364ff09f1c960a09189c0",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "bytes": 13386,
+      "lines": 440,
+      "ranges": [
+        [
+          148,
+          245
+        ],
+        [
+          250,
+          283
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/arrest-snapshot-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "bytes": 23893,
+      "lines": 703,
+      "ranges": [
+        [
+          120,
+          161
+        ],
+        [
+          329,
+          368
+        ],
+        [
+          420,
+          486
+        ],
+        [
+          519,
+          580
+        ],
+        [
+          658,
+          691
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/arrest-snapshot-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0cd470ccfb604d38577aee07a7b75ddd1fda77f9",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "bytes": 29213,
+      "lines": 761,
+      "ranges": [
+        [
+          105,
+          157
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/arrest-snapshot-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_event/authority_tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6db86c6902f5f41ed77852193221837ac0db122b",
+      "sha256": "9c08b2624216387d88ba3f3bfe7d15c525726b4fbc53746c1d31ac467f7b9888",
+      "bytes": 5832,
+      "lines": 172,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/arrest-snapshot-sources/03.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "nonfinding": {
+    "question": "Can the selected normal arrest creation path call snapshot again for a party that already has a pending arrest and append a later offense to that same pending incident?",
+    "disposition": "The snapshot helper alone inserts a charge for each currently unsettled offense whose incident/offense key is absent, so a repeated direct call with a changed list would append it. In the selected production path, create_strategic_incident first returns None if the party has any Pending incident. The caller invokes snapshot_arrest_charges only after creation returns Some for an AuthorityArrest. Therefore a repeat through this path while that party's arrest is pending does not call the snapshot helper again. This is a bounded source safeguard, not a proof that all caller, replay, collision or concurrent states are safe.",
+    "other_qualified_cases": "The arrest source identity hashes the ordered unsettled offense IDs and retains only 16 hexadecimal digits; different lists can theoretically collide and source identity includes no offense payload. If a nonpending existing incident is returned for the same source, the snapshot can run again. Actual admitted collision, other callers or conflicting payloads were not established. Surrender uses the recorded incident/character/settlement charges and pays then settles them; a separate guarded source fixture was read but not run."
+  },
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/964",
+      "ledger_pointer": "/segovb_continuation/lens12/pending_connected_contracts/74",
+      "qualification": "Earlier open reputation event binding, offense/source vocabulary and arrest snapshot question. The selected pending-incident guard is one partial answer only."
+    },
+    {
+      "file": "ASSESSMENT-L01-REPAIR-SUBMISSION-95E.json",
+      "qualification": "Earlier current repair actor-authority and bulk error assessments retain their own scopes, historical aliases and conditional transaction evidence."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1173-1179.json",
+      "qualification": "Seven historical Lens1 role bodies personally read; role 1177 prior current ranges remain separately attributed. Earlier Lens12 1179 original partial ranges and the two registered extensions are not promoted to complete Lens12 or any other-lens credit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-271.json",
+      "sha256": "b04c0730e175d5cc3935bf809ae6bbd72538fc8da1a69b0eabf756eae477a970",
+      "bytes": 2207,
+      "git_blob": "c8809b0e983332c65e0c3df78d24aa6207848b71",
+      "preserved_bytes": "recovered/arrest-snapshot-059/b04c0730e175d5cc3935bf809ae6bbd72538fc8da1a69b0eabf756eae477a970.gz",
+      "published_sha256": "b04c0730e175d5cc3935bf809ae6bbd72538fc8da1a69b0eabf756eae477a970",
+      "published_bytes": 2207,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-272.json",
+      "sha256": "c2cef30180fafb53039c98f1670dcc5c4650cd21c854f806af6701903a65dd2c",
+      "bytes": 1180,
+      "git_blob": "13c0afc23ea84771b956ec3aae299e33bfb22bba",
+      "preserved_bytes": "recovered/arrest-snapshot-059/c2cef30180fafb53039c98f1670dcc5c4650cd21c854f806af6701903a65dd2c.gz",
+      "published_sha256": "c2cef30180fafb53039c98f1670dcc5c4650cd21c854f806af6701903a65dd2c",
+      "published_bytes": 1180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-273.json",
+      "sha256": "ce89834382c734d98d46ae2d9e130afb2fafd40e84d5bec6c310db8ce19e8fce",
+      "bytes": 758,
+      "git_blob": "cab1042412058df927fca83e353e5c01f2dacaf1",
+      "preserved_bytes": "recovered/arrest-snapshot-059/ce89834382c734d98d46ae2d9e130afb2fafd40e84d5bec6c310db8ce19e8fce.gz",
+      "published_sha256": "ce89834382c734d98d46ae2d9e130afb2fafd40e84d5bec6c310db8ce19e8fce",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/QUALIFICATION-L12-ORIGINAL1179-LOCATOR.json",
+      "sha256": "ea4ce74e7483ce02218c4785a0a43fa90f4ef53c4fc2a67ceaec23d322c2e536",
+      "bytes": 1757,
+      "git_blob": "67b623a10b3382a815dc9472b37a1cc281683edd",
+      "preserved_bytes": "recovered/arrest-snapshot-059/ea4ce74e7483ce02218c4785a0a43fa90f4ef53c4fc2a67ceaec23d322c2e536.gz",
+      "published_sha256": "ea4ce74e7483ce02218c4785a0a43fa90f4ef53c4fc2a67ceaec23d322c2e536",
+      "published_bytes": 1757,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier qualified source locator"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-271.json",
+      "sha256": "4658bfd62fe6c0f8d39943339ceeb826db8e97568129cdf16adad03d4e54f347",
+      "bytes": 13190,
+      "git_blob": "5c1bb6d667dc408f5231735998f4977bbad6449a",
+      "preserved_bytes": "recovered/arrest-snapshot-059/4658bfd62fe6c0f8d39943339ceeb826db8e97568129cdf16adad03d4e54f347.gz",
+      "published_sha256": "4658bfd62fe6c0f8d39943339ceeb826db8e97568129cdf16adad03d4e54f347",
+      "published_bytes": 13190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-272.json",
+      "sha256": "9693fa8d9b350c99adb0cad8ec22552a586629ea5e8e6805529bd2edcd1d4d32",
+      "bytes": 12984,
+      "git_blob": "cb06613dffbd3f5dd7b56982c22b296ac333f6a6",
+      "preserved_bytes": "recovered/arrest-snapshot-059/9693fa8d9b350c99adb0cad8ec22552a586629ea5e8e6805529bd2edcd1d4d32.gz",
+      "published_sha256": "9693fa8d9b350c99adb0cad8ec22552a586629ea5e8e6805529bd2edcd1d4d32",
+      "published_bytes": 12984,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-273-EXT-001.json",
+      "sha256": "a86072d66562254ed9aeea9f8006853db19fe67120c988794660d1b96140e025",
+      "bytes": 4476,
+      "git_blob": "54223266a72e8ab23986f325596038fb256c1d02",
+      "preserved_bytes": "recovered/arrest-snapshot-059/a86072d66562254ed9aeea9f8006853db19fe67120c988794660d1b96140e025.gz",
+      "published_sha256": "a86072d66562254ed9aeea9f8006853db19fe67120c988794660d1b96140e025",
+      "published_bytes": 4476,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier extension receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-273-EXT-002.json",
+      "sha256": "88705967a7fb28b0a29ed1716f4c6482d0a639c678efc212ba9e34c6a7fea137",
+      "bytes": 3327,
+      "git_blob": "1f450dfaa227d3bb00a62fe1aa6d43cb6dacf942",
+      "preserved_bytes": "recovered/arrest-snapshot-059/88705967a7fb28b0a29ed1716f4c6482d0a639c678efc212ba9e34c6a7fea137.gz",
+      "published_sha256": "88705967a7fb28b0a29ed1716f4c6482d0a639c678efc212ba9e34c6a7fea137",
+      "published_bytes": 3327,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier extension receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-273.json",
+      "sha256": "411482d95c943c130737a19a3c92c06f6ade8af4786ad905148a6dd1b27c9983",
+      "bytes": 9228,
+      "git_blob": "7d00c051acdca4a510f1560e722bb45c1ef9d3b2",
+      "preserved_bytes": "recovered/arrest-snapshot-059/411482d95c943c130737a19a3c92c06f6ade8af4786ad905148a6dd1b27c9983.gz",
+      "published_sha256": "411482d95c943c130737a19a3c92c06f6ade8af4786ad905148a6dd1b27c9983",
+      "published_bytes": 9228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-EXT-L12-273-001.json",
+      "sha256": "cf3fac799ce33489ae1fe5293cbec1bbc2a20ebf0562446576444eb8af9f025e",
+      "bytes": 1849,
+      "git_blob": "0d9114a91d67cbe87f5cbb506c03b19171b828e8",
+      "preserved_bytes": "recovered/arrest-snapshot-059/cf3fac799ce33489ae1fe5293cbec1bbc2a20ebf0562446576444eb8af9f025e.gz",
+      "published_sha256": "cf3fac799ce33489ae1fe5293cbec1bbc2a20ebf0562446576444eb8af9f025e",
+      "published_bytes": 1849,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective extension registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-EXT-L12-273-002.json",
+      "sha256": "89428a6db1ffb14de5c12c34c1b59aaedbb4b56b6bf7d9f0690d52ec66a24f07",
+      "bytes": 1709,
+      "git_blob": "735421a2124c8c8d16d48ceb2f1e5723f675af2e",
+      "preserved_bytes": "recovered/arrest-snapshot-059/89428a6db1ffb14de5c12c34c1b59aaedbb4b56b6bf7d9f0690d52ec66a24f07.gz",
+      "published_sha256": "89428a6db1ffb14de5c12c34c1b59aaedbb4b56b6bf7d9f0690d52ec66a24f07",
+      "published_bytes": 1709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier prospective extension registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-080.json",
+      "sha256": "173c8701a219c0d9dad475361943b0372cc3f6f6caa3acd346e54ce9e9227f4c",
+      "bytes": 1228,
+      "git_blob": "bd6f9c587518929d5b77346e9456a5187f7e1b25",
+      "preserved_bytes": "recovered/arrest-snapshot-059/173c8701a219c0d9dad475361943b0372cc3f6f6caa3acd346e54ce9e9227f4c.gz",
+      "published_sha256": "173c8701a219c0d9dad475361943b0372cc3f6f6caa3acd346e54ce9e9227f4c",
+      "published_bytes": 1228,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-081.json",
+      "sha256": "7e83656eaa332788038d15ac68bfd8b4e351fa244fd372d4cc947d1d26bd6ad2",
+      "bytes": 1232,
+      "git_blob": "428864cc4d98330c944e900adf95f72db363ae72",
+      "preserved_bytes": "recovered/arrest-snapshot-059/7e83656eaa332788038d15ac68bfd8b4e351fa244fd372d4cc947d1d26bd6ad2.gz",
+      "published_sha256": "7e83656eaa332788038d15ac68bfd8b4e351fa244fd372d4cc947d1d26bd6ad2",
+      "published_bytes": 1232,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-082.json",
+      "sha256": "936686c3da2c77525e8c058682c10293a2375dfbbbcf6a3b8b8061f70fa52b0d",
+      "bytes": 1234,
+      "git_blob": "c167794fac9b8b1c9b9212d062408c910f736f65",
+      "preserved_bytes": "recovered/arrest-snapshot-059/936686c3da2c77525e8c058682c10293a2375dfbbbcf6a3b8b8061f70fa52b0d.gz",
+      "published_sha256": "936686c3da2c77525e8c058682c10293a2375dfbbbcf6a3b8b8061f70fa52b0d",
+      "published_bytes": 1234,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-083.json",
+      "sha256": "114617965f54105d935e72599a018ad1d7d870a30cf7e129433d6f4e71d5d888",
+      "bytes": 1232,
+      "git_blob": "4da0ffd01006f8bfc3b73580f6403afc854972cb",
+      "preserved_bytes": "recovered/arrest-snapshot-059/114617965f54105d935e72599a018ad1d7d870a30cf7e129433d6f4e71d5d888.gz",
+      "published_sha256": "114617965f54105d935e72599a018ad1d7d870a30cf7e129433d6f4e71d5d888",
+      "published_bytes": 1232,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-084.json",
+      "sha256": "01aa91cd28c4817c17019f75e6c4e5c5cd9f5e44f7ed9b934e50443266036133",
+      "bytes": 1190,
+      "git_blob": "506b5a9e00715b3aec00b931081bf09f2e772416",
+      "preserved_bytes": "recovered/arrest-snapshot-059/01aa91cd28c4817c17019f75e6c4e5c5cd9f5e44f7ed9b934e50443266036133.gz",
+      "published_sha256": "01aa91cd28c4817c17019f75e6c4e5c5cd9f5e44f7ed9b934e50443266036133",
+      "published_bytes": 1190,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-085.json",
+      "sha256": "d05a4df835177d978330f7b50f13ab638e486a2c3fe820ee913025d3904233c5",
+      "bytes": 1202,
+      "git_blob": "6f0ed64ce9052bf764e08d0b3cd42a12a33f1544",
+      "preserved_bytes": "recovered/arrest-snapshot-059/d05a4df835177d978330f7b50f13ab638e486a2c3fe820ee913025d3904233c5.gz",
+      "published_sha256": "d05a4df835177d978330f7b50f13ab638e486a2c3fe820ee913025d3904233c5",
+      "published_bytes": 1202,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-086.json",
+      "sha256": "60ba717f4c25b1f78c6fdbf12f1bc8a27fd4b6b4edd6d56822e9580d77beaeb0",
+      "bytes": 1621,
+      "git_blob": "cd3fa7464d86d59f9d8c883728e80cd737f18e12",
+      "preserved_bytes": "recovered/arrest-snapshot-059/60ba717f4c25b1f78c6fdbf12f1bc8a27fd4b6b4edd6d56822e9580d77beaeb0.gz",
+      "published_sha256": "60ba717f4c25b1f78c6fdbf12f1bc8a27fd4b6b4edd6d56822e9580d77beaeb0",
+      "published_bytes": 1621,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-271.json",
+      "sha256": "51cee5510956a34d2c6a0d732a029d3a0d8c87fa371c04859a77425ba7db65f5",
+      "bytes": 839,
+      "git_blob": "1d8e2d8f11fbeb681360e4404931abac958acb79",
+      "preserved_bytes": "recovered/arrest-snapshot-059/51cee5510956a34d2c6a0d732a029d3a0d8c87fa371c04859a77425ba7db65f5.gz",
+      "published_sha256": "51cee5510956a34d2c6a0d732a029d3a0d8c87fa371c04859a77425ba7db65f5",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-272.json",
+      "sha256": "c68f8931d59b6d40b4a88348207ffdeca0efe4dd618069bc713277cad244db18",
+      "bytes": 839,
+      "git_blob": "ff0a36a131892a57ee6cc92ce259eec4f18921a5",
+      "preserved_bytes": "recovered/arrest-snapshot-059/c68f8931d59b6d40b4a88348207ffdeca0efe4dd618069bc713277cad244db18.gz",
+      "published_sha256": "c68f8931d59b6d40b4a88348207ffdeca0efe4dd618069bc713277cad244db18",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-273.json",
+      "sha256": "478698b37127dd5e43769a24bfeda1153cdf0ebdefd9779129af6fb6ffd0247d",
+      "bytes": 839,
+      "git_blob": "abc4eb4e9307a60af4189436505d034fdc577a40",
+      "preserved_bytes": "recovered/arrest-snapshot-059/478698b37127dd5e43769a24bfeda1153cdf0ebdefd9779129af6fb6ffd0247d.gz",
+      "published_sha256": "478698b37127dd5e43769a24bfeda1153cdf0ebdefd9779129af6fb6ffd0247d",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-271.json",
+      "sha256": "cc57f739c1c4a15348498dcb6c39b58387d0788b0605ca5497c8a1fbd936ecf5",
+      "bytes": 557,
+      "git_blob": "98dc988a8999be0c22e5943ad268ff802f130e9e",
+      "preserved_bytes": "recovered/arrest-snapshot-059/cc57f739c1c4a15348498dcb6c39b58387d0788b0605ca5497c8a1fbd936ecf5.gz",
+      "published_sha256": "cc57f739c1c4a15348498dcb6c39b58387d0788b0605ca5497c8a1fbd936ecf5",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-272.json",
+      "sha256": "f1cedf5bc0179c4c540e05d1aa9710136c117493cf2c3601dcbca25903c639bf",
+      "bytes": 557,
+      "git_blob": "626a5f7752f2ac4348ba330959fadeb368a0da64",
+      "preserved_bytes": "recovered/arrest-snapshot-059/f1cedf5bc0179c4c540e05d1aa9710136c117493cf2c3601dcbca25903c639bf.gz",
+      "published_sha256": "f1cedf5bc0179c4c540e05d1aa9710136c117493cf2c3601dcbca25903c639bf",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-273.json",
+      "sha256": "24af7282c6f0d0f95e86780c381bf6c569920c289b7651d347d298763084e8b1",
+      "bytes": 557,
+      "git_blob": "5bb2bae1d78d9c2007aa6c5ffe50b03c69179497",
+      "preserved_bytes": "recovered/arrest-snapshot-059/24af7282c6f0d0f95e86780c381bf6c569920c289b7651d347d298763084e8b1.gz",
+      "published_sha256": "24af7282c6f0d0f95e86780c381bf6c569920c289b7651d347d298763084e8b1",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    }
+  ],
+  "candidates": [],
+  "remaining": "Reconcile actual nonpending replay, source fingerprint collision and payload policy, event/offense callers and UI, the independently mandatory extensions and all thirteen lenses. Original final 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
