@@ -1,0 +1,43 @@
+{
+  "schema": "726-registry-source-evidence-v1",
+  "archive": "tiny-skia-0.11.4.crate",
+  "sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+  "bytes": 201082,
+  "source": "crates.io package pinned by95e Cargo.lock",
+  "inspected_members": [
+    {
+      "path": "tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "bytes": 18734
+    },
+    {
+      "path": "tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "bytes": 1436
+    },
+    {
+      "path": "tiny-skia-0.11.4/LICENSE",
+      "sha256": "6d41e05f1d54fe726997cb0334ec539f1dff50600b1d5d90462ec2b392770ced",
+      "bytes": 1564
+    }
+  ],
+  "assessed_source_ranges": {
+    "tiny-skia-0.11.4/src/pixmap.rs": [
+      [
+        145,
+        185
+      ],
+      [
+        380,
+        432
+      ]
+    ],
+    "tiny-skia-0.11.4/Cargo.toml": [
+      [
+        30,
+        66
+      ]
+    ]
+  },
+  "qualification": "Static source and archive integrity only; no dependency build, PNG encoding or product execution."
+}
