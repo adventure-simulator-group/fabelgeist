@@ -8873,8 +8873,83 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-LIMB-METAL-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-ARMOR-METAL-VALIDATION-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          2,
+          6,
+          11
+        ],
+        "severity": "unassigned; validation error ownership",
+        "classification": "Original Metal validation reason reconnected: invalid metal controls return a generic String at the reusable validator before the public bake boundary.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/290",
+          "baseline-059/queue.json#/entries/291",
+          "baseline-059/queue.json#/entries/136"
+        ],
+        "relationship_qualification": "Historical Metal and Ornament validator first failures are distinct; nested propagation and shared aggregate remedies do not prove an alias with engraving I/O errors. No invalid input or error ran.",
+        "discovery": "partial; selected current validation and nested error propagation traced; other consumers and exact aliases remain open",
+        "connected_repair_direction": "Retain a structured Metal validation reason through the reusable material/engraving error owner and format at the final presentation boundary.",
+        "future_acceptance": "After audit and authorization, cover metal predicate reasons, nested ornament errors and accepted finite/optional controls.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ORNAMENT-TEXTURE-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-ARMOR-ORNAMENT-VALIDATION-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          2,
+          6,
+          11
+        ],
+        "severity": "unassigned; validation error ownership",
+        "classification": "Original Ornament validation reason reconnected: invalid repeat, line or motif controls return one generic String before the engraving and metal validators propagate it.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/291",
+          "baseline-059/queue.json#/entries/290",
+          "baseline-059/queue.json#/entries/136"
+        ],
+        "relationship_qualification": "Historical Ornament predicate owner remains distinct from Metal predicates and image I/O; common error plumbing does not make these aliases. No invalid input or error ran.",
+        "discovery": "partial; selected current Ornament and nested validator propagation traced; all consumers and exact aliases remain open",
+        "connected_repair_direction": "Retain structured Ornament and motif validation reasons through engraving and metal while preserving each admitted control.",
+        "future_acceptance": "After audit and authorization, cover repeat, line and motif reasons, valid variants, optional fillets and final error presentation.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ORNAMENT-TEXTURE-95E.json"
+      },
+      {
+        "id": "REVIEW-ORNAMENT-FILLET-WAVE-ROOM-95E",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; design relationship question",
+        "classification": "Allowed procedural ornament line width and fillets can reduce the wave room to zero, making a positive wave amplitude generate a straight center stripe in the shader source.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1816",
+          "baseline-059/queue.json#/entries/2279",
+          "baseline-059/queue.json#/entries/291"
+        ],
+        "relationship_qualification": "New source-derived example is related to historical scoped relief and validator work, not an assumed alias. No ornament, UI, shader or generated output ran; intentional wide-line behavior remains unresolved.",
+        "discovery": "partial; selected validator, creator controls, host payload and shader relationship traced; other motifs and design policy remain open",
+        "connected_repair_direction": "Decide the intended relationship among line width, fillets and motif room at the owning design boundary, preserving intentional straight waves and valid nonfillet ornament settings.",
+        "future_acceptance": "After audit and authorization, cover fillets with line0.18 and positive wave height, edge widths, explicit zero amplitude and nonfillet modes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-ORNAMENT-TEXTURE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1550.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1554.json"
 }
