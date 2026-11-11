@@ -1,0 +1,305 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2007,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/Cargo.toml",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2007",
+      "sha256": "c966f29016d32aca39e17ea882e55271f208891ab003c331287114388a449a3a",
+      "lines": 55,
+      "new_personal_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/Cargo.toml",
+        "sha256": "c966f29016d32aca39e17ea882e55271f208891ab003c331287114388a449a3a",
+        "bytes": 1408,
+        "lines": 55,
+        "git_blob": "23c4f98ac45463d38878bab3b8f81b0a4fb19ff2",
+        "preserved_bytes": "main-advance-95e/melee-report-evidence/current-2007.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 2008,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2008",
+      "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+      "lines": 7,
+      "new_personal_read_ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+        "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+        "bytes": 180,
+        "lines": 7,
+        "git_blob": "aebc2daf2676e63ab776f2ad1231a82dde394719",
+        "preserved_bytes": "main-advance-95e/melee-report-evidence/current-2008.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            7
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 2009,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2009",
+      "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+      "lines": 197,
+      "new_personal_read_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              1,
+              42
+            ],
+            [
+              48,
+              79
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              42
+            ],
+            [
+              48,
+              79
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+        "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+        "bytes": 8526,
+        "lines": 197,
+        "git_blob": "9eec452ba5c56682bc04f970710da87d3685369f",
+        "preserved_bytes": "main-advance-95e/melee-report-evidence/current-2009.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            197
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 2010,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2010",
+      "sha256": "29a2443a5b6c08cb12ec620c470751f9f02b01152f0cdfce51f49395aaa84170",
+      "lines": 330,
+      "new_personal_read_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+        "sha256": "29a2443a5b6c08cb12ec620c470751f9f02b01152f0cdfce51f49395aaa84170",
+        "bytes": 11591,
+        "lines": 330,
+        "git_blob": "b00a47da22140ab08c51db137b5c8f6b6685bd78",
+        "preserved_bytes": "main-advance-95e/melee-report-evidence/current-2010.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            330
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 2011,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2011",
+      "sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
+      "lines": 185,
+      "new_personal_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-STEP-RATES.json",
+          "ranges": [
+            [
+              65,
+              126
+            ]
+          ]
+        },
+        {
+          "assessment": "ASSESSMENT-L1-MELEE-MOVEMENT.json",
+          "ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+        "sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
+        "bytes": 7671,
+        "lines": 185,
+        "git_blob": "65adec66ac9e1dbead7eafb2b0e223d4b8cf2c1e",
+        "preserved_bytes": "main-advance-95e/melee-report-evidence/current-2011.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            185
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 2012,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2012",
+      "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4",
+      "lines": 62,
+      "new_personal_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+        "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4",
+        "bytes": 1974,
+        "lines": 62,
+        "git_blob": "23aaede7ed3d135e070201975e4f0fd7b8eac03c",
+        "preserved_bytes": "main-advance-95e/melee-report-evidence/current-2012.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            62
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Full historical server manifest, command entry point, acceptance audit, tactical causal aggregator, autoresolve causal aggregator and error bodies personally read through EOF; no command or product ran.",
+    "All six bodies match95e bytes. Earlier bounded current 2009 and 2011 traces remain separately linked.",
+    "Historic Segovb673/674 and Adler310/311 retain independent original scopes; receipts which include future2013/2014 do not grant new personal coverage. Later Segovb693 and scoped 676/693 revisits retain their own original authority and ranges, without transferring personal credit."
+  ],
+  "qualification": "Personal historical Lens1 bodies and bounded current sources; original author, revision, qualification and later-recipient roles remain separate, with no checkpoint3821 claim.",
+  "next_original_role": 2013
+}

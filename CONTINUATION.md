@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1305.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-1309.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -273,6 +273,8 @@ module composition and evidence state without expanding current coverage.
 face admission, paving support and conditional small-face filtering.
 `ASSESSMENT-VISTA-SURFACE-FRAMES-95E.json` traces conditional owned
 surface origins and sampled-tree seam heights, preserving earlier attribution.
+`ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json` reconnects original movement,
+identity and anatomy findings and qualifies the explicit weapon-band sample.
 `ASSESSMENT-GEOLOGY-AND-ESTABLISHMENTS-95E.json` connects settlement
 binding, source capture and qualified geological footprint evidence.
 `ASSESSMENT-SCENE-MATERIALIZATION-95E.json` connects original error and

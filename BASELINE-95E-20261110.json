@@ -6185,8 +6185,164 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GEOLOGY-AND-ESTABLISHMENTS-95E.json"
+      },
+      {
+        "id": "ADLER-L11-MELEE-MOVEMENT-EVIDENCE-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed and qualified historical contract",
+        "classification": "Missing movement observations are defaulted to zero in report acceptance counters; selected ordinary producer explicitly populates them, so unsupported alternate or malformed paths remain a conditional question.",
+        "historical_related_candidates": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-MELEE-MOVEMENT-EVIDENCE-ADMISSION",
+          "baseline-059/queue.json#/entries/115"
+        ],
+        "relationship_qualification": "Exact recovered059 identifier and original attribution; no new historical unique-count change, global alias closure or checkpoint3821 promotion.",
+        "discovery": "partial; selected current producer and consumer traced, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-AUTORESOLVE-CONTACT-CLASSIFICATION-PRIVATE-TEXT-KEY",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed and qualified historical contract",
+        "classification": "Existing contact classification is converted to Debug text before private aggregation; current canonical enum is typed and the native report boundary remains separate.",
+        "historical_related_candidates": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-AUTORESOLVE-CONTACT-CLASSIFICATION-PRIVATE-TEXT-KEY",
+          "baseline-059/queue.json#/entries/268"
+        ],
+        "relationship_qualification": "Exact recovered059 identifier and original attribution; no new historical unique-count change, global alias closure or checkpoint3821 promotion.",
+        "discovery": "partial; selected current producer and consumer traced, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TACTICAL-VICTOR-DISPLAY-NAME-IDENTITY",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed and qualified historical contract",
+        "classification": "A known duel victory side becomes a display name before the runner compares it; duplicate-name behavior and exact identity owner are not observed.",
+        "historical_related_candidates": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-TACTICAL-VICTOR-DISPLAY-NAME-IDENTITY",
+          "baseline-059/queue.json#/entries/275"
+        ],
+        "relationship_qualification": "Exact recovered059 identifier and original attribution; no new historical unique-count change, global alias closure or checkpoint3821 promotion.",
+        "discovery": "partial; selected current producer and consumer traced, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TACTICAL-EVENT-DISPLAY-NAME-IDENTITY",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed and qualified historical contract",
+        "classification": "Known tactical actor Entity becomes display name before private side accounting; unknown and duplicate labels are not shown on the fixed roster.",
+        "historical_related_candidates": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-TACTICAL-EVENT-DISPLAY-NAME-IDENTITY",
+          "baseline-059/queue.json#/entries/276"
+        ],
+        "relationship_qualification": "Exact recovered059 identifier and original attribution; no new historical unique-count change, global alias closure or checkpoint3821 promotion.",
+        "discovery": "partial; selected current producer and consumer traced, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-TACTICAL-ANATOMICAL-PRIVATE-JSON-TEXT",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; source-backed and qualified historical contract",
+        "classification": "Typed anatomical subregion is converted through JSON to String before private aggregation; selected enum is snake_case and unit-shaped, and no serialization failure is shown.",
+        "historical_related_candidates": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/SEGOVB-L12-TACTICAL-ANATOMICAL-PRIVATE-JSON-TEXT",
+          "baseline-059/queue.json#/entries/277"
+        ],
+        "relationship_qualification": "Exact recovered059 identifier and original attribution; no new historical unique-count change, global alias closure or checkpoint3821 promotion.",
+        "discovery": "partial; selected current producer and consumer traced, policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
+      },
+      {
+        "id": "REVIEW-MELEE-ALL-WEAPON-BAND-COVERAGE-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional evidence-population policy",
+        "classification": "The all-weapon band helper samples three selected builds while the fixed roster names five distinct weapon IDs.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1674",
+          "baseline-059/queue.json#/entries/1675",
+          "segovb/READ-L12-673.json"
+        ],
+        "relationship_qualification": "Recovered pending questions ask for actual producer, roster and evidence coverage; this bounded current observation does not establish a global alias, historical unique-count change or checkpoint3821 authority.",
+        "discovery": "partial; sample set traced, intended population and exact aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1305.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1309.json"
 }
