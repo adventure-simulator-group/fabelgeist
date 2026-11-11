@@ -1,0 +1,847 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 7,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected repeated settlement population, seeded household ownership, resident professional-role dispatch and census handoff at 95e. This combines a bounded Lens7 authority trace with a separately attributed Lens12 revisit; independent lenses and complete source families remain open.",
+  "source_reasoning": "Pinned source inspection, symbolic examples and historical evidence-byte verification only. No product build, test, simulation, runtime, database or browser probe.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "34d3a48a63c21a8a80f83c6df853cf5d689f1755",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "bytes": 27326,
+      "lines": 759,
+      "ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7661ec80c449adb86c163f0d0d3cd2d9f2e65019",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "bytes": 18955,
+      "lines": 585,
+      "ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fe0deb9c9e94fe0212bcd21b384da8922e57d761",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "bytes": 10033,
+      "lines": 299,
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b6699e06a7d607c12662906017129627e02c5676",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "bytes": 8876,
+      "lines": 267,
+      "ranges": [
+        [
+          1,
+          205
+        ],
+        [
+          215,
+          267
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fbc7ccadd3baf43cb922f63def0a87f7f3e8fbf8",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "bytes": 14490,
+      "lines": 496,
+      "ranges": [
+        [
+          70,
+          170
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6181873c7c538b9efe2dfcd6fec548ec61ba5578",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "bytes": 16999,
+      "lines": 481,
+      "ranges": [
+        [
+          195,
+          235
+        ],
+        [
+          325,
+          355
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b749ba524c9cb1644888d798b9403cba17f72ea2",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "bytes": 24389,
+      "lines": 685,
+      "ranges": [
+        [
+          275,
+          425
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "bytes": 23628,
+      "lines": 690,
+      "ranges": [
+        [
+          510,
+          650
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "81c08813de2786955f13e9f6aba5c9b149721790",
+      "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "bytes": 22032,
+      "lines": 635,
+      "ranges": [
+        [
+          315,
+          415
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "bytes": 49683,
+      "lines": 1455,
+      "ranges": [
+        [
+          610,
+          642
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "99a8a95a4eb9460f51e1bf4617d57d57dc692564",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "bytes": 13026,
+      "lines": 377,
+      "ranges": [
+        [
+          138,
+          262
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f7f36041b27265999d6bec7140e3210c918e0c79",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "bytes": 3556,
+      "lines": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c45d00b0842738b32b8812b5ec1e5f767fe7f1a0",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "bytes": 2054,
+      "lines": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/settlement_property.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a04c1d64c6ff0f2364a88fa7caef29ea1d5cd5a2",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "bytes": 7688,
+      "lines": 226,
+      "ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "bytes": 117342,
+      "lines": 2973,
+      "ranges": [
+        [
+          65,
+          115
+        ],
+        [
+          365,
+          410
+        ],
+        [
+          720,
+          775
+        ],
+        [
+          1070,
+          1160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/14.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "21d0e83ca8a8149101725ceb86de4b123b3501d5",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "bytes": 5086,
+      "lines": 133,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/15.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "564d5e5dbbd90ce101316dedcb53d77c251034f4",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "bytes": 53585,
+      "lines": 1515,
+      "ranges": [
+        [
+          785,
+          845
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/16.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/entry.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a56f1de0d0fb84ca8653e88cbc19f837aae1343f",
+      "sha256": "87bba3e43b81ab601a50cc50f6bffc86e77d9477b77bd86cb28c9553543a2744",
+      "bytes": 1477,
+      "lines": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/17.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/overview.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c45026fabf1efd85a928759a0dcd618caeebbdf1",
+      "sha256": "cdb117502628b8c99499f24de733bbfc70263fa3116137106e711f7be2f1b400",
+      "bytes": 12648,
+      "lines": 355,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/18.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0265e6fcef3ef7f26134bccfa5e235b7104992d2",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "bytes": 15160,
+      "lines": 417,
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/19.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlement_properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5fbd3c9f5dcb6f2d4aa91631590e4327fce20df8",
+      "sha256": "3b35130cb49004e746b7981b9ac6a765bcc76bec3fc4ba1507a48e962080b773",
+      "bytes": 3097,
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/20.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social_roles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9f932d5fe1ba4d394d6fa3ae59f52c0d8bd7c4c2",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "bytes": 18976,
+      "lines": 579,
+      "ranges": [
+        [
+          1,
+          130
+        ],
+        [
+          160,
+          240
+        ],
+        [
+          270,
+          480
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/21.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/settlement_population.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "91100c0a8763acb5758dcd94dc720683691e9948",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "bytes": 20334,
+      "lines": 667,
+      "ranges": [
+        [
+          20,
+          50
+        ],
+        [
+          110,
+          170
+        ],
+        [
+          365,
+          410
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/22.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+      "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "bytes": 138251,
+      "lines": 3968,
+      "ranges": [
+        [
+          2585,
+          2645
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/23.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/social.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "bytes": 134286,
+      "lines": 3800,
+      "ranges": [
+        [
+          320,
+          375
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/24.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8193eef1602b1845c5a58ecee2df265c5d6a3f83",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "bytes": 53120,
+      "lines": 1408,
+      "ranges": [
+        [
+          385,
+          425
+        ],
+        [
+          1065,
+          1090
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/25.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/organizations/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "490e536a7ef3ed6b19e920d481ff139bd1059bf7",
+      "sha256": "1457f8e23a2ceffdf62cfef0e8f3070ac12bcd0e96ad2fb863f54f6f2339e2b2",
+      "bytes": 105361,
+      "lines": 2250,
+      "ranges": [
+        [
+          1060,
+          1140
+        ],
+        [
+          1410,
+          1480
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/population-replay-sources/26.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/226",
+      "contract_id": "SEGOVB-L12-RESIDENT-PROFESSION-TEXT-AUTHORITY",
+      "qualification": "Earlier Lens12 profession-display dispatch; same retained contract, not a new unique historical defect."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/967",
+      "qualification": "Earlier property and generated-census questions; seed replay and selected handoff analysis are partial and do not settle the other obligations."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/968",
+      "qualification": "Earlier population draft and census question; selected replay path only."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointer": "/entries/969",
+      "qualification": "Earlier resident profession and family/census questions; selected current paths only."
+    },
+    {
+      "file": "ASSESSMENT-L04-HOUSEHOLD-PACKING-95E.json",
+      "qualification": "Earlier first-fit completeness question. The later census-to-named-family handoff is another owner/path needing connected audit, not automatically a new unique defect."
+    },
+    {
+      "file": "ASSESSMENT-L05-COURTSHIP-LOCATION-95E.json",
+      "qualification": "Earlier Lens12 batch 267, including role 1157 family source, was already recovered and hashed in this record. Its original author and narrow L12 finding remain unchanged."
+    },
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1188-1194.json",
+      "qualification": "Seven frozen roles personally read for Lens1; current and earlier Lens12 traces remain separate."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-277.json",
+      "sha256": "f96fbe13a9f98c654cd4b212c49c959fc632890827524da4d6273d02969c7f29",
+      "bytes": 718,
+      "git_blob": "98684b5f05f676799b4e54b1bc7b7bd590a892c3",
+      "preserved_bytes": "recovered/population-replay-059/f96fbe13a9f98c654cd4b212c49c959fc632890827524da4d6273d02969c7f29.gz",
+      "published_sha256": "f96fbe13a9f98c654cd4b212c49c959fc632890827524da4d6273d02969c7f29",
+      "published_bytes": 718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-278.json",
+      "sha256": "9cc346ac48d41349a4edda90eeeb36651760d9be09aff9ff2df0c59b9dca32ad",
+      "bytes": 1242,
+      "git_blob": "c3ecb88e7214e49f9582cebdd754e5f07ecc4719",
+      "preserved_bytes": "recovered/population-replay-059/9cc346ac48d41349a4edda90eeeb36651760d9be09aff9ff2df0c59b9dca32ad.gz",
+      "published_sha256": "9cc346ac48d41349a4edda90eeeb36651760d9be09aff9ff2df0c59b9dca32ad",
+      "published_bytes": 1242,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-279.json",
+      "sha256": "a28cb1cec2441b04698cfdb5d024ffb92002dea79e547f6d2d8839b5445ca3a5",
+      "bytes": 2162,
+      "git_blob": "964fd492e531010752bd515608eae7ba3b0d4e38",
+      "preserved_bytes": "recovered/population-replay-059/a28cb1cec2441b04698cfdb5d024ffb92002dea79e547f6d2d8839b5445ca3a5.gz",
+      "published_sha256": "a28cb1cec2441b04698cfdb5d024ffb92002dea79e547f6d2d8839b5445ca3a5",
+      "published_bytes": 2162,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-277.json",
+      "sha256": "6355b15d6440d1f81f58870bb954c61cdc1487fe2ab2e3dba7e5fba50db49812",
+      "bytes": 10854,
+      "git_blob": "89ee296be5ebe71e235fd0294bf3927a5f64fe34",
+      "preserved_bytes": "recovered/population-replay-059/6355b15d6440d1f81f58870bb954c61cdc1487fe2ab2e3dba7e5fba50db49812.gz",
+      "published_sha256": "6355b15d6440d1f81f58870bb954c61cdc1487fe2ab2e3dba7e5fba50db49812",
+      "published_bytes": 10854,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-278.json",
+      "sha256": "b7ed2158a9280e59daa44fc06e67ce75f93645e1f0b1e6833b53434b4d5713d2",
+      "bytes": 17303,
+      "git_blob": "53c64bfdb85797dcf8471e7fb2246a662d129fa4",
+      "preserved_bytes": "recovered/population-replay-059/b7ed2158a9280e59daa44fc06e67ce75f93645e1f0b1e6833b53434b4d5713d2.gz",
+      "published_sha256": "b7ed2158a9280e59daa44fc06e67ce75f93645e1f0b1e6833b53434b4d5713d2",
+      "published_bytes": 17303,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/READ-L12-279.json",
+      "sha256": "9da631c2b497448dc568115329c1bc0bfd92182b4bd313d64b867ab9e866ac87",
+      "bytes": 18140,
+      "git_blob": "664bffbedfe1b93698e3f2677bf90760dd3e329b",
+      "preserved_bytes": "recovered/population-replay-059/9da631c2b497448dc568115329c1bc0bfd92182b4bd313d64b867ab9e866ac87.gz",
+      "published_sha256": "9da631c2b497448dc568115329c1bc0bfd92182b4bd313d64b867ab9e866ac87",
+      "published_bytes": 18140,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-095.json",
+      "sha256": "ef9433643fa40905799b93112955177df3dfa7f32b3316f7d6d66b898c707a0d",
+      "bytes": 1225,
+      "git_blob": "48f11a598e835bcfe798ca7d03491718c38c319a",
+      "preserved_bytes": "recovered/population-replay-059/ef9433643fa40905799b93112955177df3dfa7f32b3316f7d6d66b898c707a0d.gz",
+      "published_sha256": "ef9433643fa40905799b93112955177df3dfa7f32b3316f7d6d66b898c707a0d",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-096.json",
+      "sha256": "4c3be20f96409ef5b85915f7d111f2af5a31625ccf3f29729bd8c435c891663b",
+      "bytes": 1273,
+      "git_blob": "7478ed6b2cca6629e93918c2e62e127e0554bbb7",
+      "preserved_bytes": "recovered/population-replay-059/4c3be20f96409ef5b85915f7d111f2af5a31625ccf3f29729bd8c435c891663b.gz",
+      "published_sha256": "4c3be20f96409ef5b85915f7d111f2af5a31625ccf3f29729bd8c435c891663b",
+      "published_bytes": 1273,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-097.json",
+      "sha256": "4f43cae4ef146748e22ecc191eb5207718cfd43ac0916791e8b8b8fbc460ec5e",
+      "bytes": 1283,
+      "git_blob": "ccea511f2e38d5f4cdc633379838398c31ba8659",
+      "preserved_bytes": "recovered/population-replay-059/4f43cae4ef146748e22ecc191eb5207718cfd43ac0916791e8b8b8fbc460ec5e.gz",
+      "published_sha256": "4f43cae4ef146748e22ecc191eb5207718cfd43ac0916791e8b8b8fbc460ec5e",
+      "published_bytes": 1283,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-098.json",
+      "sha256": "ab7180ac64ba446dd1105f038f9d8bb08a11b9e9ca0af888ebab1cf61f2ca488",
+      "bytes": 1191,
+      "git_blob": "e60cc0753f3ad6ee9cc8e8f548ffbfc089d24114",
+      "preserved_bytes": "recovered/population-replay-059/ab7180ac64ba446dd1105f038f9d8bb08a11b9e9ca0af888ebab1cf61f2ca488.gz",
+      "published_sha256": "ab7180ac64ba446dd1105f038f9d8bb08a11b9e9ca0af888ebab1cf61f2ca488",
+      "published_bytes": 1191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-099.json",
+      "sha256": "6392658a314186954ffe4047791dde675b85776b5d01f8dbe6f3eb7bb74227d7",
+      "bytes": 1221,
+      "git_blob": "87f8a5b2b594b3eaee0d2eefc6fdd805582311f9",
+      "preserved_bytes": "recovered/population-replay-059/6392658a314186954ffe4047791dde675b85776b5d01f8dbe6f3eb7bb74227d7.gz",
+      "published_sha256": "6392658a314186954ffe4047791dde675b85776b5d01f8dbe6f3eb7bb74227d7",
+      "published_bytes": 1221,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-100.json",
+      "sha256": "91cd68a151385d741ac01197afccb47927db5eb08c13dea9738d3ec5d6f5f9a6",
+      "bytes": 1220,
+      "git_blob": "3c56793971b3ad37cc1e4a8780fda6095b0eb306",
+      "preserved_bytes": "recovered/population-replay-059/91cd68a151385d741ac01197afccb47927db5eb08c13dea9738d3ec5d6f5f9a6.gz",
+      "published_sha256": "91cd68a151385d741ac01197afccb47927db5eb08c13dea9738d3ec5d6f5f9a6",
+      "published_bytes": 1220,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-101.json",
+      "sha256": "d22b50d4f4df9a30a5d40144f5078dbbbeed2993175ca6dfa9c5f004b0f57431",
+      "bytes": 1188,
+      "git_blob": "6fcf3ae9b3633ad86a51d9832f4445a76a89ba9e",
+      "preserved_bytes": "recovered/population-replay-059/d22b50d4f4df9a30a5d40144f5078dbbbeed2993175ca6dfa9c5f004b0f57431.gz",
+      "published_sha256": "d22b50d4f4df9a30a5d40144f5078dbbbeed2993175ca6dfa9c5f004b0f57431",
+      "published_bytes": 1188,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-277.json",
+      "sha256": "8f8d468063b4ec057a16472140402b8eba5f23e769072a42bd6aeaa6cbd3622d",
+      "bytes": 839,
+      "git_blob": "0dc1e292b78c7ed186ad6e396d9c22da1d2e4585",
+      "preserved_bytes": "recovered/population-replay-059/8f8d468063b4ec057a16472140402b8eba5f23e769072a42bd6aeaa6cbd3622d.gz",
+      "published_sha256": "8f8d468063b4ec057a16472140402b8eba5f23e769072a42bd6aeaa6cbd3622d",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-278.json",
+      "sha256": "27bc8537315be04d8b576c1118eacf41f7ae0c8a8851443a859ac17e0633aebf",
+      "bytes": 839,
+      "git_blob": "8a3383d56c261127cc5ea078e9b573414202f40c",
+      "preserved_bytes": "recovered/population-replay-059/27bc8537315be04d8b576c1118eacf41f7ae0c8a8851443a859ac17e0633aebf.gz",
+      "published_sha256": "27bc8537315be04d8b576c1118eacf41f7ae0c8a8851443a859ac17e0633aebf",
+      "published_bytes": 839,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/STATE-L12-279.json",
+      "sha256": "ea059f23df4a2bea6835744b476bb89f87d7ea5ea6b450204e3a04a3558db9cf",
+      "bytes": 840,
+      "git_blob": "c3b60d28f973bb2ff29e7407ce59e1d22f8fc755",
+      "preserved_bytes": "recovered/population-replay-059/ea059f23df4a2bea6835744b476bb89f87d7ea5ea6b450204e3a04a3558db9cf.gz",
+      "published_sha256": "ea059f23df4a2bea6835744b476bb89f87d7ea5ea6b450204e3a04a3558db9cf",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-277.json",
+      "sha256": "d82b6a6f594b43b9077e8d6f28f93df6b86bf2b55adfff10698aec2ae6ab6855",
+      "bytes": 557,
+      "git_blob": "d6a3e3fff0cccfeb49efbc2ecac727c1a8ab09ec",
+      "preserved_bytes": "recovered/population-replay-059/d82b6a6f594b43b9077e8d6f28f93df6b86bf2b55adfff10698aec2ae6ab6855.gz",
+      "published_sha256": "d82b6a6f594b43b9077e8d6f28f93df6b86bf2b55adfff10698aec2ae6ab6855",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-278.json",
+      "sha256": "f23d261ed76629feae6f79c5c19ff19e50e2dbd5ea16a08094723c7786d8486c",
+      "bytes": 557,
+      "git_blob": "5074447029851a4c1b096d708390a5f03fbf1f78",
+      "preserved_bytes": "recovered/population-replay-059/f23d261ed76629feae6f79c5c19ff19e50e2dbd5ea16a08094723c7786d8486c.gz",
+      "published_sha256": "f23d261ed76629feae6f79c5c19ff19e50e2dbd5ea16a08094723c7786d8486c",
+      "published_bytes": 557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-279.json",
+      "sha256": "89e650a7ff664a9fbfc1c2f2aa428e9f0139873b00aee5d95e513434c0461f64",
+      "bytes": 558,
+      "git_blob": "815f32ed7d3f5c2097ee29011c67237b53cf009b",
+      "preserved_bytes": "recovered/population-replay-059/89e650a7ff664a9fbfc1c2f2aa428e9f0139873b00aee5d95e513434c0461f64.gz",
+      "published_sha256": "89e650a7ff664a9fbfc1c2f2aa428e9f0139873b00aee5d95e513434c0461f64",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Earlier 059 transport bytes with original lens, source revision, attribution and acceptance limits. Direct cited support only, not 3821 authority, new personal source credit or complete transitive recovery."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-POPULATION-RESEED-HOUSEHOLD-001",
+      "lens": 7,
+      "severity": "unassigned; source-established overwrite conditional on an already changed resident household and a successful repeated setup",
+      "classification": "New bounded 95e authority assessment of seeded resident replay; no observed game incident or historical unique-count change is claimed.",
+      "first_failed_contract": "A seeded resident's initial family roster is reapplied as current household membership on every population ensure. The same-household shortcut is idempotent only if membership has never changed. If the resident currently belongs to a different household, join_household deletes that active member row and inserts the seeded household with joined_minute ZERO, despite a later wedding or other legitimate transition.",
+      "producer_to_consumer": "settlement_resident_drafts builds deterministic groups and ensure_settlement_population inserts or reuses drafts, then unconditionally calls ensure_seeded_family_households. That function loops every planned member at ZERO; join_household keeps an already-equal household but otherwise deletes and replaces the one unique current row. Wedding settlement uses the same helper to join each spouse to its new commitment household at the effective minute, and stores marriage and spouse kinship separately. A subsequent successful ensure for the same settlement and still-present draft therefore restores the seed membership for that resident while the selected seed-household function does not change marriage or residence occupancy. If A already has GeneratedResidentHome provenance, the subsequent census binder skips A; otherwise that binder may perform additional occupancy work and its result is not assumed. The gateway household/property view joins the current occupancy and current membership and can group that resident under the reinserted seed household. The admission check separately uses same-household OR close kinship; changing membership can affect its household branch, but the surviving spouse/parent/child kinship alternative must be considered. Birth uses effective marriage history before falling back to current membership, a separate safeguard.",
+      "conditional_example": "Assume generated resident A is in seed household H0, a successful wedding later moves A and partner B into a distinct marriage household H1, A has existing generated-home provenance or no registered property manifest, and all fallible work in a later population ensure for A's home settlement succeeds with A still in the deterministic roster. The ensure replaces A's H1 membership with H0 joined at ZERO. If B is a player or a resident not in this settlement's seed groups, B's H1 row is not replaced by that loop. This is source chronology reasoning, not a product execution. Marriage, kinship, occupancy, family-role and external views must each be assessed on their own; no claim is made that all are deleted or that a particular player experienced it.",
+      "callers_and_qualifications": "The public settlement-activity reducer calls this setup; report settlement and the selected in-settlement tactical snapshot also reach it under their own guards. Web settlement-map activation spawns the reducer in the background once per process and can retry after failure; the residence route separately ensures a property catalog. The latter does not itself prove a particular interleaving. Repeated setup may fail and roll back or be blocked by unrelated guards, so a committed overwrite requires a successful outer transaction. Native role insertions reject a conflicting existing role, another possible failure. Actual roster stability, a concrete eligible wedding, all current callers and database behavior remain open.",
+      "connected_repair": "After completing the audit, give initial seeded family membership a one-time/provenance-aware admission or chronological ownership policy so replay never overwrites later authoritative household transitions. Coordinate existing residents, births, legal holding and occupancy, family-of-origin roles, migration-free clean final schema, all seed entry points and failed transactions. Preserve deliberate one-household uniqueness and do not equate origin family identity with present household.",
+      "later_acceptance": "After separately authorized implementation and product validation, examine fresh seed, repeated seed before and after a wedding or household move, one versus two seeded participants, later marriage end, births, property projections, new roster additions and failed outer transactions. None ran.",
+      "discovery": "partial; admitted player/NPC sequence, all seed callers, transaction outcomes, roster changes and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "SEGOVB-L12-RESIDENT-PROFESSION-TEXT-AUTHORITY",
+      "lens": 12,
+      "severity": "unassigned; display string is used to decide a professional role, while changed-label or mismatched native admission is unestablished",
+      "classification": "95e revisit of the same earlier Lens12 source contract; not a new unique historical defect.",
+      "trace": "Ambient drafts explicitly name a church service provider profession cleric. The persisted profile keeps the draft profession string for providers, and ensure_roles compares that string to CLERIC before selecting the settlement religion's organization and first entry role. Reuse passes the persisted profession string through the same branch. The selected role is validated against its organization and persisted as CharacterOrganizationRole; role consumers project social precedence and dialogue participant professions. Core population Profession is a broad generation category without a cleric variant and is not automatically the right semantic owner. The selected normal cleric producer and consumer currently agree; no untrusted profession mutation, malicious admission or changed label has been demonstrated.",
+      "connected_repair": "After the audit, keep display prose separate from a deliberately owned professional binding, reconciling fresh and reused residents, authored organization definitions, valid noncleric providers, religion mapping and actual downstream role consumers. Reuse existing role identity only where its admitted semantics fit; do not force the broad generation enum to carry unrelated meanings or add compatibility paths.",
+      "later_acceptance": "After separately authorized work, examine canonical religious providers and nonclerics, existing role validation, distinct display prose, all religion organizations and dialogue/precedence consumers. No product validation ran.",
+      "discovery": "partial; full profession producer/catalog, persisted native admission, all role consumers and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "connected_existing_assessments": [
+    {
+      "id": "REVIEW-HOUSEHOLD-FIRST-FIT-POLICY-001",
+      "relationship": "Related selected later materialization path, not a duplicate new ledger candidate or an automatic alias of the 059 first-fit record.",
+      "trace": "If property registration precedes named population, allocate([]) fills nonreserve homes with bounded abstract household counts. bind_generated_households groups unbound named residents by authoritative household, discards the group key while choosing the first property-ID-sorted census row with at least the group size, and subtracts the group count. The two paths therefore have independently stored first-fit operations. In a symbolic valid-capacity example of 13 and 6 abstract residents, three one-person groups followed by four four-person groups consume 13→10→6→2 and 6→2, then reject the last group, while packing three groups of four in 13 and one in 6 leaves room for three singletons. Actual generated catalog and household IDs/order, complete admitted state, successful registration and required completeness remain unproven; no fixture ran.",
+      "boundary": "Property registration validates aggregate capacity and seed/geometry; named roster plans groups of up to four. Settlement activation and residence provisioning are separate, and registration may already occur after population. The original 059 first-fit completeness policy and native reachability stay open."
+    }
+  ],
+  "remaining": "Audit all repeated population and role writers, whole-household chronology, actual census/home order and all native failure policies; reconcile every related old contract and independent lens. Original final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

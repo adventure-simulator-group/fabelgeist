@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L07-POPULATION-REPLAY-95E.json` traces conditional restoration
+of seeded households over later membership, revisits an earlier profession
+contract, and connects the later census handoff to the existing packing issue.
+`ASSESSMENT-L01-HISTORICAL-1188-1194.json` records separate historical reads.
 `ASSESSMENT-L12-RESIDENCE-LEISURE-95E.json` revisits the earlier raw-source
 classification question and records a conditional stale-counterpart cap gap;
 the supported sequence and event iteration order remain unverified.
