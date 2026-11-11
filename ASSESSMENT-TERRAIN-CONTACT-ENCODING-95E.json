@@ -1,0 +1,507 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical terrain material and heightmap roles plus bounded current sampled-support, image consumers and WGSL source.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1627-1631.json",
+  "git_membership_evidence": "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "lines": 553,
+      "ranges": [
+        [
+          91,
+          147
+        ],
+        [
+          199,
+          217
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6fa3f51f1e19db0e2af765358447300b6ffbe537",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "bytes": 3032,
+      "lines": 98,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a7fbe35525bc0e222e93cbedfac379560fbf4f0c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "bytes": 6550,
+      "lines": 170,
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2067206fd8709ca623644904d5c95ce14d59ca34",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "bytes": 1228,
+      "lines": 37,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fba428c0a20543518e4668258eca812e1463d972",
+      "sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+      "bytes": 14572,
+      "lines": 402,
+      "ranges": [
+        [
+          97,
+          277
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "assets/shaders/tactical_weather.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "634351887715ced175b36ced7a858598113b94b5",
+      "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "bytes": 14981,
+      "lines": 317,
+      "ranges": [
+        [
+          1,
+          75
+        ],
+        [
+          110,
+          150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "82b7b562308d191aad6734631179f71f8f90f8df",
+      "sha256": "a173d1f8f335f2e288ba87409185a85d4f8eba9813e1811cedf9fc293570a40c",
+      "bytes": 24941,
+      "lines": 627,
+      "ranges": [
+        [
+          78,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/residency.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2762ee2d08d4a78b910b211955faec1285fb2859",
+      "sha256": "59b70e50975c34001b7dade26db20d8678fa7ea2dd6aedfa4f3ba542fa38b9ad",
+      "bytes": 6879,
+      "lines": 194,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    },
+    {
+      "path": "crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "47fcb43bc338eacd8b5585921859321b2206a630",
+      "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "bytes": 19856,
+      "lines": 517,
+      "ranges": [
+        [
+          1,
+          155
+        ],
+        [
+          425,
+          470
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/terrain-contact-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current ranges personally inspected; complete bytes retained. Source, native mesh, GPU or future historical role execution and other-lens credit are not inferred."
+    }
+  ],
+  "earlier_historical_source_identities": [
+    {
+      "original_index": 1632,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "9a5b7ee95b337a7ebea938ba18f6e87c6ab6bd67b1119745c9287b756925deee",
+      "bytes": 11143,
+      "lines": 336,
+      "git_blob": "89e1c4b7d54595908e91bf604c4111afea0bcf68",
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "earlier_attribution": "Segovb Lens12 READ516 and Adler Lens11 READ234 at6533; exact original source ranges remain in their receipts.",
+      "new_personal_historical_full_read": false,
+      "additional_original_frontier_credit": 0,
+      "qualification": "Previous bounded95e current urban inspection does not become a new full historical role read or checkpoint3821 credit."
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Contact heightmap and consumers",
+      "trace": "The source requires an elevation range and required support at each grid texel, checks u32 image dimensions and finite encoding range, and keeps image plus SceneElevationRange together. Weather rejects contact construction errors with a warning; tree residency propagates them before replacing the active cache. The two new source questions concern the semantics after successful admission.",
+      "remaining": "Image/device behavior, native surface support, every material/scene path, supported error and visual tolerance remain open. No image or scene was created."
+    },
+    {
+      "contract": "Ground raster and cliff material",
+      "trace": "Ground surface cover and substrate are encoded into discrete channels and a subsequent source-only pass rewrites alpha as a presentation-only litter distance; grass mask uses density and a chamfer feather. The separate prior SceneGround wire-admission and chamfer-capacity questions remain connected rather than duplicated. Cliff adapter maps typed geological structure to native uniform vectors; the current test now references committed baked maps instead of generating textures.",
+      "remaining": "Ground shader interpretation, mask policy, baked maps, device limits and visual appearance require their own qualified evidence. No texture asset, parser, test or renderer ran."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-TERRAIN-CONTACT-INTERPOLATION-001",
+      "lens": 8,
+      "classification": "New95e source-derived contact-surface interpolation and precision policy question; no runtime or restored checkpoint3821 finding.",
+      "canonical_owner": "SceneTerrain physical support surface and the explicit precision/interpolation contract of the contact heightmap consumers.",
+      "first_failed_contract": "The shared raster records support at grid vertices, while the bark shader interpolates using the opposite cell diagonal from sampled SceneTerrain and the weather shader uses bilinear interpolation.",
+      "trace": "For a symbolic2x2, 1m-spaced sampled SceneTerrain with row-major heights [0,0,0,1]m, the admitted grid has finite heights and nonzero finite normals. At scene point (-0.25,-0.25)m, the CPU support query has cell fraction (0.25,0.25); its x+y<=1 triangle yields0m. A contact image whose four vertex support queries succeed encodes the minimum and maximum exactly as0 and65535. At the same point, the bark shader uses x>=y and the x0y0-to-x1y1 diagonal, yielding0.25m; the weather shader bilinear expression yields0.0625m. The weather material receives the contact range and image only for a non-clear, nonzero-intensity active weather scene; tree residency caches the same type of image/range and bark material supplies those bounds.",
+      "safeguards": "The arithmetic compares selected source expressions and a symbolically constructor-admissible grid; no grid, support query, image, material, texture, shader, scene or GPU was executed. The scene producer, tree fragments, actual weather location and rendering were not observed. It is not established that weather interpolation must match physical triangles, that this specific grid is a supported generated scene, or that any visual effect is perceptible. Native texture interpretation and coordinate transforms remain policy and integration dependencies.",
+      "dependencies": [
+        "Decide which consumers require the exact physical support triangle and which may intentionally use a smoothed visual approximation.",
+        "Trace supported sampled and owned terrain producers, image generation and texture contracts, tree/world coordinate frames and weather paths.",
+        "Reconcile related support precision, tree contact caching and shader findings only when exact aliases are established."
+      ],
+      "acceptance_requirements": [
+        "The contact interpolation contract explicitly matches required support geometry or documents and bounds each intended visual approximation.",
+        "Preserve admitted flat and sloped surfaces, vertex boundaries, tree contact behavior and precipitation behavior without moving tactical collision authority to persistent storage."
+      ],
+      "discovery": "partial; a source-level admitted-grid arithmetic discrepancy and bounded consumers traced, supported producers and accuracy policy open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-TERRAIN-CONTACT-ENCODING-SPAN-001",
+      "lens": 8,
+      "classification": "New95e source-derived narrow-range encoding/decoding policy question; no runtime or restored checkpoint3821 finding.",
+      "canonical_owner": "TerrainContactHeightmap image and the matched range supplied to each decoder.",
+      "first_failed_contract": "The encoder normalizes elevations using max(actual span,0.001m), but it returns the original minimum and maximum to shaders that decode using their difference.",
+      "trace": "For a symbolic2x2 1m-spaced finite sampled terrain with row-major heights [0,0,0,1/2048]m, the actual range is0 to0.00048828125m. The encoder divides its maximum by approximately0.001 before 16-bit quantization; the returned range still ends at0.00048828125m. Both inspected shaders decode that value by mixing the original minimum and maximum, giving roughly0.000238m at the maximum texel, rather than the original0.000488m. This is a source-level scale mismatch, separate from the interpolation diagonal question; the error is below0.00025m in this illustrative range.",
+      "safeguards": "No terrain, constructor, support query, image, shader, GPU or product was run. Flat zero-span terrain remains legitimate and needs a defined denominator; actual producer distribution, supported elevation resolution and whether the sub-millimetre difference matters are unproved. This does not assert a gameplay or visible defect.",
+      "dependencies": [
+        "Establish intended encoding error and visual tolerance across flat, narrow and ordinary ranges and across all image consumers.",
+        "Keep the represented decode range and normalized encoder span coherent if accuracy policy requires it; separately retain true physical bounds where they serve other purposes.",
+        "Trace all consumers and aliases without merging this scale mismatch with independent interpolation and retained-scene identity questions."
+      ],
+      "acceptance_requirements": [
+        "For supported terrain ranges, the image decoder and encoder agree on the representation or document a bounded tolerated deviation.",
+        "Preserve a well-defined flat-terrain representation and distinguish physical bounds from an expanded encoding range if both are needed."
+      ],
+      "discovery": "partial; mismatch and symbolic bounded example traced, supported resolution and all consumers open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-SCENE-GROUND-WIRE-ADMISSION",
+      "record": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+      "relationship": "Related ground raster admission, distinct SceneGround wire owner; no exact alias claimed."
+    },
+    {
+      "id": "REVIEW-GROUND-RASTER-CHAMFER-CAPACITY-001",
+      "record": "ASSESSMENT-GROUND-RASTER-ADMISSION-95E.json",
+      "relationship": "Related ground visual raster arithmetic, distinct radius owner; no exact alias claimed."
+    },
+    {
+      "record": "ASSESSMENT-TREE-SCENE-PREPARATION-95E.json",
+      "relationship": "Related tree contact retention by scene digest, distinct cache identity question."
+    },
+    {
+      "record": "ASSESSMENT-TERRAIN-LANDFORM-95E.json",
+      "relationship": "Related terrain preparation and retained earlier Adler READ233/234, distinct patch outcome question; earlier records remain as published there."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1349",
+        "/entries/1350",
+        "/entries/1351",
+        "/entries/1352",
+        "/entries/1353"
+      ],
+      "qualification": "Recovered059 questions remain partial; no checkpoint3821 attribution."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-515.json",
+      "sha256": "c07360c4d4470075ab0166ed62dfa2dd430347588073729a35bd80b61a7ca189",
+      "bytes": 1745,
+      "git_blob": "b09a17df1c0acb94e0d4537118b5b01511c51b22",
+      "preserved_bytes": "recovered/terrain-contact-059/c07360c4d4470075ab0166ed62dfa2dd430347588073729a35bd80b61a7ca189.gz",
+      "published_sha256": "c07360c4d4470075ab0166ed62dfa2dd430347588073729a35bd80b61a7ca189",
+      "published_bytes": 1745,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-516.json",
+      "sha256": "20c296f1ed10cef645d8f73f48626b34f91174799158f200133dcdbfa6d0cb3a",
+      "bytes": 1726,
+      "git_blob": "7a23b8fff9ac82a7d7da266956167b6002455d0b",
+      "preserved_bytes": "recovered/terrain-contact-059/20c296f1ed10cef645d8f73f48626b34f91174799158f200133dcdbfa6d0cb3a.gz",
+      "published_sha256": "20c296f1ed10cef645d8f73f48626b34f91174799158f200133dcdbfa6d0cb3a",
+      "published_bytes": 1726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-515.json",
+      "sha256": "c2729562ff36b861b2bc0e876400d409996822e6394cb7e2961451f745d3ced9",
+      "bytes": 11860,
+      "git_blob": "d78c92c8dc45f4634c12425036e5721fb0659275",
+      "preserved_bytes": "recovered/terrain-contact-059/c2729562ff36b861b2bc0e876400d409996822e6394cb7e2961451f745d3ced9.gz",
+      "published_sha256": "c2729562ff36b861b2bc0e876400d409996822e6394cb7e2961451f745d3ced9",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-516.json",
+      "sha256": "7a668721adf54b8d9dddfe9390606bb9485d93e0abfb878ba2a56ff227f3b5ed",
+      "bytes": 11780,
+      "git_blob": "82f72e5bcd7fcd9d33c653044fa25011add01fd5",
+      "preserved_bytes": "recovered/terrain-contact-059/7a668721adf54b8d9dddfe9390606bb9485d93e0abfb878ba2a56ff227f3b5ed.gz",
+      "published_sha256": "7a668721adf54b8d9dddfe9390606bb9485d93e0abfb878ba2a56ff227f3b5ed",
+      "published_bytes": 11780,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Segovb Lens12 receipt at6533"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-534.json",
+      "sha256": "b5eb2f250a301ce7a038b7cee8d66c80ee197e9e1cc695895ffa2947d699e3d7",
+      "bytes": 1223,
+      "git_blob": "c741ba12d9d293e648558ecd2d115532963545aa",
+      "preserved_bytes": "recovered/terrain-contact-059/b5eb2f250a301ce7a038b7cee8d66c80ee197e9e1cc695895ffa2947d699e3d7.gz",
+      "published_sha256": "b5eb2f250a301ce7a038b7cee8d66c80ee197e9e1cc695895ffa2947d699e3d7",
+      "published_bytes": 1223,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-535.json",
+      "sha256": "d44d00f05d494299a27075b494417fa712e63bbdf35c44ab4c1b22cbf41b64b7",
+      "bytes": 1217,
+      "git_blob": "2a285648b310bc872f8ff32b07b83379ef903fe6",
+      "preserved_bytes": "recovered/terrain-contact-059/d44d00f05d494299a27075b494417fa712e63bbdf35c44ab4c1b22cbf41b64b7.gz",
+      "published_sha256": "d44d00f05d494299a27075b494417fa712e63bbdf35c44ab4c1b22cbf41b64b7",
+      "published_bytes": 1217,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-536.json",
+      "sha256": "2206e364133a1d74608b6b0097cfc6132bc7a4b462633c8f2c2d36c6acf64cb5",
+      "bytes": 1229,
+      "git_blob": "94bde6d57e486f286dd4729940a98152b5c6d517",
+      "preserved_bytes": "recovered/terrain-contact-059/2206e364133a1d74608b6b0097cfc6132bc7a4b462633c8f2c2d36c6acf64cb5.gz",
+      "published_sha256": "2206e364133a1d74608b6b0097cfc6132bc7a4b462633c8f2c2d36c6acf64cb5",
+      "published_bytes": 1229,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-537.json",
+      "sha256": "fb026c4476d2cfb4bb8f81733b8a3a9ddfe79e173d95eb6cc8c36407108a6d04",
+      "bytes": 1191,
+      "git_blob": "33ed3914bf16f1cdd7428362deb7da7a338c338a",
+      "preserved_bytes": "recovered/terrain-contact-059/fb026c4476d2cfb4bb8f81733b8a3a9ddfe79e173d95eb6cc8c36407108a6d04.gz",
+      "published_sha256": "fb026c4476d2cfb4bb8f81733b8a3a9ddfe79e173d95eb6cc8c36407108a6d04",
+      "published_bytes": 1191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-538.json",
+      "sha256": "858ec58f5b4cb27e87e53cde5ce766b427cfbcfcb3bac267c04515dc963f9fc7",
+      "bytes": 1191,
+      "git_blob": "131b58d7e852b9dc6b04f952d9b3766b2a3a64d9",
+      "preserved_bytes": "recovered/terrain-contact-059/858ec58f5b4cb27e87e53cde5ce766b427cfbcfcb3bac267c04515dc963f9fc7.gz",
+      "published_sha256": "858ec58f5b4cb27e87e53cde5ce766b427cfbcfcb3bac267c04515dc963f9fc7",
+      "published_bytes": 1191,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-539.json",
+      "sha256": "ab8602a12025e8f5a6c5dcdbf5a6098fba31098e2d4270399ecd1bb77d8d0980",
+      "bytes": 1185,
+      "git_blob": "d863d3fffd071f37306d644aa0f624f522ba3f01",
+      "preserved_bytes": "recovered/terrain-contact-059/ab8602a12025e8f5a6c5dcdbf5a6098fba31098e2d4270399ecd1bb77d8d0980.gz",
+      "published_sha256": "ab8602a12025e8f5a6c5dcdbf5a6098fba31098e2d4270399ecd1bb77d8d0980",
+      "published_bytes": 1185,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 registration"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-515.json",
+      "sha256": "c8e1a7f8390e57b0b9661a546496ac8301ceea9eb7a70ac38ff1f29f83a05081",
+      "bytes": 840,
+      "git_blob": "cfe073695573bc0d56100d71f302da579de73fd4",
+      "preserved_bytes": "recovered/terrain-contact-059/c8e1a7f8390e57b0b9661a546496ac8301ceea9eb7a70ac38ff1f29f83a05081.gz",
+      "published_sha256": "c8e1a7f8390e57b0b9661a546496ac8301ceea9eb7a70ac38ff1f29f83a05081",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-516.json",
+      "sha256": "49e3a5cef0845c08abe1f240aa91c0652e913e8e07f993b5a9a18817219f0af3",
+      "bytes": 840,
+      "git_blob": "4ef61d782b17d918364252809c457c7b76e6e39b",
+      "preserved_bytes": "recovered/terrain-contact-059/49e3a5cef0845c08abe1f240aa91c0652e913e8e07f993b5a9a18817219f0af3.gz",
+      "published_sha256": "49e3a5cef0845c08abe1f240aa91c0652e913e8e07f993b5a9a18817219f0af3",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 state"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-515.json",
+      "sha256": "9aa1bef27a5e355a768e288e82ac6ac8c5fa765f2e94735e929ef387ea68050b",
+      "bytes": 558,
+      "git_blob": "63a1902270c231b543e882acb748d2fdb0f10e82",
+      "preserved_bytes": "recovered/terrain-contact-059/9aa1bef27a5e355a768e288e82ac6ac8c5fa765f2e94735e929ef387ea68050b.gz",
+      "published_sha256": "9aa1bef27a5e355a768e288e82ac6ac8c5fa765f2e94735e929ef387ea68050b",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-516.json",
+      "sha256": "bbf73be538b1acfbda8e7ece0e2dc8655f6b66ee5b8fa47285541fc411084176",
+      "bytes": 558,
+      "git_blob": "9c1345a565895638672950a07b0a1661bd644885",
+      "preserved_bytes": "recovered/terrain-contact-059/bbf73be538b1acfbda8e7ece0e2dc8655f6b66ee5b8fa47285541fc411084176.gz",
+      "published_sha256": "bbf73be538b1acfbda8e7ece0e2dc8655f6b66ee5b8fa47285541fc411084176",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer,6533 source and historical scope retained; no checkpoint3821 transfer."
+    }
+  ],
+  "remaining": "Trace supported geometry and visual precision policy, all texture/device and coordinate consumers, original1632 onward, all13 lenses and exact aliases. Final checkpoint3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}
