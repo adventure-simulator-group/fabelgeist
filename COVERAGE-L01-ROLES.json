@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1703,
+    "unassessed": 1701,
     "lock-metadata-partial": 3,
     "bounded-current-trace-only": 119,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1020,
+    "full-historical-body-trace-open": 1022,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; role 1079 has only historical lines 1–420 read. Continue at line 421; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1079–1080 have now been read. Continue at role 1081; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -14905,7 +14905,7 @@
       "historical_sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
       "registry_pointer": "/files/1079",
       "historical_object_available": true,
-      "status": "unassessed",
+      "status": "full-historical-body-trace-open",
       "historical_partial_observations": [
         {
           "assessment": "ASSESSMENT-L01-HISTORICAL-1079-PARTIAL-001.json",
@@ -14917,7 +14917,9 @@
           ]
         }
       ],
-      "historical_partial_qualification": "Historical lines 1–420 read; lines 421–3983 unread. Role remains unassessed; current 95e bytes differ."
+      "historical_partial_qualification": "Initial historical lines 1–420 were preserved separately; fresh 421–3983 completes this historical body. Current 95e bytes differ.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1079-1080.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 1080,
@@ -14927,7 +14929,9 @@
       "historical_sha256": "18c128dcb7feb81a25a316b32ebf5325c4ded21b8d9b049fc3f99be640860f9b",
       "registry_pointer": "/files/1080",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1079-1080.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 1081,

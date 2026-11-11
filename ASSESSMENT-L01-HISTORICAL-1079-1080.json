@@ -1,0 +1,87 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1079,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1079",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "lines": 3983,
+      "previous_partial_assessment": "ASSESSMENT-L01-HISTORICAL-1079-PARTIAL-001.json",
+      "previous_personal_read_ranges": [
+        [
+          1,
+          420
+        ]
+      ],
+      "new_personal_read_ranges": [
+        [
+          421,
+          3983
+        ]
+      ],
+      "personal_read_ranges_union": [
+        [
+          1,
+          3983
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+        "git_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+        "bytes": 138251,
+        "lines": 3968,
+        "byte_identical": false,
+        "preserved_bytes": "main-advance-95e/character-1079-current.source.gz",
+        "content_encoding": "gzip",
+        "qualification": "Historical and 95e bytes differ. Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1080,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1080",
+      "sha256": "18c128dcb7feb81a25a316b32ebf5325c4ded21b8d9b049fc3f99be640860f9b",
+      "lines": 29,
+      "new_personal_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "528e863cc96ef83ca94805bca5f7616b49bdce9bba32760bfc0e86be2244cd57",
+        "git_blob": "488e6d91abe75c87862633695b71cab4ee192570",
+        "bytes": 717,
+        "lines": 21,
+        "byte_identical": false,
+        "preserved_bytes": "main-advance-95e/attachment-capacity-1080-current.source.gz",
+        "content_encoding": "gzip",
+        "qualification": "Historical and 95e bytes differ. Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Role 1079 covers historical character and death authority, equipment graph operations, creation, component initialization and source tests. The earlier prefix 1–420 remains a separately published partial; the fresh continuation 421–3983 completes this historical body.",
+    "Role 1080 defines historical transaction-local attachment-capacity selection. Both historical bodies differ from their 95e files; preserved current bytes and hashes permit comparison but do not establish current semantic coverage.",
+    "Source tests, fixture logic and comments were read only; no product, fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Continue at original role 1081; all independent lenses, connected scopes and historical aliases remain open."
+}
