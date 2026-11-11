@@ -5213,8 +5213,31 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-SAMPLED-SUPPORT-95E.json"
+      },
+      {
+        "id": "REVIEW-SINGLE-REPORT-TRACK-SCOPE-001",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          5,
+          7,
+          8,
+          13
+        ],
+        "severity": "unassigned; conditional test-report scope mismatch",
+        "classification": "An emitted route report should describe the track selection that produced its observations.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1543",
+          "segovb/READ-L12-610.json",
+          "adler/READ-L11-282.json"
+        ],
+        "relationship_qualification": "Current conditional source assessment of original059 pending contract; no added historical unique count, assumed alias or checkpoint3821 attribution.",
+        "discovery": "partial; source-level conditional scope discrepancy established, actual consumer and intended certification policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-MOVEMENT-REPORT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1103.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1107.json"
 }
