@@ -11,12 +11,12 @@
   "status_counts": {
     "unassessed": 1682,
     "lock-metadata-partial": 3,
-    "bounded-current-trace-only": 116,
+    "bounded-current-trace-only": 115,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1044,
+    "full-historical-body-trace-open": 1045,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1098–1102 have now been read. Continue at role 1103; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen body 1103 has now been read. Continue at role 1104; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -15250,7 +15250,7 @@
       "historical_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
       "registry_pointer": "/files/1103",
       "historical_object_available": true,
-      "status": "bounded-current-trace-only",
+      "status": "full-historical-body-trace-open",
       "current_path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
       "current_git_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
       "current_observations": [
@@ -15276,7 +15276,9 @@
           ]
         }
       ],
-      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate."
+      "qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate.",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1103.json",
+      "historical_qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 1104,

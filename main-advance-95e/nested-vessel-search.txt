@@ -1,0 +1,20 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/mod.rs:895:pub mod start_fireplace_container_cooking_reducer;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/mod.rs:1876:pub use start_fireplace_container_cooking_reducer::start_fireplace_container_cooking;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/mod.rs:3099:            Reducer::StartFireplaceContainerCooking { .. } => "start_fireplace_container_cooking",
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/mod.rs:4611:}             => __sats::bsatn::to_vec(&start_fireplace_container_cooking_reducer::StartFireplaceContainerCookingArgs {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:30:/// Extension trait for access to the reducer `start_fireplace_container_cooking`.
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:33:pub trait start_fireplace_container_cooking {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:34:    /// Request that the remote module invoke the reducer `start_fireplace_container_cooking` to run as soon as possible.
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:39:    /// /// Use [`start_fireplace_container_cooking:start_fireplace_container_cooking_then`] to run a callback after the reducer completes.
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:40:    fn start_fireplace_container_cooking(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:46:        self.start_fireplace_container_cooking_then(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:54:    /// Request that the remote module invoke the reducer `start_fireplace_container_cooking` to run as soon as possible,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:60:    fn start_fireplace_container_cooking_then(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:74:impl start_fireplace_container_cooking for super::RemoteReducers {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs:75:    fn start_fireplace_container_cooking_then(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs:106:/// contained cookable food lot at any nesting depth is consumed in full;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs:110:pub fn start_fireplace_container_cooking(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs:150:    // Cooking intentionally sees only direct contents. A hidden nested lot is
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs:18:        .split("pub fn start_fireplace_container_cooking")
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/cooking.rs:610:            Self::StartCooking => "start_fireplace_container_cooking",
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/cooking.rs:855:                "start_fireplace_container_cooking",

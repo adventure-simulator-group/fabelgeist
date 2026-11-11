@@ -1,0 +1,320 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 8,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected vessel-cooking documentation, direct containment selection and interface; behavior-preservation and connected-contract lenses remain incomplete.",
+  "source_reasoning": "Static source and source-test inspection, byte comparison and historical evidence recovery only; no product, test, fixture, browser or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "bytes": 33851,
+      "lines": 868,
+      "ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e6fe92793d2ceeaa71fe10f2fbfd4715a926eece",
+      "sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "bytes": 8809,
+      "lines": 190,
+      "ranges": [
+        [
+          1,
+          140
+        ],
+        [
+          175,
+          190
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/cooking.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4899217c8f0f1e4c7fe9f137de599607b698d724",
+      "sha256": "61346c702faf455c841363336ae997c14f9275b35b8410fc28520646032b6b4c",
+      "bytes": 27845,
+      "lines": 860,
+      "ranges": [
+        [
+          550,
+          765
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/cooking.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b7324b1bed5a4ecb617f28e36ed6532941deaee3",
+      "sha256": "e76003bb5faa199cd2cf9daeb5806004f93d386249679881a2976cc24cf66172",
+      "bytes": 15586,
+      "lines": 283,
+      "ranges": [
+        [
+          85,
+          155
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          1240,
+          1345
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/food.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "bytes": 30041,
+      "lines": 848,
+      "ranges": [
+        [
+          505,
+          545
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c1f80f39e3233d3912f08168baf1dffae3429d0",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "bytes": 25553,
+      "lines": 656,
+      "ranges": [
+        [
+          470,
+          560
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/nested-vessel-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/nested-vessel-search.txt",
+    "sha256": "cabae3f94859bc464222a84b3779454c41776e80be9bc409e5ba30fb4a5e91a1",
+    "bytes": 3727,
+    "query": "git grep exact reducer and two source phrases at pinned revision under crates",
+    "qualification": "Tracked exact spellings only; indirect, external and differently worded routes are not excluded."
+  },
+  "historical_function_comparison": {
+    "historical_role": 204,
+    "historical_snapshot": "physical-p16",
+    "historical_sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "current_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+    "whole_body_identical": false,
+    "selected_section_sha256": "eec421711503b580480c55b44383cfe8625e563942ab9b984371d41e8f638b97",
+    "selected_section_identical": true,
+    "section": "From the vessel reducer documentation marker through the bytes immediately before private add_fireplace_ingredients_at, exclusive of both marker and next function.",
+    "qualification": "Only this selected function/documentation section is byte-identical; no inference of whole-file, other-path or lens equivalence."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L12-238.json",
+      "sha256": "930c8ca11e46401de1215ee8b567bb2cda4c6a6a5cd49d7b6a59a1e2097041a8",
+      "bytes": 12755,
+      "git_blob": "e826afad341e00df5cc2b1ea057d6a0755a71cf3",
+      "preserved_bytes": "recovered/nested-vessel-059/930c8ca11e46401de1215ee8b567bb2cda4c6a6a5cd49d7b6a59a1e2097041a8.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L12-244.json",
+      "sha256": "d06d17f0ae514b561b0590a0831bf1099e92ad47aa362f0d263f33a01c84b632",
+      "bytes": 15654,
+      "git_blob": "9756ac5257565cc454dcb5d670300499b0c0eca5",
+      "preserved_bytes": "recovered/nested-vessel-059/d06d17f0ae514b561b0590a0831bf1099e92ad47aa362f0d263f33a01c84b632.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-245.json",
+      "sha256": "00a95a5d218521f78368b0e591ee2f0174210f80e61b758a03fead3b00b920bd",
+      "bytes": 13682,
+      "git_blob": "e83bd78f102d4128b338dfedb7ccb87ba41e8ed5",
+      "preserved_bytes": "recovered/nested-vessel-059/00a95a5d218521f78368b0e591ee2f0174210f80e61b758a03fead3b00b920bd.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "segovb/PLAN-L12-238.json",
+      "sha256": "ff15daddeaff584098fb634006636af7f8f71aa930e012db34acb65a580f9628",
+      "bytes": 709,
+      "git_blob": "2c38059c094eae45c5acae514739ad11e826c8ab",
+      "preserved_bytes": "recovered/nested-vessel-059/ff15daddeaff584098fb634006636af7f8f71aa930e012db34acb65a580f9628.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-010.json",
+      "sha256": "d0da0277be95d419a58406c8a07bace68e2a4c53dfe23f473f20781529ac86bb",
+      "bytes": 1220,
+      "git_blob": "17def8ff082ce41dd891e7ea666d9f138b1d0d61",
+      "preserved_bytes": "recovered/nested-vessel-059/d0da0277be95d419a58406c8a07bace68e2a4c53dfe23f473f20781529ac86bb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-244.json",
+      "sha256": "24b4f77d2f771fdbc961aa199e6c8eaf211b07caaed42cb5fb2785b7c6348302",
+      "bytes": 1712,
+      "git_blob": "20d5bb40d0ef819265bedbf7ec3919758c59b675",
+      "preserved_bytes": "recovered/nested-vessel-059/24b4f77d2f771fdbc961aa199e6c8eaf211b07caaed42cb5fb2785b7c6348302.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-018.json",
+      "sha256": "64c8af96b07cb882c875c91d101e9bea36ea1feb9a3774a00a00bb54f1bbf3ed",
+      "bytes": 1257,
+      "git_blob": "01c3b83ddf088401a9200d554ea6609a912c953b",
+      "preserved_bytes": "recovered/nested-vessel-059/64c8af96b07cb882c875c91d101e9bea36ea1feb9a3774a00a00bb54f1bbf3ed.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-019.json",
+      "sha256": "1de894a7b017ee996202118727a8066f899483e4a71b4dfc578574b1df741c47",
+      "bytes": 1253,
+      "git_blob": "5caa2aaa72634f9a077bc719ac04130c9ea9d7a4",
+      "preserved_bytes": "recovered/nested-vessel-059/1de894a7b017ee996202118727a8066f899483e4a71b4dfc578574b1df741c47.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-020.json",
+      "sha256": "d7e33899ce5f2715449750b722ffc7fec4d65765657b48a3de7afe01eafc317b",
+      "bytes": 1237,
+      "git_blob": "1130c528c36ec93b70ce3d4eb7773308b989793b",
+      "preserved_bytes": "recovered/nested-vessel-059/d7e33899ce5f2715449750b722ffc7fec4d65765657b48a3de7afe01eafc317b.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-247.json",
+      "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096",
+      "bytes": 10526,
+      "git_blob": "7da6b59694645b7f2100e3999d4624205f2bd68b",
+      "preserved_bytes": "recovered/nested-vessel-059/1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-247.json",
+      "sha256": "868ee47ff0aeebc790d18225f9e4e8773b138be13cab8303eb245fc7ce9d3deb",
+      "bytes": 1145,
+      "git_blob": "3ce66aee4849e9ca974a6248d32f9f0c21275e96",
+      "preserved_bytes": "recovered/nested-vessel-059/868ee47ff0aeebc790d18225f9e4e8773b138be13cab8303eb245fc7ce9d3deb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-247-254-v2.json",
+      "sha256": "86e9b9775710fdc95055b28f9828001d33bf99cd395e9018e1d3ea7ebb1caf26",
+      "bytes": 153729,
+      "git_blob": "ce83d7c32f0cce648df542fd9de19d2bcf006c99",
+      "preserved_bytes": "recovered/nested-vessel-059/86e9b9775710fdc95055b28f9828001d33bf99cd395e9018e1d3ea7ebb1caf26.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-247.json",
+      "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c",
+      "bytes": 926,
+      "git_blob": "18c3b00eb3b47eeda4ba81f7e395d9f22f799cec",
+      "preserved_bytes": "recovered/nested-vessel-059/a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 receipt or directly referenced plan, registration, verification or proposal. This bounded set does not assert complete transitive support or checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/8",
+      "qualification": "Earlier source policy/documentation question; retained independently of the adjacent scope-readmission migration."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/3",
+      "qualification": "Historical Lens 12 cooking read; not a current or cross-lens verdict."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/9",
+      "qualification": "Historical Lens 12 source-test read, not test execution."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/discovery_receipts/244",
+      "qualification": "Historical Lens 13 native source read; no separate unique nested-body finding accepted."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 204,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "historical_sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-202-204.json",
+      "qualification": "Separately attributed full historical Lens 1 body; no independent-lens or checkpoint 3821 transfer."
+    },
+    {
+      "original_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "historical_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1103.json",
+      "qualification": "Separately attributed full historical Lens 1 body; no independent-lens or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-VESSEL-NESTED-CONTENTS-DOC-001",
+      "severity": "low; documentation conflict, intent and admitted nested example remain conditional",
+      "classification": "Vessel reducer documentation promises food lots at any nesting depth, while the selected implementation, its internal comment and source assertions specify direct children only.",
+      "trace": "The reducer’s public documentation says all contained cookable food at any nesting depth is consumed. Its loop filters containment edges by parent equal to the selected vessel, checks each direct child for a cookable item and matching lot and amount, and never traverses child subtrees. An inline comment says nested lots remain inside their child container. If no direct child supplies a food lot and matching amount, and no earlier guard returns, the path returns the no-food error. The source-level fixture asserts the direct parent filter and absence of subtree_object_ids; it was inspected, not executed.",
+      "behavior_comparison": "The physical-p16 role 204 and 95e whole files have different hashes, but their selected vessel reducer documentation and body bytes match exactly. This selected discrepancy is therefore not established as a new refactor regression. The old checkpoint 059 Lens 12 journal and Lens 13 receipt already recorded the conflict; Lens 12 source assertions had narrowed it to likely stale prose while leaving the owning policy open. These are historical observations, not 3821 authority or independent current runtime results.",
+      "interface_and_limits": "Current settlement and camp routes pass the selected container object to the same reducer; the template labels the action Start cooking contents without defining depth. Generic container insertion supports containment edges subject to custody, graph and capacity guards; placing a qualifying root vessel over the fire preserves its child edges. A hypothetical inner container holding food would not be traversed by the selected reducer; actual admissibility of a specific nested vessel/item combination and player-visible effects were not established. No cooking, fixture, test, build, browser or runtime probe ran.",
+      "connected_repair": "After the audit gate, confirm the owning cooking policy. If direct-only is intended as the inline comment and source assertions indicate, correct the public reducer documentation and any misleading player-facing wording to specify direct food lots; retain nested non-food containers. If depth-wide cooking is intended instead, design a deliberate traversal with custody, capacity, provenance and nested-container preservation rather than silently changing behavior.",
+      "later_acceptance": "After separately authorized implementation and validation, cover direct food, only nested food, mixed direct and nested food, non-food child containers, party/personal custody, water and capacity; verify the selected interface and documentation agree with the chosen policy.",
+      "discovery": "partial; product policy, concrete nested-item admissibility, UI wording and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

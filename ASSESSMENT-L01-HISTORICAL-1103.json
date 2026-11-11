@@ -1,0 +1,38 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1103",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "lines": 868,
+      "new_personal_read_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "bounded-current-trace-only",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Role 1103 covers the historical PR-working cooking source. Its prior bounded current trace is retained without expanding current semantic scope. The distinct physical-p16 role 204 remains separately attributed.",
+    "Each historical/current byte comparison is recorded individually; identical hashes do not transfer semantic coverage across the thirteen lenses or reconstruct checkpoint 3821.",
+    "Source tests, examples and fixtures were read only; no product, fixture, build, test or runtime probe ran."
+  ],
+  "remaining": "Continue at original role 1104; all independent lenses, connected scopes and historical aliases remain open."
+}

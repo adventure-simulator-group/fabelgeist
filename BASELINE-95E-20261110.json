@@ -1428,6 +1428,21 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L09-POINT-PREVENTION-95E.json"
+      },
+      {
+        "id": "REVIEW-VESSEL-NESTED-CONTENTS-DOC-001",
+        "lens": 8,
+        "severity": "low; documentation conflict, intent and admitted nested example remain conditional",
+        "classification": "documentation claims all-depth ingredients while unchanged selected vessel reducer uses direct children",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens12/pending_connected_contracts/8",
+          "ASSESSMENT-L01-HISTORICAL-202-204.json#/observations/3"
+        ],
+        "relationship_qualification": "The historical journal and separately attributed source reads already observed the conflict. A byte-matched selected function is not evidence that the whole files match or that a regression occurred.",
+        "discovery": "partial; product policy, concrete nested-item admissibility, UI wording and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L08-NESTED-VESSEL-95E.json"
       }
     ]
   },

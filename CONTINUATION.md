@@ -190,6 +190,9 @@ question through seeded kin and the outbreak exception. Ordinary player-visible
 reachability and qualifying-family policy remain open.
 `ASSESSMENT-L09-POINT-PREVENTION-95E.json` records the conditional covered-zero
 versus missing-history ambiguity and selected current-minute food/water paths.
+`ASSESSMENT-L08-NESTED-VESSEL-95E.json` records an earlier documentation
+conflict with direct-only vessel selection; the selected historical function
+matches current bytes, while the owning product policy remains open.
 `ASSESSMENT-L05-RUNE-ROUTE-95E.json` traces an earlier no-repeat
 validation gap to the selected view and replay boundaries. The symbolic
 case is not an observed stored puzzle or executed validation.
@@ -226,6 +229,8 @@ autopsy context and draw reads without expanding current semantic coverage.
 adapters and equipment-law reads without expanding current semantic coverage.
 `ASSESSMENT-L01-HISTORICAL-1098-1102.json` records the historical filth,
 blood exposure and food reads without expanding current semantic coverage.
+`ASSESSMENT-L01-HISTORICAL-1103.json` records the historical cooking source,
+without expanding current semantic coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.
