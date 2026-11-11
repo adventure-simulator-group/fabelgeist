@@ -96,6 +96,11 @@ acts = source('investigation/actions.rs')
 assert b'The current journal no longer supports this investigation route' in acts
 assert b'if let Some(investigability) = generated_investigability(ctx, &capability)' in acts
 assert b'apply_investigability_to_route_skills(route_skills, investigability)' in acts
+existing_test = source('investigation/tests/action_authority.rs').split(
+    b'fn generated_pattern_authority_fails_closed_and_manual_actions_remain_permissive()', 1)[1].split(b'\n#[test]', 1)[0]
+assert b'let context = GenerationContext {' in existing_test and b'serde_json::to_string(&context)' in existing_test
+assert b'DeveloperGenerationContext' not in existing_test
+assert doc['selected_existing_test_source']['historical_role'] == 1133
 
 monsters = json.loads(source('content/quests/bestiary.yaml'))['monsters']
 profiles = {m['id']: m['investigation']['investigability'] for m in monsters}
@@ -115,7 +120,7 @@ assert (75 - 50) * 30 * 2 == 1500 and 3000 < 3500 < 3000 + 1500
 transport = {x['path']: x for x in json.loads(gzip.decompress(
     (root / 'recovered/original-transport-manifest.json.gz').read_bytes()))['entries']}
 records = doc['recovered_historical_records']
-assert len(records) == 87
+assert len(records) == 103
 for item in records:
     raw = gzip.decompress((root / item['preserved_bytes']).read_bytes())
     source_entry = transport[item['original_path']]
@@ -127,8 +132,14 @@ for item in records:
     else:
         assert (b'/' + b'home/') not in raw and b'<LOCAL_PATH_' in raw
         assert 'pinned checkpoint 059 transport bundle' in item['original_recovery']
-assert sum(bool(x['redacted_local_path_occurrences']) for x in records) == 3
+assert sum(bool(x['redacted_local_path_occurrences']) for x in records) == 4
 by_path = {x['original_path']: x for x in records}
+alias_info = doc['historical_l11_alias_receipt']
+alias = json.loads(gzip.decompress((root / by_path[alias_info['original_path']]['preserved_bytes']).read_bytes()))
+assert alias['canonical'] == 'SEGOVB-L12-GENERATED-INVESTIGABILITY-TUPLE-SLOT'
+assert alias['accepted_unique_count_change'] == 0 and alias['global_alias_inventory_complete'] is False
+for item in alias['evidence']:
+    assert item['path'] in by_path and by_path[item['path']]['sha256'] == item['sha256']
 queue = load('baseline-059/queue.json')['entries']
 view = queue[216]['granular_contract_views'][1]
 for row in view['exact_source_identities_and_assessed_ranges']:

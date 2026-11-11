@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0134.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-0151.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -193,7 +193,7 @@ versus missing-history ambiguity and selected current-minute food/water paths.
 `ASSESSMENT-L02-GENERATED-AUTHORITY-95E.json` revisits the historical
 investigability tuple inversion and separately traces developer-context
 re-admission. Original older and 059 evidence retains its attribution.
-Three 059 plans have local paths redacted in their directly published copies;
+Four 059 plans have local paths redacted in their directly published copies;
 their exact bytes remain in the pinned 059 transport. The earlier behavior
 record also has a local-path redaction and needs its original machine-local
 prefix for exact bytes.
@@ -269,6 +269,10 @@ action, provenance and route sources without expanding current coverage.
 capability, claim and geometry sources without expanding current coverage.
 `ASSESSMENT-L01-HISTORICAL-1126-1127.json` records historical investigation
 module composition and evidence state without expanding current coverage.
+`ASSESSMENT-L01-HISTORICAL-1134-1135.json` records earlier investigation
+source-test bodies without claiming test execution or other-lens coverage.
+`ASSESSMENT-L01-HISTORICAL-1130-1133.json` records earlier site and
+authority-test source bodies. Their test code was inspected, not executed.
 `ASSESSMENT-L01-HISTORICAL-1128-1129.json` records historical investigation
 projections and site context without expanding current coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule

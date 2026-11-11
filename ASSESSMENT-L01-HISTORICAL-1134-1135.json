@@ -1,0 +1,64 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1134,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1134",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "lines": 586,
+      "new_personal_read_ranges": [
+        [
+          1,
+          586
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    },
+    {
+      "original_index": 1135,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "materially_reached_producer_contract",
+      "registry_pointer": "/files/1135",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "lines": 648,
+      "new_personal_read_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic coverage."
+      },
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "Role 1134 is existing source-test coverage for bestiary deduction and physical evidence, correction-driven capability invalidation and bounded failure history. It describes assertions and helper constructions only; it was not executed.",
+    "Role 1135 is existing source-test coverage for bounded failure history, observer projections, site-provenance validation and witness referrals. Its selected malformed receipt assertion uses an empty object; it does not establish the behavior of every malformed metadata shape. The unrelated seed search in this source was not executed.",
+    "The earlier bounded current receipt-shape trace remains separately attributed in ASSESSMENT-L09-INVESTIGATION-RECEIPT-95E.json; this historical body read supplies no additional other-lens credit. Equal current bytes do not reconstruct checkpoint 3821."
+  ],
+  "remaining": "Continue original role 1136; all independent lenses, connected scopes and historical aliases remain open."
+}
