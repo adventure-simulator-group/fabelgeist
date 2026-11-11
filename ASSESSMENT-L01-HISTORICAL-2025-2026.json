@@ -1,0 +1,179 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2025,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/2025",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "lines": 46,
+      "new_personal_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+        "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+        "bytes": 1481,
+        "lines": 46,
+        "git_blob": "7f858c971a117575076916f10cb829c271247f6f",
+        "preserved_bytes": "main-advance-95e/combat-boundary-evidence/current-2025.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed.",
+      "preexisting_current_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-GROUNDING-BOUNDARY-95E.json",
+          "ranges": [
+            [
+              1,
+              44
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        },
+        {
+          "assessment": "ASSESSMENT-GROUNDING-FIXTURES-95E.json",
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        }
+      ]
+    },
+    {
+      "original_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2026",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "lines": 1148,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1148
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-server/src/combat.rs",
+        "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+        "bytes": 39026,
+        "lines": 1148,
+        "git_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+        "preserved_bytes": "main-advance-95e/combat-boundary-evidence/current-2026.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            1148
+          ]
+        ],
+        "qualification": "Full historic body personally read. Byte-identical historic body supplies the current content read, without separate independent reviewer credit. No product ran."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed.",
+      "preexisting_current_support_not_indexed_in_prior_role_row": [
+        {
+          "assessment": "ASSESSMENT-CONDITION-REGIONAL-95E.json",
+          "ranges": [
+            [
+              478,
+              508
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        },
+        {
+          "assessment": "ASSESSMENT-PRONE-EFFORT-95E.json",
+          "ranges": [
+            [
+              478,
+              508
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        },
+        {
+          "assessment": "ASSESSMENT-MELEE-REPORT-IDENTITY-95E.json",
+          "ranges": [
+            [
+              238,
+              255
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        },
+        {
+          "assessment": "ASSESSMENT-COMBAT-EFFECTS-SURFACE-95E.json",
+          "ranges": [
+            [
+              65,
+              135
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-RANGED-SOURCE-ASSERTION-95E.json",
+          "ranges": [
+            [
+              759,
+              768
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        },
+        {
+          "assessment": "ASSESSMENT-L01-STACK-MASS-95E.json",
+          "ranges": [
+            [
+              210,
+              216
+            ]
+          ],
+          "qualification": "Prior bounded current source observation, retained without claiming independent historical personal credit."
+        }
+      ]
+    }
+  ],
+  "observations": [
+    "Full historical boundary observer and combat root module personally read through EOF, including authored test bodies. No source test, combat, collider, server or product ran.",
+    "Both match95e bytes. Earlier current supporting ranges are listed separately even where the prior worklist row had not indexed them; those observations do not create another historical read.",
+    "Segovb678/679 and Adler313/314/318 retain original independent attribution; prior/future roles in their receipts do not gain fresh personal coverage."
+  ],
+  "qualification": "Personal historical Lens1 bodies and bounded current sources; original author, revision, qualification and later-recipient roles remain separate, with no checkpoint3821 claim.",
+  "next_original_role": 2027
+}
