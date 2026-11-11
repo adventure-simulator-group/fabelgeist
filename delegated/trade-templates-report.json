@@ -1,0 +1,741 @@
+{
+  "schema": "726-delegated-trade-templates-report-v1",
+  "created_utc": "2026-11-11 20:43:13 UTC",
+  "status": "bounded source assessment; all thirteen repository-wide lenses incomplete; no implementation or product validation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "older_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger and queue unavailable; 059 and 774 are earlier records and are never promoted."
+  },
+  "scope": "Original roles 2409\u20132412 with prospectively registered current support; every assigned revision body separately displayed, source inspection only. Test bodies read as text, never run.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "4c78c6ca8baff2b9ab008fc62058bb006481c04f42eac92af867f9a7b7d06657"
+    },
+    "support-registration.json": {
+      "sha256": "f9387bc54b7e37db458c1efd5648df4e23386f4026fa187e57f7cb5d76943bc8"
+    },
+    "support-registration-2.json": {
+      "sha256": "fdb6822e94fa2358d0d73da119ac612b29b172085c48ddf0b10765433bef925c"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "f403b1b52f431a8de3066473ed926e6106b0ff693ca20e7f8cb11fb350059292"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2409,
+      "path": "crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "current_sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+      "historical_sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+      "git_blob": "92976d2dca07afdccbd3d5975175ca1881ba2c1c",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2410,
+      "path": "crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs",
+      "current_sha256": "3ffa6b1a6c8bbdffdfc3d43c453dff29c9f612da9cdfaf8b9902c32224ce9433",
+      "historical_sha256": "3ffa6b1a6c8bbdffdfc3d43c453dff29c9f612da9cdfaf8b9902c32224ce9433",
+      "git_blob": "baa1ee4463dba3ef1a3ef3d5d92ed0a7851da98e",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2411,
+      "path": "crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs",
+      "current_sha256": "5f88b54a698112493584486bd95eb1576ac5de6badef00ed2d7b6b4a787a1b07",
+      "historical_sha256": "5f88b54a698112493584486bd95eb1576ac5de6badef00ed2d7b6b4a787a1b07",
+      "git_blob": "6aca18d09ece0a64c5b3bf8bc7a4523447ce7c4e",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2412,
+      "path": "crates/strategic-web/src/templates/settlement/trade/inventory.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/src/templates/settlement/trade/inventory.rs",
+      "historical_source": "sources/6533/crates/strategic-web/src/templates/settlement/trade/inventory.rs",
+      "current_sha256": "989aa9bc45cc33ebee0bbd89fc19915e7e926315cd89319f0465da108082a5b5",
+      "historical_sha256": "989aa9bc45cc33ebee0bbd89fc19915e7e926315cd89319f0465da108082a5b5",
+      "git_blob": "d3077277a415a2bafc8ff0a3f61d5a66cbe20eb6",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          543
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          543
+        ]
+      ],
+      "reader": "current delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "current_source": "support/crates/adventuresim-core/src/equipment.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          15,
+          205
+        ],
+        [
+          460,
+          520
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/equipment.rs",
+      "historical_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "current_source": "support/crates/adventuresim-core/src/item_catalog_fit.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/item_catalog_fit.rs",
+      "historical_sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+      "current_source": "support/crates/adventuresim-core/src/item_catalog_schema.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          35,
+          75
+        ],
+        [
+          85,
+          245
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/item_catalog_schema.rs",
+      "historical_sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+      "current_source": "support/crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "historical_sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+      "current_source": "support/crates/adventuresim-stdb-module/src/character.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          2810,
+          3160
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/character.rs",
+      "historical_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "current_source": "support/crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "historical_sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "current_source": "support/crates/adventuresim-stdb-module/src/item.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          135
+        ],
+        [
+          140,
+          195
+        ],
+        [
+          270,
+          325
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/item.rs",
+      "historical_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/equipment-toggle.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "current_source": "support/crates/strategic-web/static/equipment-toggle.js",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/equipment-toggle.js",
+      "historical_sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/inventory-browser.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "dc0dbc9022b4f96fe45f8e6d2cac6d139142d26eff71d50160c714c53e9cffbb",
+      "current_source": "support/crates/strategic-web/static/inventory-browser.js",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/inventory-browser.js",
+      "historical_sha256": "dc0dbc9022b4f96fe45f8e6d2cac6d139142d26eff71d50160c714c53e9cffbb",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          165
+        ],
+        [
+          210,
+          375
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "historical_sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "historical_sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "current_source": "support/crates/strategic-web/src/spacetimedb/types.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          205,
+          225
+        ],
+        [
+          263,
+          320
+        ],
+        [
+          810,
+          935
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/spacetimedb/types.rs",
+      "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "31ccaeab48d236a489cc039794c79c2c33621751e4a8a7a1e9f94033921eec3b",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "historical_sha256": "31ccaeab48d236a489cc039794c79c2c33621751e4a8a7a1e9f94033921eec3b",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/weapon_icons.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "21407ea5ddac53dc3c4effb2c6fc197ad579bb4a1252e50eba0f5081d5f2a045",
+      "current_source": "support/crates/strategic-web/src/routes/weapon_icons.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/weapon_icons.rs",
+      "historical_sha256": "21407ea5ddac53dc3c4effb2c6fc197ad579bb4a1252e50eba0f5081d5f2a045",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "current_source": "support/content/items/catalog.yaml",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          720,
+          810
+        ],
+        [
+          1188,
+          1265
+        ],
+        [
+          1890,
+          1960
+        ],
+        [
+          2978,
+          3060
+        ],
+        [
+          3148,
+          3325
+        ],
+        [
+          6375,
+          6450
+        ],
+        [
+          8445,
+          8520
+        ],
+        [
+          8535,
+          8610
+        ],
+        [
+          8630,
+          8700
+        ],
+        [
+          8720,
+          8800
+        ],
+        [
+          9207,
+          9290
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/content/items/catalog.yaml",
+      "historical_sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/discard.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "6cc7a146f21918240ec83835a11b882fca0ac7e400c1344d9cf8876d67921e99",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/trade/discard.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/trade/discard.rs",
+      "historical_sha256": "6cc7a146f21918240ec83835a11b882fca0ac7e400c1344d9cf8876d67921e99",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/party_transfer.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e234017ff8d637e97e31c3b4aa6f79858e964e2ea0198ee4421a310ca2d86731",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/trade/party_transfer.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/trade/party_transfer.rs",
+      "historical_sha256": "e234017ff8d637e97e31c3b4aa6f79858e964e2ea0198ee4421a310ca2d86731",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/party_pool.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e1fdb4d40115cec463e035b77a38e6b7afa27d0e7c86eea6f23a6f4239b60981",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/trade/party_pool.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/trade/party_pool.rs",
+      "historical_sha256": "e1fdb4d40115cec463e035b77a38e6b7afa27d0e7c86eea6f23a6f4239b60981",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "04d54c2a6dc1b2e6bddce07a039a5cdc4da910365acf36223ff9fb9e3f461d32",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact search output is separately retained in search-*.txt; source-level JSON metadata extraction of authored placement/quantity properties was displayed without executing product code. Search hits do not count as full-body reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+      "historical_sha256": "04d54c2a6dc1b2e6bddce07a039a5cdc4da910365acf36223ff9fb9e3f461d32",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual body-read ranges, ordered-role or other-lens credit."
+    }
+  ],
+  "recovered_history": {
+    "adler_059": "READ-L11-395 attributes Adler fresh 2409 1\u20131169 REG1287, 2410 1\u201325 REG1288 and 2411 1\u201338 REG1289. READ-L11-396 attributes 2412 1\u2013270 REG1290; test tail remained unread by Adler. Root segovb READ-L11-467 separately attributes fresh 2412 271\u2013543 REG1779 as mandatory connected extension, without additional original role credit. Accepted unique deltas 0 and current_reconciled false; no validation.",
+    "delegated_059": "READ-L12-808 records /root/lens12_frontier personal prospective full 2409 1\u20131169 PAR415 and 2410 1\u201325 PAR416. READ-L12-809 separately records full 2411 1\u201338 PAR417 and 2412 1\u2013543 PAR418. Root personal rereads empty; adoption numbers are not new prospective root reads. Accepted unique delta0, current_source_reconciled false, no other-lens transfer.",
+    "connected_059": "Graph q513\u2013516 point to READ-L12-789 /rows/0: assessed full 2377 1\u2013898 is qualified reuse of /root/lens12_frontier earlier partial 1\u2013390 plus fresh 391\u2013898 under PAR367, not a second full personal read. Exact partial receipt and proposal are retained.",
+    "older_774": "All four roles are materially_reached_owner_contract. RIG-OWNER-FINAL-RECEIVERS-089 rig additional-sources zero-based rows236,238,237 / physical lines237,239,238 respectively record 2409 1\u20131169, 2410 1\u201325, 2411 1\u201338 full; row235 / line236 records 2412 only 1\u2013270 scoped. RIG-PPS-030 /fresh_current_source_reads/5,/7,/6,/4 records respectively the same exact ranges. The new full 2412 read cannot retroactively extend old 1\u2013270. All owner_fit_delta statuses incomplete_explicit_contract_comparison_required; no code ownership transfer.",
+    "previous_current": "/root/hair_ops web-equipment report support-registration-02 SHA 185d8cb097b07fbb77693ea1391cb9e9ae473ad56edee472ad5011d54b6a899c records trade/inventory.rs 95e lines1\u201348 only. Its exact report, registration and source artifacts are retained separately. Its current encumbrance-completeness assessment remains distinct from q513\u2013516 equipment-graph observations and from this task. Prior /root/rig_identity medical and quest reports copied without modification or inherited credit.",
+    "reconstruction": "registry-selection-reconstructed.json is a selection from exact original-registry.json.gz, not an original checkpoint3821 ledger/queue. Full earlier 059 ledger, queue, manifest and exact old transport/variants are preserved; f82 is transport, not source revision.",
+    "historical_support": "Fifteen of nineteen supporting files are byte-identical at 6533 and 95e. Four changed: item_catalog_schema.rs, item_catalog_validation_occupancy.rs, character.rs, and content/items/catalog.yaml; exact historical byte hashes and Git proof are recorded, historical bodies were not displayed. No current witness is promoted to historical evidence."
+  },
+  "findings_and_connected_questions": [
+    {
+      "id": "DELEGATE-EQUIPMENT-REPLACEMENT-SET-VISIBILITY-95E",
+      "classification": "new current source finding conditional on authored/persisted data, graph state, action admission and intended replacement-legibility policy; aliases and repair ownership unresolved",
+      "title": "The equipment key can identify only one of multiple displaced items",
+      "source": [
+        "content/items/catalog.yaml:724-768,1192-1227,9211-9246",
+        "crates/adventuresim-core/src/equipment.rs:25-36,121-130",
+        "crates/adventuresim-core/src/item_catalog_schema.rs:147-180,183-199",
+        "crates/adventuresim-core/src/item_catalog_fit.rs:35-45",
+        "crates/adventuresim-stdb-module/src/item.rs:140-162,290-301",
+        "crates/strategic-web/src/spacetimedb/types.rs:821-905",
+        "crates/strategic-web/src/templates/settlement/trade/equipment.rs:433-448,568-605,607-617,750-763",
+        "crates/strategic-web/static/equipment-toggle.js:32-42,90-99,118-162,175-230,272-285,413-428",
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:278-329",
+        "crates/adventuresim-stdb-module/src/character/occupancy.rs:63-120",
+        "crates/adventuresim-stdb-module/src/character.rs:2857-2876,2941-2971,3098-3110"
+      ],
+      "trace": "The authored burgonet occupies rigid-armor head and the gorget occupies rigid-armor neck, so the canonical conflict predicate allows them to coexist. The barbute occupies head, face and neck, and conflicts with both. The shared t input addresses all three body locations. For one placement, template inputOccupants collects at most one conflicting occupant per requirement and then chooses only the maximum occupant for that input; the generated keyboard option can therefore carry just one of the two displaced objects. The equipment dialog presents one icon and accessible name for that input, while selection is sent with replace_occupied=true. The authoritative reducer independently collects every conflicting root into a set, validates displaced items and removes every accepted conflict. The older full placement label computes multiple conflicts, but this inspected dialog uses structured inputOccupants and does not present that complete label or a replacement-set confirmation.",
+      "conditions": "Requires both appropriate pieces already equipped without protected children, a compatible authorized current actor and the submitted replacement succeeding; assumes stored catalog projection matches the authored definitions. No current player state, loss, browser rendering, actual click or successful reducer operation was observed. Equipment remains in inventory rather than being destroyed; no claim of irreversible loss. Whether the interface must explicitly show/confirm the entire set is a product-legibility decision; a single icon cannot represent both distinct identities.",
+      "future_repair_direction": "Derive the complete preview of the authoritative displacement set for the selected placement and present the affected items before a replacement is committed, coordinated with current graph freshness, attachment capacity, child constraints and server authority. Avoid transferring UI preview into authority; preserve legitimate multi-slot atomic replacement.",
+      "relationships": [
+        "059 q548 Q-L11-59ea61c2883569e0af7b notes distinct placement ranks, occupants and capacity and seeks producer/receiver trace; no exact alias assumed. q1749 Q-L12-8ece8ae977efd724e6cf concerns attachment greedy allocation and fit; q513\u2013516 concern four separate graph observation failures. Reconcile centrally rather than collapsing these first cuts. Historical Adler READ-L11-395 observed the placement UI but did not record this authored multi-displacement witness; this is newly assessed current work."
+      ]
+    },
+    {
+      "id": "Q-L11-59ea61c2883569e0af7b",
+      "classification": "existing 059 q548 pending native-identity question refined by current exact source, not an automatically new unique historical finding",
+      "title": "Parent and occupant u64 identities are serialized as JavaScript numbers",
+      "source": [
+        "crates/adventuresim-stdb-module/src/item.rs:40-50",
+        "crates/strategic-web/src/templates/settlement/trade/equipment.rs:327-341,505-525",
+        "crates/strategic-web/static/equipment-toggle.js:17-25,50-56,77-80,90-98,272-281",
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:50-65,302-315",
+        "crates/adventuresim-stdb-module/src/character.rs:2997-3035,3083-3095"
+      ],
+      "trace": "Inventory item IDs are auto-increment u64 primary keys. The template inserts parentInventoryItemId and occupant inventoryItemId as JSON numeric values. JavaScript parses them as Number, sorts parent IDs by numeric subtraction, and serializes selected parent IDs into attachment_targets; the server decodes that field as u64. An ID above 2^53 can lose integer precision in this path, and two distinct valid u64 values may become the same Number. The root moving item is independently sent from an HTML data attribute as a string.",
+      "conditions": "Requires an inventory ID outside the exact Number integer range and an affected attachment or display path; no such actual database value, collision, wrong parent or successful operation was observed. Server still validates parent ownership, compatible point and tags, required location and cycle, so no authorization bypass follows. No runtime probe or fabricated fixture was used.",
+      "future_repair_direction": "Preserve exact identity at JSON/native boundaries, such as canonical decimal strings with checked server admission and coordinated comparison; validate all producers/consumers and tie-breaking without a compatibility shim. The authoritative schema remains the identity owner.",
+      "relationships": [
+        "059 q548 explicitly identified native ID subtraction safe-integer proof and requested producer/receiver trace; this narrows that question without claiming historical first-cut closure or deduping it against the distinct multi-replacement presentation."
+      ]
+    },
+    {
+      "id": "EQUIPMENT-GRAPH-OBSERVATION-513-516",
+      "classification": "existing four 059 first-cut records reconnected to current receiver; no new unique claim",
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:67-159",
+        "crates/strategic-web/src/templates/settlement/trade/equipment.rs:232-274,382-394,433-448,486-546,568-605",
+        "crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs:4-25",
+        "crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs:6-38"
+      ],
+      "trace": "Four independent worn, occupancy, inventory and definitions queries are unwrapped to empty on failure before CharacterEquipmentGraph construction. The template then uses that graph for equipped flags, conflicts, roots and attachment choices, which can look like genuine empty state or omit candidates under a failed input.",
+      "conditions": "No failed query or incorrect rendered decision was observed. Different missing inputs and valid empty results are separate states; some incomplete graphs conservatively restrict or overstate conflict. The reducer independently validates before mutations and errors remain authoritative.",
+      "future_repair_direction": "Retain each source observation and completeness through the graph aggregate and establish explicit unavailable presentation and diagnostics; preserve normal unworn/empty modes and authoritative reducer checks.",
+      "relationships": [
+        "059 q513, q514, q515, q516 are distinct retained worn/occupancy/inventory/definitions first failures; no automatic merge. READ-L12-789 assesses 1\u2013898 using the same agent earlier 1\u2013390 partial receipt plus fresh 391\u2013898, not a fresh full reread. Prior /root/hair_ops web-equipment assessment concerns encumbrance input availability separately."
+      ]
+    },
+    {
+      "id": "EQUIPMENT-FIT-CATALOG-SOURCE-QUESTION-95E",
+      "classification": "conditional open policy/consistency question, no established false-fit defect",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs:6-38",
+        "crates/adventuresim-core/src/item_catalog_fit.rs:35-45",
+        "crates/adventuresim-stdb-module/src/character/occupancy.rs:63-120",
+        "crates/adventuresim-stdb-module/src/item.rs:140-162,290-301",
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:67-103"
+      ],
+      "trace": "The UI reconstructs an occupied fit_zone from the compiled core catalog using item name, placement ID and requirement index; a missing lookup becomes None. The core conflict rule treats None as whole-location reservation, so this fallback is conservative for otherwise matching location/channel/order. The reducer calculates conflicts from persisted item placement definitions, and init projects authored definitions into the database.",
+      "conditions": "A compiled web catalog and persisted database catalog may be synchronized; no catalog skew, missing graph row or false conflict has been observed. A missing UI graph entry and a legitimate whole-location None are distinct facts despite shared value. Current catalog versioning/update/deployment policy remains open.",
+      "future_repair_direction": "Establish catalog identity and synchronized projection contract, and distinguish unavailable lookup from authored whole-location value if mismatch is possible; keep exact typed fit rules and authoritative current reducer validation.",
+      "relationships": [
+        "059 q1749 explicitly left fit_zone None semantics pending; this read establishes that None conflicts with all zones in same location/channel/order, while catalog-coherence/authority remains pending. 059 q1557 names a broader canonical placement identity/fit owner question, not automatically this same first cut."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "Attachment helper matches channel and order, optional reached body location, tags with explicit empty wildcard, and rejects self/descendant parents. Backend repeats ownership, location, tags, cycle and capacity validation; capacity-zero options may support replacement and are not automatically bad.",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs:4-25",
+        "crates/adventuresim-stdb-module/src/character/occupancy.rs:7-53",
+        "crates/adventuresim-stdb-module/src/character.rs:2972-3095"
+      ]
+    },
+    {
+      "text": "fit_zone None represents whole location, so a missing fit lookup is not a permissive no-conflict value under the inspected canonical rule. Static-versus-persisted catalog consistency remains open.",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs:14-37",
+        "crates/adventuresim-core/src/item_catalog_fit.rs:35-45"
+      ]
+    },
+    {
+      "text": "Encumbrance meter displays the existing EncumbranceSummary.penalty_fraction, and source assertions describe clamping; a display label alone establishes no separate fatigue, movement or combat penalty.",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/trade/inventory.rs:11-48",
+        "crates/adventuresim-core/src/equipment.rs:469-490"
+      ]
+    },
+    {
+      "text": "Quality values passed through these two visible paths are clamped 1\u20135 before the match; direct internal callers outside these inspected paths would require separate proof before any unreachable panic claim.",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/trade/inventory.rs:84-95,108-136"
+      ]
+    },
+    {
+      "text": "Standard authored catalog projection sets base_value to Some; shared inventory item_value renders a dash for missing value, while the earlier quest report describes a different fallback. A missing/failed catalog remains conditional, not proof that a valid current authored item lacks a price.",
+      "source": [
+        "crates/adventuresim-stdb-module/src/item.rs:140-149",
+        "crates/strategic-web/src/templates/settlement/trade/inventory.rs:51-55"
+      ]
+    },
+    {
+      "text": "The self/descendant search uses a visited set and the roots walk a path set to stop cycles. This is not proof the whole external graph is valid or bounded.",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/trade/equipment.rs:8-29,232-274"
+      ]
+    },
+    {
+      "text": "All existing tests and source fixtures were inspected only as text, with no test or product execution."
+    }
+  ],
+  "open_questions": [
+    "Should a replacement operation explicitly present all displaced identities before a single selection, and how should the full set be produced when selected attachment and body conflicts coexist?",
+    "Can live inventory IDs reach or be externally imported above 2^53, and which other JSON/DOM APIs carry them as numbers?",
+    "Are compiled web and persisted strategic catalog versions required to agree, and how are stale placement IDs, requirement indices and missing rows exposed?",
+    "Can current authored attachment requirements create greedy allocation failure despite a feasible alternative, and are full target slots selected for replacement intentionally?",
+    "How should q513\u2013516 graph observation failures, q548 native IDs, q1749 fit/attachment, q1557 catalog identity, and prior encumbrance-completeness finding be linked without conflating distinct first cuts?"
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Graph observations and authored catalog data flow through UI options into the authoritative replacement; incomplete identity and displacement projections need coordinated native boundary treatment."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Core EquipmentLocation, EquipmentChannel, OccupancyRequirement and InputAddressMapping own semantics; opaque u64 object IDs still require exact preservation at the JavaScript boundary."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "The server checks owner, placement, legal state, capacity, tags, location and cycles; frontend choices are not authority and do not establish backend acceptance."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Conflict selection must represent the full aggregate of displacements; JavaScript Number cannot represent all admitted u64 IDs exactly."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Worn, occupancy, inventory and definition observations form a graph whose completeness must remain distinct from a valid empty result; each failed observation keeps its own first cut."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Reuse existing physical fit and graph owners while central assigns repair ownership; a native selector or JSON adapter alone does not justify a duplicate domain owner."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "UI consults compiled authored fit while reducer consults persisted item placement. Establish catalog synchronization before alleging active divergence."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Preserve valid multi-slot atomic replacements, physical attachment identities, gameplay permission checks, empty graph modes and the single encumbrance contribution."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Typed channels and fit zones precede final labels; None means whole-location reservation rather than missing validity; medication action and equipping remain distinct purposes."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Exhaustive generated/core enum adapters provide native schema separation; no unsupported derive replacement or serialization bypass is claimed."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Input key, multiple body locations, per-occupant identity, complete displacement set and attachment capacity are different semantic roles."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "UI copy and native dataset keys remain boundary material; authored item/placement/tag IDs and the legacy pipe parsing need owner and admissible grammar before replacement claims."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "u64 IDs exceed JavaScript exact integer range; packed rank arithmetic depends on authored order and depth bounds, with no observed ordering collision. Encumbrance percent is a display projection."
+    }
+  ],
+  "limitations": [
+    "Assigned 95e and 6533 bodies each personally displayed in full after registration; support bodies only in exact listed ranges, and search snippets remain in search artifacts.",
+    "No historical supporting bodies were personally displayed. Four support blobs differ between source revisions.",
+    "No product edits, repairs, builds, tests, browser, service calls, runtime probes, generated fixtures or simulations.",
+    "No product response, stored data, affected player, exploit, actual unsafe integer ID or exact alias has been observed.",
+    "Final checkpoint3821 ledger/queue missing; earlier originals, historical summaries and new reconstructed selections remain separately labelled."
+  ]
+}

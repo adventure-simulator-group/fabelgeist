@@ -1,0 +1,588 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T20:55:12.699778+00:00",
+  "scope": "Original roles 2417 and 2418, both pinned source revisions, with bounded current support. This is no whole-lens, population, checkpoint or repair-ledger closure.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "assigned_source_identity": [
+    {
+      "original_role": 2417,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/static/equipment-toggle.js",
+      "archive": "source/historical-2417.js",
+      "bytes": 16804,
+      "lines": 431,
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "git_blob_sha1": "69624598a21a9ac455db226f21d6cdadcd2b31a6",
+      "planned_display_chunks": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          431
+        ]
+      ]
+    },
+    {
+      "original_role": 2417,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/static/equipment-toggle.js",
+      "archive": "source/current-2417.js",
+      "bytes": 16804,
+      "lines": 431,
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "git_blob_sha1": "69624598a21a9ac455db226f21d6cdadcd2b31a6",
+      "planned_display_chunks": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          431
+        ]
+      ]
+    },
+    {
+      "original_role": 2418,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/static/party-trade.js",
+      "archive": "source/historical-2418.js",
+      "bytes": 34531,
+      "lines": 677,
+      "sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "git_blob_sha1": "d5d970168872800c0dafa7ec3d23d104ec0d4f1b",
+      "planned_display_chunks": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          600
+        ],
+        [
+          601,
+          677
+        ]
+      ]
+    },
+    {
+      "original_role": 2418,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/static/party-trade.js",
+      "archive": "source/current-2418.js",
+      "bytes": 34531,
+      "lines": 677,
+      "sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "git_blob_sha1": "d5d970168872800c0dafa7ec3d23d104ec0d4f1b",
+      "planned_display_chunks": [
+        [
+          1,
+          200
+        ],
+        [
+          201,
+          400
+        ],
+        [
+          401,
+          600
+        ],
+        [
+          601,
+          677
+        ]
+      ]
+    }
+  ],
+  "actual_personal_read_receipt": "read-receipt.json",
+  "support_prospective_registrations": [
+    "support-registration.json",
+    "support-registration-02.json",
+    "support-registration-03.json"
+  ],
+  "support_read_receipt": "support-read-receipt.json",
+  "git_proofs": "git-proofs.json",
+  "source_equality": "Each assigned role has identical historical and current SHA-256 and Git blob; both bodies independently displayed after prospective registration. Equal bytes do not establish unchanged transitive contracts.",
+  "recovered_history": [
+    {
+      "record": "historical-059/segovb/READ-L11-398.json",
+      "source_revision_as_recorded": "pr-working, not assigned a commit by inference",
+      "author": "Original segovb reviewer as recorded",
+      "registration": [
+        "segovb/REGISTRATION-SEGOVB-1299.json",
+        "segovb/REGISTRATION-SEGOVB-1300.json",
+        "segovb/REGISTRATION-SEGOVB-1303.json"
+      ],
+      "scope": "equipment 1–431; party-trade 375–455 originally and separate connected reinspection 1–374 and 456–677; exact chunk receipts retained."
+    },
+    {
+      "record": "historical-059/segovb/READ-L11-588.json",
+      "source_revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "author": "Delegated personal reviewer in parallel-l11 READ-052, root adoption without root personal reread",
+      "registration": "parallel-l11-20261029/PLAN-045.json rows PL11-0595 and PL11-0597",
+      "scope": "party-trade 1–677 and equipment 1–431; full fresh receipt at e275 only, no inferred current verdict or checkpoint3821."
+    },
+    {
+      "record": "historical-059/segovb/READ-L11-569.json",
+      "source_revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "scope": "Earlier party-trade same-hash own-L11 inherited 1–374,456–677 with zero fresh personal reads; exact 398 historical author attribution and constraints retained, not same as full fresh 588."
+    },
+    {
+      "record": "historical-059/segovb/READ-L12-813.json",
+      "source_revision_as_recorded": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "author": "/root/lens12_frontier",
+      "registration": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-426.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-427.json"
+      ],
+      "scope": "Each script fully read in historical Lens12, with original receipt qualifications and no cross-lens transfer; old Windows locator qualification retained."
+    },
+    {
+      "record": "older-774-index.json",
+      "source_revision_as_recorded": "pr-working with old resolved workstation path; no commit inferred",
+      "author": "rig",
+      "scope": "additional-sources.jsonl zero-based row239 RIG-OWNER-FINAL-RECEIVERS-089 equipment 1–431; traces.jsonl zero-based row28 RIG-PPS-030 fresh_current_source_reads[8] equipment 1–431; zero-based row37 RIG-PPS-038 additional_actual_source_proofs[5] party-trade 375–455 with EOF677. Exact original and distinct normalized export preserved."
+    }
+  ],
+  "prior_packets": {
+    "index": "prior-packets-index.json",
+    "qualification": "Three complete frozen separately attributed upstream packets; references are historical or independently assessed earlier work, not our fresh reads."
+  },
+  "findings_and_reconciliations": [
+    {
+      "id": "Q-L11-02f8c444a6bad5f27e22-CONNECTED-MERCHANT-PREVIEW-95E",
+      "classification": "Newly assessed conditional current source evidence extending 059 q549; central owns alias/ledger decision.",
+      "title": "Merchant gold preview nets distinct buy and sell operations and applies first sale-row price",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/party-trade.js",
+          "archive": "source/current-2418.js",
+          "lines": [
+            [
+              205,
+              227
+            ],
+            [
+              311,
+              329
+            ],
+            [
+              486,
+              542
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/trade/merchant.rs",
+          "archive": "source/support-1.source",
+          "lines": [
+            [
+              193,
+              221
+            ],
+            [
+              250,
+              272
+            ],
+            [
+              302,
+              315
+            ],
+            [
+              370,
+              410
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/inventory_forms.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              98,
+              117
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/strategic_inventory.rs",
+          "archive": "source/support-10.source",
+          "lines": [
+            [
+              196,
+              282
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+          "archive": "source/support-3.source",
+          "lines": [
+            [
+              2525,
+              2548
+            ],
+            [
+              2640,
+              2692
+            ],
+            [
+              2720,
+              2744
+            ],
+            [
+              2752,
+              2813
+            ],
+            [
+              2822,
+              2827
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/css/strategic.css",
+          "archive": "source/support-12.source",
+          "lines": [
+            [
+              637,
+              654
+            ],
+            [
+              1822,
+              1823
+            ]
+          ]
+        }
+      ],
+      "trace": "The script keys buys by catalog item and sales by inventory row, preserves separate lists on submission, yet preview first nets quantities by catalog item and chooses one buy price or the first matching sale-row price. A sale then same-item buy leaves both maps populated; one each yields net zero despite reducer computing separate purchase cost and row-specific proceeds. Template quotes buy and sale separately. For a food lot, template sell price is calculated from the lot total and server quotes the complete lot once, while the preview multiplies that lot quote by the number of units in the staged row. Same-item rows can have separately computed food lot prices, yet the preview uses the first row price for all net sales.",
+      "conditions": "For spread: eligible stocked item and owned sale row in the same scope, successful sale-then-buy staging, non-equal valid buy and sell quotes, and successful reducer admission. For food-lot multiplication: valid sellable complete lot quantity n>1 with nonzero quoted price and matched quote context. For multi-row first-price issue: at least two accepted same-item sale rows with distinct prices. The source-only centered-dialog CSS did not reveal a full-screen backdrop in these bounded rules, but real user interaction, actual stock/data, full navigation/focus routing, currency rounding, successful transaction and UI display remain unverified. No unauthorized mutation or runtime witness is claimed.",
+      "future_repair_direction": "Reconcile the staged operation model and preview with authoritative separately priced buy and exact sale rows, including whole-lot and nested/measured terms; retain reducer authority, explicit quote freshness, stock and validation checks. Decide timing of any later product verification separately.",
+      "relationships": [
+        "059 q549 already recorded the price netting/first-sale question as conditional and sought the native producer and reducer. This extends that question rather than inventing a different historical finding. The reset/provisioning concerns within q549 remain separately open."
+      ]
+    },
+    {
+      "id": "DELEGATE-EQUIPMENT-REPLACEMENT-SET-VISIBILITY-95E",
+      "classification": "Prior /root/rig_identity finding with independently assessed assigned receiver; not this agent’s historical finding or transferred support read.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/equipment-toggle.js",
+          "archive": "source/current-2417.js",
+          "lines": [
+            [
+              32,
+              42
+            ],
+            [
+              48,
+              99
+            ],
+            [
+              118,
+              162
+            ],
+            [
+              272,
+              281
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              480,
+              625
+            ],
+            [
+              730,
+              770
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              278,
+              329
+            ]
+          ]
+        }
+      ],
+      "trace": "The receiver gathers selected attachment occupants but retains a single selected occupant, and only one icon/name is presented; the mutation requests replace_occupied. Earlier frozen trade-template packet supplies independently authored catalog/graph/reducer evidence that multiple roots may be displaced in a suitable authored placement.",
+      "conditions": "Prior source example requires both appropriate compatible equipped pieces without protected children, a valid actor/current graph, successful placement and product policy requiring complete replacement legibility. No successful action, data loss, destroyed item or browser observation has been shown.",
+      "future_repair_direction": "Reconcile the authoritative displacement set and communicate all affected items before committed replacement, preserving graph freshness, admission and atomic placement semantics.",
+      "relationships": [
+        "Prior /root/rig_identity packet is preserved as prior-packets/trade-templates.tar.gz, with its own support reads and exact catalog/reducer references. This role read independently confirms the receiver logic but does not transfer their ownership/coverage."
+      ]
+    },
+    {
+      "id": "Q-L11-59ea61c2883569e0af7b-NATIVE-IDENTITY-95E",
+      "classification": "Existing 059 q548 refined by separately attributed previous producer trace and fresh receiver read.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/equipment-toggle.js",
+          "archive": "source/current-2417.js",
+          "lines": [
+            [
+              6,
+              25
+            ],
+            [
+              50,
+              80
+            ],
+            [
+              90,
+              99
+            ],
+            [
+              272,
+              281
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              310,
+              345
+            ],
+            [
+              480,
+              625
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              50,
+              65
+            ],
+            [
+              302,
+              329
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/item.rs",
+          "archive": "source/support-5.source",
+          "lines": [
+            [
+              40,
+              50
+            ]
+          ]
+        }
+      ],
+      "trace": "InventoryItem IDs are u64, equipment target form decodes parent IDs as u64, and selected parent identifiers pass through parsed JSON JS Number, numeric subtraction and JSON serialization. Root selected inventory ID uses its HTML string. Values beyond exact JS integer range can round and distinct valid IDs can coincide.",
+      "conditions": "An affected inventory ID must exceed the exactly representable Number integer range and be used on an attachment/display path; no actual such value, wrong selection or successful operation is established. Server-side conditions remain authoritative; this evidence alone shows no authorization bypass.",
+      "future_repair_direction": "Carry exact identity across the producer, browser and checked server boundary, with exact comparison and graph-validation policy; preserve intended authority and avoid compatibility aliases.",
+      "relationships": [
+        "059 q548 identified native ID safe-integer and structured attachment questions. /root/rig_identity independently traced this at current revision in trade-templates report. Maintain the earlier attribution and unresolved native policy."
+      ]
+    },
+    {
+      "id": "Q-L11-a822e43c64bf770b3e99-TARGET-ACKNOWLEDGMENT-95E",
+      "classification": "Existing 059 q546 and READ-L11-588 front-end observation reconnected to independently read current source; presentation policy/native authority remain open.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/party-trade.js",
+          "archive": "source/current-2418.js",
+          "lines": [
+            [
+              91,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/background-fetch.js",
+          "archive": "source/support-6.source",
+          "lines": [
+            [
+              38,
+              47
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              40,
+              46
+            ]
+          ]
+        }
+      ],
+      "trace": "The target editor displays a value, changes row dataset and title before issuing strategicFetch without awaiting or locally catching its Promise. The fetch helper reports non-OK responses and rethrows; the bounded target save code shows no local rollback or save acknowledgment.",
+      "conditions": "A failed or out-of-order target save can matter only when the application intends those visible values to represent accepted state, and this scope does not establish native target order, durable result, source of truth or actual failure. Earlier receipt recorded the same front-end concern at e275.",
+      "future_repair_direction": "Resolve optimistic presentation, acknowledgment, rollback, concurrent edit ordering and server ownership together; preserve independent validation and error reporting.",
+      "relationships": [
+        "059 q546 is open pending target policy and complete native owner chain. This is distinct from loot-to-target aggregation and merchant preview; no automatic alias or status change."
+      ]
+    },
+    {
+      "id": "DELEGATE-QUEST-LOOT-TARGET-PARTY-ROW-AGGREGATION-95E",
+      "classification": "Previous /root/rig_identity conditional finding, receiver independently corroborated here; prior author owns producer/reducer reads.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/static/party-trade.js",
+          "archive": "source/current-2418.js",
+          "lines": [
+            [
+              362,
+              367
+            ],
+            [
+              379,
+              397
+            ]
+          ]
+        }
+      ],
+      "trace": "The loot-target handler stages target minus the row’s data-current and already staged amount. Prior quest-template packet traces the producer as the first same-item party row instead of a sum of all matching inventory rows.",
+      "conditions": "Requires intended target semantics to aggregate multiple eligible physical rows and an available matching loot row, plus actual target-mode interaction; nested/conditioned inclusion and successful transfer remain unverified. Do not infer duplicate loot-row staging or actual loss.",
+      "future_repair_direction": "Define target aggregation and relevant inventory membership first, then connect native target owner, exact per-instance identity, staging and checked transfer without broadening unrelated groupings.",
+      "relationships": [
+        "The separate previous quest-template report supplies producer, route and reducer source reads. 059 q188 and q629 concern pair/empty-token admission; q546 concerns target-save acknowledgment. Keep distinct pending central reconciliation."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No browser, product operation, synthetic fixture or transaction was observed. The server still validates trade stock, owner, row uniqueness, quantities, available balance and equipment attachment requests within the displayed ranges and separately archived earlier proofs.",
+    "Catalog item identifiers rather than human labels are emitted by the inspected merchant template; source attribute naming alone does not show a human-label identity defect.",
+    "Same-file old/current bytes do not prove connected functions, data admission or product behavior identical.",
+    "No discrepancy is alleged for rows with coincident buy/sell prices, unit-count food lots, or same-item sale rows with identical unit quotes under otherwise matching conditions."
+  ],
+  "open_questions": [
+    "Does the real focus/navigation lifecycle permit sale-then-buy staging before submission, and what is the exact offer/preview legibility policy?",
+    "Do legitimate sellable complete food lots with quantity greater than one occur in a stocked shop; how should measured, nested and food lots be quoted and shown?",
+    "What source owns target acknowledgment and how are simultaneous writes ordered?",
+    "Which u64 IDs above safe integer limits may arise and what is the intended wire representation and policy for occupant presentation?",
+    "Can old global drafts co-exist or survive navigation in a reachable way? Is 999 actual finite stock or a display convention, and should provisioning honor it? Neither condition is established by the registered source.",
+    "How should discard-dialog Escape and broader keyboard-access policy behave? The observed Escape selector omits a discard-specific selector, but actual producer, alternative cancel selector and reachability have not been independently read."
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Target editor accepts digit-only safe integers bounded to u32, while equipment JSON parse failures become empty arrays and server decodes attachment parent as u64; malformed producer and native selection/admission semantics remain open.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Equipment graph conflicts and merchant operation lists are aggregate contracts not guaranteed by each local scalar; see replacement and q549. Server reducer is authority, not the draft.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Current and old assigned source bytes match exactly, but connected source changed independently and this is not proof the complete behavior is unchanged. Preserve multiple-item displacement, intentional target modes, draft and form outcomes during any future repair.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "No Rust trait or serialization derivation is introduced by these bounded JS receiver bodies; no conclusion about connected Rust serialization boilerplate.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Transfer modes one/target/all and boolean-like replace_occupied are carried through DOM and forms; changing representation requires tracing native producer and admission, not turning every native boolean/string into a bespoke type.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Native u64 inventory identity and checked target quantity have existing owners; JS Number attachment path loses exactness under stated condition. Existing native merchant operation values and rows should remain authoritative.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Price netting, multiplication and first-price selection combine independently priced rows; q549. Checked reducer totals and atomic row validation remain separate from preview; no arithmetic execution.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "u32 maximum and JS safe integer checks have explicit boundary roles; 999 is present as UI stock quantity while provisioning can stage more, but finite-stock policy and native stock meaning are unresolved.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Dataset values and comma-separated form fields are native encodings; current template passes catalog item ID to item-name attribute and CSS.escape is used for merchant selectors. No delimiter injection or prose identity defect asserted without full catalog/receiver proof.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "DOM controls feed JS retained maps, separate form fields and native request/reducer. Replacement/identity requires coordinated producer and checked receiver migration; old/historical support stays separately attributed.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Target DOM is updated ahead of server acknowledgment and price preview recalculates state that reducer quotes independently. Resolve authority/quote freshness policy; user display cannot become independent durable authority.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Inventory row identity differs from catalog item identity and lot total differs from unit price. Equipment parent ID, placement index and human icon label serve distinct roles; do not merge them based on common underlying primitive.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "InventoryItem owns primary ID, request/reducer owns native transaction validation and equipment graph owns displacement; JS draft owns transient presentation. Exact cross-family repair grouping and canonical owner decisions remain for central reconciliation.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source-only assessment and mathematical reasoning. No repairs, product builds, tests, browser, UI, execution, probes, simulations or validation.",
+    "Historical original evidence, reconstructed navigation subsets, previous independently assessed work and this fresh work are distinct. No prior record is promoted into checkpoint3821.",
+    "The central agent owns baseline, reconciliation, queue alias decisions, connected ledger, coverage and publication."
+  ]
+}

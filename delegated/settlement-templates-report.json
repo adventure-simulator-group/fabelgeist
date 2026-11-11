@@ -1,0 +1,663 @@
+{
+  "schema": "delegated-source-audit-report-v1",
+  "agent": "/root/hair_ops",
+  "generated_utc": "2026-11-11 20:51:49 UTC",
+  "scope": "Bounded source assessment of settlement rest/social/travel template roles 2407/2408/2413; thirteen lens perspectives do not establish any complete lens, source inventory or connected repair ledger.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_equality": "Three independently retrieved historical/current Git object pairs are byte-identical. Connected producers, personal read attribution, and behavior are not implied by byte equality.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "82f9b36ff8fc8c5f2420208ddf4431b3a06edc877b9178421b6f92666b6e06fc"
+  },
+  "role_records": [
+    {
+      "original_index": 2407,
+      "path": "crates/strategic-web/src/templates/settlement/rest.rs",
+      "current_source": "source/95e6-rest.rs",
+      "historical_source": "source/6533-rest.rs",
+      "fresh_personal_display_path": "source/95e6-rest.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          240
+        ],
+        [
+          241,
+          360
+        ],
+        [
+          361,
+          480
+        ],
+        [
+          481,
+          594
+        ]
+      ],
+      "unread_assigned_ranges": [],
+      "qualification": "One complete current-copy display after prospective registration; the independently retrieved historical object has identical bytes, not a separate historical display. Embedded tests were source-read only."
+    },
+    {
+      "original_index": 2408,
+      "path": "crates/strategic-web/src/templates/settlement/social.rs",
+      "current_source": "source/95e6-social.rs",
+      "historical_source": "source/6533-social.rs",
+      "fresh_personal_display_path": "source/95e6-social.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          240
+        ],
+        [
+          241,
+          360
+        ],
+        [
+          361,
+          420
+        ],
+        [
+          421,
+          480
+        ],
+        [
+          481,
+          600
+        ],
+        [
+          601,
+          720
+        ],
+        [
+          721,
+          840
+        ],
+        [
+          841,
+          960
+        ],
+        [
+          961,
+          1080
+        ],
+        [
+          1081,
+          1200
+        ],
+        [
+          1201,
+          1320
+        ],
+        [
+          1321,
+          1440
+        ],
+        [
+          1441,
+          1560
+        ],
+        [
+          1561,
+          1573
+        ]
+      ],
+      "unread_assigned_ranges": [],
+      "qualification": "One complete current-copy display after prospective registration; the independently retrieved historical object has identical bytes, not a separate historical display. Embedded tests were source-read only."
+    },
+    {
+      "original_index": 2413,
+      "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+      "current_source": "source/95e6-travel.rs",
+      "historical_source": "source/6533-travel.rs",
+      "fresh_personal_display_path": "source/95e6-travel.rs",
+      "fresh_personally_displayed_body_ranges": [
+        [
+          1,
+          120
+        ],
+        [
+          121,
+          240
+        ],
+        [
+          241,
+          360
+        ],
+        [
+          361,
+          480
+        ],
+        [
+          481,
+          600
+        ],
+        [
+          601,
+          720
+        ],
+        [
+          721,
+          840
+        ],
+        [
+          841,
+          960
+        ],
+        [
+          961,
+          1080
+        ],
+        [
+          1081,
+          1200
+        ],
+        [
+          1201,
+          1320
+        ],
+        [
+          1321,
+          1440
+        ],
+        [
+          1441,
+          1560
+        ],
+        [
+          1561,
+          1579
+        ]
+      ],
+      "unread_assigned_ranges": [],
+      "qualification": "One complete current-copy display after prospective registration; the independently retrieved historical object has identical bytes, not a separate historical display. Embedded tests were source-read only."
+    }
+  ],
+  "support": [
+    {
+      "registration": "support-registration-01.json",
+      "sha256": "9692abf3cd12b902684791df5a2e29d84af352850fa38300d62e7d5f23b704a7",
+      "actual_personal_ranges": {
+        "crates/strategic-web/src/routes/travel.rs": [
+          [
+            270,
+            315
+          ],
+          [
+            370,
+            405
+          ],
+          [
+            410,
+            470
+          ]
+        ],
+        "crates/strategic-web/src/routes/settlements/rest.rs": [],
+        "crates/strategic-web/src/spacetimedb/types.rs": [
+          [
+            180,
+            215
+          ],
+          [
+            645,
+            690
+          ]
+        ],
+        "crates/strategic-web/static/travel-planner.js": [
+          [
+            1,
+            55
+          ],
+          [
+            253,
+            282
+          ],
+          [
+            280,
+            305
+          ],
+          [
+            325,
+            336
+          ],
+          [
+            355,
+            383
+          ]
+        ],
+        "crates/strategic-web/static/rest-duration.js": [],
+        "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs": [
+          [
+            195,
+            290
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs": [
+          [
+            1,
+            145
+          ],
+          [
+            145,
+            275
+          ],
+          [
+            261,
+            295
+          ]
+        ],
+        "crates/adventuresim-stdb-module/src/strategic/journey_camp.rs": [
+          [
+            90,
+            175
+          ],
+          [
+            113,
+            190
+          ],
+          [
+            190,
+            225
+          ]
+        ],
+        "crates/adventuresim-stdb-client/src/journey_terrain_weights_type.rs": [
+          [
+            1,
+            19
+          ]
+        ]
+      },
+      "qualification": "Full current objects registered and retained prospectively; only enumerated ranges personally displayed; empty list means no fresh body display. Navigation matches and support do not grant original ordered-role or another lens credit."
+    }
+  ],
+  "prior_same_agent_scope": "Earlier <LOCAL_PATH_0> and web-residence reports record full personal role reads of current routes/travel.rs and routes/settlements/rest.rs respectively. Those older ordered-role credits and historical qualifications persist independently; this packet freshly re-registers and only displays bounded route travel support ranges, not any new rest route body. Prior reports preserved in reference.",
+  "prior_evidence": [
+    {
+      "assessment": "reference/prior-assessment-0.json",
+      "source": "reference/prior-travel-source-0.gz",
+      "revision_as_recorded": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "ranges_as_recorded": [
+        [
+          455,
+          548
+        ]
+      ],
+      "original_assessment_name": "ASSESSMENT-L1-STRATEGIC-CALENDAR.json",
+      "qualification": "Prior bounded source evidence, revision and author attribution remain separate. Assessment does not specify an author in an identified author field; no individual invented. Byte equality is not read-credit transfer."
+    },
+    {
+      "assessment": "reference/prior-assessment-1.json",
+      "source": "reference/prior-travel-source-1.gz",
+      "revision_as_recorded": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "ranges_as_recorded": [
+        [
+          1110,
+          1140
+        ]
+      ],
+      "original_assessment_name": "ASSESSMENT-L01-ENCOUNTER-MOVEMENT-95E.json",
+      "qualification": "Prior bounded source evidence, revision and author attribution remain separate. Assessment does not specify an author in an identified author field; no individual invented. Byte equality is not read-credit transfer."
+    },
+    {
+      "assessment": "reference/prior-assessment-2.json",
+      "source": "reference/prior-travel-source-2.gz",
+      "revision_as_recorded": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "ranges_as_recorded": [
+        [
+          1001,
+          1073
+        ]
+      ],
+      "original_assessment_name": "ASSESSMENT-L12-THREAT-MATERIALIZATION-95E.json",
+      "qualification": "Prior bounded source evidence, revision and author attribution remain separate. Assessment does not specify an author in an identified author field; no individual invented. Byte equality is not read-credit transfer."
+    },
+    {
+      "assessment": "reference/prior-assessment-3.json",
+      "source": "reference/prior-travel-source-3.gz",
+      "revision_as_recorded": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "ranges_as_recorded": [
+        [
+          1080,
+          1110
+        ]
+      ],
+      "original_assessment_name": "ASSESSMENT-L11-THREAT-ID-95E.json",
+      "qualification": "Prior bounded source evidence, revision and author attribution remain separate. Assessment does not specify an author in an identified author field; no individual invented. Byte equality is not read-credit transfer."
+    },
+    {
+      "assessment": "reference/prior-assessment-4.json",
+      "source": "reference/prior-travel-source-4.gz",
+      "revision_as_recorded": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "ranges_as_recorded": [
+        [
+          175,
+          240
+        ],
+        [
+          310,
+          350
+        ]
+      ],
+      "original_assessment_name": "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json",
+      "qualification": "Prior bounded source evidence, revision and author attribution remain separate. Assessment does not specify an author in an identified author field; no individual invented. Byte equality is not read-credit transfer."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "reference/registry.json.gz",
+      "pointer": "/files/2407",
+      "qualification": "rig RIG-PPS-038 [66,166],[299,395] scoped source; registry includes additional admission03 qualification. Not whole source or other-lens credit."
+    },
+    {
+      "record": "reference/registry.json.gz",
+      "pointer": "/files/2408",
+      "qualification": "camera CAM-PPS-DIALOGUE-040 and rig RIG-PPS-033 [620,680]; rig RIG-PPS-038 [500,560],[648,752]. Exact scoped prior authors, no automatic full-body/lens credit."
+    },
+    {
+      "record": "reference/registry.json.gz",
+      "pointer": "/files/2413",
+      "qualification": "root ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073 [1,125], ROOT-PPS-TERRAIN-DISPATCH-WEB-037 and NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015 [1,151]; rig RIG-PPS-038 [154,570],[605,685]. Preserve original read scopes."
+    },
+    {
+      "record": "historical/adler/READ-L11-394.json",
+      "reviewer": "Adler",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "role2407_assigned_ranges": [
+        [
+          66,
+          166
+        ],
+        [
+          299,
+          418
+        ]
+      ],
+      "role2407_fresh_connected_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          167,
+          298
+        ],
+        [
+          419,
+          594
+        ]
+      ],
+      "role2408_assigned_ranges": [
+        [
+          500,
+          560
+        ],
+        [
+          620,
+          752
+        ]
+      ],
+      "role2408_fresh_connected_ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          561,
+          619
+        ],
+        [
+          753,
+          800
+        ],
+        [
+          801,
+          850
+        ]
+      ],
+      "qualification": "Connected extensions have zero additional frontier credit. Adler role2407 joint full body; role2408 explicitly leaves [41,499] and [851,1573] unread. q202 supply availability retained, no product validation."
+    },
+    {
+      "record": "historical/adler/READ-L11-396.json",
+      "reviewer": "Adler",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "role2413_fresh_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "unread_tail_as_recorded": [
+        [
+          695,
+          1579
+        ]
+      ],
+      "qualification": "Truncated aggregate portions were reread in bounded chunks before historical credit; original tail was pending. This new read does not retroactively extend Adler."
+    },
+    {
+      "record": "historical/segovb/READ-L12-807.json",
+      "proposal": "historical/parallel-l12-20261029/PROPOSAL-L12-807.json",
+      "reviewer": "delegated /root/lens12_frontier; Segovb root adoption records root_personal_rereads=[]",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "fresh_role2407": [
+        [
+          1,
+          594
+        ]
+      ],
+      "fresh_role2408": [
+        [
+          1,
+          1573
+        ]
+      ],
+      "qualifications": [
+        "historical/parallel-l12-20261029/QUALIFICATION-PAR-L12-412-WINDOWS-ORIGINAL2407.json",
+        "historical/parallel-l12-20261029/QUALIFICATION-PAR-L12-413-WINDOWS-ORIGINAL2408.json"
+      ],
+      "qualification": "Separate prospective personal source read by delegated reviewer, including tests as source only; q541/q542 retained."
+    },
+    {
+      "record": "historical/segovb/READ-L12-810.json",
+      "proposal": "historical/parallel-l12-20261029/PROPOSAL-L12-810.json",
+      "reviewer": "delegated /root/lens12_frontier; Segovb root adoption records root_personal_rereads=[]",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "fresh_role2413": [
+        [
+          1,
+          1579
+        ]
+      ],
+      "qualification_record": "historical/parallel-l12-20261029/QUALIFICATION-PAR-L12-419-WINDOWS-ORIGINAL2413.json",
+      "qualification": "Historical personal whole body read, including tests source-only; no transfer into new reviewer or checkpoint3821."
+    },
+    {
+      "record": "historical/root-l2-extension-20261030/READ-ROOT-L2-EXT-052-054.json",
+      "registration": "historical/root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-052-054.json",
+      "reviewer": "historical Root Lens2 personal",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "role2407_fresh_ranges": [
+        [
+          1,
+          594
+        ]
+      ],
+      "role2408_fresh_ranges": [
+        [
+          1,
+          1573
+        ]
+      ],
+      "qualification": "q2456–2459 exact classification/policy work; separate current independent read and no other-lens transfer."
+    },
+    {
+      "record": "historical/root-l2-extension-20261030/READ-ROOT-L2-CURRENT-011.json",
+      "revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "qualification": "q2456–2459 current-main exact frozen body reuse of rest/social with zero current personal reread; preserve e275 revision, original author and proof, do not promote to 95e checkpoint3821."
+    },
+    {
+      "record": "reference/older-774-ledger.json",
+      "json_pointer": "/findings/79",
+      "contract": "M56",
+      "reviewer": "individual author unspecified in record; no author invented",
+      "revision_as_recorded": "13fc9dcc71ab879de364117e5462310673e43210",
+      "tree_as_recorded": "a12b210638996e5e2aafe99c47c6bf793f935a90",
+      "pr_head_as_recorded": "6223320d09f4691b6de54382d9709b233274d435",
+      "working_diff_sha256_as_recorded": "1cf05b602961edb05e9afa6947b217ab02be38f7389eb40380049c5c12688fe2",
+      "scope": "social.rs:466 plus earlier religion producer/native boundaries",
+      "qualification": "Older unfinished canonical religion/renunciation propagation family included branching on religion_name output. Social source snapshot and Git 13fc object hash match this packet, but old ledger marked exhaustive discovery incomplete, no completed full waves, and other producers unfinished. M56 is broader related history to q542, not automatically an exact alias or current completion."
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 202,
+      "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 541,
+      "id": "SEGOVB-L12-SOCIAL-PERSONALITY-AXIS-SLUG-ROUNDTRIP",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 542,
+      "id": "SEGOVB-L12-SOCIAL-FAITH-DISPLAY-NONE-CONDITION",
+      "status_as_recovered": "open-reconciliation"
+    },
+    {
+      "index": 1002,
+      "id": "Q-L12-60aab2cb463b5d79ec62",
+      "status_as_recovered": "open-evidence-or-disposition"
+    },
+    {
+      "index": 2456,
+      "id": "L2-REST-SERVICE-OPTIONAL-NATIVE-CLASSIFICATION",
+      "status_as_recovered": "scoped-field-classification-with-current-alias-qualification"
+    },
+    {
+      "index": 2457,
+      "id": "L2-REST-DURATION-PRESENTATION-OWNER-QUALIFICATION",
+      "status_as_recovered": "open-connected-owner-current-alias-qualification"
+    },
+    {
+      "index": 2458,
+      "id": "L2-LOCAL-CHAT-KIND-NATIVE-CLASSIFICATION",
+      "status_as_recovered": "scoped-field-classification-with-current-alias-qualification"
+    },
+    {
+      "index": 2459,
+      "id": "L2-SOCIAL-FIXTURE-INVENTORY-NATIVE-CLASSIFICATION",
+      "status_as_recovered": "scoped-field-classification-with-current-alias-qualification"
+    }
+  ],
+  "historical_manifest": {
+    "path": "historical-manifest.json",
+    "sha256": "0c3d2702ff8596071d8209b9e062f24c4e36b8c9ab0ba5f76d210701260b00e6"
+  },
+  "reference_archives": {
+    "path": "reference/manifest.json",
+    "sha256": "64d8a7d0876286744e0f5337cd06d736b1328c875e8ec9611a16e197f78e59ef"
+  },
+  "findings_and_relationships": [
+    {
+      "id": "REVIEW-CAMP-PLANNER-ACTIVE-LEG-ROUNDTRIP-95E",
+      "classification": "new source-derived conditional planner projection mismatch; no observed gameplay state or rendering",
+      "first_contract": "Native case-site start stores the outbound active leg, its forecast camp intervals and elapsed time only. The camp template treats a case-site destination as a round trip, passes outbound-plus-return movement total to the planner and synthesizes persisted movement up to twice the outbound duration inside the stored outbound elapsed time. The client positions both the quest turnaround and the return End on this mixed representation.",
+      "sources": [
+        "adventuresim-stdb-module/src/strategic/travel_reducers.rs:249-286",
+        "adventuresim-stdb-module/src/strategic/journey_camp.rs:113-190,200-218",
+        "templates/settlement/travel.rs:484-525,536-546,696-797,827-848,952-965",
+        "strategic-web/static/travel-planner.js:15-18,47-54,325-336,368-383"
+      ],
+      "conditions": "An active journey to a case site reaches camp with a remaining walking interval and its camp page receives a stored journey. For outbound movement A, a synthetic trailing walking interval ending at 2A is compressed into the native outbound-only elapsed interval; if an independently stored return B differs from A, another field instead says A+B. Client interpolation may place the quest/return markers before the corresponding active-leg arrival. This is symbolic source reasoning, not an observed user session, runtime, actual asymmetric route, or claim the stored authority moves a character incorrectly.",
+      "safeguards": "Native case-site route admission validates outgoing and independently planned return; a later return starts its own active journey. Map pre-departure round-trip forecasting is a separate intended view. Preserve camp status, actual-versus-forecast boundaries and correct duration authority.",
+      "relationship": "q1002 records a broader return-route and timing policy question; old strategic calendar assessment previously read travel.rs:455–548 at c100 but did not establish this active-leg-to-display mismatch. Current 059 identities and prior assessments searched without exact alias found. The neighboring mirrored terrain case is a distinct transformation in the same planner family.",
+      "future_repair_direction": "After the audit gate, define whether the camp timeline represents the actual active leg or a separate full round-trip projection; compute movement, elapsed, return route and markers coherently from the same declared authority, including independently timed return legs."
+    },
+    {
+      "id": "REVIEW-CAMP-PLANNER-TERRAIN-DOUBLE-MIRROR-95E",
+      "classification": "new source-derived conditional duplicate terrain projection; no browser/render execution",
+      "first_contract": "Camp template serializes outbound spans followed by separately stored return-route spans with outward-time offset. For a planner marked round-trip, terrainPieces then adds a mirrored copy of every already-present span across the total route, while renderTerrain creates a node and accessible-list item for every resulting piece.",
+      "sources": [
+        "templates/settlement/travel.rs:486-499,536-546,952-965,1204-1235",
+        "adventuresim-stdb-module/src/strategic/travel_planning.rs:213-235,260-288",
+        "strategic-web/static/travel-planner.js:19-40,253-282,285-304,368-383"
+      ],
+      "conditions": "Camp page has a nonempty valid outward and return terrain path, a case-site destination, positive total/turnaround and itinerary walking segments. Every original and mirrored path can overlap for the same elapsed interval; with different leg surfaces or checks labels may disagree. Source shows two representations, but no actual route data, rendered overlay, accessibility output or consumer runtime has been observed.",
+      "relationship": "Connected to the active-leg/round-trip mismatch through camp planner state but caused by a distinct JS mirroring transformation; do not automatically merge them. Prior water forecast and terrain cache issues concern different first cuts.",
+      "future_repair_direction": "After the audit gate, make the route-span protocol explicitly distinguish one-way from fully assembled round-trip data and map each actual segment once, preserving separate outbound and independently planned return terrain."
+    },
+    {
+      "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+      "classification": "historical 059 q202, existing current trace; no new duplicate",
+      "sources": [
+        "templates/settlement/rest.rs:105-165",
+        "reference/prior-same-agent-web-travel-report.json"
+      ],
+      "detail": "Soap and alcohol presentation outputs confirmed absence or consumption from plain preview fields. Earlier independently traced producer error-to-default conditions remain qualified in web-travel report. No supply read failure, predicted wash or rendering observed."
+    },
+    {
+      "id": "SEGOVB-L12-SOCIAL-PERSONALITY-AXIS-SLUG-ROUNDTRIP",
+      "classification": "historical 059 q541, source relationship",
+      "sources": [
+        "templates/settlement/social.rs:157-188"
+      ],
+      "detail": "Typed PersonalityAxis is converted to a slug and matched again before final explanatory prose. Preserve earlier author, owner, revision and pending status; no unsupported unrecognized value observed."
+    },
+    {
+      "id": "SEGOVB-L12-SOCIAL-FAITH-DISPLAY-NONE-CONDITION",
+      "classification": "historical 059 q542, related older 774 M56",
+      "sources": [
+        "templates/settlement/social.rs:451-467",
+        "reference/older-774-ledger.json /findings/79"
+      ],
+      "detail": "The About response branches on the human label None rather than the underlying optional faith. The older M56 documents a broader producer/type/renunciation family including this exact presentation boundary in an earlier unfinished review. No false religion belief or invalid current state observed."
+    },
+    {
+      "id": "L2-REST-DURATION-PRESENTATION-OWNER-QUALIFICATION",
+      "classification": "historical q2457 open owner qualification",
+      "sources": [
+        "templates/settlement/rest.rs:66-103,282-350,387-419"
+      ],
+      "detail": "A wake minute-of-day, whole-day service duration and recommended minutes have different semantics; current full producer and admission scope remain required. No numerical defect established from raw representations alone."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "RestServiceKind parses an existing venue enum into Inn/Temple/Residence and uses None for residence public service; different tag versus route place strings are native boundaries, not an automatic duplicate authority (q2456).",
+    "Social uses LocalChatKind as an enum internally and selects a native tag at the DOM boundary; fixtures are separate from NPC loaders, and the forge is explicitly a service affordance (q2458/q2459).",
+    "Native generated JourneyTerrainWeights contains plains, forest, hills, wetlands and urban only; snow is represented by separate route weather metadata. No omitted sixth terrain weight defect is established here.",
+    "The existing camp source test assumes 2× outward movement in the synthesized itinerary; it was inspected only, never run, and does not prove native active-leg policy or independent-return parity.",
+    "Native return validation requires independently planned reverse routes, with no equality requirement in inspected validation. No real asymmetric route, actual camp, DOM, accessibility tree or browser behavior was observed.",
+    "Existing q202 supply query failure remains distinct from confirmed no supply. Earlier inn charge, rest summary completeness, and path/actor binding are separately assessed in the preserved same-agent web-residence packet; no alias inferred.",
+    "No product repair, test, runtime probe, UI inspection, simulation, build, or publication edit occurred. Other route endpoints, exact 774 aliases and all source populations remain open."
+  ],
+  "lens_notes": {
+    "producer_propagation": "Active-leg forecast flows into camp timeline interpreted as a full round trip; serialized outward and return spans are mirrored again. q202 tracks supply availability through rest presentation.",
+    "type_ownership": "q541 preserves typed personality axis; q542 and historical M56 preserve optional faith before presentation; q2457 asks minute-of-day owner.",
+    "type_granularity": "Rest duration, minute-of-day, active-leg movement, complete-trip movement and elapsed time represent distinct quantities. No automatic equalization of these types or historical identities.",
+    "admission_contracts": "Native return route is independently validated for geometry and contiguous spans; terrain weights sum to 1000. No assertion of arbitrary invalid inputs as normal player data.",
+    "invariant_operations": "Case-site timeline doubles outward movement while using active-leg elapsed duration; mirror operation reprocesses already assembled spans. Both are conditioned source-derived representation issues.",
+    "enum_shapes": "RestServiceKind and LocalChatKind preserve local typed choices; optional residence public-service None is deliberate. Social faith branches on final label under q542.",
+    "aggregate_states": "Travel timeline must keep movement/elapsed/leg boundaries/camps coherent; route data must state whether both directions are present. Soap preview availability and consumption flags have related but distinct meanings.",
+    "magic_numbers": "Wake-day arithmetic, bounded route weights and duration units reflect different contracts; speculative 2× is the source-derived active-leg mismatch, not a generic numeric-literal claim.",
+    "magic_strings": "Form actions and DOM tags are native adapters, while q541 reclassifies an axis slug and q542 branches on human None before final display.",
+    "existing_type_owners": "SettlementVenueKind, LocalChatKind, PersonalityAxis, OfficialReligion and strategic minute/route owners already exist. Reuse appropriate semantic owners without narrowing broader faith or confusing duration with time-of-day.",
+    "redundant_authority": "Active-leg movement and speculative return movement are recomputed against one elapsed total; serialized return spans and client mirror independently duplicate a path representation.",
+    "behavior_preservation": "Keep active-leg-only native progress, separately planned return and predeparture full-trip forecast distinct, retain legitimate no-service/no-supply cases and observer-specific social beliefs.",
+    "derivability": "Simple Clone/Copy/Eq derives are present; no redundant handwritten semantic validation or serializer removal is established in this bounded scope."
+  },
+  "limitations": {
+    "assigned_role_source_display_complete": true,
+    "implementation_or_product_validation": false,
+    "evidence_only": "Read-only source, Git objects, recovered JSON/gzip and hash verification. No repairs, product changes, builds, tests, UI, runtime probes or simulations.",
+    "publication": "Central owns baseline, cross-lens identity, ledger and checkpoint publication; earlier records retain their revisions and cannot be promoted to checkpoint3821."
+  }
+}

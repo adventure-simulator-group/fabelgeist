@@ -1,0 +1,943 @@
+{
+  "schema": "726-delegated-strategic-scripts-report-v1",
+  "created_utc": "2026-11-11 20:53:34 UTC",
+  "status": "bounded source assessment; all thirteen repository-wide lenses incomplete; no implementation or product validation",
+  "baseline": {
+    "current_working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "older_774_transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "checkpoint3821": "Original final ledger and queue unavailable; 059 and 774 are earlier records and are never promoted."
+  },
+  "scope": "Original roles 2414 and 2419\u20132422; all five assigned bodies separately displayed in full at each pinned revision after registration. Current support bounded by recorded actual read ranges. Source inspection only.",
+  "registrations": {
+    "registration.json": {
+      "sha256": "af195e3c2485e2610817ffd0b78018d5dd15dd890dfc6e9354a043c046128597"
+    },
+    "support-registration.json": {
+      "sha256": "a78a434afc59d25cf26fca185a58d3a6b8a66d08a2aca4539cc5a3459c6bb8bd"
+    },
+    "support-registration-2.json": {
+      "sha256": "3280ed3c3b4a23db88ae9b62dbd37688e0723c317a68351723dde558a5ba1223"
+    },
+    "support-registration-3.json": {
+      "sha256": "f3f90d8a4acaf705bc0bc3855b2f280647c610a8cc319ea6dd5b742c6deced88"
+    },
+    "support-registration-4.json": {
+      "sha256": "ebbedbe54a2f5025935bcd7dd12e70d91d03677f87e266f4641d396d181702cc"
+    },
+    "historical-support-6533-registration.json": {
+      "sha256": "016df8cbebc1c875a3a2dbf874f26c6b2c833c8aee12b55d563903b4fa1b9856"
+    },
+    "historical-e275-registration.json": {
+      "sha256": "7b3b34637bebf089f92e0f77dcffd6dbb371484f4f4f77a16dcdbaee4b308214"
+    }
+  },
+  "original_roles": [
+    {
+      "original_role": 2414,
+      "path": "crates/strategic-web/static/dialogue-client.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/static/dialogue-client.js",
+      "historical_source": "sources/6533/crates/strategic-web/static/dialogue-client.js",
+      "current_sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "historical_sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "git_blob": "e2bfcbe72b886e4b7e98444bee27e2aa8771ca0a",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          825
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          825
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2419,
+      "path": "crates/strategic-web/static/physical-evidence.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/static/physical-evidence.js",
+      "historical_source": "sources/6533/crates/strategic-web/static/physical-evidence.js",
+      "current_sha256": "9691fa30e24bdd7bfaa57d3728a118b080721270ae7e3883e7d8fd1db25a7878",
+      "historical_sha256": "9691fa30e24bdd7bfaa57d3728a118b080721270ae7e3883e7d8fd1db25a7878",
+      "git_blob": "a81e3e51915642812504a4ac01ccdf75b49a1062",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2420,
+      "path": "crates/strategic-web/static/portrait-navigation.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/static/portrait-navigation.js",
+      "historical_source": "sources/6533/crates/strategic-web/static/portrait-navigation.js",
+      "current_sha256": "13f4ed6879eaf8ddf932abef7e3d0d76543326721b3628c5a163448049a54bc3",
+      "historical_sha256": "13f4ed6879eaf8ddf932abef7e3d0d76543326721b3628c5a163448049a54bc3",
+      "git_blob": "c27a513b1c3c961044be5b4f89bfcf5f352a3220",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2421,
+      "path": "crates/strategic-web/static/regional-map-view.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/static/regional-map-view.js",
+      "historical_source": "sources/6533/crates/strategic-web/static/regional-map-view.js",
+      "current_sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+      "historical_sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+      "git_blob": "1ae977ba67dd554eef09d773f83937c3793614a9",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    },
+    {
+      "original_role": 2422,
+      "path": "crates/strategic-web/static/strategic-condition.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_source": "sources/95e6/crates/strategic-web/static/strategic-condition.js",
+      "historical_source": "sources/6533/crates/strategic-web/static/strategic-condition.js",
+      "current_sha256": "a79949b29f56a6d20af7f42d71ccda2dd39d9220aaf08f965499e9343067d42f",
+      "historical_sha256": "a79949b29f56a6d20af7f42d71ccda2dd39d9220aaf08f965499e9343067d42f",
+      "git_blob": "2e06c44d9a529dc551bb442cc536e74e54fc7056",
+      "byte_identical": true,
+      "actual_personally_displayed_current_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual_personally_displayed_historical_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "reader": "current-session delegate /root/rig_identity; each revision separately displayed after prospective registration; no earlier reader or lens credit transferred"
+    }
+  ],
+  "support_source_reads": [
+    {
+      "path": "crates/strategic-web/src/routes/characters.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "current_source": "support/crates/strategic-web/src/routes/characters.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/characters.rs",
+      "historical_sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/mod.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "current_source": "support/crates/strategic-web/src/routes/mod.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/mod.rs",
+      "historical_sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/spacetimedb/types.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "current_source": "support/crates/strategic-web/src/spacetimedb/types.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/spacetimedb/types.rs",
+      "historical_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "current_source": "support/crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "historical_sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "382210b89e6af39f692ff2a32955d40440b11028c00b996d9250d01005cc2890",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          80,
+          150
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "historical_sha256": "382210b89e6af39f692ff2a32955d40440b11028c00b996d9250d01005cc2890",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "current_source": "support/crates/strategic-web/src/templates/settlement/character_health.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          450,
+          525
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/settlement/character_health.rs",
+      "historical_sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/interface_help.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "current_source": "support/crates/strategic-web/src/templates/interface_help.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          90,
+          119
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/interface_help.rs",
+      "historical_sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "current_source": "support/crates/adventuresim-stdb-module/src/condition.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          70,
+          135
+        ],
+        [
+          1260,
+          1400
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/condition.rs",
+      "historical_sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/capability.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "current_source": "support/crates/adventuresim-stdb-module/src/capability.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/capability.rs",
+      "historical_sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/incapacitation.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "current_source": "support/crates/adventuresim-core/src/combat/incapacitation.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/combat/incapacitation.rs",
+      "historical_sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/evidence.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "11fbfd64e630573337eef87f4a4046264f76af8060d812b153b5f5c7af4af96e",
+      "current_source": "support/crates/strategic-web/src/routes/evidence.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/evidence.rs",
+      "historical_sha256": "11fbfd64e630573337eef87f4a4046264f76af8060d812b153b5f5c7af4af96e",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          140,
+          180
+        ],
+        [
+          426,
+          445
+        ],
+        [
+          580,
+          815
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "historical_sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "current_source": "support/crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "historical_sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/quest.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "current_source": "support/crates/strategic-web/src/templates/quest.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          205,
+          245
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/templates/quest.rs",
+      "historical_sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/background-fetch.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "current_source": "support/crates/strategic-web/static/background-fetch.js",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/background-fetch.js",
+      "historical_sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-navigation.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "current_source": "support/crates/strategic-web/static/strategic-navigation.js",
+      "actual_current_personal_body_ranges": [
+        [
+          75,
+          105
+        ],
+        [
+          110,
+          151
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/strategic-navigation.js",
+      "historical_sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/strategic-scene.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "current_source": "support/crates/strategic-web/static/strategic-scene.js",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          110,
+          145
+        ],
+        [
+          320,
+          351
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/strategic-scene.js",
+      "historical_sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/regional-environment-request.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "f880262fe8d4e0c15172c764fa4fa672642c36b590e4ed94bb3335f7ea2cd683",
+      "current_source": "support/crates/strategic-web/static/regional-environment-request.js",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/regional-environment-request.js",
+      "historical_sha256": "f880262fe8d4e0c15172c764fa4fa672642c36b590e4ed94bb3335f7ea2cd683",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/regional-city-request.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "d69e67f0f2326f22cd672cda84255ac4176d47947aa761e0dd31a7f8424ec60d",
+      "current_source": "support/crates/strategic-web/static/regional-city-request.js",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/regional-city-request.js",
+      "historical_sha256": "d69e67f0f2326f22cd672cda84255ac4176d47947aa761e0dd31a7f8424ec60d",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/regional-city-installation.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e472626ecf21d10b2b4cc23c332589717b0ef81d1d859a2aee4c8128934d924a",
+      "current_source": "support/crates/strategic-web/static/regional-city-installation.js",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/regional-city-installation.js",
+      "historical_sha256": "e472626ecf21d10b2b4cc23c332589717b0ef81d1d859a2aee4c8128934d924a",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/regional-map-gestures.js",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "13f1e501c8f7d5d12709265f8fa1fb2f830a13188e56ef1b141478f86d563363",
+      "current_source": "support/crates/strategic-web/static/regional-map-gestures.js",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/regional-map-gestures.js",
+      "historical_sha256": "13f1e501c8f7d5d12709265f8fa1fb2f830a13188e56ef1b141478f86d563363",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/morale.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "current_source": "support/crates/adventuresim-core/src/morale.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          195,
+          250
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-core/src/morale.rs",
+      "historical_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "current_source": "support/crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "historical_sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/static/css/strategic.css",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "b049217a0a6c1bed667dda6147d001adbaeb3824a2fe131b58e1db92b27049a5",
+      "current_source": "support/crates/strategic-web/static/css/strategic.css",
+      "actual_current_personal_body_ranges": [
+        [
+          5025,
+          5065
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/static/css/strategic.css",
+      "historical_sha256": "b049217a0a6c1bed667dda6147d001adbaeb3824a2fe131b58e1db92b27049a5",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/live.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "d8611d26f2f703a8230242abbbac3daf99979f4eefdf9f75066f6d1278305103",
+      "current_source": "support/crates/strategic-web/src/live.rs",
+      "actual_current_personal_body_ranges": [],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/live.rs",
+      "historical_sha256": "d8611d26f2f703a8230242abbbac3daf99979f4eefdf9f75066f6d1278305103",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/strategic-web/src/routes/dialogue.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "current_source": "support/crates/strategic-web/src/routes/dialogue.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          135,
+          170
+        ],
+        [
+          270,
+          320
+        ],
+        [
+          1030,
+          1105
+        ],
+        [
+          1470,
+          1505
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/strategic-web/src/routes/dialogue.rs",
+      "historical_sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "e4d41b00ab0fa12d2a25debabca551b7981b1d47f25067d788f473f125a490e2",
+      "current_source": "support/crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "historical_sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "historical_byte_identical_to_current": false,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "current_source": "support/crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "actual_current_personal_body_ranges": [
+        [
+          305,
+          328
+        ],
+        [
+          1980,
+          2075
+        ]
+      ],
+      "search_only_displayed_snippets": "Exact selected search output retained in search-*.txt; any additional bounded match snippets do not count as body-range reads.",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "historical_source": "historical-support-6533/crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "historical_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "historical_byte_identical_to_current": true,
+      "historical_personal_body_ranges": [],
+      "qualification": "Supporting source only; whole archived bytes do not expand actual personal body-read ranges, ordered-role or other-lens credit."
+    }
+  ],
+  "recovered_history": {
+    "adler_059": "READ-L11-396/REG1292 personally records 2414 fresh 1\u2013115, 250\u2013397, 480\u2013712; REG1293 records the separate mandatory connected extension 116\u2013249, 398\u2013479, 713\u2013825, zero additional frontier credit. Combined covers the body in that assessment but must not enlarge the older 774 receipt.",
+    "segovb_059": "READ-L11-398/REG1301,1302 records 2419 fresh 1\u2013150,151\u2013214 and 2420 1\u201344; READ-L11-399/REG1304,1305 records 2421 1\u2013161 and 2422 1\u201369. READ-L11-400/REG1316\u20131318 is a later fresh connected dialogue 700\u2013825,145\u2013175 plus background-fetch 1\u201383, not a whole re-read. Accepted unique delta 0, current_reconciled false and no validation.",
+    "delegated_059": "READ-L12-811 records /root/lens12_frontier prospectively personally full 2414 1\u2013825 PAR420; READ-L12-814 records full 2419/2420/2421/2422 under PAR428\u2013431 respectively. Root personal rereads empty, adoption numbers are not new prospective root reads, accepted unique delta 0, current_source_reconciled false, no other-lens transfer. Exact PAR420/428/429/431 Windows-path qualifications preserved.",
+    "own_l3_059": "q203 attaches ROOT-L3-EXT-0055, root personal fresh independent Lens3 historical 6533 1\u2013825; its later e275 current-scope qualification reused exact source identity with fresh_personal_ranges empty. Preserve revisions and distinction; neither is 95e reader credit or global resolution. Exact receipts, prospective registrations and proposal records retained. Independent raw Git proof binds the same body to e275, but this delegate did not personally display that revision.",
+    "older_774": "Role 2414 CAM-PPS-DIALOGUE-040 /related_current_sources/17 and RIG-PPS-033 /fresh_current_additional_source_reads/17 each record 250\u2013397,530\u2013712. CAM-PPS-SOCIAL-027 /current_sources/18 and RIG expanded-producer-role-delta-051 /fresh_source_proofs/10 separately record 480\u2013555. Root ROOT-ADMISSION03-REG-040 prospectively registered 1\u2013115, but its actual material qualification is only 4\u201372 and 100\u2013108; no full source or other-lens credit. RIG-PPS-038 /additional_actual_source_proofs/7,/4,/6 records 2419 1\u2013214, 2420 1\u201344, 2422 1\u201369. For 2421, RIG-OWNER-FINAL-RECEIVERS-089 rig additional-sources zero-based row231/physical line232 and RIG-PPS-030 /fresh_current_source_reads/0 record 1\u2013161. Registry owner_fit_delta_status remains incomplete_explicit_contract_comparison_required. f82 is only transport, pr-working original source attribution/ranges remain as recorded.",
+    "previous_current": "/root/hair_ops web-dialogue support-registration-01 SHA 1af7bc0b6c237ded04de890ce990a8dd76a4380e34ff9fe08996df0022bf437e recorded 2414 current 95e lines 250\u2013290,315\u2013360,365\u2013413,565\u2013596 only. /root/hair_ops web-data support registration a965b49e819ffef9668e9ec6e01ef8527bb067a370f5ad98a80d17a5c1e9eb6e recorded characters.rs 40\u201395,175\u2013220; web-projection registration 286a7c68c7f3c115f8cb592861bb579ddfb12266f62501918cf60ed94ae88f18 recorded characters.rs 210\u2013245,250\u2013315,318\u2013350,374\u2013393. Their exact reports, registrations and source artifacts plus /root/mhr_character web-character-details, /root/hair_ops web-equipment and /root/rig_identity web-map packets are separately retained. No authorship or scoped read credit transferred.",
+    "reconstruction": "registry-selection-reconstructed.json selects exact original 059 registry rows; it is not a recovered original checkpoint3821 queue or ledger. Exact earlier 059 queue/ledger/transport, older original/variant 774 and source objects remain separate.",
+    "historical_support": "Twenty-seven of 28 supporting files are byte-identical at 6533 and 95e; native tactical-client regional_map/status.rs differs. Exact older hashes and Git object path proofs recorded; no historical supporting body was personally displayed, and current findings are not promoted to old revision."
+  },
+  "findings_and_connected_questions": [
+    {
+      "id": "CONDITION-ALL-WHEELS-REJECT-95E",
+      "classification": "current source finding refining existing 059 q552; distinct first failure subject to central alias reconciliation",
+      "title": "One failed subject request prevents all wheels in the refresh from applying",
+      "source": [
+        "crates/strategic-web/static/strategic-condition.js:6-11,36-64",
+        "crates/strategic-web/static/background-fetch.js:38-46,55-67",
+        "crates/strategic-web/src/routes/characters.rs:52-86"
+      ],
+      "trace": "Refresh awaits Promise.all before rendering any wheel. strategicBackgroundFetch calls strategicFetch, which throws on every non-OK response before the response.ok fallback can execute. The condition route returns 401, 404, or 403 for authentication/observation/frontier/party/location failures. One rejection therefore causes the aggregate await to reject and none of that refresh's successful wheel results are applied; independent fetches may continue. A 200 JSON null separately renders the individual unavailable state, including when the condition query fails or returns no row.",
+      "conditions": "Requires a refresh containing at least one failed request and at least one wheel. No actual network failure, rendered outcome or user data was observed. Wheels can remain loading or retain their previously rendered value; no claim that every underlying request fails. When null is rendered, the previous data-condition-status attribute is not cleared, but no red ring or visual consequence is claimed without rendering evidence.",
+      "future_repair_direction": "Resolve results per subject, preserving authorized observation and individual unknown/error states, without exposing restricted data; keep newer-generation freshness and cancel semantics explicit. Define distinct missing versus backend failure only after tracing producer/error policy.",
+      "relationships": [
+        "059 q552 Q-L11-166d8c725fa6521a3142 explicitly requested availability, producer and encumbrance reconciliation. READ-L11-399 historically recorded that exceptions retain the earlier wheel until global reporting; this is a newly assessed precise Promise.all/fetch/403 trace, not a claim the historical observation was novel or already closed."
+      ]
+    },
+    {
+      "id": "PHYSICAL-EVIDENCE-SELECTION-RESPONSE-95E",
+      "classification": "new bounded current source finding; related to 059 q547 without asserting exact alias",
+      "title": "A completed inspection can replace a newer selection in the same mount",
+      "source": [
+        "crates/strategic-web/static/physical-evidence.js:112-133,136-172,180-200",
+        "crates/strategic-web/src/routes/evidence.rs:59-92,158-201",
+        "crates/adventuresim-stdb-module/src/investigation/model.rs:142-169,426-435,587-675,718-730,799-805",
+        "crates/strategic-web/static/strategic-navigation.js:91-100,117-133"
+      ],
+      "trace": "An inspection POST uses the selected topic and independently awaits a response. Clicking another evidence item while that request is pending changes selectedId and details, but completion unconditionally replaces the returned item and calls selectEvidence(updated, button), restoring the older item and its description/conversation. The reducer keys an exact action receipt by action ID/actor/evidence/topic and the underlying attempt by actor/evidence/topic; already attempted results are reused, with successful results potentially augmented by newly learned lore.",
+      "conditions": "Requires a pending request and selection change before its successful response in the same mount; no click, request, live data, accepted action or user-visible race was observed. A per-click action ID is not by itself proof of a duplicate inspection attempt or universal exactly-once contract. The request is not bound to the mount signal, but detached references do not by themselves prove stale mutation of a live page.",
+      "future_repair_direction": "Bind view publication to its originating selection and mount identity while separately retaining permitted authoritative result/cache updates. Trace current mount replacement and decide stale error reporting independently of backend action receipt guarantees.",
+      "relationships": [
+        "059 q547 Q-L11-d405c7e56b251cc465c6 already posed physical evidence mount lifetime, action IDs and native receipt questions without adjudicating first failure. This separate same-mount selection trace refines that family; central decides whether any exact identity relationship is warranted."
+      ]
+    },
+    {
+      "id": "ERRANTRY-ACTION-STATUS-RESET-95E",
+      "classification": "new current source finding, qualifying the historical wrapper-only assessment; actual retry failure unproven",
+      "title": "The errantry retry helper cannot observe the HTTP statuses it handles",
+      "source": [
+        "crates/strategic-web/static/dialogue-client.js:53-68,263-271,596-617",
+        "crates/strategic-web/static/background-fetch.js:38-46",
+        "crates/strategic-web/src/routes/dialogue.rs:278-312",
+        "crates/adventuresim-stdb-module/src/strategic/challenges.rs:313-324,1988-2060"
+      ],
+      "trace": "createRetriableAction retains its action ID after failures except 409/422, where it intends to clear it. Its request wrapper would attach error.status for non-OK responses, but strategicFetch throws a plain Error first, so that wrapper's non-OK branch cannot execute. The current errantry route maps every DB call error to 422; a failed call reaches the retry helper without numeric status and retains its previous ID. The native owner checks exact session/action receipt first, confirms actor and current case/contract, and otherwise validates live dialogue presence, issuer and materialization before creating a receipt.",
+      "conditions": "Requires an acceptance request returning a non-OK response, particularly the reachable 422 mapping. Retention is a source-proven mismatch with the helper's explicit branch, not proof that a later retry fails, mutates twice, or needs a fresh ID: a failed request lacking an existing receipt may later succeed with the same ID, and exact lost-response retries benefit from stable identity. The route also combines all DB failures as 422, so blindly resetting all such failures could lose a needed replay identity. No network, reducer or browser execution occurred.",
+      "future_repair_direction": "Preserve structured status/cause at the fetch boundary and define an authority-aware distinction between definitive rejection and ambiguous delivery, coordinating action identity and native receipt reuse. Preserve authorized actor/presence checks and exact replay semantics.",
+      "relationships": [
+        "READ-L12-811 historical Lens12 summary described the wrapper as retaining numeric status and the helper clearing 409/422. That is a historical summary of its scoped inspection; this separately registered fetch boundary contradicts the assumed actual call chain at 95e and must be attached as a qualification, not rewritten into its original record or attributed to its reviewer. ROOT-ADMISSION03-REG-040 historically materialized helper lines 4\u201372 and 100\u2013108 only; see older 774 attribution below."
+      ]
+    },
+    {
+      "id": "SEGOVB-L11-STALE-RESIDENT-SELECTION",
+      "classification": "existing 059 q203 finding reconnected to current exact source; no new unique count",
+      "title": "A completed obsolete resident load can publish a global selection",
+      "source": [
+        "crates/strategic-web/static/dialogue-client.js:145-149,734-765,770-825",
+        "crates/strategic-web/static/strategic-scene.js:11-24,341-350",
+        "crates/strategic-web/static/strategic-navigation.js:91-100,117-133"
+      ],
+      "trace": "The mount awaits a shared loadPeople promise and then calls selectNpc without checking the originating mount after success. Unmount aborts listener lifecycle, but loadPeople uses a shared request promise without a per-consumer signal or freshness check; selectNpc dispatches a global selection event, and the strategic scene handler updates its own selection. Its catch checks the aborted signal, unlike the successful completion.",
+      "conditions": "Requires an old mount response to arrive after navigation/unmount and a current scene listener; whether the native renderer accepts, changes, or shows the selected character was not established. No completed request, wrong visible NPC, authorization effect, or runtime race observed.",
+      "future_repair_direction": "Guard each consumer publication by its own current mount identity after await while preserving shared in-flight cache and current mount behavior. Trace native membership/selection and exact alias family separately.",
+      "relationships": [
+        "The 059 queue q203 and Segovb READ-L11-400/REG1316\u20131318 already record this exact first contract and connected stale-success trace. Root independent own-L3 historical fresh body 6533 1\u2013825 and its later e275 own-L3 byte-equality qualification are distinct; the e275 qualification explicitly has no fresh current read. No historical body or other-lens credit is transferred."
+      ]
+    },
+    {
+      "id": "CONDITION-WHEEL-ENCUMBRANCE-QUESTION-95E",
+      "classification": "existing 059 q552 cross-owner policy question; no confirmed combat defect",
+      "title": "The strategic portrait wheel omits the separately computed tactical burden",
+      "source": [
+        "crates/strategic-web/src/templates/settlement/chrome/portraits.rs:136-142",
+        "crates/strategic-web/static/strategic-condition.js:16-39",
+        "crates/adventuresim-stdb-module/src/condition.rs:85-118,1344-1395",
+        "crates/adventuresim-core/src/morale.rs:210-230",
+        "crates/adventuresim-tactical-server/src/combat/condition.rs:63-78",
+        "crates/adventuresim-core/src/combat/incapacitation.rs:28-31,56-64",
+        "crates/strategic-web/src/templates/interface_help.rs:95-100"
+      ],
+      "trace": "The strategic portrait mounts a wheel and its projected condition contains seven components and their total, not encumbrance; the browser renders those components capped at 360 degrees. The strategic projection explicitly excludes live tactical impairment. The tactical combat server separately adds its computed encumbrance once to its combat total.",
+      "conditions": "The repository instructions require encumbrance to contribute once to combat incapacitation and be shown in translucent grey. The inspected sources do not decide whether this separate strategic pre-combat portrait must anticipate the burden or how an authorized estimate becomes available. No current double penalty or tactical movement-speed penalty follows; no product validation. Interface help describes grey as available when shown.",
+      "future_repair_direction": "Determine the display contract for the strategic portrait and, if required, use an authorized, availability-aware burden estimate while keeping tactical tick state transient and the combat sum single-counted. Coordinate the inventory/encumbrance input-completeness owner separately.",
+      "relationships": [
+        "059 q552 expressly asks for encumbrance, component finiteness, total and availability reconciliation. Prior /root/hair_ops web-equipment report discusses encumbrance aggregate input availability, which is related by data ownership but not automatically the same first failure."
+      ]
+    },
+    {
+      "id": "REGIONAL-MAP-READINESS-COVERAGE-QUESTION-95E",
+      "classification": "conditional current source policy question; no product defect claimed",
+      "title": "Map ready and terrain coverage are published as separate facts",
+      "source": [
+        "crates/strategic-web/static/regional-map-view.js:87-103,135-152",
+        "crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs:91-169"
+      ],
+      "trace": "The browser's data-regional-map-ready marker depends on prepared request, acknowledgment and native state.ready; its status text independently reports unavailable terrain when state.covered is false and can report failed or loading city detail. Native readiness requires a settled matching viewport, environment readiness and no failure or capacity overflow, while covered independently requires a drawn surface. Thus a prepared, acknowledged, settled but not drawn surface can meet ready while the status says terrain unavailable.",
+      "conditions": "Whether ready means a settled renderer with graceful missing-terrain fallback or usable geographic terrain is not established. Native failures and route/connection capacity overflow do prevent native readiness, and no claim is made that these report ready. No actual map state or UI was observed. The native status source changed since 6533; the supporting historical bytes are archived but not personally read or represented as the current contract.",
+      "future_repair_direction": "Specify readiness, terrain coverage and city-detail semantics for each consumer, and enforce the agreed distinction while preserving existing error messages, scope identity, overlay acknowledgment and valid fallback modes.",
+      "relationships": [
+        "The separately authored /root/rig_identity web-map packet covers original server roles 2364\u20132368 and map geometry/source identity questions; it does not establish this browser/native readiness policy, and no alias is assumed."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "text": "Distinct request paths have distinct safeguards. Dialogue contextual actions bind token, generation, NPC, path, session and revision, and condition refresh checks its generation after the aggregate succeeds. These guards do not cure the separately traced stale resident success or aggregate failure.",
+      "source": [
+        "crates/strategic-web/static/dialogue-client.js:33-51,100-108,364-370",
+        "crates/strategic-web/static/strategic-condition.js:42-59"
+      ]
+    },
+    {
+      "text": "Physical evidence native reuse checks exact actor, evidence, topic and action receipt and has an independently stable attempt key. The per-click UUID and missing mount signal do not prove duplicate checks, exactly-once policy, or unauthorized disclosure.",
+      "source": [
+        "crates/strategic-web/static/physical-evidence.js:19-28,180-200",
+        "crates/adventuresim-stdb-module/src/investigation/model.rs:142-169,426-435,587-675,718-730"
+      ]
+    },
+    {
+      "text": "A successful condition endpoint response containing null explicitly marks the individual wheel unavailable; a non-OK response fails earlier in shared fetch. The query collapses absent row and native query error, so their separate visibility remains open.",
+      "source": [
+        "crates/strategic-web/src/routes/characters.rs:78-86",
+        "crates/strategic-web/static/strategic-condition.js:6-11",
+        "crates/strategic-web/static/background-fetch.js:38-46"
+      ]
+    },
+    {
+      "text": "The strategic wheel applies the seven projected components and caps rendered arc at 360 degrees. Its omission of burden alone does not establish an extra movement penalty, a tactical double count or persisted tactical tick state.",
+      "source": [
+        "crates/strategic-web/static/strategic-condition.js:16-39",
+        "crates/adventuresim-stdb-module/src/condition.rs:85-88",
+        "crates/adventuresim-tactical-server/src/combat/condition.rs:63-78"
+      ]
+    },
+    {
+      "text": "Regional-map native state rejects readiness on route/connection overflow or a failure blocking settling. Separate city-detail and undrawn-terrain status messages are not in themselves proof of a defect or all map authority being unavailable.",
+      "source": [
+        "crates/strategic-web/static/regional-map-view.js:87-103",
+        "crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs:111-155"
+      ]
+    },
+    {
+      "text": "Portrait navigation chooses the longest pathname prefix and updates aria-current and scrolling; no prefix collision, incorrect route, or identity defect is established without exact route and link grammar.",
+      "source": [
+        "crates/strategic-web/static/portrait-navigation.js:1-44"
+      ]
+    },
+    {
+      "text": "The dialogue native text uses textContent/createTextNode in the assessed paths; developer edit URL provenance and actual destination authorization require their own producer inspection. No generic injection or private-information disclosure follows from this bounded read.",
+      "source": [
+        "crates/strategic-web/static/dialogue-client.js:230-239,273-275,556-590"
+      ]
+    }
+  ],
+  "open_questions": [
+    "What per-subject observation and unavailable/error semantics should govern condition rendering when one member is unauthorized, absent or backend-query failed?",
+    "Should the strategic portrait show an authorized pre-combat encumbrance estimate, and from which reliable source, while preserving separate live tactical authority?",
+    "Which outcomes definitively invalidate an errantry action ID versus warrant retaining it for a lost-response retry, given that the gateway currently maps all database failures to 422?",
+    "Should an older same-mount evidence response update retained result data without taking current selection, and should detached-mount failures be reported?",
+    "Does map readiness admit a deliberately uncovered terrain surface and failed optional city detail, or require usable coverage? What do all marker/readiness consumers expect?",
+    "What route grammar rules make portrait URL prefix selection unambiguous, and what actor/time policy governs all related scene/data views?",
+    "Complete native renderer membership, subject/request lifecycle, individual DTO finiteness and exact first-contract alias scans remain central connected discovery tasks."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": "producer_propagation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Trace condition projections into separate subject requests and wheels; trace evidence/topic to server receipt and selection state; errantry status across fetch, retry identity and native receipt. Native and caller evidence beyond listed bounds remains open."
+    },
+    {
+      "lens": "existing_type_owners",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "StrategicIncapacitation and typed native status already own their separate meanings; native receipt and map status each have distinct owners. JavaScript strings/JSON are boundary representations, not evidence of an omitted universal primitive wrapper."
+    },
+    {
+      "lens": "admission_contracts",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Condition authorization checks subject access/frontier/party/colocation. Evidence HTTP checks observer location and native receipt binds actor/evidence/topic. Errantry validates gateway, session, actor, current authority and presence. Complete authorization policies and all producer admissions are outside this slice."
+    },
+    {
+      "lens": "invariant_operations",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Promise.all loses all display updates on one rejection; evidence success can overwrite a changed selection; errantry status loss prevents intended reset. Mount freshness and identity, not merely numerical values, are invariants."
+    },
+    {
+      "lens": "aggregate_states",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Represent individual condition success, missing and failure distinctly, and recognize strategic condition vs tactical encumbrance as separate sources. Renderer-ready, terrain-covered and city-detail availability are separate properties until policy defines their aggregate."
+    },
+    {
+      "lens": "behavior_preservation",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Retain authorized observations, legitimate unavailable and empty states, exact lost-response action replay, shared resident promise consumers, 100 percent wheel cutoff and once-only tactical burden if future work proceeds."
+    },
+    {
+      "lens": "magic_numbers",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "The wheel conversion from fractions to 360 degrees and display percentages is bounded presentation arithmetic; native offset tolerance is 1/1024 for f32 subpixel comparison, and map revision is checked with Number.isSafeInteger. Their broader producer bounds and possible u64 IDs require separate proof."
+    },
+    {
+      "lens": "magic_strings",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "DOM labels, encoded URL segments, data attributes and JSON command discriminators serve distinct human or foreign-protocol roles. No generic string replacement, unverified URL injection or ID collision is concluded; dialogue HTTP status is structured evidence currently erased by shared fetch."
+    },
+    {
+      "lens": "redundant_authority",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Strategic projection excludes live combat burden, whose tactical owner adds it once; reconciling display is not proof of duplicate authority. Evidence selection, request and receipt each own different facts; map coverage and readiness may be deliberately distinct."
+    },
+    {
+      "lens": "derivability",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "This slice is native JavaScript and source boundaries; no handwritten Rust serialization/trait boilerplate is established as safely derivable. Native status error types and generated adapters need their own complete owner contracts."
+    },
+    {
+      "lens": "enum_shapes",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Native condition status, optional condition and map phase distinguish real states, but one null currently covers missing/failed native query and Promise.all suppresses per-subject results. Whether a richer native result is needed depends on policy and the connected owner."
+    },
+    {
+      "lens": "type_granularity",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Selection generation, mount identity, action receipt ID, subject ID and scene ID have distinct scopes; treating them as the same token can produce stale publications. Map acknowledgment, drawn coverage, ready and city detail must not be conflated."
+    },
+    {
+      "lens": "type_ownership",
+      "status": "bounded partial only; no whole-lens completion or inherited verdict transfer",
+      "assessment": "Global fetch owns HTTP failure translation; feature clients own subject-specific presentation and action identity; native reducers own admission and receipt. Tactical live state remains with the transient Bevy server; central review assigns any repair owner."
+    }
+  ],
+  "limitations": [
+    "Assigned 95e and 6533 bodies personally displayed in full independently after registration; support bodies only in listed ranges, and saved search snippets are not whole-body credit.",
+    "Historical support objects archived solely for comparison and proof; no historical support body was personally displayed. The regional map native status differs between revisions.",
+    "No product edits, repairs, builds, tests, browser, service calls, runtime probes, shaders, generated fixtures or simulations.",
+    "No actual failed request, stored receipt conflict, observed race, rendered scene, unsafe value, player impact or exact alias has been validated.",
+    "Original final checkpoint3821 queue and ledger remain unavailable; earlier evidence, historical summaries and reconstructed selections retain their identities and cannot be promoted."
+  ]
+}

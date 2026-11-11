@@ -1,0 +1,125 @@
+{
+  "schema": "726-prospective-source-registration-v1",
+  "agent": "/root/mhr_character",
+  "registered_utc": "2026-11-11T20:05:15.954269+00:00",
+  "purpose": "Independently display assigned roles 2374 and 2382 fully at historical and current revisions in planned 250-line chunks; connected source must be separately registered and credited only for actual displays.",
+  "sources": [
+    {
+      "original_role": 2374,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+      "archive": "source/historical-2374.rs",
+      "bytes": 43965,
+      "lines": 1246,
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "git_blob_sha1": "289b92ad39c34ef33bec683d35880ee1cd3f8df5",
+      "planned_display_chunks": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          750
+        ],
+        [
+          751,
+          1000
+        ],
+        [
+          1001,
+          1246
+        ]
+      ]
+    },
+    {
+      "original_role": 2374,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+      "archive": "source/current-2374.rs",
+      "bytes": 43965,
+      "lines": 1246,
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "git_blob_sha1": "289b92ad39c34ef33bec683d35880ee1cd3f8df5",
+      "planned_display_chunks": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          750
+        ],
+        [
+          751,
+          1000
+        ],
+        [
+          1001,
+          1246
+        ]
+      ]
+    },
+    {
+      "original_role": 2382,
+      "kind": "historical",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "archive": "source/historical-2382.rs",
+      "bytes": 25046,
+      "lines": 725,
+      "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+      "git_blob_sha1": "38a158fc16ee5def5dab4e763f18bff77541a7b5",
+      "planned_display_chunks": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          725
+        ]
+      ]
+    },
+    {
+      "original_role": 2382,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "archive": "source/current-2382.rs",
+      "bytes": 25046,
+      "lines": 725,
+      "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+      "git_blob_sha1": "38a158fc16ee5def5dab4e763f18bff77541a7b5",
+      "planned_display_chunks": [
+        [
+          1,
+          250
+        ],
+        [
+          251,
+          500
+        ],
+        [
+          501,
+          725
+        ]
+      ]
+    }
+  ],
+  "constraints": "No repairs, builds, tests, browsers, probes, simulated fixtures, simulations, or product validation."
+}

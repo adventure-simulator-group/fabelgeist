@@ -1,0 +1,441 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2404–2406 settlement chrome, portraits and residences. All historical/current bodies personally displayed after prospective registration; bounded support is independently registered and receipted. Thirteen bounded perspectives are not whole-lens coverage. Central coordinates baseline, aliases, ledger and publication.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "roles": [
+    {
+      "original_role": 2404,
+      "path": "crates/strategic-web/src/templates/settlement/chrome.rs",
+      "lines": 800,
+      "sha256_both_revisions": "6e0b987c91569ce5bab73c83667ce05e6dd0327c96f5d3519075a27cbe82407b",
+      "git_blob": "c599f4b020c860a51264da4aec6e48435958eef6",
+      "personal_scope": "Both revisions fully displayed in registered 200-line chunks; source tests never executed."
+    },
+    {
+      "original_role": 2405,
+      "path": "crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "lines": 237,
+      "sha256_both_revisions": "382210b89e6af39f692ff2a32955d40440b11028c00b996d9250d01005cc2890",
+      "git_blob": "7bc190115bd3b0a9f77bc759a53d0e0f1c877592",
+      "personal_scope": "Both revisions fully displayed in registered 200-line chunks; source tests never executed."
+    },
+    {
+      "original_role": 2406,
+      "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+      "lines": 489,
+      "sha256_both_revisions": "a227365e91a54e459db0526c1f78de353612e16c8c7ecace7217807b41e43295",
+      "git_blob": "27ddd369ca30916e3a8df4237a27a3ea98a6d00a",
+      "personal_scope": "Both revisions fully displayed in registered 200-line chunks; source tests never executed."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "CHROME-RESIDENCE-LEISURE-PREMIUM",
+      "classification": "Source-established value/meaning mismatch under standard offer economy",
+      "trace": "The core tier economy specifies leisure_morale_basis_points of 11,000, 13,000 and 16,000. Backend offer creation stores those values and the available-property projection carries them unchanged. The template prints them as 110%, 130% and 160% “Leisure morale bonus.” The core bonus computation explicitly subtracts the 10,000-basis-point baseline and applies only the premium, giving 10%, 30% and 60% of realized baseline before integer rounding.",
+      "conditions_and_limits": "Requires a displayed standard-tier offer; the source establishes the values and conversions but no actual offer or UI was executed. The displayed total multiplier and incremental premium are both meaningful and should not be conflated.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/courtship.rs",
+          "lines": [
+            [
+              215,
+              237
+            ],
+            [
+              470,
+              480
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/residence.rs",
+          "lines": [
+            [
+              359,
+              389
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+          "lines": [
+            [
+              100,
+              132
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+          "lines": [
+            [
+              122,
+              145
+            ],
+            [
+              158,
+              171
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+          "lines": [
+            [
+              137,
+              157
+            ],
+            [
+              313,
+              320
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to recovered q224 SEGOVB-L12-RESIDENCE-LEISURE-SOURCE-DISPATCH by the broader residence morale family; q224 concerns event-kind string reclassification, not this label/amount mismatch. Historical q1890 leaves native housing receiver contracts open. Central decides exact aliasing.",
+      "future_repair_direction": "Expose the incremental premium with a bonus label, or explicitly name the full multiplier; carry baseline and premium semantics through the shared owner so downstream wording cannot drift.",
+      "later_acceptance_criteria": "Each tier’s displayed benefit matches the actual additional effect and rounding policy; any displayed total multiplier is clearly identified as such."
+    },
+    {
+      "id": "CHROME-HOUSEHOLD-REDACTED-BILLING-DATE",
+      "classification": "Source-established conditional redaction/presentation mismatch",
+      "trace": "Backend residence projection intentionally replaces billing times with StrategicMinute::ZERO for household occupants who are not the holder. The route returns holdings for the active character, including non-holder households. The template always formats next_due_minute as a Next payment or overdue date even when it labels that entry Household home.",
+      "conditions_and_limits": "Requires a returned non-holder household row; no database rows or runtime output were inspected. The backend redaction is intentional and should not be bypassed to obtain a private owner date.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/residence.rs",
+          "lines": [
+            [
+              244,
+              304
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+          "lines": [
+            [
+              122,
+              145
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+          "lines": [
+            [
+              189,
+              220
+            ],
+            [
+              323,
+              325
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adjacent to q517 residence clock availability but distinct: q517 concerns a missing character time, while this concerns intentionally redacted owner billing projected as a real zero date. No automatic alias or historical finding claim.",
+      "future_repair_direction": "Represent owner billing date as authorized/available rather than a zero sentinel and suppress or accurately mark unavailable data for household occupants.",
+      "later_acceptance_criteria": "A non-holder never sees a fabricated zero-date next payment or overdue label; the legitimate holder retains accurate billing information and privacy is preserved."
+    },
+    {
+      "id": "CHROME-PARTY-FIRST-LEADER",
+      "classification": "Current source trace of historical q201",
+      "trace": "Party member lookup reads the party leader separately, drops missing/failed member rows, filters members ahead of the observer, and sorts the remaining list with the actual leader first only when present. The self profile passes this list to profile_membership, which treats its first element as leader and conditionally shows Leave.",
+      "conditions_and_limits": "If the true leader is filtered or not loaded while an active nonleader is the first remaining member, the leave action is hidden. If the active leader row is absent while another remains, an offer can be shown for the leader. Neither product data nor reducer success was observed; the UI button itself confers no backend authority.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+          "lines": [
+            [
+              356,
+              407
+            ],
+            [
+              482,
+              483
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+          "lines": [
+            [
+              97,
+              116
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+          "lines": [
+            [
+              307,
+              315
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+          "lines": [
+            [
+              153,
+              167
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/data.rs",
+          "lines": [
+            [
+              20,
+              36
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Directly revisits q201 ADLER-L11-PROFILE-PARTY-LEADER-IDENTITY and Adler READ-L11-393. Preserve observer-frontier filtering; do not restore a hidden leader merely to establish UI order.",
+      "future_repair_direction": "Carry actual leadership and party availability as explicit authorized data to the profile action rather than reconstructing from filtered ordering.",
+      "later_acceptance_criteria": "Leader/nonleader actions remain correct when another row is unavailable or legitimately filtered, with unknown leadership handled explicitly and backend authority preserved."
+    },
+    {
+      "id": "CHROME-PORTRAIT-OMITTED-ACTIVE",
+      "classification": "Conditional degraded party projection loses self navigation",
+      "trace": "The active character is loaded independently, while each party member is separately looked up and failed/missing lookups are flattened away. Portraits fall back to the active character only if the entire member list is empty; if another party row remains but the active member is missing, no portrait for the active character is added.",
+      "conditions_and_limits": "Requires the active member lookup to fail or be missing while another member survives. No actual service failure, missing membership, or runtime presentation was witnessed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/encumbrance.rs",
+          "lines": [
+            [
+              265,
+              277
+            ],
+            [
+              356,
+              388
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+          "lines": [
+            [
+              64,
+              74
+            ],
+            [
+              86,
+              95
+            ],
+            [
+              127,
+              150
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to q201 filtered party projection but the missing active navigation is not automatically the same first failed contract. Central may reconcile with broader availability records.",
+      "future_repair_direction": "Retain an authorized active self portrait independently from the completeness of the party list and represent incomplete membership without inventing absent members.",
+      "later_acceptance_criteria": "The active character remains navigable when the party projection is partial; genuine solo and fully available party states preserve their behavior."
+    },
+    {
+      "id": "CHROME-RESIDENCE-CLOCK-ZERO",
+      "classification": "Current source trace of historical q517",
+      "trace": "read_family maps both missing and failed character clock reads to StrategicMinute::ZERO. The same returned minute filters property offers and calculates wedding and pregnancy countdowns; the receiver presents those countdowns and progress as ordinary current values.",
+      "conditions_and_limits": "Requires missing/failed clock with offers and/or relationship dates. A legitimate minute zero is distinct. No real clock failure or product output was tested.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+          "lines": [
+            [
+              122,
+              145
+            ],
+            [
+              177,
+              199
+            ],
+            [
+              229,
+              244
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+          "lines": [
+            [
+              259,
+              290
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Directly revisits q517 SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT, originally /root/lens12_frontier READ-L12-791 6533 source.",
+      "future_repair_direction": "Carry clock availability instead of substituting epoch zero and preserve a legitimate zero-minute state.",
+      "later_acceptance_criteria": "Missing or failed time cannot suppress eligible properties or invent countdowns; valid zero/current times and non-clock-dependent family information remain available under policy."
+    },
+    {
+      "id": "CHROME-FAMILY-READ-AVAILABILITY",
+      "classification": "Conditional family projection availability collapse",
+      "trace": "The route reads relationship and authorized child rows independently, converts a relationship error to None and a children error to an empty vector, and the template either omits the whole family panel or renders no child entries.",
+      "conditions_and_limits": "Requires a relevant query error or missing row; no actual error, missing relationship row with children, or family data was inspected. Whether a legitimate absent relationship row may coexist with children needs the backend contract before asserting another defect.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/residences.rs",
+          "lines": [
+            [
+              177,
+              205
+            ],
+            [
+              220,
+              258
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+          "lines": [
+            [
+              259,
+              268
+            ],
+            [
+              292,
+              305
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adjacent to q517 because both occur in read_family, but a failed family projection is not the same clock contract. Historical q1890 left household authorization and source policy pending.",
+      "future_repair_direction": "Preserve failure and confirmed empty states separately and render an appropriate unavailable state without disclosing private family information.",
+      "later_acceptance_criteria": "A failed relationship or child query is not presented as a confirmed absence, while intentional no-family and authorized family projections remain distinct."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "Remote recover and relinquish links use the page settlement path, but the route passes an exact holding ID and the inspected reducer paths authorize ownership without a matching-location check. No broken-remote-action or backend bypass is established; full business policy and other callers remain open.",
+    "Backend offers are generated from fixed bounded core tier economy values. The template’s u32 addition and saturating percentage multiplication would require extreme or altered inputs for numeric edge behavior; no ordinary production overflow is established.",
+    "Household identity and child projections use an observer-specific family view in the inspected route. An optional courtship kind defaults to informal; whether that represents legitimate producer state is open and is not a proven privacy leak.",
+    "Empty party list intentionally falls back to active self, while dead characters remain inspectable and conversation/inventory tabs require living participants. Navigation forms are not proof of server permission.",
+    "Settlement population zero has explicit unavailable semantics, and corpse interment uses a generic label before medical context. Unrecognized description languages are displayed as text. No frontend, accessibility, asset, privacy or runtime validation is inferred from source tests.",
+    "Alias deduplication uses an exact ordered set after comparison to the canonical name; whether case variants among noncanonical aliases should collapse is unresolved. No blanket string or language-code migration is prescribed.",
+    "The three assigned bodies match byte-for-byte between 6533 and 95e; this does not establish unchanged transitive behavior. All tests and optional fixture file-writing statements were read only."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Tier multiplier loses premium-versus-total meaning at the template; billing redaction and fallible clock/family data lose availability before presentation."
+    },
+    {
+      "lens": 2,
+      "name": "existing type owners",
+      "assessment": "HousingTier, ResidenceTenure, ChildStage, CourtshipKind and StrategicMinute already own distinct meanings. Existing core premium computation is the semantic owner of additional benefit."
+    },
+    {
+      "lens": 3,
+      "name": "admission contracts",
+      "assessment": "The residence route admits only local residence/keep/known chapters for the active character, validates property/tier for acquisitions and supplies holding IDs for other actions. Backend authority and more callers are not exhaustively reviewed."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "First element after visibility filtering is not necessarily leader. Zero sentinel is formatted as a date; bonus calculation requires baseline subtraction. Extreme offer arithmetic remains qualified by native tier bounds."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "Leader identity and visible party sequence, household ownership and billing availability, and family/clock/read status are independently represented but have essential cross-field contracts."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Residence economics and billing privacy belong to core/backend owners; template native labels and HTTP forms are presentation adapters. Historical source suppliers are not repair owners."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Explicit leader ID already exists during party read, yet profile reconstructs leadership from sorted display order. Residence premium must not be independently reinterpreted as a full bonus."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Preserve observer-frontier privacy, self navigation, authorized household privacy, individual property identity, legitimate remote handling and explicit unavailable modes in any later repair."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "Typed visual stages, housing and residence tenure have meaningful alternatives. Availability/withheld versus known billing dates and party completeness need explicit distinctions at producer boundary."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "VisualStageKind and final presentation matches encode intentional differences; no blanket derive or serialization rewrite is established."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Distinguish premium from total multiplier, current clock from epoch zero, withheld billing from known deadline, and authoritative leader from first visible member."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Typed closed operation/tier values are mapped to final HTTP tags; URLs, CSS classes, labels and descriptions are native representations. Household and organization source policy must be traced before wholesale replacement."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "11,000/13,000/16,000 basis points include baseline; ordinary generated economic values are bounded. Date zero, saturating meter arithmetic and filtered-ID order are distinct numeric/availability questions."
+    }
+  ],
+  "historical_provenance": {
+    "adler_059": "READ-L11-393 records fresh Adler 6533 roles 2404:1–800, 2405:1–237, 2406:1–489 under ADLER-1279/1280/1281; source tests were read only.",
+    "lens12_059": "READ-L12-805 and PROPOSAL-L12-805 attribute full 2404 to /root/lens12_frontier under PAR-L12-405; READ-L12-806 and PROPOSAL-L12-806 attribute full 2405/2406 under PAR-L12-410/411, including the 2405 Windows locator qualification. Root adoption records root_personal_rereads=[]. READ-L12-791 and PAR-L12-370 retain the same delegate’s 6533 residence route read and q517, not this agent’s source credit.",
+    "older_774": "Camera owner coverage zero-based row428/line429 and additional-sources rows667/673/749 (lines668/674/750) record exact original role scopes. RIG-PPS-038 line38 /fresh_current_source_reads/4 and /15 record chrome 1–800 and portraits 1–237; CAM-PPS-RESIDENCE-023 line23 /current_sources/10 records residence 1–489. Camera CORPSE-WEB-PORT-001 records chrome 58–177. Original local and normalized exports are separately preserved and manifest checked; original pr-working revision, supplier and no repair-ownership transfer remain unchanged.",
+    "continuation_774": "Available continuation export documents CONT-CAMERA-PP-008 and RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039 were copied and hashed separately, without claiming unavailable local originals. Both explicitly describe source proof as inherited RIG-PPS-038 plus independent byte/contract reconciliation, not a new full-file read.",
+    "recovery_limits": "Original 059 queue, registry and transport preserved; selected entries are reconstructed navigation. No recovered earlier conclusions, statuses, revisions or attribution are promoted to missing checkpoint3821."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "support-scan-registration.json",
+    "support-registration.json",
+    "support-registration-02.json",
+    "support-registration-03.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-queue-selected.json",
+    "historical-registry-selected.json",
+    "older-774-index.json",
+    "older-774-export-manifest.json",
+    "older-continuation-index.json",
+    "reference/",
+    "rules-evidence.json"
+  ],
+  "restriction": "Source inspection and evidence-only verification; no source edits, repairs, product builds, tests, UI, probes, simulations, product execution or validation."
+}

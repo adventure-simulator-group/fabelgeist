@@ -1,0 +1,1745 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-7.json",
+  "source_roles": "ASSESSMENT-DELEGATED-SOURCE-ROLES-7.json",
+  "central_support": "CENTRAL-SUPPORT-EVIDENCE-7.json",
+  "delegated_observations": [
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-residence-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-RESIDENCE-CLOCK-OBSERVATION-ZERO-DEFAULT",
+        "classification": "Historical q517 exact cause and broader Adler q192 date-sensitive projection independently reconnected, not new unique IDs.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/residences.rs:110-175,177-204,220-258",
+          "crates/strategic-web/src/templates/settlement/chrome/residences.rs:282-290",
+          "crates/strategic-web/src/routes/settlements/party/location_personal.rs:154-159,195-209",
+          "crates/strategic-web/src/templates/settlement/character_skills.rs:806-828"
+        ],
+        "condition": "Residence read_family collapses clock query error and missing row into StrategicMinute::ZERO; that same minute gates offers by available_from and computes wedding/pregnancy days remaining. Personal activity view calls shared query_single then uses ZERO for missing/error before checking membership dues for profession previews. Known valid minute zero differs from unavailable chronology; exact result depends on authored dates and observed data.",
+        "qualification": "Separate location-personal use of q510 is related to q192 but should not automatically be equated to q517 exact residence site. Current ASSESSMENT-L01-RESIDENCE-CLOCK-95E covers a distinct extreme billing cursor candidate, not this display fallback. No missing-clock occurrence or runtime outcome asserted.",
+        "future_repair_direction": "Preserve authoritative known time vs absent/query error through date-dependent offers and family/activities with explicit UI policy; retain intentional valid zero. Central owns exact alias resolution."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-residence-report.json",
+      "finding": {
+        "id": "REVIEW-REST-INN-REQUESTED-VS-ELAPSED-CHARGE-95E",
+        "classification": "Newly assessed source-derived conditional elapsed/requested accounting mismatch, first-failure and aliases subject to central reconciliation.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/rest.rs:241-268,295-334,417-490",
+          "crates/adventuresim-stdb-module/src/time/settlement_rest.rs:45-66,284-305,312-366",
+          "crates/adventuresim-core/src/strategic_economy.rs:27-35",
+          "crates/strategic-web/src/templates/settlement/rest.rs:245-264"
+        ],
+        "first_failure": "Successful inn reducer clips elapsed at injury/disease/settlement boundaries and charges inn_full_board_cost(elapsed), whereas rest_summary calls rest_spending_breakdown with requested_minutes and unconditionally presents inn_full_board_cost(requested_minutes) as full-board coin paid. If a successful stay is clipped across a billing-day boundary, the displayed full-board amount can exceed the actual charged amount. Funds preflight is based on the request, but settlement charge is based on elapsed.",
+        "qualification": "Condition requires a supported clip and successful return; no runtime witness, concrete elapsed or state reachability established. Existing q510/q527 are unavailable observation causes; q1876 and q2254 left native cost/consumer contract unresolved, not automatic aliases. Historical Lens12 read rest_summary 396–580 as connected support; this work traces actual reducer charge rather than claiming first historical summary read.",
+        "future_repair_direction": "Define authoritative committed rest-result/payment facts and tie displayed full-board charge to them, distinguishing request, actual elapsed and individual cost causes; preserve interrupted stay, authentic no-charge and user-safe errors. No repair or validation."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-residence-report.json",
+      "finding": {
+        "id": "REVIEW-REST-SUMMARY-OBSERVATION-COMPLETENESS-95E",
+        "classification": "Conditional current summary completeness and semantics; exact q510 and q527 causes and earlier get_active_character fallback remain related, not automatic aliases.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/encumbrance.rs:265-277",
+          "crates/strategic-web/src/routes/settlements/rest.rs:241-251,295-334,378-400,417-472,492-558",
+          "crates/strategic-web/src/templates/settlement/rest.rs:245-273",
+          "crates/adventuresim-stdb-module/src/time/settlement_rest.rs:425-469"
+        ],
+        "condition": "get_active_character maps a failed inventory query to an empty list; rest maps absent before/after characters to empty too. One missing side can make unchanged currency look earned or spent. query_single maps failed/absent times, limbs and skills to None; rest_summary emits zero elapsed or empty healed/trained lists, and template labels the latter as no injuries needing treatment or no time remaining for downtime. q527 similarly permits missing before reputation to be subtracted as zero. Independently, net before/after currency cannot determine gross earnings and spending if both occur, and an empty list of >0.001 skill gains does not by itself prove that no downtime elapsed.",
+        "qualification": "Each unavailable input, valid empty inventory, no positive observable change and actual elapsed/transaction cause has its own identity. Actual query failures, currency co-occurrence, missing-skill row or resulting user display were not observed. Native training may be positive while no included skill delta qualifies; concrete supported case requires fuller schedule/producer trace.",
+        "future_repair_direction": "Model before/after observation completeness explicitly and use actual committed elapsed, treatment/training and economic evidence for affirmative claims; preserve valid absence. Reconcile exact q510/q527 and aggregate completeness with existing equipment input assessment."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-residence-report.json",
+      "finding": {
+        "id": "REVIEW-REST-PATH-ACTOR-SETTLEMENT-BINDING-95E",
+        "classification": "Newly assessed conditional request/authority/presentation identity question, not a proven unauthorized cross-settlement write.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/rest.rs:170-203,241-268,295-334,358-370",
+          "crates/adventuresim-stdb-module/src/time/settlement_rest.rs:45-78,186-212",
+          "crates/strategic-web/src/templates/settlement/rest.rs:172-210,214-251"
+        ],
+        "condition": "HTTP handler resolves and checks the URL settlement id for public service availability, but passes actor, duration and service to native reducer without the URL settlement id. The reducer authorizes and requires the service/residence in the actor actual current settlement. The HTTP handler reads local reputation using the URL id and renders a result with the URL settlement. If actor is actually in a different settlement, and all native and URL service requirements happen to hold, the reducer rests at the actor location while result context uses the URL location.",
+        "qualification": "No actor movement, stale page, direct request or wrong-location display observed; normal UI reachability needs proof. Native current-location and authority checks limit the effect; no arbitrary location write inferred. Related q2254 native service owner unresolved; exact identity/dedup central.",
+        "future_repair_direction": "Set explicit action location binding and handle a mismatch before or at native atomic authority check; render committed location/reputation consistently, preserving route authorization and legitimate current actor behavior."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-residence-report.json",
+      "finding": {
+        "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+        "classification": "Earlier q193 cited only as a related personal page dependency; no new direct medical-history assessment.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/party/location_personal.rs:265-279"
+        ],
+        "qualification": "Personal page calls medical_presentation and queries injuries/projectiles separately; this read does not inspect their complete authorization/availability contracts and grants no medical-lens closure."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-residence-report.json",
+      "finding": {
+        "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+        "classification": "Earlier q202 remains separate; its preview producers were not newly displayed.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/rest.rs:338-372"
+        ],
+        "qualification": "Post-rest soap preview is called for the result; no new supply or alcohol finding or read credit for registered-but-undisplayed rest_preview.rs."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-medical-report.json",
+      "finding": {
+        "id": "DELEGATE-WEB-MEDICAL-CONTEXT-CLAIM-95E",
+        "classification": "new current conditional source finding; not a historical finding, no inferred global alias",
+        "title": "Surgery POST omits the context claim required by the authoritative treatment decision",
+        "source": [
+          "crates/strategic-web/src/routes/settlements/medical.rs:19-71,179-220,223-230,283-317",
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:550-594",
+          "crates/strategic-web/src/routes/data.rs:151-171",
+          "crates/adventuresim-stdb-module/src/surgery.rs:812-820,897-966",
+          "crates/adventuresim-stdb-module/src/world_actor.rs:593-607,761-779,816-895"
+        ],
+        "trace": "For a nonself patient, the web surgery form and POST contain procedure, optional projectile, soap and action ID but always send None for both context reference and membership revision. The reducer maps that to no contextual claim. If the patient has any valid current contextual membership under its collection predicate, the decision returns Unavailable on a missing claim before checking the target preference or emergency rule. The same-settlement branch establishes co-presence independently; assuming the observed-character/location and other UI requirements hold, the dialog can be reached, yet the submitted treatment is rejected. The route logs the error and redirects without distinguishing it from success.",
+        "conditions": "Assumes a living authorized nonself actor/patient, a qualifying patient context membership, matching view and location, and all other admission conditions. Existence or frequency of this live state and practical player impact were not observed. Self treatment remains a separate allowed path; no unsupported authorization-bypass or data disclosure claim.",
+        "future_repair_direction": "Determine correct authorized contextual contact reference and membership revision at the actual presentation/action boundary; propagate them with the procedure and preserve exact stale-claim, consent, emergency, retry receipt and final authority checks. If a context cannot be represented, show an explicit unavailable state instead of submitting a guaranteed missing claim.",
+        "related_records": [
+          "059 q1006 Q-L12-a2ef7026a3b720bc1401 records unresolved surgery contextual-decision and current-owner questions.",
+          "059 q1872 Q-L12-2d961f568d7521b86062 records surgery co-location/context permission open.",
+          "774 RIG-PPS-035 describes exact context/revision receipt and retained permission semantics; old supplier/repair owner attributions remain historical. No asserted exact alias."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-medical-report.json",
+      "finding": {
+        "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+        "classification": "existing 059 q193 finding independently reconnected by current delegate; not a new historical or unique issue",
+        "source": [
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:707-764",
+          "crates/strategic-web/src/medical.rs:127-145,210-223",
+          "crates/strategic-web/src/medical/administrations.rs:6-27",
+          "crates/strategic-web/src/templates/settlement/character_health.rs:866-891,1159-1172"
+        ],
+        "trace": "Chart failure returns MedicalPresentation unavailable. In the distinct path with visible history, a history query error becomes an empty vector; if patient time succeeds sanitize reports unavailable=false and no active medications, so the controls omit Current medication exactly as with genuinely empty history.",
+        "conditions": "Conditional on visible history, failed history query and successful chart/time; no actual database failure, missing medication, patient impact or unauthorized record observed. Self or presence of chart rows gate history; permission and empty cases remain distinct.",
+        "future_repair_direction": "Represent the failed history independently from an authoritative successful empty collection and propagate appropriate availability to the observer-safe presentation and controls, without weakening authorization.",
+        "related_records": [
+          "059 /entries/193; prior 95e /root/hair_ops report 726-delegate-strategic-web independently established the same trace. Preserve attribution and avoid duplicate counting."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-medical-report.json",
+      "finding": {
+        "id": "DELEGATE-MEDICAL-GAP-EVENT-DISCLOSURE-95E",
+        "classification": "previous /root/hair_ops current source candidate; independently reconnected here, not a new duplicate",
+        "source": [
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:707-739,764-773",
+          "crates/adventuresim-stdb-module/src/disease.rs:201-225,276-327,493-524",
+          "crates/strategic-web/src/medical.rs:127-145,170-180,210-223",
+          "crates/strategic-web/src/templates/settlement/character_health.rs:884-891,913-917,929-992,999-1057"
+        ],
+        "trace": "The backend inserts chart gaps for separated presence spans and its reading-level known interventions are empty at physiology band 0 and otherwise limited to active interventions at that observation. The web fetches all patient administrations when self or any authorized chart row exists, sanitize retains all, and the notebook shows start/stop names between first and last readings without a gap/band check. A hypothetical event in an intervening not-in-party gap meets those rendering predicates.",
+        "conditions": "Whether any-observation grants the complete history versus only individually observed interventions is an unsettled product/authorization contract. No actual person, record, output, security breach or runtime disclosure observed.",
+        "future_repair_direction": "Decide history visibility policy and, if time/band limited, filter by authorized observation/presence and preserve correct self-view, gap boundaries, current medication and typed times.",
+        "related_records": [
+          "Previous /root/hair_ops <LOCAL_PATH_0> established this candidate and separately traced recruitment caller; its reader attribution and registered scopes remain in prior-current/.",
+          "059 q193, q198, q179 are adjacent history availability, timeline reference and chronology families, not automatic aliases."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-medical-report.json",
+      "finding": {
+        "id": "ADLER-L11-MEDICAL-CONTEXT-OUTCOME-OBSERVABILITY",
+        "classification": "existing qualified outcome family extended by this assigned current route; alias unresolved",
+        "source": [
+          "crates/strategic-web/src/routes/settlements/medical.rs:283-317,362-385,388-405,408-425,434-458",
+          "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:376-447,449-482,835-864",
+          "crates/adventuresim-stdb-module/src/surgery.rs:909-966,987-1016",
+          "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:1965-1975"
+        ],
+        "trace": "Treatment and stop-preparation failures log and redirect; party deposit/withdraw iterate separate calls discarding individual results, and liquidation discards its reducer result. A malformed transfer form yields an empty entry vector; the inspected liquidation owner rejects empty input, rather than treating it as all inventory. The same redirect occurs after success or rejected calls.",
+        "conditions": "No assertion of an atomic bulk-transfer promise, actual mutation, failed call, irreversible loss or that an HTTP redirect claims success. Whether user-visible outcome and partial-success information are required remains open. Backend validation stays authoritative.",
+        "future_repair_direction": "Reconcile user-visible outcome/retry and, where needed, per-entry partial results with action owner and native permissions; preserve deterministic ordering and do not invent atomicity without policy.",
+        "related_records": [
+          "Adler READ-L11-385 explicitly associates bulk transfer, repair and treatment with an existing mission-outcome family; exact alias and ownership pending.",
+          "059 q1008 Q-L12-19b89d12377a335f43a4 includes surgery receipt/time, distinct from an automatic outcome alias."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-SERVICE-MATCH-UNKNOWN",
+        "classification": "Existing q191 conditional capability availability issue",
+        "trace": "The service route ignores each capability refresh result and maps a failed capability query to an empty result; an empty or partial list reaches party_role_match, which emits definitive no-one/some/all match text. The HTML renderer displays that summary and styling. A stale existing row may also be used after a failed refresh.",
+        "conditions_and_limits": "One or more refresh or capability reads fails while material capability information exists or is stale. Actual query/reducer execution, freshness guarantees and membership completeness remain unverified.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "lines": [
+              [
+                297,
+                325
+              ],
+              [
+                345,
+                383
+              ],
+              [
+                499,
+                530
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/recruitment.rs",
+            "lines": [
+              [
+                37,
+                79
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/service-quests.js",
+            "lines": [
+              [
+                30,
+                50
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "q191 ADLER-L11-STRATEGIC-CAPABILITY-PROJECTION-ADMISSION is an existing error-versus-empty owner; original Adler READ-L11-384 assessed a separate scope and did not personally read the entire service_quests file.",
+        "future_repair_direction": "Carry unavailable/incomplete/stale capability state separately and derive a match only from sufficient fresh authorized data; retain role recommendation policy.",
+        "later_acceptance_criteria": "A failed refresh or incomplete read does not present a definite negative or positive match; complete verified projections continue to show accurate match labels."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-APPRENTICESHIP-PRESENCE-GATE",
+        "classification": "Conditional source-backed availability mismatch, policy and alias reconciliation open",
+        "trace": "The apprenticeship route obtains a representative and queries the raw settlement_resident_presence table by ID. Its helper deems a row present if identity, settlement and location match, without checking schedule or context/health suppression, and then instructs the player to speak to the representative. The raw row contains those fields; authoritative presence functions evaluate a schedule with suppression at an observer-specific time.",
+        "conditions_and_limits": "An exact representative row is out of its presence window or suppressed. The local route still takes its present branch; whether direct fallback should be permitted in each such situation is an owner policy question. No live representative, UI or time state was probed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "lines": [
+              [
+                46,
+                63
+              ],
+              [
+                76,
+                127
+              ],
+              [
+                128,
+                159
+              ],
+              [
+                571,
+                594
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/spacetimedb/queries.rs",
+            "lines": [
+              [
+                192,
+                199
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+            "lines": [
+              [
+                214,
+                231
+              ],
+              [
+                485,
+                510
+              ],
+              [
+                514,
+                570
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adjacent to q179 observer frontier and q181 NPC presence-clock admission. Those broader historical issues are not proven exact aliases; original 059 ordered service role read covered only 1–43 plus separate connected line 44.",
+        "future_repair_direction": "Use an observer-appropriate authoritative availability result or explicitly represent unavailable/unknown presence, preserving exact representative identity and intentional direct fallback policy.",
+        "later_acceptance_criteria": "Off-schedule or suppressed representatives are not labeled currently available; exact active representatives and intentionally supported fallback remain distinguishable without using a future or wrong-observer frontier."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-RECRUITMENT-MULTIPLE-COMPANIES",
+        "classification": "Conditional cross-file rendering omission",
+        "trace": "The service route builds a vector of all eligible recruiting companies and assigns each the inn service. The client uses find on the matching service and renders one company, with no iteration over other matching companies.",
+        "conditions_and_limits": "Two or more eligible company offers for the same service are returned to the same page; ordering, offer producers and current population are not verified. The source establishes only this view’s selection behavior, not runtime incidence.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "lines": [
+              [
+                267,
+                296
+              ],
+              [
+                327,
+                398
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/service-quests.js",
+            "lines": [
+              [
+                3,
+                16
+              ],
+              [
+                17,
+                56
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "No exact historical alias found among selected 059 source references; complete global alias inventory remains a central task.",
+        "future_repair_direction": "Render each eligible company or define a deliberate selection/pagination policy without silently hiding other returned offers.",
+        "later_acceptance_criteria": "Two or more eligible offers remain individually discoverable, with correct roles, leader identity, matching and safe handling of an empty collection."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-RECRUITMENT-SEPARATOR",
+        "classification": "Source-confirmed text encoding defect at a presentation adapter",
+        "trace": "Multiple requirement labels are joined with the literal characters “ Â· ” in service_quests, and the browser source assigns that string to the recruitment button title. A neighboring template uses the intended “ · ” delimiter.",
+        "conditions_and_limits": "At least two requirement labels are emitted for a rendered role; there is no browser or rendering execution.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "lines": [
+              [
+                345,
+                383
+              ],
+              [
+                468,
+                496
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/service-quests.js",
+            "lines": [
+              [
+                30,
+                38
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/recruitment.rs",
+            "lines": [
+              [
+                559,
+                587
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "No exact alias identified in the selected historical queue; treat as a newly assessed presentation facet pending central deduplication.",
+        "future_repair_direction": "Correct the literal at the owning presentation adapter and retain existing requirement content and ordering.",
+        "later_acceptance_criteria": "For multiple labels, the title contains the intended separator rather than the stray character; zero and single label behavior is preserved."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-CAMP-ROAD-PRIORITY-UNKNOWN",
+        "classification": "Conditional availability-to-control-flow loss",
+        "trace": "On a road-challenge query error the camp route logs and substitutes an empty list, then uses that list to decide whether an active road challenge prevents direct demo redirection. The local predicate prioritizes a known active/open road challenge, and its unexecuted source check expresses that precedence.",
+        "conditions_and_limits": "A road query fails while an active/open road challenge and exactly one playable direct-demo challenge actually exist. No live data, retry or authorization path was executed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+            "lines": [
+              [
+                211,
+                258
+              ],
+              [
+                507,
+                529
+              ],
+              [
+                658,
+                668
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to general unavailable-versus-empty source-read families, not asserted as the same defect as q191 or q179. No exact historical alias established.",
+        "future_repair_direction": "Keep road-challenge availability distinct from an authoritative empty list and apply an explicit safe priority policy when the read is unavailable.",
+        "later_acceptance_criteria": "An unavailable road read cannot cause the route to behave as if no active road challenge exists; known empty and known active states retain intended precedence."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-CAMP-CLOCK-UNKNOWN",
+        "classification": "Conditional preview/control misclassification",
+        "trace": "The camp route collapses failed character-time queries to empty and defaults a missing maximum to StrategicMinute::ZERO. It uses that value in walking-window, suggested-rest and wake-time calculations, then renders those results as the rest menu and continue control. A partially missing member time can also lower the selected maximum.",
+        "conditions_and_limits": "A relevant time row is missing or a read fails while the true party frontier differs. Native reducer validation and actual time/frontier policy were not inspected or run; this is a presentation/control trace, not proof a mutation commits. ",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+            "lines": [
+              [
+                190,
+                205
+              ],
+              [
+                313,
+                345
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/strategic_time.rs",
+            "lines": [
+              [
+                171,
+                175
+              ],
+              [
+                189,
+                220
+              ],
+              [
+                223,
+                252
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+            "lines": [
+              [
+                827,
+                840
+              ],
+              [
+                880,
+                891
+              ],
+              [
+                952,
+                967
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adjacent to q179 ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT and q181 ADLER-L11-NPC-PRESENCE-CLOCK-ADMISSION, without asserting identity with either.",
+        "future_repair_direction": "Represent unavailable or incomplete party chronology separately and derive controls from an authoritative complete frontier; preserve asynchronous and observer-relative semantics.",
+        "later_acceptance_criteria": "Missing/incomplete time cannot yield a falsely authoritative wake or walking cue; complete valid times retain maximum/frontier behavior."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-CAMP-FORECAST-OBSERVATION",
+        "classification": "Existing q510 has a newly traced conditional forecast effect",
+        "trace": "query_single discards native query errors into None. Camp treats missing character time as no expected morale-drinking demand and missing personality through the generic non-temperate branch. Expected demands reserve alcohol before the remaining amount is projected as emergency hydration and water days.",
+        "conditions_and_limits": "A character time or personality query fails or the record is absent, with relevant future rest evenings and qualifying available alcohol. The direction of numerical difference depends on actual personality, history and supplies; no actual backend row or preview was run.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/rest.rs",
+            "lines": [
+              [
+                378,
+                383
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+            "lines": [
+              [
+                1051,
+                1120
+              ],
+              [
+                1206,
+                1235
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/alcohol.rs",
+            "lines": [
+              [
+                270,
+                285
+              ],
+              [
+                322,
+                377
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/provisioning.rs",
+            "lines": [
+              [
+                41,
+                57
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Exact q510 SEGOVB-L12-QUERY-SINGLE-OBSERVATION-ERROR-DISCARD; q501–509 retain nine separate native query cause-erasure first cuts in the same forecast. Do not consolidate these sources into a single error origin.",
+        "future_repair_direction": "Preserve typed missing versus failed observations through forecast admission and choose an explicit unknown estimate policy instead of treating unavailable values as actual inputs.",
+        "later_acceptance_criteria": "Failed time/personality reads cannot silently create a definite alcohol/water forecast; genuinely absent records and verified temperance/history retain their intended behavior."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-settlement-report.json",
+      "finding": {
+        "id": "WEB-SERVICE-COLLECTION-UNKNOWN",
+        "classification": "Conditional multi-query availability issue",
+        "trace": "Settlement and contract queries default errors to empty, and several recruitment inputs independently default errors to empty. The endpoint returns normal JSON collections, while the client also maps non-success HTTP responses to empty collections and removes the existing recruitment section.",
+        "conditions_and_limits": "Any relevant collection query fails while valid offers or needed joins exist. No real failure or transport timing was induced; error handling for other product screens is not assessed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "lines": [
+              [
+                204,
+                227
+              ],
+              [
+                267,
+                296
+              ],
+              [
+                327,
+                398
+              ],
+              [
+                399,
+                415
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/static/service-quests.js",
+            "lines": [
+              [
+                3,
+                16
+              ],
+              [
+                55,
+                58
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Connected by unavailable-versus-empty behavior to q191 but not established as an exact alias; all source-specific ownership and failure paths remain for central reconciliation.",
+        "future_repair_direction": "Expose unavailable/incomplete service data separately from authoritative zero offers, while preserving safe public error wording and earlier state policy.",
+        "later_acceptance_criteria": "A failed required query does not claim no offers; healthy empty and populated results and independent failures remain distinguishable."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "ADLER-L11-REST-SUPPLY-AVAILABILITY",
+        "classification": "Previously recorded q202, independently traced to its current presentation and native rest behavior; no automatic new unique count.",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/rest_preview.rs:17-72,85-180,182-233",
+          "crates/strategic-web/src/templates/settlement/rest.rs:105-160",
+          "crates/adventuresim-stdb-module/src/filth.rs:445-510,664-705",
+          "crates/adventuresim-stdb-module/src/alcohol.rs:432-475"
+        ],
+        "condition": "Failed filth, personal/shared inventory, amount, catalog or personality queries become ordinary empty vectors. Missing amounts make soap availability zero; missing filth can make available soap look unneeded; missing personality makes is_temperate false, so an otherwise admitted drinking candidate can be predicted to drink. Template states definite availability/consumption based on these plain values.",
+        "qualification": "Actual failures, item rows, nighttime rest and user-visible discrepancies unobserved. Valid empty inventory, no filth, correctly measured zero and deliberate temperance remain legitimate. Native per-person and party wash/actual evening consumption are distinct from preview; no transaction outcome is inferred.",
+        "future_repair_direction": "Carry per-source unavailable vs confirmed absence to the preview and use a truthful uncertainty state; retain native custody, personal/shared amounts, temperance and normal nightly-consumption policy. Reconcile q202 centrally."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY",
+        "classification": "Previously recorded q194 independently confirmed by native planner support; no new unique count.",
+        "references": [
+          "crates/strategic-web/src/routes/travel.rs:127-150,195-223,239-253",
+          "crates/adventuresim-terrain/src/lib.rs:618-658"
+        ],
+        "condition": "Cache key rounds and casts f64 coordinates before lookup and returns a hit before native TerrainPack validates finite and in-bounds endpoints. Therefore inputs that normalize to one key but have different admission can receive the same cached plan if a valid plan for that key was inserted.",
+        "qualification": "Requires an admitted valid cached route and a colliding inadmissible input; actual pack bounds, caller input and hit are unobserved. Intentional sub-metre normalization of two valid points is a separate policy, not automatically a defect. Weather key/profile and bounded immutable package behavior must remain correct.",
+        "future_repair_direction": "Validate semantic endpoints and native profile/weather before a hit or otherwise prove cache-key equivalence preserves admission, while retaining intended valid sub-metre equivalence and bounded caching."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "REVIEW-FORAGE-NEIGHBOR-OBSERVATION-AVAILABILITY-95E",
+        "classification": "Current source extension of Adler and Lens12 q1878 explicitly pending neighbor sample policy; distinct from center-error q518/q519. Central determines alias and unique identity.",
+        "references": [
+          "crates/strategic-web/src/routes/travel.rs:168-192,467-470",
+          "crates/adventuresim-terrain/src/lib.rs:438-458",
+          "crates/strategic-web/src/routes/foraging.rs:327-379,470-505",
+          "crates/adventuresim-stdb-module/src/foraging.rs:40-55,421-465,791-900",
+          "crates/adventuresim-core/src/foraging.rs:230-245,343-370"
+        ],
+        "first_failure": "Eight nearby cell results are reduced via ok().flatten() and only successful water samples are counted. A sampling error or no covered cell is indistinguishable from observed nonwater. That count determines coastal (>=4) and wet-ground (1–3 unless center is wetland) booleans. Web includes those booleans in private terrain attestation; backend validates gateway, digest, location and normalized terrain but uses attested booleans in planning. Core habitat logic gates SeaCoast-only seaweed and RiverWetGround-only watercress on those booleans.",
+        "qualification": "A meaningful change requires unavailable samples to alter the category and otherwise accepted foraging; valid outside-package None may have an intentional edge policy distinct from Err. No concrete package failure, neighbor values, action, yield or runtime behavior observed. Source does not assert malicious attestation or bypass of gateway authority. Earlier q518/q519 cover center sample causes, not this neighbor reduction.",
+        "future_repair_direction": "Specify partial coverage versus failed sample policy, retain observation completeness through environment attestation and backend habitat authority, and decide when source eligibility is unknown versus confirmed absent. Preserve valid center/wetland, package edges and gateway/location checks."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "ADLER-L11-STRATEGIC-CLOCK-PROJECTION-ADMISSION",
+        "classification": "Broader historical q192 and Adler 386 time-subset observation reconnected; do not automatically merge with other date sites.",
+        "references": [
+          "crates/strategic-web/src/routes/travel.rs:405-465",
+          "crates/strategic-web/src/routes/settlements/overview.rs:158-205",
+          "crates/strategic-web/src/routes/quests.rs:1178-1220",
+          "crates/strategic-web/src/routes/settlements/camp.rs:935-963",
+          "crates/strategic-web/src/templates/settlement/travel.rs:420-452,530-550"
+        ],
+        "condition": "Forecast requires attributes, limbs, stats and schedule for every listed party member, yet selects departure from only present time rows, defaulting ZERO if none. Both current callers replace failed times queries with empty, then pass the result. Missing the latest member time can produce an earlier forecast; total missing can use zero. Result supplies segments, dated camp intervals and planner data.",
+        "qualification": "The latest missing time need not change the max; user-visible impact depends on schedules, route, consumer and policy. No actual missing rows, error or product run. Adler 386 explicitly flagged this subset behavior with a 385 clock-family dependency. The separate previous REVIEW-ITINERARY-CLOCK-NONPROGRESS-001 concerns possible MAX-time nonprogress, not an automatic alias."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-TERRAIN-PLANNER-ERROR-FAMILY",
+        "classification": "Nine distinct recovered q518–526 first cuts, current source unchanged; preserve separately and do not merge with q194 or neighbor case.",
+        "references": [
+          "crates/strategic-web/src/routes/travel.rs:168-177,213-228,249-257",
+          "crates/adventuresim-terrain/src/lib.rs:438-458,618-669"
+        ],
+        "individual_records": [
+          {
+            "index": 518,
+            "first_cut": "center TerrainPack.cell error -> String at176"
+          },
+          {
+            "index": 519,
+            "first_cut": "center Ok(None) -> outside-package prose at177"
+          },
+          {
+            "index": 520,
+            "first_cut": "cache lookup poison -> prose at217"
+          },
+          {
+            "index": 521,
+            "first_cut": "queue timeout -> prose at227"
+          },
+          {
+            "index": 522,
+            "first_cut": "permit closed -> prose at228"
+          },
+          {
+            "index": 523,
+            "first_cut": "planning wait timeout -> prose at251"
+          },
+          {
+            "index": 524,
+            "first_cut": "worker JoinError -> formatted String at252"
+          },
+          {
+            "index": 525,
+            "first_cut": "native plan error -> String at253"
+          },
+          {
+            "index": 526,
+            "first_cut": "cache commit poison -> prose at257"
+          }
+        ],
+        "qualification": "No actual errors or poisoned locks observed. Decision among typed cause, closed unavailable reason, and final boundary is per distinct owner; do not assume same wording proves aliases. Center no-coverage is separate from a neighboring sample error."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001",
+        "classification": "Earlier current conditional MAX clock assessment reconnected to exact web call, no independent finding added.",
+        "record": "reference/prior-assessment-itinerary-clock-95e.json",
+        "references": [
+          "crates/strategic-web/src/routes/travel.rs:435-448",
+          "crates/adventuresim-core/src/strategic_time.rs:255-313"
+        ],
+        "qualification": "The previously assessed saturated-clock nonprogress requires MAX start, positive movement and a valid window; supported production reachability is unproved. No execution or timeout probe."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "conditional persisted consumable fraction admission",
+        "classification": "Earlier c100 current assessment reconnected with exact 95e source; no new finding or invented author.",
+        "record": "reference/prior-assessment-inventory-fraction.json",
+        "references": [
+          "crates/strategic-web/src/routes/settlements/rest_preview.rs:1-15,123-169",
+          "crates/adventuresim-core/src/inventory_measurement.rs:30-49",
+          "crates/adventuresim-stdb-module/src/inventory_amount.rs:13-30,49-66,90-109"
+        ],
+        "qualification": "An out-of-range stored u32 would reach expect and panic; inspected initializers use whole and consumption clamps/subtracts typed amounts. No invalid producer, actual invalid row, or runtime panic shown. The earlier record classified this conditional at c100 and read preview 1–15 only."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-travel-report.json",
+      "finding": {
+        "id": "REVIEW-SAME-SNAPPED-NODE-ZERO-ROUTE-001",
+        "classification": "Earlier current separately assessed conditional short-route issue; no new renderer or planner execution.",
+        "record": "reference/prior-assessment-short-route-95e.json",
+        "qualification": "Distinct from q194 invalid-input cache admission and from allowed identical coordinates; full old qualifications preserved."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-query-report.json",
+      "finding": {
+        "id": "DELEGATE-CASE-SITE-PIN-OWNER-CARDINALITY-95E",
+        "classification": "new current conditional source finding that advances earlier q1881; exact alias and repair owner remain central",
+        "title": "Site-only lookup rejects separately owned exact pins after a lead is shared",
+        "source": [
+          "crates/strategic-web/src/spacetimedb/queries.rs:106-117",
+          "crates/strategic-web/src/spacetimedb/client.rs:134-150",
+          "crates/strategic-web/src/routes/settlements/party/location_personal.rs:7-38,164-170",
+          "crates/strategic-web/src/routes/settlements/party/schedule_preview.rs:108-129,141-163",
+          "crates/adventuresim-stdb-module/src/investigation/sites.rs:7-86,103-118,201-215",
+          "crates/adventuresim-stdb-module/src/investigation/claims.rs:1543-1628",
+          "crates/adventuresim-stdb-module/src/investigation/model.rs:843-869"
+        ],
+        "trace": "Gateway pin projection scans qualifying exact uncorrected leads and keys the output by (owner_character_id, case_site_id). Sharing an investigation lead with a living co-located party recipient inserts another lead for that recipient with all source fields otherwise preserved and does not delete the sender lead. When both source and copied lead meet valid site, provenance, presentation and exact-coordinate predicates, two owner-specific pins for one site can coexist. The site-only query returns both under normal gateway SQL semantics; query_one rejects more than one and resolve_location maps that error to Unavailable. The schedule preview separately uses the existing site-and-owner query.",
+        "conditions": "Requires distinct owners, successful authorized lead sharing, an exact current uncorrected source lead, passing provenance/presentation checks and expected SQL response. A current database instance, HTTP request and player impact were not observed. A one-row site-only lookup also needs viewer-identity policy, but this evidence does not establish unauthorized disclosure.",
+        "future_repair_direction": "Carry the actual observer identity to each case-site pin lookup and reconcile callers with exact owner scope, missing versus unavailable, and current observation/time policy. Preserve intentional sharing and consent; verify endpoint and view contracts after audit/implementation are authorized.",
+        "relationships": [
+          "059 q1881 Q-L12-8efe3b20699c30a24bd0 explicitly left site-only versus owner-specific producer/visibility semantics pending. This current trace adds the actual share producer and duplicate-owner case; do not assume exact historical alias or credit a new historical finding.",
+          "059 q531 query-one cardinality remains a distinct structured-error first cut; central reconciliation decides the connected fix and count."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-query-report.json",
+      "finding": {
+        "id": "ADLER-L11-STRATEGIC-DB-ERROR-OWNERSHIP",
+        "classification": "existing historical q195 and q531–q538, independently reconnected at 95e; distinct first cuts preserved",
+        "source": [
+          "crates/strategic-web/src/spacetimedb/client.rs:21-39,107-150,155-189,192-219",
+          "crates/strategic-web/src/spacetimedb/client/sats.rs:57-62,68-129,131-178",
+          "crates/strategic-web/src/spacetimedb/types.rs:75-92,500-503,552-553,572,577-580,608-610",
+          "crates/strategic-web/src/routes/data.rs:55-89",
+          "crates/adventuresim-core/src/reducer_error.rs:1-9,65-72"
+        ],
+        "trace": "Non-success SQL and reducer replies discard the native HTTP status and map response.text errors to an empty body before Spacetime(String). Successful body read and JSON failures retain reqwest/serde native errors. query_one encodes multiple-row count in local prose; query_sats_into and query_one_sats_into format concrete projection errors behind Display into the same string variant. Actual PartyView and CaseBattleView conversions can return PlaceIdentityError, and the separate character case-site path explicitly formats that error. SATS malformed-wire reasons are local synthesized diagnostics, distinct from erased native transport/projection causes.",
+        "conditions": "No actual network call, malformed row, response failure or lost user information observed. Empty error text can be an actual body or a failed read. Each historical q531–q538 remains its own first-cut record; opaque remote error text can remain at the foreign wire boundary.",
+        "future_repair_direction": "Design one coherent error aggregate that preserves operation/stage, native status, body-read cause and concrete row conversion causes through internal boundaries; model cardinality and SATS structural reasons with appropriate context, rendering public prose only at actual presentation ports. Preserve privacy and code-envelope behavior.",
+        "relationships": [
+          "059 /entries/195 and /entries/531–538 remain open, not replaced by this report.",
+          "774 CAM-OWNER-F015 and RIG-PPS-021/038 concern typed conversion causes; prior /root/hair_ops web-data report independently traced generated private case-site error, retain separate provenance."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-query-report.json",
+      "finding": {
+        "id": "DELEGATE-QUERY-ENVELOPE-CACHE-CONTRACT-95E",
+        "classification": "bounded historical question refined by a current consumer; conditional, not established defect",
+        "source": [
+          "crates/strategic-web/src/spacetimedb/types.rs:75-92",
+          "crates/strategic-web/src/spacetimedb/client/sats.rs:131-178",
+          "crates/strategic-web/src/spacetimedb/client.rs:107-150",
+          "crates/strategic-web/src/routes/travel/topology.rs:24-64,160-195"
+        ],
+        "trace": "QueryResponse is a Vec<QueryResult>. The decoder treats an empty vector as successful empty rows and examines only the first result. TravelEdgeCache commits any successful empty vector into its process-local OnceCell and retries only errors; its existing test source explicitly treats an empty response array as a successful empty cache.",
+        "conditions": "No SQL endpoint response or test was executed. Whether an empty array is a valid zero-result response, whether a one-statement endpoint may return additional results, and whether an empty road topology should stay cached are unresolved transport/data contracts. Do not call intentional test behavior a failure.",
+        "future_repair_direction": "Determine native SQL one-statement envelope and source-topology emptiness/revision policy; if unexpected shapes are not valid, reject them with typed context before successful cache initialization while preserving legitimate empty tables.",
+        "relationships": [
+          "Adler READ-L11-387 explicitly recorded empty response and first-only as pending native endpoint contract; this adds actual cache receiver and original test-source qualification, not a new historical finding."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-query-report.json",
+      "finding": {
+        "id": "DELEGATE-REDUCER-CODE-TRANSPORT-PROVENANCE-95E",
+        "classification": "open source-level contract, not a proved classifier defect",
+        "source": [
+          "crates/strategic-web/src/spacetimedb/client.rs:21-38,192-219",
+          "crates/adventuresim-core/src/reducer_error.rs:1-9,65-72",
+          "crates/strategic-web/src/routes/dialogue.rs:1511-1521"
+        ],
+        "trace": "Any non-success reducer HTTP body is retained as Spacetime(String); reducer_code searches that text for a stable bracketed code, and dialogue maps one code to ContactUnavailable. The parser intentionally accepts a code inside a transport wrapper rather than matching human detail prose. Because status and provenance are discarded, deciding whether the marker came from a reducer envelope or other HTTP failure depends on the remote transport contract.",
+        "conditions": "No matching non-reducer HTTP response or incorrect user outcome was observed; do not infer an exploit, prose-branching violation or malformed protocol from substring search alone.",
+        "future_repair_direction": "Establish the actual foreign envelope and distinguish reducer rejection from transport failure while preserving machine code and safe display semantics.",
+        "relationships": [
+          "Adjacent to q195 and q536–537; no automatic alias."
+        ]
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "REVIEW-STARTING-CHARACTER-OWNER-RECOVERY-95E",
+        "classification": "source-established conditional owner-recovery risk; no observed loss or runtime validation",
+        "first_contract": "An anonymous browser is issued a random owner and attempts durable starting-character creation before the cookie bearing the only presented token is returned. On a create call error the route returns without it; a successfully committed create whose HTTP response never arrives also leaves the browser without it.",
+        "sources": [
+          "session.rs:66-80,89-111,204-253,256-268",
+          "routes/characters.rs:220-245,250-315",
+          "adventuresim-stdb-module/src/character.rs:1292-1351",
+          "adventuresim-stdb-module/src/browser_session.rs:25-43,93-98,104-158"
+        ],
+        "conditions": "Assume an anonymous first creation actually commits but its create-call completion is reported as an error, or the final response carrying Set-Cookie is lost. The same candidate retry with a freshly issued different owner is rejected by the claim guard. Random owner collision is not ruled out mathematically. No native transport completion semantics, client retry, transaction atomicity, recovery flow or actual player state was inspected or probed.",
+        "safeguards": "Success and selection-failure paths explicitly attach the token after the grant; existing validated sessions retain their owner. Owner guards deliberately prevent transfer. Do not claim every create error committed or every session is orphaned.",
+        "relationship": "Related to q529 owner-key representation and q530 entropy failure, but a different conditional issuance/commit/delivery contract; not automatically an alias of either.",
+        "future_repair_direction": "After the audit gate, design an established, recoverable browser identity and explicit ambiguous-completion retry policy before creating an exclusive owner-bound claim; preserve owner exclusivity and legitimate error semantics. No implementation proposed here."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "REVIEW-BESTIARY-PROVENANCE-PREFIX-LIMIT-95E",
+        "classification": "source-established conditional valid-content loss; no observed catalog occurrence or runtime validation",
+        "first_contract": "Validated authored interpretation accepts at most 1,024 UTF-8 bytes. The native deduction producer adds the 25-byte prefix learned diagnostic clue: and retains the result; the web projection silently filters every item longer than 1,024 bytes. Consequently valid 1,000–1,024-byte interpretations become 1,025–1,049-byte entries and are filtered under the stated chain.",
+        "sources": [
+          "adventuresim-core/src/quest_catalog_validation.rs:12,834-850",
+          "adventuresim-core/src/quest_catalog.rs:824-831",
+          "adventuresim-stdb-module/src/investigation/model.rs:235-247,275-290,309-355,377-424,455-474,735-770",
+          "adventuresim-stdb-module/src/investigation/projections.rs:210-245",
+          "spacetimedb/types.rs:457-463",
+          "routes/evidence.rs:80-130"
+        ],
+        "conditions": "An author supplies an otherwise valid 1,000–1,024-byte nonempty interpretation; the diagnostic is successfully learned and a matching report generates the merged deduction that reaches this owner-scoped web projection. The arithmetic counts UTF-8 bytes, not characters. No actual catalog item of that length, completed transaction, UI observation, product build or runtime execution was established.",
+        "relationship": "q539 is a separate first failure for malformed JSON defaulting to empty; the prior L05 evidence-knowledge provenance issue concerns different producers/identity. Same field or word is not proof of a duplicate. Central reconciliation owns final identity.",
+        "future_repair_direction": "After the audit gate, align length admission with the actual final provenance representation or retain structured bounded components; preserve valid content, owner privacy, legitimate empty lists and distinctions between malformed and absent data."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "REVIEW-SESSION-PRE-EPOCH-RECOVERY-QUESTION-95E",
+        "classification": "current elaboration of historical Adler environmental question; conditional, not an observed incident",
+        "first_contract": "unix_seconds converts a pre-epoch SystemTime error to zero. A token issued while the clock is before epoch is timestamped zero; if subsequently verified at an ordinary modern date it is past the 30-day lifetime and is rejected.",
+        "sources": [
+          "session.rs:66-70,89-111,130-134",
+          "routes/characters.rs:250-315"
+        ],
+        "conditions": "Requires a pre-epoch host clock at issuance, durable grant, later restored modern clock and use of that cookie. No such environment or grant was observed; supported clock policy, durable token recovery and native clock behavior remain open.",
+        "relationship": "Adler READ-L11-386 already identified the pre-epoch-zero environmental policy question. Preserve that attribution; do not invent a separate historical finding or automatically equate this clock cause with lost HTTP delivery.",
+        "future_repair_direction": "Resolve clock-error and identity lifetime policy with the identity recovery contract after the audit gate."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "ADLER-L11-PRESENTATION-UNIT-VARIANT-PAYLOAD",
+        "classification": "recovered q196, current source relationship, no observed malformed input",
+        "first_contract": "sql_unit_variant_name accepts a single-key object and discards its payload. Settlement category and equipment-channel deserializers then admit known key names regardless of payload shape. Unknown names are rejected.",
+        "sources": [
+          "spacetimedb/types.rs:1757-1765,1784-1814"
+        ],
+        "conditions": "The helper is called with a known unit tag carrying an unexpected payload. Native wire admissibility or exposure to malformed client values was not newly established.",
+        "relationship": "Exact original q196 and Adler READ-L11-388; preserve old author and source revision. Query agent owns separate native query scope.",
+        "future_repair_direction": "Decide exact owned unit representation and native admission contract, tracing actual producers before replacing the discard behavior."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-SESSION-OWNER-KEY-INTERNAL-IDENTITY",
+        "classification": "recovered q529 and current owner-boundary relationship",
+        "sources": [
+          "session.rs:137-144,164-185,204-253",
+          "adventuresim-stdb-module/src/browser_session.rs:93-98,104-158"
+        ],
+        "conditions": "SHA-256 owner key becomes raw hex String across session/grant boundary; the native boundary validates 64 lowercase hex bytes and extractor rejects foreign owner rows. Existence of raw representation is not proof of an authorization bypass.",
+        "future_repair_direction": "Resolve shared bespoke owner identity and admission ownership without weakening opaque session or grant authority."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-SESSION-RANDOM-NATIVE-CAUSE-ERASURE",
+        "classification": "recovered q530 and current source relationship",
+        "sources": [
+          "session.rs:38-44,66-70",
+          "routes/characters.rs:259-269"
+        ],
+        "conditions": "Random generation failure maps actual cause to unit Random while route returns a generic unavailable response. No failure was induced and public secrecy policy remains separate from internal diagnostics.",
+        "future_repair_direction": "Determine native cause retention at the owning error boundary while keeping an appropriate public response."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/web-projection-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-BESTIARY-PROVENANCE-DECODE-EMPTY-DEFAULT",
+        "classification": "recovered q539 and current source relationship",
+        "sources": [
+          "spacetimedb/types.rs:457-463"
+        ],
+        "conditions": "Malformed JSON decode failure becomes empty just like a valid empty list; no malformed stored row was observed. The separate valid-length filter issue is not the same decode failure.",
+        "future_repair_direction": "Keep decode failure distinct from valid empty and define admission/presentation ownership."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/strategic-map-report.json",
+      "finding": {
+        "id": "WEB-MAP-SELECTED-CROSS-KIND",
+        "classification": "Historical q1883, conditional representable identity mismatch; producer namespace reachability open",
+        "trace": "MapLink::href encodes only the bare settlement or case-site component in a single destination query key. The caller retains query.destination as raw String and chooses the first TravelDestination with that ID. The producer separately compares the same string to each settlement and case-site ID, while StrategicPlaceId preserves their kinds. If both visible kinds share a component, both markers become selected, and MapOverlay rejects DuplicateSelection; the map host renders an unavailable state.",
+        "conditions_and_limits": "Requires an admitted geographic settlement and observer-owned exact case site with the same raw component, both present in the map input. The identity constructors accept the same valid component syntax but actual production ID namespaces and occurrence are unproven. No runtime witness, generated fixture, or claim of actual collision was made.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/markers.rs",
+            "lines": [
+              [
+                89,
+                107
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/producer.rs",
+            "lines": [
+              [
+                83,
+                118
+              ],
+              [
+                139,
+                145
+              ],
+              [
+                152,
+                178
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+            "lines": [
+              [
+                94,
+                107
+              ],
+              [
+                156,
+                196
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/strategic_place.rs",
+            "lines": [
+              [
+                17,
+                35
+              ],
+              [
+                43,
+                57
+              ],
+              [
+                207,
+                244
+              ],
+              [
+                280,
+                283
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/overview.rs",
+            "lines": [
+              [
+                1,
+                4
+              ],
+              [
+                66,
+                75
+              ],
+              [
+                84,
+                94
+              ],
+              [
+                121,
+                134
+              ],
+              [
+                226,
+                234
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+            "lines": [
+              [
+                35,
+                61
+              ],
+              [
+                88,
+                100
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/mod.rs",
+            "lines": [
+              [
+                42,
+                51
+              ],
+              [
+                62,
+                66
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Exact related historical q1883 Q-L12-c04c89e00b6a45fa94d0 records the conditional untagged destination/same-component question. This assessment adds current caller and DuplicateSelection evidence; preserve historical author and no new accepted count.",
+        "future_repair_direction": "Determine whether cross-kind values can coincide in legitimate source data. If so, carry a canonical tagged place identity through URL selection, route lookup and map selection, with explicit native encoding at the adapter.",
+        "later_acceptance_criteria": "Distinct admitted settlement and case-site identities select one intended marker and corresponding destination even when their components coincide; observer and route authorization, escaped links and safe unavailable handling remain intact."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/strategic-map-report.json",
+      "finding": {
+        "id": "WEB-MAP-ROUTE-ENDPOINT-BINDING",
+        "classification": "Conditional aggregate contract and cache precision question",
+        "trace": "The map producer accepts selected marker and RoutePlan separately, converts each point to checked WGS84 microdegrees and validates only route point count through MapRoute::new. The template obtains a route by matching a raw destination ID, while the terrain route cache uses E5-rounded start/goal coordinates and returns an existing plan on a key hit. No endpoint-to-selected-marker proof is performed by the map overlay.",
+        "conditions_and_limits": "Two differing inputs must map to one cache key or an inconsistent RoutePlan must otherwise be supplied; whether the resulting approximation is acceptable and what endpoint precision belongs to presentation versus strategic authority are unresolved. Native planner output, real data, timing and resulting route were not executed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/producer.rs",
+            "lines": [
+              [
+                111,
+                145
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+            "lines": [
+              [
+                52,
+                64
+              ],
+              [
+                223,
+                230
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+            "lines": [
+              [
+                35,
+                61
+              ],
+              [
+                88,
+                100
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/overview.rs",
+            "lines": [
+              [
+                121,
+                134
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/travel.rs",
+            "lines": [
+              [
+                127,
+                145
+              ],
+              [
+                195,
+                223
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adjacent to existing q194 ADLER-L11-TERRAIN-CACHE-ADMISSION-PARITY, which concerns validation before cache hit, but endpoint accuracy is not automatically the same defect. Prior /root/rig_identity map-route WEB-MAP-01/02/03 have separate clipping, provenance and work-bound scopes.",
+        "future_repair_direction": "Define accepted route-to-marker association and quantization error policy, then retain route identity/endpoints through producer and cache as needed without unilaterally changing native source precision.",
+        "later_acceptance_criteria": "A displayed computed route corresponds to the intended current origin and selected place under a documented precision contract; an unrelated/malformed route cannot silently masquerade as that selection."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/strategic-map-report.json",
+      "finding": {
+        "id": "WEB-MAP-E7-QUANTIZATION",
+        "classification": "Source-established conversion-policy difference; cross-owner consequence open",
+        "trace": "Map case-site admission validates E7, converts to degree floats, then rounds to checked microdegrees. The existing from_e7 path divides signed E7 components by ten, truncating toward zero. For example, an E7 component of -9 produces -1 by degree-to-microdegree rounding but 0 by truncating conversion. A distinct authoritative travel weather path uses from_e7 before weather cell selection.",
+        "conditions_and_limits": "The example is exact source-level arithmetic, not a generated or executed fixture. Consumer meanings differ and a changed map pin does not by itself prove incorrect weather or identity; whether unified rounding is required remains open. A 1-microdegree difference can matter only where an applicable downstream boundary/policy makes it meaningful.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/producer.rs",
+            "lines": [
+              [
+                211,
+                225
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-world-schema/src/coordinates.rs",
+            "lines": [
+              [
+                58,
+                96
+              ],
+              [
+                118,
+                136
+              ],
+              [
+                205,
+                226
+              ],
+              [
+                242,
+                265
+              ],
+              [
+                281,
+                316
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+            "lines": [
+              [
+                51,
+                83
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/weather.rs",
+            "lines": [
+              [
+                173,
+                186
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to q133 travel geographic admission and q1564 regional geographic/coordinate consumer scope; no exact alias or current defect is asserted. Prior map-route agent separately read coordinates at 95e for roles 2364–2368; that earlier support remains theirs.",
+        "future_repair_direction": "Document and reconcile rounding versus truncation at the actual coordinate owners only if cross-consumer equivalence is required; retain intentional numerical and wire-boundary semantics.",
+        "later_acceptance_criteria": "Equivalent inputs obey the chosen documented conversion policy at each real consumer, with signed near-zero and cell-boundary behavior explicitly accounted for."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/strategic-map-report.json",
+      "finding": {
+        "id": "WEB-MAP-ADMISSION-FAILURE-SCOPE",
+        "classification": "Conditional failure policy, not proven ordinary invalid data",
+        "trace": "Any in-bounds settlement or site with an invalid canonical identity propagates a typed identity failure; duplicate place/current/selection or marker-count failure propagates from MapOverlay. The outer map returns one generic unavailable section, rather than rendering a partial set.",
+        "conditions_and_limits": "A bad/duplicate admitted row or oversized map input occurs. Actual producer uniqueness, authoritative data availability, error ordering and desired all-or-nothing policy remain open. The typed failure and absence of partial published overlay are source-established; no corruption or runtime incident is assumed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/producer.rs",
+            "lines": [
+              [
+                65,
+                110
+              ],
+              [
+                139,
+                148
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/regional_map.rs",
+            "lines": [
+              [
+                94,
+                107
+              ],
+              [
+                156,
+                197
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/strategic_map/mod.rs",
+            "lines": [
+              [
+                31,
+                51
+              ],
+              [
+                62,
+                66
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Historical READ-L11-389 and READ-L12-799 left native overlay/caller admission open. Prior web-map route WEB-MAP-03 concerns earlier geometry work bounds, not necessarily this aggregate-count policy.",
+        "future_repair_direction": "Decide whether malformed nonselected entries should reject the whole map or be safely excluded; keep source, identity, observer and duplicate-selection authority in one coherent boundary.",
+        "later_acceptance_criteria": "Known invalid inputs have an intentional, observable and non-leaking outcome; no accidental partial overlay or silent identity substitution is introduced."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-quest-templates-report.json",
+      "finding": {
+        "id": "DELEGATE-QUEST-LOOT-TARGET-PARTY-ROW-AGGREGATION-95E",
+        "classification": "new current conditional source finding; aliases and central repair ownership unresolved",
+        "title": "Loot-to-target uses one party row instead of all same-item rows",
+        "source": [
+          "crates/strategic-web/src/templates/interface_help.rs:5-12",
+          "crates/strategic-web/src/routes/quests.rs:1102-1124,1144-1153,1381-1404,1452-1465",
+          "crates/strategic-web/src/templates/quest.rs:475-489,571-575",
+          "crates/strategic-web/static/party-trade.js:362-367,379-397",
+          "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:481-512,534-559"
+        ],
+        "trace": "The interface key describes Target as the quantity to retain or acquire in this inventory. The quest route loads party inventory rows and the party leader scoped targets; the template maps each loot item to the first same-item party row and puts only that quantity in data-current. The target-mode handler calculates target minus this one row and staged quantity. Stable physical objects can be represented as multiple quantity-1 rows with the same item ID. For example, if the party already holds two separate same-item rows of quantity 1 and the target is 2, the template supplies current=1 and the target-mode calculation can stage one more from a nonempty corresponding loot row, although the total of those party rows is already 2. This is arithmetic from source, not a run or simulated fixture.",
+        "conditions": "Requires this target to mean aggregate item quantity across the relevant party rows, qualifying stable objects and a same-item available loot row, and selection of target mode. Whether nested/conditioned items count in the intended target and the actual reachability, frequency, browser behavior and successful authoritative transfer remain unverified. The normal battle drop producer inspected at inventory_trade.rs:1361–1396 combines dropped quantities by item_id; duplicate loot-row staging is not asserted as reachable. Currency/alcohol/food grouping uses separate component controls in inventory-browser.js:218–299,302–350,380–444 and must be preserved; no blanket grouping claim.",
+        "future_repair_direction": "Reconcile the target owner and intended inclusion of physical, nested and measured objects, then compute the relevant aggregate safely and consistently with drafts and transfer admission. Preserve per-object identity, player choice, zero target behavior, and authoritatively validated transfers; any later verification waits for authorization.",
+        "relationships": [
+          "Adler 059 READ-L11-390 explicitly left actual loot DOM staging/native quantity and target-owner filtering pending. 059 q188 ADLER-L11-LOOT-PAIR-ADMISSION and q629 Q-L11-9ee5b5fc5bde0e9c4315 concern pair/empty-token admission, a distinct first cut until centrally reconciled. 059 q546 Q-L11-a822e43c64bf770b3e99 concerns target-save acknowledgment, not automatically this arithmetic. 774 RIG-PPS-038 /fresh_current_source_reads/3 reports a historical full quest source read; new assessment is not a retroactive historical finding."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-quest-templates-report.json",
+      "finding": {
+        "id": "QUEST-COUNTERPARTY-BANDAGE-CONTEXT-CONTRAST-95E",
+        "classification": "newly assessed bounded cross-route evidence, narrows earlier conditional medical finding; not an independent broader-care finding",
+        "source": [
+          "crates/strategic-web/src/templates/quest.rs:358-407",
+          "crates/strategic-web/src/routes/quests.rs:503-541,1244-1267",
+          "crates/strategic-web/src/routes/settlements/medical.rs:223-230,283-317",
+          "crates/adventuresim-stdb-module/src/surgery.rs:897-925,949-965",
+          "crates/adventuresim-stdb-module/src/world_actor.rs:761-779,816-895"
+        ],
+        "trace": "The quest page projects a live counterparty contact reference, membership revision, decision and limb. For a living counterparty, a limb and Request or EmergencyTreatment decision, the quest form sends the contact reference and expected membership revision; its distinct handler calls treat_limb with both Some values and the procedure fixed to Bandage. The ordinary surgery form has no claim fields and its handler sends None for both. The reducer accepts paired valid claims and contextual treatment requires a matching visible qualifying membership when one exists. Thus the earlier ordinary-surgery missing-claim finding does not imply all contextual treatment is unavailable: the quest bandage route is a distinct path that supplies that pair.",
+        "conditions": "The form and forwarding demonstrate source intent only. Successful treatment still depends on living characters, co-presence, exact visible current membership, permission or emergency, admission and other reducer preconditions. This narrow contrast does not show general procedures are available by the quest bandage form or that any runtime treatment succeeded.",
+        "future_repair_direction": "When reconciling the earlier ordinary-surgery case, carry the authoritative context/revision as appropriate without conflating the separate Bandage-only quest action, refusal, emergency, retry and stale-revision decisions.",
+        "relationships": [
+          "Prior /root/rig_identity medical report DELEGATE-WEB-MEDICAL-CONTEXT-CLAIM-95E remains frozen and exactly preserved under prior-current; central should narrow its scope, not erase it. 059 q1006 Q-L12-a2ef7026a3b720bc1401 and q1872 Q-L12-2d961f568d7521b86062 preserve separate unresolved permission/context questions. 059 q1885 Q-L12-c22df9b9151c6e8a2b78 sought the quest limb/context identity producer; no historical alias or closure asserted."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-quest-templates-report.json",
+      "finding": {
+        "id": "ADLER-L11-MISSION-CANCEL-OUTCOME",
+        "classification": "existing 059 q187 first cut independently reconnected at current revision; no new unique claim",
+        "source": [
+          "crates/strategic-web/src/templates/mission.rs:82-95,160-169",
+          "crates/strategic-web/src/routes/missions.rs:195-242"
+        ],
+        "trace": "Pending mission renders a cancellation POST. After viewer and party checks, the current cancellation handler discards execute_or_request_party_action result and redirects, so its distinct action outcome is not retained there.",
+        "conditions": "This establishes source behavior, not that any specific cancellation failed or that a redirect explicitly reports success. Endpoint and user-facing outcome/retry policy must be reconciled.",
+        "future_repair_direction": "Preserve and handle executed, requested and error outcomes through the native response while retaining permission and party authority.",
+        "relationships": [
+          "059 queue /entries/187 ADLER-L11-MISSION-CANCEL-OUTCOME remains open-reconciliation. Prior /root/mhr_character current mission 1–105,150–180 and /root/hair_ops current 1–48 are separate original read attributions."
+        ]
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/web-quest-templates-report.json",
+      "finding": {
+        "id": "QUEST-ADDRESS-PRICE-OUTCOME-OPEN-95E",
+        "classification": "bounded unresolved contracts, not established defect or security claim",
+        "source": [
+          "crates/strategic-web/src/templates/quest.rs:222-224,245-259,475-489,545-552,578-584",
+          "crates/strategic-web/src/routes/quests.rs:550-570,1072-1076",
+          "crates/strategic-web/src/templates/mission.rs:27-29,130-135,160-163,177-179",
+          "crates/adventuresim-core/src/mission.rs:17-35,57",
+          "crates/adventuresim-stdb-module/src/tactical.rs:693-700,868-875,911-925",
+          "crates/adventuresim-core/src/strategic_place.rs:17-35,43-58,109-117"
+        ],
+        "trace": "The mission page embeds mission_id in a Datastar expression and native path and addr in a native query; the typed MissionId constructor restricts validated values to bounded canonical lowercase ASCII and tactical request/claim paths call it. The canonical CaseSiteId constructor similarly disallows slash and query delimiters, narrowing concern for the case-site autoresolve path. Case-site presentation action_id may instead be a contract or battle ID for loot, whose full admission and route contract are not established by this read. The value display maps missing catalog/base_value to zero while weight displays a dash; interface help dash language specifically discusses weapon and armor measurement columns. The template compares victor to an enemies literal while core has a separate StrategicBattleVictor enum, but producer mapping and business semantics were not traced.",
+        "conditions": "No proof that all mission views originate in the checked producer paths, that published server addresses satisfy query-encoding assumptions, that missing base_value means unknown rather than zero, or that the victor producers use the existing enum in this presentation. HTML escaping is not itself evidence of correct JavaScript or URL component encoding. No browser, service or injection probe performed.",
+        "future_repair_direction": "Trace actual admission and framework-native encoders/consumers and catalog/victor owners before deciding type/escaping/error changes. Preserve intended path semantics and distinguish unknown from numeric zero only when native value policy establishes that meaning.",
+        "relationships": [
+          "059 READ-L11-390 and READ-L12-800/801 left native mission ID/address, quest price and victor producer contracts pending. 059 q1885 specifically records victor and corpse owner questions. Do not auto-alias to q187, q188 or q546."
+        ]
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-character-details-report.json",
+      "finding": {
+        "id": "WEB-CHARACTER-NONE-PARTY-ACTION",
+        "classification": "Conditional misleading action; prior question now traced to route",
+        "trace": "The stats handler loads the active character, admits a separately observed character at matching current locations, and obtains parties independently from optional party IDs. The sheet considers active_character.party_id == selected.party_id sufficient to take the same-party branch; when distinct characters both have no party, the comparison is true and the empty active party takes the Request kick branch. Submitting routes to a RemovePartyMember command and logs errors.",
+        "conditions_and_limits": "Requires a distinct selectable observed subject, both party_id values None and current locations matching. Such input is representable and not excluded by the displayed route, but occurrence in actual data, normal links and downstream reducer acceptance were not established. No mutation, successful removal or authorization bypass is asserted.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                526,
+                544
+              ],
+              [
+                569,
+                618
+              ],
+              [
+                676,
+                703
+              ],
+              [
+                485,
+                523
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/data.rs",
+            "lines": [
+              [
+                20,
+                36
+              ],
+              [
+                151,
+                171
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+            "lines": [
+              [
+                369,
+                395
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/party_actions.rs",
+            "lines": [
+              [
+                8,
+                19
+              ],
+              [
+                145,
+                158
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Adler READ-L11-391 and /root/lens12_frontier PROPOSAL-L12-802 already explicitly flagged the two-None possibility, with route/reducer policy pending. The new 95e source trace establishes the route permits the input shape, not backend effect. Related q201 concerns different leadership reconstruction; central decides aliasing.",
+        "future_repair_direction": "Represent same-party only when both share an actual party identity, and align displayed actions with the authoritative membership and leadership contract; retain backend authorization.",
+        "later_acceptance_criteria": "An unaffiliated subject does not acquire a same-party removal offer solely because two IDs are absent; legitimate same-party leave/kick/request states preserve expected behavior and are independently authorized."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-character-details-report.json",
+      "finding": {
+        "id": "WEB-CHARACTER-STATS-ORGANIZATION-ABSENCE",
+        "classification": "Qualified producer/receiver loss; q3299 connected question",
+        "trace": "Both stats route patterns bind party_stats; the handler explicitly selects the active character for a matching character ID and passes to party_stats_page. That page always supplies empty organization memberships, no presentation and ZERO minute, while marking self as allowed to manage identity. For self at a settlement, the picker displays No organization and offers only the clear option because its choices came from that empty slice. For another character the display also receives empty data.",
+        "conditions_and_limits": "The self case requires a request to a stats endpoint for the active character at a settlement and an actual eligible/presented organization; handler code permits this shape but normal link incidence and actual data are not shown. Cross-character disclosure policy and intended identity presentation remain unresolved. Not a claim of reducer mutation.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/router.rs",
+            "lines": [
+              [
+                279,
+                281
+              ],
+              [
+                320,
+                325
+              ],
+              [
+                337,
+                339
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                526,
+                544
+              ],
+              [
+                569,
+                579
+              ],
+              [
+                676,
+                703
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+            "lines": [
+              [
+                399,
+                418
+              ],
+              [
+                489,
+                507
+              ],
+              [
+                532,
+                560
+              ],
+              [
+                596,
+                646
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Revisits q3299 REVIEW-L3-CHARACTER-DETAILS-PROJECTION-ADMISSION, which explicitly retained caller policy for these absent projections. Newly inspected current caller establishes fixed empty inputs even for the explicit self case; preserve the historical unresolved status and let central decide canonical relationship.",
+        "future_repair_direction": "Carry an authorized, availability-aware organization presentation to this route or render an explicitly unavailable/not-shown state under a documented disclosure policy; do not conflate absence with confirmed no organization.",
+        "later_acceptance_criteria": "For an eligible self membership the stats route shows the correct authorized choices/current presentation; unavailable and intentionally private data remain distinguishable from a confirmed empty state."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-character-details-report.json",
+      "finding": {
+        "id": "WEB-CHARACTER-SUMMARY-FAITH-THRESHOLD",
+        "classification": "Conditional source-level mismatch; policy question",
+        "trace": "The sheet converts the effective character-or-location religion string through OfficialReligion::from_id and the summary invokes the skill icon producer with that context. The producer chooses the contextual official religion ahead of strongest knowledge, but decides to emit a religion badge if any official religion clears the rank threshold; it labels and ranks the badge using the chosen contextual religion. A below-threshold contextual religion and another above-threshold religion therefore give a below-threshold labeled badge, with qualifying religions listed in its tooltip.",
+        "conditions_and_limits": "The rank combination and context must be admitted by real producers. The meaning intended for the badge and whether context should dominate threshold are not settled. The conclusion follows from source conditions; no product run or synthetic fixture was performed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_details.rs",
+            "lines": [
+              [
+                139,
+                146
+              ],
+              [
+                281,
+                283
+              ],
+              [
+                409,
+                409
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+            "lines": [
+              [
+                4,
+                17
+              ],
+              [
+                19,
+                33
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "lines": [
+              [
+                34,
+                35
+              ],
+              [
+                133,
+                147
+              ],
+              [
+                191,
+                203
+              ],
+              [
+                332,
+                355
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to q2454 L2-CHARACTER-FAITH-TRAINING-OWNER-POLICY but distinct from automatically narrowing general faith to OfficialReligion. Nonofficial western_church/old_faith and unknown identities are intentionally recognized in display and must not be invalidated by this report. Central owns any alias decision.",
+        "future_repair_direction": "Decide whether the badge names the contextual faith or qualifying knowledge and align the admission predicate, label, rank and tooltip under that policy; retain distinct broad affiliation and official study semantics.",
+        "later_acceptance_criteria": "A below-threshold contextual faith with a different qualifying faith receives an intentional, accurately named/ranked summary; broader nonofficial affiliations and no-context cases remain supported."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-character-details-report.json",
+      "finding": {
+        "id": "WEB-CHARACTER-OBSERVER-COLOCATION",
+        "classification": "Current connected trace of recovered q179; chronology and snapshot unresolved",
+        "trace": "The subject lookup rejects mutable current character facts only when subject minute exceeds observer minute. Its own helper documentation says co-location or other shared-current facts additionally require equal frontiers. The stats route subsequently compares selected and active current locations but does not call the equal-frontier helper in the displayed path. It reads other current projections independently.",
+        "conditions_and_limits": "Requires different nonmissing frontiers with a subject not ahead and matching current locations; no real records, stale transition, snapshot race or disclosure was demonstrated. Equal-frontier admission alone would not prove atomic snapshot safety.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/data.rs",
+            "lines": [
+              [
+                20,
+                48
+              ],
+              [
+                151,
+                171
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                569,
+                594
+              ],
+              [
+                619,
+                665
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Connected to historical q179 ADLER-L11-OBSERVER-FRONTIER-SNAPSHOT; the present view is a source-level route propagation, not a claim that the broader queue item is closed. Earlier medical/observer agents retain their own receipts.",
+        "future_repair_direction": "Define and enforce the observer-relative authority and shared snapshot for location and character projections, or explicitly represent unknown when reconstruction is impossible.",
+        "later_acceptance_criteria": "A subject at a different frontier cannot be presented as sharing current location without an authorized temporal basis, and subject data remain tied to the checked snapshot."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-character-details-report.json",
+      "finding": {
+        "id": "WEB-CHARACTER-LIMB-PROJECTION-UNAVAILABLE",
+        "classification": "Current corroboration of historical q197",
+        "trace": "The stats route collapses limb query errors into an empty vector and passes its first row as an optional projection. If attributes exist while limbs are absent, the health rail continues and substitutes 1.0 for all seven missing limb health fields.",
+        "conditions_and_limits": "The source establishes this substitution for a failed or empty projection with attributes present, but not its real-world frequency or actual database error. An intentionally absent preview may have a different contract from a live route.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                619,
+                633
+              ],
+              [
+                676,
+                684
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+            "lines": [
+              [
+                1179,
+                1198
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Directly connected to historical q197 ADLER-L11-LIMB-HEALTH-AVAILABILITY and Adler READ-L11-391. No new historical reader credit.",
+        "future_repair_direction": "Preserve unavailable versus known intact health through the live read and receiver, while keeping genuine preview semantics explicit.",
+        "later_acceptance_criteria": "A failed/missing live limb projection is visibly unknown, never rendered as confirmed full health; authorized complete limb data and intentional preview modes retain their meaning."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/web-character-details-report.json",
+      "finding": {
+        "id": "WEB-CHARACTER-MEDICATION-HISTORY-UNAVAILABLE",
+        "classification": "Current corroboration of historical q193",
+        "trace": "The medical query fails closed when observer chart or patient time is unavailable. But after authorizing administration-history access for self or an observer with chart rows, the medication-history query converts an error to an empty list, then sanitizes it as ordinary history. The presentation retains a single unavailable flag for the former errors.",
+        "conditions_and_limits": "Only the authorized history-query error case is in scope; no claim that all medical data is public or that the query actually failed. The chart and time fail-closed behavior is a nonfinding.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+            "lines": [
+              [
+                707,
+                764
+              ],
+              [
+                767,
+                773
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/strategic-web/src/medical.rs",
+            "lines": [
+              [
+                38,
+                47
+              ],
+              [
+                127,
+                139
+              ],
+              [
+                210,
+                223
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Directly connected to q193 ADLER-L11-MEDICAL-HISTORY-AVAILABILITY; maintain its original author and scope.",
+        "future_repair_direction": "Carry history availability separately from an authoritative empty history and keep observer-scoped access.",
+        "later_acceptance_criteria": "An authorized history query failure cannot appear as confirmed empty medication history; absent observer access and genuinely empty history remain distinct without disclosure."
+      }
+    }
+  ],
+  "central_decisions": [
+    "Three /root/hair_ops reports displayed one complete equal body per role without recording the revision copy, not two separately attributed revision reads. The other six packets record separate 6533 and 95e displays. Existing bounded observations for roles2381,2389 and2395 remain linked unchanged.",
+    "Ordinary surgery omits both context claim and revision and the owner rejects a missing claim when qualifying membership exists. The separately traced quest Bandage action carries both; do not claim that all contextual care fails or a permission bypass occurred.",
+    "The rest charge comparison is conditional on successful clipping across a cost boundary; native settlement uses actual elapsed time while the summary derives board cost from requested time. Its missing observation, net-versus-gross, URL-location and historical clock causes retain separate owner questions.",
+    "q191 capability, q192 date projection, q517 residence clock and q510 shared query-error discard remain distinct. Camp forecast inputs, missing road challenge, recruitment collection and presence schedule are conditional receiver effects, not interchangeable queries.",
+    "The forage neighbor failure defaults a failed or absent sample to nonwater before an attested habitat decision; center error q518/q519 and q1878 pending policy remain distinct. q520–526 preserve their original terrain planner error stages.",
+    "A shared case lead can produce owner-keyed duplicate site pins while the inspected site-only query expects at most one; q1881 remains partial, owner visibility and SQL projection conditions open. The query envelope and reducer-code provenance questions require actual remote contracts, not assumed classifier defects.",
+    "A bestiary interpretation of 1000–1024 bytes can exceed the web limit after the 25-byte prefix; q539 malformed JSON is a different first failure. Lost anonymous-session response is conditional and distinct from entropy, pre-epoch time and key type.",
+    "For map q1883, matching raw place IDs select two markers and yield DuplicateSelection/unavailable rather than an arbitrary accepted route. E7 quantization and endpoint binding have distinct owners and no observed mismatch.",
+    "Loot target uses one matching party row; current source shows separately admitted quantity-one physical rows, but no duplicate-loot-row staging claim. The unaffiliated two-None party offer was already explicitly flagged in Adler391 and Lens12-802; it is not a newly invented historical finding.",
+    "q179 observer chronology, q193 medication-history availability, q197 missing limb availability, q187 cancellation and q2454 broad faith identity remain distinct. The faith badge threshold question is related but does not collapse the broader historical owner policy.",
+    "Each packet’s thirteen perspectives are bounded to that source family. The original 3821 ledger/queue remain missing, 059 history keeps its original authors and revision, and neither a repository-wide lens closure nor any implementation or product validation is asserted."
+  ],
+  "open": "Actual producer populations, transport semantics, availability policy, location/observer chronology, identity ownership and exact aliases remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

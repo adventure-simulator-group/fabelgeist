@@ -1,0 +1,470 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2399–2401 health template, notebook and segments. Full independent personal displays of historical and current source, separately registered bounded support, and thirteen bounded source-family perspectives. Central agent owns baseline, ordered-role accounting, alias decisions, repair ledger and publication.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "roles": [
+    {
+      "original_role": 2399,
+      "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+      "lines": 2165,
+      "sha256_both_revisions": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "git_blob": "bdd234c5bf0f14f42ff8cce2aaad1750cc04b193",
+      "personal_scope": "Both historical and current full bodies personally displayed in 200-line registered chunks, test text unexecuted."
+    },
+    {
+      "original_role": 2400,
+      "path": "crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "lines": 27,
+      "sha256_both_revisions": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "git_blob": "5d29c8554af433f8781e4755c20fb2fde784cad8",
+      "personal_scope": "Both historical and current full bodies personally displayed in 200-line registered chunks, test text unexecuted."
+    },
+    {
+      "original_role": 2401,
+      "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "lines": 72,
+      "sha256_both_revisions": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+      "git_blob": "9f93c75b566fec91a4f3cf52731172529671f619",
+      "personal_scope": "Both historical and current full bodies personally displayed in 200-line registered chunks, test text unexecuted."
+    }
+  ],
+  "findings_and_reconciliations": [
+    {
+      "id": "HEALTH-TIMELINE-REFERENCE",
+      "classification": "Current receiver trace of historical q198",
+      "trace": "The route reads the target current minute and sanitize uses it to select active medications, but MedicalPresentation does not retain that minute. The notebook takes the latest reading as last_minute, passes it as today to relative labels, and labels the last endpoint Today; all event, gap and observation ages are relative to last observation.",
+      "conditions_and_limits": "If the latest authorized observation predates the legitimate observer-relative reference date by at least a day, its displayed age is materially wrong. Which personal frontier is authorized for each viewing context must be resolved rather than blindly using a subject future minute; no live chart was exercised.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              707,
+              725
+            ],
+            [
+              740,
+              764
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/medical.rs",
+          "lines": [
+            [
+              38,
+              47
+            ],
+            [
+              127,
+              131
+            ],
+            [
+              169,
+              169
+            ],
+            [
+              210,
+              223
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              721,
+              728
+            ],
+            [
+              866,
+              891
+            ],
+            [
+              919,
+              997
+            ],
+            [
+              999,
+              1056
+            ],
+            [
+              1091,
+              1105
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Direct continuation of q198 ADLER-L11-MEDICAL-TIMELINE-REFERENCE-DATE and Adler READ-L11-391. Earlier /root/hair_ops and /root/rig_identity source packets remain independently attributed.",
+      "future_repair_direction": "Carry an explicitly authorized reference minute separately from observation extent, preserve observer-relative history and correctly label a stale last reading.",
+      "later_acceptance_criteria": "A last observation older than the viewing reference has an accurate age and does not become Today; trend extents, event placement and observer boundaries remain correct."
+    },
+    {
+      "id": "HEALTH-INJURY-FAILURE-BLUNT",
+      "classification": "Conditional available-limb versus unavailable-injury type misrepresentation",
+      "trace": "The stats route queries limb and injury projections separately and maps injury query error to an empty list. The health bar takes the first matching injury if present; when none exists, PhysicalDamage assigns all known physical damage to blunt, and bandaged/splinted markers are absent.",
+      "conditions_and_limits": "Requires an available damaged limb and an injury query error (or another absent-row situation whose authoritative contract is unknown). In that case genuine cut, frostbite or fracture would be mislabeled blunt, but no actual failure, database contents or runtime result was observed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              629,
+              633
+            ],
+            [
+              653,
+              660
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              1360,
+              1381
+            ],
+            [
+              1404,
+              1443
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+          "lines": [
+            [
+              37,
+              70
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adjacent to but not automatically identical with q197 ADLER-L11-LIMB-HEALTH-AVAILABILITY: q197 concerns an absent limb projection, while this concerns injury classification when limb health exists. Central decides alias and canonical owner.",
+      "future_repair_direction": "Carry injury-query availability separately from a known empty injury and show unclassified known damage when component evidence is unavailable; align both projections to a consistent observation.",
+      "later_acceptance_criteria": "A failed injury read never turns unknown damage into confirmed blunt or clears treatment state; coherent known injury rows retain correct segments."
+    },
+    {
+      "id": "HEALTH-LIMB-UNAVAILABLE",
+      "classification": "Current corroboration of historical q197",
+      "trace": "The route maps a failed limb query to an empty vector. If attributes are available, the health rail maps absent limbs to 1.0 for each region, so an unavailable live limb projection appears fully healthy.",
+      "conditions_and_limits": "Requires live query failure or missing row with attributes present. Intentional previews can have a different contract; no actual database failure was tested.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              619,
+              633
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              1179,
+              1198
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Historical q197 and READ-L11-391 already record this finding; prior character-details packet independently connected the same route.",
+      "future_repair_direction": "Distinguish unavailable live limb health from intentional preview and confirmed full health.",
+      "later_acceptance_criteria": "A failed or missing live projection is shown as unknown, while complete records and deliberate previews retain their semantics."
+    },
+    {
+      "id": "HEALTH-READING-PRECISION",
+      "classification": "Source-proven documentation/representation mismatch; precision policy unresolved",
+      "trace": "The trend projection uses the i16 basis-point value for x geometry and explicitly comments that accessible labels retain exact values. Reading bars and point aria labels divide integer values by 100 before formatting, discarding all sub-percent remainder. For a nonzero magnitude below 100 basis points, the plotted coordinate is displaced but the textual percentage becomes zero.",
+      "conditions_and_limits": "The arithmetic follows directly from source; whether producers can emit such non-whole-percent values and whether disclosure should preserve that precision remain open. The comment is stronger than the shown accessibility representation; no accessibility tooling or product behavior was run.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              744,
+              764
+            ],
+            [
+              807,
+              826
+            ],
+            [
+              847,
+              863
+            ],
+            [
+              1091,
+              1117
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/medical.rs",
+          "lines": [
+            [
+              57,
+              65
+            ],
+            [
+              132,
+              151
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Adler READ-L11-391 noted signed integer conversion and left precision policy pending. This is a current source comparison, not an inferred duplicate accepted finding.",
+      "future_repair_direction": "Decide the authorized observation precision and align visual, textual and accessible representations and their documentation.",
+      "later_acceptance_criteria": "If sub-percent variation is meaningful, equivalent exposed readings retain it accessibly; if deliberately rounded, the chart and explanation do not promise exact values."
+    },
+    {
+      "id": "HEALTH-GAP-ADMINISTRATION",
+      "classification": "Existing prior-session policy candidate independently confirmed at receiver",
+      "trace": "The chart plots administration starts/stops whose timestamps fall between the first and last observations and shows labels for gaps as Not in party. It does not exclude event timestamps inside a gap. The medical route grants administration history to self or an observer with any chart row and sanitize retains the returned administrations.",
+      "conditions_and_limits": "Requires separated observation spans and an administration event within the gap. Whether authorization for any observation intentionally grants complete history is an unsettled product and privacy policy; no actual disclosure, patient record or runtime behavior was observed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              707,
+              739
+            ],
+            [
+              767,
+              773
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/medical.rs",
+          "lines": [
+            [
+              127,
+              131
+            ],
+            [
+              169,
+              180
+            ],
+            [
+              210,
+              223
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              913,
+              917
+            ],
+            [
+              929,
+              992
+            ],
+            [
+              999,
+              1057
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Same DELEGATE-MEDICAL-GAP-EVENT-DISCLOSURE-95E previously assessed by /root/hair_ops in web-data and independently reconnected by /root/rig_identity in web-medical. Their complete retained packets retain their own readers and scopes. q179, q193 and q198 are adjacent, not automatic exact aliases.",
+      "future_repair_direction": "Decide whether history is complete or limited to authorized observation/presence and observation band; enforce the chosen policy at the source while preserving self access.",
+      "later_acceptance_criteria": "All timeline events follow the decided visibility policy across gap boundaries and observation bands, without confusing data unavailability and an empty history."
+    },
+    {
+      "id": "HEALTH-SEGMENT-COHERENCE",
+      "classification": "Conditional projection coherence question, normal owner alignment confirmed",
+      "trace": "PhysicalDamage partitions a present injury as cut, frostbite and max(bruise, fracture), capping each against physical health damage; the surgery owner computes projection from the same components and treats fracture as part of blunt. Under coherent nonnegative values the segment sum tracks the projected physical damage. The route obtains injury and limb values independently, however, so a mismatched snapshot can leave unrepresented damage or misleading classification.",
+      "conditions_and_limits": "A stale, unavailable or otherwise inconsistent pair must reach the receiver; separately fetched rows alone do not prove such a snapshot arose. Normal coherent owner-derived data and fracture-within-blunt are explicit nonfindings.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+          "lines": [
+            [
+              102,
+              116
+            ],
+            [
+              187,
+              190
+            ],
+            [
+              222,
+              250
+            ],
+            [
+              276,
+              292
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+          "lines": [
+            [
+              619,
+              633
+            ],
+            [
+              653,
+              660
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+          "lines": [
+            [
+              37,
+              70
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+          "lines": [
+            [
+              1360,
+              1379
+            ],
+            [
+              1397,
+              1407
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Related to q179 observer snapshot and q197 availability, but this is not established as either exact defect. Earlier reviewer Lens12 already qualified native aggregate and source invariants.",
+      "future_repair_direction": "Specify and preserve a consistent availability/snapshot contract for the related projections and leave unknown portions unclassified when needed.",
+      "later_acceptance_criteria": "A coherent injury projection partitions correctly and a missing or inconsistent component cannot be silently asserted as a different known injury type."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "Corpse interred mode suppresses displayed identity, decomposition and findings and offers exhumation; unauthorized and destructive actions have explicit warnings and confirmation. Actual route/reducer admission, idempotency and corpse permission policy are outside the assigned bodies, so neither safety nor unauthorized action is inferred from template syntax.",
+    "The shared action token excludes the corpse ID in its textual contents, but the HTTP endpoint includes the target; actual idempotency key scope remains unread and no collision is claimed. Window and permission raw strings need actual closed parser and producer trace, not an automatic type finding.",
+    "For an absent chart or time query, the route yields explicit unavailable, distinct from a successful no-reading chart. The administration-history error path separately conflates unavailable and empty, already tracked as q193; no blanket disclosure is claimed.",
+    "The chart splits trend paths when a gap intersects consecutive reading times, and renders indexed regions/humours from locally fixed dimensions. The upstream exact interval and observation-band disclosure policy remains open; no runtime gap behavior was verified.",
+    "Possible disease estimates are labeled estimates rather than diagnoses and no private infection input appears in these receiver bodies. The differential list claims sorted likelihood, but actual producer sorting and allowed confidence bounds need independently registered upstream evidence; no unchecked data is presumed.",
+    "An optional surgery entry only sets HTML controls; reducers are the authorization authority. Status segments include thermal and current fatigue. This source alone does not prove CSS cutoff, wheel/encumbrance behavior, or product accessibility.",
+    "All assigned bodies are identical at the two pinned revisions; neither transitive dependencies nor actual runtime behavior are proved identical. Test blocks were read as text only."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Current minute is consumed for medication selection but not propagated into timeline presentation; injury and limb query availability is erased before bar interpretation."
+    },
+    {
+      "lens": 2,
+      "name": "existing type owners",
+      "assessment": "BodyRegion, SurgeryProcedure, CorpseActionKind and StrategicMinute remain typed to native boundaries; broader corpse windows/permission require actual owners. Fracture lives inside blunt as surgery authority specifies."
+    },
+    {
+      "lens": 3,
+      "name": "admission contracts",
+      "assessment": "Chart sanitizer checks seven-element humour arrays and sorts readings; it clamps candidate likelihood but passes raw confidence. The upstream confidence and observation authorization contracts remain open."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "Whole-percent integer division loses basis-point remainder; segmented injury bounds rely on coherent nonnegative owner-derived projections. Timeline elapsed computations use typed minutes but wrong reference date."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "A chart combines readings, gaps, current time and administrations; a bar combines independently fetched limb and injury rows. Their correlations and failure states cannot be established by individual valid fields alone."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Projection availability and observer-relative reference belong to actual chart and route owners; no historical supplier assignment confers whole-function repair authority."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "CharacterLimbs health is derived from injury components in normal surgery flow, but independently retrieved receiver snapshots can diverge. Preserve one actual authority and explicit unknown."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Both assigned revision bodies match byte-for-byte. Preserve observed medical privacy, deliberate corpse warnings, injury health partition and typed time semantics during any later repair."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "SurgeryItemRequirement and CorpseActionKind distinguish cases; Option for injury alone conflates no record with read failure after route default. Determine availability shape at the boundary."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Distinct surgery rendering, segmentation and trend interpolation implement domain choices, not proven derivable boilerplate; no blanket trait or serialization change is supported."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Differentiate actual current reference from latest observation, known zero injury from unavailable, body region from array index, and fraction/basis-points from displayed whole percent."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "window, discipline, stage and corpse permission can affect behavior but actual admissible owners/reducer contracts remain unread. Human labels, CSS keys and SVG output are native rendering boundaries."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Known region/humour dimensions are locally bounded; numeric precision, confidence range, unknown physical damage and final threshold semantics are the relevant questions, not indiscriminate wrappers."
+    }
+  ],
+  "historical_provenance": {
+    "adler_059": "READ-L11-391 records Adler prospective ADLER-1271 2399:1–2165 and ADLER-1272 2400:1–27; READ-L11-392 records ADLER-1274 2401:1–72. Source tests are historical source-only reads, not executed.",
+    "lens12_059": "PROPOSAL-L12-803 and root READ-L12-803 attribute fresh 2399:391–2165 to /root/lens12_frontier, plus qualified prior same-agent partial 1–390 from READ-PARTIAL-PAR-L12-803-ORIGINAL2399-001 under PAR-L12-394. Prior partial granted zero ordered credit at that time. PAR-L12-395/396 freshly read 2400:1–27 and 2401:1–72. Root adoption has root_personal_rereads=[]; no extra root body read.",
+    "older_774": "Camera owner coverage.jsonl zero-based row427 (line428) and additional-sources zero-based rows666/671/672 (lines667/672/673) record CAM-OWN-WEB-HEALTH-109 full exact 2399/2400/2401 ranges. Camera producer CAM-PPS-CLINICAL-RECEIVERS-045 current_sources indices 7/14/15, rig RIG-PPS-034 fresh_current_source_reads indices 7/14/15 and RIG-PPS-035 indices 4/6/7 each retain their distinct original receipt and ranges. CAM-PPS-CORPSE-012 is a 2399:310–470 material supplement; camera CORPSE-WEB-PORT-001 cites 314–454 and 1514–1603. Original local 774 and normalized export records retained separately and verified; their pr-working identity and assignment are not repair ownership or later checkpoint.",
+    "prior_newly_assessed": "Complete web-medical packet is archived, manifest checked, preserving /root/rig_identity roles 2376–2377 and its independently attributed prior-current /root/hair_ops web-data observation-gap assessment. The complete prior character-details packet preserves /root/mhr_character earlier support health ranges. None of those prior reads is transferred into this new personal receipt.",
+    "recovery_limits": "Original 059 queue/registry/transport retained; selected subsets are explicitly reconstructed navigation. Exact 059 original records are checked against transport. No earlier evidence or status is promoted to missing checkpoint3821."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "read-receipt.json",
+    "injury-owner-scan-registration.json",
+    "support-registration.json",
+    "support-read-receipt.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-queue-selected.json",
+    "historical-registry-selected.json",
+    "older-774-index.json",
+    "older-774-export-manifest.json",
+    "prior-web-medical-packet.tar.gz",
+    "prior-character-details-packet.tar.gz",
+    "prior-packet-index.json",
+    "prior-character-packet-index.json",
+    "reference/",
+    "rules-evidence.json"
+  ],
+  "restriction": "Source inspection and evidence-only verification; no source edits, repairs, product builds, tests, browsers, probes, simulations, fixtures, product execution or validation."
+}
