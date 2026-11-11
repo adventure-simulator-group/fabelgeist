@@ -163,6 +163,12 @@ supported coexistence and earlier 059 attribution remain explicit.
 `ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json` traces a conditional
 large-vessel rounding mismatch, exact water provenance and current authored
 capacity bounds. Earlier delegated water questions retain attribution.
+`ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json` compares departure
+estimates with capacity-aware physical refill and other carried water.
+The earlier fill assumption and uncertain reachability remain explicit.
+`ASSESSMENT-L01-HISTORICAL-961-965.json` preserves separate frozen
+organization validation, personality, custody, physiology and provisioning
+reads. Independent current lenses remain open.
 `ASSESSMENT-L01-HISTORICAL-954-960.json` preserves frozen material,
 mission, morale, NPC and organization reads, including earlier bounded
 attribution. No independent current lens closes from these reads.

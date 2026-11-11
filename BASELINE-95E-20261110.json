@@ -1210,8 +1210,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json"
+      },
+      {
+        "id": "REVIEW-TRAVEL-WATER-POST-REFILL-FORECAST-001",
+        "lens": 1,
+        "severity": "unassigned; source-level conditional preview and provisioning discrepancy",
+        "classification": "bounded departure water forecast versus physical refill and other carried water",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/lens12/pending_connected_contracts/983/0",
+          "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346"
+        ],
+        "relationship_qualification": "Earlier Lens 12 intentionally separated settlement capacity and non-settlement actual water, and Lens 13 documented capacity safeguards. The new 95e examples test the assumption without claiming automatic double counting or a historical accepted finding.",
+        "discovery": "partial; policy, supported sequence, all recipients and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261110-2354.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0002.json"
 }

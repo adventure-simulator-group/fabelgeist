@@ -1,0 +1,358 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 1,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected departure forecast producers, physical container refill, carried-water consumption and web/simulation-code recipients. The producer lens remains incomplete.",
+  "source_reasoning": "Static source and catalogue inspection with hypothetical arithmetic; no user action, database, simulation, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/provisioning.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b0ded54e12cc15597c59c2574939823b76a83834",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "bytes": 4242,
+      "lines": 118,
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/inventory_containers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b536d7478ea896d3e1e6ffb4bf67159343780647",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "bytes": 9498,
+      "lines": 256,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          900,
+          1175
+        ],
+        [
+          1215,
+          1355
+        ],
+        [
+          1370,
+          1430
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "bytes": 92654,
+      "lines": 2627,
+      "ranges": [
+        [
+          430,
+          505
+        ],
+        [
+          630,
+          685
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "bytes": 39483,
+      "lines": 1029,
+      "ranges": [
+        [
+          210,
+          310
+        ],
+        [
+          655,
+          715
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/camp.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "289b92ad39c34ef33bec683d35880ee1cd3f8df5",
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "bytes": 43965,
+      "lines": 1246,
+      "ranges": [
+        [
+          870,
+          1246
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlements/overview.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c45026fabf1efd85a928759a0dcd618caeebbdf1",
+      "sha256": "cdb117502628b8c99499f24de733bbfc70263fa3116137106e711f7be2f1b400",
+      "bytes": 12648,
+      "lines": 355,
+      "ranges": [
+        [
+          175,
+          210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/templates/settlement/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e07068818330aac3d0b7422b0747660684dd9db4",
+      "sha256": "6aabf6b42ea20cd7b12e0ce9e5b3cba26c21b29cee6652b53f307ed65bf1063e",
+      "bytes": 73088,
+      "lines": 1579,
+      "ranges": [
+        [
+          175,
+          240
+        ],
+        [
+          310,
+          350
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "444fae6cd3e5e14a83eab832d06fc0af03c6ac1f",
+      "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+      "bytes": 70881,
+      "lines": 1587,
+      "ranges": [
+        [
+          200,
+          385
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          67,
+          92
+        ],
+        [
+          1540,
+          1563
+        ],
+        [
+          6772,
+          6796
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          238,
+          275
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/travel-water-sources/10.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L12-787.json",
+      "sha256": "0fdb94186cc063b867e96dba611b1ecbcfea71e319748fa8a761e9b82b0e3a1a",
+      "bytes": 15965,
+      "git_blob": "e3d0d65a80688eef3e94da2d7fbdd6808cbbf626",
+      "preserved_bytes": "recovered/travel-water-059/0fdb94186cc063b867e96dba611b1ecbcfea71e319748fa8a761e9b82b0e3a1a.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 Lens 12 root adoption of delegated evidence; its bounded historical assumption, attribution and zero accepted unique-count change are preserved, not promoted to 3821."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-254.json",
+      "sha256": "850bd6be5e7531cb1967243e4c02d86577f8c42fdc5bc8e87bd3f442519c8012",
+      "bytes": 20327,
+      "git_blob": "1f9fc5d8d86f140de629545281d2a341223ff9e6",
+      "preserved_bytes": "recovered/water-precision-059/850bd6be5e7531cb1967243e4c02d86577f8c42fdc5bc8e87bd3f442519c8012.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated Lens 13 evidence, retaining original attribution and zero accepted unique-count change; not checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/983/0",
+      "qualification": "The earlier Lens 12 observation explicitly recorded departing-settlement forecasts as assuming waterskins would be filled and non-departure forecasts as counting actual water. It rejected an automatic double-counting claim; preserve that deliberate distinction and its partial historical source coverage. This trace examines whether the specific refill fulfills the assumption for occupied skins and separately counts other water."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346",
+      "qualification": "PL13-256 had already documented checked physical capacity, compatible liquids, custody and refill with native bounds/provenance still open; preserve its original role, historical revision, delegated attribution and zero accepted-count change."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 460,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/camp.rs",
+      "historical_sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-460.json",
+      "qualification": "Separate earlier full body read of this exact physical-p16 role; same bytes at 95e do not close any current lens."
+    },
+    {
+      "original_index": 965,
+      "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+      "historical_sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-961-965.json",
+      "qualification": "Separate new full historical body read; byte identity does not transfer other lens coverage."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-TRAVEL-WATER-POST-REFILL-FORECAST-001",
+      "severity": "unassigned; source-level conditional preview and provisioning discrepancy",
+      "classification": "Producer-to-consumer mismatch between departure forecast capacity and the selected physical post-refill water authority, extending earlier bounded assumptions without asserting an accepted historical finding.",
+      "trace": "When departing a settlement, the web producer sums living travelers' water balances and counts personal and shared standard waterskin inventory quantities, then the shared forecast adds each count multiplied by the full catalogue waterskin capacity. It does not add other carried water in this branch. At a non-settlement origin the producer instead adds contained water and does not add full waterskin capacity. The actual departure paths call prepare_party_waterskins and prepare_character_waterskins for settlement origins. Their refill iterates standard skin objects, respects operational root custody and mutability, skips incompatible liquid, and only adds capacity left after direct occupied volume and existing liquid. Later needs consumption enumerates all carried water by root custody, not just standard skins.",
+      "source_derived_examples": "With one living traveler, 4000 ml body reserve, one standard 4000 ml waterskin containing a full-size 3000 ml cooking pan and 1000 ml water, no other water or alcohol, and a two-day plan, the departure formula predicts 8000 ml or 2.0 days and zero additional skins. The physical refill sees 3000 + 1000 ml used and adds none, leaving 5000 ml total or 1.25 nominal days. Separately, with no skin but 250 ml carried in a glass bottle, the departing forecast omits the bottle while contained-water consumption can consider it, subject to provenance and ordinary guards. These are conditional constructed source states and arithmetic, not observed journeys or reducer execution.",
+      "producer_and_boundary": "The pinned catalogue gives the skin 4000 ml capacity, the pan 3000 ml exterior volume and the glass bottle 250 ml capacity. A generic containment reducer permits separately held objects to be nested when custody, mutability, cycle and capacity guards pass; discard water has its own authorization/provenance checks. A settlement route passes true to the forecast, and selected departure reducers use the same origin fact for refill. The estimate and later state are sampled at different times, and a real sequence satisfying all guards, item-row creation, other consumers and actual inventory snapshots is not proved.",
+      "recipients_and_limits": "The web template exposes forecast water days and initial waterskin purchase quantity. Separately, the strategic simulation source, which was inspected but not executed, also supplies full standard-skin count to the shared forecast for a settlement-only case-site provisioning decision. The actual game movement, purchase, disease or thirst outcome is not established. If all counted skins are compatible and have no occupied volume, the refill assumption can hold; this finding does not assert automatic water double counting. Whether the existing estimate intentionally promises full refills or only an approximate upper bound needs product interpretation.",
+      "connected_repair": "Determine the intended forecast contract and reconcile it with the authoritative post-refill holding. If exact projection is intended, derive fillable amounts from the same custody, compatibility and occupied-capacity rules while also retaining non-skin carried water, so both web and other producers supply one nonduplicated available-water amount. Preserve non-settlement actual-water behavior, full compatible skin refill, alcohol separation, purchase rounding, native custody and existing legal/strategic boundaries.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover settlement departure with empty, partial, full, occupied and incompatible skins, other carried vessels, nested and shared custody, unchanged non-settlement forecasts, both projection producers, and a supported refill/forecast comparison.",
+      "discovery": "partial; supported user sequence, forecast policy, all recipients and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed",
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-787.json",
+      "sha256": "88f2aa4214e329e339da86d6983e73f3a4caa0d74c939e87fc64440c95f4f1c0",
+      "bytes": 31670,
+      "git_blob": "8037486bd080863304402088944bd9d2b472a4e9",
+      "preserved_bytes": "recovered/travel-water-059/support/88f2aa4214e329e339da86d6983e73f3a4caa0d74c939e87fc64440c95f4f1c0.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-358.json",
+      "sha256": "d6cd9ced627c6c69607a9cc5bc614995e370613b84340a90a7005d84b5cb9a8f",
+      "bytes": 3805,
+      "git_blob": "9c9a178f15e1ed63e107c3ed229894513e3370e9",
+      "preserved_bytes": "recovered/travel-water-059/support/d6cd9ced627c6c69607a9cc5bc614995e370613b84340a90a7005d84b5cb9a8f.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-358-WINDOWS-ORIGINAL2374.json",
+      "sha256": "1a576551b08a1e4377a900826c268aa4d60207e3500fa4a30175df744b456a47",
+      "bytes": 1069,
+      "git_blob": "4d5ffbd22238ecfedf913ae2cbe2d5228e3077e2",
+      "preserved_bytes": "recovered/travel-water-059/support/1a576551b08a1e4377a900826c268aa4d60207e3500fa4a30175df744b456a47.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-787-CAMP-APPEARANCE-OWNERS.json",
+      "sha256": "c3dcab546d4c5f8ac33572b21178a70df2712773db9346e6a0617cf7124c39f2",
+      "bytes": 15866,
+      "git_blob": "19261979fd07508119c1b64452b9cf463961f42a",
+      "preserved_bytes": "recovered/travel-water-059/support/c3dcab546d4c5f8ac33572b21178a70df2712773db9346e6a0617cf7124c39f2.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-256.json",
+      "sha256": "e9642c3157a6beb54bc9ee12411da50a23ec09d2285aa2188d9530b576439c4e",
+      "bytes": 15986,
+      "git_blob": "9124fd23c8550e9a245c02e67b1f83eb6ba0d81b",
+      "preserved_bytes": "recovered/travel-water-059/support/e9642c3157a6beb54bc9ee12411da50a23ec09d2285aa2188d9530b576439c4e.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-256.json",
+      "sha256": "c58aca629a4a32664ae7abcf13271c5704dcb23019d34fd35fe501f400b58806",
+      "bytes": 1203,
+      "git_blob": "c15c1e40ca6a3da7ecd02966dae45b81125ae6c8",
+      "preserved_bytes": "recovered/travel-water-059/support/c58aca629a4a32664ae7abcf13271c5704dcb23019d34fd35fe501f400b58806.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-255-262.json",
+      "sha256": "6b0e12d60d51b0e35ee07269573cfea1ab8bd39b2ee90f0b34a7d8849f28a0d5",
+      "bytes": 144439,
+      "git_blob": "536dc27f3279b304ca3ec99ead8a8f4dbfc4b50c",
+      "preserved_bytes": "recovered/travel-water-059/support/6b0e12d60d51b0e35ee07269573cfea1ab8bd39b2ee90f0b34a7d8849f28a0d5.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-256.json",
+      "sha256": "7d5a574db3e10da2d66edf20877005ded18d7a48861f23df63e12a51f759bcab",
+      "bytes": 988,
+      "git_blob": "d4c7edd7b10da6d20a99f5ddc0499c52cc64b599",
+      "preserved_bytes": "recovered/travel-water-059/support/7d5a574db3e10da2d66edf20877005ded18d7a48861f23df63e12a51f759bcab.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 supporting record; historical attribution and read ranges remain as recorded, with no transfer to current lenses or 3821."
+    }
+  ],
+  "support_qualification": "The directly referenced proposal, registration, Windows range qualification and connected receipt for original 2374, plus the delegated Lens 13 read, verification, validation manifest and registration for original 1119, are recovered by original manifest hash. This preserves the related evidence; it does not reconstruct every transitive predecessor or claim a new historical coverage count."
+}
