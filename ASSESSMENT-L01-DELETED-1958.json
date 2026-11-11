@@ -1,0 +1,128 @@
+{
+  "schema": "726-deleted-historical-base-read-v1",
+  "lens": 1,
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+  "original_index": 1958,
+  "registry_pointer": "/files/1958",
+  "snapshot": "pr-working",
+  "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "registry_state": "deleted",
+  "snapshot_sha256": null,
+  "historical_object_available": false,
+  "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "base_sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+  "base_git_blob": "b5bd3dbe0b0561737344240a2c298ab035695d5e",
+  "base_bytes": 1035,
+  "base_lines": 27,
+  "new_personal_base_read_ranges": [
+    [
+      1,
+      27
+    ]
+  ],
+  "preserved_base_bytes": "recovered/deleted-source-base-objects/d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+  "commit_proof": {
+    "git_commit": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "sha256": "c641ff9fbb9e8502794b0318f4916068c7562c47044cc6040c244df5fe391414",
+    "bytes": 1221,
+    "preserved_bytes": "deleted-669-670-base-proof/commit.gz"
+  },
+  "base_root_tree": "872a3e907813784f59411e0d2e14bb1e5ac55fb6",
+  "base_tree_objects": {
+    "872a3e907813784f59411e0d2e14bb1e5ac55fb6": {
+      "git_object": "872a3e907813784f59411e0d2e14bb1e5ac55fb6",
+      "type": "tree",
+      "sha256": "2da61ed0dc839235c4286d89018414acf2b68eb184dfde74b23219b7c13d99c4",
+      "bytes": 1635,
+      "preserved_bytes": "main-advance-95e/recipe-road-evidence/base-git-objects/872a3e907813784f59411e0d2e14bb1e5ac55fb6.tree.gz"
+    },
+    "cf91797117033f89391b20b098a3cfcec3599774": {
+      "git_object": "cf91797117033f89391b20b098a3cfcec3599774",
+      "type": "tree",
+      "sha256": "8c9788f6b5fc7a7d2fe131397c112c21740eba7d6ca69ea2a979b4781ecb01dd",
+      "bytes": 2347,
+      "preserved_bytes": "main-advance-95e/recipe-road-evidence/base-git-objects/cf91797117033f89391b20b098a3cfcec3599774.tree.gz"
+    },
+    "2c96b878d355ee0cbe9042ae15ddd3ba15fc7e4f": {
+      "git_object": "2c96b878d355ee0cbe9042ae15ddd3ba15fc7e4f",
+      "type": "tree",
+      "sha256": "90c446311e889bd43b9ad1132f2f246c06ec9ba04fc47ab051be233cef6d303e",
+      "bytes": 270,
+      "preserved_bytes": "main-advance-95e/recipe-road-evidence/base-git-objects/2c96b878d355ee0cbe9042ae15ddd3ba15fc7e4f.tree.gz"
+    },
+    "3dac6e1d6b586cf9bb77163f5bcde72a11f948d6": {
+      "git_object": "3dac6e1d6b586cf9bb77163f5bcde72a11f948d6",
+      "type": "tree",
+      "sha256": "9b72583ce470e979def4df737daf2d940ca542bc253c0313661eea42dab309b2",
+      "bytes": 1723,
+      "preserved_bytes": "main-advance-95e/recipe-road-evidence/base-git-objects/3dac6e1d6b586cf9bb77163f5bcde72a11f948d6.tree.gz"
+    },
+    "48731b0c972f2255172d350a2b3debefd8ecc819": {
+      "git_object": "48731b0c972f2255172d350a2b3debefd8ecc819",
+      "type": "tree",
+      "sha256": "10c66d3e5941b7d1c9a08cb9eae183f1c257005f7bdc64853918f0e577f73374",
+      "bytes": 1166,
+      "preserved_bytes": "main-advance-95e/recipe-road-evidence/base-git-objects/48731b0c972f2255172d350a2b3debefd8ecc819.tree.gz"
+    },
+    "bfa53f4a31d13079b27cd6adbc4c95fa64b556ca": {
+      "git_object": "bfa53f4a31d13079b27cd6adbc4c95fa64b556ca",
+      "type": "tree",
+      "sha256": "8d7d654b312c8cdbcfa4319f1fa22a01bc1652567d35adbfed4f67d024ddbde4",
+      "bytes": 74,
+      "preserved_bytes": "main-advance-95e/recipe-road-evidence/base-git-objects/bfa53f4a31d13079b27cd6adbc4c95fa64b556ca.tree.gz"
+    }
+  },
+  "base_chain": [
+    {
+      "tree": "872a3e907813784f59411e0d2e14bb1e5ac55fb6",
+      "name": "crates",
+      "mode": "40000",
+      "child": "cf91797117033f89391b20b098a3cfcec3599774"
+    },
+    {
+      "tree": "cf91797117033f89391b20b098a3cfcec3599774",
+      "name": "adventuresim-tactical-core",
+      "mode": "40000",
+      "child": "2c96b878d355ee0cbe9042ae15ddd3ba15fc7e4f"
+    },
+    {
+      "tree": "2c96b878d355ee0cbe9042ae15ddd3ba15fc7e4f",
+      "name": "src",
+      "mode": "40000",
+      "child": "3dac6e1d6b586cf9bb77163f5bcde72a11f948d6"
+    },
+    {
+      "tree": "3dac6e1d6b586cf9bb77163f5bcde72a11f948d6",
+      "name": "scene_input",
+      "mode": "40000",
+      "child": "48731b0c972f2255172d350a2b3debefd8ecc819"
+    },
+    {
+      "tree": "48731b0c972f2255172d350a2b3debefd8ecc819",
+      "name": "tests",
+      "mode": "40000",
+      "child": "bfa53f4a31d13079b27cd6adbc4c95fa64b556ca"
+    },
+    {
+      "tree": "bfa53f4a31d13079b27cd6adbc4c95fa64b556ca",
+      "name": "road.rs",
+      "mode": "100644",
+      "child": "b5bd3dbe0b0561737344240a2c298ab035695d5e"
+    }
+  ],
+  "frozen_absence_proof": "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+  "current_95e_path_status": "absent in verified current source tree inventory",
+  "older_collection_crosscheck": {
+    "collection": "774 publication handoff",
+    "logical_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+    "sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+    "bytes": 1035,
+    "qualification": "Read-only exact byte comparison with the separately preserved base object. It is 3a50 base evidence, not a restored6533 snapshot body or checkpoint3821."
+  },
+  "qualification": "Frozen registry records deleted with null snapshot hash. The full27-line body is separately recovered and read at3a50, not snapshot/current text. Historic Segovb652 and Adler299 retain their own attributions and zero frozen-body credit.",
+  "observations": [
+    "The base source test and successor role1953 both specify the Goslar corridor, point, seed and expected height bits. The successor wraps the point in ScenePlanPoint for the role1952 road function.",
+    "No authored fixture, test, generator, native math, browser or product was executed; source comparison does not establish runtime or cross-platform equivalence."
+  ],
+  "remaining": "Independently assess all lenses, complete road/native trace and exact aliases; no implementation started."
+}
