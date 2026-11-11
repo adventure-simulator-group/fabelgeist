@@ -1,0 +1,619 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+    "GEOGRAPHY-GRADE-HISTORICAL-GIT-PROOFS.json",
+    "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+    "SAMPLED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+    "MOVEMENT-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+    "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+    "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+    "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+    "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+    "SHORT-ROUTE-HISTORICAL-GIT-PROOFS.json",
+    "GRADE-BOUNDED-HISTORICAL-GIT-PROOFS.json",
+    "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+    "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+    "TRANSITION-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-CODEC-HISTORICAL-GIT-PROOFS.json",
+    "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-STAGE-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "DISPATCHER-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+    "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+    "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+    "BOT-REACTION-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-AUTHORITY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+    "EQUIPMENT-TOPOLOGY-HISTORICAL-GIT-PROOFS.json",
+    "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+    "MISSION-ENROLLMENT-HISTORICAL-GIT-PROOFS.json",
+    "RECONNECT-CONTINUITY-HISTORICAL-GIT-PROOFS.json",
+    "STARTUP-SUBSCRIPTION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-ADMISSION-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "497bec8b85d2ac5dd855e85fff9d4e1390320efb": {
+      "git_object": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+      "type": "tree",
+      "sha256": "1396628228415bb45d9ea2926cd000d048dbff82edd245c44e55e7d58b2d0c6c",
+      "bytes": 239,
+      "preserved_bytes": "main-advance-95e/weapon-construction-evidence/git-objects/497bec8b85d2ac5dd855e85fff9d4e1390320efb.tree.gz"
+    },
+    "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c": {
+      "git_object": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+      "type": "tree",
+      "sha256": "f5d8c272837d6dcc071d0ee7e619a3881eca7c280110b23a84441fe50e9bf30b",
+      "bytes": 774,
+      "preserved_bytes": "main-advance-95e/weapon-construction-evidence/git-objects/93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c.tree.gz"
+    },
+    "4cc61884c70d84792e093f6799129d1d15a7c3a1": {
+      "git_object": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+      "type": "tree",
+      "sha256": "c0342b2afb598d50925bff5768ef51bb5b97745fb8b6d1358f8f9686871161cb",
+      "bytes": 1021,
+      "preserved_bytes": "main-advance-95e/weapon-construction-evidence/git-objects/4cc61884c70d84792e093f6799129d1d15a7c3a1.tree.gz"
+    },
+    "513c2a4fbab951ac347590cdd8c8d46eae8fcdbd": {
+      "git_object": "513c2a4fbab951ac347590cdd8c8d46eae8fcdbd",
+      "type": "tree",
+      "sha256": "c84cb0d2a7dd9888a503a63814149a2b42c1bf79c7799b2b3487c1fc4e338e43",
+      "bytes": 35,
+      "preserved_bytes": "main-advance-95e/weapon-construction-evidence/git-objects/513c2a4fbab951ac347590cdd8c8d46eae8fcdbd.tree.gz"
+    },
+    "a64ee83845e55f39e6e1eb1d92d0890bdd29066f": {
+      "git_object": "a64ee83845e55f39e6e1eb1d92d0890bdd29066f",
+      "type": "tree",
+      "sha256": "300c1d190144708c03c2ae1200403d28a8408d0c92c3070b69ec1d4ac5b0daae",
+      "bytes": 151,
+      "preserved_bytes": "main-advance-95e/weapon-construction-evidence/git-objects/a64ee83845e55f39e6e1eb1d92d0890bdd29066f.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/adventuresim-weapon-model/src/codec.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "codec.rs",
+          "mode": "100644",
+          "child": "f4885a96dc72aa065235c8f08906f263424f1632"
+        }
+      ],
+      "git_blob": "f4885a96dc72aa065235c8f08906f263424f1632",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "bytes": 3831,
+      "lines": 111
+    },
+    "crates/adventuresim-weapon-model/src/construction/curves.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "curves.rs",
+          "mode": "100644",
+          "child": "181943ed565a46c59d62fc4e535de752c1f7e68f"
+        }
+      ],
+      "git_blob": "181943ed565a46c59d62fc4e535de752c1f7e68f",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "bytes": 4897,
+      "lines": 170
+    },
+    "crates/adventuresim-weapon-model/src/construction/mod.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "mod.rs",
+          "mode": "100644",
+          "child": "bfd445dc16712cfd8c70999d722fe8f563613008"
+        }
+      ],
+      "git_blob": "bfd445dc16712cfd8c70999d722fe8f563613008",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "bytes": 6865,
+      "lines": 230
+    },
+    "crates/adventuresim-weapon-model/src/construction/polygon.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "polygon.rs",
+          "mode": "100644",
+          "child": "82e47f33edc1dd043b43fffd7cb7e03c73187997"
+        }
+      ],
+      "git_blob": "82e47f33edc1dd043b43fffd7cb7e03c73187997",
+      "sha256": "660aa84bce2b4252168df40b15a47bdb710ba829c03ea76bf45584a0c6e1bc9f",
+      "bytes": 11115,
+      "lines": 318
+    },
+    "crates/adventuresim-weapon-model/src/construction/solids.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "solids.rs",
+          "mode": "100644",
+          "child": "745e85e5712dc1ce2eee5040d9f70b5adb5934ab"
+        }
+      ],
+      "git_blob": "745e85e5712dc1ce2eee5040d9f70b5adb5934ab",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "bytes": 14088,
+      "lines": 389
+    },
+    "crates/adventuresim-weapon-model/src/construction/surface_refinement.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "surface_refinement.rs",
+          "mode": "100644",
+          "child": "bc592a94a21a1e5582c4ac1e25e145410ddf4fd1"
+        }
+      ],
+      "git_blob": "bc592a94a21a1e5582c4ac1e25e145410ddf4fd1",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "bytes": 10516,
+      "lines": 236
+    },
+    "crates/adventuresim-weapon-model/src/construction/sweep.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "sweep.rs",
+          "mode": "100644",
+          "child": "d7a9d21d69a054a497328778c42dc279c64314e7"
+        }
+      ],
+      "git_blob": "d7a9d21d69a054a497328778c42dc279c64314e7",
+      "sha256": "bc84a0894a2e914f9cb85a5cce28eb921372426af3bc8909e54563274a0c4f93",
+      "bytes": 12053,
+      "lines": 359
+    },
+    "crates/adventuresim-weapon-model/src/construction/sweep/path.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "sweep",
+          "mode": "40000",
+          "child": "513c2a4fbab951ac347590cdd8c8d46eae8fcdbd"
+        },
+        {
+          "tree": "513c2a4fbab951ac347590cdd8c8d46eae8fcdbd",
+          "name": "path.rs",
+          "mode": "100644",
+          "child": "1b5079ff826bb4b1b167ac825ec0fd8dc7d51774"
+        }
+      ],
+      "git_blob": "1b5079ff826bb4b1b167ac825ec0fd8dc7d51774",
+      "sha256": "fff604760f978f0efae2a138eee46df45a887c3abe89b2bdbe94a56f20afb2d1",
+      "bytes": 5296,
+      "lines": 146
+    },
+    "crates/adventuresim-weapon-model/src/derive.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "derive.rs",
+          "mode": "100644",
+          "child": "3e040008044800660e30981c8cc249f5591ec1b2"
+        }
+      ],
+      "git_blob": "3e040008044800660e30981c8cc249f5591ec1b2",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "bytes": 1701,
+      "lines": 47
+    },
+    "crates/adventuresim-weapon-model/src/derived_properties.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "derived_properties.rs",
+          "mode": "100644",
+          "child": "41a3337f61520276959fbf30659c0a97954b8a16"
+        }
+      ],
+      "git_blob": "41a3337f61520276959fbf30659c0a97954b8a16",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "bytes": 767,
+      "lines": 22
+    },
+    "crates/adventuresim-weapon-model/src/design/generated.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "design",
+          "mode": "40000",
+          "child": "a64ee83845e55f39e6e1eb1d92d0890bdd29066f"
+        },
+        {
+          "tree": "a64ee83845e55f39e6e1eb1d92d0890bdd29066f",
+          "name": "generated.rs",
+          "mode": "100644",
+          "child": "f6445c49722cf73f28eb6caa0350deb2f974a369"
+        }
+      ],
+      "git_blob": "f6445c49722cf73f28eb6caa0350deb2f974a369",
+      "sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "bytes": 1333,
+      "lines": 47
+    }
+  },
+  "earlier_git_comparison": {
+    "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+    "commit_and_shared_trees": "E275-LANDFORM-GIT-PROOFS.json",
+    "path": "crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+    "proof": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "adventuresim-weapon-model",
+          "mode": "40000",
+          "child": "497bec8b85d2ac5dd855e85fff9d4e1390320efb"
+        },
+        {
+          "tree": "497bec8b85d2ac5dd855e85fff9d4e1390320efb",
+          "name": "src",
+          "mode": "40000",
+          "child": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c"
+        },
+        {
+          "tree": "93ba2ec125b8ed4869f81b5786c1a70ab8fcb62c",
+          "name": "construction",
+          "mode": "40000",
+          "child": "4cc61884c70d84792e093f6799129d1d15a7c3a1"
+        },
+        {
+          "tree": "4cc61884c70d84792e093f6799129d1d15a7c3a1",
+          "name": "surface_refinement.rs",
+          "mode": "100644",
+          "child": "bc592a94a21a1e5582c4ac1e25e145410ddf4fd1"
+        }
+      ],
+      "git_blob": "bc592a94a21a1e5582c4ac1e25e145410ddf4fd1",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "bytes": 10516,
+      "lines": 236
+    },
+    "current_preserved_bytes": "main-advance-95e/weapon-construction-evidence/current-2089.source.gz",
+    "qualification": "e275 exact Git path matches the frozen and95e body; original root Lens3 e275 revisit reused earlier own-lens full body and made zero fresh personal reads. No credit is transferred to95e or3821."
+  },
+  "qualification": "Raw6533 tree chains bind original2084–2094; e275 comparison is separately attributed. No historical checkpoint3821 promotion."
+}
