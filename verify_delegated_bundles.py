@@ -70,4 +70,19 @@ for path,x in proof['paths'].items():
  body=rig[x['bundle_member']];assert current==x['git_blob']==oid('blob',body) and sha(body)==x['sha256'] and len(body)==x['bytes']
 assert len(proof['paths'])==2 and proof['revision']=='f82adcabd9d89c4fa2dd7f99253a45297a0681ee'
 assert load('CONTINUATION-PROGRESS-95E.json')['delegated_evidence_pending_central_reconciliation']=='DELEGATED-EVIDENCE-CHECKPOINT.json'
+# Bind all separately registered supporting source bytes to the current Git tree;
+# actual displayed ranges remain those stated in each delegate report.
+hair=byagent['/root/hair_ops'];hr=json.loads(hair['report.json']);aliases={'crates/fabelgeist-hair/src/look/groom.rs':'source/support-look-groom.rs'}
+for group in hr['support_registration_and_actual_personal_read_scope']:
+ raw=hair[group['registration']];assert sha(raw)==group['registration_sha256'];reg=json.loads(raw)
+ for x in reg['registered_sources']:
+  p=x['path'];path=aliases.get(p,'source/support-'+Path(p).name);body=hair[path];assert sha(body)==x['sha256'] and len(body)==x['bytes'] and oid('blob',body)==x['blob']==tree[p]
+  assert all(1<=lo<=hi<=len(body.splitlines()) for lo,hi in group['actual_reads'][p])
+mhr=byagent['/root/mhr_character']
+for p in ('support-registration.json','support-registration-2.json'):
+ for x in json.loads(mhr[p])['entries']:
+  body=mhr[x['file']];assert sha(body)==x['sha256'] and len(body)==x['bytes'] and oid('blob',body)==x['git_blob_sha1']==tree[x['path']]
+rig=byagent['/root/rig_identity'];report=json.loads(rig['REPORT.json'])
+for x in report['supporting_source_reads']:
+ body=rig[x['preserved_bytes']];assert sha(body)==x['sha256'] and len(body)==x['bytes'] and oid('blob',body)==x['git_blob']==tree[x['path']]
 print('Verified 200 delegated evidence members, historical hashes and older rig Git paths; central reconciliation remains open; no product execution.')

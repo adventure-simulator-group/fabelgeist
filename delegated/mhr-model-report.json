@@ -1,0 +1,687 @@
+{
+  "schema": "726-delegated-mhr-model-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Independent bounded current and historical full reads of original roles 2319-2322 with prospectively registered support only. Parent retains central authority, ordered-role status, reconciliation, ledger and publication.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "qualification": "No whole-lens, queue, repair, runtime, test, build or product validation is claimed. Historical evidence is not 3821 authority. Existing queue identities remain distinct pending central exact alias work.",
+  "evidence_files": {
+    "ordered_registration": "registration.json",
+    "ordered_display": "read-receipt.json",
+    "support_registrations": [
+      "support-registration.json",
+      "support-registration-2.json"
+    ],
+    "support_displays": [
+      "support-read-receipt.json",
+      "support-read-receipt-2.json"
+    ],
+    "git_membership": "git-proofs.json",
+    "git_raw_objects": "git-objects/",
+    "original_059_manifest_verified": "historical-059-index.json",
+    "older_774_original_and_normalized": "older-774/INDEX.json",
+    "registry_reconstructed_selection": "registry-selected-reconstructed.json"
+  },
+  "historical_attribution": [
+    {
+      "source": "Original registry roles 2319-2322 and older 774 original supplier/producer records",
+      "scope": "Rig producer additional-sources-001 reports pr-working-unchanged-receiver full correctives 1-188 and math 1-357, with source-read-trace-incomplete; original producer sources.json reports full model 1-626 and model_def 1-348. Rig existing-owner coverage reports all four full ranges. Preserve each record's own scope and qualification; no other-lens or present credit.",
+      "evidence": "older-774/INDEX.json"
+    },
+    {
+      "source": "adler/READ-L11-372 and ADLER registrations 1179-1182",
+      "scope": "Original Adler independently recorded full fresh reads of 2319 1-188, 2320 1-357, 2321 1-626, 2322 1-348, historical pr-working source hashes. Its accepted unique count change 0; current reconciliation not completed.",
+      "evidence": "historical-059-index.json"
+    },
+    {
+      "source": "segovb/READ-L12-764 through 767, PAR registrations 282-285 and delegated proposals",
+      "scope": "Original /root/lens12_frontier independently recorded full historical body reads for each role; later root adoption root_personal_rereads=[] and accepted_unique_count_change=0.",
+      "evidence": "historical-059-index.json"
+    }
+  ],
+  "findings_and_reconnections": [
+    {
+      "id": "model-limits-grammar-and-values",
+      "classification": "Existing admission/operations finding persists in current source; two original L12 records describe distinct first contracts.",
+      "relationships": [
+        "059 q168 ADLER-L11-MHR-LIMIT-ADMISSION",
+        "059 q429 SEGOVB-L12-CONNECTED-MHR-LIMIT-DELIMITER-ORDER-ADMISSION",
+        "059 q430 SEGOVB-L12-CONNECTED-MHR-LIMIT-BOUNDS-ADMISSION"
+      ],
+      "trace": "For a recognized existing model parameter, a limit line with a closing bracket before an opening bracket satisfies both find() calls; the string range open+1..close is formed without ordering validation. A limit with two parsed values [2,1] or an NaN bound is retained and later supplied to f32::clamp on any corresponding parameter slot; invalid clamp bounds violate its precondition.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              33,
+              42
+            ],
+            [
+              137,
+              143
+            ],
+            [
+              396,
+              424
+            ]
+          ]
+        }
+      ],
+      "limits": "Static reasoning, contingent on an admitted recognized parameter and a matching input slot. No model definition, clamp, panic or runtime executed. Valid optional weight semantics, unsupported limit kinds and malformed grammar policy require explicit resolution.",
+      "future_repair": "Admit complete delimiter order, bound conversion, finite ordered interval, and structured source context before publishing limits; preserve intended valid inclusivity and handling of optional weight."
+    },
+    {
+      "id": "model-affine-expression-constants",
+      "classification": "Existing historical expression finding persists in current parser.",
+      "relationships": [
+        "059 q169 ADLER-L11-MHR-EXPRESSION-OFFSETS"
+      ],
+      "trace": "A one-factor numeric term assigns its offset instead of adding it, so two constants keep the latter. A scaled reference to an earlier joint-channel row copies only prior coefficient contributions; its stored constant offset is not included. ParameterMatrix adds contributions and upload retains offsets separately, so a missing expression constant is not restored later.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              147,
+              170
+            ],
+            [
+              263,
+              337
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+          "lines": [
+            [
+              84,
+              100
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+          "lines": [
+            [
+              49,
+              65
+            ]
+          ]
+        }
+      ],
+      "limits": "Supported expression grammar and real authored assets remain to be verified. Examples are symbolic code paths, not execution or evidence that a particular asset contains them; duplicate-row policy remains distinct.",
+      "future_repair": "Represent or compute a complete affine expression with ordered constant and coefficient accumulation, preserve explicit valid token precedence and ordinary numeric order, and return appropriate structured grammar errors."
+    },
+    {
+      "id": "model-parameter-nonfinite-coefficients",
+      "classification": "Previously noted by Adler372, freshly source traced; candidate with policy and alias work open.",
+      "relationships": [
+        "Adler READ-L11-372 source2322 disposition noted numeric weights and limits lack finite admission",
+        "059 q168 covers limit bounds; q169 covers affine offsets and is related but not automatically an exact alias"
+      ],
+      "trace": "A coefficient parsed as f32 from model text is stored in Contribution without a finite check; NaN compares unequal to zero and is added to ParameterMatrix. The admitted matrix is transposed and becomes the retained transform used in the model tensor product.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              263,
+              294
+            ],
+            [
+              309,
+              334
+            ],
+            [
+              155,
+              161
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+          "lines": [
+            [
+              84,
+              100
+            ],
+            [
+              124,
+              142
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+          "lines": [
+            [
+              49,
+              52
+            ],
+            [
+              84,
+              96
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              339,
+              355
+            ]
+          ]
+        }
+      ],
+      "limits": "This is a conditional malformed or unsupported input question. No particular model file, tensor operation or numeric output was observed. Whether nonfinite or exceptionally large coefficients are supported must be decided by the owning domain.",
+      "future_repair": "Define and admit supported coefficient and offset values before dense publication with useful source context; preserve valid coefficient accumulation, sign, units and ordering."
+    },
+    {
+      "id": "model-retained-host-snapshot-shape",
+      "classification": "Existing historical lifetime finding remains, previously also traced in delegated character family.",
+      "relationships": [
+        "059 q170 ADLER-L11-MHR-MODEL-SHAPE-LIFETIME"
+      ],
+      "trace": "Mhr exposes mutable public character and parameter_transform, while constructor uploads transforms, bases, face corners and skin rows into independent private tensors. num_joints, num_vertices and face count are subsequently taken from the live character. A same-count face edit can leave public topology different from the retained corners; a changed vertex or face count can disagree with reshape dimensions derived from cached data.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              66,
+              103
+            ],
+            [
+              246,
+              252
+            ],
+            [
+              291,
+              300
+            ],
+            [
+              339,
+              364
+            ],
+            [
+              396,
+              408
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+          "lines": [
+            [
+              49,
+              84
+            ],
+            [
+              84,
+              122
+            ]
+          ]
+        }
+      ],
+      "limits": "No actual mutation, forward evaluation, backend behavior, user call site or rendering was observed. Parameter_transform mutation effects need its actual permitted public operations; no general bad-caller claim.",
+      "future_repair": "Provide immutable correlated model state or one validated atomic rebuild of all dependent tensors and metadata, retaining read-only lookup and valid graph behavior."
+    },
+    {
+      "id": "model-loader-error-cause",
+      "classification": "Existing historical loader ownership finding persists on the URI route.",
+      "relationships": [
+        "059 q173 ADLER-L11-MHR-LOAD-ERROR-OWNERSHIP",
+        "059 q421 SEGOVB-L12-MHR-ASSET-FALLBACK-CAUSES-ERASURE",
+        "059 q422 SEGOVB-L12-MHR-DEFINITION-UTF8-CAUSE-ERASURE"
+      ],
+      "trace": "from_uri tries the direct and nested supported asset locations; on two failures it formats both errors into one anyhow message, and maps UTF-8 conversion failure into another formatted message. In contrast from_files uses with_context on filesystem operations, retaining their source error.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              123,
+              145
+            ],
+            [
+              158,
+              176
+            ]
+          ]
+        }
+      ],
+      "limits": "Underlying shared filesystem types and every caller remain uninspected in this packet. The two supported asset layouts are deliberate lookup policy, not automatically a legacy fallback. No I/O occurred.",
+      "future_repair": "Retain typed direct/nested failure causes and UTF-8 cause with asset identity until presentation; preserve both supported location attempts and meaningful errors."
+    },
+    {
+      "id": "model-bind-matrix-admission",
+      "classification": "Existing bind transform issue; math body is exactly identical at historical and current revisions.",
+      "relationships": [
+        "059 q171 ADLER-L11-MHR-BIND-TRANSFORM-ADMISSION",
+        "previous delegated character-family report character-bind-transform-admission"
+      ],
+      "trace": "affine_inverse silently chooses zero inverse determinant for abs(det) <= 1e-20; from_matrix assumes uniform scale/no shear and uses an absolute scale threshold. Transform fields and inverse are not checked here for zero or nonfinite scale.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/math.rs",
+          "lines": [
+            [
+              138,
+              205
+            ],
+            [
+              224,
+              253
+            ]
+          ]
+        }
+      ],
+      "limits": "Actual cluster ingress and ownership were traced in previous separate character bundle. General public-module visibility, desired treatment of singular/near-singular/scaled matrices, and numerical conditioning remain open; no native math operation ran.",
+      "future_repair": "Admit supported finite invertible bind transforms at actual format boundary, define scale-appropriate numeric policy and retain valid transforms and error context."
+    },
+    {
+      "id": "model-corrective-index-narrowing-32bit",
+      "classification": "Conditional current source admission issue; distinct from claims of a demonstrated runtime failure.",
+      "relationships": [
+        "059 q401 SEGOVB-L12-MHR-CORRECTIVE-SPARSE-INDEX-REASON is related to coordinate bounds but originated as structured-error finding",
+        "059 q2411 REVIEW-L11-MHR-CORRECTIVE-GOLDEN-OWNER explicitly qualified that platform-native cast behavior did not prove every wide value rejected on every target; preserve that prior qualification",
+        "Exact aliases across all families remain open"
+      ],
+      "trace": "Npy supports i64 payload words and preserves each i64 in NpyIntegerValues. CorrectiveHiddenIndex and CorrectiveFeatureIndex then cast i64 to usize before membership. On a 32-bit target, a value of -4294967296 or +4294967296 narrows to 0; a nonempty admitted hidden/feature extent then accepts coordinate 0. For three joints, checked layout sizes are 24 hidden and 6 features, so zero is in bounds. The borrowed layout prevents ordinary out-of-bounds after this conversion but cannot recover discarded high bits.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+          "lines": [
+            [
+              40,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+          "lines": [
+            [
+              76,
+              94
+            ],
+            [
+              118,
+              125
+            ],
+            [
+              129,
+              137
+            ],
+            [
+              160,
+              165
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+          "lines": [
+            [
+              133,
+              151
+            ],
+            [
+              218,
+              229
+            ],
+            [
+              243,
+              270
+            ],
+            [
+              307,
+              321
+            ]
+          ]
+        }
+      ],
+      "limits": "Only language-level integer reasoning: no NPY file/archive/fixture, wasm execution, native buffer, or tensor operation created or run. This is a 32-bit target condition; on a 64-bit target these two values do not become zero. Float-to-integer policy and historical cast diagnostics are separate decisions.",
+      "future_repair": "Check signedness and representability before conversion to the target-native coordinate and validate against the actual layout, preserving meaningful typed coordinate errors; assess whether external format permits any float-to-integer conversion."
+    },
+    {
+      "id": "model-tiny-triangle-normal",
+      "classification": "New current source candidate, subject to cross-family exact alias and numeric-policy review.",
+      "relationships": [
+        "Adler READ-L11-372 noted intentional zero normals for unreferenced vertices, not this nonzero tiny-normal example",
+        "Global exact alias inventory remains open"
+      ],
+      "trace": "MhrOutput documents unit normals. vertex_normals computes an area-weighted cross-product sum then floors its length to 1e-12 before division. For one nondegenerate right triangle whose exactly representable f32 centimetre edges have length 2^-30, cross magnitude is 2^-60 and its square 2^-120 is representable; source formula yields a normal of magnitude about 8.67e-7 rather than 1.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              52,
+              61
+            ],
+            [
+              396,
+              452
+            ]
+          ]
+        }
+      ],
+      "limits": "Symbolic floating-point calculation only, no geometry, asset, product output, GPU or backend was executed. It requires extremely small admitted geometry and a nonzero accumulated normal; genuinely unreferenced or degenerate zero normals are a distinct intentional case. Backend numeric modes are not certified.",
+      "future_repair": "Use a defined scale-aware normalization that preserves valid nonzero directions and intentional zero for truly absent/degenerate geometry; document/justify numerical limits without imposing arbitrary minimum physical size."
+    },
+    {
+      "id": "model-corrective-extent-current-qualified",
+      "classification": "Positive current source recheck of historical risk; not a global q closure.",
+      "relationships": [
+        "059 q172 ADLER-L11-MHR-CORRECTIVE-EXTENT-ADMISSION",
+        "059 q402 SEGOVB-L12-CONNECTED-MHR-CORRECTIVE-JOINT-COUNT-ADMISSION",
+        "059 q397-401 individual historical reason identities"
+      ],
+      "trace": "The historical correctives.rs subtracts two from raw joint count and multiplies extents unchecked. Current CorrectiveLayout checks subtraction, each scaled extent, basis/activation tensor layouts and sparse cardinality/coordinate bounds; typed CorrectiveImportError carries named cases. Current CorrectiveInput checks exact joint count and 7 channels before tensor narrows.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives.rs",
+          "lines": [
+            [
+              76,
+              92
+            ],
+            [
+              99,
+              111
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+          "lines": [
+            [
+              107,
+              177
+            ],
+            [
+              218,
+              229
+            ],
+            [
+              243,
+              270
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/import/error.rs",
+          "lines": [
+            [
+              24,
+              56
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/input.rs",
+          "lines": [
+            [
+              35,
+              69
+            ],
+            [
+              75,
+              90
+            ]
+          ]
+        }
+      ],
+      "limits": "Only reached current bodies were read, no allocation, tensor or test ran. Native Npy layout internals, allocator failure, equal-count different-rig identity and 32-bit precheck narrowing remain separate; absence of basis remains explicitly optional.",
+      "future_repair": "Preserve the present checked subtraction, extent/layout/cardinality and forward shape contracts; reconcile remaining exact aliases and numeric/native boundaries before choosing further repair."
+    },
+    {
+      "id": "model-parameter-matrix-prefix-current-qualified",
+      "classification": "Positive current source recheck of specific historical API failure modes; no general closure.",
+      "relationships": [
+        "059 q431 SEGOVB-L12-CONNECTED-MHR-MATRIX-SHRINK-EXTENT-ADMISSION",
+        "059 q432 SEGOVB-L12-CONNECTED-MHR-MATRIX-TRANSPOSE-EXTENT-ADMISSION"
+      ],
+      "trace": "Current ParameterMatrix is pub(crate) and append_columns rejects a shrinking width before copying. tensor_transpose rejects a selected prefix wider than the available columns. Construction first checks joint-row multiplication, tensor-layout arithmetic and allocation layout.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+          "lines": [
+            [
+              11,
+              17
+            ],
+            [
+              40,
+              54
+            ],
+            [
+              103,
+              130
+            ]
+          ]
+        }
+      ],
+      "limits": "No allocation, API call or native tensor operation was run. These source guards address the named original overlarge/shrink paths only; parser/other callers and full queue reconciliation remain open.",
+      "future_repair": "Retain these explicit checked admission paths and propagate typed errors; assess unrelated matrix numeric and instance-association contracts separately."
+    }
+  ],
+  "positive_and_open": [
+    {
+      "observation": "Mhr checks LOD, input column counts, identity batch 1-or-batch and expression batch. Existing historical errors are not proof of absent shape guards.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              123,
+              125
+            ],
+            [
+              164,
+              165
+            ],
+            [
+              201,
+              202
+            ],
+            [
+              302,
+              335
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Corrective sparse duplicate offsets intentionally use ordered last-write semantics; missing corrective basis returns None after archives open. Do not infer duplicate accumulation or missing-basis error policy without the actual format contract.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/archive.rs",
+          "lines": [
+            [
+              38,
+              59
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+          "lines": [
+            [
+              277,
+              285
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "The current parser and source-owned rows retain joint and model role identities, but equal column ordinals across distinct transforms do not prove shared instance provenance. Do not impose branding without an actual risk/consumer trace.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              62,
+              90
+            ],
+            [
+              109,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+          "lines": [
+            [
+              13,
+              30
+            ],
+            [
+              272,
+              296
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "FBX/MHR centimetre vectors and generic f64 math are numerical boundary representations; earlier owner source explicitly warned f32 metre owners do not match without unit conversion.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              52,
+              55
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/math.rs",
+          "lines": [
+            [
+              1,
+              9
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Native URI asset name/format tokens and optional corrective loading are distinct from compatibility shims. Bool loading and per-forward application modes are semantic API choices; replacing them requires actual owner/caller reconciliation.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              27,
+              40
+            ],
+            [
+              120,
+              155
+            ],
+            [
+              281,
+              296
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "CorrectiveImportError and CorrectiveForwardError explicitly provide variant mapping, formatter and source chaining; no equivalent derive is established. Their manual implementations preserve semantic errors.",
+      "refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/import/error.rs",
+          "lines": [
+            [
+              24,
+              103
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/input.rs",
+          "lines": [
+            [
+              35,
+              49
+            ],
+            [
+              136,
+              165
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lens_perspectives": {
+    "producer_propagation": "Trace typed source roles through new corrective/parameter owners and numeric tensor ports; remaining caller/SDK routes open.",
+    "existing_type_owners": "Rig joint count, mesh vertex count, NumPy shape and parameter rows have distinct roles. No fabricated metre or universal index owner.",
+    "admission": "Limit syntax/interval, corrective signed native index and transform/numeric policies remain conditional; checked layout guards recorded.",
+    "invariant_operations": "Unchecked small normal normalization, coefficient arithmetic and matrix transform operations require scoped numerical policy.",
+    "aggregate_states": "Host Character versus retained tensors and joint/vertex/shape correlations require coordinated ownership.",
+    "type_ownership": "Source role owners are MHR, fabelgeist-rig and NumPy at their real boundaries; equivalent representation alone does not prove duplication.",
+    "redundant_authority": "Public live host values and private tensor snapshots may disagree; q170 connected.",
+    "behavior_preservation": "Both historical/current bodies and roles retained, with intentional optional modes and old-current guards distinguished; no global parity conclusion.",
+    "enum_shapes": "Loading/apply flags are choices; concrete existing variants/callers remain unresolved rather than invented broad rewrite.",
+    "derivability": "Error manual formatting preserves variant/context; no equivalent derive established in scope.",
+    "type_granularity": "Separate hidden, feature, mesh, joint and parameter roles; layout membership is more than integer kind.",
+    "magic_strings": "Format keys and asset paths are input/adapter boundaries; q173/q421/q422 preserve distinct structured error concerns.",
+    "magic_numbers": "Numerical scales, model counts and explicit thresholds require units/consumer policy; full occurrence inventory not claimed."
+  },
+  "open_questions": [
+    "All 13 lenses remain incomplete globally; this is bounded source evidence only.",
+    "Historical q records remain open until centralized exact alias/producer/consumer and all-lens reconciliation.",
+    "Original 3821 ledger and queue remain missing; original earlier evidence retains its own provenance.",
+    "Supported model grammar, NaN policy, duplicate assignments, URI cause ownership, and numerical normalization policy.",
+    "Actual product/device/wasm behavior and assets remain unobserved; no fixtures, builds, tests or probes."
+  ],
+  "status": {
+    "ordered_roles_changed": false,
+    "central_ledger_changed": false,
+    "publication_changed": false,
+    "repair": "not started",
+    "product_validation": "not performed"
+  }
+}

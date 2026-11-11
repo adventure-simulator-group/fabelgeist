@@ -1,0 +1,1186 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2302–2305 Orient, Settle, Shrinkwrap and Trim full bodies, and separately attributed historical records.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2302-2305.json",
+  "git_membership_evidence": "HAIR-NATIVE-OPS-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [],
+  "prior_current_evidence": [
+    "ASSESSMENT-HAIRDO-GROOM-95E.json",
+    "ASSESSMENT-HAIR-MATERIAL-OPERATIONS-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Empty rod equilibrium",
+      "trace": "Public Settle.equilibrium takes an arbitrary rest slice and calls solve; solve computes n-1 before checking magnitude or selecting the iterations. An empty slice therefore crosses the unsigned extent boundary.",
+      "remaining": "Original Lens12 delegate758 reported q374; overflow-checked and wrapping outcomes differ. The normal nonempty Strands producer and public slice API are distinct. No arithmetic, object, panic or product path was executed."
+    },
+    {
+      "contract": "Trim resampling guard",
+      "trace": "Trim returns for nonpositive total, preserves a finite clamped kept fraction, and returns when its cut has fewer than two points before calling resample_into.",
+      "remaining": "This narrows the previously established short-resampler q381 on this specific call. Unusual subnormal or NaN inputs, exact arc-length producer and other callers remain open; no unsupported blanket guarantee or executed case."
+    },
+    {
+      "contract": "Relative drape, roots and geometry",
+      "trace": "Settle intentionally returns early for reference gravity in relative mode. Orient skips nonpositive memory and holds each root fixed. Shrinkwrap supports explicit lock_roots and smoothing policies.",
+      "remaining": "Original Adler369 and delegate758/759 already identified these modes. For a custom unlocked shrinkwrap, cached map invalidation and collider finite/query policy remain open; generated-look positive offsets and default lock are narrower. No visual or runtime result is established."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "SEGOVB-L12-CONNECTED-HAIR-EMPTY-ROD-EQUILIBRIUM-ADMISSION",
+      "queue": 374,
+      "qualification": "Original specific public empty-rod admission finding; no assertion of a new unique bug or completed global alias search."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "bytes": 22794,
+      "git_blob": "952796dee871a39c4b4718abe1f720b50bb7332d",
+      "preserved_bytes": "recovered/hair-native-ops-059/5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389.gz",
+      "published_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "published_bytes": 22794,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/hair-native-ops-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/hair-native-ops-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/hair-native-ops-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/hair-native-ops-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/hair-native-ops-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/hair-native-ops-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/hair-native-ops-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/hair-native-ops-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/hair-native-ops-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/hair-native-ops-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/hair-native-ops-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-364.json",
+      "sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "bytes": 10812,
+      "git_blob": "404f67ba8ba50a9362cb5324a4c268a374d6d52d",
+      "preserved_bytes": "recovered/hair-native-ops-059/8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86.gz",
+      "published_sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-365.json",
+      "sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "bytes": 7835,
+      "git_blob": "57a2729dd95be00d6d34525cd548ee9f307a08f5",
+      "preserved_bytes": "recovered/hair-native-ops-059/1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864.gz",
+      "published_sha256": "1290ed4828cfb712f340ab43721dfb1adb581bcb91426418e72004248fdb7864",
+      "published_bytes": 7835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-366.json",
+      "sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "bytes": 11710,
+      "git_blob": "fca86575e16670b1c6631575ffb9383af2f46e09",
+      "preserved_bytes": "recovered/hair-native-ops-059/c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64.gz",
+      "published_sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+      "published_bytes": 11710,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-367.json",
+      "sha256": "e7c0a64202f59defbb55467dc557fde442a40c869e798135d5fc1d8646f978a9",
+      "bytes": 6844,
+      "git_blob": "560785613fef75c09f3ac71bc8e8bdca4ac8fa77",
+      "preserved_bytes": "recovered/hair-native-ops-059/e7c0a64202f59defbb55467dc557fde442a40c869e798135d5fc1d8646f978a9.gz",
+      "published_sha256": "e7c0a64202f59defbb55467dc557fde442a40c869e798135d5fc1d8646f978a9",
+      "published_bytes": 6844,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-368.json",
+      "sha256": "37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d",
+      "bytes": 9880,
+      "git_blob": "c78d248081d0ec55c0acbf57a9092a41a0f96998",
+      "preserved_bytes": "recovered/hair-native-ops-059/37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d.gz",
+      "published_sha256": "37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d",
+      "published_bytes": 9880,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140",
+      "bytes": 18712,
+      "git_blob": "f7d428e287cb89eb4b3ace7942987d3c3b11f33a",
+      "preserved_bytes": "recovered/hair-native-ops-059/b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140.gz",
+      "published_sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140",
+      "published_bytes": 18712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1144.json",
+      "sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "bytes": 786,
+      "git_blob": "45e115191bffc9b2ec297c67cba438bad4b33166",
+      "preserved_bytes": "recovered/hair-native-ops-059/73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84.gz",
+      "published_sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "published_bytes": 786,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1145.json",
+      "sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "bytes": 785,
+      "git_blob": "796997a377b4b9022c743d472d430f8d2f3cfb37",
+      "preserved_bytes": "recovered/hair-native-ops-059/588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12.gz",
+      "published_sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1146.json",
+      "sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "bytes": 787,
+      "git_blob": "af7f7cf4cdbb2333d6ec346d9b286b89614ca80a",
+      "preserved_bytes": "recovered/hair-native-ops-059/b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a.gz",
+      "published_sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1147.json",
+      "sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "bytes": 793,
+      "git_blob": "d11c68c4aac6d78e7324b07110edc0ed0d2820bb",
+      "preserved_bytes": "recovered/hair-native-ops-059/f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a.gz",
+      "published_sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "published_bytes": 793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1148.json",
+      "sha256": "499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b",
+      "bytes": 785,
+      "git_blob": "fe9aee23a0a8cc6e1b2f7a0b5a2a9c9b0e057870",
+      "preserved_bytes": "recovered/hair-native-ops-059/499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b.gz",
+      "published_sha256": "499e51566bf53ff316287a716f6f20e538ea0b36e8e54417a4d771d6a8cc282b",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1149.json",
+      "sha256": "7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71",
+      "bytes": 781,
+      "git_blob": "03c37f6587e4de997e1c1dd1d4cb6d535e865431",
+      "preserved_bytes": "recovered/hair-native-ops-059/7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71.gz",
+      "published_sha256": "7d2c46ea2d0048011bb845dfbc40a029dbc68a22882220333bc14b6fdf799c71",
+      "published_bytes": 781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1150.json",
+      "sha256": "9bd207e26f6679481b190147334e08a0cc7776d33be72737fa4e1af0737b33b6",
+      "bytes": 785,
+      "git_blob": "5dceeaf7e63bddde0f00e9a65ab4fcaaa1bfa382",
+      "preserved_bytes": "recovered/hair-native-ops-059/9bd207e26f6679481b190147334e08a0cc7776d33be72737fa4e1af0737b33b6.gz",
+      "published_sha256": "9bd207e26f6679481b190147334e08a0cc7776d33be72737fa4e1af0737b33b6",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1152.json",
+      "sha256": "c8708895c8012c7a7dcd3e2632a428dbd79b99f181183c102c6888780d3921a5",
+      "bytes": 781,
+      "git_blob": "b4bd7f49db094bf5220e485408e8daf51126b331",
+      "preserved_bytes": "recovered/hair-native-ops-059/c8708895c8012c7a7dcd3e2632a428dbd79b99f181183c102c6888780d3921a5.gz",
+      "published_sha256": "c8708895c8012c7a7dcd3e2632a428dbd79b99f181183c102c6888780d3921a5",
+      "published_bytes": 781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1153.json",
+      "sha256": "ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626",
+      "bytes": 787,
+      "git_blob": "8c46d56c46255f32747db10bc9019560d1ed9c64",
+      "preserved_bytes": "recovered/hair-native-ops-059/ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626.gz",
+      "published_sha256": "ffac08c3f8deff746825f08517d4c4a2c26b0aad64996614104371a5abc0a626",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1154.json",
+      "sha256": "8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4",
+      "bytes": 787,
+      "git_blob": "6bc2af1ace7bf05f0fcf3780bcaacc3f54e44523",
+      "preserved_bytes": "recovered/hair-native-ops-059/8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4.gz",
+      "published_sha256": "8bded65a5e6658554d5bf21bfa58d2b10658ffbdabffb891f00adf7c8f344aa4",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1155.json",
+      "sha256": "f42f2d14726ee00ab29f90f149718134572df686d829a968c59cf82ac68d8db9",
+      "bytes": 787,
+      "git_blob": "50e1be541622ad4052d38b776300fc70cd98c2f2",
+      "preserved_bytes": "recovered/hair-native-ops-059/f42f2d14726ee00ab29f90f149718134572df686d829a968c59cf82ac68d8db9.gz",
+      "published_sha256": "f42f2d14726ee00ab29f90f149718134572df686d829a968c59cf82ac68d8db9",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1156.json",
+      "sha256": "5031876763963599e26f9c7daa1a8c0505f062d867185a2275da8a44311e64b8",
+      "bytes": 786,
+      "git_blob": "07a9136fab92f851be54aed38746ad8d170201c9",
+      "preserved_bytes": "recovered/hair-native-ops-059/5031876763963599e26f9c7daa1a8c0505f062d867185a2275da8a44311e64b8.gz",
+      "published_sha256": "5031876763963599e26f9c7daa1a8c0505f062d867185a2275da8a44311e64b8",
+      "published_bytes": 786,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1157.json",
+      "sha256": "bef9b4c0a9463f440a8bde9a542a00cac691713b12ab9edd270360b077931864",
+      "bytes": 785,
+      "git_blob": "9ddf7c593956453e3681bc762883ee58b6028cd6",
+      "preserved_bytes": "recovered/hair-native-ops-059/bef9b4c0a9463f440a8bde9a542a00cac691713b12ab9edd270360b077931864.gz",
+      "published_sha256": "bef9b4c0a9463f440a8bde9a542a00cac691713b12ab9edd270360b077931864",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1158.json",
+      "sha256": "98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8",
+      "bytes": 969,
+      "git_blob": "11848593a35bec02e298209de9decde401a19222",
+      "preserved_bytes": "recovered/hair-native-ops-059/98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8.gz",
+      "published_sha256": "98aba4f6c2e948763dfee5851d3394abc621a1a0b3a5307e3addfa7f9fed68e8",
+      "published_bytes": 969,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1159.json",
+      "sha256": "58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec",
+      "bytes": 885,
+      "git_blob": "1ceb4a22e8adf7bd60d48b091e2b2e7b4fa56c44",
+      "preserved_bytes": "recovered/hair-native-ops-059/58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec.gz",
+      "published_sha256": "58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec",
+      "published_bytes": 885,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1160.json",
+      "sha256": "dd771debbd2036fb6b995f0e244d2e7fd7a023c210c41a8f22763a933b105c91",
+      "bytes": 897,
+      "git_blob": "50de904bd03bef86b11ad906a2b420183c8e1409",
+      "preserved_bytes": "recovered/hair-native-ops-059/dd771debbd2036fb6b995f0e244d2e7fd7a023c210c41a8f22763a933b105c91.gz",
+      "published_sha256": "dd771debbd2036fb6b995f0e244d2e7fd7a023c210c41a8f22763a933b105c91",
+      "published_bytes": 897,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1161.json",
+      "sha256": "ccefc3b8bed07c81d5bfa6f7c426bb2f959f9596bf6ba49929af2c2fd5743429",
+      "bytes": 900,
+      "git_blob": "dda1b1c1a9be48eeb0cab37fbca214e4845c2f09",
+      "preserved_bytes": "recovered/hair-native-ops-059/ccefc3b8bed07c81d5bfa6f7c426bb2f959f9596bf6ba49929af2c2fd5743429.gz",
+      "published_sha256": "ccefc3b8bed07c81d5bfa6f7c426bb2f959f9596bf6ba49929af2c2fd5743429",
+      "published_bytes": 900,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1162.json",
+      "sha256": "05b8caf76d9c98ef1211e2ae0729854760ebd462d5308dcb6c27476429676b3b",
+      "bytes": 892,
+      "git_blob": "b6853bb36b8f43c4564084a2361519b8521c3f79",
+      "preserved_bytes": "recovered/hair-native-ops-059/05b8caf76d9c98ef1211e2ae0729854760ebd462d5308dcb6c27476429676b3b.gz",
+      "published_sha256": "05b8caf76d9c98ef1211e2ae0729854760ebd462d5308dcb6c27476429676b3b",
+      "published_bytes": 892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1163.json",
+      "sha256": "d9b556c41858c32035732a721fa88aed7226124aac3f092092c6967b8ea03e7c",
+      "bytes": 895,
+      "git_blob": "71ac73f755c7bcdbec10ad3967c899988fff5437",
+      "preserved_bytes": "recovered/hair-native-ops-059/d9b556c41858c32035732a721fa88aed7226124aac3f092092c6967b8ea03e7c.gz",
+      "published_sha256": "d9b556c41858c32035732a721fa88aed7226124aac3f092092c6967b8ea03e7c",
+      "published_bytes": 895,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1164.json",
+      "sha256": "d833d60db8e9cd751d728e9b4e5160bb5b3ec02710deadc569a7e7e38d83b8ac",
+      "bytes": 895,
+      "git_blob": "1411ef4a1b5e849aad70514d798306d8d4c69173",
+      "preserved_bytes": "recovered/hair-native-ops-059/d833d60db8e9cd751d728e9b4e5160bb5b3ec02710deadc569a7e7e38d83b8ac.gz",
+      "published_sha256": "d833d60db8e9cd751d728e9b4e5160bb5b3ec02710deadc569a7e7e38d83b8ac",
+      "published_bytes": 895,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1165.json",
+      "sha256": "1cce818c79002ace3c83879d7ed2cffe84753a35e3e411f035a7878a73c28852",
+      "bytes": 898,
+      "git_blob": "414d02810e0792032e2a1526bc21025972aa37c1",
+      "preserved_bytes": "recovered/hair-native-ops-059/1cce818c79002ace3c83879d7ed2cffe84753a35e3e411f035a7878a73c28852.gz",
+      "published_sha256": "1cce818c79002ace3c83879d7ed2cffe84753a35e3e411f035a7878a73c28852",
+      "published_bytes": 898,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1166.json",
+      "sha256": "9ba42a7692898c4dac0b5950096606f39e51e19dd7e3405aa47f2db4f6106389",
+      "bytes": 892,
+      "git_blob": "2d63d85a8f235c80d6befd7702fd0e331b9c2a63",
+      "preserved_bytes": "recovered/hair-native-ops-059/9ba42a7692898c4dac0b5950096606f39e51e19dd7e3405aa47f2db4f6106389.gz",
+      "published_sha256": "9ba42a7692898c4dac0b5950096606f39e51e19dd7e3405aa47f2db4f6106389",
+      "published_bytes": 892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1167.json",
+      "sha256": "2fd8ebe1af15fdd7ac59c862be7fa0f3512f4bd1fd4bdf96ec898acdb7c356c5",
+      "bytes": 888,
+      "git_blob": "6392c8af279b2ca3e017273a933b88079e8d6e40",
+      "preserved_bytes": "recovered/hair-native-ops-059/2fd8ebe1af15fdd7ac59c862be7fa0f3512f4bd1fd4bdf96ec898acdb7c356c5.gz",
+      "published_sha256": "2fd8ebe1af15fdd7ac59c862be7fa0f3512f4bd1fd4bdf96ec898acdb7c356c5",
+      "published_bytes": 888,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1168.json",
+      "sha256": "24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508",
+      "bytes": 892,
+      "git_blob": "7bd6f9147350bf5b61be8be6e07ca9a8600c0356",
+      "preserved_bytes": "recovered/hair-native-ops-059/24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508.gz",
+      "published_sha256": "24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508",
+      "published_bytes": 892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1169.json",
+      "sha256": "9f086fc34d0bf3c5b1b81161605f5c5467998afe530302e16927365b3baa8f12",
+      "bytes": 889,
+      "git_blob": "9e75b8cafa6f3ee1dacc2b65c98227969024fa84",
+      "preserved_bytes": "recovered/hair-native-ops-059/9f086fc34d0bf3c5b1b81161605f5c5467998afe530302e16927365b3baa8f12.gz",
+      "published_sha256": "9f086fc34d0bf3c5b1b81161605f5c5467998afe530302e16927365b3baa8f12",
+      "published_bytes": 889,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1170.json",
+      "sha256": "2b1e99482d77c6ad25f2371ff2bb93280e94e29aea4c768328873f6f0aa0eb31",
+      "bytes": 887,
+      "git_blob": "c97b3be3a19884cb8696c367d7ea8669a92f906d",
+      "preserved_bytes": "recovered/hair-native-ops-059/2b1e99482d77c6ad25f2371ff2bb93280e94e29aea4c768328873f6f0aa0eb31.gz",
+      "published_sha256": "2b1e99482d77c6ad25f2371ff2bb93280e94e29aea4c768328873f6f0aa0eb31",
+      "published_bytes": 887,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1171.json",
+      "sha256": "b0f755ad6354023a8465b5253f13bbd5237464a7ac3c805a5b3d2e499736914a",
+      "bytes": 892,
+      "git_blob": "0bf73c1c973a448b314f85e905f53d59208d6991",
+      "preserved_bytes": "recovered/hair-native-ops-059/b0f755ad6354023a8465b5253f13bbd5237464a7ac3c805a5b3d2e499736914a.gz",
+      "published_sha256": "b0f755ad6354023a8465b5253f13bbd5237464a7ac3c805a5b3d2e499736914a",
+      "published_bytes": 892,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1172.json",
+      "sha256": "e0b9a334b0a2bd40ef8562ee1e8b19aa482b15e7f39c58391a6295322556e57e",
+      "bytes": 887,
+      "git_blob": "cace9d0271f4db2bb1d30e5eb9923dffc74bb099",
+      "preserved_bytes": "recovered/hair-native-ops-059/e0b9a334b0a2bd40ef8562ee1e8b19aa482b15e7f39c58391a6295322556e57e.gz",
+      "published_sha256": "e0b9a334b0a2bd40ef8562ee1e8b19aa482b15e7f39c58391a6295322556e57e",
+      "published_bytes": 887,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-396.json",
+      "sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+      "bytes": 740,
+      "git_blob": "6242f914920984ca46f6df35ea08ab58ca8776ac",
+      "preserved_bytes": "recovered/hair-native-ops-059/d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7.gz",
+      "published_sha256": "d8ba3effd0b6c8a15e8725bf0d2b110070db3edb3121bd1c432faa4f0331c8e7",
+      "published_bytes": 740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-397.json",
+      "sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+      "bytes": 742,
+      "git_blob": "0797696843a3d3e074e93a1a3a89f949b4796348",
+      "preserved_bytes": "recovered/hair-native-ops-059/5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40.gz",
+      "published_sha256": "5e69b20fe0e8d632ea4b88a592bb403586252ec26e018f6b0a36517683387a40",
+      "published_bytes": 742,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-398.json",
+      "sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+      "bytes": 738,
+      "git_blob": "c8647825c20b254a67e198d1b569dfac0e3fbf7d",
+      "preserved_bytes": "recovered/hair-native-ops-059/73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601.gz",
+      "published_sha256": "73368b8a2eef674346be85ffbffc3510104a814227b6f9d2f52a042feb546601",
+      "published_bytes": 738,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-369.json",
+      "sha256": "423e251c290f9f63d52cc1f870073ee4105dd738feeb36469afc696c2b8a2e54",
+      "bytes": 723,
+      "git_blob": "46173d318f99a7613cf0ba593047c684b53c2880",
+      "preserved_bytes": "recovered/hair-native-ops-059/423e251c290f9f63d52cc1f870073ee4105dd738feeb36469afc696c2b8a2e54.gz",
+      "published_sha256": "423e251c290f9f63d52cc1f870073ee4105dd738feeb36469afc696c2b8a2e54",
+      "published_bytes": 723,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-369.json",
+      "sha256": "9850a44fe5c4c75872a6e2c67b2f97363f9c2a251fc2d960a0c5e03842ecce05",
+      "bytes": 37078,
+      "git_blob": "60cc8c6d0ef641d7682c9904208b37ecb12e378d",
+      "preserved_bytes": "recovered/hair-native-ops-059/9850a44fe5c4c75872a6e2c67b2f97363f9c2a251fc2d960a0c5e03842ecce05.gz",
+      "published_sha256": "9850a44fe5c4c75872a6e2c67b2f97363f9c2a251fc2d960a0c5e03842ecce05",
+      "published_bytes": 37078,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-758.json",
+      "sha256": "0565b074f5117d6e2e9d1237e3a3ee198b0781458476fcba724cc13667bd96b1",
+      "bytes": 14013,
+      "git_blob": "c5a6debc2eacd0ebf3502c2b666e97b20295a537",
+      "preserved_bytes": "recovered/hair-native-ops-059/0565b074f5117d6e2e9d1237e3a3ee198b0781458476fcba724cc13667bd96b1.gz",
+      "published_sha256": "0565b074f5117d6e2e9d1237e3a3ee198b0781458476fcba724cc13667bd96b1",
+      "published_bytes": 14013,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-759.json",
+      "sha256": "7acee1eb800574f4a1d58fed11aac4511cd2fefd5805f2ec271486fa8cc06b34",
+      "bytes": 12779,
+      "git_blob": "90f49d46b2dde8e2b2c2453181607ddc3cc1b5de",
+      "preserved_bytes": "recovered/hair-native-ops-059/7acee1eb800574f4a1d58fed11aac4511cd2fefd5805f2ec271486fa8cc06b34.gz",
+      "published_sha256": "7acee1eb800574f4a1d58fed11aac4511cd2fefd5805f2ec271486fa8cc06b34",
+      "published_bytes": 12779,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-760.json",
+      "sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+      "bytes": 13902,
+      "git_blob": "85199a8e571c578aa4fa839578c167665b091da8",
+      "preserved_bytes": "recovered/hair-native-ops-059/6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a.gz",
+      "published_sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+      "published_bytes": 13902,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-262.json",
+      "sha256": "26af48b8c088d09cc2c770c0fb6d5251b6f032a87c56b5c519d7d83bf6910c41",
+      "bytes": 803,
+      "git_blob": "2b088281217574de2a635a91a9c04cdd0c5035c9",
+      "preserved_bytes": "recovered/hair-native-ops-059/26af48b8c088d09cc2c770c0fb6d5251b6f032a87c56b5c519d7d83bf6910c41.gz",
+      "published_sha256": "26af48b8c088d09cc2c770c0fb6d5251b6f032a87c56b5c519d7d83bf6910c41",
+      "published_bytes": 803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-263.json",
+      "sha256": "53897805a47a567e21bd72f3fddcfa5705255a143653eb2ab2ca3633c54e3179",
+      "bytes": 809,
+      "git_blob": "cd9ee8607609252a5d3ded53b46dcdd33ae28397",
+      "preserved_bytes": "recovered/hair-native-ops-059/53897805a47a567e21bd72f3fddcfa5705255a143653eb2ab2ca3633c54e3179.gz",
+      "published_sha256": "53897805a47a567e21bd72f3fddcfa5705255a143653eb2ab2ca3633c54e3179",
+      "published_bytes": 809,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-264.json",
+      "sha256": "b25dbe90cb6810fcc03eb141b68de6d9fcb4c0ec160ab2431de292d5310b2c6a",
+      "bytes": 809,
+      "git_blob": "1a74bf9078d12b98236a14ff0a72c4c89be4005b",
+      "preserved_bytes": "recovered/hair-native-ops-059/b25dbe90cb6810fcc03eb141b68de6d9fcb4c0ec160ab2431de292d5310b2c6a.gz",
+      "published_sha256": "b25dbe90cb6810fcc03eb141b68de6d9fcb4c0ec160ab2431de292d5310b2c6a",
+      "published_bytes": 809,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-265.json",
+      "sha256": "ac74b6b6ecb25b8e3aac49efc3344d6d6fb22d4803049588f23f1a7c63e189c1",
+      "bytes": 815,
+      "git_blob": "ac2f822dae9ba9e216b0e8ce33238fca1d23fc47",
+      "preserved_bytes": "recovered/hair-native-ops-059/ac74b6b6ecb25b8e3aac49efc3344d6d6fb22d4803049588f23f1a7c63e189c1.gz",
+      "published_sha256": "ac74b6b6ecb25b8e3aac49efc3344d6d6fb22d4803049588f23f1a7c63e189c1",
+      "published_bytes": 815,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-266.json",
+      "sha256": "fcae44e706aca0930bc4aeaa81e664eb26724a29921686be4a5b7ec648d81a1b",
+      "bytes": 803,
+      "git_blob": "27da59612d54019570f59556f891c76d535957db",
+      "preserved_bytes": "recovered/hair-native-ops-059/fcae44e706aca0930bc4aeaa81e664eb26724a29921686be4a5b7ec648d81a1b.gz",
+      "published_sha256": "fcae44e706aca0930bc4aeaa81e664eb26724a29921686be4a5b7ec648d81a1b",
+      "published_bytes": 803,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-267.json",
+      "sha256": "1bc66f27d72be55ffc0898d5a3ce1a47a9c89ebf5892d355f75ed476fd1b89c7",
+      "bytes": 811,
+      "git_blob": "90c0a6c328ff98501de4e18fc10da246bc931c32",
+      "preserved_bytes": "recovered/hair-native-ops-059/1bc66f27d72be55ffc0898d5a3ce1a47a9c89ebf5892d355f75ed476fd1b89c7.gz",
+      "published_sha256": "1bc66f27d72be55ffc0898d5a3ce1a47a9c89ebf5892d355f75ed476fd1b89c7",
+      "published_bytes": 811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-268.json",
+      "sha256": "4bf0a9efb1d81fe6175b9d5c86d1a42380ada4077c9f0e75d13aafa3ac79726b",
+      "bytes": 797,
+      "git_blob": "30e0804e55db15e26659a7bcdf6f27097df1f5a8",
+      "preserved_bytes": "recovered/hair-native-ops-059/4bf0a9efb1d81fe6175b9d5c86d1a42380ada4077c9f0e75d13aafa3ac79726b.gz",
+      "published_sha256": "4bf0a9efb1d81fe6175b9d5c86d1a42380ada4077c9f0e75d13aafa3ac79726b",
+      "published_bytes": 797,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original historical source receipt or prospective registration",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-269.json",
+      "sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+      "bytes": 876,
+      "git_blob": "5f67f0dcdde8530d5f3c5d98ebf1577f05b5a149",
+      "preserved_bytes": "recovered/hair-native-ops-059/09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e.gz",
+      "published_sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+      "published_bytes": 876,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original directly referenced receipt dependency",
+        "Original directly referenced receipt dependency"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-758.json",
+      "sha256": "1b879600ed96aef5d2c469fa5db74c1cfa5cc813f3142361678b8010f2d04459",
+      "bytes": 9110,
+      "git_blob": "9ab8169f64d0bf664a9d4f4d678128af1de07c9e",
+      "preserved_bytes": "recovered/hair-native-ops-059/1b879600ed96aef5d2c469fa5db74c1cfa5cc813f3142361678b8010f2d04459.gz",
+      "published_sha256": "1b879600ed96aef5d2c469fa5db74c1cfa5cc813f3142361678b8010f2d04459",
+      "published_bytes": 9110,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state",
+        "Original059 queue374 support",
+        "Original059 queue374 support",
+        "Original059 queue374 support"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-759.json",
+      "sha256": "d4d197293a93c810333608098930bc2a132b37fe7a295945ec9c6d0ae916c24d",
+      "bytes": 11479,
+      "git_blob": "ea8af49a80180991f172ce22511d496d29d6ddef",
+      "preserved_bytes": "recovered/hair-native-ops-059/d4d197293a93c810333608098930bc2a132b37fe7a295945ec9c6d0ae916c24d.gz",
+      "published_sha256": "d4d197293a93c810333608098930bc2a132b37fe7a295945ec9c6d0ae916c24d",
+      "published_bytes": 11479,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-760.json",
+      "sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "bytes": 5646,
+      "git_blob": "31eabc248939ee6efb05a83fef0e21d6795fbec9",
+      "preserved_bytes": "recovered/hair-native-ops-059/29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d.gz",
+      "published_sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+      "published_bytes": 5646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue381 support"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-758.json",
+      "sha256": "aca1326d62b3e2a41ccc1c183947c0655718424cea9de5649dd6fab3e5e2f143",
+      "bytes": 2025,
+      "git_blob": "b97f7ba71a4cdb94755092f941756c68751296c8",
+      "preserved_bytes": "recovered/hair-native-ops-059/aca1326d62b3e2a41ccc1c183947c0655718424cea9de5649dd6fab3e5e2f143.gz",
+      "published_sha256": "aca1326d62b3e2a41ccc1c183947c0655718424cea9de5649dd6fab3e5e2f143",
+      "published_bytes": 2025,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-759.json",
+      "sha256": "68e1b325fb414000a43228e81aec22a1ed4ba49860a813f65d8c376cee37e7f9",
+      "bytes": 2410,
+      "git_blob": "e4735ae8493f59b6fdcf292c35235280802fbd17",
+      "preserved_bytes": "recovered/hair-native-ops-059/68e1b325fb414000a43228e81aec22a1ed4ba49860a813f65d8c376cee37e7f9.gz",
+      "published_sha256": "68e1b325fb414000a43228e81aec22a1ed4ba49860a813f65d8c376cee37e7f9",
+      "published_bytes": 2410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-758.json",
+      "sha256": "e8905b336050c09a395d907eebc846233924aa8e3d69b5454451daf439e20da5",
+      "bytes": 667,
+      "git_blob": "02b1461b9f12d3e926038fcc04c19210903c162a",
+      "preserved_bytes": "recovered/hair-native-ops-059/e8905b336050c09a395d907eebc846233924aa8e3d69b5454451daf439e20da5.gz",
+      "published_sha256": "e8905b336050c09a395d907eebc846233924aa8e3d69b5454451daf439e20da5",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-759.json",
+      "sha256": "57edbe319bc4f02f5caada1f5c55e08f102e6a11b50966ebd78948434900b596",
+      "bytes": 667,
+      "git_blob": "5b89679a2469552da49ca33bcdab2f3c58b59561",
+      "preserved_bytes": "recovered/hair-native-ops-059/57edbe319bc4f02f5caada1f5c55e08f102e6a11b50966ebd78948434900b596.gz",
+      "published_sha256": "57edbe319bc4f02f5caada1f5c55e08f102e6a11b50966ebd78948434900b596",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original historical receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Original Adler369, earlier delegated758/759 and selected supplier scopes retain actual historical identities and no-credit rules; no checkpoint3821 promotion.",
+  "remaining": "Continue original2306 and all13 lenses; collider, Strands, direct producers, native policies and exact aliases remain open. Original3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

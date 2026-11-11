@@ -1,0 +1,2281 @@
+{
+  "schema": "726-delegated-evidence-checkpoint-v1",
+  "working_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "qualification": "These are three separately attributed delegated reports with their complete recoverable supplied bundles. They are pending central review, role-credit adjudication, exact aliases and ledger reconciliation. Historic 059 and older 774 records retain their actual provenance and are not checkpoint3821 evidence. Path-redacted copies retain original digests and are marked reconstructed; source bodies and unredacted safe records remain exact. No product code, test or runtime probe was run.",
+  "bundles": [
+    {
+      "agent": "/root/mhr_character",
+      "scope_original_roles": [
+        2319,
+        2320,
+        2321,
+        2322
+      ],
+      "publication_status": "Complete delegated evidence preserved; findings and role credit await central review and cross-lens reconciliation.",
+      "archive": "delegated/mhr-model-evidence.tar.gz",
+      "archive_sha256": "f23740512ab38eba291fa7d80d7b6515471a85df9744e9ef4ce292badd79f1e2",
+      "archive_bytes": 256350,
+      "report_path": "delegated/mhr-model-report.json",
+      "report_archive_member": "report.json",
+      "members": [
+        {
+          "path": "BUNDLE-MANIFEST.json",
+          "original_sha256": "59052ef2780789c3a07cc5b5ef7df457c5379ffcb4e9ff683fe894333d19e024",
+          "original_bytes": 15013,
+          "published_sha256": "59052ef2780789c3a07cc5b5ef7df457c5379ffcb4e9ff683fe894333d19e024",
+          "published_bytes": 15013,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "README.md",
+          "original_sha256": "c0d8e9b2396a312386742ecf120fccb65a857217e411902d11723e355587d315",
+          "original_bytes": 1383,
+          "published_sha256": "c0d8e9b2396a312386742ecf120fccb65a857217e411902d11723e355587d315",
+          "published_bytes": 1383,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "check-evidence.py",
+          "original_sha256": "8f6b6ff9a1538f5f8da76e4c0019598cba32b0330d1f3e022b1a512b2e0fd16c",
+          "original_bytes": 3362,
+          "published_sha256": "6b6ee6ed037f9d0a72573276f55fbefcdc4fafb823254ab167f85fa0b1aaf4c3",
+          "published_bytes": 3349,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "current-2319.rs",
+          "original_sha256": "9fdc1ccc90cc6a1eb349ee3a95824ff101c00165603e21af9060850034ec843f",
+          "original_bytes": 3887,
+          "published_sha256": "9fdc1ccc90cc6a1eb349ee3a95824ff101c00165603e21af9060850034ec843f",
+          "published_bytes": 3887,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "current-2320.rs",
+          "original_sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+          "original_bytes": 11279,
+          "published_sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+          "published_bytes": 11279,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "current-2321.rs",
+          "original_sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60",
+          "original_bytes": 18532,
+          "published_sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60",
+          "published_bytes": 18532,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "current-2322.rs",
+          "original_sha256": "cb01df8231eddea828b12c746f2093e89f00165903278e5c5309cb224aa77292",
+          "original_bytes": 14782,
+          "published_sha256": "cb01df8231eddea828b12c746f2093e89f00165903278e5c5309cb224aa77292",
+          "published_bytes": 14782,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "evidence-verification.json",
+          "original_sha256": "a4f0c8c43780fbb2015166d27e71197dfd0f8d8db9882a9427a7fbf609b366c2",
+          "original_bytes": 470,
+          "published_sha256": "a4f0c8c43780fbb2015166d27e71197dfd0f8d8db9882a9427a7fbf609b366c2",
+          "published_bytes": 470,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree",
+          "original_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+          "original_bytes": 2434,
+          "published_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+          "published_bytes": 2434,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree",
+          "original_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+          "original_bytes": 1635,
+          "published_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+          "published_bytes": 1635,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/28c76fee94cf40295e4fe720601bf2f601d14bf4.tree",
+          "original_sha256": "b0db0e1cce7caab360b09379713b270439e2a45ec630edf7800352bbdc7c1962",
+          "original_bytes": 410,
+          "published_sha256": "b0db0e1cce7caab360b09379713b270439e2a45ec630edf7800352bbdc7c1962",
+          "published_bytes": 410,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/2d73ecf793cbbfa8837108abc9f55fcd13f7b838.tree",
+          "original_sha256": "6aa5579c209376c7ed20fa491722042e27d94800ae7cb45c40138c40d2059914",
+          "original_bytes": 36,
+          "published_sha256": "6aa5579c209376c7ed20fa491722042e27d94800ae7cb45c40138c40d2059914",
+          "published_bytes": 36,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/40b35ab26662a48c3eb7a483503470d2f7cde2e4.tree",
+          "original_sha256": "5e3dc4b8af4e07b1b581ef1820f6033e59e5f215e982131556d31f6497e437cb",
+          "original_bytes": 251,
+          "published_sha256": "5e3dc4b8af4e07b1b581ef1820f6033e59e5f215e982131556d31f6497e437cb",
+          "published_bytes": 251,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/4cd5d33e1820c9c168e35d8913d5d7ceacee37de.tree",
+          "original_sha256": "726bccb3142b0d8b5fab8d9d2fea69629cd6fef7c4c6320d7815f193377fd21c",
+          "original_bytes": 143,
+          "published_sha256": "726bccb3142b0d8b5fab8d9d2fea69629cd6fef7c4c6320d7815f193377fd21c",
+          "published_bytes": 143,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit",
+          "original_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+          "original_bytes": 284,
+          "published_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+          "published_bytes": 284,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/65613cd4f4b4a084702373c8d4fba8d4604b197b.tree",
+          "original_sha256": "c42b49f6173ae9a38afcc9b5f917e44cccdf10dd3403f02793afac974acde35a",
+          "original_bytes": 106,
+          "published_sha256": "c42b49f6173ae9a38afcc9b5f917e44cccdf10dd3403f02793afac974acde35a",
+          "published_bytes": 106,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/849ec1e8faca2236c7021893cda7a3f7cb5c72e8.tree",
+          "original_sha256": "65d86a5e371470dbe1b2f8917c3bbab6ab713b868c56af839ffb9019149162a3",
+          "original_bytes": 1635,
+          "published_sha256": "65d86a5e371470dbe1b2f8917c3bbab6ab713b868c56af839ffb9019149162a3",
+          "published_bytes": 1635,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/9185ddb4a75b1d9dabb04373b61580aae20cba68.tree",
+          "original_sha256": "247696b174843d9a83c68fe684c3ff1bfb8181c6e3a2b0c5a4186f2213b53c52",
+          "original_bytes": 308,
+          "published_sha256": "247696b174843d9a83c68fe684c3ff1bfb8181c6e3a2b0c5a4186f2213b53c52",
+          "published_bytes": 308,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit",
+          "original_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+          "original_bytes": 1078,
+          "published_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+          "published_bytes": 1078,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/a115d05f403ea5edbb02128dc773d2e3dcb51c2d.tree",
+          "original_sha256": "b92252c39dc8fadc6f2a1cdcd26dd15976e5a6e72a1b92842c0a564c9dea0024",
+          "original_bytes": 2434,
+          "published_sha256": "b92252c39dc8fadc6f2a1cdcd26dd15976e5a6e72a1b92842c0a564c9dea0024",
+          "published_bytes": 2434,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/bea5654bbdc9bb3995e837b4b286617733aa40e0.tree",
+          "original_sha256": "2d43b2f3d3e9318ca999078ea607a68cce3d666e6e9bac6428e6ed046ef6e260",
+          "original_bytes": 37,
+          "published_sha256": "2d43b2f3d3e9318ca999078ea607a68cce3d666e6e9bac6428e6ed046ef6e260",
+          "published_bytes": 37,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/c082d416e644c9dcddeadd784029e9cce52aa51e.tree",
+          "original_sha256": "f2191479addcbe3e7ff4cb65279ab3d7fbd9f827886d28b5853e1dcbdfa84dff",
+          "original_bytes": 340,
+          "published_sha256": "f2191479addcbe3e7ff4cb65279ab3d7fbd9f827886d28b5853e1dcbdfa84dff",
+          "published_bytes": 340,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/c17733266a6817b5313f94bd38edb5a45a35caa5.tree",
+          "original_sha256": "e6c64ba5e621e4c11915a1849c3540d0121744af7f705dc77d9b8d7b39e7ba99",
+          "original_bytes": 226,
+          "published_sha256": "e6c64ba5e621e4c11915a1849c3540d0121744af7f705dc77d9b8d7b39e7ba99",
+          "published_bytes": 226,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/d148d650bba02c486451f42418ad6e2a0763b73c.tree",
+          "original_sha256": "947595e41b9b1aef169f2969b3b06561b3207d61491dac5e83ddb1068964ee0d",
+          "original_bytes": 143,
+          "published_sha256": "947595e41b9b1aef169f2969b3b06561b3207d61491dac5e83ddb1068964ee0d",
+          "published_bytes": 143,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/e7d3c246c399d3b3ef1f628d6082ba290c73dafe.tree",
+          "original_sha256": "42f7a608ebf837ad3d14401faf8891d3d7745e692bad7f8af414a48e12ccdffa",
+          "original_bytes": 71,
+          "published_sha256": "42f7a608ebf837ad3d14401faf8891d3d7745e692bad7f8af414a48e12ccdffa",
+          "published_bytes": 71,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/f7ace805e62982053a69113cea890cd145ea23dc.tree",
+          "original_sha256": "15d11e634d55d7433b2244fd57d711de72147bbf74ff7ffeca05f94b3ddff71d",
+          "original_bytes": 221,
+          "published_sha256": "15d11e634d55d7433b2244fd57d711de72147bbf74ff7ffeca05f94b3ddff71d",
+          "published_bytes": 221,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-proofs.json",
+          "original_sha256": "789533d85fa166520014d4239fb53d5357e75c49aa523392ea74c28510a837ff",
+          "original_bytes": 24560,
+          "published_sha256": "789533d85fa166520014d4239fb53d5357e75c49aa523392ea74c28510a837ff",
+          "published_bytes": 24560,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/READ-L11-372.json",
+          "original_sha256": "5f990af297784d2bf0e83b69b032bfff1d8102ce13ae71e3afe5f82eb3e849e9",
+          "original_bytes": 12810,
+          "published_sha256": "5f990af297784d2bf0e83b69b032bfff1d8102ce13ae71e3afe5f82eb3e849e9",
+          "published_bytes": 12810,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1179.json",
+          "original_sha256": "e6f4ecbb03b27f1cad4beaf11b48a4706596f6d4873574c6f71a8e7db47150f4",
+          "original_bytes": 668,
+          "published_sha256": "e6f4ecbb03b27f1cad4beaf11b48a4706596f6d4873574c6f71a8e7db47150f4",
+          "published_bytes": 668,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1180.json",
+          "original_sha256": "715f05cd294fa6689f413aaf44250ab1d0ce06da1dcfa05bbcb5e34036e46697",
+          "original_bytes": 661,
+          "published_sha256": "715f05cd294fa6689f413aaf44250ab1d0ce06da1dcfa05bbcb5e34036e46697",
+          "published_bytes": 661,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1181.json",
+          "original_sha256": "b38e4117b02deb73aff2702e7de5a01cf6cc9014109da1b9f0abe1fbac5f19b0",
+          "original_bytes": 664,
+          "published_sha256": "b38e4117b02deb73aff2702e7de5a01cf6cc9014109da1b9f0abe1fbac5f19b0",
+          "published_bytes": 664,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1182.json",
+          "original_sha256": "d9cdded0031fb8a1cd8170b9053410edf4f42277a5e75174baf9de1184b98e13",
+          "original_bytes": 668,
+          "published_sha256": "d9cdded0031fb8a1cd8170b9053410edf4f42277a5e75174baf9de1184b98e13",
+          "published_bytes": 668,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/PROPOSAL-L12-764.json",
+          "original_sha256": "0e07dffaf6571f3b99765bf2b191ccc2f232b0cbcf843eb8bc1ee4370e0edb81",
+          "original_bytes": 33244,
+          "published_sha256": "0e07dffaf6571f3b99765bf2b191ccc2f232b0cbcf843eb8bc1ee4370e0edb81",
+          "published_bytes": 33244,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/PROPOSAL-L12-765.json",
+          "original_sha256": "38a738524285e6cafdddc6d381d283f6d3197a4ca71dd8e0df8be0d5d3688ea1",
+          "original_bytes": 4477,
+          "published_sha256": "38a738524285e6cafdddc6d381d283f6d3197a4ca71dd8e0df8be0d5d3688ea1",
+          "published_bytes": 4477,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/PROPOSAL-L12-766.json",
+          "original_sha256": "7e20f17ec3a8442aa5b795a0b251527cfd6cd58f18d3ae21fef75c38ae202fec",
+          "original_bytes": 35440,
+          "published_sha256": "7e20f17ec3a8442aa5b795a0b251527cfd6cd58f18d3ae21fef75c38ae202fec",
+          "published_bytes": 35440,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/PROPOSAL-L12-767.json",
+          "original_sha256": "69cb4f47cdec7572be50945798e5c6d93874036a256125917796b5181714296a",
+          "original_bytes": 28814,
+          "published_sha256": "69cb4f47cdec7572be50945798e5c6d93874036a256125917796b5181714296a",
+          "published_bytes": 28814,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-282.json",
+          "original_sha256": "886a965789e3a94fafe9ad074a10d4243cb659202f2df3f0ad84fde32b2e7a6c",
+          "original_bytes": 803,
+          "published_sha256": "886a965789e3a94fafe9ad074a10d4243cb659202f2df3f0ad84fde32b2e7a6c",
+          "published_bytes": 803,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-283.json",
+          "original_sha256": "bb1cdac7c9fbbc48e307adb4ce7c36cc4340981da87d3ac18a9e4150ecf8a5d3",
+          "original_bytes": 771,
+          "published_sha256": "bb1cdac7c9fbbc48e307adb4ce7c36cc4340981da87d3ac18a9e4150ecf8a5d3",
+          "published_bytes": 771,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-284.json",
+          "original_sha256": "bb39018aa53869e23311098d4cb2fbaa7934542066ee4a78f494f148ced51703",
+          "original_bytes": 763,
+          "published_sha256": "bb39018aa53869e23311098d4cb2fbaa7934542066ee4a78f494f148ced51703",
+          "published_bytes": 763,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-285.json",
+          "original_sha256": "5068714a06ca11df3dcc755c0e29b0ac8fb915b44066d8fdce3268945ea71d79",
+          "original_bytes": 787,
+          "published_sha256": "5068714a06ca11df3dcc755c0e29b0ac8fb915b44066d8fdce3268945ea71d79",
+          "published_bytes": 787,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/READ-L12-764.json",
+          "original_sha256": "35845f83b6578e20ec8b8d5e9ff9e603e18417bec1e52b99ef4b1219f6ce01da",
+          "original_bytes": 10617,
+          "published_sha256": "35845f83b6578e20ec8b8d5e9ff9e603e18417bec1e52b99ef4b1219f6ce01da",
+          "published_bytes": 10617,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/READ-L12-765.json",
+          "original_sha256": "f74b13bebdf7f823940e06e06a99b6044c3deeac28b58589b3f212e90d291946",
+          "original_bytes": 6363,
+          "published_sha256": "f74b13bebdf7f823940e06e06a99b6044c3deeac28b58589b3f212e90d291946",
+          "published_bytes": 6363,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/READ-L12-766.json",
+          "original_sha256": "394c0850a7cbabedd206b3410af6a6c1a216cac2c0f477c191da71efc7790e1b",
+          "original_bytes": 10469,
+          "published_sha256": "394c0850a7cbabedd206b3410af6a6c1a216cac2c0f477c191da71efc7790e1b",
+          "published_bytes": 10469,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/READ-L12-767.json",
+          "original_sha256": "40f5a47a3a6ffda28593e0af6ce65654c604dd08003ed16c35c58516075a8213",
+          "original_bytes": 16821,
+          "published_sha256": "40f5a47a3a6ffda28593e0af6ce65654c604dd08003ed16c35c58516075a8213",
+          "published_bytes": 16821,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/STATE-L12-764.json",
+          "original_sha256": "4aa2d2292a6c61251a645cb07971496a6bae255491bf0cf5e90ea44bdcfce251",
+          "original_bytes": 2025,
+          "published_sha256": "4aa2d2292a6c61251a645cb07971496a6bae255491bf0cf5e90ea44bdcfce251",
+          "published_bytes": 2025,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/STATE-L12-765.json",
+          "original_sha256": "57670e03bb32fad1360ac0e9ce022f035f84a4f6dea152eea6539fa2b132b46f",
+          "original_bytes": 1255,
+          "published_sha256": "57670e03bb32fad1360ac0e9ce022f035f84a4f6dea152eea6539fa2b132b46f",
+          "published_bytes": 1255,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/STATE-L12-766.json",
+          "original_sha256": "d9a841d7142902c76608aae0c1f65c4621f1e79edd5b41826100d35c46f5661e",
+          "original_bytes": 1255,
+          "published_sha256": "d9a841d7142902c76608aae0c1f65c4621f1e79edd5b41826100d35c46f5661e",
+          "published_bytes": 1255,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/STATE-L12-767.json",
+          "original_sha256": "1b9d5d0b5f72a3e735411a6927f1418eb12126e7e5efd5529c8e6c55480b9d75",
+          "original_bytes": 1640,
+          "published_sha256": "1b9d5d0b5f72a3e735411a6927f1418eb12126e7e5efd5529c8e6c55480b9d75",
+          "published_bytes": 1640,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/VERIFY-L12-764.json",
+          "original_sha256": "41555e25647809e83d2d6724bc7fe941bb8a58856929afd7efc2f06256a11995",
+          "original_bytes": 667,
+          "published_sha256": "41555e25647809e83d2d6724bc7fe941bb8a58856929afd7efc2f06256a11995",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/VERIFY-L12-765.json",
+          "original_sha256": "04c7f3a19d7d9f019e616fff2c2e5191502001d0668974c1a5211b80b7d8eb2b",
+          "original_bytes": 667,
+          "published_sha256": "04c7f3a19d7d9f019e616fff2c2e5191502001d0668974c1a5211b80b7d8eb2b",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/VERIFY-L12-766.json",
+          "original_sha256": "bb6278dfe1d67ce5eced27f8e4510cfdc677b9e03a6fc2675e2e7448855ae17a",
+          "original_bytes": 667,
+          "published_sha256": "bb6278dfe1d67ce5eced27f8e4510cfdc677b9e03a6fc2675e2e7448855ae17a",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/VERIFY-L12-767.json",
+          "original_sha256": "767dea71e6fa9930dac2d9eb36d2842f0d4eecd221169e1e195960107f0389ac",
+          "original_bytes": 667,
+          "published_sha256": "767dea71e6fa9930dac2d9eb36d2842f0d4eecd221169e1e195960107f0389ac",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059-index.json",
+          "original_sha256": "34a26d04760ab3ca98cf86b30866517b381053300e193d5b6dcf6c1f99dc9599",
+          "original_bytes": 7814,
+          "published_sha256": "34a26d04760ab3ca98cf86b30866517b381053300e193d5b6dcf6c1f99dc9599",
+          "published_bytes": 7814,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-2319.rs",
+          "original_sha256": "315f5296ef9ba45169384bc17e9157b66cb1224bedfb4962a04e32821afc63c4",
+          "original_bytes": 6805,
+          "published_sha256": "315f5296ef9ba45169384bc17e9157b66cb1224bedfb4962a04e32821afc63c4",
+          "published_bytes": 6805,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-2320.rs",
+          "original_sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+          "original_bytes": 11279,
+          "published_sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+          "published_bytes": 11279,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-2321.rs",
+          "original_sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+          "original_bytes": 24043,
+          "published_sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+          "published_bytes": 24043,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-2322.rs",
+          "original_sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+          "original_bytes": 11944,
+          "published_sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+          "published_bytes": 11944,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/EXPORT-MANIFEST.json",
+          "original_sha256": "0c848f3be21cf9013e3556d819564f01ee6d05136dff2dfe26c761bbe894ddd5",
+          "original_bytes": 159755,
+          "published_sha256": "0c848f3be21cf9013e3556d819564f01ee6d05136dff2dfe26c761bbe894ddd5",
+          "published_bytes": 159755,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/INDEX.json",
+          "original_sha256": "60a734fd7963b262f0768bcf0a24acd6748557ff6c5bd66a20933b8006c5593a",
+          "original_bytes": 4580,
+          "published_sha256": "60a734fd7963b262f0768bcf0a24acd6748557ff6c5bd66a20933b8006c5593a",
+          "published_bytes": 4580,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/original/wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "original_sha256": "77178019c52b79087c5c69a67e85861bd5c94a35aadd2947f955bb5057d17cc9",
+          "original_bytes": 978453,
+          "published_sha256": "77178019c52b79087c5c69a67e85861bd5c94a35aadd2947f955bb5057d17cc9",
+          "published_bytes": 978453,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/original/wave-01/audit-existing-type-owners/rig/handoff.json",
+          "original_sha256": "0010445a5112f3c0d602a4392079cd03ba641aebc07f135f07326b4fc77829a1",
+          "original_bytes": 4513,
+          "published_sha256": "1094832a0e3a9429fdafa5a6fe066f7ad61c58f5adf33741fb562f10406de488",
+          "published_bytes": 4372,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "older-774/original/wave-01/audit-existing-type-owners/rig/receiver-closure.json",
+          "original_sha256": "40c76e2922de1e227d48a7ed6ed79d10eb04527113856d7f8cb4ef11acfed5ea",
+          "original_bytes": 28238,
+          "published_sha256": "e0fb17085ff8cc6162548f27f6ece4f0e8919c951e319c643ed89ba69c43f8db",
+          "published_bytes": 28220,
+          "redacted_nonessential_local_path_occurrences": 2,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "older-774/original/wave-01/audit-producer-propagation/rig/additional-sources-001.json",
+          "original_sha256": "f23a3e179f6035e88bd1ce1354f707fef341605b9c746daad4f42e343a9ed64f",
+          "original_bytes": 1783,
+          "published_sha256": "f23a3e179f6035e88bd1ce1354f707fef341605b9c746daad4f42e343a9ed64f",
+          "published_bytes": 1783,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/original/wave-01/audit-producer-propagation/rig/receiver-closure.json",
+          "original_sha256": "9a0c400df6f1233cad5497d3aca224747fb9643bd0b278e70e5702258b7415c8",
+          "original_bytes": 31329,
+          "published_sha256": "9a0c400df6f1233cad5497d3aca224747fb9643bd0b278e70e5702258b7415c8",
+          "published_bytes": 31329,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/original/wave-01/audit-producer-propagation/rig/sources.json",
+          "original_sha256": "cc222da7f619e1710a4a748e8ab9b55708727a4f4d6a7a1176a5c462a99c324b",
+          "original_bytes": 196662,
+          "published_sha256": "cc222da7f619e1710a4a748e8ab9b55708727a4f4d6a7a1176a5c462a99c324b",
+          "published_bytes": 196662,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/path-normalized-export/wave-01/audit-existing-type-owners/rig/handoff.json",
+          "original_sha256": "98499b0ccc5bd3b65802b7168b6fb036ea4e174eba462acbb5c18f0813ec46ba",
+          "original_bytes": 4409,
+          "published_sha256": "98499b0ccc5bd3b65802b7168b6fb036ea4e174eba462acbb5c18f0813ec46ba",
+          "published_bytes": 4409,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "older-774/path-normalized-export/wave-01/audit-existing-type-owners/rig/receiver-closure.json",
+          "original_sha256": "cdecb4d54c9af952d668fd393d395366e981285b40b87eb2a4fc11d63f0a36cd",
+          "original_bytes": 28230,
+          "published_sha256": "cdecb4d54c9af952d668fd393d395366e981285b40b87eb2a4fc11d63f0a36cd",
+          "published_bytes": 28230,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "read-receipt.json",
+          "original_sha256": "fa60f1a21f1c74bc50df8a553ed2ca67e6d280a19d5ea526675ef4ca000c6363",
+          "original_bytes": 2936,
+          "published_sha256": "fa60f1a21f1c74bc50df8a553ed2ca67e6d280a19d5ea526675ef4ca000c6363",
+          "published_bytes": 2936,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "registration.json",
+          "original_sha256": "4ed7cb0eb73cdc98f36f76da0d15474f998d5d4269442fda12161641924e134f",
+          "original_bytes": 4559,
+          "published_sha256": "4ed7cb0eb73cdc98f36f76da0d15474f998d5d4269442fda12161641924e134f",
+          "published_bytes": 4559,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "registry-selected-reconstructed.json",
+          "original_sha256": "bdc9c4b9561fb99a6faccd23535d0fa27c8c9d3091e319d92b7695ef628ea177",
+          "original_bytes": 10084,
+          "published_sha256": "bdc9c4b9561fb99a6faccd23535d0fa27c8c9d3091e319d92b7695ef628ea177",
+          "published_bytes": 10084,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "report.json",
+          "original_sha256": "0ab26a1ec0bc9c2f551a1ccd7aed1947330db1001cc9b1d4d95ecc95fcb22be3",
+          "original_bytes": 29755,
+          "published_sha256": "0ab26a1ec0bc9c2f551a1ccd7aed1947330db1001cc9b1d4d95ecc95fcb22be3",
+          "published_bytes": 29755,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-1.rs",
+          "original_sha256": "33931272145f9a4dbcbf5fc42dbba2be30c24a148844c8ff70758559bad317df",
+          "original_bytes": 2458,
+          "published_sha256": "33931272145f9a4dbcbf5fc42dbba2be30c24a148844c8ff70758559bad317df",
+          "published_bytes": 2458,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-2.rs",
+          "original_sha256": "89d8dacc991b53cba7e80189851aadf2ca22cd338ed1111301c9c708effaecf4",
+          "original_bytes": 10709,
+          "published_sha256": "89d8dacc991b53cba7e80189851aadf2ca22cd338ed1111301c9c708effaecf4",
+          "published_bytes": 10709,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-3.rs",
+          "original_sha256": "65fc8347e4ccb3097980a64870537dbf68edc46c5e13df17a41610d889670462",
+          "original_bytes": 3175,
+          "published_sha256": "65fc8347e4ccb3097980a64870537dbf68edc46c5e13df17a41610d889670462",
+          "published_bytes": 3175,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-4.rs",
+          "original_sha256": "7aab7cf313d2341a45df98bb77ece002b9a36afc7719eaf9db3a67bb5cf5ccee",
+          "original_bytes": 5135,
+          "published_sha256": "7aab7cf313d2341a45df98bb77ece002b9a36afc7719eaf9db3a67bb5cf5ccee",
+          "published_bytes": 5135,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-5.rs",
+          "original_sha256": "504d879c9470db4f8b64f77e5f90d26d5f9ae6588d5f2bb5b670da18c49ef426",
+          "original_bytes": 7600,
+          "published_sha256": "504d879c9470db4f8b64f77e5f90d26d5f9ae6588d5f2bb5b670da18c49ef426",
+          "published_bytes": 7600,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-6.rs",
+          "original_sha256": "321893cb91ff943531d0a5986532776c49442ec5c5c6435b2458dbf12c0e7385",
+          "original_bytes": 8321,
+          "published_sha256": "321893cb91ff943531d0a5986532776c49442ec5c5c6435b2458dbf12c0e7385",
+          "published_bytes": 8321,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-7.rs",
+          "original_sha256": "8f2b98396bcd4d90d74ad084c0d622cd4e6f2c4dfd036a32b748b0a93f469254",
+          "original_bytes": 5811,
+          "published_sha256": "8f2b98396bcd4d90d74ad084c0d622cd4e6f2c4dfd036a32b748b0a93f469254",
+          "published_bytes": 5811,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-8.rs",
+          "original_sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+          "original_bytes": 7031,
+          "published_sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+          "published_bytes": 7031,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-9.rs",
+          "original_sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+          "original_bytes": 5162,
+          "published_sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+          "published_bytes": 5162,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-read-receipt-2.json",
+          "original_sha256": "454f0b611dbbecc70f6ae6dc6e8ffccbdb059377b0182302bdf3c21e1466be45",
+          "original_bytes": 978,
+          "published_sha256": "454f0b611dbbecc70f6ae6dc6e8ffccbdb059377b0182302bdf3c21e1466be45",
+          "published_bytes": 978,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-read-receipt.json",
+          "original_sha256": "6a3ed0c19ddfc3b88d18fea713cc0c8ec6e3ad5ef10b9c45e0154f8dc734f80f",
+          "original_bytes": 2442,
+          "published_sha256": "6a3ed0c19ddfc3b88d18fea713cc0c8ec6e3ad5ef10b9c45e0154f8dc734f80f",
+          "published_bytes": 2442,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration-2.json",
+          "original_sha256": "11f38a9ba9e671eca7c38b01e8a7ead5e611d910a2d46ab5b96ca6d25f6575dc",
+          "original_bytes": 1175,
+          "published_sha256": "11f38a9ba9e671eca7c38b01e8a7ead5e611d910a2d46ab5b96ca6d25f6575dc",
+          "published_bytes": 1175,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration.json",
+          "original_sha256": "52d7af15c5991ca23aa5ae75ba065d2b1e12f75d9065e7a762c9481be10bd6f6",
+          "original_bytes": 3466,
+          "published_sha256": "52d7af15c5991ca23aa5ae75ba065d2b1e12f75d9065e7a762c9481be10bd6f6",
+          "published_bytes": 3466,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "write-report.py",
+          "original_sha256": "d056ae2734a953facd6d2f54ffd86c878e81188dd579257b2e889dd03f8b29f2",
+          "original_bytes": 20039,
+          "published_sha256": "366218bf99028bc4e6891aa509f5c7dc2e4676f1b27d11ccc320e342ecb4261b",
+          "published_bytes": 20026,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        }
+      ]
+    },
+    {
+      "agent": "/root/rig_identity",
+      "scope_original_roles": [
+        2336,
+        2337,
+        2338
+      ],
+      "publication_status": "Complete delegated evidence preserved; findings and role credit await central review and cross-lens reconciliation.",
+      "archive": "delegated/rig-skin-evidence.tar.gz",
+      "archive_sha256": "8f6f377080bbe437fc91be3395db4c1739230296ab122290d1d5e1f89f8c7a92",
+      "archive_bytes": 4260949,
+      "report_path": "delegated/rig-skin-report.json",
+      "report_archive_member": "REPORT.json",
+      "members": [
+        {
+          "path": "MANIFEST.json",
+          "original_sha256": "caf4a4bb49571eb8bb4edc233a5a1b69ac5620d909ba9b22435df5e5749321c0",
+          "original_bytes": 20578,
+          "published_sha256": "caf4a4bb49571eb8bb4edc233a5a1b69ac5620d909ba9b22435df5e5749321c0",
+          "published_bytes": 20578,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "REPORT.json",
+          "original_sha256": "18f8dd686021707036e4ddea838d5aa0ec9977a5bdeeda4607d00e38e5e5a75e",
+          "original_bytes": 28984,
+          "published_sha256": "18f8dd686021707036e4ddea838d5aa0ec9977a5bdeeda4607d00e38e5e5a75e",
+          "published_bytes": 28984,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "build-git-proof.py",
+          "original_sha256": "815ceab4b3e176f9f22b04ff99b4f8bb6fa039859c06650267f76248ca67e741",
+          "original_bytes": 2661,
+          "published_sha256": "da6325fc7f421dfe66864351f5a213116bf2c8919224a4fd828715648854cb79",
+          "published_bytes": 2649,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "collect-history.py",
+          "original_sha256": "67ae97ae152c809f9d9d814812b41f0489ea561616a54221452bd80720a8bc7d",
+          "original_bytes": 4741,
+          "published_sha256": "7ecd939c5ecc015c94257cf8e6b5830207f0b7b1471d2850f3164b5ed7ab3696",
+          "published_bytes": 4475,
+          "redacted_nonessential_local_path_occurrences": 5,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "git-objects/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+          "original_sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73",
+          "original_bytes": 1570,
+          "published_sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73",
+          "published_bytes": 1570,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/157d91b05524da82c18f739141a3d3e99c19ccae.tree.gz",
+          "original_sha256": "401b9811b1141d20d812846e48c7b0ac07d93bfceab7db0ff78e8bb3ac55244f",
+          "original_bytes": 123,
+          "published_sha256": "401b9811b1141d20d812846e48c7b0ac07d93bfceab7db0ff78e8bb3ac55244f",
+          "published_bytes": 123,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+          "original_sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c",
+          "original_bytes": 1342,
+          "published_sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c",
+          "published_bytes": 1342,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/1fe9e9c09ce4d78a09d54ea884c4167840995a54.tree.gz",
+          "original_sha256": "44d99411ffbeafb99f3480c602081141b5abdf5bb6208d68563ca21fcf8e50d3",
+          "original_bytes": 322,
+          "published_sha256": "44d99411ffbeafb99f3480c602081141b5abdf5bb6208d68563ca21fcf8e50d3",
+          "published_bytes": 322,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/2430d7032ac8a360de64029ae63b9071bcb5b1c2.tree.gz",
+          "original_sha256": "3e7146b1a788079213f7239b4077b2a57699230f953d58edd65f0916bc7ac645",
+          "original_bytes": 526,
+          "published_sha256": "3e7146b1a788079213f7239b4077b2a57699230f953d58edd65f0916bc7ac645",
+          "published_bytes": 526,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/28c76fee94cf40295e4fe720601bf2f601d14bf4.tree.gz",
+          "original_sha256": "fb52a92164aecf866bb51e0c5a99bdb9165265ae58cc2a80aad7869f13f8e039",
+          "original_bytes": 355,
+          "published_sha256": "fb52a92164aecf866bb51e0c5a99bdb9165265ae58cc2a80aad7869f13f8e039",
+          "published_bytes": 355,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/2a5323bb4f2201eb8779bc6383556b05ce3cd7ee.tree.gz",
+          "original_sha256": "9b63213423ffbb54747c7ef36c9353c109011ea03bde0f6b673b1eb60dab9d0e",
+          "original_bytes": 2682,
+          "published_sha256": "9b63213423ffbb54747c7ef36c9353c109011ea03bde0f6b673b1eb60dab9d0e",
+          "published_bytes": 2682,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/2d20957dfc679788d86c0ce8f5502b5f9ce6b3a1.tree.gz",
+          "original_sha256": "9e68011d246b11a0e077ab251e4fd344a87693cc8757a02149ae64a3cc52e819",
+          "original_bytes": 343,
+          "published_sha256": "9e68011d246b11a0e077ab251e4fd344a87693cc8757a02149ae64a3cc52e819",
+          "published_bytes": 343,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/3a2b6d01672fbc0d98280b96c7a8c52e757e0aba.tree.gz",
+          "original_sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8",
+          "original_bytes": 274,
+          "published_sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8",
+          "published_bytes": 274,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/3c04cdb8f80c844774098f86f4481f02d46bbe60.tree.gz",
+          "original_sha256": "d3e3409a0719105315e715625887b9b7cf8f77dfda757dba2401d4be447e9a2c",
+          "original_bytes": 244,
+          "published_sha256": "d3e3409a0719105315e715625887b9b7cf8f77dfda757dba2401d4be447e9a2c",
+          "published_bytes": 244,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/4600136a2483a4cb86c1f24ad935526bc0f3d53b.tree.gz",
+          "original_sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2",
+          "original_bytes": 230,
+          "published_sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2",
+          "published_bytes": 230,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/4cd5d33e1820c9c168e35d8913d5d7ceacee37de.tree.gz",
+          "original_sha256": "cd19a6d74ba9f30c6a217cc6e49ee9f0b014a5aa6f66f821f076610591fd5db5",
+          "original_bytes": 150,
+          "published_sha256": "cd19a6d74ba9f30c6a217cc6e49ee9f0b014a5aa6f66f821f076610591fd5db5",
+          "published_bytes": 150,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/4d7301d7d8b31e815c5ef761e08879d62ced9d25.tree.gz",
+          "original_sha256": "6cc2f936d75621168c3aa420959daff55778a155a5dcbf3aa2125f9b8380e52e",
+          "original_bytes": 4639,
+          "published_sha256": "6cc2f936d75621168c3aa420959daff55778a155a5dcbf3aa2125f9b8380e52e",
+          "published_bytes": 4639,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/4ece1f8c1a44610c7c2fc212103d6b8c82aa37bf.tree.gz",
+          "original_sha256": "4594cdc831e3614f6f3cad6cfec9f1766dc2088c70130916206d704b6d2f28c1",
+          "original_bytes": 323,
+          "published_sha256": "4594cdc831e3614f6f3cad6cfec9f1766dc2088c70130916206d704b6d2f28c1",
+          "published_bytes": 323,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/500ca728b94674afda6b91f8f01b4ed084825a28.tree.gz",
+          "original_sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64",
+          "original_bytes": 1375,
+          "published_sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64",
+          "published_bytes": 1375,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/5725ae1dc3305251e87f4492a7de86dde19786b2.tree.gz",
+          "original_sha256": "4f028c807eb761341ce97b8252f5592165e5d3623dc005e272d6700789e5a3c6",
+          "original_bytes": 120,
+          "published_sha256": "4f028c807eb761341ce97b8252f5592165e5d3623dc005e272d6700789e5a3c6",
+          "published_bytes": 120,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/619da1a7927fa7089d6cc58e96c70aefc51de4e7.tree.gz",
+          "original_sha256": "40af731c7bb452347e60ec2157120d9b34ff2df4af6cbe6b0b47fdaa8a6025a5",
+          "original_bytes": 305,
+          "published_sha256": "40af731c7bb452347e60ec2157120d9b34ff2df4af6cbe6b0b47fdaa8a6025a5",
+          "published_bytes": 305,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit.gz",
+          "original_sha256": "92af1af418d15ea254e78f6fe27bcacf00d1571de2c5405cbc102194e3f6b120",
+          "original_bytes": 202,
+          "published_sha256": "92af1af418d15ea254e78f6fe27bcacf00d1571de2c5405cbc102194e3f6b120",
+          "published_bytes": 202,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/664111d6b5d9bca42f33c43d879f694ef0dc9587.tree.gz",
+          "original_sha256": "79f62d6d4e4d869f8f5920c2b2fc973f263763e4ec2d7a1b5848844bcd3fc7b4",
+          "original_bytes": 230,
+          "published_sha256": "79f62d6d4e4d869f8f5920c2b2fc973f263763e4ec2d7a1b5848844bcd3fc7b4",
+          "published_bytes": 230,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/70cda9939284355c2264b601322aacba9399e65e.tree.gz",
+          "original_sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14",
+          "original_bytes": 651,
+          "published_sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14",
+          "published_bytes": 651,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/849ec1e8faca2236c7021893cda7a3f7cb5c72e8.tree.gz",
+          "original_sha256": "6502aead335f2e1f71e5fdca379ce119beb4f698af42777e0c24363803536470",
+          "original_bytes": 1344,
+          "published_sha256": "6502aead335f2e1f71e5fdca379ce119beb4f698af42777e0c24363803536470",
+          "published_bytes": 1344,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/91a77f1fdceefea3dd01dfde76fd19949c588083.tree.gz",
+          "original_sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7",
+          "original_bytes": 49,
+          "published_sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7",
+          "published_bytes": 49,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+          "original_sha256": "ae58b80082dea7773337a56a996c6bd431ebb1f351d8f93128f886d0c07651aa",
+          "original_bytes": 856,
+          "published_sha256": "ae58b80082dea7773337a56a996c6bd431ebb1f351d8f93128f886d0c07651aa",
+          "published_bytes": 856,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/97891cd5b1e92d710d0b47ea24ad7ef2ae14b6e4.tree.gz",
+          "original_sha256": "2deaa1bd57c8a93e5c427e0107369815cb88a96a1e2b3d64e96c7e389a66722e",
+          "original_bytes": 138,
+          "published_sha256": "2deaa1bd57c8a93e5c427e0107369815cb88a96a1e2b3d64e96c7e389a66722e",
+          "published_bytes": 138,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/9f10a89ce984cd0fe4e3b20f3078bc194a52919f.tree.gz",
+          "original_sha256": "190099b28ffb1f582a968ac56634bbc7f04ee478e3417b3322acecdef949d35b",
+          "original_bytes": 230,
+          "published_sha256": "190099b28ffb1f582a968ac56634bbc7f04ee478e3417b3322acecdef949d35b",
+          "published_bytes": 230,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/a0b19a36c827dd0182aecfcb2431b74e93aac609.tree.gz",
+          "original_sha256": "40d69701f4d15d2b5727ea73c4df91762bfc8cbb109cd7dec862a719e2411927",
+          "original_bytes": 323,
+          "published_sha256": "40d69701f4d15d2b5727ea73c4df91762bfc8cbb109cd7dec862a719e2411927",
+          "published_bytes": 323,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/a115d05f403ea5edbb02128dc773d2e3dcb51c2d.tree.gz",
+          "original_sha256": "077300b1353b89a71e7599b9677b1a37641d0fc510e3fac2c85a17ff729325b0",
+          "original_bytes": 1569,
+          "published_sha256": "077300b1353b89a71e7599b9677b1a37641d0fc510e3fac2c85a17ff729325b0",
+          "published_bytes": 1569,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/a2e1cd1b71259493cd04ab7f749fc6388dd1da8a.tree.gz",
+          "original_sha256": "0ce16b9ad88bf1141c95eafd75041fd723d01d2908c2d13a6ca5f03417e9e887",
+          "original_bytes": 323,
+          "published_sha256": "0ce16b9ad88bf1141c95eafd75041fd723d01d2908c2d13a6ca5f03417e9e887",
+          "published_bytes": 323,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/ad3dd80c4b1656b4d5c918a065dba2a9b0874052.tree.gz",
+          "original_sha256": "828359007ae87671d6bcb66405971ba71ec6f361ed8eda44145cf67382819c37",
+          "original_bytes": 485,
+          "published_sha256": "828359007ae87671d6bcb66405971ba71ec6f361ed8eda44145cf67382819c37",
+          "published_bytes": 485,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/aedb49fc4e9e88985437e252701f2395007d8f6b.tree.gz",
+          "original_sha256": "df89a9b9254ab62eb803b4871b9692769ce52dec8a4517a30051c1159bd68c05",
+          "original_bytes": 876,
+          "published_sha256": "df89a9b9254ab62eb803b4871b9692769ce52dec8a4517a30051c1159bd68c05",
+          "published_bytes": 876,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/b345eda25c3900bf7189c387158b5f62eda8cf19.tree.gz",
+          "original_sha256": "13fa0036980aeb9088eaf3d93891ce4de7dd50e3175b69e102d0772bc4346dca",
+          "original_bytes": 401,
+          "published_sha256": "13fa0036980aeb9088eaf3d93891ce4de7dd50e3175b69e102d0772bc4346dca",
+          "published_bytes": 401,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/b88c6be6696c98d02be7aca92ed1b69375075913.tree.gz",
+          "original_sha256": "40e86474bf9e24e0237a7b9af87bce83964bc138b9036584355613cd1e537548",
+          "original_bytes": 657,
+          "published_sha256": "40e86474bf9e24e0237a7b9af87bce83964bc138b9036584355613cd1e537548",
+          "published_bytes": 657,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/bb54fa4e2f032f8451aafa8cd6a5349dcd6cbd95.tree.gz",
+          "original_sha256": "af68425eb23d9c8d5edcf0d9d1b3c1699405c43ffade0473e5bd69c36afedf85",
+          "original_bytes": 321,
+          "published_sha256": "af68425eb23d9c8d5edcf0d9d1b3c1699405c43ffade0473e5bd69c36afedf85",
+          "published_bytes": 321,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/bdd069e5d3e0c3333d2473e585303787a96e3c57.tree.gz",
+          "original_sha256": "f529dc6602465825fc951a85e03a2edd221f3acf92188867a38f63e97e4a0373",
+          "original_bytes": 10072,
+          "published_sha256": "f529dc6602465825fc951a85e03a2edd221f3acf92188867a38f63e97e4a0373",
+          "published_bytes": 10072,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/c703b3778cdbe696fbec489879f653f1a2a09a8a.tree.gz",
+          "original_sha256": "a4f42e8d74344dfcb97967d072d8d4cfab2aa7de74a9fc006598ba62145329bd",
+          "original_bytes": 123,
+          "published_sha256": "a4f42e8d74344dfcb97967d072d8d4cfab2aa7de74a9fc006598ba62145329bd",
+          "published_bytes": 123,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/cbc01ad03df137182465ccca37252c9a5be2f310.tree.gz",
+          "original_sha256": "f3c2fddd3c8bd802aeb671dfd3f5dea1c3ed43d71d7a318b82461e99ac74e2a4",
+          "original_bytes": 305,
+          "published_sha256": "f3c2fddd3c8bd802aeb671dfd3f5dea1c3ed43d71d7a318b82461e99ac74e2a4",
+          "published_bytes": 305,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/e0b74d17ff8eda39f94bb32f3b6d249919ee095a.tree.gz",
+          "original_sha256": "1517c73a53d0968de902c2efb7da7e3c9af9fef24ad42c4a43cbc8da9a0d7007",
+          "original_bytes": 2187,
+          "published_sha256": "1517c73a53d0968de902c2efb7da7e3c9af9fef24ad42c4a43cbc8da9a0d7007",
+          "published_bytes": 2187,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/e31898e591c6ae7284a63ba871ae3821963f4f3a.tree.gz",
+          "original_sha256": "0f828be368a1331527eea163bd73449d7e2774fda7de334169a7b32a58bf25bb",
+          "original_bytes": 185,
+          "published_sha256": "0f828be368a1331527eea163bd73449d7e2774fda7de334169a7b32a58bf25bb",
+          "published_bytes": 185,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/e4e513f6b51648c0b8c35e91b40aa2eef11935b9.tree.gz",
+          "original_sha256": "3a48645bc21137deb800e47882556a0e992cef142321bc9a1e396b53eb95c6e9",
+          "original_bytes": 544,
+          "published_sha256": "3a48645bc21137deb800e47882556a0e992cef142321bc9a1e396b53eb95c6e9",
+          "published_bytes": 544,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/e7d3c246c399d3b3ef1f628d6082ba290c73dafe.tree.gz",
+          "original_sha256": "de40c96a4b958937b920e2819c625fa8249492fb458c8b7c7004aafaef4af7cd",
+          "original_bytes": 86,
+          "published_sha256": "de40c96a4b958937b920e2819c625fa8249492fb458c8b7c7004aafaef4af7cd",
+          "published_bytes": 86,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/e86e8e5d3bfbf1e8c113b9d24da9625ef77d5149.tree.gz",
+          "original_sha256": "a5fb1c84fd653cac3fd9e82ed65959ea2154ad950f369c1ded1fce6bd239255c",
+          "original_bytes": 1292,
+          "published_sha256": "a5fb1c84fd653cac3fd9e82ed65959ea2154ad950f369c1ded1fce6bd239255c",
+          "published_bytes": 1292,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/f45a8b497e38416c57ea2a1dea72c24607276ec5.tree.gz",
+          "original_sha256": "16908df3438aae2e175af8c82f823e05f7ddb047371609fb07a212c60a36d48c",
+          "original_bytes": 457,
+          "published_sha256": "16908df3438aae2e175af8c82f823e05f7ddb047371609fb07a212c60a36d48c",
+          "published_bytes": 457,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/f52f5a9194bd3808ec5279289319b9a2d12033d6.tree.gz",
+          "original_sha256": "12499e3c98b787487e2f3be8808b568ca0ff361255e6fdb50d24a0ec024bf651",
+          "original_bytes": 7825,
+          "published_sha256": "12499e3c98b787487e2f3be8808b568ca0ff361255e6fdb50d24a0ec024bf651",
+          "published_bytes": 7825,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz",
+          "original_sha256": "a8523ddb9764b93a37c52c0a0b188a43cfbfe55c6d7c54257af75f8ae3ea9927",
+          "original_bytes": 354,
+          "published_sha256": "a8523ddb9764b93a37c52c0a0b188a43cfbfe55c6d7c54257af75f8ae3ea9927",
+          "published_bytes": 354,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-objects/fd82a1f6e41aa70561b116843c2222d6221a69e4.tree.gz",
+          "original_sha256": "bb932365b05ef257c987cc83ff34ec3574852909d334ba3ca5e821682616ddc1",
+          "original_bytes": 5206,
+          "published_sha256": "bb932365b05ef257c987cc83ff34ec3574852909d334ba3ca5e821682616ddc1",
+          "published_bytes": 5206,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "git-proofs.json",
+          "original_sha256": "b1951ed9b49913ac32b1e79e1650ad42e0203e07a4bc104751c85c913c063be3",
+          "original_bytes": 47779,
+          "published_sha256": "b1951ed9b49913ac32b1e79e1650ad42e0203e07a4bc104751c85c913c063be3",
+          "published_bytes": 47779,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/READ-L11-374.json",
+          "original_sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c",
+          "original_bytes": 12621,
+          "published_sha256": "c3b528015ea7f58a4b96389e4f2324ca3204f1ebb9b2d49c578158da694b893c",
+          "published_bytes": 12621,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/READ-L11-375.json",
+          "original_sha256": "f9138ff64b9a78b7b6964690189db73afd90a997bf7023ef2c91ac0fe8558fe5",
+          "original_bytes": 8254,
+          "published_sha256": "f9138ff64b9a78b7b6964690189db73afd90a997bf7023ef2c91ac0fe8558fe5",
+          "published_bytes": 8254,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1201.json",
+          "original_sha256": "9a2e3ec9a91deca5b359a97a3853fa527b479ca807a797205b09bcf64a8cab8b",
+          "original_bytes": 658,
+          "published_sha256": "9a2e3ec9a91deca5b359a97a3853fa527b479ca807a797205b09bcf64a8cab8b",
+          "published_bytes": 658,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1202.json",
+          "original_sha256": "cdf529e500068bdebd0e4b9e11b523e5b947e1ae2a1a8948d9b64275c4b48679",
+          "original_bytes": 659,
+          "published_sha256": "cdf529e500068bdebd0e4b9e11b523e5b947e1ae2a1a8948d9b64275c4b48679",
+          "published_bytes": 659,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/REGISTRATION-ADLER-1203.json",
+          "original_sha256": "b9098bd3051396736681d9be0a6053ffd1f26885d74098d9dc85d7851c5c032a",
+          "original_bytes": 694,
+          "published_sha256": "b9098bd3051396736681d9be0a6053ffd1f26885d74098d9dc85d7851c5c032a",
+          "published_bytes": 694,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/STATE-L11-374.json",
+          "original_sha256": "33e935e667849c68a4dd840a8f611857d1355b6b806bc290397dd2a51eeb0979",
+          "original_bytes": 690,
+          "published_sha256": "33e935e667849c68a4dd840a8f611857d1355b6b806bc290397dd2a51eeb0979",
+          "published_bytes": 690,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/STATE-L11-375.json",
+          "original_sha256": "d2204c151d83e5a7b0323f335c6a5f5d0ba3ab0f64bb3d2e63e6d3353bf3e6d4",
+          "original_bytes": 646,
+          "published_sha256": "d2204c151d83e5a7b0323f335c6a5f5d0ba3ab0f64bb3d2e63e6d3353bf3e6d4",
+          "published_bytes": 646,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/VERIFY-L11-374.json",
+          "original_sha256": "c4c097012535202ac81d53d0d12ac9ecf1f966bbd0be956c327a948b45ce0c8c",
+          "original_bytes": 39205,
+          "published_sha256": "c4c097012535202ac81d53d0d12ac9ecf1f966bbd0be956c327a948b45ce0c8c",
+          "published_bytes": 39205,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/adler/VERIFY-L11-375.json",
+          "original_sha256": "ce9989840e0219942d35d01c8c88059f75dac0975d7681c95f8724218183b29f",
+          "original_bytes": 36723,
+          "published_sha256": "ce9989840e0219942d35d01c8c88059f75dac0975d7681c95f8724218183b29f",
+          "published_bytes": 36723,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/PROPOSAL-L12-771.json",
+          "original_sha256": "660fbe2863861acf79ec3c0b28561c485b4a6b1a1a08ebeded131c91869c2fec",
+          "original_bytes": 13098,
+          "published_sha256": "660fbe2863861acf79ec3c0b28561c485b4a6b1a1a08ebeded131c91869c2fec",
+          "published_bytes": 13098,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-769-779-AUDIT-ONLY-HEADERS.json",
+          "original_sha256": "351b26df807c617f296776c7188cfb8a24674e5d76a026203198cff27f952d3d",
+          "original_bytes": 31429,
+          "published_sha256": "351b26df807c617f296776c7188cfb8a24674e5d76a026203198cff27f952d3d",
+          "published_bytes": 31429,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-304.json",
+          "original_sha256": "22fe9988135f8e41cfbeee94d18a621cef8b7d5efddff040a269942b8cbab582",
+          "original_bytes": 777,
+          "published_sha256": "22fe9988135f8e41cfbeee94d18a621cef8b7d5efddff040a269942b8cbab582",
+          "published_bytes": 777,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-305.json",
+          "original_sha256": "44de4e4d5185e31348617cd0a4dd54f57e9901c2e879aa165e8a529b028059ff",
+          "original_bytes": 779,
+          "published_sha256": "44de4e4d5185e31348617cd0a4dd54f57e9901c2e879aa165e8a529b028059ff",
+          "published_bytes": 779,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-306.json",
+          "original_sha256": "3365e2e929e9cebea01b3fc489b85b6d62371daec1e2926a99e8cb1d417b23ae",
+          "original_bytes": 779,
+          "published_sha256": "3365e2e929e9cebea01b3fc489b85b6d62371daec1e2926a99e8cb1d417b23ae",
+          "published_bytes": 779,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-307.json",
+          "original_sha256": "c756574a02fb6fe4bccebbdb4b1d62e297740fe573034ddd9451abe52bd1e433",
+          "original_bytes": 777,
+          "published_sha256": "c756574a02fb6fe4bccebbdb4b1d62e297740fe573034ddd9451abe52bd1e433",
+          "published_bytes": 777,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l13-20261029/READ-PL13-119.json",
+          "original_sha256": "5e564ec40c7b5dfd101f45e31967d5e7eb1c5e1707ff8156131f22a923b7b404",
+          "original_bytes": 12020,
+          "published_sha256": "5e564ec40c7b5dfd101f45e31967d5e7eb1c5e1707ff8156131f22a923b7b404",
+          "published_bytes": 12020,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l13-20261029/REGISTRATION-PL13-119.json",
+          "original_sha256": "8b3c55e57125b55083fb98e534d4e530d858d947251af8fb8a552f6008240280",
+          "original_bytes": 2476,
+          "published_sha256": "8b3c55e57125b55083fb98e534d4e530d858d947251af8fb8a552f6008240280",
+          "published_bytes": 2476,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-118-120.json",
+          "original_sha256": "a2cd14ff6c1cf8038e8cfa70a53a954fef03ee5d7d274f3b0bb557162d22fdd1",
+          "original_bytes": 17395,
+          "published_sha256": "a2cd14ff6c1cf8038e8cfa70a53a954fef03ee5d7d274f3b0bb557162d22fdd1",
+          "published_bytes": 17395,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/parallel-l13-20261029/VERIFY-PL13-119.json",
+          "original_sha256": "9a1e4ddce0d56137fc95c5c71eb023e580b8756394ce5475ff2780a081ad6a8e",
+          "original_bytes": 627,
+          "published_sha256": "9a1e4ddce0d56137fc95c5c71eb023e580b8756394ce5475ff2780a081ad6a8e",
+          "published_bytes": 627,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/READ-L12-771.json",
+          "original_sha256": "510ddc2531a16fcda64abdb9111fe7a8338b56cbe4c3afe438381cc656d3ef5a",
+          "original_bytes": 18087,
+          "published_sha256": "510ddc2531a16fcda64abdb9111fe7a8338b56cbe4c3afe438381cc656d3ef5a",
+          "published_bytes": 18087,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/READ-L13-PARALLEL-117.json",
+          "original_sha256": "e522d65f4cedabcfd7ab1133aa1de669eda08a854874e988e6acdf5a75492f8c",
+          "original_bytes": 15302,
+          "published_sha256": "e522d65f4cedabcfd7ab1133aa1de669eda08a854874e988e6acdf5a75492f8c",
+          "published_bytes": 15302,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/STATE-L12-771.json",
+          "original_sha256": "17b21c170cb0ab95971cb12c2f3f2039a69a90f883bd120afdb31463adca20d6",
+          "original_bytes": 2410,
+          "published_sha256": "17b21c170cb0ab95971cb12c2f3f2039a69a90f883bd120afdb31463adca20d6",
+          "published_bytes": 2410,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-059/segovb/VERIFY-L12-771.json",
+          "original_sha256": "006c84b1bbcdf71c966fb0c245be22e2c6c92770eba4a74fa7196c78577645d8",
+          "original_bytes": 667,
+          "published_sha256": "006c84b1bbcdf71c966fb0c245be22e2c6c92770eba4a74fa7196c78577645d8",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-774/audit-existing-type-owners/rig/coverage.jsonl",
+          "original_sha256": "77178019c52b79087c5c69a67e85861bd5c94a35aadd2947f955bb5057d17cc9",
+          "original_bytes": 978453,
+          "published_sha256": "77178019c52b79087c5c69a67e85861bd5c94a35aadd2947f955bb5057d17cc9",
+          "published_bytes": 978453,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-774/audit-existing-type-owners/root/additional-sources.jsonl",
+          "original_sha256": "0815fbe2a8c17b8741b24cc4fb47924129b718ddaa162793f013a5ab5253b540",
+          "original_bytes": 100022,
+          "published_sha256": "0815fbe2a8c17b8741b24cc4fb47924129b718ddaa162793f013a5ab5253b540",
+          "published_bytes": 100022,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-774/audit-producer-propagation/rig/sources.json",
+          "original_sha256": "cc222da7f619e1710a4a748e8ab9b55708727a4f4d6a7a1176a5c462a99c324b",
+          "original_bytes": 196662,
+          "published_sha256": "cc222da7f619e1710a4a748e8ab9b55708727a4f4d6a7a1176a5c462a99c324b",
+          "published_bytes": 196662,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-774/audit-producer-propagation/root/unchanged-paths.jsonl",
+          "original_sha256": "aba1b88eb809cfe4a47e5c43288624342b3259d0a56e0704a249783d2ecdc82b",
+          "original_bytes": 55293,
+          "published_sha256": "aba1b88eb809cfe4a47e5c43288624342b3259d0a56e0704a249783d2ecdc82b",
+          "published_bytes": 55293,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-774-variant/audit-existing-type-owners/root/additional-sources.jsonl",
+          "original_sha256": "30d543afb44204e2eaa8cabc57ae08106d30d9fa1157cb4fb02968757a512e88",
+          "original_bytes": 109940,
+          "published_sha256": "e8e99591df0f7b849564ecafe0e945c84e6405142ae08315c5e3ee7e9cf05e3e",
+          "published_bytes": 91455,
+          "redacted_nonessential_local_path_occurrences": 118,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "historical-support/crates/adventuresim-character-creator/src/skin_rules.rs",
+          "original_sha256": "79f4a9ac4e470e5788fd7d75fee1142c11da843d258e870a42249eca81ea957e",
+          "original_bytes": 17186,
+          "published_sha256": "79f4a9ac4e470e5788fd7d75fee1142c11da843d258e870a42249eca81ea957e",
+          "published_bytes": 17186,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-support-registration.json",
+          "original_sha256": "3f2f2306793d2462148f671744f23b1711ac91925f0104d264de42f3b50ea787",
+          "original_bytes": 783,
+          "published_sha256": "3f2f2306793d2462148f671744f23b1711ac91925f0104d264de42f3b50ea787",
+          "published_bytes": 783,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "history-manifest.json",
+          "original_sha256": "7a81688c18aac2d62c5c095486356a5ba12426b26d5653053fd8e93d554857e4",
+          "original_bytes": 15297,
+          "published_sha256": "7a81688c18aac2d62c5c095486356a5ba12426b26d5653053fd8e93d554857e4",
+          "published_bytes": 15297,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "original-registry.json.gz",
+          "original_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+          "original_bytes": 1205722,
+          "published_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+          "published_bytes": 1205722,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "original-transport-manifest.json.gz",
+          "original_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+          "original_bytes": 2757737,
+          "published_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+          "published_bytes": 2757737,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "registration.json",
+          "original_sha256": "4da87edcae7f7f7163f5000ff9d47b17d944080621af0b329d04e6d2f265175c",
+          "original_bytes": 3066,
+          "published_sha256": "4da87edcae7f7f7163f5000ff9d47b17d944080621af0b329d04e6d2f265175c",
+          "published_bytes": 3066,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "registry-selection-reconstructed.json",
+          "original_sha256": "d666df46ea3ae143491f3e0c3a458dc1941592cdf0daa4dc43b35fe5955c3da4",
+          "original_bytes": 8949,
+          "published_sha256": "d666df46ea3ae143491f3e0c3a458dc1941592cdf0daa4dc43b35fe5955c3da4",
+          "published_bytes": 8949,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "related-reports/mhr-character.json",
+          "original_sha256": "9d7461484d584790a9dc75b74fe4de57b83f632b480cd2b76efc0c326132486a",
+          "original_bytes": 32685,
+          "published_sha256": "9d7461484d584790a9dc75b74fe4de57b83f632b480cd2b76efc0c326132486a",
+          "published_bytes": 32685,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "related-reports/rig-identity.json",
+          "original_sha256": "dba99caca4c00449683327117f7e8a2bb52c0f5e908e776b85d92d89347407d6",
+          "original_bytes": 35392,
+          "published_sha256": "dba99caca4c00449683327117f7e8a2bb52c0f5e908e776b85d92d89347407d6",
+          "published_bytes": 35392,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "sources/6533/crates/fabelgeist-rig/src/skin.rs",
+          "original_sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+          "original_bytes": 7326,
+          "published_sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+          "published_bytes": 7326,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "sources/6533/crates/fabelgeist-rig/src/table.rs",
+          "original_sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+          "original_bytes": 3011,
+          "published_sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+          "published_bytes": 3011,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "sources/6533/crates/fabelgeist-rig/src/tests.rs",
+          "original_sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+          "original_bytes": 3343,
+          "published_sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+          "published_bytes": 3343,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "sources/95e6/crates/fabelgeist-rig/src/skin.rs",
+          "original_sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e",
+          "original_bytes": 7932,
+          "published_sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e",
+          "published_bytes": 7932,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "sources/95e6/crates/fabelgeist-rig/src/table.rs",
+          "original_sha256": "330da7b3558ef374c2d60b787e0d32870a6b0b6f338f2f2ebb25f5b4c18ec511",
+          "original_bytes": 2998,
+          "published_sha256": "330da7b3558ef374c2d60b787e0d32870a6b0b6f338f2f2ebb25f5b4c18ec511",
+          "published_bytes": 2998,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "sources/95e6/crates/fabelgeist-rig/src/tests.rs",
+          "original_sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+          "original_bytes": 3343,
+          "published_sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+          "published_bytes": 3343,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/adventuresim-character-creator/src/export/skinning.rs",
+          "original_sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+          "original_bytes": 1997,
+          "published_sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+          "published_bytes": 1997,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/adventuresim-character-creator/src/export/validation.rs",
+          "original_sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+          "original_bytes": 5949,
+          "published_sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+          "published_bytes": 5949,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/adventuresim-character-creator/src/lib.rs",
+          "original_sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1",
+          "original_bytes": 8313,
+          "published_sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1",
+          "published_bytes": 8313,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/adventuresim-character-creator/src/skin_rules.rs",
+          "original_sha256": "f1ab48b207688209504ac8ab5ddef2286d7ebac5d6e2d8545313f87e1e3db474",
+          "original_bytes": 17394,
+          "published_sha256": "f1ab48b207688209504ac8ab5ddef2286d7ebac5d6e2d8545313f87e1e3db474",
+          "published_bytes": 17394,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+          "original_sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+          "original_bytes": 6310,
+          "published_sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+          "published_bytes": 6310,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/fabelgeist-armor/src/components.rs",
+          "original_sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+          "original_bytes": 4327,
+          "published_sha256": "0cee8ea4265d2ec61509c2c7a516a7dfa6d9d46a483d83fdae928bd1fe010ad5",
+          "published_bytes": 4327,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/fabelgeist-armor/src/design.rs",
+          "original_sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+          "original_bytes": 6116,
+          "published_sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+          "published_bytes": 6116,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/fabelgeist-mhr/src/character/skin.rs",
+          "original_sha256": "62b86b89435aeeffe4fe8ad5f034ce5ab5736dfb15b66e4f08afc21337e41697",
+          "original_bytes": 5212,
+          "published_sha256": "62b86b89435aeeffe4fe8ad5f034ce5ab5736dfb15b66e4f08afc21337e41697",
+          "published_bytes": 5212,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/fabelgeist-mhr/src/model/upload.rs",
+          "original_sha256": "504d879c9470db4f8b64f77e5f90d26d5f9ae6588d5f2bb5b670da18c49ef426",
+          "original_bytes": 7600,
+          "published_sha256": "504d879c9470db4f8b64f77e5f90d26d5f9ae6588d5f2bb5b670da18c49ef426",
+          "published_bytes": 7600,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/fabelgeist-rig/README.md",
+          "original_sha256": "6c65e76c80820396e8f2be0f4660188eb1b7f473f46454d6d0697b9a479b8bbb",
+          "original_bytes": 2527,
+          "published_sha256": "6c65e76c80820396e8f2be0f4660188eb1b7f473f46454d6d0697b9a479b8bbb",
+          "published_bytes": 2527,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support/crates/fabelgeist-rig/src/lib.rs",
+          "original_sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+          "original_bytes": 4369,
+          "published_sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+          "published_bytes": 4369,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration.json",
+          "original_sha256": "5e1567eeeeb5e657fc0917d30e0f4708a0837fa3771ff1c579386bed8d1340e6",
+          "original_bytes": 4959,
+          "published_sha256": "5e1567eeeeb5e657fc0917d30e0f4708a0837fa3771ff1c579386bed8d1340e6",
+          "published_bytes": 4959,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "verify-evidence.py",
+          "original_sha256": "40f698f0de709dada53b126cb931524bddf730ea0bca0f39a937a7fc5ab21875",
+          "original_bytes": 2589,
+          "published_sha256": "be5aaf1d268073d39fc0e1454301d9320abefb762b3302b3745f7dee1139ff8f",
+          "published_bytes": 2577,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "write-report.py",
+          "original_sha256": "34e6c5c837c6be560fff05836483e959353feb21674e7aac15c3f98b04037a05",
+          "original_bytes": 19182,
+          "published_sha256": "a32280c7beb9a5e8755e0e8f2161c87ae0884a3aa576016de623919ff9fc6b83",
+          "published_bytes": 19170,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        }
+      ]
+    },
+    {
+      "agent": "/root/hair_ops",
+      "scope_original_roles": [
+        2306,
+        2307,
+        2308
+      ],
+      "publication_status": "Complete delegated evidence preserved; findings and role credit await central review and cross-lens reconciliation.",
+      "archive": "delegated/hair-primitives-evidence.tar.gz",
+      "archive_sha256": "6800c1550ea47083da398f18bb7afc21e92bd5536a53a93e13287dd59e8fc2ca",
+      "archive_bytes": 390181,
+      "report_path": "delegated/hair-primitives-report.json",
+      "report_archive_member": "report.json",
+      "members": [
+        {
+          "path": "check_evidence.py",
+          "original_sha256": "035b671abbd51b5af7981ee6c6894eba39c21ec52788a756facacea378612cfc",
+          "original_bytes": 2517,
+          "published_sha256": "e6e72313e4332fc1de678e21f396464653806ce299fa05200d250c52d4c4b473",
+          "published_bytes": 2498,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "copy_historical.py",
+          "original_sha256": "9aa06b9e9144e623e46b70602b07ff58f7f3123052bab222600b38a803dd068d",
+          "original_bytes": 2390,
+          "published_sha256": "febcb5e9ffd71f5b74a197acff35ad3264a7622f9e644634351fa5ce15aa03be",
+          "published_bytes": 2209,
+          "redacted_nonessential_local_path_occurrences": 3,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        },
+        {
+          "path": "historical/adler/READ-L11-366.json",
+          "original_sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+          "original_bytes": 11710,
+          "published_sha256": "c1bde972fa539c28ed68b8b6e5b95659af52c690bbee8af7dbe2bf5518868b64",
+          "published_bytes": 11710,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/READ-L11-368.json",
+          "original_sha256": "37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d",
+          "original_bytes": 9880,
+          "published_sha256": "37707aa7ce133dfff2b9abfb87be2ea27498666958f992d3bffe1bf75889481d",
+          "published_bytes": 9880,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/READ-L11-369.json",
+          "original_sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140",
+          "original_bytes": 18712,
+          "published_sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140",
+          "published_bytes": 18712,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/REGISTRATION-ADLER-1159.json",
+          "original_sha256": "58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec",
+          "original_bytes": 885,
+          "published_sha256": "58f4bd89531c700bc9995a08ce37dcb99e02444e251411ec5a4a4c9535a829ec",
+          "published_bytes": 885,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/REGISTRATION-ADLER-1167.json",
+          "original_sha256": "2fd8ebe1af15fdd7ac59c862be7fa0f3512f4bd1fd4bdf96ec898acdb7c356c5",
+          "original_bytes": 888,
+          "published_sha256": "2fd8ebe1af15fdd7ac59c862be7fa0f3512f4bd1fd4bdf96ec898acdb7c356c5",
+          "published_bytes": 888,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/REGISTRATION-ADLER-1168.json",
+          "original_sha256": "24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508",
+          "original_bytes": 892,
+          "published_sha256": "24fff3db58c874fdf0b369bf868500da638a78c28f7d04cfa11797b77ce7a508",
+          "published_bytes": 892,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/STATE-L11-369.json",
+          "original_sha256": "423e251c290f9f63d52cc1f870073ee4105dd738feeb36469afc696c2b8a2e54",
+          "original_bytes": 723,
+          "published_sha256": "423e251c290f9f63d52cc1f870073ee4105dd738feeb36469afc696c2b8a2e54",
+          "published_bytes": 723,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/adler/VERIFY-L11-369.json",
+          "original_sha256": "9850a44fe5c4c75872a6e2c67b2f97363f9c2a251fc2d960a0c5e03842ecce05",
+          "original_bytes": 37078,
+          "published_sha256": "9850a44fe5c4c75872a6e2c67b2f97363f9c2a251fc2d960a0c5e03842ecce05",
+          "published_bytes": 37078,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/parallel-l12-20261029/ADOPTION-MANIFEST-PAR-L12-757-760.json",
+          "original_sha256": "64d23b793804ee01d1d451c86dc02d1301b0946b4b46ef01a5f4979f242f905c",
+          "original_bytes": 11927,
+          "published_sha256": "64d23b793804ee01d1d451c86dc02d1301b0946b4b46ef01a5f4979f242f905c",
+          "published_bytes": 11927,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/parallel-l12-20261029/PROPOSAL-L12-759.json",
+          "original_sha256": "7acee1eb800574f4a1d58fed11aac4511cd2fefd5805f2ec271486fa8cc06b34",
+          "original_bytes": 12779,
+          "published_sha256": "7acee1eb800574f4a1d58fed11aac4511cd2fefd5805f2ec271486fa8cc06b34",
+          "published_bytes": 12779,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/parallel-l12-20261029/PROPOSAL-L12-760.json",
+          "original_sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+          "original_bytes": 13902,
+          "published_sha256": "6295a7c638f81cf40d356a21b5a3fd0c4a96a715052a0d0de2dd85c74898700a",
+          "published_bytes": 13902,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/parallel-l12-20261029/REGISTRATION-PAR-L12-267.json",
+          "original_sha256": "1bc66f27d72be55ffc0898d5a3ce1a47a9c89ebf5892d355f75ed476fd1b89c7",
+          "original_bytes": 811,
+          "published_sha256": "1bc66f27d72be55ffc0898d5a3ce1a47a9c89ebf5892d355f75ed476fd1b89c7",
+          "published_bytes": 811,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/parallel-l12-20261029/REGISTRATION-PAR-L12-268.json",
+          "original_sha256": "4bf0a9efb1d81fe6175b9d5c86d1a42380ada4077c9f0e75d13aafa3ac79726b",
+          "original_bytes": 797,
+          "published_sha256": "4bf0a9efb1d81fe6175b9d5c86d1a42380ada4077c9f0e75d13aafa3ac79726b",
+          "published_bytes": 797,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/parallel-l12-20261029/REGISTRATION-PAR-L12-269.json",
+          "original_sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+          "original_bytes": 876,
+          "published_sha256": "09033eebcea3d995ee27cc54b8a87be427d447c73f4f6355d5d97a8997fbd31e",
+          "published_bytes": 876,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/segovb/READ-L12-759.json",
+          "original_sha256": "d4d197293a93c810333608098930bc2a132b37fe7a295945ec9c6d0ae916c24d",
+          "original_bytes": 11479,
+          "published_sha256": "d4d197293a93c810333608098930bc2a132b37fe7a295945ec9c6d0ae916c24d",
+          "published_bytes": 11479,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/segovb/READ-L12-760.json",
+          "original_sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+          "original_bytes": 5646,
+          "published_sha256": "29235f0d29bc1fd2806aa7537aad409f156e01dbaaaf0815e9315f456f3e860d",
+          "published_bytes": 5646,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/segovb/REGISTRATION-SEGOVB-L12-759.json",
+          "original_sha256": "0c3bbf82f8b95afd4835f456af7023980391672985c3da2ee5a7b9460baf9560",
+          "original_bytes": 1231,
+          "published_sha256": "0c3bbf82f8b95afd4835f456af7023980391672985c3da2ee5a7b9460baf9560",
+          "published_bytes": 1231,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/segovb/REGISTRATION-SEGOVB-L12-760.json",
+          "original_sha256": "83a4f2239064ff17289ea842a46b4021b75a96db92d5c9359ef9c91126461795",
+          "original_bytes": 1219,
+          "published_sha256": "83a4f2239064ff17289ea842a46b4021b75a96db92d5c9359ef9c91126461795",
+          "published_bytes": 1219,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/segovb/VERIFY-L12-759.json",
+          "original_sha256": "57edbe319bc4f02f5caada1f5c55e08f102e6a11b50966ebd78948434900b596",
+          "original_bytes": 667,
+          "published_sha256": "57edbe319bc4f02f5caada1f5c55e08f102e6a11b50966ebd78948434900b596",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical/segovb/VERIFY-L12-760.json",
+          "original_sha256": "313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b",
+          "original_bytes": 667,
+          "published_sha256": "313c2059b6e31790af8541178204636183e9e4bd61aadf37b705231889979c4b",
+          "published_bytes": 667,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "historical-manifest.json",
+          "original_sha256": "6fc7ce0df33bc602fc64afa05d9ce0c91850c0291a0d8284ca5b893c731a8de2",
+          "original_bytes": 6847,
+          "published_sha256": "6fc7ce0df33bc602fc64afa05d9ce0c91850c0291a0d8284ca5b893c731a8de2",
+          "published_bytes": 6847,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "native-registration-rayon.json",
+          "original_sha256": "57d614d5baa36128653971c0a683a9cd3a0c8d2bacafab0b822386afaef5d4f1",
+          "original_bytes": 698,
+          "published_sha256": "57d614d5baa36128653971c0a683a9cd3a0c8d2bacafab0b822386afaef5d4f1",
+          "published_bytes": 698,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "prior-current/ASSESSMENT-HAIR-GPU-MODULE-95E.json",
+          "original_sha256": "23e40b2da2b3aa27441f496953ccefbf536a9258cec4da34b8f1a3e6d286b4a7",
+          "original_bytes": 30728,
+          "published_sha256": "23e40b2da2b3aa27441f496953ccefbf536a9258cec4da34b8f1a3e6d286b4a7",
+          "published_bytes": 30728,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "prior-current/ASSESSMENT-HAIRDO-GROOM-95E.json",
+          "original_sha256": "d97470582dfe19cfd92a9efca616b44245d283fd620c0d60ee2f5ac98e849a97",
+          "original_bytes": 37296,
+          "published_sha256": "d97470582dfe19cfd92a9efca616b44245d283fd620c0d60ee2f5ac98e849a97",
+          "published_bytes": 37296,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "prior-current/ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json",
+          "original_sha256": "1541f4ce3bb392509209dea944421a3ebbb4e47ba27d730600f80047471abc95",
+          "original_bytes": 14323,
+          "published_sha256": "1541f4ce3bb392509209dea944421a3ebbb4e47ba27d730600f80047471abc95",
+          "published_bytes": 14323,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "prior-current/REGISTRATION-RNG-SUPPORT-95E.json",
+          "original_sha256": "16671ff311e595ed484c20aec27a6476c2e28072a698ad349f4b65cabe33699d",
+          "original_bytes": 612,
+          "published_sha256": "16671ff311e595ed484c20aec27a6476c2e28072a698ad349f4b65cabe33699d",
+          "published_bytes": 612,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "rayon-1.12.0.crate",
+          "original_sha256": "fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d",
+          "original_bytes": 183391,
+          "published_sha256": "fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d",
+          "published_bytes": 183391,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "registration.json",
+          "original_sha256": "5be39731fa1db23dc854382044b40668e0657d82b6019c68c7b355eec1c177ff",
+          "original_bytes": 1789,
+          "published_sha256": "5be39731fa1db23dc854382044b40668e0657d82b6019c68c7b355eec1c177ff",
+          "published_bytes": 1789,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "report.json",
+          "original_sha256": "1ee38de287683f08817722f63f9a8af1869a493ea9086bcb63d17d7cce31d197",
+          "original_bytes": 28190,
+          "published_sha256": "1ee38de287683f08817722f63f9a8af1869a493ea9086bcb63d17d7cce31d197",
+          "published_bytes": 28190,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/parameters.rs",
+          "original_sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+          "original_bytes": 3550,
+          "published_sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+          "published_bytes": 3550,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/rayon-slice-mod.rs",
+          "original_sha256": "59a08f86184d01c276e921996943114d35eeacde68950e84ccadfd1957dae713",
+          "original_bytes": 39196,
+          "published_sha256": "59a08f86184d01c276e921996943114d35eeacde68950e84ccadfd1957dae713",
+          "published_bytes": 39196,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/rng.rs",
+          "original_sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+          "original_bytes": 4990,
+          "published_sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+          "published_bytes": 4990,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/strands.rs",
+          "original_sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+          "original_bytes": 14821,
+          "published_sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+          "published_bytes": 14821,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-Cargo.lock",
+          "original_sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+          "original_bytes": 293260,
+          "published_sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+          "published_bytes": 293260,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-determinism__src__seed.rs",
+          "original_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+          "original_bytes": 7283,
+          "published_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+          "published_bytes": 7283,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__cards.rs",
+          "original_sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+          "original_bytes": 14851,
+          "published_sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+          "published_bytes": 14851,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__dataset.rs",
+          "original_sha256": "2c0e269b9b3b342dcc8bbebae16001f8ebd8f04946c84a8e8be5c1f7a071eba1",
+          "original_bytes": 9785,
+          "published_sha256": "2c0e269b9b3b342dcc8bbebae16001f8ebd8f04946c84a8e8be5c1f7a071eba1",
+          "published_bytes": 9785,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__gpu__mod.rs",
+          "original_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+          "original_bytes": 61718,
+          "published_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+          "published_bytes": 61718,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__groom.rs",
+          "original_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+          "original_bytes": 2539,
+          "published_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+          "published_bytes": 2539,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__haircut.rs",
+          "original_sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+          "original_bytes": 12855,
+          "published_sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+          "published_bytes": 12855,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__hairdo.rs",
+          "original_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+          "original_bytes": 28924,
+          "published_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+          "published_bytes": 28924,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__lib.rs",
+          "original_sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+          "original_bytes": 9438,
+          "published_sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+          "published_bytes": 9438,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__look.rs",
+          "original_sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+          "original_bytes": 21029,
+          "published_sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+          "published_bytes": 21029,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__look__groom.rs",
+          "original_sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+          "original_bytes": 7154,
+          "published_sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+          "published_bytes": 7154,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__look__random.rs",
+          "original_sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+          "original_bytes": 1494,
+          "published_sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+          "published_bytes": 1494,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__ops__displace.rs",
+          "original_sha256": "2715f2dfeec43e50e71143bd8f810e071df650a766ff78d694123868c15b91e7",
+          "original_bytes": 12230,
+          "published_sha256": "2715f2dfeec43e50e71143bd8f810e071df650a766ff78d694123868c15b91e7",
+          "published_bytes": 12230,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-hair__src__ops__mod.rs",
+          "original_sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "original_bytes": 12699,
+          "published_sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+          "published_bytes": 12699,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "source/support-crates__fabelgeist-math__src__vector__vec3.rs",
+          "original_sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+          "original_bytes": 5816,
+          "published_sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+          "published_bytes": 5816,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration-01.json",
+          "original_sha256": "e18b8cfbb6fe97761deb4aba6e843821d763886fcafdb2a615eabcffab3248a7",
+          "original_bytes": 2413,
+          "published_sha256": "e18b8cfbb6fe97761deb4aba6e843821d763886fcafdb2a615eabcffab3248a7",
+          "published_bytes": 2413,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration-02.json",
+          "original_sha256": "9d74d090c2918c4a0cb99d417aae303489f1795a32356417f5a0183241473dd9",
+          "original_bytes": 770,
+          "published_sha256": "9d74d090c2918c4a0cb99d417aae303489f1795a32356417f5a0183241473dd9",
+          "published_bytes": 770,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration-03.json",
+          "original_sha256": "3e96897e67e735398f15f24b6fc9a7925a782524b4024e2b7ad704b1618f8fca",
+          "original_bytes": 1017,
+          "published_sha256": "3e96897e67e735398f15f24b6fc9a7925a782524b4024e2b7ad704b1618f8fca",
+          "published_bytes": 1017,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "support-registration-04.json",
+          "original_sha256": "3111e36dc69f564980ba2811be094e88a0b5dd6608e028105822ae51c19e46e2",
+          "original_bytes": 527,
+          "published_sha256": "3111e36dc69f564980ba2811be094e88a0b5dd6608e028105822ae51c19e46e2",
+          "published_bytes": 527,
+          "redacted_nonessential_local_path_occurrences": 0,
+          "qualification": "Exact original bytes in archive."
+        },
+        {
+          "path": "write_report.py",
+          "original_sha256": "133897ac6823565b7e8d725977d3f7f05c91577dfedacf2681695a69cd43ba71",
+          "original_bytes": 23737,
+          "published_sha256": "82b5bc63413d796bf244e2c4718cb528a312cbf579fc4c0d386b63c0095c50c2",
+          "published_bytes": 23718,
+          "redacted_nonessential_local_path_occurrences": 1,
+          "qualification": "Public copy has nonessential local filesystem paths redacted; original byte digest and length retained. This is a reconstructed public copy, not an unmodified historical record."
+        }
+      ]
+    }
+  ],
+  "selection_qualification": "This checkpoint preserves the three completed reports selected for this batch; work completed or begun after their selection belongs to a later checkpoint and is not claimed here."
+}
