@@ -1,0 +1,251 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected generated investigation wait and bounded reconciliation links to earlier pending questions; no product execution.",
+  "source_reasoning": "Pinned source inspection and evidence-byte verification only. Static fixture bytes were read as source, not executed or presented as a runtime outcome.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a242d1635898c0a22239056a894f130f6a14ddb0",
+      "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+      "bytes": 118715,
+      "lines": 2736,
+      "ranges": [
+        [
+          1414,
+          1495
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/00.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "131df694f5c1d05161ba0205938704f61e18cc3a",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "bytes": 115819,
+      "lines": 2550,
+      "ranges": [
+        [
+          2506,
+          2549
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/01.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "965aec5634dad55bab94097ddccbf54049135848",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "bytes": 23560,
+      "lines": 651,
+      "ranges": [
+        [
+          45,
+          66
+        ],
+        [
+          225,
+          247
+        ],
+        [
+          312,
+          349
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/02.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "bytes": 14946,
+      "lines": 378,
+      "ranges": [
+        [
+          15,
+          32
+        ],
+        [
+          62,
+          73
+        ],
+        [
+          74,
+          133
+        ],
+        [
+          159,
+          193
+        ],
+        [
+          310,
+          341
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/03.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/report.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b04c0d1164ed4c81b863c05dc4a11959d422e29c",
+      "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+      "bytes": 6140,
+      "lines": 172,
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/04.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core/failure_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8682c013943189bff978e18ea0330b395e5d34e6",
+      "sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+      "bytes": 16856,
+      "lines": 424,
+      "ranges": [
+        [
+          28,
+          67
+        ],
+        [
+          69,
+          118
+        ],
+        [
+          120,
+          140
+        ],
+        [
+          172,
+          178
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/05.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b4475e7d3be9a81f327e888b9947d93aa48e986b",
+      "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+      "bytes": 3992,
+      "lines": 119,
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/simulation-wait-evidence/06.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges support the bounded current trace; static fixture bytes are not a run."
+    }
+  ],
+  "queue_links": [
+    {
+      "queue_index": 1053,
+      "historical_contract_id": "Q-L12-237cd0755fabb6600c3e",
+      "current_ledger_id": "SEGOVB-L12-WORLD-EVENT-CONSEQUENCE-TEXT-KEY",
+      "relationship": "same selected first private consequence-key contract; further owner and alias work open"
+    },
+    {
+      "queue_index": 1056,
+      "historical_contract_id": "Q-L12-ce8432be14e5379395f4",
+      "current_ledger_id": "SEGOVB-L12-COND-LIFECYCLE-POLICY-METRIC-LITERALS",
+      "relationship": "same selected literal-policy-metric question; intended evidence semantics and native/core policy open"
+    },
+    {
+      "queue_index": 1058,
+      "historical_contract_id": "Q-L12-bd2420704b7f382d8b04",
+      "current_ledger_id": "SEGOVB-L12-LIVE-QUEST-PATH-TEXT-DISPATCH",
+      "relationship": "bounded quest-path dispatch subset of this broader producer/consumer question; not a global alias"
+    },
+    {
+      "queue_index": 1061,
+      "historical_contract_id": "Q-L12-fabaeaa77e4dbf82fbab",
+      "current_ledger_id": "SEGOVB-L12-LOOPBACK-IPV6-HOST-TEXT-MISMATCH",
+      "relationship": "same selected native IPv6 host-text admission mismatch; additional callers and exact aliases open"
+    },
+    {
+      "queue_index": 1070,
+      "historical_contract_id": "Q-L12-7cd352709067df535664",
+      "current_ledger_id": "SEGOVB-L12-COND-QUEST-COVERAGE-KEYS-TRACE-CAP",
+      "relationship": "bounded trace-cap/coverage subset only; failure recorder, death membership and other obligations remain"
+    },
+    {
+      "queue_index": 1073,
+      "historical_contract_id": "Q-L12-632fb44624f323f93044",
+      "current_ledger_id": "SEGOVB-L12-DIALOGUE-TOPIC-PRIVATE-ATTEMPT-KEY-TEXT",
+      "relationship": "bounded private topic-key subset only; wait, native and other obligations remain"
+    }
+  ],
+  "static_fixture_observation": {
+    "historical_question": "baseline-059/queue.json#/entries/1055",
+    "fixture": "crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+    "observation": "The checked-in fixture declares schema version 9, category investigation_temporally_unavailable, reason investigation_night_window, operation perform_investigation_action, one trace event, zero metrics and null quest coverage. The selected current failure projection maps ReducerErrorCode::InvestigationNightWindow to the same category, reason and message, and retains an operation only as supplied by the CoreLoopError. This bounded text comparison does not establish the fixture was generated by current code, that all schema/consumer paths agree, or any runtime result.",
+    "remaining": "Producer, typed SDK cause, report schema and consumers, operation provenance and exact historical aliases remain open."
+  },
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L01-HISTORICAL-1281.json",
+      "qualification": "Personal full historical role 1281 body read at the frozen recorded working state."
+    },
+    {
+      "file": "ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json",
+      "qualification": "Earlier independently attributed batch 336 partials and both original/corrected fifth partials."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1053",
+        "/entries/1055",
+        "/entries/1056",
+        "/entries/1058",
+        "/entries/1061",
+        "/entries/1070",
+        "/entries/1073",
+        "/entries/1079"
+      ],
+      "qualification": "Earlier queue questions remain separate records; source-context links alone do not prove global alias or transfer of source coverage."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "Q-L12-ef9ca7cb50456af30916",
+      "lens": 12,
+      "severity": "unassigned; conditional source-derived measurement and policy question",
+      "classification": "Current bounded revisit of an earlier pending contract, not a new unique historical defect or observed runtime outcome.",
+      "trace": "The generated investigation window computes projected wait_minutes, calls settlement rest for a settlement wait of at least 60 minutes or camp rest otherwise, and after successful completion adds that requested amount to generated_investigation_wait_minutes and emits the same wait_minutes in the event. It does not measure before/after time in this function. The settlement reducer discards rest_for_minutes actual returned duration and its injury/disease settlement may clip the request before writing character_time. Camp rest can clip at a narrative boundary and disease or injury boundaries; it writes each member’s settled elapsed to that member’s own clock and returns only unit, while the simulator shelter wrapper returns shelter rather than elapsed. Thus, conditional on an admitted successful invocation with owner elapsed E less than requested R and no intervening error, the metric and event add/display R while the owner clock advances E. This does not establish such a state is reachable, a transaction commits, or that the metric promises elapsed rather than requested time. Camp rest is permitted at a settlement; the short-wait choice alone is not a venue defect.",
+      "connected_repair": "Determine the public report/event contract and intended requested versus actual meaning with its owners and consumers. If actual elapsed is required, preserve an authoritative measured owner-clock interval across the reducer/callback boundary and distinguish requested duration where useful; account for per-member time, terminal or interrupted rest, retries, and existing native policy without inventing an elapsed value.",
+      "later_acceptance": "Only after separately authorized implementation and product validation, exercise an accepted clipped rest and an unclipped rest at both applicable venues, verify report and event semantics against actual owner time, and cover errors, terminal outcomes and party-member distinctions.",
+      "discovery": "partial; native transaction semantics, admitted clipping reachability, report/CLI consumers, intended measurement, all wait producers and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Native transactions and accepted clipped wait, all report/CLI consumers and measurement policy, all connected scope and exact aliases, and all independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

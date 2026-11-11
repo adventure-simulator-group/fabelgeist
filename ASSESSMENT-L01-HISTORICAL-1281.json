@@ -1,0 +1,39 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1281,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; source hash controls exact identity.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1281",
+      "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+      "lines": 2736,
+      "new_personal_read_ranges": [
+        [
+          1,
+          2736
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+        "byte_identical": true,
+        "qualification": "Hash comparison only; no automatic current semantic or independent-lens coverage."
+      },
+      "qualification": "Full historical body personally read; connected scope, independent lenses, aliases and checkpoint 3821 remain open."
+    }
+  ],
+  "observations": [
+    "The frozen generated-cases body was personally read through actual line 2736 EOF in this continuation. The working-state source bytes are equal to 95e, which does not grant current-lens completion.",
+    "Earlier independent Lens12 batch 336 and all five original partial reads, including the corrected and superseded fifth partial, are preserved and qualified in ASSESSMENT-EXPEDITION-DIALOGUE-RULES-95E.json; the metadata correction gives no additional read credit.",
+    "No simulation, fixture, test, product build or runtime was executed; historical source, earlier receipt and the selected new 95e traces remain distinct."
+  ],
+  "remaining": "Continue role 1282; all generated-case producers, native policy, connected contracts, exact aliases and independent lenses remain open."
+}
