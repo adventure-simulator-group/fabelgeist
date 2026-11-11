@@ -1,0 +1,215 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1973,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1973",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "lines": 1514,
+      "new_personal_read_ranges": [
+        [
+          1,
+          1514
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              577,
+              624
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+        "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+        "bytes": 53907,
+        "lines": 1514,
+        "git_blob": "4e95000315470b399ee50b29e716000f78abd030",
+        "preserved_bytes": "main-advance-95e/client-endpoint-evidence/current-1973.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            233,
+            261
+          ],
+          [
+            626,
+            687
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            1514
+          ]
+        ],
+        "qualification": "Full historic body personally read. Listed ranges separately inspected at95e; differing replication body is independently read in full. Authored tests and product functions remain unexecuted."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 1974,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1974",
+      "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+      "lines": 178,
+      "new_personal_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+        "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+        "bytes": 6366,
+        "lines": 178,
+        "git_blob": "322b2dfb2104471397316f5b2bc12dc0ac2eaf36",
+        "preserved_bytes": "main-advance-95e/client-endpoint-evidence/current-1974.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            40,
+            178
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            178
+          ]
+        ],
+        "qualification": "Full historic body personally read. Listed ranges separately inspected at95e; differing replication body is independently read in full. Authored tests and product functions remain unexecuted."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 1975,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1975",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "lines": 475,
+      "new_personal_read_ranges": [
+        [
+          1,
+          475
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-COMBAT-SOUND.json",
+          "ranges": "410-431"
+        },
+        {
+          "assessment": "ASSESSMENT-L1-TACTICAL-ENTRY-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        }
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+        "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+        "bytes": 15949,
+        "lines": 475,
+        "git_blob": "7f5b151b3531fe4c3eacb339d903b28ef514a25e",
+        "preserved_bytes": "main-advance-95e/client-endpoint-evidence/current-1975.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            475
+          ]
+        ],
+        "qualification": "Full historic body personally read. Listed ranges separately inspected at95e; differing replication body is independently read in full. Authored tests and product functions remain unexecuted."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    },
+    {
+      "original_index": 1976,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original PR-working registry bytes match committed6533. Equality is per role and does not supply unrecorded revision-as-recorded or independent lens credit.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/1976",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "lines": 242,
+      "new_personal_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+        "sha256": "44cf2776eaa433b9291858b34b3996df4fc9dde3def2980ebe83788b5f36fb3e",
+        "bytes": 10254,
+        "lines": 242,
+        "git_blob": "8a61e133ac0e6d5caa491738795d94e3431b68a2",
+        "preserved_bytes": "main-advance-95e/client-endpoint-evidence/current-1976.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            242
+          ]
+        ],
+        "current_content_read_via_identical_historical_ranges": [],
+        "qualification": "Full historic body personally read. Listed ranges separately inspected at95e; differing replication body is independently read in full. Authored tests and product functions remain unexecuted."
+      },
+      "qualification": "Complete historical Lens1 body at this exact identity; earlier bounded traces and other reviewer ranges remain separately attributed."
+    }
+  ],
+  "observations": [
+    "Complete historical client input, melee preparation, messages and replication registration/test source were personally read through actual EOF; authored tests and product operations remain unexecuted.",
+    "Roles1973 and1975 preserve their previously bounded current observations; role1976 differs from current in two fixed-tick expressions and current body was separately read.",
+    "Historic Adler303/304 and Segovb660–662 retain original independent attributions; codec finding remains under its original identifier."
+  ],
+  "qualification": "Personal historical Lens1 reads and bounded current source traces. Historic Segovb660–662 and Adler303/304 retain their own author, scope and revisions; none is checkpoint3821.",
+  "next_original_role": 1977
+}

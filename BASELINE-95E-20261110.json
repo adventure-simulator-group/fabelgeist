@@ -5860,8 +5860,34 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-LANDFORM-REPLICATION-CODEC-95E.json"
+      },
+      {
+        "id": "REVIEW-NATIVE-WEBSOCKET-SCHEME-CASE-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional native uppercase endpoint and supported syntax policy",
+        "classification": "Native endpoint selection and pinned URI/socket source reject an uppercase WSS scheme without an explicit port under the stated path; actual usage and syntax policy remain open.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1621",
+          "segovb/READ-L12-660.json",
+          "adler/READ-L11-303.json"
+        ],
+        "relationship_qualification": "Original059 pending question is preserved and partially resolved by current pinned source, not counted as a checkpoint3821 finding or a proven user incident.",
+        "discovery": "partial; native CLI path and pinned library source, no runtime connection or browser result",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CLIENT-ENDPOINT-INPUT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1233.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1236.json"
 }
