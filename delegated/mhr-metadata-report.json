@@ -1,0 +1,581 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "scope": "Original roles 2312–2315, fully read manifests/README and explicitly partial lock, with prospectively registered source support only. No whole-lens completion or support-role credit.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "scope_qualification": "Mesh manifest is byte-identical between revisions; child lock, child manifest and README differ. All eight complete bodies are archived and Git-verified, but personal lock displays cover only header and selected package blocks; unread ranges remain explicitly open. Earlier e275 archived source bytes and earlier reviewers retain their original revision and attribution.",
+  "original_role_paths": [
+    {
+      "index": 2312,
+      "path": "crates/fabelgeist-mesh/Cargo.toml",
+      "current_sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "historical_sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "current_lines": 25,
+      "historical_lines": 25,
+      "personal_scope": "full both"
+    },
+    {
+      "index": 2313,
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "current_sha256": "74e0c31df7a087fda809c487cdb7ce84ca5d0831e6c9274b7eed3fce2b1bb25c",
+      "historical_sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "current_lines": 7102,
+      "historical_lines": 7093,
+      "personal_scope": "bounded ranges only; see lock-read-coverage.json"
+    },
+    {
+      "index": 2314,
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "current_sha256": "7ac1a547fd9fbe280e15a57c5fa465a28452d70d52496a967233ed7b273c2c46",
+      "historical_sha256": "55bc5dad2b9cc29b536931350e93450876d6fd3ea3f9e8a105e6a32fa4b765d7",
+      "current_lines": 31,
+      "historical_lines": 25,
+      "personal_scope": "full both"
+    },
+    {
+      "index": 2315,
+      "path": "crates/fabelgeist-mhr/README.md",
+      "current_sha256": "2e0afe7dfd02e87b5d79ce5c81d27654a6b55ca4a0ea2b56b8ef0014c9ec380c",
+      "historical_sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+      "current_lines": 144,
+      "historical_lines": 154,
+      "personal_scope": "full both"
+    }
+  ],
+  "lock_read_limitation": {
+    "current_personal_display_union": [
+      [
+        1,
+        80
+      ],
+      [
+        588,
+        602
+      ],
+      [
+        1997,
+        2005
+      ],
+      [
+        2344,
+        2410
+      ],
+      [
+        4327,
+        4353
+      ]
+    ],
+    "current_unread_line_count": 6904,
+    "historical_personal_display_union": [
+      [
+        1,
+        80
+      ],
+      [
+        588,
+        602
+      ],
+      [
+        1997,
+        2005
+      ],
+      [
+        2344,
+        2407
+      ],
+      [
+        4324,
+        4350
+      ]
+    ],
+    "historical_unread_line_count": 6898,
+    "qualification": "Only exact listed ranges were personally displayed; selected package-name location scan is metadata-only. Exact complete bytes and hashes do not establish full personal source assessment, dependency resolution or native source/runtime validation. See lock-read-coverage.json for complement."
+  },
+  "findings_and_reconnections": [
+    {
+      "id": "MHR-DOC-NORMAL-CLAIM",
+      "status": "documentation/source qualification, connected to prior current numerical finding",
+      "trace": "Current README states output normals are accumulated from deformed triangles and normalized. Mhr::vertex_normals indeed accumulates face cross products, but returns a zero normal for an unreferenced vertex and divides by max(length,1e-12); a tiny nonzero accumulated normal can thus remain non-unit. MhrOutput similarly says unit normals.",
+      "conditions": "An unreferenced/degenerate vertex or unusually tiny nonzero accumulated area; ordinary asset geometry and GPU backend behavior were not validated. Symbolic tiny right-triangle witness and numeric precision limits were previously recorded in model-tiny-triangle-normal, not re-executed here. Do not claim every output is non-unit.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/README.md",
+          "lines": [
+            [
+              6,
+              9
+            ],
+            [
+              19,
+              23
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              52,
+              61
+            ],
+            [
+              396,
+              452
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Prior local mhr-model report model-tiny-triangle-normal already owns the numeric aspect; this is the README/API wording relationship, not a separate automatically unique product finding. Earlier 059 Q-L12-2544938d5b3d61f1c490 asked for README normal reconciliation; its historical README is a different 6533 body.",
+      "future_repair_direction": "Document the actual zero/tiny-normal behavior and resolve the existing numerical owner/scale policy together; preserve intentional zero for unreferenced geometry."
+    },
+    {
+      "id": "MHR-FORWARD-PARAMETER-DOC",
+      "status": "source/documentation discrepancy conditional on admitted non-204 model",
+      "trace": "Current README gives model_parameters [batch,P] and says P comes from admitted model. The checked model count is captured from parsed ParameterTransform and forward compares input width against it. The nearby Mhr::forward API comment still says [batch,204], although that number is not the source-enforced width.",
+      "conditions": "A successfully admitted definition has P other than 204; actual released asset value and ability to run an alternate model were not tested. The source evidence does not imply the released MHR asset has a non-204 count.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/README.md",
+          "lines": [
+            [
+              11,
+              28
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              222,
+              230
+            ],
+            [
+              254,
+              257
+            ],
+            [
+              276,
+              316
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def.rs",
+          "lines": [
+            [
+              44,
+              51
+            ],
+            [
+              93,
+              95
+            ],
+            [
+              147,
+              157
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "REVIEW-L11-MHR-README-ROLE-QUALIFICATIONS assessed the e275 README exact body (same bytes as 95e) and Q-L12-2544938d5b3d61f1c490 retains actual model/README reconciliation; preserve its original reviewer and revision. Global alias inventory remains open.",
+      "future_repair_direction": "Align the function comment with the admitted model parameter count while retaining released-model context and the existing dynamic-width validation."
+    },
+    {
+      "id": "MHR-URI-ERROR-SOURCE-ERASURE",
+      "status": "historical distinct first-failure records independently reconnected to current support",
+      "trace": "When both direct and nested asset reads fail, from_uri formats both errors into a new anyhow message; their original typed branch errors are no longer in that new error chain. It also formats String::from_utf8’s FromUtf8Error into a new message. The bounded FS source shows read_bytes can propagate errors from a project DirectoryEntry/FileEntry; its NativeFile implementation itself formats the std::io error earlier.",
+      "conditions": "Only a branch error that still has a structured cause at the MHR boundary can be lost there; native providers may have already erased a cause. Both locations and rendered diagnostics remain in the message. No file, browser or network operation was run.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              120,
+              155
+            ],
+            [
+              158,
+              176
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-fs/src/lib.rs",
+          "lines": [
+            [
+              20,
+              36
+            ],
+            [
+              62,
+              80
+            ],
+            [
+              635,
+              685
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Exact recorded q421 SEGOVB-L12-MHR-ASSET-FALLBACK-CAUSES-ERASURE and q422 SEGOVB-L12-MHR-DEFINITION-UTF8-CAUSE-ERASURE, connected to broader q173 ADLER-L11-MHR-LOAD-ERROR-OWNERSHIP; q311/q312 record independent upstream FS first failures. Do not merge distinct first cuts or assert a new count.",
+      "future_repair_direction": "Preserve both attempted locations and both actual branch causes in a structured failure, and retain the concrete UTF-8 source; reconcile upstream FS cause ownership separately."
+    },
+    {
+      "id": "MHR-URI-ASSET-COHORT-QUESTION",
+      "status": "source-established per-file lookup behavior; same-cohort policy unresolved",
+      "trace": "from_files selects one asset directory by the model-definition file before opening the FBX and other inputs. from_uri instead tries direct and nested locations independently for each file, so successful inputs may come from a mixture of the base and its assets/ child. Subsequent count checks do not by themselves prove all files originate from the same authored rig.",
+      "conditions": "Some requested files exist in the base and others only in its nested assets/ directory, and both individual reads succeed. Whether this is a supported composition or an unwanted mismatch requires owner policy and actual producer evidence; no particular asset or runtime failure is claimed.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              105,
+              118
+            ],
+            [
+              120,
+              155
+            ],
+            [
+              158,
+              189
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/README.md",
+          "lines": [
+            [
+              25,
+              36
+            ],
+            [
+              49,
+              53
+            ],
+            [
+              70,
+              73
+            ]
+          ]
+        }
+      ],
+      "historical_relationship": "Connected to existing Q-L12-88ec94bbbe49252b389b URI composition and q170 ADLER-L11-MHR-MODEL-SHAPE-LIFETIME, but no exact identity/duplicate is established. README documents available inputs, not an explicit cross-directory identity guarantee.",
+      "future_repair_direction": "Decide whether a model load must bind to one selected source directory or an explicitly admitted asset cohort, then trace URI producers and preserve supported parent/assets layouts."
+    }
+  ],
+  "metadata_and_documentation_observations": [
+    {
+      "topic": "Child workspace and pins",
+      "observation": "Current MHR Cargo.toml adds a direct derive_more dependency and a dev profile compared with 6533, retains its own [workspace], Burn git revision and pliron patch. The personally displayed current lock MHR block contains derive_more; selected Burn and pliron blocks carry the same exact Git revisions in both displayed revisions. This is scoped byte evidence only; it does not prove a complete lock delta, successful dependency resolution, compiler features, or a reproducible build.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/Cargo.toml",
+          "lines": [
+            [
+              8,
+              31
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/Cargo.lock",
+          "lines": [
+            [
+              588,
+              602
+            ],
+            [
+              2377,
+              2389
+            ],
+            [
+              4327,
+              4353
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/character/vertices.rs",
+          "lines": [
+            [
+              1,
+              19
+            ]
+          ]
+        }
+      ],
+      "relationships": [
+        "REVIEW-L11-MHR-CHILD-MANIFEST-AUTHORITY",
+        "REVIEW-L11-CURRENT-POLICY-MHR-CHILD-LOCK-SCOPED"
+      ]
+    },
+    {
+      "topic": "Mesh feature surface",
+      "observation": "The mesh manifest is unchanged and defaults to its gpu feature; dependency declarations are optional under that feature. Bounded MeshData source guards GPU-specific imports and upload/read functions with cfg(feature=\"gpu\"). This source pattern is not proof any feature combination compiles.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/Cargo.toml",
+          "lines": [
+            [
+              8,
+              25
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mesh/src/data.rs",
+          "lines": [
+            [
+              1,
+              38
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Current README claims checked locally",
+      "observation": "Source supports LOD 4–6 defaulting to 4 with correctives enabled; from_asset_bytes names activation and basis roles; corrective layout checks expected basis axes, vertex/hidden counts and checked products, and CorrectiveInput checks joint and channel extents. ParameterMatrix checks allocation shape and nonshrinking/prefix width. These are bounded source facts, not a claim of full asset, identity, allocator or GPU validation.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/README.md",
+          "lines": [
+            [
+              25,
+              28
+            ],
+            [
+              93,
+              115
+            ],
+            [
+              125,
+              136
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model.rs",
+          "lines": [
+            [
+              20,
+              47
+            ],
+            [
+              192,
+              219
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+          "lines": [
+            [
+              107,
+              177
+            ],
+            [
+              218,
+              229
+            ],
+            [
+              243,
+              270
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/input.rs",
+          "lines": [
+            [
+              14,
+              17
+            ],
+            [
+              35,
+              69
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+          "lines": [
+            [
+              40,
+              54
+            ],
+            [
+              103,
+              130
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "topic": "Error context boundary",
+      "observation": "Corrective archive member array() errors locally receive anyhow context; the inspected MHR boundary uses ? for archive open/from-bytes. This does not prove all underlying NumPy/ZIP/native implementations retain their causes. URI fallback and UTF-8 handling have separate erasure paths noted above.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/README.md",
+          "lines": [
+            [
+              103,
+              109
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives/archive.rs",
+          "lines": [
+            [
+              38,
+              78
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-mhr/src/correctives.rs",
+          "lines": [
+            [
+              40,
+              86
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Current parsed model column count flows to validation rather than a hard-coded 204; source-owned mesh/rig roles retain intent locally. Lock metadata cannot establish implementation propagation."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "MeshVertexTable, MeshVertexCount and indexed role are current MHR owners; the separate generic mesh crate has its own MeshData. Equal counts do not prove shared instance identity; do not infer a universal replacement."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "The locally traced corrective and matrix shape guards match bounded README claims; full decoder, allocation, native types and all input admission remain separate."
+    },
+    {
+      "lens": 4,
+      "name": "invariant operations",
+      "assessment": "The normal denominator floor creates a real distinction between nonzero and unit vectors at tiny scale; previously recorded numerical source candidate remains conditional."
+    },
+    {
+      "lens": 5,
+      "name": "aggregate states",
+      "assessment": "URI fallback can combine sources from two directory levels; whether an asset cohort must share provenance is open. Matching individual dimensions alone does not establish rig/mesh identity."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "MHR-local semantic types and generic fabelgeist-mesh data have distinct representations. Historical rig/root supplier labels are source responsibility, not an automatic repair-owner transfer."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Mhr retains public Character while caching face tensors; the prior local model and character reports retain the specific lifetime issue. No new cache claim follows from README text alone."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Preserve native direct/nested asset layouts, optional corrective policy, zero/degenerate normals, count-versus-identity distinctions and semantic error causes. Historical removed examples or old claims do not establish current behavior."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "Existing named CorrectiveArchiveBytes separates activation and basis; a boolean pose_correctives retains an optional loading mode whose wider API policy remains separate. No additional enum finding is asserted."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Current manifest enables derive_more and inspected MeshVertexTable/types use derives. Historical or current lock listing is not itself proof that every handwritten trait is removable."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Count/ordinal types are separate from per-instance membership; dense matrix and corrective shape checks do not certify rig identity, scalar finiteness or asset origin. Historical e275 README qualification retains its own revision."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "URI fallback and UTF-8 errors still flatten distinct native causes; exact historical first-failure identities and earlier FS erasure remain separate. Cargo dependency names, paths and source URLs are native format literals."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Lengths 45/72 are specific blend-shape roles, model P and J are asset-derived, and 1e-12 has a normal-magnitude purpose with an explicit tiny-scale limitation. No blanket magic-number substitution."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "No Cargo command, build, test, dependency resolution, native API execution, browser access or product probe ran; exact lock bytes and hashes do not certify successful builds, SDK semantics or effective feature resolution.",
+    "The current lock personally displayed only 198 of 7102 lines and the historical lock only 195 of 7093 lines. Exact byte archival, automated name locations and earlier reviewers’ historical full reads are not this reviewer’s full-body assessment.",
+    "Current README removes several old fixed asset counts and claims, but an old historical paragraph is not proof of current behavior or a current regression. No compatibility path is proposed.",
+    "Native local from_files error context, URI fallback error aggregation, UTF-8 decoding and NPZ/array causes have distinct error boundaries. Underlying NPY/ZIP native implementations were not newly inspected in this scope.",
+    "The documentation table’s batch width gives the common case; source also accepts a single identity row for broadcast. No special failure is inferred solely from omission of that convenience.",
+    "Identity mismatch between base and nested URI files is a policy question, not evidence any actual released asset mixes sources. Exact current semantic aliases and all other support callers remain centrally open."
+  ],
+  "historical_provenance": {
+    "old_059_l11": "At 6533 READ-L11-369 registers mesh manifest 1–25 (ADLER-1172); READ-L11-370 records lock 1–7093 (ADLER-1173), preserving six independently recorded personal partial intervals 1–1200,1201–2400,2401–3600,3601–4800,4801–6000,6001–7093; READ-L11-371 registers MHR manifest 1–25 and README 1–154 (ADLER-1174/1175). All are original historical source claims and do not become this agent’s 95e full lock read.",
+    "old_059_l12": "READ-L12-761 attributes mesh manifest 1–25 to /root/lens12_frontier; READ-L12-762 attributes historical lock 1–7093 to that subagent across five personal partial receipts 1–975,976–2535,2536–4095,4096–5655,5656–7093; READ-L12-763 attributes historical MHR manifest 1–25 and README 1–154 to the same delegate. root_personal_rereads=[]; continuation adoption numbers are not new root reads.",
+    "e275_reviewer": "READ-185/PLAN-203 and root READ-L11-721 record /root/lens11_reconcile agent personal e275 manifest 1–26 and README 1–144; READ-194/PLAN-212 and root READ-L11-730 record e275 child lock 1–150 only. e275 README and lock have the same SHA as 95e, while e275 manifest has SHA 0f68663f7ede2ed9f24e7f893f9628888351b3df478fa1c5c2394fd65b4dd4df and differs from both selected other bodies. Historical adoption and range qualification remain at e275, not 3821.",
+    "older_774": "Older root coverage zero-based row19 is the full native-format mesh manifest metadata inventory. Older rig coverage rows21/22 are historical MHR manifest/README source reads and row94 is a full-native-config-structured-byte lock inventory, not an automatically equivalent personal code read; RIG-OWNER-CARGO-016 and ROOT-OWNER-METADATA-001 remain historical supplier contract references. Original and path-normalized exports are separately hash checked.",
+    "recovery_limit": "The original checkpoint 3821 final ledger and queue are missing. 059 original registry and queue are preserved as compressed exact-byte transport, subsets are derived navigation only; no reconstructed record is promoted to final adoption."
+  },
+  "evidence_paths": [
+    "registration.json",
+    "lock-registration.json",
+    "lock-package-index.json",
+    "lock-read-coverage.json",
+    "read-receipt.json",
+    "support-registration.json",
+    "support-read-receipt.json",
+    "extra-support-registration.json",
+    "extra-support-read-receipt.json",
+    "fs-symbol-scan-registration.json",
+    "fs-context-registration.json",
+    "fs-context-read-receipt.json",
+    "archive-support-registration.json",
+    "archive-support-read-receipt.json",
+    "historical-e275-archive-index.json",
+    "git-proofs.json",
+    "historical-059-index.json",
+    "historical-registry-subset.json",
+    "historical-queue-subset.json",
+    "older-774/INDEX.json",
+    "prior-support-index.json"
+  ],
+  "work_restriction": "Source-only inspection and evidence/hash/Git membership checks. No source edits, repairs, builds, Cargo commands, tests, fixtures, browser/network access, probes, simulations, product execution or validation."
+}

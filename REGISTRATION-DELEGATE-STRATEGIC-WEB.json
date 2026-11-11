@@ -1,0 +1,94 @@
+{
+  "schema": "delegated-audit-prospective-source-registration-v1",
+  "registered_utc": "2026-11-11 19:26:07 UTC",
+  "agent": "/root/hair_ops",
+  "purpose": "Prospective full-body read of original roles 2355\u20132357 at frozen 6533 and authoritative 95e; compare exact object identity. No whole-lens, queue or historical checkpoint transfer.",
+  "ordered_roles": [
+    {
+      "original_index": 2355,
+      "path": "crates/strategic-web/src/location_urls.rs",
+      "versions": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": true,
+          "lines": [
+            1,
+            208
+          ],
+          "bytes": 6803,
+          "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+          "git_blob": "e277b13c3053ecfdd01c39ef3db529eafa674992"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": true,
+          "lines": [
+            1,
+            208
+          ],
+          "bytes": 6803,
+          "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+          "git_blob": "e277b13c3053ecfdd01c39ef3db529eafa674992"
+        }
+      ]
+    },
+    {
+      "original_index": 2356,
+      "path": "crates/strategic-web/src/main.rs",
+      "versions": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": true,
+          "lines": [
+            1,
+            762
+          ],
+          "bytes": 26656,
+          "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+          "git_blob": "2608b1b8f024aaf7028af79fcba7d6ea6ffbcfa9"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": true,
+          "lines": [
+            1,
+            762
+          ],
+          "bytes": 26656,
+          "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+          "git_blob": "2608b1b8f024aaf7028af79fcba7d6ea6ffbcfa9"
+        }
+      ]
+    },
+    {
+      "original_index": 2357,
+      "path": "crates/strategic-web/src/medical.rs",
+      "versions": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "present": true,
+          "lines": [
+            1,
+            505
+          ],
+          "bytes": 19607,
+          "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+          "git_blob": "6b15d76f15a6daef9bd4658657a9286a78766519"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "present": true,
+          "lines": [
+            1,
+            505
+          ],
+          "bytes": 19607,
+          "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+          "git_blob": "6b15d76f15a6daef9bd4658657a9286a78766519"
+        }
+      ]
+    }
+  ],
+  "scope_policy": "Register each separately reached supporting source before displaying any body. Same-byte historical source proves only bytes, not unchanged downstream semantics. Retain historic reviewer scopes and qualifications.",
+  "constraint": "No product edits, repairs, builds, tests, browser, runtime probes, simulated fixtures or shader execution."
+}

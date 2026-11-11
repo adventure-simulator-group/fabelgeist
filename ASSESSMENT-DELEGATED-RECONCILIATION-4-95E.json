@@ -1,0 +1,755 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+  "source_roles": "ASSESSMENT-DELEGATED-SOURCE-ROLES-4.json",
+  "delegated_observations": [
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-solver-report.json",
+      "finding": {
+        "id": "SHELL-GRID-RADIUS-SPACING-DIVERGENCE",
+        "status": "source-backed conditional missed candidate in GPU self-collision; no execution",
+        "producer_to_consumer": "SelfCollision::new derives private spacing=2×radius. Public radius can be directly mutated without updating spacing; set_radius would update both and mark the grid unbuilt. record computes inverse_spacing from retained spacing and separately sends current radius. The shader hashes using inverse_spacing, searches only offsets -1..1, verifies exact cell membership, and tests separation against 2×radius. Rebuilding the grid does not fix the inconsistent spacing.",
+        "symbolic_example": "Initial radius 2^-10 yields spacing 2^-9. Change public radius directly to 2^-6. Distinct dynamic non-neighbor particles at x=0 and x=2^-7 are within the new diameter 2^-5 but occupy old-grid cells 0 and 4; neither can appear in the other’s 27-cell search, even if buckets hash-collide, because exact cell equality is checked. Mathematical reading only.",
+        "conditions": "Public direct radius mutation followed by enabled self-collision; assumes ordinary valid particle buffers and the two particles are otherwise eligible. This demonstrates the particle-sphere candidate path only; independently scheduled surface contact or other collisions may still act. Actual callers and intended mutation policy remain to be inventoried.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+            "lines": [
+              [
+                37,
+                45
+              ],
+              [
+                135,
+                139
+              ],
+              [
+                154,
+                157
+              ],
+              [
+                166,
+                186
+              ],
+              [
+                198,
+                206
+              ],
+              [
+                238,
+                258
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/wgsl.rs",
+            "lines": [
+              [
+                224,
+                230
+              ],
+              [
+                260,
+                298
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                33,
+                44
+              ],
+              [
+                191,
+                199
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "A concrete producer→retained state→native consumer facet of Q-L11-43a5c52e177d6e2b64ec, which explicitly called for SelfCollision radius/spacing public mutation and WGSL trace. Do not close its separate table-count, adjacency, outer-layer or native error obligations.",
+        "future_repair_direction": "Give radius/spacing one enforced authority or an atomic admitted update that rebuilds dependent grid state; trace all mutation APIs and preserve explicit valid radius changes and intentional 27-cell coverage."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-solver-report.json",
+      "finding": {
+        "id": "SHELL-BENDING-SCALE-CUTOFF",
+        "status": "source-level conditional small nondegenerate hinge omitted; supported scale unresolved",
+        "producer_to_consumer": "ShellMesh::new derives BendQuad points then keeps each bend only if topology::bending_weights returns Some. The function rejects minor-vector norm <1e-12 after constructing an orthonormal plane basis; this is an absolute area-like threshold and not restricted to exactly degenerate geometry.",
+        "symbolic_example": "For s=2^-22, let the hinge be (0,0,0)→(s,0,0) and wings (s/2,s/2,0),(s/2,-s/2,0). Each triangle has strictly positive area s²/4. The chosen first basis is the x axis, and the plane-basis tests have squared lengths s² and s²/4, both >1e-24. Each of the four signed minors has magnitude s²/2, so their norm is s²=2^-44 <1e-12 and returns None. With density 1024, each positive corner mass exceeds the separate 1e-12 kg inverse-mass cutoff; all raw coordinates/density are finite. No fixture or computation was executed.",
+        "conditions": "Approximately 0.24 micrometre hinge length, much smaller than ordinary garment scales; source-local mesh admission has no minimum scale. Actual supported asset scale and expected geometry-error policy need confirmation. This is not a reason to force a bend for truly collapsed or collinear geometry.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/topology.rs",
+            "lines": [
+              [
+                45,
+                83
+              ],
+              [
+                129,
+                166
+              ],
+              [
+                167,
+                234
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/mesh.rs",
+            "lines": [
+              [
+                33,
+                73
+              ],
+              [
+                85,
+                127
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+            "lines": [
+              [
+                85,
+                103
+              ],
+              [
+                136,
+                157
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Q-L12-ecc1905cee4fdbdbbfa9 and REVIEW-L3-SHELL-TOPOLOGY-INDEX-AND-DENSITY-ADMISSION preserve legitimate degenerate None and call for the actual mesh producer; this case is nondegenerate and supplies a narrowly scoped threshold question, not a claim earlier authors considered or accepted it.",
+        "future_repair_direction": "Establish supported world-scale and required error bound, then make a robust scale-aware degeneracy/admission decision; preserve intentional nonmanifold/no-bend behavior, massless/prescribed modes, signed weights and constraint order."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-solver-report.json",
+      "finding": {
+        "id": "SHELL-SELF-COLLISION-FIXED-POINT-QUANTIZATION",
+        "status": "source-level numerical lower-resolution boundary, no GPU execution",
+        "producer_to_consumer": "The self-collision shader turns each correction component into i32(delta×2^20), counts contributors even if a component becomes zero, and converts the average back to position units. ShellMaterial accepts every finite positive thickness locally, while Shell derives collision radius as half thickness.",
+        "symbolic_example": "For two coincident disconnected, non-neighbor dynamic particles of equal positive inverse mass, thickness 2^-21 and an initially cleared correction accumulator, the antisymmetric fallback gives each correction magnitude 2^-22. The fixed-point conversion input is ±2^-2; integer truncation gives zero, so this isolated particle-sphere pass applies no displacement despite a positive interaction depth. These values are f32-representable. No WGSL was compiled, dispatched, or tested.",
+        "conditions": "Submicrometre thickness and the isolated pair described; other correction contributors or the independent host surface solver can change the outcome. Whether such a scale is supported and the acceptable physical quantization are open. This is not an overflow claim.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/wgsl.rs",
+            "lines": [
+              [
+                196,
+                203
+              ],
+              [
+                233,
+                246
+              ],
+              [
+                267,
+                319
+              ],
+              [
+                327,
+                359
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/lib.rs",
+            "lines": [
+              [
+                18,
+                47
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+            "lines": [
+              [
+                37,
+                44
+              ],
+              [
+                135,
+                139
+              ],
+              [
+                166,
+                186
+              ],
+              [
+                238,
+                267
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                139,
+                145
+              ],
+              [
+                253,
+                290
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Q-L12-ecc1905cee4fdbdbbfa9 already asks about fixed-point native i32 and contributor/range contracts but reports no runtime overflow witness; this is a different lower-resolution/quantization facet, with no runtime result. RIG-PPS-023 preserves fixed accumulator layout as a native contract.",
+        "future_repair_direction": "Specify physical input range and maximum permitted collision error relative to thickness and contributor count, then choose an appropriate representation or explicit admission; preserve symmetric fallback, averaging and valid pinned behavior."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/shell-solver-report.json",
+      "finding": {
+        "id": "SHELL-STATIC-MASS-RESIZE-FACET",
+        "status": "previously assessed connected current-source finding, independently reread",
+        "producer_to_consumer": "With a nonempty static surface, public SurfaceContacts::solve resizes input inverse masses to the combined dynamic+static length before solve_inner compares lengths. Missing dynamic entries become PINNED; extra entries can be used for static vertices or truncated. The inner equal-length check cannot see the original mismatch.",
+        "conditions": "Malformed direct-public input; ordinary ShellMesh validates equal lengths. No claim of normal GPU-buffer corruption or an observed runtime failure.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact.rs",
+            "lines": [
+              [
+                157,
+                190
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+            "lines": [
+              [
+                16,
+                31
+              ],
+              [
+                238,
+                276
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/mesh.rs",
+            "lines": [
+              [
+                85,
+                102
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Connect to prior packet SHELL-CONTACT-STATIC-MASS-EXTENT and SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-EXTENT-ADMISSION; not an automatic second ledger issue.",
+        "future_repair_direction": "Admit the dynamic topology/position/previous/mass aggregate before appending exactly prescribed static masses; decide invalid-input representation at the actual boundary."
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/strategic-web-report.json",
+      "finding": {
+        "historical_ids": [
+          "ADLER-L11-STRATEGIC-FRAGMENT-READ-FAILURE",
+          "SEGOVB-L12-STRATEGIC-FRAGMENT-BODY-CAUSE-ERASURE"
+        ],
+        "queue_pointers": [
+          "reference/queue-059.json.gz /entries/178",
+          "reference/queue-059.json.gz /entries/456"
+        ],
+        "classification": "Existing earlier lens findings reconnected to 95e; preserve individual first-contract perspectives and leave global alias decision central.",
+        "trace": "main.rs:435–440 to_bytes(body,16 MiB) failure returns original response parts and an empty body, dropping the source cause and retaining the prior HTTP status/headers; this is conditional on a stream or limit error. For negotiated GET, strategic-navigation.js:129–148 parses the body and displays a failure notice if #strategic-page is absent; response.text() failure is caught at 175–180. For negotiated POST rerender, main.rs:357–369 requires root and changes failure to 502; strategic-mutations.js:94–118 reports a failure. These consumer safeguards do not restore cause or truthful GET status; do not claim observed player impact or runtime transport behavior.",
+        "future_repair_direction": "After exhaustive audit and authorization, carry or contextualize body-read failure to an appropriate failure response and consistent replacement headers, preserving legitimate complete root responses and POST/GET distinctions; native transport, all consumers and alias decisions remain open.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/strategic-web-report.json",
+      "finding": {
+        "historical_ids": [
+          "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY"
+        ],
+        "queue_pointers": [
+          "reference/queue-059.json.gz /entries/193"
+        ],
+        "classification": "Existing prior conditional finding independently reconnected to current producer and consumer, not a new unique historical finding.",
+        "trace": "inventory_medical.rs:707–727 queries charts for both observer and patient and returns unavailable on query failure. When viewer=self or authorized observations exist, 728–736 queries administration history but unwrap_or_default converts query Err to an empty vector. With the clock available, 740–764 calls medical::sanitize, which sets unavailable=false at medical.rs:210–223 and derives no active administrations from the empty vector. character_health.rs:1159–1172 shows Current medication only if the active vector is nonempty. Therefore on this conditional failed authorized-history request, missing data is indistinguishable from successfully empty history; chart failure, unauthorized access and missing clock are separate branches. No actual database error or patient impact was observed.",
+        "future_repair_direction": "Represent history availability separately or propagate a contextual failure through the observer-authorized presentation, retaining fail-closed privacy and a true successful empty history. Reconcile history/timeline/active-control shared scope and later acceptance for chart Ok/history Err, true empty, denied observer and absent clock.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/strategic-web-report.json",
+      "finding": {
+        "historical_ids": [
+          "SEGOVB-L12-CONNECTED-LOCATION-SERVICE-ADMISSION"
+        ],
+        "queue_pointers": [
+          "reference/queue-059.json.gz /entries/454"
+        ],
+        "classification": "Earlier conditional raw-service admission finding, narrowed by selected 95e producer; unknown raw inputs still require policy and all caller reconciliation.",
+        "trace": "location_urls.rs:110–114 expects a known service string and then expects a venue. core organization.rs:548–559 maps eight fixed service strings to specific slugs; strategic_place.rs:189–203 recognizes each mapped slug. Thus the second expect has no counterexample for the present mapping. live merchant shop obtains its service ID from typed Storefront (merchant.rs:135–161,243), whose seven service_id arms are all recognized by that mapping (settlement_economy.rs:8–31). This selected normal path does not supply unknown input; unqualified raw helper service_id callers remain to assess.",
+        "future_repair_direction": "Trace every actual producer and consider preserving a typed known service or a contextual fallible boundary; do not force all HTTP/display strings into an enum or change non-service venue/chapter semantics.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/hair_ops",
+      "report": "delegated/strategic-web-report.json",
+      "finding": {
+        "historical_ids": [
+          "SEGOVB-L12-CONNECTED-MEDICAL-BACKEND-DOSE-ADMISSION"
+        ],
+        "queue_pointers": [
+          "reference/queue-059.json.gz /entries/459"
+        ],
+        "classification": "Earlier conditional backend admission finding; bounded source now establishes selected producer safeguards, without proving malformed historical data or all possible writers.",
+        "trace": "medical.rs:98–116 calls DoseMilliunits::try_new on generated DTO raw u32 and expects success; core physiology.rs:54–69 admits values 0..=8000. disease.rs:2168–2172 rejects zero and over-maximum for normal administration, stores dose.get() at 2197–2205; its food-component writer takes the typed dose, skips zero and stores dose.get() at 2222–2254. The source-inspected seeded writer likewise uses checked/standard values (fixture_administrations.rs:12–39, read only); generated client DTO is raw u32 and the backend gateway view copies table values (disease.rs:215–235). No stored-row audit or runtime invalid-dose witness exists. Zero is valid for the shared leaf even though these administration writers prohibit it.",
+        "future_repair_direction": "Establish the real storage/admission and historical-data policy; if unsupported raw rows remain reachable, fail contextually or centralize checked conversion at the responsible boundary, retaining typed shared dose semantics and authorization.",
+        "repair": "not started",
+        "validation": "not performed"
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "xpbd-positive-tiny-mass-pinned",
+        "kind": "newly assessed conditional contract question; no alias or unique count claimed",
+        "source": [
+          "crates/fabelgeist-xpbd/src/dynamics/mass.rs:77-104,143-158",
+          "crates/fabelgeist-math/src/vector/vec3.rs:61-82",
+          "crates/fabelgeist-shell/src/topology.rs:94-126",
+          "crates/fabelgeist-shell/src/mesh.rs:33-57,73-101,124-132",
+          "crates/fabelgeist-shell/src/shell.rs:75-89"
+        ],
+        "historical_relationship": "059 adler/READ-L11-377 and segovb/READ-L12-775 explicitly treated <=1e-12 kg pinning as an intentional numerical massless policy; do not relabel their finding or represent this as historical runtime evidence. REVIEW-L3-SHELL-TOPOLOGY-INDEX-AND-DENSITY-ADMISSION q3296 and L2-SHELL-TOPOLOGY-NATIVE-MASS-CLASSIFICATION q2449 remain related, with exact alias open.",
+        "condition_and_reasoning": "Symbolic finite triangle with vertices (0,0,0), (2^-20,0,0), (0,2^-20,0), unit areal density, has nonzero edges and area 2^-41 square metres. The source vertex share is about 1.52e-13 kg per vertex, positive and finite. Source ShellMesh validation checks finite/nonnegative mass and permits it, but inverse_mass maps each <=1e-12 kg to zero PINNED. The source chain from mesh topology through Shell::new therefore represents a nondegenerate low-mass shell as prescribed motion.",
+        "limits": "A symbolic static argument, no fixture, geometry or product run. This is an exceptionally small scale; supported minimum scale, error budget and product policy must be decided before calling it an ordinary garment defect. Zero-mass vertices intentionally pinned remain valid.",
+        "future_repair_acceptance": "Establish a justified supported mass/geometry scale and make treatment of positive below-threshold mass explicit at the owning admission boundary, or retain mobility with stable arithmetic where supported. Later check true zero and finite positive masses near the boundary and representative mesh scales."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "xpbd-finite-response-sum-overflow",
+        "kind": "newly assessed conditional derived-invariant question; alias unconfirmed",
+        "source": [
+          "crates/fabelgeist-xpbd/src/dynamics/mass.rs:22-57,70-74",
+          "crates/fabelgeist-xpbd/src/dynamics/projection.rs:20-26,77-110,119-141",
+          "crates/fabelgeist-shell/src/surface_contact.rs:157-190",
+          "crates/fabelgeist-shell/src/surface_contact/solve.rs:25-31,238-278,300-305",
+          "crates/fabelgeist-shell/src/ccd.rs:64-78,129-159"
+        ],
+        "historical_relationship": "Related to q445 SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-VALIDITY-ADMISSION and adler READ-L11-377 / segovb READ-L12-776 derived-overflow qualifications; not the same assertion failure or a proven exact alias.",
+        "condition_and_reasoning": "Public SurfaceContacts::solve can receive finite ParticleInverseMass values; solve_inner asserts each is finite/nonnegative. A valid symbolic contact with vertex-to-triangle gradient weights [1,-1,0,0] can arise at a triangle corner. Two corresponding inverse masses f32::MAX each pass that validity check, while the f32 weighted-response sum overflows to +infinity. With finite positive depth 0.5 and unit gradients, the finite numerator divided by that infinite denominator yields signed zero in the f32 mathematical model and no position correction for those entries.",
+        "limits": "Assumes that a suitable contact candidate is delivered and those masses/gradients reach that path. This is a source and arithmetic inference, not a constructed or executed scenario. ShellMesh inverse-mass conversion bounds canonical finite reciprocals by its massless threshold; ordinary producers, platform behavior and intended supported mass ranges remain open.",
+        "future_repair_acceptance": "Define finite derived-response admission and stable scaling/normalization or explicit rejection before an infinite denominator can be classified active; later validate extreme finite inputs, zero/pinned contributions and ordinary contact behavior."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "xpbd-attachment-reserved-binding-shadow",
+        "kind": "recovered open concern, newly traced current and historical support",
+        "source": [
+          "crates/fabelgeist-xpbd/src/constraint.rs:162-190,274-285",
+          "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs:5-22",
+          "crates/fabelgeist-compute/src/kernel/fast.rs:243-255",
+          "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs:218-245"
+        ],
+        "historical_relationship": "059 q625 Q-L11-9694f54d1f3a357e50e2 and q1859 Q-L12-72f11f1f4c735d798a7e expressly left custom attachment names and reserved binding policy open. New source reading confirms named lookup in both current fast and regular reflection paths; exact ledger alias and custom kernel policy remain central decisions.",
+        "condition_and_reasoning": "For a nonempty set, attach accepts a same-count attachment named positions, lambdas or particles. record_solve inserts its fixed buffers first and attachments afterward, into IndexMap-backed PassParameters; same-name insertion replaces the fixed entry. The reflection paths select a buffer by that resulting name. No native dispatch is needed to establish this input-to-parameter mapping.",
+        "limits": "Requires an actual same-named caller and successful earlier allocation; native device validation and shader result are unknown. No ordinary Shell producer collision was found in bounded source; custom kernel namespace may intentionally permit overrides and needs a contract decision.",
+        "future_repair_acceptance": "Define ownership/reservation of built-in solve bindings versus kernel-specific attachment names, validate collisions before retaining attachments, and preserve explicit custom-kernel capabilities. Later verify standard and intended custom bindings on both dispatch paths."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "xpbd-raw-attachment-record-shape",
+        "kind": "recovered open concern, bounded canonical-producer qualification",
+        "source": [
+          "crates/fabelgeist-xpbd/src/constraint.rs:193-218",
+          "crates/fabelgeist-shell/src/shell.rs:75-82,114-137",
+          "crates/fabelgeist-shell/src/mesh.rs:103-106",
+          "crates/fabelgeist-shell/src/wgsl.rs:25-47"
+        ],
+        "historical_relationship": "q625 and q1859 retain actual kernel stride and attachment-contract questions; q450 concerns structured error for the existing whole-multiple predicate and is not automatically the same defect.",
+        "condition_and_reasoning": "For one constraint, attach_raw accepts any length as a multiple of one, including one word; the BEND shader indexes each constraint at eight-word stride and reads offsets 0–4. This generic API does not prove that a supplied record has the selected kernel schema. By contrast, Shell::new validates equal bend and bend-weight counts, reorders [f32;8] records, flattens and attaches them.",
+        "limits": "No malformed buffer was created and no shader was run; bounds/native behavior is not asserted. The observed standard Shell producer does not demonstrate an ordinary wrong-width error. Kernel schema and whether raw custom attachments require external ownership remain open.",
+        "future_repair_acceptance": "Carry each kernel attachment record layout and expected element stride to its admission and binding boundary, preserving valid empty constraints and custom formats; later verify required extent and per-record color permutation."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "xpbd-constraint-particle-membership-and-reorder",
+        "kind": "recovered open concern, explicit public-input conditions",
+        "source": [
+          "crates/fabelgeist-xpbd/src/incidence.rs:6-8,24-29,68-87",
+          "crates/fabelgeist-xpbd/src/constraint.rs:60-70,94-115,148-159,259-285",
+          "crates/fabelgeist-xpbd/src/coloring.rs:89-95,142-148",
+          "crates/fabelgeist-xpbd/src/wgsl.rs:180-190"
+        ],
+        "historical_relationship": "q625 and q1859 already identify membership and short reorder as unresolved; no automatic new unique count.",
+        "condition_and_reasoning": "ConstraintIncidence validates nonzero arity and complete records, while ParticleIndex explicitly does not prove membership in any particular particles buffer. ConstraintSet is built without a Particles argument and record_solve binds whichever one is supplied; the shader consumes the stored indices. Separately, public reorder indexes each value by the existing permutation and a nonempty set with an empty values slice would index out of bounds if called. distance and spring check matching array counts before their own reorder calls.",
+        "limits": "No constructor, panic or shader has been executed. The mismatch is representable at public APIs, not proof a standard producer supplies it. Normal Shell validates index bounds and per-constraint data before building sets.",
+        "future_repair_acceptance": "Bind constraint incidence to an admitted particle population or validate membership when pairing the set and particles, and check public permutation input shape with a structured error. Later verify cross-population mismatch and correct reordered paired data."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "ADLER-L11-XPBD-SUBSTEP-ADMISSION",
+        "kind": "recovered finding, source-based current reinspection",
+        "source": [
+          "crates/fabelgeist-xpbd/src/solver.rs:136-183",
+          "crates/fabelgeist-xpbd/src/constraint.rs:259-285",
+          "crates/fabelgeist-xpbd/src/wgsl.rs:52-68,141-166"
+        ],
+        "historical_relationship": "059 q176 and q452 SEGOVB-L12-CONNECTED-XPBD-SUBSTEP-ADMISSION are related historical observations; preserve identifiers and leave exact alias to central reconciliation.",
+        "condition_and_reasoning": "record_step returns for nonpositive delta and zero substeps, but NaN is not <=0; direct record_substep accepts its substep without local validation. Constraint solve passes it to compliance/(h*h), and finalize divides position change by h. A merely finite positive representable h can also have an unrepresentable squared magnitude, so the arithmetic policy needs more than a sign check.",
+        "limits": "No numerical division or GPU execution was performed; actual higher-level caller restrictions and device behavior remain open. Empty particles, zero substeps and disabled constraint sets are documented modes, not automatically defects.",
+        "future_repair_acceptance": "Admit and carry a substep whose required reciprocal and square behavior satisfy the supported numeric contract before any batch mutation, while preserving intended no-op modes. Later verify direct and frame-derived boundaries."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "ADLER-L11-XPBD-SPRING-DAMPING-CONTROL",
+        "kind": "recovered finding, source-based current reinspection",
+        "source": [
+          "crates/fabelgeist-xpbd/src/constraint.rs:118-145",
+          "crates/fabelgeist-xpbd/src/wgsl.rs:217-268"
+        ],
+        "historical_relationship": "059 q177 and q453 SEGOVB-L12-CONNECTED-XPBD-SPRING-DAMPING-CONSUMER describe related historical families; exact alias central.",
+        "condition_and_reasoning": "The spring API retains per-spring four-float parameters and shader source labels z damping, but the actual shader body reads x, y and w and never reads z or a velocity input. Conditional on a supplied nonzero intended damping value, the source does not use that value in spring response.",
+        "limits": "No shader execution, concrete nonzero producer, platform verification or dynamic outcome. Global solver drag is a separate policy and is not assumed equivalent to per-spring damping.",
+        "future_repair_acceptance": "Choose and expose the intended per-spring damping contract and implement its own response without silently conflating general solver drag; later compare differing per-spring damping with other parameters fixed."
+      }
+    },
+    {
+      "agent": "/root/rig_identity",
+      "report": "delegated/xpbd-dynamics-report.json",
+      "finding": {
+        "id": "SEGOVB-L12-XPBD-PER-CONSTRAINT-ADMISSION-ERRORS",
+        "kind": "four recovered issues, no new unique count",
+        "source": [
+          "crates/fabelgeist-xpbd/src/constraint.rs:103-108,128-136,170-177,201-208"
+        ],
+        "historical_relationship": "059 q447 DISTANCE-REST-COUNT-REASON, q448 SPRING-RECORD-COUNT-REASON, q449 ATTACHMENT-COUNT-REASON, q450 RAW-ATTACHMENT-MULTIPLE-REASON. Preserve four original identifiers and their exact predicates.",
+        "condition_and_reasoning": "The four APIs return formatted prose on distinct count predicates, including an aggregated spring mismatch message; Buffer/Kernel errors are propagated by question-mark, not shown to be intentionally erased.",
+        "limits": "Need caller/error-owner policy before asserting a consumer parses prose or forces one common variant. q450 concerns its existing multiple predicate, independent of the kernel-specific shape question.",
+        "future_repair_acceptance": "Retain exact expected and observed extents and relevant attachment identity in purpose-owned structured errors while preserving native causes; later verify each predicate separately."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/xpbd-solver-report.json",
+      "finding": {
+        "id": "XPBD-SUBSTEP-ADMISSION-AND-SQUARE-RANGE",
+        "status": "historically recorded admission problem, independently assessed current, with additional mathematical range condition",
+        "producer_to_consumer": "Solver::record_step and step_interleaved return for delta≤0, empty particles or substeps=0 but do not reject NaN and do not validate the computed delta/substeps. Public record_substep directly forwards any f32 to predict, hook, constraint solve and finalize. WGSL computes compliance/(h*h) and final velocity delta/h. Shell::step_interleaved excludes nonfinite/nonpositive frame delta, then divides by max(substeps,1) without a second h-range check.",
+        "symbolic_examples": "Under ordinary IEEE binary32 round-to-nearest, the smallest positive f32 frame duration 2^-149 divided by 2 rounds to zero. Independently, h=2^-80 is positive and normal in f32, but h²=2^-160 is smaller than the smallest f32 subnormal and rounds to zero. Neither example was executed. WGSL floating-point compilation and device behavior require independent native evidence; do not infer a specific Infinity, NaN, trap or observed solver outcome.",
+        "conditions": "Public direct invalid time or a positive frame/substep beyond representable arithmetic range; actual producer scale and device semantics remain open. Zero particles, zero substeps and nonpositive frame delta have explicit no-op semantics in generic frame APIs and must not be reinterpreted automatically.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/solver.rs",
+            "lines": [
+              [
+                136,
+                183
+              ],
+              [
+                199,
+                218
+              ],
+              [
+                236,
+                277
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+            "lines": [
+              [
+                30,
+                69
+              ],
+              [
+                141,
+                166
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+            "lines": [
+              [
+                258,
+                285
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                253,
+                285
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Matches ADLER-L11-XPBD-SUBSTEP-ADMISSION and SEGOVB-L12-CONNECTED-XPBD-SUBSTEP-ADMISSION, with Q-L12-48b9c2f6d55c6d6a9f48 preserving frame-vs-direct policy distinctions and underflow concern. h² is an additional connected arithmetic requirement; merely admitting a positive h does not automatically establish a representable nonzero square. Central agent decides canonical aliases and existing current work.",
+        "future_repair_direction": "Resolve one time owner and all public producers, requiring a finite positive substep and a supported compliance/finalization numerical range at each actual boundary; preserve zero-frame/empty/substeps-zero mode choices, hook ordering, lambda resets and normal valid scheduling."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/xpbd-solver-report.json",
+      "finding": {
+        "id": "XPBD-SPRING-DAMPING-UNCONSUMED",
+        "status": "historically recorded source contract confirmed, public input route independently traced",
+        "producer_to_consumer": "Public ConstraintSet::spring advertises damping and accepts one raw four-float parameter per edge after a count check; it reorders and attaches all four fields. SPRING documents z as damping, but its solve reads x, y and w only, so changing z alone leaves the shader source calculation unchanged.",
+        "conditions": "The admitted public parameter has a nonzero z intended as damping; public external callers can supply it. Bounded literal-path search for ConstraintSet::spring found its constructor/error string, a test source and a fixture path only within crates; that is not a complete call graph and proves neither absent aliases/external callers nor a production invocation. No shader or test execution.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/constraint.rs",
+            "lines": [
+              [
+                118,
+                145
+              ],
+              [
+                258,
+                285
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+            "lines": [
+              [
+                217,
+                268
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Connect ADLER-L11-XPBD-SPRING-DAMPING-CONTROL and SEGOVB-L12-CONNECTED-XPBD-SPRING-DAMPING-CONSUMER; these retain an actual producer/policy question. This source inspection establishes the public constructor route but not a non-test producer or dynamic outcome.",
+        "future_repair_direction": "Determine the supported per-spring damping law and producer policy, then carry the admitted control to an appropriate relative-motion response while preserving zero damping, bump stops, edge ordering and other constraint behavior."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/xpbd-solver-report.json",
+      "finding": {
+        "id": "XPBD-HOOKCHAIN-AFTER-SOLVE-FORWARDING",
+        "status": "historical public-composition finding independently traced in current support",
+        "producer_to_consumer": "Solver calls hook.record before constraint sweeps and hook.after_solve afterward. HookChain::record forwards to inner hooks, but HookChain has no after_solve override and therefore receives the trait’s default no-op; inner custom hooks’ after_solve methods are not invoked through that chain.",
+        "conditions": "A user passes HookChain containing a hook whose after_solve is nontrivial. A bounded literal-path search found HookChain construction spelling in a test source only and after_solve implementations in Solver trait and the private ShellHook; this does not exclude alternate syntax, external implementations or consumers. Shell uses its own ShellHook directly, so no claim that its after_solve is skipped.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/solver.rs",
+            "lines": [
+              [
+                64,
+                84
+              ],
+              [
+                157,
+                183
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact.rs",
+            "lines": [
+              [
+                234,
+                258
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                269,
+                285
+              ],
+              [
+                385,
+                406
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Same first failed public composition contract as SEGOVB-L12-CONNECTED-HOOK-CHAIN-AFTER-SOLVE-PROPAGATION; L12-769 and 776 retain the original personal source attribution. No duplicate assumed.",
+        "future_repair_direction": "Define and forward the complete hook lifecycle in order with the correct error propagation; preserve optional/default hooks and ShellHook’s own ordering."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/xpbd-solver-report.json",
+      "finding": {
+        "id": "XPBD-NEGATIVE-SPEED-CAP-ADMISSION",
+        "status": "conditional source-level public setting behavior; supported input policy and alias open",
+        "producer_to_consumer": "SolverSettings.max_speed is an unconstrained public f32, and constructor retains settings without a numeric validity check. PREDICT checks speed>max_speed and speed>0 then multiplies velocity by max_speed/speed.",
+        "symbolic_example": "With a nonzero velocity (1,0,0), zero gravity and damping, and max_speed=-2, the cap formula scales by -2 and reverses velocity while increasing its magnitude to 2. This is a source/mathematical consequence, not shader execution.",
+        "conditions": "A negative cap is directly supplied or later assigned; actual application producers and valid configuration policy were not exhaustively audited. Positive/zero caps, damping and gravity each need independent semantics.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/solver.rs",
+            "lines": [
+              [
+                29,
+                59
+              ],
+              [
+                112,
+                133
+              ],
+              [
+                236,
+                259
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+            "lines": [
+              [
+                113,
+                137
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Related to the earlier RIG-PPS-023 inventory of raw SolverSettings speed/damping and the broader admission/semantic-owner reconciliation, without an established exact canonical alias in this packet. The 059 role bodies are byte-identical but historical reviewers did not claim this specific witness.",
+        "future_repair_direction": "Establish finite nonnegative speed-cap admission or an explicit alternative policy at all construction and mutation boundaries; preserve supported zero and positive behavior and all registered producers."
+      }
+    },
+    {
+      "agent": "/root/mhr_character",
+      "report": "delegated/xpbd-solver-report.json",
+      "finding": {
+        "id": "XPBD-SPEED-CAP-FINALIZATION-BOUNDARY",
+        "status": "source-established phase distinction, intended meaning of ceiling unresolved",
+        "producer_to_consumer": "The speed cap acts during PREDICT before hooks and constraints change positions. FINALIZE then derives velocity from the complete corrected displacement divided by substep, with no second cap. Therefore the setting does not itself bound the final stored speed after a positional correction.",
+        "symbolic_example": "Two equal dynamic particles initially at rest 2 m apart, zero-rest zero-compliance distance constraint, h=0.5 s, gravity and damping zero, and max_speed=1 m/s: the source equations move each particle 1 m toward the other and reconstruct speeds of 2 m/s. These algebraic inputs are not an executed fixture. Shell source independently establishes zero-rest seam construction; no claim this exact configuration occurs in production.",
+        "conditions": "Constraint or hook correction contributes more than max_speed×h displacement; other independent limits may apply. Whether the name is intended as an incoming integration cap or as a final invariant is an owner policy question.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/solver.rs",
+            "lines": [
+              [
+                29,
+                46
+              ],
+              [
+                157,
+                183
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-xpbd/src/wgsl.rs",
+            "lines": [
+              [
+                122,
+                137
+              ],
+              [
+                141,
+                166
+              ],
+              [
+                170,
+                213
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-shell/src/shell.rs",
+            "lines": [
+              [
+                100,
+                112
+              ]
+            ]
+          }
+        ],
+        "historical_relationship": "Connect to RIG-PPS-023 raw speed producer inventory and the same settings owner as the negative-input facet, but do not merge the two first contracts automatically or attribute this example to historical review.",
+        "future_repair_direction": "Specify whether the cap governs integration input or final reconstructed state; if a final bound is required, coordinate corrections, velocities and hook semantics rather than silently discarding physically relevant constraints."
+      }
+    }
+  ],
+  "central_decisions": [
+    "Shell radius may diverge from private grid spacing through public mutation, connecting the specific host-to-shader question in q622. No shader execution, actual producer or end-to-end missed collision is claimed.",
+    "Small hinge cutoff, fixed-point correction quantization, tiny positive mass pinning and finite inverse-mass sum overflow are separate conditional numerical/policy questions; each retains its exact admitted inputs, supported-scale and native-behavior limits. Intentional historical <=1e-12 mass pinning remains explicitly attributed.",
+    "The static-surface mass resize is an independent reread of the existing q444 row, not a duplicate repair. The inner mass validity assertion q445 and derived response overflow remain distinct.",
+    "q176/q452 substep admission, q177/q453 unused spring damping, and q451 after_solve forwarding retain original first-contract identities and related evidence. Overlap is not an automatic unique-defect or exact-alias decision; standard Shell frame guards and absent demonstrated spring caller remain qualified.",
+    "q625 and q1859 attachment namespace, record stride, particle membership and reorder obligations remain related but distinct first-input contracts. Shell’s canonical bending path validates and reorders eight-word records before attachment; no ordinary malformed bending producer established.",
+    "The strategic fragment GET path displays an explicit missing-root notice and the selected POST rerender returns 502; these selected safeguards do not restore the original read cause/status. q178 and q456 retain their historical identities without automatic alias.",
+    "For q193 the administration-history failure is converted to an empty list while chart and clock failures separately mark unavailable. This is the actual original 059 queue entry193; it is distinct from the unrelated ledger pointer ending /193 discussed in the math-units packet.",
+    "q454’s known typed storefront services all pass the current mapping and venue check; unknown raw helper inputs and other producers remain open. q459 selected ordinary administration and food writers validate or carry bounded doses, but historical rows and other writers remain unproved; no ordinary-path panic asserted.",
+    "The current only-name lookup and historical fast.rs bounded slices are registered separately; the support file changed in its validation-observation setup, so whole-file equivalence is not inferred. The two recovered f82 registrations are planned source ranges, not proof of personal reads.",
+    "No whole lens, full queue reconciliation, product implementation, build, runtime, shader execution or validation is claimed."
+  ],
+  "open": "Actual callers, accepted physical/numeric domains, native outcomes, error policy and global exact-alias inventories remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

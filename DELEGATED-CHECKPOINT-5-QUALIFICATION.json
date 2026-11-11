@@ -1,0 +1,14 @@
+{
+  "schema": "726-checkpoint-five-central-provenance-qualification-v1",
+  "qualification": "The exact original checkpoint059 MATERIAL-PROVENANCE record was independently read and hash/blob-verified against the recovered transport manifest before public redaction, without modifying the extracted evidence. The published bundle member is a reconstructed copy with one nonessential local path redacted; it is not byte-identical to that original. The original remains recoverable from the separately pinned complete 059 transport described in CONTINUATION.md. Its historical paths, native-package claim, author and zero body-credit qualification remain historical; this does not establish native execution or checkpoint3821 recovery.",
+  "original_059_transport_path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/MATERIAL-PROVENANCE.json",
+  "original_sha256": "9ac61e4662557982f20674838b8a70fc9c09b40c98f60476ece10d94583ffc9d",
+  "original_git_blob": "b99bcb820800dbec43d4e5e91299fb1d70cf69e5",
+  "original_bytes": 4305,
+  "public_bundle": "delegated/crate-metadata-evidence.tar.gz",
+  "public_member": "historical-059/parallel-l11-20261029/native-childlock-rawzip-192-20261030/MATERIAL-PROVENANCE.json",
+  "published_sha256": "b137e69150d5b8ec5df0d503e1a61667580b852b84e5ca5b21a7ca328884bf51",
+  "redacted_local_path_occurrences": 1,
+  "local_original_check": "Exact original was verified read-only against 059 transport manifest; no restoration or write onto supplied extraction.",
+  "status": "Historical 059 provenance only; delegate role and finding reconciliation pending."
+}

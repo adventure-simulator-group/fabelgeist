@@ -14902,7 +14902,10 @@
         "future_acceptance": "After audit and authorization, assess invalid boundaries and supported normal behavior under the selected owner policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-MASS-VALIDITY-ADMISSION",
@@ -14923,7 +14926,10 @@
         "future_acceptance": "After audit and authorization, assess invalid boundaries and supported normal behavior under the selected owner policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-CONNECTED-SURFACE-SOLVE-POSITION-FINITE-ADMISSION",
@@ -15234,8 +15240,558 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+      },
+      {
+        "id": "ADLER-L11-XPBD-SUBSTEP-ADMISSION",
+        "lens": 11,
+        "additional_current_lenses": [
+          3,
+          4,
+          5
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Direct substep accepts raw zero or nonfinite values and frame entry checks do not reject NaN; positive values can also square to zero.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/176"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Define substep admission and arithmetic range across every public entry while preserving intended no-op modes.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "ADLER-L11-XPBD-SPRING-DAMPING-CONTROL",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          4,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The public spring retains a damping component that the inspected shader calculation does not consume.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/177"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Determine the damping contract and align the actual consumer with the selected supported semantics.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "ADLER-L11-STRATEGIC-FRAGMENT-READ-FAILURE",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          6,
+          12
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A strategic fragment body-read failure can discard the body and preserve original response metadata.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/178"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Retain a structured body-read failure and explicit response semantics while preserving successful fragments.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "ADLER-L11-MEDICAL-HISTORY-AVAILABILITY",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "An authorized medical administration-history query error is turned into an empty history while the presentation remains available.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/193"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Preserve unavailable/error status through authorized history projection without exposing unauthorized records.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-XPBD-DISTANCE-REST-COUNT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          3,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Distance constraints report a rest-count mismatch in formatted prose.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/447"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Assess structured rest-count mismatch ownership and retain actual caller context.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-XPBD-SPRING-RECORD-COUNT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          3,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Spring constraints report edge, rest and parameter count mismatches in a formatted aggregate message.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/448"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Preserve distinct observed count predicates in an owned diagnostic if consumers require typed recovery.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-XPBD-ATTACHMENT-COUNT-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          3,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Per-constraint attachment admission reports a length mismatch in formatted prose.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/449"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Assess typed attachment-count failure and keep native buffer errors intact.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-XPBD-RAW-ATTACHMENT-MULTIPLE-REASON",
+        "lens": 12,
+        "additional_current_lenses": [
+          3,
+          5,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Raw attachment admission reports non-multiple length in prose but does not itself prove selected kernel stride.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/450"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Preserve the distinct whole-multiple error and separately establish record-schema admission.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-HOOK-CHAIN-AFTER-SOLVE-PROPAGATION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "HookChain forwards the pre-solve hook but inherits the default no-op after_solve method.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/451"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Forward or explicitly constrain both composition phases, preserving ordering and failure propagation.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-XPBD-SUBSTEP-ADMISSION",
+        "lens": 12,
+        "additional_current_lenses": [
+          3,
+          4,
+          5
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "Direct and frame XPBD entry points have distinct finite and computed-substep admission gaps.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/452"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Establish one admitted substep contract at each actual entry and preserve explicit frame no-op policies.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-XPBD-SPRING-DAMPING-CONSUMER",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          4,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The spring shader consumes no retained damping component on the inspected public constructor path.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/453"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Resolve damping ownership and bring producer and consumer into the same supported contract.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-LOCATION-SERVICE-ADMISSION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The raw location-service helper expects known strings, while selected typed storefront values are mapped safely.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/454"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Trace all service producers and choose an explicit unknown-service boundary without disrupting the valid storefront mapping.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-STRATEGIC-FRAGMENT-BODY-CAUSE-ERASURE",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "A fragment-read error loses its cause; selected GET and POST consumers show safeguards on their own paths.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/456"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Preserve the original cause and correct response status through fragment transformation and all consumers.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "SEGOVB-L12-CONNECTED-MEDICAL-BACKEND-DOSE-ADMISSION",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          5
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; historical bounded contract or open policy question",
+        "classification": "The web presentation expects backend dose readmission; selected normal writers carry admitted bounds but historical and other writers remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/459"
+        ],
+        "relationship_qualification": "Original historical identifier and reviewer remain distinct; first-contract overlap, aliases and independent unique counts require further reconciliation.",
+        "discovery": "partial; registered delegated sources and selected consumers connected; remaining producers and policy open",
+        "connected_repair_direction": "Trace all stored-dose writers and choose explicit invalid-row handling before claiming a failure or universal safety.",
+        "future_acceptance": "After audit and authorization, examine invalid boundaries and representative accepted behavior under the chosen policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-SHELL-GRID-RADIUS-SPACING-95E",
+        "lens": 5,
+        "additional_current_lenses": [
+          4,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Public self-collision radius mutation can leave the private grid spacing based on an earlier radius.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Specific q622 historical retained-state question; conditional shader-source reasoning, no product or native execution.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Keep radius and grid spacing under one coordinated authority before any supported rebuild or collision pass.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-SHELL-NONDEGENERATE-BEND-CUTOFF-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          8,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A small but nondegenerate hinge can fall below an absolute bending-weight threshold and be omitted.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Symbolic exact geometry only; ordinary garment-scale reachability and historical aliases unresolved.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Establish supported geometry scale and a defensible error bound while preserving true-degenerate omission.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-SHELL-COLLISION-QUANTIZATION-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          8,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A representable positive collision correction can quantize to zero in the fixed-point shader source.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Conditional symbolic shader arithmetic; no shader execution, ordinary scale or host contact outcome established.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Define supported thickness/correction precision and accumulator policy across the native boundary.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-POSITIVE-TINY-MASS-PIN-95E",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          4,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Finite positive masses produced by small admitted shell geometry can enter the intentional massless pinning policy.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Historical reviewers explicitly recorded <=1e-12 pinning as intentional; this is a conditional contract tension, not a new historical runtime defect.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Reconcile supported mesh/mass scale with explicit pinned-particle policy and preserve intended prescribed motion.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-INVERSE-MASS-SUM-OVERFLOW-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          5,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Individually finite inverse masses can yield an infinite effective response sum in a symbolic public contact.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Related to q445 individual mass validity, not the same assertion failure; ordinary producer and delivered contact remain open.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Define derived-response range and supported aggregate admission while preserving ordinary prescribed and dynamic masses.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-ATTACHMENT-RESERVED-NAMES-95E",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          6,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A same-named public constraint attachment can replace a built-in solve parameter in the recorded name map.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Newly traced facet of q625/q1859; conditional caller, native behavior and alias policy remain open.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Define and enforce the selected custom-kernel namespace and preserve required built-in binding identities.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-RAW-ATTACHMENT-STRIDE-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          5,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A raw attachment with a whole number of values per constraint need not match the selected kernel record width.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Canonical Shell bending path validates and reorders eight-word records; no ordinary malformed producer shown.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Connect attachment schema, count and kernel ownership at the actual public boundary.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-CONSTRAINT-PARTICLE-MEMBERSHIP-95E",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          6
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Constraint particle ordinals are not bound to the particular particles buffer subsequently supplied to solve.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "A q625/q1859 public-composition question; no native access or actual mismatched caller demonstrated.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Trace actual producers and establish particle membership against the receiving buffer.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-REORDER-VALUE-EXTENT-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          4,
+          5
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "Public reordering indexes each stored permutation entry into the caller-provided values.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "A conditional direct-public input in q625/q1859; constructors with their own count checks remain separately qualified.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Admit the value extent corresponding to the constraint permutation before indexing.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-NEGATIVE-SPEED-CAP-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          4,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "A negative public maximum-speed setting can reverse a nonzero velocity in the prediction formula.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Source-level mathematical case only; accepted configuration and GPU behavior remain open.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Define finite nonnegative settings admission and intended zero-cap behavior.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+      },
+      {
+        "id": "REVIEW-XPBD-SPEED-CAP-PHASE-95E",
+        "lens": 8,
+        "additional_current_lenses": [
+          4,
+          5
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional delegated source question",
+        "classification": "The prediction-time speed cap does not itself bound velocity recomputed after positional constraints.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
+        ],
+        "relationship_qualification": "Distinct from negative setting admission; symbolic correction example, no GPU execution or policy decision.",
+        "discovery": "partial; exact registered sources and selected support reviewed; ordinary reachability, native outcome and global aliases remain open",
+        "connected_repair_direction": "Determine whether the ceiling governs integration input or final retained velocity and align its owner and documentation.",
+        "future_acceptance": "After audit and authorization, assess the exact boundary and representative valid behavior.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1944.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1956.json"
 }
