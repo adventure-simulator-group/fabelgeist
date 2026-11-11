@@ -1,0 +1,204 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected settlement home capacity, generated ordering, household registration and first-fit allocation operation. This is not full operations-lens coverage.",
+  "source_reasoning": "Static source reading and elementary capacity arithmetic only; no catalog, generator, database action, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/settlement_property.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a04c1d64c6ff0f2364a88fa7caef29ea1d5cd5a2",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "bytes": 7688,
+      "lines": 226,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/courtship.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a45eb1d2ea770e3e33a7bf9401c7e2937892e69a",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "bytes": 40371,
+      "lines": 1153,
+      "ranges": [
+        [
+          195,
+          205
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/homes.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3ce680ed034629f443f10c01951c85b92d89309b",
+      "sha256": "7dfacb7e216eecec7860d9e42a6abbb2cfc92ca6df1114d21a74bb762c6230ee",
+      "bytes": 2407,
+      "lines": 57,
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/houses.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e373050b28436b82223566e8d0acb692cdbad74b",
+      "sha256": "87035f86a257361062455fa7c78c623b9a811b01fa3813c07c2afa2bfe79af20",
+      "bytes": 2154,
+      "lines": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "99a8a95a4eb9460f51e1bf4617d57d57dc692564",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "bytes": 13026,
+      "lines": 377,
+      "ranges": [
+        [
+          141,
+          210
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server-dispatcher/src/settlement_properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d56416acb092e794cc473f3654adc2b18a191117",
+      "sha256": "ee0817b7eb9066e30058126b6103d70663e613c53d5ece008f5fe817bc7a0902",
+      "bytes": 5135,
+      "lines": 122,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/strategic-web/src/routes/settlement_properties.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5fbd3c9f5dcb6f2d4aa91631590e4327fce20df8",
+      "sha256": "3b35130cb49004e746b7981b9ac6a765bcc76bec3fc4ba1507a48e962080b773",
+      "bytes": 3097,
+      "lines": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/household-packing-sources/06.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-200.json",
+      "sha256": "69ee363ebf585613fb70108a96a713676228365e6ca93e995b9366f98f1f199f",
+      "bytes": 13116,
+      "git_blob": "0ce2fa4f22706fb1d154135ae01728ea227a884b",
+      "preserved_bytes": "recovered/household-packing-059/69ee363ebf585613fb70108a96a713676228365e6ca93e995b9366f98f1f199f.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; original attribution remains intact, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-202.json",
+      "sha256": "71337336ca47693febb8ad6120c4ddafd5559586933128886e69c5db6cf5f77e",
+      "bytes": 8174,
+      "git_blob": "4dd88a2387fbf6bc33d18238faa3ae4fde7782cb",
+      "preserved_bytes": "recovered/household-packing-059/71337336ca47693febb8ad6120c4ddafd5559586933128886e69c5db6cf5f77e.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; original attribution remains intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-202.json",
+      "sha256": "560b740edc66ff9c3be7ac55b52c5217baa1e8adf903d90b6f161d0ab752f4d5",
+      "bytes": 627,
+      "git_blob": "a475e7f7cd92633d5695e5c23bb426b98450dc5e",
+      "preserved_bytes": "recovered/household-packing-059/560b740edc66ff9c3be7ac55b52c5217baa1e8adf903d90b6f161d0ab752f4d5.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; original attribution remains intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-202.json",
+      "sha256": "29c567d4d5673c120ab6ad3f517c29112312a4ce303f9a64d190c0638eaad799",
+      "bytes": 4123,
+      "git_blob": "178d5fdce112c2332991171fcf8bdf898db5b1d2",
+      "preserved_bytes": "recovered/household-packing-059/29c567d4d5673c120ab6ad3f517c29112312a4ce303f9a64d190c0638eaad799.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; original attribution remains intact, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-200-202.json",
+      "sha256": "a4cc7207d7456a3191a05505946855a9c7ecc6bd5ac4ca03c85f57309188e196",
+      "bytes": 15268,
+      "git_blob": "dd197300ca20b828e8f7b7d5bb6647f909d7108b",
+      "preserved_bytes": "recovered/household-packing-059/a4cc7207d7456a3191a05505946855a9c7ecc6bd5ac4ca03c85f57309188e196.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact original checkpoint 059 delegated receipt or directly referenced support; original attribution remains intact, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/303",
+      "qualification": "PL13-202 already identified a hypothetical first-fit feasible-packing failure (free 6/4, families 4/6), left producer and completeness policy open, and accepted no unique finding. Its historical status and original reader attribution are unchanged."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 992,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property.rs",
+      "historical_sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-987-994.json",
+      "qualification": "Separate full historical Lens 1 source read; no automatic Lens 13 or checkpoint 3821 transfer."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-HOUSEHOLD-FIRST-FIT-POLICY-001",
+      "severity": "unassigned; conditional allocation-completeness policy and reachability question",
+      "classification": "Earlier delegated open contract now has a bounded current producer/consumer trace; not a new historical unique finding or demonstrated production incident.",
+      "trace": "The current generator sorts physical dwelling entries by building ID, maps house classes to capacities 6, 13, 16 or 30, and reserves the first home in each of the three tiers. The registration reducer collects resident household sizes, sorts them by household ID, and calls allocate. The catalog validator checks identity, geometry, one reserve per tier and total non-reserved capacity; allocate gives each family the first remaining home with sufficient free capacity and returns InsufficientCapacity if none fits.",
+      "conditional_counterexample": "Consider an otherwise-valid hypothetical catalog ordered by building ID with initial reserved Cheap/Moderate/Fancy homes, followed by a non-reserved Moderate home of capacity 13 and a non-reserved Cheap home of capacity 6; population is 19. Two distinct household IDs sort as a then b, with resident counts 6 and 13. Total non-reserved capacity is 19. First fit assigns a to the 13-capacity home, leaving 7 and 6; neither fits b. A feasible alternative places a in the 6-capacity home and b in the 13-capacity home. These capacities match the selected native house classes. The example assumes valid IDs, seed, geometry and all other guards; it is symbolic and was not submitted or executed.",
+      "producer_and_boundary": "The web provisioning route invokes the dispatcher generator and registers its serialized catalog if no manifest exists. The generator checks city planning shortfalls and the catalog validates aggregate housing capacity. The actual city generator output, presence of a matching sorted home sequence, actual family sizes/order, transaction outcome and any player impact were not established; valid individual class capacities do not prove the combined hypothetical is reachable.",
+      "safeguards_and_limits": "The allocator preserves whole families, reserves market homes, checks duplicates and total population, and fails instead of inventing homes. A complete feasible packing may or may not be required by the design; worst-case algorithm cost and a deterministic policy require review. Registration failure is conditional; no claim of a published state mutation or actual game failure is made.",
+      "connected_repair": "Resolve whether registration must find a feasible whole-household packing for every accepted native catalog. If required, choose and bound a deterministic allocation policy capable of the admitted cases, or align generator/admission guarantees with the allocator; keep household cohesion, reserved homes, reproducibility, capacity and population conservation. Reconcile with PL13-202 and any other residence allocation contracts before merging ledger remedies.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover a 13/6 home and 6/13 family ordering, input permutations, insufficient total and indivisible capacity, reserved homes, deterministic outputs and the real generator/reducer boundary.",
+      "discovery": "partial; complete-packing policy, actual generator/family reachability and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

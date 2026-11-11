@@ -172,6 +172,12 @@ current authored corpus. Decoder features and actual runtime remain open.
 `ASSESSMENT-L04-FOLLOWUP-WEIGHT-TOTAL-95E.json` extends the earlier
 sampler-overflow question with a pinned dependency and current authored
 weight bound. The hypothetical context and historical attribution remain open.
+`ASSESSMENT-L04-HOUSEHOLD-PACKING-95E.json` extends the earlier
+delegated first-fit question with generated capacity and reducer ordering.
+A symbolic feasible packing is not a proven reachable settlement.
+`ASSESSMENT-L01-HISTORICAL-987-994.json` preserves road encounter,
+settlement economy, population, property and capability source reads.
+Tests and fixtures are source evidence only.
 `ASSESSMENT-L03-RIGHTS-VALIDITY-95E.json` records a possible validity
 invariant strengthening and the active fail-closed behavior. The earlier
 delegated observation and bounded caller search remain explicit.
