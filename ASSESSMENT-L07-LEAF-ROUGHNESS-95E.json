@@ -1,0 +1,380 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 7,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected leaf-card roughness uniform, forest-floor producer, ARM texture source, shader consumer and earlier delegated evidence. The redundant-authority lens remains incomplete.",
+  "source_reasoning": "Static source reading and historical evidence recovery only; no texture generation, shader, renderer, build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-procedural-materials/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2d0e1bfb5f2a63db54a6079646194049a25be519",
+      "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "bytes": 5890,
+      "lines": 174,
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "7e9cd8ebfbfb1224410653f2163ea4bce9df3d30",
+      "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "bytes": 10701,
+      "lines": 284,
+      "ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "82b7b562308d191aad6734631179f71f8f90f8df",
+      "sha256": "a173d1f8f335f2e288ba87409185a85d4f8eba9813e1811cedf9fc293570a40c",
+      "bytes": 24941,
+      "lines": 627,
+      "ranges": [
+        [
+          265,
+          295
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3a3d285c586a80aba24d32ea4ac8f085f75f1682",
+      "sha256": "53341d66b692914436cc93c298ff192d18515d23ac63384df82a84e25c9bd996",
+      "bytes": 39129,
+      "lines": 961,
+      "ranges": [
+        [
+          50,
+          120
+        ],
+        [
+          160,
+          248
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fba3d80900b1129c1d94cb610fb9b698e370553e",
+      "sha256": "5f83a143e6297cd52a2f51f141ee4fd53a84c2d4f093959e5d5f5c87e09089dc",
+      "bytes": 17746,
+      "lines": 466,
+      "ranges": [
+        [
+          225,
+          295
+        ],
+        [
+          305,
+          340
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a90f00340ca34253bb4063c30be30e2bdd5ec8f",
+      "sha256": "8c3a2661fde2fbe6cdd22710e282ee606e4a3126071315d4d202d85c211305cf",
+      "bytes": 4563,
+      "lines": 129,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/leaf/baking.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "17e606842aff45ced3eb1ea4375c957c4a5d111c",
+      "sha256": "6c48ec6bd988183aae88119cb701bccb5259bc64a8d0b96ff4de8f7187d6ef4e",
+      "bytes": 4357,
+      "lines": 121,
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "21af7a6cc0b069a42e3da5505c34369ba74761ef",
+      "sha256": "667390f6aff800635528219411dcc6b96f509b1a54588452bfb62ba0450d3289",
+      "bytes": 11737,
+      "lines": 331,
+      "ranges": [
+        [
+          140,
+          204
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/foliage.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "49e5f5a002aec9cec7b718367c821083d83935fd",
+      "sha256": "3e0189cc0c37d410807d121fdada9ffe24e69bbdbc92bd01723aa3049f145625",
+      "bytes": 4816,
+      "lines": 123,
+      "ranges": [
+        [
+          95,
+          123
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/leaf_pixels.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ce9afc8a2eb8c3b51f826f321cebabd130537e2c",
+      "sha256": "3814c6c561ce9ae3893a9f96e7e21a42a7d87ea4e3b017469c95513680ac0b91",
+      "bytes": 2000,
+      "lines": 71,
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/runtime/handles.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fca01420ed189a94e58bb88b40ae87e20627c147",
+      "sha256": "d39e2fce7f4e99648f2c1b5409b52a5a34a55d97514699a77d803e1e2273ffd1",
+      "bytes": 5022,
+      "lines": 110,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-procedural-textures/src/bake.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a10bd7ebb24472989da73a4520bdf71530b2c747",
+      "sha256": "1294409520e95eef7f3ad6c7fa5ad3ff476c07c69f4b7a36dd8deec244d544f4",
+      "bytes": 10091,
+      "lines": 285,
+      "ranges": [
+        [
+          145,
+          174
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-texture-studio/src/scene/special.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "17c0755143f6012756074f152da170f156c2d983",
+      "sha256": "8b4fb5ba9dd44c9716c7709ffca143cfef0818a1c111fbffe15296b3fea74025",
+      "bytes": 5032,
+      "lines": 148,
+      "ranges": [
+        [
+          50,
+          90
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/12.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6426cc4166443694966e2dc4ffa9d70bb0e398a8",
+      "sha256": "5ae6e7a5fa707715d1ea9c3f763b5a939a95a0a1949d1ce7516a8dd227dff137",
+      "bytes": 11480,
+      "lines": 314,
+      "ranges": [
+        [
+          65,
+          140
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/13.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a362e6bff30625b83e42766ba212ca3674ca483",
+      "sha256": "4c2b65ddcf48109c4ed659d4f8d8ebbdf500a4de4e5ce80213756bbaf16c48f4",
+      "bytes": 7750,
+      "lines": 192,
+      "ranges": [
+        [
+          130,
+          192
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/leaf-roughness-sources/14.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": [
+    {
+      "path": "main-advance-95e/leaf-roughness-shader-search.txt",
+      "sha256": "7f500b1a18b141fda25d55616340653fbfd438385d8e3b1808c218a61e838ac5",
+      "bytes": 1055,
+      "query": "git grep -n -F physical_parameters in crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl, assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "qualification": "Exact spelling and stated tracked scopes only; aliases, other shaders and external consumers remain open."
+    },
+    {
+      "path": "main-advance-95e/leaf-roughness-floor-search.txt",
+      "sha256": "c157a33cb51914ff7d1b2286980d4449a87499b958d5393663c69c55ab5b4461",
+      "bytes": 779,
+      "query": "git grep -n -F forest_floor_leaf_material in crates/adventuresim-tactical-client/src/presentation/ground_scatter",
+      "qualification": "Exact spelling and stated tracked scopes only; aliases, other shaders and external consumers remain open."
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-227.json",
+      "sha256": "18203cc6b8a9f07cdc891680eb9ae97683aabed5d12dd56c9f815aa6b7780127",
+      "bytes": 12436,
+      "git_blob": "40a70ecd39333d8cf3c0a46a8de5d594547a8f6a",
+      "preserved_bytes": "recovered/leaf-roughness-059/18203cc6b8a9f07cdc891680eb9ae97683aabed5d12dd56c9f815aa6b7780127.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read ranges and attribution, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-229.json",
+      "sha256": "6146b88d348ab3b67d7acb129df2b918f6d1a4eeabfad35b4de3cf472ab921cc",
+      "bytes": 7271,
+      "git_blob": "583471cc8def5801ed1d45fdaae3ee22fd438b19",
+      "preserved_bytes": "recovered/leaf-roughness-059/6146b88d348ab3b67d7acb129df2b918f6d1a4eeabfad35b4de3cf472ab921cc.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read ranges and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VERIFY-PL13-229.json",
+      "sha256": "4ef986ef21251d489937d577e914c8486e72517d793064b264417ebc7de79511",
+      "bytes": 628,
+      "git_blob": "179734a9088220e3f3ee0071c5dd6625256da826",
+      "preserved_bytes": "recovered/leaf-roughness-059/4ef986ef21251d489937d577e914c8486e72517d793064b264417ebc7de79511.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read ranges and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-227-229.json",
+      "sha256": "23b5535bf8fd0464fd91ade632fba0623fabe8dc07c7d8b915afc55a0c37cd54",
+      "bytes": 16251,
+      "git_blob": "3efc9a5e23724d6be946c5cce86592ee439d66ea",
+      "preserved_bytes": "recovered/leaf-roughness-059/23b5535bf8fd0464fd91ade632fba0623fabe8dc07c7d8b915afc55a0c37cd54.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read ranges and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/REGISTRATION-PL13-229.json",
+      "sha256": "bbde03f4e04559d88edc065da11b8fc8561beb6c2439e62b2cd46780c377dcde",
+      "bytes": 2595,
+      "git_blob": "2ad27f680485d2b9a7d88d2c9f2066aa0fce5ba5",
+      "preserved_bytes": "recovered/leaf-roughness-059/bbde03f4e04559d88edc065da11b8fc8561beb6c2439e62b2cd46780c377dcde.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read ranges and attribution, with no checkpoint 3821 or other-lens transfer."
+    },
+    {
+      "original_path": "parallel-l13-20261029/READ-PL13-229-PARTIAL-001.json",
+      "sha256": "74b4ce270467deeb334d7e59e3134837d8949665320da74bf7cc3a357d6c77e3",
+      "bytes": 1971,
+      "git_blob": "09814cd9ac909a94fa12663d94c83093c4f4f2d7",
+      "preserved_bytes": "recovered/leaf-roughness-059/74b4ce270467deeb334d7e59e3134837d8949665320da74bf7cc3a357d6c77e3.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated receipt or directly referenced support; preserve original partial-read ranges and attribution, with no checkpoint 3821 or other-lens transfer."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/discovery_receipts/226",
+      "qualification": "Earlier PL13-229 already identified the shader roughness lane question and left producer/owner open with zero unique findings. Its bark partial was lines 1–460 and the final union records fresh 461–517; no checkpoint 3821 attribution."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 1055,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+      "historical_sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1051-1060.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the earlier delegate, authority lens closure or checkpoint 3821."
+    },
+    {
+      "original_index": 1056,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "historical_sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1051-1060.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the earlier delegate, authority lens closure or checkpoint 3821."
+    },
+    {
+      "original_index": 1057,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "historical_sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1051-1060.json",
+      "qualification": "Separate full historical Lens 1 read and current byte comparison; no transfer to the earlier delegate, authority lens closure or checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-LEAF-ROUGHNESS-AUTHORITY-001",
+      "severity": "unassigned; source-established disconnected material roughness lane, visual impact unverified",
+      "classification": "Selected forest-floor material writes a documented roughness uniform that its leaf shader does not read; the ARM texture independently supplies roughness.",
+      "trace": "TacticalTreeLeafCardMaterial documents physical_parameters.x as perceptual roughness. The shared leaf material factory initializes that lane to 0.86 and clones the supplied ARM texture handle; forest_floor_leaf_material selects the dry-oak texture set and then writes the lane to 0.96. Ground foliage retains the resulting material and the litter batch supplies it to dry-leaf mesh entities. The selected leaf-card shader samples the bound ARM texture and assigns its green channel to perceptual roughness; it reads physical_parameters.y and .z for other meanings, but does not read .x.",
+      "conditional_comparison": "Holding the ARM image and all other inputs fixed, changing only physical_parameters.x from the factory value 0.86 to 0.96 cannot change this shader’s selected roughness input. That is a comparison of source dataflow, not a rendered frame. It does not say the sampled texture differs from 0.96, that the two materials look different, or that a scene or GPU shader was executed.",
+      "texture_and_other_paths": "The selected source texture path selects the dry-white-oak recipe, carries its ARM handle, and source baking fills ARM green from a leaf recipe roughness byte multiplied by an independent relief gain; the ARM upload uses a non-sRGB scalar texture. Actual resident or generated image contents, sampler effects and GPU behavior were not inspected or run. Texture Studio also populates the material’s roughness lane from its document while passing baked maps; its document may separately influence those maps, so no ineffective UI-control claim follows. The instanced shrub shader uses a fast model without specular, and no general requirement to add roughness to that intentional model is inferred.",
+      "historical_attribution": "The checkpoint 059 PL13-229 delegate already identified that the physical roughness lane was not read by the shader and left its actual producer and owner question open, accepting zero unique findings. Its partial bark read records lines 1–460, followed by fresh 461–517 in the final union; the leaf shader was unread at that partial and assessed in the final receipt. Exact adoption and direct support retain these qualifications. This 95e trace is not checkpoint 3821 evidence.",
+      "safeguards_and_limits": "The ARM map is an intentional per-texel roughness source and may vary or be authored independently. No particular intended combination of uniform and texture is established; no runtime incident, actual texture value, visual difference, other shader semantics or global alias closure is claimed.",
+      "connected_repair": "Determine whether the dry-leaf roughness belongs in the baked ARM map or a material-level modifier, then maintain one explicit authority and propagate it through texture production, material construction, retained assets, selected leaf shader and any applicable authoring path. Preserve per-texel detail and the intentionally non-specular shrub model; remove or rename disconnected configuration only if that matches the design.",
+      "later_acceptance": "Only after separate authorization for implementation and product validation, cover changes to the chosen roughness owner, independent texture and uniform values, baked and resident map paths, dry-leaf materials, preview behavior and the intentionally fast shrub shader.",
+      "discovery": "partial; intended roughness policy, actual textures, shader variants, all material consumers and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

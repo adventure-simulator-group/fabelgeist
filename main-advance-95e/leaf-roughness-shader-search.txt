@@ -1,0 +1,6 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:assets/shaders/tactical_shrub_leaf_instanced.wgsl:39:    physical_parameters: vec4<f32>,
+95e63628f9d70b8dd6e6fede64334696c6995009:assets/shaders/tactical_shrub_leaf_instanced.wgsl:152:    albedo = mix(albedo, in.color.rgb, leaf.physical_parameters.z);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl:62:    physical_parameters: vec4<f32>,
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl:231:    // leaves physical_parameters.z at zero, so its vertex color remains free
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl:233:    albedo = mix(albedo, in.color.rgb, leaf_card.physical_parameters.z);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl:264:    pbr_input.material.thickness = leaf_card.physical_parameters.y;
