@@ -17,7 +17,7 @@
   "product_validation": "not performed",
   "current_main_qualification": "Direct ls-remote observed 95e at 2026-11-11 00:55:27 UTC; main may advance. See MAIN-RECHECK-20261111-0055.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 99,
+  "new_current_ledger_candidates": 100,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -299,5 +299,8 @@
   ],
   "post_transition_bounded_behavior_traces": [
     "ASSESSMENT-L08-NESTED-VESSEL-95E.json"
+  ],
+  "post_transition_bounded_derivability_traces": [
+    "ASSESSMENT-L10-REPORT-SERIALIZE-95E.json"
   ]
 }

@@ -1443,6 +1443,20 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L08-NESTED-VESSEL-95E.json"
+      },
+      {
+        "id": "SUGGEST-REPORT-DESCRIPTION-SERIALIZE-DERIVE-001",
+        "lens": 10,
+        "severity": "maintainability suggestion; no runtime defect asserted",
+        "classification": "optional Serialize-only derive; preserve open report-ID deserialization",
+        "historical_related_records": [
+          "ASSESSMENT-L1-THREAT-IDENTITY.json#/trace"
+        ],
+        "relationship_qualification": "The earlier c100 source observation explains a related admission boundary; the derive suggestion is distinct and no historical alias or unique defect is asserted.",
+        "discovery": "partial; macro feature resolution, complete serializer consumers, other handwritten implementations and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L10-REPORT-SERIALIZE-95E.json"
       }
     ]
   },

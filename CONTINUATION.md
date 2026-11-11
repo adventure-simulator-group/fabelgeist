@@ -193,6 +193,8 @@ versus missing-history ambiguity and selected current-minute food/water paths.
 `ASSESSMENT-L08-NESTED-VESSEL-95E.json` records an earlier documentation
 conflict with direct-only vessel selection; the selected historical function
 matches current bytes, while the owning product policy remains open.
+`ASSESSMENT-L10-REPORT-SERIALIZE-95E.json` records a Serialize-only derive
+suggestion and the distinct open report-ID deserialization contract.
 `ASSESSMENT-L05-RUNE-ROUTE-95E.json` traces an earlier no-repeat
 validation gap to the selected view and replay boundaries. The symbolic
 case is not an observed stored puzzle or executed validation.

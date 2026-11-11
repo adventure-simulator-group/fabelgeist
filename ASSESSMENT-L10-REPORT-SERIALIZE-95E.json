@@ -1,0 +1,305 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 10,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected ReportDescription serialization delegation and necessary manual implementations; the derivability lens and full connected repair ledger remain incomplete.",
+  "source_reasoning": "Static source, pinned primary macro source and read-only JSON-subset inventory only; no build, macro expansion, serialization, deserialization, tests or runtime probes ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/bestiary.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2c97f78c7e667eb250f14a0535bb297abeb9c547",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "bytes": 54113,
+      "lines": 1558,
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          205,
+          255
+        ],
+        [
+          740,
+          745
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "df5f6d116d5c52fdf9e1cfbebc08d06616a04b95",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "bytes": 62269,
+      "lines": 1630,
+      "ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          325,
+          350
+        ],
+        [
+          390,
+          425
+        ],
+        [
+          580,
+          600
+        ],
+        [
+          645,
+          690
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/build.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+      "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+      "bytes": 19279,
+      "lines": 511,
+      "ranges": [
+        [
+          70,
+          135
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "868b911e5d1fe98bfed681bde574227fb391a263",
+      "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+      "bytes": 7583,
+      "lines": 211,
+      "ranges": [
+        [
+          128,
+          141
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/Cargo.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d62b34dfb1b85b925a09f34cde94e6015b0c6414",
+      "sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+      "bytes": 1187,
+      "lines": 45,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          9400,
+          9413
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0a53ab49bc6b633d88f27a4766e0b261b1b48b56",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "bytes": 5345,
+      "lines": 170,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/survival.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5e60fcc12c2fe1d0193a2c5395d69e37e8f558",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "bytes": 16181,
+      "lines": 430,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/07.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/settlement_property.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a04c1d64c6ff0f2364a88fa7caef29ea1d5cd5a2",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "bytes": 7688,
+      "lines": 226,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/08.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00912abaa99cd109ae11c652fa04099875ea1047",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "bytes": 48824,
+      "lines": 1363,
+      "ranges": [
+        [
+          280,
+          325
+        ]
+      ],
+      "inspection": "bounded source read",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/09.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/bestiary.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cbb2da872087dfcef9ffa6569da78b4914a67cfc",
+      "sha256": "90d87627259fc1034f5c063cd4ac0b90fcc82be4e716c30a33d3bda8b3117af5",
+      "bytes": 32501,
+      "lines": 156,
+      "ranges": [],
+      "inspection": "read-only JSON key inventory; no full semantic source credit",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/10.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/generation.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3c77b7a232f0a0916023bff438ca4c59d0a020a5",
+      "sha256": "d6ab2ca11fbfffd5e3fc8ec26846e42fc4c1093974440b28daac37fbbd5ad256",
+      "bytes": 20495,
+      "lines": 181,
+      "ranges": [],
+      "inspection": "read-only JSON key inventory; no full semantic source credit",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/11.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/quests/investigation.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "fee2233ce87d25b1be1335e8a119a773fdcd1d25",
+      "sha256": "cbc2e2744c54dc81a69f7e9ae2d3f7eef5ef8adc8842adde9cf20780a4c2640b",
+      "bytes": 13888,
+      "lines": 50,
+      "ranges": [],
+      "inspection": "read-only JSON key inventory; no full semantic source credit",
+      "preserved_bytes": "main-advance-95e/report-serialize-sources/12.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "catalog_inventory": {
+    "path": "main-advance-95e/report-serialize-catalog.json",
+    "sha256": "f9d792d956315953dae671a495f5f040917f1e4414f819bb33c19a37a090529d",
+    "bytes": 997
+  },
+  "native_macro_source": {
+    "archive": "native-evidence/serde-derive-1.0.229/serde_derive-1.0.229.crate",
+    "archive_sha256": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+    "archive_bytes": 59864,
+    "member": "serde_derive-1.0.229/src/ser.rs",
+    "member_sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+    "member_bytes": 45068,
+    "assessed_ranges": [
+      [
+        150,
+        210
+      ]
+    ],
+    "qualification": "Pinned primary serde_derive implementation inspected as source only. No macro expansion, compilation or feature-resolution execution.",
+    "eligibility_source": {
+      "member": "serde_derive-1.0.229/src/internals/check.rs",
+      "sha256": "86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "bytes": 16744,
+      "assessed_ranges": [
+        [
+          369,
+          466
+        ]
+      ],
+      "qualification": "Source permits one eligible non-skipped struct field for Serialize; no macro expansion ran."
+    }
+  },
+  "historical_source_roles": [
+    {
+      "original_index": 75,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "historical_sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "historical_assessment": "ASSESSMENT-L1-THREAT-IDENTITY.json",
+      "qualification": "Historical physical-p16 full body and c100 trace remain separately attributed; byte match does not transfer Lens 10 coverage."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-L1-THREAT-IDENTITY.json",
+      "pointer": "/trace",
+      "qualification": "Separately attributed c100 observation of syntactic versus catalog-backed ThreatId; not a 95e transfer or same-contract alias."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "SUGGEST-REPORT-DESCRIPTION-SERIALIZE-DERIVE-001",
+      "severity": "maintainability suggestion; no runtime defect asserted",
+      "classification": "ReportDescription’s handwritten serialization mechanically forwards its only inner ThreatId string serializer and can be considered for an existing transparent Serialize derive.",
+      "trace": "ReportDescription is a one-field tuple wrapper. Its manual Serialize calls serializer.serialize_str(self.as_str()), and as_str delegates to its inner ThreatId. ThreatId’s own Serialize calls serializer.serialize_str(self.as_str()). The pinned serde_derive source for a transparent struct delegates Serialize to the transparent field using the same serializer. Workspace serde enables derive. Therefore a derive of Serialize with serde(transparent), while retaining the current custom Deserialize, is source-reasoned to preserve this serialization operation; generic bounds do not change because this wrapper has no generic parameters.",
+      "deserialization_constraint": "Do not derive Deserialize through the inner ThreatId: ReportDescription::try_new calls ThreatId::try_new and validates syntax only, while ThreatId::deserialize parses via FromStr and requires a catalog monster. Static inspection of the three pinned tracked quest JSON-subset files finds small_upright_figures in authored report descriptions and absent from monster IDs; subject to the shown build/catalog source loading successfully, blindly deriving inner Deserialize would reject that report value. The source inventory is not a catalog build or deserialization run.",
+      "negative_dispositions": "Retain CatalogItem and CatalogPlacement manual equality and hashing: they explicitly use pointer identity, so ordinary field derives do not establish the same identity contract. Retain HousingMarketReserve’s nonempty all-tier default, CombatTrainingProfile’s nonzero defaults, and ExposureShelter’s Field(default) tuple-variant default; mechanical defaults would change or fail to express these choices. These bounded examples do not close the derivability lens.",
+      "historical_attribution": "The c100 ASSESSMENT-L1-THREAT-IDENTITY.json independently recorded the broader syntax-versus-catalog distinction and physical-p16 role 75. Its source bytes match 95e but its historical finding is not silently promoted; this bounded current derivability observation is separately assessed. A bounded literal search of checkpoint 059 ledger and queue did not locate ReportDescription by name; that does not prove absence of an alias in other wording or later unrecovered records.",
+      "connected_repair": "After the audit gate, consider deriving Serialize with serde(transparent) on ReportDescription while leaving its syntax-only Deserialize and diagnostic error unchanged. Recheck other serialization formats and every call boundary, and coordinate with any later threat-ID ownership repair rather than tightening the shared syntax constructor.",
+      "later_acceptance": "After separately authorized implementation and validation, compare old/new serializer behavior in supported formats and serializer error paths, including authored open report identities; verify that deserialization still accepts syntax-valid descriptions outside the monster catalog and rejects invalid syntax.",
+      "discovery": "partial; macro feature resolution, complete serializer consumers, other handwritten implementations and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}
