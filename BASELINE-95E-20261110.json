@@ -5768,8 +5768,40 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-RECIPE-ROAD-95E.json"
+      },
+      {
+        "id": "REVIEW-RECTANGULAR-VISTA-LOD-MORPH-001",
+        "lens": 1,
+        "additional_current_lenses": [
+          3,
+          4,
+          6,
+          7,
+          8,
+          11,
+          12,
+          13
+        ],
+        "severity": "unassigned; conditional accepted rectangular ring and producer question",
+        "classification": "Width-only vista LOD morph may leave adjacent rectangular rings at different heights along the shorter-axis boundary; selected normal city dispatcher emits square rings.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1512",
+          "baseline-059/queue.json#/entries/1588",
+          "baseline-059/queue.json#/entries/1604",
+          "segovb/READ-L12-655.json",
+          "adler/READ-L11-300.json"
+        ],
+        "related_current": [
+          "REVIEW-VISTA-WIDTH-DIAMETER-001",
+          "ADLER-L11-VISTA-PLAYABLE-SEAM-FRAME"
+        ],
+        "relationship_qualification": "The width-only reporting metric and shifted playable seam concern different inspected first contracts; exact historical aliases and all other overlapping cases remain open. No historical unique count or checkpoint3821 claim.",
+        "discovery": "partial; symbolic admitted-grid boundary and selected mesh source trace, actual producer, renderer and whole-scene acceptance remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-TRANSITION-RECTANGULAR-VISTA-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1220.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1225.json"
 }
