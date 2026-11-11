@@ -1,0 +1,1096 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2251–2258 FBX source, docs, source tests and text fixture; original scoped native num_enum adapter and f82 transport; selected current MHR and rig consumers.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2251-2258.json",
+  "git_membership_evidence": "FBX-HISTORICAL-GIT-PROOFS.json",
+  "older_native_git_membership_evidence": "FBX-OLDER-F82-GIT-PROOFS.json",
+  "historical_lock_membership_evidence": "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-mhr/src/character.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "936cec9026b5ba0551a95dc1f9b7a70cde14db31",
+      "sha256": "582999d2d449669acea9251cf4f2c64ddcc4a876d3834bddca1efa1edba6afcc",
+      "bytes": 10729,
+      "lines": 328,
+      "ranges": [
+        [
+          73,
+          115
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/fbx-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role or other-lens credit transferred."
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a49e3d5e4f9fad4a970bcd8a93fdcf825cf291bf",
+      "sha256": "2383576b6c27646e1d1a0f8d8ace26b841a830c28d9bdf745a3a6efe0df1d50d",
+      "bytes": 4731,
+      "lines": 136,
+      "ranges": [
+        [
+          68,
+          136
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/fbx-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role or other-lens credit transferred."
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "711237c82078c4612f9c01266e19254b47b7308a",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "bytes": 4369,
+      "lines": 155,
+      "ranges": [
+        [
+          24,
+          48
+        ],
+        [
+          109,
+          152
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/fbx-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role or other-lens credit transferred."
+    },
+    {
+      "path": "crates/AGENTS.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b890bfd0f628b3aae3d417cb8d0a4070bf7b3117",
+      "sha256": "2d9c7c48f7c9d02c2996ee71cd64c8dc97ef71ee260f99b16ff388a782f63f23",
+      "bytes": 12051,
+      "lines": 192,
+      "ranges": [
+        [
+          123,
+          127
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/fbx-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role or other-lens credit transferred."
+    },
+    {
+      "path": "Cargo.lock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "lines": 12545,
+      "ranges": [
+        [
+          4993,
+          5001
+        ],
+        [
+          7386,
+          7405
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/fbx-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. No future original-role or other-lens credit transferred."
+    }
+  ],
+  "native_reference_sources": [
+    {
+      "path": "native-evidence/num_enum-0.7.6/num_enum-0.7.6.crate",
+      "sha256": "5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+      "manifest": "native-evidence/num_enum-0.7.6/MANIFEST.json",
+      "qualification": "Current exact locked source lib1–99 personally inspected; no macro or product execution."
+    },
+    {
+      "path": "native-evidence/num_enum_derive-0.7.6/num_enum_derive-0.7.6.crate",
+      "sha256": "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+      "manifest": "native-evidence/num_enum_derive-0.7.6/MANIFEST.json",
+      "qualification": "Current bounded source inspection lib190–260 and enum_attributes180–212; earlier q2942 delegate scopes include additional parsing ranges, separately retained with f82 proof. No macro expansion."
+    },
+    {
+      "path": "native-evidence/flate2-1.1.10/flate2-1.1.10.crate",
+      "sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "manifest": "native-evidence/flate2-1.1.10/MANIFEST.json",
+      "qualification": "Current selected source zlib/read166–195 and274–278; bufread168–195 is bounded native context. No decompression or feature resolution."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-DETERMINISM-95E.json",
+    "ASSESSMENT-MESH-RIG-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Original FBX record boundary and progress",
+      "trace": "parse begins node records at byte27 and repeats while one full header remains; read_node accepts nonzero end_offset and resets reader.pos to it without verifying forward progress, file extent or enclosing parent extent. In a symbolic old-format header beginning at27, end_offset27 with zero properties and zero name would leave the cursor at27 after each read; with40 total bytes the outer header condition remains true.",
+      "remaining": "Original Adler358/q152 already identified nonadvancing/escaping record ends. This is a source-level hypothetical, not a constructed or parsed file, observed hang, allocator failure or runtime test. Null sentinel, both header formats, valid nesting and any accepted malformed-input policy remain to be traced."
+    },
+    {
+      "contract": "Original FBX decode budget",
+      "trace": "read_props reserves Vec capacity directly from num_props; decode_array reserves count*width for Zlib before bounded decoded-byte admission and uses ZlibDecoder.read_to_end, then checks only whether the decoded bytes are shorter than count*width. Current flate2 1.1.10 source shows the selected read decoder wraps a bufread decoder and delegates Read; the parser itself supplies no output limit. Extra decoded payload is currently ignored after count elements in both supported encoding modes.",
+      "remaining": "Original Adler358/q153 already records resource and count questions. No data, compressed stream, allocator, multiplication in product, decoder or test ran. Overflow on narrower usize, platform resource limits and actual import admission are conditional; a budget must preserve intentionally accepted extra payload unless separately decided."
+    },
+    {
+      "contract": "Typed encoding and exact prior native adapter",
+      "trace": "Reader::u32 is passed to FbxArrayEncoding::try_from before payload length and decoder; the enum explicitly admits0 and1, and UnsupportedFbxArrayEncoding retains the reported u32. Pinned num_enum0.7.6 reexports TryFromPrimitive; its derive source emits matches for recognized discriminants and calls the configured error constructor with the original number for other values. The earlier q2942 native-adapter disposition already found no String-erasure issue in this exact route.",
+      "remaining": "Earlier native delegate source scopes and f82 object provenance are retained; no macro expansion, build, compiler, decoder or fixture ran. Unsupported values are this reader’s policy, not a claim that they are formally invalid FBX. Codec feature resolution, all native callees and source aliases remain open."
+    },
+    {
+      "contract": "Animation property and curve admission",
+      "trace": "Scene::takes recognizes exactly three Lcl transform properties then stores them as String and rematches them in collect_layer, the original q303 propagation issue; generic Link.property intentionally remains open native text. Public Curve has independently mutable times and values, and sample indexes values using times length. The source parser slices both arrays to min(times.len,values.len), so an ordinary parser-built count mismatch does not reach that direct index mismatch; however times are not ordered on construction even though Curve documents ascending key times and sample uses first/last/partition_point.",
+      "remaining": "Earlier Adler358 and delegate743 already noted public cardinality and malformed ordering/array-min policies. A direct public Curve with one time and zero values would reach an invalid value index, but no such object or panic ran. A hypothetical unsorted source array is an admission question; actual FBX ordering guarantees, external Curve callers, truncation policy, layer/default behavior and downstream animation usage remain open."
+    },
+    {
+      "contract": "Scene graph and rig import",
+      "trace": "Scene::from_roots keeps objects in a public Vec while building a separate private by_id index and link map. If a caller clears that vector after a scene with an indexed object is built, Scene::get still maps the id to the old index and indexes the now-empty vector. Independently, from_roots accepts links without a cycle check; a hypothetical Model/LimbNode object1 linked to scene root0 and to itself is reachable from children(0), and MHR SkeletonBuilder::visit recursively visits children(object.id) without visited tracking. Character::from_fbx_bytes supplies the parsed scene to this traversal.",
+      "remaining": "No Scene, object, file, mutation, traversal, stack or panic ran. Selected MHR importer does not itself mutate objects between parse and traversal, and no real malformed file or external mutation is established. Graph cycle rejection versus bounded traversal, duplicate-ID behavior and public mutation policy remain open; cyclic traversal is distinct from record byte-offset progress."
+    },
+    {
+      "contract": "Source rules and supported names",
+      "trace": "Reader exact-width takes and decoder slices precede several try_into().unwrap() calls; collect_layer uses last_mut().expect() immediately after a push. These are explicit production source conflicts with crates/AGENTS.md, but those immediately preceding conditions do not establish a reachable panic at the cited sites. Qualified names cut the first NUL-one separator before lossy UTF-8; normalized names remove the final namespace prefix and convert directly to shared RigJointName. Empty/unfamiliar spellings, first matching label lookup and raw Boolean array bytes remain distinct supported policies.",
+      "remaining": "Earlier delegate743 explicitly noted the guarded unwrap/expect rule cases. Do not invent malformed short-buffer failure for these checked slices or add label grammar. Original output text fixture is expected-output evidence only, not a test pass."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "queue": 152,
+      "qualification": "Original Adler record progress and parent/file extent finding; symbolic example refines it."
+    },
+    {
+      "id": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "queue": 153,
+      "qualification": "Original Adler allocation/decompression budget finding."
+    },
+    {
+      "id": "SEGOVB-L12-FBX-ANIMATION-TRANSFORM-PROPERTY-PROPAGATION",
+      "queue": 303,
+      "qualification": "Original delegated recognized transform-property propagation finding."
+    },
+    {
+      "id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "queue": 2942,
+      "qualification": "Original exact native adapter scoped disposition, not a new String error or global lens clearance."
+    }
+  ],
+  "connected_historical_reason_family": {
+    "ledger_id": "REVIEW-FBX-PARSER-TYPED-REASON-FAMILY-95E",
+    "queue_indices": [
+      304,
+      305,
+      306,
+      307,
+      308,
+      309
+    ],
+    "qualification": "Six original error identities and first predicates remain separate; a common repair dependency is neither alias nor new unique finding."
+  },
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-FBX-SCENE-INDEX-COHERENCE-95E",
+      "qualification": "Conditional public Scene mutation invalidates the private index; earlier Adler358 already noted independent object/index authority."
+    },
+    {
+      "id": "REVIEW-FBX-MHR-CYCLIC-JOINT-GRAPH-95E",
+      "qualification": "Conditional cyclic FBX graph reaches recursive MHR skeleton traversal; distinct from original parser record-offset progress."
+    },
+    {
+      "id": "REVIEW-FBX-CURVE-AGGREGATE-95E",
+      "qualification": "Earlier reviewers identified public curve cardinality and ordering policies; two different first conditions remain named."
+    },
+    {
+      "id": "REVIEW-FBX-GUARDED-PRODUCTION-UNWRAPS-95E",
+      "qualification": "Earlier delegate noted guarded production unwrap/expect source rule cases, not observed panics."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-220.json",
+      "sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "bytes": 22794,
+      "git_blob": "952796dee871a39c4b4718abe1f720b50bb7332d",
+      "preserved_bytes": "recovered/fbx-059/5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389.gz",
+      "published_sha256": "5e2c24d3d257f13b5b608c21cc012154e2db44774e807d5976fb2cf0da346389",
+      "published_bytes": 22794,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/fbx-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/fbx-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/fbx-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/fbx-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/fbx-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler independent historical receipt",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue152 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue153 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1110.json",
+      "sha256": "8653e0bd2f37910b9134001cfb8e5de76ec24e6891700d83bd5a38445a0a6369",
+      "bytes": 811,
+      "git_blob": "856d4907e805baa4d64f13d0222247a5b090662c",
+      "preserved_bytes": "recovered/fbx-059/8653e0bd2f37910b9134001cfb8e5de76ec24e6891700d83bd5a38445a0a6369.gz",
+      "published_sha256": "8653e0bd2f37910b9134001cfb8e5de76ec24e6891700d83bd5a38445a0a6369",
+      "published_bytes": 811,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1111.json",
+      "sha256": "6c3fdbe51b97b3dfb2d7a745d52f7185b4fc25c4cde8cb69a2b99bf32fcce765",
+      "bytes": 810,
+      "git_blob": "4d4af0c49157b59fd708615bf29708ad03a65289",
+      "preserved_bytes": "recovered/fbx-059/6c3fdbe51b97b3dfb2d7a745d52f7185b4fc25c4cde8cb69a2b99bf32fcce765.gz",
+      "published_sha256": "6c3fdbe51b97b3dfb2d7a745d52f7185b4fc25c4cde8cb69a2b99bf32fcce765",
+      "published_bytes": 810,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1112.json",
+      "sha256": "e18228025b5f169de7abbbbc131bd072d0b77ffd3eb5df2a1e94478aac6aeba2",
+      "bytes": 818,
+      "git_blob": "42d014a68f673b43848ab23cbf2da3c7a31377c1",
+      "preserved_bytes": "recovered/fbx-059/e18228025b5f169de7abbbbc131bd072d0b77ffd3eb5df2a1e94478aac6aeba2.gz",
+      "published_sha256": "e18228025b5f169de7abbbbc131bd072d0b77ffd3eb5df2a1e94478aac6aeba2",
+      "published_bytes": 818,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1113.json",
+      "sha256": "18f68d27688337095664d41a5e10e29ff40e14013c8c171d9c4b76f13f2b6adc",
+      "bytes": 822,
+      "git_blob": "2043500fc80280cee5b2a2f646245242b297d0ba",
+      "preserved_bytes": "recovered/fbx-059/18f68d27688337095664d41a5e10e29ff40e14013c8c171d9c4b76f13f2b6adc.gz",
+      "published_sha256": "18f68d27688337095664d41a5e10e29ff40e14013c8c171d9c4b76f13f2b6adc",
+      "published_bytes": 822,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1114.json",
+      "sha256": "5cc4f7f8f61412a25347036a6d51308e32848251de203253b5304f2a6be8ed69",
+      "bytes": 829,
+      "git_blob": "e644b9f41d5d1a3dddad7660f10ec7d0d55b173e",
+      "preserved_bytes": "recovered/fbx-059/5cc4f7f8f61412a25347036a6d51308e32848251de203253b5304f2a6be8ed69.gz",
+      "published_sha256": "5cc4f7f8f61412a25347036a6d51308e32848251de203253b5304f2a6be8ed69",
+      "published_bytes": 829,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1115.json",
+      "sha256": "0db2235759d9f5adb7a0fb31f51687820a39aab15900fe9337772c4dc3d0599c",
+      "bytes": 832,
+      "git_blob": "686d8092a83d71f18d331c2cf818cd0879556e7f",
+      "preserved_bytes": "recovered/fbx-059/0db2235759d9f5adb7a0fb31f51687820a39aab15900fe9337772c4dc3d0599c.gz",
+      "published_sha256": "0db2235759d9f5adb7a0fb31f51687820a39aab15900fe9337772c4dc3d0599c",
+      "published_bytes": 832,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1116.json",
+      "sha256": "775dca51c6d2564bb40d384fae1e797f18b6fc72580d7d5a74d5296ca462f812",
+      "bytes": 812,
+      "git_blob": "a7244ff1fd7b5abe52298c330c3c75461cc307b7",
+      "preserved_bytes": "recovered/fbx-059/775dca51c6d2564bb40d384fae1e797f18b6fc72580d7d5a74d5296ca462f812.gz",
+      "published_sha256": "775dca51c6d2564bb40d384fae1e797f18b6fc72580d7d5a74d5296ca462f812",
+      "published_bytes": 812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1117.json",
+      "sha256": "8492fbf371498556af4eb69e8a6dba759ddc11b14af7e0f5bc7f81710407496d",
+      "bytes": 819,
+      "git_blob": "ba9f078f543f3fcd8b899e3f4e86ed51105ad4e9",
+      "preserved_bytes": "recovered/fbx-059/8492fbf371498556af4eb69e8a6dba759ddc11b14af7e0f5bc7f81710407496d.gz",
+      "published_sha256": "8492fbf371498556af4eb69e8a6dba759ddc11b14af7e0f5bc7f81710407496d",
+      "published_bytes": 819,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-358.json",
+      "sha256": "d303c2d35fa65008d2be640e7f73e7317756f09fd75ac3403cbb3a8f057b963e",
+      "bytes": 690,
+      "git_blob": "a29aa4d54277ab3a489ff72aff4e3fb3243023e5",
+      "preserved_bytes": "recovered/fbx-059/d303c2d35fa65008d2be640e7f73e7317756f09fd75ac3403cbb3a8f057b963e.gz",
+      "published_sha256": "d303c2d35fa65008d2be640e7f73e7317756f09fd75ac3403cbb3a8f057b963e",
+      "published_bytes": 690,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-358.json",
+      "sha256": "0692b7b274c8d9e1d502a1cd0a8b8c523bfabe5369df4da38a672a20280b1a7b",
+      "bytes": 36687,
+      "git_blob": "6e978dbbf0405c046d0c47d2b35acf8e4347f53f",
+      "preserved_bytes": "recovered/fbx-059/0692b7b274c8d9e1d502a1cd0a8b8c523bfabe5369df4da38a672a20280b1a7b.gz",
+      "published_sha256": "0692b7b274c8d9e1d502a1cd0a8b8c523bfabe5369df4da38a672a20280b1a7b",
+      "published_bytes": 36687,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-743.json",
+      "sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc",
+      "bytes": 29146,
+      "git_blob": "053c6cb25d0255f01e2b788c2d4b26ad49e3f181",
+      "preserved_bytes": "recovered/fbx-059/83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc.gz",
+      "published_sha256": "83a52da2b86f6cd9b2a6b51afc699d43e9b4442bf776012b4ac301689de374cc",
+      "published_bytes": 29146,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-744.json",
+      "sha256": "18aab37e78847047c3e419fd27395f527f43efbe0578a05d62d99189a1fa46b1",
+      "bytes": 19875,
+      "git_blob": "259a92722e3a1241f0d216a10e38d04d240caa25",
+      "preserved_bytes": "recovered/fbx-059/18aab37e78847047c3e419fd27395f527f43efbe0578a05d62d99189a1fa46b1.gz",
+      "published_sha256": "18aab37e78847047c3e419fd27395f527f43efbe0578a05d62d99189a1fa46b1",
+      "published_bytes": 19875,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-899.json",
+      "sha256": "15955889dd963cd2d0e6c76fc0767924e2c035313632a742da20babe9bf5896c",
+      "bytes": 6937,
+      "git_blob": "2355d37efe7da07529d8cacdd27afefe849af7c9",
+      "preserved_bytes": "recovered/fbx-059/15955889dd963cd2d0e6c76fc0767924e2c035313632a742da20babe9bf5896c.gz",
+      "published_sha256": "6b0bdff05aef6fedf7b37a91b5ed5bb8c6d12d206587181030150c20d312235a",
+      "published_bytes": 6850,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-900.json",
+      "sha256": "aa96f5a1a094d00355063658435c299116fdb7f2c86eeeb51629d83e63f23f1c",
+      "bytes": 8690,
+      "git_blob": "7413c551efc5b86a0c12f39dfc848f40aa2139a7",
+      "preserved_bytes": "recovered/fbx-059/aa96f5a1a094d00355063658435c299116fdb7f2c86eeeb51629d83e63f23f1c.gz",
+      "published_sha256": "da2756f1d3ea4e7e4b53b7eb28ac4ad9d49a7717347cf37473b6d2c942903fd2",
+      "published_bytes": 8603,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-901.json",
+      "sha256": "3faa9803b4a739c9701b5977d886eb79b80922147c04096b0b8593e529bb4f43",
+      "bytes": 7421,
+      "git_blob": "11d58d628a440772a4cb7bf92301c9a8496c5c99",
+      "preserved_bytes": "recovered/fbx-059/3faa9803b4a739c9701b5977d886eb79b80922147c04096b0b8593e529bb4f43.gz",
+      "published_sha256": "5526c04b1daac26816b2ddc17217b443227e18ad77696aad5075c2553d0c959e",
+      "published_bytes": 7334,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-899-FBX-NATIVE-INPUT-READER.json",
+      "sha256": "8046f8c6170bd8472a9c572ff7773f822b639fb770a4e20f50d6525744fe762d",
+      "bytes": 9259,
+      "git_blob": "ea29378593fe787a7d1f010bb5360f384bf6c67b",
+      "preserved_bytes": "recovered/fbx-059/8046f8c6170bd8472a9c572ff7773f822b639fb770a4e20f50d6525744fe762d.gz",
+      "published_sha256": "8046f8c6170bd8472a9c572ff7773f822b639fb770a4e20f50d6525744fe762d",
+      "published_bytes": 9259,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-744-ORIGINAL2260-FS-API.json",
+      "sha256": "8aca6459dfda1658321bfe7741f56f43f745e10898188f29c399f2756f14afbf",
+      "bytes": 4983,
+      "git_blob": "dba63e2f0222759f60daa04bb7b8375444393749",
+      "preserved_bytes": "recovered/fbx-059/8aca6459dfda1658321bfe7741f56f43f745e10898188f29c399f2756f14afbf.gz",
+      "published_sha256": "8aca6459dfda1658321bfe7741f56f43f745e10898188f29c399f2756f14afbf",
+      "published_bytes": 4983,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original separately attributed connected receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM023-COMPLETED-VIEWS.json",
+      "sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065",
+      "bytes": 7877,
+      "git_blob": "b95f559022e586714732d79895f1517179bb4f2c",
+      "preserved_bytes": "recovered/fbx-059/9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065.gz",
+      "published_sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065",
+      "published_bytes": 7877,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-205.json",
+      "sha256": "711e08c45e72f99a03a2dcf7fa1eedb26620ff4a977d17b97fc64347fc3d4e6a",
+      "bytes": 748,
+      "git_blob": "52248439977665e9e913acc116850d4c2a31c928",
+      "preserved_bytes": "recovered/fbx-059/711e08c45e72f99a03a2dcf7fa1eedb26620ff4a977d17b97fc64347fc3d4e6a.gz",
+      "published_sha256": "711e08c45e72f99a03a2dcf7fa1eedb26620ff4a977d17b97fc64347fc3d4e6a",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-206.json",
+      "sha256": "c5ade160456e417e635deedc6beccbb019aa6a009dbd5bb8c0ec5a628209eed1",
+      "bytes": 746,
+      "git_blob": "a667b1171593674128a623c7fa0c0ac60c1abfed",
+      "preserved_bytes": "recovered/fbx-059/c5ade160456e417e635deedc6beccbb019aa6a009dbd5bb8c0ec5a628209eed1.gz",
+      "published_sha256": "c5ade160456e417e635deedc6beccbb019aa6a009dbd5bb8c0ec5a628209eed1",
+      "published_bytes": 746,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-207.json",
+      "sha256": "4099f257183d25bf9ae6b0563272691badfc625027c9a1f85e216732e9b63268",
+      "bytes": 762,
+      "git_blob": "035061b4f089d927a6b66eda3b84e96e31d7e6cf",
+      "preserved_bytes": "recovered/fbx-059/4099f257183d25bf9ae6b0563272691badfc625027c9a1f85e216732e9b63268.gz",
+      "published_sha256": "4099f257183d25bf9ae6b0563272691badfc625027c9a1f85e216732e9b63268",
+      "published_bytes": 762,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-208.json",
+      "sha256": "3c18edd0077653c129520a9df1b2cc7262dc5b08bd3e1fb3cc10807baa815d6b",
+      "bytes": 770,
+      "git_blob": "f4ef93841cac3d48a7c6035683bd71b30c28f958",
+      "preserved_bytes": "recovered/fbx-059/3c18edd0077653c129520a9df1b2cc7262dc5b08bd3e1fb3cc10807baa815d6b.gz",
+      "published_sha256": "3c18edd0077653c129520a9df1b2cc7262dc5b08bd3e1fb3cc10807baa815d6b",
+      "published_bytes": 770,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-209.json",
+      "sha256": "d4ad297272b77c4a7708d4dd9fd58ee7aa36e9707ffb5802d97e067a1037fe46",
+      "bytes": 784,
+      "git_blob": "2fda8fe175a698c6fd70ed8dc566dc5bb51daac1",
+      "preserved_bytes": "recovered/fbx-059/d4ad297272b77c4a7708d4dd9fd58ee7aa36e9707ffb5802d97e067a1037fe46.gz",
+      "published_sha256": "d4ad297272b77c4a7708d4dd9fd58ee7aa36e9707ffb5802d97e067a1037fe46",
+      "published_bytes": 784,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-210.json",
+      "sha256": "85fd12aee9d76483643cb3a9056195ebb829de31ee9aeedffafbe6dfd1339023",
+      "bytes": 790,
+      "git_blob": "e5ffdee143c55ae914987954dc324ea54f7aaf51",
+      "preserved_bytes": "recovered/fbx-059/85fd12aee9d76483643cb3a9056195ebb829de31ee9aeedffafbe6dfd1339023.gz",
+      "published_sha256": "85fd12aee9d76483643cb3a9056195ebb829de31ee9aeedffafbe6dfd1339023",
+      "published_bytes": 790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-211.json",
+      "sha256": "e79f4ea689faf9b11c77febf657a9a7f86193470f8a4b3a77f741052b7f1b16b",
+      "bytes": 750,
+      "git_blob": "74de2e8b10508398b7a953261a30e3a5d32b0d52",
+      "preserved_bytes": "recovered/fbx-059/e79f4ea689faf9b11c77febf657a9a7f86193470f8a4b3a77f741052b7f1b16b.gz",
+      "published_sha256": "e79f4ea689faf9b11c77febf657a9a7f86193470f8a4b3a77f741052b7f1b16b",
+      "published_bytes": 750,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-212.json",
+      "sha256": "b0b9c9c4d484877ff46679d6ef935137ba7054ef6f03fe6d14fe19eec21c33fe",
+      "bytes": 765,
+      "git_blob": "b6de49be0953cb94e1d0857c2be39a8d48d64af0",
+      "preserved_bytes": "recovered/fbx-059/b0b9c9c4d484877ff46679d6ef935137ba7054ef6f03fe6d14fe19eec21c33fe.gz",
+      "published_sha256": "b0b9c9c4d484877ff46679d6ef935137ba7054ef6f03fe6d14fe19eec21c33fe",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-213.json",
+      "sha256": "cbeee6ed86a8c77207d16cc28cb8a46259c4e1587d0de59e9d59e35447e4bbe4",
+      "bytes": 747,
+      "git_blob": "8f8d874d44f33d26b5745b7bf1247bd64e49cfa4",
+      "preserved_bytes": "recovered/fbx-059/cbeee6ed86a8c77207d16cc28cb8a46259c4e1587d0de59e9d59e35447e4bbe4.gz",
+      "published_sha256": "cbeee6ed86a8c77207d16cc28cb8a46259c4e1587d0de59e9d59e35447e4bbe4",
+      "published_bytes": 747,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-214.json",
+      "sha256": "7e8c1114481e84a15c62b6788535e40643d1d7a5451cbc083056d74dffe9f195",
+      "bytes": 946,
+      "git_blob": "984ba990ee97bd2ce9b558994295c4815d776fb3",
+      "preserved_bytes": "recovered/fbx-059/7e8c1114481e84a15c62b6788535e40643d1d7a5451cbc083056d74dffe9f195.gz",
+      "published_sha256": "7e8c1114481e84a15c62b6788535e40643d1d7a5451cbc083056d74dffe9f195",
+      "published_bytes": 946,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-215.json",
+      "sha256": "ee607800a626abc11a245f0813e525a4afca29a0e83b4123dd86acefca21071c",
+      "bytes": 767,
+      "git_blob": "b4e2b2bdf395237dcd63940cc85621618f90bec2",
+      "preserved_bytes": "recovered/fbx-059/ee607800a626abc11a245f0813e525a4afca29a0e83b4123dd86acefca21071c.gz",
+      "published_sha256": "ee607800a626abc11a245f0813e525a4afca29a0e83b4123dd86acefca21071c",
+      "published_bytes": 767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-216.json",
+      "sha256": "72d571cb674a5486298be6bce4c8279c680a34a7a8488a17caf74107481bd13d",
+      "bytes": 938,
+      "git_blob": "39ac8054ec2e14acb99c159d5db01550ea7ebc6c",
+      "preserved_bytes": "recovered/fbx-059/72d571cb674a5486298be6bce4c8279c680a34a7a8488a17caf74107481bd13d.gz",
+      "published_sha256": "72d571cb674a5486298be6bce4c8279c680a34a7a8488a17caf74107481bd13d",
+      "published_bytes": 938,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-218-CONNECTED-ORIGINAL2260-FS-API.json",
+      "sha256": "5718d4cd7143cd54373dfbd3d628b64bc021c1a991367db782c50f85614d273f",
+      "bytes": 1326,
+      "git_blob": "05725bd02edb1815c1ebe8a9b936b9a7872c8b2c",
+      "preserved_bytes": "recovered/fbx-059/5718d4cd7143cd54373dfbd3d628b64bc021c1a991367db782c50f85614d273f.gz",
+      "published_sha256": "5718d4cd7143cd54373dfbd3d628b64bc021c1a991367db782c50f85614d273f",
+      "published_bytes": 1326,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original connected prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-219-CONNECTED-ORIGINAL2260-URI.json",
+      "sha256": "51c1baaac5dc5367b914cfb5472c25ac5fbac492268e59c96288049bd4a8ac31",
+      "bytes": 1112,
+      "git_blob": "ebdcd5be2f51285ac9fdfc3007b57f2ef7d582d5",
+      "preserved_bytes": "recovered/fbx-059/51c1baaac5dc5367b914cfb5472c25ac5fbac492268e59c96288049bd4a8ac31.gz",
+      "published_sha256": "51c1baaac5dc5367b914cfb5472c25ac5fbac492268e59c96288049bd4a8ac31",
+      "published_bytes": 1112,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original connected prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-692.json",
+      "sha256": "3a4c7f871df91193550dac0be5f7408de601d9fa2f9f334d7292121adc655fb1",
+      "bytes": 18120,
+      "git_blob": "a70b5ecd2e200034dcf94e517d1d5881d4ea49f9",
+      "preserved_bytes": "recovered/fbx-059/3a4c7f871df91193550dac0be5f7408de601d9fa2f9f334d7292121adc655fb1.gz",
+      "published_sha256": "3a4c7f871df91193550dac0be5f7408de601d9fa2f9f334d7292121adc655fb1",
+      "published_bytes": 18120,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-693.json",
+      "sha256": "8c3c4ed68bce910b9fd5324e45850f2983afb9f9be48ac1188dfdebb53b9997e",
+      "bytes": 4540,
+      "git_blob": "e62b02a2cce25a14c2168ed4954142329c060110",
+      "preserved_bytes": "recovered/fbx-059/8c3c4ed68bce910b9fd5324e45850f2983afb9f9be48ac1188dfdebb53b9997e.gz",
+      "published_sha256": "1eaf43d7779462c79217377245acc18ed581e3e5dff44f521f0209c4c072a112",
+      "published_bytes": 4453,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-694.json",
+      "sha256": "df1528c1ade45bd66bf4836694679fed72f5fad1ad91da13615b6e70750680d1",
+      "bytes": 6619,
+      "git_blob": "1fe239954b87557a314552e9081a5607b51676a3",
+      "preserved_bytes": "recovered/fbx-059/df1528c1ade45bd66bf4836694679fed72f5fad1ad91da13615b6e70750680d1.gz",
+      "published_sha256": "21a616552cbda89db2b3b67dd78dbb6e682e3401b01cc883fda72aefbd90ac75",
+      "published_bytes": 6532,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-695.json",
+      "sha256": "9aad81f7b565638512e063f853353d08ff14c217c936852d08af0703e70c23ec",
+      "bytes": 4540,
+      "git_blob": "f5c5c38ee86b3379808c6323fd9c6024866d8e85",
+      "preserved_bytes": "recovered/fbx-059/9aad81f7b565638512e063f853353d08ff14c217c936852d08af0703e70c23ec.gz",
+      "published_sha256": "14cc3314ee3fdb126b1fdda117d7e570c0eb948c000e6c439a422ef49eeb950e",
+      "published_bytes": 4453,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-697.json",
+      "sha256": "f6ea8fd3309a4de475a613412c9f3e01a39ea22a0e0d07ef216019a5aaaa3e0d",
+      "bytes": 4434,
+      "git_blob": "3a68a8af21901e1f82c28521bbfcfc208487dbfc",
+      "preserved_bytes": "recovered/fbx-059/f6ea8fd3309a4de475a613412c9f3e01a39ea22a0e0d07ef216019a5aaaa3e0d.gz",
+      "published_sha256": "9e389817808bdbd419aecd8c1b8bc5b62dd36bca12e0f04704568d7bf4a28768",
+      "published_bytes": 4347,
+      "redacted_local_path_occurrences": 1,
+      "original_recovery": "Exact original from pinned complete059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-743.json",
+      "sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81",
+      "bytes": 19697,
+      "git_blob": "a01a2bfaa86ee5c7b374a3b8e705c6d19f8d77bc",
+      "preserved_bytes": "recovered/fbx-059/f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81.gz",
+      "published_sha256": "f731a04b061e6b4dc890e417d924c10b26b889ab9dc1b0df5ca7ac8d1aec7f81",
+      "published_bytes": 19697,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue303 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue304 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue305 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue306 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue307 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue308 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue309 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-744.json",
+      "sha256": "15ad1a10d0db1b4655ac7e8ee7a6c29d1122e55ec513a07af38feb55e5451e32",
+      "bytes": 21083,
+      "git_blob": "d7658500421916839862d536723c6d5969b7004c",
+      "preserved_bytes": "recovered/fbx-059/15ad1a10d0db1b4655ac7e8ee7a6c29d1122e55ec513a07af38feb55e5451e32.gz",
+      "published_sha256": "15ad1a10d0db1b4655ac7e8ee7a6c29d1122e55ec513a07af38feb55e5451e32",
+      "published_bytes": 21083,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-023.json",
+      "sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+      "bytes": 47262,
+      "git_blob": "ffbf808b9dea20d110b72d508719a4601cf16c25",
+      "preserved_bytes": "recovered/fbx-059/bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232.gz",
+      "published_sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+      "published_bytes": 47262,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-743.json",
+      "sha256": "41d24c678405ca2d7c08fa75007dc9af89c7e480c213fd5773d038685bf76b02",
+      "bytes": 3565,
+      "git_blob": "58b9d3568aea928f12620af75c3dd7dde72d42ab",
+      "preserved_bytes": "recovered/fbx-059/41d24c678405ca2d7c08fa75007dc9af89c7e480c213fd5773d038685bf76b02.gz",
+      "published_sha256": "41d24c678405ca2d7c08fa75007dc9af89c7e480c213fd5773d038685bf76b02",
+      "published_bytes": 3565,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adoption verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-744.json",
+      "sha256": "bb38fc2e7fbc0d64caec41baa102e2169701a5dd1718e41b857dee917ed30e9b",
+      "bytes": 3622,
+      "git_blob": "8eddf6bff05fd431611b53c5b76f309959a18144",
+      "preserved_bytes": "recovered/fbx-059/bb38fc2e7fbc0d64caec41baa102e2169701a5dd1718e41b857dee917ed30e9b.gz",
+      "published_sha256": "bb38fc2e7fbc0d64caec41baa102e2169701a5dd1718e41b857dee917ed30e9b",
+      "published_bytes": 3622,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adoption verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-743.json",
+      "sha256": "5cc6b0a90622ca7369435c0be76dd8b82b9e7ce8619b313e60f59e7074603b21",
+      "bytes": 667,
+      "git_blob": "90f70d64e0b845036ce4730ad09964fb20ce59fe",
+      "preserved_bytes": "recovered/fbx-059/5cc6b0a90622ca7369435c0be76dd8b82b9e7ce8619b313e60f59e7074603b21.gz",
+      "published_sha256": "5cc6b0a90622ca7369435c0be76dd8b82b9e7ce8619b313e60f59e7074603b21",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adoption verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-744.json",
+      "sha256": "833242914b34990727598b8f29d074713372af1de366d03c4117b40c586eaebe",
+      "bytes": 667,
+      "git_blob": "8b6998b88674e0503fd06011f9b6101229ab9124",
+      "preserved_bytes": "recovered/fbx-059/833242914b34990727598b8f29d074713372af1de366d03c4117b40c586eaebe.gz",
+      "published_sha256": "833242914b34990727598b8f29d074713372af1de366d03c4117b40c586eaebe",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate adoption verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-CONNECTED-TEAM-023.json",
+      "sha256": "bce51c837e728ffb790ba6cdd8bdb10aeb7562fd7e5e7623840197fd2c7f99d5",
+      "bytes": 715,
+      "git_blob": "671340d746ea0c80a9b39cac2b8d4e73a244248a",
+      "preserved_bytes": "recovered/fbx-059/bce51c837e728ffb790ba6cdd8bdb10aeb7562fd7e5e7623840197fd2c7f99d5.gz",
+      "published_sha256": "bce51c837e728ffb790ba6cdd8bdb10aeb7562fd7e5e7623840197fd2c7f99d5",
+      "published_bytes": 715,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope exact verification",
+        "Original059 queue2942 directly referenced evidence; preserve original revision and scope exact verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Adler358 and delegates743/744 each independently read their exact historical scopes; root adoption zero rereads. Native q2942 retains original f82 source-object revision, selected range and scoped root disposition; no native/runtime verdict is borrowed.",
+  "remaining": "Continue original2259 and all thirteen lenses; actual malformed input/admission, decoder feature resolution, all importer consumers, exact aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

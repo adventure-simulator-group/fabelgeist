@@ -1,0 +1,200 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+  "shared_commit_and_tree_objects": "recovered/older-774-git-objects/MANIFEST.json",
+  "additional_shared_tree_objects": [
+    "OLDER-MAP-QUALIFICATION-GIT-PROOFS.json",
+    "OLDER-INVENTORY-QUALIFICATION-GIT-PROOFS.json",
+    "OLDER-REGIONAL-QUALIFICATION-GIT-PROOFS.json"
+  ],
+  "root_tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+  "additional_tree_objects": {
+    "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90": {
+      "git_object": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90",
+      "type": "tree",
+      "sha256": "91c26a4cd0c2b6aaf8d16fb4eb346b112a5389afea01f9320c4b7498de1222b4",
+      "bytes": 2093,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-git-objects/79de33d1c5bd4d34616391d9be6fc06f9d6d6c90.tree.gz"
+    },
+    "9830cd8a4c7f759ee6bd8708505f611598ec9634": {
+      "git_object": "9830cd8a4c7f759ee6bd8708505f611598ec9634",
+      "type": "tree",
+      "sha256": "7d21811b4e2369a69b5ce33c0fb9faf5b1eeb356153600f2ca1db1b3d4125f82",
+      "bytes": 1236,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-git-objects/9830cd8a4c7f759ee6bd8708505f611598ec9634.tree.gz"
+    },
+    "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d": {
+      "git_object": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d",
+      "type": "tree",
+      "sha256": "bebf2b7a7c08597e884ec87b3c4e97195f37304739008f3e6b1c90b0645246cb",
+      "bytes": 74,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-git-objects/a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d.tree.gz"
+    },
+    "ccf8e1553b451a49f1cd5509af329888b2690c4a": {
+      "git_object": "ccf8e1553b451a49f1cd5509af329888b2690c4a",
+      "type": "tree",
+      "sha256": "33c6fab32aa9797c87cfc05e4be37886f8a52e9e7cb56a58672f85af0dc865cb",
+      "bytes": 231472,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-git-objects/ccf8e1553b451a49f1cd5509af329888b2690c4a.tree.gz"
+    }
+  },
+  "paths": {
+    "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a": {
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "child": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "audit",
+          "mode": "40000",
+          "child": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90"
+        },
+        {
+          "tree": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90",
+          "name": "reconcile-adler-20261023",
+          "mode": "40000",
+          "child": "9830cd8a4c7f759ee6bd8708505f611598ec9634"
+        },
+        {
+          "tree": "9830cd8a4c7f759ee6bd8708505f611598ec9634",
+          "name": "recovered-sources",
+          "mode": "40000",
+          "child": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d"
+        },
+        {
+          "tree": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d",
+          "name": "objects",
+          "mode": "40000",
+          "child": "ccf8e1553b451a49f1cd5509af329888b2690c4a"
+        },
+        {
+          "tree": "ccf8e1553b451a49f1cd5509af329888b2690c4a",
+          "name": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+          "mode": "100644",
+          "child": "075ca56f3060b80304023fec2dd84983a59e082e"
+        }
+      ],
+      "git_blob": "075ca56f3060b80304023fec2dd84983a59e082e",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "bytes": 11547,
+      "lines": 362,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-source-8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a.gz",
+      "qualification": "Earlier f82 transported native source object; receipt scoped reads, not checkpoint3821."
+    },
+    "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1": {
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "child": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "audit",
+          "mode": "40000",
+          "child": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90"
+        },
+        {
+          "tree": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90",
+          "name": "reconcile-adler-20261023",
+          "mode": "40000",
+          "child": "9830cd8a4c7f759ee6bd8708505f611598ec9634"
+        },
+        {
+          "tree": "9830cd8a4c7f759ee6bd8708505f611598ec9634",
+          "name": "recovered-sources",
+          "mode": "40000",
+          "child": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d"
+        },
+        {
+          "tree": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d",
+          "name": "objects",
+          "mode": "40000",
+          "child": "ccf8e1553b451a49f1cd5509af329888b2690c4a"
+        },
+        {
+          "tree": "ccf8e1553b451a49f1cd5509af329888b2690c4a",
+          "name": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+          "mode": "100644",
+          "child": "b4b9886d9b103307cbf3f1383f0eb6607aee51d1"
+        }
+      ],
+      "git_blob": "b4b9886d9b103307cbf3f1383f0eb6607aee51d1",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "bytes": 25892,
+      "lines": 574,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-source-abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1.gz",
+      "qualification": "Earlier f82 transported native source object; receipt scoped reads, not checkpoint3821."
+    },
+    "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed": {
+      "chain": [
+        {
+          "tree": "500ca728b94674afda6b91f8f01b4ed084825a28",
+          "name": "handoff",
+          "mode": "40000",
+          "child": "91a77f1fdceefea3dd01dfde76fd19949c588083"
+        },
+        {
+          "tree": "91a77f1fdceefea3dd01dfde76fd19949c588083",
+          "name": "774",
+          "mode": "40000",
+          "child": "70cda9939284355c2264b601322aacba9399e65e"
+        },
+        {
+          "tree": "70cda9939284355c2264b601322aacba9399e65e",
+          "name": "audit",
+          "mode": "40000",
+          "child": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90"
+        },
+        {
+          "tree": "79de33d1c5bd4d34616391d9be6fc06f9d6d6c90",
+          "name": "reconcile-adler-20261023",
+          "mode": "40000",
+          "child": "9830cd8a4c7f759ee6bd8708505f611598ec9634"
+        },
+        {
+          "tree": "9830cd8a4c7f759ee6bd8708505f611598ec9634",
+          "name": "recovered-sources",
+          "mode": "40000",
+          "child": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d"
+        },
+        {
+          "tree": "a4bf8cfa1e49d7c4a29955e024e1bfb713c7162d",
+          "name": "objects",
+          "mode": "40000",
+          "child": "ccf8e1553b451a49f1cd5509af329888b2690c4a"
+        },
+        {
+          "tree": "ccf8e1553b451a49f1cd5509af329888b2690c4a",
+          "name": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+          "mode": "100644",
+          "child": "5bf55158c0cf090d851524b655c303894ddc4825"
+        }
+      ],
+      "git_blob": "5bf55158c0cf090d851524b655c303894ddc4825",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "bytes": 10928,
+      "lines": 342,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/f82-source-169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed.gz",
+      "qualification": "Earlier f82 transported native source object; receipt scoped reads, not checkpoint3821."
+    }
+  },
+  "qualification": "Earlier f82 source-object transport binds older native bytes; exact historical lens scopes remain q2942, not reconstructed3821 coverage."
+}

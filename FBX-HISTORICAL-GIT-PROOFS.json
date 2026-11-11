@@ -1,0 +1,433 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json",
+    "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+    "PLAYER-TRACE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GPU-HISTORICAL-GIT-PROOFS.json",
+    "CITY-STREAMING-HISTORICAL-GIT-PROOFS.json",
+    "CLOUD-HISTORICAL-GIT-PROOFS.json",
+    "GRAPHICS-HISTORICAL-GIT-PROOFS.json",
+    "GENERATION-HISTORICAL-GIT-PROOFS.json",
+    "WORKER-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-HISTORICAL-GIT-PROOFS.json",
+    "GRASS-CHUNK-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-HISTORICAL-GIT-PROOFS.json",
+    "PEBBLE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-HISTORICAL-GIT-PROOFS.json",
+    "ROCK-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SHOOT-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SKELETON-HISTORICAL-GIT-PROOFS.json",
+    "TREE-CROWN-HISTORICAL-GIT-PROOFS.json",
+    "TREE-ASSET-HISTORICAL-GIT-PROOFS.json",
+    "TREE-STREAM-HISTORICAL-GIT-PROOFS.json",
+    "TREE-SCENE-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-MAP-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "SKY-TIME-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-LANDFORM-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "VENUE-TERRAIN-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SELECTED-LOD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-CARD-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-SURFACE-HISTORICAL-GIT-PROOFS.json",
+    "OWNED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-ORIGIN-QUALIFICATION-GIT-PROOFS.json",
+    "VISTA-ZERO-RING-HISTORICAL-GIT-PROOFS.json",
+    "REGIONAL-SAMPLE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-GROUND-WIRE-HISTORICAL-GIT-PROOFS.json",
+    "CITY-TRAFFIC-CONTEXT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-VIEW-RETENTION-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-ADAPTER-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-CAMERA-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "STRATEGIC-REPLACEMENT-HISTORICAL-GIT-PROOFS.json",
+    "CAPTURE-PERSISTENCE-HISTORICAL-GIT-PROOFS.json",
+    "LITTER-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "CATALOG-ROW-HISTORICAL-GIT-PROOFS.json",
+    "WEIGH-HOUSE-HISTORICAL-GIT-PROOFS.json",
+    "PLANT-LOD-ROOT-HISTORICAL-GIT-PROOFS.json",
+    "VIEW-SPEC-HISTORICAL-GIT-PROOFS.json",
+    "VISTA-METRIC-HISTORICAL-GIT-PROOFS.json",
+    "SKY-CAPTURE-HISTORICAL-GIT-PROOFS.json",
+    "WHEEL-CURRENT-HISTORICAL-GIT-PROOFS.json",
+    "CALIBRATION-BOUND-HISTORICAL-GIT-PROOFS.json",
+    "ANIMATION-EVALUATION-HISTORICAL-GIT-PROOFS.json",
+    "LANDING-SETTLE-HISTORICAL-GIT-PROOFS.json",
+    "GAIT-PROFILE-HISTORICAL-GIT-PROOFS.json",
+    "PACK-RESPONSE-HISTORICAL-GIT-PROOFS.json",
+    "SEMANTIC-NAMES-HISTORICAL-GIT-PROOFS.json",
+    "ACTION-STATE-HISTORICAL-GIT-PROOFS.json",
+    "TURN-INTENT-HISTORICAL-GIT-PROOFS.json",
+    "HOME-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "GATE-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-HISTORICAL-GIT-PROOFS.json",
+    "FOUNDATION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-CUTFACE-HISTORICAL-GIT-PROOFS.json",
+    "GEOGRAPHY-GRADE-HISTORICAL-GIT-PROOFS.json",
+    "SUPPORT-INTERVAL-HISTORICAL-GIT-PROOFS.json",
+    "SAMPLED-SUPPORT-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-FIXTURES-HISTORICAL-GIT-PROOFS.json",
+    "MOVEMENT-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MARKET-GEOMETRY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONFIG-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-BOUNDS-HISTORICAL-GIT-PROOFS.json",
+    "INVENTORY-CACHE-HISTORICAL-GIT-PROOFS.json",
+    "MARCHING-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "QUICKSTEP-FORCE-HISTORICAL-GIT-PROOFS.json",
+    "PRONE-EFFORT-HISTORICAL-GIT-PROOFS.json",
+    "CONDITION-REGIONAL-HISTORICAL-GIT-PROOFS.json",
+    "SHORT-ROUTE-HISTORICAL-GIT-PROOFS.json",
+    "GRADE-BOUNDED-HISTORICAL-GIT-PROOFS.json",
+    "URBAN-BUCKET-HISTORICAL-GIT-PROOFS.json",
+    "ROUNDED-POLYGON-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CARDINALITY-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-WEATHER-HISTORICAL-GIT-PROOFS.json",
+    "FURNITURE-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "INTERIOR-INSTALL-HISTORICAL-GIT-PROOFS.json",
+    "GARDEN-CLEARANCE-HISTORICAL-GIT-PROOFS.json",
+    "RECIPE-ROAD-HISTORICAL-GIT-PROOFS.json",
+    "TRANSITION-VISTA-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-OVERLAP-HISTORICAL-GIT-PROOFS.json",
+    "LANDFORM-CODEC-HISTORICAL-GIT-PROOFS.json",
+    "CLIENT-ENDPOINT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-DIAGNOSTICS-HISTORICAL-GIT-PROOFS.json",
+    "GROUNDING-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-STAGE-HISTORICAL-GIT-PROOFS.json",
+    "GROUND-CONTACT-HISTORICAL-GIT-PROOFS.json",
+    "DISPATCHER-HISTORICAL-GIT-PROOFS.json",
+    "SCENE-MATERIALIZATION-HISTORICAL-GIT-PROOFS.json",
+    "GEOLOGY-ESTABLISHMENT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-REPORT-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-AGGREGATION-HISTORICAL-GIT-PROOFS.json",
+    "BOT-BEHAVIOR-HISTORICAL-GIT-PROOFS.json",
+    "BOT-REACTION-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-BOUNDARY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-AUTHORITY-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-CONSEQUENCE-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-IMPACT-HISTORICAL-GIT-PROOFS.json",
+    "COMBAT-INGRESS-HISTORICAL-GIT-PROOFS.json",
+    "MELEE-LIFECYCLE-HISTORICAL-GIT-PROOFS.json",
+    "GATE-HANDEDNESS-HISTORICAL-GIT-PROOFS.json",
+    "EQUIPMENT-TOPOLOGY-HISTORICAL-GIT-PROOFS.json",
+    "ITERATION-CLOCKS-HISTORICAL-GIT-PROOFS.json",
+    "MISSION-ENROLLMENT-HISTORICAL-GIT-PROOFS.json",
+    "RECONNECT-CONTINUITY-HISTORICAL-GIT-PROOFS.json",
+    "STARTUP-SUBSCRIPTION-HISTORICAL-GIT-PROOFS.json",
+    "TERRAIN-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-CONSTRUCTION-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-IDENTITY-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-FRAMES-HISTORICAL-GIT-PROOFS.json",
+    "WEAPON-ORNAMENT-HISTORICAL-GIT-PROOFS.json",
+    "SHIELD-FORGE-HISTORICAL-GIT-PROOFS.json",
+    "PLATE-DIMENSIONS-HISTORICAL-GIT-PROOFS.json",
+    "GUARD-BINDINGS-HISTORICAL-GIT-PROOFS.json",
+    "SHAFT-ADMISSION-HISTORICAL-GIT-PROOFS.json",
+    "MAP-IMPORT-HISTORICAL-GIT-PROOFS.json",
+    "ROAD-BASIS-HISTORICAL-GIT-PROOFS.json",
+    "BESTIARY-HISTORICAL-GIT-PROOFS.json",
+    "CALENDAR-ECONOMY-HISTORICAL-GIT-PROOFS.json",
+    "LANGUAGE-HISTORICAL-GIT-PROOFS.json",
+    "WORLD-SCHEMA-HISTORICAL-GIT-PROOFS.json",
+    "NAME-CATALOG-HISTORICAL-GIT-PROOFS.json",
+    "ARMOR-CONSTRUCTION-HISTORICAL-GIT-PROOFS.json",
+    "ARMOR-BODY-COORD-HISTORICAL-GIT-PROOFS.json",
+    "HELMET-FOOTWEAR-HISTORICAL-GIT-PROOFS.json",
+    "LIMB-METAL-HISTORICAL-GIT-PROOFS.json",
+    "ORNAMENT-TEXTURE-HISTORICAL-GIT-PROOFS.json",
+    "PAULDRON-PART-HISTORICAL-GIT-PROOFS.json",
+    "STAGING-TASSETS-HISTORICAL-GIT-PROOFS.json",
+    "TILING-GRID-HISTORICAL-GIT-PROOFS.json",
+    "TRIM-HISTORICAL-GIT-PROOFS.json",
+    "BVH-CLOTH-HISTORICAL-GIT-PROOFS.json",
+    "COLOR-HISTORICAL-GIT-PROOFS.json",
+    "HOST-FLOAT-HISTORICAL-GIT-PROOFS.json",
+    "KERNEL-HISTORICAL-GIT-PROOFS.json",
+    "READBACK-SORT-HISTORICAL-GIT-PROOFS.json",
+    "DETERMINISM-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {
+    "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8": {
+      "git_object": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+      "type": "tree",
+      "sha256": "7b895ea5abd5deb1f18566f4adea6a6bcd8b137940d9d07306165fcd3cd29a5b",
+      "bytes": 105,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/git-objects/cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8.tree.gz"
+    },
+    "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd": {
+      "git_object": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+      "type": "tree",
+      "sha256": "87d84871f027f13e4cccb043c4360de29d629b8a05ee21926619f8bab9fe6279",
+      "bytes": 247,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/git-objects/e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd.tree.gz"
+    },
+    "8852a036d1f6309b295ea5054f683f520cb38536": {
+      "git_object": "8852a036d1f6309b295ea5054f683f520cb38536",
+      "type": "tree",
+      "sha256": "59d25354426b5b76a23f01e43dcafd1f40e7953bbf29ebf7a9a766c95822d09a",
+      "bytes": 46,
+      "preserved_bytes": "main-advance-95e/fbx-evidence/git-objects/8852a036d1f6309b295ea5054f683f520cb38536.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-fbx/Cargo.toml": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "Cargo.toml",
+          "mode": "100644",
+          "child": "9bf1252e72b8ceff78e14579f22105c38a24f8f9"
+        }
+      ],
+      "git_blob": "9bf1252e72b8ceff78e14579f22105c38a24f8f9",
+      "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "bytes": 617,
+      "lines": 18
+    },
+    "crates/fabelgeist-fbx/README.md": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "README.md",
+          "mode": "100644",
+          "child": "036ffa5b24aaaeea7d8b901a39eddbfe4446a5d4"
+        }
+      ],
+      "git_blob": "036ffa5b24aaaeea7d8b901a39eddbfe4446a5d4",
+      "sha256": "39300bf6dd58c4ce0ad1b1fdb2a48dc721890a4731ca7a093ac0e2ab4fc49471",
+      "bytes": 4222,
+      "lines": 73
+    },
+    "crates/fabelgeist-fbx/src/animation.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "child": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "animation.rs",
+          "mode": "100644",
+          "child": "8c729b3f09acb762f65b0cf17d00a97f47315188"
+        }
+      ],
+      "git_blob": "8c729b3f09acb762f65b0cf17d00a97f47315188",
+      "sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+      "bytes": 12900,
+      "lines": 374
+    },
+    "crates/fabelgeist-fbx/src/array_encoding.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "child": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "array_encoding.rs",
+          "mode": "100644",
+          "child": "a935d23dfa13b14aca9d61e508f0126235fc279a"
+        }
+      ],
+      "git_blob": "a935d23dfa13b14aca9d61e508f0126235fc279a",
+      "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "bytes": 830,
+      "lines": 24
+    },
+    "crates/fabelgeist-fbx/src/array_encoding_tests.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "child": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "array_encoding_tests.rs",
+          "mode": "100644",
+          "child": "8c6c8f0a04eb2d49722741a640f4764afdbd74b7"
+        }
+      ],
+      "git_blob": "8c6c8f0a04eb2d49722741a640f4764afdbd74b7",
+      "sha256": "c1ded4b8b3e23e0bd0a611b634c00d344fe2a512193b53d43420c1c53dc2c719",
+      "bytes": 3939,
+      "lines": 119
+    },
+    "crates/fabelgeist-fbx/src/fixtures/array_encoding.txt": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "child": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "fixtures",
+          "mode": "40000",
+          "child": "8852a036d1f6309b295ea5054f683f520cb38536"
+        },
+        {
+          "tree": "8852a036d1f6309b295ea5054f683f520cb38536",
+          "name": "array_encoding.txt",
+          "mode": "100644",
+          "child": "afe126d7b6632ea05ce83f8b65849840fd55b87f"
+        }
+      ],
+      "git_blob": "afe126d7b6632ea05ce83f8b65849840fd55b87f",
+      "sha256": "58b862c072c0efaa21bd96340b233fe43cb6b20c48093202d7975f703fc1ea5f",
+      "bytes": 6193,
+      "lines": 95
+    },
+    "crates/fabelgeist-fbx/src/lib.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "child": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "lib.rs",
+          "mode": "100644",
+          "child": "9519876da12887b9c37db2258f77a873a5c1bd90"
+        }
+      ],
+      "git_blob": "9519876da12887b9c37db2258f77a873a5c1bd90",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "bytes": 18066,
+      "lines": 548
+    },
+    "crates/fabelgeist-fbx/src/object_name.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "child": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "child": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "object_name.rs",
+          "mode": "100644",
+          "child": "e04f8b80755bfd146481611b7683b37cf9f3c2b9"
+        }
+      ],
+      "git_blob": "e04f8b80755bfd146481611b7683b37cf9f3c2b9",
+      "sha256": "e3dada8ff669d491646dde601f0d483e72806176c28582aace3cf9d71cc73037",
+      "bytes": 1587,
+      "lines": 46
+    }
+  },
+  "qualification": "Raw6533 Git path chains bind original2251–2258, whose bytes exactly match current95e."
+}
