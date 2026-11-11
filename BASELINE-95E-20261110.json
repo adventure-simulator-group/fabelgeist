@@ -8153,8 +8153,57 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-ROAD-BASIS-POINTS-95E.json"
+      },
+      {
+        "id": "REVIEW-L3-BESTIARY-EXPERIENCE-ADMISSION",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; invalid-state conditional",
+        "classification": "Original BestiaryHours admission question reconnected: a directly constructed NaN target bypasses the direct-study gate while other categories can contribute; selected simulation ingestion rejects that state.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3130",
+          "adler/READ-L11-338.json"
+        ],
+        "relationship_qualification": "Original root Lens3 open contract and Adler338 NaN observation retained; the concrete symbolic example and current selected source trace are new. No accepted historical bug, historical count change or3821 attribution.",
+        "discovery": "partial; public fields, selected simulation admission, one-pass calculation and consumers traced; ordinary native decoder/training paths, retained state and aliases open",
+        "connected_repair_direction": "Determine the real admitted BestiaryHours owner and preserve deliberate nonfinite normalization and direct-study gating at all relevant boundaries.",
+        "future_acceptance": "After authorization, cover finite positive, zero, negative and nonfinite direct targets across supported admission and calculation routes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BESTIARY-ADMISSION-95E.json"
+      },
+      {
+        "id": "REVIEW-L2-BESTIARY-CATEGORY-OWNER-95E",
+        "lens": 2,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          6,
+          10,
+          12
+        ],
+        "severity": "unassigned; owner and authority question",
+        "classification": "Current build-time category name list and BestiaryCategory IDs match, but curriculum retains category text and a public consumer skips unknown names.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2373",
+          "baseline-059/queue.json#/entries/1804"
+        ],
+        "relationship_qualification": "New source question connected to two original open owner/selector obligations; shared context does not prove aliases. No existing mismatched category or observed runtime failure.",
+        "discovery": "partial; selected catalog validator, text holder, typed owner and consumers traced; all producers, external ports and policy remain open",
+        "connected_repair_direction": "Choose one category authority for validated internal curriculum while preserving native serialized selectors and intended public input boundaries.",
+        "future_acceptance": "After authorization, cover every category, invalid selectors and catalog/consumer consistency on supported boundaries.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BESTIARY-ADMISSION-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1505.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1510.json"
 }

@@ -1,0 +1,73 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2157,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Original scoped PR-working body matches committed6533 and95e at this exact identity; no additional reviewer or lens credit follows.",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2157",
+      "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+      "lines": 330,
+      "original_ordered_ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          140,
+          285
+        ]
+      ],
+      "separately_registered_historical_gap_ranges": [
+        [
+          113,
+          139
+        ],
+        [
+          286,
+          330
+        ]
+      ],
+      "new_personal_read_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "BESTIARY-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-world-schema/src/bestiary.rs",
+        "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+        "bytes": 11006,
+        "lines": 330,
+        "git_blob": "62768db020d13ac0e30019ff05a82fa85e2322d8",
+        "preserved_bytes": "main-advance-95e/bestiary-evidence/current-2157.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [],
+        "current_content_read_via_identical_historical_ranges": [
+          [
+            1,
+            330
+          ]
+        ],
+        "qualification": "Current bytes match the separately inspected full historical body; neither another reviewer nor independent other-lens credit follows."
+      },
+      "qualification": "Original scoped role, separately registered gaps and this new full-body personal Lens1 read remain distinct; historical reviewers retain their exact independent attributions."
+    }
+  ],
+  "observations": [
+    "The entire historical330-line body personally read, including the original scoped ranges and separately registered gaps; no test was executed.",
+    "Root Lens12 adoption719 preserves delegate author, original scoped ranges and separately registered gaps, zero root personal rereads and zero accepted unique-count change. Adler338 independently read all330; earlier root Lens3 independently read all330, while earlier Lens2 inherited original scoped ranges and personally read only the registered gaps. Historical e275 Lens3 revisit reused same-lens evidence with zero fresh personal lines; no attribution is transferred to this Lens1 read or checkpoint3821."
+  ],
+  "qualification": "Original scope, connected gaps and each reader are separately preserved; no checkpoint3821 claim.",
+  "next_original_role": 2158
+}
