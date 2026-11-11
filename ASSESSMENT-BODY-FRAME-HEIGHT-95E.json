@@ -1,0 +1,678 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    4,
+    5,
+    7,
+    8,
+    11,
+    12
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Existing body-frame finding and an explicitly qualified historical-to-current zero-apex behavior question.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1356-1362.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1eece7b78a87c28013bd980c21e5390231404eb3",
+      "sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "bytes": 3066,
+      "lines": 73,
+      "ranges": [
+        [
+          34,
+          50
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1a83ffa8beeede1de72e5d5c508a303cea83f74b",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "bytes": 10398,
+      "lines": 272,
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          130,
+          164
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          1619,
+          1680
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          90,
+          163
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "358e87fe07305e77249296a95bbb8cf7cbeba4c3",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "bytes": 4763,
+      "lines": 138,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "11d15d656eba0778f47cbaf382fd9f5876715825",
+      "sha256": "58396f438d078eb49da6de8b6739ccddcc0c7240fb1f6ad8e62c35d7548fb98d",
+      "bytes": 7219,
+      "lines": 253,
+      "ranges": [
+        [
+          67,
+          95
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "edf3021d5b8d198a7d04dbc1d60f77a1fafbbc0f",
+      "sha256": "06bd726fb8282af0ad5c1f54f64b1bfe383842e284e948a6226240178de4b6bb",
+      "bytes": 3152,
+      "lines": 97,
+      "ranges": [
+        [
+          38,
+          68
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          176,
+          186
+        ],
+        [
+          233,
+          239
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/body-height-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete bytes retained for recovery. No world, actor, scene, fixture, test or runtime probe ran."
+    }
+  ],
+  "existing_finding_connections": [
+    {
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "relationship": "Same earlier conditional frame-identity question; no additional unique defect.",
+      "trace": "Current authoritative server projects controller world velocity and, for contiguous ticks, derives world acceleration from the world velocity difference. Client body response transforms current world velocity and acceleration by the current owner rotation, but BodyObservation retains only prior tick and body-local velocity; deceleration classification compares that prior vector with current smoothed local acceleration. Retained smoothed acceleration also crosses observations without an explicit stored frame.",
+      "symbolic_example": "Assume an otherwise eligible grounded, action-free, lowered-guard actor with contiguous observations: previous world velocity +Z and prior body facing opposite +Z make stored previous local velocity -Z. Current body faces the world frame, current world velocity is +0.5Z and current smoothed acceleration is -Z. The stale local dot is positive, so this code selects full braking scale; expressing the previous velocity in the current frame instead gives a negative dot and satisfies the decreasing-speed condition. This is a conditional vector argument, not an executed animation or demonstrated turn.",
+      "guards_and_limits": "The response resets for a gap, posture transition, action, airborne state or raised guard; the example assumes none apply and that relevant values pass finite/norm checks. Actual rate of body turn, replicated timing, filtered acceleration history and valid ordinary movement must be established. Body-local smoothing may intentionally describe a response-space lag; it needs explicit policy. The system is client presentation only, not a movement or combat impairment.",
+      "connected_repair": "Compare physical observations in one explicitly owned frame or carry the basis needed to reproject them, then decide and document the intended frame for the acceleration filter. Preserve finite checks, by-value candidate commit, body-response caps and tactical authority.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "policy_questions": [
+    {
+      "id": "REVIEW-ZERO-RUN-APEX-HEIGHT-POLICY-001",
+      "lens": 8,
+      "severity": "unassigned; unresolved behavior and tuning policy, not a confirmed defect",
+      "classification": "Newly assessed source comparison between an archived historical working-state body and 95e; historical working state is not checkpoint 3821 or a proven direct parent.",
+      "trace": "The archived height source computes run weight as profile.flight_apex_metres divided by run_profile.flight_apex_metres and returns an overflow error for a nonfinite quotient. Current 95e computes run weight from the checked walk-to-run speed interval. Current HeightDistance admits zero and the current locomotion validator does not require a positive run apex. If a current otherwise-valid configuration sets run flight apex to zero and retains the shipped speeds and 0.033-metre authored passing-rise compensation, an upright grounded unarmed lowered-guard no-action actor at run reference speed has current flight-wave amplitude zero but current compensation 0.033 metres. In the archived expression, the corresponding hypothetical zero-over-zero quotient would be nonfinite and rejected.",
+      "qualification": "This is a source-level conditional comparison only. The shipped run apex is 0.12 metres, not zero. The historical file is a separately hash-identified PR working-state source; its configuration admission and ancestry to 95e have not been established. The zero-apex current result may be an intentional correction that still subtracts authored skeleton rise; no regression, visible result, product execution or incorrect policy is asserted. Complete producer, actual authored rig movement, finite rounding, current tuning intent and current aliases remain open.",
+      "connected_repair": "Decide whether zero configured run flight should retain independent authored-rise compensation, and document the chosen semantics; only if a defect is established align config admission, height/compensation logic and its consumers without compatibility paths. Preserve ordinary positive-apex behavior and tactical/presentation separation.",
+      "later_acceptance": "After separate implementation and validation authorization if needed, compare normal and zero-apex valid tuning, authored rig clearance and transition behavior with the project-required diagnostics.",
+      "discovery": "partial; policy and actual visual consequences open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-BODY-OBSERVATION-FRAME"
+      ],
+      "qualification": "Earlier body-frame finding retains original attribution, revision and unresolved producer/timing policy."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/39",
+        "/entries/1151 through /entries/1157"
+      ],
+      "qualification": "Selected current and historical source work remains partial."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-186.json",
+      "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4",
+      "bytes": 11771,
+      "git_blob": "8c6f511efb3c093baf7773aed8ce0059cd590d7b",
+      "preserved_bytes": "recovered/body-height-059/915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4.gz",
+      "published_sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4",
+      "published_bytes": 11771,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial or independently attributed body-frame finding"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-378-001.json",
+      "sha256": "b69d219843b95d6a38ed96e6c7694cb07faf90ad550e83a59826160505baf6de",
+      "bytes": 6059,
+      "git_blob": "b49b22c52aa7399b3f1b6308d370cda25fcf7730",
+      "preserved_bytes": "recovered/body-height-059/b69d219843b95d6a38ed96e6c7694cb07faf90ad550e83a59826160505baf6de.gz",
+      "published_sha256": "b69d219843b95d6a38ed96e6c7694cb07faf90ad550e83a59826160505baf6de",
+      "published_bytes": 6059,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial or independently attributed body-frame finding"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-378-002.json",
+      "sha256": "fbedf964a0afa82b547852e1ae192781f51d5684b235e66b4b01b589889e1887",
+      "bytes": 6187,
+      "git_blob": "30cb6e505c346a54769b4aac4ec39d20598f909c",
+      "preserved_bytes": "recovered/body-height-059/fbedf964a0afa82b547852e1ae192781f51d5684b235e66b4b01b589889e1887.gz",
+      "published_sha256": "fbedf964a0afa82b547852e1ae192781f51d5684b235e66b4b01b589889e1887",
+      "published_bytes": 6187,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial or independently attributed body-frame finding"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-378-003.json",
+      "sha256": "61bc885b9bdd6465f355d3b51c8ade49e7cdc8b94222f9259500ccfad4051e5c",
+      "bytes": 4526,
+      "git_blob": "7dd77b0751092f5f95872a50c19b27bbdeefd3e4",
+      "preserved_bytes": "recovered/body-height-059/61bc885b9bdd6465f355d3b51c8ade49e7cdc8b94222f9259500ccfad4051e5c.gz",
+      "published_sha256": "61bc885b9bdd6465f355d3b51c8ade49e7cdc8b94222f9259500ccfad4051e5c",
+      "published_bytes": 4526,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial or independently attributed body-frame finding"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PARTIAL-L12-378-004-EOF.json",
+      "sha256": "69b7bf180446b0cff2ce3b71345f77114e8f3db59b30a11daf2c6781188142eb",
+      "bytes": 2524,
+      "git_blob": "f7fbe142677d98167e900ed6b5ebc18de6c929b4",
+      "preserved_bytes": "recovered/body-height-059/69b7bf180446b0cff2ce3b71345f77114e8f3db59b30a11daf2c6781188142eb.gz",
+      "published_sha256": "69b7bf180446b0cff2ce3b71345f77114e8f3db59b30a11daf2c6781188142eb",
+      "published_bytes": 2524,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier partial or independently attributed body-frame finding"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-378.json",
+      "sha256": "b391c82e7acd35f9e7d27c560ff0795f81bcafe744cf0136c203d0aaa0fb84a7",
+      "bytes": 725,
+      "git_blob": "52b8cafa4621ad5b979d66ee1e92e4c91f8d3873",
+      "preserved_bytes": "recovered/body-height-059/b391c82e7acd35f9e7d27c560ff0795f81bcafe744cf0136c203d0aaa0fb84a7.gz",
+      "published_sha256": "b391c82e7acd35f9e7d27c560ff0795f81bcafe744cf0136c203d0aaa0fb84a7",
+      "published_bytes": 725,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-379.json",
+      "sha256": "1e03947d78cd3a8d5db63d4f387a95e398b1799ded3a5c366ad712c011e9f063",
+      "bytes": 1248,
+      "git_blob": "1d4a07634836745bb201aff350d165cbf167faea",
+      "preserved_bytes": "recovered/body-height-059/1e03947d78cd3a8d5db63d4f387a95e398b1799ded3a5c366ad712c011e9f063.gz",
+      "published_sha256": "1e03947d78cd3a8d5db63d4f387a95e398b1799ded3a5c366ad712c011e9f063",
+      "published_bytes": 1248,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-380.json",
+      "sha256": "de24733f9382c6b8fa5415291bcad714a034af60bb15dae0515eaf20fd508107",
+      "bytes": 1724,
+      "git_blob": "6675f96e52b986eeac72366f23545492bff9ab9b",
+      "preserved_bytes": "recovered/body-height-059/de24733f9382c6b8fa5415291bcad714a034af60bb15dae0515eaf20fd508107.gz",
+      "published_sha256": "de24733f9382c6b8fa5415291bcad714a034af60bb15dae0515eaf20fd508107",
+      "published_bytes": 1724,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-381.json",
+      "sha256": "26e82f042777757b0321719d8913a7ce563c80cba5edd8cc32042b4f95ebabe5",
+      "bytes": 1740,
+      "git_blob": "a6333f62d470e4d4e8907aa29646821a644258b0",
+      "preserved_bytes": "recovered/body-height-059/26e82f042777757b0321719d8913a7ce563c80cba5edd8cc32042b4f95ebabe5.gz",
+      "published_sha256": "26e82f042777757b0321719d8913a7ce563c80cba5edd8cc32042b4f95ebabe5",
+      "published_bytes": 1740,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-378.json",
+      "sha256": "4861d76cd183dca74dc8ecb4c90bb101bf2e7e3d453d0e2d808a972a08142934",
+      "bytes": 18325,
+      "git_blob": "7253a5a5a9cfa0e7ac30c2db6cf0a40360abcb74",
+      "preserved_bytes": "recovered/body-height-059/4861d76cd183dca74dc8ecb4c90bb101bf2e7e3d453d0e2d808a972a08142934.gz",
+      "published_sha256": "4861d76cd183dca74dc8ecb4c90bb101bf2e7e3d453d0e2d808a972a08142934",
+      "published_bytes": 18325,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-379.json",
+      "sha256": "649b722d267ce832e42b85135954db4eba138b1861e9a0eb414d7ca1a68c6118",
+      "bytes": 8651,
+      "git_blob": "80973576288d72dd9393da6af58ac1ac708803be",
+      "preserved_bytes": "recovered/body-height-059/649b722d267ce832e42b85135954db4eba138b1861e9a0eb414d7ca1a68c6118.gz",
+      "published_sha256": "649b722d267ce832e42b85135954db4eba138b1861e9a0eb414d7ca1a68c6118",
+      "published_bytes": 8651,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-380.json",
+      "sha256": "14de421c5a127d48f8ec7eb30a13e36419f4690a13f8f54abdb66ecc32d10f18",
+      "bytes": 11795,
+      "git_blob": "d0f073d062d21066c9893cec4eafe3e3d050f351",
+      "preserved_bytes": "recovered/body-height-059/14de421c5a127d48f8ec7eb30a13e36419f4690a13f8f54abdb66ecc32d10f18.gz",
+      "published_sha256": "14de421c5a127d48f8ec7eb30a13e36419f4690a13f8f54abdb66ecc32d10f18",
+      "published_bytes": 11795,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-381.json",
+      "sha256": "388e84a0cd02dee47119f0dd275ec36ffa49df3e69be6593a61aaa797aa5abe2",
+      "bytes": 10713,
+      "git_blob": "a536a9d54762965f4429c463c8303ad1eb754330",
+      "preserved_bytes": "recovered/body-height-059/388e84a0cd02dee47119f0dd275ec36ffa49df3e69be6593a61aaa797aa5abe2.gz",
+      "published_sha256": "388e84a0cd02dee47119f0dd275ec36ffa49df3e69be6593a61aaa797aa5abe2",
+      "published_bytes": 10713,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-263.json",
+      "sha256": "2e8483485997344f400e03ce3ca6d35395d8f447f1ceef52c0ea39eee82a01d8",
+      "bytes": 1215,
+      "git_blob": "f2c69af6927e753730000e6068aeab9c002aa8f5",
+      "preserved_bytes": "recovered/body-height-059/2e8483485997344f400e03ce3ca6d35395d8f447f1ceef52c0ea39eee82a01d8.gz",
+      "published_sha256": "2e8483485997344f400e03ce3ca6d35395d8f447f1ceef52c0ea39eee82a01d8",
+      "published_bytes": 1215,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-264.json",
+      "sha256": "d34679d309f08bc474f29bcd3ab3da1356ec9ab1efb94a690f23506645f64d69",
+      "bytes": 1294,
+      "git_blob": "49ec553c2e9a6086066d49cf27707eefb87e891d",
+      "preserved_bytes": "recovered/body-height-059/d34679d309f08bc474f29bcd3ab3da1356ec9ab1efb94a690f23506645f64d69.gz",
+      "published_sha256": "d34679d309f08bc474f29bcd3ab3da1356ec9ab1efb94a690f23506645f64d69",
+      "published_bytes": 1294,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-265.json",
+      "sha256": "26916db99cc4dc2a61aef3b0f30ae9c2b1d6d32e8505ab115d05c64a2a6e78f3",
+      "bytes": 1308,
+      "git_blob": "52f1a57025ce727b7877bde0c15bbe951bf100f7",
+      "preserved_bytes": "recovered/body-height-059/26916db99cc4dc2a61aef3b0f30ae9c2b1d6d32e8505ab115d05c64a2a6e78f3.gz",
+      "published_sha256": "26916db99cc4dc2a61aef3b0f30ae9c2b1d6d32e8505ab115d05c64a2a6e78f3",
+      "published_bytes": 1308,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-266.json",
+      "sha256": "8625fcbd5d5a1f576d2769496d6a861796d6956daf77b2eb61ca0cfaf0579fb8",
+      "bytes": 1214,
+      "git_blob": "186a3892c8a4d359a1574598bbd7cd9171d1f000",
+      "preserved_bytes": "recovered/body-height-059/8625fcbd5d5a1f576d2769496d6a861796d6956daf77b2eb61ca0cfaf0579fb8.gz",
+      "published_sha256": "8625fcbd5d5a1f576d2769496d6a861796d6956daf77b2eb61ca0cfaf0579fb8",
+      "published_bytes": 1214,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-267.json",
+      "sha256": "b34999f0d2769a1d05f9f9f4be325c3a5f2b858f8433222909d96c6639273be1",
+      "bytes": 1200,
+      "git_blob": "fa54ed79e51cf5236434fe01654f1c500dcca6f7",
+      "preserved_bytes": "recovered/body-height-059/b34999f0d2769a1d05f9f9f4be325c3a5f2b858f8433222909d96c6639273be1.gz",
+      "published_sha256": "b34999f0d2769a1d05f9f9f4be325c3a5f2b858f8433222909d96c6639273be1",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-268.json",
+      "sha256": "5493c94b3d82b686e838f909c53c5faec8b0631c3e9be357f71e24b448dbc890",
+      "bytes": 1200,
+      "git_blob": "1c36bcb2bc7f2d4103a4d62b3ff400a5f7067c7a",
+      "preserved_bytes": "recovered/body-height-059/5493c94b3d82b686e838f909c53c5faec8b0631c3e9be357f71e24b448dbc890.gz",
+      "published_sha256": "5493c94b3d82b686e838f909c53c5faec8b0631c3e9be357f71e24b448dbc890",
+      "published_bytes": 1200,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-269.json",
+      "sha256": "6c7883879b24bfcc83b345ba791f2a9f27a78d846d9423dafdf3c738bc232127",
+      "bytes": 1222,
+      "git_blob": "abcc7fea7fd0b3f72afc85bb99631e3c8914db08",
+      "preserved_bytes": "recovered/body-height-059/6c7883879b24bfcc83b345ba791f2a9f27a78d846d9423dafdf3c738bc232127.gz",
+      "published_sha256": "6c7883879b24bfcc83b345ba791f2a9f27a78d846d9423dafdf3c738bc232127",
+      "published_bytes": 1222,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-270.json",
+      "sha256": "bf8f53a77bc60b7bb71e3bf015c4d0b205b38e7b2a23c24a252f0882a99acfec",
+      "bytes": 1234,
+      "git_blob": "e76cbb65386c0eade8119dfed9a3a64dcaff2877",
+      "preserved_bytes": "recovered/body-height-059/bf8f53a77bc60b7bb71e3bf015c4d0b205b38e7b2a23c24a252f0882a99acfec.gz",
+      "published_sha256": "bf8f53a77bc60b7bb71e3bf015c4d0b205b38e7b2a23c24a252f0882a99acfec",
+      "published_bytes": 1234,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-271.json",
+      "sha256": "57629415d060d2362b40ab7482c2dc0e1f2799eddf665950b1e04c73c56a4607",
+      "bytes": 1246,
+      "git_blob": "4b0afeda68634571456f74179f09662bf349ec24",
+      "preserved_bytes": "recovered/body-height-059/57629415d060d2362b40ab7482c2dc0e1f2799eddf665950b1e04c73c56a4607.gz",
+      "published_sha256": "57629415d060d2362b40ab7482c2dc0e1f2799eddf665950b1e04c73c56a4607",
+      "published_bytes": 1246,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-378.json",
+      "sha256": "dcec8c8d48932be59301060586151408d0c8dc8d11d6c6554db4db4f5b80e5f0",
+      "bytes": 840,
+      "git_blob": "280a7ca803a73ba6abef0ee26349ca325ee0815a",
+      "preserved_bytes": "recovered/body-height-059/dcec8c8d48932be59301060586151408d0c8dc8d11d6c6554db4db4f5b80e5f0.gz",
+      "published_sha256": "dcec8c8d48932be59301060586151408d0c8dc8d11d6c6554db4db4f5b80e5f0",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-379.json",
+      "sha256": "4585ffd0d93d3c324d2906892ae00b1c15071439d5d683b08a53701606a96050",
+      "bytes": 840,
+      "git_blob": "264daa2be9a30ac7838c0be0700f53dadb49f298",
+      "preserved_bytes": "recovered/body-height-059/4585ffd0d93d3c324d2906892ae00b1c15071439d5d683b08a53701606a96050.gz",
+      "published_sha256": "4585ffd0d93d3c324d2906892ae00b1c15071439d5d683b08a53701606a96050",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-380.json",
+      "sha256": "04a218349d5529d31568897f2435d8e6ebba4f1575ee9c0d2011d7a0d46cc878",
+      "bytes": 840,
+      "git_blob": "43072301b8a69ab27affd881fc38f8dc91153a3a",
+      "preserved_bytes": "recovered/body-height-059/04a218349d5529d31568897f2435d8e6ebba4f1575ee9c0d2011d7a0d46cc878.gz",
+      "published_sha256": "04a218349d5529d31568897f2435d8e6ebba4f1575ee9c0d2011d7a0d46cc878",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-381.json",
+      "sha256": "dd78d7a85c6b910768fe413b8daa5e17cdf390dfdbbe7e7c2a25563465f35cee",
+      "bytes": 840,
+      "git_blob": "2f4e9d892d21407931f477c020335e5a3594ce13",
+      "preserved_bytes": "recovered/body-height-059/dd78d7a85c6b910768fe413b8daa5e17cdf390dfdbbe7e7c2a25563465f35cee.gz",
+      "published_sha256": "dd78d7a85c6b910768fe413b8daa5e17cdf390dfdbbe7e7c2a25563465f35cee",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-378.json",
+      "sha256": "514ae1f436e6e58c5090311c76c39e59d6fa04e4316ac6d2f1e435fd1bb02b07",
+      "bytes": 558,
+      "git_blob": "abe436df4337a7ab3615e455d334d82bbf9f0be9",
+      "preserved_bytes": "recovered/body-height-059/514ae1f436e6e58c5090311c76c39e59d6fa04e4316ac6d2f1e435fd1bb02b07.gz",
+      "published_sha256": "514ae1f436e6e58c5090311c76c39e59d6fa04e4316ac6d2f1e435fd1bb02b07",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-379.json",
+      "sha256": "b82c55b2b7d2c99b9c081248aa790e2444c429e3ce839e3c99dc8b90fa56e934",
+      "bytes": 558,
+      "git_blob": "934dbbd7a3e576a2cde85d555426deff6d397a9d",
+      "preserved_bytes": "recovered/body-height-059/b82c55b2b7d2c99b9c081248aa790e2444c429e3ce839e3c99dc8b90fa56e934.gz",
+      "published_sha256": "b82c55b2b7d2c99b9c081248aa790e2444c429e3ce839e3c99dc8b90fa56e934",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-380.json",
+      "sha256": "a28c05abdcc2b01f5ca1d34265beb30ca93f8c011eca2b5e0e7c22d0b7b42803",
+      "bytes": 558,
+      "git_blob": "c3272cced5a7aaeac46324a8ead6dd89f5dcefcd",
+      "preserved_bytes": "recovered/body-height-059/a28c05abdcc2b01f5ca1d34265beb30ca93f8c011eca2b5e0e7c22d0b7b42803.gz",
+      "published_sha256": "a28c05abdcc2b01f5ca1d34265beb30ca93f8c011eca2b5e0e7c22d0b7b42803",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-381.json",
+      "sha256": "71d98964d05f20bfe05947f40d2594046621423d9674dcdc8eea9c270476c9d5",
+      "bytes": 558,
+      "git_blob": "42b1b1db6a5b16e117dc77731723479f4aaef7aa",
+      "preserved_bytes": "recovered/body-height-059/71d98964d05f20bfe05947f40d2594046621423d9674dcdc8eea9c270476c9d5.gz",
+      "published_sha256": "71d98964d05f20bfe05947f40d2594046621423d9674dcdc8eea9c270476c9d5",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier evidence verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual supported turning and observation timing, zero-apex product intent, authored rig, native engine behavior, aliases and thirteen independent lenses remain open. Checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

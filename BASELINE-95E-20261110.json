@@ -2926,8 +2926,23 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-INERTIAL-COEFFICIENTS-95E.json"
+      },
+      {
+        "id": "REVIEW-ZERO-RUN-APEX-HEIGHT-POLICY-001",
+        "lens": 8,
+        "severity": "unassigned; unresolved behavior and tuning policy, not a confirmed defect",
+        "classification": "Newly assessed source comparison between an archived historical working-state body and 95e; historical working state is not checkpoint 3821 or a proven direct parent.",
+        "historical_related_records": [
+          "historical role 1362 in ASSESSMENT-L01-HISTORICAL-1356-1362.json",
+          "baseline-059/queue.json#/entries/1157 (broader historical height contract)"
+        ],
+        "relationship_qualification": "Earlier PR working-state body is byte-identified and separately attributed; no direct ancestry, confirmed regression, final checkpoint or global alias claimed.",
+        "discovery": "partial; policy and actual visual consequences open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-BODY-FRAME-HEIGHT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0429.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0432.json"
 }
