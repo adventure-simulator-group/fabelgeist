@@ -1,0 +1,618 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2285 follicles and growth field; selected current CPU/GPU consumers, existing units and historical source receipts.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2285.json",
+  "git_membership_evidence": "HAIR-GROWTH-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-hair/src/hairdo.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3949e0448856562442d7079cea95529aef6ac02b",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "bytes": 28924,
+      "lines": 710,
+      "ranges": [
+        [
+          210,
+          302
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/orient.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "2047751f23a249c55d5b8430b2412a9d57b0bafc",
+      "sha256": "4b8ec31a314feb37e259b5f276d012a5cfc08656d0c342bf09de0bbd69d77d59",
+      "bytes": 5053,
+      "lines": 129,
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/strands.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73594775643839d9ee3755ac9b84b8e6f5c71b1e",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "bytes": 14821,
+      "lines": 448,
+      "ranges": [
+        [
+          255,
+          277
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/head.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "eee4981174c04fbf04ca49496ee64c8512c23475",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "bytes": 17623,
+      "lines": 475,
+      "ranges": [
+        [
+          140,
+          167
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6c835de7fdc56958f9c61294e9e66098c1825a30",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "bytes": 3378,
+      "lines": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5fc60ed49f2ce2bc347d41224dd71c74b04b10f8",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "bytes": 52735,
+      "lines": 1609,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/look.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "00f465173e02af5239d89591c2143234fc97c20d",
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "bytes": 21029,
+      "lines": 469,
+      "ranges": [
+        [
+          35,
+          105
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/look/groom.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "74839cad2ea4c0a4496080620c04c72282eb1ee4",
+      "sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+      "bytes": 7154,
+      "lines": 193,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-hair/src/ops/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "821bdd314616d8df693871c2d086ca00ec3a4a96",
+      "sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "bytes": 12699,
+      "lines": 347,
+      "ranges": [
+        [
+          185,
+          203
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-math/src/units.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "25d33aac2c69a5a469c19138a7ae4fc9290b9584",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "bytes": 3578,
+      "lines": 120,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    },
+    {
+      "path": "crates/fabelgeist-math/src/vector/vec3.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f94653afff5eb8c6566d6d0039cfa4fab8e4c679",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "bytes": 5816,
+      "lines": 263,
+      "ranges": [
+        [
+          25,
+          34
+        ],
+        [
+          45,
+          46
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/hair-growth-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only selected current support ranges credited; complete body preserved. Even fully displayed future role2288 is a connected support view, not ordered-role credit."
+    }
+  ],
+  "prior_current_evidence": [],
+  "observations": [
+    {
+      "contract": "Growth field aggregate and consumers",
+      "trace": "Follicles.field constructs zero whorls for Forward/Backward/Down, one for Whorl/Radial and two for DoubleWhorl/Cowlick. GrowthField publicly stores and deserializes growth and a separate Vec<Whorl>; direction uses the first one or two when required and falls back to down for a missing required shape. Hairdo.comb and Orient.apply consume directions. Packed GPU source derives the field from Follicles and mirrors current 0/1/2 shape branches.",
+      "remaining": "Original Adler364 and delegate750 already distinguished the ordinary construction and the public aggregate policy. Whether directly serialized or hand-built inconsistent GrowthField states are supported is open; no malformed state or shader ran."
+    },
+    {
+      "contract": "Normal and fallback admission",
+      "trace": "tangent(v,n) computes v - n*dot(v,n), which is a projection for a unit normal. GrowthField.direction accepts Vec3 n without a typed unit guarantee. For the symbolic public input Growth::Down, p=center and n=(0,2,0), the inner vector after tangent is (0.35,3,0), and the final pre-normalization vector is (0.35,-9,0), whose dot with n is -18. Head.gradient normalizes the central difference; Orient normalizes its stored normal with a fallback.",
+      "remaining": "This is static algebra for a non-unit input, not a proven ordinary caller or actual non-tangent runtime result. Exact finite/degenerate Head and guide input policy remains open. Earlier delegate750 had requested the actual safe_normalize body and consumer trace."
+    },
+    {
+      "contract": "Existing metre and ratio owner fit",
+      "trace": "Hairline front, sides, nape, recession, peak and softness; Follicles memory and radius; and Whorl reach are documented as metres, while patchiness and balding are dimensionless 0-to-1 quantities. Existing fabelgeist_math Metres and Ratio preserve f32 units but impose no numerical policy, and Look already uses both for related hair controls.",
+      "remaining": "Owner fit is source-supported, not proof of identical validity bounds: signed offsets, zero softness/memory, positive radius/reach and bounded percentages may need different local admission policies. Follicles kink is documented in radians per root metre; it must not be equated to RadiansPerMetre without a dimensional proof."
+    },
+    {
+      "contract": "Growth encoding and output labels",
+      "trace": "Growth is an enum; its name method returns human-facing labels. GPU packing obtains an index from Growth::ALL with a zero fallback; current ALL order matches shader cases0–6.",
+      "remaining": "The current seven variants and cases are aligned in the inspected source. Manual future enum/list/shader drift is a policy/maintenance question, not a demonstrated current misencoding. Whorl handedness and the clockwise bool are retained without presuming every boolean needs an enum."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "Q-L12-70094542adbd79449649",
+      "queue": 1835,
+      "qualification": "Only the named connected head/normal and consumer source subset is partially traced; the historical pending record is broad and receives no closure or unique-count credit."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-HAIR-GROWTH-FIELD-AGGREGATE-95E",
+      "qualification": "Source-backed current policy or owner-fit candidate; historical observations and unresolved conditions remain explicit."
+    },
+    {
+      "id": "REVIEW-HAIR-GROWTH-NORMAL-ADMISSION-95E",
+      "qualification": "Source-backed current policy or owner-fit candidate; historical observations and unresolved conditions remain explicit."
+    },
+    {
+      "id": "REVIEW-HAIR-FOLLICLE-METRE-OWNER-95E",
+      "qualification": "Source-backed current policy or owner-fit candidate; historical observations and unresolved conditions remain explicit."
+    },
+    {
+      "id": "REVIEW-HAIR-FOLLICLE-RATIO-OWNER-95E",
+      "qualification": "Source-backed current policy or owner-fit candidate; historical observations and unresolved conditions remain explicit."
+    },
+    {
+      "id": "REVIEW-HAIR-GROWTH-GPU-CODE-95E",
+      "qualification": "Source-backed current policy or owner-fit candidate; historical observations and unresolved conditions remain explicit."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-354.json",
+      "sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "bytes": 12620,
+      "git_blob": "bec980cdd0cb93891828d4b5a7a690c936ae6b37",
+      "preserved_bytes": "recovered/hair-growth-059/f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2.gz",
+      "published_sha256": "f292c74bebc9c482c518892ea1df27c75b224306896a1f217fad53394e5a99c2",
+      "published_bytes": 12620,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-355.json",
+      "sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "bytes": 15195,
+      "git_blob": "3bf9dd51f997220de36ab9528a052022572cb545",
+      "preserved_bytes": "recovered/hair-growth-059/05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207.gz",
+      "published_sha256": "05f16707e895c7f634d52243533e3baa9d594ca3bd217fa5a834daa59da5e207",
+      "published_bytes": 15195,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-356.json",
+      "sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "bytes": 24598,
+      "git_blob": "15a9edc19d117a4470ab7e4837f4c3e753517b00",
+      "preserved_bytes": "recovered/hair-growth-059/f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c.gz",
+      "published_sha256": "f1b81a13b5eb0ad1e9a72de680aa75412c0d01dea8c4040d09875c9aca0b529c",
+      "published_bytes": 24598,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-357.json",
+      "sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "bytes": 8858,
+      "git_blob": "b94f820a6f2779d892638a70cec91d691ea25e25",
+      "preserved_bytes": "recovered/hair-growth-059/6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6.gz",
+      "published_sha256": "6b2f38af5f97257dca61527e1d160f72cf68a17fc33c3fb76ef5a11ac35b7cc6",
+      "published_bytes": 8858,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "bytes": 14390,
+      "git_blob": "b0548779064b890ccda7b7f09995c3d954394767",
+      "preserved_bytes": "recovered/hair-growth-059/044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d.gz",
+      "published_sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d",
+      "published_bytes": 14390,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-359.json",
+      "sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "bytes": 5718,
+      "git_blob": "534c71620b715e73261570e4933aed838ffde588",
+      "preserved_bytes": "recovered/hair-growth-059/510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f.gz",
+      "published_sha256": "510203377dbc5c48da5a6abdbf015974f59c67d4275bd8af50c53398dfed238f",
+      "published_bytes": 5718,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-360.json",
+      "sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "bytes": 10355,
+      "git_blob": "dcbb2f5ad255bfc9555a54bd65200f84331b3302",
+      "preserved_bytes": "recovered/hair-growth-059/6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9.gz",
+      "published_sha256": "6338eb8d38837e33a390ddd0ce88cc2cda0d0de3b381f5f0f71ee8aeae60dac9",
+      "published_bytes": 10355,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-361.json",
+      "sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "bytes": 14000,
+      "git_blob": "744f0ca5c64ce4a66244ce8881b1975b4a58a4d5",
+      "preserved_bytes": "recovered/hair-growth-059/a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31.gz",
+      "published_sha256": "a66f9d497a281a94562431f7440b408d812405378e785d1f8e3cd6dd088dcb31",
+      "published_bytes": 14000,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-362.json",
+      "sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "bytes": 5840,
+      "git_blob": "1b262e91e7425b0aca6dd8b573570702374af696",
+      "preserved_bytes": "recovered/hair-growth-059/eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c.gz",
+      "published_sha256": "eac4ba1b74b56e05ab2e57a8722b895d135f64232c40bf11f008aadb264a1b6c",
+      "published_bytes": 5840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-363.json",
+      "sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "bytes": 17910,
+      "git_blob": "f2e0003dcbc1d7a451a6c51df2dfc89fbf3c22ef",
+      "preserved_bytes": "recovered/hair-growth-059/655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e.gz",
+      "published_sha256": "655ae24929bef717417d071eb4bd754ce35be0eba987589cefd11e693dfe2e2e",
+      "published_bytes": 17910,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-364.json",
+      "sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "bytes": 10812,
+      "git_blob": "404f67ba8ba50a9362cb5324a4c268a374d6d52d",
+      "preserved_bytes": "recovered/hair-growth-059/8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86.gz",
+      "published_sha256": "8b39f65b50bb03918f855fe7aa29c444817b1e3ce47a9900e1a135b5222b2c86",
+      "published_bytes": 10812,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1144.json",
+      "sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "bytes": 786,
+      "git_blob": "45e115191bffc9b2ec297c67cba438bad4b33166",
+      "preserved_bytes": "recovered/hair-growth-059/73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84.gz",
+      "published_sha256": "73bb20e1818e634f5c2307a98d384edea5414fe3b48991117f46521ca3571c84",
+      "published_bytes": 786,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1145.json",
+      "sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "bytes": 785,
+      "git_blob": "796997a377b4b9022c743d472d430f8d2f3cfb37",
+      "preserved_bytes": "recovered/hair-growth-059/588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12.gz",
+      "published_sha256": "588b31f6bbf5579a31af7a71200006e462fa6c1464242f8e54d0c5e4aa570c12",
+      "published_bytes": 785,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1146.json",
+      "sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "bytes": 787,
+      "git_blob": "af7f7cf4cdbb2333d6ec346d9b286b89614ca80a",
+      "preserved_bytes": "recovered/hair-growth-059/b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a.gz",
+      "published_sha256": "b0916163f5960b4d2369c850459d68f1fb10e5099aaa15bf61e00eb6bc825f0a",
+      "published_bytes": 787,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1147.json",
+      "sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "bytes": 793,
+      "git_blob": "d11c68c4aac6d78e7324b07110edc0ed0d2820bb",
+      "preserved_bytes": "recovered/hair-growth-059/f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a.gz",
+      "published_sha256": "f34b44d4f97913f8b0a02fbc9e926675699d233e6c5fbc07bb1892f68f3ea89a",
+      "published_bytes": 793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-364.json",
+      "sha256": "0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990",
+      "bytes": 646,
+      "git_blob": "7339e4b37c24b7bf5ccc3bc07a275a1ded6a55a3",
+      "preserved_bytes": "recovered/hair-growth-059/0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990.gz",
+      "published_sha256": "0a4c7690f423c3463792d63b7fe0cbf40220fb2ca4af8f982c871cd1b2bcc990",
+      "published_bytes": 646,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-364.json",
+      "sha256": "113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8",
+      "bytes": 35135,
+      "git_blob": "a19a4300d695363f57bdd1895c9af9d9917bdd98",
+      "preserved_bytes": "recovered/hair-growth-059/113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8.gz",
+      "published_sha256": "113f140910554dd8074b24a43f4e4c4a2fba37273675e8c00ec21b78890fadb8",
+      "published_bytes": 35135,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-750.json",
+      "sha256": "c8037200bdf63c274605ca5377168d61a400834bced7bdac48346e6dd2f1760c",
+      "bytes": 15635,
+      "git_blob": "1807f5464fd976c39cac6410d0600200557dd289",
+      "preserved_bytes": "recovered/hair-growth-059/c8037200bdf63c274605ca5377168d61a400834bced7bdac48346e6dd2f1760c.gz",
+      "published_sha256": "c8037200bdf63c274605ca5377168d61a400834bced7bdac48346e6dd2f1760c",
+      "published_bytes": 15635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-245.json",
+      "sha256": "1754d24f80e7ca89acbc501ee4bb22450c06595db6273a0e1713beee1287ffda",
+      "bytes": 1166,
+      "git_blob": "c92050e29f55800731f0f7837fcf41837968f75d",
+      "preserved_bytes": "recovered/hair-growth-059/1754d24f80e7ca89acbc501ee4bb22450c06595db6273a0e1713beee1287ffda.gz",
+      "published_sha256": "1754d24f80e7ca89acbc501ee4bb22450c06595db6273a0e1713beee1287ffda",
+      "published_bytes": 1166,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-246.json",
+      "sha256": "16e610e122d1bb9c3690a82145de56dcfaf0f742a46b73bafa222ad49ab90f16",
+      "bytes": 904,
+      "git_blob": "1bdf7a06e3dff403b4abd040fafa94e6648aaf08",
+      "preserved_bytes": "recovered/hair-growth-059/16e610e122d1bb9c3690a82145de56dcfaf0f742a46b73bafa222ad49ab90f16.gz",
+      "published_sha256": "16e610e122d1bb9c3690a82145de56dcfaf0f742a46b73bafa222ad49ab90f16",
+      "published_bytes": 904,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegate prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-750.json",
+      "sha256": "ac3cc6cc06bcf619c6341788c8bc1558ac3cd533a8cd4bf3f7377b6cc454a6d5",
+      "bytes": 7383,
+      "git_blob": "1a792f8f82931febbe89d9454697a2e98752491f",
+      "preserved_bytes": "recovered/hair-growth-059/ac3cc6cc06bcf619c6341788c8bc1558ac3cd533a8cd4bf3f7377b6cc454a6d5.gz",
+      "published_sha256": "ac3cc6cc06bcf619c6341788c8bc1558ac3cd533a8cd4bf3f7377b6cc454a6d5",
+      "published_bytes": 7383,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-750.json",
+      "sha256": "c0d3f10a6a054a6e98cdcbf8c960f2ede7430d84b858b8e0545c607753ef6309",
+      "bytes": 1640,
+      "git_blob": "a76c46cfa3d4b14476fc0eda6c1fa12e18c45239",
+      "preserved_bytes": "recovered/hair-growth-059/c0d3f10a6a054a6e98cdcbf8c960f2ede7430d84b858b8e0545c607753ef6309.gz",
+      "published_sha256": "c0d3f10a6a054a6e98cdcbf8c960f2ede7430d84b858b8e0545c607753ef6309",
+      "published_bytes": 1640,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-750.json",
+      "sha256": "6ea9d452469eab4076005ffea326eac303e26374169386920ad7dc0bcfd0674d",
+      "bytes": 667,
+      "git_blob": "39161dfaf84aef1f7c69044e299823683cd2a6b4",
+      "preserved_bytes": "recovered/hair-growth-059/6ea9d452469eab4076005ffea326eac303e26374169386920ad7dc0bcfd0674d.gz",
+      "published_sha256": "6ea9d452469eab4076005ffea326eac303e26374169386920ad7dc0bcfd0674d",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Historical source receipt, verification or state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Rig supplier and producer, Adler364 and Lens12 delegate750 retain their separate original scopes and pending status; root adoption is not a root historical reread.",
+  "remaining": "Continue original2286 and all thirteen incomplete lenses, trace whole admitted producer population and existing owners, and resolve exact aliases. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

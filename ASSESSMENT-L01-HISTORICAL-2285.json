@@ -1,0 +1,83 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2285",
+      "original_locator": "crates/fabelgeist-hair/src/follicles.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+          "row": 200,
+          "read_ranges": [
+            [
+              1,
+              400
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [
+        {
+          "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+          "receipt": "RIG-PPS-011",
+          "read_ranges_as_recorded": [
+            [
+              1,
+              400
+            ]
+          ],
+          "material_contract_ranges_as_recorded": null
+        }
+      ],
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "lines": 400,
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "HAIR-GROWTH-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "local_registration": {
+        "path": "REGISTRATION-L01-2285.json",
+        "sha256": "753c0a12c8e23311bd88210c46be9dd9e0e987cb475fe2327baa17e57661e754"
+      },
+      "new_personal_read_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "new_personal_read_range_qualification": "Historical6533 and current95e role2285 are byte-identical; complete current body displayed after local registration. Historical reviewer attribution is not transferred.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-hair/src/follicles.rs",
+        "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+        "bytes": 14502,
+        "lines": 400,
+        "git_blob": "2ec068cf6170dcaf738906f502a79da12ab09f81",
+        "preserved_bytes": "main-advance-95e/hair-growth-evidence/current-2285.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            400
+          ]
+        ],
+        "qualification": "Current full body displayed after registration. The identical historical body is bound by its hash and Git tree; no product code was executed."
+      },
+      "qualification": "Original supplier, Adler and Lens12 delegate historical reads and new source displays are separately attributed; no checkpoint3821 claim."
+    }
+  ],
+  "observations": [
+    "Original6533 follicle role2285 is byte-identical to current95e. The complete 400-line current body was displayed after local registration; earlier bounded source views retain their original attribution.",
+    "Original rig supplier and producer supplement RIG-PPS-011 read this role fully, with the owner-fit delta explicitly pending. Adler364 personally read it fully and kept admission, canonical whorl cardinality and native producer dependencies open. The original Lens12 delegate750 personally read it fully, and the original root adoption recorded zero personal rereads, zero accepted unique change and no other-lens transfer.",
+    "Future original role2288 was displayed as connected current support; its ordered role remains unassessed. No tests in the source body were executed."
+  ],
+  "qualification": "Original supplier, producer, Adler and delegate scopes and pending obligations remain distinct from new current source views; no checkpoint3821 claim. Local registration time not independently attested.",
+  "next_original_role": 2286
+}

@@ -12804,8 +12804,139 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-GPU-PARAMETERS-CONTEXT-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GROWTH-FIELD-AGGREGATE-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; policy or conditional source question",
+        "classification": "Growth and its required whorl payload are independently admitted, with a missing payload falling back to down.",
+        "historical_related_records": [
+          "segovb/READ-L12-750.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "baseline-059/queue.json#/entries/1835"
+        ],
+        "relationship_qualification": "Earlier Adler364 and delegate750 identified canonical shape versus independent public state; a normal Follicles.field produces the expected cardinalities. No malformed state was supplied.",
+        "discovery": "partial; selected source and historic attribution traced; all producers, policy and aliases remain open",
+        "connected_repair_direction": "Choose whether to admit the public field shape and represent or reject mismatched growth and whorls while preserving legitimate no-whorl growth modes.",
+        "future_acceptance": "After audit and authorization, cover intended supported construction and edge cases at the owning boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GROWTH-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GROWTH-NORMAL-ADMISSION-95E",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          2,
+          3,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; policy or conditional source question",
+        "classification": "The public growth-direction normal is a raw vector, although tangent projection requires a unit normal.",
+        "historical_related_records": [
+          "segovb/READ-L12-750.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "baseline-059/queue.json#/entries/1835"
+        ],
+        "relationship_qualification": "Static non-unit example and selected normalizing Head/Orient producers are in the source trace; no ordinary non-unit producer or runtime failure is asserted.",
+        "discovery": "partial; selected source and historic attribution traced; all producers, policy and aliases remain open",
+        "connected_repair_direction": "Trace all normal producers and choose an admitted finite unit-normal boundary or an explicit documented precondition.",
+        "future_acceptance": "After audit and authorization, cover intended supported construction and edge cases at the owning boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GROWTH-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-FOLLICLE-METRE-OWNER-95E",
+        "lens": 2,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; policy or conditional source question",
+        "classification": "Hairline offsets, memory, radius and whorl reach retain raw f32 metre values despite the existing f32 Metres owner.",
+        "historical_related_records": [
+          "segovb/READ-L12-750.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "baseline-059/queue.json#/entries/1835"
+        ],
+        "relationship_qualification": "The existing owner denotes units only, so separate signed, zero and positive policies cannot be assumed equivalent.",
+        "discovery": "partial; selected source and historic attribution traced; all producers, policy and aliases remain open",
+        "connected_repair_direction": "Carry the existing metre identity through appropriate producers and consumers while defining each local numerical admission rule.",
+        "future_acceptance": "After audit and authorization, cover intended supported construction and edge cases at the owning boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GROWTH-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-FOLLICLE-RATIO-OWNER-95E",
+        "lens": 2,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; policy or conditional source question",
+        "classification": "Follicle patchiness and balding retain raw dimensionless f32 shares while related Look controls already use Ratio.",
+        "historical_related_records": [
+          "segovb/READ-L12-750.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "baseline-059/queue.json#/entries/1835"
+        ],
+        "relationship_qualification": "Ratio supplies unit identity but no zero-to-one or finite admission guarantee. The fields have distinct semantic roles.",
+        "discovery": "partial; selected source and historic attribution traced; all producers, policy and aliases remain open",
+        "connected_repair_direction": "Use a suitable existing ratio identity where appropriate and separately define the actual admitted range and named roles.",
+        "future_acceptance": "After audit and authorization, cover intended supported construction and edge cases at the owning boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GROWTH-95E.json"
+      },
+      {
+        "id": "REVIEW-HAIR-GROWTH-GPU-CODE-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; policy or conditional source question",
+        "classification": "GPU growth codes depend on the manually maintained Growth::ALL order matching shader case numbers.",
+        "historical_related_records": [
+          "segovb/READ-L12-750.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "adler/READ-L11-364.json via ASSESSMENT-HAIR-GROWTH-95E.json",
+          "baseline-059/queue.json#/entries/1835"
+        ],
+        "relationship_qualification": "All seven current variants and shader cases match; the zero fallback concerns an omitted future variant, not a demonstrated current error.",
+        "discovery": "partial; selected source and historic attribution traced; all producers, policy and aliases remain open",
+        "connected_repair_direction": "Define one explicit mapping and preserve shader-native representation at the boundary if the intended extension contract requires it.",
+        "future_acceptance": "After audit and authorization, cover intended supported construction and edge cases at the owning boundary.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-HAIR-GROWTH-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1756.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1803.json"
 }
