@@ -224,6 +224,8 @@ fear and continuity source reads without expanding current semantic coverage.
 autopsy context and draw reads without expanding current semantic coverage.
 `ASSESSMENT-L01-HISTORICAL-1093-1097.json` records the historical disease,
 adapters and equipment-law reads without expanding current semantic coverage.
+`ASSESSMENT-L01-HISTORICAL-1098-1102.json` records the historical filth,
+blood exposure and food reads without expanding current semantic coverage.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.
