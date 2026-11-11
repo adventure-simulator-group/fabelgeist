@@ -9,14 +9,14 @@
   "registry_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
   "qualification": "Mechanical role worklist plus explicitly bounded current source links. Original identities, snapshots, owners, historical ranges, proof qualifications and any additional scope remain in the exact registry. A bounded trace is not an assessed role or coverage credit. Physical-p16, pr-working and other variants remain separate even when hashes match. Overlays, merged paths, shared scopes, mandatory extensions and current-source delta are separate mandatory populations not counted as these 2853 roles.",
   "status_counts": {
-    "unassessed": 1672,
+    "unassessed": 1671,
     "lock-metadata-partial": 3,
     "bounded-current-trace-only": 110,
     "assessed-nonapplicable": 3,
-    "full-historical-body-trace-open": 1060,
+    "full-historical-body-trace-open": 1061,
     "deleted-base-trace-open": 5
   },
-  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen bodies 1114–1118 have now been read. Continue at role 1119; independent lenses remain open.",
+  "first_unfinished": "Lock roles 39, 497 and 680 remain metadata-partial; frozen body 1119 has now been read. Continue at role 1120; independent lenses remain open.",
   "roles": [
     {
       "original_index": 0,
@@ -15536,7 +15536,9 @@
       "historical_sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
       "registry_pointer": "/files/1119",
       "historical_object_available": true,
-      "status": "unassessed"
+      "status": "full-historical-body-trace-open",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-1119.json",
+      "qualification": "Full historical body read only; independent lenses, connected scope, aliases and checkpoint 3821 remain open."
     },
     {
       "original_index": 1120,

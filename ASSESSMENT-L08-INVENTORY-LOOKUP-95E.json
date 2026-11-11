@@ -1,0 +1,314 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 8,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected carried inventory row lookup behavior, food admission and view, custody and two consumer paths; full behavior-preservation and connected-contract lenses remain incomplete.",
+  "source_reasoning": "Static source inspection, byte comparison and recovered evidence verification only; no product, build, test, fixture, database, browser or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6392be9abac49ce8f6bfe66aa11bb9964c14b7ce",
+      "sha256": "d3fa07b94a49cbd1c54ba90e00a9e76cad9b757990279309e2abf171466ac28a",
+      "bytes": 1987,
+      "lines": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          140,
+          195
+        ],
+        [
+          231,
+          255
+        ],
+        [
+          545,
+          630
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "bytes": 18640,
+      "lines": 534,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/object_custody.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d5aef64ef75ca9b2094925d4cc07ec11d6e7f788",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "bytes": 19253,
+      "lines": 501,
+      "ranges": [
+        [
+          145,
+          220
+        ],
+        [
+          245,
+          305
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5f635b371add61bea86d59e9c7c1944f0b6ab894",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "bytes": 19364,
+      "lines": 538,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f9036dc00887bea10f15efb881899107243cdb36",
+      "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "bytes": 22301,
+      "lines": 652,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/item.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "bytes": 34605,
+      "lines": 957,
+      "ranges": [
+        [
+          335,
+          400
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "bytes": 120281,
+      "lines": 3250,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/inventory-lookup-sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "search_evidence": {
+    "path": "main-advance-95e/inventory-lookup-search.txt",
+    "sha256": "9d6e631dc852f7c35cf1bdc292d796fe9cad574ced5816711669aa4734d4bd43",
+    "bytes": 7848,
+    "lines": 45,
+    "query": "git grep exact object_for_row( spelling at pinned revision under the SpacetimeDB module source",
+    "qualification": "Exact tracked spelling includes definitions and tests; aliases, indirect and external callers are not excluded."
+  },
+  "predecessor_record": {
+    "path": "ASSESSMENT-INVENTORY-LOOKUP.json",
+    "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+    "ledger_pointer": "BASELINE-20261110.json#/repair_ledger/entries/0",
+    "qualification": "Same canonical finding; the predecessor record also separately preserves selected source observations and an unreviewed historical implementation draft. Neither draft nor prior assessment is current validation."
+  },
+  "historical_source": {
+    "assessment": "ASSESSMENT-L01-HISTORICAL-1119.json",
+    "role": 1119,
+    "snapshot": "pr-working",
+    "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+    "lookup_ranges": [
+      [
+        61,
+        84
+      ]
+    ],
+    "qualification": "Original snapshot head plus recorded working state; exact bytes control identity. Historical scan is compared only for selected behavior, not promoted to checkpoint 3821."
+  },
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L12-240.json",
+      "sha256": "29b6e42139fd6deb2c03d3737792e1f981e1b435659ea32e538675088eb0bc0e",
+      "bytes": 10793,
+      "git_blob": "86357b28b1790d87f57e0688d4bd435b7a38cf74",
+      "preserved_bytes": "recovered/inventory-lookup-059/29b6e42139fd6deb2c03d3737792e1f981e1b435659ea32e538675088eb0bc0e.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L12-248.json",
+      "sha256": "7647fdd64d3012369d6ac05ebe5b670bbf92caba1bc096806ac85591ed090814",
+      "bytes": 15735,
+      "git_blob": "d42678445ba9c4437628f16a41f048b5c46b4783",
+      "preserved_bytes": "recovered/inventory-lookup-059/7647fdd64d3012369d6ac05ebe5b670bbf92caba1bc096806ac85591ed090814.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    }
+  ],
+  "recovered_historical_support": [
+    {
+      "original_path": "segovb/PLAN-L12-240.json",
+      "sha256": "3b736c756e7d44136c1301d58e9f0626c0efefc88a225590bad7ff311015a57f",
+      "bytes": 724,
+      "git_blob": "7e37431d400e422ccfb608fc1f5a3d33e3d82ab4",
+      "preserved_bytes": "recovered/inventory-lookup-059/3b736c756e7d44136c1301d58e9f0626c0efefc88a225590bad7ff311015a57f.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-012.json",
+      "sha256": "05b9b69dbe772aaa885d0568d1912595be93c89e280b5f11aed19474ca29fe13",
+      "bytes": 1241,
+      "git_blob": "5237a6973012d72e33ada59bb765ed59b705cebf",
+      "preserved_bytes": "recovered/inventory-lookup-059/05b9b69dbe772aaa885d0568d1912595be93c89e280b5f11aed19474ca29fe13.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-248.json",
+      "sha256": "30747b73cca76f87c7df955e23f6e3fefade4992c283ab5ee7d9bbf730644e1a",
+      "bytes": 718,
+      "git_blob": "a44e474d62fa6ca726dfdfa14cd49be0065567c7",
+      "preserved_bytes": "recovered/inventory-lookup-059/30747b73cca76f87c7df955e23f6e3fefade4992c283ab5ee7d9bbf730644e1a.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-026.json",
+      "sha256": "570201a39068a82ab27c92702c1e4a3f80d22a285b3d5323ba4d288b98252650",
+      "bytes": 1225,
+      "git_blob": "1b851fa957bd56ad60adf76d0728c7adfd6d48f1",
+      "preserved_bytes": "recovered/inventory-lookup-059/570201a39068a82ab27c92702c1e4a3f80d22a285b3d5323ba4d288b98252650.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-240.json",
+      "sha256": "e68994f059397eff03c342e75d2bdc538e32a1ba55cc110357c623962b2912fb",
+      "bytes": 557,
+      "git_blob": "87a9fb061229fcaff6982ffb64cb032fe57b0046",
+      "preserved_bytes": "recovered/inventory-lookup-059/e68994f059397eff03c342e75d2bdc538e32a1ba55cc110357c623962b2912fb.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/STATE-L12-240.json",
+      "sha256": "f7371f50669cbd875256f342493298ad678d274f7687683ff79606d92d2123e4",
+      "bytes": 839,
+      "git_blob": "04d30ccd43f588bbcf833bed190e85e1c6a0071e",
+      "preserved_bytes": "recovered/inventory-lookup-059/f7371f50669cbd875256f342493298ad678d274f7687683ff79606d92d2123e4.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-248.json",
+      "sha256": "efa2501d14a61189ccae95c8af84588ab9a45711eab96de65cdbc8b6c1bddcef",
+      "bytes": 557,
+      "git_blob": "4baf047c049a3f2fd3bde9a464c5d7d6269adbc4",
+      "preserved_bytes": "recovered/inventory-lookup-059/efa2501d14a61189ccae95c8af84588ab9a45711eab96de65cdbc8b6c1bddcef.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/STATE-L12-248.json",
+      "sha256": "bc0ad76784e5c684e36211982ae2175c9e9d459d449ba7a090428c394de65661",
+      "bytes": 839,
+      "git_blob": "bc584b3143b4b425a528b4d968d4920fa0caa3aa",
+      "preserved_bytes": "recovered/inventory-lookup-059/bc0ad76784e5c684e36211982ae2175c9e9d459d449ba7a090428c394de65661.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact earlier receipt and its directly linked plan, registration, verification or state. This bounded set is not a complete transitive support chain or checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/14",
+      "qualification": "Earlier tool-filter classification question, related but not proven an alias of the index mismatch."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/pending_connected_contracts/28",
+      "qualification": "Earlier native custody/admission question, related but not proven an alias of the index mismatch."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/5",
+      "qualification": "Earlier role 1105 tool candidate source observation at the historical identity."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens12/discovery_receipts/13",
+      "qualification": "Earlier role 1119 full-scan and duplicate-versus-absence source observation, historical identity only."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "NEW-INV-LOOKUP-001",
+      "severity": "unassigned; conditional malformed-state behavior difference, actual reachability and policy unproved",
+      "classification": "Independent 95e revisit of the predecessor indexed carried-row lookup finding; not a second unique defect.",
+      "historical_comparison": "The separately attributed pr-working role 1119 has a scan of every object filtered by carried scope and row, returning the sole match or a duplicate-identity error. The 95e object_lookup first obtains the existing row item and, if present, filters the item index to that item before matching scope and row; only a missing row uses the all-object scan. The earlier body and current inventory-container body differ in bytes. This is a selected behavior comparison, not a whole-file or cross-lens equivalence.",
+      "conditional_counterexample": "Assume a quantity-one personal food row R with item apple already has exactly one object at R whose item is pear. The historical scan returns that pear object, and the currently inspected food initializer would reject its item mismatch. The current lookup returns None, so the initializer reaches insertion of an apple object at R. If both apple and pear objects already occupy R, the historical scan instead errors on the duplicate while the indexed lookup can return only apple. These outcomes are source reasoning under a malformed-state assumption, not an observed database, transaction, reducer execution or proof of reachability.",
+      "safeguards_and_consumers": "The selected normal personal inventory producer inserts a row then uses that row to insert its matching stable object. Persisted object custody independently scans same-row aliases and checks row owner, item and quantity. The food view scans the item index over all item IDs and accepts exactly one same-row match. The selected ingredient tool filter deliberately converts lookup errors to absence and excludes failing custody results; its error-classification policy is related but distinct. The selected party-member transfer uses the subtree path if lookup returns an object, otherwise proceeds through row-only categories. These bounded paths do not prove all writers, reachable malformed states, database rollback or every caller.",
+      "first_unresolved_contract": "Establish all admission and mutation/transaction boundaries, actual alias and item-equality invariants, and whether callers must detect every same-row object independent of item ID before selecting a policy or repairing.",
+      "connected_repair": "After completing the audit gate, decide an authoritative per-scope row identity and admission/uniqueness contract. Either provide a row-key lookup or equivalent enforcement that detects mismatched aliases while accounting for indexed performance, or prove and enforce the stronger item-equality invariant across every writer. Reconcile food initialization and projection, custody, transfers, candidate filtering and error classification without conflating their distinct contracts.",
+      "later_acceptance": "After separately authorized implementation and validation, cover personal and party scopes, absent rows and supported stackable absence, matching objects, mismatched single and multiple aliases, food initialization/view parity, custody and transfer behavior, error classification and transactional boundaries. No such product validation is performed here.",
+      "discovery": "partial; malformed-state reachability, native policy, all writers and callers, transaction behavior and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

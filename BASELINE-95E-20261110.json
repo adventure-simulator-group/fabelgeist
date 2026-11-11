@@ -1474,6 +1474,24 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-L11-THREAT-ID-95E.json"
+      },
+      {
+        "id": "NEW-INV-LOOKUP-001",
+        "lens": 8,
+        "severity": "unassigned; conditional malformed-state behavior difference, actual reachability and policy unproved",
+        "classification": "Independent 95e revisit of the predecessor indexed carried-row lookup finding; not a second unique defect.",
+        "historical_related_records": [
+          "BASELINE-20261110.json#/repair_ledger/entries/0",
+          "ASSESSMENT-INVENTORY-LOOKUP.json",
+          "baseline-059/queue.json#/entries/904",
+          "baseline-059/queue.json#/entries/918",
+          "ASSESSMENT-L01-HISTORICAL-1119.json"
+        ],
+        "relationship_qualification": "Same canonical c100 finding independently revisited at 95e; not another unique defect. Earlier tool-filter and native-admission questions are related but not proven aliases. Historical scans remain attributed to their own identity.",
+        "discovery": "partial; malformed-state reachability, native policy, all writers and callers, transaction behavior and historical aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-L08-INVENTORY-LOOKUP-95E.json"
       }
     ]
   },

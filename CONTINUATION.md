@@ -190,6 +190,9 @@ question through seeded kin and the outbreak exception. Ordinary player-visible
 reachability and qualifying-family policy remain open.
 `ASSESSMENT-L09-POINT-PREVENTION-95E.json` records the conditional covered-zero
 versus missing-history ambiguity and selected current-minute food/water paths.
+`ASSESSMENT-L08-INVENTORY-LOOKUP-95E.json` revisits the predecessor
+indexed-row lookup concern at the current pin, retaining its conditional
+malformed-state premise and the separately attributed historical scan.
 `ASSESSMENT-L08-NESTED-VESSEL-95E.json` records an earlier documentation
 conflict with direct-only vessel selection; the selected historical function
 matches current bytes, while the owning product policy remains open.
@@ -241,6 +244,8 @@ food source reads without expanding current semantic coverage.
 projections and source-test reads without expanding current semantic coverage.
 `ASSESSMENT-L01-HISTORICAL-1114-1118.json` records historical foraging,
 herbal preparation and measured inventory without expanding current coverage.
+`ASSESSMENT-L01-HISTORICAL-1119.json` records the historical inventory
+container body, which differs from the separately preserved 95e source.
 `ASSESSMENT-L05-SCHEDULE-AGGREGATE-95E.json` records a possible schedule
 aggregate strengthening. Both selected production callers supply matching
 organization minutes; no invalid native schedule was established.

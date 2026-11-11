@@ -1,0 +1,45 @@
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/character.rs:972:        crate::inventory_container::delete_repair_object_for_row(ctx, order.inventory_item_id)?;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/character.rs:996:        if crate::inventory_container::delete_carried_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/authority_tests.rs:30:        crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row_id)?
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:66:            crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row.id)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:90:                    crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/lot_inventory.rs:47:    if let Some(object) = crate::inventory_container::object_for_row(ctx, scope, row_id)? {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/preparation_authority.rs:368:        crate::inventory_container::object_for_row(ctx, inventory_scope, inventory_item_id)?
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:21:fn view_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:74:            view_object_for_row(ctx, CarriedInventoryScope::Personal, row.id).is_some_and(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:95:                    view_object_for_row(ctx, CarriedInventoryScope::Party, row.id).is_some_and(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:195:        if !view_object_for_row(ctx, scope, row_id).is_some_and(|unique| unique.id == cursor.id) {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:380:            let Some(object) = view_object_for_row(ctx, scope, row_id) else {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/foraging.rs:1038:                let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:76:    if object_for_row(ctx, scope, row_id)?.is_some() {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:149:    object_for_row(ctx, scope, row_id)
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:186:pub(crate) fn delete_carried_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:191:    let Some(object) = object_for_row(ctx, scope, row_id)? else {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:201:pub(crate) fn delete_repair_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:237:    let Some(object) = object_for_row(ctx, scope, row_id)? else {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:268:    if let Some(object) = object_for_row(ctx, scope, row_id)? {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:621:        object_for_row(ctx, scope, row_id)?.ok_or("Physical object has no backing identity")?;
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:646:        match object_for_row(ctx, scope, row_id)? {
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:700:                object_for_row(ctx, CarriedInventoryScope::Personal, target.id)?.map(|row| row.id);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:752:                object_for_row(ctx, CarriedInventoryScope::Party, target.id)?.map(|row| row.id);
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container.rs:920:    let object = object_for_row(ctx, scope, row_id)?
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_container/object_lookup.rs:10:pub(crate) fn object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/item.rs:612:                if !crate::inventory_container::delete_carried_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/repair.rs:223:    if let Some(mut object) = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/smithing.rs:112:    let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/encounters.rs:822:            if crate::inventory_container::delete_carried_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/encounters.rs:836:            if crate::inventory_container::delete_carried_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/governance.rs:580:        if crate::inventory_container::delete_carried_object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/governance.rs:1457:            if let Some(object) = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:41:    let container_object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:1587:    if let Some(object) = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:1859:    let container_object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:2020:        let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:2106:        let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:2693:        let container_object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:2830:        let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/weapon_instance.rs:157:    let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/weapon_instance.rs:183:    let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/weapon_instance.rs:216:    let weapon_object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/weapon_instance.rs:333:    let object = crate::inventory_container::object_for_row(
+95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/weapon_instance.rs:369:    let Some(object) = crate::inventory_container::object_for_row(
