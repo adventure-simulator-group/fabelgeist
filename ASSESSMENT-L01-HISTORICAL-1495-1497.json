@@ -1,0 +1,132 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1495,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1495",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "lines": 243,
+      "new_personal_read_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "bounded-current-trace-only",
+      "prior_current_observations": [
+        {
+          "assessment": "ASSESSMENT-L1-HUD-IDENTITY.json",
+          "ranges": [
+            [
+              1,
+              90
+            ]
+          ]
+        }
+      ],
+      "prior_qualification": "Only the cited current source ranges were inspected. Equal bytes do not close this historical role, its complete required scope, aliases or any lens; each snapshot role remains separate.",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+        "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+        "bytes": 8955,
+        "lines": 243,
+        "git_blob": "eb4f1174723ed5877f1363e81fa43b8540109aae",
+        "preserved_bytes": "main-advance-95e/slot-audio-evidence/current-1495.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct."
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No audio, browser, test or product runtime ran."
+    },
+    {
+      "original_index": 1496,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/main.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1496",
+      "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+      "lines": 609,
+      "new_personal_read_ranges": [
+        [
+          1,
+          609
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "prior_qualification": null,
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/main.rs",
+        "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+        "bytes": 22180,
+        "lines": 619,
+        "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+        "preserved_bytes": "main-advance-95e/slot-audio-evidence/current-1496.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct.",
+        "diff": "main-advance-95e/slot-audio-evidence/original-1496-to-95e.diff",
+        "diff_sha256": "b5dd14ffdeaa7c51618b73196bbd49a19f688ff1f95e0b9614ab29dd4b2303dd"
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No audio, browser, test or product runtime ran."
+    },
+    {
+      "original_index": 1497,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "PR head plus recorded working state; this original body equals the 6533 committed-tree blob. Any changed 95e body remains separate.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1497",
+      "sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "lines": 370,
+      "new_personal_read_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "prior_current_observations": [],
+      "prior_qualification": null,
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
+        "sha256": "7ade134423ab664c74bf4e2ad2b793332a17722ba4bc589521ac416a72b412ae",
+        "bytes": 11279,
+        "lines": 333,
+        "git_blob": "b4de634e7a6d0034e40b46f8ff11ddad71bdf3ed",
+        "preserved_bytes": "main-advance-95e/slot-audio-evidence/current-1497.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "qualification": "Only stated current-source traces are credited. Historical review, later source changes and other lenses remain distinct.",
+        "diff": "main-advance-95e/slot-audio-evidence/original-1497-to-95e.diff",
+        "diff_sha256": "bfa0c603c327c4de206bb7267719f08427d293cb98e72ef1562f5cd217e4c66b"
+      },
+      "qualification": "Full original body personally read through actual EOF; test/fixture source was read as text only. Earlier reviewers, source revision and no-fresh-read qualifications remain distinct. No audio, browser, test or product runtime ran."
+    }
+  ],
+  "observations": [
+    "Three original slot selection, tactical startup and movement-audio bodies personally read through actual EOF. Role 1495 equals 95e; roles 1496 and 1497 differ and exact diffs are retained.",
+    "All three match their original 6533 committed blobs, independently tied to raw commit/tree objects. Current startup introduces loading and platform audio modules; current movement audio replaces the earlier Bevy AudioPlayer boundary with a platform audio adapter. These are source changes, not audio or renderer results.",
+    "Earlier adler Lens11 batch 210 recorded out-of-order role1495 reads; batch 211 recorded fresh_reads empty. Those earlier receipts retain their reviewer and frontier qualifications in earlier assessments. This new personal Lens1 original read is separate. Earlier segovb Lens12 batch 450 includes role1495; batches 451 and 452 include 1496 and1497. Earlier adler Lens11 batch 212 includes 1496 and1497. All retain their original attribution, zero accepted unique count change and no current reconciliation.",
+    "No browser, audio, renderer, asset loading, product test or runtime execution ran."
+  ],
+  "remaining": "Continue historical body 1498. Actual producer, admission, native boundaries, all aliases, original populations and thirteen independent lenses remain open."
+}

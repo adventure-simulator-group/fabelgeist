@@ -3334,8 +3334,85 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-EQUIPMENT-MESH-RIG-95E.json"
+      },
+      {
+        "id": "NEW-HUD-SLOT-INPUT-001",
+        "lens": 1,
+        "severity": "unassigned; conditional source or ownership question",
+        "classification": "Previously assessed c100 candidate, rechecked at 95e using identical source identities and bounded current traces; no current key mismatch established.",
+        "historical_related_records": [
+          "BASELINE-20261110.json",
+          "ASSESSMENT-L1-HUD-IDENTITY.json",
+          "baseline-059/queue.json#/entries/1893"
+        ],
+        "relationship_qualification": "Prior source and reviewer scopes remain separate; no new historical unique count is asserted. Global aliases and checkpoint 3821 remain unavailable.",
+        "discovery": "partial; producers, consumers, reachability and exact historical aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json"
+      },
+      {
+        "id": "ADLER-L11-MOVEMENT-AUDIO-PITCH-PRODUCT",
+        "lens": 11,
+        "severity": "unassigned; conditional source or ownership question",
+        "classification": "Previously recorded 059 finding, previously traced through c100 browser audio and independently rechecked at 95e.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-MOVEMENT-AUDIO-PITCH-PRODUCT",
+          "baseline-059/queue.json#/entries/62",
+          "ASSESSMENT-L1-AUDIO-CONFIG.json"
+        ],
+        "relationship_qualification": "Prior source and reviewer scopes remain separate; no new historical unique count is asserted. Global aliases and checkpoint 3821 remain unavailable.",
+        "discovery": "partial; custom-parser representation, reachability, native/browser outcome, product policy and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json"
+      },
+      {
+        "id": "ADLER-L11-RAIN-AUDIO-SCENE-OWNERSHIP",
+        "lens": 11,
+        "severity": "unassigned; conditional source or ownership question",
+        "classification": "Previously recorded 059 finding independently rechecked at 95e; conditional multiscene scope retained.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RAIN-AUDIO-SCENE-OWNERSHIP",
+          "baseline-059/queue.json#/entries/96"
+        ],
+        "relationship_qualification": "Prior source and reviewer scopes remain separate; no new historical unique count is asserted. Global aliases and checkpoint 3821 remain unavailable.",
+        "discovery": "partial; actual multiple-scene overlap, scene-to-ground/listener mapping, audio outcome and aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json"
+      },
+      {
+        "id": "REVIEW-BROWSER-SFX-FAILED-LOAD-CACHE-001",
+        "lens": 11,
+        "severity": "unassigned; conditional source or ownership question",
+        "classification": "New 95e source-supported conditional browser asset-lifecycle candidate; no actual failed request observed.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/240",
+          "baseline-059/queue.json#/entries/1286"
+        ],
+        "relationship_qualification": "Earlier e275 Bevy queued-entity lifetime and old missing-asset question remain separate; same general audio topic does not establish an alias. Current browser unlock and deliberate start/voice caps are distinct.",
+        "discovery": "partial; product retry policy, actual failure reachability, hosts and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json"
+      },
+      {
+        "id": "REVIEW-WIND-LOOP-NO-SCENE-STATE-001",
+        "lens": 7,
+        "severity": "unassigned; conditional source or ownership question",
+        "classification": "New 95e conditional scene-absence and loop-ownership policy question; no audible defect established.",
+        "historical_related_records": [
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RAIN-AUDIO-SCENE-OWNERSHIP",
+          "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/244"
+        ],
+        "relationship_qualification": "The old rain issue concerns selecting weather/ground/listener while multiple scenes exist; absence and retained wind gain are a separate first question. Earlier evidence explicitly cautions that persistent loops may be intentional.",
+        "discovery": "partial; handoff policy, actual no-scene duration, audio reachability and exact aliases remain open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SLOT-AUDIO-LIFECYCLE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0605.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0613.json"
 }

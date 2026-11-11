@@ -1,0 +1,116 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "shared_commit_and_tree_objects": "EQUIPMENT-HISTORICAL-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "RUNTIME-FIT-HISTORICAL-GIT-PROOFS.json",
+    "MESH-RIG-HISTORICAL-GIT-PROOFS.json"
+  ],
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "additional_tree_objects": {},
+  "paths": {
+    "crates/adventuresim-tactical-client/src/equipment/slot_selection.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "equipment",
+          "mode": "40000",
+          "child": "413f8e73f48bcdfa5fb27d8185dd9bc23fb20468"
+        },
+        {
+          "tree": "413f8e73f48bcdfa5fb27d8185dd9bc23fb20468",
+          "name": "slot_selection.rs",
+          "mode": "100644",
+          "child": "eb4f1174723ed5877f1363e81fa43b8540109aae"
+        }
+      ],
+      "git_blob": "eb4f1174723ed5877f1363e81fa43b8540109aae",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "bytes": 8955,
+      "lines": 243
+    },
+    "crates/adventuresim-tactical-client/src/main.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "main.rs",
+          "mode": "100644",
+          "child": "979f01054220a837c04dfefacf737f91cab6fcb7"
+        }
+      ],
+      "git_blob": "979f01054220a837c04dfefacf737f91cab6fcb7",
+      "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+      "bytes": 21811,
+      "lines": 609
+    },
+    "crates/adventuresim-tactical-client/src/movement_audio.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "name": "crates",
+          "mode": "40000",
+          "child": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "name": "adventuresim-tactical-client",
+          "mode": "40000",
+          "child": "cd2160938b4b04005860e184dfd7185443a3a338"
+        },
+        {
+          "tree": "cd2160938b4b04005860e184dfd7185443a3a338",
+          "name": "src",
+          "mode": "40000",
+          "child": "860c9ac8eee2959bddf7578dfa34a77253738965"
+        },
+        {
+          "tree": "860c9ac8eee2959bddf7578dfa34a77253738965",
+          "name": "movement_audio.rs",
+          "mode": "100644",
+          "child": "7edb27f11f313458a564195d26b5930422dfd25f"
+        }
+      ],
+      "git_blob": "7edb27f11f313458a564195d26b5930422dfd25f",
+      "sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "bytes": 12162,
+      "lines": 370
+    }
+  },
+  "qualification": "Previously preserved raw public commit/tree objects plus exact additional subtrees prove the original committed blobs; no review credit follows solely from identity."
+}

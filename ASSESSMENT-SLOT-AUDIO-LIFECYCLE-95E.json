@@ -1,0 +1,1992 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Three original slot, startup and movement audio bodies; bounded 95e slot binding, audio config, browser sound lifetime and scene ownership connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1495-1497.json",
+  "git_membership_evidence": "SLOT-AUDIO-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/audio_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "16ce888e3db00ded133ce059dd4c13711cbebc70",
+      "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "bytes": 6918,
+      "lines": 206,
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "ac15c624f5610b25cb2b2d4930882c73ad75d990",
+      "sha256": "6535f894c764e5177f163a603eb7c5b06be48c02c0a98776a388d492f6389515",
+      "bytes": 4884,
+      "lines": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output/web.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "128e8a8faa8770257c2666cfbd9a2db0e0977868",
+      "sha256": "f9b6999faf74eb7dfb9d06f7670b23b082a1292a2680fa35b1a3f34b92440e49",
+      "bytes": 673,
+      "lines": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/sound_output/silent.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c62afee752cb3d0b66cc5a526e2d35a060539125",
+      "sha256": "dd6e36e21945ae7a27a18ecc3f34a6fa5a9a840f64670d98c10c81e3b8f56bf7",
+      "bytes": 319,
+      "lines": 8,
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/sfx.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "15f4936c983d414af5dff28a8514cb71a729ce47",
+      "sha256": "8a70a759d57e0a2033f2b255b34125b3867ebaba767db17ae053264405b0f2aa",
+      "bytes": 6367,
+      "lines": 176,
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/sfx_worklet.js",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a183316ac956ea0a71fdeaff21a6e025abb7a995",
+      "sha256": "4ba49a81d558d7d58e854f6c6deb0c4f5cf8dbedd6e9d18309f5c2f32d0ba5ac",
+      "bytes": 5103,
+      "lines": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6d2e10833c83bb6e1d90d701fb21fe67c557a604",
+      "sha256": "17be8dd3cf558dad4feba5789dfa498f8aab18fd3e84a4380133a8ccf96c0aad",
+      "bytes": 6333,
+      "lines": 190,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3b4950e0711f02231d0c6f5434fc238f98d0bc65",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "bytes": 21534,
+      "lines": 577,
+      "ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          269,
+          284
+        ],
+        [
+          469,
+          509
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "42f8efd9a398ccc5ac4be936e7a75c04e836ca12",
+      "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+      "bytes": 6354,
+      "lines": 177,
+      "ranges": [
+        [
+          122,
+          162
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "05d2f3ea8f762ccf0ef6e69dcafc1a2d8f7319a6",
+      "sha256": "8534f53749dd9918cd0c3a9549561eab6825e7edb7b8908db60da2a8639ee64a",
+      "bytes": 6029,
+      "lines": 190,
+      "ranges": [
+        [
+          149,
+          172
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "1d607cbffa60d4b757c799becdfce5a65f5a6755",
+      "sha256": "49176cc32bfcf3cba960c0262b217961f1074f6ac6168da7e98b81258f5d02ee",
+      "bytes": 9369,
+      "lines": 296,
+      "ranges": [
+        [
+          286,
+          296
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9b453eb2ed0b42e7680846a4c1b877c7dacc08a4",
+      "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+      "bytes": 17179,
+      "lines": 522,
+      "ranges": [
+        [
+          200,
+          295
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "048149792a65807d50064101c7e2a1be1a645ebb",
+      "sha256": "f5360f6619eb44838dc1d5297e208282e42b407bd3bd4aebd00c7bf49216b651",
+      "bytes": 11569,
+      "lines": 321,
+      "ranges": [
+        [
+          17,
+          37
+        ],
+        [
+          197,
+          253
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "bytes": 39225,
+      "lines": 1182,
+      "ranges": [
+        [
+          25,
+          195
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b00f33154bbef769ede5059715d8c85e41c05498",
+      "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+      "bytes": 50170,
+      "lines": 1341,
+      "ranges": [
+        [
+          82,
+          90
+        ],
+        [
+          179,
+          203
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/equipment/slot_hud.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "bc3e35141dbb717068b8578d4939e1983f0b0099",
+      "sha256": "23a7956c633ea27dc56115fe8393a59ff9d2eacf0fec7fe310a15fd6d9e4a79a",
+      "bytes": 11352,
+      "lines": 348,
+      "ranges": [
+        [
+          140,
+          159
+        ],
+        [
+          234,
+          280
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "assets/config/tactical-audio.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "249671e367bdc5c7f8feb749cbf812b6ea2a7452",
+      "sha256": "ed5f694e438c44a6c7140583670685ba15553572d379b28d7dd7cacbf25745d9",
+      "bytes": 697,
+      "lines": 25,
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/README.md",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "913768b7e60f156e3bbf4364db5488578a561bec",
+      "sha256": "1067fa9b47c67f86299296b67d8c342362d0cc5a42069e768078e31aa7f9857d",
+      "bytes": 49606,
+      "lines": 837,
+      "ranges": [
+        [
+          141,
+          162
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/static/tactical.html",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "6e4da5813b8b22d7972e8b2e4ca4092565d923c0",
+      "sha256": "a8253e911a4155af844f2b8c1e24abcdfc3a8607c219e2a921d93511faf81724",
+      "bytes": 9358,
+      "lines": 260,
+      "ranges": [
+        [
+          28,
+          31
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    },
+    {
+      "path": "crates/strategic-web/src/templates/layout/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "625e97b939651ca1a57737735414af942ce949bf",
+      "sha256": "e8d74a31e663a231a7606ab1b0b9110eec13fc3bffb5f55768f39c7b79b4cdfe",
+      "bytes": 7650,
+      "lines": 136,
+      "ranges": [
+        [
+          98,
+          107
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/slot-audio-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated source ranges personally inspected; complete source bytes retained. No product code, audio, browser or fixture executed."
+    }
+  ],
+  "prior_source_identity_comparisons": [
+    {
+      "prior_assessment": "ASSESSMENT-L1-HUD-IDENTITY.json",
+      "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sources": [
+        {
+          "path": "crates/adventuresim-core/src/equipment.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+          "git_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-0.source.gz",
+          "prior_assessed_ranges": [
+            [
+              25,
+              37
+            ],
+            [
+              50,
+              195
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+          "git_blob": "b00f33154bbef769ede5059715d8c85e41c05498",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-1.source.gz",
+          "prior_assessed_ranges": [
+            [
+              82,
+              90
+            ],
+            [
+              179,
+              203
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+          "git_blob": "eb4f1174723ed5877f1363e81fa43b8540109aae",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-2.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/equipment/slot_hud.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "23a7956c633ea27dc56115fe8393a59ff9d2eacf0fec7fe310a15fd6d9e4a79a",
+          "git_blob": "bc3e35141dbb717068b8578d4939e1983f0b0099",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-3.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              168
+            ],
+            [
+              171,
+              307
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/equipment/icons.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "bb358ac1acb5e8729df5d9a3c67a6b58b3e4fd211d910812b0c957fff003a69e",
+          "git_blob": "50310b490a27368bd16fcf691610075728035d11",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-4.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              161
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/hud.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "fcc8c3870307145ace4daf1f08af7eda0c52d8db1e8cabcba1475e30a4c50283",
+          "git_blob": "a79183f3570d171bf5029da8b87730b9997ab103",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-5.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              184
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "git_blob": "9b453eb2ed0b42e7680846a4c1b877c7dacc08a4",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-6.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              71
+            ],
+            [
+              189,
+              198
+            ],
+            [
+              285,
+              302
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/main.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+          "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-7.source.gz",
+          "prior_assessed_ranges": [
+            [
+              219,
+              224
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-stdb-module/static/tactical-hud.js",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "017a234502121b9b3dbb4c736c7257d07d3386b146cc6f0d6eb610c0c28c0b24",
+          "git_blob": "8f0c1572300067a10c0bcc1f21153c9c43990d3d",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-8.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              335
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-stdb-module/static/tactical-hud.css",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "fc05b6e6d902d165ebc03487d9aa33ccc1eadd2dca03887b0ac7bc087c5cdc05",
+          "git_blob": "06621bae43633f8c98fc3228af14c029b86f01a3",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-9.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              340
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-stdb-module/static/tactical.html",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a8253e911a4155af844f2b8c1e24abcdfc3a8607c219e2a921d93511faf81724",
+          "git_blob": "6e4da5813b8b22d7972e8b2e4ca4092565d923c0",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-HUD-IDENTITY.json-10.source.gz",
+          "prior_assessed_ranges": [
+            [
+              145,
+              163
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        }
+      ]
+    },
+    {
+      "prior_assessment": "ASSESSMENT-L1-AUDIO-CONFIG.json",
+      "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sources": [
+        {
+          "path": "crates/adventuresim-tactical-client/src/audio_config.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+          "git_blob": "16ce888e3db00ded133ce059dd4c13711cbebc70",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-0.source.gz",
+          "prior_assessed_ranges": [
+            [
+              10,
+              64
+            ],
+            [
+              66,
+              76
+            ],
+            [
+              79,
+              185
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/main.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "3ac60ddec31bee62d284f9ff2d87bd3345e1ccf84ce3199e2f2dcdddb59ec6c4",
+          "git_blob": "d9216c050b33db12e144e3e2880a5682e3273a41",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-1.source.gz",
+          "prior_assessed_ranges": [
+            [
+              151,
+              167
+            ],
+            [
+              176,
+              195
+            ],
+            [
+              190,
+              216
+            ],
+            [
+              282,
+              287
+            ],
+            [
+              365,
+              378
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "assets/config/tactical-audio.yaml",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "ed5f694e438c44a6c7140583670685ba15553572d379b28d7dd7cacbf25745d9",
+          "git_blob": "249671e367bdc5c7f8feb749cbf812b6ea2a7452",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-2.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              25
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+          "git_blob": "9fc0b9ae56069f7636c4fb5508e5d272922c0ba7",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-3.source.gz",
+          "prior_assessed_ranges": [
+            [
+              8,
+              14
+            ],
+            [
+              133,
+              172
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "7ade134423ab664c74bf4e2ad2b793332a17722ba4bc589521ac416a72b412ae",
+          "git_blob": "b4de634e7a6d0034e40b46f8ff11ddad71bdf3ed",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-4.source.gz",
+          "prior_assessed_ranges": [
+            [
+              38,
+              76
+            ],
+            [
+              79,
+              135
+            ],
+            [
+              159,
+              217
+            ],
+            [
+              220,
+              292
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/weather_audio.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "17be8dd3cf558dad4feba5789dfa498f8aab18fd3e84a4380133a8ccf96c0aad",
+          "git_blob": "6d2e10833c83bb6e1d90d701fb21fe67c557a604",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-5.source.gz",
+          "prior_assessed_ranges": [
+            [
+              12,
+              16
+            ],
+            [
+              84,
+              136
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/combat_effects.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "f5360f6619eb44838dc1d5297e208282e42b407bd3bd4aebd00c7bf49216b651",
+          "git_blob": "048149792a65807d50064101c7e2a1be1a645ebb",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-6.source.gz",
+          "prior_assessed_ranges": [
+            [
+              102,
+              110
+            ],
+            [
+              119,
+              142
+            ],
+            [
+              197,
+              205
+            ],
+            [
+              219,
+              252
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/sound_output.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "6535f894c764e5177f163a603eb7c5b06be48c02c0a98776a388d492f6389515",
+          "git_blob": "ac15c624f5610b25cb2b2d4930882c73ad75d990",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-7.source.gz",
+          "prior_assessed_ranges": [
+            [
+              13,
+              20
+            ],
+            [
+              29,
+              60
+            ],
+            [
+              63,
+              83
+            ],
+            [
+              87,
+              108
+            ],
+            [
+              113,
+              125
+            ],
+            [
+              129,
+              145
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/sound_output/web.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "f9b6999faf74eb7dfb9d06f7670b23b082a1292a2680fa35b1a3f34b92440e49",
+          "git_blob": "128e8a8faa8770257c2666cfbd9a2db0e0977868",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-8.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              18
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/src/sound_output/silent.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "dd6e36e21945ae7a27a18ecc3f34a6fa5a9a840f64670d98c10c81e3b8f56bf7",
+          "git_blob": "c62afee752cb3d0b66cc5a526e2d35a060539125",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-9.source.gz",
+          "prior_assessed_ranges": [
+            [
+              1,
+              8
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-stdb-module/static/sfx.js",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "8a70a759d57e0a2033f2b255b34125b3867ebaba767db17ae053264405b0f2aa",
+          "git_blob": "15f4936c983d414af5dff28a8514cb71a729ce47",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-10.source.gz",
+          "prior_assessed_ranges": [
+            [
+              26,
+              36
+            ],
+            [
+              39,
+              53
+            ],
+            [
+              59,
+              86
+            ],
+            [
+              89,
+              109
+            ],
+            [
+              130,
+              161
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-stdb-module/static/sfx_worklet.js",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "4ba49a81d558d7d58e854f6c6deb0c4f5cf8dbedd6e9d18309f5c2f32d0ba5ac",
+          "git_blob": "a183316ac956ea0a71fdeaff21a6e025abb7a995",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-11.source.gz",
+          "prior_assessed_ranges": [
+            [
+              19,
+              36
+            ],
+            [
+              40,
+              67
+            ],
+            [
+              70,
+              102
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/fabelgeist-determinism/src/lib.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+          "git_blob": "41b943e1662a3f34e210f28bf171c579e8aaade0",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-12.source.gz",
+          "prior_assessed_ranges": [
+            [
+              12,
+              24
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/fabelgeist-determinism/src/stream.rs",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+          "git_blob": "c59d8a7720881fba266c80112e82880e4422e074",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-13.source.gz",
+          "prior_assessed_ranges": [
+            [
+              53,
+              67
+            ],
+            [
+              82,
+              84
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        },
+        {
+          "path": "crates/adventuresim-tactical-client/Cargo.toml",
+          "prior_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+          "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "cd98942e0a1d2eef08c56cc153dab06df2e25976a93d63bd6c2e09fcb0dcde15",
+          "git_blob": "9d1b3f8f93b7c063b54f06812ba7375b17b0ae9b",
+          "preserved_bytes": "main-advance-95e/slot-audio-evidence/identity-ASSESSMENT-L1-AUDIO-CONFIG.json-14.source.gz",
+          "prior_assessed_ranges": [
+            [
+              7,
+              24
+            ],
+            [
+              90,
+              92
+            ]
+          ],
+          "qualification": "Byte identity binds only the prior stated source ranges; neither historical role nor another lens is automatically credited."
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "contract": "Slot binding identity and safeguards",
+      "trace": "The full historical slot source equals the 95e body. Core InputAddressMapping supplies static input labels and typed locations; keyboard_slots converts each label to a native key, cycles among eligible locations and retains the input label plus location index. HUD JSON SlotHudPress admits a String, finds an exact static mapping and ignores an unknown value before calling the same slot selection. An empty mapping has an empty find_map range, so the modulo expression is not reached.",
+      "remaining": "The earlier c100 candidate NEW-HUD-SLOT-INPUT-001 is re-assessed at 95e using exact byte identity of all eleven prior scoped sources and bounded fresh reads. It remains an identity/ownership question, not a proven key mismatch; broader consumer and alias coverage remains open. Earlier tests were source only."
+    },
+    {
+      "contract": "Pitch composition and worklet lifecycle",
+      "trace": "Parsed TacticalAudioConfig checks positive finite base rustle pitch and independently positive ordered finite pitch endpoints, but not their product. As already assessed at c100, finite factors around 1e30 multiply beyond finite f32, while factors around 1e-30 produce a value below the smallest positive f32 subnormal. The 95e PlaybackSpeed wrapper retains and multiplies the raw factors, the wasm backend passes the speed to sfxPlay, and a loaded positive-length worklet voice with zero speed remains at position zero until replaced.",
+      "remaining": "This is the same earlier 059 pitch contract and c100 browser-boundary consequence, not an additional unique finding. The YAML parser, extreme custom configuration, contact/rustle, loaded sound and active browser are conditional; shipped ordinary tuning is not alleged bad. No parser, arithmetic probe, sound or runtime ran."
+    },
+    {
+      "contract": "Rain selected-scene ownership",
+      "trace": "ActiveTacticalScene explicitly chooses the most recently activated live SceneEnvironment and falls back through live predecessors on removal; apply_active_environment_fog consumes that entity. Rain audio independently takes the first environment, first listener and first ground and does not tie them to that selected scene. If two scenes differ and query order selects another row, the audio inputs need not correspond to the canonical scene.",
+      "remaining": "This is the existing 059 rain scene finding, not a new unique issue. Actual overlap duration, ground/listener ownership, sound asset readiness, audibility and full aliases remain unverified. Wind also takes first environment, a related source question, but is not assumed an exact alias."
+    },
+    {
+      "contract": "Earlier one-shot backend lifecycle",
+      "trace": "Earlier e275 P01-L11-CURRENT-UNPLAYABLE-AUDIO-REQUEST-LIFETIME concerned Bevy AudioPlayer entities whose requested Despawn required playback to begin. At 95e the inspected movement and combat one-shots call sound_output::play_spatial instead; the non-wasm backend is explicitly silent and browser sfxPlay drops one-shots while its mixer is unavailable, its asset is unready, or the frame start cap is reached.",
+      "remaining": "The old retained-entity mechanism stays attached to e275, with no inference of runtime growth or a whole-application negative proof at 95e. The current failed-load cache question is separate; intentional unlock and bounded voice policies remain distinct."
+    },
+    {
+      "contract": "Wind loop after scene absence",
+      "trace": "The strategic backdrop spawns its environment under the retained scene root. Browser EnterTactical queues release_scene before establishing a tactical client; release_scene despawns the root. If no other environment is available and update_wind_volume then runs, its early return sends no new wind gain. In the inspected JavaScript backend the previous loop gain remains in its loop slot until a later sfxLoop update. Pinned Bevy ECS hierarchy source describes child despawn with the parent.",
+      "remaining": "This needs an already loaded, playing nonzero wind loop, a frame without any environment and an active browser mixer. Whether continuity or silence is desired during scene handoff is a product policy question; no actual transition, audible effect or all-writer/global lifetime conclusion is claimed."
+    },
+    {
+      "contract": "Browser failed asset load state",
+      "trace": "sfx.js inserts {id, ready:false} into its sounds map before fetching and decoding. Its rejection handler logs a warning but does not remove or mark the entry for retry; later load(path) returns the existing unready object. sfxPlay drops requests for an unready object, and an existing loop.sound remains that same object, so a transient failed fetch/decode can leave that sound unavailable for the lifetime of this script instance even after the external condition clears.",
+      "remaining": "No network failure, decoder error, playback or recovery was observed. A reload creates a new script instance; explicit retry/failure and user-facing policy are not established. Suspended-audio dropping and active-voice limits are documented intentional modes and are not this first failure."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "NEW-HUD-SLOT-INPUT-001",
+      "first_failed_contract": "Open ownership question: the browser-facing slot label is retained as unrestricted text and resolved back to the static slot mapping before private selection.",
+      "classification": "Previously assessed c100 candidate, rechecked at 95e using identical source identities and bounded current traces; no current key mismatch established.",
+      "canonical_owner": "InputAddressMapping and an appropriately scoped slot-binding identity if a bespoke owner is justified; native key and DOM/JSON representations remain boundary values.",
+      "historical_related_records": [
+        "BASELINE-20261110.json",
+        "ASSESSMENT-L1-HUD-IDENTITY.json",
+        "baseline-059/queue.json#/entries/1893"
+      ],
+      "discovery": "partial; producers, consumers, reachability and exact historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "ADLER-L11-MOVEMENT-AUDIO-PITCH-PRODUCT",
+      "first_failed_contract": "The final playback speed must be finite and positive after composing admitted pitch factors, rather than relying on each factor alone.",
+      "classification": "Previously recorded 059 finding, previously traced through c100 browser audio and independently rechecked at 95e.",
+      "canonical_owner": "Validated composed playback speed at configuration or final platform audio boundary, preserving deterministic selection and legitimate pitch policy.",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-MOVEMENT-AUDIO-PITCH-PRODUCT",
+        "baseline-059/queue.json#/entries/62",
+        "ASSESSMENT-L1-AUDIO-CONFIG.json"
+      ],
+      "discovery": "partial; custom-parser representation, reachability, native/browser outcome, product policy and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "ADLER-L11-RAIN-AUDIO-SCENE-OWNERSHIP",
+      "first_failed_contract": "Rain ambience must consume weather and local ground bound to the same selected tactical scene used by presentation.",
+      "classification": "Previously recorded 059 finding independently rechecked at 95e; conditional multiscene scope retained.",
+      "canonical_owner": "ActiveTacticalScene selected identity through an appropriate read-only observation for weather and associated ground/listener.",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RAIN-AUDIO-SCENE-OWNERSHIP",
+        "baseline-059/queue.json#/entries/96"
+      ],
+      "discovery": "partial; actual multiple-scene overlap, scene-to-ground/listener mapping, audio outcome and aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-BROWSER-SFX-FAILED-LOAD-CACHE-001",
+      "first_failed_contract": "A failed sound fetch/decode remains an unready cached entry with no retry or structured failure state for subsequent sound requests in that script instance.",
+      "classification": "New 95e source-supported conditional browser asset-lifecycle candidate; no actual failed request observed.",
+      "canonical_owner": "Browser sound asset state and retry/failure policy shared by one-shots and loops.",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/240",
+        "baseline-059/queue.json#/entries/1286"
+      ],
+      "relationship_qualification": "Earlier e275 Bevy queued-entity lifetime and old missing-asset question remain separate; same general audio topic does not establish an alias. Current browser unlock and deliberate start/voice caps are distinct.",
+      "dependencies": [
+        "Specify terminal, transient and decode failure policy and any bounded retry or explicit error outcome without retry storms.",
+        "Trace static hosting, actual failure reporting and every caller; do not infer a failure from a source-only conditional.",
+        "Preserve startup preloading, intended suspended-context drops and normal loop/voice behavior."
+      ],
+      "acceptance_requirements": [
+        "A transient failure followed by external recovery has a defined retry or surfaced failure outcome instead of a permanently indistinguishable pending entry.",
+        "Valid loaded sounds, suspended-context behavior and finite voice/start limits retain their documented semantics."
+      ],
+      "discovery": "partial; product retry policy, actual failure reachability, hosts and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    },
+    {
+      "id": "REVIEW-WIND-LOOP-NO-SCENE-STATE-001",
+      "first_failed_contract": "When no SceneEnvironment is available, the wind updater sends no new loop gain, leaving the prior browser loop gain retained; intended handoff behavior is unspecified in inspected sources.",
+      "classification": "New 95e conditional scene-absence and loop-ownership policy question; no audible defect established.",
+      "canonical_owner": "Wind ambience ownership across selected-scene disappearance and the browser loop boundary.",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RAIN-AUDIO-SCENE-OWNERSHIP",
+        "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/244"
+      ],
+      "relationship_qualification": "The old rain issue concerns selecting weather/ground/listener while multiple scenes exist; absence and retained wind gain are a separate first question. Earlier evidence explicitly cautions that persistent loops may be intentional.",
+      "dependencies": [
+        "Establish desired silence or continuity during scene handoff and failure; determine all scene lifecycle and any other gain writers.",
+        "Trace whether an active loop and no-environment frame occur in supported entry/exit paths, with browser scheduling and native output separately qualified."
+      ],
+      "acceptance_requirements": [
+        "The no-scene state has an explicit, reviewable gain policy and follows that policy through scene removal and replacement.",
+        "Preserve intended smooth rain and looping continuity where applicable."
+      ],
+      "discovery": "partial; handoff policy, actual no-scene duration, audio reachability and exact aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "accepted_historical_unique_count_change": 0
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "ASSESSMENT-EQUIPMENT-PREVIEW-READINESS-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Earlier adler batch 210 recorded role1495 out-of-order; reviewer and frontier unchanged."
+    },
+    {
+      "file": "ASSESSMENT-RUNTIME-EQUIPMENT-FIT-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Earlier adler batch 211 records no fresh role1495 read; current personal historical role1495 read is separate."
+    },
+    {
+      "file": "ASSESSMENT-EQUIPMENT-MESH-RIG-95E.json",
+      "pointers": [
+        "/recovered_historical_records"
+      ],
+      "qualification": "Earlier segovb Lens12 batch450 includes 1495, without transferring reviewer or other-lens credit."
+    },
+    {
+      "file": "ASSESSMENT-L1-AUDIO-CONFIG.json",
+      "pointers": [
+        "/current_observations"
+      ],
+      "qualification": "The c100 pitch browser consequence is prior scoped work. Exact identical 95e source identities do not establish full lens closure."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-212.json",
+      "sha256": "c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876",
+      "bytes": 7955,
+      "git_blob": "26db7562addd062f65c1cb9662be2716d3a71156",
+      "preserved_bytes": "recovered/slot-audio-059/c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876.gz",
+      "published_sha256": "c061be62985f34109cefdf7579106841a59f4924cf4e31a382efbe2e62b9f876",
+      "published_bytes": 7955,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-217.json",
+      "sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "bytes": 13360,
+      "git_blob": "a9e0ca18553110bab06d2b4e360d644d4b4908d8",
+      "preserved_bytes": "recovered/slot-audio-059/7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5.gz",
+      "published_sha256": "7f789f35339fe103021e274f5bdd69f2029db5d821c3ed7f4389bc055c3a06b5",
+      "published_bytes": 13360,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-241.json",
+      "sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "bytes": 17859,
+      "git_blob": "75db69485b5727f787c0a1722d74f1878d10f499",
+      "preserved_bytes": "recovered/slot-audio-059/47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330.gz",
+      "published_sha256": "47a80004e322c173aef492bae227f74c6941d128d640eef5263400faf8f30330",
+      "published_bytes": 17859,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/READ-L11-256.json",
+      "sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137",
+      "bytes": 15395,
+      "git_blob": "fd0d90a8a9dea9d3055fefeff63ed9a10cfda9e6",
+      "preserved_bytes": "recovered/slot-audio-059/c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137.gz",
+      "published_sha256": "c93289b52d9550b3952f64fb506e44662e8706a1975caca18e5c6278e140f137",
+      "published_bytes": 15395,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-271.json",
+      "sha256": "5a369201d77c4c1ea77f8208a886319390ca3147e3975a6fa3892504b0eb3f1b",
+      "bytes": 758,
+      "git_blob": "e0b0bf8160acb2d0704e33baae2249a08801988a",
+      "preserved_bytes": "recovered/slot-audio-059/5a369201d77c4c1ea77f8208a886319390ca3147e3975a6fa3892504b0eb3f1b.gz",
+      "published_sha256": "5a369201d77c4c1ea77f8208a886319390ca3147e3975a6fa3892504b0eb3f1b",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-312.json",
+      "sha256": "5239ed325dac64298ba835e102bb90fd8da451254afc5b8fe28c878d114cf240",
+      "bytes": 716,
+      "git_blob": "7eee858d46f7df05158c3d84ca85d1d52c4cf077",
+      "preserved_bytes": "recovered/slot-audio-059/5239ed325dac64298ba835e102bb90fd8da451254afc5b8fe28c878d114cf240.gz",
+      "published_sha256": "5239ed325dac64298ba835e102bb90fd8da451254afc5b8fe28c878d114cf240",
+      "published_bytes": 716,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-313.json",
+      "sha256": "868a1a0bee853513335b8c950d36becb8574415165736e0721a2667e6d3baac6",
+      "bytes": 726,
+      "git_blob": "58eac53e660af65f384576560932afd1e17ee0fa",
+      "preserved_bytes": "recovered/slot-audio-059/868a1a0bee853513335b8c950d36becb8574415165736e0721a2667e6d3baac6.gz",
+      "published_sha256": "868a1a0bee853513335b8c950d36becb8574415165736e0721a2667e6d3baac6",
+      "published_bytes": 726,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-335.json",
+      "sha256": "f03084448dde5c7a2a75c1a095654a1442a5a55052bb5066ce1a8eb63609c550",
+      "bytes": 727,
+      "git_blob": "4b471a012243b57c210ed67c006432cc16567b9b",
+      "preserved_bytes": "recovered/slot-audio-059/f03084448dde5c7a2a75c1a095654a1442a5a55052bb5066ce1a8eb63609c550.gz",
+      "published_sha256": "f03084448dde5c7a2a75c1a095654a1442a5a55052bb5066ce1a8eb63609c550",
+      "published_bytes": 727,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-354.json",
+      "sha256": "fe93b97053419484c5aca70b7b40fc0aebd8dc3a47925badcd44731c77180c25",
+      "bytes": 776,
+      "git_blob": "22e571ad846ca8e0f3dd95c337c8ad03d01de8dd",
+      "preserved_bytes": "recovered/slot-audio-059/fe93b97053419484c5aca70b7b40fc0aebd8dc3a47925badcd44731c77180c25.gz",
+      "published_sha256": "fe93b97053419484c5aca70b7b40fc0aebd8dc3a47925badcd44731c77180c25",
+      "published_bytes": 776,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-355.json",
+      "sha256": "132370b0be6223f9255433873ca7bc47560c70af839fd56366de0cb8fb2ef9da",
+      "bytes": 760,
+      "git_blob": "179e79cdc65ef82cf96d884c85722d2924625e9b",
+      "preserved_bytes": "recovered/slot-audio-059/132370b0be6223f9255433873ca7bc47560c70af839fd56366de0cb8fb2ef9da.gz",
+      "published_sha256": "132370b0be6223f9255433873ca7bc47560c70af839fd56366de0cb8fb2ef9da",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-356.json",
+      "sha256": "cd1132790fca0d8d92c67ed21f1daa3aa802bde23930ef4ee9f7b87f78b273b4",
+      "bytes": 781,
+      "git_blob": "a461986ee3628d59ebadac8311ea0be85efdcb0e",
+      "preserved_bytes": "recovered/slot-audio-059/cd1132790fca0d8d92c67ed21f1daa3aa802bde23930ef4ee9f7b87f78b273b4.gz",
+      "published_sha256": "cd1132790fca0d8d92c67ed21f1daa3aa802bde23930ef4ee9f7b87f78b273b4",
+      "published_bytes": 781,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-357.json",
+      "sha256": "30f5d22b6dde4d35dce879404389ad40f2a27b49b370a6166fbd52b2ab4e84b0",
+      "bytes": 765,
+      "git_blob": "1ef176d0100792cb5e8edda6f64ea06eb16cd022",
+      "preserved_bytes": "recovered/slot-audio-059/30f5d22b6dde4d35dce879404389ad40f2a27b49b370a6166fbd52b2ab4e84b0.gz",
+      "published_sha256": "30f5d22b6dde4d35dce879404389ad40f2a27b49b370a6166fbd52b2ab4e84b0",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-505.json",
+      "sha256": "4d026a4bd48b312ac6d972c65bb2e94574d8f2c318fd40eeb5df19e9f40209cd",
+      "bytes": 777,
+      "git_blob": "3d8a7f1c1d796a1fd1e5154f98020242e3c36272",
+      "preserved_bytes": "recovered/slot-audio-059/4d026a4bd48b312ac6d972c65bb2e94574d8f2c318fd40eeb5df19e9f40209cd.gz",
+      "published_sha256": "4d026a4bd48b312ac6d972c65bb2e94574d8f2c318fd40eeb5df19e9f40209cd",
+      "published_bytes": 777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-506.json",
+      "sha256": "b1b47f46c87d82371639c117c896bfd773d46ad6281053fce812c4cb9389e6cd",
+      "bytes": 777,
+      "git_blob": "f980357a8bd4ea9474d8ffbc7f6b84bf3a036f26",
+      "preserved_bytes": "recovered/slot-audio-059/b1b47f46c87d82371639c117c896bfd773d46ad6281053fce812c4cb9389e6cd.gz",
+      "published_sha256": "b1b47f46c87d82371639c117c896bfd773d46ad6281053fce812c4cb9389e6cd",
+      "published_bytes": 777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-507.json",
+      "sha256": "a731b9dd842a20afd35acc9f1ef91225e8454f48c1abc77006d1e26849b099cc",
+      "bytes": 763,
+      "git_blob": "f651ffd583dac75562a667a5b4bcdb89d01e28af",
+      "preserved_bytes": "recovered/slot-audio-059/a731b9dd842a20afd35acc9f1ef91225e8454f48c1abc77006d1e26849b099cc.gz",
+      "published_sha256": "a731b9dd842a20afd35acc9f1ef91225e8454f48c1abc77006d1e26849b099cc",
+      "published_bytes": 763,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-508.json",
+      "sha256": "5150d24cb549c2e7d7fc5f4b1413a34faf48f83a5fe7187184419c71ffce6631",
+      "bytes": 757,
+      "git_blob": "8d82b028a3eab18faab02b515a55be7517fae1a2",
+      "preserved_bytes": "recovered/slot-audio-059/5150d24cb549c2e7d7fc5f4b1413a34faf48f83a5fe7187184419c71ffce6631.gz",
+      "published_sha256": "5150d24cb549c2e7d7fc5f4b1413a34faf48f83a5fe7187184419c71ffce6631",
+      "published_bytes": 757,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-509.json",
+      "sha256": "e3a01094eab635e3bfbe20bf789d6d2406eb2227525e6e05de7afe00c8429be5",
+      "bytes": 767,
+      "git_blob": "7c8c01f26d3b633730f3c18bcb2009ca1b641e2f",
+      "preserved_bytes": "recovered/slot-audio-059/e3a01094eab635e3bfbe20bf789d6d2406eb2227525e6e05de7afe00c8429be5.gz",
+      "published_sha256": "e3a01094eab635e3bfbe20bf789d6d2406eb2227525e6e05de7afe00c8429be5",
+      "published_bytes": 767,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-510.json",
+      "sha256": "4a6b19381d4bbd7c68fdcb2d9d952a8ca947f7d989a592f9e184288ed1c80a01",
+      "bytes": 756,
+      "git_blob": "85bede5212241cc0e29cfd016bff430093135a43",
+      "preserved_bytes": "recovered/slot-audio-059/4a6b19381d4bbd7c68fdcb2d9d952a8ca947f7d989a592f9e184288ed1c80a01.gz",
+      "published_sha256": "4a6b19381d4bbd7c68fdcb2d9d952a8ca947f7d989a592f9e184288ed1c80a01",
+      "published_bytes": 756,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-582.json",
+      "sha256": "139b31a68d2699811d440b2abfa2629d53f7edcc678e758646a86ff1701b99e2",
+      "bytes": 712,
+      "git_blob": "390ed430ce010ea1c164428ad3728b05560fdf78",
+      "preserved_bytes": "recovered/slot-audio-059/139b31a68d2699811d440b2abfa2629d53f7edcc678e758646a86ff1701b99e2.gz",
+      "published_sha256": "139b31a68d2699811d440b2abfa2629d53f7edcc678e758646a86ff1701b99e2",
+      "published_bytes": 712,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-583.json",
+      "sha256": "87014f396894473003792fcc858d363f3ec1746ded0cd3b2675dcbf3cf5f1ebe",
+      "bytes": 724,
+      "git_blob": "956a80ea43ed27deefb64d443381a59732838da1",
+      "preserved_bytes": "recovered/slot-audio-059/87014f396894473003792fcc858d363f3ec1746ded0cd3b2675dcbf3cf5f1ebe.gz",
+      "published_sha256": "87014f396894473003792fcc858d363f3ec1746ded0cd3b2675dcbf3cf5f1ebe",
+      "published_bytes": 724,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-584.json",
+      "sha256": "072e1d38b52cd9168387eb4b6d9b9a17d1c57499453db147e909f799e433e8b6",
+      "bytes": 722,
+      "git_blob": "0863fbaf749e5cd61fab9ab7c05d62b9e2d33d92",
+      "preserved_bytes": "recovered/slot-audio-059/072e1d38b52cd9168387eb4b6d9b9a17d1c57499453db147e909f799e433e8b6.gz",
+      "published_sha256": "072e1d38b52cd9168387eb4b6d9b9a17d1c57499453db147e909f799e433e8b6",
+      "published_bytes": 722,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-585.json",
+      "sha256": "7ec76c34ef2b22e3791ef9c69cd7073c4b8b222f590e0bb5ab19c5b910a811fe",
+      "bytes": 708,
+      "git_blob": "384b2aecde6d26eab371c8e7e3884fbc64694d3f",
+      "preserved_bytes": "recovered/slot-audio-059/7ec76c34ef2b22e3791ef9c69cd7073c4b8b222f590e0bb5ab19c5b910a811fe.gz",
+      "published_sha256": "7ec76c34ef2b22e3791ef9c69cd7073c4b8b222f590e0bb5ab19c5b910a811fe",
+      "published_bytes": 708,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-586.json",
+      "sha256": "8af4f3c17acb1d101dd4c1bd19c3500cb3f92bf4218e070b8d5b58523acb16cd",
+      "bytes": 717,
+      "git_blob": "1103594c88882b87f561026074d1afb28a5e4544",
+      "preserved_bytes": "recovered/slot-audio-059/8af4f3c17acb1d101dd4c1bd19c3500cb3f92bf4218e070b8d5b58523acb16cd.gz",
+      "published_sha256": "8af4f3c17acb1d101dd4c1bd19c3500cb3f92bf4218e070b8d5b58523acb16cd",
+      "published_bytes": 717,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-587.json",
+      "sha256": "afaa5a17a1372f2dbd83710c7594addde69b34ceb67783d2cd0a3d15c2c3f8a4",
+      "bytes": 709,
+      "git_blob": "52c9765a881be0884723120a84661d1480ecff04",
+      "preserved_bytes": "recovered/slot-audio-059/afaa5a17a1372f2dbd83710c7594addde69b34ceb67783d2cd0a3d15c2c3f8a4.gz",
+      "published_sha256": "afaa5a17a1372f2dbd83710c7594addde69b34ceb67783d2cd0a3d15c2c3f8a4",
+      "published_bytes": 709,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-212.json",
+      "sha256": "0d5d9d1d0c093dcf946af4f3faa4b888ad2079072b28a4f59893fc32523f9506",
+      "bytes": 624,
+      "git_blob": "392c9888ad04a960d50ab3bd5d3d884fa7f9a9e1",
+      "preserved_bytes": "recovered/slot-audio-059/0d5d9d1d0c093dcf946af4f3faa4b888ad2079072b28a4f59893fc32523f9506.gz",
+      "published_sha256": "0d5d9d1d0c093dcf946af4f3faa4b888ad2079072b28a4f59893fc32523f9506",
+      "published_bytes": 624,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-217.json",
+      "sha256": "02892f5aa479b1fd809d3c6ac6191444c7b32e45d8682cb02a4f58b501545105",
+      "bytes": 657,
+      "git_blob": "145d5f2935303e4db24ab6f0b12dc073f69a738e",
+      "preserved_bytes": "recovered/slot-audio-059/02892f5aa479b1fd809d3c6ac6191444c7b32e45d8682cb02a4f58b501545105.gz",
+      "published_sha256": "02892f5aa479b1fd809d3c6ac6191444c7b32e45d8682cb02a4f58b501545105",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-241.json",
+      "sha256": "8c15ef2a11276c8fbfba72a2c7d624d415fee573989a20b3cc4c3c3c9e684a03",
+      "bytes": 668,
+      "git_blob": "8165249bd99246ea93a9f02bec17bfd5598586e3",
+      "preserved_bytes": "recovered/slot-audio-059/8c15ef2a11276c8fbfba72a2c7d624d415fee573989a20b3cc4c3c3c9e684a03.gz",
+      "published_sha256": "8c15ef2a11276c8fbfba72a2c7d624d415fee573989a20b3cc4c3c3c9e684a03",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/STATE-L11-256.json",
+      "sha256": "5a6de76be132b858af2e23f40bc1ea9c5ecd6c3ee0597d7894524c4863465551",
+      "bytes": 668,
+      "git_blob": "b0b580cc83e98dce7dfd9aaf8641b427b09efd79",
+      "preserved_bytes": "recovered/slot-audio-059/5a6de76be132b858af2e23f40bc1ea9c5ecd6c3ee0597d7894524c4863465551.gz",
+      "published_sha256": "5a6de76be132b858af2e23f40bc1ea9c5ecd6c3ee0597d7894524c4863465551",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-212.json",
+      "sha256": "ba5925f78319c075bedd6f1fab12b722181026c0f3a1796b5910969c44301d49",
+      "bytes": 36651,
+      "git_blob": "5e360034d1dc3568dbe2a72961d8549c0df2964c",
+      "preserved_bytes": "recovered/slot-audio-059/ba5925f78319c075bedd6f1fab12b722181026c0f3a1796b5910969c44301d49.gz",
+      "published_sha256": "ba5925f78319c075bedd6f1fab12b722181026c0f3a1796b5910969c44301d49",
+      "published_bytes": 36651,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-217.json",
+      "sha256": "769df24a2d9bf87cccc4fe908d2873685c5aa46a55026d082cf5f66e2246a58a",
+      "bytes": 34608,
+      "git_blob": "486d12af6ec11b683b38cd3e80c8071883ae8ac8",
+      "preserved_bytes": "recovered/slot-audio-059/769df24a2d9bf87cccc4fe908d2873685c5aa46a55026d082cf5f66e2246a58a.gz",
+      "published_sha256": "769df24a2d9bf87cccc4fe908d2873685c5aa46a55026d082cf5f66e2246a58a",
+      "published_bytes": 34608,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-241.json",
+      "sha256": "24aec59fe9405f2eee6a7e979577eaf99cb2f6c8bdbe57f833281b255a831ef9",
+      "bytes": 32827,
+      "git_blob": "65dfe26c55c4e3f3eae80964bc774d767c4bf6a5",
+      "preserved_bytes": "recovered/slot-audio-059/24aec59fe9405f2eee6a7e979577eaf99cb2f6c8bdbe57f833281b255a831ef9.gz",
+      "published_sha256": "24aec59fe9405f2eee6a7e979577eaf99cb2f6c8bdbe57f833281b255a831ef9",
+      "published_bytes": 32827,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-256.json",
+      "sha256": "c219b82e98cf489d40bbd7d213879bcc9d568fea1f6470046dd1be41476cfd74",
+      "bytes": 38545,
+      "git_blob": "b9556fbcc876c896566ab14a7800f32629e84aeb",
+      "preserved_bytes": "recovered/slot-audio-059/c219b82e98cf489d40bbd7d213879bcc9d568fea1f6470046dd1be41476cfd74.gz",
+      "published_sha256": "c219b82e98cf489d40bbd7d213879bcc9d568fea1f6470046dd1be41476cfd74",
+      "published_bytes": 38545,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/ALIAS-004-APPLICATION-MANIFEST.json",
+      "sha256": "d3d162aa0deae239706b59bb597657bd9fbcc9ca4af4e3079082d186a8e500c1",
+      "bytes": 40728,
+      "git_blob": "4fd9aedfb14cfce7fc9c761afeb16a7e7667783f",
+      "preserved_bytes": "recovered/slot-audio-059/d3d162aa0deae239706b59bb597657bd9fbcc9ca4af4e3079082d186a8e500c1.gz",
+      "published_sha256": "d3d162aa0deae239706b59bb597657bd9fbcc9ca4af4e3079082d186a8e500c1",
+      "published_bytes": 40728,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier alias application support"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/ALIAS-004.json",
+      "sha256": "3cd4dea26bce9d5643ce52f3437f6cd03fdddb1165f615cd979d3b8ad9f0bfb0",
+      "bytes": 12569,
+      "git_blob": "f56c4d59ca80b2cc088a2a7285a59fc41555898f",
+      "preserved_bytes": "recovered/slot-audio-059/3cd4dea26bce9d5643ce52f3437f6cd03fdddb1165f615cd979d3b8ad9f0bfb0.gz",
+      "published_sha256": "3cd4dea26bce9d5643ce52f3437f6cd03fdddb1165f615cd979d3b8ad9f0bfb0",
+      "published_bytes": 12569,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier alias application support"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-165.json",
+      "sha256": "1628536b049177f15f04cde9e36cc0307e0b74a19a2d1632cdbef245cef64077",
+      "bytes": 2405,
+      "git_blob": "7aa0b593a71c0a322e0691f48b2d7b3ba4b7e4f6",
+      "preserved_bytes": "recovered/slot-audio-059/1628536b049177f15f04cde9e36cc0307e0b74a19a2d1632cdbef245cef64077.gz",
+      "published_sha256": "1628536b049177f15f04cde9e36cc0307e0b74a19a2d1632cdbef245cef64077",
+      "published_bytes": 2405,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-167.json",
+      "sha256": "91d41c09c47115c426c49c1149e079e28319b847fb319e597a69438451244095",
+      "bytes": 7660,
+      "git_blob": "85ae7aa581e2f2a16f726fbc6be1ebf79fa37efc",
+      "preserved_bytes": "recovered/slot-audio-059/91d41c09c47115c426c49c1149e079e28319b847fb319e597a69438451244095.gz",
+      "published_sha256": "48f39b97c4e54acafb9c30239a98ccc19d002b4c858b4bf9f5488ab5dc717ef9",
+      "published_bytes": 6981,
+      "redacted_local_path_occurrences": 8,
+      "original_recovery": "Exact original from pinned 059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/PLAN-168.json",
+      "sha256": "3c94df00ce48b33e1f1b92339f311b224090ca82fe554229c6f6a5de6696e85e",
+      "bytes": 2511,
+      "git_blob": "279d10c300e705468a38dee5cd5afc3ea2f8bd8f",
+      "preserved_bytes": "recovered/slot-audio-059/3c94df00ce48b33e1f1b92339f311b224090ca82fe554229c6f6a5de6696e85e.gz",
+      "published_sha256": "c123de7ddaba6cee54b2c0bf2462b55b882c2585b4f332650dc45f8042597aef",
+      "published_bytes": 2340,
+      "redacted_local_path_occurrences": 2,
+      "original_recovery": "Exact original from pinned 059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated Lens11 source plan; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-147.json",
+      "sha256": "1a6a0fb89f836d52e4eaae0cea6746aae03affc7e8ac0a119153ace6e254e859",
+      "bytes": 10134,
+      "git_blob": "e1076b2201ee0745f32413237e83f40aec0fbffb",
+      "preserved_bytes": "recovered/slot-audio-059/1a6a0fb89f836d52e4eaae0cea6746aae03affc7e8ac0a119153ace6e254e859.gz",
+      "published_sha256": "1a6a0fb89f836d52e4eaae0cea6746aae03affc7e8ac0a119153ace6e254e859",
+      "published_bytes": 10134,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-149.json",
+      "sha256": "6243f5952d76b325367efe2be1f22b1a9eb66e2dd400c0e1155a130254063a62",
+      "bytes": 22287,
+      "git_blob": "a2a11acd2baa112de988e83879f4226c1e84403f",
+      "preserved_bytes": "recovered/slot-audio-059/6243f5952d76b325367efe2be1f22b1a9eb66e2dd400c0e1155a130254063a62.gz",
+      "published_sha256": "1c43a0c6ea9cb7dc5f1bdbf11a03126ad49803e486135aab91bf082d84d5f234",
+      "published_bytes": 21437,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned 059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-150.json",
+      "sha256": "caa0b0f634eb8c84dce34d5eaab3f9a151af2bd52996bf7d64feb2b7134b5ed9",
+      "bytes": 16544,
+      "git_blob": "0543bd29d7e55bed9a2156782e4865a844f670e4",
+      "preserved_bytes": "recovered/slot-audio-059/caa0b0f634eb8c84dce34d5eaab3f9a151af2bd52996bf7d64feb2b7134b5ed9.gz",
+      "published_sha256": "caa0b0f634eb8c84dce34d5eaab3f9a151af2bd52996bf7d64feb2b7134b5ed9",
+      "published_bytes": 16544,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated alias subobservation; attribution retained",
+        "earlier delegated alias subobservation; attribution retained",
+        "earlier delegated alias subobservation; attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/READ-151.json",
+      "sha256": "47657d6a641638a0703a96d23cff31a7ea8b92885463da289d0381d41407af6e",
+      "bytes": 10569,
+      "git_blob": "b6b52ab8cbc70ee899d84cf3c2d25e53f1ddd7a0",
+      "preserved_bytes": "recovered/slot-audio-059/47657d6a641638a0703a96d23cff31a7ea8b92885463da289d0381d41407af6e.gz",
+      "published_sha256": "47657d6a641638a0703a96d23cff31a7ea8b92885463da289d0381d41407af6e",
+      "published_bytes": 10569,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated alias subobservation; attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-147.json",
+      "sha256": "dc1153d9864a94ce351cc1bd87ac3e31f6917a689f5f6e621c3d5a7284d19f3c",
+      "bytes": 702,
+      "git_blob": "5cb00ca6ffa5056c7314512e533b9ef5460aee2f",
+      "preserved_bytes": "recovered/slot-audio-059/dc1153d9864a94ce351cc1bd87ac3e31f6917a689f5f6e621c3d5a7284d19f3c.gz",
+      "published_sha256": "dc1153d9864a94ce351cc1bd87ac3e31f6917a689f5f6e621c3d5a7284d19f3c",
+      "published_bytes": 702,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "parallel-l11-20261029/VERIFY-149.json",
+      "sha256": "6dc4bc07e48f07bf68b125ad20e2d1d7268a9c4e2cd00567bd02ac9c8fc02924",
+      "bytes": 1445,
+      "git_blob": "dd37bd10868f169bc921e69d73d2cc390b78b2b6",
+      "preserved_bytes": "recovered/slot-audio-059/6dc4bc07e48f07bf68b125ad20e2d1d7268a9c4e2cd00567bd02ac9c8fc02924.gz",
+      "published_sha256": "6dc4bc07e48f07bf68b125ad20e2d1d7268a9c4e2cd00567bd02ac9c8fc02924",
+      "published_bytes": 1445,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier delegated Lens11 evidence; original attribution retained"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/ALIAS-L11-P01-004.json",
+      "sha256": "71af19bdd809178ff915950a24c1f37d229cc43c35fbf8a55b537b73bb9fd436",
+      "bytes": 47457,
+      "git_blob": "53854e230b3bffc917db61557733c87ce7876a3a",
+      "preserved_bytes": "recovered/slot-audio-059/71af19bdd809178ff915950a24c1f37d229cc43c35fbf8a55b537b73bb9fd436.gz",
+      "published_sha256": "71af19bdd809178ff915950a24c1f37d229cc43c35fbf8a55b537b73bb9fd436",
+      "published_bytes": 47457,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier exact subobservation alias application, e275 only"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-451.json",
+      "sha256": "dcbfa5b256e88898df699c18bffcba61011c8ede4d05d758690b8def172bba1a",
+      "bytes": 707,
+      "git_blob": "986152339aead9e5437957a9155856b7c2329036",
+      "preserved_bytes": "recovered/slot-audio-059/dcbfa5b256e88898df699c18bffcba61011c8ede4d05d758690b8def172bba1a.gz",
+      "published_sha256": "dcbfa5b256e88898df699c18bffcba61011c8ede4d05d758690b8def172bba1a",
+      "published_bytes": 707,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-452.json",
+      "sha256": "d9b20595898626056efc960609b5d4c6c5e91314719bf41cfe731f6f25c04192",
+      "bytes": 717,
+      "git_blob": "14986e23ac6821156e9558ea121260ff78b357e3",
+      "preserved_bytes": "recovered/slot-audio-059/d9b20595898626056efc960609b5d4c6c5e91314719bf41cfe731f6f25c04192.gz",
+      "published_sha256": "d9b20595898626056efc960609b5d4c6c5e91314719bf41cfe731f6f25c04192",
+      "published_bytes": 717,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-683.json",
+      "sha256": "d5ec2ab7e10576931b51ddcd782d9b6483626b9361cf509e2cfdb0b53b51a971",
+      "bytes": 12559,
+      "git_blob": "38df4fe013a3906cfce2587b47d8135fd5d6eace",
+      "preserved_bytes": "recovered/slot-audio-059/d5ec2ab7e10576931b51ddcd782d9b6483626b9361cf509e2cfdb0b53b51a971.gz",
+      "published_sha256": "d5ec2ab7e10576931b51ddcd782d9b6483626b9361cf509e2cfdb0b53b51a971",
+      "published_bytes": 12559,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L11-685.json",
+      "sha256": "a9155ded3b6474aa7f7671eb7c177e6ceee9b48cf27555a210efe4ec9c44f0c4",
+      "bytes": 28564,
+      "git_blob": "ba1cf7b3383ab84b2edb7fa8bfae30cadb5e0498",
+      "preserved_bytes": "recovered/slot-audio-059/a9155ded3b6474aa7f7671eb7c177e6ceee9b48cf27555a210efe4ec9c44f0c4.gz",
+      "published_sha256": "8a573cdb0bb742dc3c8dccba9e1252218f3669f1aa4cd4682aa4a0d2f7d837c9",
+      "published_bytes": 27714,
+      "redacted_local_path_occurrences": 10,
+      "original_recovery": "Exact original from pinned 059 transport at original path; verify manifest SHA-256 and Git blob.",
+      "roles": [
+        "earlier independent Lens11 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-451.json",
+      "sha256": "8732e57c8ff55d072998b53391a6ffd3dc59dc7244f8024a00e6e1fe78d1331a",
+      "bytes": 6847,
+      "git_blob": "94d012bcda6191ba563910f7c871bd00ce0cdef8",
+      "preserved_bytes": "recovered/slot-audio-059/8732e57c8ff55d072998b53391a6ffd3dc59dc7244f8024a00e6e1fe78d1331a.gz",
+      "published_sha256": "8732e57c8ff55d072998b53391a6ffd3dc59dc7244f8024a00e6e1fe78d1331a",
+      "published_bytes": 6847,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-452.json",
+      "sha256": "dd5bde10fbad2f06000c01e1e6cdb07d5b95dbde85a7e9f270156ee79fd80cb8",
+      "bytes": 6396,
+      "git_blob": "3a542fae8a0d9ebe41f0d74fe47e877c614a7868",
+      "preserved_bytes": "recovered/slot-audio-059/dd5bde10fbad2f06000c01e1e6cdb07d5b95dbde85a7e9f270156ee79fd80cb8.gz",
+      "published_sha256": "dd5bde10fbad2f06000c01e1e6cdb07d5b95dbde85a7e9f270156ee79fd80cb8",
+      "published_bytes": 6396,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-403.json",
+      "sha256": "33a6e628f723ae0fd00081fd9b4a2b6e7f1e0b0764d35f58f61066d424ae7356",
+      "bytes": 1141,
+      "git_blob": "c094eb0edea489696503c8547031675135b636d6",
+      "preserved_bytes": "recovered/slot-audio-059/33a6e628f723ae0fd00081fd9b4a2b6e7f1e0b0764d35f58f61066d424ae7356.gz",
+      "published_sha256": "33a6e628f723ae0fd00081fd9b4a2b6e7f1e0b0764d35f58f61066d424ae7356",
+      "published_bytes": 1141,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-404.json",
+      "sha256": "fdba987e25d3bbe7406a7d990115c5d9f723b06db202546b451687426c74a2ee",
+      "bytes": 1180,
+      "git_blob": "b84d6e7e4f6ac4e6ea8db553938d367580dea886",
+      "preserved_bytes": "recovered/slot-audio-059/fdba987e25d3bbe7406a7d990115c5d9f723b06db202546b451687426c74a2ee.gz",
+      "published_sha256": "fdba987e25d3bbe7406a7d990115c5d9f723b06db202546b451687426c74a2ee",
+      "published_bytes": 1180,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier original source registration"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-683.json",
+      "sha256": "1e2c0b588769bf42bb11d16093e8d3fab707c1e74009afbcb895f553f6539875",
+      "bytes": 668,
+      "git_blob": "a3dbfcefa17758f81191e939e1bb2951eb7f6a58",
+      "preserved_bytes": "recovered/slot-audio-059/1e2c0b588769bf42bb11d16093e8d3fab707c1e74009afbcb895f553f6539875.gz",
+      "published_sha256": "1e2c0b588769bf42bb11d16093e8d3fab707c1e74009afbcb895f553f6539875",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L11-685.json",
+      "sha256": "ca08e5b39826def9dcb5586176c6b25d939a76f04c622cd01b0082d99659bc05",
+      "bytes": 668,
+      "git_blob": "691de78e56cfe1e39ce730e9e52fcaba2734a4a4",
+      "preserved_bytes": "recovered/slot-audio-059/ca08e5b39826def9dcb5586176c6b25d939a76f04c622cd01b0082d99659bc05.gz",
+      "published_sha256": "ca08e5b39826def9dcb5586176c6b25d939a76f04c622cd01b0082d99659bc05",
+      "published_bytes": 668,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-451.json",
+      "sha256": "561f9627fcac04010f81cc6a2713fd2cb6356aa293ae74045fffecbb4f762f74",
+      "bytes": 840,
+      "git_blob": "5e4a171bb9120ca61b0094513547a2522bfb6588",
+      "preserved_bytes": "recovered/slot-audio-059/561f9627fcac04010f81cc6a2713fd2cb6356aa293ae74045fffecbb4f762f74.gz",
+      "published_sha256": "561f9627fcac04010f81cc6a2713fd2cb6356aa293ae74045fffecbb4f762f74",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-452.json",
+      "sha256": "ae35ff699e2148c8aa768d06d52f8172afde09557adf05275047436f24d0618c",
+      "bytes": 840,
+      "git_blob": "e51e3bda82aee3ef76bd12def1fa3bde8feccdda",
+      "preserved_bytes": "recovered/slot-audio-059/ae35ff699e2148c8aa768d06d52f8172afde09557adf05275047436f24d0618c.gz",
+      "published_sha256": "ae35ff699e2148c8aa768d06d52f8172afde09557adf05275047436f24d0618c",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-683.json",
+      "sha256": "512f220a8b03bbbb9bb0e190612b5667d9451909f3c1d1263a79fb5b115859ac",
+      "bytes": 407,
+      "git_blob": "f14d5570b19de4826e8f34177e24c725c6650181",
+      "preserved_bytes": "recovered/slot-audio-059/512f220a8b03bbbb9bb0e190612b5667d9451909f3c1d1263a79fb5b115859ac.gz",
+      "published_sha256": "512f220a8b03bbbb9bb0e190612b5667d9451909f3c1d1263a79fb5b115859ac",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L11-685.json",
+      "sha256": "fbd2861ef5af3c334ece1132e6171cbb53c2a6cbd5bd6aad9130d47beca13b11",
+      "bytes": 407,
+      "git_blob": "3601af0cc444081d6d832b74b68ce8e07b7c554e",
+      "preserved_bytes": "recovered/slot-audio-059/fbd2861ef5af3c334ece1132e6171cbb53c2a6cbd5bd6aad9130d47beca13b11.gz",
+      "published_sha256": "fbd2861ef5af3c334ece1132e6171cbb53c2a6cbd5bd6aad9130d47beca13b11",
+      "published_bytes": 407,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens11 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-451.json",
+      "sha256": "56d7415e60e02c0fa6e2aba15094d5e8d7df144f0756b2e4760e222a8ed6d214",
+      "bytes": 558,
+      "git_blob": "dcbdc634bf06442ee8044013a1501062d038081a",
+      "preserved_bytes": "recovered/slot-audio-059/56d7415e60e02c0fa6e2aba15094d5e8d7df144f0756b2e4760e222a8ed6d214.gz",
+      "published_sha256": "56d7415e60e02c0fa6e2aba15094d5e8d7df144f0756b2e4760e222a8ed6d214",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-452.json",
+      "sha256": "f5b67c2f1ef87a10937a6d90c0423d4b0951ba9382db7846fa2a260eea67dbaa",
+      "bytes": 558,
+      "git_blob": "735b7ab4d857887399c9b19d33080312684aab4b",
+      "preserved_bytes": "recovered/slot-audio-059/f5b67c2f1ef87a10937a6d90c0423d4b0951ba9382db7846fa2a260eea67dbaa.gz",
+      "published_sha256": "f5b67c2f1ef87a10937a6d90c0423d4b0951ba9382db7846fa2a260eea67dbaa",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, revision, ranges and no-fresh-read qualifications remain intact; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "All scenes and audio hosts, actual assets, loader failures, output lifecycle, complete slot producers/consumers, aliases, overlay/merged/shared populations and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed",
+  "native_source_evidence": [
+    {
+      "archive_manifest": "native-evidence/bevy_ecs-0.19.1/MANIFEST.json",
+      "member": "bevy_ecs-0.19.1/src/hierarchy.rs",
+      "ranges": [
+        [
+          28,
+          50
+        ],
+        [
+          147,
+          150
+        ]
+      ],
+      "qualification": "Pinned Bevy ECS source describes ChildOf/Children linked despawn; source inspection only, no feature resolution or execution."
+    }
+  ]
+}
