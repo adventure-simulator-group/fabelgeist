@@ -1,0 +1,208 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 1687,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e compared independently.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1687",
+      "sha256": "5ecd9a8fa01b48aabda78b79670d7f2da23bd8a83d67efa8237d12d0c9a63a2c",
+      "lines": 65,
+      "new_personal_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+        "sha256": "5ecd9a8fa01b48aabda78b79670d7f2da23bd8a83d67efa8237d12d0c9a63a2c",
+        "bytes": 2233,
+        "lines": 65,
+        "git_blob": "174393b703e8e494df7d0603a14e64eab017bd21",
+        "preserved_bytes": "main-advance-95e/strategic-status-census-evidence/current-1687.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; no source tests, product execution or other-lens coverage."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    },
+    {
+      "original_index": 1688,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e compared independently.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1688",
+      "sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+      "lines": 133,
+      "new_personal_read_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+        "sha256": "9270aa713a8d01fcde27fa616751c3f9df87b8abe76227ff86f66d288b6d67de",
+        "bytes": 2085,
+        "lines": 65,
+        "git_blob": "2fb8113a7e0c5b4d8db3419e0ed86098f3227273",
+        "preserved_bytes": "main-advance-95e/strategic-status-census-evidence/current-1688.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": false,
+        "current_personal_ranges": [
+          [
+            1,
+            65
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; no source tests, product execution or other-lens coverage.",
+        "preserved_diff": "main-advance-95e/strategic-status-census-evidence/current-1688.diff.gz",
+        "difference": "CanvasRect and its source-only fixture moved to presentation/canvas_view.rs; the uncropped method visibility widened from pub(super) to pub(crate), while the implementation and fixture text otherwise match."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    },
+    {
+      "original_index": 1689,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e compared independently.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1689",
+      "sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+      "lines": 93,
+      "new_personal_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+        "sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+        "bytes": 3079,
+        "lines": 93,
+        "git_blob": "5f37e130e1cb99c8f0db0e1e0b773135b71cce2b",
+        "preserved_bytes": "main-advance-95e/strategic-status-census-evidence/current-1689.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            93
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; no source tests, product execution or other-lens coverage."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    },
+    {
+      "original_index": 1690,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e compared independently.",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "registry_pointer": "/files/1690",
+      "sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+      "lines": 94,
+      "new_personal_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+        "sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+        "bytes": 3166,
+        "lines": 94,
+        "git_blob": "b6ad4e36126c564ad1fddcdd1be91fdb00c0824b",
+        "preserved_bytes": "main-advance-95e/strategic-status-census-evidence/current-1690.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            94
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; no source tests, product execution or other-lens coverage."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    },
+    {
+      "original_index": 1691,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "snapshot_qualification": "Recorded PR working-state body equals6533 committed blob;95e compared independently.",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/1691",
+      "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+      "lines": 130,
+      "new_personal_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "evidence_archive": "recovered/original-registry-source-archive/objects.tar.gz",
+      "git_membership_evidence": "STRATEGIC-STATUS-CENSUS-HISTORICAL-GIT-PROOFS.json",
+      "prior_role_status": "unassessed",
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+        "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+        "bytes": 5305,
+        "lines": 130,
+        "git_blob": "141799cbeae6e2217c54e50e7182aebc45a3b162",
+        "preserved_bytes": "main-advance-95e/strategic-status-census-evidence/current-1691.source.gz",
+        "content_encoding": "gzip",
+        "byte_identical": true,
+        "current_personal_ranges": [
+          [
+            1,
+            130
+          ]
+        ],
+        "qualification": "Current body independently read through EOF; no source tests, product execution or other-lens coverage."
+      },
+      "qualification": "Complete historical body personally inspected at this original role; source tests and connected native behavior remain open."
+    }
+  ],
+  "observations": [
+    "Original preparation error, strategic protocol, census, shadow ownership and staging roles personally inspected through EOF. Current95e roles1687 and1689–1691 are byte-identical; CanvasRect and its source-only fixture moved out of role1688 with one method visibility change, compared and preserved. Source tests and product were not run.",
+    "Adler READ243–244 and Segovb READ537–538 preserve their original independent scopes; future role1692 is identity proved only, with no new historical full-read credit at this checkpoint. Segovb READ623 is separately attributed to e275 and its original delegated reviewer."
+  ],
+  "remaining": "Continue original1692; actual asset retries, city census policy, staging floor contracts, all13 lenses, queue and exact aliases remain open."
+}

@@ -9,4 +9,4 @@ server=content['bevy_asset-0.19.1/src/server/mod.rs'];info=content['bevy_asset-0
 assert b'InternalAssetEvent::Failed { index, path, error }' in server and b'infos.process_asset_fail(index, error.clone())' in server
 assert b'pub fn get_load_state(&self' in server and b'pub fn is_loaded_with_dependencies(&self' in server
 assert b'info.load_state = LoadState::Failed(error.clone());' in info
-print('Verified five exact selected source/license members and pinned registry archive checksum; no product execution.')
+print('Verified', len(m['inspected_members']), 'exact selected source/license members and pinned registry archive checksum; no product execution.')
