@@ -4048,8 +4048,24 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-REGIONAL-MAP-WINDOW-95E.json"
+      },
+      {
+        "id": "REVIEW-REGIONAL-MAP-ENVIRONMENT-IDENTITY-001",
+        "lens": 8,
+        "severity": "unassigned; conditional aggregate content identity question",
+        "classification": "Newly assessed95e conditional aggregate identity question; no observed stale rendering or recovered checkpoint3821 finding.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1344",
+          "baseline-059/queue.json#/entries/1345",
+          "ASSESSMENT-REGIONAL-MAP-WINDOW-95E.json"
+        ],
+        "relationship_qualification": "New95e source assessment connected to earlier open questions; distinct from coverage arithmetic unless exact alias evidence establishes otherwise. No historical accepted count or checkpoint3821 transfer.",
+        "discovery": "partial; constructor, bridge, cache and selected consumers traced, supported differing content and policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-REGIONAL-MAP-SURFACE-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-0744.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-0748.json"
 }
