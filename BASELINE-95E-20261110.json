@@ -9849,8 +9849,187 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-KERNEL-95E.json"
+      },
+      {
+        "id": "REVIEW-SORT-TYPED-FAILURE-FAMILY-95E",
+        "lens": 12,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11
+        ],
+        "severity": "unassigned; sort failure identity",
+        "classification": "The historical scratch-capacity and input-buffer-extent reasons remain prose-only at different sort admission predicates.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/301",
+          "baseline-059/queue.json#/entries/302",
+          "segovb/READ-L12-742.json via ASSESSMENT-READBACK-SORT-95E.json"
+        ],
+        "named_subcontracts": [
+          {
+            "id": "SEGOVB-L12-COMPUTE-SORT-SCRATCH-CAPACITY-REASON",
+            "queue": 301,
+            "first_failure": "RadixSort::record scratch.capacity<count245 formats anyhow message246 instead of retaining owning native reason/context"
+          },
+          {
+            "id": "SEGOVB-L12-COMPUTE-SORT-BUFFER-EXTENT-REASON",
+            "queue": 302,
+            "first_failure": "RadixSort::record declared keys or values Buffer.size<needed252 formats anyhow message253 instead of retaining owning native reason/context"
+          }
+        ],
+        "relationship_qualification": "These original first predicates and delegate attribution remain distinct; this grouping does not establish an alias or count new findings.",
+        "discovery": "partial; current source and original delegate and registered tail connected; native causes, consumers and aliases open",
+        "connected_repair_direction": "Preserve distinct sort admission reasons and their counts/byte context through the owning compute error boundary.",
+        "future_acceptance": "After audit and authorization, check each reason and preserve empty, one-element and significant-bit modes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-READBACK-SORT-95E.json"
+      },
+      {
+        "id": "L2-EXT-RADIX-SORT-NATIVE-ELEMENT-ROLES",
+        "lens": 2,
+        "additional_current_lenses": [
+          1,
+          3,
+          5,
+          7,
+          8,
+          12
+        ],
+        "severity": "unassigned; existing type owner question",
+        "classification": "The historical owner-fit question distinguishes generic sorted-key count from typed histogram scan count.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2406",
+          "root-l2-extension-20261030/READ-ROOT-L2-EXT-034-044.json via ASSESSMENT-READBACK-SORT-95E.json",
+          "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-009.json via ASSESSMENT-READBACK-SORT-95E.json"
+        ],
+        "relationship_qualification": "This is a retained owner-fit question, not an asserted defect or a demand to reuse ScanElementCount for semantically different counts. The prior e275 scope was same-lens reuse without a fresh reread.",
+        "discovery": "partial; generic key, element-count and histogram scan roles traced; application semantics and exact aliases open",
+        "connected_repair_direction": "Choose or reuse a type only after establishing actual count, key, payload and scan ownership and their consumers.",
+        "future_acceptance": "After audit and authorization, verify distinct valid key counts and histogram lengths without weakening supported sorting modes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-READBACK-SORT-95E.json"
+      },
+      {
+        "id": "REVIEW-L3-RADIX-SCRATCH-BUFFER-ADMISSION",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          4,
+          5,
+          7,
+          8,
+          12
+        ],
+        "severity": "unassigned; scratch aggregate admission",
+        "classification": "The original Lens3 sort scratch question concerns independently replaceable buffers and private capacity, with a separately recorded extreme scan-count arithmetic condition.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/3142",
+          "root-l3-extension-20261030/READ-ROOT-L3-EXT-035-042.json via ASSESSMENT-READBACK-SORT-95E.json",
+          "root-l3-extension-20261030/READ-ROOT-L3-CURRENT-005.json via ASSESSMENT-READBACK-SORT-95E.json"
+        ],
+        "relationship_qualification": "Earlier q3142 already identified both source conditions; the arithmetic threshold is a new symbolic qualification, not a new finding. Earlier e275 scope was same-lens reuse without a fresh reread.",
+        "discovery": "partial; public/private aggregate and exact extreme u32 threshold traced; device allocation, writers, failure mode and aliases open",
+        "connected_repair_direction": "Maintain coherent scratch buffers, device identity and capacity at admission, with checked histogram count before native work.",
+        "future_acceptance": "After audit and authorization, cover scratch replacement, valid empty/single sorts, count limits and native resource admission.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-READBACK-SORT-95E.json"
+      },
+      {
+        "id": "REVIEW-COMPUTE-COPY-ALIGNMENT-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          4,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; native copy extent",
+        "classification": "Staged readback and KernelBatch copy can pass a non-four-byte length to a native copy API requiring four-byte alignment.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/299",
+          "baseline-059/queue.json#/entries/140"
+        ],
+        "named_subcontracts": [
+          {
+            "scope": "Readback::record",
+            "first_failure": "staging offset padded but original unaligned logical size forwarded to native copy"
+          },
+          {
+            "scope": "KernelBatch::copy_buffer",
+            "first_failure": "logical bound admitted without checking native copy-size alignment"
+          }
+        ],
+        "relationship_qualification": "The two producer sites are kept distinct and share a native precondition; q299 describes a different logical-bounds reason and q140 result identity. No native buffer, operation or failure ran.",
+        "discovery": "partial; exact pinned native documentation and symbolic one-byte case traced; actual buffer producers, usage, backends and aliases open",
+        "connected_repair_direction": "At each canonical copy boundary admit native length, offsets and usage or define a safe padded-copy policy without reading beyond the source.",
+        "future_acceptance": "After audit and authorization, cover aligned and unaligned logical lengths, ordered staging, empty policy, native usage and structured rejection.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-READBACK-SORT-95E.json"
+      },
+      {
+        "id": "REVIEW-PENDING-READBACK-ABANDONED-BATCH-95E",
+        "lens": 6,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          5,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; asynchronous completion policy",
+        "classification": "A pending readback retained after its producing batch is dropped has no source transition out of Pending.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/140"
+        ],
+        "relationship_qualification": "Dropping unsubmitted after-submit callbacks is explicitly documented. Whether a separately retained handle must observe cancellation is an open policy rather than an established runtime defect.",
+        "discovery": "partial; owner, closure and state source traced; actual callers, cancellation guarantees and aliases open",
+        "connected_repair_direction": "Decide whether the readback handle must own cancellation or be scoped to batch submission, preserving normal pending and completed modes.",
+        "future_acceptance": "After audit and authorization, cover submitted success/failure, deliberately unsubmitted batches and one-shot result ownership.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-READBACK-SORT-95E.json"
+      },
+      {
+        "id": "REVIEW-RADIX-SORT-DISPATCH-DIMENSION-95E",
+        "lens": 3,
+        "additional_current_lenses": [
+          1,
+          2,
+          4,
+          5,
+          7,
+          8,
+          11,
+          12
+        ],
+        "severity": "unassigned; dispatch dimension admission",
+        "classification": "A sufficiently large radix sort can exceed a selected device per-dimension workgroup limit because histogram and scatter use an unfolded x-only dispatch.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2406",
+          "baseline-059/queue.json#/entries/3142"
+        ],
+        "relationship_qualification": "Conditional source example assumes a successfully admitted count and device limit65535; actual adapter maximum may be higher. This is distinct from historical q3142 extreme u32 histogram-count overflow. No workload or GPU operation ran.",
+        "discovery": "partial; direct dispatch, shader indexing, pinned device-limit definition and selected callers traced; actual limits, allocations, application counts and aliases open",
+        "connected_repair_direction": "Admit the requested workgroups against the device or use a correctly indexed multidimensional dispatch, preserving histogram and stable scatter semantics.",
+        "future_acceptance": "After audit and authorization, cover below/at/above per-dimension limits and preserve stable sorting and valid odd-pass copies.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-READBACK-SORT-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-1628.json"
+  "latest_main_recheck": "MAIN-RECHECK-20261111-1632.json"
 }

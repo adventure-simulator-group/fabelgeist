@@ -1,0 +1,60 @@
+{
+  "schema": "726-exact-git-tree-path-membership-v1",
+  "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+  "shared_commit_and_tree_objects": "COLOR-OLD-L3-GIT-PROOFS.json",
+  "additional_shared_tree_objects": [
+    "HOST-FLOAT-OLD-L11-GIT-PROOFS.json"
+  ],
+  "additional_tree_objects": {
+    "8e7cd0c1f670b700b9b25036841dff16ccfde3ac": {
+      "git_object": "8e7cd0c1f670b700b9b25036841dff16ccfde3ac",
+      "type": "tree",
+      "sha256": "2fab4871e32aeb39df6d6e7a3d61eeaf18f52119b200f6397c808629cc959cd5",
+      "bytes": 70,
+      "preserved_bytes": "main-advance-95e/readback-sort-evidence/e275-git-objects/8e7cd0c1f670b700b9b25036841dff16ccfde3ac.tree.gz"
+    }
+  },
+  "paths": {
+    "crates/fabelgeist-compute/src/sort/mod.rs": {
+      "chain": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "name": "crates",
+          "mode": "40000",
+          "child": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "name": "fabelgeist-compute",
+          "mode": "40000",
+          "child": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77"
+        },
+        {
+          "tree": "46183b6a4977af21ed2094dcf078c6e9e8b5ba77",
+          "name": "src",
+          "mode": "40000",
+          "child": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72"
+        },
+        {
+          "tree": "c2ebf323d8c0db4f685583cb9c62d4c74a61ee72",
+          "name": "sort",
+          "mode": "40000",
+          "child": "8e7cd0c1f670b700b9b25036841dff16ccfde3ac"
+        },
+        {
+          "tree": "8e7cd0c1f670b700b9b25036841dff16ccfde3ac",
+          "name": "mod.rs",
+          "mode": "100644",
+          "child": "cc2b45a9bad82995f753638c67df97f0d7a12234"
+        }
+      ],
+      "git_blob": "cc2b45a9bad82995f753638c67df97f0d7a12234",
+      "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "bytes": 11495,
+      "lines": 327,
+      "qualification": "Exact e275 and95e bytes match; prior Lens2 and Lens3 same-lens reuses are e275 only, with zero fresh e275 personal rereads."
+    }
+  },
+  "qualification": "Prior Lens2 and Lens3 source reuse attribution stays at e275 and is not checkpoint3821 or newly assessed95e coverage."
+}
