@@ -1,0 +1,1098 @@
+{
+  "schema": "726-shell-selfcollision-role2659-review-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:58:13.835860+00:00",
+  "scope": {
+    "role": 2659,
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recorded pr-working head 6533e444fa37552927070cc8d8190907fd3b413e had four unrelated status entries. The selected source object individually equals 6533 and 95e; f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not the project revision.",
+    "personal_reads": "Both independently registered old/current full source bodies 1\u2013283 displayed in bounded chunks. Current shell, mesh, material/export, WGSL text, KernelBatch and Particles are separately registered support only; actual ranges and unread complements in personal-read-receipt.json.",
+    "p16": "P16 is a separate dirty snapshot based on a120, not a commit. Later recovered tracked patch matches recorded SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 with seven untracked separately; matching bytes do not prove original diff invocation or uninterrupted custody.",
+    "checkpoint3821": "This packet does not recover the original checkpoint3821 ledger or queue and does not promote historical evidence."
+  },
+  "conditional_candidates": [
+    {
+      "id": "SHELL-ADJACENCY-ASYMMETRIC-DIRECT-INPUT-95E",
+      "status": "newly assessed source-level conditional public-input question; actual caller, policy and unique-count reconciliation open",
+      "condition": "A direct caller passes particle_count 2 and adjacency lists [[1], []] to SelfCollision::new, then records two distinct dynamic particles inside a usable positive interaction diameter with a correctly built and ordered grid. The list count is valid but the reciprocal relation is absent. No such product caller, object, shader execution, or result was observed.",
+      "producer_to_consumer": "The constructor checks only list cardinality before flattening the lists into native buffers. WGSL is_connected(index, other) consults only the current index\u2019s list; under the stated lists it suppresses 0\u21921 but does not suppress 1\u21920. The native source therefore permits unequal pair treatment if this raw direct input is intended to describe a symmetric mesh-edge relation. The ordinary Shell::new first validates the mesh, then ShellMesh::adjacency calls the helper which inserts both directions for each edge/seam.",
+      "relationship": "059 q622 explicitly leaves adjacency membership and native consumer open; the historical 774 REG122/ADD122 identified adjacency ingress but do not demonstrate the asymmetric pair in these records. Related to earlier /root/rig_identity SHELL-MESH-DIRECT-ADJACENCY-ENDPOINT-95E, which concerns out-of-range direct helper indexing, not automatically the same first contract or unique finding.",
+      "future_repair_direction": "Decide whether arbitrary directed exclusion lists are a supported API or whether this boundary owns a symmetric valid graph; if symmetry is required, construct or validate it coherently before flattening. Preserve valid empty lists, ordinary mesh edges/seams and independent contact modes.",
+      "sources": [
+        {
+          "archive": "support/lib.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            15
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            50,
+            67
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            73,
+            79
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            121,
+            132
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            144,
+            151
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            238,
+            258
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            249,
+            257
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            260,
+            268
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            270,
+            304
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            139,
+            145
+          ]
+        },
+        {
+          "archive": "support/mesh.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            108,
+            115
+          ]
+        },
+        {
+          "archive": "support/mesh.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            134,
+            137
+          ]
+        }
+      ]
+    }
+  ],
+  "connected_existing": [
+    {
+      "id": "L12-CLOSURE-SELFCOLLISION-REASON-FACETS",
+      "classification": "059 q3439 source contract and previously recorded built-before-dispatch condition, current independent extension only; zero automatic count.",
+      "observation": "The constructor adjacency-count and record over-capacity diagnostics have separate predicates. The historical 919 source read already noted built becomes true before fallible dispatch and that the ordinary SubstepHook always forces rebuild. Current source shows the flag set before hash, sort, range and collision recording; KernelBatch records into an encoder and exposes submit separately. If a build attempt returns Err or its distinct batch is not submitted/ordered before a later rebuild=false reuse, the flag alone does not establish a usable completed grid. Same-batch properly ordered recording can be valid; actual dispatch failure, direct caller, submission ordering and native outcomes remain unobserved.",
+      "future_repair_direction": "Decide API ownership of grid validity and command-batch lifetime; make any cached-state authority reflect the established ordering/commit contract and preserve intentional same-batch reuse, disabled and count<2 no-ops.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            67
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            160,
+            206
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            208,
+            235
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            273,
+            283
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            210,
+            223
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            249,
+            264
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            278,
+            290
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            307,
+            315
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            345,
+            360
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            385,
+            406
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RIG-ADMISSION03-F089",
+      "classification": "Existing historical source-backed radius and cached spacing ingress record; earlier current question SHELL-GRID-RADIUS-SPACING-DIVERGENCE by /root/mhr_character remains distinct attributed evidence, no new count.",
+      "observation": "new and set_radius accept raw f32; public direct radius mutation can bypass set_radius and private spacing update. The earlier shader trace demonstrates a conditional range-search discrepancy; local current sources confirm the independent fields and uniforms. ShellMaterial validates positive finite thickness on construction, while apply_material itself forwards the newly derived radius without validation. Supported scales and public mutation policy remain open.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            37,
+            47
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            60
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            135,
+            139
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            154,
+            157
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            186,
+            186
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            245,
+            258
+          ]
+        },
+        {
+          "archive": "support/lib.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            29,
+            47
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            191,
+            199
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHELL-MATERIAL-THICKNESS-RECIPROCAL-95E",
+      "classification": "Earlier /root/rig_identity shell-mesh-material current-source continuation of 774 ADD103 and 059 L11-433; zero new count.",
+      "observation": "A smallest positive subnormal thickness passes the local finite positive predicate yet may halve to zero under IEEE round-to-nearest. Then record with enabled and 2<=count<=capacity derives inverse_spacing = 1/0 and passes it to the hash source. Device handling and supported scale remain open; the earlier report carries the exact arithmetic assumptions and source attribution.",
+      "sources": [
+        {
+          "archive": "support/lib.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            29,
+            47
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            139,
+            145
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            135,
+            139
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            166,
+            186
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            198,
+            206
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            102,
+            111
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            123,
+            131
+          ]
+        }
+      ]
+    },
+    {
+      "id": "RIG-ADMISSION03-F073-SUPPLEMENT-002",
+      "classification": "Existing historical count/native extent admission question, zero new count.",
+      "observation": "The constructor casts host adjacency length and flattened offsets to u32 and calculates (capacity*2).next_power_of_two without an explicit representability gate in the shown source. Actual memory/device reachability, overflow-check configuration, and error outcome at extreme counts are not established. The valid zero-particle mode remains deliberately represented via capacity.max(1).",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            79
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            95,
+            119
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHELL-SELF-COLLISION-FIXED-POINT-QUANTIZATION",
+      "classification": "Earlier /root/mhr_character conditional numerical resolution question; no new count.",
+      "observation": "WGSL source encodes correction components as i32 scaled by 2^20 and counts contributors. The separately attributed prior report traces the under-resolution example and supported scale caveat; no shader was executed. This differs from nonfinite inverse-spacing and radius-cache divergence.",
+      "sources": [
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            233,
+            246
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            300,
+            319
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHELL-MESH-DIRECT-ADJACENCY-ENDPOINT-95E",
+      "classification": "Earlier /root/rig_identity conditional direct malformed mesh/edge indexing question; no new count.",
+      "observation": "The direct adjacency helper indexes particle_count-sized lists by caller-supplied endpoints. Normal Shell constructor validates mesh edge/seam indices before invoking it. Different direct boundary and condition from asymmetric prebuilt adjacency list; exact alias remains central.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            144,
+            151
+          ]
+        },
+        {
+          "archive": "support/mesh.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            108,
+            115
+          ]
+        },
+        {
+          "archive": "support/mesh.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            134,
+            137
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            139,
+            143
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "Disabled collision, fewer than two particles, empty flattened adjacency and first rebuild-less call have explicit intentional handling; do not recast these modes as failures. Kernel keys are native bindings and buffer labels, not automatically semantic string domains.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            80,
+            83
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            166,
+            194
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            198,
+            205
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "An adjacency neighbour ID is compared with the candidate ID in the inspected WGSL is_connected body; this alone does not establish that an out-of-range neighbour value indexes particle storage. Other unchecked membership/semantic policy remains open.",
+      "sources": [
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            249,
+            257
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            283,
+            304
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "A direct call can provide a new Particles object or changed public positions buffer to record, but this packet did not establish a real direct caller, validated identity, or GPU outcome. A reused grid requires positions and producer identity/ordering appropriate to the documented cell-preservation precondition.",
+      "sources": [
+        {
+          "archive": "support/particles.rs",
+          "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            21,
+            33
+          ]
+        },
+        {
+          "archive": "support/particles.rs",
+          "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            78,
+            79
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            160,
+            175
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            188,
+            194
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            245,
+            258
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774 admission03",
+      "supplier": "rig",
+      "records": [
+        "RIG-ADMISSION03-REG-122",
+        "RIG-ADMISSION03-ADDITIONAL-122",
+        "RIG-ADMISSION03-F089",
+        "RIG-ADMISSION03-F073-SUPPLEMENT-002"
+      ],
+      "qualification": "Historical 6533-associated object 1\u2013283 source-only; f82 transport. Preserve original supplier and no later-lens credit."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipt": "historical-059/segovb/READ-L11-434.json",
+      "qualification": "Records fresh historical full 1\u2013283, but does not name an individual."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipt": "historical-059/segovb/READ-L12-919.json",
+      "qualification": "/root/lens12_frontier personally read full historical 1\u2013283; root adoption zero rereads. It already labels built-before-dispatch conditional and ordinary hook true. No verdict transfer to current or other lenses."
+    },
+    {
+      "origin": "prior current 95e",
+      "qualification": "/root/mhr_character independently displayed selfcollision 1\u2013283 as registered support in both shell-contact and shell-solver; /root/rig_identity earlier shell-mesh-material displayed 37\u201375, 80\u2013160 and 166\u2013225 as separately registered support. Published selected byte-identical source/receipt members and prior reports are hash-linked; no borrowed ordered-role credit."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Two distinct owned diagnostic predicates remain q3439. Kernel parameter keys and labels are native interfaces; no semantic-string finding follows solely from literals.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            62,
+            65
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            179,
+            183
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            198,
+            205
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Capacity twofold, minimum table and native element/scale constants carry sizing or representation meaning. Native count policy is F073; fixed-point error budget remains prior peer question.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            68,
+            71
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            95,
+            119
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            233,
+            237
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Particle count, native grid capacity and radius/spacing represent distinct roles with related authority; F073/F089 and prior peer evidence remain connected.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            37,
+            44
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            71
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "No new replacement type is asserted from these bounded sources; reuse existing admitted quantity and extent owners only after dependency and semantics are established.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            60
+          ]
+        },
+        {
+          "archive": "support/lib.rs",
+          "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            29,
+            47
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Radius, spacing, cached-grid readiness and graph adjacency carry distinct conditions that a raw f32/bool/list does not prove by itself; exact owner is policy.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            37,
+            47
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Count casts/arithmetic, radius doubling, reciprocal and pending grid transitions retain previously recorded conditions, not unconditional device failures.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            62,
+            79
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            135,
+            139
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            154,
+            157
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            186,
+            206
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Raw prebuilt adjacency direction and retained grid/encoder submission form distinct correlated state questions, with canonical helper and ordinary rebuild qualifications.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            62,
+            79
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            144,
+            151
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            188,
+            206
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            210,
+            223
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            353,
+            360
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Constructor checks adjacency cardinality but not reciprocal edge relationship; raw radius and executable extent have existing F089/F073 questions.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            55,
+            79
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            135,
+            139
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            249,
+            257
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "enabled and rebuild are control modes with meaningful no-op/reuse behavior; no redesign is mandated without actual direct callers and submit policy.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            160,
+            194
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            273,
+            283
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Public radius and derived private spacing can diverge as prior peer traced; built is a retained belief separately from command submission, q3439.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            37,
+            47
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            154,
+            157
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            188,
+            206
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            353,
+            360
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Keep canonical symmetric mesh, valid disabled/count<2 handling, same-batch ordering and legitimate radius changes; do not require old errors or unchecked invalid states.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            144,
+            151
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            166,
+            194
+          ]
+        },
+        {
+          "archive": "support/kernel.rs",
+          "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            210,
+            215
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Mesh validator\u2192symmetric helper\u2192constructor\u2192flattened native buffers\u2192is_connected is traced only in registered ranges; direct producers, queue consumption and product usage remain open.",
+      "sources": [
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            83
+          ]
+        },
+        {
+          "archive": "support/shell.rs",
+          "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            139,
+            145
+          ]
+        },
+        {
+          "archive": "support/mesh.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            108,
+            115
+          ]
+        },
+        {
+          "archive": "support/mesh.rs",
+          "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            134,
+            137
+          ]
+        },
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            73,
+            79
+          ]
+        },
+        {
+          "archive": "support/wgsl.rs",
+          "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            249,
+            257
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No unnecessary handwritten trait or serialization implementation established in this bounded body; native SubstepHook implementation expresses actual method forwarding.",
+      "sources": [
+        {
+          "archive": "sources/2659-current-95e.rs",
+          "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            273,
+            283
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Are directed asymmetric exclusion lists an intentional public contract or must they encode a reciprocal mesh-edge relation? Which real callers use direct adjacency construction?",
+    "What is the documented ownership and ordering contract for rebuild=false across batches, failed command recording, and unsubmitted/dropped encoders?",
+    "What supported particle/count/adjacency byte extents and physical radius/spacing scales apply before native boundaries?",
+    "How should q622, q3439, F089/F073 and earlier current grid, material, direct-index and quantization records be reconciled without merging distinct first contracts?",
+    "Can externally replaced Particles or its public positions buffer remain coherent with the retained adjacency and grid; what actual producers and policies establish that?"
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "extra-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "git_proofs": "git-proofs.json",
+    "original_059": "historical-attribution.json",
+    "selected_reconstructed_registry": "registry-selection-reconstructed.json",
+    "selected_reconstructed_queue": "queue-selection-reconstructed.json",
+    "earlier_evidence_links": "evidence-links.json",
+    "selected_published_archive_links": "published-prior-packet-links.json"
+  },
+  "limits": "Source inspection, mathematical reasoning and evidence verification only. No product, GPU, shader, simulation, fixture, build, test or runtime probe was executed; no repairs or publication edits."
+}

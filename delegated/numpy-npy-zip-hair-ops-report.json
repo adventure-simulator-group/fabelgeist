@@ -1,0 +1,272 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T01:59:57.710397+00:00",
+  "scope": "Original registry roles 2666 NPY and 2667 ZIP, full registered historical/current personal displays, bounded current support and pinned rawzip source windows. Thirteen perspectives are partial, not whole-lens or package clearance.",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working snapshot recorded at 6533e444fa37552927070cc8d8190907fd3b413e, with unrelated modifications and no whole-tree clean claim",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports original registry bytes, not the historical source revision",
+    "earlier_e275": "e2755a732c84e67296b5e3441a4259a84f461b2f is an independently reviewed earlier revision; per-file identities equal current 95e, not whole-tree equality and no reader-credit transfer.",
+    "later_p16": "Later recovered dirty P16 tracked patch and separately archived untracked sources have separate provenance/completeness; neither changes these pr-working roles.",
+    "checkpoint3821": "Original final checkpoint3821 ledger/queue remain unrecovered; no recovered record, reconstruction or new assessment is promoted to it."
+  },
+  "sources": [
+    {
+      "role": 2666,
+      "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+      "historical_sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+      "historical_lines": 260,
+      "historical_git_blob": "9eac3b501b82ee8ac39f6737db39f9a3a3180dd9",
+      "current": {
+        "sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+        "bytes": 7031,
+        "lines": 229,
+        "git_blob": "4b808f9c2deb641138027271d2cd2da0222d3a2d",
+        "equal_original": false
+      },
+      "qualification": "Original pr-working file matches 6533 and differs from 95e; no whole-tree implication."
+    },
+    {
+      "role": 2667,
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "historical_sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+      "historical_lines": 232,
+      "historical_git_blob": "b522c9ed3df1347455cffd51a8ee6bf9bb28a83a",
+      "current": {
+        "sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+        "bytes": 6286,
+        "lines": 184,
+        "git_blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+        "equal_original": false
+      },
+      "qualification": "Original pr-working file matches 6533 and differs from 95e; no whole-tree implication."
+    }
+  ],
+  "assigned_personal_displays": [
+    {
+      "role": 2666,
+      "pr_working_actual_display": [
+        [
+          1,
+          130
+        ],
+        [
+          131,
+          260
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          115
+        ],
+        [
+          116,
+          229
+        ]
+      ],
+      "unread_old_and_current": []
+    },
+    {
+      "role": 2667,
+      "pr_working_actual_display": [
+        [
+          1,
+          116
+        ],
+        [
+          117,
+          232
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          184
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registrations": [
+    "support-registration.json",
+    "native-support-registration.json"
+  ],
+  "native_package": {
+    "package": "rawzip",
+    "version": "0.5.2",
+    "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+    "child_lock_sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+    "archive_member": "rawzip-0.5.2/src/archive.rs",
+    "source_sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+    "qualification": "Exact crate bytes match 95e independently scoped child Cargo.lock checksum and retained source member. This verifies recorded package identity, not registry signature, Cargo resolution, activated features, or a build."
+  },
+  "git_proofs": "git-proofs.json",
+  "historical_reviews": [
+    {
+      "source": "774 rig REG-129/130 and ADDITIONAL-129/130 in hash-linked published evidence",
+      "author": "Original rig supplier",
+      "revision": "pr-working as recorded",
+      "ranges": {
+        "2666": [
+          [
+            1,
+            186
+          ]
+        ],
+        "2667": [
+          [
+            1,
+            232
+          ]
+        ]
+      },
+      "qualification": "No 2666 source lines 187–260, other package, execution or later-lens credit. Related F091 preserves malformed NPY/ZIP first failures."
+    },
+    {
+      "source": "059 segovb READ-L11-436 and REGISTRATION-SEGOVB-1583/1584",
+      "author": "Original segovb personal read",
+      "revision": "pr-working as recorded",
+      "ranges": {
+        "2666": [
+          [
+            1,
+            186
+          ]
+        ],
+        "2667": [
+          [
+            1,
+            232
+          ]
+        ]
+      }
+    },
+    {
+      "source": "059 READ-L12-922/923, PAR-L12-730/731 registrations and exact identity qualifications",
+      "author": "/root/lens12_frontier originally, root adoption with empty root_personal_rereads",
+      "revision": "6533 pr-working file as recorded",
+      "ranges": {
+        "2666": [
+          [
+            1,
+            186
+          ]
+        ],
+        "2667": [
+          [
+            1,
+            232
+          ]
+        ]
+      },
+      "qualification": "No cross-lens verdict transfer or 2666 unread tail credit."
+    },
+    {
+      "source": "059 READ-L11-706/707 and original Own Lens11 source receipts READ-170/171",
+      "author": "The source records say Own Lens11 agent; adopted without root reread",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "ranges": {
+        "npy.rs": [
+          [
+            1,
+            229
+          ]
+        ],
+        "zip.rs": [
+          [
+            1,
+            184
+          ]
+        ]
+      },
+      "qualification": "Both e275 source file hashes equal 95e, independently verified, but prior personal reads remain on e275 and retain their author."
+    },
+    {
+      "source": "059 native child-lock receipts READ-173/174/175/176",
+      "author": "Own Lens11 agent as recorded",
+      "qualification": "Packet-time partial/read completions retain their own separate scopes; this packet’s rawzip windows are independently registered and read, without transferring earlier reader credit."
+    },
+    {
+      "source": "059 adopted-findings.json selection RIG-ADMISSION03-F091",
+      "author": "Original 774 rig; 059 adoption retains archive_file and record_index 99",
+      "qualification": "Full 059 adoption is compressed in this packet; the F091 value is a labeled reconstructed selection, not a claim of full native 774 findings archive recovery."
+    },
+    {
+      "source": "Earlier /root/hair_ops role2656 NPZ packet",
+      "qualification": "Earlier current zip.rs 1–184 and npy.rs 1–130 were independently read as support there; NPZ full 1–221 assigned and MHR archive 1–80 support. Their registration and credit remain separately attributable; present ordered roles were newly registered and displayed."
+    }
+  ],
+  "reconciliation": [
+    {
+      "id": "F091-NPY-CURRENT-FRAMING-AND-COHERENCE",
+      "status": "Previously recorded historical F091 and q643/q2306; independently assessed bounded current path, no new accepted unique count.",
+      "historical": "6533 npy.rs:117–170 checks at least 10 bytes then non-v1 slices 8..12, and multiplies shape/count/end without checked arithmetic; old public shape and dtype can be changed independently of stored bytes. F091 explicitly recorded these separate predicates; no old code executed.",
+      "current_trace": [
+        "95e npy.rs:23–38,118–131 keeps shape, dtype and payload private and constructs only from NpyHeader",
+        "npy/header/frame.rs:18–39,51–67 checks version-specific length ranges and checked dictionary/payload split before string parsing",
+        "npy/header.rs:27–87,117–137 requires descriptor/order/shape and produces checked shape and admitted payload before array publication",
+        "npy/metadata.rs:83–99,113–122,134–153 gives zero axes precedence, checked element product and payload-width product and bounded payload slicing",
+        "npy/tensor.rs:28–74,92–108 separately admits native shape prefix and checks float value count before tensor port"
+      ],
+      "conclusion": "The exact historical short-non-v1 slice, unchecked shape/payload-product and public metadata mutation paths are not present in these inspected current owners. This is an exact source reconciliation, not a claim all formats, dictionary semantics, allocators or tensors are safe; prior e275 q2306 already reached a related qualified disposition.",
+      "preservation": "Rank-zero scalar, zero-size arrays and generic float bit patterns remain distinct valid representations; consumer-specific numeric/finiteness policies are separate."
+    },
+    {
+      "id": "F091-ZIP-CENTRAL-AND-LOCAL-CURRENT-ROUTE",
+      "status": "Previously recorded F091 and q644/q2314; independent bounded native-source corroboration, no new accepted unique count.",
+      "historical": "6533 zip.rs:145–168 checks only fixed central header before filename/extra slicing, and 205–218 computes local extents with unchecked casts/additions. F091 identifies malformed variable extents and metadata conversion; no malformed archive was constructed or parsed.",
+      "current_trace": [
+        "95e zip.rs:86–109 uses rawzip locator and entry iteration; 130–147 retains an archive-bound selected member; 160–181 asks rawzip for its framed entry",
+        "rawzip 0.5.2 src/archive.rs:384–410 and 1591–1647 checks fixed header and each filename/extra/comment span before splitting, with checked base-offset addition",
+        "rawzip 0.5.2 src/archive.rs:180–194 and 1496–1530 checks fixed local header and signature, overflow of total size and available compressed extent before splitting"
+      ],
+      "qualification": "These source windows address the old selected fixed/variable and local framing cases on the pinned dependency route, as also recorded by prior Own Lens11 q2314. This is not proof of every ZIP64, allocator, decompressor or malformed-native condition, no executed parser, and dependency feature/build activation is not established."
+    },
+    {
+      "id": "ZIP-RESOURCE-AND-INTEGRITY-POLICY",
+      "status": "Existing q2316 policy question and previous role2656 assessment, no new unique count.",
+      "trace": [
+        "zip.rs:100–105,160–179 records the uncompressed-size hint then uses it for Vec reservation before Deflate read_to_end",
+        "zip/extent.rs:5–8,29–42 calls it explicitly unverified metadata and converts u64 to usize at reservation",
+        "zip/member_count.rs:7–25 caps only initial central-entry capacity while retaining native u64 iteration count"
+      ],
+      "qualification": "Decoded-size/CRC verification, archive trust and allocation/work limits are not established by these displayed paths. If a supported archive supplies an extremely large accepted hint, reservation can fail before decoding; actual native acceptance, process behavior and supported untrusted producer remain open. Prior q2316 already records the policy question, so do not count it again."
+    }
+  ],
+  "nonfindings": [
+    "NpyArray immutable shape/dtype/payload in current source prevents the old public post-parse mutation route through the public API, subject to unread alternate/native routes.",
+    "NPY valid scalar, empty shapes, supported datatype tokens and source-preserved first-match ZIP semantics are not compatibility defects.",
+    "Storage values may contain NaN or infinities; any MHR numerical and geometry admission belongs to the consuming model rather than generic NPY.",
+    "The native archive/member pair is retained together; directory presence and declared size do not certify decoded bytes or CRC.",
+    "Test/source examples were displayed as text only; no source test or fixture ran."
+  ],
+  "open_questions": [
+    "What trust, resource, decompressed-length and CRC policy applies to actual NPY/NPZ and MHR asset producers?",
+    "Do later semantic consumers accept dangerous numeric casts or indices after generic NPY conversion? Existing /root/mhr_character MHR findings retain their authors and conditional scopes.",
+    "What native package feature graph, dependency resolution and actual device/tensor semantics apply to an eventual product build? No build is claimed.",
+    "Do any uninspected rawzip/flate2/NPY routes introduce independent framing failures beyond the specific selected paths assessed here?"
+  ],
+  "thirteen_lenses": {
+    "producer-propagation": "NPZ selected member feeds NPY header, shape, payload and consumer projection; MHR routes are separately scoped in prior packet.",
+    "existing-type-owners": "NpyShape, NpyDimension, NpyElementCount, NpyPayloadLength and distinct archive/member types own different meanings.",
+    "admission-contracts": "Version-specific framing and checked payload shape precede array publication; resource/CRC and consumer numeric admission remain separate.",
+    "invariant-operations": "Checked shape/payload arithmetic and selected native framing narrow F091, while declared-size usize reservation remains policy-qualified.",
+    "aggregate-states": "Private NPY shape/dtype/payload and borrowed selected ZIP member retain coherent state; external tensor/layout/decoded-data policies remain separate.",
+    "wrong-duplicate-owners": "rawzip owns ZIP framing, NumPy owns dictionary/layout, MHR owns corrective semantics; shared words do not establish duplicate owner.",
+    "redundant-authority": "Declared decoded size is unverified central metadata, not an independently certified actual payload length.",
+    "behavior-preservation": "Keep explicit supported version/dtype/order policy, scalar/zero dimensions, first-match selection and generic special float words; no legacy fallback required.",
+    "enum-state-shape": "Dtype, header field/order, compression and errors model finite native choices; open member names and payload values remain open.",
+    "derivability": "Private coherent array and checked shape require real admission; derive selection alone cannot enforce aggregate contracts.",
+    "granularity": "Archive declarations, decoded byte lengths, dimensions, element counts, rank and MHR indices are different quantities.",
+    "raw-strings": "NPY header keys and ZIP member paths are external format namespace; typed parsed roles and diagnostic context should not be mistaken for business identifiers.",
+    "raw-primitives": "Checked usize extent operations, u64 ZIP hints, native-width projection and floating conversion have different supported domains and policy owners."
+  },
+  "limitations": "No product archive parsing/processing, fixture creation, execution, simulation, tests, builds, probes, shader/device activity, repairs or publication/source edits. Evidence package archive extraction for hash verification and source text displays only."
+}

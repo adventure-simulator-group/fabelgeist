@@ -1,0 +1,167 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T01:57:01.695378+00:00",
+  "scope": "Original role 2657 fabelgeist-garment-fit/src/pose.rs, independently registered old/current full displays and bounded current support. Thirteen perspectives are partial, not complete lenses or whole-product clearance.",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working recorded at 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications, no clean-tree claim",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee preserves recovered registry source objects, not the source revision",
+    "later_p16": "Later recovered dirty physical-P16 tracked patch and separately archived untracked objects are unrelated to this pr-working role, retaining their own provenance and completeness qualifications.",
+    "checkpoint3821": "Original final 3821 queue and ledger remain unrecovered; no old record, reconstructed selection or new assessment is promoted to it."
+  },
+  "source": {
+    "role": 2657,
+    "path": "crates/fabelgeist-garment-fit/src/pose.rs",
+    "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+    "bytes": 9293,
+    "lines": 272,
+    "git_blob": "1a28635d0e6bb6788ba06a6fa00ce85ca21fe392",
+    "per_file_identity": "Original archived pr-working, corresponding 6533 and current 95e file bytes are equal. This is per-file identity, not whole-tree equality."
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2657,
+      "pr_working_actual_display": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          272
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          272
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "receipt": "read-receipt.json",
+  "support_registrations": "support-registration*.json",
+  "git_proofs": "git-proofs.json",
+  "historical_reviews": [
+    {
+      "source": "774 rig REG-120 / ADDITIONAL-120 in hash-linked published garment-underlayer evidence archive",
+      "author": "Original rig supplier",
+      "revision": "pr-working as recorded",
+      "actual_source_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "qualification": "Direct bounded q630 Pivots/GarmentPose admission; no later-lens credit or repair."
+    },
+    {
+      "source": "059 segovb READ-L11-434 and REGISTRATION-SEGOVB-1574",
+      "author": "Original segovb personal read",
+      "revision": "pr-working as recorded",
+      "actual_source_ranges": [
+        [
+          1,
+          272
+        ]
+      ]
+    },
+    {
+      "source": "059 READ-L12-918, PAR-L12-722 registration and exact identity qualification",
+      "author": "/root/lens12_frontier original prospectively registered personal read; root adoption has no root rereads",
+      "revision": "6533 pr-working file as recorded",
+      "actual_source_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "qualification": "No other-lens verdict transfer; deliberate short/empty pose panels and positional panel identity explicitly retained."
+    },
+    {
+      "source": "059 evidence/audit03-delta/adopted-findings.json selection for RIG-ADMISSION03-F088",
+      "author": "Original 774 rig; 059 adoption preserves archive_file and record_index 96",
+      "qualification": "This packet contains a clearly reconstructed single JSON selection from that exact hash-linked 059 record, not a claim that the full 774 native findings archive has been separately recovered here. The original F088 finding already covers public nonfinite Move values and reversed public Pivots ranges."
+    },
+    {
+      "source": "059 evidence/audit05/contract-groups-227.json",
+      "author": "ADLER original audit-aggregate-states historical group",
+      "revision": "pr-working garment-fit/lib.rs 1–715 as recorded",
+      "qualification": "Deduplicates F066/F088 and leaves repair and validation not started. Its separate lib.rs read is not transferred to this agent."
+    }
+  ],
+  "findings_and_refinements": [
+    {
+      "id": "RIG-ADMISSION03-F088-CURRENT-POSE-TRACE",
+      "status": "Previously recorded 774 F088, independently reconnected to 95e; no additional unique count.",
+      "trace": [
+        "pose.rs:34–46,64–70,147–157: public Move fields and Axis.set admit unconstrained floats; Move.apply applies XYZ degrees and offset",
+        "pose.rs:160–188,210–270: public Pivots ranges and pose panels; endpoint clipping does not repair a reversed range and a nonidentity panel move indexes that slice",
+        "garment-fit/lib.rs:478–500: Fit.set_pose computes placed positions, calls write_positions, then retains pose and resets frames only after success",
+        "xpbd/particles.rs:86–115,123–136 and particles/packed.rs:23–45: cardinality/capacity checks and position packing but no per-coordinate finite check on this displayed write path"
+      ],
+      "conditions": "A nonfinite value explicitly supplied as a move, or a caller-supplied reversed pivot range with a nonidentity corresponding panel move, is a source-level conditional ingress. Real caller, native output, validation and actual failure not demonstrated. The old F088 carries both examples; this report is not a new finding.",
+      "repair_direction_future": "Preserve valid signed translations, XYZ order, finite unwrapped Euler angles and short/empty panel identity while admitting actual pose/geometry and mesh-associated ranges before retained state and native indexing. Cross-system design, implementation and acceptance remain future work."
+    },
+    {
+      "id": "POSE-PIVOT-SOURCE-MESH-ASSOCIATION-REFINEMENT",
+      "status": "Source-backed conditional refinement connected to F088 and prior /root/mhr_character cloth-mesh question; unique count/alias reserved for central reconciliation.",
+      "trace": [
+        "garment/mod.rs:128–180: public panel_names determine panel_count, public panel_offsets are indexed to construct each range",
+        "pose.rs:176–187: Pivots::of immediately slices positions by that range",
+        "garment-fit/lib.rs:218–223,389–435: public GarmentBuild carries a GarmentMesh and Fit.new invokes Pivots::of after Cloth.new",
+        "cloth/mod.rs:27–46 and shell/mesh.rs:8–19,85–129: Cloth forwards positions and solver fields into ShellMesh, which has no panel offsets/names and cannot validate this panel association",
+        "garment/mod.rs:271–291: ordinary builder pushes each panel offset and final total, subject to separate u32 cast and capacity questions"
+      ],
+      "condition": "A caller constructs or mutates a mesh whose name count lacks corresponding offsets, or whose offsets form a reversed or out-of-bounds slice. The public Pivots::of reaches indexing/slicing directly; in Fit.new that point is reached only if earlier device and cloth construction succeed. No malformed mesh or Fit execution occurred; no real producer is shown to create it.",
+      "relationship": "Original F088 already requests validating mesh-associated ordered pivot ranges and includes a reversed supplied Pivots range. This trace identifies an earlier producer-to-pivot association boundary, not an automatically independent issue. Existing /root/mhr_character cloth-garment packet explicitly left public mesh/Pivots association open."
+    },
+    {
+      "id": "POSE-FINITE-BOUNDS-CENTER-OVERFLOW-REFINEMENT",
+      "status": "New source-level mathematical refinement related to F088 and prior extreme-finite geometry question; no unique count or supported-input reachability asserted.",
+      "trace": [
+        "pose.rs:197–207: nonempty bounding box center is (lowest + highest)*0.5",
+        "pose.rs:64–70,176–184,250–267: resulting pivots enter move subtraction, XYZ rotation and translation",
+        "garment/mod.rs:39–65: rotate_xyz performs f32 angle and component operations",
+        "garment-fit/lib.rs:493–500, xpbd/particles/packed.rs:26–45: accepted pose reaches cardinality-checked packing before retained pose on successful writes"
+      ],
+      "condition": "With a finite coordinate at f32::MAX for both low and high bounds, the sum overflows to infinity in f32 before halving. Applying a finite nonidentity translation with zero angles to such a point uses the infinite pivot and may propagate nonfinite components through subtraction, IEEE infinity-times-zero and addition. This is mathematical source reasoning, not a generated mesh, floating-point probe or product run. Supported coordinate magnitude and actual producer/device reachability remain unknown.",
+      "relationship": "F088 concerns nonfinite pose input and validation of actual placed geometry. This refinement starts with finite bounds and identifies the earlier center arithmetic; /root/mhr_character’s cloth-garment report left extreme finite coordinates and precision open. Whether one checked geometry/pose policy resolves all cases is a central repair/alias question.",
+      "future_direction": "Once supported coordinate bounds are defined, use a numerically defensible midpoint and ensure transformed geometry is admitted before native write; test design and validation only in an authorized later phase."
+    }
+  ],
+  "nonfindings": [
+    "A short or empty panel-move list intentionally means identity for remaining panels; no missing-identity compatibility defect.",
+    "The ordinary builder emits one offset per panel plus a final total, so the malformed-mesh example is conditional on a different or modified public value and separate count/capacity policy.",
+    "Pivots and pose consumers use positional panel indices/ranges; do not extend 059 q316 named-panel string ownership finding into these APIs without independent evidence (q3438).",
+    "Rigid moves are recomputed from retained unposed base positions; successful set_pose writes current and previous positions and zero velocities according to the inspected source. This is not runtime or partial-write atomicity proof."
+  ],
+  "open_questions": [
+    "Which callers may construct or mutate GarmentMesh and Pivots and what supported coordinate, panel-count and association policy is intended?",
+    "Can supported normal geometry approach f32 midpoint overflow, and should valid coordinates remain bounded before or after XYZ movement?",
+    "How should earlier F088, this upstream mesh-association trace, finite-operation overflow and separate cloth count findings be reconciled without duplicate counting?",
+    "What are actual device write failure and partial-update semantics? No GPU operation was executed."
+  ],
+  "thirteen_lenses": {
+    "producer-propagation": "GarmentMesh panel metadata produces pivots; Pose transforms retained base geometry to particle packing. Public and normal-builder producer paths differ.",
+    "existing-type-owners": "GarmentMesh owns panel offsets, Pivots associates ranges and centers, and Move owns translations and angles; all require actual owner coordination.",
+    "admission-contracts": "Public moves and pivots do not by themselves certify finite transformed geometry or mesh-associated valid ranges; F088 already records this family.",
+    "invariant-operations": "Finite bounding-box endpoints can overflow in midpoint addition; endpoint-wise range clamping does not establish start <= end.",
+    "aggregate-states": "Panel names, offsets, positions and Pivots must correspond; ShellMesh validation covers different data and is not a panel-metadata certificate.",
+    "wrong-duplicate-owners": "Cloth owns mesh layout, pose owns placement, and shell owns solver geometry; avoid forcing a single owner solely from shared numeric representation.",
+    "redundant-authority": "Retained original base positions and derived pivot centers intentionally describe one original mesh; public replacement and extreme arithmetic need independent admission.",
+    "behavior-preservation": "Preserve signed metres, XYZ angles/order, allowed short pose lists, base-relative re-placement and normal panel ordering in any future repair.",
+    "enum-state-shape": "Axis is a six-way closed control with labels and units; optional panel values intentionally mean identity rather than an error variant.",
+    "derivability": "Move/Pivots defaults are valid identity or empty views; deriving defaults does not prove a custom mesh association or finite application.",
+    "granularity": "Panel positions/ranges, body-space offsets and Euler degrees have distinct roles; positional panel references do not imply PanelName propagation.",
+    "raw-strings": "Axis labels and unit strings are final UI presentation, not private authority; no named-panel string finding is inferred in pose.rs.",
+    "raw-primitives": "Metres, degrees, panel indices and raw f32 bounds have distinct policies; finite input alone does not guarantee finite midpoint or transformed output."
+  },
+  "limitations": "Evidence checks and mathematical reasoning only; no geometry, renderer, solver, product, tests, probes, repairs, builds or source/publication changes. Historical reviewer attribution, original revision, reconstructed records and checkpoint qualifications remain explicit."
+}

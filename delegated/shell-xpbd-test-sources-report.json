@@ -1,0 +1,923 @@
+{
+  "schema": "726-shell-xpbd-test-source-review-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T02:01:40.639687+00:00",
+  "scope": {
+    "roles": [
+      2661,
+      2662
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recorded pr-working head 6533e444fa37552927070cc8d8190907fd3b413e had four unrelated modifications. Each selected test object individually equals 6533 and 95e; f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not a project revision.",
+    "personal_reads": "Both historical/current test bodies independently displayed after registration: 2661 lines 1\u201345 and 2662 lines 1\u2013111. Current solve, constraint, incidence, vector helper and fixture text are separately registered support. Contact fixture actual windows 1\u201360, 1711\u20131832 and 4330\u20134396; remaining 61\u20131710 and 1833\u20134329 unread by this reviewer, regardless of archived bytes. Constraint fixture current 1\u201347 is support only. Both fixtures match per-file Git objects at 6533/95e, not a historical personal read or ordered role credit.",
+    "p16": "P16 is a separate dirty snapshot based on a120, not a commit. Its later recovered tracked patch matches recorded SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked files remain separate. Matching bytes do not prove the original diff invocation or uninterrupted custody.",
+    "checkpoint3821": "This packet does not recover original checkpoint3821 ledger or queue and promotes no old evidence."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "xpbd-finite-response-sum-overflow",
+      "classification": "Existing /root/rig_identity conditional current source finding; newly assessed authored fixture context, zero new unique count.",
+      "observation": "The source test decodes inverse-mass words, directly calls private resolve, then checks its returned count and exact encoded position/velocity words. In the separately displayed current VertexTriangle fixture window 1711\u20131832, all four inverse-mass words are 2139095039 (f32::MAX); the authored expected resolved count is 1 and each corrected position word matches the predicted position word. The presence of these expectations does not prove a test ran, product failure occurred, or identify the arithmetic cause of this particular case.",
+      "relationship": "Earlier conditional finding traces a distinct symbolic finite-mass effective-response overflow. 059 q445 records individual finite/nonnegative mass validation; original rig ADD127 and 059 L12-921 independently read the full historical fixture. Exact causal equivalence and supported range need further source/policy reconciliation; no alias or count is assumed.",
+      "future_repair_direction": "Decide supported physical inverse-mass and derived-response range, and reconsider whether an authored resolved-but-unchanged extreme-mass snapshot encodes intended behavior when addressing the existing finding. Preserve valid pinned and ordinary mass cases; no repair, fixture modification or test is performed now.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            16,
+            42
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1711,
+            1733
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1756,
+            1783
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1807,
+            1808
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1831,
+            1832
+          ]
+        },
+        {
+          "archive": "support/native-vector.rs",
+          "sha256": "a9513fcd6acaabbc6d11ea5d4380311c2d3c0270bf5ef04a8fb196140e9c910a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            20
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            238,
+            278
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            300,
+            305
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xpbd-constraint-particle-membership-and-reorder",
+      "classification": "Existing /root/rig_identity conditional current source question, linked to 059 q625/q1859; zero new count.",
+      "observation": "The constraint test deliberately constructs a distance set containing u32::MAX and records a clear of lambdas, with expected particle words in the separate fixture. ParticleIndex explicitly describes a role, not membership in a particular buffer; constructor takes incidence rather than a Particles argument, and record_solve later accepts particles separately. The test source does not record a solve with that index or establish any shader outcome.",
+      "future_repair_direction": "Decide the authoritative pairing of incidence and a specific particle extent before the actual consumer; separately retain public reorder input-shape question and preserve native address representation.",
+      "sources": [
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            43,
+            58
+          ]
+        },
+        {
+          "archive": "support/constraint-native.json",
+          "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            21,
+            31
+          ]
+        },
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            14
+          ]
+        },
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            68,
+            87
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            53,
+            70
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            240,
+            255
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            258,
+            285
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SEGOVB-L12-XPBD-PER-CONSTRAINT-ADMISSION-ERRORS",
+      "classification": "Existing 059 q447/q448/q449/q450 four separate reason predicates; test-context confirmation, no new counts or blanket alias.",
+      "observation": "The constraint test gathers display text from separate arity/layout, distance, spring, typed-attachment and raw-attachment errors; its fixture lists six historical messages. It separately asserts unchanged held attachment on rejected updates. The four 059 repair predicates remain distinct, and exact old prose is not a compatibility mandate.",
+      "future_repair_direction": "Retain source-specific predicate context and native causes in owning error boundaries while preserving already-valid inputs, empty state and failure atomicity where required.",
+      "sources": [
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            4,
+            42
+          ]
+        },
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            73,
+            96
+          ]
+        },
+        {
+          "archive": "support/constraint-native.json",
+          "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            19
+          ]
+        },
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            35,
+            45
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            103,
+            108
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            128,
+            136
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            170,
+            177
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            201,
+            208
+          ]
+        }
+      ]
+    },
+    {
+      "id": "xpbd-raw-attachment-record-shape",
+      "classification": "Earlier /root/rig_identity conditional schema question, connected to q450 but no exact alias or new count.",
+      "observation": "The source test calls attach_raw with one value on five constraints and expects rejection, then accepts a nonempty raw attachment on an empty set. Implementation checks only divisibility for a nonempty set; this example does not establish required kernel-specific stride for all accepted shapes. Empty behavior is a deliberate mode, not itself an invalidity claim.",
+      "sources": [
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            86,
+            96
+          ]
+        },
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            107,
+            109
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            193,
+            218
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L12-CLOSURE-CONTACT-FIXTURE-NATIVE-GRAMMAR",
+      "classification": "Existing 059 q3440, no new unique count.",
+      "observation": "The test uses Pair enum values, compares their Debug names to fixture pair fields, and uses authored JSON keys and native numeric words at a test-data boundary. No product string classification or obligation to preserve historic native words/error prose follows merely from this snapshot.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            17
+          ]
+        },
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            30,
+            42
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            48,
+            55
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "The contact test source invokes resolve directly, not solve_inner; the latter separately checks original positions, previous positions and mass cardinalities and validates masses and positions. Its 36 authored assertions are not an all-input, public-admission, or passing-test certificate.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            14
+          ]
+        },
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            42
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            16,
+            34
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            238,
+            246
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "The XPBD test source includes intentional empty and disabled clear modes, one unused buffer slot, and a raw attachment on an empty set; fixture records expected values. These are source assertions, not proof of device behavior.",
+      "sources": [
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            59,
+            72
+          ]
+        },
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            98,
+            109
+          ]
+        },
+        {
+          "archive": "support/constraint-native.json",
+          "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            12
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            179,
+            184
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            201,
+            214
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            240,
+            254
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "The native-vector helper decodes fixture words with as_u64/as u32 and encodes f32 bits. It is a scoped test-data adapter; no arbitrary JSON admission or production parser guarantee follows from this inspection.",
+      "sources": [
+        {
+          "archive": "support/native-vector.rs",
+          "sha256": "a9513fcd6acaabbc6d11ea5d4380311c2d3c0270bf5ef04a8fb196140e9c910a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            20
+          ]
+        },
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            28
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774 admission03",
+      "supplier": "rig",
+      "records": [
+        "RIG-ADMISSION03-REG-124",
+        "RIG-ADMISSION03-ADDITIONAL-124",
+        "RIG-ADMISSION03-REG-125",
+        "RIG-ADMISSION03-ADDITIONAL-125",
+        "RIG-ADMISSION03-REG-127",
+        "RIG-ADMISSION03-ADDITIONAL-127",
+        "RIG-ADMISSION03-REG-128",
+        "RIG-ADMISSION03-ADDITIONAL-128"
+      ],
+      "qualification": "Original test source full 45/111 and separate full historical fixture 4396/47 reads. No runtime, later-lens credit or universal admission implied."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipts": [
+        "historical-059/segovb/READ-L11-434.json",
+        "historical-059/segovb/READ-L11-435.json",
+        "historical-059/segovb/READ-L11-435-PARTIAL-001.json",
+        "historical-059/segovb/READ-L11-435-PARTIAL-002.json"
+      ],
+      "qualification": "434 records full test bodies; 435 explicitly composes full fixture read windows including two partial receipts. No individual named in these records."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipts": [
+        "historical-059/segovb/READ-L12-920.json",
+        "historical-059/segovb/READ-L12-921.json",
+        "historical-059/segovb/READ-L12-922.json"
+      ],
+      "qualification": "/root/lens12_frontier personally read both tests 1\u201345/1\u2013111 in 920. At that intermediate point contact fixture was registered but not yet read; subsequent 921 and 922 document separate full historical fixture reads. Root adoptions have zero rereads. Our current partial fixture support carries no historical or original ordered-role credit."
+    },
+    {
+      "origin": "prior 95e",
+      "records": [
+        "delegated/xpbd-dynamics-report.json",
+        "delegated/xpbd-incidence-address-hair-ops-report.json",
+        "delegated/shell-solver-report.json"
+      ],
+      "qualification": "Previous authors and exact source scopes remain in their own evidence; current support in this packet is independent and bounded."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Debug names and JSON keys are native fixture grammar; exact old Display messages record source expectations, not product classification or required compatibility.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            17
+          ]
+        },
+        {
+          "archive": "support/constraint-native.json",
+          "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Test values are authored native words and a 36-case partition, not automatic bespoke-value defects. Extreme values relate to separately existing supported-range/response questions.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            10,
+            14
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1756,
+            1762
+          ]
+        },
+        {
+          "archive": "support/constraint-native.json",
+          "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            21,
+            31
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "ParticleIndex supplies address role but intentionally not population membership; ConstraintArity and incidence own basic record shape.",
+      "sources": [
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            14
+          ]
+        },
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            20,
+            29
+          ]
+        },
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            61,
+            87
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Test retains Pair enum and ParticleInverseMass typed conversion; do not infer that raw bit fixture grammar must become a product owner.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            12,
+            28
+          ]
+        },
+        {
+          "archive": "support/native-vector.rs",
+          "sha256": "a9513fcd6acaabbc6d11ea5d4380311c2d3c0270bf5ef04a8fb196140e9c910a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Constraint count, arity and particle index encode distinct concepts while population binding remains separately unresolved.",
+      "sources": [
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            29
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            60,
+            70
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            258,
+            265
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Potential derived-response infinity is previously recorded conditional; extreme expected fixture words do not prove its causal path or a run.",
+      "sources": [
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1756,
+            1762
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            264,
+            278
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            300,
+            305
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Rejected attachment assertions cover a held buffer and list in two cases; data do not establish every allocation/error transition. Distinct constraint/particles pairing remains open.",
+      "sources": [
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            73,
+            96
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            170,
+            189
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            201,
+            217
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            258,
+            279
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Basic incidence shape and per-constraint lengths are checked, while address membership needs a particular population and direct resolve testing bypasses solve_inner admissions.",
+      "sources": [
+        {
+          "archive": "support/incidence.rs",
+          "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            61,
+            87
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            103,
+            108
+          ]
+        },
+        {
+          "archive": "support/solve.rs",
+          "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            16,
+            31
+          ]
+        },
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            31,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Two explicit Pair variants and optional velocity are present in the fixture adapter; absence of a separate shape redesign follows no wider guarantee.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            12,
+            14
+          ]
+        },
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            30,
+            39
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Test compares expected stored words to direct function output; its oracle is authored separately but no historical snapshot proves current or future output universally.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            31,
+            42
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1711,
+            1733
+          ]
+        },
+        {
+          "archive": "support/contact-masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1763,
+            1783
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Preserve legitimate empty/no-dispatch and pinned modes; old error prose and extreme invalid or unproved numerical expectations do not dictate compatibility.",
+      "sources": [
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            59,
+            70
+          ]
+        },
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            98,
+            109
+          ]
+        },
+        {
+          "archive": "support/constraint-native.json",
+          "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Test-source fixture bits\u2192typed mass\u2192private resolve and typed incidence\u2192constraint set\u2192later particle binding are traced only to registered source; no device execution.",
+      "sources": [
+        {
+          "archive": "sources/2661-current-95e.rs",
+          "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            18,
+            39
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            60,
+            70
+          ]
+        },
+        {
+          "archive": "support/constraint.rs",
+          "sha256": "184f9ec53d0daec144a6c90408ef84fab86f29e62aa48c0d6c5377d45173f6e4",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            258,
+            285
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "No unnecessary handwritten trait or serializer implementation established by these test bodies; conversion helper is a bounded native fixture adapter.",
+      "sources": [
+        {
+          "archive": "support/native-vector.rs",
+          "sha256": "a9513fcd6acaabbc6d11ea5d4380311c2d3c0270bf5ef04a8fb196140e9c910a",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            20
+          ]
+        },
+        {
+          "archive": "sources/2662-current-95e.rs",
+          "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            1,
+            9
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "What physical inverse-mass and derived-response limits should be supported, and what result should a reported active contact produce at the extreme fixture case?",
+    "Does the displayed resolved-but-unchanged fixture correspond causally to the earlier response-sum overflow in its exact geometry? This packet does not establish that.",
+    "Which actual producers pair arbitrary ParticleIndex values with a specific Particles buffer, and where should membership be admitted?",
+    "How should q447\u2013450 and existing attachment/record-shape questions be represented distinctly in the repair ledger without assuming aliases or preserving old error text?",
+    "Which snapshot word-level cases remain semantically required after policy decisions, including zero/pinned, optional velocity, empty and disabled modes?"
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "extra-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "git_proofs": "git-proofs.json",
+    "original_059": "historical-attribution.json",
+    "selected_reconstructed_registry": "registry-selection-reconstructed.json",
+    "selected_reconstructed_queue": "queue-selection-reconstructed.json",
+    "earlier_evidence_links": "evidence-links.json",
+    "selected_published_archive_links": "published-prior-packet-links.json"
+  },
+  "limits": "Source and authored fixture text inspection, mathematical reasoning and evidence verification only. No test, product, fixture invocation, GPU, simulation, build or runtime probe was executed; no repair or publication edit."
+}

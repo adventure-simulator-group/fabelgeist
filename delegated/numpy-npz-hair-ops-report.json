@@ -1,0 +1,166 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T01:53:02.894773+00:00",
+  "scope": "Original registry role 2656 fabelgeist-numpy-storage/src/npz.rs and prospectively registered current support only. Thirteen lens perspectives are bounded to the personal source displays, not whole-lens or whole-product completion.",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working snapshot recorded at 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications, not a clean-tree assertion",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee stores recovered registry bytes, not product source revision",
+    "later_p16": "Later recovered dirty physical-P16 tracked patch and separately archived untracked objects are unrelated to this pr-working role and retain independent provenance and completeness qualifications.",
+    "checkpoint3821": "Final original checkpoint3821 queue/ledger remain unrecovered; no recovered, reconstructed or newly assessed evidence is promoted to it."
+  },
+  "source": {
+    "role": 2656,
+    "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+    "pr_working": {
+      "sha256": "fd06a1fe88a6b55620cbeb9015e09f4f308114e77b5c5b051df26737dc458049",
+      "bytes": 6747,
+      "lines": 186,
+      "git_blob": "3fa6d06e61d8f2dc79146f595c8255c5d88c9b9e"
+    },
+    "current_95e": {
+      "sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+      "bytes": 7894,
+      "lines": 221,
+      "git_blob": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+      "equal_original": false
+    },
+    "per_file_identity": "Original archived pr-working bytes equal per-file 6533; 95e differs. The earlier 059 current e275 body equals the 95e file by SHA-256 and Git blob, independently verified; this does not imply equality of whole trees or transfer earlier reviewer credit.",
+    "earlier_e275_comparison": "additional-revision.json"
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2656,
+      "pr_working_actual_display": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          186
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          110
+        ],
+        [
+          111,
+          221
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "receipt": "read-receipt.json",
+  "support_registration": "support-registration.json",
+  "git_proofs": "git-proofs.json",
+  "historical_reviews": [
+    {
+      "source": "774 rig REG-119 / ADDITIONAL-119 in hash-linked published garment-underlayer evidence archive",
+      "author": "Original rig supplier",
+      "revision": "pr-working as recorded",
+      "actual_source_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "qualification": "Only direct q678 MHR NPZ decoding; no test source 70–186 or later-lens credit; repair not started. ADDITIONAL refers to AD129/130, F091 and CON702; full underlying finding bodies are not reproduced by this packet."
+    },
+    {
+      "source": "059 segovb READ-L11-433 and REGISTRATION-SEGOVB-1573",
+      "author": "Original segovb personal read",
+      "revision": "pr-working as recorded",
+      "actual_source_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "qualification": "No 70–186 body credit in this original read."
+    },
+    {
+      "source": "059 READ-L12-917 and PAR-L12-721 registration/identity qualification",
+      "author": "/root/lens12_frontier, root adopted delegated read without transferring other-lens verdicts",
+      "revision": "6533 pr-working file as recorded",
+      "actual_source_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "qualification": "No 70–186 body credit; root personal re-reads not inferred."
+    },
+    {
+      "source": "059 READ-L11-707 / parallel-l11 READ-171, registration PL11-1101 and earlier partial READ-170",
+      "author": "Exact record calls the reader Own Lens11 agent; root adoption explicitly says no root reread",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "actual_source_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "qualification": "Fresh prior e275 body read completed after PLAN-191; partial-170 retains its original status. e275 file identity equals 95e per Git/hash verification, but neither the old revision nor its reviewer is replaced by this audit."
+    }
+  ],
+  "observations": [
+    {
+      "id": "NPZ-SELECTED-MEMBER-CURRENT-DELTA-RECONCILIATION",
+      "status": "Source-backed reconciliation to existing 059 q2307/q2313 and earlier own Lens11 finding; no new unique finding.",
+      "source_trace": [
+        "pr-working npz.rs:33–67: names/keys; contains, uncompressed_size, and array use exact-or-one-suffix matching; array decodes the found entry",
+        "95e npz.rs:17–29,45–86: get creates a private archive-bound NpzMember for the first match; its name, declared size, and decode all refer to that selected member; the query is kept for context",
+        "95e npz/name.rs:7–14,40–60: open query spelling; full match or one trailing .npy removal in archive order, not an exact-match-priority promise",
+        "95e zip.rs:31–48,112–147,151–181: entry with archive and location retained together; lookup iterates first match; actual payload read is lazy"
+      ],
+      "nonfinding": "An earlier matching suffix entry can precede a later exact name; this is the documented first-match policy, not automatically a defect. Presence/get does not certify valid payload, decoded integrity, or allocation bounds. The current association avoids a second name lookup; this observation alone does not prove the historical second lookup produced mismatched metadata.",
+      "related": "059 q2307/q2313 and original e275 Own Lens11 record already cover the archive/member/query/metadata ownership. Do not re-count or transfer authorship."
+    },
+    {
+      "id": "NPZ-DECLARED-RESOURCE-POLICY-REMAINS-OPEN",
+      "status": "Existing 059 q2316 CRC/declared-size/allocation policy question, not a new accepted unique finding.",
+      "source_trace": [
+        "npz.rs:78–85: declared size exposed separately from decoding",
+        "zip/extent.rs:5–8,29–42: metadata admits u64 including zero and u64::MAX and converts to usize for native reservation",
+        "zip.rs:100–105,160–179: selected central declaration feeds Vec::with_capacity before Deflate read_to_end; output is owned and no limit appears in these displayed operations",
+        "mhr/correctives/archive.rs:10–15,38–78: file and owned byte inputs reach Npz; selected arrays are read for basis and sparse activation"
+      ],
+      "qualification": "If a supported archive can present a sufficiently large declared decoded size to the selected Deflate path, the declaration reaches reservation before decoding and may cause allocation failure or capacity overflow; read_to_end has no explicit size bound in these lines. This is source reasoning only. rawzip admission for a particular archive, reachability through supported asset producers, Rust target/allocation behavior, trust boundary, and the intended resource or integrity policy are not independently established. No archive, fixture, parser, decompressor, product or simulation was run.",
+      "related": "q2316 already names declared size, CRC and allocation policy; q627 preserves caller/resource questions. Earlier 059 native source assessments retain their own scope; this reader has not inspected rawzip, flate2, integrity verification or actual data. The bounded current MHR source establishes a path, not permission to accept untrusted inputs or a vulnerability finding.",
+      "future_direction": "After an explicit asset trust/resource/integrity policy is chosen and native admission traced, establish bounded allocation/decoding and appropriate mismatch or integrity handling in the owning layer, without treating declaration as verified payload. Repair and acceptance checks are later work."
+    }
+  ],
+  "nonfindings": [
+    "NpzArrayName and ArchiveMemberName represent query and actual filename roles; their open text namespace and optional suffix do not require a closed business enum.",
+    "NpzMember borrows the selected archive and retains the selected entry; decoded data may still fail later, so get/size are not a validation certificate.",
+    "MHR distinguishes activation and basis bytes and treats a missing basis as None; its sparse members are required. It adds contextual errors for selected arrays. This does not certify all shape, dtype, resource, native or GPU behavior.",
+    "Do not turn deliberately supported empty/case-sensitive/suffix/duplicate/member-order policies into a compatibility-fallback finding. Archived test source is read as text only."
+  ],
+  "open_questions": [
+    "What trust and resource guarantees apply to file, browser and streamed MHR NPZ assets, especially caller-provided bytes?",
+    "Which rawzip and flate2 paths admit selected declarations and how should CRC, actual decoded length and resource limits be governed? Earlier 059 native-source evidence must be separately assessed with its original author and ranges.",
+    "What caller-level shape, numeric, joint and GPU contracts remain after NPZ parsing? Existing /root/mhr_character model findings and q172/q397–402 are related but not new NPZ identities.",
+    "Is any metadata-to-payload discrepancy or arbitrary memory pressure reachable from supported inputs in the intended environment? No product outcome or constructed archive is asserted."
+  ],
+  "thirteen_lenses": {
+    "producer-propagation": "MHR role-separated file/byte archives reach Npz get/array then NpyArray; wider shape/tensor consumers remain separately scoped.",
+    "existing-type-owners": "NpzArrayName, ArchiveMemberName and DeclaredUncompressedByteLength have distinct query, member and declared-metadata roles.",
+    "admission-contracts": "Archive presence and declared size do not imply payload validation or resource limits; NpyArray parsing is delegated and prior native scopes remain qualified.",
+    "invariant-operations": "Unverified u64 declaration converts to usize and drives Deflate reservation; resource policy and actual upstream admission remain open.",
+    "aggregate-states": "Private member handle retains archive and entry; metadata and decode use same selected entry rather than independently correlated public state.",
+    "wrong-duplicate-owners": "ZIP owns native storage/entry framing, NPZ owns array query, and MHR owns corrective array roles; representation similarity alone does not prove duplicate authority.",
+    "redundant-authority": "Directory size is explicit unverified metadata distinct from actual decoded payload; no automatic certificate or equality claim.",
+    "behavior-preservation": "First matching full-or-one-suffix query, query spelling, ordering, optional missing MHR basis and lazy decode are explicit; no compatibility shim inferred.",
+    "enum-state-shape": "MHR CorrectiveArray enum names fixed roles; missing basis is Option while decode errors are distinct, not a generic absence.",
+    "derivability": "Borrowed member with archive/entry identity has constructor invariants; NpzArrayName derives simple transparent traits without inventing membership.",
+    "granularity": "Declared bytes, parsed NPY shape, actual payload and MHR joint/feature indices are distinct quantities, not interchangeable merely as integers.",
+    "raw-strings": "Query text is an open native NumPy namespace, while MHR fixed keys are carried by CorrectiveArray; contextual diagnostic strings belong at presentation boundaries.",
+    "raw-primitives": "ZIP declaration is u64 with an explicit usize reservation conversion; actual NPY shapes and numeric values are separate contracts."
+  },
+  "limits": "Source inspection and evidence verification only; no product archive processing, fixture execution, builds, tests, probes, simulations or repairs. A broad preliminary git grep incidentally printed truncated fixture-text search matches before registration; those lines were not assessed, parsed, executed or credited. Every retained support conclusion uses separately registered displayed source. Historical 059/774 evidence and newly assessed 95e work remain distinct and do not establish checkpoint3821."
+}

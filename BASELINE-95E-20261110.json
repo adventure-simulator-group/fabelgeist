@@ -19770,7 +19770,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
         ]
       },
       {
@@ -19844,7 +19845,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ]
       },
       {
         "id": "CURRENT-MEMBER-UV-FRAME-AND-PROPAGATION-RELATION",
@@ -20008,7 +20012,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ]
       },
       {
         "id": "P16-WINDOWSPEC-AGGREGATE",
@@ -20078,7 +20085,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ]
       },
       {
         "id": "CURRENT-FACADE-CLOSURE-PROJECTION-TRACE",
@@ -20101,10 +20111,176 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10F-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ]
+      },
+      {
+        "id": "P16-CLOSURE-CACHE-RETENTION",
+        "lens": 7,
+        "additional_current_lenses": [
+          5,
+          8,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Closure mesh caches retain exact-size keyed assets with no eviction in the inspected body.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "Conditional growth only; inspected cleanup does not replace this resource, but called reset and other lifecycle paths remain uninspected. No runtime or memory measurement.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace complete scene/application lifecycle and intended reuse before choosing retention ownership.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+      },
+      {
+        "id": "P16-CLOSURE-RECIPE-TANGENT-EXPECT-RULE",
+        "lens": 8,
+        "additional_current_lenses": [
+          3,
+          4
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; source-rule mismatch",
+        "classification": "Production mesh conversion uses expect for tangent generation despite the pinned repository rule forbidding expect outside tests.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "Confirmed source-rule mismatch at crates/AGENTS.md:126 and recipe_mesh.rs:35–36,83–84; no native error or product failure established.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Determine the renderer owner’s typed propagation or explicit handling without asserting unsupported native failure.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+      },
+      {
+        "id": "P16-CITY-GATE-OPENING-NAMESPACE",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Gate detection tests fixed bits in an opening identity that public input can represent without an observed reserved-bit check.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "Historical conditional gate identity question; no ordinary opening selecting the gate branch established.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace producer namespaces and accepted external IDs before choosing an explicit identity boundary.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+      },
+      {
+        "id": "P16-SHUTTER-OPENING-ORIGIN-MATCH",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          7,
+          8,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Interior lighting associates shutters using a 0.01 m source-wall origin and sill proximity search.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "If no match the field uses its non-opaque path; actual accepted shifted shutter and visual effect remain unproved.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace actual generated association and geometry shifts before selecting identity or geometric correspondence.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+      },
+      {
+        "id": "P16-SHUTTER-SCENE-OPENING-SELECTION",
+        "lens": 7,
+        "additional_current_lenses": [
+          3,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Shutter lighting chooses the first matching scene window by building and opening identity.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "Existing conditional query uniqueness question, no duplicate historical count or observed ambiguous scene.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Prove uniqueness and entity lifetime or define ambiguity handling at the owner.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+      },
+      {
+        "id": "P16-SHUTTER-ZERO-DIRECTION-POLICY",
+        "lens": 3,
+        "additional_current_lenses": [
+          4,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A zero transformed leaf direction is normalized to zero and the aperture calculation yields full openness.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "Conditional source relationship; singular native transform, ordinary reach and visual result unproved.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace transform admission and decide intended singular-direction behavior before altering daylight.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+      },
+      {
+        "id": "CURRENT-STRATEGIC-QUEUED-LEAF-PREFIX-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Strategic building and leaf commands are queued before all fallible leaf compilation and final building insertion finish.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
+        ],
+        "relationship_qualification": "Already recorded by ASSESSMENT-STRATEGIC-ADAPTER-DIAGNOSTICS-95E observation1 and 059 Adler L11-243 / Segovb L12-536. No new count, observed applied prefix or leaked entity.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace admitted failure, deferred-command application and cleanup, then define transaction or partial-state policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0157.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0211.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion."
 }
