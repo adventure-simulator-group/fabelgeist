@@ -1,0 +1,185 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T02:08:20.769468+00:00",
+  "scope": "Original role 2668 outer_layer/surface.rs, separately displayed old and current bodies plus bounded current support. Thirteen perspectives are partial and do not clear whole lenses or prove solver behavior.",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working recorded at 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications; not a clean-tree assertion",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports recovered registry source, not product source revision",
+    "earlier_e275": "Earlier 059 e2755a732c84e67296b5e3441a4259a84f461b2f source has same per-file hash and Git blob; previous attribution and revision remain distinct.",
+    "later_p16": "Later dirty physical-P16 tracked patch and separately archived untracked sources are unrelated to this pr-working role, and retain independent provenance/completeness.",
+    "checkpoint3821": "Final original 3821 queue/ledger remain unrecovered; no prior or newly assessed evidence is promoted to that checkpoint."
+  },
+  "source": {
+    "role": 2668,
+    "path": "crates/fabelgeist-shell/src/outer_layer/surface.rs",
+    "sha256": "b5fe1c6379d3472d00a1a574d652c8393269192f2273a1575b7a569c6bc1fc26",
+    "bytes": 8019,
+    "lines": 215,
+    "git_blob": "bc437c41e965d094b5c54dcc010d0ca127532c95",
+    "identity": "Archived pr-working file equals corresponding 6533, e275 and 95e bytes; this proves no whole-tree identity."
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2668,
+      "pr_working_actual_display": [
+        [
+          1,
+          110
+        ],
+        [
+          111,
+          215
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          110
+        ],
+        [
+          111,
+          215
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registrations": "support-registration*.json",
+  "git_proofs": "git-proofs.json",
+  "historical_reviews": [
+    {
+      "source": "774 rig REG-132 and ADDITIONAL-132 in hash-linked published archive",
+      "author": "Original rig supplier",
+      "revision": "pr-working as recorded",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "qualification": "Only bounded direct helper/admission; tests 170–215 and other-lens credit excluded; no repairs."
+    },
+    {
+      "source": "059 segovb READ-L11-437 / REGISTRATION-SEGOVB-1585",
+      "author": "Original segovb personal source read",
+      "revision": "pr-working as recorded",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ]
+    },
+    {
+      "source": "059 READ-L12-924 and PAR-L12-732 registration and identity qualification",
+      "author": "/root/lens12_frontier original prospectively registered read; root adoption has no root rereads",
+      "revision": "6533 pr-working file as recorded",
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "qualification": "Tests 170–215 excluded, no other-lens verdict transfer."
+    },
+    {
+      "source": "059 READ-L11-637 and parallel-l11 READ-101/VERIFY-101, PL11-0787",
+      "author": "parallel lens11_reconcile agent; root adopts without personal reread",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "qualification": "Earlier e275 full body independently credited to its own reviewer, not this agent or another lens."
+    },
+    {
+      "source": "Prior /root/mhr_character role2658 packet, exact small records under historical/",
+      "author": "/root/mhr_character",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "qualification": "Current support only, 104–215 unread under that registration; original role2658 remains separate. Prior direct-face/F083 and nearest-backface findings are not attributed to this agent."
+    },
+    {
+      "source": "Published /root/rig_identity xpbd-dynamics packet",
+      "author": "/root/rig_identity",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "qualification": "Earlier current support only, not original role2668 credit. Its response-sum overflow is a separate numerical mechanism; aliases are central."
+    },
+    {
+      "source": "059 adopted-findings.json selections of F082/F083/F090",
+      "author": "Original 774 rig; 059 adoption retains archive paths and original record indices",
+      "qualification": "Full 059 adoption retained compressed; selected JSON values are explicitly reconstructed, not a claim full original 774 findings archive has been recovered."
+    }
+  ],
+  "findings": [
+    {
+      "id": "CANDIDATE-OUTER-LAYER-SUBNORMAL-RESPONSE-UNDERFLOW",
+      "status": "Newly assessed source-backed conditional numerical candidate; supported mass range, target floating-point behavior and alias/count remain unresolved centrally.",
+      "trace": [
+        "outer_layer.rs:62–85: public project accepts particle inverse masses and uses mobility for point corrections before triangle projection",
+        "xpbd/dynamics/mass.rs:22–57: From<f32> preserves a positive subnormal, validity accepts finite nonnegative, and nonzero mobility is Dynamic",
+        "outer_layer/surface.rs:45–82,90–102: for each clipped sample a sum of weighted inverse responses is tested for layer activity; inactive skips correction",
+        "xpbd/dynamics/projection.rs:38–50,77–110: each response is weight² times inverse mass in f32; layer_activity marks <=0 inactive",
+        "outer_layer/surface.rs:16–39,105–168: clipped interior residual may stay positive while individual points do not contact the finite plate",
+        "shell.rs:344–381: host loop has a finite pass budget and exits after it even if residual remains above tolerance; other contact stages may still affect positions"
+      ],
+      "symbolic_source_reasoning": "Under ordinary IEEE f32 subnormal arithmetic, use a finite +Z-facing plate with XY vertices (1,1), (2,1), (1,2) at z=0; a cloth triangle at z=-1/8 with XY vertices (0,0), (4,0), (0,4); zero clearance; +Z inward; zero velocities; and all three positive inverse masses 2^-149. The plate lies wholly inside the projected cloth face while each cloth vertex ray misses the finite plate. The clipped plate vertices have barycentric weights permuting (1/2,1/4,1/4); roundoff near these values remains well below sqrt(1/2). Each weight² × 2^-149 rounds to zero, so the response sum is zero and layer_activity skips every sample, despite all three values being nonzero/Dynamic. The unclipped separation is 1/8, so the source-level surface residual remains positive. This is mathematical reasoning on source, not a constructed or executed mesh, fixture, solver, ray, BVH or runtime.",
+      "broadphase_and_membership": "For the stated finite triangle the plate AABB overlaps the extruded cloth query: a one-primitive BVH has a leaf and visits an overlapping node (bvh cpu/mod.rs:20–21,47–67,83–96,245–255,359–377,450–458; aabb.rs:46–49,84–112). A ray parallel to Z through each cloth vertex has XY coordinates outside the plate; ray_triangle requires a hit within triangle barycentric coordinates (aabb.rs:271–298). Face indices 0–2 and equal arrays are valid in the symbolic direct API condition.",
+      "limits": "The public direct OuterLayer::project API accepts raw-constructed ParticleInverseMass values; no real caller using these extreme subnormals is known. On the inspected ordinary ShellMesh route, finite kilogram masses are inverted by ParticleMass::inverse_mass (mass.rs:85–103), which does not establish this 2^-149 value from a finite representable mass. The result assumes normal IEEE rounding/subnormal handling; actual target flush-to-zero, compiler, device, runtime, subsequent contacts and product behavior are untested.",
+      "historical_relationship": "Related to 059 q630 outer-layer typed projection and q445 mass admission; /root/rig_identity xpbd-finite-response-sum-overflow addresses a different conditional overflow in SurfaceContacts. Prior F083 face membership, F090 direction/clearance and /root/mhr_character orientation findings are distinct source conditions. Shared numerical repair and unique count require central reconciliation.",
+      "future_direction": "After supported mass and floating-point policies are chosen, compute or admit mass-weighted response without silently classifying positive effective mobility as pinned due solely to intermediate underflow, preserving genuine pinned zeros and ordinary geometry. Implementation and acceptance checks belong to an authorized later phase."
+    },
+    {
+      "id": "F083-OUTER-SURFACE-FACE-MEMBERSHIP",
+      "status": "Previously observed 774 F083 / ADDITIONAL-132, independently reconnected; no new count.",
+      "trace": "surface.rs:19–24 and 45–57 index supplied faces into positions before local membership checks. ShellMesh::validate checks initial triangles (mesh.rs:85–115), but Shell.triangles is public (shell.rs:46–48) and host projection passes the retained list (shell.rs:344–376).",
+      "limits": "Requires invalid direct input or post-construction mutation and a reached consumer. Original /root/mhr_character role2658 packet independently recorded this exact relationship; direct public admission and retained-shell identity remain separate first sites and central decides alias."
+    }
+  ],
+  "nonfindings": [
+    "The clip loop handles an empty polygon without modulo by zero because its inner loop then has zero iterations.",
+    "The parent project asserts equal position/velocity/mass lengths before per-point iteration; this does not prove face membership or finite derived values.",
+    "Genuine zero inverse mass intentionally means prescribed/pinned, and a fully inactive weighted sample is intentionally skipped; the numerical question concerns a positive subnormal becoming zero in the intermediate response.",
+    "Earlier /root/mhr_character nearest-backface point-ray question concerns correction() in outer_layer.rs; it does not establish that independent triangle-surface projection also misses that overlap.",
+    "Face tests 170–215 were read only as source text; no claimed run or geometry validation."
+  ],
+  "open_questions": [
+    "Which callers or native particle inputs can provide inverse masses smaller than the finite-kilogram reciprocal range, and what magnitude contract is intended?",
+    "Which target/compiler floating-point modes preserve or flush subnormals and what rescaling or admission policy is desired?",
+    "Does later host surface or device contact repair the remaining residual under supported scheduling? No simulation was run.",
+    "How do this underflow mechanism, prior effective-response overflow and F082/F083/F090 findings share or differ in actual ownership and repair?",
+    "What are winding, signed separation and BVH policy for malformed plate topology or nonfinite state beyond the inspected scopes?"
+  ],
+  "thirteen_lenses": {
+    "producer-propagation": "Plate BVH and cloth faces flow to clipped weights, inverse response and host particle writes; direct raw inverse mass differs from shell mass-derived path.",
+    "existing-type-owners": "BarycentricWeight, ClippingFraction, ParticleInverseMass and EffectiveInverseMass distinguish roles but do not themselves establish every derived numerical invariant.",
+    "admission-contracts": "Initial ShellMesh validation and direct project array-length assertions do not prove later mutable face membership or supported subnormal response.",
+    "invariant-operations": "Positive representable inverse masses can yield zero weighted intermediate responses under stated rounding; extreme finite clipping arithmetic remains separately qualified.",
+    "aggregate-states": "Faces must refer to the same positions/masses/velocities and plate BVH; public Shell topology and particle buffers have prior independent ownership findings.",
+    "wrong-duplicate-owners": "OuterLayer owns finite plate selection, XPBD projection owns numeric roles and BVH owns candidate traversal; ownership/repair coupling remains open.",
+    "redundant-authority": "Surface residual and projection share clipped samples, while point ray and triangle overlap represent different necessary coverage; do not collapse them.",
+    "behavior-preservation": "Preserve zero/pinned mobility, finite plate/open-edge behavior, oriented normals, valid barycentric interpolation and host schedule in later repair.",
+    "enum-state-shape": "ProjectionActivity and ParticleMobility encode separate physical distinctions; computed inactivity must be reconciled with positive admitted mobility.",
+    "derivability": "Nominal wrappers can derive common traits without certifying ranges; do not infer algorithmic guarantees from derive use.",
+    "granularity": "Clipping fraction, barycentric weight, inverse mass, effective response and speed/depth serve different roles and native operations.",
+    "raw-strings": "No raw application string authority occurs in the assigned body; source comments and test descriptions are not runtime evidence.",
+    "raw-primitives": "Finite f32 positions and signed clipping values, mass response and tolerances require distinct numerical policies; subnormal conditions are explicit."
+  },
+  "limitations": "Source inspection, evidence-integrity checks and symbolic mathematical reasoning only. No product, simulation, geometry, shader, GPU, fixture, test, build, runtime probe, repair or publication/source edit."
+}

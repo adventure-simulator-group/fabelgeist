@@ -1,0 +1,173 @@
+{
+  "schema": "726-delegated-bounded-source-audit-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T02:19:25.372770+00:00",
+  "scope": "Original registry role 2669 strategic-web/src/routes/inventory_forms.rs, separately registered/displayed old and current full bodies, plus prospectively registered bounded form producers, handlers, typed owners and reducer support. Thirteen perspectives are partial, not whole-lens or product clearance.",
+  "rules": "rules.json preserves the actual workspace strategic-web and crates AGENTS files and root guide; user-provided root instructions govern. No product source was edited.",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "pr-working recorded at 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications; no whole-tree clean claim",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports the recovered source bytes; it is not the historical product revision",
+    "earlier_e275": "e2755a732c84e67296b5e3441a4259a84f461b2f same per-file identity, earlier author and revision retained independently",
+    "later_p16": "Later recovered dirty P16 tracked patch and separately archived untracked objects have distinct provenance and do not change this pr-working role.",
+    "checkpoint3821": "Original final checkpoint3821 ledger and queue remain unrecovered. Original 059/774 records, reconstructed selections and this new 95e work are not promoted to it."
+  },
+  "source": {
+    "role": 2669,
+    "path": "crates/strategic-web/src/routes/inventory_forms.rs",
+    "sha256": "cd34587835aa6f2448bb0cff2e893950703e9da622db14c7da7ad65ee0b39718",
+    "bytes": 4385,
+    "lines": 150,
+    "git_blob": "7165a785e9702706f4835afeff7e27b470576829",
+    "per_file_identity": "Archived pr-working, corresponding 6533, earlier e275 and pinned 95e source bytes match. This does not establish whole-tree equality."
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2669,
+      "pr_working_actual_display": [
+        [
+          1,
+          150
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          150
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registrations": "support-registration*.json",
+  "git_proofs": "git-proofs.json",
+  "historical_reviews": [
+    {
+      "source": "774 rig REG-134 and ADDITIONAL-134, retained exact full JSONL members",
+      "author": "Original rig supplier",
+      "revision": "pr-working as recorded",
+      "actual_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "qualification": "Specifically q716 PartyPoolTransferForm, independent empty-token filtering, checked positive parsed quantities and error-to-empty route; no other-lens credit. Lines 51–150 were not in the rig registration."
+    },
+    {
+      "source": "059 segovb READ-L11-437 / REGISTRATION-SEGOVB-1586",
+      "author": "Original segovb personal read",
+      "revision": "pr-working as recorded",
+      "actual_ranges": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "source": "059 READ-L12-924, PAR-L12-733 and identity qualification",
+      "author": "/root/lens12_frontier original prospectively registered personal read; root adoption has no personal rereads",
+      "revision": "6533 pr-working file as recorded",
+      "actual_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "qualification": "Lines 51–150 unread by this historical reviewer; no other-lens verdict transfer."
+    },
+    {
+      "source": "059 READ-L11-590 / parallel-l11 READ-054, PL11-0605",
+      "author": "Original delegated Lens11 reviewer, not further named in this source row; root adopts without personal reread",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "actual_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "qualification": "Earlier full current-era source read is independently attributed; 059 explicitly leaves raw CSV positional normalization and parse-error-as-empty outcome as separate policy questions."
+    },
+    {
+      "source": "Published /root/mhr_character web-trade-scripts report and its preserved exact support receipt",
+      "author": "/root/mhr_character",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "actual_ranges": [
+        [
+          90,
+          130
+        ]
+      ],
+      "qualification": "Prior form support only; report cites merchant form 98–117, receipt records actual display 90–130. No prior role2669 credit or authorship transfer."
+    }
+  ],
+  "findings_and_questions": [
+    {
+      "id": "CANDIDATE-MERCHANT-SCOPE-UNRECOGNIZED-AS-PERSONAL",
+      "status": "New conditional source-backed admission/owner question; supported malformed producer, intended default policy and alias/count remain open centrally.",
+      "trace": [
+        "inventory_forms.rs:98–109: MerchantOfferForm carries raw String inventory_scope and defaults omitted scope to empty",
+        "transfers.rs:168–213: with active actor, parsed offer and provider, the general merchant passes boolean form.inventory_scope == \"party\" to finalize_storefront_trade",
+        "inventory_trade.rs:2243–2274 forwards the boolean to StorefrontTradeRequest::parse; adventuresim-core/strategic_inventory.rs:227–231,240–281 makes true Party and false Personal",
+        "merchant.rs:243–249 and party-trade.js:332–341: inspected template emits player/party and tab selection writes the actual tab token; live-regions.js:92–108 restores it",
+        "rest.rs:685–725: herbalist route separately requires scope exactly \"player\""
+      ],
+      "condition": "If a nonempty general-merchant request omits or supplies any value other than exact \"party\", including an unrecognized spelling, this form/handler chooses the Personal boolean before the native reducer. The browser producer inspected here supplies recognized player/party values; an actual malformed browser submission, successful trade or authorization bypass is not established. If missing scope is a deliberate Personal default it is a policy decision; silently accepting arbitrary other strings is a separate admission decision.",
+      "relationship": "Related to 059 q549 merchant state/scope authority and existing typed TradeScope; current /root/mhr_character q549 preview finding concerns pricing rather than this discriminator. Exact alias and intended endpoint policy remain central.",
+      "future_direction": "At the HTTP boundary admit an explicitly owned closed scope, carry the chosen personal/party meaning to the native adapter, and decide missing/invalid cases without silently conflating unknown strings. Preserve the actual recognized player/party controls and authoritative server validation. Implementation and validation remain future work."
+    },
+    {
+      "id": "INVENTORY-CSV-POSITIONAL-NORMALIZATION",
+      "status": "Historical 059 READ-L11-590 / rig ADDITIONAL-134 policy question, independently traced; no new accepted unique count.",
+      "trace": "inventory_forms.rs:11–37 and 65–84 independently split and remove empty tokens before comparing normalized lengths and zipping item, quantity and actor lists. Symbolically IDs \"7,,8\" and quantities \"1,2,\" produce pairs (7,1),(8,2), even though the second pair did not occupy the same raw token position. party-trade.js:205–220,251–265,401–412,572–576 builds keys and quantities from corresponding Map entries, and the ordinary producer shown does not create such holes.",
+      "condition": "A manually malformed or otherwise unknown producer must submit nonaligned blanks. If raw slot positions are semantic, a missing token can be re-paired before the reducer sees values; if compact empty-token normalization is intentional, this is not itself a defect. No request or transaction ran. Reducers validate the normalized IDs/quantities, not the original blank positions.",
+      "relationship": "READ-L11-590 explicitly describes this same policy and requires actual producer/native contract before accepting a failure. Do not duplicate it or forbid the legitimate empty-list mode solely from the symbolic string."
+    },
+    {
+      "id": "INVENTORY-TRANSFER-PARSE-AND-PARTIAL-OUTCOME",
+      "status": "Previously recorded 059 q1873 and READ-L11-590; current-source refinement only.",
+      "trace": "inventory_medical.rs:376–447 logs a parser failure, returns an empty vector, executes no per-entry deposit/withdraw calls and redirects; its liquidation path 449–472 still sends that empty vector and discards the result. The reducer inventory_trade.rs:1966–1976 rejects empty/misaligned liquidation, and 2002–2040 checks uniqueness, ownership and quantity before its staged update path. For multiple valid deposit/withdraw entries the handler awaits each call individually and discards each result.",
+      "qualification": "On the shown source path a bad parsed form is not a request to liquidate all assets; any partial batch or missing feedback concern depends on actual per-call success/failure and intended user-facing policy. No DB calls, rollback semantics, HTTP response or product outcome were exercised. q1873 already preserves parser-error and partial-call concerns; no duplicate count."
+    },
+    {
+      "id": "INVENTORY-POSITIVE-QUANTITY-PROPAGATION",
+      "status": "Existing rig ADDITIONAL-134 unsealed-quantity observation, current scoped refinement; 059 q3441 concerns parser error facets.",
+      "trace": "parse_entries rejects zero at inventory_forms.rs:26–35 but stores the admitted positive value in the crate-visible u32 field QuantityEntry.quantity; PartyOfferEntry similarly stores u32. adventuresim-core inventory_measurement.rs:8–26 already owns nonzero ItemQuantity, and strategic_inventory.rs:196–212 uses it inside TradeQuantity at the separate reducer boundary; strategic-web/Cargo.toml:11–14 already depends on core.",
+      "qualification": "The inspected parser is the observed constructor and does not return zero. This is an invariant/producer-propagation design gap, not an observed invalid quantity or proof of unsafe server acceptance. Server re-admission across HTTP/DB is independently necessary and must not be removed as redundant.",
+      "future_direction": "Reconcile whether the shared nonzero quantity or trade-specific owner is appropriate at the internal parsed-entry boundary and retain it until the true native wire projection; preserve independent reducer checks and empty-list behavior."
+    }
+  ],
+  "nonfindings": [
+    "Parser checks normalized parallel lengths, all nonempty tokens parse and each returned quantity is positive.",
+    "The regular draft producers assemble corresponding IDs and quantities from the same Map order; no ordinary mismatched-blank source was shown.",
+    "The liquidation reducer rejects empty, duplicate, non-owned and excessive lines in the inspected source; this does not establish runtime DB behavior or all handlers.",
+    "Buyer catalog strings, u64 inventory row IDs and character IDs serve different identities; do not collapse them into one universal identifier.",
+    "Original 059 q3441 records error facets; loss of internal static-string detail and final response feedback are related but distinct owner/policy questions.",
+    "The source tests 128–150 were inspected as text only, never executed."
+  ],
+  "open_questions": [
+    "Is omitted merchant scope deliberately Personal, and should every other invalid scope be rejected?",
+    "Do any supported producers submit positional empty slots, and what is the intended compact CSV grammar?",
+    "Should transfer batch be atomic or report per-entry results, and how should failed parsing/reducer calls be surfaced? No DB execution was performed.",
+    "Which quantity/ID owners should be reused within web internals without weakening independent server validation?",
+    "Do merchant native item/stock/pricing and transaction checks impose additional conditions? Other reducer paths remain separately scoped."
+  ],
+  "thirteen_lenses": {
+    "producer-propagation": "Browser Map keys/values become compact strings, parsed entries and native JSON arrays; nonzero quantity and personal/party intent cross separate authorities.",
+    "existing-type-owners": "ItemQuantity owns nonzero fungible counts, TradeQuantity owns commerce lines, TradeScope owns native personal/party distinction; exact web ownership remains a decision.",
+    "admission-contracts": "Lengths, u64 syntax and positive quantities are checked after independent empty filtering; scope admission and native authority remain separate.",
+    "invariant-operations": "Independent token deletion can change raw positional alignment under malformed inputs; no valid producer or required raw-slot contract is established.",
+    "aggregate-states": "Parallel IDs, actors and quantities must correspond; reducer ownership/availability checks receive already normalized pairs.",
+    "wrong-duplicate-owners": "Form parser, UI state and server reducer own different trust boundaries; do not remove native checks merely because browser parsing also validates.",
+    "redundant-authority": "Browser scope token and reducer scope enum both represent selection; missing/unknown translation and authority need explicit admission rather than assumed equivalence.",
+    "behavior-preservation": "Preserve recognized player/party modes, valid zero-entry optional sides, positive quantities and actor/ID ordering; malformed-string policy is explicit.",
+    "enum-state-shape": "Inventory scope is a closed personal/party role in the native request but an open/defaulted string in the form; compare actual owners and missing policy.",
+    "derivability": "Deserialize is native form decoding; it does not by itself enforce correlated fields, role membership or positive quantity.",
+    "granularity": "Catalog IDs, inventory-row IDs, actor IDs and nonzero item counts are distinct; wire u64 equality does not prove common identity.",
+    "raw-strings": "Static parser reasons distinguish closed failures but routes may erase them; item catalog names and final UI text retain native/presentation roles.",
+    "raw-primitives": "u32 is a wire representation after syntax parsing; internal positive counts can preserve an existing bespoke owner while native checks remain authoritative."
+  },
+  "limitations": "Static source inspection, evidence integrity checks and symbolic input reasoning only. No product/DB/browser/fixture execution, builds, tests, runtime probes, repair or publication edit. Historical and new evidence remain separately attributed."
+}

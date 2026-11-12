@@ -1,0 +1,499 @@
+{
+  "schema": "726-bounded-fixture-source-review-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T02:08:50.686367+00:00",
+  "scope": {
+    "original_roles": [
+      2664
+    ],
+    "mode": "Fixture text source evidence only. No parse through product code, fixture/test invocation or validation, no build, product execution, runtime probe or simulation.",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_recorded_pr_working_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "snapshot_qualification": "Original pr-working recorded four unrelated modified files; only this fixture has been independently proven equal per file at 6533 and 95e, not whole snapshot cleanliness. F82 is historical evidence transport, not project source revision.",
+    "identity": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+      "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+      "git_blob": "505849bf08c1ea2425298fa87919cba8af28c434",
+      "bytes": 70194,
+      "eof": 4396
+    },
+    "personal_reads": "Separately registered and personally displayed complete historical and current source lines 1–4396 in 22 200-line chunks each. Receipt and registration are preserved. Other authors are independently attributed.",
+    "fixture_exclusion": "Fixture was displayed as text; hashes, lengths and proof bytes checked only. No parsing through product code, running test/fixture, or validation of the fixture or expectations."
+  },
+  "findings_and_relationships": [
+    {
+      "id": "xpbd-finite-response-sum-overflow",
+      "classification": "Previously identified by /root/rig_identity; no new unique finding or automatic alias.",
+      "observation": "The VertexTriangle fixture text at 1711–1832 has inverse-mass words 2139095039 at 1756–1761, an authored resolved value of 1 at 1807, and corrected words visually matching predicted words in this case. /root/rig_identity previously identified the f32::MAX interpretation and independently inspected precisely this window. Source test uses ParticleInverseMass::from(f32::from_bits(...)), calls private resolve and asserts exact output words. These are authored expectations; no outcome or arithmetic cause for this case was demonstrated.",
+      "source_context": "The separate solve_inner validates each mass; private resolve sums weighted responses and only checks the denominator activity; XPBD source shows response multiplication and sum. This makes prior finite-response reasoning relevant but does not prove this fixture case reaches that condition.",
+      "future_repair_direction": "When reconciling the existing finding, decide supported inverse-mass and derived-response range and whether this extreme authored expectation represents desired behavior, preserving legitimate ordinary/pinned and optional-velocity cases. No repair or test performed.",
+      "sources": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            1711,
+            1832
+          ],
+          "archive": "source/2664-current.json"
+        },
+        {
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            42
+          ],
+          "archive": "support/0.rs"
+        },
+        {
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            238,
+            305
+          ],
+          "archive": "support/3.rs"
+        },
+        {
+          "path": "crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            20,
+            25
+          ],
+          "archive": "support/4.rs"
+        },
+        {
+          "path": "crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            77,
+            110
+          ],
+          "archive": "support/4.rs"
+        }
+      ],
+      "historical_relationships": [
+        "059 q445 (individual mass-validity admission, historical and open reconciliation) is related but distinct from derived-response overflow.",
+        "059 READ-L11-435-PARTIAL-002 already observed the historical max-finite resolved/unchanged expectation; READ-L11-435 completes it.",
+        "774 RIG-ADMISSION03-ADDITIONAL-127 notes an original source oracle only; not evidence of execution.",
+        "/root/rig_identity current support 1711–1832 predated our separate full current read; no credit transferred."
+      ]
+    },
+    {
+      "id": "L12-CLOSURE-CONTACT-FIXTURE-NATIVE-GRAMMAR",
+      "classification": "Reconnected 059 queue q3440; no new unique finding.",
+      "observation": "The test expects 36 cases and compares Debug-formatted Pair variants with the fixture pair strings. CCD defines two crate-local variants. These are test source contracts and native fixture vocabulary; they do not demonstrate product string admission or a passed test.",
+      "sources": [
+        {
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            17
+          ],
+          "archive": "support/0.rs"
+        },
+        {
+          "path": "crates/fabelgeist-shell/src/ccd.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            15
+          ],
+          "archive": "support/pair-0.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            54,
+            54
+          ],
+          "archive": "source/2664-current.json"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            2250,
+            2250
+          ],
+          "archive": "source/2664-current.json"
+        }
+      ],
+      "historical_relationships": [
+        "059 q3440 remains open-source-reconciliation; exact 059 record retains /root/lens12_frontier authorship and 6533 source scope."
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "observation": "Zero and signed-zero authored words are test cases; source ParticleInverseMass treats either zero as prescribed. Native-word adapters intentionally retain bit identities; this does not require exact old outputs for future repairs.",
+      "sources": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            536,
+            541
+          ],
+          "archive": "source/2664-current.json"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            780,
+            785
+          ],
+          "archive": "source/2664-current.json"
+        },
+        {
+          "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            22,
+            58
+          ],
+          "archive": "support/2.rs"
+        },
+        {
+          "path": "crates/fabelgeist-shell/src/native_vector_fixture.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            20
+          ],
+          "archive": "support/1.rs"
+        }
+      ]
+    },
+    {
+      "observation": "The test source explicitly expects 36 entries split into two 18-case groups; original 059 and 774 readers summarized 36 records, nine mass sets per family and two velocity choices. This summary is attributed to them; our own work did not parse or validate the fixture.",
+      "sources": [
+        {
+          "path": "crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            5,
+            17
+          ],
+          "archive": "support/0.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            1,
+            4
+          ],
+          "archive": "source/2664-current.json"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            2199,
+            2200
+          ],
+          "archive": "source/2664-current.json"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+          "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+          "lines": [
+            4393,
+            4396
+          ],
+          "archive": "source/2664-current.json"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which finite inverse-mass and derived-response ranges are supported by the actual owners, including arithmetic intermediates?",
+    "Whether the maximum-mass resolved/unchanged authored case is causally related to the existing response-sum finding is not established.",
+    "Which test cases or alternative independent acceptance evidence should be considered after an authorized repair, without treating historical native word parity as mandatory?",
+    "Fixture provenance and any relationship to other source snapshots are not established by per-file identity.",
+    "No conclusion is made about uninspected solver branches, numerical accuracy, GPU parity, or entire-lens closure."
+  ],
+  "history": [
+    {
+      "origin": "774 rig admission03",
+      "registration": "history-774/source-range-registration.jsonl.gz row 127 RIG-ADMISSION03-REG-127",
+      "summary": "history-774/additional-contracts.jsonl.gz row 113 RIG-ADMISSION03-ADDITIONAL-127 reports a full 4396-line structured read of 36 cases, with first 18 VertexTriangle and last 18 EdgeEdge reread after truncated output. Preserve that initial truncated output and subsequent reread chronology; no execution, later-lens credit or repair.",
+      "source": "pr-working fixture SHA above; f82 records evidence transport only."
+    },
+    {
+      "origin": "774 rig initial06",
+      "record": "history-774/contracts-014.json.gz group original-contact-native-word-fixture",
+      "summary": "Separate type-ownership source assessment reports full structured JSON read and references test reader; native-vector helper was referenced but not independently read there. No numerical acceptance or codec correctness inferred."
+    },
+    {
+      "origin": "059 Lens11",
+      "reader": "Original segovb receipt; no named individual inferred",
+      "records": [
+        "history-059/REGISTRATION-SEGOVB-1581.json",
+        "history-059/READ-L11-435-PARTIAL-001.json",
+        "history-059/READ-L11-435-PARTIAL-002.json",
+        "history-059/READ-L11-435.json"
+      ],
+      "chronology": "2026-10-28 19:32:02.360353 UTC partial1 assessed 1–1440, unread 1441–4396; 19:32:36.982393 UTC partial2 adds 1441–2880, unread 2881–4396; 19:33:35.044090 UTC completion preserves the prior partials and 25 untruncated windows 1–4396. Historical summary only; no current or other-lens credit."
+    },
+    {
+      "origin": "059 Lens12",
+      "reader": "/root/lens12_frontier",
+      "records": [
+        "history-059/REGISTRATION-PAR-L12-728.json",
+        "history-059/QUALIFICATION-PAR-L12-728-ORIGINAL2664.json",
+        "history-059/PARTIAL-PAR-L12-921-001.json through -023.json",
+        "history-059/PROPOSAL-L12-921.json",
+        "history-059/PROPOSAL-BUNDLE-PAR-L12-917-924.json",
+        "history-059/READ-L12-921.json"
+      ],
+      "chronology": "Independent prospective registration followed by 23 disjoint partial receipts for full 1–4396, then root adopted proposal with root_personal_rereads empty. Attribution and revision 6533 preserved; root adoption is not a personal source read."
+    },
+    {
+      "origin": "Earlier current 95e support",
+      "reader": "/root/rig_identity",
+      "records": [
+        "prior-current/MANIFEST.json",
+        "prior-current/support-registration.json",
+        "prior-current/extra-registration.json",
+        "prior-current/personal-read-receipt.json",
+        "prior-current/REPORT.json",
+        "published-links.json"
+      ],
+      "chronology": "Support registered 2026-11-12 01:59:49.925235 UTC for lines 1–60 and 4330–4396; additional 1711–1832 registered 02:00:16.001455 UTC; receipt 02:00:45.119172 UTC. Other fixture lines 61–1710 and 1833–4329 remained unread by that reviewer. It is separately published packet shell-xpbd-test-sources, role 2661/2662 support, not ordered role 2664 or another reviewer credit."
+    }
+  ],
+  "baseline_qualifications": [
+    "These source results do not recover checkpoint 3821 or establish its ledger, queue, any historical ordered role advancement or whole-lens closure.",
+    "Physical P16 is a separate dirty snapshot based on a120; later recovered tracked patch SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 with seven separately preserved untracked files. Matching patch bytes do not establish original diff command or uninterrupted custody; none of this fixture evidence is promoted to P16."
+  ],
+  "queue_links": [
+    "queue-selection-reconstructed.json entries 445 and 3440 from recovered 059; selected entries are reconstructed data, source queue hash-linked."
+  ],
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/0.rs",
+      "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+      "eof": 45,
+      "actual_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/native_vector_fixture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/1.rs",
+      "sha256": "a9513fcd6acaabbc6d11ea5d4380311c2d3c0270bf5ef04a8fb196140e9c910a",
+      "eof": 21,
+      "actual_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/2.rs",
+      "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+      "eof": 162,
+      "actual_ranges": [
+        [
+          22,
+          75
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          21
+        ],
+        [
+          76,
+          162
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/surface_contact/solve.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/3.rs",
+      "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+      "eof": 309,
+      "actual_ranges": [
+        [
+          1,
+          34
+        ],
+        [
+          238,
+          305
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          35,
+          237
+        ],
+        [
+          306,
+          309
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/4.rs",
+      "sha256": "5bb8e91c0567547ebdbb72da14d8b7e9384b3caded29267f1f3d96ac49ececf3",
+      "eof": 206,
+      "actual_ranges": [
+        [
+          20,
+          60
+        ],
+        [
+          77,
+          115
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          19
+        ],
+        [
+          61,
+          76
+        ],
+        [
+          116,
+          206
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/ccd.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/pair-0.rs",
+      "sha256": "bd0f3a309967fdd9399aaf5eb558944b9e0c0059b35ae7e143922be675bd0047",
+      "eof": 394,
+      "actual_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          23,
+          394
+        ]
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "The fixture is embedded by a test and read as native-word case data; no production producer migration is established by these bounded texts.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "The test converts native mass words to ParticleInverseMass and uses the existing Pair contact type; the fixture itself defines no Rust type owner.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "From<f32> retains all words; source validity is separately finite and nonnegative, and solve_inner asserts it. Test invokes private resolve directly; do not equate test input with observed normal admission.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "Finite individual masses do not by themselves prove finite weighted-response sums; existing xpbd-finite-response-sum-overflow remains conditional, and the exact fixture case has no demonstrated causal trace.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "The authored previous/predicted/corrected, optional velocities and four inverse masses are related case fields. Fixture text and assertions do not prove the runtime aggregate invariant or any result.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "Pair belongs to CCD/contact and ParticleInverseMass belongs to XPBD; the raw-word fixture and its decoding helper are a test boundary, not a competing production owner.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "Predicted and corrected records are input and expected output, not independent current runtime authorities. Resolve count and word snapshots express a source assertion only.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "Pinned and dynamic mass, optional velocity and distinct pair families are case distinctions. Historical expected words are evidence, not an obligation to preserve invalid arithmetic or legacy parity.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "Two Pair variants are a closed source enum. The fixture compares its string to a Debug rendering; the boolean selects optional velocity data in this test. No production enum redesign is inferred.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "Test fixture is data and native vector conversions are explicit bitwise test adapters; no replacement derive or boilerplate repair is established.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "Inverse kilograms, projected effective inverse mass, native f32 words and indices have distinct meanings; JSON integers here are representation, not interchangeable semantic quantities.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "case keys and pair names serve native fixture grammar; tests compare Pair Debug text. Reconnect q3440 without treating fixture labels as application business identifiers or proving a parser validation.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "Native integer words represent floating bit patterns, count and authored expected results; do not replace exact fixture representation mechanically or interpret its values as proven execution.",
+      "status": "bounded fixture/source assessment only; no lens closure"
+    }
+  ],
+  "unread_or_open_scope": "All assigned fixture lines displayed at each revision; only registered support windows shown in support_reads, with all complement recorded. Entire related production systems, other snapshots and all other roles remain outside this bounded packet."
+}

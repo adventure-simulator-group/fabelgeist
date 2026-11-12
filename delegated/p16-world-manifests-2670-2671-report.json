@@ -1,0 +1,334 @@
+{
+  "schema": "726-bounded-p16-world-manifests-v1",
+  "author": "/root/mhr_character",
+  "at": "2026-11-12T02:22:39.477249+00:00",
+  "scope": {
+    "original_roles": [
+      2670,
+      2671
+    ],
+    "source_revision_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "physical-p16 dirty snapshot based on a120390947c89b703dc74c4255a13c035d054c50",
+    "per_file_proof": "Both historical source objects exactly match a120 individually and f82 original evidence transport. Role2670 also matches 95e; role2671 differs. Neither comparison makes the entire historical P16 snapshot clean.",
+    "original_registry_ranges": "2670 1–31, 2671 178–182 only. Our prospectively registered full historical 2671 display 1–221 extends these original ranges as context, not original historical ordered-role credit. Current 2670 1–31 and 2671 1–211 independently displayed.",
+    "source_restrictions": "Static source/evidence only; no cargo metadata/resolution, build, lint, macro, product, test or runtime probe. All actual assigned displays and bounded support complements in receipts."
+  },
+  "findings_and_relationships": [
+    {
+      "id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+      "classification": "Existing q131 open reconciliation and prior 95e source finding REVIEW-BASIS-POINTS-SERDE-ADMISSION-001; no new unique finding or automatic historical alias.",
+      "observations": [
+        "Current and historical world-schema manifest default feature list is empty; it defines spacetimedb feature as dep:spacetimedb-lib, declares spacetimedb-lib optional in normal dependencies, and separately declares spacetimedb-lib as a build dependency.",
+        "Current root workspace declares spacetimedb, spacetimedb-sdk, spacetimedb-lib and spacetimedb-sats as exact =2.6.1, with default-features=false on lib and requested serde on sats; historical root has the same declarations at lines 178–181. These are manifest declarations only, not proof of enabled or resolved dependency features.",
+        "Current source applies the SpacetimeType derive and sats crate attribute under cfg(feature = \"spacetimedb\"), and derives transparent Serde for unsigned and signed primitive-backed types with explicit checked constructors. Source module publicly re-exports them."
+      ],
+      "sources": [
+        {
+          "archive": "source/2670-current.toml",
+          "path": "crates/adventuresim-world-schema/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            17
+          ]
+        },
+        {
+          "archive": "source/2670-current.toml",
+          "path": "crates/adventuresim-world-schema/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            20,
+            25
+          ]
+        },
+        {
+          "archive": "source/2671-current.toml",
+          "path": "Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            176,
+            179
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            31
+          ]
+        },
+        {
+          "archive": "support/0.rs",
+          "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            94,
+            120
+          ]
+        },
+        {
+          "archive": "support/1.rs",
+          "path": "crates/adventuresim-world-schema/src/lib.rs",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            32,
+            33
+          ]
+        }
+      ],
+      "historical_relationships": [
+        "774 native witness042 initially recorded SATS mapping as pending; later native group043 describes a separate source-level chain to camera reviewer SATS macro evidence, conditional on the corresponding feature, and connects existing CameraADM03F001 without a new count. Preserve this chronological supersession and original reviewer/scope; do not assert the feature resolved or is enabled at 95e.",
+        "059 Lens11 READ-L11-437 and delegated Lens12 proposal/read 925 explicitly credit only original role2671 lines 178–182; q131 separately records historical owner and pending native routes.",
+        "Prior current ASSESSMENT-L01-BASIS-WIRE-95E independently inspected pinned Serde native source and identified REVIEW-BASIS-POINTS-SERDE-ADMISSION-001; the assessment explicitly left native schema and active features unverified. Its source reads and authorship remain separate."
+      ],
+      "future_repair_direction": "After audit and authorization, reconcile canonical checked value admission for actual Serde and any enabled native schema paths, preserve legitimate bounded endpoints and explicit saturation, and determine actual producers/ingress; no implementation or validation is performed."
+    }
+  ],
+  "nonfindings_and_deltas": [
+    {
+      "observation": "Workspace package strings and exact constraints are Cargo namespace declarations; this bounded inspection found no new bespoke string defect. Normal optional and build-dependency declarations carry different roles, and do not establish feature resolution or runtime persistence.",
+      "sources": [
+        {
+          "archive": "source/2670-current.toml",
+          "path": "crates/adventuresim-world-schema/Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            9,
+            25
+          ]
+        },
+        {
+          "archive": "source/2671-current.toml",
+          "path": "Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            176,
+            179
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "Unrelated textual differences in the current root manifest remove bevy_flair and bevy_eidolon declarations and an eidolon patch/comment, and add dev profile debug and incremental settings. Their product effects, dependency resolution, and any separate audit finding are not assessed.",
+      "sources": [
+        {
+          "archive": "source/2671-current.toml",
+          "path": "Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            119,
+            129
+          ]
+        },
+        {
+          "archive": "source/2671-current.toml",
+          "path": "Cargo.toml",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            184,
+            202
+          ]
+        }
+      ],
+      "historical_source": "source/2671-historical.toml lines 119–131, 186–202, 210–212",
+      "diff": "root-manifest.diff"
+    }
+  ],
+  "open_questions": [
+    "Which cargo feature sets are activated by actual relevant builds and dependency graph, including host/build separation? No cargo resolution was performed.",
+    "For enabled native schema configurations, what current macro/source chain and actual admission boundary apply, and how should they reconcile with the separately preserved 774 SATS source interpretation?",
+    "Which externally supplied or persisted consumers actually reach transparent Serde or native decoding of bounded basis points? Prior current report leaves actual ingress open.",
+    "What separate repair and validation evidence is needed when implementation/product validation is authorized? No exact old error or invalid-input compatibility mandate follows from historical observations.",
+    "Root manifest ancillary dependency/profile changes were recorded textually but not assessed for product effect or related findings."
+  ],
+  "history": [
+    {
+      "origin": "774 native admission03",
+      "records": [
+        "history-774/source-range-registration.jsonl.gz rows 14–15 NATIVE-ADMISSION03-REG-014/015",
+        "history-774/source-qualifications-final-082.jsonl.gz rows 14–15 NATIVE-ADMISSION03-QUAL-014/015",
+        "history-774/p16-basispoints-admission-witness-042.json.gz",
+        "history-774/contract-groups-043.json.gz group p16-basispoints-all-adapter-routes",
+        "history-774/sats-basispoints-route-001.json.gz from camera reviewer"
+      ],
+      "ranges": "World schema manifest 1–31, root manifest 178–182. Witness042 predated and left the P16 SATS mapping pending; group043 reports the subsequent dependency/reexport comparison. Exact supplier evidence and original audit lens are retained; no global or other-lens credit."
+    },
+    {
+      "origin": "059 Lens11",
+      "records": [
+        "history-059/REGISTRATION-SEGOVB-1587.json",
+        "history-059/REGISTRATION-SEGOVB-1588.json",
+        "history-059/READ-L11-437.json",
+        "history-059/VERIFY-L11-437.json",
+        "history-059/STATE-L11-437.json",
+        "history-059/READ-L11-337.json"
+      ],
+      "qualification": "READ-L11-437 at 2026-10-28T19:36:59.153923+00:00 records world-schema 1–31 and root 178–182 as fresh personal reads. The 059 receipt does not identify a named individual; no named reviewer inferred."
+    },
+    {
+      "origin": "059 Lens12",
+      "reader": "/root/lens12_frontier",
+      "records": [
+        "history-059/REGISTRATION-PAR-L12-734.json",
+        "history-059/REGISTRATION-PAR-L12-735.json",
+        "history-059/QUALIFICATION-PAR-L12-734-ORIGINAL2670.json",
+        "history-059/QUALIFICATION-PAR-L12-735-ORIGINAL2671.json",
+        "history-059/PARTIAL-PAR-L12-925-001.json",
+        "history-059/PARTIAL-PAR-L12-925-002.json",
+        "history-059/PROPOSAL-L12-925.json",
+        "history-059/PROPOSAL-BUNDLE-PAR-L12-925-932.json",
+        "history-059/READ-L12-925.json",
+        "history-059/VERIFY-L12-925.json",
+        "history-059/STATE-L12-925.json"
+      ],
+      "qualification": "Prospectively registered 05:08:36 UTC, independently read 2670 1–31 and 2671 178–182 in separate 05:09:00 UTC partials, proposed at 05:12:33 UTC and root adopted 05:14:43 UTC with root_personal_rereads empty. f82 records object transport, not a project source revision. Other 216 root manifest lines were unread by this historical reviewer."
+    },
+    {
+      "origin": "Prior current 95e",
+      "records": [
+        "reference/ASSESSMENT-L01-BASIS-WIRE-95E.json",
+        "reference/ASSESSMENT-ROAD-BASIS-POINTS-95E.json",
+        "reference/ASSESSMENT-L01-HISTORICAL-439-440.json"
+      ],
+      "qualification": "Prior trace read 95e world-schema Cargo 1–29 and basis_points 1–151 and separately interpreted pinned Serde source. Our independent manifest/support reads do not transfer prior credit; original assessment leaves feature resolution, native route and observed ingress open."
+    }
+  ],
+  "baseline_qualifications": [
+    "P16 is a frozen dirty snapshot recorded on base a120; the later tracked patch hash fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 matches the original registry. Seven untracked objects were recorded separately; exact original diff command and uninterrupted custody are not proven. These two files individually match a120, not the whole P16 tree.",
+    "No evidence is promoted into checkpoint 3821; neither whole-lens closure nor product validation is claimed."
+  ],
+  "support_reads": [
+    {
+      "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/0.rs",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "eof": 151,
+      "actual_ranges": [
+        [
+          1,
+          39
+        ],
+        [
+          93,
+          123
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          40,
+          92
+        ],
+        [
+          124,
+          151
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "source_file": "support/1.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "eof": 4796,
+      "actual_ranges": [
+        [
+          24,
+          38
+        ]
+      ],
+      "unread_for_this_registration": [
+        [
+          1,
+          23
+        ],
+        [
+          39,
+          4796
+        ]
+      ]
+    }
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "perspective": "Manifest feature declares optional dependency; source attr conditions the derive on the named feature. No resolved activation or consumer trace is inferred.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "perspective": "Existing UnitBasisPoints and SignedUnitBasisPoints own bounded fractions; the workspace dependency name is a package coordinate, not a new bespoke-value owner.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "perspective": "Existing q131 concerns values reaching bounded types without checked constructors. Manifest establishes a possible gated native derive route; it does not itself demonstrate admission, feature activation or a decoder.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "perspective": "Constructor bounds and Serde derives are visible; arithmetic/consumer consequences are held in the previously attributed prior current analysis, not independently demonstrated by this bounded manifest read.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "perspective": "No manifest establishes any aggregate value invariant or loaded schema; source feature/dependency declarations and build dependencies are different contexts.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "perspective": "World-schema owns the fraction definitions and re-exports them. Package, feature, macro namespace and type owner have distinct responsibilities; no extra competing owner established.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "perspective": "A workspace dependency declaration and member inheritance describe different levels of one manifest relationship, not two independently stored values. Different normal/build dependency declarations do not prove duplicate runtime authority.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "perspective": "Prior 774 reader identified bounded endpoints and explicit saturation as meaningful; historically reported wire representation is evidence, not blanket permission to preserve invalid admission or obsolete compatibility paths.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "perspective": "Manifest strings are Cargo grammar and cfg feature names; these files alone establish no domain enum migration.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "perspective": "Source derives Serde and conditionally SpacetimeType; macro meaning requires separately scoped package evidence and no macro execution has been undertaken.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "perspective": "Signed and unsigned basis-point values have separately declared checked ranges, unlike textual dependency version pins or package identifiers.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "perspective": "Cargo names, version constraints, feature keys and Rust cfg attributes are compiler/package namespace syntax, not arbitrary business string values. Historical 059 Lens12 retained the same boundary qualification.",
+      "status": "bounded source perspective; no entire-lens closure"
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "perspective": "The exact 2.6.1 strings are version constraints; the 10,000 basis point bound is a declared domain scale; neither textual occurrence proves compiled or resolved behavior.",
+      "status": "bounded source perspective; no entire-lens closure"
+    }
+  ]
+}

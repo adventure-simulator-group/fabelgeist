@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0211.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0238.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -56,6 +56,16 @@ recovery check.
 `DELEGATED-EVIDENCE-CHECKPOINT-20.json` preserves nine more source and
 fixture-text evidence packets, pending central reconciliation. No fixture or
 test was executed.
+`RECOVERY-VERIFICATION-DF4241BF.json` records the latest same-machine
+recovery check, with its transcript limitations.
+`DELEGATED-EVIDENCE-CHECKPOINT-21.json` preserves six additional separately
+attributed packets pending central reconciliation. Its public redactions are
+reconstructions, with exact changed originals retained only on this machine.
+One nested inventory manifest omitted from the frozen packet manifest is
+separately bound to the original registry archive manifest.
+`CENTRAL-11A-REGISTRATION.json` and `CENTRAL-11A-READ-RECEIPT.json` preserve
+nine preliminary coordinator source displays; the associated delegated
+findings and original roles have not yet been centrally reconciled.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

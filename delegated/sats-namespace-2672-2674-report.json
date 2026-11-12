@@ -1,0 +1,879 @@
+{
+  "schema": "726-sats-namespace-role-2672-2674-review-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T02:19:25.623162+00:00",
+  "scope": {
+    "roles": [
+      2672,
+      2673,
+      2674
+    ],
+    "native_identity": "Native crates.io spacetimedb-lib 2.6.1 and spacetimedb-sats 2.6.1 exact archive members; SHA-256 archives bceaf72bdbf1a624d55d17ebaa38f8cf78a4972e43641c6cbf94f82318b5581d and 6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998. These are not project Git revisions.",
+    "actual_assigned_reads": "Role2672 lines39\u201349, role2673 lines74\u201396 and role2674 line320 personally displayed after registration. Separately registered typespace lines300\u2013325 provide context only. Unread complements and all other support windows are recorded in personal-read-receipt.json. Full archived native bodies do not confer full-body read credit.",
+    "lock_provenance": "The recorded dirty physical-p16 lock, 6533 pr-working-base lock and pinned 95e lock each select the two 2.6.1 package checksums and the bindings macro 2.6.1 checksum. Exact lock bytes are independently preserved, the two project locks have project Git proofs and P16 lock has f82 object transport proof. Structured lock parsing is identity inspection, not feature resolution or personal full-lock reading.",
+    "project_comparison": "P16 and 95e world-schema manifest and basis_points source are equal per-file; P16 workspace Cargo.toml and 95e workspace Cargo.toml differ as whole files, although the separately displayed declared version lines both select =2.6.1. Historical P16 support is separately read from f82 evidence transport and does not receive ordered role credit.",
+    "p16": "The P16 object is a dirty snapshot based on a120, not a commit. A later recovered tracked patch matches recorded SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; seven untracked files remain separate. Matching does not prove original diff invocation or uninterrupted custody.",
+    "checkpoint3821": "No original checkpoint3821 ledger/queue is recovered here and no earlier evidence is promoted."
+  },
+  "findings_and_connected_existing": [
+    {
+      "id": "L12-CLOSURE-PHYSICAL-SATS-NAMESPACE",
+      "classification": "Existing 059 q3443 correction independently corroborated; no new unique issue.",
+      "observation": "Original native registry QUAL019 labels typespace line320 as a trait-method declaration. The exact package source actually reexports spacetimedb_bindings_macro::SpacetimeType there. A separately registered context shows the trait declaration at 310 and its make_type method at 317. Earlier 059 L12-926 and q3443 already retain and correct this mismatch. Preserve the original metadata and dated correction; neither an implementation nor a macro expansion is established by the reexport.",
+      "sources": [
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            310,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2673.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "lines": [
+            89,
+            95
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2672.rs",
+          "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "lines": [
+            41,
+            47
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-lib",
+          "version": "2.6.1",
+          "project_revision": null
+        }
+      ]
+    },
+    {
+      "id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+      "classification": "Existing 059 q131 and prior current BASIS-POINTS-SATS-ADMISSION-CONTINUATION; source-route corroboration only, no new count.",
+      "observation": "The P16 and pinned current basis-point declarations have feature-gated spacetimedb_lib::SpacetimeType derives and bounded new constructors; world-schema manifests separately declare an optional runtime dependency and a build dependency. Native lib45 reexports SATS SpacetimeType, SATS lib92 reexports it from typespace, and typespace320 reexports the bindings macro. These are declarations/namespace evidence; they do not establish feature selection, decoder expansion or an actual incoming payload.",
+      "historical_relationship": "774 camera SATS route and native contract043 record a historical named-product source bypass with their own author and scope. Native witness042 initially left the exact P16 namespace route pending, and contract043 later supplied it; preserve both chronologically. 059 q131 and q2332 plus previous 95e macro packet and prior central ASSESSMENT-L01 retain their own current/alias/ingress qualifications. The previous /root/rig_identity macro packet separately inspected native generator bodies and reports a conditional raw-field construction path; this packet does not claim those as fresh reads.",
+      "future_repair_direction": "Resolve actual supported SATS/Serde ingress and feature configuration, then ensure every accepted route enforces the application-owned bound while preserving intended endpoints, signed values and explicit saturation. This is a future ledger direction, not implementation or validation.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            30
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            120
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-workspace-cargo.toml",
+          "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+          "lines": [
+            176,
+            179
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/p16-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            30
+          ],
+          "identity": "physical-p16 historical source transport, no ordered credit",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee"
+        },
+        {
+          "archive": "support/p16-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            120
+          ],
+          "identity": "physical-p16 historical source transport, no ordered credit",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee"
+        },
+        {
+          "archive": "support/p16-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "physical-p16 historical source transport, no ordered credit",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee"
+        },
+        {
+          "archive": "support/p16-workspace-cargo.toml",
+          "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "lines": [
+            178,
+            181
+          ],
+          "identity": "physical-p16 historical source transport, no ordered credit",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee"
+        },
+        {
+          "archive": "sources/2672.rs",
+          "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "lines": [
+            41,
+            47
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-lib",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2673.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "lines": [
+            89,
+            95
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            310,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/spacetimedb-lib-Cargo.toml",
+          "sha256": "6793acec628a6fa031520329b219dc222e17d230d83291bd13f9387f4fb94aaf",
+          "lines": [
+            113,
+            114
+          ],
+          "identity": "native package manifest support",
+          "revision": null,
+          "package": "spacetimedb-lib",
+          "version": "2.6.1"
+        },
+        {
+          "archive": "support/spacetimedb-lib-Cargo.toml",
+          "sha256": "6793acec628a6fa031520329b219dc222e17d230d83291bd13f9387f4fb94aaf",
+          "lines": [
+            125,
+            129
+          ],
+          "identity": "native package manifest support",
+          "revision": null,
+          "package": "spacetimedb-lib",
+          "version": "2.6.1"
+        },
+        {
+          "archive": "support/spacetimedb-sats-Cargo.toml",
+          "sha256": "6623b3a8b81a0cd5789e1e4899b5e28c9eefd3f327ec2005fc54da52341a6985",
+          "lines": [
+            122,
+            123
+          ],
+          "identity": "native package manifest support",
+          "revision": null,
+          "package": "spacetimedb-sats",
+          "version": "2.6.1"
+        }
+      ]
+    },
+    {
+      "id": "SATS-REPR-C-FAST-READ-ALIGNMENT",
+      "classification": "Prior separately attributed conditional native macro safety question; no new finding or fresh decoder-body credit.",
+      "observation": "Prior stdb-macro packet retained a conditional repr(C) fast-read alignment concern and independent reader references. Current basis-point declarations in the displayed ranges show named fields and no repr(C) attribute there, while other possible attributes/consumers or feature selection need separate proof. The present native namespace ranges do not establish a decoder outcome or application reachability.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            16
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            103
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "observation": "The native reexports, macro crate alias and serde trait exports are language/package boundaries, not automatically bespoke domain strings. Package Cargo manifests declare features and dependencies, not the final feature graph used by any build.",
+      "sources": [
+        {
+          "archive": "sources/2673.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "lines": [
+            74,
+            96
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2672.rs",
+          "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "lines": [
+            39,
+            49
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-lib",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/spacetimedb-lib-Cargo.toml",
+          "sha256": "6793acec628a6fa031520329b219dc222e17d230d83291bd13f9387f4fb94aaf",
+          "lines": [
+            27,
+            49
+          ],
+          "identity": "native package manifest support",
+          "revision": null,
+          "package": "spacetimedb-lib",
+          "version": "2.6.1"
+        },
+        {
+          "archive": "support/spacetimedb-sats-Cargo.toml",
+          "sha256": "6623b3a8b81a0cd5789e1e4899b5e28c9eefd3f327ec2005fc54da52341a6985",
+          "lines": [
+            27,
+            40
+          ],
+          "identity": "native package manifest support",
+          "revision": null,
+          "package": "spacetimedb-sats",
+          "version": "2.6.1"
+        }
+      ]
+    },
+    {
+      "observation": "Current/P16 world-schema manifests explicitly have default=[] and an optional runtime dependency, with a separately named build dependency. Merely listing a package in Cargo.lock or a build-dependency does not prove that a specific product runtime cfg is enabled.",
+      "sources": [
+        {
+          "archive": "support/current-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/p16-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "physical-p16 historical source transport, no ordered credit",
+          "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee"
+        }
+      ]
+    },
+    {
+      "observation": "The trait declaration and its documented make_type signature appear in separately displayed native context 310\u2013317; role2674 itself was only line320. There is no basis here to claim a trait implementation or all SATS decoding source was reviewed.",
+      "sources": [
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            309,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774 native admission03",
+      "supplier": "native",
+      "records": [
+        "NATIVE-ADMISSION03-REG-017",
+        "NATIVE-ADMISSION03-REG-018",
+        "NATIVE-ADMISSION03-REG-019",
+        "NATIVE-ADMISSION03-QUAL-017",
+        "NATIVE-ADMISSION03-QUAL-018",
+        "NATIVE-ADMISSION03-QUAL-019",
+        "NATIVE-ADMISSION03-P16-BASISPOINTS-WITNESS-042",
+        "NATIVE-ADMISSION03-CONTRACT-GROUPS-043"
+      ],
+      "qualification": "Exact historical registrations/qualifications and records preserved through f82 Git proofs. REG/QUAL019 raw trait-method description is preserved and explicitly corrected by 059. 042 P16 SATS namespace pending precedes 043 scoped source comparison; do not erase original timeline or infer actual enabled feature."
+    },
+    {
+      "origin": "774 camera admission03",
+      "supplier": "camera",
+      "record": "historical/774/camera/admission03/sats-basispoints-route-001.json.gz",
+      "qualification": "Original historical PR named-product macro route and source conclusion preserved; separate native supplier P16 043 uses that evidence, not a new independent count or 95e execution."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipt": "historical/059/segovb/READ-L11-437.json",
+      "qualification": "Records fresh exact source windows 39\u201349, 74\u201396 and 320; no individual reader named."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipt": "historical/059/segovb/READ-L12-926.json",
+      "qualification": "/root/lens12_frontier personally read the exact three native windows; root adoption zero rereads. The correction identifies line320 as macro reexport, not trait method. Historical windows do not grant other-lens credit."
+    },
+    {
+      "origin": "prior current /root/rig_identity macro review",
+      "receipt": "historical/prior-stdb-macro-exact-local.tar.gz:personal-read-receipt.json",
+      "qualification": "Previous registered support reads: lib1\u201355, sats1\u201345 and75\u2013100, typespace300\u2013325. Macro roles 2561/2562 had their own personally recorded package-source reads. These remain separately attributed; present review does not borrow their role or decoder-body credit. Exact prior local packet is retained; published prior report differs and its own hash is preserved."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "crate alias, cfg feature names, and package dependency identifiers are native compiler and manifest boundaries; no business-string issue follows from reexport names.",
+      "sources": [
+        {
+          "archive": "sources/2673.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "lines": [
+            74,
+            77
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/current-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            17
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            8,
+            13
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Exact 2.6.1 versions are package selection metadata. Basis-point bound is an application-owned unit constant, not a native SDK invariant.",
+      "sources": [
+        {
+          "archive": "support/current-workspace-cargo.toml",
+          "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+          "lines": [
+            176,
+            179
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            4,
+            5
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            24,
+            30
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Native SpacetimeType trait/macro describes algebraic typing; bounded UnitBasisPoints value authority remains first-party.",
+      "sources": [
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            309,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            16
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            24,
+            30
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Current bounded signed and unsigned value types already exist; their actual native and Serde decoding routes require separately attributed evidence.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            16
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            120
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Signed and unsigned fractions, native trait and derive macro, runtime optional dependency and build dependency represent distinct roles.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            16
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            103
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            309,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/current-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Checked constructors express bounds, but these namespace windows do not establish generated decode or later arithmetic; q131 retains the separate route question.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            24,
+            30
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            105,
+            120
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            310,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Primitive field typing and a reexport alone cannot prove a whole-value bound on every construction route; prior macro body evidence remains separately scoped.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            16
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            103
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2672.rs",
+          "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "lines": [
+            45,
+            47
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-lib",
+          "version": "2.6.1",
+          "project_revision": null
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Constructor gate is visible; conditional native derive is declared. Actual feature, macro expansion, supported ingress and per-route checks remain open rather than inferred.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            30
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            120
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "No enum-shape defect is established by these namespace exports; distinct signed fractions are already separately named.",
+      "sources": [
+        {
+          "archive": "sources/2673.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "lines": [
+            89,
+            96
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            103
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "The native type description and first-party constructor are different boundaries; equality of reexport names does not prove they enforce the same validity predicate.",
+      "sources": [
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            310,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            24,
+            30
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Later changes should preserve intended signed/unsigned bound endpoints, zero and explicit saturation policies, while not requiring legacy paths or unsupported assumptions.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            18,
+            25
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            105,
+            120
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "P16/current feature declaration\u2192derive namespace\u2192lib\u2192sats\u2192macro reexport is source-traced; actual resolver, generated visitor and runtime producer remain outside this fresh read.",
+      "sources": [
+        {
+          "archive": "support/current-world-cargo.toml",
+          "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+          "lines": [
+            9,
+            24
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            12
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "sources/2672.rs",
+          "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+          "lines": [
+            45,
+            47
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-lib",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2673.rs",
+          "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+          "lines": [
+            89,
+            92
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        },
+        {
+          "archive": "sources/2674.rs",
+          "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+          "lines": [
+            320,
+            320
+          ],
+          "identity": "native crates.io package member, not project Git",
+          "package": "spacetimedb-sats",
+          "version": "2.6.1",
+          "project_revision": null
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Declared derives are visible, but blanket claim of safe derivation would need all admission routes and invariants; native implementation bodies are not newly read.",
+      "sources": [
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            7,
+            13
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "archive": "support/current-basis-points.rs",
+          "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+          "lines": [
+            94,
+            100
+          ],
+          "identity": "pinned current project source support",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which actual product configurations enable the runtime spacetimedb feature for world-schema, and which named decoders/ingress are reached?",
+    "Does every supported Serde and SATS construction route enforce application-owned basis-point bounds, including signed endpoints and intentional saturation? Preserve prior source findings while resolving this separately.",
+    "How do historical camera/native 774 claims, 059 q131/q2332/q3443, current basis assessment and prior macro conditional question map to exact canonical ledger owners without duplicate counts?",
+    "Do any actual project repr(C) types use the previously assessed hidden fast path on an unaligned input? No such application reachability follows from these namespace exports.",
+    "What native package feature graph is actually selected for an authorized later build? This packet does not run Cargo resolution."
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "native-extra-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "native_archives_and_locks": "metadata/",
+    "git_proofs": "git-proofs.json",
+    "historical_exact_and_reconstructions": "historical-attribution.json",
+    "prior_original_macro_archive": "historical/prior-stdb-macro-exact-local.tar.gz",
+    "prior_macro_archive_identity": "prior-macro-archive.json",
+    "selected_registry": "registry-selection-reconstructed.json",
+    "selected_queue": "queue-selection-reconstructed.json"
+  },
+  "limits": "Source text inspection, structured lock metadata and evidence-integrity checks only. No Cargo feature resolution, macro expansion, product, test, build, simulation or runtime probe; no repairs or publication edits."
+}
