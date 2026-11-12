@@ -214,6 +214,20 @@ for role in roles:
                     or next(x for x in rr if x['revision'] == cc['source_revision'])['actual_display_union'] != cc['personal_ranges']
                     or item['incident'] != 'EVIDENCE-INCIDENT-20261111-P17-METRICS.json'):
                 raise ValueError('P17 metrics source actual receipt mismatch')
+        elif role['original_index'] == 2470:
+            rr = next(x for x in receipt['roles'] if x['original_index'] == 2470)
+            if (rr['rig_quality_actual_display_ranges'] != item['actual_personal_display_chunks']
+                    or rr['current_actual_display_ranges'] != cc['actual_personal_display_chunks']
+                    or rr['rig_quality_unread_ranges'] != item['historical_unread_ranges']
+                    or rr['current_unread_ranges'] != cc['unread_ranges']
+                    or rr['pr_working_actual_display_ranges']):
+                raise ValueError('export source actual receipt mismatch')
+        elif role['original_index'] == 2475:
+            rr = [x for x in receipt['reads'] if x['role'] == 2475]
+            if (len(rr) != 2 or any(x['full_body_displayed'] for x in rr)
+                    or next(x for x in rr if x['revision'] == item['snapshot_head'])['actual_display_union'] != item['new_personal_read_ranges']
+                    or next(x for x in rr if x['revision'] == cc['source_revision'])['actual_display_union'] != cc['personal_ranges']):
+                raise ValueError('quality configuration actual receipt mismatch')
         else:
             raise ValueError('unexpected partial source role')
     elif status == 'full-historical-body-trace-open':

@@ -1,0 +1,441 @@
+{
+  "schema": "726-bounded-source-audit-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T23:57:01.911245+00:00",
+  "scope": {
+    "original_roles": [
+      2581,
+      2582
+    ],
+    "historical_snapshot_field": {
+      "2581": "physical-p16",
+      "2582": "physical-p16"
+    },
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "p16_recorded_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "pr_working_base": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "p16_objects": {
+      "2581": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "2582": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd"
+    },
+    "assigned_personal_reads": {
+      "2581_p16": [
+        [
+          1,
+          46
+        ]
+      ],
+      "2581_95e": [
+        [
+          1,
+          46
+        ]
+      ],
+      "2582_p16": [
+        [
+          1,
+          47
+        ]
+      ],
+      "2582_95e": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    "project_identity": "Each P16 role body equals same file at a120/6533/95e; a120 and 6533 body bytes compared but not separately displayed. No whole-snapshot clean claim.",
+    "support": "Seven independently registered current schema, validators, loader and build-source objects; exact body windows, navigation singleton exposures and unread complements in support-read-receipt.json. Current test source read only, never executed.",
+    "restrictions": "Source and evidence-only work. No product source edits, builds, tests, runtime probes, simulations, rendering or product validation."
+  },
+  "historical_attribution": {
+    "774_rig": "RIG-ADMISSION03-REGISTER-014/015 prospectively registered physical-P16 full 1\u201346/1\u201347. RIG-ADMISSION03-CONTRACT-042/043 and helper 002 compare their PR/P16 material; rig\u2019s 046/047 helper and current-at-that-time scope remain their own historic records. Original excluded P16 test tails remain excluded.",
+    "774_pin_qualification": "Root046 rig registration expected 9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe, later recovered first35 cbbfee078a21b7d56c7d4b499225de25fad99e47bfb9057defc14eb932c1d859 differs; 31 qualification rows match expected f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258. Bounded exact-filename search across ae46/target and 28ba extraction compared 20 registration files whole and first35 with no match, not global absence. Root046 and witness embed original records independently, no silent substitution.",
+    "059_l11": "READ-L11-424 records /root/segovb fresh full P16 role2581/2582, registrations 1492/1493.",
+    "059_l12": "READ-L12-876 adopts /root/lens12_frontier fresh full P16 role2581/2582, prospective registrations 632/633 and exact Windows identity qualifications. Root personal rereads empty; no other-lens verdict transfer.",
+    "later_p16_recovery": "Hash-linked /root/hair_ops 2026-11-11T23:31Z reproduced tracked dirty P16 patch stream with SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. It is later matching evidence, not proof of original command, and excludes seven separately compared untracked paths.",
+    "prior_recovery_dependencies": "Original 059 registry/queue/transport hash-linked to <LOCAL_PATH_0> later P16 recovery evidence hash-linked to <LOCAL_PATH_1> both prior manifests copied and dependency hashes checked.",
+    "credit": "No earlier evidence becomes checkpoint3821 credit; central agent owns counts, lens closure and aliases."
+  },
+  "assessments": [
+    {
+      "id": "CATALOG-RAW-VERSUS-VALIDATED-ADMISSION",
+      "kind": "bounded current source relationship; no new issue counted",
+      "contract": "EquipmentSurfaceSpan is a public struct with a Vec of regions, anchor enum and f32 coverage, plus derived Deserialize; its own declaration does not enforce a nonempty/contiguous chain, finite strictly positive coverage or maximum count. OccupancyRequirement likewise combines independently typed location, channel, order and optional fit zone, but the declaration alone does not ensure a fit zone belongs to its location. Direct literals and independent deserialization therefore are distinct raw construction routes from the build compiler\u2019s validated catalog path.",
+      "condition": "This does not prove invalid DTOs reach a production consumer that assumes validation. Format-specific deserializer capabilities, compiled feature selection, other constructors and mutation/retained consumers require separate tracing. No product, test or fixture was run.",
+      "future_direction": "Trace every material route to retained equipment state and decide whether validated owners or an explicit validated catalog boundary should own cross-field surface and fit invariants. Preserve valid absent-zone and non-armor optional-surface modes.",
+      "relationships": [
+        "774 rig CONTRACT-042/043 and catalogue-helper-admission-002 already distinguish raw authoring DTO from validated compiled content; current observations are independently registered, not a new duplicate issue.",
+        "059 Q1557 and Q1749 are wider pending identity/fit and allocator relationships; central reviewer decides exact links without automatic alias."
+      ],
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "lines": [
+            [
+              4,
+              32
+            ],
+            [
+              35,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+          "lines": [
+            [
+              5,
+              19
+            ],
+            [
+              21,
+              47
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "lines": [
+            [
+              6,
+              20
+            ],
+            [
+              88,
+              112
+            ],
+            [
+              141,
+              200
+            ],
+            [
+              303,
+              336
+            ]
+          ]
+        },
+        {
+          "source_kind": "historical-physical-p16",
+          "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "lines": [
+            [
+              4,
+              32
+            ],
+            [
+              35,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "historical-physical-p16",
+          "path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+          "lines": [
+            [
+              5,
+              19
+            ],
+            [
+              21,
+              47
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CATALOG-VALIDATED-BUILD-PATH",
+      "kind": "bounded nonfinding for inspected serialized build path",
+      "contract": "The inspected build source parses item documents, invokes validate_documents_with_sources before serializing embedded output, and treats errors as fatal. The validator calls occupancy checks, surface checks and a final typed ItemCatalogDocument decode; the occupancy helper checks fit-zone/location and conflicts when typed entry parsing succeeds, while final typed decoding records malformed field types. The surface helper enforces nonempty armor/clothing spans, valid ordered contiguous region chains, a 16-segment total, selected anchor, optional protection/material relationships, and positive f32 coverage no greater than one. Its numeric helper tests positivity and finiteness after f32 conversion.",
+      "condition": "This is a static trace of the shown compiler path, not evidence that a build was run, all input sources/callers follow it, or direct raw DTO constructors are checked. Final decode and diagnostics depend on the inspected caller actually using this compiler path. None of the existing tests was executed.",
+      "future_direction": "Keep the explicit serialized admission gate connected to any other actual source of EquipmentPlacement, and reconcile with callers without globally narrowing a generic unit fraction or changing allowed optional modes.",
+      "relationships": [
+        "The same bounded distinction and typed-decode dependency was recorded in earlier rig contracts 044/046/047; those earlier reads and excluded P16 test tails stay attributed to rig."
+      ],
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "lines": [
+            [
+              6,
+              20
+            ],
+            [
+              88,
+              112
+            ],
+            [
+              141,
+              200
+            ],
+            [
+              303,
+              336
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+          "lines": [
+            [
+              58,
+              141
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+          "lines": [
+            [
+              8,
+              53
+            ],
+            [
+              55,
+              130
+            ],
+            [
+              132,
+              158
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+          "lines": [
+            [
+              27,
+              49
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "lines": [
+            [
+              205,
+              216
+            ],
+            [
+              249,
+              273
+            ],
+            [
+              301,
+              310
+            ],
+            [
+              770,
+              812
+            ],
+            [
+              813,
+              864
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/build.rs",
+          "lines": [
+            [
+              225,
+              262
+            ],
+            [
+              274,
+              280
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog.rs",
+          "lines": [
+            [
+              1,
+              16
+            ],
+            [
+              27,
+              35
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OCCUPANCY-OVERLAP-SEMANTICS",
+      "kind": "bounded current nonfinding; broader producer and policy open",
+      "contract": "The conflict method requires the same location and channel; singleton channels conflict regardless of order, non-singleton channels require equal order, and an omitted fit zone reserves the whole location within that channel/order condition while equal explicit zones overlap. Arm zones are only paired with arm locations and leg zones with leg locations.",
+      "condition": "The method does not itself validate that a caller supplied a compatible zone/location. The inspected compiler helper validates that combination for typed entries, but equipment graph allocation, runtime decisions and all caller input modes are not covered.",
+      "future_direction": "Reconcile actual allocator semantics and normalized identities with Q1557/Q1749 before changing representation or classifying a missing zone as an error.",
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "lines": [
+            [
+              4,
+              32
+            ],
+            [
+              35,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "lines": [
+            [
+              6,
+              20
+            ],
+            [
+              88,
+              112
+            ],
+            [
+              141,
+              200
+            ],
+            [
+              303,
+              336
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+          "lines": [
+            [
+              58,
+              141
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P16-FILE-PROVENANCE",
+      "kind": "source evidence identity",
+      "contract": "Both original role2581 and role2582 registry snapshots explicitly say physical-p16. Their f82-transported dirty-snapshot bytes are each byte-identical to the same individual Git path at a120, 6533 and 95e; each P16 and 95e body was independently displayed in full.",
+      "condition": "The equality is per-file only. Original dirty P16 as a whole is not clean a120, unrelated pr-working modifications remain possible, and f82 is a transport revision. The separately later /root/hair_ops tracked patch reproduction does not establish historical invocation and excludes seven separately checked untracked paths.",
+      "future_direction": "Keep per-role source revisions, reviewer receipts and later patch evidence distinct in central reconciliation.",
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "lines": [
+            [
+              4,
+              32
+            ],
+            [
+              35,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "historical-physical-p16",
+          "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+          "lines": [
+            [
+              4,
+              32
+            ],
+            [
+              35,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+          "lines": [
+            [
+              5,
+              19
+            ],
+            [
+              21,
+              47
+            ]
+          ]
+        },
+        {
+          "source_kind": "historical-physical-p16",
+          "path": "crates/adventuresim-core/src/item_catalog_surface.rs",
+          "lines": [
+            [
+              5,
+              19
+            ],
+            [
+              21,
+              47
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Disjoint explicit zones in the same channel/order need not conflict; None denotes whole-location reservation only under matching location/channel/order rules.",
+    "The build-path surface coverage helper checks the f32 result, so a positive source value that rounds to zero is rejected on that shown path.",
+    "A DTO being publicly constructible is an admission boundary to trace, not proof of an actual unsafe consumer."
+  ],
+  "open_questions": [
+    "Can direct DTO construction or alternate deserializers feed actual retained equipment state without the catalog validator, and which consumers rely on the policy?",
+    "How do allocator, parent selection and persisted identity interact with fit-zone None and collision rules?",
+    "Are duplicated validator region strings and enum representations consistently maintained in other inputs or future revisions?",
+    "How do Q1557/Q1749 and 774 camera/rig records connect to other findings? Central reconciliation required."
+  ],
+  "perspectives": {
+    "producer-propagation": "Serialized catalog documents pass validators then typed decode and embedded runtime source; independent external DTO producers and actual consumers remain open.",
+    "existing-type-owners": "EquipmentFitZone, EquipmentLocation, SurfaceAnchor and EquipmentAnatomicalRegion already own closed distinctions; coverage positivity and chain topology remain separate aggregate policies.",
+    "admission": "Public DTO literals and derived deserialization admit independent raw states; the inspected build path has explicit aggregate and post-f32 checks.",
+    "invariant-operations": "Coverage conversion and conflict comparisons preserve only the contracts their actual callers establish; later mutations are unreviewed.",
+    "aggregate-states": "Zone/location compatibility, channel/order overlap and continuous anatomical chains cannot follow from leaf enum validity alone.",
+    "type-ownership": "Catalog validation and its compiled-content boundary own the inspected policy; a replacement checked owner must be connected to every material producer.",
+    "redundant-authority": "Schema enums, string validation lists and serde conversions are multiple representations of related admitted values; exact synchronization/ownership impact beyond these paths is open.",
+    "behavior-preservation": "Whole-location omission, layered orders, optional nonarmor surfaces and distinct anchor modes are intentional supported conditions in the shown sources.",
+    "enum-shapes": "Closed zone and anchor enums suit these distinct states; this scope does not justify reshaping parent/attachment variants.",
+    "derivability": "Existing derived serde/traits do not enforce cross-field rules; no removable handwritten boilerplate is proved here.",
+    "type-granularity": "Positive bounded coverage is distinct from a generic [0,1] unit interval because zero is rejected; whole-location and discrete fit zones are distinct options.",
+    "magic-strings": "Serde tags and actual validator region lists encode a catalog boundary; no independent user-visible string-classifier failure is established.",
+    "magic-numbers": "The 16-segment budget and maximum coverage 1 belong to serialized catalog policy; order values and channel layering remain separate."
+  },
+  "limitations": "Static source inspection and evidence verification only; no product builds, tests, probes, simulations, fixtures or rendering."
+}

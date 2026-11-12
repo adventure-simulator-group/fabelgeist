@@ -1,0 +1,323 @@
+{
+  "schema": "726-p16-catalog-occupancy-surface-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-11T23:58:43.860655+00:00",
+  "scope": "Original roles 2585\u20132586 only, plus separately registered bounded 95e support; no whole-lens or repository completion claimed.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_identity": {
+    "snapshot": "physical-p16",
+    "base_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "qualification": "The base is not a dirty-snapshot commit. Both assigned source objects separately equal their base files and are absent from original 159 status entries; the snapshot as a whole was dirty. f82 is content transport, not project revision.",
+    "tracked_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json, hash-linked in published-references.json. Its recovered 524542-byte tracked patch matches original registry SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; covers 151 modifications and one deletion. Seven untracked paths have separate archived objects and are not in the patch. Later recovery supersedes earlier contemporaneous missing-patch status, without erasing that record. Neither hash matching nor these findings proves uninterrupted custody, all filesystem metadata, current behavior, or checkpoint 3821."
+  },
+  "scope_and_coverage": {
+    "prospective_registration": "registration.json and three support registrations",
+    "personal_read_receipt": "personal-read-receipt.json",
+    "assigned_roles": "Each historical and current assigned body personally displayed separately in two bounded chunks, including test source text; no test executed. Historical occupancy 1\u2013185/current 1\u2013183; surface historical/current 1\u2013219.",
+    "original_historical_scope": "774 rig originally registered/read P16 material 2585 1\u2013144 and 2586 1\u2013159; P16 test tails were excluded. Original 059 Segovb Lens11 and /root/lens12_frontier Lens12 independently read those same bounded historical material ranges. The 774 pr-working CONTRACT-046/047 independently recorded full 1\u2013185/1\u2013219 PR bodies, with separate P16 production scopes; do not transfer PR test-source read credit to original P16 role or another reviewer.",
+    "support": "Current support separately attributed; per-registration exact chunks and uninspected complements in receipt. No direct current consumer reachability beyond shown calls is established."
+  },
+  "source_comparison": [
+    {
+      "role": 2585,
+      "historical_sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "current_sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5",
+      "historical_to_current": "Sole exact file diff replaces raw six-string singleton check including base_clothing with typed channel.singleton_per_location().",
+      "historical_ref": {
+        "source_archive": "source/2585-historical.rs",
+        "line_range": [
+          114,
+          124
+        ],
+        "revision": "physical-p16 dirty historical source; individual a120 base file equality and f82 archive object proven",
+        "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51"
+      },
+      "current_ref": {
+        "source_archive": "source/2585-current.rs",
+        "line_range": [
+          114,
+          124
+        ],
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5"
+      }
+    },
+    {
+      "role": 2586,
+      "historical_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "current_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "historical_to_current": "Full file bytes identical; separate personal source reads performed and preserved."
+    }
+  ],
+  "observations": [
+    {
+      "id": "CATALOG-BASE-CLOTHING-POLICY-EVOLUTION",
+      "classification": "source-backed change and policy qualification; no independent defect established",
+      "condition": "When occupancy order is nonzero for the base_clothing channel, the P16 helper raw list rejects it, while 95e typed singleton owner excludes BaseClothing.",
+      "detail": "Current channel documentation explicitly allows ordinary garments with distinct authored orders, and 95e conflict checks also consult the typed singleton owner. This is a meaningful change in authority/policy; the original six-channel historical summary cannot be presented as current. Preservation of intended multi-garment behavior and cross-consumer consistency remains a policy/reachability question, not an automatic regression.",
+      "references": [
+        {
+          "source_archive": "source/2585-historical.rs",
+          "line_range": [
+            114,
+            124
+          ],
+          "revision": "physical-p16 dirty historical source; individual a120 base file equality and f82 archive object proven",
+          "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51"
+        },
+        {
+          "source_archive": "source/2585-current.rs",
+          "line_range": [
+            114,
+            124
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5"
+        },
+        {
+          "source_archive": "support/current-1.rs",
+          "line_range": [
+            147,
+            180
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c"
+        },
+        {
+          "source_archive": "support/current-2.rs",
+          "line_range": [
+            35,
+            45
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3"
+        }
+      ],
+      "future_direction": "After broader audit, establish intended channel semantics once at the typed owner and follow actual consumers; do not implement or validate now."
+    },
+    {
+      "id": "CATALOG-TYPED-DECODE-BOUNDARY",
+      "classification": "historical 059 contract revisited; no duplicate new defect",
+      "condition": "A local typed occupancy decode can return None; wrong typed fields may skip local fit/conflict checks.",
+      "detail": "For the specifically inspected whole-document validation route, each document with an items array is separately decoded into ItemCatalogDocument and typed mismatch adds a diagnostic; early missing-root/items paths also add diagnostics. The route returns an error if any diagnostics survive the positive diagnostic cap. Thus local .ok() by itself does not prove typed-malformed occupancy accepted there. It does not establish validation for every possible direct DTO construction or decoder caller.",
+      "references": [
+        {
+          "source_archive": "source/2585-current.rs",
+          "line_range": [
+            80,
+            138
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5"
+        },
+        {
+          "source_archive": "support/current-0.rs",
+          "line_range": [
+            1,
+            45
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "source_archive": "support/current-0.rs",
+          "line_range": [
+            249,
+            274
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "source_archive": "support/current-0.rs",
+          "line_range": [
+            301,
+            310
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "source_archive": "support/current-1.rs",
+          "line_range": [
+            183,
+            200
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c"
+        }
+      ],
+      "historical_relation": "Exact historical L12-CLOSURE-CATALOG-TYPED-ADMISSION-RESULT is reconstructed from 059 queue index 2433; delegated /root/lens12_frontier and root adoption preserved separately. Original 774 RIG-ADMISSION03-CONTRACT-046 and ADDITIONAL-005 reported the same boundary for their own PR/P16 scopes. Similarity is a related contract, not independent credit or automatic global alias closure.",
+      "future_direction": "Trace only real alternate constructors/decoders and their consumers when assigned; preserve intentional default order and whole-location fit modes."
+    },
+    {
+      "id": "CATALOG-SURFACE-VALIDATION-BOUNDARY",
+      "classification": "checked serialized route plus conditional open aggregate/authority question",
+      "detail": "Surface validation requires armor/clothing spans and material when present, caps total segments, rejects unknown/empty region chains before body-part lookup, checks fixed directed adjacency, conditionally maps protected regions, parses the anchor enum, and requires coverage positive after f32 conversion and at most one. Current typed span is a public serializable struct with Vec and f32; those fields alone do not encode all these semantic checks. A direct constructor or deserializer could create a value outside the helper constraints, but no bypass into a product consumer was established here.",
+      "references": [
+        {
+          "source_archive": "source/2586-current.rs",
+          "line_range": [
+            8,
+            53
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b"
+        },
+        {
+          "source_archive": "source/2586-current.rs",
+          "line_range": [
+            61,
+            129
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b"
+        },
+        {
+          "source_archive": "source/2586-current.rs",
+          "line_range": [
+            132,
+            158
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b"
+        },
+        {
+          "source_archive": "support/current-3.rs",
+          "line_range": [
+            1,
+            47
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd"
+        },
+        {
+          "source_archive": "support/current-4.rs",
+          "line_range": [
+            27,
+            49
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93"
+        },
+        {
+          "source_archive": "support/current-0.rs",
+          "line_range": [
+            813,
+            864
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        }
+      ],
+      "historical_relation": "774 RIG-ADMISSION03-CONTRACT-043/047 and ADDITIONAL-002/006 discuss the same raw DTO-versus-validator distinction under original PR and P16 scopes; no duplicate finding counted.",
+      "open_questions": [
+        "Are alternate public construction/serde paths accepted by real consumers before equivalent semantic admission?",
+        "Does owner policy intend exactly these directed adjacency links and groin-to-stomach mapping?",
+        "Does a non-armor/clothing surface with empty protection correctly bypass protection intersection?"
+      ],
+      "future_direction": "If a real bypass and intended contract are established, place checked admission at the appropriate owner and preserve valid non-armor and target-f32 semantics; policy and all consumer routes remain open."
+    },
+    {
+      "id": "CATALOG-MIXED-PLACEMENT-RELATION",
+      "classification": "related existing current assessment; no new issue or alias claim",
+      "detail": "Current validator rejects only a placement whose occupancy and parents are both empty, then validates each separately. Previously published ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json identifies a source-level strategic/tactical mixed-placement contract gap with zero such placements in a mechanical census of the exact authored 95e catalog; it did not establish a loaded runtime occurrence, alternate catalog, or observed product behavior. We do not independently transfer that assessment\u2019s reads or count this as a new finding.",
+      "references": [
+        {
+          "source_archive": "support/current-0.rs",
+          "line_range": [
+            789,
+            812
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        }
+      ],
+      "published_reference": "ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json in published-references.json",
+      "open_questions": [
+        "Whether alternate or future catalog sources and policy allow these placements and which consumers actually receive them."
+      ]
+    }
+  ],
+  "nonfindings_and_limits": [
+    "Missing fit_zone means a whole-location reservation by current owner documentation and conflicts_with, not necessarily invalid input (support/current-1.rs:189\u2013199; support/current-2.rs:35\u201345).",
+    "The invalid-region empty fallback is not shown reachable after this helper rejects region names against its list; the matching typed enum list was separately read. No extrapolation to other callers.",
+    "Raw strings in validation, enum names and body-part mappings present maintenance/authority questions, but list duplication alone does not establish a defect or mismatch.",
+    "Original 774 catalogue reconciliation names Camera F002/F004/F005 and Root F002 as canonical; this packet does not claim those separate findings are cured or reproduced.",
+    "Source test modules were read as text only; no execution, product validation, build, test, probe, simulation or repair."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "magic-strings",
+      "bounded_disposition": "Location/channel/region strings and diagnostics checked against current typed owners; whitelist duplication warrants drift review, no proven mismatch."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_disposition": "Singleton order zero and f32 coverage ceiling 1 are explicit conditional policy; segment cap names typed constant. No blanket numeric clearance."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_disposition": "95e EquipmentChannel owns singleton policy; surface typed DTO owns enum shape but aggregate checks live in validator. Alternate ownership needs consumer trace."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_disposition": "Current helper uses typed OccupancyRequirement and SurfaceAnchor but raw enum vocabularies remain at JSON diagnostics boundary; avoid assuming every string requires a wrapper."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_disposition": "FitZone and body location are distinct, with zone/location relational guard. Strict positive coverage is narrower than generic zero-inclusive interval."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_disposition": "Conflict operation checks whole-location and singleton/order semantics; no mutation-wide guarantee for arbitrary public DTO construction established."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_disposition": "Fit zone/location, region adjacency/protection and mixed placement require relations beyond individual fields; policy and alternate routes remain open."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_disposition": "Whole-document route adds typed schema diagnostics after local .ok(); public surface DTO alone does not enforce all aggregate checks. Real bypass reachability unproved."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_disposition": "Current EquipmentChannel/region/anchor enums own closed variants, optional fit_zone means whole location; no demonstrated missing payload alternative."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_disposition": "Historical singleton string list moved to typed owner for this predicate; other valid channel/region string lists and typed enum are separate authorities to review for drift."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_disposition": "BaseClothing changes between original P16 and 95e; current documentation supports different orders. Avoid treating old rule as current or assuming regression."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_disposition": "Current caller to selected validators inspected, plus final typed parse; other native producers and downstream consumers are outside inspected support."
+    },
+    {
+      "lens": "derivability",
+      "bounded_disposition": "Existing enum serde derives and public DTO fields were inspected; no specific derivable-boilerplate repair established in these bodies."
+    }
+  ],
+  "historical_attribution": {
+    "older_774": "Rig supplier RIG-ADMISSION03-REGISTER-018/019 and associated 046/047 and ADDITIONAL-005/006, original PR/P16 scopes separated; full original records preserved in historical-774 and historical-774-compressed, f82 Git tree proofs.",
+    "old_059": "Segovb READ-L11-424 and registrations 1496/1497 preserve fresh P16 1\u2013144/1\u2013159; /root/lens12_frontier personal bounded reads appear in PROPOSAL-L12-877 and READ-L12-877 adoption, PAR registrations 636/637. Team021 connected typed schema read belongs to /root/lens12_frontier, not current reviewer. Exact original records and registered hashes in original-attribution.json; queue selection reconstructed, not original standalone record.",
+    "p16_recovery": "See historical_identity and existing published recovery hash links. Recovery preserves earlier incompleteness qualification and does not restore checkpoint 3821."
+  },
+  "evidence_map": {
+    "historical_records": "original-attribution.json and historical-774-compressed-attribution.json",
+    "reconstructed_registry": "registry-selection-reconstructed.json",
+    "reconstructed_queue": "queue-selection-reconstructed.json",
+    "published_hash_links": "published-references.json",
+    "git_tree_proofs": "git-proofs.json plus compressed raw commit/tree objects",
+    "personal_read_receipt": "personal-read-receipt.json"
+  },
+  "open_questions": [
+    "Identify actual alternate raw serde/direct constructor routes and their consumers before alleging a bypass.",
+    "Resolve intentional surface adjacency, body-part and non-armor protection policies with owning source evidence.",
+    "Reconcile current base-clothing ordered-layer policy across actual writers/consumers and historical 059/774 relationships without assuming exact global aliases.",
+    "Determine scope of valid mixed placements and catalog sources; earlier authored census establishes no runtime occurrence."
+  ],
+  "execution": "Source/evidence inspection and cryptographic checks only. No product/source edits, implementations, builds, tests, product execution, UI, runtime probes, simulation, rendering, or product validation."
+}

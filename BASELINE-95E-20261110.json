@@ -742,7 +742,10 @@
         "discovery": "partial; all public construction/mutation routes, intended API policy, exact historical aliases and independent lenses remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-L01-CLOTHING-REFIT-95E.json"
+        "record": "ASSESSMENT-L01-CLOTHING-REFIT-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+        ]
       },
       {
         "id": "REVIEW-CLEARANCE-EMPTY-SUPPORT-HULL-001",
@@ -797,7 +800,10 @@
         "discovery": "partial; generated model admission, all native float fields, other callers and global aliases remain open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-L01-GLB-BODY-NONFINITE-95E.json"
+        "record": "ASSESSMENT-L01-GLB-BODY-NONFINITE-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+        ]
       },
       {
         "id": "REVIEW-PLATE-LINING-INVALID-FACE-001",
@@ -14033,7 +14039,8 @@
         "lens_scope_qualification": "Bounded source relationship only; neither this list nor a delegated source read closes an independent lens.",
         "further_current_evidence": [
           "ASSESSMENT-DELEGATED-RECONCILIATION-2-95E.json",
-          "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
         ]
       },
       {
@@ -14105,7 +14112,8 @@
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-95E.json",
         "lens_scope_qualification": "Bounded source relationship only; neither this list nor a delegated source read closes an independent lens.",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
         ]
       },
       {
@@ -14130,7 +14138,8 @@
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-95E.json",
         "lens_scope_qualification": "Bounded source relationship only; neither this list nor a delegated source read closes an independent lens.",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
         ]
       },
       {
@@ -14488,7 +14497,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-2-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
         ]
       },
       {
@@ -14693,7 +14703,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-2-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
         ]
       },
       {
@@ -19004,9 +19015,85 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json"
+      },
+      {
+        "id": "SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE",
+        "lens": 13,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Surface-only UV fallback can retain old vertex indexing after exported shell compaction.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+        ],
+        "relationship_qualification": "This is existing 059 q460, related to q637; the inspected armor producer supplies direct UVs, so no supported fallback witness or new independent historical defect is asserted.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Keep compacted surface coordinates associated with the exported vertices, with the actual producer contract explicit.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producers and consumers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+      },
+      {
+        "id": "SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001",
+        "lens": 1,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The public UV socket helper indexes borrowed mesh, shell and skin arrays before their joint extents are admitted; an inspected garment caller invokes it before later export validation.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+        ],
+        "relationship_qualification": "Existing 774 source-backed candidate with bounded 95e corroboration. A malformed public input is conditional; the ordinary garment producer guarantee and supported reachability remain open. Preserve the original author, revision and status.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Admit a coherent mesh, shell, UV and skin view or return a structured error before public socket indexing.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producers and consumers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+      },
+      {
+        "id": "SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001",
+        "lens": 4,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Sufficiently large finite color inputs can produce a nonfinite value during the glTF material color transfer.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+        ],
+        "relationship_qualification": "Existing 774 material-output candidate, distinct from body normal validity. The current native serializer, actual output, permitted authoring range and ordinary producer reachability remain open; no new unique historical issue or execution is claimed.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Resolve the material input and color-space policy and validate derived output without globally clipping valid high-dynamic-range contexts.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producers and consumers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+      },
+      {
+        "id": "TIMBER-MEMBER-MATERIAL-AUDIT-CONFLICT",
+        "lens": 6,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Per-member material documentation permits differing materials while the joint audit checks against frame material.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+        ],
+        "relationship_qualification": "Conditional contract conflict; the inspected ordinary producer is uniform, while mixed-material producer reach and policy remain open.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Resolve whether supported mixed-material members use their own authority or an explicit frame-wide invariant.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producers and consumers.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261111-2353.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0008.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion."
 }

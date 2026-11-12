@@ -1,0 +1,45 @@
+{
+  "schema": "726-delegated-checkpoint-14-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 74,
+  "unique_redacted_original_sha_count": 2,
+  "redacted_public_member_occurrences": 2,
+  "entries": [
+    {
+      "original_sha256": "2a3f9a9f27f2b0488fa9e0ed16d254573a78ed6c42b5b8bb9c619d26e61b34df",
+      "original_bytes": 161225,
+      "original_git_blob": "f65305cc664923e2468734806b8b139a49a0240c",
+      "original_transport_paths": [
+        "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/catalog-fit-surface-evidence.tar.gz!historical-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-873-880-v2.json",
+          "public_sha256": "d3e495a630bc4b871a92509bacfbdbf7bc81a09dd807a5762e952083da2c3345",
+          "public_bytes": 160383
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "a5c9084f4214074db2c28bd2163a937ef31cda514be46217b200d9dc402d9f6c",
+      "original_bytes": 47045,
+      "original_git_blob": "9996b24b2885782ec312e46f5de5dd2a8b13c202",
+      "original_transport_paths": [
+        "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM021-COMPLETED-SOURCE-VIEWS-v2.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-catalog-occupancy-surface-evidence.tar.gz!historical-059/parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM021-COMPLETED-SOURCE-VIEWS-v2.json",
+          "public_sha256": "925b4bc7cace0b72b00ac13631dfb6692c123c131c43373ccaa8f863fe6f400c",
+          "public_bytes": 46960
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

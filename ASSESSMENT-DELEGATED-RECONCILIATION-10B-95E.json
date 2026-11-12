@@ -1,0 +1,1304 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+  "source_roles": "ASSESSMENT-DELEGATED-RIG-2468-2480.json",
+  "git_path_proofs": [
+    "CENTRAL-RIG-QUALITY-2468-2475-PATH-PROOFS.json",
+    "CENTRAL-PRWORKING-2479-2480-PATH-PROOFS.json"
+  ],
+  "delegated_observations": [
+    {
+      "bundle_id": "rig-quality-clothing",
+      "author": "/root/mhr_character",
+      "report": "delegated/rig-quality-clothing-report.json",
+      "original_finding": {
+        "id": "RIG-ADMISSION03-F011",
+        "classification": "Independent corroboration at rig-quality and current of existing 774 canonical public-shell topology finding; no new unique count.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing.rs",
+            "archive": "source/current-2468.rs",
+            "lines": [
+              [
+                45,
+                51
+              ],
+              [
+                359,
+                370
+              ],
+              [
+                412,
+                425
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+            "archive": "source/current-2469.rs",
+            "lines": [
+              [
+                8,
+                27
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+            "archive": "source/support-0.rs",
+            "lines": [
+              [
+                3,
+                28
+              ],
+              [
+                32,
+                48
+              ]
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing.rs",
+            "archive": "source/rig-quality-2468.rs",
+            "lines": [
+              [
+                45,
+                51
+              ],
+              [
+                368,
+                380
+              ],
+              [
+                421,
+                434
+              ]
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+            "archive": "source/rig-quality-2469.rs",
+            "lines": [
+              [
+                42,
+                61
+              ]
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+            "archive": "source/support-1.rs",
+            "lines": [
+              [
+                3,
+                28
+              ],
+              [
+                32,
+                48
+              ]
+            ]
+          }
+        ],
+        "trace": "ClothingShell exposes mutable public faces and positions. Its public refit checks position/normal row counts, but calls fitted_surface with self.faces before validated_placeholder_faces checks index bounds. relax_concavities builds adjacency by indexing vertex slots; a public shell whose face refers beyond an otherwise matching three-row body reaches indexing before the intended OutOfRangeFace result. The same source chain is present at cbbb and 95e; generated shells first check input faces and final positions, which does not seal a subsequently mutated public shell.",
+        "conditions": "Requires a constructed or later mutated public shell with a bad face and a refit call with matching row counts; no supported private generated caller, actual panic, executed fixture or runtime impact was demonstrated. An intact generator result remains within its own earlier index proof.",
+        "direction": "A future repair should establish checked shell topology/position correspondence before any indexed fitting kernel and preserve the existing correspondence error ordering, placeholder policy and supported source topology; exact owner is central.",
+        "relationships": [
+          "774 RIG-ADMISSION03-F011 (rig/admission03/findings.jsonl zero-based row10) is the prior canonical pr-working 6533 record; SEGOVB-INITIAL04-CONTRACT-591 explicitly reconnected cbbb source and noted no fresh count.",
+          "Current trace is independently displayed; matching fitting.rs bytes at cbbb/95e do not transfer source read attribution or turn 6533 into current history."
+        ]
+      }
+    },
+    {
+      "bundle_id": "rig-quality-clothing",
+      "author": "/root/mhr_character",
+      "report": "delegated/rig-quality-clothing-report.json",
+      "original_finding": {
+        "id": "RIG-CLOTHING-INPUT-AND-NORMAL-POLICY",
+        "classification": "Unresolved producer and final mesh policy; not a new unconditional finding.",
+        "source_refs": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing.rs",
+            "archive": "source/rig-quality-2468.rs",
+            "lines": [
+              [
+                109,
+                127
+              ],
+              [
+                151,
+                175
+              ],
+              [
+                305,
+                329
+              ],
+              [
+                421,
+                450
+              ]
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+            "archive": "source/rig-quality-2469.rs",
+            "lines": [
+              [
+                8,
+                36
+              ],
+              [
+                39,
+                61
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing.rs",
+            "archive": "source/current-2468.rs",
+            "lines": [
+              [
+                109,
+                134
+              ],
+              [
+                157,
+                181
+              ],
+              [
+                304,
+                320
+              ],
+              [
+                412,
+                441
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+            "archive": "source/current-2469.rs",
+            "lines": [
+              [
+                5,
+                27
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+            "archive": "source/support-0.rs",
+            "lines": [
+              [
+                32,
+                48
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+            "archive": "source/support-2.rs",
+            "lines": [
+              [
+                19,
+                36
+              ],
+              [
+                43,
+                59
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/outfit.rs",
+            "archive": "source/support-3.rs",
+            "lines": [
+              [
+                24,
+                41
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+            "archive": "source/support-4.rs",
+            "lines": [
+              [
+                121,
+                151
+              ]
+            ]
+          }
+        ],
+        "trace": "Both revisions establish aligned vertex/joint array lengths and face slots before generator selection, then check all fitted positions finite and output face bounds. The fit normal kernel normalizes computed face contributions but falls back to the supplied normal when unavailable. These checks do not separately prove every normal is unit-length, every skin weight is finite/nonnegative or that equal-length public inputs originate from the same body. The bounded current private paths supply generated/model values or a shared RuntimeBody, but these excerpts do not establish all upstream admission or renderer/export policies.",
+        "conditions": "Whether a supported producer can supply a non-unit or invalid fallback normal, incompatible equal-cardinality body, or unacceptable weights and whether the final consumer requires stricter admission remain unresolved. Nonfinite resulting positions are rejected; source equality of counts is not semantic correspondence. No visual, model, render, malformed native asset or unsupported scale has been observed.",
+        "direction": "Trace canonical body identity, skin weights and normal producer/consumer invariants; admit data at the owning boundary with frame-appropriate guarantees and preserve intentional placeholder topology, signed offsets and specific errors.",
+        "relationships": [
+          "059 q573 remains open fitted-surface and producer policy. q175 concerns a separate skin influence reduction; q2323 historical private creator pairing narrows ordinary cached-body concerns without proving arbitrary public cross-model correspondence.",
+          "774 SEGOVB-INITIAL04-CONTRACT-591 already preserved fallback normals, equal-count body identity and unsupported huge coordinate qualifications; no automatically inferred alias.",
+          "Prior /root/rig_identity packet is retained separately and its personal rig-selection reads are not transferred."
+        ]
+      }
+    },
+    {
+      "bundle_id": "rig-quality-clothing",
+      "author": "/root/mhr_character",
+      "report": "delegated/rig-quality-clothing-report.json",
+      "original_finding": {
+        "id": "RIG-QUALITY-CURRENT-STRUCTURAL-COMPARISON",
+        "classification": "Source comparison and nonfinding; no inferred product validation.",
+        "source_refs": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing.rs",
+            "archive": "source/rig-quality-2468.rs",
+            "lines": [
+              [
+                109,
+                127
+              ],
+              [
+                219,
+                247
+              ]
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+            "archive": "source/rig-quality-2469.rs",
+            "lines": [
+              [
+                8,
+                36
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing.rs",
+            "archive": "source/current-2468.rs",
+            "lines": [
+              [
+                109,
+                134
+              ],
+              [
+                225,
+                239
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+            "archive": "source/current-2469.rs",
+            "lines": [
+              [
+                30,
+                58
+              ]
+            ]
+          }
+        ],
+        "trace": "At cbbb, validation::validate_body_inputs encapsulates the shared row counts, joint counts and face checks; at 95e, the equivalent source checks are inline at generator entry. cbbb expands selected faces in the parent; 95e moves the corresponding loop into private validation::expand_selected_faces. The compared local checks, loop growth and fixed-point break are structurally aligned; no complete behavior equivalence or compiled result is asserted.",
+        "conditions": "Both current files differ by hash from the recorded cbbb base snapshot and are assessed as their own Git objects. No renderer or test executed. The scoped loop call supplies its face-aligned selected vector from its own construction; public mismatch should not be invented from the helper signature alone.",
+        "direction": "Keep the named invariants and error ordering explicit if future changes move owner boundaries, and establish evidence for relevant general body and topology support separately.",
+        "relationships": [
+          "Historical 059 and 774 reviews remain at cbbb or explicitly marked pr-working 6533; no record is promoted into checkpoint3821 or used as fresh current credit."
+        ]
+      }
+    },
+    {
+      "bundle_id": "rig-quality-export-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/rig-quality-export-hair-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE",
+        "classification": "Existing historical canonical q460; 95e source corroboration; related q637; not a newly counted independent finding.",
+        "source_trace": [
+          {
+            "file": "support/02-95e6-validation.rs",
+            "lines": [
+              [
+                51,
+                70
+              ],
+              [
+                99,
+                163
+              ]
+            ],
+            "finding": "Public shell admits surface UV with direct texcoords None when original UV extent is valid; a subset of faces may use only some original vertices."
+          },
+          {
+            "file": "source/2470-95e6.rs",
+            "lines": [
+              [
+                597,
+                610
+              ]
+            ],
+            "finding": "Exporter validates then compacts every shell."
+          },
+          {
+            "file": "support/00-95e6-compact.rs",
+            "lines": [
+              [
+                24,
+                61
+              ],
+              [
+                85,
+                98
+              ]
+            ],
+            "finding": "Compaction remaps positions, normals, skin, morphs and explicit texcoords, but retains original surface UV channel."
+          },
+          {
+            "file": "source/2471-95e6.rs",
+            "lines": [
+              [
+                18,
+                58
+              ]
+            ],
+            "finding": "Writer selects direct texcoords or surface UV fallback, and emits its unremapped length."
+          }
+        ],
+        "trigger_and_consequence": "Conditional on surface Some, direct texcoords None and used-vertex selection changing source vertex count/order: UV accessor no longer corresponds to the compacted position population. This is a source contract inference, not observed GLB/parser output.",
+        "producer_qualification": "Canonical armor producer character_morphs.rs 243–255 supplies direct Some(&armor.texcoords), and equipment_export.rs 82–90 may add surface; direct coordinates are remapped and win. Thus that inspected producer does not prove a surface-only witness. Clothing 216–237 has no surface/UV; garment/export.rs 13–18 and character_export/hair.rs 81–87 have no surface. Other public callers remain unassessed.",
+        "future_repair_direction": "Coordinate one effective UV channel with the exact vertex selection/remap and preserve supported optional surface/material modes; central owns remediation grouping.",
+        "historical_relationship": "059 queue entries 460 and 637 and original receipts; e275 READ-L11-622 explicitly aliases same first failure to q460. Preserve authors/revisions."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-export-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/rig-quality-export-hair-report.json",
+      "original_finding": {
+        "id": "SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001",
+        "classification": "Existing 774 source-backed candidate; bounded 95e source corroboration; do not add a duplicate count.",
+        "source_trace": [
+          {
+            "file": "source/2470-95e6.rs",
+            "lines": [
+              [
+                192,
+                205
+              ],
+              [
+                271,
+                353
+              ],
+              [
+                359,
+                474
+              ]
+            ],
+            "finding": "Public UV socket helper admits raw borrowed mesh/shell, checks UV domain and face count, then indexes mesh skin, shell normals/positions; bootstrap has analogous position index."
+          },
+          {
+            "file": "support/07-95e6-equipment_export.rs",
+            "lines": [
+              [
+                157,
+                164
+              ],
+              [
+                185,
+                242
+              ]
+            ],
+            "finding": "Garment caller computes sockets before invoking export_rigged_glb; the later serialization validation cannot by itself protect the earlier helper."
+          },
+          {
+            "file": "support/04-95e6-rigged.rs",
+            "lines": [
+              [
+                1,
+                61
+              ]
+            ],
+            "finding": "Public borrowed arrays may be independently supplied."
+          }
+        ],
+        "trigger_and_consequence": "Conditioned on a structurally malformed public mesh/shell/skin and an eligible selected UV face, indexing can fail before the Result returns a structured error. 774 provides a source-reasoned malformed input, not a produced asset or executed witness. The regular garment producer structural guarantees were not established.",
+        "future_repair_direction": "Admit a coherent mesh/shell/UV/skin view or reject mismatches before each public indexed socket path; preserve actual placement and error semantics.",
+        "historical_relationship": "Exact original 774 SEGOVB-INITIAL04-CONTRACT-592 attributed to Segovb, cbbb; q165 ADLER-L11-MHR-TOPOLOGY-ADMISSION and RIG-ADMISSION03-F011 may share an upstream owner but are not automatically identical first failures."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-export-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/rig-quality-export-hair-report.json",
+      "original_finding": {
+        "id": "SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001",
+        "classification": "Existing distinct 774 material-output candidate; bounded 95e arithmetic corroboration; not new count or alias to body normals.",
+        "source_trace": [
+          {
+            "file": "support/02-95e6-validation.rs",
+            "lines": [
+              [
+                144,
+                156
+              ]
+            ],
+            "finding": "Shell color/PBR inputs are tested for finiteness."
+          },
+          {
+            "file": "source/2470-95e6.rs",
+            "lines": [
+              [
+                576,
+                584
+              ]
+            ],
+            "finding": "Finite large f32 input may overflow the powf(2.4) transfer result."
+          },
+          {
+            "file": "source/2471-95e6.rs",
+            "lines": [
+              [
+                61,
+                67
+              ]
+            ],
+            "finding": "Writer sends derived linear color to material JSON."
+          }
+        ],
+        "trigger_and_consequence": "For sufficiently large finite input the computed material channel can become nonfinite. Historical 774 separately records exact then-inspected serde_json behavior mapping nonfinite to null; current native serde internals, actual GLB output, accepted color authoring range, and ordinary producer reachability were not assessed here.",
+        "future_repair_direction": "Select actual glTF material-factor and source HDR/color policies and reject nonfinite derived output at the appropriate native boundary without globally clipping valid HDR contexts.",
+        "historical_relationship": "Original Segovb 774 SEGOVB-INITIAL04-CONTRACT-592; arithmetic/format failure distinct from body normal and socket admission."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-export-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/rig-quality-export-hair-report.json",
+      "original_finding": {
+        "id": "REVIEW-GLB-BODY-NORMAL-NONFINITE-001",
+        "classification": "Already assessed centrally at 95e, separately retained; no duplicate new finding.",
+        "source_trace": [
+          {
+            "file": "support/02-95e6-validation.rs",
+            "lines": [
+              [
+                13,
+                49
+              ],
+              [
+                144,
+                156
+              ]
+            ],
+            "finding": "Body arrays have extent/parent/index/weight checks while shell positions and normals receive explicit finite checks; body normal component finiteness is not checked in that body."
+          },
+          {
+            "file": "source/2470-95e6.rs",
+            "lines": [
+              [
+                613,
+                619
+              ],
+              [
+                731,
+                740
+              ]
+            ],
+            "finding": "Body normals are written as float bytes and referenced by a glTF normal accessor."
+          }
+        ],
+        "qualification": "Preserve the existing central assessment author and exact original ranges/source copies (reference/prior-current-selection.json), not this agent as discoverer. Different first failure from derived color and UV correspondence. No native glTF execution."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-model",
+      "author": "/root/rig_identity",
+      "report": "delegated/rig-quality-model-report.json",
+      "original_finding": {
+        "id": "ADLER-L11-MHR-MODEL-SHAPE-LIFETIME",
+        "status": "existing 059 finding and prior current assessment; zero new unique delta",
+        "first_failed_contract": "Published host model metadata can change independently of tensors uploaded from the earlier host state.",
+        "evidence": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              63,
+              82
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              320,
+              327
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              368,
+              387
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              391,
+              396
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              66,
+              85
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              246,
+              252
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/character.rs",
+            "range": [
+              31,
+              55
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+            "range": [
+              75,
+              84
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+            "range": [
+              99,
+              121
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              396,
+              408
+            ]
+          }
+        ],
+        "condition_and_limits": "Both revisions expose public character while caching face indices and geometry/tensor inputs. Current Mesh exposes faces publicly, and model normal logic obtains current face count separately from cached face corners. A same-count edit may leave different host and tensor topology; a count change can produce a reshape mismatch. This is a representable API/lifetime path, not a demonstrated mutation, backend panic, model execution or user misuse. Mutable parameter-transform impact requires its separate public operation proof.",
+        "future_connected_repair_direction": "Make the coupled model metadata read-only or admit changes through one coherent atomic rebuild of every dependent cached tensor and count; preserve legitimate host lookup and graph behavior.",
+        "future_acceptance_criterion": "Every published model operation observes topology, dimensions and cached tensor contents from the same admitted model revision; any supported update refreshes them together or rejects before publication.",
+        "relationships": "Exact existing 059 q170 and prior /root/mhr_character model-retained-host-snapshot-shape, no new duplicate. Related skeleton column/lifetime issues need distinct first-failure reconciliation."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-model",
+      "author": "/root/rig_identity",
+      "report": "delegated/rig-quality-model-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L12-CONNECTED-MHR-FK-CYCLE-ADMISSION",
+        "status": "existing 059 conditional public parent-table contract; zero new unique delta",
+        "first_failed_contract": "A cyclic parent table makes the prefix builder follow a parent chain without a terminating root.",
+        "evidence": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "range": [
+              123,
+              157
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              278,
+              281
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "range": [
+              123,
+              157
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+            "range": [
+              8,
+              15
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+            "range": [
+              7,
+              15
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/table.rs",
+            "range": [
+              8,
+              14
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/table.rs",
+            "range": [
+              70,
+              72
+            ]
+          }
+        ],
+        "condition_and_limits": "A representable one-element public parent table containing its own ordinal has a nonterminating source loop; source reasoning only, no table built or operation executed. The ordinary FBX builder pushes each parent before visiting its child; that observation is not a proof that an arbitrary parsed graph contains no cycle, and externally mutable columns remain distinct from a cyclic input graph. The 6533, cbbb and 95e prefix source blob is identical.",
+        "future_connected_repair_direction": "Validate membership and acyclic parent topology at the owning skeleton boundary and preserve checked traversal where parents remain independently mutable; coordinate but do not conflate FBX graph-cycle admission.",
+        "future_acceptance_criterion": "Every accepted skeleton has bounded parent traversal; cyclic parent data is rejected with its identity rather than entering upload. Preserve valid roots, earlier-parent order and full joint alignment.",
+        "relationships": "Same 059 q433 and prior /root/mhr_character character-public-skeleton-aggregate cycle subcase; do not count again or assume the separately reported native parsed-FBX cycle is an exact alias."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-model",
+      "author": "/root/rig_identity",
+      "report": "delegated/rig-quality-model-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L12-CONNECTED-MHR-FK-PARENT-MEMBERSHIP-ADMISSION",
+        "status": "existing 059 conditional public parent-table contract; zero new unique delta",
+        "first_failed_contract": "The public prefix builder follows an ordinal without first proving that it belongs to the parent table.",
+        "evidence": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "range": [
+              123,
+              134
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/skel_state.rs",
+            "range": [
+              123,
+              134
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/lib.rs",
+            "range": [
+              50,
+              52
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/table.rs",
+            "range": [
+              48,
+              50
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rig/src/table.rs",
+            "range": [
+              94,
+              100
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+            "range": [
+              8,
+              15
+            ]
+          }
+        ],
+        "condition_and_limits": "A one-element table containing ordinal 1 reaches an indexed access beyond that table on the next loop iteration. No object, fixture or backend was run. A producer-built valid hierarchy or checked caller may exclude the case; no loaded real asset is shown invalid. This first failure differs from a cyclic but in-range table.",
+        "future_connected_repair_direction": "Prove and preserve table membership together with the acyclic aggregate before traversal, or explicitly reject a foreign ordinal using an owning typed error; do not infer rig-instance identity merely from a matching count.",
+        "future_acceptance_criterion": "A missing parent is rejected at admission/traversal with source context before native indexed access; valid root and child order remain unchanged.",
+        "relationships": "Same original 059 q434 and related prior character-public-skeleton-aggregate; independent cycle q433 remains separate unless central finds one coherent repair with both obligations."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-model",
+      "author": "/root/rig_identity",
+      "report": "delegated/rig-quality-model-report.json",
+      "original_finding": {
+        "id": "model-tiny-triangle-normal",
+        "status": "previous /root/mhr_character current finding; cbbb equivalent source, zero new unique delta",
+        "first_failed_contract": "A nonzero tiny accumulated normal can be divided by a fixed floor and remain non-unit despite the output documentation.",
+        "evidence": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              49,
+              58
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              537,
+              590
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              52,
+              61
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              396,
+              452
+            ]
+          }
+        ],
+        "condition_and_limits": "For one nondegenerate right triangle with f32 centimetre edge lengths 2^-30 and nonzero sum, symbolic cross magnitude is 2^-60 and squared norm 2^-120; division by the 1e-12 floor yields a magnitude around 8.67e-7 rather than 1. The same code and documented unit-normal claim appear at cbbb and 95e. No geometry, backend arithmetic, asset or model was executed; no valid real asset of this size or backend behavior is established. Truly unreferenced/degenerate zero normals are intentionally separate.",
+        "future_connected_repair_direction": "Confirm scale and numerical contract and, if unit output is required, use a justified scale-aware normalization for nonzero accumulated normals while preserving intentional zero on no direction.",
+        "future_acceptance_criterion": "For supported nonzero geometry the output meets its documented normal contract across its stated numeric range; unreferenced or degenerate vertices retain deliberate zero.",
+        "relationships": "Exact prior /root/mhr_character model-tiny-triangle-normal at 95e; this packet adds cbbb source context only, not a new duplicate."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-model",
+      "author": "/root/rig_identity",
+      "report": "delegated/rig-quality-model-report.json",
+      "original_finding": {
+        "id": "ADLER-L11-MHR-LOAD-ERROR-OWNERSHIP",
+        "status": "existing 059 umbrella and separate original URI/UTF8 cause records, zero new unique delta",
+        "first_failed_contract": "The URI loader formats typed underlying failures into prose rather than retaining each original error as structured cause.",
+        "evidence": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              120,
+              142
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              123,
+              145
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              158,
+              176
+            ]
+          }
+        ],
+        "condition_and_limits": "If both direct and nested reads fail, current and cbbb format both failures in a combined anyhow message; UTF8 failure is similarly formatted. The local filesystem loader uses with_context. No IO or decoder was executed and all downstream consumers are not traced. Direct and nested layouts are intentional supported lookup options, not inferred legacy shims.",
+        "future_connected_repair_direction": "Preserve both attempted asset locations and their original native errors and retain decoding cause until the presentation boundary, without changing location-selection policy.",
+        "future_acceptance_criterion": "Actual loader failures expose stable typed cause(s) and asset context while successful direct and nested reads keep their current meaning.",
+        "relationships": "Existing 059 q173 and distinct q421 asset fallback causes / q422 UTF8 cause; prior /root/mhr_character model-loader-error-cause current assessment. Do not merge the two concrete original first failures merely because one loader is involved."
+      }
+    },
+    {
+      "bundle_id": "rig-quality-model",
+      "author": "/root/rig_identity",
+      "report": "delegated/rig-quality-model-report.json",
+      "original_finding": {
+        "id": "RIG-QUALITY-MHR-WEIGHT-CUTOFF",
+        "status": "bounded numerical policy question; defect and exact alias not asserted",
+        "first_failed_contract": "Decide whether dropping a small positive normalized influence without renormalizing remaining uploaded weights satisfies the intended deformation error budget.",
+        "evidence": [
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              299,
+              318
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              593,
+              610
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/character/skin.rs",
+            "range": [
+              110,
+              120
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/character/skin.rs",
+            "range": [
+              125,
+              143
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+            "range": [
+              126,
+              145
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-mhr/src/model.rs",
+            "range": [
+              455,
+              472
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "range": [
+              21,
+              30
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "range": [
+              143,
+              152
+            ]
+          }
+        ],
+        "condition_and_limits": "Both revisions retain only weights strictly greater than 1e-5 and sum their deformed contributions without a displayed second normalization. The current parser can retain two positive normalized weights 1−2^-18 and 2^-18, each exactly representable; the latter is below the cutoff. If the two joint transforms are identical, symbolic weighted sum is scaled by 1−2^-18 instead of 1. No asset, GPU tensor, runtime output or real-world impact is observed. Whether this deliberate pruning and its error budget are acceptable is not established; cbbb comment says drop zero while current upload correctly states the threshold.",
+        "future_connected_repair_direction": "Determine the intended threshold owner and tolerance, quantify error across supported geometry and transforms, and if the contract requires partition of unity retain/renormalize appropriately while preserving valid zero and existing influence-selection semantics.",
+        "future_acceptance_criterion": "Chosen pruning has a documented numerical budget or retains the required normalized sum for all admitted rows; no broad weight narrowing is assumed without owner policy.",
+        "relationships": "Related to 059 q167 finite normalization, q175 shared reduction and prior /root/mhr_character character-nonfinite-skin-weight; this finite small-weight case has a different trigger and is not an established exact alias."
+      }
+    },
+    {
+      "bundle_id": "mixed-owner",
+      "author": "/root/mhr_character",
+      "report": "delegated/mixed-owner-report.json",
+      "original_finding": {
+        "id": "TIMBER-MEMBER-MATERIAL-AUDIT-CONFLICT",
+        "classification": "Conditional source-backed contract candidate; supported mixed-material producer and global alias remain open.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+            "archive": "source/current-2480.source",
+            "lines": [
+              [
+                138,
+                156
+              ],
+              [
+                293,
+                309
+              ]
+            ]
+          },
+          {
+            "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+            "archive": "source/pr-working-2480.source",
+            "lines": [
+              [
+                138,
+                156
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+            "archive": "source/support-7.rs",
+            "lines": [
+              [
+                1,
+                20
+              ],
+              [
+                340,
+                345
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+            "archive": "source/support-6.rs",
+            "lines": [
+              [
+                501,
+                518
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/timber.rs",
+            "archive": "source/support-8.rs",
+            "lines": [
+              [
+                18,
+                27
+              ],
+              [
+                212,
+                220
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+            "archive": "source/support-9.rs",
+            "lines": [
+              [
+                153,
+                168
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/core.rs",
+            "archive": "source/support-10.rs",
+            "lines": [
+              [
+                7,
+                8
+              ],
+              [
+                49,
+                50
+              ]
+            ]
+          },
+          {
+            "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+            "archive": "source/support-11.rs",
+            "lines": [
+              [
+                1,
+                20
+              ],
+              [
+                501,
+                518
+              ]
+            ]
+          }
+        ],
+        "trace": "TimberFrameMember explicitly says its material is member-local because later repairs or upper-storey additions may legitimately differ from the primary frame. The joint auditor instead requires each participating member material to equal frame.material; otherwise it adds invalid_timber_joint_contact even when the other joint checks would pass. The public audit path invokes that timber audit. The same historical 6533 audit source was independently displayed at the relevant gate, while the current builder initializes generated members uniformly from its frame material.",
+        "conditions": "Only material differences for an actually connected participating member invoke this particular rejection. The available source does not establish a supported mutation/repair workflow that creates a mixed-material plan, whether uniformity is an intentional narrower audit policy for generated plans, or a runtime rejection. Other geometric/contact/material conditions still apply independently.",
+        "direction": "Decide whether the building audit is intended to support the documented member-local repairs and additions. If so, validate member material under the actual structural policy rather than assuming equality to frame default; retain independent participant, phase, contact, geometry and load checks. No implementation or product validation performed.",
+        "relationships": [
+          "059 Q-L11-14f35463a67b27a70751 left timber role/phase/material/node relations open; 774 SEGOVB-INITIAL04-CONTRACT-595 preserved graph/coherence obligations without deciding this exact gate. No automatic old alias or finding count.",
+          "Original timber role 2480 was historically material-scoped to lines 1–45 and 139–158 for the 059 lens 11/12 readers; this agent separately displayed the full 310-line 6533/95e bodies."
+        ]
+      }
+    },
+    {
+      "bundle_id": "mixed-owner",
+      "author": "/root/mhr_character",
+      "report": "delegated/mixed-owner-report.json",
+      "original_finding": {
+        "id": "TIMBER-PARTICIPANT-ADMISSION-OPEN",
+        "classification": "Conditional admission and compatibility-policy question, not a proven bypass.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+            "archive": "source/current-2480.source",
+            "lines": [
+              [
+                159,
+                186
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/timber.rs",
+            "archive": "source/support-4.rs",
+            "lines": [
+              [
+                70,
+                85
+              ],
+              [
+                499,
+                518
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+            "archive": "source/support-3.rs",
+            "lines": [
+              [
+                429,
+                454
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/timber.rs",
+            "archive": "source/support-6.rs",
+            "lines": [
+              [
+                501,
+                517
+              ]
+            ]
+          }
+        ],
+        "trace": "TimberFrameJoint derives Deserialize with a default-empty participant vector; the builder initially constructs an empty vector and subsequently populates it from member endpoints. The bounded audit compares participant count, membership, axes and reaction directions with member-derived expectations and includes this result in the joint issue. Deserialization alone can therefore admit missing participant evidence, but the displayed audit checks it for a nonempty expected cohort.",
+        "conditions": "It remains unknown whether missing-field deserialization is an intended supported authored input, a legacy fallback prohibited by project rules, or an unreachable representation; whether validation always follows that boundary and what other graph checks require are open. No complete plan acceptance or serialization execution claimed.",
+        "direction": "Trace actual deserialize users and intended data contract, and either require an explicit field or an explicit construction phase if missing participants are not legitimate, without mistaking intermediate builder state for finished output.",
+        "relationships": [
+          "Related to q578 and 774 595 graph integrity, but a separate missing-field admission question; no exact finding alias assumed."
+        ]
+      }
+    },
+    {
+      "bundle_id": "mixed-owner",
+      "author": "/root/mhr_character",
+      "report": "delegated/mixed-owner-report.json",
+      "original_finding": {
+        "id": "STOREY-ORDINAL-AND-QUALITY-POLICY-COMPARISON",
+        "classification": "Source comparison and nonfindings, not product validation.",
+        "source_refs": [
+          {
+            "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+            "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+            "archive": "source/pr-working-2479.source",
+            "lines": [
+              [
+                8,
+                47
+              ],
+              [
+                50,
+                60
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+            "archive": "source/current-2479.source",
+            "lines": [
+              [
+                8,
+                47
+              ],
+              [
+                50,
+                60
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+            "archive": "source/support-5.rs",
+            "lines": [
+              [
+                351,
+                360
+              ]
+            ]
+          },
+          {
+            "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+            "path": "rust-quality.toml",
+            "archive": "source/rig-quality-2475.source",
+            "lines": [
+              [
+                1,
+                8
+              ],
+              [
+                193,
+                212
+              ],
+              [
+                950,
+                1001
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "rust-quality.toml",
+            "archive": "source/current-2475.source",
+            "lines": [
+              [
+                1,
+                14
+              ],
+              [
+                199,
+                217
+              ],
+              [
+                1015,
+                1028
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rust-quality/src/config.rs",
+            "archive": "source/support-0.rs",
+            "lines": [
+              [
+                5,
+                40
+              ],
+              [
+                99,
+                134
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rust-quality/src/scan.rs",
+            "archive": "source/support-1.rs",
+            "lines": [
+              [
+                61,
+                74
+              ],
+              [
+                100,
+                109
+              ],
+              [
+                140,
+                147
+              ],
+              [
+                183,
+                193
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-rust-quality/src/analyze.rs",
+            "archive": "source/support-2.rs",
+            "lines": [
+              [
+                76,
+                84
+              ],
+              [
+                129,
+                155
+              ]
+            ]
+          }
+        ],
+        "trace": "StoreyIndex accepts native usize and checks u16 capacity at serialization; from_elevation rounds first, rejects nonfinite, negative rounded ordinals and values above u16, then casts. A small negative elevation rounding to signed zero is consistent with the documented rounded-station policy; a valid index still is not proof of membership in a specific building. The two building model blobs match 6533 and 95e exactly, with distinct personal displays. In rust-quality, compared old/current windows show added, removed and moved scope records and the unchanged top-level numeric limits; the checker interprets scope kinds and checks stale path/item references. Whole-file TOML parsing generated navigation counts without granting full body read.",
+        "conditions": "The rig-quality file body was personally displayed only at 1–225, 600–700 and 950–EOF for each revision; 226–599 and 701–949 remain unread. The parsed current/old MHR scope list is derived machine navigation, not an executed lint or independent proof about the named source files. Scope justifications and full current policy remain open.",
+        "direction": "Resolve each proposed quality scope against its actual source and checker boundary, preserving native external-format roles; maintain station rounding, finite errors and packed representation separately from building-membership proof.",
+        "relationships": [
+          "059 READ-L11-410 records a prior full cbbb quality read by segovb; L12-838 uses /root/lens12_frontier prior 1–555 plus fresh 556–1001, not this agent’s read.",
+          "059 q2941 and q3280 reflect separately attributed earlier e275 quality reads whose source hash matches current 95e; older revision and scopes remain theirs.",
+          "774 SEGOVB-INITIAL04-CONTRACT-595 already describes the deliberate rounded-zero policy and separately requires actual building membership."
+        ]
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "RIG-ADMISSION03-F011 / REVIEW-CLOTHING-REFIT-INVALID-FACE-001",
+      "relationship": "The same public-shell topology family is independently corroborated; no duplicate unique issue or author transfer."
+    },
+    {
+      "identity": "SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE",
+      "relationship": "Existing 059 q460, related q637; actual inspected armor producer uses direct UV, so fallback reachability remains open."
+    },
+    {
+      "identity": "SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001 and SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001",
+      "relationship": "Distinct 774 original records, source corroboration only; preserve original authors, statuses and revisions."
+    },
+    {
+      "identity": "ADLER-L11-MHR-MODEL-SHAPE-LIFETIME and SEGOVB connected FK admission records",
+      "relationship": "Existing records receive independent cbbb and 95e source evidence; no unique delta or automatic supported bypass."
+    },
+    {
+      "identity": "TIMBER-MEMBER-MATERIAL-AUDIT-CONFLICT",
+      "relationship": "Source-supported conditional conflict; inspected normal builder is uniform and mixed-material reachability is unresolved."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "SEGOVB-L13-COMPACT-SURFACE-UV-CORRESPONDENCE",
+    "SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001",
+    "SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001",
+    "TIMBER-MEMBER-MATERIAL-AUDIT-CONFLICT"
+  ],
+  "open": "Eight of 27 checkpoint10 bundles reconciled after 10A and 10B; 19 checkpoint10 and all later packets await central reconciliation. All thirteen lenses and 3713 semantic queue records remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,951 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2468,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2468",
+      "sha256": "04f07439908559bf5787f569d0eb67cc016e246004677827f0b9d6f693a76de9",
+      "lines": 708,
+      "new_personal_read_ranges": [
+        [
+          1,
+          708
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          400
+        ],
+        [
+          401,
+          500
+        ],
+        [
+          501,
+          600
+        ],
+        [
+          601,
+          700
+        ],
+        [
+          701,
+          708
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/rig-quality-clothing-report.json",
+      "evidence_archive": "delegated/rig-quality-clothing-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/rig-quality-2468.rs",
+      "current_member": "source/current-2468.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 76,
+          "read_ranges": [
+            [
+              1,
+              708
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-character-creator/src/clothing.rs",
+        "status": "present",
+        "sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+        "git_blob": "9eed3d16b220bc1a02d65242d40fb12eab9d8e6c",
+        "bytes": 25075,
+        "lines": 699,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            400
+          ],
+          [
+            401,
+            500
+          ],
+          [
+            501,
+            600
+          ],
+          [
+            601,
+            699
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            699
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence.",
+      "registration_correction_member": "registration-correction.json"
+    },
+    {
+      "original_index": 2469,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2469",
+      "sha256": "f1e1fe557065da98b1e80397aeb190dfacdbeaa1d9ab5c240094e27f8cfb7adf",
+      "lines": 62,
+      "new_personal_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          62
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/rig-quality-clothing-report.json",
+      "evidence_archive": "delegated/rig-quality-clothing-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/rig-quality-2469.rs",
+      "current_member": "source/current-2469.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 77,
+          "read_ranges": [
+            [
+              1,
+              62
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+        "status": "present",
+        "sha256": "2a753a0c1f67e4c3c7f6ee4560557063c65d99202ef7073ecfaa93260bc95415",
+        "git_blob": "9384f659b7ddf359bbd158a2f353f6d981349f88",
+        "bytes": 1932,
+        "lines": 58,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            58
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2470,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2470",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "lines": 1819,
+      "new_personal_read_ranges": [
+        [
+          1,
+          889
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          400
+        ],
+        [
+          401,
+          500
+        ],
+        [
+          501,
+          600
+        ],
+        [
+          601,
+          700
+        ],
+        [
+          701,
+          800
+        ],
+        [
+          801,
+          889
+        ]
+      ],
+      "historical_unread_ranges": [
+        [
+          890,
+          1819
+        ]
+      ],
+      "historical_unread_lines": 930,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/rig-quality-export-hair-report.json",
+      "evidence_archive": "delegated/rig-quality-export-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2470-cbbb.rs",
+      "current_member": "source/2470-95e6.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 90,
+          "read_ranges": [
+            [
+              1,
+              1819
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "status": "present",
+        "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+        "git_blob": "85dfe90f90e6ab7dcdae56905d9b1fe3450eddb9",
+        "bytes": 66481,
+        "lines": 1780,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            400
+          ],
+          [
+            401,
+            500
+          ],
+          [
+            501,
+            600
+          ],
+          [
+            601,
+            700
+          ],
+          [
+            701,
+            770
+          ],
+          [
+            771,
+            844
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            844
+          ]
+        ],
+        "unread_ranges": [
+          [
+            845,
+            1780
+          ]
+        ],
+        "unread_lines": 936,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2471,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2471",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "lines": 111,
+      "new_personal_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          60
+        ],
+        [
+          61,
+          111
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/rig-quality-export-hair-report.json",
+      "evidence_archive": "delegated/rig-quality-export-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2471-cbbb.rs",
+      "current_member": "source/2471-95e6.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 89,
+          "read_ranges": [
+            [
+              1,
+              111
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+        "status": "present",
+        "sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+        "git_blob": "570059b5ac6c6017b3256b56a9bc6ac4d3a67f54",
+        "bytes": 4521,
+        "lines": 111,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            60
+          ],
+          [
+            61,
+            111
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            111
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2472,
+      "source_id": "rig-quality:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2472",
+      "sha256": "c1c35c5512650985dc6cf1cba8545b9db2cb63b65c3b092424893541811b1453",
+      "lines": 231,
+      "new_personal_read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          140
+        ],
+        [
+          141,
+          205
+        ],
+        [
+          206,
+          231
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/rig-quality-export-hair-report.json",
+      "evidence_archive": "delegated/rig-quality-export-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2472-cbbb.rs",
+      "current_member": "source/2472-95e6.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 91,
+          "read_ranges": [
+            [
+              1,
+              231
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+        "status": "present",
+        "sha256": "e84ff19544c1f4e8c6fbae3b322e5a342baf49981fd56e6b9c5f57ef1924a201",
+        "git_blob": "487f71bfd00a68de7a59f640d4e3b87fbfbf7d6e",
+        "bytes": 8429,
+        "lines": 229,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            140
+          ],
+          [
+            141,
+            205
+          ],
+          [
+            206,
+            229
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            229
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2473,
+      "source_id": "rig-quality:crates/fabelgeist-mhr/src/model.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2473",
+      "sha256": "aee06aeea1137885801fdc4d8c1b8aa5f36f967670dc935a2a121840c3149eb0",
+      "lines": 612,
+      "new_personal_read_ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          612
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/rig-quality-model-report.json",
+      "evidence_archive": "delegated/rig-quality-model-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "historical_member": "sources/cbbb/crates/fabelgeist-mhr/src/model.rs",
+      "current_member": "sources/95e6/crates/fabelgeist-mhr/src/model.rs",
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 29,
+          "read_ranges": [
+            [
+              1,
+              612
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-mhr/src/model.rs",
+        "status": "present",
+        "sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60",
+        "git_blob": "e4a813d30bd167d41a19986a5218ecce14b8bae9",
+        "bytes": 18532,
+        "lines": 474,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            474
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            474
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2474,
+      "source_id": "rig-quality:crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2474",
+      "sha256": "ff780fc23efc1039a47cd2e6f873ce231b4f6ee113349bc093e3acdd37a23cb1",
+      "lines": 33,
+      "new_personal_read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          33
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/rig-quality-model-report.json",
+      "evidence_archive": "delegated/rig-quality-model-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "historical_member": "sources/cbbb/crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "current_member": null,
+      "original_supplier_scopes": [
+        {
+          "supplier": "rig",
+          "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+          "row": 30,
+          "read_ranges": [
+            [
+              1,
+              33
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+        "status": "absent",
+        "sha256": null,
+        "git_blob": null,
+        "bytes": null,
+        "lines": null,
+        "actual_personal_display_chunks": [],
+        "personal_ranges": [],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": null,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2475,
+      "source_id": "rig-quality:rust-quality.toml",
+      "snapshot": "rig-quality",
+      "snapshot_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "scope_kind": "frozen_requested_change",
+      "registry_pointer": "/files/2475",
+      "sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+      "lines": 1001,
+      "new_personal_read_ranges": [
+        [
+          1,
+          225
+        ],
+        [
+          600,
+          700
+        ],
+        [
+          950,
+          1001
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          225
+        ],
+        [
+          600,
+          700
+        ],
+        [
+          950,
+          1001
+        ]
+      ],
+      "historical_unread_ranges": [
+        [
+          226,
+          599
+        ],
+        [
+          701,
+          949
+        ]
+      ],
+      "historical_unread_lines": 623,
+      "new_personal_read_revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/mixed-owner-report.json",
+      "evidence_archive": "delegated/mixed-owner-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/rig-quality-2475.source",
+      "current_member": "source/current-2475.source",
+      "original_supplier_scopes": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+          "row": 26,
+          "read_ranges": [
+            [
+              1,
+              1001
+            ]
+          ]
+        }
+      ],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "rust-quality.toml",
+        "status": "present",
+        "sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5",
+        "git_blob": "7d6d6e191adabcd417226c8a783d8c152efe2b83",
+        "bytes": 41151,
+        "lines": 1028,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            225
+          ],
+          [
+            600,
+            700
+          ],
+          [
+            950,
+            1028
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            225
+          ],
+          [
+            600,
+            700
+          ],
+          [
+            950,
+            1028
+          ]
+        ],
+        "unread_ranges": [
+          [
+            226,
+            599
+          ],
+          [
+            701,
+            949
+          ]
+        ],
+        "unread_lines": 623,
+        "byte_identical_to_historical": false,
+        "git_path_proof": "delegated/central-rig-quality-2468-2475-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2479,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/2479",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "lines": 137,
+      "new_personal_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          137
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/mixed-owner-report.json",
+      "evidence_archive": "delegated/mixed-owner-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/pr-working-2479.source",
+      "current_member": "source/current-2479.source",
+      "original_supplier_scopes": [],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+        "status": "present",
+        "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+        "git_blob": "14a4e60f7fad806b742e07fdecc073924c0b3140",
+        "bytes": 4832,
+        "lines": 137,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            137
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            137
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-prworking-2479-2480-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    },
+    {
+      "original_index": 2480,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/2480",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "lines": 310,
+      "new_personal_read_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          310
+        ]
+      ],
+      "historical_unread_ranges": [],
+      "historical_unread_lines": 0,
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/mixed-owner-report.json",
+      "evidence_archive": "delegated/mixed-owner-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/pr-working-2480.source",
+      "current_member": "source/current-2480.source",
+      "original_supplier_scopes": [],
+      "original_producer_scopes": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-building-generator/src/model/timber.rs",
+        "status": "present",
+        "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+        "git_blob": "81181cca6f993672cf360b9985fc97548897fd83",
+        "bytes": 9977,
+        "lines": 310,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            310
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            310
+          ]
+        ],
+        "unread_ranges": [],
+        "unread_lines": 0,
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-prworking-2479-2480-path-proofs.tar.gz",
+        "qualification": "Path absence is Git nonmembership only; functionality may have moved. Per-file identity never makes a recorded dirty snapshot clean."
+      },
+      "qualification": "Named delegate displays only at the recorded snapshot and 95e. Rig-quality records a clean historical cbbb snapshot; pr-working recorded four unrelated modifications despite per-file 6533 equality. A complete archived file, TOML structural parse, source text of a test, or Git proof is not personal read credit, product execution or checkpoint3821 evidence."
+    }
+  ],
+  "qualification": "Eight full and two partial historical roles, with named delegates and separate current displays. The cbbb and recorded dirty pr-working snapshots remain distinct; 2474 current path is absent, not proof of removed functionality. No whole-lens completion, checkpoint3821 evidence or product execution.",
+  "evidence": "DELEGATED-EVIDENCE-CHECKPOINT-10.json"
+}

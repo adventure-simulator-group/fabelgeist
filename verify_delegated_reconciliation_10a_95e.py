@@ -41,5 +41,5 @@ assert 'no new unique issue' in ids['SEGOVB-L11-CAPTURE-RUN-ARTIFACT-CERTIFICATI
 for ident in ('P17-SLIP-INVALID-BODY-TURN','REVIEW-LANDING-RECOVERY-RATE-OVERFLOW-001','ADLER-L11-LOCOMOTION-PROFILE-ADMISSION','CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E','REVIEW-REPORT-KNEE-AXIS-OBSERVATION-95E','P17-HEIGHT-DOUBLE-WARMUP'):
  assert 'ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json' in ids[ident]['further_current_evidence']
 progress=load('CONTINUATION-PROGRESS-95E.json');assert progress['lenses_complete']==0 and progress['queue_records_semantically_reconciled']==0 and progress['new_current_ledger_candidates']==len(ledger)
-assert progress['delegated_batch10_pending_central_reconciliation']=='DELEGATED-EVIDENCE-CHECKPOINT-10.json' and progress['delegated_batch10_partial_reconciliation']==['ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json']
-print('Verified eight P17 historical roles, exact receipts, 15 observations and five qualified rows; the remaining 23 packets are pending.')
+assert progress['delegated_batch10_pending_central_reconciliation']=='DELEGATED-EVIDENCE-CHECKPOINT-10.json' and 'ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json' in progress['delegated_batch10_partial_reconciliation']
+print('Verified eight P17 historical roles, exact receipts, 15 observations and five qualified rows; later packet reconciliations are separate.')

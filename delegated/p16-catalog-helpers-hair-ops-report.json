@@ -1,0 +1,153 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "created_utc": "2026-11-12T00:03:10.232177+00:00",
+  "author": "/root/hair_ops",
+  "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "p16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+  "snapshot_qualification": "The original physical-p16 snapshot was dirty. These two role objects independently match a120, 6533 and 95e per-file Git blobs and the later live P16 files; this does not establish a clean snapshot or transfer prior review credit. The 2026-11-11 original live comparison reproduced a tracked patch stream matching the registry SHA-256 without saving it; central later independently reproduced and saved recovered/physical-p16-patch-recovery/tracked.patch (SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, 524542 bytes) and published a redacted comparison. The seven untracked files are not in the patch; their separately hash-matched objects are in the original source archive. Registry did not document the historical patch-generation command.",
+  "registrations": [
+    "registration.json",
+    "support-registration.json",
+    "support-registration-2.json",
+    "support-registration-3.json"
+  ],
+  "read_receipt": "read-receipt.json",
+  "git_membership_evidence": "git-proofs.json",
+  "historical_manifest": "historical-manifest.json",
+  "source_roles": [
+    {
+      "index": 2583,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "recorded_snapshot": "physical-p16",
+      "p16_sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "p16_lines": 49,
+      "historical_full_personal_range": [
+        [
+          1,
+          49
+        ]
+      ],
+      "current_full_personal_range": [
+        [
+          1,
+          49
+        ]
+      ],
+      "both_bodies_separately_displayed": true,
+      "earlier_rig_material": [
+        [
+          1,
+          49
+        ]
+      ],
+      "earlier_reviewer": "774 rig admission03",
+      "qualification": "Exact P16 and current source copies were separately displayed after registration; a120 and 6533 versions checked by Git/hash only. Prior 774 rig and later reviewer reads retain original attribution."
+    },
+    {
+      "index": 2584,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "recorded_snapshot": "physical-p16",
+      "p16_sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "p16_lines": 17,
+      "historical_full_personal_range": [
+        [
+          1,
+          17
+        ]
+      ],
+      "current_full_personal_range": [
+        [
+          1,
+          17
+        ]
+      ],
+      "both_bodies_separately_displayed": true,
+      "earlier_rig_material": [
+        [
+          1,
+          17
+        ]
+      ],
+      "earlier_reviewer": "774 rig admission03",
+      "qualification": "Exact P16 and current source copies were separately displayed after registration; a120 and 6533 versions checked by Git/hash only. Prior 774 rig and later reviewer reads retain original attribution."
+    }
+  ],
+  "observations": [
+    {
+      "id": "SUPPORT-CATALOG-DIMENSION-NARROWING-2583",
+      "classification": "Fresh support for already assessed dimension-underflow family; no new unique defect",
+      "trace": [
+        "95e item_catalog_validation_numeric.rs:7\u201325 checks source f64 finiteness and interval; :27\u201349 positive_f32_in narrows first and rejects nonfinite or nonpositive stored values and original value above its bound.",
+        "item_catalog_validation.rs:515\u2013516 uses this helper for shield block and item_catalog_validation_surface.rs:120\u2013129 uses it for coverage. However, dimensions_m validation at :690\u2013701 checks only positive finite f64, while item_catalog_schema.rs:72\u201385 stores [f32;3].",
+        "The typed preflight at item_catalog_validation.rs:249\u2013273 converts the document but discards the typed result; build.rs:260\u2013275 serializes the original values. A hypothetical 1e-100 positive dimension therefore has the already documented non-arbitrary-precision Value-to-f32 underflow path, conditional on selected decoder features and other gates."
+      ],
+      "historical_relationship": [
+        "774 rig RIG-ADMISSION03-CONTRACT-044 and camera CAMERA-ADM03-F005 identified the same positive-dimension narrowing and described the helper as stronger than its actual dimension caller.",
+        "059 ledger selection PL13-175-CATALOGUE-NUMERIC-RECEIVER-CLOSURE-PENDING records the connected f64-to-f32 dimension obligation; ASSESSMENT-L03-CATALOG-DIMENSIONS-95E is a separately attributed current trace.",
+        "Parallel /root/rig_identity role2585\u20132586 packet independently owns the occupancy/surface read; our surface excerpt is support only."
+      ],
+      "limits": "No sample data, parsing, build, gameplay, test or tactical effect was run. Checked-in content values and downstream effects remain as qualified in the prior assessment, not newly inspected here.",
+      "future_repair_direction": "After all audit discovery and authorization, enforce finite positive dimensions in their final stored representation before publication; preserve smallest positive representable values, zero-valid generic geometry and legitimate signed offsets."
+    },
+    {
+      "id": "REVIEW-CATALOG-PHYSICAL-F32-FINITE-OVERFLOW-2583",
+      "classification": "Newly assessed conditional source candidate connected to dimension narrowing; central must decide whether it shares or separates the existing repair and defect identity",
+      "first_failed_contract": "The caller promises finite grip/anchor inputs at f64 level without establishing finite f32 values at the later typed boundary.",
+      "trace": [
+        "95e item_catalog_validation.rs:703\u2013724 accepts finite nonnegative f64 grip_to_tip_m and, when present, three finite signed f64 anchor_offset_m components. item_catalog_schema.rs:74\u201385 stores those fields as f32. A source value of 1e100 is finite as f64 but exceeds f32 range; negative 1e100 is also permitted for signed anchor offsets.",
+        "Pinned serde_json 1.0.151 value/de.rs:169\u2013193,282\u2013314 and number.rs:535\u2013546 route an f64 number to a visitor when arbitrary_precision is not enabled; serde_core 1.0.229 impls.rs:222\u2013242,450\u2013456 casts f64 to f32 without a finite check. The typed preflight in item_catalog_validation.rs:269\u2013273 discards this result; build.rs:260\u2013275 emits the original Value rather than the typed result.",
+        "At runtime item_catalog.rs:27\u201331 deserializes the embedded original JSON and expects success. With serde_json float_roundtrip enabled, de.rs:345\u2013353,623\u2013635,1512\u20131513 parses f32 in single precision and rejects infinite result, so a qualifying retained oversized literal can yield an error at the expect. With float_roundtrip disabled, de.rs:109\u2013125,319\u2013335,638\u2013653,1508\u20131510 selects the f64 numeric route, whose f32 visitor can instead produce infinity.",
+        "95e adventuresim-weapon-model/Cargo.toml:8\u201310 requests float_roundtrip and adventuresim-core/Cargo.toml:21\u201328,32\u201339 declares runtime and build serde_json dependencies; complete host/target feature resolution remains unproved.",
+        "If an infinite value is retained and projected without instance replacement, player_projection.rs:812\u2013829 copies it into TacticalEquipmentPhysical; inventory.rs:199\u2013208 marks nonfinite grip/anchor invalid, and server/equipment.rs:504\u2013523 refuses the selected drop before collider creation. Separate fallback visual and grab targeting source reads show anchor usage but do not establish that these paths run."
+      ],
+      "conditions_and_limits": "Conditional on a source item that passes all other validation, the relevant actual serde_json feature branches, successful build publication and later catalog invocation or projection. No crafted input, JSON decoder, macro, build, test, runtime path, panic or render ran. float_roundtrip and non-arbitrary-precision are distinct feature conditions: do not infer the resolved build/runtime graph. The runtime error and the unchecked nonfinite value are alternative conditional outcomes, not both observed. For instance-derived weapon geometry some fields may be replaced; all producer and consumer routes need tracing.",
+      "safeguards": "positive_f32_in correctly guards the fields that invoke it; f32-validity guard exists in TacticalEquipmentPhysical. Signed anchors and zero grip values can be intentional; do not clamp, blanket-reject zero, or require offsets to be positive.",
+      "historical_relationship": "Related representation-boundary owner to CAMERA-ADM03-F005, PL13-175 and REVIEW-CATALOG-PHYSICAL-DIMENSION-NARROWING-001, but finite overflow in signed anchor/grip fields and its feature-dependent runtime failure are not asserted as the same first failed field or independent unique findings. 059 anchor-frame observations concern coordinate transformation, not this numeric admission; central should reconcile identities and common repair.",
+      "future_repair_direction": "After audit completion and authorization, validate every f32 physical field against its actual finite representation at the authoring/typed admission boundary, preserving the field-specific signs and allowed zeros, and carry the admitted values through build and runtime paths. Review whether to retain the typed preflight value or perform equivalent validation without changing output formats; do not choose a repair here.",
+      "later_acceptance": "When product validation is separately authorized, accepted finite f32-representable signed offsets and permitted zero grip remain valid; out-of-range finite source values reject with owned catalog diagnostics before the emitted document can make runtime decoding fail or admit nonfinite physics. Verify supported decoder feature/host/target paths and instance overrides.",
+      "open_questions": [
+        "Resolved serde_json arbitrary_precision and float_roundtrip per host/target; actual caller and source data reachability; whether non-weapon positive grip has semantic meaning; every producer and tactical/visual consumer; alias and repair ownership."
+      ]
+    },
+    {
+      "id": "NONFINDING-EQUIPMENT-MATERIAL-NAMES-2584",
+      "classification": "Current closed authoring list matches typed enum; redundant representation and future owner policy remain open",
+      "trace": [
+        "item_catalog_validation_material.rs:1\u201317 accepts exactly ten snake_case names; item_catalog_schema.rs:126\u2013139 defines the same ten EquipmentMaterial variants with snake_case serde names.",
+        "item_catalog_validation.rs:662\u2013680 requires material and requires a striking material for weapons while excluding a supplied striking material on non-weapons. The whole-document typed preflight separately decodes ItemCatalogDocument.",
+        "character-creator armor_metal.rs:11\u201320 classifies typed EquipmentMaterial and deliberately excludes MailSteel from plate steel; one-to-one spelling does not imply all variants render alike."
+      ],
+      "historical_relationship": "774 rig REG-017/ADDITIONAL-004 and CONTRACT-045 already recorded the matching ten names and helper scope. Separate 6533 roles 942/943 and their earlier historical assessments retain their own reviewer and no automatic current credit.",
+      "limits": "No present accepted-name mismatch or runtime rendering defect identified. Manual string list and enum are separate representations whose future drift is a design question; no failure from hypothetical future edits is asserted.",
+      "future_direction": "If reconciliation finds an owner-migration issue, use the existing typed material admission at the actual serialization boundary while preserving the ten authored names and item-kind presence policy; do not extend grammar or change rendering behavior."
+    }
+  ],
+  "nonfindings": [
+    "positive_f32_in rejects missing, nonnumeric, nonfinite, nonpositive-after-cast and over-maximum source values; tiny positive inputs that round to zero fail this helper.",
+    "finite_in permits zero where its callers set zero minima. Do not convert every finite ratio or nonnegative value into a positive quantity.",
+    "The full P16 and 95e helper bodies contain no test blocks. Additional support source snippets were only read as source."
+  ],
+  "lens_perspectives": {
+    "1_producer_propagation": "Raw catalog Value \u2192 typed preflight \u2192 original embedded JSON \u2192 runtime typed catalog \u2192 tactical projection traced conditionally; alternative producers remain open.",
+    "2_existing_type_owners": "Existing EquipmentMaterial is a typed owner for material names; numeric field ranges and physical units need their actual owning admission.",
+    "3_admission_contracts": "The checked positive-f32 helper protects its callers; dimension and finite offset/grip paths use different weaker f64 predicates.",
+    "4_invariant_operations": "f64\u2192f32 narrowing can underflow or overflow; consequences depend on feature-selected parser and runtime guards.",
+    "5_aggregate_states": "Item kind controls striking material and zero/nonnegative grip meaning; document typed decode alone does not encode every relationship.",
+    "6_type_ownership": "Resolve physical field admission in catalog owner and distinguish boundary string grammar from typed EquipmentMaterial.",
+    "7_redundant_authority": "Ten string literals and typed enum currently agree; possible drift is a policy/design question, not an observed mismatch.",
+    "8_behavior_preservation": "P16/a120/6533/95e role bytes match individually; snapshot and connected calling contexts are not assumed identical.",
+    "9_enum_shapes": "EquipmentMaterial is closed and item-kind material policies are conditional; nonweapons and absent optional fields must retain valid modes.",
+    "10_derivability": "Typed schema Deserialize is a shape/type gate but does not alone ensure positive/finite physical semantics.",
+    "11_type_granularity": "Keep signed offsets, zero-valid grip, positive dimensions, surface coverage and shield block distinct; no blanket positivity.",
+    "12_magic_strings": "Exact material names are a serialized external boundary with current corresponding typed enum; no global text cleanup claim.",
+    "13_magic_numbers": "The same numeric representation change has distinct overflow, underflow, sign and bounds policies; native feature graph remains open."
+  },
+  "historical_attribution": {
+    "774_rig": "Original rig REG-016/017, source qualifications and ADDITIONAL-003/004 prove 49/17 line body reads; CONTRACT-044/045 were prior pr-working comparisons with exact P16 source support. Original camera F005 remains separate.",
+    "059": "Original Segovb L13 parallel receipt is preserved; the PL13-175 ledger excerpt is a reconstructed selection from the exact 059 ledger. No 3821 state is implied.",
+    "current_and_parallel": "Earlier 95e dimension and 6533 role assessments, /root/rig_identity parallel occupancy/surface packet, package archives and subsequent P16 recovery are hash-linked; no transferred reviewer credit or implicit whole-lens completion."
+  },
+  "remaining": "All other catalog numeric routes and declarations, build/runtime feature resolution, actual authored input and all consumers, historical aliases, and full repository thirteen-lens populations remain open.",
+  "repair": "not started",
+  "validation": "not performed; no product, decoder, build, test, fixture, renderer or runtime probe ran."
+}

@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261111-2353.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261112-0008.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -24,6 +24,13 @@ promoting the dirty snapshot into checkpoint 3821.
 source packets, including pre-recovery observations, pending central
 reconciliation. Their source revisions, read ranges, and historical
 relationships remain distinct.
+
+`RECOVERY-VERIFICATION-EE46ADA3.json` records the later same-machine
+recovery check of the P16-patch checkpoint, with transcript limitations.
+
+`DELEGATED-EVIDENCE-CHECKPOINT-14.json` preserves three compact catalogue
+source packets, including the separate recorded P16 patch recovery and its
+untracked-file qualification. Their observations await central reconciliation.
 
 `CONTINUATION-PROGRESS-95E.json` gives the current transition counts and
 qualifications. `BASELINE-20261110.json`, `CONTINUATION-PROGRESS.json`, and
@@ -324,6 +331,8 @@ transcript for the previous published commit, with its limits.
 evidence packets, pending central reconciliation and role credit; their
 previously published evidence references are separately hash-verified.
 `DELEGATED-CHECKPOINT-11-QUALIFICATION.json` records the 059 content matches.
+`ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json` connects four more
+rig-quality and pr-working packets, preserving partial unread ranges.
 `ASSESSMENT-DELEGATED-RECONCILIATION-10A-95E.json` reconciles four P17
 packets from checkpoint 10, retaining their original authors and scopes.
 `DELEGATED-EVIDENCE-CHECKPOINT-10.json` preserves 27 additional complete
