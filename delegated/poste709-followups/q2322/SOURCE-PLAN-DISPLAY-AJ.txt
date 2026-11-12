@@ -1,0 +1,46 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:1126-1170
+1126         terrain_package_digest: attestation.package_digest,
+1127         latitude_e7: attestation.latitude_e7,
+1128         longitude_e7: attestation.longitude_e7,
+1129         plains: attestation.plains,
+1130         forest: attestation.forest,
+1131         hills: attestation.hills,
+1132         wetlands: attestation.wetlands,
+1133         river_or_wet_ground: attestation.river_or_wet_ground,
+1134         sea_or_coast: attestation.sea_or_coast,
+1135         cultivated: attestation.cultivated,
+1136         license_violation: environment.license_violation,
+1137         output_inventory_item_ids,
+1138         output_object_ids,
+1139         output_food_lot_ids,
+1140         output_material_revisions,
+1141     };
+1142     ctx.db.forage_attempt_authority().insert(attempt);
+1143     let state = ForageAttemptState {
+1144         character_id,
+1145         gateway_bucket: 0,
+1146         next_generation: next_attempt_generation,
+1147     };
+1148     if ctx
+1149         .db
+1150         .forage_attempt_state()
+1151         .character_id()
+1152         .find(character_id)
+1153         .is_some()
+1154     {
+1155         ctx.db.forage_attempt_state().character_id().update(state);
+1156     } else {
+1157         ctx.db.forage_attempt_state().insert(state);
+1158     }
+1159     crate::capability::refresh_character_capability(ctx, character_id)?;
+1160     crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+1161     Ok(())
+1162 }
+1163 
+1164 #[cfg(test)]
+1165 mod tests {
+1166     use super::*;
+1167 
+1168     #[test]
+1169     fn canonical_sources_make_permutations_identical_and_reject_bad_input() {
+1170         let first = canonical_sources(vec!["plants".into(), "fish".into()]).unwrap();

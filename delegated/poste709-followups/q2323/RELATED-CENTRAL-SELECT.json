@@ -1,0 +1,38 @@
+{
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT.json",
+  "delegated_observation_19": {
+    "agent": "/root/rig_identity",
+    "report": "delegated/rig-identity-report.json",
+    "finding": {
+      "id": "DELEGATE-RIG-EQUAL-BOUND-INSTANCE-QUESTION",
+      "classification": "related conditional public-boundary policy question, not an asserted ordinary runtime bug",
+      "source_trace": [
+        "crates/fabelgeist-rig/src/skin.rs:6-7,112-124 validates ordinal bound, not rig identity",
+        "crates/fabelgeist-rig/src/table.rs:8-10 says equal columns do not prove one rig instance",
+        "crates/adventuresim-character-creator/src/lib.rs:61,130 exposes device_fit and skin_rules",
+        "crates/adventuresim-character-creator/src/skin_rules.rs:23-35,59-63,211-223 checks bounds and writes the lookup ordinal",
+        "crates/adventuresim-character-creator/src/device_fit.rs:428-446,477-500 constructs armor and calls attach using separately supplied public Fitted names and joints"
+      ],
+      "counterexample": "If the exposed name order is [C_HEAD, ROOT] and a separately associated packed skin/receiving skeleton order is [ROOT, C_HEAD], both bounds equal two; a helmet lookup writes ordinal zero, which the second order interprets as ROOT. This requires mismatched externally supplied associations and a downstream consumer using that second order; neither an ordinary mismatched caller nor an actual run is established.",
+      "related_historical_records": [
+        "baseline-059/queue.json#/entries/2323 REVIEW-L11-CREATOR-PRIVATE-BODY-FIT-PAIRING"
+      ],
+      "relationship_qualification": "Earlier review explicitly rejected the ordinary private creator mismatch suspicion after tracing a single cached GeneratedCharacter and left public crossmodel association policy open. This bounded observation adds the current public API/consumer path, without contradicting that rejection or assigning a unique defect.",
+      "repair_direction": "Decide whether public APIs support independent crossmodel inputs. If so, admit a coherent source-instance/order relationship before attachment or carry one authoritative aggregate; preserve valid same-rig reuse and do not equate count equality with identity.",
+      "remaining": "Actual public callers, compatibility policy, final receiving skeleton and historical aliases; no runtime validation."
+    }
+  },
+  "central_decisions": [
+    "Reports preserve delegated, not root-personal, source assessments and retain original revision/attribution.",
+    "Rig and MHR delegates independently identified the same public Skeleton parallel-column counterexample; they map to one current policy row, without asserting global uniqueness.",
+    "Hair q162/q372 and q163/q373 are preserved broad families and specific historical subcases; q375 and q376 have different first failed contracts; CPU and GPU group fallbacks remain separately identified.",
+    "The empty/fewer-than-k search and excessive neighbor-capacity overflow concern related PointGrid machinery but distinct first conditions; old max-radius q642 remains a separate historically identified family.",
+    "The typed joint-name private-query issue was already reconnected in ASSESSMENT-JITTER-RIG-CONNECTIONS-95E.json; the same original q254 is re-used, not a new defect.",
+    "MHR current character and skin differ from frozen6533 bytes, while Skeleton and the four rig identity roles are byte-identical. No historical behavior is automatically transferred across those differences.",
+    "No whole lens, complete queue reconciliation, new historical unique count, implementation or product validation is claimed."
+  ],
+  "open": "Validate remaining producers/consumers, policies and exact global aliases, particularly cross-rig association, numerical input admission, native behavior and mandatory independent lens coverage.",
+  "repair": "not started",
+  "validation": "not performed"
+}

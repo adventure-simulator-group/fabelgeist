@@ -1,0 +1,80 @@
+{
+  "cooking_duration": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/cooking.rs"
+    ],
+    "stderr": ""
+  },
+  "cooking_preview": {
+    "exit": 1,
+    "files": [],
+    "stderr": ""
+  },
+  "preview_cooking": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs"
+    ],
+    "stderr": ""
+  },
+  "start_fireplace_container_cooking": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/strategic-web/src/routes/settlements/party/cooking.rs",
+      "crates/adventuresim-stdb-client/src/mod.rs",
+      "crates/adventuresim-stdb-client/src/start_fireplace_container_cooking_reducer.rs"
+    ],
+    "stderr": ""
+  },
+  "add_fireplace_ingredients": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/strategic-web/src/routes/settlements/party/cooking.rs",
+      "crates/strategic-web/tests/food-remediation.test.cjs",
+      "crates/adventuresim-stdb-client/src/mod.rs",
+      "crates/adventuresim-stdb-client/src/add_fireplace_ingredients_reducer.rs"
+    ],
+    "stderr": ""
+  },
+  "fireplace_dish": {
+    "exit": 0,
+    "files": [
+      "crates/strategic-web/src/routes/settlements/router.rs",
+      "crates/strategic-web/src/spacetimedb/mod.rs",
+      "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "crates/strategic-web/src/spacetimedb/queries.rs",
+      "crates/strategic-web/src/routes/settlements/party/cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "crates/adventuresim-stdb-module/src/food/model.rs",
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/strategic-web/tests/food-remediation.test.cjs",
+      "crates/adventuresim-stdb-client/src/backend_fireplace_dishes_table.rs",
+      "crates/adventuresim-stdb-client/src/mod.rs",
+      "crates/adventuresim-stdb-client/src/retrieve_fireplace_dish_reducer.rs"
+    ],
+    "stderr": ""
+  },
+  "target_minutes": {
+    "exit": 0,
+    "files": [
+      "crates/strategic-web/src/templates/settlement/cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/model.rs",
+      "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "crates/adventuresim-stdb-module/src/time/tests/clock_and_advancement.rs",
+      "crates/adventuresim-stdb-client/src/backend_fireplace_dish_type.rs",
+      "crates/adventuresim-stdb-client/src/fireplace_dish_type.rs"
+    ],
+    "stderr": ""
+  }
+}

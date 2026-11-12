@@ -1,0 +1,15 @@
+{
+  "registered_at_utc": "2026-11-12T15:36:38.655448+00:00",
+  "purpose": "Find candidate physical workspace parent modules and transport entry points by filename only; exact pinned reads need separate registration.",
+  "roots": [
+    "crates"
+  ],
+  "terms": [
+    "include!(\"cooking.rs\")",
+    "include!(\"food/cooking.rs\")",
+    "mod cooking",
+    "pub mod food",
+    "preview_cooking"
+  ],
+  "qualification": "Unpinned navigation only, not a current global caller inventory."
+}

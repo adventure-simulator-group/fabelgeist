@@ -1,0 +1,41 @@
+   550	    refresh_all_limb_projections(ctx, character_id);
+   551	    // The strategic time owner commits the elapsed frontier exactly once.
+   552	    // Surgery settles injury state only; writing CharacterTime here used to
+   553	    // double-advance terminal intervals when the caller committed the same
+   554	    // elapsed span.
+   555	    crate::condition::set_blood_fraction(ctx, character_id, interval.blood_fraction)?;
+   556	    let alive = ctx
+   557	        .db
+   558	        .character()
+   559	        .id()
+   560	        .find(character_id)
+   561	        .is_some_and(|row| row.alive);
+   562	    Ok(InjurySettlement {
+   563	        elapsed: interval.elapsed,
+   564	        alive,
+   565	    })
+   566	}
+   567	
+   568	pub fn convalescence_minutes(
+   569	    ctx: &ReducerContext,
+   570	    character_id: u64,
+   571	    physiology_check: f32,
+   572	) -> u64 {
+   573	    let natural = crate::time::health_recovered_per_day(physiology_check);
+   574	    let mut days = 0.0_f32;
+   575	    for limb in BodyRegion::ALL {
+   576	        let injury = injury_for(ctx, character_id, limb);
+   577	        let projectile = if has_projectile(ctx, character_id, limb) {
+   578	            RETAINED_PROJECTILE_HEALING_MULTIPLIER
+   579	        } else {
+   580	            1.0
+   581	        };
+   582	        if injury.bandaged && injury.cut_damage > 0.0 {
+   583	            let stitch = if injury.stitched {
+   584	                injury.stitch_quality.max(0.0) * STITCH_HEALING_BONUS_PER_LEVEL
+   585	            } else {
+   586	                0.0
+   587	            };
+   588	            days = days.max(injury.cut_damage / ((natural + 0.01 + stitch) * projectile));
+   589	        }
+   590	        if injury.bruise_damage > 0.0 {

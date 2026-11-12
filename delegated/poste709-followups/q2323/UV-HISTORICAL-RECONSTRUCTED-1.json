@@ -1,0 +1,41 @@
+{
+  "receipt": {
+    "path": "segovb/READ-L11-540.json",
+    "sha256": "07999ee136d7c583e46b42246c533778bb1e8d9efe6572923bd0191e3c19edbd",
+    "verification": "segovb/VERIFY-L11-540.json",
+    "verification_sha256": "7401e9c01aabde65bda2a59d5cea2249648aeacd569f8c60cf8af98e918204e6"
+  },
+  "disposition": {
+    "id": "ADLER-L11-MHR-TOPOLOGY-ADMISSION",
+    "families": [
+      "P09",
+      "P10"
+    ],
+    "disposition": "Existing failed contract independently current-connected",
+    "trace": [
+      "Character::triangulate168..196 checks polygon cardinality/terminator but casts i64 vertex indices to u32 without exact-width/table membership admission. parse_uvs198..229/triangulate_texcoords232..249 cast native UV words and permit indices outside owning coordinate table.",
+      "Character publishes faces/texcoord_faces148..162 without bound relation. Mhr::new317..324 checks i32 width of face corners, not corner<vertex_count, then TensorData369 and vertex_normals540..587 use native Tensor::select index.",
+      "Actual generate_clothing_shells119..134 separately checks face<vertices before its own arrays. That consumer safeguard is real and does not validate Character globally or native Mhr tensor consumer."
+    ],
+    "first_failed_contract": "Mesh face and UV indices must be admitted against their owning vertex and coordinate tables before Character publishes them.",
+    "canonical_owner": "Character admitted mesh topology with exact source-width and vertex/UV membership, then native tensor/export projection.",
+    "exact_functions": [
+      "Character::from_fbx_bytes68..163",
+      "triangulate168..196/parse_uvs198..229/triangulate_texcoords232..249",
+      "Mhr::new317..369/vertex_normals540..587",
+      "generate_clothing_shells119..134"
+    ],
+    "connected_repair_scope": "Actual external FBX topology decode, admitted mesh publication, numeric tensor face consumer and UV/export consumers; no changes performed.",
+    "dependencies": [
+      "Full native FBX and Burn index behavior/actual invalid asset observation remain qualified.",
+      "Do not merge index overflow versus role mismatch solely by proposed aggregate validation remedy."
+    ],
+    "acceptance_requirements": [
+      "Reject out-of-table and unrepresentable vertex/UV indices at owning decode, preserve valid fan triangulation and intentional absent UV mode."
+    ],
+    "accepted_unique_count_change": 0,
+    "native_runtime_validation": "not run"
+  },
+  "scope_revision": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "latest_current_target_reconciled": false
+}

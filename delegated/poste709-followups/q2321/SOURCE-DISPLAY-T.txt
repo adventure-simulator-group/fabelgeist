@@ -1,0 +1,57 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/training_activity.rs:390-445
+ 390         .db
+ 391         .query_sats(&format!(
+ 392             "SELECT * FROM party_inventory_item WHERE party_id = {}",
+ 393             sql_string_literal(party_id)
+ 394         ))
+ 395         .await
+ 396         .unwrap_or_default();
+ 397     let stakes: Vec<PartyStake> = state
+ 398         .db
+ 399         .query_sats(&format!(
+ 400             "SELECT * FROM party_stake WHERE party_id = {}",
+ 401             sql_string_literal(party_id)
+ 402         ))
+ 403         .await
+ 404         .unwrap_or_default();
+ 405     let food_lots: Vec<FoodLot> = state
+ 406         .db
+ 407         .query_sats("SELECT * FROM food_lot")
+ 408         .await
+ 409         .unwrap_or_default();
+ 410     let preparation_plans: Vec<BackendIngredientPreparationPlan> = state
+ 411         .db
+ 412         .query_sats(&format!(
+ 413             "SELECT * FROM backend_ingredient_preparation_plans WHERE actor_character_id = {}",
+ 414             character.id
+ 415         ))
+ 416         .await
+ 417         .unwrap_or_default();
+ 418     let items: Vec<CatalogItemView> = state
+ 419         .db
+ 420         .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+ 421         .await
+ 422         .unwrap_or_default();
+ 423     let equip = character_equipment_graph(&state, character.id).await;
+ 424     let members = get_active_party_members(&state, Some(&character)).await;
+ 425     let encumbrance = inventory_encumbrance_summaries(
+ 426         &state, &character, &inventory, &members, &pooled, &items, true,
+ 427     )
+ 428     .await;
+ 429     let stake = stakes
+ 430         .iter()
+ 431         .find(|stake| stake.character_id == character.id)
+ 432         .map_or(0, |stake| stake.value);
+ 433     let (personal_targets, party_targets, _) = inventory_trade_context(&state, &character).await;
+ 434     Html(
+ 435         party_pool_page(
+ 436             &location,
+ 437             &character,
+ 438             &inventory,
+ 439             &pooled,
+ 440             stake,
+ 441             &items,
+ 442             &food_lots,
+ 443             &preparation_plans,
+ 444             &members,
+ 445             equip.first(),

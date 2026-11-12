@@ -1,0 +1,160 @@
+     1	// Owns immutable request identity, custody/material validation, and authority digests.
+     2	#[expect(
+     3	    clippy::too_many_arguments,
+     4	    reason = "stable request identity frames every preparation coordinate explicitly"
+     5	)]
+     6	fn preparation_request_id(
+     7	    character_id: u64,
+     8	    inventory_scope: &str,
+     9	    inventory_item_id: u64,
+    10	    food_lot_id: u64,
+    11	    material_object_id: u64,
+    12	    revision: u64,
+    13	    action: IngredientPreparationAction,
+    14	    attempt_generation: u64,
+    15	    canonical_place: &str,
+    16	    direct_custody_binding: &str,
+    17	) -> String {
+    18	    use sha2::Digest as _;
+    19	    let mut hash = sha2::Sha256::new();
+    20	    hash.update(b"ingredient-preparation-request-v2");
+    21	    hash.update(character_id.to_le_bytes());
+    22	    hash.update((inventory_scope.len() as u64).to_le_bytes());
+    23	    hash.update(inventory_scope.as_bytes());
+    24	    hash.update(inventory_item_id.to_le_bytes());
+    25	    hash.update(food_lot_id.to_le_bytes());
+    26	    hash.update(material_object_id.to_le_bytes());
+    27	    hash.update(revision.to_le_bytes());
+    28	    hash.update([action.stable_code()]);
+    29	    hash.update(attempt_generation.to_le_bytes());
+    30	    hash.update((canonical_place.len() as u64).to_le_bytes());
+    31	    hash.update(canonical_place.as_bytes());
+    32	    hash.update((direct_custody_binding.len() as u64).to_le_bytes());
+    33	    hash.update(direct_custody_binding.as_bytes());
+    34	    encode_digest(&hash.finalize())
+    35	}
+    36	
+    37	fn preparation_place(
+    38	    ctx: &ReducerContext,
+    39	    actor: &crate::Character,
+    40	) -> Result<adventuresim_core::strategic_place::StrategicPlaceId, String> {
+    41	    if let Some(settlement_id) = actor.current_settlement_id.as_deref() {
+    42	        return adventuresim_core::strategic_place::StrategicPlaceId::settlement(settlement_id)
+    43	            .map_err(|_| "Ingredient preparation settlement identity is malformed".into());
+    44	    }
+    45	    if let Some(site_id) = crate::investigation::character_case_site_id(ctx, actor.id) {
+    46	        return adventuresim_core::strategic_place::StrategicPlaceId::case_site(site_id)
+    47	            .map_err(|_| "Ingredient preparation case-site identity is malformed".into());
+    48	    }
+    49	    let party_id = actor
+    50	        .party_id
+    51	        .as_deref()
+    52	        .ok_or("Ingredient preparation requires a canonical strategic place")?;
+    53	    crate::strategic::current_journey_camp_place(ctx, party_id)
+    54	}
+    55	
+    56	fn encode_digest(bytes: &[u8]) -> String {
+    57	    bytes.iter().map(|byte| format!("{byte:02x}")).collect()
+    58	}
+    59	
+    60	fn preparation_material_source_digest(ctx: &ReducerContext, food_lot_id: u64) -> String {
+    61	    use sha2::Digest as _;
+    62	    let mut hash = sha2::Sha256::new();
+    63	    hash.update(b"ingredient-material-source-v1");
+    64	    if let Some(row) = ctx.db.food_contamination().food_lot_id().find(food_lot_id) {
+    65	        hash.update(row.concentration_anchor.to_bits().to_le_bytes());
+    66	        hash.update(row.growth_per_hour.to_bits().to_le_bytes());
+    67	        hash.update(row.anchor_minute.get().to_le_bytes());
+    68	    }
+    69	    let mut components = ctx
+    70	        .db
+    71	        .medicinal_component()
+    72	        .iter()
+    73	        .filter(|row| row.carrier_kind == "food_lot" && row.carrier_id == food_lot_id)
+    74	        .map(|row| {
+    75	            format!(
+    76	                "{}\0{}\0{}",
+    77	                row.intervention_profile_id,
+    78	                row.profile_version,
+    79	                row.potency_units.to_bits()
+    80	            )
+    81	        })
+    82	        .collect::<Vec<_>>();
+    83	    components.sort();
+    84	    for component in components {
+    85	        hash.update((component.len() as u64).to_le_bytes());
+    86	        hash.update(component.as_bytes());
+    87	    }
+    88	    encode_digest(&hash.finalize())
+    89	}
+    90	
+    91	fn preparation_material_current_digest(
+    92	    ctx: &ReducerContext,
+    93	    food_lot_id: u64,
+    94	    current_minute: StrategicMinute,
+    95	) -> String {
+    96	    use sha2::Digest as _;
+    97	    let mut hash = sha2::Sha256::new();
+    98	    hash.update(b"ingredient-material-current-v1");
+    99	    hash.update(preparation_material_source_digest(ctx, food_lot_id).as_bytes());
+   100	    if let Some(row) = ctx.db.food_contamination().food_lot_id().find(food_lot_id) {
+   101	        let current = food::contamination_at(
+   102	            row.concentration_anchor,
+   103	            row.growth_per_hour,
+   104	            current_minute.elapsed_since(row.anchor_minute),
+   105	        );
+   106	        hash.update(current.to_bits().to_le_bytes());
+   107	    }
+   108	    encode_digest(&hash.finalize())
+   109	}
+   110	
+   111	#[derive(Clone)]
+   112	struct PreparationAuthority {
+   113	    inventory_scope: String,
+   114	    inventory_item_id: u64,
+   115	    lot: FoodLot,
+   116	    object: crate::InventoryObject,
+   117	    custody_binding: String,
+   118	    place: adventuresim_core::strategic_place::StrategicPlaceId,
+   119	    skill: Skill,
+   120	    next: FoodPreparation,
+   121	    prefix: &'static str,
+   122	    tool_binding: String,
+   123	    duration: u32,
+   124	    material_source_digest: String,
+   125	    material_current_digest: String,
+   126	    material_snapshot: adventuresim_core::material::PrivateMaterialSnapshot<
+   127	        herbalism::IngredientMaterialPreparation,
+   128	        herbalism::MedicinalMaterialComponent,
+   129	        herbalism::IngredientContaminant,
+   130	    >,
+   131	    material_receipt: adventuresim_core::material::MaterialTransformationReceipt<
+   132	        herbalism::IngredientMaterialPreparation,
+   133	        herbalism::MedicinalMaterialComponent,
+   134	        herbalism::IngredientContaminant,
+   135	        herbalism::PreparationConservationPolicy,
+   136	        herbalism::PreparationMaterialReceipt,
+   137	    >,
+   138	}
+   139	
+   140	fn preparation_lot_truth_unchanged(before: &FoodLot, after: &FoodLot) -> bool {
+   141	    before.id == after.id
+   142	        && before.inventory_item_id == after.inventory_item_id
+   143	        && before.party_inventory_item_id == after.party_inventory_item_id
+   144	        && before.material_revision == after.material_revision
+   145	        && before.display_name == after.display_name
+   146	        && before.preparation == after.preparation
+   147	        && before.ingredient_item_ids == after.ingredient_item_ids
+   148	        && before
+   149	            .ingredient_quantities
+   150	            .iter()
+   151	            .map(|value| value.to_bits())
+   152	            .eq(after
+   153	                .ingredient_quantities
+   154	                .iter()
+   155	                .map(|value| value.to_bits()))
+   156	        && before.salty_kg.to_bits() == after.salty_kg.to_bits()
+   157	        && before.spicy_kg.to_bits() == after.spicy_kg.to_bits()
+   158	        && before.sweet_kg.to_bits() == after.sweet_kg.to_bits()
+   159	        && before.sour_kg.to_bits() == after.sour_kg.to_bits()
+   160	        && before.savory_kg.to_bits() == after.savory_kg.to_bits()

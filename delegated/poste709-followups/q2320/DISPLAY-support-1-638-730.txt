@@ -1,0 +1,93 @@
+   638	#[derive(Clone, Debug, Eq, PartialEq)]
+   639	pub struct CommitAttempt {
+   640	    pub request_id: ActionRequestId,
+   641	    pub action_id: ActionDefinitionId,
+   642	    pub authority_binding: AuthorityBinding,
+   643	}
+   644	
+   645	#[derive(Clone, Debug, Eq, PartialEq)]
+   646	pub struct CommitReceipt {
+   647	    pub provenance: PlanProvenance,
+   648	}
+   649	
+   650	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   651	pub enum CommitDecision {
+   652	    Apply,
+   653	    IdempotentReplay,
+   654	}
+   655	
+   656	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   657	pub enum CommitRejection {
+   658	    ForgedPlan,
+   659	    IdempotencyConflict,
+   660	    StaleSnapshot,
+   661	    PrerequisitesChanged,
+   662	    CalculationChanged,
+   663	}
+   664	
+   665	pub fn validate_commit<T, R, C, I, E, P>(
+   666	    planned: &AuthoritativeActionPlan<T, R, C, I, E, P>,
+   667	    replanned: &PlanningOutcome<T, R, C, I, E, P>,
+   668	    current_snapshot: AuthoritativeSnapshot,
+   669	    attempt: &CommitAttempt,
+   670	    prior_receipt: Option<&CommitReceipt>,
+   671	) -> Result<CommitDecision, CommitRejection>
+   672	where
+   673	    T: DomainTarget,
+   674	    R: DomainRequirement,
+   675	    C: DomainCapability,
+   676	    I: DomainInterruption,
+   677	    E: DomainEffect,
+   678	    P: PublicPreview,
+   679	{
+   680	    let provenance = &planned.provenance;
+   681	    let attempt_matches = attempt.request_id == provenance.request_id
+   682	        && attempt.action_id == provenance.action_id
+   683	        && attempt.authority_binding == provenance.authority_binding;
+   684	    if let Some(receipt) = prior_receipt
+   685	        && receipt.provenance.request_id == attempt.request_id
+   686	    {
+   687	        return if attempt_matches && receipt.provenance == *provenance {
+   688	            Ok(CommitDecision::IdempotentReplay)
+   689	        } else {
+   690	            Err(CommitRejection::IdempotencyConflict)
+   691	        };
+   692	    }
+   693	    if !attempt_matches || provenance.input_digest != planned.snapshot.digest {
+   694	        return Err(CommitRejection::ForgedPlan);
+   695	    }
+   696	    if planned.snapshot != current_snapshot {
+   697	        return Err(CommitRejection::StaleSnapshot);
+   698	    }
+   699	    let PlanningOutcome::Ready(replanned) = replanned else {
+   700	        return Err(CommitRejection::PrerequisitesChanged);
+   701	    };
+   702	    if replanned.snapshot != current_snapshot {
+   703	        return Err(CommitRejection::StaleSnapshot);
+   704	    }
+   705	    if planned.coordinates != replanned.coordinates
+   706	        || planned.provenance != replanned.provenance
+   707	        || planned.requirements != replanned.requirements
+   708	        || planned.time != replanned.time
+   709	        || planned.calculation != replanned.calculation
+   710	    {
+   711	        return Err(CommitRejection::CalculationChanged);
+   712	    }
+   713	    Ok(CommitDecision::Apply)
+   714	}
+   715	
+   716	#[cfg(test)]
+   717	mod tests {
+   718	    use super::*;
+   719	    use crate::strategic_place::SettlementVenueKind;
+   720	
+   721	    #[derive(Clone, Debug, Eq, PartialEq)]
+   722	    enum Target {
+   723	        Evidence(u64),
+   724	    }
+   725	    impl DomainTarget for Target {}
+   726	    #[derive(Clone, Debug, Eq, PartialEq)]
+   727	    enum Req {
+   728	        KnowsCase,
+   729	    }
+   730	    impl DomainRequirement for Req {}

@@ -1,0 +1,66 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/templates/settlement/trade/discard.rs:1-65
+   1 //! Personal discard staging and ingredient-preparation edge actions.
+   2 
+   3 use super::*;
+   4 use super::{equipment::*, inventory::*};
+   5 
+   6 /// The active character's inventory with a staged discard list.
+   7 #[expect(
+   8     clippy::too_many_arguments,
+   9     reason = "the discard page boundary composes independent custody, selection, and encumbrance projections"
+  10 )]
+  11 pub fn party_discard_page(
+  12     location: &LocationView,
+  13     active_character: &CharacterView,
+  14     inventory: &[InventoryItem],
+  15     items: &[crate::spacetimedb::CatalogItemView],
+  16     food_lots: &[FoodLot],
+  17     preparation_plans: &[BackendIngredientPreparationPlan],
+  18     party_members: &[CharacterView],
+  19     equip: Option<&CharacterEquipmentGraph>,
+  20     encumbrance: EncumbranceSummary,
+  21 ) -> Markup {
+  22     let content = html! {
+  23         aside class="left-sidebar" {
+  24             (sidebar_section("Discard", html! {
+  25                 p class="text-muted small-copy" data-discard-empty { "Stage carried items here before discarding them." }
+  26                 div data-discard-table hidden {
+  27                     (trade_inventory_table("discard-left", InventoryColumnSet::All, true, false, false, html! {}))
+  28                 }
+  29             }))
+  30         }
+  31         main class="center-content settlement-main party-member-stage" {
+  32             (party_portrait_overlay(party_members, Some(active_character), &location.base_path(), Some(active_character.id)))
+  33             (visual_stage(VisualStageKind::Character, &active_character.name, "Your carried equipment and supplies"))
+  34             (settlement_chat_area(&active_character.name, Some(active_character)))
+  35             form id="inventory-discard" class="party-offer"
+  36                 action=(format!("{}/party/{}/inventory/discard", location.base_path(), active_character.id))
+  37                 method="post" hidden role="dialog" aria-modal="true" aria-label="Confirm discarded items" tabindex="-1" {
+  38                 span class="party-offer-summary" data-discard-confirmation { "Discard the staged items?" }
+  39                 button type="button" class="party-offer-cancel" data-cancel-trade="discard" { "Cancel" }
+  40                 button type="submit" disabled { "Discard" }
+  41             }
+  42         }
+  43         aside class="right-sidebar" {
+  44             (discard_inventory_rail(active_character, inventory, items, food_lots, preparation_plans, &format!("{}/party/{}/inventory", location.base_path(), active_character.id), equip, encumbrance))
+  45         }
+  46     };
+  47     location.render_layout("Inventory", content, Some(&active_character.name))
+  48 }
+  49 #[expect(
+  50     clippy::too_many_arguments,
+  51     reason = "the discard rail combines independent custody, selection, and encumbrance projections"
+  52 )]
+  53 pub(super) fn discard_inventory_rail(
+  54     character: &CharacterView,
+  55     inventory: &[InventoryItem],
+  56     items: &[crate::spacetimedb::CatalogItemView],
+  57     food_lots: &[FoodLot],
+  58     preparation_plans: &[BackendIngredientPreparationPlan],
+  59     return_to: &str,
+  60     equip: Option<&CharacterEquipmentGraph>,
+  61     encumbrance: EncumbranceSummary,
+  62 ) -> Markup {
+  63     let title = format!("{}'s inventory", character.name);
+  64     html! {
+  65         (sidebar_section(&title, html! {

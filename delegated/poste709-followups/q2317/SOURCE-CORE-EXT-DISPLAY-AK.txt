@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-core/src/food.rs:235-280
+ 235         self.sweet += other.sweet;
+ 236         self.sour += other.sour;
+ 237         self.savory += other.savory;
+ 238     }
+ 239 
+ 240     pub fn valid(self) -> bool {
+ 241         [self.salty, self.spicy, self.sweet, self.sour, self.savory]
+ 242             .into_iter()
+ 243             .all(|value| value.is_finite() && value >= 0.0)
+ 244     }
+ 245 }
+ 246 
+ 247 #[derive(Clone, Copy, Debug, PartialEq)]
+ 248 pub struct FoodDefinition {
+ 249     pub id: &'static str,
+ 250     pub name: &'static str,
+ 251     pub class: FoodClass,
+ 252     pub kcal_per_unit: f32,
+ 253     pub mass_kg_per_unit: f32,
+ 254     pub value_per_unit: f32,
+ 255     /// Exponential growth exponent per hour at the deferred ambient baseline.
+ 256     pub growth_per_hour: f32,
+ 257     /// Minutes required for the ingredient to become safe/done.
+ 258     pub cooking_minutes: u32,
+ 259     pub flavors_per_unit: FlavorProfile,
+ 260     pub culinary_fat: bool,
+ 261     /// Quality of catalog stock and newly acquired raw lots.
+ 262     pub default_quality: u8,
+ 263 }
+ 264 
+ 265 pub static FOOD_CATALOG: std::sync::LazyLock<Vec<FoodDefinition>> =
+ 266     std::sync::LazyLock::new(|| {
+ 267         crate::item_catalog::catalog()
+ 268             .iter()
+ 269             .filter_map(|item| {
+ 270                 let food = item.capabilities.food.as_ref()?;
+ 271                 let class = match food.class.as_str() {
+ 272                     "ration" => FoodClass::Ration,
+ 273                     "grain" => FoodClass::Grain,
+ 274                     "bread" => FoodClass::Bread,
+ 275                     "fruit" => FoodClass::Fruit,
+ 276                     "berries" => FoodClass::Berries,
+ 277                     "vegetable" => FoodClass::Vegetable,
+ 278                     "nuts" => FoodClass::Nuts,
+ 279                     "herb" => FoodClass::Herb,
+ 280                     "mushroom" => FoodClass::Mushroom,

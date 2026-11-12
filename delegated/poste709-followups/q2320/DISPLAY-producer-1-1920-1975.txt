@@ -1,0 +1,56 @@
+  1920	        character_id,
+  1921	        0,
+  1922	        death_minute,
+  1923	        "critical",
+  1924	        "A vital humour is failing.",
+  1925	    )?;
+  1926	    Ok((
+  1927	        death_minute.elapsed_since(now),
+  1928	        terminal.map(|value| value.1),
+  1929	    ))
+  1930	}
+  1931	
+  1932	pub fn clip_elapsed_for_disease(
+  1933	    ctx: &ReducerContext,
+  1934	    character_id: u64,
+  1935	    requested: u64,
+  1936	    allow_healing: bool,
+  1937	) -> Result<(u64, Option<TerminalFailure>), String> {
+  1938	    clip_elapsed_for_disease_planned(ctx, character_id, requested, allow_healing, None)
+  1939	}
+  1940	
+  1941	pub fn clip_elapsed_for_disease_in_plan(
+  1942	    ctx: &ReducerContext,
+  1943	    character_id: u64,
+  1944	    requested: u64,
+  1945	    allow_healing: bool,
+  1946	    plan: &PartyDiseaseIntervalPlan,
+  1947	) -> Result<(u64, Option<TerminalFailure>), String> {
+  1948	    clip_elapsed_for_disease_planned(ctx, character_id, requested, allow_healing, Some(plan))
+  1949	}
+  1950	
+  1951	/// Side-effect-free party preflight. Acquisition and notice delivery happen
+  1952	/// only in the subsequent committed interval.
+  1953	fn preview_disease_boundary_planned(
+  1954	    ctx: &ReducerContext,
+  1955	    character_id: u64,
+  1956	    requested: u64,
+  1957	    allow_healing: bool,
+  1958	    plan: Option<&PartyDiseaseIntervalPlan>,
+  1959	) -> Result<(u64, bool), String> {
+  1960	    let owned_plan;
+  1961	    let plan = if let Some(plan) = plan {
+  1962	        plan
+  1963	    } else {
+  1964	        owned_plan = plan_party_disease_interval(ctx, &[character_id], requested, allow_healing)?;
+  1965	        &owned_plan
+  1966	    };
+  1967	    let now = ctx
+  1968	        .db
+  1969	        .character_time()
+  1970	        .character_id()
+  1971	        .find(character_id)
+  1972	        .map_or(StrategicMinute::ZERO, |t| t.minutes);
+  1973	    let immunity = ctx
+  1974	        .db
+  1975	        .character_attributes()

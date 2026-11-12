@@ -1,0 +1,125 @@
+     1	//! Limit hypothetical skeletal probes before they collapse or reverse a fold.
+     2	//!
+     3	//! Each moving face retains a quarter of its area projected onto its original
+     4	//! plane throughout the translation path. This is a local orientation reserve,
+     5	//! not a nonadjacent collision guarantee or an exported editor-range contract.
+     6	
+     7	const RETAINED_ORIENTED_AREA: f64 = 0.25;
+     8	const FRACTION_SEARCH_STEPS: usize = 24;
+     9	
+    10	struct AreaPath {
+    11	    linear: f64,
+    12	    quadratic: f64,
+    13	}
+    14	
+    15	impl AreaPath {
+    16	    fn new(base: [[f32; 3]; 3], sample: [[f32; 3]; 3]) -> Option<Self> {
+    17	        let edge = |points: [[f32; 3]; 3], corner: usize| {
+    18	            std::array::from_fn(|axis| f64::from(points[corner][axis]) - f64::from(points[0][axis]))
+    19	        };
+    20	        let [u, v] = [edge(base, 1), edge(base, 2)];
+    21	        let du = std::array::from_fn(|axis| edge(sample, 1)[axis] - u[axis]);
+    22	        let dv = std::array::from_fn(|axis| edge(sample, 2)[axis] - v[axis]);
+    23	        let normal = cross(u, v);
+    24	        let denominator = dot(normal, normal);
+    25	        if denominator <= 0.0 || !denominator.is_finite() {
+    26	            return None;
+    27	        }
+    28	        let linear = (dot(cross(du, v), normal) + dot(cross(u, dv), normal)) / denominator;
+    29	        let quadratic = dot(cross(du, dv), normal) / denominator;
+    30	        (linear.is_finite() && quadratic.is_finite()).then_some(Self { linear, quadratic })
+    31	    }
+    32	
+    33	    fn preserves_orientation_through(&self, end: f64) -> bool {
+    34	        let at = |t: f64| 1.0 + self.linear * t + self.quadratic * t * t;
+    35	        let mut minimum = 1.0_f64.min(at(end));
+    36	        if self.quadratic > 0.0 {
+    37	            let stationary = (-self.linear / (2.0 * self.quadratic)).clamp(0.0, end);
+    38	            minimum = minimum.min(at(stationary));
+    39	        }
+    40	        minimum >= RETAINED_ORIENTED_AREA
+    41	    }
+    42	}
+    43	
+    44	/// Scale one probe uniformly, retaining its skeletal translation correspondence.
+    45	pub(super) fn oriented_area_fraction(
+    46	    base: &[[f32; 3]],
+    47	    sample: &[[f32; 3]],
+    48	    faces: &[[u32; 3]],
+    49	) -> f32 {
+    50	    let paths = faces
+    51	        .iter()
+    52	        .map(|face| {
+    53	            AreaPath::new(
+    54	                face.map(|v| base[v as usize]),
+    55	                face.map(|v| sample[v as usize]),
+    56	            )
+    57	        })
+    58	        .collect::<Option<Vec<_>>>();
+    59	    // An invalid selected surface cannot justify extrapolation. Preserve it
+    60	    // for the ordinary body/garment validation rather than fabricating a probe.
+    61	    let Some(paths) = paths else {
+    62	        return 0.0;
+    63	    };
+    64	    let valid = |end| {
+    65	        paths
+    66	            .iter()
+    67	            .all(|path| path.preserves_orientation_through(end))
+    68	    };
+    69	    if valid(1.0) {
+    70	        return 1.0;
+    71	    }
+    72	    let (mut low, mut high) = (0.0, 1.0);
+    73	    for _ in 0..FRACTION_SEARCH_STEPS {
+    74	        let middle = (low + high) * 0.5;
+    75	        if valid(middle) {
+    76	            low = middle;
+    77	        } else {
+    78	            high = middle;
+    79	        }
+    80	    }
+    81	    // Casting must not round beyond the last accepted interval boundary.
+    82	    (low as f32).next_down().max(0.0)
+    83	}
+    84	
+    85	fn dot(a: [f64; 3], b: [f64; 3]) -> f64 {
+    86	    (0..3).map(|i| a[i] * b[i]).sum()
+    87	}
+    88	
+    89	fn cross(a: [f64; 3], b: [f64; 3]) -> [f64; 3] {
+    90	    [
+    91	        a[1] * b[2] - a[2] * b[1],
+    92	        a[2] * b[0] - a[0] * b[2],
+    93	        a[0] * b[1] - a[1] * b[0],
+    94	    ]
+    95	}
+    96	
+    97	#[cfg(test)]
+    98	mod tests {
+    99	    use super::*;
+   100	
+   101	    #[test]
+   102	    fn body_specific_fold_stops_before_its_face_reverses() {
+   103	        let base = [[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]];
+   104	        let crossed = [[0., 0., 0.], [-0.25, 0., 0.], [0., 1., 0.]];
+   105	        let fraction = oriented_area_fraction(&base, &crossed, &[[0, 1, 2]]);
+   106	        assert!(fraction > 0.59 && fraction <= 0.6);
+   107	        let retained = 1.0 - 1.25 * f64::from(fraction);
+   108	        assert!(retained >= RETAINED_ORIENTED_AREA);
+   109	    }
+   110	
+   111	    #[test]
+   112	    fn matching_endpoint_normals_do_not_hide_an_intermediate_collapse() {
+   113	        let base = [[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]];
+   114	        let reversed_edges = [[0., 0., 0.], [-1., 0., 0.], [0., -1., 0.]];
+   115	        let fraction = oriented_area_fraction(&base, &reversed_edges, &[[0, 1, 2]]);
+   116	        assert!(fraction > 0.24 && fraction <= 0.25);
+   117	    }
+   118	
+   119	    #[test]
+   120	    fn translation_and_outward_growth_preserve_the_requested_probe() {
+   121	        let base = [[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]];
+   122	        let moved = base.map(|point| [point[0] * 2.0 + 3.0, point[1] + 4.0, point[2] - 2.0]);
+   123	        assert_eq!(oriented_area_fraction(&base, &moved, &[[0, 1, 2]]), 1.0);
+   124	    }
+   125	}

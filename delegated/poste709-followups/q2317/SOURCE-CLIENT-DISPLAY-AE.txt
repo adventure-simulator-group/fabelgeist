@@ -1,0 +1,61 @@
+SOURCE crates/strategic-web/static/cooking.js:66-125
+  66 
+  67         let reason = "Select at least one loose food portion for spit roasting";
+  68         if (method && values.length) {
+  69           const mass = values.reduce(
+  70             (sum, value) => sum + value.mass * value.quantity / value.available,
+  71             0,
+  72           );
+  73           const slowest = Math.max(...values.map((value) => value.safety));
+  74           const batch = Math.ceil(Math.sqrt(Math.max(0, mass - 0.5)) * 8);
+  75           const duration = setup[method.value] + slowest + batch;
+  76           const stewWaterMl = method.value === "stew"
+  77             ? 500 + values.reduce((sum, value) => sum + value.quantity / fullAmount, 0) * 100
+  78             : 0;
+  79           const finishedMass = mass + stewWaterMl / 1000;
+  80           const totals = ["salty", "spicy", "sweet", "sour", "savory"].reduce((result, flavor) => {
+  81             result[flavor] = values.reduce(
+  82               (sum, value) => sum + value[flavor] * value.quantity / value.available,
+  83               0,
+  84             );
+  85             return result;
+  86           }, {});
+  87           let active = Object.entries(totals);
+  88           if (method.value === "bake") {
+  89             const baked = totals.sweet >= totals.savory ? "sweet" : "savory";
+  90             active = active.filter(([flavor]) => ["salty", "spicy", baked].includes(flavor));
+  91           } else if (method.value === "stew") {
+  92             active = active.filter(([flavor]) => ["salty", "spicy", "sour", "savory"].includes(flavor));
+  93           } else {
+  94             active = active.filter(([flavor]) => ["salty", "spicy", "savory"].includes(flavor));
+  95           }
+  96           const scores = active.map(([, value]) => {
+  97             const ratio = value / finishedMass;
+  98             return ratio <= 1 ? 5 * ratio : 5 / (ratio * ratio);
+  99           });
+ 100           const flavorQuality = scores.length
+ 101             ? scores.reduce((sum, score) => sum + score, 0) / scores.length
+ 102             : 1;
+ 103           const culinaryFatMass = values.reduce(
+ 104             (sum, value) => sum + (value.culinaryFat
+ 105               ? value.mass * value.quantity / value.available
+ 106               : 0),
+ 107             0,
+ 108           );
+ 109           const notes = [
+ 110             `${duration} min before chef-speed adjustment`,
+ 111             `flavor score ${formatNumber(flavorQuality)}/5`,
+ 112             "final quality is capped by Cooking skill",
+ 113           ];
+ 114           if (method.value === "roast") notes.push("15% calories lost to drippings");
+ 115           if (method.value === "pan-fry" && culinaryFatMass < mass * panFatRatio) {
+ 116             notes.push("staged culinary fat is below 2% of ingredient mass: quality drops one tier");
+ 117           }
+ 118           if (method.value === "stew") notes.push("stew remains in the fireplace until retrieved");
+ 119           if (method.value === "stew") notes.push(`${formatNumber(stewWaterMl / 1000)} kg water included in flavor mass`);
+ 120           reason = notes.join(" · ");
+ 121         }
+ 122         if (preview) preview.textContent = reason;
+ 123         submit.disabled = !method || values.length === 0;
+ 124         submit.title = reason;
+ 125         submit.setAttribute("aria-label", submit.disabled ? `Cook unavailable. ${reason}` : `Cook. ${reason}`);

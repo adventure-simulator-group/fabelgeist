@@ -1,0 +1,86 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/ingredient_preparation.rs:1-85
+   1 #[derive(Deserialize)]
+   2 pub(super) struct PrepareIngredientForm {
+   3     inventory_item_id: u64,
+   4     inventory_scope: String,
+   5     food_lot_id: u64,
+   6     material_object_id: u64,
+   7     request_id: String,
+   8     expected_revision: u64,
+   9     attempt_generation: u64,
+  10     preparation_action: String,
+  11     return_to: Option<String>,
+  12 }
+  13 
+  14 use crate::spacetimedb::parse_ingredient_preparation_action;
+  15 
+  16 pub(super) async fn prepare_ingredient_lot(
+  17     State(state): State<AppState>,
+  18     session: Session,
+  19     Form(form): Form<PrepareIngredientForm>,
+  20 ) -> Response {
+  21     let Some(character_id) = session.character_id_u64() else {
+  22         return (StatusCode::UNAUTHORIZED, "Select a character first").into_response();
+  23     };
+  24     let Some(preparation_action) = parse_ingredient_preparation_action(&form.preparation_action) else {
+  25         return (StatusCode::BAD_REQUEST, "Invalid ingredient preparation").into_response();
+  26     };
+  27     let action = match preparation_action {
+  28         IngredientPreparationAction::Cut => json!({ "cut": {} }),
+  29         IngredientPreparationAction::Grind => json!({ "grind": {} }),
+  30     };
+  31     if let Err(error) = state
+  32         .db
+  33         .call(
+  34             "prepare_ingredient_lot",
+  35             &[
+  36                 json!(character_id),
+  37                 json!(form.inventory_scope),
+  38                 json!(form.inventory_item_id),
+  39                 json!(form.food_lot_id),
+  40                 json!(form.material_object_id),
+  41                 json!(form.request_id),
+  42                 json!(form.expected_revision),
+  43                 json!(form.attempt_generation),
+  44                 action,
+  45             ],
+  46         )
+  47         .await
+  48     {
+  49         return (StatusCode::BAD_REQUEST, error.to_string()).into_response();
+  50     }
+  51     redirect_to_local(form.return_to.as_deref().unwrap_or(""), "/").into_response()
+  52 }
+  53 
+  54 #[cfg(test)]
+  55 mod tests {
+  56     use super::parse_ingredient_preparation_action;
+  57     use crate::spacetimedb::IngredientPreparationAction;
+  58 
+  59     #[test]
+  60     fn preparation_redirect_uses_shared_local_url_validation() {
+  61         let source = include_str!("ingredient_preparation.rs");
+  62         let handler = source.split("#[cfg(test)]").next().unwrap();
+  63         assert!(source.contains("redirect_to_local"));
+  64         assert!(source.contains("preparation_action"));
+  65         assert!(source.contains("form.material_object_id"));
+  66         assert!(source.contains("form.request_id"));
+  67         assert!(source.contains("form.expected_revision"));
+  68         assert!(source.contains("form.attempt_generation"));
+  69         assert!(!handler.contains("form.action"));
+  70         assert!(!source.contains("starts_with(\"//\")"));
+  71     }
+  72 
+  73     #[test]
+  74     fn preparation_action_form_uses_closed_wire_tags() {
+  75         assert_eq!(
+  76             parse_ingredient_preparation_action("cut"),
+  77             Some(IngredientPreparationAction::Cut)
+  78         );
+  79         assert_eq!(
+  80             parse_ingredient_preparation_action("grind"),
+  81             Some(IngredientPreparationAction::Grind)
+  82         );
+  83         assert_eq!(parse_ingredient_preparation_action("chop"), None);
+  84     }
+  85 }

@@ -1,0 +1,37 @@
+SOURCE 6533e444fa37552927070cc8d8190907fd3b413e:content/items/catalog.yaml:140-175
+ 140       "presentation": {"icon": "help"}, "kind": "medication"
+ 141     },
+ 142     {
+ 143       "id": "fine_sage_infusion", "display_name": "Fine sage infusion", "weight_kg": 0.25, "exterior_volume_ml": 313,
+ 144       "base_value": 9, "tags": ["medication", "herbal_preparation", "potency_strong"],
+ 145       "presentation": {"icon": "help"}, "kind": "medication"
+ 146     },
+ 147     {
+ 148       "id": "apple",
+ 149       "display_name": "Apple",
+ 150       "weight_kg": 0.18,
+ 151 
+ 152       "exterior_volume_ml": 225,
+ 153       "base_value": 1,
+ 154       "tags": [
+ 155         "food"
+ 156       ],
+ 157       "presentation": {
+ 158         "icon": "help"
+ 159       },
+ 160       "kind": "food",
+ 161       "capabilities": {
+ 162         "food": {
+ 163           "class": "fruit",
+ 164           "nutrition_kcal": 95,
+ 165           "growth_per_hour": 0.012,
+ 166           "cooking_minutes": 5,
+ 167           "flavors_kg": {
+ 168             "salty": 0,
+ 169             "spicy": 0,
+ 170             "sweet": 0.12,
+ 171             "sour": 0.12,
+ 172             "savory": 0
+ 173           },
+ 174           "culinary_fat": false,
+ 175           "quality": 3,

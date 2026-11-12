@@ -1,0 +1,76 @@
+ 340 pub fn scale_contamination_contributions(
+ 341     raw_concentration: f32,
+ 342     surviving_concentration: f32,
+ 343     contribution_loads: &[f32],
+ 344 ) -> Vec<f32> {
+ 345     let survival = if raw_concentration > 0.0 {
+ 346         (surviving_concentration / raw_concentration).clamp(0.0, 1.0)
+ 347     } else {
+ 348         0.0
+ 349     };
+ 350     contribution_loads
+ 351         .iter()
+ 352         .map(|load| load * survival)
+ 353         .collect()
+ 354 }
+ 355 
+ 356 pub fn cooked_growth_per_hour(input_growth: &[f32], method: CookingMethod) -> f32 {
+ 357     let slowest = input_growth
+ 358         .iter()
+ 359         .copied()
+ 360         .filter(|v| v.is_finite())
+ 361         .fold(0.0_f32, f32::max);
+ 362     let factor = match method {
+ 363         CookingMethod::PanFry => 0.42,
+ 364         CookingMethod::Stew => 0.35,
+ 365         CookingMethod::Roast => 0.45,
+ 366         CookingMethod::Bake => 0.32,
+ 367     };
+ 368     (slowest * factor).clamp(0.003, 0.045)
+ 369 }
+ 370 
+ 371 pub fn cooking_duration_minutes(
+ 372     method: CookingMethod,
+ 373     safety_minutes: &[u32],
+ 374     total_mass_kg: f32,
+ 375 ) -> Option<u32> {
+ 376     if safety_minutes.is_empty()
+ 377         || !total_mass_kg.is_finite()
+ 378         || total_mass_kg <= 0.0
+ 379         || total_mass_kg > 25.0
+ 380     {
+ 381         return None;
+ 382     }
+ 383     let setup: u32 = match method {
+ 384         CookingMethod::PanFry => 5,
+ 385         CookingMethod::Stew => 12,
+ 386         CookingMethod::Roast => 7,
+ 387         CookingMethod::Bake => 30,
+ 388     };
+ 389     let slowest = safety_minutes.iter().copied().max()?;
+ 390     let batch = ((total_mass_kg - 0.5).max(0.0).sqrt() * 8.0).ceil() as u32;
+ 391     setup.checked_add(slowest)?.checked_add(batch)
+ 392 }
+ 393 
+ 394 /// Expertise shortens setup and batch handling, never the ingredient safety
+ 395 /// interval. Rank five removes at most thirty percent of overhead.
+ 396 pub fn cooking_duration_minutes_for_check(
+ 397     method: CookingMethod,
+ 398     safety_minutes: &[u32],
+ 399     total_mass_kg: f32,
+ 400     cooking_check: f32,
+ 401 ) -> Option<u32> {
+ 402     let baseline = cooking_duration_minutes(method, safety_minutes, total_mass_kg)?;
+ 403     let safety = safety_minutes.iter().copied().max()?;
+ 404     let overhead = baseline.saturating_sub(safety);
+ 405     let check = if cooking_check.is_finite() {
+ 406         cooking_check.clamp(0.0, 5.0)
+ 407     } else {
+ 408         0.0
+ 409     };
+ 410     safety.checked_add((overhead as f32 * (1.0 - 0.06 * check)).ceil() as u32)
+ 411 }
+ 412 
+ 413 pub fn cooked_nutrition_retention(cooking_check: f32) -> f32 {
+ 414     let check = if cooking_check.is_finite() {
+ 415         cooking_check.clamp(0.0, 5.0)

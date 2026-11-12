@@ -1,0 +1,18 @@
+{
+  "schema": "privacy-boundary-v1",
+  "qualification": "Restricted predecessor frozen unchanged; supplementary scan found two local-temp path candidates in the named self-authored helper scripts. Safe successor omits those scripts and includes all other predecessor manifest files unchanged before adding successor artifacts. No missing original evidence record or source byte; do not publish predecessor or scan findings with candidate values. No sensitive-value disclosure.",
+  "restricted_predecessor_manifest_sha256": "98d04c6bdd4e781f738c2a27bca2ce67e31582bb1135afc04951704d1e7355c3",
+  "omitted": [
+    {
+      "path": "register_stage.py",
+      "bytes": 1840,
+      "sha256": "4f544d2ecc95db9fd3cc5ab354bf36eb03d754ad877664906fb72b0a56b8cccc"
+    },
+    {
+      "path": "show_range.py",
+      "bytes": 899,
+      "sha256": "4c01dea477cb6aac2df79691832ff16b843558a75f2d9c63f7e272e5f890851a"
+    }
+  ],
+  "independent_reverification": "Pass --restricted-predecessor to evidence-only verifier to check full predecessor manifest, excluded hashes, and unchanged inherited files."
+}

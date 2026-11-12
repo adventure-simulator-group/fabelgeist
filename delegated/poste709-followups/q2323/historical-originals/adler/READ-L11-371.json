@@ -1,0 +1,194 @@
+{
+  "lens": 11,
+  "batch": 371,
+  "status": "Exact registered source ranges accounted WITH findings",
+  "sources": [
+    {
+      "original_index": 2314,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1174.json",
+      "registration_sha256": "a9d88f7a296def6e8eaa5fdfe89b9f06a76afc383008fbf53b0ffd134ead4b74",
+      "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.toml",
+      "sha256": "55bc5dad2b9cc29b536931350e93450876d6fd3ea3f9e8a105e6a32fa4b765d7",
+      "scope": [
+        [
+          1,
+          25
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          25
+        ]
+      ]
+    },
+    {
+      "original_index": 2315,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1175.json",
+      "registration_sha256": "f98950015edf948501ca803818b1aed8712878a4d385f99938ba48a32148f02b",
+      "source_id": "pr-working:crates/fabelgeist-mhr/README.md",
+      "sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+      "scope": [
+        [
+          1,
+          154
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          154
+        ]
+      ]
+    },
+    {
+      "original_index": 2316,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1176.json",
+      "registration_sha256": "cbff1a0f3d2516b25b620334425ddf49a3cde13c10e7f811ee75ef624b6b9ce5",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character.rs",
+      "sha256": "2d2357141ae8fa55cdb6e758723986a13dae79c775a82cdb7d4d79615e1076ed",
+      "scope": [
+        [
+          1,
+          315
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          315
+        ]
+      ]
+    },
+    {
+      "original_index": 2317,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1177.json",
+      "registration_sha256": "81d88c3f7ae7ce42c0c1b0ad27ac59d4469dc610336c68d0088daed3e7aa4304",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skeleton.rs",
+      "sha256": "2383576b6c27646e1d1a0f8d8ace26b841a830c28d9bdf745a3a6efe0df1d50d",
+      "scope": [
+        [
+          1,
+          136
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          136
+        ]
+      ]
+    },
+    {
+      "original_index": 2318,
+      "registration": "target\\726-audit-adler-20261027\\adler\\REGISTRATION-ADLER-1178.json",
+      "registration_sha256": "a2b0127a4b82f9cefa60687fcb45ac1938bcd7ec0cc6f3346de60ce32434c5c4",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs",
+      "sha256": "1c89d671f5f028a6d29f35ee160591ab974b84417ffab4037f886ed996940b68",
+      "scope": [
+        [
+          1,
+          113
+        ]
+      ],
+      "fresh_reads": [
+        [
+          1,
+          113
+        ]
+      ]
+    }
+  ],
+  "role_dispositions": [
+    {
+      "source_indices": [
+        2314
+      ],
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR metadata/native importer/rig admission.",
+      "disposition": "Full25 manifest independentworkspace, pinnedBurnGitdefaultfeaturesfalseexplicitstd/wgpu, plironpatch. No character-creator feature declared, so README85/88 documentedfeature invocation cannot match this manifest; actualexamples/taskintegrationexistence/current stillpending. No build/feature resolution."
+    },
+    {
+      "source_indices": [
+        2315
+      ],
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR metadata/native importer/rig admission.",
+      "disposition": "Full154 guide metadata states shapes45/204/72,127joints/117blendshapes,cmvertices/radiansangles andparityasset-skips. Those are source documentation claims, not independentlyverifiedscience/benchmark/nativeparityresults. Documented character-creatorfeatureabsentfromactualmanifest; BodyModelTask/normalsclaimsneedactualmodel/facadebeforedecidingstaleness. Finalknown-gap normalsnotcomputed vs earliernormalsselector contradictory, carrydocumentationreconciliation. Native TorchScript reference is evidence/sourceboundary not automaticallyforbiddenbackcompatfallback. ExternalMHRpaper/sitesnotconsulted."
+    },
+    {
+      "source_indices": [
+        2316
+      ],
+      "ranges": [
+        [
+          1,
+          315
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR metadata/native importer/rig admission.",
+      "disposition": "Full315 Character importsFBXwithanyhow Context/bail, sharedRigJointOrdinalTable andnormalizedFbxObjectName, exactjointobjectmappingestablishedfromsameparse. VertextriplesandUVpairsremainderrejected, skinerrorspropagated; f64->f32vertices/offsets nofinite/rangeadmission. Triangulate checks>=3polygonandterminator but rawi64asu32unchecked andneverchecksverticeslen; UVreferenceunknown treateddirect andmismatchedindexcountsilentlyempty; negative/out-of-rangeUVindicescastunchecked. Blendshapeinvalidvertices/shortoffsetssilentlyskip, missing arrayscreatesnamedzero-vectorbasis. Missingblendshape optionalempty deliberateloadoption, notautomaticallylegacyfallback. Actualmodeltopologyconsumer/layout/nativepolicy/current/all20dedupneeded. Fanfixedtestsreadunexecuted."
+    },
+    {
+      "source_indices": [
+        2317
+      ],
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR metadata/native importer/rig admission.",
+      "disposition": "Full136 canonicalSkeletonBuilder pushesnames/parents/offsets/prerotations/jointIDs together andcreatesparentordinalbeforechildren, so ordinaryparsemeetsparallelshape/parentprecedence. PublicSkeletonmutabletables/Default allowotherstates; bind_pose indexesparentalreadyglobalwithoutselfvalidation. ActualScene graphcycle/duplicatesvalidationneededbeforeclaimingrecursivecycle/duplicateIDfailure; not inferredfromAPIalone. Name.index_infirstduplicate nativeownercontract stillneeded, declarednormalizedlabelconversionnotcompatibilityalias. Numericresttransformf64->f32 finite/unitpolicy pending."
+    },
+    {
+      "source_indices": [
+        2318
+      ],
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "roles": "Independent lens11 exact MHR metadata/native importer/rig admission.",
+      "disposition": "Full113 parse_skin rejectsunknownbone, mismatchedcounts, invalidvertexindex andnoinfluences; keepsstrongest8,normalizesandPackedRigSkin::from_native validatesnativeindices. It onlyfiltersweight<=0 andclamps0..1, nofiniteguard, so NaN doesnotgetrejectedbeforetotal/normalization. WronglengthTransformLinkignoredretainingrestinverse, missingIndices/Weightsignoredcluster; supportedasset/defaultpolicyneedsfinalstructuredadmission. Canonicaloutputparallellengthsnum_verticesandjointownerbasis paired, no broadordinarycolumnlengthbug. ActualPackedRigSkin/math/currentnativecontracts pending."
+    }
+  ],
+  "connected_reinspection": [],
+  "same_lens_context": [
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-358.json",
+      "sha256": "044dc3725314e79b6a5c714f47aa10d844d66ef4f022b7bddc1a7266d920022d"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-369.json",
+      "sha256": "b70bdc0d9438ee41a6004fb25e5d404ef71987b56e8c9d94c23e26eb9fb16140"
+    },
+    {
+      "receipt": "target\\726-audit-adler-20261027\\adler\\READ-L11-370.json",
+      "sha256": "4b5ed266ac9a73bd4188aa7d8420290416354096382efae4f826521c6b302ece"
+    }
+  ],
+  "pending_contracts": [
+    "371accounts2314..2318 next2319correctives188. LastREG1178.22 mandatoryall13extensions/sixEOFqualifications/remainingfutureproofsretained.",
+    "QualifiedMHRtopology/sparseblendshape/finiteweightadmissionfamilies requireactualnativeFBX/rig/MHRtensorconsumers/current/all20dedupbeforefinalrepair. CanonicalSkeletonBuilderparallelcolumn/parentorderingpositivelyestablished, publicmutabletablesnotordinaryproducerfailure.",
+    "READMEfeature/normals/taskintegrationclaimsrequireactualsource/currentreconciliation; no docsmodified. All13populations/current/all20/aliases/connectedacceptanceincompletegatefalseaccepteduniquechange0; no productexecution/repairs/publication."
+  ],
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validated": false,
+  "implementation_gate_complete": false,
+  "next_original": 2319
+}

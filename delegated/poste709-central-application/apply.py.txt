@@ -1,0 +1,33 @@
+from pathlib import Path
+import sys,subprocess,json,hashlib,os,tempfile
+if sys.flags.optimize:raise RuntimeError('assertions must remain enabled')
+R=Path('.');P=R/'delegated/poste709-followups';C=P/'coordinator';S=Path(sys.argv[1]);H=lambda b:hashlib.sha256(b).hexdigest();enc=lambda x:(json.dumps(x,indent=2,ensure_ascii=False)+'\n').encode();head='e709f11f0aa6bf736bd20819a628e4790cd03999'
+assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==head
+names=['BASELINE-95E-20261110.json','CONTINUATION-PROGRESS-95E.json','RECONCILIATION-059.json','CONTINUATION.md'];original={}
+for name in names:
+ b=(R/name).read_bytes();assert b==subprocess.check_output(['git','show',head+':'+name]);original[name]=b
+ with (S/(name+'.before')).open('xb') as f:f.write(b)
+raw=(C/'CENTRAL-14B-SYNTHESIS-V2.json').read_bytes();assert H(raw)=='49bcf7ead548ccaceee760c20e3d0a1fe56f3f63c4784be4e43833e68da40d99';report=json.loads(raw);assert report['parent_published_checkpoint']==head
+assert H((P/'CATALOG.json').read_bytes())=='5db3d852459561ea0e4fb56b754f4f38f3f6a8bf9ec48f3163c13ff2220638fe'
+base=json.loads(original[names[0]]);ledger=base['newly_assessed_ledger']['entries'];added=report['ledger_relationships'];assert len(ledger)==1041 and len(added)==10 and len({x['id'] for x in added})==10 and not {x['id'] for x in ledger}&{x['id'] for x in added};ledger.extend(added)
+progress=json.loads(original[names[1]]);assert (progress['new_current_ledger_candidates'],progress['lens_count'],progress['lenses_complete'],progress['queue_records_semantically_reconciled'])==(1041,13,0,0);progress['new_current_ledger_candidates']=len(ledger);progress['central_poste709_bounded_reconciliation']='ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json';progress['e709_same_machine_recovery_verification']='delegated/poste709-followups/checkpoint-e709-recovery/RECOVERY-RECORD.json'
+queue=json.loads(original[names[2]]);assert len(queue['entries'])==3713
+for assessment in report['assessments']:
+ i=assessment['queue_index'];x=queue['entries'][i];assert x['contract_id']==assessment['historical_contract_id'] and x['current_reconciliation']=='unassessed';extra=' historical named-scope disposition retains its original e275 revision and reader;' if i in (2323,2324) else ' earlier open record retains its original revision and reader;';x['current_reconciliation']='partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json;'+extra+' producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit'
+assert [a['queue_index'] for a in report['assessments']]==list(range(2317,2325))
+text=original[names[3]].decode();needle='`ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json` connects';assert text.count(needle)==1
+insertion=('`delegated/poste709-followups/checkpoint-e709-recovery/RECOVERY-RECORD.json`\n' 'records same-machine recovery of the preceding published checkpoint.\n\n' '`ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json` connects bounded cooking,\n' 'preparation, foraging and creator source reviews to separately attributed\n' 'history. The relationships are not unique-defect counts or completed\n' 'queue records.\n\n');text=text.replace(needle,insertion+needle,1)
+selections=[{'index':i,'contract_id':queue['entries'][i]['contract_id'],'current_reconciliation_at_snapshot':queue['entries'][i]['current_reconciliation']} for i in [*range(2317,2325),2327]]
+snapshot={'schema':'726-poste709-time-bound-followup-snapshot-v1','source_revision':'95e63628f9d70b8dd6e6fede64334696c6995009','parent_published_checkpoint':head,'observed_counts':{'lenses':progress['lens_count'],'lenses_complete':progress['lenses_complete'],'queue_records':len(queue['entries']),'queue_semantically_reconciled':progress['queue_records_semantically_reconciled'],'current_ledger_entries_and_relationships':len(ledger)},'queue_selections':selections,'added_ledger_relationship_ids':[x['id'] for x in added],'central_report_sha256':H(raw),'bundle_catalog_sha256':H((P/'CATALOG.json').read_bytes()),'e709_recovery_manifest_sha256':H((P/'checkpoint-e709-recovery/MANIFEST.json').read_bytes()),'qualification':'Time-bound counts include relationships and conditional candidates, not independent defects. Historical, reconstructed and current work retain original attribution. Final checkpoint3821 queue and ledger remain missing.','repair':'not started','product_validation':'not performed'}
+out={names[0]:enc(base),names[1]:enc(progress),names[2]:enc(queue),names[3]:text.encode(),'ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json':raw,'FOLLOWUP-POSTE709-EVIDENCE.json':enc(snapshot)}
+assert not (R/'ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json').exists() and not (R/'FOLLOWUP-POSTE709-EVIDENCE.json').exists()
+for name,b in out.items():
+ with (S/(name+'.after')).open('xb') as f:f.write(b)
+for name,b in original.items():assert (R/name).read_bytes()==b
+for name in names:
+ with tempfile.NamedTemporaryFile(dir=R,prefix='.poste709-update-',delete=False) as f:f.write(out[name]);tmp=f.name
+ os.replace(tmp,R/name)
+for name in ('ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json','FOLLOWUP-POSTE709-EVIDENCE.json'):
+ with (R/name).open('xb') as f:f.write(out[name])
+for name,b in out.items():assert (R/name).read_bytes()==b
+print('Applied 8 bounded queue connections and 10 ledger relationships; ledger entries/relationships 1051. All lenses and semantic queue records remain open.')

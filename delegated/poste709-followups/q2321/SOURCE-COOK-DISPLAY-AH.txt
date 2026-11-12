@@ -1,0 +1,23 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/food.rs:371-392
+ 371 pub fn cooking_duration_minutes(
+ 372     method: CookingMethod,
+ 373     safety_minutes: &[u32],
+ 374     total_mass_kg: f32,
+ 375 ) -> Option<u32> {
+ 376     if safety_minutes.is_empty()
+ 377         || !total_mass_kg.is_finite()
+ 378         || total_mass_kg <= 0.0
+ 379         || total_mass_kg > 25.0
+ 380     {
+ 381         return None;
+ 382     }
+ 383     let setup: u32 = match method {
+ 384         CookingMethod::PanFry => 5,
+ 385         CookingMethod::Stew => 12,
+ 386         CookingMethod::Roast => 7,
+ 387         CookingMethod::Bake => 30,
+ 388     };
+ 389     let slowest = safety_minutes.iter().copied().max()?;
+ 390     let batch = ((total_mass_kg - 0.5).max(0.0).sqrt() * 8.0).ceil() as u32;
+ 391     setup.checked_add(slowest)?.checked_add(batch)
+ 392 }

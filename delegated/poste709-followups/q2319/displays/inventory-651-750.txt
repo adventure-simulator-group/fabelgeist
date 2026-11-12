@@ -1,0 +1,100 @@
+ 651             None => Ok(true),
+ 652         }
+ 653     };
+ 654     let merged_object_id;
+ 655     match &emptied.location {
+ 656         InventoryLocation::Personal(location) => {
+ 657             let source = ctx
+ 658                 .db
+ 659                 .inventory_item()
+ 660                 .id()
+ 661                 .find(location.row_id)
+ 662                 .ok_or("Emptied container row is missing")?;
+ 663             let mut targets = ctx
+ 664                 .db
+ 665                 .inventory_item()
+ 666                 .iter()
+ 667                 .filter(|row| {
+ 668                     row.id != source.id
+ 669                         && row.character_id == source.character_id
+ 670                         && row.item_id == source.item_id
+ 671                 })
+ 672                 .collect::<Vec<_>>();
+ 673             targets.sort_by_key(|row| row.id);
+ 674             let mut target = None;
+ 675             for row in targets {
+ 676                 if mergeable_object(row.id)? {
+ 677                     target = Some(row);
+ 678                     break;
+ 679                 }
+ 680             }
+ 681             let Some(mut target) = target else {
+ 682                 return Ok(());
+ 683             };
+ 684             if ctx
+ 685                 .db
+ 686                 .item_condition()
+ 687                 .inventory_item_id()
+ 688                 .find(target.id)
+ 689                 .is_some()
+ 690                 || ctx
+ 691                     .db
+ 692                     .item_condition()
+ 693                     .inventory_item_id()
+ 694                     .find(source.id)
+ 695                     .is_some()
+ 696             {
+ 697                 return Ok(());
+ 698             }
+ 699             merged_object_id =
+ 700                 object_for_row(ctx, CarriedInventoryScope::Personal, target.id)?.map(|row| row.id);
+ 701             target.quantity = target
+ 702                 .quantity
+ 703                 .checked_add(source.quantity)
+ 704                 .ok_or("Container stack quantity overflow")?;
+ 705             ctx.db.inventory_item().id().update(target);
+ 706             ctx.db.inventory_item().id().delete(source.id);
+ 707         }
+ 708         InventoryLocation::Party(location) => {
+ 709             let source = ctx
+ 710                 .db
+ 711                 .party_inventory_item()
+ 712                 .id()
+ 713                 .find(location.row_id)
+ 714                 .ok_or("Emptied party container row is missing")?;
+ 715             let mut targets = ctx
+ 716                 .db
+ 717                 .party_inventory_item()
+ 718                 .iter()
+ 719                 .filter(|row| {
+ 720                     row.id != source.id
+ 721                         && row.party_id == source.party_id
+ 722                         && row.item_id == source.item_id
+ 723                 })
+ 724                 .collect::<Vec<_>>();
+ 725             targets.sort_by_key(|row| row.id);
+ 726             let mut target = None;
+ 727             for row in targets {
+ 728                 if mergeable_object(row.id)? {
+ 729                     target = Some(row);
+ 730                     break;
+ 731                 }
+ 732             }
+ 733             let Some(mut target) = target else {
+ 734                 return Ok(());
+ 735             };
+ 736             if ctx
+ 737                 .db
+ 738                 .party_item_condition()
+ 739                 .party_inventory_item_id()
+ 740                 .find(target.id)
+ 741                 .is_some()
+ 742                 || ctx
+ 743                     .db
+ 744                     .party_item_condition()
+ 745                     .party_inventory_item_id()
+ 746                     .find(source.id)
+ 747                     .is_some()
+ 748             {
+ 749                 return Ok(());
+ 750             }

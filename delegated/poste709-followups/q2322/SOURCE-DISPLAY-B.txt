@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:861-930
+ 861     );
+ 862     let terminal_minute = forage_terminal_minute(ctx, character_id, started_at, requested_minutes)?;
+ 863     let planned = match build_forage_planner(
+ 864         ctx,
+ 865         character_id,
+ 866         &request_id,
+ 867         &vicinity,
+ 868         &attestation,
+ 869         environment,
+ 870         &source_ids,
+ 871         requested_minutes,
+ 872         started_at,
+ 873         terminal_minute,
+ 874         attempt_generation,
+ 875         terrain_check,
+ 876         stealth_check,
+ 877         seed,
+ 878     )? {
+ 879         adventuresim_core::strategic_action::PlanningOutcome::Ready(plan) => plan,
+ 880         adventuresim_core::strategic_action::PlanningOutcome::Rejected(_) => {
+ 881             return Err("Foraging is unavailable".into());
+ 882         }
+ 883     };
+ 884     // Rehydrate and replan before mutation; plans are evidence, not authority.
+ 885     let (fresh_vicinity, mut fresh_environment) =
+ 886         validate_attestation(ctx, character_id, &attestation)?;
+ 887     fresh_environment.license_violation = license_violation_for_sources(&source_ids, |privilege| {
+ 888         crate::organization::global_presented_privilege(ctx, character_id, privilege)
+ 889     });
+ 890     let (fresh_terrain_check, fresh_stealth_check) =
+ 891         acting_checks(ctx, character_id, fresh_environment.terrain)?;
+ 892     let fresh_terminal = forage_terminal_minute(ctx, character_id, started_at, requested_minutes)?;
+ 893     let replanned = build_forage_planner(
+ 894         ctx,
+ 895         character_id,
+ 896         &request_id,
+ 897         &fresh_vicinity,
+ 898         &attestation,
+ 899         fresh_environment,
+ 900         &source_ids,
+ 901         requested_minutes,
+ 902         started_at,
+ 903         fresh_terminal,
+ 904         attempt_generation,
+ 905         fresh_terrain_check,
+ 906         fresh_stealth_check,
+ 907         seed,
+ 908     )?;
+ 909     let fresh_snapshot = match &replanned {
+ 910         adventuresim_core::strategic_action::PlanningOutcome::Ready(plan) => plan.snapshot(),
+ 911         adventuresim_core::strategic_action::PlanningOutcome::Rejected(_) => {
+ 912             return Err("Foraging prerequisites changed before commit".into());
+ 913         }
+ 914     };
+ 915     let provenance = planned.provenance();
+ 916     adventuresim_core::strategic_action::validate_commit(
+ 917         &planned,
+ 918         &replanned,
+ 919         fresh_snapshot,
+ 920         &CommitAttempt {
+ 921             request_id: provenance.request_id.clone(),
+ 922             action_id: provenance.action_id.clone(),
+ 923             authority_binding: provenance.authority_binding,
+ 924         },
+ 925         None,
+ 926     )
+ 927     .map_err(|_| "Foraging authority changed before commit")?;
+ 928 
+ 929     let mut effect_duration = None;
+ 930     let mut effect_resolution = None;

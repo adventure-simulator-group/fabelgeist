@@ -1,0 +1,75 @@
+{
+  "/newly_assessed_ledger/entries/341": {
+    "id": "REVIEW-STRATEGIC-OVERFATIGUE-TRANSFER-001",
+    "lens": 6,
+    "additional_current_lenses": [
+      1,
+      2,
+      3,
+      4,
+      7,
+      8,
+      11,
+      12,
+      13
+    ],
+    "severity": "unassigned; conditional discarded over-threshold impairment and recovery policy",
+    "classification": "The strategic-to-tactical fatigue transfer and recovery need one explicit rule for impairment already above the incapacitation threshold.",
+    "historical_related_candidates": [
+      "baseline-059/queue.json#/entries/1563",
+      "baseline-059/ledger.json#/segovb_continuation/current_connected_dispositions/157",
+      "segovb/READ-L11-609.json",
+      "segovb/READ-L12-625.json"
+    ],
+    "relationship_qualification": "New conditional current recovery question connected to an earlier e275 delegated disposition which explicitly left recovery policy open; prior attribution and zero historical unique-count change retained, aliases open.",
+    "discovery": "partial; connected current source and idealized counterexample recorded, upstream reachability, saturation policy and exact aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-CONDITION-REGIONAL-95E.json"
+  },
+  "/newly_assessed_ledger/entries/752": {
+    "id": "ADLER-L11-FORAGE-COMPLETION-RECEIPT-IDENTITY",
+    "lens": 11,
+    "additional_current_lenses": [
+      1,
+      5,
+      8
+    ],
+    "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+    "severity": "unassigned; historical bounded contract or open policy question",
+    "classification": "After a successful forage call, a missing or failed receipt lookup can discard the submitted request handle.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/183"
+    ],
+    "relationship_qualification": "Original historical identity and author retained; predicates, exact aliases and independent unique counts remain open.",
+    "discovery": "partial; registered source and selected consumer links assessed, remaining policy and producers open",
+    "connected_repair_direction": "Carry the authoritative request identity and completion state through receipt retrieval and retry.",
+    "future_acceptance": "After audit and authorization, assess distinct failure and valid empty/success cases under the chosen contract.",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-DELEGATED-RECONCILIATION-6-95E.json"
+  },
+  "/newly_assessed_ledger/entries/779": {
+    "id": "REVIEW-FORAGE-NOTICED-INFAMY-CUE-95E",
+    "lens": 8,
+    "additional_current_lenses": [
+      1,
+      5,
+      7
+    ],
+    "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+    "severity": "unassigned; conditional delegated source question",
+    "classification": "A noticed illegal forage result may be described as an infamy increase even where no settlement event is committed.",
+    "historical_related_records": [
+      "DELEGATED-EVIDENCE-CHECKPOINT-6.json",
+      "ASSESSMENT-DELEGATED-RECONCILIATION-6-95E.json"
+    ],
+    "relationship_qualification": "Conditional nonsettlement source case; q913/q914 remain related, no runtime event or global alias assumed.",
+    "discovery": "partial; registered sources and selected support assessed; ordinary reachability, policy and global aliases open",
+    "connected_repair_direction": "Resolve noticed-versus-applied-event feedback and its nonsettlement authority.",
+    "future_acceptance": "After audit and authorization, assess the exact boundary and representative accepted behavior.",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-DELEGATED-RECONCILIATION-6-95E.json"
+  }
+}

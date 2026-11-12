@@ -1,0 +1,104 @@
+ 612 pub fn retrieve_fireplace_dish(
+ 613     ctx: &ReducerContext,
+ 614     character_id: u64,
+ 615     fireplace_fixture_id: String,
+ 616     container_object_id: Option<u64>,
+ 617 ) -> Result<(), String> {
+ 618     crate::strategic::require_strategic_gateway(ctx)?;
+ 619     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 620     if actor.has_tactical_server_assignment() {
+ 621         return Err("Cooking is unavailable during a tactical encounter".into());
+ 622     }
+ 623     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 624     let key = container_object_id.map_or_else(
+ 625         || station_key(character_id, &fireplace_fixture_id),
+ 626         |object_id| vessel_station_key(character_id, &fireplace_fixture_id, object_id),
+ 627     );
+ 628     let vessel_station = ctx.db.fireplace_station().key().find(key.clone());
+ 629     let dish = ctx
+ 630         .db
+ 631         .fireplace_dish()
+ 632         .station_key()
+ 633         .find(key)
+ 634         .ok_or("No dish is in this fireplace")?;
+ 635     if validate_persisted_dish_fixture(ctx, &dish)?.to_string() != fireplace_fixture_id {
+ 636         return Err("Dish custody conflicts with the requested canonical fixture".into());
+ 637     }
+ 638     let destination = dish_inventory_destination(&dish.return_custody, character_id)?;
+ 639     if let OperationalCustody::Party(party_id) = &destination
+ 640         && ctx
+ 641             .db
+ 642             .party_authority()
+ 643             .id()
+ 644             .find(party_id.as_str().to_owned())
+ 645             .is_none()
+ 646     {
+ 647         return Err("Dish's original party inventory is unavailable".into());
+ 648     }
+ 649     if let Some(object_id) = container_object_id
+ 650         && vessel_station
+ 651             .as_ref()
+ 652             .and_then(|station| station.instrument_object_id)
+ 653             != Some(object_id)
+ 654     {
+ 655         return Err("Dish selector conflicts with its fireplace container".into());
+ 656     }
+ 657     let minute = current_minute(ctx, character_id);
+ 658     let elapsed = minute.elapsed_since(dish.started_at_minute);
+ 659     let doneness = food::method_doneness_outcome(dish.method, elapsed, dish.target_minutes);
+ 660     let quality = dish
+ 661         .ready_quality
+ 662         .saturating_sub(doneness.quality_penalty)
+ 663         .max(1);
+ 664     let kcal = dish.raw_nutrition_kcal
+ 665         * food::doneness_nutrition_factor(dish.ready_nutrition_retention, doneness);
+ 666     let value =
+ 667         dish.ingredient_value * food::quality_value_multiplier(quality) * doneness.calorie_factor;
+ 668     let cooked_contamination = food::partially_cooked_contamination(
+ 669         dish.raw_contamination,
+ 670         dish.method,
+ 671         doneness.contamination_kill_progress,
+ 672     );
+ 673     let cooked_contribution_loads = food::scale_contamination_contributions(
+ 674         dish.raw_contamination,
+ 675         cooked_contamination,
+ 676         &dish.contamination_contribution_loads,
+ 677     );
+ 678     let cooked_contribution_digest = contamination_provenance_digest(
+ 679         &dish.contamination_contribution_ids,
+ 680         &cooked_contribution_loads,
+ 681     );
+ 682     let surviving_load = cooked_contribution_loads.iter().sum::<f32>();
+ 683     let expected_surviving_load = cooked_contamination * dish.mass_kg;
+ 684     if (surviving_load - expected_surviving_load).abs()
+ 685         > expected_surviving_load.abs().max(1.0) * 1e-5
+ 686     {
+ 687         return Err("Cooked contamination contribution loads do not conserve".into());
+ 688     }
+ 689 
+ 690     let (personal_id, party_id) = match &destination {
+ 691         OperationalCustody::Character(character) => {
+ 692             let row = ctx.db.inventory_item().insert(crate::InventoryItem {
+ 693                 id: 0,
+ 694                 character_id: character.get(),
+ 695                 item_id: "cooked_meal".into(),
+ 696                 quantity: 1,
+ 697             });
+ 698             crate::inventory_amount::initialize_personal(ctx, row.id);
+ 699             (Some(row.id), None)
+ 700         }
+ 701         OperationalCustody::Party(party) => {
+ 702             let row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
+ 703                 id: 0,
+ 704                 party_id: party.as_str().into(),
+ 705                 item_id: "cooked_meal".into(),
+ 706                 quantity: 1,
+ 707             });
+ 708             crate::inventory_amount::initialize_party(ctx, row.id);
+ 709             (None, Some(row.id))
+ 710         }
+ 711         _ => return Err("Invalid retrieval inventory".into()),
+ 712     };
+ 713     if let Some(parent_object_id) = container_object_id {
+ 714         let row_id = personal_id.or(party_id).expect("cooked meal inventory row");
+ 715         let meal = ctx.db.inventory_object().insert(crate::InventoryObject {

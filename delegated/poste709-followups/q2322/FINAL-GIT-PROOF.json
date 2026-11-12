@@ -1,0 +1,514 @@
+{
+  "method": "git object SHA1 type+length and exact file SHA256",
+  "commits": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009": {
+      "commit_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e": {
+      "commit_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8"
+    }
+  },
+  "paths": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/foraging.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "foraging.rs",
+          "mode": "100644",
+          "oid": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9"
+        }
+      ],
+      "blob_oid": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/foraging/timing.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "foraging",
+          "mode": "40000",
+          "oid": "afd09cd24d15015076b064048399ad6d358d95a0"
+        },
+        {
+          "tree": "afd09cd24d15015076b064048399ad6d358d95a0",
+          "entry": "timing.rs",
+          "mode": "100644",
+          "oid": "ee5ae9180c3b5f4917dcec02d50a21c7f2a378f1"
+        }
+      ],
+      "blob_oid": "ee5ae9180c3b5f4917dcec02d50a21c7f2a378f1",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/foraging.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "foraging.rs",
+          "mode": "100644",
+          "oid": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8"
+        }
+      ],
+      "blob_oid": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/skill.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "skill.rs",
+          "mode": "100644",
+          "oid": "616d9d164bd04cb8a29b745e1a530540756f9fd7"
+        }
+      ],
+      "blob_oid": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/time/advancement.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "time",
+          "mode": "40000",
+          "oid": "b4046aeb59e2e5608b1f520f142458074fcbd8d1"
+        },
+        {
+          "tree": "b4046aeb59e2e5608b1f520f142458074fcbd8d1",
+          "entry": "advancement.rs",
+          "mode": "100644",
+          "oid": "18d0599882b25ff510b375a5e05c747b2f8125da"
+        }
+      ],
+      "blob_oid": "18d0599882b25ff510b375a5e05c747b2f8125da",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/capability.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "capability.rs",
+          "mode": "100644",
+          "oid": "3836a33875b93975f11f6dfdada4c53a768ce0ea"
+        }
+      ],
+      "blob_oid": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/surgery.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "surgery.rs",
+          "mode": "100644",
+          "oid": "833a18f053639bb556b66cddfb3b9af6fd5c34a6"
+        }
+      ],
+      "blob_oid": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/disease.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "disease.rs",
+          "mode": "100644",
+          "oid": "b3f5435464866afdfb3cb48e059be0251a65408d"
+        }
+      ],
+      "blob_oid": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/essential.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "essential.rs",
+          "mode": "100644",
+          "oid": "827be1d40f773c54c3d5183b81432bc9197fee2d"
+        }
+      ],
+      "blob_oid": "827be1d40f773c54c3d5183b81432bc9197fee2d",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/condition.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "condition.rs",
+          "mode": "100644",
+          "oid": "bdc470d795940aee28e60528b56120a9e09ba232"
+        }
+      ],
+      "blob_oid": "bdc470d795940aee28e60528b56120a9e09ba232",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/strategic_action.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "strategic_action.rs",
+          "mode": "100644",
+          "oid": "83d7a923670bad6bce129e3880c7b364f26af9ee"
+        }
+      ],
+      "blob_oid": "83d7a923670bad6bce129e3880c7b364f26af9ee",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/item.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "item.rs",
+          "mode": "100644",
+          "oid": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa"
+        }
+      ],
+      "blob_oid": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/provisioning.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "provisioning.rs",
+          "mode": "100644",
+          "oid": "b0ded54e12cc15597c59c2574939823b76a83834"
+        }
+      ],
+      "blob_oid": "b0ded54e12cc15597c59c2574939823b76a83834",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/foraging.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "5f4bad04db2e8639d101944bca6fa591e6bee502"
+        },
+        {
+          "tree": "5f4bad04db2e8639d101944bca6fa591e6bee502",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "f8ade91d6a9e66d361398296d6199b67f0e6c162"
+        },
+        {
+          "tree": "f8ade91d6a9e66d361398296d6199b67f0e6c162",
+          "entry": "foraging.rs",
+          "mode": "100644",
+          "oid": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9"
+        }
+      ],
+      "blob_oid": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/foraging/timing.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "5f4bad04db2e8639d101944bca6fa591e6bee502"
+        },
+        {
+          "tree": "5f4bad04db2e8639d101944bca6fa591e6bee502",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "f8ade91d6a9e66d361398296d6199b67f0e6c162"
+        },
+        {
+          "tree": "f8ade91d6a9e66d361398296d6199b67f0e6c162",
+          "entry": "foraging",
+          "mode": "40000",
+          "oid": "afd09cd24d15015076b064048399ad6d358d95a0"
+        },
+        {
+          "tree": "afd09cd24d15015076b064048399ad6d358d95a0",
+          "entry": "timing.rs",
+          "mode": "100644",
+          "oid": "ee5ae9180c3b5f4917dcec02d50a21c7f2a378f1"
+        }
+      ],
+      "blob_oid": "ee5ae9180c3b5f4917dcec02d50a21c7f2a378f1",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/foraging.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "b9dea27a81df2a29404f52cc98a917ac56a391a3"
+        },
+        {
+          "tree": "b9dea27a81df2a29404f52cc98a917ac56a391a3",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "346fffafb38e778b42ca2ff58c636b335fbcde75"
+        },
+        {
+          "tree": "346fffafb38e778b42ca2ff58c636b335fbcde75",
+          "entry": "foraging.rs",
+          "mode": "100644",
+          "oid": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8"
+        }
+      ],
+      "blob_oid": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34"
+    }
+  },
+  "errors": []
+}

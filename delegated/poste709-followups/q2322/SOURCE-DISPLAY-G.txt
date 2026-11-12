@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:375-445
+ 375         return None;
+ 376     }
+ 377     let base = if environment.settlement {
+ 378         SETTLEMENT_STEALTH_DC_MILLIRANK
+ 379     } else {
+ 380         CULTIVATED_STEALTH_DC_MILLIRANK
+ 381     };
+ 382     let hours_after_first = minutes.saturating_sub(60) / 60;
+ 383     Some(
+ 384         base.saturating_add(
+ 385             u16::try_from(hours_after_first)
+ 386                 .unwrap_or(u16::MAX)
+ 387                 .saturating_mul(DURATION_STEALTH_DC_PER_HOUR),
+ 388         )
+ 389         .min(4_500),
+ 390     )
+ 391 }
+ 392 
+ 393 /// Resolve one shared search budget. Time is divided first over selected
+ 394 /// categories, then over the locally available resources in each category.
+ 395 /// Terrain checks contribute at most +50% discovery and +50% yield.
+ 396 pub fn resolve(
+ 397     seed: Seed,
+ 398     environment: ForageEnvironment,
+ 399     source_ids: &[String],
+ 400     minutes: u64,
+ 401     terrain_check_millirank: u16,
+ 402     stealth_check_millirank: u16,
+ 403 ) -> Result<ForageResolution, &'static str> {
+ 404     validate_duration(minutes)?;
+ 405     if !environment.terrain.is_normalized() {
+ 406         return Err("Foraging terrain mixture is not normalized");
+ 407     }
+ 408     if source_ids.is_empty() || source_ids.len() > MAX_SOURCES {
+ 409         return Err("Choose between one and five forage sources");
+ 410     }
+ 411     let mut unique = std::collections::BTreeSet::new();
+ 412     for id in source_ids {
+ 413         if !unique.insert(id.as_str()) {
+ 414             return Err("Forage sources must be unique");
+ 415         }
+ 416     }
+ 417     let mut sources = Vec::with_capacity(unique.len());
+ 418     for id in unique {
+ 419         let source = ForageSource::from_id(id).ok_or("Unknown forage source")?;
+ 420         let resources = FORAGE_RESOURCES
+ 421             .iter()
+ 422             .filter(|resource| resource.source == source && available(resource, environment))
+ 423             .collect::<Vec<_>>();
+ 424         if resources.is_empty() {
+ 425             return Err("A forage source is unavailable in this vicinity");
+ 426         }
+ 427         sources.push((source, resources));
+ 428     }
+ 429     let skill_bonus_permille = 1_000 + u32::from(terrain_check_millirank.min(5_000)) / 10;
+ 430     let source_count = sources.len() as u64;
+ 431     let mut yields = Vec::new();
+ 432     for (source, resources) in sources {
+ 433         let resource_count = resources.len() as u64;
+ 434         for target in resources {
+ 435             let habitat = u64::from(habitat_share_permille(target, environment));
+ 436             let food_rate = if crate::food::definition(target.item_id).is_some() {
+ 437                 FOOD_DISCOVERY_RATE_PERMILLE
+ 438             } else {
+ 439                 1_000
+ 440             };
+ 441             let expected_permille = u64::from(target.rarity.discoveries_per_eight_hours_permille())
+ 442                 * minutes
+ 443                 * u64::from(skill_bonus_permille)
+ 444                 * habitat
+ 445                 * food_rate

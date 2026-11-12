@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:1001-1070
+1001                 &mut skills.terrain_hills_hours,
+1002                 Skill::TerrainHills,
+1003                 gains[2],
+1004             ),
+1005             (
+1006                 &mut skills.terrain_wetlands_hours,
+1007                 Skill::TerrainWetlands,
+1008                 gains[3],
+1009             ),
+1010         ] {
+1011             excess += adventuresim_core::skill::apply_direct_training(
+1012                 skill,
+1013                 stored,
+1014                 real_hours,
+1015                 &attributes,
+1016             )
+1017             .excess_effective_hours;
+1018         }
+1019         ctx.db.character_skills().character_id().update(skills);
+1020         crate::condition::record_mastery_training_morale(ctx, character_id, elapsed, excess);
+1021     }
+1022     let resolution = effect_resolution.map(|(resolution, _)| resolution);
+1023     let mut yielded_item_ids = Vec::new();
+1024     let mut yielded_quantities = Vec::new();
+1025     let mut output_inventory_item_ids = Vec::new();
+1026     let mut output_object_ids = Vec::new();
+1027     let mut output_food_lot_ids = Vec::new();
+1028     let mut output_material_revisions = Vec::new();
+1029     if let Some(resolution) = resolution.as_ref() {
+1030         for found in &resolution.yields {
+1031             let rows = crate::item::add_foraged_inventory_item_checked_rows(
+1032                 ctx,
+1033                 character_id,
+1034                 found.item_id,
+1035                 u32::from(found.quantity),
+1036             )?;
+1037             for row_id in rows {
+1038                 let object = crate::inventory_container::object_for_row(
+1039                     ctx,
+1040                     adventuresim_core::physical_object::CarriedInventoryScope::Personal,
+1041                     row_id,
+1042                 )?
+1043                 .ok_or("Foraged material has no stable object identity")?;
+1044                 let lot = ctx
+1045                     .db
+1046                     .food_lot()
+1047                     .iter()
+1048                     .find(|lot| lot.inventory_item_id == Some(row_id))
+1049                     .ok_or("Foraged material has no food lot")?;
+1050                 if lot.material_revision != 1
+1051                     || lot.ingredient_item_ids != vec![found.item_id.to_string()]
+1052                     || lot.ingredient_quantities != vec![1.0]
+1053                 {
+1054                     return Err("Foraged material provenance is inconsistent".into());
+1055                 }
+1056                 ctx.db
+1057                     .forage_harvest_material()
+1058                     .insert(ForageHarvestMaterial {
+1059                         inventory_item_id: row_id,
+1060                         request_id: request_id.clone(),
+1061                         actor_character_id: character_id,
+1062                         item_id: found.item_id.into(),
+1063                         material_object_id: object.id,
+1064                         food_lot_id: lot.id,
+1065                         material_revision: lot.material_revision,
+1066                         canonical_place: vicinity.place.to_string(),
+1067                     });
+1068                 output_inventory_item_ids.push(row_id);
+1069                 output_object_ids.push(object.id);
+1070                 output_food_lot_ids.push(lot.id);

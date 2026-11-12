@@ -1,0 +1,51 @@
+ 130     pub magnitude: f32,
+ 131 }
+ 132 
+ 133 /// A strategic choice created when conviction begins demanding costly action.
+ 134 #[derive(Clone, Debug)]
+ 135 #[table(accessor = religious_demand, public)]
+ 136 pub struct ReligiousDemand {
+ 137     #[primary_key]
+ 138     #[auto_inc]
+ 139     pub id: u64,
+ 140     #[index(btree)]
+ 141     pub character_id: u64,
+ 142     pub kind: String,
+ 143     pub title: String,
+ 144     pub description: String,
+ 145     pub fervor: f32,
+ 146     pub status: String,
+ 147     pub created_at_minute: StrategicMinute,
+ 148     pub resolved_at_minute: Option<StrategicMinute>,
+ 149     pub resolution: Option<String>,
+ 150 }
+ 151 
+ 152 pub fn initialize_character_condition(
+ 153     ctx: &ReducerContext,
+ 154     character_id: u64,
+ 155 ) -> Result<(), String> {
+ 156     if ctx
+ 157         .db
+ 158         .character_condition()
+ 159         .character_id()
+ 160         .find(character_id)
+ 161         .is_none()
+ 162     {
+ 163         let body_mass = BodyMassKg::DEFAULT;
+ 164         let maximum_blood_ml = body_mass.estimated_blood_milliliters();
+ 165         ctx.db.character_condition().insert(CharacterCondition {
+ 166             character_id,
+ 167             body_weight_kg: body_mass.kilograms(),
+ 168             current_blood_ml: maximum_blood_ml,
+ 169             maximum_blood_ml,
+ 170             religion_id: None,
+ 171         });
+ 172     }
+ 173     if ctx
+ 174         .db
+ 175         .character_needs()
+ 176         .character_id()
+ 177         .find(character_id)
+ 178         .is_none()
+ 179     {
+ 180         ctx.db.character_needs().insert(CharacterNeeds {

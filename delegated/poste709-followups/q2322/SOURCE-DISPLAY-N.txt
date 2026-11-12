@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:1-55
+   1 //! Pure, deterministic rules for personal current-vicinity foraging.
+   2 //!
+   3 //! Resources are intentionally year-round until a strategic season model is
+   4 //! authoritative. Displayed market prices never participate in discovery.
+   5 
+   6 mod sampling;
+   7 use fabelgeist_determinism::Seed;
+   8 use sampling::ForageDraw;
+   9 
+  10 use adventuresim_world_schema::calendar::StrategicMinute;
+  11 use serde::{Deserialize, Serialize};
+  12 
+  13 use crate::{
+  14     physical_object::CustodyCharacterId,
+  15     rights::{
+  16         CanonicalRightsQuestionDigest, DecisionProvenance, DomainJurisdiction,
+  17         DomainRightsOperation, DomainRightsResource, DomainRightsSubject, PrivateRightsDecision,
+  18         RightsDecisionKind, RightsJurisdiction, RightsOperation, RightsQuestion, RightsResource,
+  19         RightsRevision, RightsSubject,
+  20     },
+  21     strategic_action::{
+  22         ActionCoordinates, ActionEffect, ActionRequirement, AuthoritativeSnapshot,
+  23         CalculatedAction, DomainCapability, DomainEffect, DomainInterruption, DomainRequirement,
+  24         DomainTarget, PlanInput, PlanProvenance, PlanningOutcome, PublicPreview, PublicRejection,
+  25         RequestedDuration, RequirementCheck, TimeBoundaries, build_plan,
+  26     },
+  27 };
+  28 
+  29 pub const MIN_FORAGE_MINUTES: u64 = 60;
+  30 pub const MAX_FORAGE_MINUTES: u64 = 24 * 60;
+  31 pub const ILLEGAL_FORAGE_INFAMY: f32 = 1.0;
+  32 pub const CULTIVATED_STEALTH_DC_MILLIRANK: u16 = 1_750;
+  33 pub const SETTLEMENT_STEALTH_DC_MILLIRANK: u16 = 2_500;
+  34 pub const DURATION_STEALTH_DC_PER_HOUR: u16 = 75;
+  35 pub const MAX_SOURCES: usize = 5;
+  36 /// Food searches are calibrated so an eight-hour low-skill search in an ideal
+  37 /// habitat can approximately replace that interval's metabolic expenditure.
+  38 pub const FOOD_DISCOVERY_RATE_PERMILLE: u64 = 1_750;
+  39 
+  40 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+  41 #[serde(rename_all = "snake_case")]
+  42 pub enum ForageSeasonalityPolicy {
+  43     YearRoundUntilStrategicSeasons,
+  44 }
+  45 
+  46 pub const SEASONALITY_POLICY: ForageSeasonalityPolicy =
+  47     ForageSeasonalityPolicy::YearRoundUntilStrategicSeasons;
+  48 
+  49 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+  50 #[serde(rename_all = "snake_case")]
+  51 pub enum ForageBiome {
+  52     Plains,
+  53     Forest,
+  54     Hills,
+  55     RiverWetGround,

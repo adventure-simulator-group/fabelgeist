@@ -1,0 +1,60 @@
+   1 use super::*;
+   2 pub(super) fn fitted_bracer(
+   3     model: &BodyModel,
+   4     generated: &GeneratedCharacter,
+   5     design: &BracerDesign,
+   6     side: ForearmSide,
+   7     morphs: &[ForearmMorphSample],
+   8 ) -> Result<GeneratedArmor> {
+   9     let character = &model.mhr.character;
+  10     let armor = adventuresim_character_creator::device_bracer::generate_bracer_on_device(
+  11         adventuresim_character_creator::armor_gpu()?,
+  12         design,
+  13         ForearmSurfaceInput {
+  14             domain: MHR_ANATOMICAL_UV_DOMAIN,
+  15             side,
+  16             positions: &generated.positions,
+  17             normals: &generated.normals,
+  18             faces: &character.mesh.faces,
+  19             texcoords: &character.mesh.texcoords,
+  20             texcoord_faces: &character.mesh.texcoord_faces,
+  21             joint_indices: character.skin_weights.indices(),
+  22             joint_weights: character.skin_weights.weights().as_native_slice(),
+  23             joint_names: &character.skeleton.names,
+  24             global_joint_states: &generated.global_joint_states,
+  25             morphs,
+  26         },
+  27     )?;
+  28     Ok(character_morphs::correct_armor_fit(
+  29         armor, generated, morphs,
+  30     ))
+  31 }
+  32 
+  33 pub(super) fn fitted_breastplate(
+  34     model: &BodyModel,
+  35     generated: &GeneratedCharacter,
+  36     design: &BreastplateDesign,
+  37     morphs: &[ForearmMorphSample],
+  38 ) -> Result<GeneratedArmor> {
+  39     let character = &model.mhr.character;
+  40     let armor = adventuresim_character_creator::device_torso::generate_breastplate_on_device(
+  41         adventuresim_character_creator::armor_gpu()?,
+  42         design,
+  43         TorsoSurfaceInput {
+  44             domain: MHR_ANATOMICAL_UV_DOMAIN,
+  45             positions: &generated.positions,
+  46             normals: &generated.normals,
+  47             faces: &character.mesh.faces,
+  48             texcoords: &character.mesh.texcoords,
+  49             texcoord_faces: &character.mesh.texcoord_faces,
+  50             joint_indices: character.skin_weights.indices(),
+  51             joint_weights: character.skin_weights.weights().as_native_slice(),
+  52             joint_names: &character.skeleton.names,
+  53             global_joint_states: &generated.global_joint_states,
+  54             morphs,
+  55         },
+  56     )?;
+  57     Ok(character_morphs::correct_armor_fit(
+  58         armor, generated, morphs,
+  59     ))
+  60 }

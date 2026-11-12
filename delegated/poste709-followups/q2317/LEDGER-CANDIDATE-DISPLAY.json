@@ -1,0 +1,34 @@
+{
+  "/newly_assessed_ledger/entries/82": {
+    "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+    "lens": 4,
+    "severity": "unassigned; current authored cooking vessels are below the demonstrated precision threshold",
+    "classification": "bounded exact cooking-water volume and binary32 conversion question",
+    "historical_related_records": [
+      "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/334",
+      "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346"
+    ],
+    "relationship_qualification": "The two earlier delegated records left broad connected volume, provenance and native bounds open; the selected 95e precision example is newly assessed, not an accepted historical finding or restored 3821 record.",
+    "discovery": "partial; supported larger vessels, chronology and historical aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json"
+  },
+  "/newly_assessed_ledger/entries/185": {
+    "id": "REVIEW-SIM-PROVISION-FIREPLACE-FOOD-001",
+    "lens": 7,
+    "severity": "unassigned; conditional food-custody forecast mismatch",
+    "classification": "New bounded current provisioning producer-to-native-consumer authority question; related to but distinct from the existing water post-refill forecast.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/1089 (earlier broad provisioning/custody question)",
+      "segovb/READ-L12-349.json via ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json",
+      "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json (distinct post-refill water forecast)",
+      "baseline-059/queue.json#/entries/2319 (separate fireplace lifecycle question)"
+    ],
+    "relationship_qualification": "Earlier broad records retain original source revision, attribution, read limits and pending status. Shared custody or repair scope does not establish a global alias or checkpoint 3821 authority.",
+    "discovery": "partial; complete departure and settlement custody lifecycle, admissible public snapshot/cache ordering, exact policy, actual shortfall and historical aliases remain open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json"
+  }
+}

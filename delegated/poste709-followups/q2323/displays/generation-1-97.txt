@@ -1,0 +1,97 @@
+   1 use super::*;
+   2 use fabelgeist_rig::RigJointTable;
+   3 
+   4 pub(super) fn generate_character(
+   5     model: &BodyModel,
+   6     recipe: &CharacterRecipe,
+   7 ) -> Result<GeneratedCharacter> {
+   8     recipe.validate().map_err(anyhow::Error::msg)?;
+   9     let device = Device::default();
+  10     let identity = Tensor::from_data(
+  11         TensorData::new(recipe.identity.clone(), [1, IDENTITY_MORPH_COUNT]),
+  12         &device,
+  13     );
+  14     let expression = Tensor::from_data(
+  15         TensorData::new(
+  16             recipe.expression.clone(),
+  17             [1, NUM_FACE_EXPRESSION_BLEND_SHAPES],
+  18         ),
+  19         &device,
+  20     );
+  21     let parameters = adventuresim_character_creator::proportions::model_parameters(
+  22         &model.mhr,
+  23         recipe.proportions,
+  24     )?;
+  25     let pose = Tensor::from_data(
+  26         TensorData::new(
+  27             parameters.into_tensor_values(),
+  28             [1, usize::from(model.mhr.num_model_parameters())],
+  29         ),
+  30         &device,
+  31     );
+  32     let output = model.mhr.forward(identity, pose, Some(expression))?;
+  33     let vertex_values = output
+  34         .vertices
+  35         .into_data()
+  36         .into_vec::<f32>()
+  37         .map_err(|error| anyhow::anyhow!("GPU vertex readback failed: {error:?}"))?;
+  38     let (vertex_chunks, vertex_remainder) = vertex_values.as_chunks::<3>();
+  39     if !vertex_remainder.is_empty() {
+  40         return Err(anyhow::anyhow!(
+  41             "GPU vertex readback did not contain complete three-axis positions"
+  42         ));
+  43     }
+  44     let positions: Vec<[f32; 3]> = vertex_chunks
+  45         .iter()
+  46         .map(|v| [v[0] / 100.0, v[1] / 100.0, v[2] / 100.0])
+  47         .collect();
+  48 
+  49     let normal_values = output
+  50         .normals
+  51         .into_data()
+  52         .into_vec::<f32>()
+  53         .map_err(|error| anyhow::anyhow!("GPU normal readback failed: {error:?}"))?;
+  54     let (normal_chunks, normal_remainder) = normal_values.as_chunks::<3>();
+  55     if !normal_remainder.is_empty() {
+  56         return Err(anyhow::anyhow!(
+  57             "GPU normal readback did not contain complete three-axis normals"
+  58         ));
+  59     }
+  60     let normals: Vec<[f32; 3]> = normal_chunks.iter().map(|n| [n[0], n[1], n[2]]).collect();
+  61 
+  62     let skeleton_values = output
+  63         .skeleton_state
+  64         .into_data()
+  65         .into_vec::<f32>()
+  66         .map_err(|error| anyhow::anyhow!("GPU skeleton readback failed: {error:?}"))?;
+  67     let (skeleton_chunks, skeleton_remainder) = skeleton_values.as_chunks::<8>();
+  68     if !skeleton_remainder.is_empty() {
+  69         return Err(anyhow::anyhow!(
+  70             "GPU skeleton readback did not contain complete joint states"
+  71         ));
+  72     }
+  73     let global_joint_states: RigJointTable<_> = skeleton_chunks
+  74         .iter()
+  75         .map(|joint| {
+  76             let mut state = *joint;
+  77             state[0] /= 100.0;
+  78             state[1] /= 100.0;
+  79             state[2] /= 100.0;
+  80             state
+  81         })
+  82         .collect();
+  83     anyhow::ensure!(
+  84         global_joint_states.joint_count() == model.mhr.num_joints(),
+  85         "GPU skeleton readback differs from the admitted rig joint count"
+  86     );
+  87     Ok(GeneratedCharacter {
+  88         joint_proportions: adventuresim_character_creator::proportions::joint_bases(
+  89             &model.mhr,
+  90             recipe.proportions,
+  91         )?,
+  92         positions,
+  93         normals,
+  94         global_joint_states,
+  95         device: Default::default(),
+  96     })
+  97 }

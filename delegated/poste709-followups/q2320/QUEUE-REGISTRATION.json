@@ -1,0 +1,15 @@
+{
+  "registered_utc": "2026-11-12T15:58:31.163459+00:00",
+  "reader": "/root/mhr_character",
+  "operation": "select and later display exactly original historical 059 queue entry 2320 and independently compare same selector in later public reconstruction",
+  "historical_source": {
+    "publication_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "path": "baseline-059/queue.json",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    "bytes": 21632843,
+    "pointer": "/entries/2320"
+  },
+  "plan": "capture selected JSON projection, verify original whole-file identity and compare public reconstructed projection before displaying; exact raw queue is not copied",
+  "qualification": "historical original 059 is not checkpoint 3821; projection serialization is reconstructed rather than verbatim raw bytes"
+}

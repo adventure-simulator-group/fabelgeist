@@ -1,0 +1,80 @@
+   1 //! Persistent strategic equipment condition and settlement repair custody.
+   2 
+   3 mod smiths;
+   4 use adventuresim_core::durability::DamageBins;
+   5 use adventuresim_core::durability::{DurabilityProfile, damage_from_impact};
+   6 use adventuresim_core::physical_object::{CarriedInventoryScope, InventoryLocation};
+   7 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+   8 pub(crate) use smiths::ensure_settlement_smith;
+   9 use smiths::service_skill;
+  10 use spacetimedb::{ReducerContext, Table, reducer, table};
+  11 
+  12 use crate::character::{character, character_equipped_item, equipment_occupancy};
+  13 use crate::item::{inventory_item, item};
+  14 use crate::simulation::simulation_character;
+  15 use crate::time::character_time;
+  16 use crate::{CatalogItemKind, InventoryItem, inventory_object};
+  17 
+  18 pub const REPAIR_MINUTES_PER_FULL_ITEM: u64 = 2 * MINUTES_PER_DAY;
+  19 
+  20 #[derive(Clone, Debug)]
+  21 #[table(accessor = item_condition, public)]
+  22 pub struct ItemCondition {
+  23     #[primary_key]
+  24     pub inventory_item_id: u64,
+  25     pub tier_1: f32,
+  26     pub tier_2: f32,
+  27     pub tier_3: f32,
+  28     pub tier_4: f32,
+  29     pub tier_5: f32,
+  30 }
+  31 
+  32 impl ItemCondition {
+  33     pub fn bins(&self) -> DamageBins {
+  34         DamageBins([
+  35             self.tier_1,
+  36             self.tier_2,
+  37             self.tier_3,
+  38             self.tier_4,
+  39             self.tier_5,
+  40         ])
+  41         .normalized()
+  42     }
+  43     fn set_bins(&mut self, bins: DamageBins) {
+  44         [
+  45             self.tier_1,
+  46             self.tier_2,
+  47             self.tier_3,
+  48             self.tier_4,
+  49             self.tier_5,
+  50         ] = bins.normalized().0;
+  51     }
+  52 }
+  53 
+  54 #[derive(Clone, Debug)]
+  55 #[table(accessor = settlement_smith, public)]
+  56 pub struct SettlementSmith {
+  57     #[primary_key]
+  58     pub settlement_id: String,
+  59     pub weaponsmith_skill: u8,
+  60     pub armourer_skill: u8,
+  61     pub tailor_skill: u8,
+  62 }
+  63 
+  64 #[derive(Clone, Debug)]
+  65 #[table(
+  66     accessor = repair_order, public,
+  67     index(accessor = owner_id, btree(columns = [owner_character_id])),
+  68     index(accessor = settlement_id, btree(columns = [settlement_id]))
+  69 )]
+  70 pub struct RepairOrder {
+  71     #[primary_key]
+  72     #[auto_inc]
+  73     pub id: u64,
+  74     pub owner_character_id: u64,
+  75     #[unique]
+  76     pub inventory_item_id: u64,
+  77     pub item_id: String,
+  78     pub settlement_id: String,
+  79     pub smith_skill: u8,
+  80     pub submitted_at_minutes: StrategicMinute,

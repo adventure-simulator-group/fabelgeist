@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-12T16:47:29.922114+00:00",
+  "operation": "read-only exact pathname Git index lookup and pinned 95e root-tree entry check after accidental removal",
+  "literal_basename": "${p%.b64}",
+  "index_command_argv": [
+    "git",
+    "ls-files",
+    "--stage",
+    "--",
+    "${p%.b64}"
+  ],
+  "cwd": "workspace working-tree root",
+  "root_tree_input": "q2328-safe-packet-5umwtzam/git-trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree",
+  "qualification": "A negative tracked-path lookup cannot show whether a previous untracked file existed, establish its contents, or make deleted data recoverable.",
+  "projection_qualification": "Path-safe reconstruction; original absolute local working directory omitted. Original registration retained separately."
+}

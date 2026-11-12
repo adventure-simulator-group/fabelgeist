@@ -1,0 +1,32 @@
+   120	            character,
+   121	            parameter_transform,
+   122	        })
+   123	    }
+   124	}
+   125	
+   126	impl SparseSkinUpload {
+   127	    fn from_character(character: &Character) -> Result<Self> {
+   128	        // Retain influences whose weight exceeds 1e-5.
+   129	        let mut skin_joint_indices = Vec::new();
+   130	        let mut skin_vertex_indices = Vec::new();
+   131	        let mut skin_weights = Vec::new();
+   132	        // Encode the admitted vertex/joint roles into Burn's sparse i32 buffers.
+   133	        for (vertex, influences) in character.skin_weights.indexed() {
+   134	            for (joint, weight) in influences.joints.into_iter().zip(influences.weights) {
+   135	                if weight > 1e-5 {
+   136	                    skin_joint_indices.push(i32::try_from(usize::from(joint))?);
+   137	                    skin_vertex_indices.push(i32::try_from(vertex.native_vertex_index())?);
+   138	                    skin_weights.push(weight);
+   139	                }
+   140	            }
+   141	        }
+   142	        Ok(Self {
+   143	            joints: skin_joint_indices,
+   144	            vertices: skin_vertex_indices,
+   145	            weights: skin_weights,
+   146	        })
+   147	    }
+   148	}
+   149	
+   150	impl BlendBasisTensors {
+   151	    fn from_character(character: &Character, device: &Device) -> Self {

@@ -1,0 +1,71 @@
+ 541                             inventory_item_id: id,
+ 542                             remaining_fraction_micros: remaining.get(),
+ 543                         },
+ 544                     );
+ 545                 }
+ 546                 CarriedInventoryScope::Party => {
+ 547                     ctx.db.party_item_amount().party_inventory_item_id().update(
+ 548                         crate::PartyItemAmount {
+ 549                             party_inventory_item_id: id,
+ 550                             remaining_fraction_micros: remaining.get(),
+ 551                         },
+ 552                     );
+ 553                 }
+ 554             };
+ 555         }
+ 556     }
+ 557     name_parts.sort();
+ 558     name_parts.dedup();
+ 559     let raw_contamination = food::microbial_concentration(loads.iter().sum(), mass);
+ 560     let raw_growth_per_hour = if mass > 0.0 { growth_mass / mass } else { 0.0 };
+ 561     let ready_nutrition_retention =
+ 562         food::cooked_nutrition_retention(check) * food::method_nutrition_retention(method);
+ 563     ctx.db.fireplace_dish().insert(FireplaceDish {
+ 564         station_key: station.key.clone(),
+ 565         character_id,
+ 566         fireplace_fixture_id: fireplace_fixture_id.clone(),
+ 567         return_custody,
+ 568         contributor_name: actor.name,
+ 569         method,
+ 570         cooking_check: check,
+ 571         started_at_minute: minute,
+ 572         target_minutes: target,
+ 573         display_name: format!("{} {}", cooking_method_name(method), name_parts.join(", ")),
+ 574         ingredient_item_ids: ingredient_ids,
+ 575         ingredient_quantities,
+ 576         salty_kg: flavors.salty,
+ 577         spicy_kg: flavors.spicy,
+ 578         sweet_kg: flavors.sweet,
+ 579         sour_kg: flavors.sour,
+ 580         savory_kg: flavors.savory,
+ 581         ready_quality: quality,
+ 582         mass_kg: mass,
+ 583         raw_nutrition_kcal: kcal,
+ 584         ready_nutrition_retention,
+ 585         ingredient_value: value,
+ 586         raw_contamination,
+ 587         raw_growth_per_hour,
+ 588         cooked_growth_per_hour: food::cooked_growth_per_hour(&growth, method),
+ 589         contamination_contribution_digest: contamination_provenance_digest(
+ 590             &contamination_contribution_ids,
+ 591             &contamination_contribution_loads,
+ 592         ),
+ 593         contamination_contribution_ids,
+ 594         contamination_contribution_loads,
+ 595         medicinal_profile_ids: medicinal.keys().cloned().collect(),
+ 596         medicinal_profile_versions: vec![1; medicinal.len()],
+ 597         medicinal_potency_units: medicinal.values().copied().collect(),
+ 598     });
+ 599     if ctx
+ 600         .db
+ 601         .fireplace_station()
+ 602         .key()
+ 603         .find(station.key.clone())
+ 604         .is_none()
+ 605     {
+ 606         ctx.db.fireplace_station().insert(station);
+ 607     }
+ 608     Ok(())
+ 609 }
+ 610 
+ 611 #[reducer]

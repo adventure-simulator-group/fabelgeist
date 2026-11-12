@@ -1,0 +1,34 @@
+ 477     let mut inventory = ctx
+ 478         .db
+ 479         .inventory_item()
+ 480         .character_id()
+ 481         .filter(decedent_id)
+ 482         .collect::<Vec<_>>();
+ 483     inventory.sort_by_key(|row| row.id);
+ 484     for mut row in inventory {
+ 485         row.character_id = heir_id;
+ 486         ctx.db.inventory_item().id().update(row);
+ 487     }
+ 488     crate::capability::refresh_character_capability(ctx, heir_id)?;
+ 489     Ok(())
+ 490 }
+ 491 
+ 492 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ 493 enum EstateRouteState {
+ 494     Living,
+ 495     Dead {
+ 496         death_minute: StrategicMinute,
+ 497         status: Option<EstateDispositionStatus>,
+ 498         chosen_heir_id: u64,
+ 499     },
+ 500 }
+ 501 
+ 502 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ 503 enum EstateRouteOutcome {
+ 504     Destination(u64),
+ 505     InitialHeirPredeceased,
+ 506     UnclaimedAt(u64),
+ 507 }
+ 508 
+ 509 /// Follow already-materialized later estates without replaying their transfer.
+ 510 /// A pending later estate remains an intentional staging point: when its heir

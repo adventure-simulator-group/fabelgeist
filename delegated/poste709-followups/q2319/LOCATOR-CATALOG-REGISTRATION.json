@@ -1,0 +1,39 @@
+{
+  "registered_utc": "2026-11-12T15:56:08.421829+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "searches": [
+    {
+      "pattern": "instrument_item_id",
+      "scopes": [
+        "crates/adventuresim-stdb-module/src"
+      ],
+      "mode": "filename+line",
+      "cap": 100
+    },
+    {
+      "pattern": "\"cooking_pot\"",
+      "scopes": [
+        "."
+      ],
+      "mode": "filename+line",
+      "cap": 100
+    },
+    {
+      "pattern": "\"cooking_pan\"",
+      "scopes": [
+        "."
+      ],
+      "mode": "filename+line",
+      "cap": 100
+    },
+    {
+      "pattern": "\"portable_oven\"",
+      "scopes": [
+        "."
+      ],
+      "mode": "filename+line",
+      "cap": 100
+    }
+  ],
+  "purpose": "Locate station mutators and authored cooking-vessel catalog; locators only, no body read."
+}

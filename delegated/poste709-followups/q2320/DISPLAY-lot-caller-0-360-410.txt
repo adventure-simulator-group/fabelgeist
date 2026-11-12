@@ -1,0 +1,51 @@
+   360	
+   361	    let definition = ctx.db.item().id().find(item_id.to_owned());
+   362	    let kind = definition.as_ref().map(|definition| definition.kind);
+   363	    let food_definition = inventory_food_definition(kind, item_id)?;
+   364	    let durable = definition
+   365	        .as_ref()
+   366	        .is_some_and(|definition| definition.repairable);
+   367	    let food = food_definition.is_some();
+   368	    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
+   369	    // Every food unit is its own non-fungible batch. A partly consumed unit
+   370	    // remains quantity one while its authoritative lot mass/value/provenance
+   371	    // shrink, so it can never be merged back into fresh stock.
+   372	    let individual = requires_stable_object(definition.as_ref(), food, measured);
+   373	    let count = if individual { quantity } else { 1 };
+   374	    let mut first = None;
+   375	    for _ in 0..count {
+   376	        let item = ctx.db.inventory_item().insert(InventoryItem {
+   377	            id: 0,
+   378	            character_id,
+   379	            item_id: item_id.to_string(),
+   380	            quantity: if individual { 1 } else { quantity },
+   381	        });
+   382	        if individual {
+   383	            crate::inventory_container::insert_personal_object(ctx, &item)?;
+   384	        }
+   385	        if durable {
+   386	            crate::repair::initialize_item_condition(ctx, &item);
+   387	        }
+   388	        crate::weapon_instance::initialize_personal_weapon(ctx, &item)?;
+   389	        if measured {
+   390	            crate::inventory_amount::initialize_personal(ctx, item.id);
+   391	        }
+   392	        if food {
+   393	            crate::food::create_personal_food_lot(
+   394	                ctx,
+   395	                character_id,
+   396	                item.id,
+   397	                item_id,
+   398	                if individual { 1 } else { quantity },
+   399	            )
+   400	            .map_err(|error| format!("Could not create food lot: {error}"))?;
+   401	        }
+   402	        first.get_or_insert(item.id);
+   403	    }
+   404	    if food {
+   405	        let _ = crate::capability::refresh_character_capability(ctx, character_id);
+   406	    }
+   407	    Ok(first)
+   408	}
+   409	
+   410	/// Foraging receipts bind every concrete harvested unit to an object and

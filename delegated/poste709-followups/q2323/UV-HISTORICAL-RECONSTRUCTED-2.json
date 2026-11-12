@@ -1,0 +1,36 @@
+{
+  "receipt": {
+    "path": "segovb/READ-L11-544.json",
+    "sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+    "verification": "segovb/VERIFY-L11-544.json",
+    "verification_sha256": "fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25"
+  },
+  "disposition": {
+    "id": "ADLER-L11-MHR-TOPOLOGY-ADMISSION",
+    "family": "P09",
+    "disposition": "Existing canonical conditional finding independently persists at changed current producer→native index consumer",
+    "trace": [
+      "triangulate177..205 casts decoded i64 indices to u32 without owning mesh bound; UVtriangulate241..258 likewise casts without actual UV table admission. New MeshVertexTable covers positions but does not validate native topology membership.",
+      "Mhr::new upload75..82 checks i32 width only then retains face_corners tensor106. vertex_normals402..442 selects/scatters actualvertices using face_corners. Invalid finite in-width index can cross publication and reach native index operation."
+    ],
+    "first_failed_contract": "Decoded mesh/UV topology not validated against actual mesh/UV cardinality before Character publication.",
+    "canonical_owner": "Character FBX triangulation topology admission.",
+    "exact_function_ownership": [
+      "triangulate177..205/triangulate_texcoords241..258",
+      "Mhr::new75..106",
+      "Mhr::vertex_normals402..442"
+    ],
+    "connected_repair_scope": "Admit native face indices against actual owning tables before publication; preserve genuine native u32/i32 encoding at numerical ports.",
+    "dependencies": [
+      "Clothing generation has separate actual face bound checks; not global waiver.",
+      "Actual malformed canonical asset not observed; Burn native outofbounds behavior not executed/read."
+    ],
+    "acceptance_requirements": [
+      "Malformed negative/oversized/outside-table topology rejects with owned failure before native select/scatter; valid fan topology/optional absent UV behavior preserved."
+    ],
+    "accepted_unique_count_change": 0
+  },
+  "scope_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "current_target_source_scope_verified": true,
+  "latest_current_target_reconciled": false
+}

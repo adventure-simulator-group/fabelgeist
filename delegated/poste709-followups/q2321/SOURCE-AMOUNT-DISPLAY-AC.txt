@@ -1,0 +1,46 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/model.rs:1-45
+   1 // Owns the cohesive food-lot, contamination, preparation-receipt, and fireplace schema.
+   2 /// Public, inspectable description of one non-fungible inventory batch.
+   3 /// Cooking/harvesting captures ingredient provenance and material totals;
+   4 /// consumption and preparation owners conserve/update the remaining material.
+   5 /// Current catalog recipes cannot reconstruct an already cooked batch.
+   6 #[derive(Clone, Debug)]
+   7 #[table(accessor = food_lot, public)]
+   8 pub struct FoodLot {
+   9     #[primary_key]
+  10     #[auto_inc]
+  11     pub id: u64,
+  12     pub inventory_item_id: Option<u64>,
+  13     pub party_inventory_item_id: Option<u64>,
+  14     #[index(btree)]
+  15     pub material_revision: u64,
+  16     pub display_name: String,
+  17     pub preparation: FoodPreparation,
+  18     pub ingredient_item_ids: Vec<String>,
+  19     /// Fractional source-unit provenance is conserved when a lot is partly eaten.
+  20     pub ingredient_quantities: Vec<f32>,
+  21     pub salty_kg: f32,
+  22     pub spicy_kg: f32,
+  23     pub sweet_kg: f32,
+  24     pub sour_kg: f32,
+  25     pub savory_kg: f32,
+  26     /// Durable quality tier shared with item craftsmanship name colors.
+  27     pub quality: u8,
+  28     pub mass_kg: f32,
+  29     pub nutrition_kcal: f32,
+  30     pub total_value: f32,
+  31     pub created_at_minute: StrategicMinute,
+  32 }
+  33 
+  34 /// Hidden microbial state. The browser can inspect provenance, never pathogen load.
+  35 #[derive(Clone, Debug)]
+  36 #[table(accessor = food_contamination)]
+  37 pub struct FoodContamination {
+  38     #[primary_key]
+  39     pub food_lot_id: u64,
+  40     pub concentration_anchor: f32,
+  41     pub growth_per_hour: f32,
+  42     pub anchor_minute: StrategicMinute,
+  43 }
+  44 
+  45 /// Private source-material provenance carried through cooking into consumption.

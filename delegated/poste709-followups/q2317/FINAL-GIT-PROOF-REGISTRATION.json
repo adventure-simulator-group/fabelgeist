@@ -1,0 +1,30 @@
+{
+  "registered_at_utc": "2026-11-12T15:51:16.031851+00:00",
+  "purpose": "trace exact captured source paths from separately retained raw commit anchors through verified raw Git trees to blobs; compare file identities without assuming whole-tree identity",
+  "anchors": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009": "target/726-audit-baseline/private-originals/npy-q2306-private-anchors-6ij9wxaj/95e63628f9d70b8dd6e6fede64334696c6995009.commit",
+    "6533e444fa37552927070cc8d8190907fd3b413e": "target/726-audit-baseline/publication/delegated/checkpoint39-stage/bundles/2625/git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit"
+  },
+  "paths": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009": [
+      "crates/adventuresim-core/src/food.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "crates/adventuresim-stdb-module/src/food/mod.rs",
+      "crates/adventuresim-stdb-module/src/food/model.rs",
+      "crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "crates/adventuresim-stdb-module/src/lib.rs",
+      "crates/strategic-web/src/routes/settlements/party/cooking.rs",
+      "crates/strategic-web/src/templates/layout/shell.rs",
+      "crates/strategic-web/src/templates/settlement/cooking.rs",
+      "crates/strategic-web/src/templates/settlement/cooking/inventory.rs",
+      "crates/strategic-web/src/templates/settlement/cooking/selection.rs",
+      "crates/strategic-web/static/cooking.js"
+    ],
+    "6533e444fa37552927070cc8d8190907fd3b413e": [
+      "crates/adventuresim-core/src/food.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "726-source-evidence-packet-final-receipt-v1",
+  "created_at_utc": "2026-11-12T16:28:13.497212+00:00",
+  "packet": "q2321-safe-packet-25pi5isj",
+  "manifest_sha256": "3c5dd3ebe1332684db45e82f216c92436ba69f3054dfa0b91f7df38b695eb0c3",
+  "manifest_member_count": 313,
+  "final_scanned_file_count_including_manifest": 314,
+  "verification": {
+    "exit_code": 0,
+    "stdout_sha256": "a5d5d700b16fd6e089ec39a66c2fe20d5b53198dc2ee073436e65a843392e2a0"
+  },
+  "digest_scan": {
+    "exit_code": 0,
+    "output_sha256": "16bd67b6ae2f6c2bf547011847d0c5aecb94913eea1d60aac9a3767fc173fb16",
+    "forbidden_digest_total": 0,
+    "other_candidate_counts": {},
+    "exceptions": [],
+    "distinct_corpus_digests": 40
+  },
+  "pattern_scan": {
+    "exit_code": 0,
+    "output_sha256": "90d3414bf59330e4e46e94c3dca6a0a83a71ee871a3af95f45e0f17378bf581d",
+    "counts": {
+      "local_home": 0,
+      "temporary_path": 0,
+      "windows_user": 0,
+      "email": 0,
+      "credential": 0
+    }
+  },
+  "qualification": "bounded scans and exclusions in packet PRIVACY-QUALIFICATION.json; no product execution"
+}

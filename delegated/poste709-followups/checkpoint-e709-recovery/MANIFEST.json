@@ -1,0 +1,46 @@
+{
+  "schema": "726-e709-same-machine-recovery-v1",
+  "files": [
+    {
+      "path": "AFTER.json",
+      "bytes": 100,
+      "sha256": "025c6cc1d117556139c6cccafe79fa62409aacfc8c6ba1ebff45f7a5ef8c1ee0"
+    },
+    {
+      "path": "ASSERT-PREFLIGHT.log",
+      "bytes": 54,
+      "sha256": "2d0db3967d42125c89a2ed60b385fef874181757a4158f504b779967a22f2f52"
+    },
+    {
+      "path": "BEFORE.json",
+      "bytes": 100,
+      "sha256": "9006757a8ae658d7ed525f36528babce2486b97e0ee9e80b3537faec128629c2"
+    },
+    {
+      "path": "CHECKED-OUT.json",
+      "bytes": 100,
+      "sha256": "025c6cc1d117556139c6cccafe79fa62409aacfc8c6ba1ebff45f7a5ef8c1ee0"
+    },
+    {
+      "path": "CHECKOUT.log",
+      "bytes": 168,
+      "sha256": "726c4b3c4aad5e25bd1286f065141eabe075a545625c13d2d8a8cc75d06a4731"
+    },
+    {
+      "path": "FETCH.log",
+      "bytes": 233,
+      "sha256": "a6922bb3845b56595cdf11153a0ecba5d9fdf922274325ef8ea8e6269d8b12bd"
+    },
+    {
+      "path": "RECOVERY-RECORD.json",
+      "bytes": 1240,
+      "sha256": "a8abe1474f640ce21fb5ec78af5cea7ce5a8764e8161ff4c7e8198edeb408bdb"
+    },
+    {
+      "path": "evidence.log",
+      "bytes": 157037,
+      "sha256": "eef2aece71ff86c017cd8689ac6dd2c9fb80e7d9bcb65830672599a139be975e"
+    }
+  ],
+  "qualification": "Manifest excludes itself; same-machine recovery and direct-child assertion preflight only. Empty scratch directory is not represented."
+}

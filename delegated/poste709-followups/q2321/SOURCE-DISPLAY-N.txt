@@ -1,0 +1,57 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/lot_inventory.rs:190-245
+ 190 ) -> Result<(), String> {
+ 191     if removed == original {
+ 192         delete_party_food_lot(ctx, inventory_item_id);
+ 193         return Ok(());
+ 194     }
+ 195     let mut lot = ctx
+ 196         .db
+ 197         .food_lot()
+ 198         .iter()
+ 199         .find(|lot| lot.party_inventory_item_id == Some(inventory_item_id))
+ 200         .ok_or("Food lot metadata not found")?;
+ 201     let keep = 1.0 - removed as f32 / original as f32;
+ 202     retain_lot_fraction(&mut lot, keep)?;
+ 203     ctx.db.food_lot().id().update(lot);
+ 204     Ok(())
+ 205 }
+ 206 
+ 207 fn split_ingredient_quantities(
+ 208     quantities: &[f32],
+ 209     taken: u32,
+ 210     original: u32,
+ 211 ) -> (Vec<f32>, Vec<f32>) {
+ 212     let ratio = taken as f32 / original as f32;
+ 213     let child = quantities
+ 214         .iter()
+ 215         .map(|quantity| food::retained_component(*quantity, ratio))
+ 216         .collect::<Vec<_>>();
+ 217     let source = quantities
+ 218         .iter()
+ 219         .zip(&child)
+ 220         .map(|(quantity, child_quantity)| (quantity - child_quantity).max(0.0))
+ 221         .collect();
+ 222     (source, child)
+ 223 }
+ 224 
+ 225 fn retain_lot_fraction(lot: &mut FoodLot, retained: f32) -> Result<(), String> {
+ 226     lot.material_revision = lot
+ 227         .material_revision
+ 228         .checked_add(1)
+ 229         .ok_or("Food material revision is exhausted")?;
+ 230     lot.mass_kg = food::retained_component(lot.mass_kg, retained);
+ 231     lot.nutrition_kcal = food::retained_component(lot.nutrition_kcal, retained);
+ 232     lot.total_value = food::retained_component(lot.total_value, retained);
+ 233     lot.salty_kg = food::retained_component(lot.salty_kg, retained);
+ 234     lot.spicy_kg = food::retained_component(lot.spicy_kg, retained);
+ 235     lot.sweet_kg = food::retained_component(lot.sweet_kg, retained);
+ 236     lot.sour_kg = food::retained_component(lot.sour_kg, retained);
+ 237     lot.savory_kg = food::retained_component(lot.savory_kg, retained);
+ 238     for quantity in &mut lot.ingredient_quantities {
+ 239         *quantity = food::retained_component(*quantity, retained);
+ 240     }
+ 241     Ok(())
+ 242 }
+ 243 
+ 244 pub fn personal_lot(ctx: &ReducerContext, inventory_item_id: u64) -> Option<FoodLot> {
+ 245     ctx.db

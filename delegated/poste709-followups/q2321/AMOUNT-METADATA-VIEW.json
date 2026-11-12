@@ -1,0 +1,170 @@
+[
+  {
+    "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+    "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+    "blob": "358fb3e0656253372229a74997eaee186fdf9ecf",
+    "lines": 241,
+    "locators": {
+      "fn initialize_personal": {
+        "count": 1,
+        "first_20": [
+          49
+        ],
+        "truncated": false
+      },
+      "fn personal_fraction": {
+        "count": 1,
+        "first_20": [
+          68
+        ],
+        "truncated": false
+      },
+      "struct InventoryItemAmount": {
+        "count": 1,
+        "first_20": [
+          17
+        ],
+        "truncated": false
+      },
+      "quantity": {
+        "count": 1,
+        "first_20": [
+          13
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/item.rs",
+    "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+    "blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+    "lines": 957,
+    "locators": {
+      "fn add_inventory_item_checked": {
+        "count": 4,
+        "first_20": [
+          351,
+          745,
+          761,
+          770
+        ],
+        "truncated": false
+      },
+      "quantity": {
+        "count": 50,
+        "first_20": [
+          57,
+          355,
+          357,
+          370,
+          373,
+          380,
+          398,
+          417,
+          419,
+          420,
+          433,
+          435,
+          454,
+          464,
+          473,
+          477,
+          501,
+          508,
+          509,
+          535
+        ],
+        "truncated": true
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/food/model.rs",
+    "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+    "blob": "5ed3ad5655e51693f0ed66989bcf03b63a39c613",
+    "lines": 151,
+    "locators": {
+      "struct FoodLot": {
+        "count": 1,
+        "first_20": [
+          8
+        ],
+        "truncated": false
+      },
+      "mass_kg": {
+        "count": 2,
+        "first_20": [
+          28,
+          138
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-core/src/food.rs",
+    "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+    "blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+    "lines": 848,
+    "locators": {
+      "struct FoodDefinition": {
+        "count": 1,
+        "first_20": [
+          248
+        ],
+        "truncated": false
+      },
+      "mass_kg_per_unit": {
+        "count": 5,
+        "first_20": [
+          253,
+          291,
+          686,
+          704,
+          720
+        ],
+        "truncated": false
+      },
+      "fn definition": {
+        "count": 1,
+        "first_20": [
+          309
+        ],
+        "truncated": false
+      },
+      "retained_component": {
+        "count": 3,
+        "first_20": [
+          550,
+          726,
+          727
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+    "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+    "blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+    "lines": 868,
+    "locators": {
+      "fn parse_consumable_fractions": {
+        "count": 1,
+        "first_20": [
+          73
+        ],
+        "truncated": false
+      },
+      "fn add_fireplace_ingredients": {
+        "count": 2,
+        "first_20": [
+          86,
+          219
+        ],
+        "truncated": false
+      }
+    }
+  }
+]

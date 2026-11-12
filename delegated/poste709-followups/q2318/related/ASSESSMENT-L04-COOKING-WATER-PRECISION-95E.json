@@ -1,0 +1,212 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected exact container water provenance, cooking volume conversion and authored cooking-vessel limits. The operations lens remains incomplete.",
+  "source_reasoning": "Read-only source and catalogue inspection and IEEE-754 binary32 arithmetic; no generator, database, cooking operation, product build, test or runtime probe ran.",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/material.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "164a9844e1618633fcc978063f349c8c2d0dd29a",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "bytes": 61830,
+      "lines": 1869,
+      "ranges": [
+        [
+          110,
+          160
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/00.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/water_source.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "606e35daa5f8af491f4af5363619cf5f265663e8",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "bytes": 17263,
+      "lines": 500,
+      "ranges": [
+        [
+          400,
+          440
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/01.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "bytes": 33851,
+      "lines": 868,
+      "ranges": [
+        [
+          1,
+          505
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/02.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5c1f80f39e3233d3912f08168baf1dffae3429d0",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "bytes": 25553,
+      "lines": 656,
+      "ranges": [
+        [
+          475,
+          575
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/03.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          305,
+          755
+        ],
+        [
+          1110,
+          1200
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/04.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "80bf707f3d64af1fe32e630ff811e7b1fe790957",
+      "sha256": "572d3f806ee5f017d597ba5041922e8efc94056e40b22c69a2d9251cebe1c765",
+      "bytes": 50615,
+      "lines": 1430,
+      "ranges": [
+        [
+          35,
+          72
+        ],
+        [
+          1020,
+          1125
+        ],
+        [
+          1215,
+          1260
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/05.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f9f05f97786b7fc59390d020755d905363fbe0ce",
+      "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+      "bytes": 72750,
+      "lines": 2059,
+      "ranges": [
+        [
+          1315,
+          1365
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/06.source.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "content/items/catalog.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50",
+      "bytes": 221503,
+      "lines": 9828,
+      "ranges": [
+        [
+          1535,
+          1590
+        ],
+        [
+          4750,
+          4780
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/water-precision-sources/07.source.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "recovered_historical_receipts": [
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-245.json",
+      "sha256": "00a95a5d218521f78368b0e591ee2f0174210f80e61b758a03fead3b00b920bd",
+      "bytes": 13682,
+      "git_blob": "e83bd78f102d4128b338dfedb7ccb87ba41e8ed5",
+      "preserved_bytes": "recovered/water-precision-059/00a95a5d218521f78368b0e591ee2f0174210f80e61b758a03fead3b00b920bd.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated Lens 13 evidence, retaining original attribution and zero accepted unique-count change; not checkpoint 3821 authority."
+    },
+    {
+      "original_path": "segovb/READ-L13-PARALLEL-254.json",
+      "sha256": "850bd6be5e7531cb1967243e4c02d86577f8c42fdc5bc8e87bd3f442519c8012",
+      "bytes": 20327,
+      "git_blob": "1f9fc5d8d86f140de629545281d2a341223ff9e6",
+      "preserved_bytes": "recovered/water-precision-059/850bd6be5e7531cb1967243e4c02d86577f8c42fdc5bc8e87bd3f442519c8012.json.gz",
+      "content_encoding": "gzip",
+      "qualification": "Exact checkpoint 059 delegated Lens 13 evidence, retaining original attribution and zero accepted unique-count change; not checkpoint 3821 authority."
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/334",
+      "qualification": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING left aggregate, vessel volume, provenance and conservation for further connected work. It did not state the new specific binary32 counterexample; retain its original role, open status and zero historical accepted-count change."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346",
+      "qualification": "PL13-256-CONTAINED-WATER-VOLUME-AND-PROVENANCE-PENDING requested authored bounds and native outbreak conservation. Its inventory-container original body differs from 95e; retain the original revision and delegated attribution without promoting it to checkpoint 3821."
+    }
+  ],
+  "historical_source_roles": [
+    {
+      "original_index": 954,
+      "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+      "historical_sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "historical_assessment": "ASSESSMENT-L01-HISTORICAL-954-960.json",
+      "qualification": "Separate full historical Lens 1 read of the exact frozen body, byte-identical to 95e. Hash equality transfers no independent lens completion."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+      "severity": "unassigned; current authored cooking vessels are below the demonstrated precision threshold",
+      "classification": "Conditional source-derived exact-volume comparison error for a hypothetical larger supported-capacity cooking vessel, extending earlier broad open volume and provenance questions without asserting a historical unique finding.",
+      "trace": "The exact collection path records requested whole milliliters as checked integer microliters. contained_water_contamination converts the public whole-milliliter holding exactly and, for a full preview, proportional_material_transfer returns each selected contribution unchanged. In cooking, the same public whole milliliters are first cast to f32 and multiplied by 1000 in Microliters::try_from_nonnegative_milliliters_rounded; the exact contribution sum is then compared against that rounded public amount. A downward rounding can make equal volumes appear unequal and trigger the material-exceeds-public-volume error before the code deletes container water.",
+      "source_derived_example": "Hypothesize one valid water contribution of 134221 ml and an equal public holding. The exact amount is 134221000 microliters. Under ordinary IEEE-754 binary32 rounding, 134221 is exactly representable, but multiplying by 1000 rounds the f32 value down to 134220992. The exact 134221000 contribution then exceeds the rounded public value by 8 microliters. This describes arithmetic and the selected branches, not an executed collection or cooking action.",
+      "producers_and_consumers": "The collection reducer requires a living actor, generated active capability, exact presence, carried custody, compatible liquid, available source and checked capacity; it stores checked integer contribution units. The generated dysentery contaminated-well source is initialized with 500000 ml, but this does not prove the example collection, ingredient placement or cooking chronology. method_for_instrument permits the named pan, pot and portable oven. The item container capacity field validator accepts 1 through 1000000 ml, so a hypothetical cooking_pot with 200000 ml passes that one field check, leaving room for water and food in principle; no claim is made that such edited content or a resulting game state is fully valid or reachable.",
+      "safeguards_and_limits": "Read-only parsing of the pinned catalogue finds cooking_pan 2500 ml, cooking_pot 8000 ml and portable_oven 12000 ml. Every whole milliliter amount up to 12000 and its product by 1000 are exactly representable as binary32, so the demonstrated rounding mismatch is not produced by a capacity-respecting holding in these currently authored vessels. Other container writers, malformed state, catalogue cross-validation, target-specific floating behavior, chronology and supported larger vessels remain unassessed. A larger public amount can round upward as well; this record claims only the demonstrated downward comparison.",
+      "connected_repair": "First decide whether supported authored cooking capacities may approach the existing container-field maximum. If so, preserve the original integer milliliter holding through the exact checked Microliters conversion for the conservation comparison, and keep float water only where approximate mass or cooking calculations require it. Preserve exact contribution accounting, capacity and custody checks, current recipe semantics and contaminated-water provenance; reconcile the broad historical records before deduplication.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover exact known-size capacities and hypothetical larger accepted capacities, full and partial provenance, equal and genuinely excessive contribution totals, unit overflow, cooking methods, and preservation of current valid cooking behavior.",
+      "discovery": "partial; current authored vessel bounds, larger-vessel support, all writers and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

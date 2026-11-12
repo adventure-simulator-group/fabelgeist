@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-core/src/skill.rs:1100-1165
+1100 #[ambassador::delegatable_trait]
+1101 pub trait PlayerSkills {
+1102     fn skill_hours_trained(&self, skill: Skill) -> f32;
+1103 
+1104     /// One nonrecursive transfer pass over direct skill hours. The projection
+1105     /// is never persisted and therefore cannot amplify itself.
+1106     fn effective_skill_hours(&self, skill: Skill) -> f32 {
+1107         let direct = self.skill_hours_trained(skill).max(0.0);
+1108         if skill.is_trained() && direct <= 0.0 {
+1109             return 0.0;
+1110         }
+1111         let transferred = skill
+1112             .ordinary_correlations()
+1113             .iter()
+1114             .map(|(source, coefficient)| self.skill_hours_trained(*source).max(0.0) * coefficient)
+1115             .sum::<f32>()
+1116             .max(0.0);
+1117         // A tiny direct investment must not unlock an arbitrarily large
+1118         // lifetime transfer into an ordinary trained skill. Intuitive skills
+1119         // remain able to benefit from related experience before direct study.
+1120         let transferred = if skill.is_trained() {
+1121             transferred.min(direct)
+1122         } else {
+1123             transferred
+1124         };
+1125         direct + transferred
+1126     }
+1127 
+1128     fn bestiary_hours_for(&self, _category: adventuresim_world_schema::BestiaryCategory) -> f32 {
+1129         self.skill_hours_trained(Skill::Bestiary)
+1130     }
+1131 
+1132     fn skill_check_by_parts(
+1133         &self,
+1134         skill: Skill,
+1135         attr: &impl PlayerAttributes,
+1136         body: &impl PlayerBody,
+1137         essentials: &impl PlayerEssentials,
+1138         equipment: &impl PlayerEquipment,
+1139         weights: LimbWeights,
+1140     ) -> f32 {
+1141         let hours_trained = self.effective_skill_hours(skill);
+1142         let mut check = skill.capped_training_rank(hours_trained, attr);
+1143         // Injury remains an explicit performance penalty. Aptitude itself is
+1144         // healthy/raw and contributes nothing to the final check value.
+1145         if skill.is_mental() {
+1146             check *= body.body_part_health(BodyPart::Head).clamp(0.0, 1.0);
+1147         }
+1148         if skill.is_physical() {
+1149             let usable_limbs = BodyPart::LIMBS.iter().fold(0.0, |sum, part| {
+1150                 sum + weights.by_part(part).clamp(0.0, 1.0)
+1151                     * body.body_part_health(part).clamp(0.0, 1.0)
+1152             });
+1153             check *= usable_limbs;
+1154             let armor_penalty = if skill.is_upper_body() {
+1155                 equipment.armor_penalty(BodyPart::UPPER_BODY)
+1156             } else {
+1157                 equipment.armor_penalty(BodyPart::LOWER_BODY)
+1158             };
+1159             check *= armor_penalty;
+1160             check *= essentials.physical_skill_condition_by_parts(attr, body, equipment);
+1161         }
+1162 
+1163         check
+1164     }
+1165 }

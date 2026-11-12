@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:746-815
+ 746     let legality_classified =
+ 747         sources_are_canonical && decisions_match_sources && authority.legality == expected_legality;
+ 748     let requirements = [
+ 749         (
+ 750             ForagePlanRequirement::ExactPresence,
+ 751             authority.exact_presence,
+ 752         ),
+ 753         (
+ 754             ForagePlanRequirement::EncounterClear,
+ 755             authority.encounter_clear,
+ 756         ),
+ 757         (
+ 758             ForagePlanRequirement::EnvironmentCurrent,
+ 759             authority.environment_current,
+ 760         ),
+ 761         (
+ 762             ForagePlanRequirement::CapabilityCurrent,
+ 763             authority.capability_current,
+ 764         ),
+ 765         (
+ 766             ForagePlanRequirement::SourcesAvailable,
+ 767             authority.sources_available,
+ 768         ),
+ 769         (
+ 770             ForagePlanRequirement::LegalityClassified,
+ 771             legality_classified,
+ 772         ),
+ 773     ]
+ 774     .into_iter()
+ 775     .map(|(requirement, satisfied)| RequirementCheck {
+ 776         requirement: ActionRequirement::Domain(requirement),
+ 777         satisfied,
+ 778     })
+ 779     .collect();
+ 780     let requested_minutes = authority.duration.minutes();
+ 781     let source_ids = authority.source_ids;
+ 782     let resolution = authority.resolution;
+ 783     build_plan(
+ 784         PlanInput {
+ 785             coordinates: authority.coordinates,
+ 786             provenance: authority.provenance,
+ 787             snapshot: authority.snapshot,
+ 788             current_minute: authority.current_minute,
+ 789             duration: authority.duration,
+ 790             boundaries: TimeBoundaries {
+ 791                 terminal_minute: authority.terminal_minute,
+ 792                 interruption: None,
+ 793             },
+ 794             requirements,
+ 795             sanitized_rejection: PublicRejection::Unavailable,
+ 796         },
+ 797         move |_, time| {
+ 798             let mut effects = vec![ActionEffect::Domain(ForagePlanEffect::AttemptSearch {
+ 799                 actor,
+ 800                 requested_minutes,
+ 801             })];
+ 802             if time.elapsed_minutes > 0
+ 803                 && let Some(mut resolution) = resolution
+ 804             {
+ 805                 let permits_yield = time.permits_completion_effects();
+ 806                 if !permits_yield {
+ 807                     resolution.yields.clear();
+ 808                 }
+ 809                 effects.push(ActionEffect::Domain(ForagePlanEffect::CommitResolution {
+ 810                     resolution,
+ 811                     permits_yield,
+ 812                 }));
+ 813             }
+ 814             CalculatedAction {
+ 815                 effects,

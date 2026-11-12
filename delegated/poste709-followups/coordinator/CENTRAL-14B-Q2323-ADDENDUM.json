@@ -1,0 +1,63 @@
+{
+  "schema": "726-central-followup-14b-q2323-addendum-v1",
+  "queue_index": 2323,
+  "reviewer": "/root/verifier_scope",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "assessment": "Historical private pairing rejection was closed only in its named scope. Same-LOD corrective reload qualifies model/body association and links to already recorded q2327/cache policy. Independently, an empty UV-face list can lead to zero-filled generic vertex projection; older source had already noted empty UV faces and cardinality policy remained open. No asset, runtime or new unique defect is established.",
+  "source_refs": [
+    "crates/adventuresim-character-creator/src/studio_generation.rs:21-67,86-91",
+    "crates/adventuresim-character-creator/src/studio_cache.rs:30-55",
+    "crates/adventuresim-character-creator/src/device_equipment.rs:13-40,43-111",
+    "crates/fabelgeist-mhr/src/character.rs:118-145,207-257",
+    "crates/fabelgeist-armor/src/gpu/body.rs:13-77"
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-creator-fit-cached-model-pairing-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported input, asset and policy remain open",
+      "relationship_qualification": "Historical q2323 rejected the suspicion only within its named private scope; q2327 recorded a separate conditional policy disposition with named-scope discovery closed. Neither is promoted to checkpoint3821 or converted into a unique count.",
+      "discovery": "partial; exact source paths and linked policy questions assessed, assets, external consumers and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json",
+      "classification": "Same-LOD corrective reload can pass a reloaded model alongside an earlier cached generated body when the body key is unchanged; model content and fit effects remain unproved.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2323",
+        "baseline-059/queue.json#/entries/2327"
+      ],
+      "current_related_records": [
+        "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001",
+        "REVIEW-RUNTIME-BODY-DEVICE-CACHE-IDENTITY-001",
+        "DELEGATE-RIG-EQUAL-BOUND-INSTANCE-QUESTION"
+      ],
+      "connected_repair_direction": "Decide model-instance, cache-key, rig and fit-data association across private and public callers without assuming equal counts imply identity."
+    },
+    {
+      "id": "relationship-creator-uv-cardinality-projection-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship only; no independent lens or semantic queue closure.",
+      "severity": "unassigned; supported input, asset and policy remain open",
+      "relationship_qualification": "Historical q2323 rejected the suspicion only within its named private scope; q2327 recorded a separate conditional policy disposition with named-scope discovery closed. Neither is promoted to checkpoint3821 or converted into a unique count.",
+      "discovery": "partial; exact source paths and linked policy questions assessed, assets, external consumers and global aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json",
+      "classification": "An empty UV-face result can cause the generic vertex projection zip to return a vertex-sized zero table; supported asset admission and downstream behavior remain unproved.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2323",
+        "adler/READ-L11-371.json (older candidate; ledger citation supplied no expected digest)"
+      ],
+      "current_related_records": [
+        "REVIEW-SURFACE-CUT-UV-FACE-ADMISSION-001"
+      ],
+      "connected_repair_direction": "Establish UV face cardinality and seam policy from producer through separate projection and underlayer consumers."
+    }
+  ],
+  "recovery_qualification": "All 18 cited historical records match recorded hashes; a separate older Adler receipt matches two local copies and transport metadata, but its original ledger citation has no expected digest. JSON ledger object selections are reconstructions, not original byte slices. No 3821 restoration.",
+  "source_credit": "Underlying source and historical reads remain attributed to their original reviewers; root read the registered report only.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

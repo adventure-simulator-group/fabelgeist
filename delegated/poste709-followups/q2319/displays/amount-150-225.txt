@@ -1,0 +1,76 @@
+ 150         ctx.db
+ 151             .party_inventory_item()
+ 152             .id()
+ 153             .delete(party_inventory_item_id);
+ 154     } else {
+ 155         ctx.db
+ 156             .party_item_amount()
+ 157             .party_inventory_item_id()
+ 158             .update(state);
+ 159     }
+ 160     Ok(consumed)
+ 161 }
+ 162 
+ 163 pub fn move_personal_to_party(
+ 164     ctx: &ReducerContext,
+ 165     inventory_item_id: u64,
+ 166     party_inventory_item_id: u64,
+ 167 ) -> Result<(), String> {
+ 168     let state = ctx
+ 169         .db
+ 170         .inventory_item_amount()
+ 171         .inventory_item_id()
+ 172         .find(inventory_item_id)
+ 173         .ok_or("Measured personal item state is missing")?;
+ 174     ctx.db
+ 175         .inventory_item_amount()
+ 176         .inventory_item_id()
+ 177         .delete(inventory_item_id);
+ 178     ctx.db.party_item_amount().insert(PartyItemAmount {
+ 179         party_inventory_item_id,
+ 180         remaining_fraction_micros: state.remaining_fraction_micros,
+ 181     });
+ 182     Ok(())
+ 183 }
+ 184 
+ 185 pub fn move_party_to_personal(
+ 186     ctx: &ReducerContext,
+ 187     party_inventory_item_id: u64,
+ 188     inventory_item_id: u64,
+ 189 ) -> Result<(), String> {
+ 190     let state = ctx
+ 191         .db
+ 192         .party_item_amount()
+ 193         .party_inventory_item_id()
+ 194         .find(party_inventory_item_id)
+ 195         .ok_or("Measured party item state is missing")?;
+ 196     ctx.db
+ 197         .party_item_amount()
+ 198         .party_inventory_item_id()
+ 199         .delete(party_inventory_item_id);
+ 200     ctx.db.inventory_item_amount().insert(InventoryItemAmount {
+ 201         inventory_item_id,
+ 202         remaining_fraction_micros: state.remaining_fraction_micros,
+ 203     });
+ 204     Ok(())
+ 205 }
+ 206 
+ 207 #[cfg(test)]
+ 208 mod tests {
+ 209     use super::*;
+ 210 
+ 211     #[test]
+ 212     fn only_divisible_consumable_definitions_are_measured() {
+ 213         let food = crate::Item {
+ 214             kind: crate::CatalogItemKind::Food,
+ 215             ..crate::Item::default()
+ 216         };
+ 217         let alcohol = crate::Item {
+ 218             alcohol_serving_ml: 500,
+ 219             ..crate::Item::default()
+ 220         };
+ 221         let soap = crate::Item {
+ 222             id: adventuresim_core::item_references::SOFT_SOAP_ID.into(),
+ 223             ..crate::Item::default()
+ 224         };
+ 225         let sword = crate::Item {

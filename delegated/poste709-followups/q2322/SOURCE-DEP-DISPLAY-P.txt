@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/time/advancement.rs:240-300
+ 240             .db
+ 241             .character_time()
+ 242             .character_id()
+ 243             .find(character_id)
+ 244             .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 245         let alive = advance_character_time_in_plan(ctx, character_id, chunk, plan)?;
+ 246         let after = ctx
+ 247             .db
+ 248             .character_time()
+ 249             .character_id()
+ 250             .find(character_id)
+ 251             .map_or(before, |t| t.minutes);
+ 252         let elapsed = after.elapsed_since(before);
+ 253         crate::filth::record_travel_elapsed(ctx, character_id, elapsed, after)?;
+ 254         if !alive || elapsed < chunk {
+ 255             return Ok(false);
+ 256         }
+ 257         minutes -= elapsed;
+ 258     }
+ 259     Ok(true)
+ 260 }
+ 261 
+ 262 /// Stationary but strenuous strategic time used by investigation actions.
+ 263 /// Unlike neutral waiting this applies ordinary needs and the same fatigue
+ 264 /// reservoir as travel, but it never records movement filth or terrain
+ 265 /// exposure.
+ 266 pub fn advance_investigation_time(
+ 267     ctx: &ReducerContext,
+ 268     character_id: u64,
+ 269     minutes: u64,
+ 270 ) -> Result<bool, String> {
+ 271     let mut remaining = minutes;
+ 272     while remaining > 0 {
+ 273         let safe = preview_travel_time(ctx, character_id, remaining)?;
+ 274         if safe == 0 {
+ 275             return settle_travel_boundary(ctx, character_id);
+ 276         }
+ 277         let before = ctx
+ 278             .db
+ 279             .character_time()
+ 280             .character_id()
+ 281             .find(character_id)
+ 282             .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 283         let alive = advance_character_time(ctx, character_id, safe)?;
+ 284         let after = ctx
+ 285             .db
+ 286             .character_time()
+ 287             .character_id()
+ 288             .find(character_id)
+ 289             .map_or(before, |t| t.minutes);
+ 290         let elapsed = after.elapsed_since(before);
+ 291         if !alive || elapsed < safe {
+ 292             return Ok(false);
+ 293         }
+ 294         remaining -= elapsed;
+ 295     }
+ 296     Ok(true)
+ 297 }
+ 298 
+ 299 /// Bring a co-located party to one strategic minute before an atomic shared
+ 300 /// activity. The furthest-advanced member is authoritative; lagging members

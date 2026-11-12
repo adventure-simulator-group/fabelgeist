@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-stdb-module/src/food/mod.rs:1-60
+   1 //! Authoritative measured food lots and immediate free-form cooking.
+   2 
+   3 use adventuresim_core::{
+   4     disease::{self, DiseaseId},
+   5     durability::{DamageBins, effective_weapon_stat},
+   6     food::{self, CookingMethod, FoodPreparation},
+   7     herbalism,
+   8     ingredient_preparation::IngredientPreparationAction,
+   9     inventory_measurement::ConsumableFractionMicros,
+  10     material::Microliters,
+  11     physical_object::{
+  12         CarriedInventoryScope, InventoryLocation, OperationalCustody, PhysicalObjectId,
+  13     },
+  14     prelude::{PlayerSkills, Skill, apply_direct_training},
+  15     strategic_place::{StrategicFixtureId, StrategicPlaceId},
+  16 };
+  17 use adventuresim_world_schema::calendar::StrategicMinute;
+  18 use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
+  19 
+  20 use crate::{
+  21     character::{
+  22         character, character__view as _, character_attributes, character_attributes__view as _,
+  23         character_limbs, character_skills, character_skills__view as _,
+  24     },
+  25     condition::{character_needs, initialize_character_condition},
+  26     container_liquid,
+  27     inventory_container::{inventory_containment__view as _, inventory_object__view as _},
+  28     inventory_containment, inventory_item, inventory_item_amount, inventory_object,
+  29     item::{inventory_item__view as _, item, item__view as _},
+  30     medicinal_component, party_item_amount,
+  31     repair::{item_condition, item_condition__view as _},
+  32     strategic::{
+  33         PartyInventoryItem, StrategicEncounterStatus, party_authority, party_authority__view as _,
+  34         party_inventory_item, party_inventory_item__view as _, party_item_condition,
+  35         party_item_condition__view as _, party_journey_authority,
+  36         road_challenge_authority__view as _, settlement, strategic_encounter__view as _,
+  37     },
+  38     time::{character_time, character_time__view as _},
+  39 };
+  40 
+  41 // Assembles the ordered food owners in their existing SpacetimeDB module scope.
+  42 include!("model.rs");
+  43 include!("ingredient_preparation.rs");
+  44 include!("preparation_authority.rs");
+  45 include!("projections.rs");
+  46 include!("lot_inventory.rs");
+  47 include!("fireplace_custody.rs");
+  48 include!("cooking.rs");
+  49 include!("consumption.rs");
+  50 #[cfg(feature = "authority-tests")]
+  51 mod authority_tests;
+  52 
+  53 #[cfg(test)]
+  54 pub(crate) const FOOD_SOURCE: &str = concat!(
+  55     include_str!("model.rs"),
+  56     include_str!("ingredient_preparation.rs"),
+  57     include_str!("preparation_authority.rs"),
+  58     include_str!("projections.rs"),
+  59     include_str!("lot_inventory.rs"),
+  60     include_str!("fireplace_custody.rs"),

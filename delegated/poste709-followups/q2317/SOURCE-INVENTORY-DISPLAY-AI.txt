@@ -1,0 +1,35 @@
+SOURCE crates/strategic-web/src/templates/settlement/cooking/inventory.rs:1-34
+   1 //! Available cooking ingredients and vessels, including the empty state.
+   2 use super::*;
+   3 #[expect(
+   4     clippy::too_many_arguments,
+   5     reason = "the cooking inventory renders independent custody projections"
+   6 )]
+   7 pub(super) fn available(
+   8     action_base: &str,
+   9     inventory_scope: &str,
+  10     personal_inventory: &[InventoryItem],
+  11     party_inventory: &[PartyInventoryItem],
+  12     personal_amounts: &[InventoryItemAmount],
+  13     party_amounts: &[PartyItemAmount],
+  14     food_lots: &[FoodLot],
+  15     definitions: &[CatalogItemView],
+  16     instrument: Option<&str>,
+  17 ) -> Markup {
+  18     html! {
+  19         p class="cooking-inventory-empty small-copy" { "No usable food or vessels here. Check the other inventory or buy ingredients at the market." }
+  20         div data-inventory-browser="cooking-inventory-right" {
+  21             table class="trade-inventory-table" { tbody {
+  22                 @if inventory_scope == "personal" {
+  23                     @for item in personal_inventory.iter().filter(|row| row.quantity > 0) {
+  24                         (fireplace_inventory_row(action_base, inventory_scope, item.id, &item.item_id, item.quantity, personal_amounts.iter().find(|a| a.inventory_item_id == item.id).map(|a| a.remaining_fraction_micros), food_lots.iter().find(|l| l.inventory_item_id == Some(item.id)), definitions, instrument))
+  25                     }
+  26                 } @else {
+  27                     @for item in party_inventory.iter().filter(|row| row.quantity > 0) {
+  28                         (fireplace_inventory_row(action_base, inventory_scope, item.id, &item.item_id, item.quantity, party_amounts.iter().find(|a| a.party_inventory_item_id == item.id).map(|a| a.remaining_fraction_micros), food_lots.iter().find(|l| l.party_inventory_item_id == Some(item.id)), definitions, instrument))
+  29                     }
+  30                 }
+  31             } }
+  32         }
+  33     }
+  34 }

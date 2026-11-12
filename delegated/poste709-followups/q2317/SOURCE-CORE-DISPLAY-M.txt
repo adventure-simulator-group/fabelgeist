@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-core/src/food.rs:320-365
+ 320 }
+ 321 
+ 322 pub fn contamination_at(anchor: f32, growth_per_hour: f32, elapsed_minutes: u64) -> f32 {
+ 323     if !anchor.is_finite() || !growth_per_hour.is_finite() {
+ 324         return MAX_CONTAMINATION;
+ 325     }
+ 326     let exponent = (growth_per_hour.max(0.0) as f64 * elapsed_minutes as f64 / 60.0).min(80.0);
+ 327     ((anchor.max(0.0) as f64 * exponent.exp()).min(MAX_CONTAMINATION as f64)) as f32
+ 328 }
+ 329 
+ 330 pub fn cooked_contamination(current: f32, method: CookingMethod) -> f32 {
+ 331     let kill = match method {
+ 332         CookingMethod::PanFry => 1.0e-5,
+ 333         CookingMethod::Stew => 2.0e-6,
+ 334         CookingMethod::Roast => 1.0e-5,
+ 335         CookingMethod::Bake => 4.0e-6,
+ 336     };
+ 337     (current.max(0.0) * kill).clamp(RECONTAMINATION_FLOOR, MAX_CONTAMINATION)
+ 338 }
+ 339 
+ 340 pub fn scale_contamination_contributions(
+ 341     raw_concentration: f32,
+ 342     surviving_concentration: f32,
+ 343     contribution_loads: &[f32],
+ 344 ) -> Vec<f32> {
+ 345     let survival = if raw_concentration > 0.0 {
+ 346         (surviving_concentration / raw_concentration).clamp(0.0, 1.0)
+ 347     } else {
+ 348         0.0
+ 349     };
+ 350     contribution_loads
+ 351         .iter()
+ 352         .map(|load| load * survival)
+ 353         .collect()
+ 354 }
+ 355 
+ 356 pub fn cooked_growth_per_hour(input_growth: &[f32], method: CookingMethod) -> f32 {
+ 357     let slowest = input_growth
+ 358         .iter()
+ 359         .copied()
+ 360         .filter(|v| v.is_finite())
+ 361         .fold(0.0_f32, f32::max);
+ 362     let factor = match method {
+ 363         CookingMethod::PanFry => 0.42,
+ 364         CookingMethod::Stew => 0.35,
+ 365         CookingMethod::Roast => 0.45,

@@ -1,0 +1,70 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:800-868
+ 800             dish.raw_growth_per_hour,
+ 801             dish.cooked_growth_per_hour,
+ 802             doneness.contamination_kill_progress,
+ 803         ),
+ 804         anchor_minute: minute,
+ 805     });
+ 806     ctx.db
+ 807         .fireplace_dish()
+ 808         .station_key()
+ 809         .delete(dish.station_key.clone());
+ 810     if let Some(station) = ctx.db.fireplace_station().key().find(dish.station_key)
+ 811         && station.instrument_item_id.is_none()
+ 812     {
+ 813         ctx.db.fireplace_station().key().delete(station.key);
+ 814     }
+ 815     crate::capability::refresh_character_capability(ctx, character_id)?;
+ 816     Ok(())
+ 817 }
+ 818 
+ 819 pub fn preview_cooking(
+ 820     ctx: &ReducerContext,
+ 821     character_id: u64,
+ 822     method: CookingMethod,
+ 823     inventory_ids: &[u64],
+ 824     fractions: &[ConsumableFractionMicros],
+ 825 ) -> Result<u32, String> {
+ 826     if inventory_ids.is_empty()
+ 827         || inventory_ids.len() != fractions.len()
+ 828         || inventory_ids.len() > 32
+ 829     {
+ 830         return Err("Select between one and 32 food lots".into());
+ 831     }
+ 832     if let Some(reason) = equipment_reason(ctx, character_id, method) {
+ 833         return Err(reason.into());
+ 834     }
+ 835     let mut seen = std::collections::BTreeSet::new();
+ 836     let mut safety = Vec::new();
+ 837     let mut mass = 0.0;
+ 838     for (&id, &fraction) in inventory_ids.iter().zip(fractions) {
+ 839         if fraction.is_zero() || !seen.insert(id) {
+ 840             return Err("Food lot selections must be unique and positive".into());
+ 841         }
+ 842         let inventory = ctx
+ 843             .db
+ 844             .inventory_item()
+ 845             .id()
+ 846             .find(id)
+ 847             .ok_or("Ingredient inventory row not found")?;
+ 848         let available = crate::inventory_amount::personal_fraction(ctx, id).unwrap_or_default();
+ 849         if inventory.character_id != character_id || fraction > available {
+ 850             return Err("Ingredient is not available in that amount".into());
+ 851         }
+ 852         if !food::is_cookable_ingredient(&inventory.item_id) {
+ 853             return Err("A cooked meal cannot be cooked again".into());
+ 854         }
+ 855         let lot = lot_for_inventory(ctx, id)?;
+ 856         safety.push(
+ 857             food::definition(&inventory.item_id).map_or(5, |definition| definition.cooking_minutes),
+ 858         );
+ 859         mass += lot.mass_kg * fraction.get() as f32 / available.get() as f32;
+ 860     }
+ 861     food::cooking_duration_minutes_for_check(
+ 862         method,
+ 863         &safety,
+ 864         mass,
+ 865         cooking_check(ctx, character_id)?,
+ 866     )
+ 867     .ok_or("Cooking duration could not be calculated".into())
+ 868 }

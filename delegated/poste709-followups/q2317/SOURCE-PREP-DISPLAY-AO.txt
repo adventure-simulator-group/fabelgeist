@@ -1,0 +1,62 @@
+SOURCE crates/adventuresim-stdb-module/src/food/preparation_authority.rs:105-165
+ 105         );
+ 106         hash.update(current.to_bits().to_le_bytes());
+ 107     }
+ 108     encode_digest(&hash.finalize())
+ 109 }
+ 110 
+ 111 #[derive(Clone)]
+ 112 struct PreparationAuthority {
+ 113     inventory_scope: String,
+ 114     inventory_item_id: u64,
+ 115     lot: FoodLot,
+ 116     object: crate::InventoryObject,
+ 117     custody_binding: String,
+ 118     place: adventuresim_core::strategic_place::StrategicPlaceId,
+ 119     skill: Skill,
+ 120     next: FoodPreparation,
+ 121     prefix: &'static str,
+ 122     tool_binding: String,
+ 123     duration: u32,
+ 124     material_source_digest: String,
+ 125     material_current_digest: String,
+ 126     material_snapshot: adventuresim_core::material::PrivateMaterialSnapshot<
+ 127         herbalism::IngredientMaterialPreparation,
+ 128         herbalism::MedicinalMaterialComponent,
+ 129         herbalism::IngredientContaminant,
+ 130     >,
+ 131     material_receipt: adventuresim_core::material::MaterialTransformationReceipt<
+ 132         herbalism::IngredientMaterialPreparation,
+ 133         herbalism::MedicinalMaterialComponent,
+ 134         herbalism::IngredientContaminant,
+ 135         herbalism::PreparationConservationPolicy,
+ 136         herbalism::PreparationMaterialReceipt,
+ 137     >,
+ 138 }
+ 139 
+ 140 fn preparation_lot_truth_unchanged(before: &FoodLot, after: &FoodLot) -> bool {
+ 141     before.id == after.id
+ 142         && before.inventory_item_id == after.inventory_item_id
+ 143         && before.party_inventory_item_id == after.party_inventory_item_id
+ 144         && before.material_revision == after.material_revision
+ 145         && before.display_name == after.display_name
+ 146         && before.preparation == after.preparation
+ 147         && before.ingredient_item_ids == after.ingredient_item_ids
+ 148         && before
+ 149             .ingredient_quantities
+ 150             .iter()
+ 151             .map(|value| value.to_bits())
+ 152             .eq(after
+ 153                 .ingredient_quantities
+ 154                 .iter()
+ 155                 .map(|value| value.to_bits()))
+ 156         && before.salty_kg.to_bits() == after.salty_kg.to_bits()
+ 157         && before.spicy_kg.to_bits() == after.spicy_kg.to_bits()
+ 158         && before.sweet_kg.to_bits() == after.sweet_kg.to_bits()
+ 159         && before.sour_kg.to_bits() == after.sour_kg.to_bits()
+ 160         && before.savory_kg.to_bits() == after.savory_kg.to_bits()
+ 161         && before.quality == after.quality
+ 162         && before.mass_kg.to_bits() == after.mass_kg.to_bits()
+ 163         && before.nutrition_kcal.to_bits() == after.nutrition_kcal.to_bits()
+ 164         && before.total_value.to_bits() == after.total_value.to_bits()
+ 165         && before.created_at_minute == after.created_at_minute

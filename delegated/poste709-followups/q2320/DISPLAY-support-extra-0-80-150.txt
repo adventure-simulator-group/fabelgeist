@@ -1,0 +1,71 @@
+    80	}
+    81	
+    82	/// Absolute minutes since the strategic calendar's zero minute.
+    83	#[derive(
+    84	    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
+    85	)]
+    86	#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+    87	#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+    88	#[serde(transparent)]
+    89	pub struct StrategicMinute {
+    90	    minutes: u64,
+    91	}
+    92	
+    93	impl fmt::Display for StrategicMinute {
+    94	    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+    95	        self.minutes.fmt(formatter)
+    96	    }
+    97	}
+    98	
+    99	impl StrategicMinute {
+   100	    pub const ZERO: Self = Self::new(0);
+   101	    pub const MAX: Self = Self::new(u64::MAX);
+   102	
+   103	    pub const fn new(minutes: u64) -> Self {
+   104	        Self { minutes }
+   105	    }
+   106	
+   107	    pub const fn get(self) -> u64 {
+   108	        self.minutes
+   109	    }
+   110	
+   111	    pub const fn is_after(self, other: Self) -> bool {
+   112	        self.minutes > other.minutes
+   113	    }
+   114	
+   115	    pub const fn saturating_add_minutes(self, elapsed_minutes: u64) -> Self {
+   116	        Self::new(self.minutes.saturating_add(elapsed_minutes))
+   117	    }
+   118	
+   119	    /// Advance by whole calendar days, saturating at the last absolute minute.
+   120	    pub const fn saturating_add_days(self, days: u64) -> Self {
+   121	        self.saturating_add_minutes(days.saturating_mul(MINUTES_PER_DAY))
+   122	    }
+   123	
+   124	    /// Advance by whole calendar days only if the resulting minute fits.
+   125	    pub const fn checked_add_days(self, days: u64) -> Option<Self> {
+   126	        match days.checked_mul(MINUTES_PER_DAY) {
+   127	            Some(minutes) => self.checked_add_minutes(minutes),
+   128	            None => None,
+   129	        }
+   130	    }
+   131	
+   132	    /// Retreat by whole calendar days, saturating at the epoch.
+   133	    pub const fn saturating_sub_days(self, days: u64) -> Self {
+   134	        self.saturating_sub_minutes(days.saturating_mul(MINUTES_PER_DAY))
+   135	    }
+   136	
+   137	    pub const fn checked_add_minutes(self, elapsed_minutes: u64) -> Option<Self> {
+   138	        match self.minutes.checked_add(elapsed_minutes) {
+   139	            Some(minutes) => Some(Self::new(minutes)),
+   140	            None => None,
+   141	        }
+   142	    }
+   143	
+   144	    pub const fn saturating_sub_minutes(self, elapsed_minutes: u64) -> Self {
+   145	        Self::new(self.minutes.saturating_sub(elapsed_minutes))
+   146	    }
+   147	
+   148	    pub const fn elapsed_since(self, earlier: Self) -> u64 {
+   149	        self.minutes.saturating_sub(earlier.minutes)
+   150	    }

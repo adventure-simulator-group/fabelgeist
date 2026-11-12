@@ -1,0 +1,51 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:130-179
+ 130         .id()
+ 131         .find(container_object_id)
+ 132         .ok_or("Container object is missing")?;
+ 133     crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
+ 134     if ctx.db.fireplace_dish().station_key().find(key).is_some() {
+ 135         return Err("This container is already cooking".into());
+ 136     }
+ 137     let return_custody = station
+ 138         .instrument_return_custody
+ 139         .as_ref()
+ 140         .ok_or("Container return custody is unknown")?;
+ 141     let destination = crate::object_custody::carried_destination(return_custody, character_id)?;
+ 142     let scope = match destination {
+ 143         OperationalCustody::Character(_) => CarriedInventoryScope::Personal,
+ 144         OperationalCustody::Party(_) => CarriedInventoryScope::Party,
+ 145         _ => return Err("Container return custody is not carried inventory".into()),
+ 146     };
+ 147     let mut ids = Vec::new();
+ 148     let mut amounts = Vec::new();
+ 149     let mut consumed_objects = Vec::new();
+ 150     // Cooking intentionally sees only direct contents. A hidden nested lot is
+ 151     // not a selected ingredient and remains inside its child container.
+ 152     for edge in ctx
+ 153         .db
+ 154         .inventory_containment()
+ 155         .parent_object_id()
+ 156         .filter(container_object_id)
+ 157     {
+ 158         let object_id = edge.child_object_id;
+ 159         let child = ctx
+ 160             .db
+ 161             .inventory_object()
+ 162             .id()
+ 163             .find(object_id)
+ 164             .ok_or("Contained object is missing")?;
+ 165         if !food::is_cookable_ingredient(&child.item_id) {
+ 166             continue;
+ 167         }
+ 168         let (row_id, lot, amount) = match (&child.location, scope) {
+ 169             (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => (
+ 170                 location.row_id,
+ 171                 personal_lot(ctx, location.row_id),
+ 172                 crate::inventory_amount::personal_fraction(ctx, location.row_id),
+ 173             ),
+ 174             (InventoryLocation::Party(location), CarriedInventoryScope::Party) => (
+ 175                 location.row_id,
+ 176                 party_lot(ctx, location.row_id),
+ 177                 crate::inventory_amount::party_fraction(ctx, location.row_id),
+ 178             ),
+ 179             _ => return Err("Contained food custody conflicts with its return inventory".into()),

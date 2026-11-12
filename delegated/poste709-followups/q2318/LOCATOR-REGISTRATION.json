@@ -1,0 +1,21 @@
+{
+  "purpose": "Locate pinned current cooking amount/preview and native ownership source; print only file and line locators with no body snippets",
+  "registered_utc": "2026-11-12T15:42:01.135972+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scopes": [
+    "crates/adventuresim-core/src/food.rs",
+    "crates/adventuresim-stdb-module/src/food",
+    "crates/adventuresim-stdb-module/src",
+    "crates/strategic-web/src"
+  ],
+  "patterns": [
+    "cooking_duration_minutes",
+    "add_fireplace_ingredients_at",
+    "retrieve_fireplace_dish",
+    "preview",
+    "struct FoodLot",
+    "struct FoodAmount",
+    "inventory"
+  ],
+  "output_policy": "filename and one-based line, first 100 unique lines per pattern; explicitly report capped counts and omissions"
+}

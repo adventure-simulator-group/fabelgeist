@@ -1,0 +1,140 @@
+   1 //! What the studio keeps between regenerations, so that an edit rebuilds only
+   2 //! what it changes: the body while its shape stands, each worn piece's fit
+   3 //! while its design and the body stand, its finish while its construction and
+   4 //! decoration stand too, and the drape while nothing it lies on changed.
+   5 
+   6 use std::collections::HashMap;
+   7 use std::sync::Arc;
+   8 
+   9 use super::*;
+  10 use adventuresim_character_creator::{
+  11     garment::PlateLining,
+  12     inventory::{FittedPiece, Loadout},
+  13 };
+  14 use parametric_equipment::{Finish, SelectedArmor};
+  15 
+  16 /// A cache key: the serialized inputs of what it names.
+  17 type Key = Vec<u8>;
+  18 
+  19 #[derive(Resource, Default)]
+  20 pub(super) struct StudioCache {
+  21     body: Option<(Key, Arc<GeneratedCharacter>)>,
+  22     fits: HashMap<Key, GeneratedArmor>,
+  23     finishes: HashMap<Key, Finish>,
+  24     /// The lining of the worn plate, by the fits it was made of.
+  25     lining: Option<(Vec<Key>, Option<Arc<PlateLining>>)>,
+  26     /// The inputs of the last drape requested.
+  27     drape: Option<Key>,
+  28 }
+  29 
+  30 impl StudioCache {
+  31     /// The body `recipe` describes, generated again only when its shape or
+  32     /// the model changed. A new body drops every fit made on the old one.
+  33     pub(super) fn body(
+  34         &mut self,
+  35         model: &BodyModel,
+  36         recipe: &CharacterRecipe,
+  37     ) -> Result<Arc<GeneratedCharacter>> {
+  38         let key = serde_json::to_vec(&(
+  39             model.lod,
+  40             &recipe.proportions,
+  41             &recipe.identity,
+  42             &recipe.expression,
+  43         ))?;
+  44         if let Some((cached, body)) = &self.body
+  45             && *cached == key
+  46         {
+  47             return Ok(body.clone());
+  48         }
+  49         let body = Arc::new(generate_character(model, recipe).context("Generation failed")?);
+  50         self.fits.clear();
+  51         self.finishes.clear();
+  52         self.lining = None;
+  53         self.drape = None;
+  54         self.body = Some((key, body.clone()));
+  55         Ok(body)
+  56     }
+  57 
+  58     /// Every worn piece fitted and finished, reusing what its inputs allow.
+  59     /// Pieces no longer worn are forgotten.
+  60     pub(super) fn armor<'a>(
+  61         &mut self,
+  62         model: &BodyModel,
+  63         generated: &GeneratedCharacter,
+  64         loadout: &Loadout<'a>,
+  65     ) -> Result<Vec<SelectedArmor<'a>>> {
+  66         let mut fits = HashMap::new();
+  67         let mut finishes = HashMap::new();
+  68         let (plan, keys) = fit_keys(loadout)?;
+  69         let mut armor = (0..loadout.fitted.len())
+  70             .map(|_| None)
+  71             .collect::<Vec<Option<SelectedArmor>>>();
+  72         for &index in plan.order() {
+  73             let piece = &loadout.fitted[index];
+  74             let fit_key = keys[index].clone();
+  75             let supports = plan
+  76                 .supports(index)
+  77                 .map(|inner| {
+  78                     &armor[inner]
+  79                         .as_ref()
+  80                         .expect("ordered lower surface")
+  81                         .generated
+  82                 })
+  83                 .collect::<Vec<_>>();
+  84             let fitted = match self.fits.remove(&fit_key) {
+  85                 Some(fitted) => fitted,
+  86                 None => parametric_equipment::fit(model, generated, piece, &[], &supports)?,
+  87             };
+  88             let finish_key = finish_key(&fit_key, piece)?;
+  89             let finish = match self.finishes.remove(&finish_key) {
+  90                 Some(finish) => finish,
+  91                 None => parametric_equipment::finish(piece, fitted.clone())?,
+  92             };
+  93             armor[index] = Some(SelectedArmor::new(piece, finish.clone()));
+  94             fits.insert(fit_key, fitted);
+  95             finishes.insert(finish_key, finish);
+  96         }
+  97         self.fits = fits;
+  98         self.finishes = finishes;
+  99         Ok(armor
+ 100             .into_iter()
+ 101             .map(|piece| piece.expect("all selections fitted"))
+ 102             .collect())
+ 103     }
+ 104 
+ 105     /// The lining of the worn rigid plate, as fitted before it is built of
+ 106     /// small plates, so that only a change of fit moves the cloth under it.
+ 107     pub(super) fn lining(&mut self, loadout: &Loadout<'_>) -> Result<Option<Arc<PlateLining>>> {
+ 108         let (_, fit_keys) = fit_keys(loadout)?;
+ 109         let keys = loadout
+ 110             .fitted
+ 111             .iter()
+ 112             .enumerate()
+ 113             .filter(|(_, piece)| parametric_equipment::is_rigid(piece))
+ 114             .map(|(index, _)| fit_keys[index].clone())
+ 115             .collect::<Vec<_>>();
+ 116         if let Some((cached, lining)) = &self.lining
+ 117             && *cached == keys
+ 118         {
+ 119             return Ok(lining.clone());
+ 120         }
+ 121         let lining =
+ 122             PlateLining::new(keys.iter().filter_map(|key| self.fits.get(key))).map(Arc::new);
+ 123         self.lining = Some((keys, lining.clone()));
+ 124         Ok(lining)
+ 125     }
+ 126 
+ 127     /// Whether the drape of `loadout` on the cached body under `lining`
+ 128     /// differs from the last one requested; records it when it does.
+ 129     pub(super) fn drape_changed(&mut self, loadout: &Loadout<'_>) -> Result<bool> {
+ 130         let draped = loadout
+ 131             .draped
+ 132             .iter()
+ 133             .map(|piece| serde_json::to_vec(&(piece.id, piece.selection, piece.drape)))
+ 134             .collect::<serde_json::Result<Vec<_>>>()?;
+ 135         let key = serde_json::to_vec(&(
+ 136             self.body.as_ref().map(|(key, _)| key),
+ 137             self.lining.as_ref().map(|(keys, _)| keys),
+ 138             draped,
+ 139         ))?;
+ 140         let changed = self.drape.as_ref() != Some(&key);

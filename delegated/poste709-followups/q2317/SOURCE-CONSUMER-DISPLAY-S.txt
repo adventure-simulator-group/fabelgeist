@@ -1,0 +1,71 @@
+SOURCE crates/strategic-web/src/templates/settlement/cooking.rs:1-70
+   1 //! Fireplace cooking and vessel-custody presentation.
+   2 
+   3 mod inventory;
+   4 mod selection;
+   5 
+   6 use super::{
+   7     chrome::{VisualStageKind, visual_stage},
+   8     trade::*,
+   9 };
+  10 use crate::spacetimedb::{
+  11     BackendFireplaceDish, BackendFireplaceStation, CatalogItemView, CharacterView, FoodLot,
+  12     InventoryItem, InventoryItemAmount, PartyInventoryItem, PartyItemAmount,
+  13 };
+  14 use crate::templates::{decorative_game_icon, item_display_name, item_type_icon, sidebar_section};
+  15 use adventuresim_stdb_client::CookingMethod;
+  16 use adventuresim_world_schema::calendar::StrategicMinute;
+  17 use maud::{Markup, html};
+  18 
+  19 #[expect(
+  20     clippy::too_many_arguments,
+  21     reason = "this domain boundary names each independent input explicitly"
+  22 )]
+  23 pub fn fireplace_page(
+  24     title: &str,
+  25     back_href: &str,
+  26     action_base: &str,
+  27     rest_action: &str,
+  28     _active_character: &CharacterView,
+  29     inventory_scope: &str,
+  30     personal_inventory: &[InventoryItem],
+  31     party_inventory: &[PartyInventoryItem],
+  32     personal_amounts: &[InventoryItemAmount],
+  33     party_amounts: &[PartyItemAmount],
+  34     food_lots: &[FoodLot],
+  35     definitions: &[CatalogItemView],
+  36     station: Option<&BackendFireplaceStation>,
+  37     dish: Option<&BackendFireplaceDish>,
+  38     vessel_stations: &[BackendFireplaceStation],
+  39     vessel_dishes: &[BackendFireplaceDish],
+  40     character_minute: StrategicMinute,
+  41     layout: impl FnOnce(Markup) -> Markup,
+  42 ) -> Markup {
+  43     let instrument = station.and_then(|row| row.instrument_item_id.as_deref());
+  44     let method = "roast";
+  45     let elapsed = dish.map_or(0, |row| {
+  46         character_minute.elapsed_since(StrategicMinute::new(row.started_at_minute.minutes))
+  47     });
+  48     let remaining = dish.map_or(1, |row| {
+  49         u64::from(row.target_minutes).saturating_sub(elapsed).max(1)
+  50     });
+  51     let status = dish.map(|row| {
+  52         if elapsed < u64::from(row.target_minutes) {
+  53             "Undercooked"
+  54         } else if elapsed == u64::from(row.target_minutes) {
+  55             "Ready"
+  56         } else {
+  57             match row.method {
+  58                 CookingMethod::Stew => "Ready (holding safely)",
+  59                 CookingMethod::Roast => "Drying / smoking",
+  60                 CookingMethod::PanFry | CookingMethod::Bake => "Burning",
+  61             }
+  62         }
+  63     });
+  64     let cooking_progress = dish.map(|row| {
+  65         let target = u64::from(row.target_minutes).max(1);
+  66         (elapsed.min(target) * 100 / target) as u8
+  67     });
+  68     let cooking_state_icon = dish.map(|row| {
+  69         if elapsed < u64::from(row.target_minutes) {
+  70             "flame"

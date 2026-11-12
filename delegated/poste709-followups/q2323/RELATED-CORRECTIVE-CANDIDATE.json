@@ -1,0 +1,17 @@
+{
+  "id": "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001",
+  "severity": "P3 conditional policy question; effect on generated output is not established",
+  "classification": "current source trace of the same conditional first-failure question already recorded at recovered checkpoint 059; not a new unique historical defect",
+  "detail": "The studio checkbox selects a pose-corrective model. On a successful same-LOD reload, reload_model replaces BodyModel and marks the studio dirty, but StudioCache::body keys the generated body on LOD, proportions, identity and expression only. If those values are unchanged, it returns the old Arc without calling generate_character on the reloaded model, and does not clear dependent fit, lining or drape caches. A separate BareBody key includes the corrective flag.",
+  "native_boundary_and_safeguards": "MhrConfig selects whether the corrective network is loaded; Mhr::forward adds its output to rest vertices only when a network exists. The creator fills only nine proportion model parameters and a successful joint_bases result requires their rotation/scale columns to be zero. CorrectiveInput reads joint rotation channels rather than translations; however the model transform can add authored offsets before feature extraction, and the actual asset offsets and network values have not been inspected. Thus source does not establish a nonzero corrective or a visible mismatch; successful reload, actual assets and device behavior are also not demonstrated. This narrows rather than resolves the historical policy question.",
+  "connected_scope": "BodyModel reload, cache identity/invalidation, generated-body Arc and dependent armor, lining, drape and hair consumers, MHR transform offsets and corrective network inputs, with distinct bare-body and export paths.",
+  "historical_related_candidates": [
+    "PL13-119-STUDIO-BODY-MODEL-KEY",
+    "L11-CURRENT-CREATOR-ACTUAL-MODEL-RELOAD-AND-DRAPE-WORKER",
+    "REVIEW-L11-CREATOR-CORRECTIVE-MODEL-CACHE-DEPENDENCY-POLICY"
+  ],
+  "relationship_qualification": "Recovered 059 delegated proposal, source disposition and queue record explicitly describe the same conditional cache-key first failure. Their original revision, agent attribution, open current-reconciliation status, output uncertainty and zero accepted unique-count change remain unchanged. Selected source hashes match 95e; frozen role 831 matches while role 832 differs. No independent-lens completion, global alias or checkpoint 3821 recovery is inferred.",
+  "discovery": "partial; actual asset offsets/network behavior, broader model identity, affected consumers, policy and global aliases remain open",
+  "repair": "not started",
+  "validation": "not performed"
+}

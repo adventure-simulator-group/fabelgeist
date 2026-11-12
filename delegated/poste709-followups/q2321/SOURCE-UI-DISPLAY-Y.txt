@@ -1,0 +1,52 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/templates/settlement/trade/discard.rs:115-165
+ 115             }, html! {}, encumbrance))
+ 116         }))
+ 117     }
+ 118 }
+ 119 
+ 120 pub(super) fn ingredient_preparation_form_id(plan: &BackendIngredientPreparationPlan) -> String {
+ 121     let action = crate::spacetimedb::ingredient_preparation_action(plan.action).stable_id();
+ 122     format!(
+ 123         "ingredient-preparation-{}-{}-{}-{action}",
+ 124         plan.actor_character_id, plan.inventory_scope, plan.inventory_item_id
+ 125     )
+ 126 }
+ 127 
+ 128 pub(super) fn ingredient_preparation_submission_form(
+ 129     plan: &BackendIngredientPreparationPlan,
+ 130     return_to: &str,
+ 131 ) -> Markup {
+ 132     let action = crate::spacetimedb::ingredient_preparation_action(plan.action).stable_id();
+ 133     html! {
+ 134         form id=(ingredient_preparation_form_id(plan)) method="post" action="/api/inventory/prepare"
+ 135             class="inventory-edge-action" hidden {
+ 136             input type="hidden" name="inventory_item_id" value=(plan.inventory_item_id);
+ 137             input type="hidden" name="inventory_scope" value=(&plan.inventory_scope);
+ 138             input type="hidden" name="food_lot_id" value=(plan.food_lot_id);
+ 139             input type="hidden" name="material_object_id" value=(plan.material_object_id);
+ 140             input type="hidden" name="request_id" value=(&plan.request_id);
+ 141             input type="hidden" name="expected_revision" value=(plan.expected_revision);
+ 142             input type="hidden" name="attempt_generation" value=(plan.attempt_generation);
+ 143             input type="hidden" name="preparation_action" value=(action);
+ 144             input type="hidden" name="return_to" value=(return_to);
+ 145         }
+ 146     }
+ 147 }
+ 148 
+ 149 #[cfg(test)]
+ 150 mod tests {
+ 151     use super::*;
+ 152     use crate::spacetimedb::*;
+ 153     use adventuresim_core::equipment::EncumbranceSummary;
+ 154 
+ 155     #[test]
+ 156     fn ingredient_preparation_is_an_accessible_inner_edge_action_not_a_skill_modal() {
+ 157         let source = concat!(include_str!("discard.rs"), include_str!("party_pool.rs"));
+ 158         assert!(source.contains("/api/inventory/prepare"));
+ 159         assert!(source.contains("name=\"preparation_action\""));
+ 160         assert!(source.contains("name=\"material_object_id\""));
+ 161         assert!(source.contains("name=\"request_id\""));
+ 162         assert!(source.contains("name=\"expected_revision\""));
+ 163         assert!(source.contains("name=\"attempt_generation\""));
+ 164         assert!(source.contains("name=\"return_to\""));
+ 165         assert!(source.contains("plan.inventory_scope == \"personal\""));

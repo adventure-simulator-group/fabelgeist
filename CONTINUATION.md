@@ -4,7 +4,7 @@ This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
 2026-11-10 and rechecked on 2026-11-12
-(`MAIN-RECHECK-20261112-1604.json`).
+(`MAIN-RECHECK-20261112-1650.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -18,6 +18,17 @@ same-machine recovery of the preceding published checkpoint.
 
 `delegated/posta9d-followups/a9d-recovery/RECOVERY-RECORD.json` records the
 same-machine recovery of the preceding checkpoint.
+
+`delegated/poste709-followups/checkpoint-e709-recovery/RECOVERY-RECORD.json`
+records same-machine recovery of the preceding published checkpoint.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json` connects bounded cooking,
+preparation, foraging and creator source reviews to separately attributed
+history. The relationships are not unique-defect counts or completed
+queue records.
+
+`delegated/poste709-collaboration-incidents/` records two accidental helper
+writes and the limits on establishing whether prior contents existed.
 
 `ASSESSMENT-CENTRAL-FOLLOWUPS-14A-95E.json` connects bounded capture, roof
 and NPZ reviews to their separately attributed historical records. Its

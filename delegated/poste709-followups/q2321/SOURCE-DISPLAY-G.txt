@@ -1,0 +1,42 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/material.rs:260-300
+ 260         self.object.custody()
+ 261     }
+ 262 }
+ 263 
+ 264 /// Exact extensive totals in game-wide integer subunits.
+ 265 ///
+ 266 /// Mass is milligrams and volume is microliters. A solid may have zero known
+ 267 /// volume; a liquid still carries mass. A material lot cannot be empty.
+ 268 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+ 269 pub struct MaterialMeasure {
+ 270     mass_milligrams: u64,
+ 271     volume_microliters: u64,
+ 272 }
+ 273 
+ 274 impl MaterialMeasure {
+ 275     pub const ZERO: Self = Self {
+ 276         mass_milligrams: 0,
+ 277         volume_microliters: 0,
+ 278     };
+ 279 
+ 280     pub fn try_new(mass_milligrams: u64, volume_microliters: u64) -> Result<Self, MaterialError> {
+ 281         if mass_milligrams == 0 && volume_microliters == 0 {
+ 282             return Err(MaterialError::EmptyMeasure);
+ 283         }
+ 284         Ok(Self {
+ 285             mass_milligrams,
+ 286             volume_microliters,
+ 287         })
+ 288     }
+ 289 
+ 290     pub const fn mass_milligrams(self) -> u64 {
+ 291         self.mass_milligrams
+ 292     }
+ 293     pub const fn volume_microliters(self) -> u64 {
+ 294         self.volume_microliters
+ 295     }
+ 296 
+ 297     pub fn checked_add(self, other: Self) -> Result<Self, MaterialError> {
+ 298         Ok(Self {
+ 299             mass_milligrams: self
+ 300                 .mass_milligrams

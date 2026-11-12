@@ -1,0 +1,56 @@
+   720	}
+   721	
+   722	#[cfg(test)]
+   723	mod tests {
+   724	    use super::*;
+   725	    use std::collections::HashSet;
+   726	
+   727	    #[test]
+   728	    fn food_inventory_is_prevalidated_before_rows_can_be_inserted() {
+   729	        let cooked = inventory_food_definition(Some(CatalogItemKind::Food), "cooked_meal")
+   730	            .unwrap()
+   731	            .expect("cooked meal definition");
+   732	        assert!(cooked.kcal_per_unit > 0.0);
+   733	        assert!(inventory_food_definition(Some(CatalogItemKind::Food), "missing_food").is_err());
+   734	        assert_eq!(
+   735	            inventory_food_definition(Some(CatalogItemKind::Simple), "torch").unwrap(),
+   736	            None
+   737	        );
+   738	        let source = crate::production_source(include_str!("item.rs"));
+   739	        assert_eq!(
+   740	            source.matches("id: \"cooked_meal\".into()").count(),
+   741	            0,
+   742	            "the standard food catalog must be the sole cooked-meal item seed"
+   743	        );
+   744	        let checked = source
+   745	            .split("pub(crate) fn add_inventory_item_checked")
+   746	            .nth(1)
+   747	            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
+   748	            .expect("checked inventory insertion");
+   749	        assert!(
+   750	            checked.find("inventory_food_definition").unwrap()
+   751	                < checked.find("inventory_item().insert").unwrap()
+   752	        );
+   753	        assert!(checked.contains("for _ in 0..count"));
+   754	        assert!(checked.contains("create_personal_food_lot("));
+   755	    }
+   756	
+   757	    #[test]
+   758	    fn kind_aware_insertion_keeps_ingredients_fungible_and_medication_individual() {
+   759	        let source = crate::production_source(include_str!("item.rs"));
+   760	        let checked = source
+   761	            .split("pub(crate) fn add_inventory_item_checked")
+   762	            .nth(1)
+   763	            .and_then(|tail| tail.split("pub fn add_inventory_item").next())
+   764	            .expect("checked inventory insertion");
+   765	        assert!(checked.contains("requires_stable_object(definition.as_ref(), food, measured)"));
+   766	        let stable_object_policy = source
+   767	            .split("pub(crate) fn requires_stable_object")
+   768	            .nth(1)
+   769	            .and_then(|tail| {
+   770	                tail.split("pub(crate) fn add_inventory_item_checked")
+   771	                    .next()
+   772	            })
+   773	            .expect("stable-object policy");
+   774	        assert!(stable_object_policy.contains("definition.kind == CatalogItemKind::Medication"));
+   775	        assert!(checked.contains("let count = if individual { quantity } else { 1 }"));

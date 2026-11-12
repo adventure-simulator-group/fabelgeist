@@ -1,0 +1,81 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs:411-490
+ 411                     _ => None,
+ 412                 };
+ 413                 if let Some(profile) = profile {
+ 414                     *medicinal.entry(profile.into()).or_default() +=
+ 415                         food::retained_component(*quantity, ratio)
+ 416                             * (0.5 + 0.1 * herbalism_check.clamp(1.0, 5.0));
+ 417                 }
+ 418             }
+ 419         }
+ 420         let selected_mass = lot.mass_kg * ratio;
+ 421         mass += selected_mass;
+ 422         kcal += lot.nutrition_kcal * ratio;
+ 423         value += lot.total_value * ratio;
+ 424         flavors.add_assign(
+ 425             food::FlavorProfile::new(
+ 426                 lot.salty_kg,
+ 427                 lot.spicy_kg,
+ 428                 lot.sweet_kg,
+ 429                 lot.sour_kg,
+ 430                 lot.savory_kg,
+ 431             )
+ 432             .scaled(ratio),
+ 433         );
+ 434         if lot
+ 435             .ingredient_item_ids
+ 436             .iter()
+ 437             .any(|i| food::definition(i).is_some_and(|d| d.culinary_fat))
+ 438         {
+ 439             culinary_fat_mass += selected_mass;
+ 440         }
+ 441         growth.push(cont.growth_per_hour);
+ 442         growth_mass += cont.growth_per_hour.max(0.0) * selected_mass;
+ 443         let selected_load = current * selected_mass;
+ 444         loads.push(selected_load);
+ 445         contamination_contribution_ids.push(format!("food-lot:{}", lot.id));
+ 446         contamination_contribution_loads.push(selected_load);
+ 447         selected.push((id, fraction, available, lot));
+ 448     }
+ 449     let ingredient_mass = mass;
+ 450     let contained_water_ml = station
+ 451         .instrument_object_id
+ 452         .and_then(|object_id| {
+ 453             ctx.db
+ 454                 .container_liquid()
+ 455                 .container_object_id()
+ 456                 .find(object_id)
+ 457         })
+ 458         .filter(|liquid| liquid.liquid_item_id == crate::inventory_container::WATER_ITEM_ID)
+ 459         .map_or(0, |liquid| liquid.water_ml);
+ 460     let contained_water_materials = match station.instrument_object_id {
+ 461         Some(object_id) if contained_water_ml > 0 => {
+ 462             crate::outbreak::contained_water_contamination(ctx, object_id, minute)?
+ 463         }
+ 464         _ => Vec::new(),
+ 465     };
+ 466     if method == CookingMethod::Stew && contained_water_ml == 0 {
+ 467         return Err("Stew requires water inside the cooking pot".into());
+ 468     }
+ 469     let water_ml = contained_water_ml as f32;
+ 470     mass += water_ml / 1_000.0;
+ 471     let contributed_water_microliters = contained_water_materials
+ 472         .iter()
+ 473         .try_fold(Microliters::ZERO, |total, row| total.checked_add(row.3))
+ 474         .ok_or("Contained water material volume overflow")?;
+ 475     let public_water_microliters = Microliters::try_from_nonnegative_milliliters_rounded(water_ml)
+ 476         .ok_or("Cooking water volume is invalid")?;
+ 477     if contributed_water_microliters > public_water_microliters {
+ 478         return Err("Contained water material exceeds its public volume".into());
+ 479     }
+ 480     for (material_lot_id, current, water_growth, amount_microliters) in &contained_water_materials {
+ 481         let water_mass_kg = amount_microliters.as_water_kilograms_f32();
+ 482         let water_load = current * water_mass_kg;
+ 483         loads.push(water_load);
+ 484         growth.push(*water_growth);
+ 485         growth_mass += water_growth.max(0.0) * water_mass_kg;
+ 486         contamination_contribution_ids.push(format!("water-output-lot:{material_lot_id}"));
+ 487         contamination_contribution_loads.push(water_load);
+ 488     }
+ 489     let target = food::cooking_duration_minutes_for_check(method, &safety, mass, check)
+ 490         .ok_or("Cooking duration could not be calculated")?;

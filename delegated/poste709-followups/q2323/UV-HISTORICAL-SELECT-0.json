@@ -1,0 +1,16 @@
+{
+  "source_receipt": "../../adler/READ-L11-371.json",
+  "repair_status": "notstarted; exhaustive ledger incomplete",
+  "accepted_unique_count_change": 0,
+  "current_reconciled": false,
+  "validation_status": "Exact frozen importer bodies and source-reasoned admission gaps; no FBX/weights/model objects constructed, no product execution",
+  "classification": "MHR triangulation narrows raw polygon indices to u32 and admits faces without checking the actual vertex extent; downstream/current validation pending",
+  "source_key": "2d2357141ae8fa55cdb6e758723986a13dae79c775a82cdb7d4d79615e1076ed:111-132,168-195,198-248",
+  "trace": [
+    "Vertexpositionsdecodedindependently; triangulate receivesonlypolygonstream, notvertexextent. Bothpositiveandnegative-terminatorindices useasu32withoutcheckedconversion.",
+    "Source-reasonedthreevertexmeshstream[0,1,-4]createsface[0,1,3]; nofaceextentcheckinCharacterbeforeOk. Otherimportfieldsneedvalidinputs; nofullmalformedfileconstructed. ActualMhr::from_characterconsumervalidationunread, so no downstreampanicclaim.",
+    "UVindiceslikewisecastnegative/out-of-rangeasu32, unknownreferenceusesdirectmodeandmismatchedcountsdiscardfaces. ActualUVmappingmode/supportpolicyrequired."
+  ],
+  "first_failed_contract": "Mesh face and UV indices must be admitted against their owning vertex and coordinate tables before a Character publishes them.",
+  "canonical_owner": "MHR FBX topology admission and shared mesh index/extent ownership."
+}

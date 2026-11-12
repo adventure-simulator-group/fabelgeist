@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-core/src/food.rs:1-70
+   1 //! Pure food-lot, spoilage, meal, and cooking rules.
+   2 
+   3 use fabelgeist_determinism::Seed;
+   4 use serde::{Deserialize, Serialize};
+   5 
+   6 pub const MAX_MEAL_FULLNESS_KCAL: f32 = 3_000.0;
+   7 pub const MIN_INITIAL_CONTAMINATION: f32 = 1.0e-8;
+   8 pub const MAX_INITIAL_CONTAMINATION: f32 = 1.0e-5;
+   9 pub const RECONTAMINATION_FLOOR: f32 = 1.0e-9;
+  10 pub const MAX_CONTAMINATION: f32 = 1.0e9;
+  11 pub const PAN_FRY_MIN_FAT_MASS_RATIO: f32 = 0.02;
+  12 pub const CUT_COOKING_TIME_FACTOR: f32 = 0.75;
+  13 pub const GROUND_COOKING_TIME_FACTOR: f32 = 0.50;
+  14 pub const SMOKED_ADDITIONAL_NUTRITION_LOSS: f32 = 0.15;
+  15 
+  16 /// Retrieval-time effects for a dish left on a fireplace. Quality is a
+  17 /// discrete tier adjustment applied to the ready dish. Early retrieval moves
+  18 /// proportionally from raw calories toward the method's ready retention and
+  19 /// only applies a fraction of the method's microbial kill;
+  20 /// after readiness calories fall linearly to zero over one more target
+  21 /// duration. Tier penalties use `ceil`, so any early/late retrieval is
+  22 /// observably worse while exact readiness is unpenalized.
+  23 #[derive(Clone, Copy, Debug, PartialEq)]
+  24 pub struct DonenessOutcome {
+  25     pub progress: f32,
+  26     pub calorie_factor: f32,
+  27     pub contamination_kill_progress: f32,
+  28     pub quality_penalty: u8,
+  29 }
+  30 
+  31 pub fn doneness_outcome(elapsed_minutes: u64, target_minutes: u32) -> DonenessOutcome {
+  32     let target = u64::from(target_minutes.max(1));
+  33     let progress = (elapsed_minutes as f64 / target as f64).clamp(0.0, 2.0) as f32;
+  34     if progress < 1.0 {
+  35         DonenessOutcome {
+  36             progress,
+  37             calorie_factor: 1.0,
+  38             contamination_kill_progress: progress,
+  39             quality_penalty: ((1.0 - progress) * 4.0).ceil().clamp(1.0, 4.0) as u8,
+  40         }
+  41     } else {
+  42         DonenessOutcome {
+  43             progress,
+  44             calorie_factor: (2.0 - progress).clamp(0.0, 1.0),
+  45             contamination_kill_progress: 1.0,
+  46             quality_penalty: ((progress - 1.0) * 4.0).ceil().clamp(0.0, 4.0) as u8,
+  47         }
+  48     }
+  49 }
+  50 
+  51 /// Method-aware retrieval semantics. Wet cooking reaches a safe stable state;
+  52 /// roasting trades late time for drying/smoking instead of burning. Only a
+  53 /// pan or oven follows the destructive overcook curve.
+  54 pub fn method_doneness_outcome(
+  55     method: CookingMethod,
+  56     elapsed_minutes: u64,
+  57     target_minutes: u32,
+  58 ) -> DonenessOutcome {
+  59     let target = u64::from(target_minutes.max(1));
+  60     let raw = doneness_outcome(elapsed_minutes, target_minutes);
+  61     if elapsed_minutes <= target {
+  62         return raw;
+  63     }
+  64     match method {
+  65         CookingMethod::Stew => DonenessOutcome {
+  66             progress: 1.0,
+  67             calorie_factor: 1.0,
+  68             contamination_kill_progress: 1.0,
+  69             quality_penalty: 0,
+  70         },

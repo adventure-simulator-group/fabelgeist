@@ -1,0 +1,32 @@
+{
+  "registered_utc": "2026-11-12T16:03:43.389190+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_scopes": [
+    "crates/adventuresim-character-creator",
+    "crates/fabelgeist-mhr",
+    "crates/fabelgeist-rig",
+    "crates/fabelgeist-cloth",
+    "crates"
+  ],
+  "source_patterns": [
+    "regenerate_mesh",
+    "struct FitBody",
+    "FitBody",
+    "GeneratedCharacter",
+    "MeshVertexTable",
+    "RigJointTable",
+    "VertexUvMap",
+    "VertexUV",
+    "cached_character"
+  ],
+  "evidence_revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+  "evidence_scopes": [
+    "."
+  ],
+  "evidence_patterns": [
+    "REVIEW-L11-CREATOR-PRIVATE-BODY-FIT-PAIRING",
+    "FitBody",
+    "MeshVertexTable"
+  ],
+  "purpose": "Filename/line locators only; first 100 per pattern retained; console first 20; explicit omission counts. No source body read."
+}

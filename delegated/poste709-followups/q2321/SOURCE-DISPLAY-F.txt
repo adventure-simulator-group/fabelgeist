@@ -1,0 +1,46 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/material.rs:1-45
+   1 //! Pure physical-material identity, measurement, process, and conservation laws.
+   2 //!
+   3 //! Reducers own custody, capacity, recipes, mutations, and private truth.
+   4 
+   5 use adventuresim_world_schema::calendar::StrategicMinute;
+   6 use sha2::{Digest, Sha256};
+   7 use std::{fmt, num::NonZeroU64};
+   8 
+   9 use crate::physical_object::{
+  10     CustodyIdentityError, ObjectCustody, OperationalCustody, PhysicalObjectId,
+  11 };
+  12 pub trait DomainPreparation: Clone + fmt::Debug + Eq {}
+  13 pub trait DomainMaterialProcess: Clone + fmt::Debug + Eq {}
+  14 pub trait DomainMaterialComponent: Clone + fmt::Debug + Eq {}
+  15 pub trait DomainContaminant: Clone + fmt::Debug + Eq {}
+  16 pub trait DomainConservationPolicy: Clone + fmt::Debug + Eq {}
+  17 pub trait DomainMaterialReceipt: Clone + fmt::Debug + Eq {}
+  18 pub trait PublicMaterialPresentation: Clone + fmt::Debug + Eq {}
+  19 
+  20 /// Exact mass measured in whole milligrams.
+  21 #[derive(Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd)]
+  22 pub struct Milligrams(u64);
+  23 
+  24 impl Milligrams {
+  25     const MILLIGRAMS_PER_KILOGRAM: f64 = 1_000_000.0;
+  26 
+  27     pub fn try_from_kilograms(kilograms: f64) -> Result<Self, MaterialError> {
+  28         if !kilograms.is_finite() || kilograms < 0.0 {
+  29             return Err(MaterialError::InvalidMeasure);
+  30         }
+  31         let milligrams = kilograms * Self::MILLIGRAMS_PER_KILOGRAM;
+  32         if milligrams > u64::MAX as f64 {
+  33             return Err(MaterialError::Overflow);
+  34         }
+  35         Ok(Self(milligrams.round() as u64))
+  36     }
+  37 
+  38     pub const fn get(self) -> u64 {
+  39         self.0
+  40     }
+  41 
+  42     pub fn as_kilograms(self) -> f64 {
+  43         self.0 as f64 / Self::MILLIGRAMS_PER_KILOGRAM
+  44     }
+  45 }

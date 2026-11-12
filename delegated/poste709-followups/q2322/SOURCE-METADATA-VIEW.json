@@ -1,0 +1,674 @@
+[
+  {
+    "ref": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+    "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+    "blob": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+    "lines": 1381,
+    "locators": {
+      "validate_duration": {
+        "total": 1,
+        "first_50": [
+          807
+        ],
+        "truncated": false
+      },
+      "resolve": {
+        "total": 7,
+        "first_50": [
+          326,
+          681,
+          690,
+          691,
+          706,
+          809,
+          1343
+        ],
+        "truncated": false
+      },
+      "acting_checks": {
+        "total": 4,
+        "first_50": [
+          467,
+          852,
+          891,
+          970
+        ],
+        "truncated": false
+      },
+      "advance": {
+        "total": 1,
+        "first_50": [
+          949
+        ],
+        "truncated": false
+      },
+      "terminal": {
+        "total": 13,
+        "first_50": [
+          22,
+          596,
+          617,
+          664,
+          685,
+          689,
+          721,
+          744,
+          862,
+          873,
+          892,
+          903,
+          1278
+        ],
+        "truncated": false
+      },
+      "capability": {
+        "total": 4,
+        "first_50": [
+          25,
+          748,
+          962,
+          1159
+        ],
+        "truncated": false
+      },
+      "duration": {
+        "total": 9,
+        "first_50": [
+          11,
+          679,
+          680,
+          683,
+          743,
+          807,
+          929,
+          936,
+          945
+        ],
+        "truncated": false
+      },
+      "training": {
+        "total": 7,
+        "first_50": [
+          507,
+          511,
+          513,
+          514,
+          981,
+          1011,
+          1020
+        ],
+        "truncated": false
+      },
+      "yield": {
+        "total": 17,
+        "first_50": [
+          76,
+          77,
+          135,
+          136,
+          225,
+          226,
+          708,
+          939,
+          940,
+          957,
+          1023,
+          1024,
+          1030,
+          1073,
+          1074,
+          1117,
+          1118
+        ],
+        "truncated": false
+      },
+      "fn forage": {
+        "total": 6,
+        "first_50": [
+          589,
+          792,
+          1232,
+          1256,
+          1283,
+          1369
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "ref": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "path": "crates/adventuresim-stdb-module/src/foraging/timing.rs",
+    "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+    "blob": "ee5ae9180c3b5f4917dcec02d50a21c7f2a378f1",
+    "lines": 43,
+    "locators": {
+      "terminal": {
+        "total": 5,
+        "first_50": [
+          1,
+          17,
+          29,
+          36,
+          38
+        ],
+        "truncated": false
+      },
+      "duration": {
+        "total": 3,
+        "first_50": [
+          21,
+          26,
+          36
+        ],
+        "truncated": false
+      },
+      "fn forage": {
+        "total": 1,
+        "first_50": [
+          17
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "ref": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "path": "crates/adventuresim-core/src/foraging.rs",
+    "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+    "blob": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+    "lines": 1278,
+    "locators": {
+      "validate_duration": {
+        "total": 2,
+        "first_50": [
+          329,
+          404
+        ],
+        "truncated": false
+      },
+      "resolve": {
+        "total": 16,
+        "first_50": [
+          393,
+          396,
+          476,
+          484,
+          487,
+          703,
+          843,
+          852,
+          861,
+          873,
+          918,
+          927,
+          949,
+          952,
+          1007,
+          1054
+        ],
+        "truncated": false
+      },
+      "terminal": {
+        "total": 5,
+        "first_50": [
+          691,
+          791,
+          1096,
+          1121,
+          1236
+        ],
+        "truncated": false
+      },
+      "capability": {
+        "total": 10,
+        "first_50": [
+          23,
+          529,
+          536,
+          540,
+          695,
+          711,
+          762,
+          763,
+          1125,
+          1240
+        ],
+        "truncated": false
+      },
+      "duration": {
+        "total": 15,
+        "first_50": [
+          25,
+          34,
+          329,
+          333,
+          387,
+          404,
+          485,
+          690,
+          780,
+          789,
+          940,
+          1091,
+          1120,
+          1209,
+          1235
+        ],
+        "truncated": false
+      },
+      "training": {
+        "total": 4,
+        "first_50": [
+          502,
+          963,
+          964,
+          970
+        ],
+        "truncated": false
+      },
+      "yield": {
+        "total": 61,
+        "first_50": [
+          141,
+          142,
+          154,
+          155,
+          163,
+          164,
+          172,
+          173,
+          181,
+          182,
+          190,
+          191,
+          199,
+          200,
+          208,
+          209,
+          217,
+          218,
+          226,
+          227,
+          235,
+          236,
+          244,
+          245,
+          253,
+          254,
+          262,
+          263,
+          271,
+          272,
+          280,
+          281,
+          317,
+          324,
+          395,
+          431,
+          455,
+          461,
+          462,
+          463,
+          464,
+          466,
+          467,
+          469,
+          478,
+          484,
+          486,
+          562,
+          568,
+          805
+        ],
+        "truncated": true
+      },
+      "fn forage": {
+        "total": 3,
+        "first_50": [
+          602,
+          631,
+          1180
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "ref": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+    "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+    "blob": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+    "lines": 1381,
+    "locators": {
+      "validate_duration": {
+        "total": 1,
+        "first_50": [
+          807
+        ],
+        "truncated": false
+      },
+      "resolve": {
+        "total": 7,
+        "first_50": [
+          326,
+          681,
+          690,
+          691,
+          706,
+          809,
+          1343
+        ],
+        "truncated": false
+      },
+      "acting_checks": {
+        "total": 4,
+        "first_50": [
+          467,
+          852,
+          891,
+          970
+        ],
+        "truncated": false
+      },
+      "advance": {
+        "total": 1,
+        "first_50": [
+          949
+        ],
+        "truncated": false
+      },
+      "terminal": {
+        "total": 13,
+        "first_50": [
+          22,
+          596,
+          617,
+          664,
+          685,
+          689,
+          721,
+          744,
+          862,
+          873,
+          892,
+          903,
+          1278
+        ],
+        "truncated": false
+      },
+      "capability": {
+        "total": 4,
+        "first_50": [
+          25,
+          748,
+          962,
+          1159
+        ],
+        "truncated": false
+      },
+      "duration": {
+        "total": 9,
+        "first_50": [
+          11,
+          679,
+          680,
+          683,
+          743,
+          807,
+          929,
+          936,
+          945
+        ],
+        "truncated": false
+      },
+      "training": {
+        "total": 7,
+        "first_50": [
+          507,
+          511,
+          513,
+          514,
+          981,
+          1011,
+          1020
+        ],
+        "truncated": false
+      },
+      "yield": {
+        "total": 17,
+        "first_50": [
+          76,
+          77,
+          135,
+          136,
+          225,
+          226,
+          708,
+          939,
+          940,
+          957,
+          1023,
+          1024,
+          1030,
+          1073,
+          1074,
+          1117,
+          1118
+        ],
+        "truncated": false
+      },
+      "fn forage": {
+        "total": 6,
+        "first_50": [
+          589,
+          792,
+          1232,
+          1256,
+          1283,
+          1369
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "ref": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/adventuresim-stdb-module/src/foraging/timing.rs",
+    "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+    "blob": "ee5ae9180c3b5f4917dcec02d50a21c7f2a378f1",
+    "lines": 43,
+    "locators": {
+      "terminal": {
+        "total": 5,
+        "first_50": [
+          1,
+          17,
+          29,
+          36,
+          38
+        ],
+        "truncated": false
+      },
+      "duration": {
+        "total": 3,
+        "first_50": [
+          21,
+          26,
+          36
+        ],
+        "truncated": false
+      },
+      "fn forage": {
+        "total": 1,
+        "first_50": [
+          17
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "ref": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/adventuresim-core/src/foraging.rs",
+    "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+    "blob": "c8c0a286e85e1fa9f9f7da3bcdd23bb80650e2f8",
+    "lines": 1278,
+    "locators": {
+      "validate_duration": {
+        "total": 2,
+        "first_50": [
+          329,
+          404
+        ],
+        "truncated": false
+      },
+      "resolve": {
+        "total": 16,
+        "first_50": [
+          393,
+          396,
+          476,
+          484,
+          487,
+          703,
+          843,
+          852,
+          861,
+          873,
+          918,
+          927,
+          949,
+          952,
+          1007,
+          1054
+        ],
+        "truncated": false
+      },
+      "terminal": {
+        "total": 5,
+        "first_50": [
+          691,
+          791,
+          1096,
+          1121,
+          1236
+        ],
+        "truncated": false
+      },
+      "capability": {
+        "total": 10,
+        "first_50": [
+          23,
+          529,
+          536,
+          540,
+          695,
+          711,
+          762,
+          763,
+          1125,
+          1240
+        ],
+        "truncated": false
+      },
+      "duration": {
+        "total": 15,
+        "first_50": [
+          25,
+          34,
+          329,
+          333,
+          387,
+          404,
+          485,
+          690,
+          780,
+          789,
+          940,
+          1091,
+          1120,
+          1209,
+          1235
+        ],
+        "truncated": false
+      },
+      "training": {
+        "total": 4,
+        "first_50": [
+          502,
+          963,
+          964,
+          970
+        ],
+        "truncated": false
+      },
+      "yield": {
+        "total": 61,
+        "first_50": [
+          141,
+          142,
+          154,
+          155,
+          163,
+          164,
+          172,
+          173,
+          181,
+          182,
+          190,
+          191,
+          199,
+          200,
+          208,
+          209,
+          217,
+          218,
+          226,
+          227,
+          235,
+          236,
+          244,
+          245,
+          253,
+          254,
+          262,
+          263,
+          271,
+          272,
+          280,
+          281,
+          317,
+          324,
+          395,
+          431,
+          455,
+          461,
+          462,
+          463,
+          464,
+          466,
+          467,
+          469,
+          478,
+          484,
+          486,
+          562,
+          568,
+          805
+        ],
+        "truncated": true
+      },
+      "fn forage": {
+        "total": 3,
+        "first_50": [
+          602,
+          631,
+          1180
+        ],
+        "truncated": false
+      }
+    }
+  }
+]

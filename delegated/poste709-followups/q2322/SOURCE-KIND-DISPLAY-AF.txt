@@ -1,0 +1,37 @@
+SOURCE crates/adventuresim-stdb-module/src/condition.rs:160-195
+ 160         .find(character_id)
+ 161         .is_none()
+ 162     {
+ 163         let body_mass = BodyMassKg::DEFAULT;
+ 164         let maximum_blood_ml = body_mass.estimated_blood_milliliters();
+ 165         ctx.db.character_condition().insert(CharacterCondition {
+ 166             character_id,
+ 167             body_weight_kg: body_mass.kilograms(),
+ 168             current_blood_ml: maximum_blood_ml,
+ 169             maximum_blood_ml,
+ 170             religion_id: None,
+ 171         });
+ 172     }
+ 173     if ctx
+ 174         .db
+ 175         .character_needs()
+ 176         .character_id()
+ 177         .find(character_id)
+ 178         .is_none()
+ 179     {
+ 180         ctx.db.character_needs().insert(CharacterNeeds {
+ 181             character_id,
+ 182             food_balance_kcal: STRATEGIC_TRAVEL_KCAL_PER_DAY,
+ 183             water_balance_ml: STRATEGIC_TRAVEL_WATER_ML_PER_DAY,
+ 184         });
+ 185     }
+ 186     if ctx
+ 187         .db
+ 188         .character_exposure()
+ 189         .character_id()
+ 190         .find(character_id)
+ 191         .is_none()
+ 192     {
+ 193         ctx.db.character_exposure().insert(CharacterExposure {
+ 194             character_id,
+ 195             wetness_bps: 0,

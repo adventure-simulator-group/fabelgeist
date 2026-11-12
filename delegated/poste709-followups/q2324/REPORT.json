@@ -1,0 +1,61 @@
+{
+  "schema": "726-q2324-independent-source-review-v1",
+  "reviewer": "/root/mhr_character",
+  "created_utc": "2026-11-12T16:22:25.961258+00:00",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "historical_queue": {
+    "source_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "pointer": "/entries/2324",
+    "contract": "REVIEW-L11-CREATOR-HYPOTHETICAL-PROBE-ORIENTATION-POLICY",
+    "raw_slice": "QUEUE-2324-RAW.json",
+    "qualification": "Historical named-scope policy disposition remains at e275, not 95e or checkpoint 3821."
+  },
+  "historical_attribution": "parallel lens11_reconcile full body reads, PL11-1122, PL11-1129 and PL11-0239; segovb root adoption, no root reread or unique count change. PLAN-022 /rows/10 and READ-008 /rows/11 are matching identities in different lists.",
+  "source_identity": "Three original e275 named files are byte-identical to pinned 95e per-file; probe_bounds original source-object also matched extracted bytes. No whole-tree equivalence.",
+  "personal_read_limits": "READ-LIMITS.json",
+  "candidate": {
+    "id": "Q2324-CONDITIONAL-NONFINITE-PROBE-FALLBACK",
+    "classification": "Source-derived conditional arithmetic and consumer relationship; supported asset reach, earlier GPU/body validation, backend handling and product effects remain unproved.",
+    "premise": "A valid finite nondegenerate selected face has a referenced hypothetical sample coordinate NaN, and prior operations and fitting validation succeed.",
+    "trace": [
+      "crates/fabelgeist-fbx/src/lib.rs:134",
+      "crates/fabelgeist-mhr/src/character/skin.rs:110",
+      "crates/fabelgeist-mhr/src/model/upload.rs:126",
+      "crates/fabelgeist-rig/src/skin.rs:79",
+      "crates/adventuresim-character-creator/src/underlayer_equipment/proportions/probe_bounds.rs:16",
+      "crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs:64",
+      "crates/adventuresim-character-creator/src/device_underlayer.rs:157"
+    ],
+    "explanation": "NaN influence is not rejected by shown skin normalization; native upload filters it and the CPU probe can propagate it. Fraction zero does not restore finite p because p+(NaN-p)*0 remains NaN.",
+    "repair_direction": "After audit and authorization, reconcile finite-value admission and invalid-probe fallback at the owning boundary.",
+    "count": "No separate unique count or alias assigned."
+  },
+  "secondary_question": {
+    "classification": "related conditional unchecked face-index boundary",
+    "source_refs": [
+      "crates/fabelgeist-mhr/src/character.rs:118",
+      "crates/fabelgeist-mhr/src/character.rs:175",
+      "crates/fabelgeist-mhr/src/model/upload.rs:75",
+      "crates/fabelgeist-mhr/src/model.rs:402",
+      "crates/adventuresim-character-creator/src/underlayer_equipment/proportions/probe_bounds.rs:50"
+    ],
+    "qualification": "Earlier native normal select/scatter can intervene; no backend, reachability or later probe failure established."
+  },
+  "historical_and_ledger_relationships": [
+    "059 q165 ADLER-L11-MHR-TOPOLOGY-ADMISSION",
+    "059 q167 ADLER-L11-MHR-SKIN-WEIGHT-ADMISSION",
+    "Current ledger rows of the same IDs; historical records have their own original revision qualifications",
+    "q2323 separately authored /root/verifier_scope packet, manifest hash 697a7e8a25976cb5e20fe11e591a715856f2d0da71835b3fd7101b027f204512"
+  ],
+  "open_questions": [
+    "Can a supported asset introduce nonfinite skin, translations or sample positions while selected geometry remains finite and nondegenerate?",
+    "Do MHR forward, body upload, cut plan or other validation reject the condition before the probe or fit?",
+    "What do actual native backend operations do for invalid face indices and nonfinite geometry?",
+    "Are arbitrary f32 inputs entitled to the f64 path orientation reserve after final f32 interpolation, and what error budget is intended?",
+    "What exact aliases and repair ownership connect the original historical records, q2323, and this probe consumer?"
+  ],
+  "execution": "Source inspection and evidence verification only; no product, shader, renderer, fixture, test, build or runtime probe executed.",
+  "assessment": "ASSESSMENT.md",
+  "qualification": "Historical 059 scoped disposition retained; no current queue/lens closure, no 3821 promotion, no unique count. Same-file equality is not whole-tree or custody proof."
+}

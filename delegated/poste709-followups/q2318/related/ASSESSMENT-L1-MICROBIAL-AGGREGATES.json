@@ -1,0 +1,104 @@
+{
+  "schema": "726-connected-source-assessment-v1",
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+  "current_sources": [
+    {
+      "path": "crates/adventuresim-core/src/food.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "git_blob": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "bytes": 30041,
+      "lines": 848,
+      "ranges": [
+        [
+          140,
+          154
+        ],
+        [
+          322,
+          327
+        ],
+        [
+          371,
+          411
+        ]
+      ],
+      "preserved_bytes": "source-evidence/microbial-aggregates/current/crates/adventuresim-core/src/food.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "git_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+      "bytes": 33851,
+      "lines": 868,
+      "ranges": [
+        [
+          350,
+          460
+        ],
+        [
+          475,
+          495
+        ],
+        [
+          555,
+          580
+        ]
+      ],
+      "preserved_bytes": "source-evidence/microbial-aggregates/current/crates/adventuresim-stdb-module/src/food/cooking.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "git_blob": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "bytes": 18640,
+      "lines": 534,
+      "ranges": [
+        [
+          260,
+          278
+        ]
+      ],
+      "preserved_bytes": "source-evidence/microbial-aggregates/current/crates/adventuresim-stdb-module/src/food/lot_inventory.rs.gz",
+      "content_encoding": "gzip"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "git_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+      "bytes": 80288,
+      "lines": 2111,
+      "ranges": [
+        [
+          700,
+          730
+        ]
+      ],
+      "preserved_bytes": "source-evidence/microbial-aggregates/current/crates/adventuresim-stdb-module/src/outbreak.rs.gz",
+      "content_encoding": "gzip"
+    }
+  ],
+  "classification": "Conditional invalid aggregate contamination policy question; no unsafe supported cooking input or output demonstrated.",
+  "trace": [
+    "microbial_concentration returns 0 for a nonfinite or negative load, nonfinite mass, or nonpositive mass. In contrast contamination_at maps nonfinite anchor or growth to MAX_CONTAMINATION. Returning a zero concentration for an invalid load is a distinct policy choice that could erase contamination if such a load is actually admitted; no such product execution or supported failing path was established.",
+    "The inspected cooking path rejects nonfinite or negative individual lot mass and nutritional fields, obtains food and water concentrations through contamination_at, accumulates load and mass, and requires a finite positive mass at most 25 kg through cooking_duration_minutes_for_check before constructing the dish. Those safeguards substantially qualify the hypothetical; complete water-transfer bounds, all callers, aggregate arithmetic and retained-state admissions are still open.",
+    "Do not conflate true zero microbial load with invalid aggregate input, or assume ingredient risk is measured by visible food quality. Existing exact zero-mass behavior and culinary semantics require an explicit owner decision before any future repair."
+  ],
+  "repair_direction": "Trace all microbial-concentration callers and input provenance. Decide and encode a consistent invalid-aggregate policy at the appropriate boundary without changing valid dilution, contamination transfer or culinary behavior.",
+  "later_acceptance": [
+    "After separate repair authorization, verify finite valid dilution, zero load, invalid mass, nonfinite load and realistic food/water transfer end to end."
+  ],
+  "remaining": [
+    "Complete mathematical bounds and all callers before classifying live reachability. No product build, test or runtime probe was performed."
+  ],
+  "discovery_status": "partial; differing invalid-input policies, not a demonstrated disease event",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

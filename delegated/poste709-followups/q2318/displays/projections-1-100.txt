@@ -1,0 +1,100 @@
+   1 // Owns gateway-only preparation plans and fireplace station/dish projections.
+   2 /// Gateway-only public projection of the exact reducer tuple and preview. The
+   3 /// reducer still rebuilds and revalidates the private strategic/material plan
+   4 /// in its transaction; this view prevents the browser from inventing object
+   5 /// identity, revision, request identity, or duration.
+   6 #[derive(Clone, Debug, SpacetimeType)]
+   7 pub struct BackendIngredientPreparationPlan {
+   8     pub actor_character_id: u64,
+   9     pub inventory_scope: String,
+  10     pub inventory_item_id: u64,
+  11     pub food_lot_id: u64,
+  12     pub material_object_id: u64,
+  13     pub request_id: String,
+  14     pub expected_revision: u64,
+  15     pub attempt_generation: u64,
+  16     pub action: IngredientPreparationAction,
+  17     pub duration_minutes: u32,
+  18     pub next_display_name: String,
+  19 }
+  20 
+  21 fn view_object_for_row(
+  22     ctx: &ViewContext,
+  23     scope: CarriedInventoryScope,
+  24     row_id: u64,
+  25 ) -> Option<crate::InventoryObject> {
+  26     let mut matches = ctx
+  27         .db
+  28         .inventory_object()
+  29         .item_id()
+  30         .filter(""..)
+  31         .filter(|object| match (&object.location, scope) {
+  32             (InventoryLocation::Personal(location), CarriedInventoryScope::Personal) => {
+  33                 location.row_id == row_id
+  34             }
+  35             (InventoryLocation::Party(location), CarriedInventoryScope::Party) => {
+  36                 location.row_id == row_id
+  37             }
+  38             _ => false,
+  39         });
+  40     let object = matches.next()?;
+  41     matches.next().is_none().then_some(object)
+  42 }
+  43 
+  44 fn view_ancestry_reaches_fireplace(ctx: &ViewContext, object_id: u64) -> bool {
+  45     let mut cursor = Some(object_id);
+  46     for _ in 0..=adventuresim_core::inventory_containers::MAX_CONTAINER_DEPTH {
+  47         let Some(id) = cursor else { return false };
+  48         let Some(object) = ctx.db.inventory_object().id().find(id) else {
+  49             return true;
+  50         };
+  51         if object.location.is_fireplace() {
+  52             return true;
+  53         }
+  54         cursor = ctx
+  55             .db
+  56             .inventory_containment()
+  57             .child_object_id()
+  58             .find(id)
+  59             .map(|edge| edge.parent_object_id);
+  60     }
+  61     true
+  62 }
+  63 
+  64 fn view_carried_item_rows(
+  65     ctx: &ViewContext,
+  66     actor: &crate::Character,
+  67 ) -> Vec<(CarriedInventoryScope, u64, String)> {
+  68     let mut rows = ctx
+  69         .db
+  70         .inventory_item()
+  71         .character_id()
+  72         .filter(actor.id)
+  73         .filter(|row| {
+  74             view_object_for_row(ctx, CarriedInventoryScope::Personal, row.id).is_some_and(
+  75                 |object| {
+  76                     !view_ancestry_reaches_fireplace(ctx, object.id)
+  77                         && view_carried_custody_is_fully_resolved(
+  78                             ctx,
+  79                             actor,
+  80                             CarriedInventoryScope::Personal,
+  81                             &object,
+  82                         )
+  83                 },
+  84             )
+  85         })
+  86         .map(|row| (CarriedInventoryScope::Personal, row.id, row.item_id))
+  87         .collect::<Vec<_>>();
+  88     if let Some(party_id) = actor.party_id.as_deref() {
+  89         rows.extend(
+  90             ctx.db
+  91                 .party_inventory_item()
+  92                 .party_id()
+  93                 .filter(party_id)
+  94                 .filter(|row| {
+  95                     view_object_for_row(ctx, CarriedInventoryScope::Party, row.id).is_some_and(
+  96                         |object| {
+  97                             !view_ancestry_reaches_fireplace(ctx, object.id)
+  98                                 && view_carried_custody_is_fully_resolved(
+  99                                     ctx,
+ 100                                     actor,

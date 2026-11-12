@@ -1,0 +1,70 @@
+ 111             skin_vertex_indices: Tensor::from_data(
+ 112                 TensorData::new(skin.vertices, [influences]),
+ 113                 device,
+ 114             ),
+ 115             skin_weights: Tensor::from_data(
+ 116                 TensorData::new(skin.weights, [1, influences, 1]),
+ 117                 device,
+ 118             ),
+ 119             correctives,
+ 120             character,
+ 121             parameter_transform,
+ 122         })
+ 123     }
+ 124 }
+ 125 
+ 126 impl SparseSkinUpload {
+ 127     fn from_character(character: &Character) -> Result<Self> {
+ 128         // Retain influences whose weight exceeds 1e-5.
+ 129         let mut skin_joint_indices = Vec::new();
+ 130         let mut skin_vertex_indices = Vec::new();
+ 131         let mut skin_weights = Vec::new();
+ 132         // Encode the admitted vertex/joint roles into Burn's sparse i32 buffers.
+ 133         for (vertex, influences) in character.skin_weights.indexed() {
+ 134             for (joint, weight) in influences.joints.into_iter().zip(influences.weights) {
+ 135                 if weight > 1e-5 {
+ 136                     skin_joint_indices.push(i32::try_from(usize::from(joint))?);
+ 137                     skin_vertex_indices.push(i32::try_from(vertex.native_vertex_index())?);
+ 138                     skin_weights.push(weight);
+ 139                 }
+ 140             }
+ 141         }
+ 142         Ok(Self {
+ 143             joints: skin_joint_indices,
+ 144             vertices: skin_vertex_indices,
+ 145             weights: skin_weights,
+ 146         })
+ 147     }
+ 148 }
+ 149 
+ 150 impl BlendBasisTensors {
+ 151     fn from_character(character: &Character, device: &Device) -> Self {
+ 152         let vertices = character.mesh.vertex_count();
+ 153         let basis = &character.blend_shapes.vectors;
+ 154         let identity_basis = Tensor::from_data(
+ 155             TensorData::new(
+ 156                 basis[..NUM_IDENTITY_BLEND_SHAPES * vertices.native_vertex_count() * 3].to_vec(),
+ 157                 [
+ 158                     NUM_IDENTITY_BLEND_SHAPES,
+ 159                     vertices.native_vertex_count() * 3,
+ 160                 ],
+ 161             ),
+ 162             device,
+ 163         );
+ 164         let expression_basis = Tensor::from_data(
+ 165             TensorData::new(
+ 166                 basis[NUM_IDENTITY_BLEND_SHAPES * vertices.native_vertex_count() * 3..].to_vec(),
+ 167                 [
+ 168                     NUM_FACE_EXPRESSION_BLEND_SHAPES,
+ 169                     vertices.native_vertex_count() * 3,
+ 170                 ],
+ 171             ),
+ 172             device,
+ 173         );
+ 174 
+ 175         Self {
+ 176             identity: identity_basis,
+ 177             expression: expression_basis,
+ 178         }
+ 179     }
+ 180 }

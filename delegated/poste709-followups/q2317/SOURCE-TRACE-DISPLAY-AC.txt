@@ -1,0 +1,41 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:356-395
+ 356                     &settlement.name,
+ 357                     &settlement.id,
+ 358                     &settlement.category,
+ 359                     &active,
+ 360                     Some(&settlement.religion_id),
+ 361                     Some(&settlement.economy),
+ 362                     content,
+ 363                     Some(&actor.name),
+ 364                 )
+ 365             },
+ 366         )
+ 367         .into_string(),
+ 368     )
+ 369     .into_response()
+ 370 }
+ 371 
+ 372 pub(super) async fn camp_fireplace_page(
+ 373     State(state): State<AppState>,
+ 374     Query(query): Query<FireplaceQuery>,
+ 375     session: Session,
+ 376 ) -> Response {
+ 377     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 378         return Redirect::to("/characters").into_response();
+ 379     };
+ 380     let context = match camp_fireplace_context(&state, &actor).await {
+ 381         Ok(v) => v,
+ 382         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
+ 383     };
+ 384     let rows = fireplace_rows(&state, &actor, &context).await;
+ 385     Html(
+ 386         crate::templates::settlement::fireplace_page(
+ 387             "Campfire",
+ 388             paths::CAMP.pattern(),
+ 389             paths::CAMP_FIREPLACE_PAGE.pattern(),
+ 390             paths::REST_AT_CAMP.pattern(),
+ 391             &actor,
+ 392             if query.inventory_scope == "party" {
+ 393                 "party"
+ 394             } else {
+ 395                 "personal"

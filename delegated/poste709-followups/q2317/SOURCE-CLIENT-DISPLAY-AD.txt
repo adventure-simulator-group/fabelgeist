@@ -1,0 +1,66 @@
+SOURCE crates/strategic-web/static/cooking.js:1-65
+   1 (() => {
+   2   const setup = { "pan-fry": 5, stew: 12, roast: 7, bake: 30 };
+   3   const fullAmount = 1_000_000;
+   4   const amountStep = 250_000;
+   5 
+   6   const formatNumber = (value) => Number(value).toFixed(2).replace(/\.00$/, "").replace(/(\.\d)0$/, "$1");
+   7   const formatAmount = (value) => formatNumber(value / fullAmount);
+   8 
+   9   function refreshInventory(element) {
+  10     window.strategicInventoryBrowser?.refresh?.(element);
+  11     window.strategicTradeUi?.mountInventoryBulkControls?.(element);
+  12   }
+  13 
+  14   function transferButton(direction, id, name, count) {
+  15     const button = document.createElement("button");
+  16     button.type = "button";
+  17     button.className = `trade-transfer trade-transfer-${direction}`;
+  18     button.dataset.cookingUnstage = id;
+  19     button.dataset.dynamicTransfer = "";
+  20     button.dataset.defaultTransferMode = "one";
+  21     button.dataset.transferMode = "one";
+  22     button.dataset.count = String(count);
+  23     button.dataset.labelOne = `Return 0.25 ${name} to inventory`;
+  24     button.dataset.labelTarget = `Return ${name} to inventory`;
+  25     button.dataset.labelAll = `Return all ${name} to inventory`;
+  26     button.title = button.dataset.labelOne;
+  27     button.setAttribute("aria-label", button.dataset.labelOne);
+  28     const glyph = document.createElement("span");
+  29     glyph.className = "inventory-transfer-glyph arrows-1";
+  30     glyph.setAttribute("aria-hidden", "true");
+  31     glyph.append(document.createElement("i"));
+  32     button.append(glyph);
+  33     return button;
+  34   }
+  35 
+  36   function mount(root = document) {
+  37     root.querySelectorAll(".fireplace-rest-menu input[type='range']").forEach((input) => {
+  38       if (input.dataset.fireplaceRestMounted) return;
+  39       input.dataset.fireplaceRestMounted = "true";
+  40       const output = input.form?.querySelector(`output[for="${input.id}"]`);
+  41       const updateOutput = () => { if (output) output.textContent = input.value; };
+  42       input.addEventListener("input", updateOutput);
+  43       updateOutput();
+  44     });
+  45     root.querySelectorAll("[data-cooking-activity]").forEach((form) => {
+  46       if (form.dataset.cookingMounted) return;
+  47       form.dataset.cookingMounted = "true";
+  48 
+  49       const submit = form.querySelector("[data-cook-submit]");
+  50       const ids = form.querySelector("[data-cooking-ids]");
+  51       const amounts = form.querySelector("[data-cooking-amounts]");
+  52       const empty = form.querySelector("[data-cooking-pot-empty]");
+  53       const preview = form.querySelector("[data-cooking-preview]");
+  54       const potBrowser = form.querySelector('[data-inventory-browser="cooking-pot-left"]');
+  55       const potBody = potBrowser?.querySelector("tbody");
+  56       const inventoryBrowser = form.querySelector('[data-inventory-browser="cooking-inventory-right"]');
+  57       const staged = new Map();
+  58       const panFatRatio = Math.max(0, Number(form.dataset.panFatRatio) || 0.02);
+  59 
+  60       const update = () => {
+  61         const method = form.querySelector("[data-cooking-method]:checked");
+  62         const values = [...staged.values()].filter((value) => value.quantity > 0);
+  63         ids.value = values.map((value) => value.id).join(",");
+  64         amounts.value = values.map((value) => value.quantity).join(",");
+  65         if (empty) empty.hidden = values.length > 0;

@@ -1,0 +1,160 @@
+   321	        {
+   322	            Ok(())
+   323	        } else {
+   324	            Err("Ingredient preparation request id collides with a different attempt".into())
+   325	        };
+   326	    }
+   327	    let actor = crate::character::require_living_character(ctx, character_id)?;
+   328	    if actor.has_tactical_server_assignment() {
+   329	        return Err("Ingredient preparation is unavailable during a tactical encounter".into());
+   330	    }
+   331	    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+   332	    let current_minute = ctx
+   333	        .db
+   334	        .character_time()
+   335	        .character_id()
+   336	        .find(character_id)
+   337	        .ok_or("Character time not found")?
+   338	        .minutes;
+   339	    let expected_generation = next_preparation_attempt_generation(
+   340	        ctx,
+   341	        character_id,
+   342	        &inventory_scope,
+   343	        inventory_item_id,
+   344	        food_lot_id,
+   345	        material_object_id,
+   346	        expected_revision,
+   347	        action,
+   348	    )?;
+   349	    if attempt_generation != expected_generation {
+   350	        return Err("Ingredient preparation attempt generation is stale".into());
+   351	    }
+   352	    let authority = load_preparation_authority(
+   353	        ctx,
+   354	        &actor,
+   355	        &inventory_scope,
+   356	        inventory_item_id,
+   357	        food_lot_id,
+   358	        material_object_id,
+   359	        &request_id,
+   360	        expected_revision,
+   361	        action,
+   362	        current_minute,
+   363	    )?;
+   364	    let terminal_minute = preparation_terminal_minute(
+   365	        ctx,
+   366	        character_id,
+   367	        current_minute,
+   368	        u64::from(authority.duration),
+   369	    )?;
+   370	    let authority_digest = preparation_authority_digest(
+   371	        &actor,
+   372	        &authority,
+   373	        action,
+   374	        current_minute,
+   375	        terminal_minute,
+   376	        attempt_generation,
+   377	    );
+   378	    let canonical_request = preparation_request_id(
+   379	        character_id,
+   380	        &inventory_scope,
+   381	        inventory_item_id,
+   382	        food_lot_id,
+   383	        material_object_id,
+   384	        expected_revision,
+   385	        action,
+   386	        attempt_generation,
+   387	        &authority.place.to_string(),
+   388	        &authority.custody_binding,
+   389	    );
+   390	    if request_id != canonical_request {
+   391	        return Err(
+   392	            "Ingredient preparation request does not match its authoritative inputs".into(),
+   393	        );
+   394	    }
+   395	    let planned = match build_preparation_planner(
+   396	        &actor,
+   397	        &authority,
+   398	        &request_id,
+   399	        action,
+   400	        current_minute,
+   401	        terminal_minute,
+   402	        attempt_generation,
+   403	    )? {
+   404	        adventuresim_core::strategic_action::PlanningOutcome::Ready(plan) => plan,
+   405	        adventuresim_core::strategic_action::PlanningOutcome::Rejected(_) => {
+   406	            return Err("Ingredient preparation is unavailable".into());
+   407	        }
+   408	    };
+   409	    let fresh = load_preparation_authority(
+   410	        ctx,
+   411	        &actor,
+   412	        &inventory_scope,
+   413	        inventory_item_id,
+   414	        food_lot_id,
+   415	        material_object_id,
+   416	        &request_id,
+   417	        expected_revision,
+   418	        action,
+   419	        current_minute,
+   420	    )?;
+   421	    let fresh_terminal =
+   422	        preparation_terminal_minute(ctx, character_id, current_minute, u64::from(fresh.duration))?;
+   423	    let replanned = build_preparation_planner(
+   424	        &actor,
+   425	        &fresh,
+   426	        &request_id,
+   427	        action,
+   428	        current_minute,
+   429	        fresh_terminal,
+   430	        attempt_generation,
+   431	    )?;
+   432	    let fresh_snapshot = match &replanned {
+   433	        adventuresim_core::strategic_action::PlanningOutcome::Ready(plan) => plan.snapshot(),
+   434	        adventuresim_core::strategic_action::PlanningOutcome::Rejected(_) => {
+   435	            return Err("Ingredient preparation prerequisites changed before commit".into());
+   436	        }
+   437	    };
+   438	    let provenance = planned.provenance();
+   439	    adventuresim_core::strategic_action::validate_commit(
+   440	        &planned,
+   441	        &replanned,
+   442	        fresh_snapshot,
+   443	        &adventuresim_core::strategic_action::CommitAttempt {
+   444	            request_id: provenance.request_id.clone(),
+   445	            action_id: provenance.action_id.clone(),
+   446	            authority_binding: provenance.authority_binding,
+   447	        },
+   448	        None,
+   449	    )
+   450	    .map_err(|_| "Ingredient preparation authority changed before commit")?;
+   451	    adventuresim_core::material::validate_material_commit(
+   452	        &authority.material_receipt,
+   453	        std::slice::from_ref(&fresh.material_snapshot),
+   454	    )
+   455	    .map_err(|_| "Ingredient material changed before commit")?;
+   456	
+   457	    let mut effect_duration = None;
+   458	    let mut effect_commit = None;
+   459	    for effect in planned.effects() {
+   460	        match effect {
+   461	            adventuresim_core::strategic_action::ActionEffect::Domain(
+   462	                herbalism::PreparationPlanEffect::AttemptWait {
+   463	                    actor,
+   464	                    requested_minutes,
+   465	                },
+   466	            ) => effect_duration = Some((actor.get(), *requested_minutes)),
+   467	            adventuresim_core::strategic_action::ActionEffect::Domain(
+   468	                herbalism::PreparationPlanEffect::CommitPreparation {
+   469	                    action,
+   470	                    expected_revision,
+   471	                    next_display_name,
+   472	                },
+   473	            ) => effect_commit = Some((*action, *expected_revision, next_display_name.clone())),
+   474	            _ => return Err("Ingredient preparation planner emitted an unsupported effect".into()),
+   475	        }
+   476	    }
+   477	    let (effect_actor, duration) =
+   478	        effect_duration.ok_or("Ingredient preparation planner omitted its wait effect")?;
+   479	    if effect_actor != character_id || duration != u64::from(authority.duration) {
+   480	        return Err("Ingredient preparation planner effects do not match authority".into());

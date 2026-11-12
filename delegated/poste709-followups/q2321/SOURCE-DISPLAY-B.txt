@@ -1,0 +1,71 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:346-415
+ 346             .filter(|(_, _, item_id)| item_id == "mortar_and_pestle")
+ 347             .map(|(scope, row_id, item_id)| format!("{}|{row_id}|{item_id}", scope.as_str()))
+ 348             .min()
+ 349             .unwrap_or_else(|| "hands".into());
+ 350         for lot in ctx
+ 351             .db
+ 352             .food_lot()
+ 353             .material_revision()
+ 354             .filter(1u64..)
+ 355             .filter(|lot| lot.material_revision > 0)
+ 356         {
+ 357             let row = if let Some(row_id) = lot.inventory_item_id
+ 358                 && ctx
+ 359                     .db
+ 360                     .inventory_item()
+ 361                     .id()
+ 362                     .find(row_id)
+ 363                     .is_some_and(|row| row.character_id == actor.id && row.quantity == 1)
+ 364             {
+ 365                 Some((CarriedInventoryScope::Personal, row_id))
+ 366             } else if let Some(row_id) = lot.party_inventory_item_id
+ 367                 && actor.party_id.as_deref().is_some_and(|party_id| {
+ 368                     ctx.db
+ 369                         .party_inventory_item()
+ 370                         .id()
+ 371                         .find(row_id)
+ 372                         .is_some_and(|row| row.party_id == party_id && row.quantity == 1)
+ 373                 })
+ 374             {
+ 375                 Some((CarriedInventoryScope::Party, row_id))
+ 376             } else {
+ 377                 None
+ 378             };
+ 379             let Some((scope, row_id)) = row else { continue };
+ 380             let Some(object) = view_object_for_row(ctx, scope, row_id) else {
+ 381                 continue;
+ 382             };
+ 383             if view_ancestry_reaches_fireplace(ctx, object.id)
+ 384                 || !view_carried_custody_is_fully_resolved(ctx, &actor, scope, &object)
+ 385             {
+ 386                 continue;
+ 387             }
+ 388             let Some(direct_custody) = view_direct_custody(ctx, &actor, scope, &object) else {
+ 389                 continue;
+ 390             };
+ 391             let custody_binding = crate::object_custody::canonical_custody_binding(&direct_custody);
+ 392             let actions = match lot.preparation {
+ 393                 FoodPreparation::Raw => [
+ 394                     cutting_weapon.clone().map(|tool_binding| {
+ 395                         (
+ 396                             IngredientPreparationAction::Cut,
+ 397                             Skill::Knife,
+ 398                             IngredientPreparationAction::Cut,
+ 399                             "Cut",
+ 400                             tool_binding,
+ 401                         )
+ 402                     }),
+ 403                     Some((
+ 404                         IngredientPreparationAction::Grind,
+ 405                         Skill::Bludgeon,
+ 406                         IngredientPreparationAction::Grind,
+ 407                         "Ground",
+ 408                         grinding_tool.clone(),
+ 409                     )),
+ 410                 ],
+ 411                 FoodPreparation::Cut => [
+ 412                     None,
+ 413                     Some((
+ 414                         IngredientPreparationAction::Grind,
+ 415                         Skill::Bludgeon,

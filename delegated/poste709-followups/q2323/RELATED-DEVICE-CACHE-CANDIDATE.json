@@ -1,0 +1,16 @@
+{
+  "id": "REVIEW-RUNTIME-BODY-DEVICE-CACHE-IDENTITY-001",
+  "severity": "P3 conditional public-library state consistency question; inspected tactical shape producer resets its cache",
+  "classification": "new bounded 95e source trace related to a broader recovered cache-admission contract; exact historical aliases remain open",
+  "detail": "RuntimeBody publicly exposes positions, normals, topology, rig state and a DeviceBody cache. Its validation checks lengths and related counts but does not associate the cached upload with those values. DeviceBody::get_or_upload returns its first cached GpuBody without invoking the supplied upload closure again. After one successful generic parametric armor upload, a Rust caller can modify the same RuntimeBody positions or other public fields while preserving the checked lengths and request another fit; the selected path can retain the old device buffers while the host Wearer borrows the changed body. The result depends on actual geometry, device and later consumers; no upload, mutation, fit or mismatch was executed.",
+  "consumer_and_safeguards": "The generic parametric branch calls device_fit::fit_recipe_async using the body fit and realization, and Realization::upload delegates to the cache while Wearer borrows current host fields. Dedicated vambrace and breastplate paths use separate upload routes, so this is not a claim about every equipment type. The inspected tactical prepare_shape path clones the canonical body, calls BodyShapeKey::apply, which resets body.device even when weights are zero, then applies rig fitting before storing an Arc used for later generation. This establishes a bounded fresh-cache safeguard for that path; it does not establish every public caller, mutation, or cross-device reuse.",
+  "connected_scope": "RuntimeBody mutable data and cache owner, Realization/FitBody relation, DeviceBody upload identity, generic parametric fit and readback, tactical body-shape and rig mutation order, selected consumers and device lifetime.",
+  "historical_related_candidates": [
+    "Canonical RuntimeBody/native geometry/cache admission",
+    "Body/rig/design admission through native GPU realization"
+  ],
+  "relationship_qualification": "Recovered 059 contracts leave RuntimeBody producers and DeviceBody source/device identity open. This 95e trace supplies one conditional public mutation route and an ordinary tactical reset safeguard, without asserting those broader contracts are reconciled or that this is an additional unique historical defect. Original revision, delegated attribution and status remain unchanged; no checkpoint 3821 recovery or independent-lens credit follows.",
+  "discovery": "partial; public API policy, other body mutation and cache users, device lifetime, output impact and global aliases remain open",
+  "repair": "not started",
+  "validation": "not performed"
+}

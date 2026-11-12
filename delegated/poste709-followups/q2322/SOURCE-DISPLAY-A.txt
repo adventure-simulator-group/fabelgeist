@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:790-860
+ 790 
+ 791 #[reducer]
+ 792 pub fn forage_current_vicinity(
+ 793     ctx: &ReducerContext,
+ 794     character_id: u64,
+ 795     request_id: String,
+ 796     source_ids: Vec<String>,
+ 797     requested_minutes: u64,
+ 798     attempt_generation: u64,
+ 799     attestation: ForageEnvironmentAttestation,
+ 800 ) -> Result<(), String> {
+ 801     // Authentication must precede even replay lookup: otherwise a caller can
+ 802     // use receipt/readiness differences as a character-state oracle.
+ 803     crate::strategic::require_strategic_gateway(ctx)?;
+ 804     if !valid_request_id(&request_id) {
+ 805         return Err("Forage request id is invalid".into());
+ 806     }
+ 807     foraging::validate_duration(requested_minutes).map_err(str::to_owned)?;
+ 808     let source_ids = canonical_sources(source_ids)?;
+ 809     // Exact immutable retry is resolved before any mutable character, place,
+ 810     // condition, or ecology authority is consulted.
+ 811     if let Some(receipt) = ctx
+ 812         .db
+ 813         .forage_attempt_authority()
+ 814         .request_id()
+ 815         .find(&request_id)
+ 816     {
+ 817         return if replay_matches(
+ 818             &receipt,
+ 819             character_id,
+ 820             &source_ids,
+ 821             requested_minutes,
+ 822             attempt_generation,
+ 823             &attestation,
+ 824         ) {
+ 825             Ok(())
+ 826         } else {
+ 827             Err("Forage request id collides with a different attempt".into())
+ 828         };
+ 829     }
+ 830 
+ 831     if actor_party_has_pending_incident_at_current_site(ctx, character_id) {
+ 832         return Err("Foraging is unavailable during a pending strategic incident".into());
+ 833     }
+ 834 
+ 835     crate::condition::require_character_ready(ctx, character_id)?;
+ 836     let expected_generation = ctx
+ 837         .db
+ 838         .forage_attempt_state()
+ 839         .character_id()
+ 840         .find(character_id)
+ 841         .map_or(0, |state| state.next_generation);
+ 842     if attempt_generation != expected_generation {
+ 843         return Err("Forage attempt generation is stale".into());
+ 844     }
+ 845     let next_attempt_generation = attempt_generation
+ 846         .checked_add(1)
+ 847         .ok_or("Forage attempt generation is exhausted")?;
+ 848     let (vicinity, mut environment) = validate_attestation(ctx, character_id, &attestation)?;
+ 849     environment.license_violation = license_violation_for_sources(&source_ids, |privilege| {
+ 850         crate::organization::global_presented_privilege(ctx, character_id, privilege)
+ 851     });
+ 852     let (terrain_check, stealth_check) = acting_checks(ctx, character_id, environment.terrain)?;
+ 853     crate::time::initialize_character_time(ctx, character_id)?;
+ 854     let started_at = character_minute(ctx, character_id)?;
+ 855     let seed = resolution_seed(
+ 856         ctx.random::<u64>(),
+ 857         character_id,
+ 858         started_at,
+ 859         &attestation,
+ 860         &source_ids,

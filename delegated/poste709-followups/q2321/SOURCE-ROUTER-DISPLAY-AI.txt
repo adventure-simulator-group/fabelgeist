@@ -1,0 +1,20 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/router.rs:380-398
+ 380             post(start_inventory_container_tincture),
+ 381         )
+ 382         .route(
+ 383             "/api/inventory/containers/tincture-refresh",
+ 384             post(refresh_inventory_container_tincture),
+ 385         )
+ 386         .route(
+ 387             "/api/inventory/containers/tincture-dose",
+ 388             post(dose_inventory_container_tincture),
+ 389         )
+ 390         .route("/api/inventory/prepare", post(prepare_ingredient_lot))
+ 391         .route("/api/inventory-target", post(set_inventory_target))
+ 392         .route("/api/equipment", post(set_equipment))
+ 393 }
+ 394 
+ 395 fn commerce_routes() -> Router<AppState> {
+ 396     Router::new()
+ 397         .route(
+ 398             paths::SERVICE_QUEST_OFFERS.pattern(),

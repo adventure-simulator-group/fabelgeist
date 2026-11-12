@@ -1,0 +1,296 @@
+{
+      "contract_id": "REVIEW-L11-CREATOR-CORRECTIVE-MODEL-CACHE-DEPENDENCY-POLICY",
+      "kind": "qualified-scoped-review-disposition",
+      "lens": 11,
+      "parent_canonical_id": null,
+      "canonical_owner": "StudioCache::body identity key versus reload_model selectedcorrectives and MHR::forward producer",
+      "first_failed_contract_or_unresolved_question": "Supported sameLODcorrectivesreload changesproducerflag but bodycachekey omitsit; whether neutralbody output invariant is an explicit policy/conditional question, no ordinarygeometry discrepancy asserted.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R179-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/studio_cache.rs:P09-P12-P14-connected-creator-generation-cache-binding",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+          "assessed_ranges": [
+            [
+              1,
+              192
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              192
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-179.json",
+            "sha256": "ff17c05a57bda38bbda5b1c6332401d3b45c485e99c0734ca06e16980913b8e6"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-197.json",
+            "sha256": "061315f54699afd22247345743948565cb4f3e48332925a4bd250d87118b39a7",
+            "json_pointer": "/rows/0"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-715.json",
+            "sha256": "9c2cb518dd2bcec5e73484ed9733daa34368a96feed9210ab159b3e95e80ca36",
+            "verification": "segovb/VERIFY-L11-715.json",
+            "verification_sha256": "4edbec26a3268a9d7a8ca42c4e563493a0cfd847a57c8080cae6a23eacfbc053"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R180-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/main.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+          "assessed_ranges": [
+            [
+              1,
+              667
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              667
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-180.json",
+            "sha256": "aecb69bc22f3f8cd8745f1cf039f2bd56da21bea4bd6e1b0c27fb226463a77cd"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-198.json",
+            "sha256": "116fcd14a91f020587bdbb229905f75da8cd53a3de6b555eeb5f87205554693f",
+            "json_pointer": "/rows/0"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-716.json",
+            "sha256": "21a52e797712f42a6296032d93cb2735f034922d5543da74834017e83ff2cb1d",
+            "verification": "segovb/VERIFY-L11-716.json",
+            "verification_sha256": "eb39dc3d83ec3e2972a9f501ad0dbbe6edfbcc8d3446850f716838d1104aa1bb"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R008-5",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-mhr/src/model.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60",
+          "assessed_ranges": [
+            [
+              1,
+              474
+            ]
+          ],
+          "receipt_pointer": "/rows/5",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              474
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-008.json",
+            "sha256": "2871ea5411938a18a1ff527caac6889c2c1845d1c7e4d6e570fb68ea2daaf843"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-021.json",
+            "sha256": "ab6848f0ba818b2350e0a0d7ef80d874921fc66a3dd80df95bb2d73562dae535",
+            "json_pointer": "/rows/64"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-544.json",
+            "sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+            "verification": "segovb/VERIFY-L11-544.json",
+            "verification_sha256": "fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R008-10",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/generation.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "c4b9cb13067b1ffdfcb86d64c2c90bf9d1aa7a091e040c8fd7881d87d18286e9",
+          "assessed_ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "receipt_pointer": "/rows/10",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-008.json",
+            "sha256": "2871ea5411938a18a1ff527caac6889c2c1845d1c7e4d6e570fb68ea2daaf843"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-022.json",
+            "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+            "json_pointer": "/rows/9"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-544.json",
+            "sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+            "verification": "segovb/VERIFY-L11-544.json",
+            "verification_sha256": "fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R008-11",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/proportions.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "43710ce5f3f1a0ecdc487d413b6b62a6e051f62b6b520ab4d003be6eeb70d640",
+          "assessed_ranges": [
+            [
+              1,
+              79
+            ]
+          ],
+          "receipt_pointer": "/rows/11",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              79
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-008.json",
+            "sha256": "2871ea5411938a18a1ff527caac6889c2c1845d1c7e4d6e570fb68ea2daaf843"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-022.json",
+            "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+            "json_pointer": "/rows/10"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-544.json",
+            "sha256": "aea3aae814f8cb74b4c7d922fb779db8c5a002a00f6297c38da5730aebf50911",
+            "verification": "segovb/VERIFY-L11-544.json",
+            "verification_sha256": "fee7d79dccab6925557b3b15acf93c1c772b95e2df21b81c086ac512db98da25"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R011-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-mhr/src/correctives.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "9fdc1ccc90cc6a1eb349ee3a95824ff101c00165603e21af9060850034ec843f",
+          "assessed_ranges": [
+            [
+              1,
+              116
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              116
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+            "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-022.json",
+            "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+            "json_pointer": "/rows/3"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-547.json",
+            "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+            "verification": "segovb/VERIFY-L11-547.json",
+            "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+          },
+          "body_credit_from_queue": 0
+        },
+        {
+          "source_row_key": "R011-4",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-mhr/src/correctives/input.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "7aab7cf313d2341a45df98bb77ece002b9a36afc7719eaf9db3a67bb5cf5ccee",
+          "assessed_ranges": [
+            [
+              1,
+              165
+            ]
+          ],
+          "receipt_pointer": "/rows/4",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              165
+            ]
+          ],
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+            "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+          },
+          "registration_ref_and_sha256": {
+            "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-022.json",
+            "sha256": "a1db08aa8915953ea43670811f767027373ec114423a71a3d7a49566969d1515",
+            "json_pointer": "/rows/7"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L11-547.json",
+            "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+            "verification": "segovb/VERIFY-L11-547.json",
+            "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+          },
+          "body_credit_from_queue": 0
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "reload_model430..455 comparesbothLOD/correctives431, reloadsrequestedconfig437 and replacesBodyModel439 thenmarksdirty440. StudioCache.bodykey38..43 onlyLOD/proportions/identity/expression, so sameLODtoggle canhitoldbodyanddependentfits/drape.",
+        "Generation32 usesmodel.mhr.forward withproportionsderivedparameters; owningjoint_bases checks translation-only columns but modelparameteroffset/currentcorrective input semantics remain separate. MHRcorrectiveflag gatesnetwork loading and actualrestaddition; source doesnotjustify blanketzero-pose outputinvariance or changedgeometry without applicableownerassets.",
+        "Source dependency omission fullyrecorded asconditionalpolicy; a clean auditmayretain documented invariance decision/question without productGPU execution. No arbitrary sameLODasset hotreload witnessinvented."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Exact currentcreator/MHR/rig source scopes only; public library admissions and separate native/fixture/doc contracts retain exact prior qualifications.",
+        "No product/native/test/fixture/runtime execution; later repair acceptance separate."
+      ],
+      "closure_condition": [
+        "Root verifies immutable wholebundle/source/plan/own prior root proofs before ordered177..180 source adoption.",
+        "Record namedretained/rejected/conditional/policydisposition only; no coarseall20/all13/currentdelta closure or accepteduniqueassignment."
+      ],
+      "disposition": "documented-conditional-policy-question",
+      "policy_decisions_remaining": [
+        "Should StudioCache bodyidentity explicitly include currentmodel/corrective configuration, or does owner guarantee the generated neutralproportion body invariant under this supportedsameLODtoggle? Record exact rationale; do not invent actual asset/GPU difference."
+      ],
+      "later_repair_acceptance_requirements": [
+        "Availabletypednativecauses andactualsemanticroles preserved untilpresentation.",
+        "Any policychosenrepair/native-runtimevalidation remainsseparateafterauditledgercomplete, no obsoleteAPI/errorprose/invalidbehavior preservation."
+      ],
+      "named_disposition_recorded": true,
+      "audit_discovery_closed_within_exact_named_scope": true,
+      "all_lenses_or_coarse_parent_closed": false,
+      "global_exact_alias_inventory_complete": false,
+      "repair_runtime_passed": false,
+      "proposal": {
+        "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+        "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+        "row_pointer": "/contract_updates/4"
+      },
+      "body_or_population_credit": 0,
+      "implementation_gate_complete": false
+    }

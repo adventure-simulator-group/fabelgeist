@@ -1,0 +1,56 @@
+   480	
+   481	pub(crate) fn add_to_party_inventory_checked(
+   482	    ctx: &ReducerContext,
+   483	    party_id: &str,
+   484	    item_id: &str,
+   485	    quantity: u32,
+   486	) -> Result<(), String> {
+   487	    if quantity == 0 {
+   488	        return Ok(());
+   489	    }
+   490	    let definition = ctx.db.item().id().find(item_id.to_string());
+   491	    let kind = definition.as_ref().map(|row| row.kind);
+   492	    let food_definition = crate::item::inventory_food_definition(kind, item_id)?;
+   493	    let food = food_definition.is_some();
+   494	    let measured = crate::inventory_amount::is_measured_item(ctx, item_id);
+   495	    let durable = item_is_durable(ctx, item_id);
+   496	    let individual = crate::item::requires_stable_object(definition.as_ref(), food, measured);
+   497	    if individual {
+   498	        let minute = ctx
+   499	            .db
+   500	            .party_authority()
+   501	            .id()
+   502	            .find(party_id.to_string())
+   503	            .and_then(|party| ctx.db.character_time().character_id().find(party.leader_id))
+   504	            .map_or(StrategicMinute::ZERO, |time| time.minutes);
+   505	        for _ in 0..quantity {
+   506	            let row = ctx.db.party_inventory_item().insert(PartyInventoryItem {
+   507	                id: 0,
+   508	                party_id: party_id.into(),
+   509	                item_id: item_id.into(),
+   510	                quantity: 1,
+   511	            });
+   512	            crate::inventory_container::insert_party_object(ctx, &row)?;
+   513	            if measured {
+   514	                crate::inventory_amount::initialize_party(ctx, row.id);
+   515	            }
+   516	            if food {
+   517	                crate::food::create_party_food_lot(ctx, row.id, item_id, 1, minute)
+   518	                    .ok_or_else(|| format!("Could not create party food lot for {item_id}"))?;
+   519	            }
+   520	            if durable {
+   521	                ctx.db.party_item_condition().insert(PartyItemCondition {
+   522	                    party_inventory_item_id: row.id,
+   523	                    tier_1: 0.0,
+   524	                    tier_2: 0.0,
+   525	                    tier_3: 0.0,
+   526	                    tier_4: 0.0,
+   527	                    tier_5: 0.0,
+   528	                });
+   529	            }
+   530	            crate::weapon_instance::initialize_party_weapon(ctx, &row)?;
+   531	        }
+   532	        return Ok(());
+   533	    }
+   534	    if let Some(mut stack) = ctx
+   535	        .db

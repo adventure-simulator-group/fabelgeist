@@ -1,0 +1,116 @@
+ 430                 .ok_or("Settlement not found")?;
+ 431             let available = adventuresim_core::organization::organization_chapter_at(
+ 432                 settlement_id.as_str(),
+ 433                 authored_location_id.as_str(),
+ 434             )
+ 435             .is_some_and(|(organization, chapter)| {
+ 436                 organization.id == organization_id.as_str()
+ 437                     && chapter.location_id == authored_location_id.as_str()
+ 438                     && adventuresim_core::organization::chapter_has_standalone_building(
+ 439                         organization,
+ 440                         chapter,
+ 441                         &settlement.economy,
+ 442                     )
+ 443             });
+ 444             if !available {
+ 445                 return Err("This settlement building has no fireplace".into());
+ 446             }
+ 447             Ok(())
+ 448         }
+ 449         StrategicPlaceId::JourneyCamp {
+ 450             party_id,
+ 451             departure_minute,
+ 452             movement_minute,
+ 453         } => {
+ 454             if actor.party_id.as_deref() != Some(party_id.as_str()) {
+ 455                 return Err("The character is not in this camp's party".into());
+ 456             }
+ 457             let current = crate::strategic::current_journey_camp_place(ctx, party_id.as_str())?;
+ 458             if current
+ 459                 != StrategicPlaceId::journey_camp(
+ 460                     party_id.as_str(),
+ 461                     departure_minute,
+ 462                     movement_minute,
+ 463                 )
+ 464                 .map_err(|_| "Invalid canonical camp identity")?
+ 465             {
+ 466                 return Err("This is not the party's current journey camp".into());
+ 467             }
+ 468             Ok(())
+ 469         }
+ 470         _ => Err("Invalid fireplace place".into()),
+ 471     }
+ 472 }
+ 473 
+ 474 fn fireplace_station_for(
+ 475     ctx: &ReducerContext,
+ 476     character_id: u64,
+ 477     fireplace_fixture_id: &str,
+ 478 ) -> FireplaceStation {
+ 479     let key = station_key(character_id, fireplace_fixture_id);
+ 480     ctx.db
+ 481         .fireplace_station()
+ 482         .key()
+ 483         .find(key.clone())
+ 484         .unwrap_or(FireplaceStation {
+ 485             key,
+ 486             character_id,
+ 487             fireplace_fixture_id: fireplace_fixture_id.into(),
+ 488             instrument_item_id: None,
+ 489             instrument_object_id: None,
+ 490             instrument_return_custody: None,
+ 491         })
+ 492 }
+ 493 
+ 494 fn method_for_instrument(item_id: Option<&str>) -> Result<CookingMethod, String> {
+ 495     match item_id {
+ 496         None => Ok(CookingMethod::Roast),
+ 497         Some("cooking_pan") => Ok(CookingMethod::PanFry),
+ 498         Some("cooking_pot") => Ok(CookingMethod::Stew),
+ 499         Some("portable_oven") => Ok(CookingMethod::Bake),
+ 500         _ => Err("That item is not a cooking instrument".into()),
+ 501     }
+ 502 }
+ 503 
+ 504 fn vessel_station_key(character_id: u64, fireplace_fixture_id: &str, object_id: u64) -> String {
+ 505     format!("{character_id}|{fireplace_fixture_id}|container:{object_id}")
+ 506 }
+ 507 
+ 508 /// Places one exact vessel and its entire subtree over this exact fireplace.
+ 509 /// The root carried row is removed, so ordinary inventory/trade views cannot
+ 510 /// remotely transfer it. Children retain their stable object edges.
+ 511 #[reducer]
+ 512 pub fn place_fireplace_container(
+ 513     ctx: &ReducerContext,
+ 514     character_id: u64,
+ 515     fireplace_fixture_id: String,
+ 516     inventory_scope: String,
+ 517     inventory_item_id: u64,
+ 518 ) -> Result<(), String> {
+ 519     crate::strategic::require_strategic_gateway(ctx)?;
+ 520     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 521     if actor.has_tactical_server_assignment() {
+ 522         return Err("Cooking is unavailable during a tactical encounter".into());
+ 523     }
+ 524     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 525     let inventory_scope = CarriedInventoryScope::try_from(inventory_scope.as_str())
+ 526         .map_err(|error| error.to_string())?;
+ 527     let mut object = crate::inventory_container::require_object(
+ 528         ctx,
+ 529         character_id,
+ 530         inventory_scope,
+ 531         inventory_item_id,
+ 532     )?;
+ 533     if crate::inventory_container::object_is_nested(ctx, object.id) {
+ 534         return Err(
+ 535             "Remove a vessel from its parent container before placing it over a fire".into(),
+ 536         );
+ 537     }
+ 538     method_for_instrument(Some(&object.item_id))?;
+ 539     let source_custody =
+ 540         crate::object_custody::carried_scope_custody(ctx, &actor, inventory_scope)?;
+ 541     let resolved = crate::object_custody::resolve_object_custody(ctx, &object)?;
+ 542     if resolved.root != source_custody {
+ 543         return Err("Container custody conflicts with the selected inventory".into());
+ 544     }
+ 545     let persisted_source = crate::object_custody::encode_custody(&source_custody);

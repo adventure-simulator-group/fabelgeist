@@ -1,0 +1,87 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/food.rs:235-320
+ 235         self.sweet += other.sweet;
+ 236         self.sour += other.sour;
+ 237         self.savory += other.savory;
+ 238     }
+ 239 
+ 240     pub fn valid(self) -> bool {
+ 241         [self.salty, self.spicy, self.sweet, self.sour, self.savory]
+ 242             .into_iter()
+ 243             .all(|value| value.is_finite() && value >= 0.0)
+ 244     }
+ 245 }
+ 246 
+ 247 #[derive(Clone, Copy, Debug, PartialEq)]
+ 248 pub struct FoodDefinition {
+ 249     pub id: &'static str,
+ 250     pub name: &'static str,
+ 251     pub class: FoodClass,
+ 252     pub kcal_per_unit: f32,
+ 253     pub mass_kg_per_unit: f32,
+ 254     pub value_per_unit: f32,
+ 255     /// Exponential growth exponent per hour at the deferred ambient baseline.
+ 256     pub growth_per_hour: f32,
+ 257     /// Minutes required for the ingredient to become safe/done.
+ 258     pub cooking_minutes: u32,
+ 259     pub flavors_per_unit: FlavorProfile,
+ 260     pub culinary_fat: bool,
+ 261     /// Quality of catalog stock and newly acquired raw lots.
+ 262     pub default_quality: u8,
+ 263 }
+ 264 
+ 265 pub static FOOD_CATALOG: std::sync::LazyLock<Vec<FoodDefinition>> =
+ 266     std::sync::LazyLock::new(|| {
+ 267         crate::item_catalog::catalog()
+ 268             .iter()
+ 269             .filter_map(|item| {
+ 270                 let food = item.capabilities.food.as_ref()?;
+ 271                 let class = match food.class.as_str() {
+ 272                     "ration" => FoodClass::Ration,
+ 273                     "grain" => FoodClass::Grain,
+ 274                     "bread" => FoodClass::Bread,
+ 275                     "fruit" => FoodClass::Fruit,
+ 276                     "berries" => FoodClass::Berries,
+ 277                     "vegetable" => FoodClass::Vegetable,
+ 278                     "nuts" => FoodClass::Nuts,
+ 279                     "herb" => FoodClass::Herb,
+ 280                     "mushroom" => FoodClass::Mushroom,
+ 281                     "raw_meat" => FoodClass::RawMeat,
+ 282                     "cooked_meat" => FoodClass::CookedMeat,
+ 283                     "mixed_meal" => FoodClass::MixedMeal,
+ 284                     _ => unreachable!("validated food class"),
+ 285                 };
+ 286                 Some(FoodDefinition {
+ 287                     id: item.id.as_str(),
+ 288                     name: item.display_name.as_str(),
+ 289                     class,
+ 290                     kcal_per_unit: food.nutrition_kcal,
+ 291                     mass_kg_per_unit: item.weight_kg,
+ 292                     value_per_unit: food.value_per_unit,
+ 293                     growth_per_hour: food.growth_per_hour,
+ 294                     cooking_minutes: food.cooking_minutes,
+ 295                     flavors_per_unit: FlavorProfile::new(
+ 296                         food.flavors_kg.salty,
+ 297                         food.flavors_kg.spicy,
+ 298                         food.flavors_kg.sweet,
+ 299                         food.flavors_kg.sour,
+ 300                         food.flavors_kg.savory,
+ 301                     ),
+ 302                     culinary_fat: food.culinary_fat,
+ 303                     default_quality: food.quality,
+ 304                 })
+ 305             })
+ 306             .collect()
+ 307     });
+ 308 
+ 309 pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
+ 310     FOOD_CATALOG.iter().find(|food| food.id == id)
+ 311 }
+ 312 
+ 313 pub fn deterministic_initial_contamination(seed: Seed) -> f32 {
+ 314     let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
+ 315         .rng(seed, &[])
+ 316         .unit_f64();
+ 317     let log_min = (MIN_INITIAL_CONTAMINATION as f64).ln();
+ 318     let log_max = (MAX_INITIAL_CONTAMINATION as f64).ln();
+ 319     (log_min + unit * (log_max - log_min)).exp() as f32
+ 320 }

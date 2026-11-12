@@ -1,0 +1,88 @@
+ 253     for plan in cleanup {
+ 254         let StationCleanup::Return {
+ 255             station_key,
+ 256             item_id,
+ 257             object_id,
+ 258             destination,
+ 259         } = plan
+ 260         else {
+ 261             if let StationCleanup::Delete { station_key } = plan {
+ 262                 ctx.db.fireplace_station().key().delete(station_key);
+ 263             }
+ 264             // Abandoned tools remain installed at their station.
+ 265             continue;
+ 266         };
+ 267         if let Some(object_id) = object_id {
+ 268             let row_id = match &destination {
+ 269                 OperationalCustody::Party(party_id) => {
+ 270                     ctx.db
+ 271                         .party_inventory_item()
+ 272                         .insert(PartyInventoryItem {
+ 273                             id: 0,
+ 274                             party_id: party_id.as_str().into(),
+ 275                             item_id: item_id.clone(),
+ 276                             quantity: 1,
+ 277                         })
+ 278                         .id
+ 279                 }
+ 280                 OperationalCustody::Character(character) => {
+ 281                     ctx.db
+ 282                         .inventory_item()
+ 283                         .insert(crate::InventoryItem {
+ 284                             id: 0,
+ 285                             character_id: character.get(),
+ 286                             item_id: item_id.clone(),
+ 287                             quantity: 1,
+ 288                         })
+ 289                         .id
+ 290                 }
+ 291                 _ => return Err("Fireplace return destination is not carried inventory".into()),
+ 292             };
+ 293             let mut object = ctx
+ 294                 .db
+ 295                 .inventory_object()
+ 296                 .id()
+ 297                 .find(object_id)
+ 298                 .ok_or("Fireplace instrument object is missing")?;
+ 299             object.location =
+ 300                 crate::inventory_container::carried_location_for_row(&destination, row_id)?;
+ 301             ctx.db.inventory_object().id().update(object);
+ 302             crate::inventory_container::rehome_subtree(ctx, object_id, &destination)?;
+ 303         } else {
+ 304             match destination {
+ 305                 OperationalCustody::Party(party_id) => {
+ 306                     crate::strategic::add_to_party_inventory_checked(
+ 307                         ctx,
+ 308                         party_id.as_str(),
+ 309                         &item_id,
+ 310                         1,
+ 311                     )?;
+ 312                 }
+ 313                 OperationalCustody::Character(character) => {
+ 314                     ctx.db.inventory_item().insert(crate::InventoryItem {
+ 315                         id: 0,
+ 316                         character_id: character.get(),
+ 317                         item_id,
+ 318                         quantity: 1,
+ 319                     });
+ 320                 }
+ 321                 _ => return Err("Fireplace return destination is not carried inventory".into()),
+ 322             }
+ 323         }
+ 324         ctx.db.fireplace_station().key().delete(station_key);
+ 325     }
+ 326     Ok(())
+ 327 }
+ 328 
+ 329 fn validate_fireplace_fixture(
+ 330     ctx: &ReducerContext,
+ 331     actor: &crate::Character,
+ 332     fireplace_fixture_id: &str,
+ 333 ) -> Result<(), String> {
+ 334     let fixture = fireplace_fixture_id
+ 335         .parse::<StrategicFixtureId>()
+ 336         .map_err(|_| "Invalid canonical fireplace identity")?;
+ 337     let StrategicFixtureId::Fireplace { place } = fixture else {
+ 338         return Err("Fixture is not a fireplace".into());
+ 339     };
+ 340     match place {

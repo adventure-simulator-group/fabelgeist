@@ -1,0 +1,26 @@
+{
+  "registered_at_utc": "2026-11-12T16:21:26.509439+00:00",
+  "reader": "/root/mhr_character",
+  "prior_author": "/root/verifier_scope",
+  "prior_packet_manifest_sha256": "697a7e8a25976cb5e20fe11e591a715856f2d0da71835b3fd7101b027f204512",
+  "items": [
+    {
+      "file_name": "MANIFEST.json",
+      "sha256": "697a7e8a25976cb5e20fe11e591a715856f2d0da71835b3fd7101b027f204512",
+      "bytes": 28422
+    },
+    {
+      "file_name": "REPORT.md",
+      "sha256": "6ba6b0cacd3377affca53aab8e3a8a5c29d26ff619d6f18dde675f3b8392a0a2",
+      "bytes": 10044
+    },
+    {
+      "file_name": "SOURCE-READ-RECEIPT.json",
+      "sha256": "32402d713242f0b1e25d62661b3c6d365c21941d328da808c82baede1438c9fc",
+      "bytes": 16384
+    }
+  ],
+  "planned_read": "metadata-only hash binding; prior author separately identified finite-admission and earlier native-normal-index observations",
+  "failed_locator_qualification": "Initial attempt assumed REPORT.json and failed FileNotFoundError; metadata listing showed REPORT.md. No body read or conclusion was made from that failed lookup.",
+  "qualification": "Prior packet is referenced, not embedded; its independent custody and author remain separate."
+}

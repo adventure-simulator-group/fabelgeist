@@ -1,0 +1,105 @@
+   1 // Owns fireplace fixture validation, vessel custody, cleanup, placement, and retrieval.
+   2 fn dish_inventory_destination(
+   3     source: &crate::PersistedOperationalCustody,
+   4     dish_character_id: u64,
+   5 ) -> Result<OperationalCustody, String> {
+   6     crate::object_custody::carried_destination(source, dish_character_id)
+   7 }
+   8 
+   9 fn station_key(character_id: u64, fireplace_fixture_id: &str) -> String {
+  10     format!("{character_id}|{fireplace_fixture_id}")
+  11 }
+  12 
+  13 fn parse_persisted_fireplace_fixture(
+  14     fireplace_fixture_id: &str,
+  15 ) -> Result<StrategicFixtureId, String> {
+  16     match fireplace_fixture_id
+  17         .parse::<StrategicFixtureId>()
+  18         .map_err(|_| "Persisted fireplace custody has an invalid canonical fixture")?
+  19     {
+  20         fixture @ StrategicFixtureId::Fireplace { .. } => Ok(fixture),
+  21         _ => Err("Persisted fireplace custody names a non-fireplace fixture".into()),
+  22     }
+  23 }
+  24 
+  25 fn validate_persisted_station_fixture(
+  26     ctx: &ReducerContext,
+  27     station: &FireplaceStation,
+  28 ) -> Result<StrategicFixtureId, String> {
+  29     let fixture = parse_persisted_fireplace_fixture(&station.fireplace_fixture_id)?;
+  30     let expected_key = match station.instrument_object_id {
+  31         Some(object_id) => vessel_station_key(
+  32             station.character_id,
+  33             &station.fireplace_fixture_id,
+  34             object_id,
+  35         ),
+  36         None => station_key(station.character_id, &station.fireplace_fixture_id),
+  37     };
+  38     if station.key != expected_key {
+  39         return Err("Persisted fireplace station conflicts with its canonical fixture".into());
+  40     }
+  41     if station.instrument_item_id.is_some() != station.instrument_return_custody.is_some() {
+  42         return Err("Persisted fireplace station has ambiguous return custody".into());
+  43     }
+  44     if let Some(custody) = station.instrument_return_custody.as_ref() {
+  45         crate::object_custody::carried_destination(custody, station.character_id)?;
+  46     }
+  47     if let Some(object_id) = station.instrument_object_id {
+  48         let object = ctx
+  49             .db
+  50             .inventory_object()
+  51             .id()
+  52             .find(object_id)
+  53             .ok_or("Persisted fireplace station object is missing")?;
+  54         if station.instrument_item_id.as_deref() != Some(object.item_id.as_str()) {
+  55             return Err("Persisted fireplace station conflicts with its object identity".into());
+  56         }
+  57         crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
+  58     }
+  59     Ok(fixture)
+  60 }
+  61 
+  62 fn validate_persisted_dish_fixture(
+  63     ctx: &ReducerContext,
+  64     dish: &FireplaceDish,
+  65 ) -> Result<StrategicFixtureId, String> {
+  66     let fixture = parse_persisted_fireplace_fixture(&dish.fireplace_fixture_id)?;
+  67     let station = ctx
+  68         .db
+  69         .fireplace_station()
+  70         .key()
+  71         .find(dish.station_key.clone())
+  72         .ok_or("Persisted fireplace dish has no station authority")?;
+  73     let station_fixture = validate_persisted_station_fixture(ctx, &station)?;
+  74     if station.character_id != dish.character_id || station_fixture != fixture {
+  75         return Err("Persisted fireplace dish conflicts with its station authority".into());
+  76     }
+  77     crate::object_custody::carried_destination(&dish.return_custody, dish.character_id)?;
+  78     Ok(fixture)
+  79 }
+  80 
+  81 pub(crate) fn require_clear_current_camp_fireplace(
+  82     ctx: &ReducerContext,
+  83     camp_place: &StrategicPlaceId,
+  84 ) -> Result<(), String> {
+  85     if !matches!(camp_place, StrategicPlaceId::JourneyCamp { .. }) {
+  86         return Err("Camp custody gate requires an exact journey camp".into());
+  87     }
+  88     let mut occupied = false;
+  89     for station in ctx.db.fireplace_station().iter() {
+  90         let fixture = validate_persisted_station_fixture(ctx, &station)?;
+  91         occupied |= fixture.place() == camp_place && station.instrument_item_id.is_some();
+  92     }
+  93     for dish in ctx.db.fireplace_dish().iter() {
+  94         let fixture = validate_persisted_dish_fixture(ctx, &dish)?;
+  95         occupied |= fixture.place() == camp_place;
+  96     }
+  97     if occupied {
+  98         Err("Retrieve every dish and remove every cooking instrument before breaking camp".into())
+  99     } else {
+ 100         Ok(())
+ 101     }
+ 102 }
+ 103 
+ 104 pub(crate) fn require_members_clear_current_camp_fireplace(
+ 105     ctx: &ReducerContext,

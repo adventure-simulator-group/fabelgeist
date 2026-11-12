@@ -1,0 +1,49 @@
+ 490         return Vec::new();
+ 491     }
+ 492     ctx.db
+ 493         .fireplace_station()
+ 494         .character_id()
+ 495         .filter(0u64..)
+ 496         .map(|row| BackendFireplaceStation {
+ 497             key: row.key,
+ 498             character_id: row.character_id,
+ 499             fireplace_fixture_id: row.fireplace_fixture_id,
+ 500             instrument_item_id: row.instrument_item_id,
+ 501             instrument_object_id: row.instrument_object_id,
+ 502         })
+ 503         .collect()
+ 504 }
+ 505 
+ 506 #[derive(Clone, Debug, SpacetimeType)]
+ 507 pub struct BackendFireplaceDish {
+ 508     pub station_key: String,
+ 509     pub character_id: u64,
+ 510     pub fireplace_fixture_id: String,
+ 511     pub contributor_name: String,
+ 512     pub method: CookingMethod,
+ 513     pub started_at_minute: StrategicMinute,
+ 514     pub target_minutes: u32,
+ 515     pub display_name: String,
+ 516 }
+ 517 
+ 518 #[view(accessor = backend_fireplace_dishes, public)]
+ 519 pub fn backend_fireplace_dishes(ctx: &ViewContext) -> Vec<BackendFireplaceDish> {
+ 520     if !crate::strategic::strategic_view_is_gateway(ctx) {
+ 521         return Vec::new();
+ 522     }
+ 523     ctx.db
+ 524         .fireplace_dish()
+ 525         .character_id()
+ 526         .filter(0u64..)
+ 527         .map(|row| BackendFireplaceDish {
+ 528             station_key: row.station_key,
+ 529             character_id: row.character_id,
+ 530             fireplace_fixture_id: row.fireplace_fixture_id,
+ 531             contributor_name: row.contributor_name,
+ 532             method: row.method,
+ 533             started_at_minute: row.started_at_minute,
+ 534             target_minutes: row.target_minutes,
+ 535             display_name: row.display_name,
+ 536         })
+ 537         .collect()
+ 538 }

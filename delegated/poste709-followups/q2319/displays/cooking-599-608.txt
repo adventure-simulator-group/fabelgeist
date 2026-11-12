@@ -1,0 +1,10 @@
+ 599     if ctx
+ 600         .db
+ 601         .fireplace_station()
+ 602         .key()
+ 603         .find(station.key.clone())
+ 604         .is_none()
+ 605     {
+ 606         ctx.db.fireplace_station().insert(station);
+ 607     }
+ 608     Ok(())

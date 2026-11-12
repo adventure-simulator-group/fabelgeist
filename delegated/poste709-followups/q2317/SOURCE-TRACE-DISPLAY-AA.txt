@@ -1,0 +1,47 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:240-285
+ 240         .unwrap_or_default();
+ 241     let key = format!("{}|{}", actor.id, fireplace_fixture_id);
+ 242     let station = state
+ 243         .db
+ 244         .query_one_sats::<BackendFireplaceStation>(&db::fireplace_station_by_key(&key))
+ 245         .await
+ 246         .ok()
+ 247         .flatten();
+ 248     let dish = state
+ 249         .db
+ 250         .query_one_sats::<BackendFireplaceDish>(&db::fireplace_dish_by_station_key(&key))
+ 251         .await
+ 252         .ok()
+ 253         .flatten();
+ 254     let vessel_stations = state
+ 255         .db
+ 256         .query_sats::<BackendFireplaceStation>(&format!(
+ 257             "SELECT * FROM backend_fireplace_stations WHERE character_id = {}",
+ 258             actor.id
+ 259         ))
+ 260         .await
+ 261         .unwrap_or_default()
+ 262         .into_iter()
+ 263         .filter(|row| {
+ 264             row.fireplace_fixture_id == fireplace_fixture_id && row.instrument_object_id.is_some()
+ 265         })
+ 266         .collect::<Vec<_>>();
+ 267     let vessel_keys = vessel_stations
+ 268         .iter()
+ 269         .map(|row| row.key.as_str())
+ 270         .collect::<HashSet<_>>();
+ 271     let vessel_dishes = state
+ 272         .db
+ 273         .query_sats::<BackendFireplaceDish>("SELECT * FROM backend_fireplace_dishes")
+ 274         .await
+ 275         .unwrap_or_default()
+ 276         .into_iter()
+ 277         .filter(|row| vessel_keys.contains(row.station_key.as_str()))
+ 278         .collect::<Vec<_>>();
+ 279     let minute = query_single::<CharacterTime>(state, db::character_time_by_character_id(actor.id))
+ 280         .await
+ 281         .map_or(StrategicMinute::ZERO, |t| StrategicMinute::new(t.minutes.minutes));
+ 282     (
+ 283         personal,
+ 284         party,
+ 285         personal_amounts,

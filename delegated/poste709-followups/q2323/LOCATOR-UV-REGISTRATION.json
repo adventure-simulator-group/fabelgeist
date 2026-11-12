@@ -1,0 +1,25 @@
+{
+  "registered_utc": "2026-11-12T16:08:57.723385+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_scopes": [
+    "crates/fabelgeist-mhr/src",
+    "crates/adventuresim-character-creator/src"
+  ],
+  "source_patterns": [
+    "fn from_loaded_assets",
+    "texcoord_faces",
+    "fn vertex_texcoords"
+  ],
+  "evidence_revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+  "evidence_scopes": [
+    "."
+  ],
+  "evidence_patterns": [
+    "vertex_texcoords",
+    "triangulate_texcoords",
+    "texcoord_faces",
+    "UV-face",
+    "UV face"
+  ],
+  "purpose": "Locate model validation and prior UV-family evidence, filename/line only, retain 100, show first 20."
+}

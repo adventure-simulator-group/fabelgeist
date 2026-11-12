@@ -1,0 +1,21 @@
+{
+  "schema": "726-q2328-accidental-write-path-safe-v1",
+  "original_incident_record_sha256": "d5a6c4bbda8164a541747e5d62c8c5a88d99d8493305752571431318f996cafb",
+  "recorded_at_utc": "2026-11-12T16:44:25.906960+00:00",
+  "location": "current user workspace working-tree root",
+  "literal_target": "${p%.b64}",
+  "write_command": "base64 -d 'target/726-audit-baseline/private-originals/q2328-wkrzjdwo/TREE-CONNECTOR-2-f52f5a9194bd3808ec5279289319b9a2d12033d6.json.b64' > '${p%.b64}'",
+  "write_mode": "shell output redirection creates a regular file if absent, or opens and truncates an existing file before writing; no noclobber protection was requested",
+  "pre_write_existence_check": "none made during this attempt; cannot establish whether any earlier listing captured the exact literal filename from retained state",
+  "write_return": {
+    "decode_exit": 0,
+    "decode_output": ""
+  },
+  "removal_command": "rm -f '${p%.b64}'",
+  "removal_return": "no error was reported in the subsequent successful command cell",
+  "copied_from_accidental_path_before_removal": false,
+  "separately_decoded_bytes": 149667,
+  "separately_decoded_sha256": "92155a3125796e16de27982a00fda40ecd5e4d96e9d4ab26b20afeaa93e73157",
+  "recovery_limit": "There was no pre-write existence check, prior-content copy, metadata capture or backup of the accidental target. Earlier contents, if any, cannot be established from this evidence; truncation followed by removal may make recovery impossible. Do not claim it was definitely new or that no existing bytes were lost.",
+  "projection_qualification": "Path-safe reconstructed projection omits the absolute local working-directory and target path. Exact original incident record remains separately held. The decoded connector response is a separate copy, not a captured byte image of the overwritten target."
+}

@@ -1,0 +1,17 @@
+{
+  "events": [
+    {
+      "event": "historical structure metadata print exceeded tool output budget",
+      "detail": "Output warned truncated; complete program-generated metadata is retained as HISTORICAL-STRUCTURES.json. No credit for truncated or unseen output; specific records will be selected and redisplayed in bounded chunks.",
+      "time_utc": "2026-11-12T15:43:03.062038+00:00"
+    },
+    {
+      "event": "locator print selection",
+      "detail": "Full bounded locator results saved in LOCATOR-RESULT.json; console showed only first 35 per pattern, despite file retaining at most 100. preview omitted 293 and inventory omitted 3038 from file; locators never confer source-body credit."
+    },
+    {
+      "event": "object display filename lookup failed",
+      "detail": "Requested 1-80 range was clamped at actual EOF, so the expected -1-80 display filename did not exist; no body displayed by the failed cat. Correct actual-EOF filename will be displayed."
+    }
+  ]
+}

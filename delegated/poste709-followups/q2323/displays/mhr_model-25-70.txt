@@ -1,0 +1,46 @@
+  25 pub const NUM_BLEND_SHAPES: usize = NUM_IDENTITY_BLEND_SHAPES + NUM_FACE_EXPRESSION_BLEND_SHAPES;
+  26 
+  27 /// Supported runtime body detail, 4 (densest) through 6.
+  28 pub const MIN_LOD: u8 = 4;
+  29 pub const MAX_LOD: u8 = 6;
+  30 
+  31 const MODEL_DEFINITION: &str = "compact_v6_1.model";
+  32 const CORRECTIVE_ACTIVATION: &str = "corrective_activation.npz";
+  33 
+  34 /// How to load a model.
+  35 #[derive(Debug, Clone, Copy)]
+  36 pub struct MhrConfig {
+  37     pub lod: u8,
+  38     /// Load the pose-corrective network. It dominates both load time and
+  39     /// memory (2.5 GiB of coefficients at LOD 0), so it can be turned off.
+  40     pub pose_correctives: bool,
+  41 }
+  42 
+  43 impl Default for MhrConfig {
+  44     fn default() -> Self {
+  45         Self {
+  46             lod: MIN_LOD,
+  47             pose_correctives: true,
+  48         }
+  49     }
+  50 }
+  51 
+  52 /// One forward pass.
+  53 pub struct MhrOutput {
+  54     /// Posed vertices in centimetres, `[batch, vertices, 3]`.
+  55     pub vertices: Tensor<3>,
+  56     /// Unit vertex normals of the posed mesh, `[batch, vertices, 3]`.
+  57     ///
+  58     /// Recomputed from the deformed vertices rather than skinned from the rest
+  59     /// pose, because blend shapes and the pose correctives change the surface
+  60     /// itself, not just its rigid frame.
+  61     pub normals: Tensor<3>,
+  62     /// Global joint transforms `[tx, ty, tz, qx, qy, qz, qw, s]`, `[batch, joints, 8]`.
+  63     pub skeleton_state: Tensor<3>,
+  64 }
+  65 
+  66 /// The MHR body model.
+  67 pub struct Mhr {
+  68     /// Topology and names, kept on the host for lookups and the normal pass.
+  69     pub character: Character,
+  70     pub parameter_transform: ParameterTransform,

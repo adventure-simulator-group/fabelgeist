@@ -1,0 +1,20 @@
+   455	    /// Linear blend skinning of `rest` `[batch, vertices, 3]`.
+   456	    fn skin(&self, skeleton_state: Tensor<3>, rest: Tensor<3>) -> Tensor<3> {
+   457	        let batch = rest.dims()[0];
+   458	        let joint_state = skel_state::multiply(skeleton_state, self.inverse_bind_pose.clone());
+   459	
+   460	        let transforms = joint_state.select(1, self.skin_joint_indices.clone());
+   461	        let points = rest.clone().select(1, self.skin_vertex_indices.clone());
+   462	        let deformed =
+   463	            skel_state::transform_points(&transforms, points) * self.skin_weights.clone();
+   464	
+   465	        Tensor::zeros(rest.dims(), &self.device)
+   466	            .select_assign(
+   467	                1,
+   468	                self.skin_vertex_indices.clone(),
+   469	                deformed,
+   470	                IndexingUpdateOp::Add,
+   471	            )
+   472	            .reshape([batch, self.num_vertices().native_vertex_count(), 3])
+   473	    }
+   474	}

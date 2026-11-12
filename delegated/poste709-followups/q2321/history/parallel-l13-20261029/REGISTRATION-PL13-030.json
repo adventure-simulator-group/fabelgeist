@@ -1,0 +1,40 @@
+{
+  "lens": 13,
+  "namespace": "PL13-030",
+  "status": "Prospective full catalogue complement with exact same-lens reuse",
+  "sources": [
+    {
+      "original": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actual_eof": 5632,
+      "prospective_ranges": [
+        [
+          1,
+          4581
+        ],
+        [
+          4612,
+          5632
+        ]
+      ],
+      "scope_kind": "frozen_requested_change",
+      "source_revision": "pr-working exact frozen object at 6533e444fa37552927070cc8d8190907fd3b413e",
+      "qualified_same_lens_reuse": {
+        "receipt": "READ-PL13-025.json",
+        "sha256": "d28e01a01f18152b66e3e9be463ed57661ac010796921367bd14f4db4284e4f3",
+        "json_pointer": "/connected_reads/3",
+        "ranges": [
+          [
+            4582,
+            4611
+          ]
+        ],
+        "personal_reread": false
+      },
+      "purpose": "Read complete authored item numeric contracts and trace their actual owners without transferring other-lens verdicts."
+    }
+  ],
+  "authority_changes": 0
+}

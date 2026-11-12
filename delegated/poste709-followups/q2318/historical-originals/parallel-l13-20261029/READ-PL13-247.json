@@ -1,0 +1,161 @@
+{
+  "lens": 13,
+  "namespace": "PL13-247",
+  "status": "Completed own Lens13 ordered native child assessment; root adoption pending",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+    "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_eof": 868,
+      "prospective_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 native foodcooking time/amount/identity/guardedstate andretained/consumer contracts; sourceonly no execution.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "connected": [],
+  "numeric_role_inventory": [
+    "1103 cooking uses checked ConsumableFractionMicros, nonzero/unique selections, aligned lengths and ownership/custody checks. Manual lane\u226432 lots; vessel lane deliberately permits direct contained cookable contents without that cap. Actual vessel capacity/contained-item admission and aggregate finite mass/kcal/value/flavor limits still need exact own proof; no arbitrary f32MAX lot claimed valid.",
+    "1103 selected ratio fraction/available is positive\u22641 because fraction nonzero and\u2264available; individual finite nonnegative lot values checked. Target helper returns Option before mutation. Water u64ml converts to f32 then Microliters rounded, while contribution Microliters sum is checked; actual container volume bounds determine precision/equality behavior. Native very large vessel case unproved.",
+    "1103 actual assembly adjusts raw safety duration for Cut/Ground factors, includes vessel water mass and actual instrument method. preview_cooking uses raw definition cooking_minutes and no vessel water. Need actual preview caller/status and intended exact-versus-estimate policy before accepting divergence; unused obsolete API need not be preserved for compatibility.",
+    "1103 preflight then ingredient/water mutation and retain_lot_fraction Result propagation; actual inventory helper/outer transaction contract still required before prefix-commit claim. Retrieval checks typed destination and canonical fixture/container identity, stable personal/party return custody; fullu64 native IDs retained.",
+    "1103 contamination load conservation compared at relative1e-5 tolerance before output insert. Finite aggregate/native concentration admission and provenance component helpers required; no NaN bypass witness assumed. Medicinal profile/version/potency vectors are produced together from one sorted map; zip truncation alone is not a valid malformed native writer case.",
+    "1103 cooked quality saturating subtraction max1, intentional roast-after-target DriedSmoked mode and medicinal heat survival depend doneness policy; legitimate modes/normalization are not compatibility defects. Retrieval nested object and ensure_food_material_object require native object uniqueness/custody proof. Container doc says any nesting depth, actual loop/comment selects direct contents: documentation discrepancy, no invented nested-body coverage or runtime defect."
+  ],
+  "proposed_findings": [],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-247-COOKING-PREVIEW-TARGET-CONTRACT-PENDING",
+      "status": "Source-reasoned conditional/policy/native/current/alias pending",
+      "primary_original": 1103,
+      "primary_source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "primary_source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "first_failed_function": "preview_cooking / add_fireplace_ingredients_at",
+      "scope": "Actual assembly applies preparation safety factors and vessel water/method; preview uses raw safety and selected ingredient mass. Need real preview caller and exact/estimate policy; no obsolete API preservation.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    },
+    {
+      "proposed_id": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+      "status": "Source-reasoned conditional/policy/native/current/alias pending",
+      "primary_original": 1103,
+      "primary_source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "primary_source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "first_failed_function": "add_fireplace_ingredients_at / retrieve_fireplace_dish",
+      "scope": "Finite per-lot checks and typed amounts assessed; actual aggregate/vessel volume bounds, load provenance and output object uniqueness/conservation require native producers/helpers.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "original_delta_proposed": 1,
+  "proposed_next_original": 1104,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "Exact frozen Git6533 source registered and successful result inspected before full untruncated868-line personal body. No product execution, source modification or code repair.",
+    "No current/other-lens/inherited transfer. Source numeric questions remain conditional against actual native producers/consumers; no requirement to preserve an obsolete unused preview API. All population counters remain root-owned and separate."
+  ],
+  "partial_checkpoints": [],
+  "partial_read_union": [],
+  "recovery_checkpoint": null,
+  "source_identity_qualification": null,
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "PL13-247-COOKING-PREVIEW-TARGET-CONTRACT-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "preview_cooking / add_fireplace_ingredients_at actual amount/preview/native owner question",
+      "first_failed_contract_or_unresolved_question": "Actual assembly applies preparation safety factors and vessel water/method; preview uses raw safety and selected ingredient mass. Need real preview caller and exact/estimate policy; no obsolete API preservation.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+          "assessed_ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+            "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 full personal body"
+        }
+      ],
+      "remaining_evidence": [
+        "Actual food projections/UI preview consumers, lot/native inventory/amount/object/volume helpers, exact own core cooking proof; current source and first-operation aliases."
+      ],
+      "dependencies": [
+        "Native food lot/amount/custody contracts"
+      ],
+      "closure_condition": [
+        "Document supported producer\u2192API\u2192state\u2192consumer\u2192native trace and explicit preview/amount policy; retained finding, conditional, policy question or rejection may close audit discovery with current/alias qualifications. Runtime acceptance is separate."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null
+    },
+    {
+      "contract_id_or_proposed_new_id": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "add_fireplace_ingredients_at / retrieve_fireplace_dish actual amount/preview/native owner question",
+      "first_failed_contract_or_unresolved_question": "Finite per-lot checks and typed amounts assessed; actual aggregate/vessel volume bounds, load provenance and output object uniqueness/conservation require native producers/helpers.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+          "assessed_ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+            "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 full personal body"
+        }
+      ],
+      "remaining_evidence": [
+        "Actual food projections/UI preview consumers, lot/native inventory/amount/object/volume helpers, exact own core cooking proof; current source and first-operation aliases."
+      ],
+      "dependencies": [
+        "Native food lot/amount/custody contracts"
+      ],
+      "closure_condition": [
+        "Document supported producer\u2192API\u2192state\u2192consumer\u2192native trace and explicit preview/amount policy; retained finding, conditional, policy question or rejection may close audit discovery with current/alias qualifications. Runtime acceptance is separate."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null
+    }
+  ],
+  "current_delta_updates": []
+}

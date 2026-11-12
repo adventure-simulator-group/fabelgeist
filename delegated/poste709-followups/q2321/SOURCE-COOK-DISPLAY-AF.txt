@@ -1,0 +1,63 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs:219-280
+ 219 fn add_fireplace_ingredients_at(
+ 220     ctx: &ReducerContext,
+ 221     character_id: u64,
+ 222     fireplace_fixture_id: String,
+ 223     inventory_scope: String,
+ 224     inventory_item_ids: Vec<u64>,
+ 225     fractions: Vec<ConsumableFractionMicros>,
+ 226     vessel_station: Option<FireplaceStation>,
+ 227 ) -> Result<(), String> {
+ 228     crate::strategic::require_strategic_gateway(ctx)?;
+ 229     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 230     if actor.has_tactical_server_assignment() {
+ 231         return Err("Cooking is unavailable during a tactical encounter".into());
+ 232     }
+ 233     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 234     let inventory_scope = CarriedInventoryScope::try_from(inventory_scope.as_str())
+ 235         .map_err(|error| error.to_string())?;
+ 236     let is_vessel = vessel_station.is_some();
+ 237     let station = vessel_station
+ 238         .unwrap_or_else(|| fireplace_station_for(ctx, character_id, &fireplace_fixture_id));
+ 239     let station_fixture = validate_persisted_station_fixture(ctx, &station)?;
+ 240     if station_fixture.to_string() != fireplace_fixture_id {
+ 241         return Err("Fireplace station conflicts with the requested canonical fixture".into());
+ 242     }
+ 243     let return_custody = if is_vessel {
+ 244         let custody = station
+ 245             .instrument_return_custody
+ 246             .clone()
+ 247             .ok_or("Container return custody is unknown")?;
+ 248         let destination = crate::object_custody::carried_destination(&custody, character_id)?;
+ 249         let destination_scope = match &destination {
+ 250             OperationalCustody::Character(_) => CarriedInventoryScope::Personal,
+ 251             OperationalCustody::Party(_) => CarriedInventoryScope::Party,
+ 252             _ => return Err("Container return custody is not carried inventory".into()),
+ 253         };
+ 254         if destination_scope != inventory_scope {
+ 255             return Err("Container return custody conflicts with the cooking scope".into());
+ 256         }
+ 257         if let OperationalCustody::Party(party_id) = destination
+ 258             && ctx
+ 259                 .db
+ 260                 .party_authority()
+ 261                 .id()
+ 262                 .find(party_id.as_str().to_owned())
+ 263                 .is_none()
+ 264         {
+ 265             return Err("Original party inventory is unavailable".into());
+ 266         }
+ 267         custody
+ 268     } else {
+ 269         let custody = crate::object_custody::carried_scope_custody(ctx, &actor, inventory_scope)?;
+ 270         crate::object_custody::encode_custody(&custody)
+ 271     };
+ 272     if ctx
+ 273         .db
+ 274         .fireplace_dish()
+ 275         .station_key()
+ 276         .find(station.key.clone())
+ 277         .is_some()
+ 278     {
+ 279         return Err("This fireplace already holds a dish".into());
+ 280     }

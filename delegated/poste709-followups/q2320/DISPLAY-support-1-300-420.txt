@@ -1,0 +1,121 @@
+   300	    Interrupted,
+   301	}
+   302	
+   303	#[derive(Clone, Debug, Eq, PartialEq)]
+   304	pub struct PrivateRejection<R: DomainRequirement, C: DomainCapability> {
+   305	    failed: Vec<ActionRequirement<R, C>>,
+   306	    public: PublicRejection,
+   307	}
+   308	
+   309	impl<R: DomainRequirement, C: DomainCapability> PrivateRejection<R, C> {
+   310	    pub fn failed_requirements(&self) -> &[ActionRequirement<R, C>] {
+   311	        &self.failed
+   312	    }
+   313	    pub const fn sanitized(&self) -> PublicRejection {
+   314	        self.public
+   315	    }
+   316	}
+   317	
+   318	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   319	pub struct RequestedDuration(NonZeroU64);
+   320	
+   321	impl RequestedDuration {
+   322	    pub fn try_new(minutes: u64) -> Result<Self, DurationError> {
+   323	        NonZeroU64::new(minutes)
+   324	            .map(Self)
+   325	            .ok_or(DurationError::ZeroDuration)
+   326	    }
+   327	    pub const fn minutes(self) -> u64 {
+   328	        self.0.get()
+   329	    }
+   330	}
+   331	
+   332	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   333	pub enum DurationError {
+   334	    ZeroDuration,
+   335	}
+   336	
+   337	#[derive(Clone, Debug, Eq, PartialEq)]
+   338	pub struct ScheduledInterruption<I: DomainInterruption> {
+   339	    pub at_minute: StrategicMinute,
+   340	    pub cause: I,
+   341	}
+   342	
+   343	#[derive(Clone, Debug, Eq, PartialEq)]
+   344	pub struct TimeBoundaries<I: DomainInterruption> {
+   345	    pub terminal_minute: Option<StrategicMinute>,
+   346	    pub interruption: Option<ScheduledInterruption<I>>,
+   347	}
+   348	
+   349	#[derive(Clone, Debug, Eq, PartialEq)]
+   350	pub enum TimeOutcome<I: DomainInterruption> {
+   351	    Completed,
+   352	    TerminalBoundary,
+   353	    Interrupted(I),
+   354	    /// The requested positive duration cannot fit in the strategic clock.
+   355	    ClockExhausted,
+   356	}
+   357	
+   358	#[derive(Clone, Debug, Eq, PartialEq)]
+   359	pub struct TimeResolution<I: DomainInterruption> {
+   360	    pub start_minute: StrategicMinute,
+   361	    pub requested_minutes: u64,
+   362	    pub elapsed_minutes: u64,
+   363	    pub end_minute: StrategicMinute,
+   364	    pub outcome: TimeOutcome<I>,
+   365	}
+   366	
+   367	impl<I: DomainInterruption> TimeResolution<I> {
+   368	    /// Only this outcome permits a domain to emit completion-only effects.
+   369	    pub const fn permits_completion_effects(&self) -> bool {
+   370	        matches!(self.outcome, TimeOutcome::Completed)
+   371	    }
+   372	}
+   373	
+   374	pub fn resolve_time<I: DomainInterruption>(
+   375	    current_minute: StrategicMinute,
+   376	    duration: RequestedDuration,
+   377	    boundaries: &TimeBoundaries<I>,
+   378	) -> TimeResolution<I> {
+   379	    let requested_end = current_minute.checked_add_minutes(duration.minutes());
+   380	    let latest_representable_end = requested_end.unwrap_or(StrategicMinute::MAX);
+   381	    let terminal = boundaries
+   382	        .terminal_minute
+   383	        .map(|minute| minute.max(current_minute));
+   384	    let interruption = boundaries
+   385	        .interruption
+   386	        .as_ref()
+   387	        .map(|value| (value.at_minute.max(current_minute), value.cause.clone()));
+   388	    let (end_minute, outcome) = match (terminal, interruption) {
+   389	        (Some(terminal), Some((at, cause))) if at < terminal && at <= latest_representable_end => {
+   390	            (at, TimeOutcome::Interrupted(cause))
+   391	        }
+   392	        (Some(terminal), _) if terminal <= latest_representable_end => {
+   393	            (terminal, TimeOutcome::TerminalBoundary)
+   394	        }
+   395	        (None, Some((at, cause))) if at <= latest_representable_end => {
+   396	            (at, TimeOutcome::Interrupted(cause))
+   397	        }
+   398	        _ => match requested_end {
+   399	            Some(end) if end == StrategicMinute::MAX => (end, TimeOutcome::ClockExhausted),
+   400	            Some(end) => (end, TimeOutcome::Completed),
+   401	            None => (StrategicMinute::MAX, TimeOutcome::ClockExhausted),
+   402	        },
+   403	    };
+   404	    TimeResolution {
+   405	        start_minute: current_minute,
+   406	        requested_minutes: duration.minutes(),
+   407	        elapsed_minutes: end_minute.elapsed_since(current_minute),
+   408	        end_minute,
+   409	        outcome,
+   410	    }
+   411	}
+   412	
+   413	#[derive(Clone, Debug, Eq, PartialEq)]
+   414	pub enum ActionEffect<E: DomainEffect> {
+   415	    AdvanceActorTime {
+   416	        actor: CustodyCharacterId,
+   417	        from_minute: StrategicMinute,
+   418	        to_minute: StrategicMinute,
+   419	    },
+   420	    TransferObjectCustody(Box<CustodyTransfer>),

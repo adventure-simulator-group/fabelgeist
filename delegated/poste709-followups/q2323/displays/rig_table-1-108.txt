@@ -1,0 +1,108 @@
+   1 //! Dense values in the ordinal order of one admitted rig.
+   2 
+   3 use crate::{RigJointCount, RigJointOrdinal};
+   4 use derive_more::{From, IntoIterator};
+   5 use serde::{Deserialize, Serialize};
+   6 use std::ops::{Index, IndexMut};
+   7 
+   8 /// A rig-order column. Ordinals select joints rather than arbitrary native slots.
+   9 /// Its creator must use the same admitted rig order for every associated column;
+  10 /// this type does not prove that two columns belong to the same rig instance.
+  11 #[derive(Clone, Debug, PartialEq, From, IntoIterator, Serialize, Deserialize)]
+  12 #[into_iterator(owned, ref, ref_mut)]
+  13 #[serde(transparent)]
+  14 pub struct RigJointTable<T>(Vec<T>);
+  15 
+  16 impl<T> RigJointTable<T> {
+  17     pub fn len(&self) -> usize {
+  18         self.0.len()
+  19     }
+  20 
+  21     pub fn is_empty(&self) -> bool {
+  22         self.0.is_empty()
+  23     }
+  24 
+  25     pub fn first(&self) -> Option<&T> {
+  26         self.0.first()
+  27     }
+  28 
+  29     pub fn iter(&self) -> std::slice::Iter<'_, T> {
+  30         self.0.iter()
+  31     }
+  32 
+  33     pub fn iter_mut(&mut self) -> std::slice::IterMut<'_, T> {
+  34         self.0.iter_mut()
+  35     }
+  36 
+  37     pub fn indexed(&self) -> impl Iterator<Item = (RigJointOrdinal, &T)> {
+  38         self.0
+  39             .iter()
+  40             .enumerate()
+  41             .map(|(slot, value)| (slot.into(), value))
+  42     }
+  43 
+  44     pub fn ordinals(&self) -> impl Iterator<Item = RigJointOrdinal> + use<T> {
+  45         self.joint_count().ordinals()
+  46     }
+  47 
+  48     /// Checked lookup for an ordinal whose membership has not been established.
+  49     pub fn get(&self, joint: RigJointOrdinal) -> Option<&T> {
+  50         self.0.get(usize::from(joint))
+  51     }
+  52 
+  53     pub fn get_mut(&mut self, joint: RigJointOrdinal) -> Option<&mut T> {
+  54         self.0.get_mut(usize::from(joint))
+  55     }
+  56 
+  57     pub fn map<U>(&self, map: impl FnMut(&T) -> U) -> RigJointTable<U> {
+  58         self.iter().map(map).collect()
+  59     }
+  60 
+  61     /// Contiguous rig-order values at a native numerical or serialization port.
+  62     pub fn as_native_slice(&self) -> &[T] {
+  63         &self.0
+  64     }
+  65 
+  66     pub fn joint_count(&self) -> RigJointCount {
+  67         RigJointCount::from_table(self)
+  68     }
+  69 
+  70     pub fn push(&mut self, value: T) {
+  71         self.0.push(value);
+  72     }
+  73 
+  74     pub fn fill(&mut self, value: T)
+  75     where
+  76         T: Clone,
+  77     {
+  78         self.0.fill(value);
+  79     }
+  80 }
+  81 
+  82 impl<T> Default for RigJointTable<T> {
+  83     fn default() -> Self {
+  84         Self(Vec::new())
+  85     }
+  86 }
+  87 
+  88 impl<T> FromIterator<T> for RigJointTable<T> {
+  89     fn from_iter<I: IntoIterator<Item = T>>(values: I) -> Self {
+  90         Self(values.into_iter().collect())
+  91     }
+  92 }
+  93 
+  94 impl<T> Index<RigJointOrdinal> for RigJointTable<T> {
+  95     type Output = T;
+  96 
+  97     /// Direct access is for ordinals established by this rig's construction or
+  98     /// traversal. Unproven external ordinals must use `get` instead.
+  99     fn index(&self, joint: RigJointOrdinal) -> &Self::Output {
+ 100         &self.0[usize::from(joint)]
+ 101     }
+ 102 }
+ 103 
+ 104 impl<T> IndexMut<RigJointOrdinal> for RigJointTable<T> {
+ 105     fn index_mut(&mut self, joint: RigJointOrdinal) -> &mut Self::Output {
+ 106         &mut self.0[usize::from(joint)]
+ 107     }
+ 108 }

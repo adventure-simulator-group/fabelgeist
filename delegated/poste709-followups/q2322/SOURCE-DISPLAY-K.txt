@@ -1,0 +1,76 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:651-725
+ 651     clippy::too_many_arguments,
+ 652     reason = "this domain boundary names each independent input explicitly"
+ 653 )]
+ 654 fn build_forage_planner(
+ 655     ctx: &ReducerContext,
+ 656     character_id: u64,
+ 657     request_id: &str,
+ 658     vicinity: &ForageVicinityAuthority,
+ 659     attestation: &ForageEnvironmentAttestation,
+ 660     environment: ForageEnvironment,
+ 661     source_ids: &[String],
+ 662     requested_minutes: u64,
+ 663     current_minute: StrategicMinute,
+ 664     terminal_minute: Option<StrategicMinute>,
+ 665     attempt_generation: u64,
+ 666     terrain_check: u16,
+ 667     stealth_check: u16,
+ 668     seed: fabelgeist_determinism::Seed,
+ 669 ) -> Result<foraging::ForagePlanningOutcome, String> {
+ 670     let actor = CustodyCharacterId::try_new(character_id).map_err(|error| error.to_string())?;
+ 671     let coordinates = ActionCoordinates::try_new(
+ 672         actor,
+ 673         ActionTarget::Place(vicinity.place.clone()),
+ 674         vicinity.place.clone(),
+ 675         None,
+ 676         Vec::new(),
+ 677     )
+ 678     .map_err(|_| "Foraging coordinates are inconsistent")?;
+ 679     let duration = RequestedDuration::try_new(requested_minutes)
+ 680         .map_err(|_| "Foraging duration must be positive")?;
+ 681     let time = adventuresim_core::strategic_action::resolve_time(
+ 682         current_minute,
+ 683         duration,
+ 684         &adventuresim_core::strategic_action::TimeBoundaries::<foraging::ForagePlanInterruption> {
+ 685             terminal_minute,
+ 686             interruption: None,
+ 687         },
+ 688     );
+ 689     // Full resolution validates source availability. Partial terminal attempts
+ 690     // retain only their exposure check; zero-time attempts resolve nothing.
+ 691     let full = foraging::resolve(
+ 692         seed,
+ 693         environment,
+ 694         source_ids,
+ 695         requested_minutes,
+ 696         terrain_check,
+ 697         stealth_check,
+ 698     )
+ 699     .map_err(str::to_owned)?;
+ 700     let resolution = if time.elapsed_minutes == 0 {
+ 701         None
+ 702     } else if time.permits_completion_effects() {
+ 703         Some(full)
+ 704     } else {
+ 705         let (stealth_dc_millirank, stealth_succeeded) =
+ 706             foraging::resolve_stealth(seed, environment, time.elapsed_minutes, stealth_check);
+ 707         Some(foraging::ForageResolution {
+ 708             yields: Vec::new(),
+ 709             stealth_dc_millirank,
+ 710             stealth_succeeded,
+ 711         })
+ 712     };
+ 713     let env_digest = environment_digest(attestation, environment);
+ 714     let digest = forage_authority_digest(
+ 715         character_id,
+ 716         &vicinity.place,
+ 717         env_digest,
+ 718         source_ids,
+ 719         requested_minutes,
+ 720         current_minute,
+ 721         terminal_minute,
+ 722         attempt_generation,
+ 723         terrain_check,
+ 724         stealth_check,
+ 725         seed,

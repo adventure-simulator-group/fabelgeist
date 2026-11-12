@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-stdb-module/src/food/preparation_authority.rs:220-265
+ 220         .find(lot.id)
+ 221         .and_then(|row| {
+ 222             let current = food::contamination_at(
+ 223                 row.concentration_anchor,
+ 224                 row.growth_per_hour,
+ 225                 current_minute.elapsed_since(row.anchor_minute),
+ 226             );
+ 227             let load = f64::from(current.max(0.0)) * mass_milligrams as f64;
+ 228             NonZeroU64::new(load.round() as u64).map(|load| ContaminantLoad {
+ 229                 contaminant: herbalism::IngredientContaminant::Microbial,
+ 230                 load,
+ 231             })
+ 232         })
+ 233         .into_iter()
+ 234         .collect();
+ 235     PrivateMaterialSnapshot::try_new(
+ 236         MaterialIdentity::try_new(
+ 237             MaterialLotId::try_new(lot.id).map_err(|error| format!("Invalid lot: {error:?}"))?,
+ 238             adventuresim_core::physical_object::PhysicalObjectId::try_new(object.id)
+ 239                 .map_err(|error| error.to_string())?,
+ 240             custody,
+ 241         )
+ 242         .map_err(|error| error.to_string())?,
+ 243         measure,
+ 244         match lot.preparation {
+ 245             FoodPreparation::Raw => MaterialPreparation::Raw,
+ 246             FoodPreparation::Cut => MaterialPreparation::Cut,
+ 247             FoodPreparation::Ground => MaterialPreparation::Ground,
+ 248             _ => return Err("Ingredient preparation state is unsupported".into()),
+ 249         },
+ 250         PrivateMaterialTruth::try_new(components, contaminants)
+ 251             .map_err(|error| format!("Ingredient private material is invalid: {error:?}"))?,
+ 252         lot.material_revision,
+ 253     )
+ 254     .map_err(|error| format!("Ingredient material snapshot is invalid: {error:?}"))
+ 255 }
+ 256 
+ 257 fn preparation_material_receipt(
+ 258     snapshot: &adventuresim_core::material::PrivateMaterialSnapshot<
+ 259         herbalism::IngredientMaterialPreparation,
+ 260         herbalism::MedicinalMaterialComponent,
+ 261         herbalism::IngredientContaminant,
+ 262     >,
+ 263     request_id: &str,
+ 264     action: IngredientPreparationAction,
+ 265 ) -> Result<

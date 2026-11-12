@@ -1,0 +1,41 @@
+    50	        let transform = parameter_transform
+    51	            .transform
+    52	            .tensor_transpose(num_model_parameters)?;
+    53	
+    54	        let offsets = parameter_transform
+    55	            .offsets
+    56	            .iter()
+    57	            .any(|offset| *offset != 0.0)
+    58	            .then(|| {
+    59	                Tensor::from_data(
+    60	                    TensorData::new(
+    61	                        parameter_transform.offsets.tensor_values(),
+    62	                        [1, joints.native_joint_count() * PARAMETERS_PER_JOINT],
+    63	                    ),
+    64	                    device,
+    65	                )
+    66	            });
+    67	
+    68	        let fk_levels = rig::fk_level_tensors(&character, device)?;
+    69	
+    70	        let basis = BlendBasisTensors::from_character(&character, device);
+    71	
+    72	        let skin = SparseSkinUpload::from_character(&character)?;
+    73	        let influences = skin.weights.len();
+    74	
+    75	        let face_corners: Vec<i32> = character
+    76	            .mesh
+    77	            .faces
+    78	            .iter()
+    79	            .flatten()
+    80	            .map(|corner| i32::try_from(*corner))
+    81	            .collect::<Result<_, _>>()?;
+    82	        let num_corners = face_corners.len();
+    83	
+    84	        let rest = RestRigTensors::from_character(&character, device);
+    85	        Ok(Self {
+    86	            device: device.clone(),
+    87	            transform: Tensor::from_data(
+    88	                TensorData::new(
+    89	                    transform,
+    90	                    [

@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:500-555
+ 500             ctx,
+ 501             character_id,
+ 502             &inventory_scope,
+ 503             inventory_item_id,
+ 504             food_lot_id,
+ 505             material_object_id,
+ 506             expected_revision,
+ 507             action,
+ 508             next_generation,
+ 509             false,
+ 510         );
+ 511         ctx.db
+ 512             .ingredient_preparation_receipt()
+ 513             .insert(IngredientPreparationReceipt {
+ 514                 request_id,
+ 515                 actor_character_id: character_id,
+ 516                 inventory_scope,
+ 517                 inventory_item_id,
+ 518                 food_lot_id,
+ 519                 material_object_id,
+ 520                 expected_revision,
+ 521                 attempt_generation,
+ 522                 action,
+ 523                 canonical_place: authority.place.to_string(),
+ 524                 custody_binding: authority.custody_binding,
+ 525                 authority_input_digest: encode_digest(&authority_digest),
+ 526                 duration_minutes: authority.duration,
+ 527                 interrupted: true,
+ 528                 resulting_revision: expected_revision,
+ 529                 material_input_digest: encode_digest(
+ 530                     authority.material_receipt.input_digest().bytes(),
+ 531                 ),
+ 532             });
+ 533         return Ok(());
+ 534     }
+ 535     let (_, _, next_display_name) = effect_commit.expect("completion effect checked");
+ 536     let post_actor = crate::character::require_living_character(ctx, character_id)?;
+ 537     if post_actor.has_tactical_server_assignment() {
+ 538         return Err("Ingredient preparation became unavailable during its wait".into());
+ 539     }
+ 540     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+ 541     let post_minute = ctx
+ 542         .db
+ 543         .character_time()
+ 544         .character_id()
+ 545         .find(character_id)
+ 546         .ok_or("Character time disappeared after preparation wait")?
+ 547         .minutes;
+ 548     let post = load_preparation_authority(
+ 549         ctx,
+ 550         &post_actor,
+ 551         &inventory_scope,
+ 552         inventory_item_id,
+ 553         food_lot_id,
+ 554         material_object_id,
+ 555         &request_id,

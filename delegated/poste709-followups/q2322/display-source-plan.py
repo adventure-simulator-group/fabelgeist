@@ -1,0 +1,4 @@
+from pathlib import Path
+import json,sys,hashlib,datetime
+p=Path(__file__).resolve().parent
+label,rel,start,end=sys.argv[1],sys.argv[2],int(sys.argv[3]),int(sys.argv[4]);reg=json.loads((p/'SOURCE-REGISTRATION-PLAN.json').read_text());assert any(start>=a and end<=b for a,b in reg['windows'][rel]);raw=(p/'sources'/reg['baseline']/rel).read_bytes();lines=raw.decode().splitlines();assert 1<=start<=end<=len(lines);s=f'SOURCE {rel}:{start}-{end}\n'+''.join(f'{i:4} {lines[i-1]}\n' for i in range(start,end+1));out=p/('SOURCE-PLAN-DISPLAY-'+label+'.txt');out.write_text(s);rec={'source':rel,'range':[start,end],'source_sha256':hashlib.sha256(raw).hexdigest(),'display_sha256':hashlib.sha256(s.encode()).hexdigest(),'display':out.name,'displayed_at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'status':'untruncated requested window'};(p/('SOURCE-PLAN-RECEIPT-'+label+'.json')).write_text(json.dumps(rec,indent=2)+'\n');print(s,end='')

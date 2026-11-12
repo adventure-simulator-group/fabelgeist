@@ -1,0 +1,105 @@
+ 716             id: 0,
+ 717             item_id: "cooked_meal".into(),
+ 718             location: crate::inventory_container::carried_location_for_row(&destination, row_id)?,
+ 719         });
+ 720         ctx.db
+ 721             .inventory_containment()
+ 722             .insert(crate::InventoryContainment {
+ 723                 child_object_id: meal.id,
+ 724                 parent_object_id,
+ 725             });
+ 726     }
+ 727     if let Some(row_id) = personal_id {
+ 728         ensure_food_material_object(ctx, CarriedInventoryScope::Personal, row_id)?;
+ 729     }
+ 730     if let Some(row_id) = party_id {
+ 731         ensure_food_material_object(ctx, CarriedInventoryScope::Party, row_id)?;
+ 732     }
+ 733     let lot = ctx.db.food_lot().insert(FoodLot {
+ 734         id: 0,
+ 735         inventory_item_id: personal_id,
+ 736         party_inventory_item_id: party_id,
+ 737         material_revision: 1,
+ 738         display_name: dish.display_name,
+ 739         preparation: if dish.method == CookingMethod::Roast
+ 740             && elapsed > u64::from(dish.target_minutes)
+ 741         {
+ 742             FoodPreparation::DriedSmoked
+ 743         } else {
+ 744             cooking_method_preparation(dish.method)
+ 745         },
+ 746         ingredient_item_ids: dish.ingredient_item_ids,
+ 747         ingredient_quantities: dish.ingredient_quantities,
+ 748         salty_kg: dish.salty_kg,
+ 749         spicy_kg: dish.spicy_kg,
+ 750         sweet_kg: dish.sweet_kg,
+ 751         sour_kg: dish.sour_kg,
+ 752         savory_kg: dish.savory_kg,
+ 753         quality,
+ 754         mass_kg: dish.mass_kg,
+ 755         nutrition_kcal: kcal,
+ 756         total_value: value,
+ 757         created_at_minute: minute,
+ 758     });
+ 759     if !dish.contamination_contribution_ids.is_empty() {
+ 760         ctx.db
+ 761             .food_contamination_provenance()
+ 762             .insert(FoodContaminationProvenance {
+ 763                 food_lot_id: lot.id,
+ 764                 contribution_ids: dish.contamination_contribution_ids,
+ 765                 contribution_loads: cooked_contribution_loads,
+ 766                 contribution_digest: cooked_contribution_digest,
+ 767             });
+ 768     }
+ 769     let medicinal_heat_factor = if doneness.progress < 1.0 {
+ 770         doneness.progress
+ 771     } else if matches!(dish.method, CookingMethod::PanFry | CookingMethod::Bake) {
+ 772         doneness.calorie_factor
+ 773     } else {
+ 774         1.0
+ 775     };
+ 776     for ((profile_id, profile_version), potency_units) in dish
+ 777         .medicinal_profile_ids
+ 778         .iter()
+ 779         .zip(&dish.medicinal_profile_versions)
+ 780         .zip(&dish.medicinal_potency_units)
+ 781     {
+ 782         let potency = potency_units * medicinal_heat_factor;
+ 783         if potency > 0.0 {
+ 784             ctx.db
+ 785                 .medicinal_component()
+ 786                 .insert(crate::herbalism::MedicinalComponent {
+ 787                     key: format!("food_lot|{}|{profile_id}|{profile_version}", lot.id),
+ 788                     carrier_kind: "food_lot".into(),
+ 789                     carrier_id: lot.id,
+ 790                     intervention_profile_id: profile_id.clone(),
+ 791                     profile_version: *profile_version,
+ 792                     potency_units: potency,
+ 793                 });
+ 794         }
+ 795     }
+ 796     ctx.db.food_contamination().insert(FoodContamination {
+ 797         food_lot_id: lot.id,
+ 798         concentration_anchor: cooked_contamination,
+ 799         growth_per_hour: food::partially_cooked_growth(
+ 800             dish.raw_growth_per_hour,
+ 801             dish.cooked_growth_per_hour,
+ 802             doneness.contamination_kill_progress,
+ 803         ),
+ 804         anchor_minute: minute,
+ 805     });
+ 806     ctx.db
+ 807         .fireplace_dish()
+ 808         .station_key()
+ 809         .delete(dish.station_key.clone());
+ 810     if let Some(station) = ctx.db.fireplace_station().key().find(dish.station_key)
+ 811         && station.instrument_item_id.is_none()
+ 812     {
+ 813         ctx.db.fireplace_station().key().delete(station.key);
+ 814     }
+ 815     crate::capability::refresh_character_capability(ctx, character_id)?;
+ 816     Ok(())
+ 817 }
+ 818 
+ 819 pub fn preview_cooking(
+ 820     ctx: &ReducerContext,

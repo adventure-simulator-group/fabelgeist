@@ -1,0 +1,32 @@
+SOURCE crates/adventuresim-stdb-module/src/food/model.rs:110-140
+ 110 /// Retrieval derives readiness and resulting food from elapsed personal time,
+ 111 /// consumes this row, and transfers the captured provenance into the new lot.
+ 112 /// Later catalog, contributor-name, or inventory changes cannot rewrite the dish.
+ 113 #[derive(Clone, Debug)]
+ 114 #[table(accessor = fireplace_dish)]
+ 115 pub struct FireplaceDish {
+ 116     #[primary_key]
+ 117     pub station_key: String,
+ 118     #[index(btree)]
+ 119     pub character_id: u64,
+ 120     /// Canonical `StrategicFixtureId::Fireplace` encoding shared with its station.
+ 121     pub fireplace_fixture_id: String,
+ 122     /// Immutable operational return custody captured before ingredients are consumed.
+ 123     pub return_custody: crate::PersistedOperationalCustody,
+ 124     pub contributor_name: String,
+ 125     pub method: CookingMethod,
+ 126     pub cooking_check: f32,
+ 127     pub started_at_minute: StrategicMinute,
+ 128     pub target_minutes: u32,
+ 129     pub display_name: String,
+ 130     pub ingredient_item_ids: Vec<String>,
+ 131     pub ingredient_quantities: Vec<f32>,
+ 132     pub salty_kg: f32,
+ 133     pub spicy_kg: f32,
+ 134     pub sweet_kg: f32,
+ 135     pub sour_kg: f32,
+ 136     pub savory_kg: f32,
+ 137     pub ready_quality: u8,
+ 138     pub mass_kg: f32,
+ 139     pub raw_nutrition_kcal: f32,
+ 140     pub ready_nutrition_retention: f32,

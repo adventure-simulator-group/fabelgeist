@@ -1,0 +1,46 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/templates/settlement/trade/discard.rs:66-110
+  66             (encumbrance_inventory_rail(html! {
+  67                 @for plan in preparation_plans.iter().filter(|plan| plan.actor_character_id == character.id && plan.inventory_scope == "personal") {
+  68                     (ingredient_preparation_submission_form(plan, return_to))
+  69                 }
+  70                 @if inventory.is_empty() {
+  71                     p class="text-muted small-copy" { "No items carried." }
+  72                 } @else {
+  73                     (trade_inventory_table("discard-right", InventoryColumnSet::All, true, true, false, html! {
+  74                         @for item in inventory {
+  75                             @let is_equipped = equip.is_some_and(|equip| equip.contains(item.id));
+  76                             @let definition = items.iter().find(|definition| definition.id == item.item_id);
+  77                             @let food_lot = food_lots.iter().find(|lot| lot.inventory_item_id == Some(item.id));
+  78                             @let display_name = food_lot.map_or_else(|| item_display_name(&item.item_id), |lot| lot.display_name.clone());
+  79                             @let item_name = item_display_name(&item.item_id);
+  80                             @let cut_plan = preparation_plans.iter().find(|plan| plan.actor_character_id == character.id && plan.inventory_scope == "personal" && plan.inventory_item_id == item.id && plan.action == IngredientPreparationAction::Cut);
+  81                             @let grind_plan = preparation_plans.iter().find(|plan| plan.actor_character_id == character.id && plan.inventory_scope == "personal" && plan.inventory_item_id == item.id && plan.action == IngredientPreparationAction::Grind);
+  82                             tr class="trade-inventory-row trade-row-player" data-discard-source=(item.id) data-personal-inventory-id=(item.id) data-item-key=(&item.item_id) {
+  83                                 td class="inventory-item-type" { (item_type_icon(&item.item_id)) }
+  84                                 td class="inventory-item-name" {
+  85                                     (item_name_with_food_lot(&item.item_id, &display_name, definition, food_lot))
+  86                                     span class="inventory-row-actions" {
+  87                                         @if let Some(plan) = cut_plan {
+  88                                             button type="submit" form=(ingredient_preparation_form_id(plan)) class="btn btn-secondary btn-small" aria-label=(format!("Cut {item_name}")) data-strategic-tooltip=(format!("Cut · {} min · precise edged weapon", plan.duration_minutes)) { "Cut" }
+  89                                         }
+  90                                         @if let Some(plan) = grind_plan {
+  91                                             button type="submit" form=(ingredient_preparation_form_id(plan)) class="btn btn-secondary btn-small" aria-label=(format!("Grind {item_name}")) data-strategic-tooltip=(format!("Grind · {} min", plan.duration_minutes)) { "Grind" }
+  92                                         }
+  93                                         @if is_equipped {
+  94                                             (disabled_transfer_button("left", "Equipped items cannot be discarded"))
+  95                                         } @else {
+  96                                             button type="button" class="trade-transfer trade-transfer-left"
+  97                                             data-discard-item=(item.id) data-count=(item.quantity)
+  98                                             data-dynamic-transfer data-default-transfer-mode="one" data-transfer-mode="one"
+  99                                             data-label-one=(format!("Discard one {item_name}"))
+ 100                                             data-label-target=(format!("Discard {item_name} down to target"))
+ 101                                             data-label-all=(format!("Discard all {item_name}"))
+ 102                                             aria-label=(format!("Discard {item_name}"))
+ 103                                             title=(format!("Discard one {item_name}")) { (transfer_glyph(1)) }
+ 104                                         }
+ 105                                     }
+ 106                                 }
+ 107                                 td class="inventory-count" { (item.quantity) }
+ 108                                 td class="inventory-equipped" { (equipment_control(item, definition, is_equipped, true, equip)) }
+ 109                                 td class="inventory-weight" { (item_weight(definition)) }
+ 110                                 td class="inventory-gold" { (item_value(definition)) }

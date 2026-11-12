@@ -1,0 +1,150 @@
+     1	//! Fixed-width influence ordinals retained in their native 32-bit layout.
+     2	
+     3	use crate::{RigJointOrdinal, RigJointTable};
+     4	use derive_more::{Display, Error};
+     5	
+     6	/// The ordinal bound of an admitted rig column. Equal bounds do not establish
+     7	/// that two independently produced columns belong to the same rig instance.
+     8	#[derive(Clone, Copy, Debug, Default, Display, PartialEq, Eq)]
+     9	pub struct RigJointCount(usize);
+    10	
+    11	/// Packed rig influences. The width, slot order, and zero-weight slots are
+    12	/// retained exactly; admission checks every word against the actual rig bound.
+    13	#[derive(Clone, Debug, Default, PartialEq)]
+    14	pub struct PackedRigSkin<const WIDTH: usize> {
+    15	    words: Vec<[u32; WIDTH]>,
+    16	    joints: RigJointCount,
+    17	}
+    18	
+    19	/// One vertex's ordered influences during a numerical skin calculation.
+    20	/// Ordinals retain their rig meaning; membership comes from the source buffer.
+    21	#[derive(Clone, Copy, Debug, PartialEq)]
+    22	pub struct RigInfluences<const WIDTH: usize> {
+    23	    pub joints: [RigJointOrdinal; WIDTH],
+    24	    pub weights: [f32; WIDTH],
+    25	}
+    26	
+    27	/// Rejected skin admission or encoding.
+    28	/// `OutsideRig` retains the supplied rig bound.
+    29	#[derive(Clone, Copy, Debug, PartialEq, Eq, Display, Error)]
+    30	pub enum RigSkinError {
+    31	    #[display("skin joint {joint} is outside a rig of {joints} joints")]
+    32	    OutsideRig { joint: u32, joints: RigJointCount },
+    33	    #[display("skin joint cannot be represented by a native 32-bit word")]
+    34	    NativeWidth,
+    35	    #[display("appended skin has a different rig bound")]
+    36	    DifferentRigBound,
+    37	}
+    38	
+    39	impl RigJointCount {
+    40	    /// A count supplied by a native rig decoder or an authored numerical
+    41	    /// fixture. Production callers retain their source rig's actual extent;
+    42	    /// deriving a larger extent from skin words would bypass membership checks.
+    43	    pub const fn from_native_joint_count(joints: usize) -> Self {
+    44	        Self(joints)
+    45	    }
+    46	
+    47	    pub(crate) fn from_table<T>(table: &RigJointTable<T>) -> Self {
+    48	        Self(table.len())
+    49	    }
+    50	
+    51	    /// Enumerates `0..count` in ascending ordinal order.
+    52	    ///
+    53	    /// These ordinals satisfy this count's bounds but carry no rig-instance identity.
+    54	    pub fn ordinals(self) -> impl ExactSizeIterator<Item = RigJointOrdinal> + DoubleEndedIterator {
+    55	        (0..self.0).map(RigJointOrdinal::from)
+    56	    }
+    57	
+    58	    pub fn native_joint_count(self) -> usize {
+    59	        self.0
+    60	    }
+    61	
+    62	    pub fn is_empty(self) -> bool {
+    63	        self.0 == 0
+    64	    }
+    65	}
+    66	
+    67	impl RigInfluences<8> {
+    68	    pub fn whole_joint(joint: RigJointOrdinal) -> Self {
+    69	        let mut result = Self {
+    70	            joints: [RigJointOrdinal::from(0usize); 8],
+    71	            weights: [0.0; 8],
+    72	        };
+    73	        result.joints[0] = joint;
+    74	        result.weights[0] = 1.0;
+    75	        result
+    76	    }
+    77	}
+    78	
+    79	impl<const WIDTH: usize> RigInfluences<WIDTH> {
+    80	    /// The VEC4 reduction shared by Bevy and glTF. Duplicate joints combine
+    81	    /// before sorting; equal weights retain ascending ordinal order.
+    82	    pub fn strongest_four(self) -> RigInfluences<4> {
+    83	        let mut combined = std::collections::BTreeMap::<RigJointOrdinal, f32>::new();
+    84	        for (joint, weight) in self.joints.into_iter().zip(self.weights) {
+    85	            *combined.entry(joint).or_default() += weight;
+    86	        }
+    87	        let mut influences = combined.into_iter().collect::<Vec<_>>();
+    88	        influences.sort_by(|a, b| b.1.total_cmp(&a.1).then(a.0.cmp(&b.0)));
+    89	        influences.truncate(4);
+    90	        let sum: f32 = influences.iter().map(|(_, weight)| weight).sum();
+    91	        let mut result = RigInfluences {
+    92	            joints: [RigJointOrdinal::from(0usize); 4],
+    93	            weights: [0.0; 4],
+    94	        };
+    95	        for (slot, (joint, weight)) in influences.into_iter().enumerate() {
+    96	            result.joints[slot] = joint;
+    97	            result.weights[slot] = weight / sum;
+    98	        }
+    99	        result
+   100	    }
+   101	
+   102	    /// Native Bevy/glTF VEC4 word encoding, with no ordinal truncation.
+   103	    pub fn native_u16(self) -> Result<[u16; WIDTH], std::num::TryFromIntError> {
+   104	        let mut words = [0; WIDTH];
+   105	        for (word, joint) in words.iter_mut().zip(self.joints) {
+   106	            *word = u16::try_from(usize::from(joint))?;
+   107	        }
+   108	        Ok(words)
+   109	    }
+   110	}
+   111	
+   112	impl<const WIDTH: usize> PackedRigSkin<WIDTH> {
+   113	    /// Decode glTF, FBX, GPU readback, or fixture words once at their source.
+   114	    pub fn from_native(
+   115	        words: Vec<[u32; WIDTH]>,
+   116	        joints: RigJointCount,
+   117	    ) -> Result<Self, RigSkinError> {
+   118	        for &joint in words.iter().flatten() {
+   119	            if usize::try_from(joint).map_or(true, |joint| joint >= joints.0) {
+   120	                return Err(RigSkinError::OutsideRig { joint, joints });
+   121	            }
+   122	        }
+   123	        Ok(Self { words, joints })
+   124	    }
+   125	
+   126	    pub fn empty(joints: RigJointCount) -> Self {
+   127	        Self {
+   128	            words: Vec::new(),
+   129	            joints,
+   130	        }
+   131	    }
+   132	
+   133	    pub fn repeated(
+   134	        influences: [RigJointOrdinal; WIDTH],
+   135	        vertices: usize,
+   136	        joints: RigJointCount,
+   137	    ) -> Result<Self, RigSkinError> {
+   138	        let mut skin = Self::empty(joints);
+   139	        let words = skin.encode(influences)?;
+   140	        skin.words = vec![words; vertices];
+   141	        Ok(skin)
+   142	    }
+   143	
+   144	    pub fn len(&self) -> usize {
+   145	        self.words.len()
+   146	    }
+   147	
+   148	    pub fn is_empty(&self) -> bool {
+   149	        self.words.is_empty()
+   150	    }

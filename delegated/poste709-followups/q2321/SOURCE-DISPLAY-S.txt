@@ -1,0 +1,72 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/training_activity.rs:275-345
+ 275             .db
+ 276             .query_sats(&format!(
+ 277                 "SELECT * FROM inventory_item WHERE character_id = {character_id}"
+ 278             ))
+ 279             .await
+ 280             .unwrap_or_default()
+ 281     };
+ 282 
+ 283     let selected_equip = character_equipment_graph(&state, character_id).await;
+ 284     let active_equip: Vec<CharacterEquipmentGraph> = if character_id == active_character.id {
+ 285         selected_equip.clone()
+ 286     } else {
+ 287         character_equipment_graph(&state, active_character.id).await
+ 288     };
+ 289     let items: Vec<CatalogItemView> = state
+ 290         .db
+ 291         .query_sats_into::<DbItem, CatalogItemView>("SELECT * FROM item")
+ 292         .await
+ 293         .unwrap_or_default();
+ 294     let food_lots: Vec<FoodLot> = state
+ 295         .db
+ 296         .query_sats("SELECT * FROM food_lot")
+ 297         .await
+ 298         .unwrap_or_default();
+ 299     let preparation_plans: Vec<BackendIngredientPreparationPlan> = state
+ 300         .db
+ 301         .query_sats(&format!(
+ 302             "SELECT * FROM backend_ingredient_preparation_plans WHERE actor_character_id = {}",
+ 303             active_character.id
+ 304         ))
+ 305         .await
+ 306         .unwrap_or_default();
+ 307     let selected_targets = personal_inventory_targets(&state, selected.id).await;
+ 308     let active_targets = personal_inventory_targets(&state, active_character.id).await;
+ 309     let encumbrance_rows =
+ 310         EncumbranceRows::query(&state, &[selected.id, active_character.id]).await;
+ 311     let selected_encumbrance = personal_encumbrance(
+ 312         selected.id,
+ 313         &selected_inventory,
+ 314         &items,
+ 315         &food_lots,
+ 316         &encumbrance_rows,
+ 317     );
+ 318     let active_encumbrance = personal_encumbrance(
+ 319         active_character.id,
+ 320         &active_inventory,
+ 321         &items,
+ 322         &food_lots,
+ 323         &encumbrance_rows,
+ 324     );
+ 325 
+ 326     if character_id == active_character.id {
+ 327         return Html(
+ 328             party_discard_page(
+ 329                 &location,
+ 330                 &active_character,
+ 331                 &active_inventory,
+ 332                 &items,
+ 333                 &food_lots,
+ 334                 &preparation_plans,
+ 335                 &party_members,
+ 336                 active_equip.first(),
+ 337                 active_encumbrance,
+ 338             )
+ 339             .into_string(),
+ 340         );
+ 341     }
+ 342 
+ 343     Html(
+ 344         party_inventory_page(
+ 345             &location,

@@ -1,0 +1,27 @@
+{
+  "schema": "independent-q2318-scan-receipt-v1",
+  "packet_manifest_sha256": "b1a929c1852d476ba33c2aaaf129340456f9805d3f192fdda5f68f27c32dbdb4",
+  "scanner_sha256": {
+    "PRIVATE-SCANNER.py": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "PATTERN-SCAN.py": "7d33a0e78d17ad30768ac30d518a9b1f8203f1350536a16cdb9fd740c675edf9"
+  },
+  "results_sha256": {
+    "SAFE-PRIVATE-SCAN.json": "b50acfe4bfb07cb0c9d4d45af077a050ffb096037f8c720b4dc8c7ec6e874f97",
+    "SAFE-PATTERN-SCAN.json": "a80636a30d1b58db0ac752742f4c97f2d68e328ee145d2ccf545293f6926485c",
+    "FULL-VERIFY.txt": "da39425e86d08e0df692ca380c6e7d4622ae9f5a1f6d4809f7ea41e04481c2bf",
+    "STANDALONE-VERIFY.txt": "3f8c42b850d5ec2b9e1ef3d60c1227b367fc162b781e31d85991e5dfcbfdbe73"
+  },
+  "results": {
+    "private_exit": 0,
+    "private_forbidden_digest_matches": 0,
+    "private_other_candidates": 0,
+    "private_exceptions": 0,
+    "pattern_exit": 0,
+    "pattern_candidates": 0,
+    "pattern_exceptions": 0,
+    "standalone_verifier_exit": 0,
+    "full_verifier_exit": 0
+  },
+  "restricted_predecessor_qualification": "Earlier scan found two local temporary path candidates in self-authored helper scripts. Frozen predecessor manifest and omission crosswalk are bound in the packet; scan details with candidate values remain restricted.",
+  "limits": "Scans are bounded to packet working-tree views and specified patterns/private digest corpus; they do not clear Git history, unknown secrets, binary metadata or unsupported formats, prove personal comprehension, source semantics, runtime behavior, or independent custody."
+}

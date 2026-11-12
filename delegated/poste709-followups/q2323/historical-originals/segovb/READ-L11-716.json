@@ -1,0 +1,221 @@
+{
+  "lens": 11,
+  "kind": "Strict whole-bundle delegated source adoption",
+  "batch": 716,
+  "at": "2026-10-30T01:53:27.055771+00:00",
+  "proposal": "parallel-l11-20261029/READ-180.json",
+  "proposal_sha256": "aecb69bc22f3f8cd8745f1cf039f2bd56da21bea4bd6e1b0c27fb226463a77cd",
+  "agent_verification": "parallel-l11-20261029/VERIFY-180.json",
+  "agent_verification_sha256": "7dff8e78dde03158a391a4345d66f67791464042ac8ff00624260da196d05d3f",
+  "bundle": {
+    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+    "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020"
+  },
+  "ruleset": {
+    "path": "parallel-l11-20261029/l11_firstparty_completed_bundle005_preflight_PROPOSAL_UNEXECUTED.py",
+    "sha256": "2bba8f31edcbc933b951ee43b7843b80aa5861a1dfc74ff345574292e3eb55fd"
+  },
+  "preflight": {
+    "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-005.json",
+    "sha256": "0b1eede03a6a9c0c53f74dede2243388c4462bc10b20a79a6dbbcf9bcea7b020",
+    "new_source_receipts": 4,
+    "new_source_rows": 18,
+    "validated_source_rows_total": 29,
+    "contract_proposals": 8,
+    "current_delta_maps": 11,
+    "authority_mutation": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "current_ledger_sha256": "a20ffef9f930f148f34b75fb43822a665ded3d95ea314c6dec8b45e6c1b2688d",
+    "current_selector_sha256": "5fccf83f44b688e119f5d16e609ca87b1b68fcc0e02db75254a52a6551ce215f"
+  },
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-198.json",
+      "sha256": "116fcd14a91f020587bdbb229905f75da8cd53a3de6b555eeb5f87205554693f"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-1135",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+      "actual_EOF": 667,
+      "prospective_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/main.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+      "purpose": "Close actual private model reload/cache key and native CLI terminal lifecycle; DrapeWorker job identity/order and CatalogConflict owner/caller. Full prospective body no native/product execution. Prior broad git-grep navigation was truncated and grants zero body/absence coverage.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1136",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "actual_EOF": 131,
+      "prospective_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_worker.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+      "purpose": "Close actual private model reload/cache key and native CLI terminal lifecycle; DrapeWorker job identity/order and CatalogConflict owner/caller. Full prospective body no native/product execution. Prior broad git-grep navigation was truncated and grants zero body/absence coverage.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1137",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "actual_EOF": 442,
+      "prospective_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/inventory.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+      "purpose": "Close actual private model reload/cache key and native CLI terminal lifecycle; DrapeWorker job identity/order and CatalogConflict owner/caller. Full prospective body no native/product execution. Prior broad git-grep navigation was truncated and grants zero body/absence coverage.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    }
+  ],
+  "finding_connections_and_scope_dispositions": [
+    {
+      "id": "L11-CURRENT-CREATOR-ACTUAL-MODEL-RELOAD-AND-DRAPE-WORKER",
+      "disposition": "Specific connected current source question resolved to actual dependency omission and qualified no ordinary output witness; worker stale-tag suspicion excluded within current dispatcher",
+      "trace": [
+        "main::BodyModel99..103 owns Mhr/lod/correctives; main191 initialmodel false, recipe actualJSON219..223 validation, CLI review225..232 forwards Result directly to main Result. run_studio275..360 inserts that same model and exactcache resources; reload_model430..455 is scheduled BEFOREregenerate330 and can replace actual BodyModel at SAMELOD when selected_correctives changes431..439, markingdirty440. Unlike an arbitrary crossmodel hypothesis, this replacement is an actual supported source route.",
+        "StudioCache own179 body33..56 key includesmodel.lod plusrecipeproportions/identity/expression, omitscorrectives. SameLOD correctivesreload canhit oldArc body instead of invokingnewmodel forward; dependentfits/finishes/lining/drapecaches onlyclear on keymiss50..53. Exact source dependency is omitted, but observable output discrepancy requires actual applicable pose-corrective policy/assets; source alone doesnotprove nonzero deformedbody difference or GPU health. This is explicit policy/conditional auditdisposition, not demand to invalidate a numerically irrelevant source mode blindly.",
+        "Currentgeneration own008 full97 reassessed within exactexisting qualifiedbody: model.mhr.forward(identity, proportions-derived ModelParameterTable tensor, expression)32, typedrigreadbackcount83..86; not simply a universalzero-pose assumption. Relevant MHRcorrective dependency and actualproportion modelparameters remain exactown prior current source proofs, no newbodycredit/rereadclaim.",
+        "DrapeWorker::request55..59 sets oldcanceltrue, replacespending withnewinputs(orNoneforempty), clearlatest. poll77..131 rejects preview79..82 and finishedoutcome104..108 whileoldcancelled, onlyafteroldhandlejoins launchespending110..126 and unzips SAMEtags/input113. Eachnewworker owns freshcancel/latest115..118, so local dispatcher doesnotpair an oldnoncancelled preview withnewtagvector on actualrequestsequence. No native concurrency/runtime proof claimed.",
+        "Completedstages fromfailed/cancelleddrape are intentionallyretainedcheckpoints102..103 and delegated to drape_outfit121 for exact source-bound reuse; this is not automatically stalegeometry. Calleroutcomeproblem policy deliberatelypermitsfinishedpartialusablegarments105..107 and own179poll statuses, no silent allsuccessclaim. Correctcheckpoint/partialprefix ownership still requires actualdrype_outfit source, if not qualifiedown prior.",
+        "DrapeWorkerpanic96..101 becomes explicit OutfitOutcome.error, not healthy outcome; JoinHandle/detached-dropcancel are native thread boundaries. Mutexpoison unwrap and cancellation checkpointfrequencies do not establish ordinaryfailure or globaldeadlock claim from this dispatcher. Allmain testsource457..667 read, no tests/runtime/assets executed."
+      ],
+      "first_failed_contract": "Actual model reload can change the producer correctives flag at fixedLOD without changing StudioCache bodykey; whether it must invalidate cached neutralbody is an explicit producer-dependency policy question, with no asserted ordinary geometry discrepancy. Drape dispatcher stale-preview/tag suspicion is rejected at exactsource because cancellation gates prior progress before pendingtag replacement.",
+      "canonical_owner": "StudioCache::body model identity/dependency key versus reload_model producer; DrapeWorker owns one active request/cancel/tag/input relation and drape_outfit owns checkpoint reuse.",
+      "exact_function_ownership": [
+        "main::load_body_model408..428/reload_model430..455/run_studio275..360",
+        "StudioCache::body33..56 (own179); generation::generate_character4..97 (own008 exactpreviousbody)",
+        "DrapeWorker::request55..59/poll77..131/running67..69/drop37..39"
+      ],
+      "connected_repair_scope": "Document whether pose-corrective modelselection is required bodycache identity and tie invalidation only to actual relevantproducer dependencies. Preserve source-supported samegenerated pairing/privateCLI flow and current cancellation/partialresult policy; no global SDK expansion or runtime needed for honest auditdisposition.",
+      "dependencies": [
+        "Actual MHR current pose-corrective semantics and generated recipeparameter applicability to decide neutralbodycache invariance; do not assume either changed geometry or numerically irrelevant flag.",
+        "Actual drape_outfit checkpoint signature/input and partialoutcome prefix semantics, qualified ownLens11 proof ifavailable before additional reads.",
+        "Root exactalias inventory for any existing producer-cache identity finding; same cache remedy alone neverestablishesalias."
+      ],
+      "acceptance_requirements": [
+        "A body cache hit is valid for every producer input that can affect generated body; sameLOD corrective-toggle behavior is explicitly agreed/documented in owner.",
+        "Current running drape cancelled request cannot publish old preview/result under newinventorytags; intentional completedcheckpoint reuse must verify its actual input signature.",
+        "Finishedpartial/problemoutcomes retain explicit problemstatus and usablegarments policy; no runtimethread/GPU result inferred from source."
+      ],
+      "accepted_unique_count_change": 0
+    },
+    {
+      "id": "L11-CURRENT-CREATOR-INVENTORY-ID-SUCCESSOR-EXHAUSTION",
+      "disposition": "Supported public source arithmetic admission finding candidate; exact canonical alias/root acceptance pending, no runtime/native profile asserted",
+      "trace": [
+        "InventoryItemId is transparent publicu64 newtype23..26; Inventory serdeitems28..32 and Inventory::validate353..360 reject duplicate IDs and invalidarticle only, with no maximumIDexclusion. Thus a unique u64MAX ID on a validarticle is not rejected by this owning validation source. No recipeconstructed/deserialized or codeexecuted.",
+        "Inventory::add226..240 computes item.id.0+1 for EVERYexistingarticle230 beforemax231, thenpublishesnewarticle234. A previously valid unique u64MAX makes nativeu64 successor overflow before a freshIDcanbeadmitted; checkednativeprofilespanic, uncheckedwrapmaychoose nonfresh/lowID dependingonotheritems. Exact compiler/profile result unclaimed; absence of successor contract is source-established.",
+        "InventoryItemId identity used by get/get_mut213..219, worn graph fit309..334 and typed drape worker tags/currentUI consumer; duplicate/wrapped identity can selectanotherarticle in native lookup or fail lateruniquevalidation. This is not quantitycount/sessionidentity or strategicDBinventorygrantfinding; different canonical firstoperation/owner until exact global aliases reviewed.",
+        "Inventory::wear265..286 intentionallydisplacesoccupyingarticleandrollsbackotherconflict usingclonedbefore; take_off289..300 cascadesunsupported graph, legitimateequipmentpolicy. InventoryArticle validation174..199 retainsclosedtext validation errors; no raw publicserde validity assumedbeyondactualvalidate. Reviewexport own179 provisional name CatalogConflict corrected: actualowner is EquipConflict69..84, resolve97..109 anddesign_for117..136. resolve/design_for actualerrors here areInvalid(String), whose upstream predicate alreadyprose; later reviewdebugformat87/90 cannotrecover nonexistenttypednativecause. Completeowninventoryerror/terminalclassification separatefromfreshIDfailure."
+      ],
+      "first_failed_contract": "Inventory::add successor arithmetic230 assumes every admitted existing u64 ID has representable successor; owning Inventory::validate does not establish that invariant or explicit exhaustion outcome before new ID publication.",
+      "canonical_owner": "Creator inventory fresh InventoryItemId allocation/exhaustion owns actual existing identity set and next admissible identity; not itemquantity/nativeDBgrant, not generic u64wrapper.",
+      "exact_function_ownership": [
+        "InventoryItemId23..26",
+        "Inventory::add226..240/validate353..360/get213..215/get_mut217..219",
+        "Inventory::fit309..334; DrapeWorker tag/input unzip113..114"
+      ],
+      "connected_repair_scope": "Connected future repair must admit/allocate a freshidentity with explicitexhaustion and preserveexistinginventory on failure, propagateactual failure through alladd callers/recipe/UI/persistedinventory and retainID-based lookup/occupancy/drapetags. Do not impose obsoleteoverflow/IDreusecompatibility.",
+      "dependencies": [
+        "Exact existingcanonical alias inventory for creatorInventory::add230; publicvalidinventorysource witness distinctfrom normal UI generating2^64articles, which is not claimed.",
+        "Actual current addcaller/terminalUI failure propagation if repairplanned; source-onlywitness alreadyatpublicAPI andowningvalidation, no nativeprofiletest required for auditdiscovery classification."
+      ],
+      "acceptance_requirements": [
+        "An admitted existingmaximumID cannot cause uncheckednextID arithmetic or publish an occupied identity.",
+        "Exhaustion or inability toallocate is explicit and leaves inventory/cachedIDs unchanged; ordinary freshIDallocation remainswell-defined.",
+        "All actual addcallers handle owningallocation outcome beforemutatingworn/selection/drape/UI state; no requiredtest/build/runtimeperformed inthisaudit."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "registered_unread_sources_as_recorded": [],
+  "completes_prior_registered_unread": null,
+  "adopted_registration_mapping": [
+    {
+      "registration": "PL11-1135",
+      "adopted_continuation_number": 3329,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/main.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1136",
+      "adopted_continuation_number": 3330,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/drape_worker.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1137",
+      "adopted_continuation_number": 3331,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-character-creator/src/inventory.rs:P09-P12-P14-creator-model-lifecycle-worker-inventory-error-owner",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    }
+  ],
+  "original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "new_target_reconciliation_complete": false,
+  "other_lens_coverage_transferred": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

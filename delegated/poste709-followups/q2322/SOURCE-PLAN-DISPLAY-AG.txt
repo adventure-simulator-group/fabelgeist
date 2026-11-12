@@ -1,0 +1,42 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:540-580
+ 540 impl DomainCapability for ForagePlanCapability {}
+ 541 
+ 542 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 543 pub enum ForagePlanInterruption {
+ 544     CharacterBoundary,
+ 545 }
+ 546 impl DomainInterruption for ForagePlanInterruption {}
+ 547 
+ 548 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 549 pub enum ForageLegality {
+ 550     Legal,
+ 551     IllegalAttempt,
+ 552 }
+ 553 
+ 554 #[derive(Clone, Debug, Eq, PartialEq)]
+ 555 pub enum ForagePlanEffect {
+ 556     AttemptSearch {
+ 557         actor: CustodyCharacterId,
+ 558         requested_minutes: u64,
+ 559     },
+ 560     CommitResolution {
+ 561         resolution: ForageResolution,
+ 562         permits_yield: bool,
+ 563     },
+ 564 }
+ 565 impl DomainEffect for ForagePlanEffect {}
+ 566 
+ 567 /// Intentionally contains no environment, habitat availability, license
+ 568 /// evidence, random seed, roll, DC, or prospective yield.
+ 569 #[derive(Clone, Debug, Eq, PartialEq)]
+ 570 pub struct ForagePublicPreview {
+ 571     pub source_ids: Vec<String>,
+ 572     pub requested_minutes: u64,
+ 573 }
+ 574 impl PublicPreview for ForagePublicPreview {}
+ 575 
+ 576 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 577 pub enum ForageRightsSubject {}
+ 578 impl DomainRightsSubject for ForageRightsSubject {}
+ 579 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 580 pub enum ForageRightsResource {

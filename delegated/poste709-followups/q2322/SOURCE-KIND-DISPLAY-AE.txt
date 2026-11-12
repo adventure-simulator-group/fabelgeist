@@ -1,0 +1,16 @@
+SOURCE crates/adventuresim-stdb-module/src/condition.rs:1-15
+   1 use adventuresim_core::prelude::*;
+   2 use adventuresim_core::{
+   3     item_references::STANDARD_WATERSKIN_ID,
+   4     physical_object::CarriedInventoryScope,
+   5     provisioning::{STRATEGIC_TRAVEL_KCAL_PER_DAY, STRATEGIC_TRAVEL_WATER_ML_PER_DAY},
+   6 };
+   7 use spacetimedb::{ReducerContext, Table, reducer, table};
+   8 use std::collections::BTreeMap;
+   9 
+  10 use crate::capability::StrategicEquipment;
+  11 use crate::character::character;
+  12 use crate::filth::character_filth;
+  13 use crate::investigation::case_site_authority;
+  14 use crate::item::item;
+  15 use crate::strategic::{

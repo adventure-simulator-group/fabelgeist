@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:580-650
+ 580         environment.license_violation as u8,
+ 581     ]);
+ 582     hash.finalize().into()
+ 583 }
+ 584 
+ 585 #[expect(
+ 586     clippy::too_many_arguments,
+ 587     reason = "this domain boundary names each independent input explicitly"
+ 588 )]
+ 589 fn forage_authority_digest(
+ 590     character_id: u64,
+ 591     place: &StrategicPlaceId,
+ 592     environment_digest: [u8; 32],
+ 593     source_ids: &[String],
+ 594     requested_minutes: u64,
+ 595     current_minute: StrategicMinute,
+ 596     terminal_minute: Option<StrategicMinute>,
+ 597     attempt_generation: u64,
+ 598     terrain_check: u16,
+ 599     stealth_check: u16,
+ 600     resolution_seed: fabelgeist_determinism::Seed,
+ 601 ) -> [u8; 32] {
+ 602     let mut hash = Sha256::new();
+ 603     let mut frame = |bytes: &[u8]| {
+ 604         hash.update((bytes.len() as u64).to_le_bytes());
+ 605         hash.update(bytes);
+ 606     };
+ 607     frame(b"forage-plan-authority-v1");
+ 608     frame(&character_id.to_le_bytes());
+ 609     frame(place.to_string().as_bytes());
+ 610     frame(&environment_digest);
+ 611     for source in source_ids {
+ 612         frame(source.as_bytes());
+ 613     }
+ 614     frame(&requested_minutes.to_le_bytes());
+ 615     frame(&current_minute.get().to_le_bytes());
+ 616     frame(
+ 617         &terminal_minute
+ 618             .unwrap_or(StrategicMinute::MAX)
+ 619             .get()
+ 620             .to_le_bytes(),
+ 621     );
+ 622     frame(&attempt_generation.to_le_bytes());
+ 623     frame(&terrain_check.to_le_bytes());
+ 624     frame(&stealth_check.to_le_bytes());
+ 625     frame(&resolution_seed.to_le_bytes());
+ 626     hash.finalize().into()
+ 627 }
+ 628 
+ 629 fn license_decisions(
+ 630     ctx: &ReducerContext,
+ 631     actor: CustodyCharacterId,
+ 632     source_ids: &[String],
+ 633     evidence_revision: u64,
+ 634 ) -> Result<Vec<foraging::ForageLicenseDecision>, String> {
+ 635     source_ids
+ 636         .iter()
+ 637         .map(|id| {
+ 638             let source = foraging::ForageSource::from_id(id).ok_or("Unknown forage source")?;
+ 639             let question = foraging::forage_license_question(actor, source)
+ 640                 .map_err(|_| "Foraging rights question is inconsistent")?;
+ 641             let allowed = source_privilege(source).is_none_or(|privilege| {
+ 642                 crate::organization::global_presented_privilege(ctx, actor.get(), privilege)
+ 643             });
+ 644             let decision = foraging::decide_forage_license(&question, allowed, evidence_revision);
+ 645             foraging::ForageLicenseDecision::try_new(&question, decision).map_err(str::to_owned)
+ 646         })
+ 647         .collect()
+ 648 }
+ 649 
+ 650 #[expect(

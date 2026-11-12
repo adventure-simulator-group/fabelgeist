@@ -1,0 +1,78 @@
+   478	    let interval = simulate_blood_interval(
+   479	        starting_blood,
+   480	        &open_cuts,
+   481	        elapsed,
+   482	        adventuresim_core::morale::BLOOD_RECOVERY_FRACTION_PER_DAY
+   483	            * recovery.get().min(elapsed) as f32
+   484	            / elapsed.max(1) as f32,
+   485	    );
+   486	    let elapsed_days = interval.elapsed as f32 / MINUTES_PER_DAY as f32;
+   487	    let healing_days = recovery.get().min(interval.elapsed) as f32 / MINUTES_PER_DAY as f32;
+   488	    let physiology = if healing_days > 0.0 {
+   489	        crate::time::party_physiology_check(ctx, character_id)?
+   490	    } else {
+   491	        0.0
+   492	    };
+   493	    let natural = if healing_days > 0.0 {
+   494	        crate::time::health_recovered_per_day(physiology)
+   495	    } else {
+   496	        0.0
+   497	    };
+   498	    for (index, limb) in BodyRegion::ALL.into_iter().enumerate() {
+   499	        let injury = &mut injuries[index];
+   500	        let starting_cut = injury.cut_damage;
+   501	        let mut exposure = interval.cut_days[index];
+   502	        if !injury.bandaged {
+   503	            injury.cut_damage = interval.open_cuts[index];
+   504	        }
+   505	        let projectile_term = if has_projectile(ctx, character_id, limb) {
+   506	            RETAINED_PROJECTILE_HEALING_MULTIPLIER
+   507	        } else {
+   508	            1.0
+   509	        };
+   510	        if healing_days > 0.0 {
+   511	            let stitch_bonus = if injury.stitched {
+   512	                injury.stitch_quality.max(0.0) * STITCH_HEALING_BONUS_PER_LEVEL
+   513	            } else {
+   514	                0.0
+   515	            };
+   516	            if injury.bandaged {
+   517	                injury.cut_damage = (injury.cut_damage
+   518	                    - (natural + 0.01 + stitch_bonus) * projectile_term * healing_days)
+   519	                    .max(0.0);
+   520	                exposure += (starting_cut + injury.cut_damage) * 0.5 * elapsed_days;
+   521	            }
+   522	            injury.bruise_damage = (injury.bruise_damage
+   523	                - (natural + BRUISE_HEALING_PER_DAY) * projectile_term * healing_days)
+   524	                .max(0.0);
+   525	            if injury.splint_inventory_item_id.is_some() {
+   526	                injury.fracture_damage = (injury.fracture_damage
+   527	                    - (natural + FRACTURE_HEALING_PER_DAY) * projectile_term * healing_days)
+   528	                    .max(0.0);
+   529	                if injury.fracture_damage == 0.0 {
+   530	                    return_splint(ctx, injury)?;
+   531	                }
+   532	            }
+   533	        } else if injury.bandaged {
+   534	            exposure += injury.cut_damage * elapsed_days;
+   535	        }
+   536	        if injury.cut_damage > 0.0 || starting_cut > 0.0 {
+   537	            let protection = standing_infection_multiplier(
+   538	                injury.bandaged,
+   539	                injury.stitched,
+   540	                injury.stitch_quality,
+   541	            );
+   542	            let dirt = adventuresim_core::filth::dirt_wound_multiplier(crate::filth::dirt_total(
+   543	                ctx,
+   544	                character_id,
+   545	            ));
+   546	            accrue_standing_infection(ctx, injury, exposure * protection * dirt)?;
+   547	        }
+   548	        store_injury(ctx, injury.clone());
+   549	    }
+   550	    refresh_all_limb_projections(ctx, character_id);
+   551	    // The strategic time owner commits the elapsed frontier exactly once.
+   552	    // Surgery settles injury state only; writing CharacterTime here used to
+   553	    // double-advance terminal intervals when the caller committed the same
+   554	    // elapsed span.
+   555	    crate::condition::set_blood_fraction(ctx, character_id, interval.blood_fraction)?;

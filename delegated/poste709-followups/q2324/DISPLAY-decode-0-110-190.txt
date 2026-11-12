@@ -1,0 +1,81 @@
+   110	            Prop::I64(v) => Some(*v),
+   111	            Prop::Bool(v) => Some(*v as i64),
+   112	            _ => None,
+   113	        }
+   114	    }
+   115	
+   116	    pub fn as_f64(&self) -> Option<f64> {
+   117	        match self {
+   118	            Prop::F32(v) => Some(*v as f64),
+   119	            Prop::F64(v) => Some(*v),
+   120	            Prop::I16(v) => Some(*v as f64),
+   121	            Prop::I32(v) => Some(*v as f64),
+   122	            Prop::I64(v) => Some(*v as f64),
+   123	            _ => None,
+   124	        }
+   125	    }
+   126	
+   127	    pub fn as_str(&self) -> Option<&[u8]> {
+   128	        match self {
+   129	            Prop::Str(v) | Prop::Raw(v) => Some(v),
+   130	            _ => None,
+   131	        }
+   132	    }
+   133	
+   134	    /// Numeric array widened to `f64`, whatever the on-disk element type.
+   135	    pub fn as_f64_array(&self) -> Option<Vec<f64>> {
+   136	        match self {
+   137	            Prop::ArrF32(v) => Some(v.iter().map(|x| *x as f64).collect()),
+   138	            Prop::ArrF64(v) => Some(v.clone()),
+   139	            Prop::ArrI32(v) => Some(v.iter().map(|x| *x as f64).collect()),
+   140	            Prop::ArrI64(v) => Some(v.iter().map(|x| *x as f64).collect()),
+   141	            _ => None,
+   142	        }
+   143	    }
+   144	
+   145	    /// Integer array widened to `i64`, whatever the on-disk element type.
+   146	    pub fn as_i64_array(&self) -> Option<Vec<i64>> {
+   147	        match self {
+   148	            Prop::ArrI32(v) => Some(v.iter().map(|x| *x as i64).collect()),
+   149	            Prop::ArrI64(v) => Some(v.clone()),
+   150	            Prop::ArrBool(v) => Some(v.iter().map(|x| *x as i64).collect()),
+   151	            _ => None,
+   152	        }
+   153	    }
+   154	}
+   155	
+   156	impl Node {
+   157	    pub fn child(&self, name: &str) -> Option<&Node> {
+   158	        self.children.iter().find(|c| c.name == name)
+   159	    }
+   160	
+   161	    pub fn children_named<'a>(&'a self, name: &'a str) -> impl Iterator<Item = &'a Node> {
+   162	        self.children.iter().filter(move |c| c.name == name)
+   163	    }
+   164	
+   165	    pub fn prop(&self, index: usize) -> Option<&Prop> {
+   166	        self.props.get(index)
+   167	    }
+   168	
+   169	    /// First property as a numeric array, widened to `f64`.
+   170	    pub fn f64_array(&self) -> Option<Vec<f64>> {
+   171	        self.props.first()?.as_f64_array()
+   172	    }
+   173	
+   174	    /// First property as an integer array, widened to `i64`.
+   175	    pub fn i64_array(&self) -> Option<Vec<i64>> {
+   176	        self.props.first()?.as_i64_array()
+   177	    }
+   178	
+   179	    pub fn str_prop(&self, index: usize) -> Option<&[u8]> {
+   180	        self.props.get(index)?.as_str()
+   181	    }
+   182	
+   183	    /// Look up an entry of this node's `Properties70` block by name.
+   184	    ///
+   185	    /// Mirrors OpenFBX `resolveProperty`: a `P` record whose first property is
+   186	    /// the requested name; values start at index 4.
+   187	    pub fn property70(&self, name: &str) -> Option<&Node> {
+   188	        let props = self.child("Properties70")?;
+   189	        props.children.iter().find(|p| {
+   190	            p.props

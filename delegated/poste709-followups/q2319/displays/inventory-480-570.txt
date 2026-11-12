@@ -1,0 +1,91 @@
+ 480                 if crate::food::party_lot(ctx, source.id).is_some() {
+ 481                     crate::food::move_or_split_to_personal(
+ 482                         ctx,
+ 483                         source.id,
+ 484                         destination_row.id,
+ 485                         1,
+ 486                         1,
+ 487                     )?;
+ 488                 }
+ 489                 if crate::inventory_amount::party_fraction(ctx, source.id).is_some() {
+ 490                     crate::inventory_amount::move_party_to_personal(
+ 491                         ctx,
+ 492                         source.id,
+ 493                         destination_row.id,
+ 494                     )?;
+ 495                 }
+ 496                 if let Some(condition) = ctx
+ 497                     .db
+ 498                     .party_item_condition()
+ 499                     .party_inventory_item_id()
+ 500                     .find(source.id)
+ 501                 {
+ 502                     ctx.db
+ 503                         .party_item_condition()
+ 504                         .party_inventory_item_id()
+ 505                         .delete(source.id);
+ 506                     ctx.db
+ 507                         .item_condition()
+ 508                         .insert(crate::repair::ItemCondition {
+ 509                             inventory_item_id: destination_row.id,
+ 510                             tier_1: condition.tier_1,
+ 511                             tier_2: condition.tier_2,
+ 512                             tier_3: condition.tier_3,
+ 513                             tier_4: condition.tier_4,
+ 514                             tier_5: condition.tier_5,
+ 515                         });
+ 516                 }
+ 517                 ctx.db.party_inventory_item().id().delete(source.id);
+ 518                 object.location =
+ 519                     InventoryLocation::personal(character_id.get(), destination_row.id);
+ 520             }
+ 521             _ => return Err("Inventory subtree has an unsupported location transition".into()),
+ 522         }
+ 523         ctx.db.inventory_object().id().update(object);
+ 524     }
+ 525     Ok(())
+ 526 }
+ 527 
+ 528 pub(crate) fn delete_subtree(ctx: &ReducerContext, root_object_id: u64) -> Result<(), String> {
+ 529     let ids = subtree_object_ids(ctx, root_object_id)?;
+ 530     let root = ctx
+ 531         .db
+ 532         .inventory_object()
+ 533         .id()
+ 534         .find(root_object_id)
+ 535         .ok_or("Inventory subtree root object is missing")?;
+ 536     let root_custody = crate::object_custody::resolve_object_custody(ctx, &root)?.root;
+ 537     if !matches!(
+ 538         root_custody,
+ 539         OperationalCustody::Character(_) | OperationalCustody::Party(_)
+ 540     ) {
+ 541         return Err("A fixture-held subtree must be retrieved before deletion".into());
+ 542     }
+ 543     let mut objects = Vec::with_capacity(ids.len());
+ 544     for id in ids {
+ 545         let object = ctx
+ 546             .db
+ 547             .inventory_object()
+ 548             .id()
+ 549             .find(id)
+ 550             .ok_or("Inventory subtree object is missing")?;
+ 551         require_exact_carried_backing(ctx, &object, &root_custody)?;
+ 552         if !matches!(
+ 553             &object.location,
+ 554             InventoryLocation::Personal(_) | InventoryLocation::Party(_)
+ 555         ) {
+ 556             return Err("Inventory subtree has an unsupported deletion location".into());
+ 557         }
+ 558         objects.push(object);
+ 559     }
+ 560 
+ 561     // Only mutate after every descendant, including aliases outside the
+ 562     // subtree, has passed strict custody and backing-row validation.
+ 563     objects.reverse();
+ 564     for object in objects {
+ 565         let id = object.id;
+ 566         match &object.location {
+ 567             InventoryLocation::Personal(location) => {
+ 568                 ctx.db
+ 569                     .inventory_item_amount()
+ 570                     .inventory_item_id()

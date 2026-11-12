@@ -1,0 +1,100 @@
+   1 //! A wearer's body on the device, and what armor takes from it.
+   2 
+   3 use fabelgeist_gpu::prelude::BufferUpload;
+   4 use std::sync::Arc;
+   5 
+   6 use fabelgeist_compute::{Kernel, KernelBatch, PointTargets, QueryHits};
+   7 use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+   8 
+   9 use super::staging::{Staged, StagedResults, Staging};
+  10 use super::{ArmorGpu, device_error, wgsl};
+  11 use crate::GenerateError;
+  12 
+  13 /// One realization of a wearer's body, on the host.
+  14 #[derive(Clone, Copy, Debug)]
+  15 pub struct BodySurface<'a> {
+  16     pub positions: &'a [[f32; 3]],
+  17     pub normals: &'a [[f32; 3]],
+  18     pub faces: &'a [[u32; 3]],
+  19     /// Each vertex's anatomical surface coordinate.
+  20     pub texcoords: &'a [[f32; 2]],
+  21     pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
+  22     pub joint_weights: &'a [[f32; 8]],
+  23     /// Global joint states: position, then rotation as a quaternion, then
+  24     /// scale.
+  25     pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
+  26 }
+  27 
+  28 /// A wearer's body uploaded for fitting.
+  29 #[derive(Clone, Debug)]
+  30 pub struct GpuBody {
+  31     pub positions: Buffer,
+  32     pub normals: Buffer,
+  33     pub faces: Buffer,
+  34     pub texcoords: Buffer,
+  35     pub joint_indices: Buffer,
+  36     pub joint_weights: Buffer,
+  37     pub joints: Buffer,
+  38     pub vertex_count: u32,
+  39     pub face_count: u32,
+  40     pub joint_count: fabelgeist_rig::RigJointCount,
+  41 }
+  42 
+  43 impl GpuBody {
+  44     pub fn new(gpu: &ArmorGpu, surface: BodySurface) -> Result<Self, GenerateError> {
+  45         let vertices = surface.positions.len();
+  46         if vertices == 0
+  47             || surface.normals.len() != vertices
+  48             || surface.texcoords.len() != vertices
+  49             || surface.joint_indices.len() != vertices
+  50             || surface.joint_weights.len() != vertices
+  51             || surface.joint_indices.joint_count() != surface.joints.joint_count()
+  52             || surface
+  53                 .faces
+  54                 .iter()
+  55                 .flatten()
+  56                 .any(|i| *i as usize >= vertices)
+  57         {
+  58             return Err(GenerateError::InvalidSurface);
+  59         }
+  60         Ok(Self {
+  61             positions: gpu.upload(BufferUpload::from_elements(surface.positions))?,
+  62             normals: gpu.upload(BufferUpload::from_elements(surface.normals))?,
+  63             faces: gpu.upload(BufferUpload::from_elements(surface.faces))?,
+  64             texcoords: gpu.upload(BufferUpload::from_elements(surface.texcoords))?,
+  65             joint_indices: gpu.upload(BufferUpload::from_elements(
+  66                 surface.joint_indices.native_words(),
+  67             ))?,
+  68             joint_weights: gpu.upload(BufferUpload::from_elements(surface.joint_weights))?,
+  69             joints: gpu.upload(BufferUpload::from_elements(
+  70                 surface.joints.as_native_slice(),
+  71             ))?,
+  72             vertex_count: u32::try_from(vertices).map_err(|_| GenerateError::InvalidSurface)?,
+  73             face_count: u32::try_from(surface.faces.len())
+  74                 .map_err(|_| GenerateError::InvalidSurface)?,
+  75             joint_count: surface.joints.joint_count(),
+  76         })
+  77     }
+  78 }
+  79 
+  80 /// Skin and surface coordinates carried from the nearest body vertex.
+  81 #[derive(Clone, Debug)]
+  82 pub struct Correspondence {
+  83     hits: QueryHits,
+  84     pub texcoords: Buffer,
+  85     pub joint_indices: Buffer,
+  86     pub joint_weights: Buffer,
+  87     count: u32,
+  88     joints: fabelgeist_rig::RigJointCount,
+  89 }
+  90 
+  91 /// Correspondence read back to the host.
+  92 #[derive(Clone, Debug, Default, PartialEq)]
+  93 pub struct Skin {
+  94     pub texcoords: Vec<[f32; 2]>,
+  95     pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
+  96     pub joint_weights: Vec<[f32; 8]>,
+  97 }
+  98 
+  99 impl Skin {
+ 100     /// Add `other`'s points after this skin's, matching an appended part.

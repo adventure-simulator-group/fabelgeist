@@ -1,0 +1,73 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/ingredient_preparation.rs:1-72
+   1 //! Ingredient operations shared by food and medicinal material planning.
+   2 
+   3 use serde::{Deserialize, Serialize};
+   4 
+   5 /// The requested operation, distinct from the resulting material preparation.
+   6 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+   7 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+   8 pub enum IngredientPreparationAction {
+   9     Cut,
+  10     Grind,
+  11 }
+  12 
+  13 impl IngredientPreparationAction {
+  14     const CUT_ID: &'static str = "cut";
+  15     const GRIND_ID: &'static str = "grind";
+  16     pub const fn stable_id(self) -> &'static str {
+  17         match self {
+  18             Self::Cut => Self::CUT_ID,
+  19             Self::Grind => Self::GRIND_ID,
+  20         }
+  21     }
+  22 
+  23     pub fn parse(value: &str) -> Option<Self> {
+  24         match value {
+  25             Self::CUT_ID => Some(Self::Cut),
+  26             Self::GRIND_ID => Some(Self::Grind),
+  27             _ => None,
+  28         }
+  29     }
+  30 
+  31     /// Stable byte in versioned request, attempt, and authority hash frames.
+  32     pub const fn stable_code(self) -> u8 {
+  33         match self {
+  34             Self::Cut => 1,
+  35             Self::Grind => 2,
+  36         }
+  37     }
+  38 
+  39     pub const fn definition_id(self) -> &'static str {
+  40         match self {
+  41             Self::Cut => "ingredient-preparation:cut",
+  42             Self::Grind => "ingredient-preparation:grind",
+  43         }
+  44     }
+  45 }
+  46 
+  47 #[cfg(test)]
+  48 mod tests {
+  49     use super::*;
+  50 
+  51     #[test]
+  52     fn boundary_vocabulary_round_trips_and_rejects_unknown_operations() {
+  53         for action in [
+  54             IngredientPreparationAction::Cut,
+  55             IngredientPreparationAction::Grind,
+  56         ] {
+  57             assert_eq!(
+  58                 IngredientPreparationAction::parse(action.stable_id()),
+  59                 Some(action)
+  60             );
+  61             let encoded = serde_json::to_string(&action).unwrap();
+  62             assert_eq!(
+  63                 serde_json::from_str::<IngredientPreparationAction>(&encoded).unwrap(),
+  64                 action
+  65             );
+  66         }
+  67         for unknown in ["", "Cut", "ground", "bake"] {
+  68             assert_eq!(IngredientPreparationAction::parse(unknown), None);
+  69         }
+  70         assert!(serde_json::from_str::<IngredientPreparationAction>("\"Bake\"").is_err());
+  71     }
+  72 }

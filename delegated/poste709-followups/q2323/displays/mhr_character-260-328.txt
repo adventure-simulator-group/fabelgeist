@@ -1,0 +1,69 @@
+ 260 fn parse_blend_shapes(
+ 261     scene: &Scene,
+ 262     geometry: &Object,
+ 263     num_vertices: MeshVertexCount,
+ 264 ) -> BlendShapes {
+ 265     let mut names = Vec::new();
+ 266     let mut vectors: Vec<f32> = Vec::new();
+ 267 
+ 268     let Some(blend_shape) = scene
+ 269         .children(geometry.id)
+ 270         .find(|o| o.kind == "Deformer" && o.class == "BlendShape")
+ 271     else {
+ 272         return BlendShapes::default();
+ 273     };
+ 274 
+ 275     for channel in scene
+ 276         .children(blend_shape.id)
+ 277         .filter(|o| o.kind == "Deformer" && o.class == "BlendShapeChannel")
+ 278         .collect::<Vec<_>>()
+ 279     {
+ 280         for shape in scene
+ 281             .children(channel.id)
+ 282             .filter(|o| o.kind == "Geometry" && o.class == "Shape")
+ 283             .collect::<Vec<_>>()
+ 284         {
+ 285             let offsets = shape.node.child("Vertices").and_then(|n| n.f64_array());
+ 286             let indices = shape.node.child("Indexes").and_then(|n| n.i64_array());
+ 287             let mut displacements = MeshVertexTable::filled(num_vertices, [0.0; 3]);
+ 288             if let (Some(offsets), Some(indices)) = (offsets, indices) {
+ 289                 for (slot, vertex) in indices.iter().enumerate() {
+ 290                     let vertex = MeshVertexIndex::from_native_vertex_index(*vertex as usize);
+ 291                     let Some(displacement) = displacements.get_mut(vertex) else {
+ 292                         continue;
+ 293                     };
+ 294                     if slot * 3 + 2 >= offsets.len() {
+ 295                         continue;
+ 296                     }
+ 297                     for axis in 0..3 {
+ 298                         displacement[axis] = offsets[slot * 3 + axis] as f32;
+ 299                     }
+ 300                 }
+ 301             }
+ 302             // Dense shape-major coefficients are the numerical basis storage.
+ 303             vectors.extend(displacements.into_iter().flatten());
+ 304             names.push(shape.name.clone());
+ 305         }
+ 306     }
+ 307 
+ 308     BlendShapes { names, vectors }
+ 309 }
+ 310 
+ 311 #[cfg(test)]
+ 312 mod tests {
+ 313     use super::*;
+ 314 
+ 315     #[test]
+ 316     fn triangulates_polygon_fans() {
+ 317         // Two polygons: a quad and a triangle, FBX-style negative terminators.
+ 318         let stream = [0, 1, 2, -4, 4, 5, -7];
+ 319         let faces = triangulate(&stream).unwrap();
+ 320         assert_eq!(faces, vec![[0, 1, 2], [0, 2, 3], [4, 5, 6]]);
+ 321     }
+ 322 
+ 323     #[test]
+ 324     fn rejects_degenerate_polygons() {
+ 325         assert!(triangulate(&[0, -2]).is_err());
+ 326         assert!(triangulate(&[0, 1, 2]).is_err());
+ 327     }
+ 328 }

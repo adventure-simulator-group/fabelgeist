@@ -1,0 +1,69 @@
+   337	            physical_object::{CustodyCharacterId, PhysicalObjectId},
+   338	            strategic_action::{
+   339	                ActionCoordinates, ActionDefinitionId, ActionRequestId, ActionTarget,
+   340	                AuthoritativeSnapshot, AuthorityBinding, PlanProvenance, PlanningOutcome,
+   341	                RequestedDuration, SnapshotDigest, SnapshotRevision,
+   342	            },
+   343	            strategic_place::StrategicPlaceId,
+   344	        };
+   345	
+   346	        let actor = CustodyCharacterId::try_new(1).unwrap();
+   347	        let object = PhysicalObjectId::try_new(2).unwrap();
+   348	        let place = StrategicPlaceId::settlement("ironforge").unwrap();
+   349	        let coordinates = ActionCoordinates::try_new(
+   350	            actor,
+   351	            ActionTarget::Object(object),
+   352	            place.clone(),
+   353	            None,
+   354	            Vec::new(),
+   355	        )
+   356	        .unwrap();
+   357	        let question = preparation_rights_question(actor, object, place).unwrap();
+   358	        assert_eq!(
+   359	            preparation_rights_question_digest(&question)
+   360	                .iter()
+   361	                .map(|byte| format!("{byte:02x}"))
+   362	                .collect::<String>(),
+   363	            "1220f57a7a34db9665407f6ebb16a1f04f07db5f0869defa47536fe492183613"
+   364	        );
+   365	        let digest = [3; 32];
+   366	        let PlanningOutcome::Ready(plan) = build_preparation_plan(PreparationPlanAuthority {
+   367	            coordinates,
+   368	            provenance: PlanProvenance {
+   369	                request_id: ActionRequestId::try_new("terminal-preparation").unwrap(),
+   370	                action_id: ActionDefinitionId::try_new("ingredient-preparation:cut").unwrap(),
+   371	                input_digest: SnapshotDigest(digest),
+   372	                authority_binding: AuthorityBinding(digest),
+   373	            },
+   374	            snapshot: AuthoritativeSnapshot {
+   375	                revision: SnapshotRevision(1),
+   376	                digest: SnapshotDigest(digest),
+   377	            },
+   378	            current_minute: StrategicMinute::new(100),
+   379	            duration: RequestedDuration::try_new(10).unwrap(),
+   380	            terminal_minute: Some(StrategicMinute::new(105)),
+   381	            rights: decide_preparation_rights(&question, true, 1),
+   382	            custody_matches: true,
+   383	            revision_current: true,
+   384	            transition_allowed: true,
+   385	            required_tool_available: true,
+   386	            action: IngredientPreparationAction::Cut,
+   387	            expected_revision: 1,
+   388	            next_display_name: "Cut willow bark".into(),
+   389	        }) else {
+   390	            panic!("terminal preparation should remain a valid wait-only plan");
+   391	        };
+   392	        assert!(plan.effects().iter().any(|effect| matches!(
+   393	            effect,
+   394	            crate::strategic_action::ActionEffect::Domain(
+   395	                PreparationPlanEffect::AttemptWait { .. }
+   396	            )
+   397	        )));
+   398	        assert!(!plan.effects().iter().any(|effect| matches!(
+   399	            effect,
+   400	            crate::strategic_action::ActionEffect::Domain(
+   401	                PreparationPlanEffect::CommitPreparation { .. }
+   402	            )
+   403	        )));
+   404	    }
+   405	}

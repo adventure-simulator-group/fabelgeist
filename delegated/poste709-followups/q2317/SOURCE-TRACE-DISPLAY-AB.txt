@@ -1,0 +1,47 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:310-355
+ 310         )
+ 311             .into_response();
+ 312     }
+ 313     let Some(settlement) = state
+ 314         .db
+ 315         .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(&id))
+ 316         .await
+ 317         .ok()
+ 318         .flatten()
+ 319     else {
+ 320         return StatusCode::NOT_FOUND.into_response();
+ 321     };
+ 322     let context = match settlement_fireplace_context(&settlement, &place) {
+ 323         Ok(v) => v,
+ 324         Err(e) => return (StatusCode::NOT_FOUND, e).into_response(),
+ 325     };
+ 326     let rows = fireplace_rows(&state, &actor, &context).await;
+ 327     let action_base = paths::SETTLEMENT_FIREPLACE.url([&id, &place]);
+ 328     let back = paths::SETTLEMENT_PLACE.url([&id, &place]);
+ 329     let active = place.clone();
+ 330     Html(
+ 331         crate::templates::settlement::fireplace_page(
+ 332             "Fireplace",
+ 333             &back,
+ 334             &action_base,
+ 335             &paths::REST_AT_SETTLEMENT_MAP.url([&id]),
+ 336             &actor,
+ 337             if query.inventory_scope == "party" {
+ 338                 "party"
+ 339             } else {
+ 340                 "personal"
+ 341             },
+ 342             &rows.0,
+ 343             &rows.1,
+ 344             &rows.2,
+ 345             &rows.3,
+ 346             &rows.4,
+ 347             &rows.5,
+ 348             rows.6.as_ref(),
+ 349             rows.7.as_ref(),
+ 350             &rows.8,
+ 351             &rows.9,
+ 352             rows.10,
+ 353             |content| {
+ 354                 crate::templates::settlement_layout_with_session(
+ 355                     "Fireplace",

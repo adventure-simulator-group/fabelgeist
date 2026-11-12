@@ -1,0 +1,52 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/preparation_authority.rs:395-445
+ 395             }
+ 396             (
+ 397                 Skill::Bludgeon,
+ 398                 FoodPreparation::Ground,
+ 399                 "Ground",
+ 400                 grinding_tool_binding(ctx, actor.id),
+ 401             )
+ 402         }
+ 403     };
+ 404     let duration = herbalism::physical_preparation_minutes(
+ 405         action,
+ 406         preparation_skill_check(ctx, actor.id, skill)?,
+ 407         tool_binding != "hands",
+ 408     );
+ 409     let place = preparation_place(ctx, actor)?;
+ 410     let custody_binding =
+ 411         crate::object_custody::canonical_custody_binding(resolved.object.custody());
+ 412     let snapshot = material_snapshot(
+ 413         ctx,
+ 414         &lot,
+ 415         &object,
+ 416         resolved.object.custody().clone(),
+ 417         current_minute,
+ 418     )?;
+ 419     let material_receipt = preparation_material_receipt(&snapshot, request_id, action)?;
+ 420     Ok(PreparationAuthority {
+ 421         inventory_scope: inventory_scope.as_str().into(),
+ 422         inventory_item_id,
+ 423         lot,
+ 424         object,
+ 425         custody_binding,
+ 426         place,
+ 427         skill,
+ 428         next,
+ 429         prefix,
+ 430         tool_binding,
+ 431         duration,
+ 432         material_source_digest: preparation_material_source_digest(ctx, food_lot_id),
+ 433         material_current_digest: preparation_material_current_digest(
+ 434             ctx,
+ 435             food_lot_id,
+ 436             current_minute,
+ 437         ),
+ 438         material_snapshot: snapshot,
+ 439         material_receipt,
+ 440     })
+ 441 }
+ 442 
+ 443 fn build_preparation_planner(
+ 444     actor: &crate::Character,
+ 445     authority: &PreparationAuthority,

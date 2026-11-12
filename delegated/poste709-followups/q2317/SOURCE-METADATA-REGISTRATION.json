@@ -1,0 +1,19 @@
+{
+  "registered_at_utc": "2026-11-12T15:33:37.287829+00:00",
+  "purpose": "Extract captured source bytes, verify connector blob SHA and historical checksum, and display only registered line-number locators. Source body reads require separate windows.",
+  "locator_terms": [
+    "preview_cooking",
+    "add_fireplace_ingredients_at",
+    "preparation_safety",
+    "prepare_ingredient",
+    "safety_factor",
+    "CookingPreview",
+    "preview",
+    "safety",
+    "water",
+    "method",
+    "amount"
+  ],
+  "paths": "COOKING-CONNECTOR-0.json and COOKING-CONNECTOR-1.json, exact registered refs",
+  "output": "per-file SHA-256, Git blob, line count, identical comparison and symbol line numbers only"
+}

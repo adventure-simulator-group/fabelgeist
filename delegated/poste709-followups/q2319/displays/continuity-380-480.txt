@@ -1,0 +1,101 @@
+ 380 }
+ 381 
+ 382 pub(crate) fn record_estate_disposition_for_death(
+ 383     ctx: &ReducerContext,
+ 384     decedent_id: u64,
+ 385     death_minute: StrategicMinute,
+ 386 ) -> Result<(), String> {
+ 387     if ctx
+ 388         .db
+ 389         .estate_disposition()
+ 390         .decedent_id()
+ 391         .find(decedent_id)
+ 392         .is_some()
+ 393     {
+ 394         return Ok(());
+ 395     }
+ 396     let (chosen_heir_id, heir_kind) =
+ 397         if let Some(child) = eldest_living_child_at(ctx, decedent_id, death_minute) {
+ 398             (child, EstateHeirKind::DirectChild)
+ 399         } else if let Some(spouse) = living_spouse_at(ctx, decedent_id, death_minute) {
+ 400             (spouse, EstateHeirKind::Spouse)
+ 401         } else {
+ 402             (0, EstateHeirKind::Unclaimed)
+ 403         };
+ 404     let status = if chosen_heir_id != 0 {
+ 405         EstateDispositionStatus::Pending
+ 406     } else {
+ 407         EstateDispositionStatus::Unclaimed
+ 408     };
+ 409     if !valid_estate_choice(heir_kind, chosen_heir_id) {
+ 410         return Err("Estate heir provenance is inconsistent".into());
+ 411     }
+ 412     unequip_personal_estate(ctx, decedent_id)?;
+ 413     ctx.db.estate_disposition().insert(EstateDisposition {
+ 414         decedent_id,
+ 415         chosen_heir_id,
+ 416         heir_kind,
+ 417         effective_minute: death_minute,
+ 418         status,
+ 419         settled_minute: (status == EstateDispositionStatus::Unclaimed).then_some(death_minute),
+ 420     });
+ 421     if chosen_heir_id != 0
+ 422         && ctx
+ 423             .db
+ 424             .character_time()
+ 425             .character_id()
+ 426             .find(chosen_heir_id)
+ 427             .is_some_and(|time| time.minutes >= death_minute)
+ 428     {
+ 429         settle_pending_inheritances_for_heir(ctx, chosen_heir_id, death_minute)?;
+ 430     }
+ 431     Ok(())
+ 432 }
+ 433 
+ 434 fn unequip_personal_estate(ctx: &ReducerContext, decedent_id: u64) -> Result<(), String> {
+ 435     let equipped = ctx
+ 436         .db
+ 437         .character_equipped_item()
+ 438         .character_id()
+ 439         .filter(decedent_id)
+ 440         .map(|row| row.inventory_item_id)
+ 441         .collect::<Vec<_>>();
+ 442     for inventory_item_id in equipped {
+ 443         unequip_wearable(ctx, inventory_item_id);
+ 444     }
+ 445     crate::capability::refresh_character_capability(ctx, decedent_id)?;
+ 446     Ok(())
+ 447 }
+ 448 
+ 449 fn transfer_personal_estate(
+ 450     ctx: &ReducerContext,
+ 451     decedent_id: u64,
+ 452     heir_id: u64,
+ 453 ) -> Result<(), String> {
+ 454     // Tear down every body and item-attachment anchor before ownership moves.
+ 455     // Item IDs remain stable, preserving amounts, food lots, and condition.
+ 456     unequip_personal_estate(ctx, decedent_id)?;
+ 457     let object_roots = ctx
+ 458         .db
+ 459         .inventory_object()
+ 460         .iter()
+ 461         .filter(|object| {
+ 462             matches!(
+ 463                 &object.location,
+ 464                 adventuresim_core::physical_object::InventoryLocation::Personal(location)
+ 465                     if location.character_id == decedent_id
+ 466             )
+ 467         })
+ 468         .filter(|object| !crate::inventory_container::object_is_nested(ctx, object.id))
+ 469         .map(|object| object.id)
+ 470         .collect::<Vec<_>>();
+ 471     for object_id in object_roots {
+ 472         let destination =
+ 473             adventuresim_core::physical_object::OperationalCustody::character(heir_id)
+ 474                 .map_err(|error| error.to_string())?;
+ 475         crate::inventory_container::rehome_subtree(ctx, object_id, &destination)?;
+ 476     }
+ 477     let mut inventory = ctx
+ 478         .db
+ 479         .inventory_item()
+ 480         .character_id()

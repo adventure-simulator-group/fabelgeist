@@ -1,0 +1,36 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:491-525
+ 491     let flavor_quality = food::aggregate_flavor_quality(method, flavors, mass);
+ 492     let quality = food::cooked_quality(
+ 493         food::chef_quality_tier(check),
+ 494         flavor_quality,
+ 495         method == CookingMethod::PanFry
+ 496             && !food::pan_fry_has_enough_fat(culinary_fat_mass, ingredient_mass),
+ 497     );
+ 498     // Everything above is preflight. Mutation starts here and remains atomic.
+ 499     if let Some(instrument_object_id) = station.instrument_object_id
+ 500         && contained_water_ml > 0
+ 501     {
+ 502         ctx.db
+ 503             .container_liquid()
+ 504             .container_object_id()
+ 505             .delete(instrument_object_id);
+ 506         crate::outbreak::delete_container_water_contributions(ctx, instrument_object_id);
+ 507     }
+ 508     for (id, fraction, available, mut lot) in selected {
+ 509         if fraction == available {
+ 510             match inventory_scope {
+ 511                 CarriedInventoryScope::Personal => {
+ 512                     ctx.db
+ 513                         .inventory_item_amount()
+ 514                         .inventory_item_id()
+ 515                         .delete(id);
+ 516                     ctx.db.inventory_item().id().delete(id);
+ 517                     delete_personal_food_lot(ctx, id);
+ 518                 }
+ 519                 CarriedInventoryScope::Party => {
+ 520                     ctx.db
+ 521                         .party_item_amount()
+ 522                         .party_inventory_item_id()
+ 523                         .delete(id);
+ 524                     ctx.db.party_inventory_item().id().delete(id);
+ 525                     delete_party_food_lot(ctx, id);

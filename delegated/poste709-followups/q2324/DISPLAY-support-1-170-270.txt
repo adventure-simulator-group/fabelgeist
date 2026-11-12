@@ -1,0 +1,101 @@
+   170	            blend_shapes,
+   171	        })
+   172	    }
+   173	}
+   174	
+   175	/// Splits an FBX `PolygonVertexIndex` stream (negative index ends a polygon)
+   176	/// into fan-triangulated triangles.
+   177	fn triangulate(polygon_vertex_index: &[i64]) -> Result<Vec<[u32; 3]>> {
+   178	    let mut faces = Vec::new();
+   179	    let mut polygon: Vec<u32> = Vec::with_capacity(4);
+   180	    for raw in polygon_vertex_index {
+   181	        let (index, last) = if *raw < 0 {
+   182	            ((-(*raw + 1)) as u32, true)
+   183	        } else {
+   184	            (*raw as u32, false)
+   185	        };
+   186	        polygon.push(index);
+   187	        if !last {
+   188	            continue;
+   189	        }
+   190	        if polygon.len() < 3 {
+   191	            bail!(
+   192	                "invalid face with {} indices; expected at least 3",
+   193	                polygon.len()
+   194	            );
+   195	        }
+   196	        for j in 1..polygon.len() - 1 {
+   197	            faces.push([polygon[0], polygon[j], polygon[j + 1]]);
+   198	        }
+   199	        polygon.clear();
+   200	    }
+   201	    if !polygon.is_empty() {
+   202	        bail!("trailing polygon indices without a terminator");
+   203	    }
+   204	    Ok(faces)
+   205	}
+   206	
+   207	fn parse_uvs(geometry: &Object, polygon_count: usize) -> Result<(Vec<[f32; 2]>, Vec<i64>)> {
+   208	    let Some(layer) = geometry.node.child("LayerElementUV") else {
+   209	        return Ok((Vec::new(), Vec::new()));
+   210	    };
+   211	    let Some(values) = layer.child("UV").and_then(|n| n.f64_array()) else {
+   212	        return Ok((Vec::new(), Vec::new()));
+   213	    };
+   214	    let (uv_pairs, remainder) = values.as_chunks::<2>();
+   215	    if !remainder.is_empty() {
+   216	        bail!("FBX UV array contains an incomplete coordinate pair");
+   217	    }
+   218	    // FBX texture coordinates are bottom-up.
+   219	    let texcoords: Vec<[f32; 2]> = uv_pairs
+   220	        .iter()
+   221	        .map(|uv| [uv[0] as f32, 1.0 - uv[1] as f32])
+   222	        .collect();
+   223	
+   224	    let reference = layer
+   225	        .child("ReferenceInformationType")
+   226	        .and_then(|n| n.str_prop(0))
+   227	        .map(|v| v.to_vec())
+   228	        .unwrap_or_default();
+   229	    let indices = if reference == b"IndexToDirect" {
+   230	        layer
+   231	            .child("UVIndex")
+   232	            .and_then(|n| n.i64_array())
+   233	            .unwrap_or_default()
+   234	    } else {
+   235	        (0..polygon_count as i64).collect()
+   236	    };
+   237	    Ok((texcoords, indices))
+   238	}
+   239	
+   240	/// Re-splits UV indices onto the polygon boundaries of the vertex index stream.
+   241	fn triangulate_texcoords(polygon_vertex_index: &[i64], texcoord_indices: &[i64]) -> Vec<[u32; 3]> {
+   242	    if texcoord_indices.len() != polygon_vertex_index.len() {
+   243	        return Vec::new();
+   244	    }
+   245	    let mut faces = Vec::new();
+   246	    let mut polygon: Vec<u32> = Vec::with_capacity(4);
+   247	    for (raw, tex) in polygon_vertex_index.iter().zip(texcoord_indices) {
+   248	        polygon.push(*tex as u32);
+   249	        if *raw >= 0 {
+   250	            continue;
+   251	        }
+   252	        for j in 1..polygon.len().saturating_sub(1) {
+   253	            faces.push([polygon[0], polygon[j], polygon[j + 1]]);
+   254	        }
+   255	        polygon.clear();
+   256	    }
+   257	    faces
+   258	}
+   259	
+   260	fn parse_blend_shapes(
+   261	    scene: &Scene,
+   262	    geometry: &Object,
+   263	    num_vertices: MeshVertexCount,
+   264	) -> BlendShapes {
+   265	    let mut names = Vec::new();
+   266	    let mut vectors: Vec<f32> = Vec::new();
+   267	
+   268	    let Some(blend_shape) = scene
+   269	        .children(geometry.id)
+   270	        .find(|o| o.kind == "Deformer" && o.class == "BlendShape")

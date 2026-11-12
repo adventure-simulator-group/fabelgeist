@@ -1,0 +1,107 @@
+{
+  "parallel-l13-20261029/REGISTRATION-PL13-254.json": {
+    "/lens": 13,
+    "/namespace": "PL13-254",
+    "/status": "Prospective persisted before personal body display"
+  },
+  "parallel-l13-20261029/READ-PL13-254.json": {
+    "/lens": 13,
+    "/namespace": "PL13-254",
+    "/status": "Completed own Lens13 ordered native assessment; root adoption pending",
+    "/registered_before_read_attestation": true,
+    "/partial_read_union": [
+      {
+        "original": 1114,
+        "assessed_ranges": [
+          [
+            1,
+            1381
+          ]
+        ],
+        "actual_full_reread_claim": false,
+        "prior_checkpoint": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-254-PARTIAL-001.json",
+          "sha256": "7633459730aacae7e967cb7d98c32311d940586fff7e45ee6d077c2156eb1610"
+        },
+        "fresh_ranges_after_prior": [
+          [
+            341,
+            660
+          ],
+          [
+            661,
+            980
+          ],
+          [
+            981,
+            1230
+          ],
+          [
+            1231,
+            1381
+          ]
+        ]
+      }
+    ],
+    "/recovery_checkpoint": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-254-PARTIAL-002.json",
+      "sha256": "0447ae8f2d1261ab1b5be9192ac214794c3d752cfe55c605bb2598ceff68b90d"
+    }
+  },
+  "segovb/READ-L13-PARALLEL-252.json": {
+    "/delegated_receipt": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-254.json",
+      "sha256": "6349f64fbca1587909418072e8be68d2c75ce85579449f48452ea537009d0f9c"
+    },
+    "/qualified_personal_partial_unions": {
+      "partial_receipts": [
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-254-PARTIAL-001.json",
+          "sha256": "7633459730aacae7e967cb7d98c32311d940586fff7e45ee6d077c2156eb1610"
+        },
+        {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-254-PARTIAL-002.json",
+          "sha256": "0447ae8f2d1261ab1b5be9192ac214794c3d752cfe55c605bb2598ceff68b90d"
+        }
+      ],
+      "exact_partial_union": [
+        {
+          "original": 1114,
+          "assessed_ranges": [
+            [
+              1,
+              1381
+            ]
+          ],
+          "actual_full_reread_claim": false,
+          "prior_checkpoint": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-254-PARTIAL-001.json",
+            "sha256": "7633459730aacae7e967cb7d98c32311d940586fff7e45ee6d077c2156eb1610"
+          },
+          "fresh_ranges_after_prior": [
+            [
+              341,
+              660
+            ],
+            [
+              661,
+              980
+            ],
+            [
+              981,
+              1230
+            ],
+            [
+              1231,
+              1381
+            ]
+          ]
+        }
+      ],
+      "fresh_body_from_root": 0,
+      "rereads_claimed": false,
+      "child1115_separately_assessed_full43": true
+    },
+    "/root_personal_rereads": []
+  }
+}

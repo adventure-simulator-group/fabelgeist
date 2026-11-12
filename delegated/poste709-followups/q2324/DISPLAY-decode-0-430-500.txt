@@ -1,0 +1,71 @@
+   430	) -> Result<Vec<T>> {
+   431	    let bytes = match encoding {
+   432	        FbxArrayEncoding::Uncompressed => raw.to_vec(),
+   433	        FbxArrayEncoding::Zlib => {
+   434	            let mut out = Vec::with_capacity(count * width);
+   435	            ZlibDecoder::new(raw)
+   436	                .read_to_end(&mut out)
+   437	                .context("inflating FBX array property")?;
+   438	            out
+   439	        }
+   440	    };
+   441	    if bytes.len() < count * width {
+   442	        bail!(
+   443	            "FBX array property is short: {} bytes for {count} x {width}",
+   444	            bytes.len()
+   445	        );
+   446	    }
+   447	    Ok((0..count)
+   448	        .map(|i| parse(&bytes[i * width..(i + 1) * width]))
+   449	        .collect())
+   450	}
+   451	
+   452	fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
+   453	    let mut props = Vec::with_capacity(count);
+   454	    for _ in 0..count {
+   455	        let kind = reader.u8()?;
+   456	        let prop = match kind {
+   457	            b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
+   458	            b'C' => Prop::Bool(reader.u8()? != 0),
+   459	            b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+   460	            b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+   461	            b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+   462	            b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+   463	            b'f' | b'd' | b'l' | b'i' | b'b' => {
+   464	                let count = reader.u32()? as usize;
+   465	                // FBX array metadata stores encoding as a little-endian u32.
+   466	                // Admit only supported encodings before decoding the payload.
+   467	                let encoding = FbxArrayEncoding::try_from(reader.u32()?)?;
+   468	                let compressed_len = reader.u32()? as usize;
+   469	                let raw = reader.take(compressed_len)?;
+   470	                match kind {
+   471	                    b'f' => Prop::ArrF32(decode_array(
+   472	                        raw,
+   473	                        count,
+   474	                        encoding,
+   475	                        |b| f32::from_le_bytes(b.try_into().unwrap()),
+   476	                        4,
+   477	                    )?),
+   478	                    b'd' => Prop::ArrF64(decode_array(
+   479	                        raw,
+   480	                        count,
+   481	                        encoding,
+   482	                        |b| f64::from_le_bytes(b.try_into().unwrap()),
+   483	                        8,
+   484	                    )?),
+   485	                    b'i' => Prop::ArrI32(decode_array(
+   486	                        raw,
+   487	                        count,
+   488	                        encoding,
+   489	                        |b| i32::from_le_bytes(b.try_into().unwrap()),
+   490	                        4,
+   491	                    )?),
+   492	                    b'l' => Prop::ArrI64(decode_array(
+   493	                        raw,
+   494	                        count,
+   495	                        encoding,
+   496	                        |b| i64::from_le_bytes(b.try_into().unwrap()),
+   497	                        8,
+   498	                    )?),
+   499	                    _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+   500	                }

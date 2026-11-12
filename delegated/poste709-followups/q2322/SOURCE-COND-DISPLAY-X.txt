@@ -1,0 +1,92 @@
+SOURCE crates/adventuresim-stdb-module/src/condition.rs:1320-1410
+1320         let scale = if total_lift > deficit {
+1321             deficit / total_lift
+1322         } else {
+1323             1.0
+1324         };
+1325         for (member_id, name, lift, _social_trait) in ally_lifts {
+1326             sources.push(ProjectedMoraleSource {
+1327                 key: format!("ally-{member_id}"),
+1328                 kind: MoraleSourceKind::Ally,
+1329                 label: format!("Encouraged by {name}"),
+1330                 magnitude: lift * scale,
+1331             });
+1332         }
+1333     }
+1334 
+1335     let morale = sources
+1336         .iter()
+1337         .map(|source| source.magnitude)
+1338         .sum::<f32>()
+1339         .min(listener_base_morale.max(0.0));
+1340     let morale_bonus = morale_bonus_shares
+1341         .iter()
+1342         .find_map(|(member_id, bonus)| (*member_id == character_id).then_some(*bonus))
+1343         .unwrap_or(0.0);
+1344     let pain = pain_incapacitation(total_damage(&limbs), will);
+1345     let blood_loss =
+1346         blood_loss_incapacitation(condition.current_blood_ml, condition.maximum_blood_ml);
+1347     let fatigue_ratio = stats.fatigue_by_parts(&attributes, &limbs);
+1348     let needs = ctx
+1349         .db
+1350         .character_needs()
+1351         .character_id()
+1352         .find(character_id)
+1353         .ok_or("Character needs not found")?;
+1354     let water_capacity = water_capacity_ml(ctx, character_id);
+1355     let hunger = hunger_incapacitation(needs.food_balance_kcal, STRATEGIC_TRAVEL_KCAL_PER_DAY);
+1356     let thirst = thirst_incapacitation(needs.water_balance_ml, STRATEGIC_TRAVEL_WATER_ML_PER_DAY);
+1357     let exposure = ctx
+1358         .db
+1359         .character_exposure()
+1360         .character_id()
+1361         .find(character_id)
+1362         .ok_or("Character exposure not found")?;
+1363     let thermal = adventuresim_core::survival::thermal_incapacitation(exposure.thermal_strain);
+1364     let incapacitation = StrategicIncapacitation {
+1365         pain,
+1366         blood_loss,
+1367         fear: fear_incapacitation(morale),
+1368         fatigue: fatigue_incapacitation(fatigue_ratio),
+1369         hunger,
+1370         thirst,
+1371         thermal,
+1372     };
+1373     let status = incapacitation.status();
+1374     Ok((
+1375         CharacterStrategicCondition {
+1376             character_id,
+1377             morale,
+1378             morale_bonus,
+1379             morale_bonus_cap,
+1380             fervor,
+1381             pain: incapacitation.pain,
+1382             blood_loss: incapacitation.blood_loss,
+1383             fear: incapacitation.fear,
+1384             fatigue: incapacitation.fatigue,
+1385             hunger: incapacitation.hunger,
+1386             thirst: incapacitation.thirst,
+1387             thermal: incapacitation.thermal,
+1388             wetness_bps: exposure.wetness_bps,
+1389             thermal_strain: exposure.thermal_strain,
+1390             food_days: food_reserve_days(&needs),
+1391             water_days: water_reserve_days(&needs),
+1392             water_capacity_ml: water_capacity,
+1393             incapacitation: incapacitation.total(),
+1394             check_multiplier: incapacitation.check_multiplier(),
+1395             status,
+1396         },
+1397         sources,
+1398     ))
+1399 }
+1400 
+1401 fn refresh_one_strategic_condition(
+1402     ctx: &ReducerContext,
+1403     character_id: u64,
+1404     morale_bonus_cap: f32,
+1405     morale_bonus_shares: &[(u64, f32)],
+1406 ) -> Result<CharacterStrategicCondition, String> {
+1407     let (row, sources) =
+1408         evaluate_strategic_condition(ctx, character_id, morale_bonus_cap, morale_bonus_shares)?;
+1409     if let Some(existing) = ctx
+1410         .db

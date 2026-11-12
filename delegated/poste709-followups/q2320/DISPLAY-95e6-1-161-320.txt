@@ -1,0 +1,160 @@
+   161	        && before.quality == after.quality
+   162	        && before.mass_kg.to_bits() == after.mass_kg.to_bits()
+   163	        && before.nutrition_kcal.to_bits() == after.nutrition_kcal.to_bits()
+   164	        && before.total_value.to_bits() == after.total_value.to_bits()
+   165	        && before.created_at_minute == after.created_at_minute
+   166	}
+   167	
+   168	fn material_snapshot(
+   169	    ctx: &ReducerContext,
+   170	    lot: &FoodLot,
+   171	    object: &crate::InventoryObject,
+   172	    custody: adventuresim_core::physical_object::OperationalCustody,
+   173	    current_minute: StrategicMinute,
+   174	) -> Result<
+   175	    adventuresim_core::material::PrivateMaterialSnapshot<
+   176	        herbalism::IngredientMaterialPreparation,
+   177	        herbalism::MedicinalMaterialComponent,
+   178	        herbalism::IngredientContaminant,
+   179	    >,
+   180	    String,
+   181	> {
+   182	    use adventuresim_core::material::{
+   183	        ContaminantLoad, ExtensiveComponent, MaterialComponentMicrounits, MaterialIdentity,
+   184	        MaterialLotId, MaterialMeasure, MaterialPreparation, Milligrams, PrivateMaterialSnapshot,
+   185	        PrivateMaterialTruth,
+   186	    };
+   187	    use std::num::NonZeroU64;
+   188	
+   189	    let mass_milligrams = Milligrams::try_from_kilograms(f64::from(lot.mass_kg))
+   190	        .map_err(|error| format!("Ingredient material mass is invalid: {error:?}"))?
+   191	        .get();
+   192	    let measure = MaterialMeasure::try_new(mass_milligrams, 0)
+   193	        .map_err(|error| format!("Ingredient material measure is invalid: {error:?}"))?;
+   194	    let components = ctx
+   195	        .db
+   196	        .medicinal_component()
+   197	        .iter()
+   198	        .filter(|row| row.carrier_kind == "food_lot" && row.carrier_id == lot.id)
+   199	        .map(|row| {
+   200	            MaterialComponentMicrounits::try_from_units(row.potency_units)
+   201	                .map_err(|error| format!("Ingredient medicinal potency is invalid: {error:?}"))
+   202	                .map(|magnitude| {
+   203	                    magnitude.map(|magnitude| ExtensiveComponent {
+   204	                        component: herbalism::MedicinalMaterialComponent {
+   205	                            intervention_profile_id: row.intervention_profile_id,
+   206	                            profile_version: row.profile_version,
+   207	                        },
+   208	                        magnitude: magnitude.get(),
+   209	                    })
+   210	                })
+   211	        })
+   212	        .collect::<Result<Vec<_>, String>>()?
+   213	        .into_iter()
+   214	        .flatten()
+   215	        .collect::<Vec<_>>();
+   216	    let contaminants = ctx
+   217	        .db
+   218	        .food_contamination()
+   219	        .food_lot_id()
+   220	        .find(lot.id)
+   221	        .and_then(|row| {
+   222	            let current = food::contamination_at(
+   223	                row.concentration_anchor,
+   224	                row.growth_per_hour,
+   225	                current_minute.elapsed_since(row.anchor_minute),
+   226	            );
+   227	            let load = f64::from(current.max(0.0)) * mass_milligrams as f64;
+   228	            NonZeroU64::new(load.round() as u64).map(|load| ContaminantLoad {
+   229	                contaminant: herbalism::IngredientContaminant::Microbial,
+   230	                load,
+   231	            })
+   232	        })
+   233	        .into_iter()
+   234	        .collect();
+   235	    PrivateMaterialSnapshot::try_new(
+   236	        MaterialIdentity::try_new(
+   237	            MaterialLotId::try_new(lot.id).map_err(|error| format!("Invalid lot: {error:?}"))?,
+   238	            adventuresim_core::physical_object::PhysicalObjectId::try_new(object.id)
+   239	                .map_err(|error| error.to_string())?,
+   240	            custody,
+   241	        )
+   242	        .map_err(|error| error.to_string())?,
+   243	        measure,
+   244	        match lot.preparation {
+   245	            FoodPreparation::Raw => MaterialPreparation::Raw,
+   246	            FoodPreparation::Cut => MaterialPreparation::Cut,
+   247	            FoodPreparation::Ground => MaterialPreparation::Ground,
+   248	            _ => return Err("Ingredient preparation state is unsupported".into()),
+   249	        },
+   250	        PrivateMaterialTruth::try_new(components, contaminants)
+   251	            .map_err(|error| format!("Ingredient private material is invalid: {error:?}"))?,
+   252	        lot.material_revision,
+   253	    )
+   254	    .map_err(|error| format!("Ingredient material snapshot is invalid: {error:?}"))
+   255	}
+   256	
+   257	fn preparation_material_receipt(
+   258	    snapshot: &adventuresim_core::material::PrivateMaterialSnapshot<
+   259	        herbalism::IngredientMaterialPreparation,
+   260	        herbalism::MedicinalMaterialComponent,
+   261	        herbalism::IngredientContaminant,
+   262	    >,
+   263	    request_id: &str,
+   264	    action: IngredientPreparationAction,
+   265	) -> Result<
+   266	    adventuresim_core::material::MaterialTransformationReceipt<
+   267	        herbalism::IngredientMaterialPreparation,
+   268	        herbalism::MedicinalMaterialComponent,
+   269	        herbalism::IngredientContaminant,
+   270	        herbalism::PreparationConservationPolicy,
+   271	        herbalism::PreparationMaterialReceipt,
+   272	    >,
+   273	    String,
+   274	> {
+   275	    use adventuresim_core::material::{
+   276	        MaterialActionProvenance, MaterialPreparation, MaterialProcessId, MaterialRequestId,
+   277	        MaterialTransformationReceipt, Portion, ProcessConservationPolicy, ProducedMaterial,
+   278	        RoundingTolerance, SourceLotContribution,
+   279	    };
+   280	    use sha2::Digest as _;
+   281	
+   282	    let request_hash: [u8; 32] = sha2::Sha256::digest(request_id.as_bytes()).into();
+   283	    let provenance = MaterialActionProvenance {
+   284	        request_id: MaterialRequestId::try_new(request_hash)
+   285	            .map_err(|error| format!("Invalid material request: {error:?}"))?,
+   286	        process_id: MaterialProcessId::try_new(snapshot.identity().lot_id().get())
+   287	            .map_err(|error| format!("Invalid material process: {error:?}"))?,
+   288	    };
+   289	    let (source, remainder) = SourceLotContribution::from_snapshot(
+   290	        snapshot,
+   291	        Portion::try_new(1, 1).map_err(|error| format!("Invalid whole portion: {error:?}"))?,
+   292	    )
+   293	    .map_err(|error| format!("Invalid preparation source: {error:?}"))?;
+   294	    if remainder.is_some() {
+   295	        return Err("Whole-lot preparation unexpectedly produced a remainder".into());
+   296	    }
+   297	    let output = adventuresim_core::material::PrivateMaterialSnapshot::try_new(
+   298	        snapshot.identity().clone(),
+   299	        snapshot.measure(),
+   300	        match action {
+   301	            IngredientPreparationAction::Cut => MaterialPreparation::Cut,
+   302	            IngredientPreparationAction::Grind => MaterialPreparation::Ground,
+   303	        },
+   304	        snapshot.private_truth().clone(),
+   305	        snapshot
+   306	            .revision()
+   307	            .checked_add(1)
+   308	            .ok_or("Ingredient material revision is exhausted")?,
+   309	    )
+   310	    .map_err(|error| format!("Invalid preparation output: {error:?}"))?;
+   311	    MaterialTransformationReceipt::try_new(
+   312	        provenance,
+   313	        vec![source],
+   314	        vec![
+   315	            ProducedMaterial::try_new(output)
+   316	                .map_err(|error| format!("Invalid preparation product: {error:?}"))?,
+   317	        ],
+   318	        ProcessConservationPolicy::try_new(
+   319	            herbalism::PreparationConservationPolicy::Exact,
+   320	            adventuresim_core::material::MaterialMeasure::ZERO,

@@ -1,0 +1,36 @@
+{
+  "lens": 4,
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Selected exact container water provenance, cooking volume conversion and authored cooking-vessel limits. The operations lens remains incomplete.",
+  "source_reasoning": "Read-only source and catalogue inspection and IEEE-754 binary32 arithmetic; no generator, database, cooking operation, product build, test or runtime probe ran.",
+  "historical_records": [
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/334",
+      "qualification": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING left aggregate, vessel volume, provenance and conservation for further connected work. It did not state the new specific binary32 counterexample; retain its original role, open status and zero historical accepted-count change."
+    },
+    {
+      "file": "baseline-059/ledger.json",
+      "pointer": "/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346",
+      "qualification": "PL13-256-CONTAINED-WATER-VOLUME-AND-PROVENANCE-PENDING requested authored bounds and native outbreak conservation. Its inventory-container original body differs from 95e; retain the original revision and delegated attribution without promoting it to checkpoint 3821."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+      "severity": "unassigned; current authored cooking vessels are below the demonstrated precision threshold",
+      "classification": "Conditional source-derived exact-volume comparison error for a hypothetical larger supported-capacity cooking vessel, extending earlier broad open volume and provenance questions without asserting a historical unique finding.",
+      "trace": "The exact collection path records requested whole milliliters as checked integer microliters. contained_water_contamination converts the public whole-milliliter holding exactly and, for a full preview, proportional_material_transfer returns each selected contribution unchanged. In cooking, the same public whole milliliters are first cast to f32 and multiplied by 1000 in Microliters::try_from_nonnegative_milliliters_rounded; the exact contribution sum is then compared against that rounded public amount. A downward rounding can make equal volumes appear unequal and trigger the material-exceeds-public-volume error before the code deletes container water.",
+      "source_derived_example": "Hypothesize one valid water contribution of 134221 ml and an equal public holding. The exact amount is 134221000 microliters. Under ordinary IEEE-754 binary32 rounding, 134221 is exactly representable, but multiplying by 1000 rounds the f32 value down to 134220992. The exact 134221000 contribution then exceeds the rounded public value by 8 microliters. This describes arithmetic and the selected branches, not an executed collection or cooking action.",
+      "producers_and_consumers": "The collection reducer requires a living actor, generated active capability, exact presence, carried custody, compatible liquid, available source and checked capacity; it stores checked integer contribution units. The generated dysentery contaminated-well source is initialized with 500000 ml, but this does not prove the example collection, ingredient placement or cooking chronology. method_for_instrument permits the named pan, pot and portable oven. The item container capacity field validator accepts 1 through 1000000 ml, so a hypothetical cooking_pot with 200000 ml passes that one field check, leaving room for water and food in principle; no claim is made that such edited content or a resulting game state is fully valid or reachable.",
+      "safeguards_and_limits": "Read-only parsing of the pinned catalogue finds cooking_pan 2500 ml, cooking_pot 8000 ml and portable_oven 12000 ml. Every whole milliliter amount up to 12000 and its product by 1000 are exactly representable as binary32, so the demonstrated rounding mismatch is not produced by a capacity-respecting holding in these currently authored vessels. Other container writers, malformed state, catalogue cross-validation, target-specific floating behavior, chronology and supported larger vessels remain unassessed. A larger public amount can round upward as well; this record claims only the demonstrated downward comparison.",
+      "connected_repair": "First decide whether supported authored cooking capacities may approach the existing container-field maximum. If so, preserve the original integer milliliter holding through the exact checked Microliters conversion for the conservation comparison, and keep float water only where approximate mass or cooking calculations require it. Preserve exact contribution accounting, capacity and custody checks, current recipe semantics and contaminated-water provenance; reconcile the broad historical records before deduplication.",
+      "later_acceptance": "After separate implementation and product-validation authorization, cover exact known-size capacities and hypothetical larger accepted capacities, full and partial provenance, equal and genuinely excessive contribution totals, unit overflow, cooking methods, and preservation of current valid cooking behavior.",
+      "discovery": "partial; current authored vessel bounds, larger-vessel support, all writers and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,57 @@
+SOURCE crates/adventuresim-stdb-module/src/time/advancement.rs:380-435
+ 380                     let leader_occupancy =
+ 381                         crate::investigation::current_character_case_site_occupancy(ctx, leader_id);
+ 382                     let member_occupancy =
+ 383                         crate::investigation::current_character_case_site_occupancy(
+ 384                             ctx, *member_id,
+ 385                         );
+ 386                     leader_occupancy
+ 387                         .zip(member_occupancy)
+ 388                         .is_some_and(|(leader, member)| {
+ 389                             leader.case_site_id == *case_site_id
+ 390                                 && member.case_site_id == *case_site_id
+ 391                         })
+ 392                 });
+ 393         if member.party_id.as_deref() != Some(party_id.as_str())
+ 394             || !(together_at_settlement
+ 395                 || together_at_party_case_site
+ 396                 || crate::world_actor::characters_are_contextually_present(
+ 397                     ctx, leader_id, *member_id,
+ 398                 ))
+ 399         {
+ 400             return Err("Party members must be co-located before activity synchronization".into());
+ 401         }
+ 402     }
+ 403     for member_id in &member_ids {
+ 404         ensure_character_time(ctx, *member_id)?;
+ 405     }
+ 406     let _ = crate::strategic::normalize_and_elect_party_leader(ctx, &party_id);
+ 407     for member_id in crate::strategic::living_party_member_ids(ctx, &party_id) {
+ 408         let _ = crate::condition::refresh_character_strategic_condition(ctx, member_id);
+ 409         let _ = crate::capability::refresh_character_capability(ctx, member_id);
+ 410     }
+ 411     Ok(())
+ 412 }
+ 413 
+ 414 /// Neutral/location-appropriate personal time for waiting and procedures. It
+ 415 /// advances disease, wounds, blood, and ordinary recovery without applying
+ 416 /// travel fatigue or travel needs.
+ 417 pub fn advance_character_wait_time(
+ 418     ctx: &ReducerContext,
+ 419     character_id: u64,
+ 420     minutes: u64,
+ 421 ) -> Result<bool, String> {
+ 422     crate::character::require_living_character(ctx, character_id)?;
+ 423     ensure_character_time(ctx, character_id)?;
+ 424     let mut time = ctx
+ 425         .db
+ 426         .character_time()
+ 427         .character_id()
+ 428         .find(character_id)
+ 429         .ok_or("Character time record not found")?;
+ 430     let starting_minute = time.minutes;
+ 431     if let Some(first) = first_lifecycle_segment(
+ 432         ctx,
+ 433         character_id,
+ 434         starting_minute,
+ 435         minutes,

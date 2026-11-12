@@ -1,0 +1,100 @@
+ 111 }
+ 112 
+ 113 /// Fit a piece to `wearer` and each of `morphs`, named by `names`.
+ 114 ///
+ 115 /// `record` records the piece against one realization of the body; it runs
+ 116 /// once for the wearer and once for each morph.
+ 117 pub fn fit_piece(
+ 118     gpu: &ArmorGpu,
+ 119     body: &FitBody<'_>,
+ 120     wearer: &Realization<'_>,
+ 121     morphs: &[(&str, Realization<'_>)],
+ 122     record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>,
+ 123 ) -> Result<DevicePiece> {
+ 124     pollster::block_on(fit_piece_async(gpu, body, wearer, morphs, record))
+ 125 }
+ 126 
+ 127 pub async fn fit_piece_async(
+ 128     gpu: &ArmorGpu,
+ 129     body: &FitBody<'_>,
+ 130     wearer: &Realization<'_>,
+ 131     morphs: &[(&str, Realization<'_>)],
+ 132     record: impl Fn(&DeviceWearer, &mut KernelBatch, Option<&str>) -> Result<DeviceRecording>,
+ 133 ) -> Result<DevicePiece> {
+ 134     let realizations = std::iter::once(wearer)
+ 135         .chain(morphs.iter().map(|(_, morph)| morph))
+ 136         .collect::<Vec<_>>();
+ 137     let bodies = realizations
+ 138         .iter()
+ 139         .map(|r| r.upload(gpu, body))
+ 140         .collect::<Result<Vec<_>>>()?;
+ 141     let hosts = realizations
+ 142         .iter()
+ 143         .map(|r| r.wearer(body))
+ 144         .collect::<Vec<_>>();
+ 145     // One submission per realization: a kernel's uniform ring must not wrap
+ 146     // within a batch, and a piece and its morphs together can exceed it.
+ 147     let mut recordings = Vec::with_capacity(bodies.len());
+ 148     let mut skin = None;
+ 149     for (index, (device, host)) in bodies.iter().copied().zip(&hosts).enumerate() {
+ 150         let mut batch = gpu.batch("fitted armor");
+ 151         let wearer = DeviceWearer {
+ 152             gpu,
+ 153             body: device,
+ 154             host,
+ 155         };
+ 156         let target = index.checked_sub(1).map(|i| morphs[i].0);
+ 157         let mut recording = record(&wearer, &mut batch, target).with_context(|| {
+ 158             target.map_or_else(
+ 159                 || "fitting base wearer".to_owned(),
+ 160                 |name| format!("fitting body target {name}"),
+ 161             )
+ 162         })?;
+ 163         recording.part.record_shells(gpu, &mut batch)?;
+ 164         if skin.is_none() {
+ 165             skin = Some(Correspondence::record(
+ 166                 gpu,
+ 167                 &mut batch,
+ 168                 device,
+ 169                 recording.part.positions(),
+ 170                 recording.part.vertex_count(),
+ 171             )?);
+ 172         }
+ 173         batch.submit();
+ 174         recordings.push(recording);
+ 175     }
+ 176     let names = morphs.iter().map(|(name, _)| *name).collect::<Vec<_>>();
+ 177     let skin = skin.context("wearer has no staged skin")?;
+ 178     readback::read(gpu, &recordings, &skin, &names).await
+ 179 }
+ 180 
+ 181 /// Fit a recipe to `wearer` and each of `morphs` in `placement`.
+ 182 /// Underlayers are cut from the body instead.
+ 183 pub fn fit_recipe(
+ 184     gpu: &ArmorGpu,
+ 185     body: &FitBody<'_>,
+ 186     wearer: &Realization<'_>,
+ 187     morphs: &[(&str, Realization<'_>)],
+ 188     design: &ParametricDesign,
+ 189     placement: FittingPlacement,
+ 190     layers: &[&GeneratedArmor],
+ 191 ) -> Result<DevicePiece> {
+ 192     pollster::block_on(fit_recipe_async(
+ 193         gpu, body, wearer, morphs, design, placement, layers,
+ 194     ))
+ 195 }
+ 196 
+ 197 pub async fn fit_recipe_async(
+ 198     gpu: &ArmorGpu,
+ 199     body: &FitBody<'_>,
+ 200     wearer: &Realization<'_>,
+ 201     morphs: &[(&str, Realization<'_>)],
+ 202     design: &ParametricDesign,
+ 203     placement: FittingPlacement,
+ 204     layers: &[&GeneratedArmor],
+ 205 ) -> Result<DevicePiece> {
+ 206     // The fitted arm carrier currently admits anatomy, not arbitrary sleeve
+ 207     // layers. Reject unsupported combinations rather than silently clipping.
+ 208     anyhow::ensure!(
+ 209         layers.is_empty()
+ 210             || !matches!(design, ParametricDesign::Gown(gown) if gown.sleeves.is_some()),

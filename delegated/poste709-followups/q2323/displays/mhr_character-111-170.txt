@@ -1,0 +1,60 @@
+ 111             .objects_of_kind("Model", "Mesh")
+ 112             .next()
+ 113             .context("FBX rig has no mesh")?;
+ 114         let geometry = scene
+ 115             .child_of_kind(mesh_model.id, "Geometry", "Mesh")
+ 116             .context("mesh model has no geometry")?;
+ 117 
+ 118         let vertex_values = geometry
+ 119             .node
+ 120             .child("Vertices")
+ 121             .and_then(|n| n.f64_array())
+ 122             .context("mesh geometry has no vertices")?;
+ 123         let (vertex_triples, remainder) = vertex_values.as_chunks::<3>();
+ 124         if !remainder.is_empty() {
+ 125             bail!("FBX vertex array contains an incomplete three-axis position");
+ 126         }
+ 127         let vertices: MeshVertexTable<[f32; 3]> = vertex_triples
+ 128             .iter()
+ 129             .map(|v| [v[0] as f32, v[1] as f32, v[2] as f32])
+ 130             .collect();
+ 131         let polygon_vertex_index = geometry
+ 132             .node
+ 133             .child("PolygonVertexIndex")
+ 134             .and_then(|n| n.i64_array())
+ 135             .context("mesh geometry has no polygons")?;
+ 136 
+ 137         let faces = triangulate(&polygon_vertex_index)?;
+ 138         let (texcoords, texcoord_indices) = parse_uvs(geometry, polygon_vertex_index.len())?;
+ 139         let texcoord_faces = triangulate_texcoords(&polygon_vertex_index, &texcoord_indices);
+ 140 
+ 141         let mesh = Mesh {
+ 142             vertices,
+ 143             faces,
+ 144             texcoords,
+ 145             texcoord_faces,
+ 146         };
+ 147         let num_vertices = mesh.vertex_count();
+ 148         let blend_shapes = if load_blend_shapes {
+ 149             parse_blend_shapes(&scene, geometry, num_vertices)
+ 150         } else {
+ 151             BlendShapes::default()
+ 152         };
+ 153 
+ 154         let skin_weights = parse_skin(
+ 155             &scene,
+ 156             geometry,
+ 157             &joint_of_object,
+ 158             num_vertices,
+ 159             &mut inverse_bind_pose,
+ 160         )?;
+ 161 
+ 162         Ok(Self {
+ 163             skeleton,
+ 164             mesh,
+ 165             skin_weights,
+ 166             inverse_bind_pose: inverse_bind_pose
+ 167                 .iter()
+ 168                 .map(|m| Transform::from_matrix(m).to_skel_state())
+ 169                 .collect(),
+ 170             blend_shapes,

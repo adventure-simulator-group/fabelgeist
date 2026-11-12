@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:280-325
+ 280     } else {
+ 281         ctx.db.ingredient_preparation_attempt_state().insert(state);
+ 282     }
+ 283 }
+ 284 
+ 285 /// Physically prepares one exact personal or party measured lot. Physical preparation
+ 286 /// does not change nutrition, flavor, contamination, or value.
+ 287 #[reducer]
+ 288 #[expect(
+ 289     clippy::too_many_arguments,
+ 290     reason = "the reducer ABI exposes each independently validated preparation input"
+ 291 )]
+ 292 pub fn prepare_ingredient_lot(
+ 293     ctx: &ReducerContext,
+ 294     character_id: u64,
+ 295     inventory_scope: String,
+ 296     inventory_item_id: u64,
+ 297     food_lot_id: u64,
+ 298     material_object_id: u64,
+ 299     request_id: String,
+ 300     expected_revision: u64,
+ 301     attempt_generation: u64,
+ 302     action: IngredientPreparationAction,
+ 303 ) -> Result<(), String> {
+ 304     crate::strategic::require_strategic_gateway(ctx)?;
+ 305     // Exact replay is resolved solely from the immutable submitted tuple and
+ 306     // durable receipt, before consulting any mutable live state.
+ 307     if let Some(receipt) = ctx
+ 308         .db
+ 309         .ingredient_preparation_receipt()
+ 310         .request_id()
+ 311         .find(&request_id)
+ 312     {
+ 313         return if receipt.actor_character_id == character_id
+ 314             && receipt.inventory_scope == inventory_scope
+ 315             && receipt.inventory_item_id == inventory_item_id
+ 316             && receipt.food_lot_id == food_lot_id
+ 317             && receipt.material_object_id == material_object_id
+ 318             && receipt.expected_revision == expected_revision
+ 319             && receipt.attempt_generation == attempt_generation
+ 320             && receipt.action == action
+ 321         {
+ 322             Ok(())
+ 323         } else {
+ 324             Err("Ingredient preparation request id collides with a different attempt".into())
+ 325         };

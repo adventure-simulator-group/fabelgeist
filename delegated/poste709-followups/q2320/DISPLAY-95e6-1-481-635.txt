@@ -1,0 +1,155 @@
+   481	        authority,
+   482	        action,
+   483	        current_minute,
+   484	        terminal_minute,
+   485	        attempt_generation,
+   486	    );
+   487	    let prefix = authority.prefix;
+   488	    let base_name = authority
+   489	        .lot
+   490	        .display_name
+   491	        .trim_start_matches("Cut ")
+   492	        .trim_start_matches("Ground ");
+   493	    Ok(herbalism::build_preparation_plan(
+   494	        herbalism::PreparationPlanAuthority {
+   495	            coordinates,
+   496	            provenance: PlanProvenance {
+   497	                request_id: ActionRequestId::try_new(request_id)
+   498	                    .map_err(|_| "Ingredient preparation request is malformed")?,
+   499	                action_id: ActionDefinitionId::try_new(action.definition_id())
+   500	                .map_err(|_| "Ingredient preparation definition is malformed")?,
+   501	                input_digest: SnapshotDigest(digest),
+   502	                authority_binding: AuthorityBinding(digest),
+   503	            },
+   504	            snapshot: AuthoritativeSnapshot {
+   505	                revision: SnapshotRevision(authority.lot.material_revision),
+   506	                digest: SnapshotDigest(digest),
+   507	            },
+   508	            current_minute,
+   509	            duration: RequestedDuration::try_new(u64::from(authority.duration))
+   510	                .map_err(|_| "Ingredient preparation duration must be positive")?,
+   511	            terminal_minute,
+   512	            rights,
+   513	            custody_matches: true,
+   514	            revision_current: true,
+   515	            transition_allowed: true,
+   516	            required_tool_available: true,
+   517	            action,
+   518	            expected_revision: authority.lot.material_revision,
+   519	            next_display_name: format!("{prefix} {base_name}"),
+   520	        },
+   521	    ))
+   522	}
+   523	
+   524	fn preparation_authority_digest(
+   525	    actor: &crate::Character,
+   526	    authority: &PreparationAuthority,
+   527	    action: IngredientPreparationAction,
+   528	    current_minute: StrategicMinute,
+   529	    terminal_minute: Option<StrategicMinute>,
+   530	    attempt_generation: u64,
+   531	) -> [u8; 32] {
+   532	    preparation_authority_digest_parts(
+   533	        actor,
+   534	        &authority.inventory_scope,
+   535	        authority.inventory_item_id,
+   536	        &authority.lot,
+   537	        &authority.object,
+   538	        &authority.custody_binding,
+   539	        &authority.place,
+   540	        authority.skill,
+   541	        authority.next,
+   542	        authority.prefix,
+   543	        &authority.tool_binding,
+   544	        authority.duration,
+   545	        &authority.material_source_digest,
+   546	        &authority.material_current_digest,
+   547	        action,
+   548	        current_minute,
+   549	        terminal_minute,
+   550	        attempt_generation,
+   551	    )
+   552	}
+   553	
+   554	#[expect(
+   555	    clippy::too_many_arguments,
+   556	    reason = "this domain boundary names each independent input explicitly"
+   557	)]
+   558	fn preparation_authority_digest_parts(
+   559	    actor: &crate::Character,
+   560	    inventory_scope: &str,
+   561	    inventory_item_id: u64,
+   562	    lot: &FoodLot,
+   563	    object: &crate::InventoryObject,
+   564	    custody_binding: &str,
+   565	    place: &adventuresim_core::strategic_place::StrategicPlaceId,
+   566	    skill: Skill,
+   567	    next: FoodPreparation,
+   568	    prefix: &str,
+   569	    tool_binding: &str,
+   570	    duration: u32,
+   571	    material_source_digest: &str,
+   572	    material_current_digest: &str,
+   573	    action: IngredientPreparationAction,
+   574	    current_minute: StrategicMinute,
+   575	    terminal_minute: Option<StrategicMinute>,
+   576	    attempt_generation: u64,
+   577	) -> [u8; 32] {
+   578	    use sha2::Digest as _;
+   579	    let mut hash = sha2::Sha256::new();
+   580	    let mut frame = |bytes: &[u8]| {
+   581	        hash.update((bytes.len() as u64).to_le_bytes());
+   582	        hash.update(bytes);
+   583	    };
+   584	    frame(b"ingredient-preparation-plan-v2");
+   585	    frame(inventory_scope.as_bytes());
+   586	    frame(&inventory_item_id.to_le_bytes());
+   587	    frame(place.to_string().as_bytes());
+   588	    frame(custody_binding.as_bytes());
+   589	    frame(&actor.id.to_le_bytes());
+   590	    frame(&lot.id.to_le_bytes());
+   591	    frame(&object.id.to_le_bytes());
+   592	    frame(&lot.material_revision.to_le_bytes());
+   593	    frame(lot.display_name.as_bytes());
+   594	    frame(&[lot.preparation as u8]);
+   595	    frame(&[lot.quality]);
+   596	    frame(&lot.created_at_minute.get().to_le_bytes());
+   597	    frame(&duration.to_le_bytes());
+   598	    frame(&current_minute.get().to_le_bytes());
+   599	    frame(&terminal_minute.unwrap_or(StrategicMinute::MAX).get().to_le_bytes());
+   600	    frame(&attempt_generation.to_le_bytes());
+   601	    frame(&[match skill {
+   602	        Skill::Knife => 1,
+   603	        Skill::Bludgeon => 2,
+   604	        _ => 0,
+   605	    }]);
+   606	    frame(&[next as u8]);
+   607	    frame(prefix.as_bytes());
+   608	    frame(tool_binding.as_bytes());
+   609	    frame(object.item_id.as_bytes());
+   610	    let location = serde_json::to_vec(&object.location)
+   611	        .expect("inventory location serialization is infallible");
+   612	    frame(&location);
+   613	    frame(&lot.mass_kg.to_bits().to_le_bytes());
+   614	    frame(&lot.nutrition_kcal.to_bits().to_le_bytes());
+   615	    frame(&lot.total_value.to_bits().to_le_bytes());
+   616	    for value in [
+   617	        lot.salty_kg,
+   618	        lot.spicy_kg,
+   619	        lot.sweet_kg,
+   620	        lot.sour_kg,
+   621	        lot.savory_kg,
+   622	    ] {
+   623	        frame(&value.to_bits().to_le_bytes());
+   624	    }
+   625	    for item_id in &lot.ingredient_item_ids {
+   626	        frame(item_id.as_bytes());
+   627	    }
+   628	    for quantity in &lot.ingredient_quantities {
+   629	        frame(&quantity.to_bits().to_le_bytes());
+   630	    }
+   631	    frame(material_source_digest.as_bytes());
+   632	    frame(material_current_digest.as_bytes());
+   633	    frame(&[action.stable_code()]);
+   634	    hash.finalize().into()
+   635	}

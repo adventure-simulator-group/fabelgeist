@@ -1,0 +1,120 @@
+   1 // Owns the cohesive food-lot, contamination, preparation-receipt, and fireplace schema.
+   2 /// Public, inspectable description of one non-fungible inventory batch.
+   3 /// Cooking/harvesting captures ingredient provenance and material totals;
+   4 /// consumption and preparation owners conserve/update the remaining material.
+   5 /// Current catalog recipes cannot reconstruct an already cooked batch.
+   6 #[derive(Clone, Debug)]
+   7 #[table(accessor = food_lot, public)]
+   8 pub struct FoodLot {
+   9     #[primary_key]
+  10     #[auto_inc]
+  11     pub id: u64,
+  12     pub inventory_item_id: Option<u64>,
+  13     pub party_inventory_item_id: Option<u64>,
+  14     #[index(btree)]
+  15     pub material_revision: u64,
+  16     pub display_name: String,
+  17     pub preparation: FoodPreparation,
+  18     pub ingredient_item_ids: Vec<String>,
+  19     /// Fractional source-unit provenance is conserved when a lot is partly eaten.
+  20     pub ingredient_quantities: Vec<f32>,
+  21     pub salty_kg: f32,
+  22     pub spicy_kg: f32,
+  23     pub sweet_kg: f32,
+  24     pub sour_kg: f32,
+  25     pub savory_kg: f32,
+  26     /// Durable quality tier shared with item craftsmanship name colors.
+  27     pub quality: u8,
+  28     pub mass_kg: f32,
+  29     pub nutrition_kcal: f32,
+  30     pub total_value: f32,
+  31     pub created_at_minute: StrategicMinute,
+  32 }
+  33 
+  34 /// Hidden microbial state. The browser can inspect provenance, never pathogen load.
+  35 #[derive(Clone, Debug)]
+  36 #[table(accessor = food_contamination)]
+  37 pub struct FoodContamination {
+  38     #[primary_key]
+  39     pub food_lot_id: u64,
+  40     pub concentration_anchor: f32,
+  41     pub growth_per_hour: f32,
+  42     pub anchor_minute: StrategicMinute,
+  43 }
+  44 
+  45 /// Private source-material provenance carried through cooking into consumption.
+  46 #[derive(Clone, Debug)]
+  47 #[table(accessor = food_contamination_provenance)]
+  48 pub struct FoodContaminationProvenance {
+  49     #[primary_key]
+  50     pub food_lot_id: u64,
+  51     pub contribution_ids: Vec<String>,
+  52     pub contribution_loads: Vec<f32>,
+  53     pub contribution_digest: String,
+  54 }
+  55 
+  56 #[derive(Clone, Debug)]
+  57 #[table(accessor = ingredient_preparation_receipt)]
+  58 pub struct IngredientPreparationReceipt {
+  59     #[primary_key]
+  60     pub request_id: String,
+  61     pub actor_character_id: u64,
+  62     pub inventory_scope: String,
+  63     pub inventory_item_id: u64,
+  64     pub food_lot_id: u64,
+  65     pub material_object_id: u64,
+  66     pub expected_revision: u64,
+  67     pub attempt_generation: u64,
+  68     pub action: IngredientPreparationAction,
+  69     pub canonical_place: String,
+  70     pub custody_binding: String,
+  71     pub authority_input_digest: String,
+  72     pub duration_minutes: u32,
+  73     pub interrupted: bool,
+  74     pub resulting_revision: u64,
+  75     pub material_input_digest: String,
+  76 }
+  77 
+  78 /// Minimal server-owned liveness cursor. It lets the gateway issue a fresh
+  79 /// request after a clipped terminal attempt without exposing private receipts.
+  80 #[derive(Clone, Debug)]
+  81 #[table(accessor = ingredient_preparation_attempt_state)]
+  82 pub struct IngredientPreparationAttemptState {
+  83     #[primary_key]
+  84     pub key: String,
+  85     pub next_generation: u64,
+  86     pub completed: bool,
+  87 }
+  88 
+  89 /// Private character-owned state for one exact physical fireplace context.
+  90 /// The portrait is environmental/shared, but neither its tool nor dish leaks
+  91 /// across player timelines.
+  92 #[derive(Clone, Debug)]
+  93 #[table(accessor = fireplace_station)]
+  94 pub struct FireplaceStation {
+  95     #[primary_key]
+  96     pub key: String,
+  97     #[index(btree)]
+  98     pub character_id: u64,
+  99     /// Canonical `StrategicFixtureId::Fireplace` encoding.
+ 100     pub fireplace_fixture_id: String,
+ 101     pub instrument_item_id: Option<String>,
+ 102     /// Stable root object for a placed cooking vessel. `None` is the loose
+ 103     /// spit-roast lane or an empty station.
+ 104     pub instrument_object_id: Option<u64>,
+ 105     /// Exact immutable carried custody to which removal returns the tool.
+ 106     pub instrument_return_custody: Option<crate::PersistedOperationalCustody>,
+ 107 }
+ 108 
+ 109 /// Immutable cooking input snapshot pinned when ingredients enter the fireplace.
+ 110 /// Retrieval derives readiness and resulting food from elapsed personal time,
+ 111 /// consumes this row, and transfers the captured provenance into the new lot.
+ 112 /// Later catalog, contributor-name, or inventory changes cannot rewrite the dish.
+ 113 #[derive(Clone, Debug)]
+ 114 #[table(accessor = fireplace_dish)]
+ 115 pub struct FireplaceDish {
+ 116     #[primary_key]
+ 117     pub station_key: String,
+ 118     #[index(btree)]
+ 119     pub character_id: u64,
+ 120     /// Canonical `StrategicFixtureId::Fireplace` encoding shared with its station.

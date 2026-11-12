@@ -1,0 +1,49 @@
+ 751             merged_object_id =
+ 752                 object_for_row(ctx, CarriedInventoryScope::Party, target.id)?.map(|row| row.id);
+ 753             target.quantity = target
+ 754                 .quantity
+ 755                 .checked_add(source.quantity)
+ 756                 .ok_or("Container stack quantity overflow")?;
+ 757             ctx.db.party_inventory_item().id().update(target);
+ 758             ctx.db.party_inventory_item().id().delete(source.id);
+ 759         }
+ 760         _ => return Ok(()),
+ 761     }
+ 762     if let Some(other_id) = merged_object_id {
+ 763         ctx.db.inventory_object().id().delete(other_id);
+ 764     }
+ 765     ctx.db.inventory_object().id().delete(emptied.id);
+ 766     Ok(())
+ 767 }
+ 768 
+ 769 #[cfg(test)]
+ 770 mod tests {
+ 771     use super::empty_container_can_stack;
+ 772 
+ 773     #[test]
+ 774     fn only_empty_root_containers_without_instance_condition_stack() {
+ 775         assert!(empty_container_can_stack(false, false, false));
+ 776         assert!(!empty_container_can_stack(true, false, false));
+ 777         assert!(!empty_container_can_stack(false, true, false));
+ 778         assert!(!empty_container_can_stack(false, false, true));
+ 779     }
+ 780 
+ 781     #[test]
+ 782     fn generic_solid_containers_are_authoring_driven() {
+ 783         let source = include_str!("inventory_container.rs")
+ 784             .rsplit_once("pub(crate) fn require_object")
+ 785             .expect("post-test production section")
+ 786             .1;
+ 787         assert!(source.contains("parent_definition.container_capacity_ml == 0"));
+ 788         assert!(!source.contains("GENERIC_CONTAINER_IDS"));
+ 789     }
+ 790 
+ 791     #[test]
+ 792     fn physical_object_row_lookup_matches_the_bespoke_location() {
+ 793         let lookup = include_str!("inventory_container.rs")
+ 794             .split("pub(crate) fn object_for_row")
+ 795             .nth(1)
+ 796             .and_then(|tail| tail.split("pub(crate) fn object_is_nonempty").next())
+ 797             .expect("physical object row lookup");
+ 798         assert!(lookup.contains("InventoryLocation::Personal"));
+ 799         assert!(lookup.contains("InventoryLocation::Party"));

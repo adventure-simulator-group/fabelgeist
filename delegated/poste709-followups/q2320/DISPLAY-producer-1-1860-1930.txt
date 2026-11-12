@@ -1,0 +1,71 @@
+  1860	    let terminal =
+  1861	        first_private_terminal(ctx, character_id, &episodes, now, interval_end, immunity)?;
+  1862	    let death_minute = terminal.map(|value| value.0);
+  1863	    let through = death_minute.unwrap_or(interval_end);
+  1864	    // The terminal minute is inclusive: infections and notices occurring at
+  1865	    // that boundary are committed; later effects from the requested interval
+  1866	    // are never persisted.
+  1867	    persist_acquisition_episodes(
+  1868	        ctx,
+  1869	        character_id,
+  1870	        proposed
+  1871	            .into_iter()
+  1872	            .filter(|episode| disease::infection_occurs_through(*episode, through)),
+  1873	    )?;
+  1874	    // Re-evaluate only the committed prefix and advance the private cursor.
+  1875	    // Absolute-minute seeds guarantee the same proposal as preview/full evaluation.
+  1876	    let _ = crate::filth::blood_exposure_attempts_through(
+  1877	        ctx,
+  1878	        character_id,
+  1879	        now,
+  1880	        through,
+  1881	        true,
+  1882	        allow_healing,
+  1883	        Some(plan),
+  1884	        blood_interval_work_budget(through.elapsed_since(now)),
+  1885	    )?;
+  1886	    for event in events.iter().filter(|event| event.minute <= through) {
+  1887	        match event.kind {
+  1888	            DiseaseEventKind::SymptomOnset => notice(
+  1889	                ctx,
+  1890	                character_id,
+  1891	                event.infection_id,
+  1892	                event.minute,
+  1893	                "symptom-onset",
+  1894	                "New symptoms have appeared.",
+  1895	            )?,
+  1896	            DiseaseEventKind::Peak => {}
+  1897	            DiseaseEventKind::Critical(_) => notice(
+  1898	                ctx,
+  1899	                character_id,
+  1900	                event.infection_id,
+  1901	                event.minute,
+  1902	                "critical",
+  1903	                "A vital humour is failing.",
+  1904	            )?,
+  1905	            DiseaseEventKind::Resolution => notice(
+  1906	                ctx,
+  1907	                character_id,
+  1908	                event.infection_id,
+  1909	                event.minute,
+  1910	                "resolution",
+  1911	                "The illness's visible effects have resolved.",
+  1912	            )?,
+  1913	        }
+  1914	    }
+  1915	    let Some(death_minute) = death_minute else {
+  1916	        return Ok((requested, None));
+  1917	    };
+  1918	    notice(
+  1919	        ctx,
+  1920	        character_id,
+  1921	        0,
+  1922	        death_minute,
+  1923	        "critical",
+  1924	        "A vital humour is failing.",
+  1925	    )?;
+  1926	    Ok((
+  1927	        death_minute.elapsed_since(now),
+  1928	        terminal.map(|value| value.1),
+  1929	    ))
+  1930	}

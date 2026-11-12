@@ -1,0 +1,56 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/lot_inventory.rs:81-135
+  81         ingredient_item_ids: vec![item_id.into()],
+  82         ingredient_quantities: vec![quantity as f32],
+  83         salty_kg: definition.flavors_per_unit.salty * quantity as f32,
+  84         spicy_kg: definition.flavors_per_unit.spicy * quantity as f32,
+  85         sweet_kg: definition.flavors_per_unit.sweet * quantity as f32,
+  86         sour_kg: definition.flavors_per_unit.sour * quantity as f32,
+  87         savory_kg: definition.flavors_per_unit.savory * quantity as f32,
+  88         quality: definition.default_quality.clamp(1, 5),
+  89         mass_kg: definition.mass_kg_per_unit * quantity as f32,
+  90         nutrition_kcal: definition.kcal_per_unit * quantity as f32,
+  91         total_value: definition.value_per_unit * quantity as f32,
+  92         created_at_minute: minute,
+  93     });
+  94     ctx.db.food_contamination().insert(FoodContamination {
+  95         food_lot_id: lot.id,
+  96         concentration_anchor: food::deterministic_initial_contamination(
+  97             fabelgeist_determinism::StreamId::new("food.lot-consumption").rng(ctx.random::<fabelgeist_determinism::Seed>(), &[lot.id, character_id]).next_seed(),
+  98         ),
+  99         growth_per_hour: definition.growth_per_hour,
+ 100         anchor_minute: minute,
+ 101     });
+ 102     Ok(lot)
+ 103 }
+ 104 
+ 105 pub fn create_party_food_lot(
+ 106     ctx: &ReducerContext,
+ 107     inventory_item_id: u64,
+ 108     item_id: &str,
+ 109     quantity: u32,
+ 110     minute: StrategicMinute,
+ 111 ) -> Option<FoodLot> {
+ 112     let definition = food::definition(item_id)?;
+ 113     ensure_food_material_object(ctx, CarriedInventoryScope::Party, inventory_item_id).ok()?;
+ 114     let lot = ctx.db.food_lot().insert(FoodLot {
+ 115         id: 0,
+ 116         inventory_item_id: None,
+ 117         party_inventory_item_id: Some(inventory_item_id),
+ 118         material_revision: 1,
+ 119         display_name: definition.name.into(),
+ 120         preparation: if definition.class == food::FoodClass::Ration {
+ 121             FoodPreparation::Preserved
+ 122         } else {
+ 123             FoodPreparation::Raw
+ 124         },
+ 125         ingredient_item_ids: vec![item_id.into()],
+ 126         ingredient_quantities: vec![quantity as f32],
+ 127         salty_kg: definition.flavors_per_unit.salty * quantity as f32,
+ 128         spicy_kg: definition.flavors_per_unit.spicy * quantity as f32,
+ 129         sweet_kg: definition.flavors_per_unit.sweet * quantity as f32,
+ 130         sour_kg: definition.flavors_per_unit.sour * quantity as f32,
+ 131         savory_kg: definition.flavors_per_unit.savory * quantity as f32,
+ 132         quality: definition.default_quality.clamp(1, 5),
+ 133         mass_kg: definition.mass_kg_per_unit * quantity as f32,
+ 134         nutrition_kcal: definition.kcal_per_unit * quantity as f32,
+ 135         total_value: definition.value_per_unit * quantity as f32,

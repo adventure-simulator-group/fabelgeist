@@ -1,0 +1,24 @@
+[
+  {
+    "id": "REVIEW-SURFACE-CUT-UV-FACE-ADMISSION-001",
+    "classification": "new bounded 95e source trace within the earlier pending underlayer cut topology and UV contract; historical unique count and aliases unresolved",
+    "detail": "SurfaceCut::new accepts independent positions, face triangles and UV-face triangles without an explicit length check. A symbolic nondegenerate triangle with positions [[0,0,0],[1,0,0],[0,1,0]], faces [[0,1,2]], uv_faces [], one empty inclusion region and no subtraction is retained as the original barycentric triangle. The conforming triangulator retains its three corners and its area exceeds the source cutoff; assembly then indexes uv_faces[0] while constructing a correspondence key and panics. This is source, geometry and array-bound reasoning only: no surface, cut, triangulation, panic or product ran.",
+    "consumer_and_safeguards": "Public CutPlan::new validates the design then makes a SurfaceCut using body.faces and independently supplied uv_faces; it returns Result but has no selected UV-face count check before that cut. The asynchronous underlayer fitting path reaches it only after body upload and frame preparation. Studio and runtime model producers pass their mesh UV faces, but this trace does not establish whether supported MHR assets can violate correspondence, whether device/frame preparation succeeds, or any player-visible incident. Other position, face, UV index and numeric admission remains open.",
+    "connected_scope": "SurfaceCut input position/face/UV aggregate, triangulation and assembly; CutPlan and SurfaceDomain admission; underlayer producer and native buffer consumers.",
+    "relationship_qualification": "Checkpoint 059 retained input topology/UV/weight and triangulation work as pending, not a completed finding. This 95e trace supplies a specific bounded symbolic case without changing the prior attribution, unique count or checkpoint 3821 state.",
+    "discovery": "partial; full source validation, canonical model inputs, all caller policies, device effects and global aliases remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  },
+  {
+    "id": "REVIEW-SURFACE-CUT-TOPOLOGY-REBIND-001",
+    "classification": "new bounded 95e source trace within the earlier pending cut correspondence contract; historical unique count and aliases unresolved",
+    "detail": "SurfaceCut retains each SourcePoint as a triangle ordinal and barycentric weights but does not retain the original face or UV topology identity. Public source_table accepts fresh face and UV-face slices and resolves that ordinal directly; public CutPlan::from_cut likewise interpolates points from the supplied body faces. For an uncut original triangle [0,1,2], a retained corner with weights [1,0,0] refers to vertex 0. Reusing the cut with a same-length cyclicly reordered face [1,2,0] instead resolves that same corner to vertex 1. This is a symbolic source correspondence case, not a constructed cut, actual garment output or product execution.",
+    "consumer_and_safeguards": "CutPlan::new constructs the cut and immediately passes the same borrowed body and UV-face slices to from_cut, so this particular fresh-construction path does not by itself demonstrate a topology swap. Public from_cut/source_table and mutable public cut points remain separate reuse boundaries with no stored topology proof; all actual callers and model identity policy remain open. The earlier saved-drape same-count topology question has a related theme but a different owner and must not be assumed to be an alias.",
+    "connected_scope": "SurfaceCut source-point identity and mutable retained state; face/UV topology ownership; CutPlan from_cut, underlayer table and actual reuse callers.",
+    "relationship_qualification": "Checkpoint 059 expressly left SurfaceCut barycentric and face identity ownership pending. The fresh-path safeguard and public reuse concern are newly assessed at 95e; no historical accepted unique count, global alias, product occurrence or checkpoint 3821 state is inferred.",
+    "discovery": "partial; all reuse callers, topology policy, source-point mutation, native output and global aliases remain open",
+    "repair": "not started",
+    "validation": "not performed"
+  }
+]

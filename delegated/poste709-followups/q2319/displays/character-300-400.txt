@@ -1,0 +1,101 @@
+ 300 }
+ 301 
+ 302 /// Death authority is private because its timestamp may lie beyond another
+ 303 /// character's personal frontier. Strategic simulation consumes this trusted
+ 304 /// broad projection. Any player-facing presentation must additionally compare
+ 305 /// `strategic_minute` with the selected observer's CharacterTime.
+ 306 #[view(accessor = backend_character_deaths, public)]
+ 307 pub fn backend_character_deaths(ctx: &ViewContext) -> Vec<CharacterDeath> {
+ 308     if !character_view_is_gateway(ctx) {
+ 309         return Vec::new();
+ 310     }
+ 311     gateway_character_ids(ctx)
+ 312         .into_iter()
+ 313         .filter_map(|id| ctx.db.character_death().character_id().find(id))
+ 314         .collect()
+ 315 }
+ 316 
+ 317 pub fn require_living_character(
+ 318     ctx: &ReducerContext,
+ 319     character_id: u64,
+ 320 ) -> Result<Character, String> {
+ 321     let character = ctx
+ 322         .db
+ 323         .character()
+ 324         .id()
+ 325         .find(character_id)
+ 326         .ok_or("Character not found")?;
+ 327     if !character.alive {
+ 328         return Err("Dead characters cannot perform this action".into());
+ 329     }
+ 330     Ok(character)
+ 331 }
+ 332 
+ 333 /// Authoritative, idempotent life-state transition shared by strategic disease
+ 334 /// and committed tactical/autoresolve outcomes. Repeated calls retain the first
+ 335 /// recorded cause, source, and strategic minute.
+ 336 pub fn transition_character_to_dead(
+ 337     ctx: &ReducerContext,
+ 338     character_id: u64,
+ 339     cause: DeathCause,
+ 340     source: DeathSource,
+ 341     source_id: Option<String>,
+ 342 ) -> Result<CharacterDeath, String> {
+ 343     let strategic_minute = ctx
+ 344         .db
+ 345         .character_time()
+ 346         .character_id()
+ 347         .find(character_id)
+ 348         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 349     transition_character_to_dead_at(
+ 350         ctx,
+ 351         character_id,
+ 352         cause,
+ 353         source,
+ 354         source_id,
+ 355         strategic_minute,
+ 356     )
+ 357 }
+ 358 
+ 359 /// Exact-minute variant for materializing already-elapsed authored history.
+ 360 /// The character's clock is never rewound; a future death is rejected.
+ 361 pub fn transition_character_to_dead_at(
+ 362     ctx: &ReducerContext,
+ 363     character_id: u64,
+ 364     cause: DeathCause,
+ 365     source: DeathSource,
+ 366     source_id: Option<String>,
+ 367     strategic_minute: StrategicMinute,
+ 368 ) -> Result<CharacterDeath, String> {
+ 369     if let Some(death) = ctx.db.character_death().character_id().find(character_id) {
+ 370         crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
+ 371         return Ok(death);
+ 372     }
+ 373     let mut character = ctx
+ 374         .db
+ 375         .character()
+ 376         .id()
+ 377         .find(character_id)
+ 378         .ok_or("Character not found")?;
+ 379     let current_minute = ctx
+ 380         .db
+ 381         .character_time()
+ 382         .character_id()
+ 383         .find(character_id)
+ 384         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 385     if strategic_minute > current_minute {
+ 386         return Err("Character death cannot be after their personal clock".into());
+ 387     }
+ 388     let death = ctx.db.character_death().insert(CharacterDeath {
+ 389         character_id,
+ 390         cause,
+ 391         source,
+ 392         source_id,
+ 393         strategic_minute,
+ 394     });
+ 395     crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
+ 396     crate::corpse::persist_character_death_corpse(
+ 397         ctx,
+ 398         character_id,
+ 399         death.source_id.as_deref().unwrap_or("character-death"),
+ 400         strategic_minute,

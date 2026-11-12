@@ -1,0 +1,51 @@
+ 105 
+ 106 fn service_matches(
+ 107     service: adventuresim_core::durability::RepairService,
+ 108     kind: CatalogItemKind,
+ 109 ) -> bool {
+ 110     repair_kind(kind).is_some_and(|kind| service.matches(kind))
+ 111 }
+ 112 
+ 113 pub(crate) fn initialize_item_condition(ctx: &ReducerContext, inventory: &InventoryItem) {
+ 114     let Some(definition) = ctx.db.item().id().find(&inventory.item_id) else {
+ 115         return;
+ 116     };
+ 117     if !definition.repairable
+ 118         || ctx
+ 119             .db
+ 120             .item_condition()
+ 121             .inventory_item_id()
+ 122             .find(inventory.id)
+ 123             .is_some()
+ 124     {
+ 125         return;
+ 126     }
+ 127     ctx.db.item_condition().insert(ItemCondition {
+ 128         inventory_item_id: inventory.id,
+ 129         tier_1: 0.0,
+ 130         tier_2: 0.0,
+ 131         tier_3: 0.0,
+ 132         tier_4: 0.0,
+ 133         tier_5: 0.0,
+ 134     });
+ 135 }
+ 136 
+ 137 fn submit(
+ 138     ctx: &ReducerContext,
+ 139     character_id: u64,
+ 140     settlement_id: &str,
+ 141     service: adventuresim_core::durability::RepairService,
+ 142     inventory_item_id: u64,
+ 143 ) -> Result<u64, String> {
+ 144     let character = ctx
+ 145         .db
+ 146         .character()
+ 147         .id()
+ 148         .find(character_id)
+ 149         .ok_or("Character not found")?;
+ 150     if character.current_settlement_id.as_deref() != Some(settlement_id) {
+ 151         return Err("Character must be at the originating settlement".into());
+ 152     }
+ 153     let mut inventory = ctx
+ 154         .db
+ 155         .inventory_item()

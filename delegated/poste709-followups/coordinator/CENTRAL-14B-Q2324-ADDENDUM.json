@@ -1,0 +1,44 @@
+{
+  "schema": "726-central-followup-14b-q2324-addendum-v1",
+  "queue_index": 2324,
+  "reviewer": "/root/mhr_character",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "assessment": "For a finite nondegenerate selected face and a NaN sampled coordinate, the fraction-zero fallback still yields NaN in the later interpolation. A NaN weight can survive shown source admission and be treated differently by CPU and native upload, but supported assets and all earlier admissions are unproved. A face-index question is separate, with native normals consuming faces earlier.",
+  "source_refs": [
+    "crates/fabelgeist-fbx/src/lib.rs:134-142,430-483",
+    "crates/fabelgeist-mhr/src/character/skin.rs:97-149",
+    "crates/fabelgeist-mhr/src/model/upload.rs:75-81,126-146",
+    "crates/fabelgeist-rig/src/skin.rs:79-99,112-123",
+    "crates/adventuresim-character-creator/src/underlayer_equipment/proportions/probe_bounds.rs:16-31,50-62",
+    "crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs:64-79",
+    "crates/adventuresim-character-creator/src/device_underlayer.rs:157-190"
+  ],
+  "ledger_relationships": [
+    {
+      "id": "relationship-creator-nonfinite-probe-fallback-95e",
+      "lens": 11,
+      "lens_scope_qualification": "Bounded cross-lens planning relationship; no independent lens or queue closure.",
+      "severity": "unassigned; supported asset and intervening validation remain open",
+      "classification": "A conditional nonfinite sampled vertex can remain nonfinite when the orientation helper returns fraction zero; an upstream nonfinite skin-weight path and later upload are separately conditional.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/2324",
+        "baseline-059/queue.json#/entries/167",
+        "baseline-059/queue.json#/entries/165"
+      ],
+      "current_related_records": [
+        "ADLER-L11-MHR-SKIN-WEIGHT-ADMISSION",
+        "ADLER-L11-MHR-TOPOLOGY-ADMISSION"
+      ],
+      "relationship_qualification": "Historical q2324 retains its e275 named-scope policy disposition and original reader attribution; q167 and q165 retain their own pr-working and null-revision qualifications. Shared source is not a proven alias, unique count or 3821 restoration.",
+      "discovery": "partial; NaN premise, supported asset ingress, earlier native operations, backend effects and product policy remain open",
+      "connected_repair_direction": "Establish finite-value admission and invalid-probe fallback ownership from asset decode through CPU/GPU consumers before any repair decision.",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json"
+    }
+  ],
+  "recovery_qualification": "Original 059 selected slice is semantically equal to a public reconstruction; complete queues differ. Three named e275 files individually match 95e; original historical source read remains separately attributed and no checkpoint3821 state is restored.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

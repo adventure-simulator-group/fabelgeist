@@ -1,0 +1,110 @@
+ 511 /// reaches the effective date it will transfer everything then present.
+ 512 fn route_materialized_inheritance(
+ 513     initial_heir_id: u64,
+ 514     initial_effective_minute: StrategicMinute,
+ 515     mut state_for: impl FnMut(u64) -> EstateRouteState,
+ 516 ) -> Result<EstateRouteOutcome, String> {
+ 517     let mut current = initial_heir_id;
+ 518     let mut effective = initial_effective_minute;
+ 519     let mut visited = Vec::new();
+ 520     loop {
+ 521         if visited.contains(&current) {
+ 522             return Err("Estate succession cycle detected".into());
+ 523         }
+ 524         visited.push(current);
+ 525         match state_for(current) {
+ 526             EstateRouteState::Living => return Ok(EstateRouteOutcome::Destination(current)),
+ 527             EstateRouteState::Dead {
+ 528                 death_minute,
+ 529                 status,
+ 530                 chosen_heir_id,
+ 531             } => {
+ 532                 if death_minute <= effective {
+ 533                     return Ok(EstateRouteOutcome::InitialHeirPredeceased);
+ 534                 }
+ 535                 match status {
+ 536                     Some(EstateDispositionStatus::Transferred) if chosen_heir_id != 0 => {
+ 537                         current = chosen_heir_id;
+ 538                         effective = death_minute;
+ 539                     }
+ 540                     Some(EstateDispositionStatus::Unclaimed)
+ 541                     | Some(EstateDispositionStatus::HeirPredeceased) => {
+ 542                         return Ok(EstateRouteOutcome::UnclaimedAt(current));
+ 543                     }
+ 544                     _ => return Ok(EstateRouteOutcome::Destination(current)),
+ 545                 }
+ 546             }
+ 547         }
+ 548     }
+ 549 }
+ 550 
+ 551 fn materialized_inheritance_route(
+ 552     ctx: &ReducerContext,
+ 553     heir_id: u64,
+ 554     effective_minute: StrategicMinute,
+ 555 ) -> Result<EstateRouteOutcome, String> {
+ 556     route_materialized_inheritance(heir_id, effective_minute, |character_id| {
+ 557         let Some(death) = ctx.db.character_death().character_id().find(character_id) else {
+ 558             return EstateRouteState::Living;
+ 559         };
+ 560         let disposition = ctx.db.estate_disposition().decedent_id().find(character_id);
+ 561         EstateRouteState::Dead {
+ 562             death_minute: death.strategic_minute,
+ 563             status: disposition.as_ref().map(|row| row.status),
+ 564             chosen_heir_id: disposition.map_or(0, |row| row.chosen_heir_id),
+ 565         }
+ 566     })
+ 567 }
+ 568 
+ 569 pub(crate) fn settle_pending_inheritances_for_heir(
+ 570     ctx: &ReducerContext,
+ 571     heir_id: u64,
+ 572     heir_frontier: StrategicMinute,
+ 573 ) -> Result<(), String> {
+ 574     let heir_death_minute = ctx
+ 575         .db
+ 576         .character_death()
+ 577         .character_id()
+ 578         .find(heir_id)
+ 579         .map(|death| death.strategic_minute);
+ 580     let mut pending = ctx
+ 581         .db
+ 582         .estate_disposition()
+ 583         .chosen_heir_id()
+ 584         .filter(heir_id)
+ 585         .filter(|row| {
+ 586             row.status == EstateDispositionStatus::Pending
+ 587                 && (row.effective_minute <= heir_frontier
+ 588                     || heir_death_minute.is_some_and(|death| death <= row.effective_minute))
+ 589         })
+ 590         .collect::<Vec<_>>();
+ 591     pending.sort_by_key(|row| (row.effective_minute, row.decedent_id));
+ 592     for mut disposition in pending {
+ 593         if heir_death_minute.is_some_and(|death| death <= disposition.effective_minute) {
+ 594             // The frozen heir is not reselected: a causally later discovery
+ 595             // that they predeceased the estate makes this estate unclaimed.
+ 596             disposition.status = EstateDispositionStatus::HeirPredeceased;
+ 597         } else {
+ 598             match materialized_inheritance_route(ctx, heir_id, disposition.effective_minute)? {
+ 599                 EstateRouteOutcome::InitialHeirPredeceased => {
+ 600                     disposition.status = EstateDispositionStatus::HeirPredeceased;
+ 601                 }
+ 602                 EstateRouteOutcome::Destination(destination)
+ 603                 | EstateRouteOutcome::UnclaimedAt(destination) => {
+ 604                     transfer_personal_estate(ctx, disposition.decedent_id, destination)?;
+ 605                     disposition.status = EstateDispositionStatus::Transferred;
+ 606                 }
+ 607             }
+ 608         }
+ 609         disposition.settled_minute = Some(disposition.effective_minute);
+ 610         ctx.db
+ 611             .estate_disposition()
+ 612             .decedent_id()
+ 613             .update(disposition);
+ 614     }
+ 615     Ok(())
+ 616 }
+ 617 
+ 618 fn view_is_gateway(ctx: &ViewContext) -> bool {
+ 619     ctx.db
+ 620         .strategic_gateway_authority()

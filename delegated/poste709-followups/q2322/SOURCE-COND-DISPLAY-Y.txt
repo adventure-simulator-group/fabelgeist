@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-stdb-module/src/capability.rs:155-220
+ 155             }
+ 156         }
+ 157     } else {
+ 158         ctx.db.character_capability().insert(row);
+ 159     }
+ 160     Ok(capabilities)
+ 161 }
+ 162 
+ 163 #[reducer]
+ 164 pub fn refresh_capabilities(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
+ 165     refresh_character_capability(ctx, character_id).map(|_| ())
+ 166 }
+ 167 
+ 168 impl PlayerBody for CharacterLimbs {
+ 169     fn body_part_health(&self, part: BodyPart) -> f32 {
+ 170         match part {
+ 171             BodyPart::LeftArm => self.left_arm_health,
+ 172             BodyPart::RightArm => self.right_arm_health,
+ 173             BodyPart::LeftLeg => self.left_leg_health,
+ 174             BodyPart::RightLeg => self.right_leg_health,
+ 175             BodyPart::Chest => self.chest_health,
+ 176             BodyPart::Stomach => self.stomach_health,
+ 177             BodyPart::Head => self.head_health,
+ 178         }
+ 179     }
+ 180 
+ 181     fn body_weight(&self) -> f32 {
+ 182         70.0
+ 183     }
+ 184 
+ 185     fn primary_side(&self) -> BodySide {
+ 186         BodySide::Right
+ 187     }
+ 188 }
+ 189 
+ 190 impl PlayerEssentials for CharacterStats {
+ 191     fn calories_used_today(&self) -> f32 {
+ 192         self.calories_used
+ 193     }
+ 194 
+ 195     fn focus_level(&self) -> f32 {
+ 196         self.focus
+ 197     }
+ 198 }
+ 199 
+ 200 impl PlayerAttributes for CharacterAttributes {
+ 201     fn raw_limb_attr(&self, attr: LimbAttribute, limb: BodyPart) -> f32 {
+ 202         self.values().raw_limb_attr(attr, limb)
+ 203     }
+ 204 
+ 205     fn raw_single_body_part_attr(&self, attr: SimpleAttribute) -> f32 {
+ 206         self.values().raw_single_body_part_attr(attr)
+ 207     }
+ 208 }
+ 209 
+ 210 impl PlayerSkills for CharacterSkills {
+ 211     fn skill_hours_trained(&self, skill: Skill) -> f32 {
+ 212         match skill {
+ 213             Skill::Polearm => self.polearm_hours,
+ 214             Skill::Axe => self.axe_hours,
+ 215             Skill::Bludgeon => self.bludgeon_hours,
+ 216             Skill::Sword => self.sword_hours,
+ 217             Skill::Knife => self.knife_hours,
+ 218             Skill::Block => self.block_hours,
+ 219             Skill::Dodge => self.dodge_hours,
+ 220             Skill::Bow => self.bow_hours,

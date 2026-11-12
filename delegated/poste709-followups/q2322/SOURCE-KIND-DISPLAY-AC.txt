@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-core/src/skill.rs:1-65
+   1 use crate::{
+   2     attribute::PlayerAttributes,
+   3     body::{BodyPart, LimbWeights, PlayerBody},
+   4     equipment::PlayerEquipment,
+   5     essential::PlayerEssentials,
+   6     prelude::{LimbAttribute, SimpleAttribute},
+   7 };
+   8 
+   9 const MAX_CHECK: f32 = 5.0;
+  10 
+  11 /// Player skills.
+  12 ///
+  13 /// Skills are trained abilities. Each has weighted governing aptitudes which
+  14 /// control learning speed and the highest currently effective rank, but never
+  15 /// add to the final check value.
+  16 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, enum_assoc::Assoc)]
+  17 #[func(pub const fn max_hours(&self) -> f32)]
+  18 #[func(pub const fn kind(&self) -> SkillKind)]
+  19 #[func(pub const fn is_trained(&self) -> bool)]
+  20 pub enum Skill {
+  21     /// Mental. Intuitive. Resist pain and morale penalties. (5000h)
+  22     #[assoc(max_hours = 5000.0, kind = SkillKind::Mental, is_trained = false)]
+  23     Will,
+  24     /// Mental. Intuitive. Reading another character's motives and temperament.
+  25     #[assoc(max_hours = 10000.0, kind = SkillKind::Mental, is_trained = false)]
+  26     Insight,
+  27     /// Mental. Intuitive. Relieving tension through levity or attraction.
+  28     #[assoc(max_hours = 15000.0, kind = SkillKind::Mental, is_trained = false)]
+  29     Charm,
+  30     /// Mental. Intuitive. Rallying and coordinating others.
+  31     #[assoc(max_hours = 20000.0, kind = SkillKind::Mental, is_trained = false)]
+  32     Command,
+  33     /// Mental. Intuitive. Sustaining a plausible false impression.
+  34     #[assoc(max_hours = 15000.0, kind = SkillKind::Mental, is_trained = false)]
+  35     Deception,
+  36     /// Mental. Trained. Party health recovery bonus. (10000h)
+  37     #[assoc(max_hours = 10000.0, kind = SkillKind::Mental, is_trained = true)]
+  38     Physiology,
+  39     /// Mental. Trained. Food preparation, safety, and kitchen technique. (10000h)
+  40     #[assoc(max_hours = 10000.0, kind = SkillKind::Mental, is_trained = true)]
+  41     Cooking,
+  42     /// Mental. Trained. Preparing biological medicines. (10000h)
+  43     #[assoc(max_hours = 10000.0, kind = SkillKind::Mental, is_trained = true)]
+  44     Herbalism,
+  45     /// Mental. Trained. Meta-skill for knowledge of religious traditions. (5000h each)
+  46     #[assoc(max_hours = 5000.0, kind = SkillKind::Mental, is_trained = true)]
+  47     Religion,
+  48     /// Mental. Trained. Meta-skill for knowledge of creature categories. (5000h each)
+  49     #[assoc(max_hours = 5000.0, kind = SkillKind::Mental, is_trained = true)]
+  50     Bestiary,
+  51     /// Physical. Intuitive. Long hafted weapons. (8000h)
+  52     #[assoc(max_hours = 8000.0, kind = SkillKind::Physical, is_trained = false)]
+  53     Polearm,
+  54     /// Physical. Intuitive. Axes and cleaving weapons. (8000h)
+  55     #[assoc(max_hours = 8000.0, kind = SkillKind::Physical, is_trained = false)]
+  56     Axe,
+  57     /// Physical. Intuitive. Hammers, maces, and other impact weapons. (8000h)
+  58     #[assoc(max_hours = 8000.0, kind = SkillKind::Physical, is_trained = false)]
+  59     Bludgeon,
+  60     /// Physical. Intuitive. Long blades. (8000h)
+  61     #[assoc(max_hours = 8000.0, kind = SkillKind::Physical, is_trained = false)]
+  62     Sword,
+  63     /// Physical. Intuitive. Short weapons, including knives and short blades. (8000h)
+  64     #[assoc(max_hours = 8000.0, kind = SkillKind::Physical, is_trained = false)]
+  65     Knife,

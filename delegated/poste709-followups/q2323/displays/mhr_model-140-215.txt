@@ -1,0 +1,76 @@
+ 140             }
+ 141         };
+ 142 
+ 143         let fbx = read_asset(format!("lod{}.fbx", config.lod)).await?;
+ 144         let definition = String::from_utf8(read_asset(MODEL_DEFINITION.into()).await?)
+ 145             .map_err(|error| anyhow::anyhow!("MHR model definition is not UTF-8: {error}"))?;
+ 146         let corrective_archives = if config.pose_correctives {
+ 147             Some(CorrectiveArchiveBytes {
+ 148                 activation: read_asset(CORRECTIVE_ACTIVATION.into()).await?,
+ 149                 basis: read_asset(format!("corrective_blendshapes_lod{}.npz", config.lod)).await?,
+ 150             })
+ 151         } else {
+ 152             None
+ 153         };
+ 154 
+ 155         Self::from_asset_bytes(&fbx, &definition, corrective_archives, config, device)
+ 156     }
+ 157 
+ 158     /// Loads a model from an MHR asset directory (the unpacked `assets.zip`).
+ 159     pub fn from_files(
+ 160         asset_dir: impl AsRef<Path>,
+ 161         config: MhrConfig,
+ 162         device: &Device,
+ 163     ) -> Result<Self> {
+ 164         if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
+ 165             bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
+ 166         }
+ 167         let dir = resolve_asset_dir(asset_dir.as_ref())?;
+ 168 
+ 169         let fbx_path = dir.join(format!("lod{}.fbx", config.lod));
+ 170         let fbx =
+ 171             std::fs::read(&fbx_path).with_context(|| format!("reading {}", fbx_path.display()))?;
+ 172         let character = Character::from_fbx_bytes(&fbx, true)
+ 173             .with_context(|| format!("loading {}", fbx_path.display()))?;
+ 174         let definition_path = dir.join(MODEL_DEFINITION);
+ 175         let definition = std::fs::read_to_string(&definition_path)
+ 176             .with_context(|| format!("reading {}", definition_path.display()))?;
+ 177         let correctives = if config.pose_correctives {
+ 178             PoseCorrectives::load(
+ 179                 &dir.join(CORRECTIVE_ACTIVATION),
+ 180                 &dir.join(format!("corrective_blendshapes_lod{}.npz", config.lod)),
+ 181                 character.skeleton.names.joint_count(),
+ 182                 character.mesh.vertex_count(),
+ 183                 device,
+ 184             )
+ 185             .context("loading the pose-corrective network")?
+ 186         } else {
+ 187             None
+ 188         };
+ 189         Self::from_loaded_assets(character, &definition, correctives, device)
+ 190     }
+ 191 
+ 192     /// Loads MHR from asset bytes, allowing browsers and virtual filesystems to
+ 193     /// provide the same FBX/model/NPZ inputs as the native filesystem loader.
+ 194     pub fn from_asset_bytes(
+ 195         fbx: &[u8],
+ 196         definition: &str,
+ 197         corrective_archives: Option<CorrectiveArchiveBytes>,
+ 198         config: MhrConfig,
+ 199         device: &Device,
+ 200     ) -> Result<Self> {
+ 201         if !(MIN_LOD..=MAX_LOD).contains(&config.lod) {
+ 202             bail!("LOD {} is out of range {MIN_LOD}..={MAX_LOD}", config.lod);
+ 203         }
+ 204         let character = Character::from_fbx_bytes(fbx, true).context("loading the MHR FBX")?;
+ 205         let correctives = if config.pose_correctives {
+ 206             let archives = corrective_archives
+ 207                 .context("pose correctives requested but their NPZ archives were not provided")?;
+ 208             PoseCorrectives::from_bytes(
+ 209                 archives,
+ 210                 character.skeleton.names.joint_count(),
+ 211                 character.mesh.vertex_count(),
+ 212                 device,
+ 213             )
+ 214             .context("loading the pose-corrective network")?
+ 215         } else {

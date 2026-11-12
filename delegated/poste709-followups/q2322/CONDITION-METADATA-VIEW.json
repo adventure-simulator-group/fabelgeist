@@ -1,0 +1,202 @@
+[
+  {
+    "path": "crates/adventuresim-core/src/essential.rs",
+    "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+    "blob": "827be1d40f773c54c3d5183b81432bc9197fee2d",
+    "lines": 40,
+    "locators": {
+      "fn physical_skill_condition_by_parts": {
+        "count": 1,
+        "first_20": [
+          22
+        ],
+        "truncated": false
+      },
+      "fatigue": {
+        "count": 7,
+        "first_20": [
+          7,
+          15,
+          20,
+          28,
+          32,
+          37,
+          38
+        ],
+        "truncated": false
+      },
+      "incapacitation": {
+        "count": 1,
+        "first_20": [
+          21
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/condition.rs",
+    "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+    "blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+    "lines": 2627,
+    "locators": {
+      "fn apply_travel_condition": {
+        "count": 1,
+        "first_20": [
+          1883
+        ],
+        "truncated": false
+      },
+      "fatigue": {
+        "count": 18,
+        "first_20": [
+          104,
+          1347,
+          1368,
+          1384,
+          1880,
+          1881,
+          2075,
+          2077,
+          2094,
+          2112,
+          2524,
+          2536,
+          2554,
+          2558,
+          2565,
+          2566,
+          2589,
+          2593
+        ],
+        "truncated": false
+      },
+      "incapacitation": {
+        "count": 22,
+        "first_20": [
+          115,
+          117,
+          1344,
+          1346,
+          1355,
+          1356,
+          1363,
+          1364,
+          1367,
+          1368,
+          1373,
+          1381,
+          1382,
+          1383,
+          1384,
+          1385,
+          1386,
+          1387,
+          1393,
+          1394
+        ],
+        "truncated": true
+      },
+      "character_stats": {
+        "count": 9,
+        "first_20": [
+          21,
+          712,
+          757,
+          1919,
+          1924,
+          2089,
+          2095,
+          2134,
+          2139
+        ],
+        "truncated": false
+      },
+      "hydration": {
+        "count": 3,
+        "first_20": [
+          112,
+          1901,
+          1907
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/capability.rs",
+    "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+    "blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+    "lines": 694,
+    "locators": {
+      "impl PlayerEssentials for": {
+        "count": 1,
+        "first_20": [
+          190
+        ],
+        "truncated": false
+      },
+      "impl PlayerBody for": {
+        "count": 1,
+        "first_20": [
+          168
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-core/src/skill.rs",
+    "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+    "blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+    "lines": 1165,
+    "locators": {
+      "fn is_physical": {
+        "count": 1,
+        "first_20": [
+          800
+        ],
+        "truncated": false
+      },
+      "fn is_mental": {
+        "count": 1,
+        "first_20": [
+          796
+        ],
+        "truncated": false
+      },
+      "TerrainPlains": {
+        "count": 13,
+        "first_20": [
+          92,
+          533,
+          540,
+          616,
+          654,
+          692,
+          750,
+          845,
+          853,
+          860,
+          867,
+          874,
+          881
+        ],
+        "truncated": false
+      },
+      "Stealth": {
+        "count": 7,
+        "first_20": [
+          86,
+          303,
+          614,
+          651,
+          690,
+          763,
+          823
+        ],
+        "truncated": false
+      }
+    }
+  }
+]

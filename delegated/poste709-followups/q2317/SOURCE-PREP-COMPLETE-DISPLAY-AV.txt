@@ -1,0 +1,51 @@
+SOURCE crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:556-605
+ 556         expected_revision,
+ 557         action,
+ 558         post_minute,
+ 559     )?;
+ 560     if post.place != authority.place
+ 561         || !preparation_lot_truth_unchanged(&authority.lot, &post.lot)
+ 562         || post.custody_binding != authority.custody_binding
+ 563         || post.material_source_digest != authority.material_source_digest
+ 564         || post.object.item_id != authority.object.item_id
+ 565         || post.object.location != authority.object.location
+ 566         || post.skill != authority.skill
+ 567         || post.tool_binding != authority.tool_binding
+ 568         || post.duration != authority.duration
+ 569         || post.next != authority.next
+ 570     {
+ 571         return Err("Ingredient preparation authority changed during its wait".into());
+ 572     }
+ 573     adventuresim_core::material::validate_material_commit(
+ 574         &post.material_receipt,
+ 575         std::slice::from_ref(&post.material_snapshot),
+ 576     )
+ 577     .map_err(|_| "Ingredient material changed during preparation")?;
+ 578     let committed_material_digest = encode_digest(post.material_receipt.input_digest().bytes());
+ 579     let mut lot = post.lot;
+ 580     lot.preparation = post.next;
+ 581     lot.display_name = next_display_name;
+ 582     lot.material_revision = lot
+ 583         .material_revision
+ 584         .checked_add(1)
+ 585         .ok_or("Ingredient material revision is exhausted")?;
+ 586     let resulting_revision = lot.material_revision;
+ 587     ctx.db.food_lot().id().update(lot);
+ 588     let mut skills = ctx
+ 589         .db
+ 590         .character_skills()
+ 591         .character_id()
+ 592         .find(character_id)
+ 593         .ok_or("Character skills disappeared before preparation training")?;
+ 594     let attributes = ctx
+ 595         .db
+ 596         .character_attributes()
+ 597         .character_id()
+ 598         .find(character_id)
+ 599         .ok_or("Character attributes disappeared before preparation training")?;
+ 600     let hours = match authority.skill {
+ 601         Skill::Knife => &mut skills.knife_hours,
+ 602         Skill::Bludgeon => &mut skills.bludgeon_hours,
+ 603         _ => unreachable!(),
+ 604     };
+ 605     let gain = apply_direct_training(

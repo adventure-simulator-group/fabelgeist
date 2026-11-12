@@ -1,0 +1,51 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:66-115
+  66         .ok_or("Character skills not found")?;
+  67     Ok(Skill::Cooking.capped_rank_for_aptitude(
+  68         skills.effective_skill_hours(Skill::Cooking),
+  69         Skill::Cooking.governing_aptitude(&attributes),
+  70     ) * limbs.head_health.clamp(0.0, 1.0))
+  71 }
+  72 
+  73 fn parse_consumable_fractions(
+  74     fractions_micros: Vec<u32>,
+  75 ) -> Result<Vec<ConsumableFractionMicros>, String> {
+  76     fractions_micros
+  77         .into_iter()
+  78         .map(|value| {
+  79             ConsumableFractionMicros::try_new(value)
+  80                 .map_err(|_| "Ingredient fraction cannot exceed one whole".to_owned())
+  81         })
+  82         .collect()
+  83 }
+  84 
+  85 #[reducer]
+  86 pub fn add_fireplace_ingredients(
+  87     ctx: &ReducerContext,
+  88     character_id: u64,
+  89     fireplace_fixture_id: String,
+  90     inventory_scope: String,
+  91     inventory_item_ids: Vec<u64>,
+  92     fractions_micros: Vec<u32>,
+  93 ) -> Result<(), String> {
+  94     add_fireplace_ingredients_at(
+  95         ctx,
+  96         character_id,
+  97         fireplace_fixture_id,
+  98         inventory_scope,
+  99         inventory_item_ids,
+ 100         parse_consumable_fractions(fractions_micros)?,
+ 101         None,
+ 102     )
+ 103 }
+ 104 
+ 105 /// Starts the independent dish lane belonging to one placed vessel. Every
+ 106 /// contained cookable food lot at any nesting depth is consumed in full;
+ 107 /// non-food solids and nested containers remain in place. Container water is used by the cooking evaluator and is
+ 108 /// mandatory for pots.
+ 109 #[reducer]
+ 110 pub fn start_fireplace_container_cooking(
+ 111     ctx: &ReducerContext,
+ 112     character_id: u64,
+ 113     fireplace_fixture_id: String,
+ 114     container_object_id: u64,
+ 115 ) -> Result<(), String> {

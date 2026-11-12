@@ -1,0 +1,16 @@
+SOURCE crates/adventuresim-core/src/provisioning.rs:1-15
+   1 //! Shared strategic travel-provision calculations.
+   2 
+   3 pub const STRATEGIC_TRAVEL_KCAL_PER_DAY: f32 = 6_000.0;
+   4 pub const STRATEGIC_TRAVEL_WATER_ML_PER_DAY: f32 = 4_000.0;
+   5 
+   6 pub fn shared_then_personal_units(requested: u32, shared: u32, personal: u32) -> (u32, u32) {
+   7     let shared_used = requested.min(shared);
+   8     (
+   9         shared_used,
+  10         requested.saturating_sub(shared_used).min(personal),
+  11     )
+  12 }
+  13 
+  14 /// Aggregate party supplies used by the travel preview and provisioning draft.
+  15 #[derive(Clone, Copy, Debug, Default, PartialEq)]

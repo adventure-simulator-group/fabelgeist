@@ -1,0 +1,111 @@
+   1 //! The studio's body and morph samples as realizations for device fitting.
+   2 
+   3 use super::*;
+   4 use adventuresim_character_creator::armor_frames::FittingPlacement;
+   5 use adventuresim_character_creator::{
+   6     armor_frames::FitRegion,
+   7     armor_gpu,
+   8     armor_recipes::ParametricDesign,
+   9     device_fit::{self, DevicePiece, FitBody, Realization},
+  10 };
+  11 use fabelgeist_armor::PartFrame;
+  12 
+  13 /// Each body vertex's anatomical surface coordinate.
+  14 pub(super) fn vertex_texcoords(
+  15     model: &BodyModel,
+  16 ) -> Result<fabelgeist_mhr::character::MeshVertexTable<[f32; 2]>> {
+  17     let character = &model.mhr.character;
+  18     let mut uv =
+  19         fabelgeist_mhr::character::MeshVertexTable::filled(model.mhr.num_vertices(), [0.0; 2]);
+  20     for (face, uv_face) in character
+  21         .mesh
+  22         .faces
+  23         .iter()
+  24         .zip(&character.mesh.texcoord_faces)
+  25     {
+  26         for corner in 0..3 {
+  27             let vertex = fabelgeist_mhr::character::MeshVertexIndex::from_native_vertex_index(
+  28                 face[corner] as usize,
+  29             );
+  30             let coordinate = uv
+  31                 .get_mut(vertex)
+  32                 .context("body face references a missing vertex")?;
+  33             *coordinate = *character
+  34                 .mesh
+  35                 .texcoords
+  36                 .get(uv_face[corner] as usize)
+  37                 .context("body face references a missing texture coordinate")?;
+  38         }
+  39     }
+  40     Ok(uv)
+  41 }
+  42 
+  43 fn fit_body<'a>(model: &'a BodyModel, texcoords: &'a [[f32; 2]]) -> FitBody<'a> {
+  44     let character = &model.mhr.character;
+  45     FitBody {
+  46         faces: &character.mesh.faces,
+  47         texcoords,
+  48         joint_indices: character.skin_weights.indices(),
+  49         joint_weights: character.skin_weights.weights().as_native_slice(),
+  50         joint_names: &character.skeleton.names,
+  51     }
+  52 }
+  53 
+  54 fn wearer(generated: &GeneratedCharacter) -> Realization<'_> {
+  55     Realization {
+  56         positions: &generated.positions,
+  57         normals: &generated.normals,
+  58         joints: &generated.global_joint_states,
+  59         device: &generated.device,
+  60     }
+  61 }
+  62 
+  63 /// The part frame of `region` fitted to the wearer on the device.
+  64 pub(super) fn frame(
+  65     model: &BodyModel,
+  66     generated: &GeneratedCharacter,
+  67     region: FitRegion,
+  68 ) -> Result<PartFrame> {
+  69     let texcoords = vertex_texcoords(model)?;
+  70     device_fit::frame(
+  71         armor_gpu()?,
+  72         &fit_body(model, texcoords.as_native_slice()),
+  73         &wearer(generated),
+  74         region,
+  75     )
+  76 }
+  77 
+  78 /// Fit a recipe to the wearer and its morph samples on the device.
+  79 pub(super) fn fitted(
+  80     model: &BodyModel,
+  81     generated: &GeneratedCharacter,
+  82     morphs: &[ForearmMorphSample],
+  83     design: &ParametricDesign,
+  84     placement: FittingPlacement,
+  85     layers: &[&GeneratedArmor],
+  86 ) -> Result<DevicePiece> {
+  87     let texcoords = vertex_texcoords(model)?;
+  88     let morphs = morphs
+  89         .iter()
+  90         .map(|sample| {
+  91             (
+  92                 sample.name.as_str(),
+  93                 Realization {
+  94                     positions: &sample.positions,
+  95                     normals: &sample.normals,
+  96                     joints: &sample.global_joint_states,
+  97                     device: &sample.device,
+  98                 },
+  99             )
+ 100         })
+ 101         .collect::<Vec<_>>();
+ 102     device_fit::fit_recipe(
+ 103         armor_gpu()?,
+ 104         &fit_body(model, texcoords.as_native_slice()),
+ 105         &wearer(generated),
+ 106         &morphs,
+ 107         design,
+ 108         placement,
+ 109         layers,
+ 110     )
+ 111 }

@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-stdb-module/src/time/advancement.rs:81-150
+  81     crate::character::require_living_character(ctx, character_id)?;
+  82     ensure_character_time(ctx, character_id)?;
+  83     let mut character_time = ctx
+  84         .db
+  85         .character_time()
+  86         .character_id()
+  87         .find(character_id)
+  88         .ok_or_else(|| "Character time record not found".to_string())?;
+  89     let starting_minute = character_time.minutes;
+  90     if let Some(first) = first_lifecycle_segment(
+  91         ctx,
+  92         character_id,
+  93         starting_minute,
+  94         minutes,
+  95     ) {
+  96         if !advance_character_time_in_plan(ctx, character_id, first, plan)? {
+  97             return Ok(false);
+  98         }
+  99         return advance_character_time_in_plan(
+ 100             ctx,
+ 101             character_id,
+ 102             minutes.saturating_sub(first),
+ 103             plan,
+ 104         );
+ 105     }
+ 106     let injury_limit = crate::surgery::preview_injury_boundary(
+ 107         ctx,
+ 108         character_id,
+ 109         minutes,
+ 110         InjuryRecoveryMinutes::NONE,
+ 111     )?
+ 112     .elapsed;
+ 113     let (elapsed, terminal) = crate::disease::clip_elapsed_for_disease_in_plan(
+ 114         ctx,
+ 115         character_id,
+ 116         injury_limit,
+ 117         false,
+ 118         plan,
+ 119     )?;
+ 120     let settled =
+ 121         crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;
+ 122     let elapsed = settled.elapsed;
+ 123     character_time.minutes = character_time.minutes
+ 124         .saturating_add_minutes(elapsed)
+ 125         ;
+ 126     ctx.db
+ 127         .character_time()
+ 128         .character_id()
+ 129         .update(character_time);
+ 130     crate::organization::settle_membership_dues(ctx, character_id)?;
+ 131     crate::social::settle_shared_party_time(ctx, character_id);
+ 132     crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
+ 133     settle_lifecycle_after_character_time_write(
+ 134         ctx,
+ 135         character_id,
+ 136         starting_minute.saturating_add_minutes(settled.elapsed),
+ 137     )?;
+ 138     advance_married_family_by(ctx, character_id, elapsed)?;
+ 139     if terminal.is_some() || !settled.alive {
+ 140         return Ok(false);
+ 141     }
+ 142     crate::condition::apply_travel_condition(ctx, character_id, starting_minute, elapsed, 0)?;
+ 143     crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+ 144     crate::capability::refresh_character_capability(ctx, character_id)?;
+ 145     Ok(true)
+ 146 }
+ 147 
+ 148 /// Actual strategic movement, split at exact dirt boundaries so filth and its
+ 149 /// wound-risk multiplier are independent of caller chunking.
+ 150 pub fn preview_travel_time(

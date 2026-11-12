@@ -1,0 +1,101 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_amount.rs:1-100
+   1 //! Authoritative fixed-point remaining amounts for divisible inventory rows.
+   2 
+   3 use spacetimedb::{ReducerContext, Table, table};
+   4 
+   5 use adventuresim_core::inventory_measurement::ConsumableFractionMicros;
+   6 
+   7 use crate::item::item;
+   8 use crate::{inventory_item, party_inventory_item};
+   9 
+  10 pub const SMITHING_MATERIAL_IDS: [&str; 4] =
+  11     ["steel_stock", "leather_stock", "brass_stock", "wood_stock"];
+  12 
+  13 /// Remaining material in one stable personal inventory row. Row quantity stays
+  14 /// one; consumption owns this fraction and transfer moves it between holders.
+  15 #[derive(Clone, Debug)]
+  16 #[table(accessor = inventory_item_amount, public)]
+  17 pub struct InventoryItemAmount {
+  18     #[primary_key]
+  19     pub inventory_item_id: u64,
+  20     pub remaining_fraction_micros: u32,
+  21 }
+  22 
+  23 /// Party-held counterpart of the same remaining material authority. Transfer
+  24 /// deletes the source amount before inserting the destination in one transaction.
+  25 #[derive(Clone, Debug)]
+  26 #[table(accessor = party_item_amount, public)]
+  27 pub struct PartyItemAmount {
+  28     #[primary_key]
+  29     pub party_inventory_item_id: u64,
+  30     pub remaining_fraction_micros: u32,
+  31 }
+  32 
+  33 pub fn is_measured_definition(definition: &crate::Item) -> bool {
+  34     definition.kind == crate::CatalogItemKind::Food
+  35         || definition.alcohol_serving_ml > 0
+  36         || definition.id == adventuresim_core::item_references::SOFT_SOAP_ID
+  37         || SMITHING_MATERIAL_IDS.contains(&definition.id.as_str())
+  38 }
+  39 
+  40 pub fn is_measured_item(ctx: &ReducerContext, item_id: &str) -> bool {
+  41     ctx.db
+  42         .item()
+  43         .id()
+  44         .find(item_id.to_owned())
+  45         .is_some_and(|definition| is_measured_definition(&definition))
+  46         || adventuresim_core::food::definition(item_id).is_some()
+  47 }
+  48 
+  49 pub fn initialize_personal(ctx: &ReducerContext, inventory_item_id: u64) {
+  50     ctx.db.inventory_item_amount().insert(InventoryItemAmount {
+  51         inventory_item_id,
+  52         remaining_fraction_micros: ConsumableFractionMicros::WHOLE.get(),
+  53     });
+  54 }
+  55 
+  56 pub fn initialize_party(ctx: &ReducerContext, party_inventory_item_id: u64) {
+  57     ctx.db.party_item_amount().insert(PartyItemAmount {
+  58         party_inventory_item_id,
+  59         remaining_fraction_micros: ConsumableFractionMicros::WHOLE.get(),
+  60     });
+  61 }
+  62 
+  63 fn persisted_fraction(fraction_micros: u32) -> ConsumableFractionMicros {
+  64     ConsumableFractionMicros::try_new(fraction_micros)
+  65         .expect("persisted consumable fraction must not exceed one whole")
+  66 }
+  67 
+  68 pub fn personal_fraction(
+  69     ctx: &ReducerContext,
+  70     inventory_item_id: u64,
+  71 ) -> Option<ConsumableFractionMicros> {
+  72     ctx.db
+  73         .inventory_item_amount()
+  74         .inventory_item_id()
+  75         .find(inventory_item_id)
+  76         .map(|row| persisted_fraction(row.remaining_fraction_micros))
+  77 }
+  78 
+  79 pub fn party_fraction(
+  80     ctx: &ReducerContext,
+  81     party_inventory_item_id: u64,
+  82 ) -> Option<ConsumableFractionMicros> {
+  83     ctx.db
+  84         .party_item_amount()
+  85         .party_inventory_item_id()
+  86         .find(party_inventory_item_id)
+  87         .map(|row| persisted_fraction(row.remaining_fraction_micros))
+  88 }
+  89 
+  90 pub fn consume_personal(
+  91     ctx: &ReducerContext,
+  92     inventory_item_id: u64,
+  93     requested_fraction: ConsumableFractionMicros,
+  94 ) -> Result<ConsumableFractionMicros, String> {
+  95     if requested_fraction.is_zero() {
+  96         return Ok(ConsumableFractionMicros::ZERO);
+  97     }
+  98     let mut state = ctx
+  99         .db
+ 100         .inventory_item_amount()

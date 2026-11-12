@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:1-65
+   1 // Owns cooking instruments, fireplace dish assembly, retrieval, and previews.
+   2 fn cooking_method_preparation(method: CookingMethod) -> FoodPreparation {
+   3     match method {
+   4         CookingMethod::PanFry => FoodPreparation::PanFried,
+   5         CookingMethod::Stew => FoodPreparation::Stewed,
+   6         CookingMethod::Roast => FoodPreparation::Roasted,
+   7         CookingMethod::Bake => FoodPreparation::Baked,
+   8     }
+   9 }
+  10 
+  11 fn cooking_method_name(method: CookingMethod) -> &'static str {
+  12     match method {
+  13         CookingMethod::PanFry => "Pan-fried",
+  14         CookingMethod::Stew => "Stewed",
+  15         CookingMethod::Roast => "Roasted",
+  16         CookingMethod::Bake => "Baked",
+  17     }
+  18 }
+  19 
+  20 fn item_quantity(ctx: &ReducerContext, character_id: u64, item_id: &str) -> u32 {
+  21     ctx.db
+  22         .inventory_item()
+  23         .character_and_item_id()
+  24         .filter((character_id, item_id))
+  25         .map(|row| row.quantity)
+  26         .sum()
+  27 }
+  28 
+  29 fn equipment_reason(
+  30     ctx: &ReducerContext,
+  31     character_id: u64,
+  32     method: CookingMethod,
+  33 ) -> Option<&'static str> {
+  34     match method {
+  35         CookingMethod::PanFry if item_quantity(ctx, character_id, "cooking_pan") == 0 => {
+  36             Some("A pan is required")
+  37         }
+  38         CookingMethod::Stew if item_quantity(ctx, character_id, "cooking_pot") == 0 => {
+  39             Some("A pot is required")
+  40         }
+  41         CookingMethod::Bake if item_quantity(ctx, character_id, "portable_oven") == 0 => {
+  42             Some("A portable oven is required")
+  43         }
+  44         _ => None,
+  45     }
+  46 }
+  47 
+  48 fn cooking_check(ctx: &ReducerContext, character_id: u64) -> Result<f32, String> {
+  49     let attributes = ctx
+  50         .db
+  51         .character_attributes()
+  52         .character_id()
+  53         .find(character_id)
+  54         .ok_or("Character attributes not found")?;
+  55     let limbs = ctx
+  56         .db
+  57         .character_limbs()
+  58         .character_id()
+  59         .find(character_id)
+  60         .ok_or("Character limbs not found")?;
+  61     let skills = ctx
+  62         .db
+  63         .character_skills()
+  64         .character_id()
+  65         .find(character_id)

@@ -1,0 +1,136 @@
+   105	    let starting_cut = starting_cut.clamp(0.0, 1.0);
+   106	    let days = days.max(0.0);
+   107	    let days_to_cap = (1.0 - starting_cut) / UNTREATED_CUT_DETERIORATION_PER_DAY;
+   108	    let growing_days = days.min(days_to_cap.max(0.0));
+   109	    let cut_days = starting_cut * growing_days
+   110	        + 0.5 * UNTREATED_CUT_DETERIORATION_PER_DAY * growing_days * growing_days
+   111	        + (days - growing_days).max(0.0);
+   112	    (
+   113	        (starting_cut + UNTREATED_CUT_DETERIORATION_PER_DAY * days).min(1.0),
+   114	        cut_days,
+   115	    )
+   116	}
+   117	
+   118	#[derive(Clone, Debug)]
+   119	pub struct BloodInterval {
+   120	    pub elapsed: u64,
+   121	    pub blood_fraction: f32,
+   122	    pub open_cuts: Vec<f32>,
+   123	    pub cut_days: Vec<f32>,
+   124	    pub terminal: bool,
+   125	}
+   126	
+   127	pub fn simulate_blood_interval(
+   128	    starting_blood: f32,
+   129	    open_cuts: &[f32],
+   130	    requested: u64,
+   131	    recovery_per_day: f32,
+   132	) -> BloodInterval {
+   133	    let mut blood = starting_blood.clamp(0.0, 1.0);
+   134	    let mut cuts = open_cuts.to_vec();
+   135	    let mut cut_days = vec![0.0; cuts.len()];
+   136	    let minute_days = 1.0 / MINUTES_PER_DAY as f32;
+   137	    let mut elapsed = 0;
+   138	    for _ in 0..requested {
+   139	        let mut loss = 0.0;
+   140	        for (index, cut) in cuts.iter_mut().enumerate() {
+   141	            if *cut <= 0.0 {
+   142	                continue;
+   143	            }
+   144	            let (next, exposure) = untreated_cut_progress(*cut, minute_days);
+   145	            *cut = next;
+   146	            cut_days[index] += exposure;
+   147	            loss += UNTREATED_CUT_BLOOD_LOSS_PER_DAY * exposure;
+   148	        }
+   149	        blood = (blood + recovery_per_day.max(0.0) * minute_days - loss).clamp(0.0, 1.0);
+   150	        elapsed += 1;
+   151	        if blood <= 0.10 {
+   152	            return BloodInterval {
+   153	                elapsed,
+   154	                blood_fraction: blood,
+   155	                open_cuts: cuts,
+   156	                cut_days,
+   157	                terminal: true,
+   158	            };
+   159	        }
+   160	    }
+   161	    BloodInterval {
+   162	        elapsed,
+   163	        blood_fraction: blood,
+   164	        open_cuts: cuts,
+   165	        cut_days,
+   166	        terminal: false,
+   167	    }
+   168	}
+   169	
+   170	#[cfg(test)]
+   171	mod tests {
+   172	    use super::*;
+   173	
+   174	    #[test]
+   175	    fn extraction_dc_reaches_zero_and_remains_uncapped() {
+   176	        assert_eq!(projectile_extraction_dc(0.02, 0.0), 0.0);
+   177	        assert!(projectile_extraction_dc(0.30, 0.8) > projectile_extraction_dc(0.10, 0.8));
+   178	        assert!(projectile_extraction_dc(1.0, 2.0) > 5.0);
+   179	    }
+   180	
+   181	    #[test]
+   182	    fn only_projectiles_above_dc_one_require_a_kit() {
+   183	        assert!(!extraction_requires_surgery_kit(0.0));
+   184	        assert!(!extraction_requires_surgery_kit(1.0));
+   185	        assert!(extraction_requires_surgery_kit(1.000_1));
+   186	        assert!(extraction_requires_surgery_kit(8.0));
+   187	    }
+   188	
+   189	    #[test]
+   190	    fn only_blood_contact_procedures_contaminate_the_actor() {
+   191	        assert_eq!(
+   192	            procedure_blood_exposure(SurgeryProcedure::Bandage, true),
+   193	            PROCEDURE_BLOOD_EXPOSURE_FILTH
+   194	        );
+   195	        assert_eq!(
+   196	            procedure_blood_exposure(SurgeryProcedure::Stitch, true),
+   197	            PROCEDURE_BLOOD_EXPOSURE_FILTH
+   198	        );
+   199	        assert_eq!(
+   200	            procedure_blood_exposure(SurgeryProcedure::Extract, true),
+   201	            PROCEDURE_BLOOD_EXPOSURE_FILTH
+   202	        );
+   203	        assert_eq!(
+   204	            procedure_blood_exposure(SurgeryProcedure::OpenBody, true),
+   205	            PROCEDURE_BLOOD_EXPOSURE_FILTH
+   206	        );
+   207	        assert_eq!(procedure_blood_exposure(SurgeryProcedure::Splint, true), 0);
+   208	        assert_eq!(
+   209	            procedure_blood_exposure(SurgeryProcedure::RemoveSplint, true),
+   210	            0
+   211	        );
+   212	        assert_eq!(
+   213	            procedure_blood_exposure(SurgeryProcedure::Bandage, false),
+   214	            0
+   215	        );
+   216	    }
+   217	
+   218	    #[test]
+   219	    fn self_treatment_penalty_is_shared() {
+   220	        assert!(effective_skill(2.0, false) > effective_skill(4.0, true));
+   221	    }
+   222	
+   223	    #[test]
+   224	    fn every_procedure_uses_the_same_direct_surgery_check() {
+   225	        for procedure in [
+   226	            SurgeryProcedure::Bandage,
+   227	            SurgeryProcedure::Splint,
+   228	            SurgeryProcedure::Extract,
+   229	            SurgeryProcedure::Stitch,
+   230	            SurgeryProcedure::RemoveSplint,
+   231	            SurgeryProcedure::OpenBody,
+   232	        ] {
+   233	            assert_eq!(procedure_skill(procedure, 5.0, false), 5.0);
+   234	            assert_eq!(procedure_skill(procedure, 5.0, true), 2.5);
+   235	        }
+   236	    }
+   237	
+   238	    #[test]
+   239	    fn procedure_wire_names_round_trip_and_unknown_names_fail_closed() {
+   240	        for (procedure, wire_name) in [

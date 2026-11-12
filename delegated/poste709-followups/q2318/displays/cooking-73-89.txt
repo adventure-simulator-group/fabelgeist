@@ -1,0 +1,17 @@
+  73 fn parse_consumable_fractions(
+  74     fractions_micros: Vec<u32>,
+  75 ) -> Result<Vec<ConsumableFractionMicros>, String> {
+  76     fractions_micros
+  77         .into_iter()
+  78         .map(|value| {
+  79             ConsumableFractionMicros::try_new(value)
+  80                 .map_err(|_| "Ingredient fraction cannot exceed one whole".to_owned())
+  81         })
+  82         .collect()
+  83 }
+  84 
+  85 #[reducer]
+  86 pub fn add_fireplace_ingredients(
+  87     ctx: &ReducerContext,
+  88     character_id: u64,
+  89     fireplace_fixture_id: String,

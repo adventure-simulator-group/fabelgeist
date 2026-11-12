@@ -1,0 +1,57 @@
+SOURCE crates/strategic-web/static/cooking.js:165-220
+ 165 
+ 166       const updatePotRow = (entry) => {
+ 167         if (entry.quantity === 0) {
+ 168           potBody?.querySelector(`[data-cooking-pot-id="${CSS.escape(entry.id)}"]`)?.remove();
+ 169           return;
+ 170         }
+ 171         const row = ensurePotRow(entry);
+ 172         if (!row) return;
+ 173         row.dataset.inventoryQuantity = String(entry.quantity);
+ 174         const count = row.querySelector(".inventory-count");
+ 175         if (count) {
+ 176           count.textContent = formatAmount(entry.quantity);
+ 177           count.dataset.base = String(entry.quantity);
+ 178           delete count.dataset.tradeDraftChange;
+ 179         }
+ 180         const weight = row.querySelector(".inventory-weight");
+ 181         if (weight) {
+ 182           const stagedMass = entry.mass * entry.quantity / entry.available;
+ 183           weight.textContent = formatNumber(stagedMass);
+ 184           weight.dataset.sortValue = String(stagedMass);
+ 185         }
+ 186         const value = row.querySelector(".inventory-gold");
+ 187         if (value) {
+ 188           const stagedValue = entry.value * entry.quantity / entry.available;
+ 189           value.textContent = formatNumber(stagedValue);
+ 190           value.dataset.sortValue = String(stagedValue);
+ 191         }
+ 192         const unstage = row.querySelector("[data-cooking-unstage]");
+ 193         if (unstage) unstage.dataset.count = String(entry.quantity);
+ 194       };
+ 195 
+ 196       const redraw = (entry) => {
+ 197         updateSourceRow(entry);
+ 198         updatePotRow(entry);
+ 199         refreshInventory(inventoryBrowser);
+ 200         refreshInventory(potBrowser);
+ 201         update();
+ 202       };
+ 203 
+ 204       form.addEventListener("click", (event) => {
+ 205         const stage = event.target.closest?.("[data-cooking-stage]");
+ 206         if (stage) {
+ 207           event.preventDefault();
+ 208           const sourceRow = stage.closest("tr");
+ 209           const id = stage.dataset.cookingStage;
+ 210           const available = Math.max(0, Number(stage.dataset.count) || 0);
+ 211           const entry = staged.get(id) || {
+ 212             id,
+ 213             name: stage.dataset.cookingName,
+ 214             available,
+ 215             mass: Math.max(0, Number(stage.dataset.mass) || 0),
+ 216             safety: Math.max(0, Number(stage.dataset.safety) || 0),
+ 217             culinaryFat: stage.dataset.culinaryFat === "true",
+ 218             salty: Math.max(0, Number(stage.dataset.salty) || 0),
+ 219             spicy: Math.max(0, Number(stage.dataset.spicy) || 0),
+ 220             sweet: Math.max(0, Number(stage.dataset.sweet) || 0),

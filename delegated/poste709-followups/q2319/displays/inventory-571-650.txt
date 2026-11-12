@@ -1,0 +1,80 @@
+ 571                     .delete(location.row_id);
+ 572                 ctx.db
+ 573                     .item_condition()
+ 574                     .inventory_item_id()
+ 575                     .delete(location.row_id);
+ 576                 crate::food::delete_personal_food_lot(ctx, location.row_id);
+ 577                 ctx.db.inventory_item().id().delete(location.row_id);
+ 578             }
+ 579             InventoryLocation::Party(location) => {
+ 580                 ctx.db
+ 581                     .party_item_amount()
+ 582                     .party_inventory_item_id()
+ 583                     .delete(location.row_id);
+ 584                 ctx.db
+ 585                     .party_item_condition()
+ 586                     .party_inventory_item_id()
+ 587                     .delete(location.row_id);
+ 588                 crate::food::delete_party_food_lot(ctx, location.row_id);
+ 589                 ctx.db.party_inventory_item().id().delete(location.row_id);
+ 590             }
+ 591             _ => unreachable!("preflight accepts only carried deletion locations"),
+ 592         }
+ 593         ctx.db.container_liquid().container_object_id().delete(id);
+ 594         crate::outbreak::delete_container_water_contributions(ctx, id);
+ 595         crate::herbalism::delete_container_medicine(ctx, id);
+ 596         ctx.db.inventory_containment().child_object_id().delete(id);
+ 597         crate::weapon_instance::delete_for_object(ctx, id);
+ 598         ctx.db.inventory_object().id().delete(id);
+ 599     }
+ 600     Ok(())
+ 601 }
+ 602 
+ 603 fn require_exact_carried_backing(
+ 604     ctx: &ReducerContext,
+ 605     object: &InventoryObject,
+ 606     expected_root: &OperationalCustody,
+ 607 ) -> Result<(), String> {
+ 608     let resolved = crate::object_custody::resolve_object_custody(ctx, object)?;
+ 609     if &resolved.root != expected_root {
+ 610         return Err("Physical object has conflicting authenticated root custody".into());
+ 611     }
+ 612     let scope = object
+ 613         .location
+ 614         .scope()
+ 615         .ok_or("Physical object backing is not a carried inventory")?;
+ 616     let row_id = object
+ 617         .location
+ 618         .row_id()
+ 619         .ok_or("Physical object has no backing inventory row")?;
+ 620     let exact =
+ 621         object_for_row(ctx, scope, row_id)?.ok_or("Physical object has no backing identity")?;
+ 622     if exact.id != object.id {
+ 623         return Err("Physical object conflicts with its backing identity".into());
+ 624     }
+ 625     Ok(())
+ 626 }
+ 627 
+ 628 pub(crate) fn merge_empty_container(ctx: &ReducerContext, emptied_id: u64) -> Result<(), String> {
+ 629     let Some(emptied) = ctx.db.inventory_object().id().find(emptied_id) else {
+ 630         return Ok(());
+ 631     };
+ 632     let expected = crate::object_custody::carried_location_custody(&emptied.location)?;
+ 633     require_exact_carried_backing(ctx, &emptied, &expected)?;
+ 634     if !empty_container_can_stack(
+ 635         object_is_nonempty(ctx, emptied_id),
+ 636         object_is_nested(ctx, emptied_id),
+ 637         false,
+ 638     ) {
+ 639         return Ok(());
+ 640     }
+ 641     let scope = emptied
+ 642         .location
+ 643         .scope()
+ 644         .ok_or("Only carried containers can merge into inventory stacks")?;
+ 645     let mergeable_object = |row_id| -> Result<bool, String> {
+ 646         match object_for_row(ctx, scope, row_id)? {
+ 647             Some(object) => {
+ 648                 require_exact_carried_backing(ctx, &object, &expected)?;
+ 649                 Ok(!object_is_nonempty(ctx, object.id) && !object_is_nested(ctx, object.id))
+ 650             }

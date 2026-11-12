@@ -1,0 +1,44 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging/timing.rs:1-43
+   1 //! Character-clock access and terminal boundaries for a foraging attempt.
+   2 
+   3 use super::*;
+   4 
+   5 pub(super) fn character_minute(
+   6     ctx: &ReducerContext,
+   7     character_id: u64,
+   8 ) -> Result<StrategicMinute, String> {
+   9     ctx.db
+  10         .character_time()
+  11         .character_id()
+  12         .find(character_id)
+  13         .map(|time| time.minutes)
+  14         .ok_or("Character time record not found".into())
+  15 }
+  16 
+  17 pub(super) fn forage_terminal_minute(
+  18     ctx: &ReducerContext,
+  19     character_id: u64,
+  20     current_minute: StrategicMinute,
+  21     duration: u64,
+  22 ) -> Result<Option<StrategicMinute>, String> {
+  23     let injury = crate::surgery::preview_injury_boundary(
+  24         ctx,
+  25         character_id,
+  26         duration,
+  27         crate::surgery::InjuryRecoveryMinutes::NONE,
+  28     )?;
+  29     let (disease_safe, disease_terminal) = crate::disease::preview_disease_terminal_boundary(
+  30         ctx,
+  31         character_id,
+  32         injury.elapsed,
+  33         false,
+  34     )?;
+  35     let safe = injury.elapsed.min(disease_safe);
+  36     if safe < duration || injury.terminal || disease_terminal {
+  37         Ok(Some(current_minute.checked_add_minutes(safe).ok_or(
+  38             "Foraging terminal time exceeds the strategic clock",
+  39         )?))
+  40     } else {
+  41         Ok(None)
+  42     }
+  43 }

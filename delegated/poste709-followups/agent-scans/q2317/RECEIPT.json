@@ -1,0 +1,32 @@
+{
+  "schema": "726-source-evidence-packet-final-receipt-v1",
+  "created_at_utc": "2026-11-12T15:57:36.788030+00:00",
+  "packet": "q2317-safe-packet-dkbidinb",
+  "manifest_sha256": "0803ceb107db9b9d7c62d78a66691d0d862f36dc596ca1f568ddc16713453cb2",
+  "manifest_member_count": 328,
+  "final_scanned_file_count_including_manifest": 329,
+  "verification": {
+    "exit_code": 0,
+    "stdout_sha256": "33b78afc76d0dc2339a3d0fbc2e28842a4e498e246061943c301797084f0a105"
+  },
+  "digest_scan": {
+    "exit_code": 0,
+    "output_sha256": "d6c95f684a4cad8ca89d8107e22dae95a6040172f17e7fe4966136997fbef49e",
+    "forbidden_digest_total": 0,
+    "other_candidate_counts": {},
+    "exceptions": [],
+    "distinct_corpus_digests": 40
+  },
+  "pattern_scan": {
+    "exit_code": 0,
+    "output_sha256": "a6c0d5b358d16bc1320285bd582e95f77da1139c2d892abcdb60ff01a7813bbe",
+    "counts": {
+      "local_home": 0,
+      "temporary_path": 0,
+      "windows_user": 0,
+      "email": 0,
+      "credential": 0
+    }
+  },
+  "qualification": "bounded scans and limitations in packet PRIVACY-QUALIFICATION.json; results do not clear unknown values, formats, omitted symlinks, histories or external anchors; no product execution"
+}

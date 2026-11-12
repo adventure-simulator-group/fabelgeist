@@ -1,0 +1,30 @@
+   330	            .ok_or_else(|| format!("Food definition not found for {item_id}"))
+   331	    } else {
+   332	        Ok(None)
+   333	    }
+   334	}
+   335	
+   336	pub(crate) fn requires_stable_object(
+   337	    definition: Option<&Item>,
+   338	    food: bool,
+   339	    measured: bool,
+   340	) -> bool {
+   341	    food || measured
+   342	        || definition.is_some_and(|definition| {
+   343	            definition.repairable
+   344	                || definition.kind == CatalogItemKind::Medication
+   345	                || (definition.kind == CatalogItemKind::Weapon && definition.melee)
+   346	                || definition.container_capacity_ml > 0
+   347	                || !definition.attachment_points.is_empty()
+   348	        })
+   349	}
+   350	
+   351	pub(crate) fn add_inventory_item_checked(
+   352	    ctx: &ReducerContext,
+   353	    character_id: u64,
+   354	    item_id: &str,
+   355	    quantity: u32,
+   356	) -> Result<Option<u64>, String> {
+   357	    if quantity == 0 {
+   358	        return Ok(None);
+   359	    }

@@ -1,0 +1,41 @@
+  80         RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
+  81     },
+  82     item_catalog_schema::{EquipmentLocation, ItemDefinition},
+  83     item_design::CatalogDesigns,
+  84 };
+  85 use anyhow::{Context, Result};
+  86 use bevy::{
+  87     asset::RenderAssetUsages,
+  88     mesh::{Indices, skinning::SkinnedMeshInverseBindposes},
+  89     prelude::*,
+  90     render::render_resource::PrimitiveTopology,
+  91 };
+  92 use bevy_egui::{EguiContexts, EguiPlugin, EguiPrimaryContextPass, egui};
+  93 use burn::tensor::{Device, Tensor, TensorData};
+  94 use clap::Parser;
+  95 use fabelgeist_armor::{BracerDesign, BreastplateDesign, GeneratedArmor};
+  96 use fabelgeist_mhr::{Mhr, MhrConfig, NUM_FACE_EXPRESSION_BLEND_SHAPES};
+  97 
+  98 #[derive(Resource)]
+  99 struct BodyModel {
+ 100     mhr: Mhr,
+ 101     lod: u8,
+ 102     correctives: bool,
+ 103 }
+ 104 
+ 105 #[derive(Resource)]
+ 106 struct Studio {
+ 107     recipe: CharacterRecipe,
+ 108     /// The open page of the character tab.
+ 109     page: character_controls::CharacterPage,
+ 110     dirty: bool,
+ 111     status: String,
+ 112     recipe_path: String,
+ 113     glb_path: String,
+ 114     seed: Seed,
+ 115     selected_lod: u8,
+ 116     selected_correctives: bool,
+ 117     /// Where the catalog default designs are saved.
+ 118     design_paths: studio_ui::DesignPathInputs,
+ 119     /// Named engravings and trims, and where they are saved.
+ 120     decorations: decoration_controls::Decorations,

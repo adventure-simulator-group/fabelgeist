@@ -1,0 +1,134 @@
+     1	//! Static fold and opposing-limb envelopes, evaluated before freezing offsets.
+     2	use super::*;
+     3	use adventuresim_core::character_proportions::BodyProportion;
+     4	use fabelgeist_mhr::math::rotate_vector;
+     5	mod probe_bounds;
+     6	
+     7	pub(super) fn samples(
+     8	    model: &BodyModel,
+     9	    body: &GeneratedCharacter,
+    10	) -> Result<Vec<ForearmMorphSample>> {
+    11	    use BodyProportion::{HipWidth, ShoulderWidth, UpperArmLength};
+    12	    // Population endpoints can fold an individual wearer's armpits or cross
+    13	    // their thighs. Bound the hypothetical probes before freezing offsets;
+    14	    // this does not alter the selected body or certify editor endpoints.
+    15	    [
+    16	        (HipWidth, -HipWidth.generated_limit()),
+    17	        (ShoulderWidth, -ShoulderWidth.limit()),
+    18	        (UpperArmLength, -UpperArmLength.limit()),
+    19	    ]
+    20	    .into_iter()
+    21	    .map(|(proportion, value)| {
+    22	        let character = &model.mhr.character;
+    23	        let mut shifts: fabelgeist_rig::RigJointTable<[f32; 3]> =
+    24	            vec![[0.; 3]; body.global_joint_states.len()].into();
+    25	        for (joint, &parent) in character.skeleton.parents.indexed() {
+    26	            let basis = &body.joint_proportions[joint];
+    27	            let delta = value - basis.reference.get(proportion);
+    28	            let local = basis.translation_metres[proportion.index()].map(|v| f64::from(v * delta));
+    29	            let shift = if let Some(parent) = parent {
+    30	                let state = body.global_joint_states[parent];
+    31	                rotate_vector(
+    32	                    std::array::from_fn(|i| f64::from(state[i + 3])),
+    33	                    local.map(|v| v * f64::from(state[7])),
+    34	                )
+    35	            } else {
+    36	                local
+    37	            };
+    38	            shifts[joint] = std::array::from_fn(|i| {
+    39	                shift[i] as f32 + parent.map_or(0.0, |parent| shifts[parent][i])
+    40	            });
+    41	        }
+    42	        let mut positions: Vec<[f32; 3]> = body
+    43	            .positions
+    44	            .iter()
+    45	            .enumerate()
+    46	            .map(|(v, p)| {
+    47	                let vertex =
+    48	                    fabelgeist_mhr::character::MeshVertexIndex::from_native_vertex_index(v);
+    49	                let skin = character
+    50	                    .skin_weights
+    51	                    .vertex(vertex)
+    52	                    .context("skeletal probe references a missing body skin vertex")?
+    53	                    .strongest_four();
+    54	                Ok(std::array::from_fn(|i| {
+    55	                    p[i] + skin
+    56	                        .joints
+    57	                        .into_iter()
+    58	                        .zip(skin.weights)
+    59	                        .map(|(joint, weight)| shifts[joint][i] * weight)
+    60	                        .sum::<f32>()
+    61	                }))
+    62	            })
+    63	            .collect::<Result<_>>()?;
+    64	        let mut fraction = probe_bounds::oriented_area_fraction(
+    65	            &body.positions,
+    66	            &positions,
+    67	            &character.mesh.faces,
+    68	        );
+    69	        if proportion == HipWidth {
+    70	            fraction = fraction.min(sagittal_clearance_fraction(&body.positions, &positions));
+    71	        }
+    72	        if fraction < 1.0 {
+    73	            for (point, original) in positions.iter_mut().zip(&body.positions) {
+    74	                *point = std::array::from_fn(|i| original[i] + (point[i] - original[i]) * fraction);
+    75	            }
+    76	            for shift in &mut shifts {
+    77	                *shift = shift.map(|v| v * fraction);
+    78	            }
+    79	        }
+    80	        let global_joint_states = body
+    81	            .global_joint_states
+    82	            .iter()
+    83	            .zip(&shifts)
+    84	            .map(|(state, shift)| {
+    85	                let mut result = *state;
+    86	                for i in 0..3 {
+    87	                    result[i] += shift[i];
+    88	                }
+    89	                result
+    90	            })
+    91	            .collect();
+    92	        Ok(ForearmMorphSample {
+    93	            name: format!("unposed-{}", proportion.mhr_parameter()),
+    94	            positions,
+    95	            normals: body.normals.clone(),
+    96	            global_joint_states,
+    97	            device: Default::default(),
+    98	        })
+    99	    })
+   100	    .collect()
+   101	}
+   102	
+   103	/// Keep a quarter of each side's existing medial separation. This limits only
+   104	/// the hypothetical clearance probe; it does not modify the selected body or
+   105	/// claim support for an editor setting whose naked thighs cross one another.
+   106	fn sagittal_clearance_fraction(base: &[[f32; 3]], sample: &[[f32; 3]]) -> f32 {
+   107	    const RETAINED_MEDIAL_SEPARATION: f32 = 0.25;
+   108	    const SAGITTAL_ROUNDOFF_M: f32 = 1e-6;
+   109	    base.iter().zip(sample).fold(1.0, |fraction, (a, b)| {
+   110	        let movement = b[0] - a[0];
+   111	        if a[0].abs() > SAGITTAL_ROUNDOFF_M && a[0] * movement < 0.0 {
+   112	            fraction.min((a[0] * (1.0 - RETAINED_MEDIAL_SEPARATION) / -movement).clamp(0.0, 1.0))
+   113	        } else {
+   114	            fraction
+   115	        }
+   116	    })
+   117	}
+   118	
+   119	#[cfg(test)]
+   120	mod tests {
+   121	    use super::*;
+   122	
+   123	    #[test]
+   124	    fn hypothetical_narrowing_preserves_the_actual_wearers_medial_gap() {
+   125	        let base = [[0.008, 0.8, 0.0], [-0.008, 0.8, 0.0], [0.0, 1.0, 0.0]];
+   126	        let crossed = [[-0.002, 0.8, 0.0], [0.002, 0.8, 0.0], [0.0, 1.0, 0.0]];
+   127	        let f = sagittal_clearance_fraction(&base, &crossed);
+   128	        assert!(f > 0.0 && f < 1.0);
+   129	        let left = base[0][0] + (crossed[0][0] - base[0][0]) * f;
+   130	        let right = base[1][0] + (crossed[1][0] - base[1][0]) * f;
+   131	        assert!(left > 0.0 && right < 0.0 && left - right >= 0.0039);
+   132	        assert_eq!(sagittal_clearance_fraction(&base, &base), 1.0);
+   133	    }
+   134	}

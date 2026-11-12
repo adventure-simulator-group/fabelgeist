@@ -1,0 +1,56 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:1071-1125
+1071                 output_material_revisions.push(lot.material_revision);
+1072             }
+1073             yielded_item_ids.push(found.item_id.into());
+1074             yielded_quantities.push(found.quantity);
+1075         }
+1076     }
+1077     let infamy_gained = if resolution
+1078         .as_ref()
+1079         .and_then(|result| result.stealth_succeeded)
+1080         .is_some_and(|success| !success)
+1081     {
+1082         ILLEGAL_FORAGE_INFAMY
+1083     } else {
+1084         0.0
+1085     };
+1086     if infamy_gained > 0.0
+1087         && let Some(settlement_id) = ctx
+1088             .db
+1089             .character()
+1090             .id()
+1091             .find(character_id)
+1092             .and_then(|character| character.current_settlement_id)
+1093     {
+1094         crate::world_event::commit_noticed_illegal_foraging(
+1095             ctx,
+1096             character_id,
+1097             &settlement_id,
+1098             &request_id,
+1099             (infamy_gained * 100.0).round() as i32,
+1100             completed_at,
+1101         )?;
+1102     }
+1103     let attempt = ForageAttemptAuthority {
+1104         request_id: request_id.clone(),
+1105         character_id,
+1106         gateway_bucket: 0,
+1107         attempt_generation,
+1108         authority_input_digest: encode_digest(&planned.provenance().input_digest.0),
+1109         environment_digest: encode_digest(&environment_digest(&attestation, environment)),
+1110         canonical_place: vicinity.place.to_string(),
+1111         resolution_seed: seed,
+1112         started_at,
+1113         completed_at,
+1114         requested_minutes,
+1115         elapsed_minutes: elapsed,
+1116         source_ids,
+1117         yielded_item_ids,
+1118         yielded_quantities,
+1119         interrupted,
+1120         illegal: environment.settlement || environment.cultivated || environment.license_violation,
+1121         stealth_dc_millirank: resolution.as_ref().and_then(|row| row.stealth_dc_millirank),
+1122         stealth_succeeded: resolution.as_ref().and_then(|row| row.stealth_succeeded),
+1123         infamy_gained,
+1124         context_kind: attestation.context_kind,
+1125         context_id: attestation.context_id,

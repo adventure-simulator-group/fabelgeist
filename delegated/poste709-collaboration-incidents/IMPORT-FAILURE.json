@@ -1,0 +1,17 @@
+{
+  "schema": "726-incident-import-failure-v1",
+  "failure": "The initial coordinator import copied the q2328 path-safe incident packet and wrote its scan record, then an exact-match assertion failed because the expected continuation anchor was not present. The continuation was not modified by that attempt.",
+  "partial_files_present": [
+    "q2328/INCIDENT-PROJECTION.json",
+    "q2328/POST-EVENT-OBSERVATION.json",
+    "q2328/SEPARATELY-DECODED-CONNECTOR.json",
+    "q2328-scan/RECORD.json",
+    "q2328-scan/digest.json",
+    "q2328-scan/pattern.log"
+  ],
+  "scan_record_sha256": "b011e431eb77d5bc40bd0d54a7f8e67063aefdf0aa8d1c2dd00bcc6806850ddf",
+  "original_command_qualification": "The inline command and short AssertionError output are retained in the tool transcript; no separate exact script or stderr file was captured.",
+  "successor": "A separately invoked exact existing anchor inserts the continuation link; existing copied evidence is verified and not overwritten.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

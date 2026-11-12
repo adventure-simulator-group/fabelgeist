@@ -1,0 +1,111 @@
+ 546     match &object.location {
+ 547         InventoryLocation::Personal(location) => {
+ 548             ctx.db.inventory_item().id().delete(location.row_id);
+ 549         }
+ 550         InventoryLocation::Party(location) => {
+ 551             ctx.db.party_inventory_item().id().delete(location.row_id);
+ 552         }
+ 553         _ => return Err("Container is not in carried inventory".into()),
+ 554     }
+ 555     let key = vessel_station_key(character_id, &fireplace_fixture_id, object.id);
+ 556     object.location = InventoryLocation::fireplace(fireplace_fixture_id.clone());
+ 557     ctx.db.inventory_object().id().update(object.clone());
+ 558     ctx.db.fireplace_station().insert(FireplaceStation {
+ 559         key,
+ 560         character_id,
+ 561         fireplace_fixture_id,
+ 562         instrument_item_id: Some(object.item_id),
+ 563         instrument_object_id: Some(object.id),
+ 564         instrument_return_custody: Some(persisted_source),
+ 565     });
+ 566     Ok(())
+ 567 }
+ 568 
+ 569 #[reducer]
+ 570 pub fn retrieve_fireplace_container(
+ 571     ctx: &ReducerContext,
+ 572     character_id: u64,
+ 573     fireplace_fixture_id: String,
+ 574     container_object_id: u64,
+ 575 ) -> Result<(), String> {
+ 576     crate::strategic::require_strategic_gateway(ctx)?;
+ 577     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 578     if actor.has_tactical_server_assignment() {
+ 579         return Err("Cooking is unavailable during a tactical encounter".into());
+ 580     }
+ 581     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 582     let key = vessel_station_key(character_id, &fireplace_fixture_id, container_object_id);
+ 583     let station = ctx
+ 584         .db
+ 585         .fireplace_station()
+ 586         .key()
+ 587         .find(key.clone())
+ 588         .ok_or("Container is not at this fireplace")?;
+ 589     if ctx
+ 590         .db
+ 591         .fireplace_dish()
+ 592         .station_key()
+ 593         .find(key.clone())
+ 594         .is_some()
+ 595     {
+ 596         return Err("Retrieve the cooked dish before removing its container".into());
+ 597     }
+ 598     let item_id = station
+ 599         .instrument_item_id
+ 600         .clone()
+ 601         .ok_or("Fireplace vessel is missing")?;
+ 602     let fixture = validate_persisted_station_fixture(ctx, &station)?;
+ 603     let return_custody = station
+ 604         .instrument_return_custody
+ 605         .as_ref()
+ 606         .ok_or("Container return custody is unknown")?;
+ 607     let destination = crate::object_custody::carried_destination(return_custody, character_id)?;
+ 608     crate::inventory_container::prevalidate_rehome_subtree(ctx, container_object_id, &destination)?;
+ 609     let inventory_row_id = match &destination {
+ 610         OperationalCustody::Character(character) => {
+ 611             let row = ctx.db.inventory_item().insert(crate::InventoryItem {
+ 612                 id: 0,
+ 613                 character_id: character.get(),
+ 614                 item_id: item_id.clone(),
+ 615                 quantity: 1,
+ 616             });
+ 617             row.id
+ 618         }
+ 619         OperationalCustody::Party(party_id) => {
+ 620             if ctx
+ 621                 .db
+ 622                 .party_authority()
+ 623                 .id()
+ 624                 .find(party_id.as_str().to_owned())
+ 625                 .is_none()
+ 626             {
+ 627                 return Err("Original party inventory is unavailable".into());
+ 628             }
+ 629             let row = ctx
+ 630                 .db
+ 631                 .party_inventory_item()
+ 632                 .insert(crate::strategic::PartyInventoryItem {
+ 633                     id: 0,
+ 634                     party_id: party_id.as_str().into(),
+ 635                     item_id: item_id.clone(),
+ 636                     quantity: 1,
+ 637                 });
+ 638             row.id
+ 639         }
+ 640         _ => return Err("Container return custody is not a carried inventory".into()),
+ 641     };
+ 642     let mut object = ctx
+ 643         .db
+ 644         .inventory_object()
+ 645         .id()
+ 646         .find(container_object_id)
+ 647         .ok_or("Container object is missing")?;
+ 648     crate::object_custody::require_object_at_fixture(ctx, &object, &fixture)?;
+ 649     object.location =
+ 650         crate::inventory_container::carried_location_for_row(&destination, inventory_row_id)?;
+ 651     ctx.db.inventory_object().id().update(object);
+ 652     crate::inventory_container::rehome_subtree(ctx, container_object_id, &destination)?;
+ 653     ctx.db.fireplace_station().key().delete(key);
+ 654     crate::inventory_container::merge_empty_container(ctx, container_object_id)?;
+ 655     Ok(())
+ 656 }

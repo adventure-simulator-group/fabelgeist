@@ -1,0 +1,66 @@
+  1240	) -> bool {
+  1241	    if left.len() != right.len() {
+  1242	        return false;
+  1243	    }
+  1244	    let mut left = left.iter().collect::<Vec<_>>();
+  1245	    let mut right = right.iter().collect::<Vec<_>>();
+  1246	    left.sort_by_key(|value| value.source.identity.lot_id);
+  1247	    right.sort_by_key(|value| value.source.identity.lot_id);
+  1248	    left.into_iter()
+  1249	        .zip(right)
+  1250	        .all(|(left, right)| left == right)
+  1251	}
+  1252	
+  1253	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  1254	pub enum MaterialCommitRejection {
+  1255	    MissingSource,
+  1256	    AmbiguousSource,
+  1257	    IdentityOrCustodyMismatch,
+  1258	    StaleRevision,
+  1259	    Overconsume,
+  1260	    SnapshotMismatch,
+  1261	}
+  1262	
+  1263	/// Revalidates every captured source against fresh authoritative state. A
+  1264	/// reducer must call this in the same transaction immediately before applying
+  1265	/// a non-replay receipt.
+  1266	pub fn validate_material_commit<
+  1267	    P: DomainPreparation,
+  1268	    C: DomainMaterialComponent,
+  1269	    X: DomainContaminant,
+  1270	    D: DomainConservationPolicy,
+  1271	    O: DomainMaterialReceipt,
+  1272	>(
+  1273	    receipt: &MaterialTransformationReceipt<P, C, X, D, O>,
+  1274	    current_sources: &[PrivateMaterialSnapshot<P, C, X>],
+  1275	) -> Result<(), MaterialCommitRejection> {
+  1276	    for captured in &receipt.sources {
+  1277	        let matching = current_sources
+  1278	            .iter()
+  1279	            .filter(|current| current.identity.lot_id == captured.source.identity.lot_id)
+  1280	            .collect::<Vec<_>>();
+  1281	        let current = match matching.as_slice() {
+  1282	            [] => return Err(MaterialCommitRejection::MissingSource),
+  1283	            [current] => *current,
+  1284	            _ => return Err(MaterialCommitRejection::AmbiguousSource),
+  1285	        };
+  1286	        if current.identity != captured.source.identity {
+  1287	            return Err(MaterialCommitRejection::IdentityOrCustodyMismatch);
+  1288	        }
+  1289	        if current.revision != captured.source.revision {
+  1290	            return Err(MaterialCommitRejection::StaleRevision);
+  1291	        }
+  1292	        if captured.consumed.mass_milligrams > current.measure.mass_milligrams
+  1293	            || captured.consumed.volume_microliters > current.measure.volume_microliters
+  1294	        {
+  1295	            return Err(MaterialCommitRejection::Overconsume);
+  1296	        }
+  1297	        if current.measure != captured.source.measure
+  1298	            || current.preparation != captured.source.preparation
+  1299	            || current.truth != captured.source.truth
+  1300	        {
+  1301	            return Err(MaterialCommitRejection::SnapshotMismatch);
+  1302	        }
+  1303	    }
+  1304	    Ok(())
+  1305	}

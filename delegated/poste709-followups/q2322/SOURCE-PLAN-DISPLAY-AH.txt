@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:675-745
+ 675             return Err("foraging license decision does not bind its question");
+ 676         }
+ 677         Ok(Self {
+ 678             actor: *actor,
+ 679             source: *source,
+ 680             decision,
+ 681         })
+ 682     }
+ 683 }
+ 684 
+ 685 pub struct ForagePlanAuthority {
+ 686     pub coordinates: ActionCoordinates<ForagePlanTarget>,
+ 687     pub provenance: PlanProvenance,
+ 688     pub snapshot: AuthoritativeSnapshot,
+ 689     pub current_minute: StrategicMinute,
+ 690     pub duration: RequestedDuration,
+ 691     pub terminal_minute: Option<StrategicMinute>,
+ 692     pub exact_presence: bool,
+ 693     pub encounter_clear: bool,
+ 694     pub environment_current: bool,
+ 695     pub capability_current: bool,
+ 696     pub sources_available: bool,
+ 697     pub license_decisions: Vec<ForageLicenseDecision>,
+ 698     /// Settlement and cultivation restrictions are authoritative local law,
+ 699     /// independent of globally presented organization privileges.
+ 700     pub local_restriction: bool,
+ 701     pub legality: ForageLegality,
+ 702     pub source_ids: Vec<String>,
+ 703     /// The adapter resolves this for the planner's exact elapsed interval.
+ 704     /// It is `None` only when no time elapses.
+ 705     pub resolution: Option<ForageResolution>,
+ 706 }
+ 707 
+ 708 pub type ForagePlanningOutcome = PlanningOutcome<
+ 709     ForagePlanTarget,
+ 710     ForagePlanRequirement,
+ 711     ForagePlanCapability,
+ 712     ForagePlanInterruption,
+ 713     ForagePlanEffect,
+ 714     ForagePublicPreview,
+ 715 >;
+ 716 
+ 717 pub fn build_forage_plan(authority: ForagePlanAuthority) -> ForagePlanningOutcome {
+ 718     let sources_are_canonical = !authority.source_ids.is_empty()
+ 719         && authority
+ 720             .source_ids
+ 721             .windows(2)
+ 722             .all(|pair| pair[0] < pair[1]);
+ 723     let actor = authority.coordinates.actor();
+ 724     let decisions_match_sources = authority.license_decisions.len() == authority.source_ids.len()
+ 725         && authority
+ 726             .license_decisions
+ 727             .iter()
+ 728             .zip(&authority.source_ids)
+ 729             .all(|(binding, source_id)| {
+ 730                 binding.actor == actor
+ 731                     && binding.source.id() == source_id
+ 732                     && matches!(
+ 733                         binding.decision.kind(),
+ 734                         RightsDecisionKind::Allowed | RightsDecisionKind::Denied
+ 735                     )
+ 736             });
+ 737     let any_denied = authority
+ 738         .license_decisions
+ 739         .iter()
+ 740         .any(|binding| binding.decision.kind() == RightsDecisionKind::Denied);
+ 741     let expected_legality = if authority.local_restriction || any_denied {
+ 742         ForageLegality::IllegalAttempt
+ 743     } else {
+ 744         ForageLegality::Legal
+ 745     };

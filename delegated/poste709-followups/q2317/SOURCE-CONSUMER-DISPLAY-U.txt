@@ -1,0 +1,57 @@
+SOURCE crates/strategic-web/src/templates/settlement/cooking.rs:135-190
+ 135                                     input type="hidden" name="container_object_id" value=(object_id);
+ 136                                     button class="btn btn-primary btn-small" type="submit" { "Retrieve into vessel" }
+ 137                                 }
+ 138                             } @else {
+ 139                                 form action=(format!("{action_base}/container/start")) method="post" {
+ 140                                     input type="hidden" name="container_object_id" value=(object_id);
+ 141                                     button class="btn btn-primary btn-small" type="submit" { "Start cooking contents" }
+ 142                                 }
+ 143                                 form action=(format!("{action_base}/container/remove")) method="post" {
+ 144                                     input type="hidden" name="container_object_id" value=(object_id);
+ 145                                     button class="btn btn-secondary btn-small" type="submit" { "Remove from fire" }
+ 146                                 }
+ 147                             }
+ 148                         }
+ 149                     }
+ 150                     }
+ 151                 }))
+ 152             }
+ 153             @if let Some(row) = dish {
+ 154                 section class="rest-service-menu fireplace-rest-menu" aria-label="Rest until food is ready" {
+ 155                     div class="rest-service-heading" { strong { "Rest while cooking" } }
+ 156                     p class="fireplace-rest-countdown" aria-label=(format!("{} minutes remaining", u64::from(row.target_minutes).saturating_sub(elapsed))) {
+ 157                         (decorative_game_icon("flame"))
+ 158                         span { (u64::from(row.target_minutes).saturating_sub(elapsed)) "m" }
+ 159                     }
+ 160                     @if elapsed >= u64::from(row.target_minutes) {
+ 161                         p class="strategic-warning fireplace-ready-warning" role="status" {
+ 162                             (decorative_game_icon("flame"))
+ 163                             @match row.method {
+ 164                                 CookingMethod::Stew => { "The dish is ready and will hold safely in its wet pot." }
+ 165                                 CookingMethod::Roast => { "The dish is ready. More time will dry and smoke it, reducing nutrition." }
+ 166                                 CookingMethod::PanFry | CookingMethod::Bake => { "The dish is ready. More time will burn it." }
+ 167                             }
+ 168                         }
+ 169                     }
+ 170                     form action=(rest_action) method="post" {
+ 171                         input type="hidden" name="unit" value="minutes";
+ 172                         input type="hidden" name="shelter" value="bivouac";
+ 173                         label for="fireplace-rest-minutes" { "Minutes" }
+ 174                         input id="fireplace-rest-minutes" type="range" name="duration" min="1" max=(row.target_minutes.saturating_mul(2).max(1)) value=(remaining);
+ 175                         output for="fireplace-rest-minutes" { (remaining) }
+ 176                         button type="submit" class="btn btn-primary btn-block" { "Rest" }
+ 177                     }
+ 178                 }
+ 179             }
+ 180         }
+ 181         main class="center-content settlement-main fireplace-stage" {
+ 182             a class="btn btn-secondary btn-small" href=(back_href) { "Back" }
+ 183             (visual_stage(VisualStageKind::Campfire, title, "A working fireplace and its cooking station"))
+ 184             @if dish.is_none() {
+ 185                 (selection::selection(action_base, inventory_scope, method))
+ 186             }
+ 187         }
+ 188         aside class="right-sidebar fireplace-inventory-sidebar" {
+ 189             (sidebar_section("Ingredients and vessels", html! {
+ 190                 nav class="tab-list" aria-label="Ingredient inventory source" {

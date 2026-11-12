@@ -1,0 +1,35 @@
+ 401     )?;
+ 402     crate::social::settle_shared_party_time(ctx, character_id);
+ 403     crate::social::close_physiology_presence(ctx, character_id);
+ 404     character.alive = false;
+ 405     if let Some(mut presence) = ctx
+ 406         .db
+ 407         .settlement_resident_presence()
+ 408         .character_id()
+ 409         .find(character_id)
+ 410     {
+ 411         presence.context_suppressed = false;
+ 412         presence.health_suppressed = true;
+ 413         ctx.db
+ 414             .settlement_resident_presence()
+ 415             .character_id()
+ 416             .update(presence);
+ 417     }
+ 418     // Keep an active tactical assignment until that server commits or removes
+ 419     // the character. This lets mission teardown find and cascade temporary
+ 420     // combatants that died in transient tactical state.
+ 421     let party_id = character.party_id.clone();
+ 422     ctx.db.character().id().update(character);
+ 423     crate::browser_session::clear_dead_character_selection(ctx, character_id);
+ 424     crate::continuity::settle_pending_inheritances_for_heir(ctx, character_id, strategic_minute)?;
+ 425     crate::continuity::record_estate_disposition_for_death(ctx, character_id, strategic_minute)?;
+ 426     crate::relationship::settle_relationship_lifecycle_for_death(
+ 427         ctx,
+ 428         character_id,
+ 429         strategic_minute,
+ 430     )?;
+ 431     crate::social::prune_invalid_automatic_social_chats(ctx);
+ 432     if let Some(party_id) = party_id {
+ 433         crate::strategic::normalize_and_elect_party_leader(ctx, &party_id)?;
+ 434     }
+ 435     Ok(death)

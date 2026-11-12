@@ -1,0 +1,61 @@
+SOURCE crates/adventuresim-core/src/skill.rs:66-125
+  66     /// Physical. Intuitive. Bows. (15000h)
+  67     #[assoc(max_hours = 15000.0, kind = SkillKind::Physical, is_trained = false)]
+  68     Bow,
+  69     /// Physical. Intuitive. Crossbows. (15000h)
+  70     #[assoc(max_hours = 15000.0, kind = SkillKind::Physical, is_trained = false)]
+  71     Crossbow,
+  72     /// Physical. Intuitive. Firearms. (15000h)
+  73     #[assoc(max_hours = 15000.0, kind = SkillKind::Physical, is_trained = false)]
+  74     Firearm,
+  75     /// Physical. Intuitive. Thrown weapons. (15000h)
+  76     #[assoc(max_hours = 15000.0, kind = SkillKind::Physical, is_trained = false)]
+  77     Throw,
+  78     /// Physical. Intuitive. Shield defense, poise damage on block. (12000h)
+  79     #[assoc(max_hours = 12000.0, kind = SkillKind::Physical, is_trained = false)]
+  80     Block,
+  81     /// Physical. Intuitive. Avoiding hits. (20000h)
+  82     #[assoc(max_hours = 20000.0, kind = SkillKind::Physical, is_trained = false)]
+  83     Dodge,
+  84     /// Physical. Intuitive. Quiet, unobtrusive movement. (8000h)
+  85     #[assoc(max_hours = 8000.0, kind = SkillKind::Physical, is_trained = false)]
+  86     Stealth,
+  87     /// Physical. Intuitive. Poise in melee. (30000h)
+  88     #[assoc(max_hours = 30000.0, kind = SkillKind::Physical, is_trained = false)]
+  89     Balance,
+  90     /// Mental. Intuitive. Movement through open country. (30000h)
+  91     #[assoc(max_hours = 30000.0, kind = SkillKind::Mental, is_trained = false)]
+  92     TerrainPlains,
+  93     /// Mental. Intuitive. Movement through woodland. (30000h)
+  94     #[assoc(max_hours = 30000.0, kind = SkillKind::Mental, is_trained = false)]
+  95     TerrainForest,
+  96     /// Mental. Intuitive. Movement through hilly ground. (30000h)
+  97     #[assoc(max_hours = 30000.0, kind = SkillKind::Mental, is_trained = false)]
+  98     TerrainHills,
+  99     /// Mental. Intuitive. Movement through wetlands and marshes. (30000h)
+ 100     #[assoc(max_hours = 30000.0, kind = SkillKind::Mental, is_trained = false)]
+ 101     TerrainWetlands,
+ 102     /// Mental. Intuitive. Movement through built-up ground. (30000h)
+ 103     #[assoc(max_hours = 30000.0, kind = SkillKind::Mental, is_trained = false)]
+ 104     TerrainUrban,
+ 105     /// Mental. Intuitive. Movement over snow-covered ground. (30000h)
+ 106     #[assoc(max_hours = 30000.0, kind = SkillKind::Mental, is_trained = false)]
+ 107     TerrainSnow,
+ 108     /// Mental. Trained. Operative wound care and surgical procedures. (10000h)
+ 109     #[assoc(max_hours = 10000.0, kind = SkillKind::Mental, is_trained = true)]
+ 110     Surgery,
+ 111     /// Physical. Trained. Sewing and clothing repair. (10000h)
+ 112     #[assoc(max_hours = 10000.0, kind = SkillKind::Physical, is_trained = true)]
+ 113     Tailoring,
+ 114     /// Physical. Trained. Field maintenance and equipment repair. (10000h)
+ 115     #[assoc(max_hours = 10000.0, kind = SkillKind::Physical, is_trained = true)]
+ 116     Smithing,
+ 117 }
+ 118 
+ 119 #[cfg(test)]
+ 120 mod tests {
+ 121     use super::{
+ 122         PlayerSkills, Skill, apply_direct_training, apply_language_training,
+ 123         aptitude_training_multiplier,
+ 124     };
+ 125     use crate::{

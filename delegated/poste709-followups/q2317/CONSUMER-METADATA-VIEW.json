@@ -1,0 +1,123 @@
+{
+  "crates/strategic-web/src/routes/settlements/party/cooking.rs": {
+    "sha256": "61346c702faf455c841363336ae997c14f9275b35b8410fc28520646032b6b4c",
+    "blob": "4899217c8f0f1e4c7fe9f137de599607b698d724",
+    "lines": 860,
+    "locators": {
+      "preview": [
+        836
+      ],
+      "start_fireplace_container_cooking": [
+        610,
+        855
+      ],
+      "add_fireplace_ingredients": [
+        471
+      ],
+      "fireplace_dish": [
+        250,
+        273,
+        542
+      ],
+      "FireplaceDish": [
+        196,
+        198,
+        250,
+        273
+      ]
+    }
+  },
+  "crates/strategic-web/src/templates/settlement/cooking.rs": {
+    "sha256": "e76003bb5faa199cd2cf9daeb5806004f93d386249679881a2976cc24cf66172",
+    "blob": "b7324b1bed5a4ecb617f28e36ed6532941deaee3",
+    "lines": 283,
+    "locators": {
+      "target_minutes": [
+        49,
+        52,
+        54,
+        65,
+        69,
+        71,
+        78,
+        80,
+        102,
+        109,
+        156,
+        158,
+        160,
+        174
+      ],
+      "FireplaceDish": [
+        11,
+        37,
+        39
+      ]
+    }
+  },
+  "crates/adventuresim-stdb-module/src/food/projections.rs": {
+    "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+    "blob": "5f635b371add61bea86d59e9c7c1944f0b6ab894",
+    "lines": 538,
+    "locators": {
+      "preview": [
+        2
+      ],
+      "target_minutes": [
+        514,
+        534
+      ],
+      "fireplace_dish": [
+        518,
+        519,
+        524
+      ],
+      "FireplaceDish": [
+        507,
+        519,
+        527
+      ],
+      "#[view": [
+        288,
+        487,
+        518
+      ]
+    }
+  },
+  "crates/adventuresim-stdb-module/src/food/model.rs": {
+    "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+    "blob": "5ed3ad5655e51693f0ed66989bcf03b63a39c613",
+    "lines": 151,
+    "locators": {
+      "target_minutes": [
+        128
+      ],
+      "fireplace_dish": [
+        114
+      ],
+      "FireplaceDish": [
+        115
+      ]
+    }
+  },
+  "crates/adventuresim-stdb-module/src/food/mod.rs": {
+    "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+    "blob": "9842317a2c59026333401b4e828ecb5938e6eb3f",
+    "lines": 84,
+    "locators": {
+      "include!(\"cooking.rs\")": [
+        48
+      ]
+    }
+  },
+  "crates/adventuresim-stdb-module/src/lib.rs": {
+    "sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+    "blob": "50c62bddee2b88c9d07e1a8ef6512648adf772e4",
+    "lines": 93,
+    "locators": {
+      "pub mod food": [
+        11
+      ]
+    }
+  }
+}

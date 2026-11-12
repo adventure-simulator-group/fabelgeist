@@ -1,0 +1,151 @@
+{
+  "top_level_keys": [
+    "lens",
+    "proposed_id",
+    "status",
+    "primary_original",
+    "primary_source_id",
+    "primary_source_sha256",
+    "primary_read",
+    "primary_read_pointer",
+    "primary_owning_function",
+    "first_failed_contract_or_policy_question",
+    "exact_source_identities_and_assessed_ranges",
+    "qualified_prior_same_lens_reuse",
+    "actual_focused_reread",
+    "source_reasoned_case",
+    "producer_api_state_consumer_native_trace",
+    "canonical_owner_or_question",
+    "connected_repair_scope",
+    "dependencies",
+    "remaining_evidence",
+    "audit_closure_condition",
+    "later_repair_acceptance_requirements",
+    "alias_review",
+    "original_delta_proposed",
+    "accepted_unique_count_change",
+    "authoritative_counts_changed",
+    "current_reconciled",
+    "product_execution",
+    "runtime_validation",
+    "implementation_gate_complete"
+  ],
+  "fields": {
+    "lens": {
+      "type": "int",
+      "json_bytes": 2
+    },
+    "proposed_id": {
+      "type": "str",
+      "json_bytes": 52
+    },
+    "status": {
+      "type": "str",
+      "json_bytes": 141
+    },
+    "primary_original": {
+      "type": "int",
+      "json_bytes": 4
+    },
+    "primary_source_id": {
+      "type": "str",
+      "json_bytes": 68
+    },
+    "primary_source_sha256": {
+      "type": "str",
+      "json_bytes": 66
+    },
+    "primary_read": {
+      "type": "dict",
+      "json_bytes": 162
+    },
+    "primary_read_pointer": {
+      "type": "str",
+      "json_bytes": 9
+    },
+    "primary_owning_function": {
+      "type": "str",
+      "json_bytes": 38
+    },
+    "first_failed_contract_or_policy_question": {
+      "type": "str",
+      "json_bytes": 409
+    },
+    "exact_source_identities_and_assessed_ranges": {
+      "type": "list",
+      "json_bytes": 6828
+    },
+    "qualified_prior_same_lens_reuse": {
+      "type": "dict",
+      "json_bytes": 185
+    },
+    "actual_focused_reread": {
+      "type": "dict",
+      "json_bytes": 535
+    },
+    "source_reasoned_case": {
+      "type": "list",
+      "json_bytes": 1337
+    },
+    "producer_api_state_consumer_native_trace": {
+      "type": "dict",
+      "json_bytes": 624
+    },
+    "canonical_owner_or_question": {
+      "type": "str",
+      "json_bytes": 213
+    },
+    "connected_repair_scope": {
+      "type": "str",
+      "json_bytes": 227
+    },
+    "dependencies": {
+      "type": "list",
+      "json_bytes": 197
+    },
+    "remaining_evidence": {
+      "type": "list",
+      "json_bytes": 311
+    },
+    "audit_closure_condition": {
+      "type": "list",
+      "json_bytes": 215
+    },
+    "later_repair_acceptance_requirements": {
+      "type": "list",
+      "json_bytes": 562
+    },
+    "alias_review": {
+      "type": "str",
+      "json_bytes": 191
+    },
+    "original_delta_proposed": {
+      "type": "int",
+      "json_bytes": 1
+    },
+    "accepted_unique_count_change": {
+      "type": "int",
+      "json_bytes": 1
+    },
+    "authoritative_counts_changed": {
+      "type": "bool",
+      "json_bytes": 5
+    },
+    "current_reconciled": {
+      "type": "bool",
+      "json_bytes": 5
+    },
+    "product_execution": {
+      "type": "bool",
+      "json_bytes": 5
+    },
+    "runtime_validation": {
+      "type": "str",
+      "json_bytes": 9
+    },
+    "implementation_gate_complete": {
+      "type": "bool",
+      "json_bytes": 5
+    }
+  }
+}

@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-stdb-module/src/disease.rs:1960-2040
+1960     let owned_plan;
+1961     let plan = if let Some(plan) = plan {
+1962         plan
+1963     } else {
+1964         owned_plan = plan_party_disease_interval(ctx, &[character_id], requested, allow_healing)?;
+1965         &owned_plan
+1966     };
+1967     let now = ctx
+1968         .db
+1969         .character_time()
+1970         .character_id()
+1971         .find(character_id)
+1972         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+1973     let immunity = ctx
+1974         .db
+1975         .character_attributes()
+1976         .character_id()
+1977         .find(character_id)
+1978         .map_or(3.0, |a| a.immunity);
+1979     let mut episodes = character_episodes(ctx, character_id)?;
+1980     episodes.extend(plan.proposals_for(character_id, now, now.saturating_add_minutes(requested)));
+1981     let terminal = first_private_terminal(
+1982         ctx,
+1983         character_id,
+1984         &episodes,
+1985         now,
+1986         now.saturating_add_minutes(requested),
+1987         immunity,
+1988     )?;
+1989     Ok((
+1990         terminal.map_or(requested, |(minute, _)| minute.elapsed_since(now)),
+1991         terminal.is_some(),
+1992     ))
+1993 }
+1994 
+1995 /// Side-effect-free terminal preview. The boolean is necessary because a
+1996 /// terminal crossing exactly at the requested endpoint has the same elapsed
+1997 /// duration as ordinary completion but must still suppress completion effects.
+1998 pub fn preview_disease_terminal_boundary(
+1999     ctx: &ReducerContext,
+2000     character_id: u64,
+2001     requested: u64,
+2002     allow_healing: bool,
+2003 ) -> Result<(u64, bool), String> {
+2004     preview_disease_boundary_planned(ctx, character_id, requested, allow_healing, None)
+2005 }
+2006 
+2007 pub fn preview_elapsed_for_disease(
+2008     ctx: &ReducerContext,
+2009     character_id: u64,
+2010     requested: u64,
+2011     allow_healing: bool,
+2012 ) -> Result<u64, String> {
+2013     preview_disease_boundary_planned(ctx, character_id, requested, allow_healing, None)
+2014         .map(|preview| preview.0)
+2015 }
+2016 
+2017 pub fn preview_elapsed_for_disease_in_plan(
+2018     ctx: &ReducerContext,
+2019     character_id: u64,
+2020     requested: u64,
+2021     allow_healing: bool,
+2022     plan: &PartyDiseaseIntervalPlan,
+2023 ) -> Result<u64, String> {
+2024     preview_disease_boundary_planned(ctx, character_id, requested, allow_healing, Some(plan))
+2025         .map(|preview| preview.0)
+2026 }
+2027 
+2028 pub fn finish_disease_interval(
+2029     ctx: &ReducerContext,
+2030     character_id: u64,
+2031     cause: Option<TerminalFailure>,
+2032 ) -> Result<(), String> {
+2033     let Some(cause) = cause else { return Ok(()) };
+2034     crate::transition_character_to_dead(
+2035         ctx,
+2036         character_id,
+2037         match cause {
+2038             TerminalFailure::Respiratory => crate::DeathCause::RespiratoryFailure,
+2039             TerminalFailure::Circulatory => crate::DeathCause::CirculatoryFailure,
+2040             TerminalFailure::Homeostatic => crate::DeathCause::HomeostaticFailure,

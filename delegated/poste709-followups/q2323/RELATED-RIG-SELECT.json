@@ -1,0 +1,23 @@
+{
+  "reader": "current-session delegate /root/rig_identity",
+  "pinned_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "finding_2": {
+    "id": "DELEGATE-RIG-EQUAL-BOUND-INSTANCE-QUESTION",
+    "classification": "related conditional public-boundary policy question, not an asserted ordinary runtime bug",
+    "source_trace": [
+      "crates/fabelgeist-rig/src/skin.rs:6-7,112-124 validates ordinal bound, not rig identity",
+      "crates/fabelgeist-rig/src/table.rs:8-10 says equal columns do not prove one rig instance",
+      "crates/adventuresim-character-creator/src/lib.rs:61,130 exposes device_fit and skin_rules",
+      "crates/adventuresim-character-creator/src/skin_rules.rs:23-35,59-63,211-223 checks bounds and writes the lookup ordinal",
+      "crates/adventuresim-character-creator/src/device_fit.rs:428-446,477-500 constructs armor and calls attach using separately supplied public Fitted names and joints"
+    ],
+    "counterexample": "If the exposed name order is [C_HEAD, ROOT] and a separately associated packed skin/receiving skeleton order is [ROOT, C_HEAD], both bounds equal two; a helmet lookup writes ordinal zero, which the second order interprets as ROOT. This requires mismatched externally supplied associations and a downstream consumer using that second order; neither an ordinary mismatched caller nor an actual run is established.",
+    "related_historical_records": [
+      "baseline-059/queue.json#/entries/2323 REVIEW-L11-CREATOR-PRIVATE-BODY-FIT-PAIRING"
+    ],
+    "relationship_qualification": "Earlier review explicitly rejected the ordinary private creator mismatch suspicion after tracing a single cached GeneratedCharacter and left public crossmodel association policy open. This bounded observation adds the current public API/consumer path, without contradicting that rejection or assigning a unique defect.",
+    "repair_direction": "Decide whether public APIs support independent crossmodel inputs. If so, admit a coherent source-instance/order relationship before attachment or carry one authoritative aggregate; preserve valid same-rig reuse and do not equate count equality with identity.",
+    "remaining": "Actual public callers, compatibility policy, final receiving skeleton and historical aliases; no runtime validation."
+  },
+  "status": "Complete bounded delegate report; central baseline, cross-lens reconciliation, repair ledger and checkpoint publication remain with coordinating agent. Overall audit and all thirteen lenses remain incomplete."
+}

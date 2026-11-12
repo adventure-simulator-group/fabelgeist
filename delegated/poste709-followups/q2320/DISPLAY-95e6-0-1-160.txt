@@ -1,0 +1,160 @@
+     1	// Owns ingredient preparation tools, timing, mutations, and reducer coordination.
+     2	fn preparation_skill_check(
+     3	    ctx: &ReducerContext,
+     4	    character_id: u64,
+     5	    skill: Skill,
+     6	) -> Result<f32, String> {
+     7	    let skills = ctx
+     8	        .db
+     9	        .character_skills()
+    10	        .character_id()
+    11	        .find(character_id)
+    12	        .ok_or("Character skills not found")?;
+    13	    let attributes = ctx
+    14	        .db
+    15	        .character_attributes()
+    16	        .character_id()
+    17	        .find(character_id)
+    18	        .ok_or("Character attributes not found")?;
+    19	    Ok(skill.capped_training_rank(skills.effective_skill_hours(skill), &attributes))
+    20	}
+    21	
+    22	fn cutting_weapon_binding(
+    23	    scope: CarriedInventoryScope,
+    24	    row_id: u64,
+    25	    item_id: &str,
+    26	    precision: f32,
+    27	    edge_sensitivity: f32,
+    28	    damage: DamageBins,
+    29	) -> String {
+    30	    use sha2::Digest as _;
+    31	
+    32	    let mut hash = sha2::Sha256::new();
+    33	    for value in [
+    34	        b"adventuresim.ingredient-preparation.cutting-weapon".as_slice(),
+    35	        1u16.to_le_bytes().as_slice(),
+    36	        scope.as_str().as_bytes(),
+    37	        row_id.to_le_bytes().as_slice(),
+    38	        item_id.as_bytes(),
+    39	        precision.to_bits().to_le_bytes().as_slice(),
+    40	        edge_sensitivity.to_bits().to_le_bytes().as_slice(),
+    41	    ] {
+    42	        hash.update((value.len() as u64).to_le_bytes());
+    43	        hash.update(value);
+    44	    }
+    45	    for damage_bits in damage.0.map(f32::to_bits) {
+    46	        let value = damage_bits.to_le_bytes();
+    47	        hash.update((value.len() as u64).to_le_bytes());
+    48	        hash.update(value);
+    49	    }
+    50	    format!("cutting-weapon:v1:{:x}", hash.finalize())
+    51	}
+    52	
+    53	fn carried_item_rows(
+    54	    ctx: &ReducerContext,
+    55	    character_id: u64,
+    56	) -> Vec<(CarriedInventoryScope, u64, String)> {
+    57	    let Some(actor) = ctx.db.character().id().find(character_id) else {
+    58	        return Vec::new();
+    59	    };
+    60	    let mut rows = ctx
+    61	        .db
+    62	        .inventory_item()
+    63	        .character_id()
+    64	        .filter(character_id)
+    65	        .filter(|row| {
+    66	            crate::inventory_container::object_for_row(ctx, CarriedInventoryScope::Personal, row.id)
+    67	                .ok()
+    68	                .flatten()
+    69	                .is_some_and(|object| {
+    70	                    crate::object_custody::require_actor_carried_object(ctx, &actor, &object)
+    71	                        .is_ok()
+    72	                        && !crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id)
+    73	                })
+    74	        })
+    75	        .map(|row| (CarriedInventoryScope::Personal, row.id, row.item_id))
+    76	        .collect::<Vec<_>>();
+    77	    if let Some(party_id) = ctx
+    78	        .db
+    79	        .character()
+    80	        .id()
+    81	        .find(character_id)
+    82	        .and_then(|row| row.party_id)
+    83	    {
+    84	        rows.extend(
+    85	            ctx.db
+    86	                .party_inventory_item()
+    87	                .party_id()
+    88	                .filter(&party_id)
+    89	                .filter(|row| {
+    90	                    crate::inventory_container::object_for_row(
+    91	                        ctx,
+    92	                        CarriedInventoryScope::Party,
+    93	                        row.id,
+    94	                    )
+    95	                    .ok()
+    96	                    .flatten()
+    97	                    .is_some_and(|object| {
+    98	                        crate::object_custody::require_actor_carried_object(ctx, &actor, &object)
+    99	                            .is_ok()
+   100	                            && !crate::inventory_container::ancestry_reaches_fireplace(
+   101	                                ctx, object.id,
+   102	                            )
+   103	                    })
+   104	                })
+   105	                .map(|row| (CarriedInventoryScope::Party, row.id, row.item_id)),
+   106	        );
+   107	    }
+   108	    rows
+   109	}
+   110	
+   111	fn qualifying_cutting_weapon_binding(ctx: &ReducerContext, character_id: u64) -> Option<String> {
+   112	    carried_item_rows(ctx, character_id)
+   113	        .into_iter()
+   114	        .filter_map(|(scope, row_id, item_id)| {
+   115	            let item = ctx.db.item().id().find(item_id)?;
+   116	            if item.precision < 0.5 {
+   117	                return None;
+   118	            }
+   119	            let damage = match scope {
+   120	                CarriedInventoryScope::Personal => ctx
+   121	                    .db
+   122	                    .item_condition()
+   123	                    .inventory_item_id()
+   124	                    .find(row_id)
+   125	                    .map(|c| c.bins()),
+   126	                CarriedInventoryScope::Party => ctx
+   127	                    .db
+   128	                    .party_item_condition()
+   129	                    .party_inventory_item_id()
+   130	                    .find(row_id)
+   131	                    .map(|c| {
+   132	                        DamageBins([c.tier_1, c.tier_2, c.tier_3, c.tier_4, c.tier_5]).normalized()
+   133	                    }),
+   134	            }
+   135	            .unwrap_or_default();
+   136	            (effective_weapon_stat(item.precision, damage, item.edge_sensitivity) >= 0.5).then(
+   137	                || {
+   138	                    cutting_weapon_binding(
+   139	                        scope,
+   140	                        row_id,
+   141	                        &item.id,
+   142	                        item.precision,
+   143	                        item.edge_sensitivity,
+   144	                        damage,
+   145	                    )
+   146	                },
+   147	            )
+   148	        })
+   149	        .min()
+   150	}
+   151	
+   152	fn grinding_tool_binding(ctx: &ReducerContext, character_id: u64) -> String {
+   153	    carried_item_rows(ctx, character_id)
+   154	        .into_iter()
+   155	        .filter(|(_, _, item_id)| item_id == "mortar_and_pestle")
+   156	        .map(|(scope, row_id, item_id)| format!("{}|{row_id}|{item_id}", scope.as_str()))
+   157	        .min()
+   158	        .unwrap_or_else(|| "hands".into())
+   159	}
+   160	

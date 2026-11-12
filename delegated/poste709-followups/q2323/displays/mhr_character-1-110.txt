@@ -1,0 +1,110 @@
+   1 //! Builds a momentum character (skeleton, mesh, skin weights, blend shapes)
+   2 //! out of an MHR `lod*.fbx` rig.
+   3 //!
+   4 //! The traversal order mirrors `momentum::loadOpenFbxCharacter`, because the
+   5 //! joint indices it produces are what the `.model` parameter transform, the
+   6 //! skin clusters, and the pose-corrective network are all indexed by.
+   7 
+   8 use std::collections::HashMap;
+   9 
+  10 use anyhow::{Context, Result, bail};
+  11 
+  12 use crate::math::{Mat4, Transform};
+  13 use fabelgeist_fbx::{FbxObjectName, Object, Scene};
+  14 use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+  15 pub use skeleton::Skeleton;
+  16 use skeleton::{ParsedSkeleton, parse_skeleton};
+  17 pub use skin::SkinWeights;
+  18 use skin::parse_skin;
+  19 pub use vertices::{MeshVertexCount, MeshVertexIndex, MeshVertexTable};
+  20 
+  21 mod skeleton;
+  22 mod skin;
+  23 mod vertices;
+  24 
+  25 /// Momentum allows at most eight joint influences per vertex.
+  26 pub const MAX_SKIN_JOINTS: usize = 8;
+  27 
+  28 /// `tx, ty, tz, rx, ry, rz, sc`.
+  29 pub const PARAMETERS_PER_JOINT: usize = 7;
+  30 
+  31 /// Triangulated mesh with the original polygon topology dropped.
+  32 #[derive(Debug, Default, Clone)]
+  33 pub struct Mesh {
+  34     pub vertices: MeshVertexTable<[f32; 3]>,
+  35     pub faces: Vec<[u32; 3]>,
+  36     pub texcoords: Vec<[f32; 2]>,
+  37     pub texcoord_faces: Vec<[u32; 3]>,
+  38 }
+  39 
+  40 /// Dense blend-shape basis, `shape-major`: `vectors[shape * n_verts * 3 + ..]`.
+  41 #[derive(Debug, Default, Clone)]
+  42 pub struct BlendShapes {
+  43     pub names: Vec<FbxObjectName>,
+  44     pub vectors: Vec<f32>,
+  45 }
+  46 
+  47 /// Everything the MHR forward pass needs from the rig file.
+  48 pub struct Character {
+  49     pub skeleton: Skeleton,
+  50     pub mesh: Mesh,
+  51     pub skin_weights: SkinWeights,
+  52     /// Inverse bind pose per joint as a skeleton state `[t, q, s]`.
+  53     pub inverse_bind_pose: RigJointTable<[f32; 8]>,
+  54     pub blend_shapes: BlendShapes,
+  55 }
+  56 
+  57 impl Mesh {
+  58     pub fn vertex_count(&self) -> MeshVertexCount {
+  59         self.vertices.vertex_count()
+  60     }
+  61 }
+  62 
+  63 impl BlendShapes {
+  64     pub fn len(&self) -> usize {
+  65         self.names.len()
+  66     }
+  67 
+  68     pub fn is_empty(&self) -> bool {
+  69         self.names.is_empty()
+  70     }
+  71 }
+  72 
+  73 impl Character {
+  74     /// Loads a character from the bytes of a binary FBX rig.
+  75     pub fn from_fbx_bytes(data: &[u8], load_blend_shapes: bool) -> Result<Self> {
+  76         let scene = Scene::parse(data)?;
+  77         let ParsedSkeleton {
+  78             skeleton,
+  79             joint_ids,
+  80         } = parse_skeleton(&scene);
+  81         if skeleton.is_empty() {
+  82             bail!("no joints found in FBX rig");
+  83         }
+  84 
+  85         let joint_of_object: HashMap<i64, RigJointOrdinal> = joint_ids
+  86             .indexed()
+  87             .map(|(joint, id)| (*id, joint))
+  88             .collect();
+  89 
+  90         // Default to each joint's bind-pose global transform; clusters override
+  91         // the joints they actually bind, which for MHR is all of them.
+  92         let bind_pose = skeleton.bind_pose();
+  93         let mut inverse_bind_pose: RigJointTable<Mat4> = bind_pose
+  94             .iter()
+  95             .map(|transform| {
+  96                 let inverse = transform.inverse();
+  97                 let rotation = crate::math::quat_to_matrix(inverse.rotation);
+  98                 let mut m = [[0.0; 4]; 4];
+  99                 for row in 0..3 {
+ 100                     for col in 0..3 {
+ 101                         m[row][col] = rotation[row][col] * inverse.scale;
+ 102                     }
+ 103                     m[row][3] = inverse.translation[row];
+ 104                 }
+ 105                 m[3][3] = 1.0;
+ 106                 m
+ 107             })
+ 108             .collect();
+ 109 
+ 110         let mesh_model = scene

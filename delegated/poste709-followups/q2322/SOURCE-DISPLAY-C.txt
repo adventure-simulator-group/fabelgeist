@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:931-1000
+ 931     for effect in planned.effects() {
+ 932         match effect {
+ 933             ActionEffect::Domain(foraging::ForagePlanEffect::AttemptSearch {
+ 934                 actor,
+ 935                 requested_minutes,
+ 936             }) => effect_duration = Some((actor.get(), *requested_minutes)),
+ 937             ActionEffect::Domain(foraging::ForagePlanEffect::CommitResolution {
+ 938                 resolution,
+ 939                 permits_yield,
+ 940             }) => effect_resolution = Some((resolution.clone(), *permits_yield)),
+ 941             _ => return Err("Foraging planner emitted an unsupported effect".into()),
+ 942         }
+ 943     }
+ 944     let (effect_actor, effect_minutes) =
+ 945         effect_duration.ok_or("Foraging planner omitted its search effect")?;
+ 946     if effect_actor != character_id || effect_minutes != requested_minutes {
+ 947         return Err("Foraging planner effects do not match authority".into());
+ 948     }
+ 949     let completed = crate::time::advance_investigation_time(ctx, character_id, requested_minutes)?;
+ 950     let completed_at = character_minute(ctx, character_id)?;
+ 951     let elapsed = completed_at.elapsed_since(started_at);
+ 952     let interrupted = !planned.time().permits_completion_effects();
+ 953     if elapsed != planned.time().elapsed_minutes
+ 954         || completed != planned.time().permits_completion_effects()
+ 955         || effect_resolution
+ 956             .as_ref()
+ 957             .is_some_and(|(_, permits_yield)| *permits_yield != !interrupted)
+ 958     {
+ 959         return Err("Foraging time diverged from its authoritative plan".into());
+ 960     }
+ 961     // Time effects are allowed to change physiology. Place, environmental
+ 962     // authority, source rights, and capability inputs must still be identical
+ 963     // before material/consequence effects are committed.
+ 964     let (post_vicinity, mut post_environment) =
+ 965         validate_attestation(ctx, character_id, &attestation)?;
+ 966     post_environment.license_violation = license_violation_for_sources(&source_ids, |privilege| {
+ 967         crate::organization::global_presented_privilege(ctx, character_id, privilege)
+ 968     });
+ 969     let (post_terrain_check, post_stealth_check) =
+ 970         acting_checks(ctx, character_id, post_environment.terrain)?;
+ 971     if post_vicinity != vicinity
+ 972         || post_environment != environment
+ 973         || post_terrain_check != terrain_check
+ 974         || post_stealth_check != stealth_check
+ 975     {
+ 976         return Err("Foraging authority changed during the search".into());
+ 977     }
+ 978     if elapsed > 0
+ 979         && let Some(mut skills) = ctx.db.character_skills().character_id().find(character_id)
+ 980     {
+ 981         let gains = foraging::training_hours(environment.terrain, elapsed);
+ 982         let attributes = ctx
+ 983             .db
+ 984             .character_attributes()
+ 985             .character_id()
+ 986             .find(character_id)
+ 987             .ok_or("Character attributes not found")?;
+ 988         let mut excess = 0.0;
+ 989         for (stored, skill, real_hours) in [
+ 990             (
+ 991                 &mut skills.terrain_plains_hours,
+ 992                 Skill::TerrainPlains,
+ 993                 gains[0],
+ 994             ),
+ 995             (
+ 996                 &mut skills.terrain_forest_hours,
+ 997                 Skill::TerrainForest,
+ 998                 gains[1],
+ 999             ),
+1000             (

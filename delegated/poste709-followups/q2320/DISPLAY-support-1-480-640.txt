@@ -1,0 +1,161 @@
+   480	            pub fn as_str(&self) -> &str {
+   481	                &self.0
+   482	            }
+   483	        }
+   484	    };
+   485	}
+   486	
+   487	canonical_id!(ActionRequestId);
+   488	canonical_id!(ActionDefinitionId);
+   489	
+   490	#[derive(Clone, Copy, Debug, Eq, Hash, PartialEq)]
+   491	pub struct AuthorityBinding(pub [u8; 32]);
+   492	
+   493	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   494	pub enum ProvenanceError {
+   495	    InvalidId,
+   496	}
+   497	
+   498	#[derive(Clone, Debug, Eq, PartialEq)]
+   499	pub struct PlanProvenance {
+   500	    pub request_id: ActionRequestId,
+   501	    pub action_id: ActionDefinitionId,
+   502	    pub input_digest: SnapshotDigest,
+   503	    /// Private reducer-authored binding. It is deliberately not serializable.
+   504	    pub authority_binding: AuthorityBinding,
+   505	}
+   506	
+   507	#[derive(Clone, Debug, Eq, PartialEq)]
+   508	pub struct PlanInput<
+   509	    T: DomainTarget,
+   510	    R: DomainRequirement,
+   511	    C: DomainCapability,
+   512	    I: DomainInterruption,
+   513	> {
+   514	    pub coordinates: ActionCoordinates<T>,
+   515	    pub provenance: PlanProvenance,
+   516	    pub snapshot: AuthoritativeSnapshot,
+   517	    pub current_minute: StrategicMinute,
+   518	    pub duration: RequestedDuration,
+   519	    pub boundaries: TimeBoundaries<I>,
+   520	    pub requirements: Vec<RequirementCheck<R, C>>,
+   521	    pub sanitized_rejection: PublicRejection,
+   522	}
+   523	
+   524	#[derive(Clone, Debug, Eq, PartialEq)]
+   525	pub struct PublicActionPlan<P: PublicPreview> {
+   526	    pub request_id: ActionRequestId,
+   527	    pub elapsed_minutes: u64,
+   528	    pub completed: bool,
+   529	    pub preview: P,
+   530	}
+   531	
+   532	#[derive(Clone, Debug, Eq, PartialEq)]
+   533	pub struct AuthoritativeActionPlan<
+   534	    T: DomainTarget,
+   535	    R: DomainRequirement,
+   536	    C: DomainCapability,
+   537	    I: DomainInterruption,
+   538	    E: DomainEffect,
+   539	    P: PublicPreview,
+   540	> {
+   541	    coordinates: ActionCoordinates<T>,
+   542	    provenance: PlanProvenance,
+   543	    snapshot: AuthoritativeSnapshot,
+   544	    requirements: Vec<RequirementCheck<R, C>>,
+   545	    time: TimeResolution<I>,
+   546	    calculation: CalculatedAction<E, P>,
+   547	}
+   548	
+   549	impl<
+   550	    T: DomainTarget,
+   551	    R: DomainRequirement,
+   552	    C: DomainCapability,
+   553	    I: DomainInterruption,
+   554	    E: DomainEffect,
+   555	    P: PublicPreview,
+   556	> AuthoritativeActionPlan<T, R, C, I, E, P>
+   557	{
+   558	    pub const fn coordinates(&self) -> &ActionCoordinates<T> {
+   559	        &self.coordinates
+   560	    }
+   561	    pub const fn provenance(&self) -> &PlanProvenance {
+   562	        &self.provenance
+   563	    }
+   564	    pub const fn snapshot(&self) -> AuthoritativeSnapshot {
+   565	        self.snapshot
+   566	    }
+   567	    pub fn requirements(&self) -> &[RequirementCheck<R, C>] {
+   568	        &self.requirements
+   569	    }
+   570	    pub const fn time(&self) -> &TimeResolution<I> {
+   571	        &self.time
+   572	    }
+   573	    pub fn effects(&self) -> &[ActionEffect<E>] {
+   574	        &self.calculation.effects
+   575	    }
+   576	    pub fn public_plan(&self) -> PublicActionPlan<P>
+   577	    where
+   578	        P: Clone,
+   579	    {
+   580	        PublicActionPlan {
+   581	            request_id: self.provenance.request_id.clone(),
+   582	            elapsed_minutes: self.time.elapsed_minutes,
+   583	            completed: self.time.permits_completion_effects(),
+   584	            preview: self.calculation.public_preview.clone(),
+   585	        }
+   586	    }
+   587	}
+   588	
+   589	#[derive(Clone, Debug, Eq, PartialEq)]
+   590	pub enum PlanningOutcome<
+   591	    T: DomainTarget,
+   592	    R: DomainRequirement,
+   593	    C: DomainCapability,
+   594	    I: DomainInterruption,
+   595	    E: DomainEffect,
+   596	    P: PublicPreview,
+   597	> {
+   598	    Ready(Box<AuthoritativeActionPlan<T, R, C, I, E, P>>),
+   599	    Rejected(PrivateRejection<R, C>),
+   600	}
+   601	
+   602	pub fn build_plan<T, R, C, I, E, P>(
+   603	    input: PlanInput<T, R, C, I>,
+   604	    calculate: impl FnOnce(&ActionCoordinates<T>, &TimeResolution<I>) -> CalculatedAction<E, P>,
+   605	) -> PlanningOutcome<T, R, C, I, E, P>
+   606	where
+   607	    T: DomainTarget,
+   608	    R: DomainRequirement,
+   609	    C: DomainCapability,
+   610	    I: DomainInterruption,
+   611	    E: DomainEffect,
+   612	    P: PublicPreview,
+   613	{
+   614	    let failed = input
+   615	        .requirements
+   616	        .iter()
+   617	        .filter(|check| !check.satisfied)
+   618	        .map(|check| check.requirement.clone())
+   619	        .collect::<Vec<_>>();
+   620	    if !failed.is_empty() {
+   621	        return PlanningOutcome::Rejected(PrivateRejection {
+   622	            failed,
+   623	            public: input.sanitized_rejection,
+   624	        });
+   625	    }
+   626	    let time = resolve_time(input.current_minute, input.duration, &input.boundaries);
+   627	    let calculation = calculate(&input.coordinates, &time);
+   628	    PlanningOutcome::Ready(Box::new(AuthoritativeActionPlan {
+   629	        coordinates: input.coordinates,
+   630	        provenance: input.provenance,
+   631	        snapshot: input.snapshot,
+   632	        requirements: input.requirements,
+   633	        time,
+   634	        calculation,
+   635	    }))
+   636	}
+   637	
+   638	#[derive(Clone, Debug, Eq, PartialEq)]
+   639	pub struct CommitAttempt {
+   640	    pub request_id: ActionRequestId,

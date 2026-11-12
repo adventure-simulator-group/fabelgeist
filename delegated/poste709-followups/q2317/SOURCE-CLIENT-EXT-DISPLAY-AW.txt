@@ -1,0 +1,25 @@
+SOURCE crates/strategic-web/static/cooking.js:236-259
+ 236         if (unstage) {
+ 237           event.preventDefault();
+ 238           const entry = staged.get(unstage.dataset.cookingUnstage);
+ 239           if (!entry) return;
+ 240           entry.quantity = unstage.dataset.transferMode === "all"
+ 241             ? 0
+ 242             : Math.max(0, entry.quantity - amountStep);
+ 243           if (entry.quantity === 0) staged.delete(entry.id);
+ 244           redraw(entry);
+ 245         }
+ 246       });
+ 247 
+ 248       form.addEventListener("change", (event) => {
+ 249         if (event.target.matches("[data-cooking-method]")) update();
+ 250       });
+ 251       update();
+ 252     });
+ 253   }
+ 254 
+ 255   window.addEventListener("DOMContentLoaded", () => mount());
+ 256   window.addEventListener("strategic-live-regions-refreshed", () => mount());
+ 257   document.addEventListener("strategic-page-mounted", () => mount());
+ 258   window.strategicCooking = { mount };
+ 259 })();

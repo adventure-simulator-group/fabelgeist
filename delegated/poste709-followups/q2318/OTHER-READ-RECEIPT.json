@@ -1,0 +1,59 @@
+{
+  "schema": "independent-q2318-other-read-receipt-v1",
+  "reader": "/root/verifier_scope",
+  "chronology": [
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "Q2318-DISPLAY-A.json",
+      "saved_utc": "2026-11-12T15:41:42.503747+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "Q2318-DISPLAY-SOURCES.json",
+      "saved_utc": "2026-11-12T15:41:46.926457+00:00"
+    },
+    {
+      "registration": "Q2317-REGISTRATION.json",
+      "display": "Q2317-SELECT.json",
+      "saved_utc": "2026-11-12T15:44:51.629659+00:00"
+    },
+    {
+      "registration": "RECORD-SELECTION-REGISTRATION.json",
+      "display": "HISTORICAL-SELECT-168.json",
+      "saved_utc": "2026-11-12T15:44:29.012040+00:00"
+    },
+    {
+      "registration": "RECORD-SELECTION-REGISTRATION.json",
+      "display": "HISTORICAL-SELECT-247.json",
+      "saved_utc": "2026-11-12T15:44:29.012096+00:00"
+    },
+    {
+      "registration": "RECORD-SELECTION-REGISTRATION.json",
+      "display": "HISTORICAL-STRUCTURES-COMPACT.txt",
+      "saved_utc": "2026-11-12T15:48:48.794197+00:00"
+    },
+    {
+      "registration": "RELATED-REGISTRATION.json",
+      "display": "RELATED-WATER-SELECT.json",
+      "saved_utc": "2026-11-12T15:45:00.486952+00:00"
+    },
+    {
+      "registration": "RELATED-REGISTRATION.json",
+      "display": "RELATED-MICROBIAL-SELECT.json",
+      "saved_utc": "2026-11-12T15:45:04.451078+00:00"
+    }
+  ],
+  "selections": [
+    "q2318 full selected entry excluding first direct source field plus separately shown first source field; nested fields included",
+    "q2317 selected record keys only",
+    "historic 168 and 247 /rows/0 and /sources/0 with separately attributed root mapping and status fields",
+    "water and microbial assessment selected fields only",
+    "compact historical keys, after initial truncation"
+  ],
+  "not_credited": [
+    "truncated structure metadata",
+    "unshown source bodies, historical record bodies and locator matches",
+    "full-file hashes as evidence of personal reading"
+  ],
+  "qualification": "Chronology is a process attestation, not proof of comprehension or semantic validity."
+}

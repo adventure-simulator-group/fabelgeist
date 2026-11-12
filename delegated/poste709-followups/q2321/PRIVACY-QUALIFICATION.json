@@ -1,0 +1,9 @@
+{
+  "created_at_utc": "2026-11-12T16:27:44.369222+00:00",
+  "assessment": "bounded prescan, not a comprehensive privacy guarantee; external final receipt binds complete sealed set",
+  "prescan_scope": "310 scratch files before privacy documentation and manifest",
+  "digest_scan": "40 digests from restricted evidence; bounded 128 MiB per view, recursion depth 18; no forbidden digests, candidates or exceptions in prescan",
+  "pattern_scan": "flat regular bytes, escaped slashes normalized, local home/temporary/Windows user/email/credential patterns; no matches in prescan",
+  "exclusions": "unknown sensitive values or encodings, unsupported formats, omitted symlinks, Git administrative metadata and history; raw commit metadata and whole private queues remain external",
+  "rerun": "final complete packet scan including manifest separately receipted to avoid self-referential digest; private corpus needed to reproduce digest scan"
+}

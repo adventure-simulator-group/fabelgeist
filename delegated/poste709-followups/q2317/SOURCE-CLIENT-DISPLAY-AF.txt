@@ -1,0 +1,21 @@
+SOURCE crates/strategic-web/static/cooking.js:126-145
+ 126       };
+ 127 
+ 128       const updateSourceRow = (entry) => {
+ 129         const count = entry.sourceRow.querySelector(".inventory-count");
+ 130         if (!count) return;
+ 131         count.dataset.base ||= String(entry.available);
+ 132         if (entry.quantity === 0) {
+ 133           delete count.dataset.tradeDraftChange;
+ 134           count.textContent = formatAmount(entry.available);
+ 135           entry.sourceRow.classList.remove("party-trade-changed");
+ 136         } else {
+ 137           count.dataset.tradeDraftChange = String(-entry.quantity);
+ 138           count.innerHTML = `${formatAmount(entry.available)} <span class="trade-delta negative">-${formatAmount(entry.quantity)}</span>`;
+ 139           entry.sourceRow.classList.add("party-trade-changed");
+ 140         }
+ 141         const stage = entry.sourceRow.querySelector("[data-cooking-stage]");
+ 142         if (stage) stage.disabled = entry.quantity >= entry.available;
+ 143       };
+ 144 
+ 145       const ensurePotRow = (entry) => {

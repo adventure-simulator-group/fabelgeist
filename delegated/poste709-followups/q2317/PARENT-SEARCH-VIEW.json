@@ -1,0 +1,41 @@
+{
+  "include!(\"cooking.rs\")": {
+    "exit": 0,
+    "files": [
+      "crates/strategic-web/src/routes/settlements/party/mod.rs",
+      "crates/adventuresim-stdb-module/src/food/mod.rs"
+    ],
+    "stderr": ""
+  },
+  "include!(\"food/cooking.rs\")": {
+    "exit": 1,
+    "files": [],
+    "stderr": ""
+  },
+  "mod cooking": {
+    "exit": 0,
+    "files": [
+      "crates/strategic-web/src/templates/settlement/mod.rs",
+      "crates/adventuresim-stdb-client/src/mod.rs"
+    ],
+    "stderr": ""
+  },
+  "pub mod food": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-core/src/lib.rs",
+      "crates/adventuresim-stdb-module/src/lib.rs",
+      "crates/adventuresim-stdb-client/src/mod.rs"
+    ],
+    "stderr": ""
+  },
+  "preview_cooking": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs"
+    ],
+    "stderr": ""
+  }
+}

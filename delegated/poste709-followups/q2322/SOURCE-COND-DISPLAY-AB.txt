@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-core/src/skill.rs:671-710
+ 671             Self::Charm => "Charm",
+ 672             Self::Command => "Command",
+ 673             Self::Deception => "Deception",
+ 674             Self::Physiology => "Physiology",
+ 675             Self::Cooking => "Cooking",
+ 676             Self::Herbalism => "Herbalism",
+ 677             Self::Religion => "Religion",
+ 678             Self::Bestiary => "Bestiary",
+ 679             Self::Polearm => "Polearm",
+ 680             Self::Axe => "Axe",
+ 681             Self::Bludgeon => "Bludgeon",
+ 682             Self::Sword => "Sword",
+ 683             Self::Knife => "Knife",
+ 684             Self::Bow => "Bow",
+ 685             Self::Crossbow => "Crossbow",
+ 686             Self::Firearm => "Firearm",
+ 687             Self::Throw => "Throw",
+ 688             Self::Block => "Block",
+ 689             Self::Dodge => "Dodge",
+ 690             Self::Stealth => "Stealth",
+ 691             Self::Balance => "Balance",
+ 692             Self::TerrainPlains => "Plains",
+ 693             Self::TerrainForest => "Forest",
+ 694             Self::TerrainHills => "Hills",
+ 695             Self::TerrainWetlands => "Wetlands",
+ 696             Self::TerrainUrban => "Urban",
+ 697             Self::TerrainSnow => "Snow",
+ 698             Self::Surgery => "Surgery",
+ 699             Self::Tailoring => "Tailoring",
+ 700             Self::Smithing => "Smithing",
+ 701         }
+ 702     }
+ 703 
+ 704     /// Training-only contribution on the shared five-point curve. `max_hours`
+ 705     /// is the documented asymptotic calibration; half of it is the half-rank
+ 706     /// point used consistently by simulation, persistence, and UI.
+ 707     pub fn training_rank(self, hours: f32) -> f32 {
+ 708         let hours = if hours.is_finite() {
+ 709             hours.max(0.0)
+ 710         } else {

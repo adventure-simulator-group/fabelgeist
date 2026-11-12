@@ -1,0 +1,19 @@
+{
+  "schema": "independent-q2319-history-registration-v1",
+  "registered_utc": "2026-11-12T15:52:03.831834+00:00",
+  "reader": "/root/verifier_scope",
+  "purpose": "Prospectively select original and reconstructed public 059 q2319 exact entry from fixed queue streams before display; stream hashes and full parsing are identity only.",
+  "selector": "/entries/2319",
+  "path": "baseline-059/queue.json",
+  "revisions": [
+    {
+      "role": "original",
+      "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e"
+    },
+    {
+      "role": "public_reconstruction",
+      "revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e"
+    }
+  ],
+  "qualification": "Distinct full streams; no checkpoint3821 inference and no transferred historical read credit."
+}

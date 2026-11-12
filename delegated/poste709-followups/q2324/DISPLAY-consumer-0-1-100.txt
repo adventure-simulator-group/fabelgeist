@@ -1,0 +1,100 @@
+     1	//! Underlayers cut from the body and fitted on the device, assembled into
+     2	//! armor with their own surface attributes and morph targets.
+     3	
+     4	use crate::armor_frames::FittingPlacement;
+     5	use anyhow::Result;
+     6	use fabelgeist_armor::{
+     7	    ArmorComponent, ArmorComponentRole, ArmorGpu, ArmorMorph, GeneratedArmor, Millimeters,
+     8	    Permille, TrunkHoseDesign,
+     9	};
+    10	
+    11	use crate::armor_frames::Wearer;
+    12	use crate::device_fit::deltas;
+    13	use crate::device_underlayer::{self, BodyShape, SurfaceDomain};
+    14	use crate::underlayer::{UnderlayerDesign, UnderlayerKind};
+    15	
+    16	/// The body an underlayer is cut from, and where its surface coordinates are.
+    17	#[derive(Clone, Copy)]
+    18	pub struct UnderlayerBody<'a> {
+    19	    pub wearer: &'a Wearer<'a>,
+    20	    pub domain: SurfaceDomain<'a>,
+    21	    /// The name of the surface coordinates' domain.
+    22	    pub surface_domain: &'a str,
+    23	    /// Static body shapes the fit must also clear, beyond the morphs.
+    24	    pub proportions: &'a [BodyShape<'a>],
+    25	}
+    26	
+    27	/// Cut an underlayer from the wearer and fit it to every morph, named.
+    28	pub fn fit_underlayer(
+    29	    gpu: &ArmorGpu,
+    30	    design: &UnderlayerDesign,
+    31	    placement: FittingPlacement,
+    32	    body: &UnderlayerBody<'_>,
+    33	    morphs: &[(&str, BodyShape<'_>)],
+    34	) -> Result<GeneratedArmor> {
+    35	    pollster::block_on(fit_underlayer_async(gpu, design, placement, body, morphs))
+    36	}
+    37	
+    38	pub async fn fit_underlayer_async(
+    39	    gpu: &ArmorGpu,
+    40	    design: &UnderlayerDesign,
+    41	    placement: FittingPlacement,
+    42	    body: &UnderlayerBody<'_>,
+    43	    morphs: &[(&str, BodyShape<'_>)],
+    44	) -> Result<GeneratedArmor> {
+    45	    let shapes = morphs.iter().map(|(_, shape)| *shape).collect::<Vec<_>>();
+    46	    let fitted = device_underlayer::fit_async(
+    47	        gpu,
+    48	        design,
+    49	        placement,
+    50	        body.wearer,
+    51	        body.domain,
+    52	        body.proportions,
+    53	        &shapes,
+    54	    )
+    55	    .await?;
+    56	    let base = fitted.base;
+    57	    let (vertex_count, index_count) = (base.positions.len(), fitted.indices.len());
+    58	    let targets = morphs
+    59	        .iter()
+    60	        .zip(fitted.endpoints)
+    61	        .map(|((name, _), endpoint)| ArmorMorph {
+    62	            name: (*name).to_owned(),
+    63	            position_deltas: deltas(&base.positions, &endpoint.positions),
+    64	            normal_deltas: deltas(&base.normals, &endpoint.normals),
+    65	            direct_positions: endpoint.positions,
+    66	        })
+    67	        .collect();
+    68	    Ok(GeneratedArmor {
+    69	        design_hash: fabelgeist_armor::parametric_design_hash(&serde_json::to_vec(design)?),
+    70	        surface_domain: body.surface_domain.into(),
+    71	        positions: base.positions,
+    72	        normals: base.normals,
+    73	        texcoords: fitted.texcoords,
+    74	        joint_indices: fitted.joint_indices,
+    75	        joint_weights: fitted.joint_weights,
+    76	        indices: fitted.indices,
+    77	        // Cut from the body: a quilted layer, not a thickened plate.
+    78	        faces: Vec::new(),
+    79	        trim: None,
+    80	        grids: Vec::new(),
+    81	        morphs: targets,
+    82	        components: fabric_component(design, vertex_count, index_count),
+    83	    })
+    84	}
+    85	
+    86	/// Cloth is dyed its design's colour; mail keeps its own surface maps.
+    87	fn fabric_component(
+    88	    design: &UnderlayerDesign,
+    89	    vertex_count: usize,
+    90	    index_count: usize,
+    91	) -> Vec<ArmorComponent> {
+    92	    if design.kind.is_mail() {
+    93	        return Vec::new();
+    94	    }
+    95	    vec![ArmorComponent {
+    96	        textile: None,
+    97	        role: ArmorComponentRole::OuterFabric,
+    98	        vertices: 0..vertex_count,
+    99	        indices: 0..index_count,
+   100	        hinge: None,

@@ -1,0 +1,51 @@
+SOURCE crates/strategic-web/src/templates/settlement/cooking.rs:71-120
+  71         } else if elapsed == u64::from(row.target_minutes) {
+  72             "check-mark"
+  73         } else {
+  74             "flame"
+  75         }
+  76     });
+  77     let cooking_phase = dish.map(|row| {
+  78         if elapsed < u64::from(row.target_minutes) {
+  79             "cooking"
+  80         } else if elapsed == u64::from(row.target_minutes) {
+  81             "ready"
+  82         } else {
+  83             "overdue"
+  84         }
+  85     });
+  86     let scope_href = |scope: &str| {
+  87         format!(
+  88             "{action_base}{}inventory_scope={scope}",
+  89             if action_base.contains('?') { "&" } else { "?" }
+  90         )
+  91     };
+  92     let content = html! {
+  93         div class="fireplace-layout" data-cooking-activity[dish.is_none()] data-pan-fat-ratio=(adventuresim_core::food::PAN_FRY_MIN_FAT_MASS_RATIO) {
+  94         aside class="left-sidebar fireplace-station-sidebar" {
+  95             (sidebar_section("Fireplace", html! {
+  96                 p class="fireplace-instrument" title="Loose food is always spit-roasted; pots, pans, and ovens cook their own contents." {
+  97                     (decorative_game_icon("campfire"))
+  98                     span { (instrument.map(item_display_name).unwrap_or_else(|| "Roasting spit".into())) }
+  99                 }
+ 100                 @if let Some(row) = dish {
+ 101                     div class="fireplace-cook-status" data-fireplace-status data-cooking-phase=(cooking_phase.unwrap_or("cooking")) role="group"
+ 102                         aria-label=(format!("{}: {} of {} minutes", status.unwrap_or("Cooking"), elapsed, row.target_minutes)) {
+ 103                         span class="fireplace-cook-status-icon" aria-hidden="true" { (decorative_game_icon(cooking_state_icon.unwrap_or("flame"))) }
+ 104                         div class="fireplace-cook-progress" role="meter" aria-label="Cooking progress"
+ 105                             aria-valuemin="0" aria-valuemax="100" aria-valuenow=(cooking_progress.unwrap_or(0)) {
+ 106                             span style=(format!("--cooking-progress:{}%", cooking_progress.unwrap_or(0))) {}
+ 107                         }
+ 108                         strong { (status.unwrap_or("Cooking")) }
+ 109                         time { (elapsed) "/" (row.target_minutes) "m" }
+ 110                     }
+ 111                     form action=(format!("{action_base}/retrieve")) method="post" {
+ 112                         button class="btn btn-primary btn-block" type="submit" { "Retrieve dish" }
+ 113                     }
+ 114                 } @else {
+ 115                     p class="small-copy text-muted" { "One loose spit-roasted dish may cook alongside any number of placed vessels. Each vessel uses only its own contents." }
+ 116                 }
+ 117             }))
+ 118             @if !vessel_stations.is_empty() {
+ 119                 (sidebar_section("Vessels over the fire", html! {
+ 120                     div data-inventory-browser="fireplace-vessels-left" data-optional-columns="" {

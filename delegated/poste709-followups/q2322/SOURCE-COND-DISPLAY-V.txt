@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-core/src/essential.rs:1-40
+   1 use crate::{
+   2     attribute::PlayerAttributes, body::PlayerBody, equipment::PlayerEquipment,
+   3     prelude::SimpleAttribute,
+   4 };
+   5 
+   6 const CALORIES_PER_ENDURANCE: f32 = 1000.0;
+   7 const FATIGUE_EXPONENT: i32 = 5;
+   8 
+   9 #[blanket::blanket(derive(Ref, Rc, Arc, Mut, Box, Cow))]
+  10 #[ambassador::delegatable_trait]
+  11 pub trait PlayerEssentials {
+  12     fn calories_used_today(&self) -> f32;
+  13     fn focus_level(&self) -> f32;
+  14 
+  15     fn fatigue_by_parts(&self, attr: &impl PlayerAttributes, body: &impl PlayerBody) -> f32 {
+  16         self.calories_used_today()
+  17             / (attr.attr_by_parts(SimpleAttribute::Endurance, body) * CALORIES_PER_ENDURANCE)
+  18     }
+  19 
+  20     /// Strategic skills account for daily fatigue and burden here. Combat instead
+  21     /// applies their contribution through live incapacitation at resolution.
+  22     fn physical_skill_condition_by_parts(
+  23         &self,
+  24         attr: &impl PlayerAttributes,
+  25         body: &impl PlayerBody,
+  26         equipment: &impl PlayerEquipment,
+  27     ) -> f32 {
+  28         self.fatigue_penalty_by_parts(attr, body)
+  29             * equipment.encumbrance_penalty_by_parts(attr, body)
+  30     }
+  31 
+  32     fn fatigue_penalty_by_parts(
+  33         &self,
+  34         attr: &impl PlayerAttributes,
+  35         body: &impl PlayerBody,
+  36     ) -> f32 {
+  37         let fatigue = self.fatigue_by_parts(attr, body);
+  38         (1.0 - fatigue.powi(FATIGUE_EXPONENT)).max(0.0)
+  39     }
+  40 }

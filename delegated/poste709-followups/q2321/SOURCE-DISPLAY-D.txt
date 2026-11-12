@@ -1,0 +1,82 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/preparation_authority.rs:155-235
+ 155                 .map(|value| value.to_bits()))
+ 156         && before.salty_kg.to_bits() == after.salty_kg.to_bits()
+ 157         && before.spicy_kg.to_bits() == after.spicy_kg.to_bits()
+ 158         && before.sweet_kg.to_bits() == after.sweet_kg.to_bits()
+ 159         && before.sour_kg.to_bits() == after.sour_kg.to_bits()
+ 160         && before.savory_kg.to_bits() == after.savory_kg.to_bits()
+ 161         && before.quality == after.quality
+ 162         && before.mass_kg.to_bits() == after.mass_kg.to_bits()
+ 163         && before.nutrition_kcal.to_bits() == after.nutrition_kcal.to_bits()
+ 164         && before.total_value.to_bits() == after.total_value.to_bits()
+ 165         && before.created_at_minute == after.created_at_minute
+ 166 }
+ 167 
+ 168 fn material_snapshot(
+ 169     ctx: &ReducerContext,
+ 170     lot: &FoodLot,
+ 171     object: &crate::InventoryObject,
+ 172     custody: adventuresim_core::physical_object::OperationalCustody,
+ 173     current_minute: StrategicMinute,
+ 174 ) -> Result<
+ 175     adventuresim_core::material::PrivateMaterialSnapshot<
+ 176         herbalism::IngredientMaterialPreparation,
+ 177         herbalism::MedicinalMaterialComponent,
+ 178         herbalism::IngredientContaminant,
+ 179     >,
+ 180     String,
+ 181 > {
+ 182     use adventuresim_core::material::{
+ 183         ContaminantLoad, ExtensiveComponent, MaterialComponentMicrounits, MaterialIdentity,
+ 184         MaterialLotId, MaterialMeasure, MaterialPreparation, Milligrams, PrivateMaterialSnapshot,
+ 185         PrivateMaterialTruth,
+ 186     };
+ 187     use std::num::NonZeroU64;
+ 188 
+ 189     let mass_milligrams = Milligrams::try_from_kilograms(f64::from(lot.mass_kg))
+ 190         .map_err(|error| format!("Ingredient material mass is invalid: {error:?}"))?
+ 191         .get();
+ 192     let measure = MaterialMeasure::try_new(mass_milligrams, 0)
+ 193         .map_err(|error| format!("Ingredient material measure is invalid: {error:?}"))?;
+ 194     let components = ctx
+ 195         .db
+ 196         .medicinal_component()
+ 197         .iter()
+ 198         .filter(|row| row.carrier_kind == "food_lot" && row.carrier_id == lot.id)
+ 199         .map(|row| {
+ 200             MaterialComponentMicrounits::try_from_units(row.potency_units)
+ 201                 .map_err(|error| format!("Ingredient medicinal potency is invalid: {error:?}"))
+ 202                 .map(|magnitude| {
+ 203                     magnitude.map(|magnitude| ExtensiveComponent {
+ 204                         component: herbalism::MedicinalMaterialComponent {
+ 205                             intervention_profile_id: row.intervention_profile_id,
+ 206                             profile_version: row.profile_version,
+ 207                         },
+ 208                         magnitude: magnitude.get(),
+ 209                     })
+ 210                 })
+ 211         })
+ 212         .collect::<Result<Vec<_>, String>>()?
+ 213         .into_iter()
+ 214         .flatten()
+ 215         .collect::<Vec<_>>();
+ 216     let contaminants = ctx
+ 217         .db
+ 218         .food_contamination()
+ 219         .food_lot_id()
+ 220         .find(lot.id)
+ 221         .and_then(|row| {
+ 222             let current = food::contamination_at(
+ 223                 row.concentration_anchor,
+ 224                 row.growth_per_hour,
+ 225                 current_minute.elapsed_since(row.anchor_minute),
+ 226             );
+ 227             let load = f64::from(current.max(0.0)) * mass_milligrams as f64;
+ 228             NonZeroU64::new(load.round() as u64).map(|load| ContaminantLoad {
+ 229                 contaminant: herbalism::IngredientContaminant::Microbial,
+ 230                 load,
+ 231             })
+ 232         })
+ 233         .into_iter()
+ 234         .collect();
+ 235     PrivateMaterialSnapshot::try_new(

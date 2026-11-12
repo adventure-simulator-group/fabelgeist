@@ -1,0 +1,270 @@
+{
+      "contract_id": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+      "kind": "connected-contract-question",
+      "lens": 13,
+      "canonical_owner": "add_fireplace_ingredients_at / retrieve_fireplace_dish actual amount/preview/native owner question",
+      "first_failed_contract_or_unresolved_question": "Finite per-lot checks and typed amounts assessed; actual aggregate/vessel volume bounds, load provenance and output object uniqueness/conservation require native producers/helpers.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+          "assessed_ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+            "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 full personal body",
+          "body_receipt": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-247.json",
+            "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096"
+          },
+          "root_adoption": {
+            "path": "segovb/READ-L13-PARALLEL-245.json",
+            "sha256": "00a95a5d218521f78368b0e591ee2f0174210f80e61b758a03fead3b00b920bd"
+          },
+          "new_body_credit": 0
+        }
+      ],
+      "remaining_evidence": [
+        "Actual food projections/UI preview consumers, lot/native inventory/amount/object/volume helpers, exact own core cooking proof; current source and first-operation aliases."
+      ],
+      "dependencies": [
+        "Native food lot/amount/custody contracts"
+      ],
+      "closure_condition": [
+        "Document supported producer\u2192API\u2192state\u2192consumer\u2192native trace and explicit preview/amount policy; retained finding, conditional, policy question or rejection may close audit discovery with current/alias qualifications. Runtime acceptance is separate."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "later_repair_acceptance_requirements": [],
+      "qualified_full_contract_update_as_proposed": {
+        "contract_id_or_proposed_new_id": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+        "lens": 13,
+        "canonical_owner_or_explicit_unresolved_owner_question": "add_fireplace_ingredients_at / retrieve_fireplace_dish actual amount/preview/native owner question",
+        "first_failed_contract_or_unresolved_question": "Finite per-lot checks and typed amounts assessed; actual aggregate/vessel volume bounds, load provenance and output object uniqueness/conservation require native producers/helpers.",
+        "exact_source_identities_and_assessed_ranges": [
+          {
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+            "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+            "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+            "assessed_ranges": [
+              [
+                1,
+                868
+              ]
+            ],
+            "read_pointer": "/rows/0",
+            "registration": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+              "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+            },
+            "registration_pointer": "/sources/0",
+            "read_attribution": "Own Lens13 full personal body"
+          }
+        ],
+        "remaining_evidence": [
+          "Actual food projections/UI preview consumers, lot/native inventory/amount/object/volume helpers, exact own core cooking proof; current source and first-operation aliases."
+        ],
+        "dependencies": [
+          "Native food lot/amount/custody contracts"
+        ],
+        "closure_condition": [
+          "Document supported producer\u2192API\u2192state\u2192consumer\u2192native trace and explicit preview/amount policy; retained finding, conditional, policy question or rejection may close audit discovery with current/alias qualifications. Runtime acceptance is separate."
+        ],
+        "existing_contract_revisit_identity_proof_if_any": null,
+        "read": {
+          "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-247.json",
+          "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096"
+        }
+      },
+      "proposal": {
+        "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-247-254-v2.json",
+        "sha256": "86e9b9775710fdc95055b28f9828001d33bf99cd395e9018e1d3ea7ebb1caf26",
+        "row_pointer": "/contract_updates/1"
+      },
+      "status": "open-connected-source-current-alias-qualification",
+      "audit_discovery_closed": false,
+      "repair_or_runtime_passed": false,
+      "body_or_population_credit": 0,
+      "granular_contract_views": [
+        {
+          "lens": 13,
+          "canonical_owner": "cooking_duration_minutes / cooking_duration_minutes_for_check \u2192 add_fireplace_ingredients_at",
+          "first_failed_contract_or_unresolved_question": "Frozen mass/target guard qualified: sharedduration rejects mass outside(0,25], nonempty safety and checkedu32 setup/slowest/batch; native calls beforefirstmutation. Reject stored infinite/zero/>25kg mass through this accepted operation, including vessel lane.",
+          "exact_source_identities_and_assessed_ranges": [
+            {
+              "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+              "source_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+              "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+              "actual_EOF": 848,
+              "assessed_ranges": [
+                [
+                  1,
+                  848
+                ]
+              ],
+              "read": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-168.json",
+                "sha256": "b5f59b29a7cc1fa0dbca8084df4a4638380b71c43bca462fdc96a2399c8599be"
+              },
+              "read_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-168.json",
+                "sha256": "51abcf9aa950ed70fcff4736377ade22ba60aa8a2efbf6ef177cb4889195b234"
+              },
+              "registration_pointer": "/sources/0",
+              "read_attribution": "Exact prior own Lens13 personal fullbody, reused with no new display/read or population credit",
+              "hash_and_Git_identity_check_is_body_credit": false,
+              "body_receipt": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-168.json",
+                "sha256": "b5f59b29a7cc1fa0dbca8084df4a4638380b71c43bca462fdc96a2399c8599be"
+              },
+              "root_adoption": {
+                "path": "segovb/READ-L13-PARALLEL-166.json",
+                "sha256": "e2937fa98f92c75592021572a434af2a5f19490d143af2d5f78e6bba6253eeed"
+              },
+              "new_body_credit": 0
+            },
+            {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+              "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+              "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+              "actual_EOF": 868,
+              "assessed_ranges": [
+                [
+                  1,
+                  868
+                ]
+              ],
+              "read": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-247.json",
+                "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096"
+              },
+              "read_pointer": "/rows/0",
+              "registration": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+                "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+              },
+              "registration_pointer": "/sources/0",
+              "read_attribution": "Exact prior own Lens13 personal fullbody, reused with no new display/read or population credit",
+              "hash_and_Git_identity_check_is_body_credit": false,
+              "body_receipt": {
+                "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-247.json",
+                "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096"
+              },
+              "root_adoption": {
+                "path": "segovb/READ-L13-PARALLEL-245.json",
+                "sha256": "00a95a5d218521f78368b0e591ee2f0174210f80e61b758a03fead3b00b920bd"
+              },
+              "new_body_credit": 0
+            }
+          ],
+          "remaining_evidence": [
+            "Native lot nutrient/value density and contamination/amount/object admission still needed; waterf32precision andcurrent/aliases remain."
+          ],
+          "dependencies": [
+            "Exact current-main reconciliation",
+            "Exact first-operation alias review"
+          ],
+          "closure_condition": [
+            "Preserve this bounded source qualification without another read; complete the remaining specific source/current/policy questions. Finding/policy/conditional/rejection can close discovery separately from repairs/runtime."
+          ],
+          "existing_contract_revisit_identity_proof_if_any": {
+            "same_local_pending_contract": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+            "basis": "Same exact existing source/function question, qualified by prior same-lens body; no alias from common remedy."
+          },
+          "later_repair_acceptance_requirements": [],
+          "qualified_full_contract_update_as_proposed": {
+            "contract_id_or_proposed_new_id": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+            "lens": 13,
+            "canonical_owner_or_explicit_unresolved_owner_question": "cooking_duration_minutes / cooking_duration_minutes_for_check \u2192 add_fireplace_ingredients_at",
+            "first_failed_contract_or_unresolved_question": "Frozen mass/target guard qualified: sharedduration rejects mass outside(0,25], nonempty safety and checkedu32 setup/slowest/batch; native calls beforefirstmutation. Reject stored infinite/zero/>25kg mass through this accepted operation, including vessel lane.",
+            "exact_source_identities_and_assessed_ranges": [
+              {
+                "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+                "source_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+                "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "actual_EOF": 848,
+                "assessed_ranges": [
+                  [
+                    1,
+                    848
+                  ]
+                ],
+                "read": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-168.json",
+                  "sha256": "b5f59b29a7cc1fa0dbca8084df4a4638380b71c43bca462fdc96a2399c8599be"
+                },
+                "read_pointer": "/rows/0",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-168.json",
+                  "sha256": "51abcf9aa950ed70fcff4736377ade22ba60aa8a2efbf6ef177cb4889195b234"
+                },
+                "registration_pointer": "/sources/0",
+                "read_attribution": "Exact prior own Lens13 personal fullbody, reused with no new display/read or population credit",
+                "hash_and_Git_identity_check_is_body_credit": false
+              },
+              {
+                "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+                "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+                "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "actual_EOF": 868,
+                "assessed_ranges": [
+                  [
+                    1,
+                    868
+                  ]
+                ],
+                "read": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-247.json",
+                  "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096"
+                },
+                "read_pointer": "/rows/0",
+                "registration": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+                  "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+                },
+                "registration_pointer": "/sources/0",
+                "read_attribution": "Exact prior own Lens13 personal fullbody, reused with no new display/read or population credit",
+                "hash_and_Git_identity_check_is_body_credit": false
+              }
+            ],
+            "status_proposed": "Specific frozen source subquestion qualified/rejected as stated; full contract remains open",
+            "remaining_evidence": [
+              "Native lot nutrient/value density and contamination/amount/object admission still needed; waterf32precision andcurrent/aliases remain."
+            ],
+            "dependencies": [
+              "Exact current-main reconciliation",
+              "Exact first-operation alias review"
+            ],
+            "closure_condition": [
+              "Preserve this bounded source qualification without another read; complete the remaining specific source/current/policy questions. Finding/policy/conditional/rejection can close discovery separately from repairs/runtime."
+            ],
+            "existing_contract_revisit_identity_proof_if_any": {
+              "same_local_pending_contract": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+              "basis": "Same exact existing source/function question, qualified by prior same-lens body; no alias from common remedy."
+            },
+            "metadata_reuse_qualification": {
+              "path": "target/726-audit-adler-20261027/parallel-l13-20261029/QUALIFICATION-PL13-CONNECTED-NATIVE-REUSE-001.json",
+              "sha256": "d1120b500c7e9e05a3eb0704efd989364f36f1194fd326edd3a100027c62f0fc"
+            }
+          },
+          "proposal": {
+            "path": "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-247-254-v2.json",
+            "sha256": "86e9b9775710fdc95055b28f9828001d33bf99cd395e9018e1d3ea7ebb1caf26",
+            "row_pointer": "/contract_updates/10"
+          },
+          "status": "open-connected-source-current-alias-qualification",
+          "audit_discovery_closed": false,
+          "repair_or_runtime_passed": false,
+          "body_or_population_credit": 0
+        }
+      ]
+    }

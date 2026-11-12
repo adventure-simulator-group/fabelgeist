@@ -1,0 +1,141 @@
+    65	    pub normals: Vec<[f32; 3]>,
+    66	}
+    67	
+    68	/// An underlayer fitted to the wearer and to each morph sample.
+    69	#[derive(Clone, Debug, PartialEq)]
+    70	pub struct FittedUnderlayer {
+    71	    pub indices: Vec<u32>,
+    72	    pub base: ShellSurface,
+    73	    /// One per morph sample, in order, sharing `indices`.
+    74	    pub endpoints: Vec<ShellSurface>,
+    75	    pub texcoords: Vec<[f32; 2]>,
+    76	    pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
+    77	    pub joint_weights: Vec<[f32; 8]>,
+    78	}
+    79	
+    80	/// Fit an underlayer to the wearer, its static proportion samples and its
+    81	/// morph samples, and carry the body's surface coordinates and skin onto it.
+    82	pub fn fit(
+    83	    gpu: &ArmorGpu,
+    84	    design: &UnderlayerDesign,
+    85	    placement: FittingPlacement,
+    86	    body: &Wearer<'_>,
+    87	    domain: SurfaceDomain<'_>,
+    88	    proportions: &[BodyShape<'_>],
+    89	    morphs: &[BodyShape<'_>],
+    90	) -> Result<FittedUnderlayer> {
+    91	    pollster::block_on(fit_async(
+    92	        gpu,
+    93	        design,
+    94	        placement,
+    95	        body,
+    96	        domain,
+    97	        proportions,
+    98	        morphs,
+    99	    ))
+   100	}
+   101	
+   102	pub async fn fit_async(
+   103	    gpu: &ArmorGpu,
+   104	    design: &UnderlayerDesign,
+   105	    placement: FittingPlacement,
+   106	    body: &Wearer<'_>,
+   107	    domain: SurfaceDomain<'_>,
+   108	    proportions: &[BodyShape<'_>],
+   109	    morphs: &[BodyShape<'_>],
+   110	) -> Result<FittedUnderlayer> {
+   111	    let device_body = body.upload(gpu)?;
+   112	    let wearer = DeviceWearer {
+   113	        gpu,
+   114	        body: &device_body,
+   115	        host: body,
+   116	    };
+   117	    let mut frames = Vec::new();
+   118	    for region in crate::underlayer::required_frames(design.kind, placement)? {
+   119	        frames.push((region, wearer.read_frame_async(region).await?));
+   120	    }
+   121	    let plan = CutPlan::new(design, placement, body, domain.uv_faces, &|region| {
+   122	        frames
+   123	            .iter()
+   124	            .find(|(r, _)| *r == region)
+   125	            .map(|(_, frame)| *frame)
+   126	            .ok_or_else(|| anyhow::anyhow!("unprepared underlayer region {region:?}"))
+   127	    })?;
+   128	    Fit {
+   129	        gpu,
+   130	        design,
+   131	        body,
+   132	        plan: &plan,
+   133	        proportions,
+   134	        morphs,
+   135	        domain: Some(domain),
+   136	    }
+   137	    .run()
+   138	    .await
+   139	}
+   140	
+   141	struct Fit<'a> {
+   142	    gpu: &'a ArmorGpu,
+   143	    design: &'a UnderlayerDesign,
+   144	    body: &'a Wearer<'a>,
+   145	    plan: &'a CutPlan,
+   146	    proportions: &'a [BodyShape<'a>],
+   147	    morphs: &'a [BodyShape<'a>],
+   148	    domain: Option<SurfaceDomain<'a>>,
+   149	}
+   150	
+   151	/// A realization uploaded, with the directions its layers are offset along.
+   152	struct Realization {
+   153	    positions: Buffer,
+   154	    directions: Buffer,
+   155	}
+   156	
+   157	impl Fit<'_> {
+   158	    async fn run(&self) -> Result<FittedUnderlayer> {
+   159	        let gpu = self.gpu;
+   160	        let body = self.body;
+   161	        let vertex_count = body.positions.len();
+   162	        if body.normals.len() != vertex_count
+   163	            || self
+   164	                .proportions
+   165	                .iter()
+   166	                .chain(self.morphs)
+   167	                .any(|s| s.positions.len() != vertex_count || s.normals.len() != vertex_count)
+   168	        {
+   169	            bail!(GenerateError::InvalidSurface);
+   170	        }
+   171	        let sets = 1 + self.proportions.len() as u32;
+   172	        let mut ws = Workspace::new(gpu, self.plan, body.faces, vertex_count, sets)?;
+   173	        let vector_bytes = vertex_count as u64 * 12;
+   174	        let links = gpu.scratch(vertex_count as u64 * 8, "underlayer weld links")?;
+   175	
+   176	        // The wearer: its neutral compression, then the proportion samples'
+   177	        // face constraints and the directions they leave the wearer.
+   178	        let base_positions = gpu.upload(BufferUpload::from_elements(body.positions))?;
+   179	        let base_normals = gpu.upload(BufferUpload::from_elements(body.normals))?;
+   180	        let neutral = gpu.scratch(vector_bytes, "underlayer directions")?;
+   181	        let mut batch = gpu.batch("underlayer wearer");
+   182	        ws.record_weld(&mut batch, &base_positions, &links)?;
+   183	        ws.record_constraints(&mut batch, &base_positions, 0)?;
+   184	        ws.record_directions(&mut batch, &base_normals, &links, 1, &neutral)?;
+   185	        ws.record_standoff(&mut batch, &base_positions, &neutral, &links)?;
+   186	        let mut samples = Vec::with_capacity(self.proportions.len());
+   187	        for (set, sample) in (1..).zip(self.proportions) {
+   188	            let positions = gpu.upload(BufferUpload::from_elements(sample.positions))?;
+   189	            ws.record_constraints(&mut batch, &positions, set)?;
+   190	            samples.push(positions);
+   191	        }
+   192	        let directions = if sets > 1 {
+   193	            let constrained = gpu.scratch(vector_bytes, "underlayer directions")?;
+   194	            ws.record_directions(&mut batch, &base_normals, &links, sets, &constrained)?;
+   195	            constrained
+   196	        } else {
+   197	            neutral
+   198	        };
+   199	        ws.record_standoff(&mut batch, &base_positions, &directions, &links)?;
+   200	        batch.submit();
+   201	
+   202	        // Bone proportion translations keep the wearer's offset vectors.
+   203	        for positions in &samples {
+   204	            let mut batch = gpu.batch("underlayer proportion sample");
+   205	            ws.record_weld(&mut batch, positions, &links)?;

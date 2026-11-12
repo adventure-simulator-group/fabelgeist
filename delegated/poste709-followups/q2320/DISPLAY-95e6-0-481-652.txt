@@ -1,0 +1,172 @@
+   481	    }
+   482	    if let Some((effect_action, effect_revision, _)) = &effect_commit
+   483	        && (*effect_action != action || *effect_revision != expected_revision)
+   484	    {
+   485	        return Err("Ingredient preparation planner effects do not match authority".into());
+   486	    }
+   487	
+   488	    let survived = crate::time::advance_character_wait_time(ctx, character_id, duration)?;
+   489	    if !survived && effect_commit.is_some() {
+   490	        return Err("Ingredient preparation wait diverged from its authoritative plan".into());
+   491	    }
+   492	    // A clipped or clock-exhausted interval is a durable terminal attempt.
+   493	    // The material remains untouched; this request exact-replays while the
+   494	    // gateway publishes a distinct next server-owned generation.
+   495	    if !survived || effect_commit.is_none() {
+   496	        let next_generation = attempt_generation
+   497	            .checked_add(1)
+   498	            .ok_or("Ingredient preparation attempt generation is exhausted")?;
+   499	        record_preparation_attempt_state(
+   500	            ctx,
+   501	            character_id,
+   502	            &inventory_scope,
+   503	            inventory_item_id,
+   504	            food_lot_id,
+   505	            material_object_id,
+   506	            expected_revision,
+   507	            action,
+   508	            next_generation,
+   509	            false,
+   510	        );
+   511	        ctx.db
+   512	            .ingredient_preparation_receipt()
+   513	            .insert(IngredientPreparationReceipt {
+   514	                request_id,
+   515	                actor_character_id: character_id,
+   516	                inventory_scope,
+   517	                inventory_item_id,
+   518	                food_lot_id,
+   519	                material_object_id,
+   520	                expected_revision,
+   521	                attempt_generation,
+   522	                action,
+   523	                canonical_place: authority.place.to_string(),
+   524	                custody_binding: authority.custody_binding,
+   525	                authority_input_digest: encode_digest(&authority_digest),
+   526	                duration_minutes: authority.duration,
+   527	                interrupted: true,
+   528	                resulting_revision: expected_revision,
+   529	                material_input_digest: encode_digest(
+   530	                    authority.material_receipt.input_digest().bytes(),
+   531	                ),
+   532	            });
+   533	        return Ok(());
+   534	    }
+   535	    let (_, _, next_display_name) = effect_commit.expect("completion effect checked");
+   536	    let post_actor = crate::character::require_living_character(ctx, character_id)?;
+   537	    if post_actor.has_tactical_server_assignment() {
+   538	        return Err("Ingredient preparation became unavailable during its wait".into());
+   539	    }
+   540	    crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+   541	    let post_minute = ctx
+   542	        .db
+   543	        .character_time()
+   544	        .character_id()
+   545	        .find(character_id)
+   546	        .ok_or("Character time disappeared after preparation wait")?
+   547	        .minutes;
+   548	    let post = load_preparation_authority(
+   549	        ctx,
+   550	        &post_actor,
+   551	        &inventory_scope,
+   552	        inventory_item_id,
+   553	        food_lot_id,
+   554	        material_object_id,
+   555	        &request_id,
+   556	        expected_revision,
+   557	        action,
+   558	        post_minute,
+   559	    )?;
+   560	    if post.place != authority.place
+   561	        || !preparation_lot_truth_unchanged(&authority.lot, &post.lot)
+   562	        || post.custody_binding != authority.custody_binding
+   563	        || post.material_source_digest != authority.material_source_digest
+   564	        || post.object.item_id != authority.object.item_id
+   565	        || post.object.location != authority.object.location
+   566	        || post.skill != authority.skill
+   567	        || post.tool_binding != authority.tool_binding
+   568	        || post.duration != authority.duration
+   569	        || post.next != authority.next
+   570	    {
+   571	        return Err("Ingredient preparation authority changed during its wait".into());
+   572	    }
+   573	    adventuresim_core::material::validate_material_commit(
+   574	        &post.material_receipt,
+   575	        std::slice::from_ref(&post.material_snapshot),
+   576	    )
+   577	    .map_err(|_| "Ingredient material changed during preparation")?;
+   578	    let committed_material_digest = encode_digest(post.material_receipt.input_digest().bytes());
+   579	    let mut lot = post.lot;
+   580	    lot.preparation = post.next;
+   581	    lot.display_name = next_display_name;
+   582	    lot.material_revision = lot
+   583	        .material_revision
+   584	        .checked_add(1)
+   585	        .ok_or("Ingredient material revision is exhausted")?;
+   586	    let resulting_revision = lot.material_revision;
+   587	    ctx.db.food_lot().id().update(lot);
+   588	    let mut skills = ctx
+   589	        .db
+   590	        .character_skills()
+   591	        .character_id()
+   592	        .find(character_id)
+   593	        .ok_or("Character skills disappeared before preparation training")?;
+   594	    let attributes = ctx
+   595	        .db
+   596	        .character_attributes()
+   597	        .character_id()
+   598	        .find(character_id)
+   599	        .ok_or("Character attributes disappeared before preparation training")?;
+   600	    let hours = match authority.skill {
+   601	        Skill::Knife => &mut skills.knife_hours,
+   602	        Skill::Bludgeon => &mut skills.bludgeon_hours,
+   603	        _ => unreachable!(),
+   604	    };
+   605	    let gain = apply_direct_training(
+   606	        authority.skill,
+   607	        hours,
+   608	        authority.duration as f32 / 60.0,
+   609	        &attributes,
+   610	    );
+   611	    ctx.db.character_skills().character_id().update(skills);
+   612	    crate::condition::record_mastery_training_morale(
+   613	        ctx,
+   614	        character_id,
+   615	        duration,
+   616	        gain.excess_effective_hours,
+   617	    );
+   618	    crate::capability::refresh_character_capability(ctx, character_id)?;
+   619	    record_preparation_attempt_state(
+   620	        ctx,
+   621	        character_id,
+   622	        &inventory_scope,
+   623	        inventory_item_id,
+   624	        food_lot_id,
+   625	        material_object_id,
+   626	        expected_revision,
+   627	        action,
+   628	        attempt_generation,
+   629	        true,
+   630	    );
+   631	    ctx.db
+   632	        .ingredient_preparation_receipt()
+   633	        .insert(IngredientPreparationReceipt {
+   634	            request_id,
+   635	            actor_character_id: character_id,
+   636	            inventory_scope,
+   637	            inventory_item_id,
+   638	            food_lot_id,
+   639	            material_object_id,
+   640	            expected_revision,
+   641	            attempt_generation,
+   642	            action,
+   643	            canonical_place: authority.place.to_string(),
+   644	            custody_binding: authority.custody_binding,
+   645	            authority_input_digest: encode_digest(&authority_digest),
+   646	            duration_minutes: authority.duration,
+   647	            interrupted: false,
+   648	            resulting_revision,
+   649	            material_input_digest: committed_material_digest,
+   650	        });
+   651	    Ok(())
+   652	}

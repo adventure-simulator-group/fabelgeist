@@ -1,0 +1,131 @@
+   390	                                && member.case_site_id == *case_site_id
+   391	                        })
+   392	                });
+   393	        if member.party_id.as_deref() != Some(party_id.as_str())
+   394	            || !(together_at_settlement
+   395	                || together_at_party_case_site
+   396	                || crate::world_actor::characters_are_contextually_present(
+   397	                    ctx, leader_id, *member_id,
+   398	                ))
+   399	        {
+   400	            return Err("Party members must be co-located before activity synchronization".into());
+   401	        }
+   402	    }
+   403	    for member_id in &member_ids {
+   404	        ensure_character_time(ctx, *member_id)?;
+   405	    }
+   406	    let _ = crate::strategic::normalize_and_elect_party_leader(ctx, &party_id);
+   407	    for member_id in crate::strategic::living_party_member_ids(ctx, &party_id) {
+   408	        let _ = crate::condition::refresh_character_strategic_condition(ctx, member_id);
+   409	        let _ = crate::capability::refresh_character_capability(ctx, member_id);
+   410	    }
+   411	    Ok(())
+   412	}
+   413	
+   414	/// Neutral/location-appropriate personal time for waiting and procedures. It
+   415	/// advances disease, wounds, blood, and ordinary recovery without applying
+   416	/// travel fatigue or travel needs.
+   417	pub fn advance_character_wait_time(
+   418	    ctx: &ReducerContext,
+   419	    character_id: u64,
+   420	    minutes: u64,
+   421	) -> Result<bool, String> {
+   422	    crate::character::require_living_character(ctx, character_id)?;
+   423	    ensure_character_time(ctx, character_id)?;
+   424	    let mut time = ctx
+   425	        .db
+   426	        .character_time()
+   427	        .character_id()
+   428	        .find(character_id)
+   429	        .ok_or("Character time record not found")?;
+   430	    let starting_minute = time.minutes;
+   431	    if let Some(first) = first_lifecycle_segment(
+   432	        ctx,
+   433	        character_id,
+   434	        starting_minute,
+   435	        minutes,
+   436	    ) {
+   437	        if !advance_character_wait_time(ctx, character_id, first)? {
+   438	            return Ok(false);
+   439	        }
+   440	        return advance_character_wait_time(ctx, character_id, minutes.saturating_sub(first));
+   441	    }
+   442	    let injury_limit = crate::surgery::preview_injury_boundary(
+   443	        ctx,
+   444	        character_id,
+   445	        minutes,
+   446	        InjuryRecoveryMinutes::new(minutes),
+   447	    )?
+   448	    .elapsed;
+   449	    let (elapsed, terminal) =
+   450	        crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, true)?;
+   451	    let settled = crate::surgery::settle_injuries(
+   452	        ctx,
+   453	        character_id,
+   454	        elapsed,
+   455	        InjuryRecoveryMinutes::new(elapsed),
+   456	    )?;
+   457	    time.minutes = time.minutes
+   458	        .saturating_add_minutes(settled.elapsed)
+   459	        ;
+   460	    ctx.db.character_time().character_id().update(time);
+   461	    advance_married_family_by(ctx, character_id, settled.elapsed)?;
+   462	    let at_settlement = ctx
+   463	        .db
+   464	        .character()
+   465	        .id()
+   466	        .find(character_id)
+   467	        .is_some_and(|row| row.current_settlement_id.is_some());
+   468	    crate::condition::apply_weather_exposure(
+   469	        ctx,
+   470	        character_id,
+   471	        starting_minute,
+   472	        settled.elapsed,
+   473	        false,
+   474	        if at_settlement {
+   475	            ExposureShelter::Indoor
+   476	        } else {
+   477	            ExposureShelter::Field(FieldShelter::Bivouac)
+   478	        },
+   479	    )?;
+   480	    crate::organization::settle_membership_dues(ctx, character_id)?;
+   481	    crate::social::settle_shared_party_time(ctx, character_id);
+   482	    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
+   483	    settle_lifecycle_after_character_time_write(
+   484	        ctx,
+   485	        character_id,
+   486	        starting_minute.saturating_add_minutes(settled.elapsed),
+   487	    )?;
+   488	    if terminal.is_some() || !settled.alive {
+   489	        return Ok(false);
+   490	    }
+   491	    if at_settlement {
+   492	        crate::condition::apply_rest_condition(ctx, character_id, settled.elapsed)?;
+   493	    } else {
+   494	        crate::condition::apply_elapsed_needs(ctx, character_id, settled.elapsed)?;
+   495	        crate::condition::apply_camp_rest_recovery_condition(ctx, character_id, settled.elapsed)?;
+   496	    }
+   497	    crate::capability::refresh_character_capability(ctx, character_id)?;
+   498	    Ok(true)
+   499	}
+   500	
+   501	pub fn advance_character_wait_time_in_plan(
+   502	    ctx: &ReducerContext,
+   503	    character_id: u64,
+   504	    minutes: u64,
+   505	    plan: &crate::disease::PartyDiseaseIntervalPlan,
+   506	) -> Result<bool, String> {
+   507	    crate::character::require_living_character(ctx, character_id)?;
+   508	    ensure_character_time(ctx, character_id)?;
+   509	    let mut time = ctx
+   510	        .db
+   511	        .character_time()
+   512	        .character_id()
+   513	        .find(character_id)
+   514	        .ok_or("Character time record not found")?;
+   515	    let starting_minute = time.minutes;
+   516	    if let Some(first) = first_lifecycle_segment(
+   517	        ctx,
+   518	        character_id,
+   519	        starting_minute,
+   520	        minutes,

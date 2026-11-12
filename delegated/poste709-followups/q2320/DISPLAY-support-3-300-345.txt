@@ -1,0 +1,46 @@
+   300	                        food.flavors_kg.savory,
+   301	                    ),
+   302	                    culinary_fat: food.culinary_fat,
+   303	                    default_quality: food.quality,
+   304	                })
+   305	            })
+   306	            .collect()
+   307	    });
+   308	
+   309	pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
+   310	    FOOD_CATALOG.iter().find(|food| food.id == id)
+   311	}
+   312	
+   313	pub fn deterministic_initial_contamination(seed: Seed) -> f32 {
+   314	    let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
+   315	        .rng(seed, &[])
+   316	        .unit_f64();
+   317	    let log_min = (MIN_INITIAL_CONTAMINATION as f64).ln();
+   318	    let log_max = (MAX_INITIAL_CONTAMINATION as f64).ln();
+   319	    (log_min + unit * (log_max - log_min)).exp() as f32
+   320	}
+   321	
+   322	pub fn contamination_at(anchor: f32, growth_per_hour: f32, elapsed_minutes: u64) -> f32 {
+   323	    if !anchor.is_finite() || !growth_per_hour.is_finite() {
+   324	        return MAX_CONTAMINATION;
+   325	    }
+   326	    let exponent = (growth_per_hour.max(0.0) as f64 * elapsed_minutes as f64 / 60.0).min(80.0);
+   327	    ((anchor.max(0.0) as f64 * exponent.exp()).min(MAX_CONTAMINATION as f64)) as f32
+   328	}
+   329	
+   330	pub fn cooked_contamination(current: f32, method: CookingMethod) -> f32 {
+   331	    let kill = match method {
+   332	        CookingMethod::PanFry => 1.0e-5,
+   333	        CookingMethod::Stew => 2.0e-6,
+   334	        CookingMethod::Roast => 1.0e-5,
+   335	        CookingMethod::Bake => 4.0e-6,
+   336	    };
+   337	    (current.max(0.0) * kill).clamp(RECONTAMINATION_FLOOR, MAX_CONTAMINATION)
+   338	}
+   339	
+   340	pub fn scale_contamination_contributions(
+   341	    raw_concentration: f32,
+   342	    surviving_concentration: f32,
+   343	    contribution_loads: &[f32],
+   344	) -> Vec<f32> {
+   345	    let survival = if raw_concentration > 0.0 {

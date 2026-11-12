@@ -1,0 +1,121 @@
+   370	    pub(crate) const NONE: Self = Self(0);
+   371	
+   372	    pub(crate) const fn new(minutes: u64) -> Self {
+   373	        Self(minutes)
+   374	    }
+   375	
+   376	    const fn get(self) -> u64 {
+   377	        self.0
+   378	    }
+   379	}
+   380	
+   381	#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+   382	pub(crate) struct InjuryPreview {
+   383	    pub elapsed: u64,
+   384	    pub terminal: bool,
+   385	}
+   386	
+   387	#[derive(Clone, Copy, Debug)]
+   388	pub(crate) struct InjurySettlement {
+   389	    pub elapsed: u64,
+   390	    pub alive: bool,
+   391	}
+   392	
+   393	/// Side-effect-free preview of the first injury terminal boundary in an
+   394	/// interval. Recovery is explicit because only restorative minutes offset
+   395	/// blood loss and heal wounds.
+   396	pub(crate) fn preview_injury_boundary(
+   397	    ctx: &ReducerContext,
+   398	    character_id: u64,
+   399	    requested: u64,
+   400	    recovery: InjuryRecoveryMinutes,
+   401	) -> Result<InjuryPreview, String> {
+   402	    let blood = ctx
+   403	        .db
+   404	        .character_condition()
+   405	        .character_id()
+   406	        .find(character_id)
+   407	        .map_or(1.0, |row| {
+   408	            if row.maximum_blood_ml > 0.0 {
+   409	                row.current_blood_ml / row.maximum_blood_ml
+   410	            } else {
+   411	                1.0
+   412	            }
+   413	        });
+   414	    let cuts = BodyRegion::ALL
+   415	        .into_iter()
+   416	        .map(|limb| {
+   417	            let injury = injury_for(ctx, character_id, limb);
+   418	            if injury.bandaged {
+   419	                0.0
+   420	            } else {
+   421	                injury.cut_damage
+   422	            }
+   423	        })
+   424	        .collect::<Vec<_>>();
+   425	    let interval = simulate_blood_interval(
+   426	        blood,
+   427	        &cuts,
+   428	        requested,
+   429	        adventuresim_core::morale::BLOOD_RECOVERY_FRACTION_PER_DAY
+   430	            * recovery.get().min(requested) as f32
+   431	            / requested.max(1) as f32,
+   432	    );
+   433	    Ok(InjuryPreview {
+   434	        elapsed: interval.elapsed,
+   435	        terminal: interval.terminal,
+   436	    })
+   437	}
+   438	
+   439	/// Advance authoritative wounds for one personal-clock interval. This is the
+   440	/// sole writer of injury-backed limb health and the sole rest-time blood
+   441	/// recovery path, so projections cannot drift from durable wound state.
+   442	pub(crate) fn settle_injuries(
+   443	    ctx: &ReducerContext,
+   444	    character_id: u64,
+   445	    elapsed: u64,
+   446	    recovery: InjuryRecoveryMinutes,
+   447	) -> Result<InjurySettlement, String> {
+   448	    if elapsed == 0 {
+   449	        return Ok(InjurySettlement {
+   450	            elapsed: 0,
+   451	            alive: true,
+   452	        });
+   453	    }
+   454	    crate::condition::apply_blood_loss(ctx, character_id, 0.0)?;
+   455	    let starting_blood = ctx
+   456	        .db
+   457	        .character_condition()
+   458	        .character_id()
+   459	        .find(character_id)
+   460	        .map_or(1.0, |row| {
+   461	            if row.maximum_blood_ml > 0.0 {
+   462	                row.current_blood_ml / row.maximum_blood_ml
+   463	            } else {
+   464	                1.0
+   465	            }
+   466	        });
+   467	    let mut injuries = BodyRegion::ALL.map(|limb| injury_for(ctx, character_id, limb));
+   468	    let open_cuts = injuries
+   469	        .iter()
+   470	        .map(|injury| {
+   471	            if injury.bandaged {
+   472	                0.0
+   473	            } else {
+   474	                injury.cut_damage
+   475	            }
+   476	        })
+   477	        .collect::<Vec<_>>();
+   478	    let interval = simulate_blood_interval(
+   479	        starting_blood,
+   480	        &open_cuts,
+   481	        elapsed,
+   482	        adventuresim_core::morale::BLOOD_RECOVERY_FRACTION_PER_DAY
+   483	            * recovery.get().min(elapsed) as f32
+   484	            / elapsed.max(1) as f32,
+   485	    );
+   486	    let elapsed_days = interval.elapsed as f32 / MINUTES_PER_DAY as f32;
+   487	    let healing_days = recovery.get().min(interval.elapsed) as f32 / MINUTES_PER_DAY as f32;
+   488	    let physiology = if healing_days > 0.0 {
+   489	        crate::time::party_physiology_check(ctx, character_id)?
+   490	    } else {

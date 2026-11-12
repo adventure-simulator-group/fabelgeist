@@ -1,0 +1,32 @@
+{
+  "registered_at_utc": "2026-11-12T16:15:59.286364+00:00",
+  "reader": "/root/mhr_character",
+  "extends": "SUPPORT-REGISTRATION.json",
+  "corrections": [
+    {
+      "file": "sources/support-0.rs",
+      "planned": [
+        1,
+        115
+      ],
+      "exact": [
+        1,
+        99
+      ],
+      "reason": "verified EOF 99"
+    },
+    {
+      "file": "sources/support-2.rs",
+      "planned": [
+        1,
+        180
+      ],
+      "exact": [
+        1,
+        152
+      ],
+      "reason": "verified EOF 152"
+    }
+  ],
+  "qualification": "The two oversize ranges were never displayed; exact windows registered before display."
+}

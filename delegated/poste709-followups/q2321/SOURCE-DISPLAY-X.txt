@@ -1,0 +1,82 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:285-365
+ 285 /// Physically prepares one exact personal or party measured lot. Physical preparation
+ 286 /// does not change nutrition, flavor, contamination, or value.
+ 287 #[reducer]
+ 288 #[expect(
+ 289     clippy::too_many_arguments,
+ 290     reason = "the reducer ABI exposes each independently validated preparation input"
+ 291 )]
+ 292 pub fn prepare_ingredient_lot(
+ 293     ctx: &ReducerContext,
+ 294     character_id: u64,
+ 295     inventory_scope: String,
+ 296     inventory_item_id: u64,
+ 297     food_lot_id: u64,
+ 298     material_object_id: u64,
+ 299     request_id: String,
+ 300     expected_revision: u64,
+ 301     attempt_generation: u64,
+ 302     action: IngredientPreparationAction,
+ 303 ) -> Result<(), String> {
+ 304     crate::strategic::require_strategic_gateway(ctx)?;
+ 305     // Exact replay is resolved solely from the immutable submitted tuple and
+ 306     // durable receipt, before consulting any mutable live state.
+ 307     if let Some(receipt) = ctx
+ 308         .db
+ 309         .ingredient_preparation_receipt()
+ 310         .request_id()
+ 311         .find(&request_id)
+ 312     {
+ 313         return if receipt.actor_character_id == character_id
+ 314             && receipt.inventory_scope == inventory_scope
+ 315             && receipt.inventory_item_id == inventory_item_id
+ 316             && receipt.food_lot_id == food_lot_id
+ 317             && receipt.material_object_id == material_object_id
+ 318             && receipt.expected_revision == expected_revision
+ 319             && receipt.attempt_generation == attempt_generation
+ 320             && receipt.action == action
+ 321         {
+ 322             Ok(())
+ 323         } else {
+ 324             Err("Ingredient preparation request id collides with a different attempt".into())
+ 325         };
+ 326     }
+ 327     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 328     if actor.has_tactical_server_assignment() {
+ 329         return Err("Ingredient preparation is unavailable during a tactical encounter".into());
+ 330     }
+ 331     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+ 332     let current_minute = ctx
+ 333         .db
+ 334         .character_time()
+ 335         .character_id()
+ 336         .find(character_id)
+ 337         .ok_or("Character time not found")?
+ 338         .minutes;
+ 339     let expected_generation = next_preparation_attempt_generation(
+ 340         ctx,
+ 341         character_id,
+ 342         &inventory_scope,
+ 343         inventory_item_id,
+ 344         food_lot_id,
+ 345         material_object_id,
+ 346         expected_revision,
+ 347         action,
+ 348     )?;
+ 349     if attempt_generation != expected_generation {
+ 350         return Err("Ingredient preparation attempt generation is stale".into());
+ 351     }
+ 352     let authority = load_preparation_authority(
+ 353         ctx,
+ 354         &actor,
+ 355         &inventory_scope,
+ 356         inventory_item_id,
+ 357         food_lot_id,
+ 358         material_object_id,
+ 359         &request_id,
+ 360         expected_revision,
+ 361         action,
+ 362         current_minute,
+ 363     )?;
+ 364     let terminal_minute = preparation_terminal_minute(
+ 365         ctx,

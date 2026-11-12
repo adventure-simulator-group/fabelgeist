@@ -1,0 +1,67 @@
+SOURCE crates/adventuresim-core/src/strategic_action.rs:310-375
+ 310     pub fn failed_requirements(&self) -> &[ActionRequirement<R, C>] {
+ 311         &self.failed
+ 312     }
+ 313     pub const fn sanitized(&self) -> PublicRejection {
+ 314         self.public
+ 315     }
+ 316 }
+ 317 
+ 318 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 319 pub struct RequestedDuration(NonZeroU64);
+ 320 
+ 321 impl RequestedDuration {
+ 322     pub fn try_new(minutes: u64) -> Result<Self, DurationError> {
+ 323         NonZeroU64::new(minutes)
+ 324             .map(Self)
+ 325             .ok_or(DurationError::ZeroDuration)
+ 326     }
+ 327     pub const fn minutes(self) -> u64 {
+ 328         self.0.get()
+ 329     }
+ 330 }
+ 331 
+ 332 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 333 pub enum DurationError {
+ 334     ZeroDuration,
+ 335 }
+ 336 
+ 337 #[derive(Clone, Debug, Eq, PartialEq)]
+ 338 pub struct ScheduledInterruption<I: DomainInterruption> {
+ 339     pub at_minute: StrategicMinute,
+ 340     pub cause: I,
+ 341 }
+ 342 
+ 343 #[derive(Clone, Debug, Eq, PartialEq)]
+ 344 pub struct TimeBoundaries<I: DomainInterruption> {
+ 345     pub terminal_minute: Option<StrategicMinute>,
+ 346     pub interruption: Option<ScheduledInterruption<I>>,
+ 347 }
+ 348 
+ 349 #[derive(Clone, Debug, Eq, PartialEq)]
+ 350 pub enum TimeOutcome<I: DomainInterruption> {
+ 351     Completed,
+ 352     TerminalBoundary,
+ 353     Interrupted(I),
+ 354     /// The requested positive duration cannot fit in the strategic clock.
+ 355     ClockExhausted,
+ 356 }
+ 357 
+ 358 #[derive(Clone, Debug, Eq, PartialEq)]
+ 359 pub struct TimeResolution<I: DomainInterruption> {
+ 360     pub start_minute: StrategicMinute,
+ 361     pub requested_minutes: u64,
+ 362     pub elapsed_minutes: u64,
+ 363     pub end_minute: StrategicMinute,
+ 364     pub outcome: TimeOutcome<I>,
+ 365 }
+ 366 
+ 367 impl<I: DomainInterruption> TimeResolution<I> {
+ 368     /// Only this outcome permits a domain to emit completion-only effects.
+ 369     pub const fn permits_completion_effects(&self) -> bool {
+ 370         matches!(self.outcome, TimeOutcome::Completed)
+ 371     }
+ 372 }
+ 373 
+ 374 pub fn resolve_time<I: DomainInterruption>(
+ 375     current_minute: StrategicMinute,

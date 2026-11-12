@@ -1,0 +1,62 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:800-860
+ 800                 limbs.head_health,
+ 801             ));
+ 802         }
+ 803     }
+ 804     adventuresim_core::capability::aggregate_party_check(checks).clamp(0.0, 5.0)
+ 805 }
+ 806 
+ 807 pub(super) fn living_party_member_refs(
+ 808     party_members: &[CharacterView],
+ 809 ) -> impl Iterator<Item = &CharacterView> {
+ 810     party_members.iter().filter(|member| member.alive)
+ 811 }
+ 812 
+ 813 #[cfg(test)]
+ 814 mod party_religion_knowledge_tests {
+ 815     use super::{FireplaceContainerOperation, living_party_member_refs};
+ 816     use crate::spacetimedb::CharacterView;
+ 817 
+ 818     fn party_member(id: u64, alive: bool) -> CharacterView {
+ 819         CharacterView {
+ 820             id,
+ 821             name: format!("Member {id}"),
+ 822             xp: 0,
+ 823             level: 1,
+ 824             current_settlement_id: None,
+ 825             current_case_site_id: None,
+ 826             party_id: Some("party".into()),
+ 827             age_years: 20,
+ 828             alive,
+ 829             temporary: false,
+ 830             social_notification_count: 0,
+ 831             automatic_social_chat_enabled: false,
+ 832         }
+ 833     }
+ 834 
+ 835     #[test]
+ 836     fn prayer_preview_knowledge_excludes_dead_party_members() {
+ 837         let members = [party_member(1, true), party_member(2, false)];
+ 838         let ids = living_party_member_refs(&members)
+ 839             .map(|member| member.id)
+ 840             .collect::<Vec<_>>();
+ 841         assert_eq!(ids, vec![1]);
+ 842     }
+ 843 
+ 844     #[test]
+ 845     fn fireplace_container_operations_have_fixed_reducer_names() {
+ 846         assert_eq!(
+ 847             [
+ 848                 FireplaceContainerOperation::Place,
+ 849                 FireplaceContainerOperation::StartCooking,
+ 850                 FireplaceContainerOperation::Retrieve,
+ 851             ]
+ 852             .map(FireplaceContainerOperation::reducer),
+ 853             [
+ 854                 "place_fireplace_container",
+ 855                 "start_fireplace_container_cooking",
+ 856                 "retrieve_fireplace_container",
+ 857             ]
+ 858         );
+ 859     }
+ 860 }

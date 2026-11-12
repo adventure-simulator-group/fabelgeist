@@ -1,0 +1,160 @@
+   161	fn preparation_terminal_minute(
+   162	    ctx: &ReducerContext,
+   163	    character_id: u64,
+   164	    current_minute: StrategicMinute,
+   165	    duration: u64,
+   166	) -> Result<Option<StrategicMinute>, String> {
+   167	    let injury = crate::surgery::preview_injury_boundary(
+   168	        ctx,
+   169	        character_id,
+   170	        duration,
+   171	        crate::surgery::InjuryRecoveryMinutes::new(duration),
+   172	    )?;
+   173	    let (disease_safe, disease_terminal) =
+   174	        crate::disease::preview_disease_terminal_boundary(ctx, character_id, injury.elapsed, true)?;
+   175	    let safe = injury.elapsed.min(disease_safe);
+   176	    Ok((safe < duration || injury.terminal || disease_terminal)
+   177	        .then_some(current_minute.saturating_add_minutes(safe)))
+   178	}
+   179	
+   180	#[expect(
+   181	    clippy::too_many_arguments,
+   182	    reason = "the idempotency key is defined by each explicit preparation coordinate"
+   183	)]
+   184	fn next_preparation_attempt_generation(
+   185	    ctx: &ReducerContext,
+   186	    character_id: u64,
+   187	    inventory_scope: &str,
+   188	    inventory_item_id: u64,
+   189	    food_lot_id: u64,
+   190	    material_object_id: u64,
+   191	    expected_revision: u64,
+   192	    action: IngredientPreparationAction,
+   193	) -> Result<u64, String> {
+   194	    let key = preparation_attempt_state_key(
+   195	        character_id,
+   196	        inventory_scope,
+   197	        inventory_item_id,
+   198	        food_lot_id,
+   199	        material_object_id,
+   200	        expected_revision,
+   201	        action,
+   202	    );
+   203	    match ctx
+   204	        .db
+   205	        .ingredient_preparation_attempt_state()
+   206	        .key()
+   207	        .find(&key)
+   208	    {
+   209	        Some(state) if state.completed => {
+   210	            Err("Ingredient preparation was already completed".into())
+   211	        }
+   212	        Some(state) => Ok(state.next_generation),
+   213	        None => Ok(0),
+   214	    }
+   215	}
+   216	
+   217	fn preparation_attempt_state_key(
+   218	    character_id: u64,
+   219	    inventory_scope: &str,
+   220	    inventory_item_id: u64,
+   221	    food_lot_id: u64,
+   222	    material_object_id: u64,
+   223	    expected_revision: u64,
+   224	    action: IngredientPreparationAction,
+   225	) -> String {
+   226	    use sha2::Digest as _;
+   227	    let mut hash = sha2::Sha256::new();
+   228	    hash.update(b"ingredient-preparation-attempt-state-v1");
+   229	    hash.update(character_id.to_le_bytes());
+   230	    hash.update((inventory_scope.len() as u64).to_le_bytes());
+   231	    hash.update(inventory_scope.as_bytes());
+   232	    hash.update(inventory_item_id.to_le_bytes());
+   233	    hash.update(food_lot_id.to_le_bytes());
+   234	    hash.update(material_object_id.to_le_bytes());
+   235	    hash.update(expected_revision.to_le_bytes());
+   236	    hash.update([action.stable_code()]);
+   237	    encode_digest(&hash.finalize())
+   238	}
+   239	
+   240	#[expect(
+   241	    clippy::too_many_arguments,
+   242	    reason = "this domain boundary names each independent input explicitly"
+   243	)]
+   244	fn record_preparation_attempt_state(
+   245	    ctx: &ReducerContext,
+   246	    character_id: u64,
+   247	    inventory_scope: &str,
+   248	    inventory_item_id: u64,
+   249	    food_lot_id: u64,
+   250	    material_object_id: u64,
+   251	    expected_revision: u64,
+   252	    action: IngredientPreparationAction,
+   253	    next_generation: u64,
+   254	    completed: bool,
+   255	) {
+   256	    let state = IngredientPreparationAttemptState {
+   257	        key: preparation_attempt_state_key(
+   258	            character_id,
+   259	            inventory_scope,
+   260	            inventory_item_id,
+   261	            food_lot_id,
+   262	            material_object_id,
+   263	            expected_revision,
+   264	            action,
+   265	        ),
+   266	        next_generation,
+   267	        completed,
+   268	    };
+   269	    if ctx
+   270	        .db
+   271	        .ingredient_preparation_attempt_state()
+   272	        .key()
+   273	        .find(&state.key)
+   274	        .is_some()
+   275	    {
+   276	        ctx.db
+   277	            .ingredient_preparation_attempt_state()
+   278	            .key()
+   279	            .update(state);
+   280	    } else {
+   281	        ctx.db.ingredient_preparation_attempt_state().insert(state);
+   282	    }
+   283	}
+   284	
+   285	/// Physically prepares one exact personal or party measured lot. Physical preparation
+   286	/// does not change nutrition, flavor, contamination, or value.
+   287	#[reducer]
+   288	#[expect(
+   289	    clippy::too_many_arguments,
+   290	    reason = "the reducer ABI exposes each independently validated preparation input"
+   291	)]
+   292	pub fn prepare_ingredient_lot(
+   293	    ctx: &ReducerContext,
+   294	    character_id: u64,
+   295	    inventory_scope: String,
+   296	    inventory_item_id: u64,
+   297	    food_lot_id: u64,
+   298	    material_object_id: u64,
+   299	    request_id: String,
+   300	    expected_revision: u64,
+   301	    attempt_generation: u64,
+   302	    action: IngredientPreparationAction,
+   303	) -> Result<(), String> {
+   304	    crate::strategic::require_strategic_gateway(ctx)?;
+   305	    // Exact replay is resolved solely from the immutable submitted tuple and
+   306	    // durable receipt, before consulting any mutable live state.
+   307	    if let Some(receipt) = ctx
+   308	        .db
+   309	        .ingredient_preparation_receipt()
+   310	        .request_id()
+   311	        .find(&request_id)
+   312	    {
+   313	        return if receipt.actor_character_id == character_id
+   314	            && receipt.inventory_scope == inventory_scope
+   315	            && receipt.inventory_item_id == inventory_item_id
+   316	            && receipt.food_lot_id == food_lot_id
+   317	            && receipt.material_object_id == material_object_id
+   318	            && receipt.expected_revision == expected_revision
+   319	            && receipt.attempt_generation == attempt_generation
+   320	            && receipt.action == action

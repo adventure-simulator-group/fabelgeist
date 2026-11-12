@@ -1,0 +1,82 @@
+SOURCE crates/adventuresim-stdb-module/src/item.rs:380-460
+ 380             quantity: if individual { 1 } else { quantity },
+ 381         });
+ 382         if individual {
+ 383             crate::inventory_container::insert_personal_object(ctx, &item)?;
+ 384         }
+ 385         if durable {
+ 386             crate::repair::initialize_item_condition(ctx, &item);
+ 387         }
+ 388         crate::weapon_instance::initialize_personal_weapon(ctx, &item)?;
+ 389         if measured {
+ 390             crate::inventory_amount::initialize_personal(ctx, item.id);
+ 391         }
+ 392         if food {
+ 393             crate::food::create_personal_food_lot(
+ 394                 ctx,
+ 395                 character_id,
+ 396                 item.id,
+ 397                 item_id,
+ 398                 if individual { 1 } else { quantity },
+ 399             )
+ 400             .map_err(|error| format!("Could not create food lot: {error}"))?;
+ 401         }
+ 402         first.get_or_insert(item.id);
+ 403     }
+ 404     if food {
+ 405         let _ = crate::capability::refresh_character_capability(ctx, character_id);
+ 406     }
+ 407     Ok(first)
+ 408 }
+ 409 
+ 410 /// Foraging receipts bind every concrete harvested unit to an object and
+ 411 /// material lot. Preserve the shared grant helper's stacking semantics for
+ 412 /// every other caller while intentionally issuing one validated unit here.
+ 413 pub(crate) fn add_foraged_inventory_item_checked_rows(
+ 414     ctx: &ReducerContext,
+ 415     character_id: u64,
+ 416     item_id: &str,
+ 417     quantity: u32,
+ 418 ) -> Result<Vec<u64>, String> {
+ 419     let mut rows = Vec::with_capacity(quantity as usize);
+ 420     for _ in 0..quantity {
+ 421         rows.push(
+ 422             add_inventory_item_checked(ctx, character_id, item_id, 1)?
+ 423                 .ok_or("Foraged inventory insertion returned no row")?,
+ 424         );
+ 425     }
+ 426     Ok(rows)
+ 427 }
+ 428 
+ 429 pub fn add_inventory_item(
+ 430     ctx: &ReducerContext,
+ 431     character_id: u64,
+ 432     item_id: &str,
+ 433     quantity: u32,
+ 434 ) -> Option<u64> {
+ 435     add_inventory_item_checked(ctx, character_id, item_id, quantity)
+ 436         .ok()
+ 437         .flatten()
+ 438 }
+ 439 
+ 440 pub fn is_currency(ctx: &ReducerContext, item_id: &str) -> bool {
+ 441     ctx.db
+ 442         .item()
+ 443         .id()
+ 444         .find(item_id.to_owned())
+ 445         .is_some_and(|item| item.kind == CatalogItemKind::Currency)
+ 446 }
+ 447 
+ 448 pub fn personal_currency_total(ctx: &ReducerContext, character_id: u64) -> u64 {
+ 449     ctx.db
+ 450         .inventory_item()
+ 451         .character_id()
+ 452         .filter(character_id)
+ 453         .filter(|stack| is_currency(ctx, &stack.item_id))
+ 454         .map(|stack| u64::from(stack.quantity))
+ 455         .sum()
+ 456 }
+ 457 
+ 458 fn currency_withdrawal_plan(
+ 459     mut stacks: Vec<(String, u64, u32)>,
+ 460     amount: u64,

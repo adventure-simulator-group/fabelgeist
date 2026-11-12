@@ -1,0 +1,165 @@
+{
+  "lens": 13,
+  "namespace": "PL13-250",
+  "status": "Completed own Lens13 ordered native child assessment; root adoption pending",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-250.json",
+    "sha256": "a13a83308a9e3d469eb2a7bad28c5b92ca7a92162ea06056b1e6031b22ed06d5"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 1106,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "actual_eof": 534,
+      "prospective_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 ordered foodlot/native amount/model retained/custody/consumer andmodule contract; no productexecution/currenttransfer.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 1107,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "actual_eof": 84,
+      "prospective_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 ordered foodlot/native amount/model retained/custody/consumer andmodule contract; no productexecution/currenttransfer.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    {
+      "original": 1108,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "actual_eof": 151,
+      "prospective_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 ordered foodlot/native amount/model retained/custody/consumer andmodule contract; no productexecution/currenttransfer.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "connected": [],
+  "numeric_role_inventory": [
+    "1106 ensure_food_material_object enforces inventory row quantity1 and item/location match for existing object, creates one stable object otherwise. Native food-lot material quantity is a distinct source-unit count, not row stack quantity; per-unit cataloguefloat times u32count is finite under actual catalogue bounds, but caller positivequantity and row/lot single-owner relationship still require native writer proof.",
+    "1106 FoodLot remove/split uses checked material_revision+1 and shared bounded retained_component, source/child ingredient residual subtraction to preserve source-unit provenance. split_lot explicitly validates0<taken<=original; move_or_split andremove_party wrapper rely actual callers for that domain. Generic invalid directarguments are not native admitted witnesses. Full transfer changes exact personal/party row link without amount arithmetic; object rehome belongs actual caller.",
+    "1106 lot_for_inventory has exactly one failure: absent personal food metadata. Earlier246 personal .ok scan therefore skips nonfood/absent-lot candidates, not arbitrary hidden parser/computation failures. Retain legitimate absence policy; missing expectedfood-lot integrity still requires actual row producer.",
+    "1106 consume_food_contamination_provenance deletes on full ratio before native246 full shared lot deletion, so rejected provenance-orphan suspicion: bypassing delete_party_food_lot alone does not prove dangling provenance. Native medicine consume called before branch too, and actual herbalism body remains needed before medicine-orphan claim. Full helper deletepersonal/party cleans medicine/provenance/contamination/lot.",
+    "1106 contamination provenance digest length-frames source IDs and floatbits; producer cooking247 creates aligned vectors and split/consume maps same loads. Zip truncation needs malformed actual native writer before a finding. Full provenance graph/native material conservation and f32 component precision remain separate source questions.",
+    "1107 includes actual food model/preparation/authority/projections/lot/custody/cooking/consumption into native module scope. cfg tests/authority-tests are source-only and never executed; no body coverage for included files from module import alone.",
+    "1108 FoodLot native storage keeps fullu64 lot/row/revision, exactly one inventory link established by assessed constructors/transfers, quality1..5 at constructors. FireplaceDish pins immutable captured inputs; later catalogue changes do not rewrite cooked material. Optional instrument object None documents loose spit-roast/empty lane, not an automatic obsolete compatibility mode. Actual unsupported Someitem/Noneobject writers remain distinct question."
+  ],
+  "proposed_findings": [],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-246-FOOD-LOT-AMOUNT-CONSERVATION-NATIVE-PENDING",
+      "status": "Additive actual native child qualification, no full contract closure/new finding",
+      "primary_original": 1106,
+      "primary_source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "primary_source_sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "first_failed_function": "ensure_food_material_object / lot_for_inventory / consume_food_contamination_provenance",
+      "scope": "Actual lot helpers now qualify singleton stable-object admission, checked revisions and full contamination provenance cleanup. Personal lot lookup fails only absence; reject generic hidden-error and full-party provenance-orphan suspicions on this graph. Medicine consume/row transfer callers/current remain open.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "original_delta_proposed": 3,
+  "proposed_next_original": 1109,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "All three exact frozenGit6533 sources registered and successful registration inspected before full untruncated source displays; no execution/repair/current/other-lens transfer.",
+    "Several prior conditional helper questions are narrowed/rejected by actual bodies below, without converting original counts into global connected closure. Populations separate and root sole writer."
+  ],
+  "partial_checkpoints": [],
+  "partial_read_union": [],
+  "recovery_checkpoint": null,
+  "source_identity_qualification": null,
+  "contract_updates": [
+    {
+      "contract_id_or_proposed_new_id": "PL13-246-FOOD-LOT-AMOUNT-CONSERVATION-NATIVE-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "Food lot amount/object/contamination provenance owners and medicine/transfer callers",
+      "first_failed_contract_or_unresolved_question": "Actual lot helpers now qualify singleton stable-object admission, checked revisions and full contamination provenance cleanup. Personal lot lookup fails only absence; reject generic hidden-error and full-party provenance-orphan suspicions on this graph. Medicine consume/row transfer callers/current remain open.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+          "assessed_ranges": [
+            [
+              1,
+              534
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-250.json",
+            "sha256": "a13a83308a9e3d469eb2a7bad28c5b92ca7a92162ea06056b1e6031b22ed06d5"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 full personal body"
+        }
+      ],
+      "remaining_evidence": [
+        "Actual item/strategic transfer caller domain for removed/taken/original and singleton object initialization; medicine consume/split/delete body, current source and exact aliases."
+      ],
+      "dependencies": [
+        "Native inventory/food amount/custody",
+        "Native medicinal component owner"
+      ],
+      "closure_condition": [
+        "Keep these source-backed rejected/narrowed suspicions and complete remaining precise source/current/policy trace. Repair/runtime acceptance remains separate from audit closure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "same_local_pending_contract": "PL13-246-FOOD-LOT-AMOUNT-CONSERVATION-NATIVE-PENDING",
+        "basis": "Actual previously unread lot_inventory child of exact246 operation, not a common-remedy alias."
+      }
+    }
+  ],
+  "current_delta_updates": []
+}

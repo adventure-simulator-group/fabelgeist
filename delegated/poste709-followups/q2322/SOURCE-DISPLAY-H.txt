@@ -1,0 +1,66 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:446-510
+ 446                 / (8 * 60
+ 447                     * 1_000
+ 448                     * 1_000
+ 449                     * 1_000
+ 450                     * search_budget_divisor(source_count, resource_count));
+ 451             let guaranteed = expected_permille / 1_000;
+ 452             let remainder = expected_permille % 1_000;
+ 453             let discovered = guaranteed
+ 454                 + u64::from(
+ 455                     ForageDraw::FractionalYield.below(seed, source.id(), target.item_id, 1_000)
+ 456                         < remainder,
+ 457                 );
+ 458             if discovered == 0 {
+ 459                 continue;
+ 460             }
+ 461             let range = u64::from(target.yield_max - target.yield_min + 1);
+ 462             let base_yield = u64::from(target.yield_min)
+ 463                 + ForageDraw::BaseYield.below(seed, source.id(), target.item_id, range);
+ 464             let yield_bonus_permille = 1_000 + u64::from(terrain_check_millirank.min(5_000)) / 10;
+ 465             let quantity = discovered
+ 466                 .saturating_mul(base_yield)
+ 467                 .saturating_mul(yield_bonus_permille)
+ 468                 / 1_000;
+ 469             yields.push(ForageYield {
+ 470                 item_id: target.item_id,
+ 471                 quantity: u16::try_from(quantity).unwrap_or(u16::MAX),
+ 472             });
+ 473         }
+ 474     }
+ 475     let (dc, stealth_succeeded) =
+ 476         resolve_stealth(seed, environment, minutes, stealth_check_millirank);
+ 477     Ok(ForageResolution {
+ 478         yields,
+ 479         stealth_dc_millirank: dc,
+ 480         stealth_succeeded,
+ 481     })
+ 482 }
+ 483 
+ 484 /// Resolve the single completion/exposure check independently from yield.
+ 485 /// This accepts a partial elapsed duration so interrupted illegal work can
+ 486 /// still be noticed without granting partial forage yields.
+ 487 pub fn resolve_stealth(
+ 488     seed: Seed,
+ 489     environment: ForageEnvironment,
+ 490     elapsed_minutes: u64,
+ 491     stealth_check_millirank: u16,
+ 492 ) -> (Option<u16>, Option<bool>) {
+ 493     let dc = stealth_dc_millirank(environment, elapsed_minutes);
+ 494     let succeeded = dc.map(|dc| {
+ 495         let roll = ForageDraw::Stealth.below(seed, "", "", 1_001) as u16;
+ 496         stealth_check_millirank.saturating_add(roll) >= dc
+ 497     });
+ 498     (dc, succeeded)
+ 499 }
+ 500 
+ 501 /// Conserve actual elapsed search time over concrete Terrain leaf skills.
+ 502 pub fn training_hours(mixture: LocalTerrainMixture, elapsed_minutes: u64) -> [f32; 4] {
+ 503     if !mixture.is_normalized() {
+ 504         return [0.0; 4];
+ 505     }
+ 506     let hours = elapsed_minutes as f32 / 60.0;
+ 507     [
+ 508         hours * f32::from(mixture.plains) / 1_000.0,
+ 509         hours * f32::from(mixture.forest) / 1_000.0,
+ 510         hours * f32::from(mixture.hills) / 1_000.0,

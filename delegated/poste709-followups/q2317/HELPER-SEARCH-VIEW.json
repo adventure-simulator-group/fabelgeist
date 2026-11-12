@@ -1,0 +1,50 @@
+{
+  "cooking_duration_minutes_for_check": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/adventuresim-core/src/food.rs"
+    ],
+    "stderr": ""
+  },
+  "preparation_safety_minutes": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/adventuresim-core/src/food.rs"
+    ],
+    "stderr": ""
+  },
+  "CUT_COOKING_TIME_FACTOR": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-core/src/food.rs",
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs"
+    ],
+    "stderr": ""
+  },
+  "GROUND_COOKING_TIME_FACTOR": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "crates/adventuresim-core/src/food.rs"
+    ],
+    "stderr": ""
+  },
+  "food/cooking.rs": {
+    "exit": 1,
+    "files": [],
+    "stderr": ""
+  },
+  "preview_cooking": {
+    "exit": 0,
+    "files": [
+      "crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "crates/adventuresim-stdb-module/src/food/cooking.rs"
+    ],
+    "stderr": ""
+  }
+}

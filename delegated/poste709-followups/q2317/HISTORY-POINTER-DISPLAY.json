@@ -1,0 +1,106 @@
+{
+  "parallel-l13-20261029/REGISTRATION-PL13-247.json": {
+    "/sources/0": {
+      "original": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_eof": 868,
+      "prospective_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 native foodcooking time/amount/identity/guardedstate andretained/consumer contracts; sourceonly no execution."
+    }
+  },
+  "parallel-l13-20261029/READ-PL13-247.json": {
+    "/rows/0": {
+      "original": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "object_path": "target/726-audit-adler-20261027/parallel-l13-20261029/objects/05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_eof": 868,
+      "prospective_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Own Lens13 native foodcooking time/amount/identity/guardedstate andretained/consumer contracts; sourceonly no execution.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "untruncated_body_outputs": true
+    },
+    "/source_identity_qualification": null,
+    "/product_execution": false,
+    "/current_reconciled": false,
+    "/global_clearance": false
+  },
+  "segovb/READ-L13-PARALLEL-245.json": {
+    "/delegated_verification": {
+      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/VERIFY-PL13-247.json",
+      "sha256": "868ee47ff0aeebc790d18225f9e4e8773b138be13cab8303eb245fc7ce9d3deb"
+    },
+    "/qualified_connected_reads": [],
+    "/current_source_reconciled": false,
+    "/runtime_validation": "Not run",
+    "/implementation_gate_complete": false
+  },
+  "parallel-l13-20261029/VALIDATION-PROPOSAL-PL13-247-254-v2.json": {
+    "/contract_updates/0": {
+      "contract_id_or_proposed_new_id": "PL13-247-COOKING-PREVIEW-TARGET-CONTRACT-PENDING",
+      "lens": 13,
+      "canonical_owner_or_explicit_unresolved_owner_question": "preview_cooking / add_fireplace_ingredients_at actual amount/preview/native owner question",
+      "first_failed_contract_or_unresolved_question": "Actual assembly applies preparation safety factors and vessel water/method; preview uses raw safety and selected ingredient mass. Need real preview caller and exact/estimate policy; no obsolete API preservation.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+          "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+          "source_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+          "assessed_ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "read_pointer": "/rows/0",
+          "registration": {
+            "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-247.json",
+            "sha256": "a75c066ef79103b14fec11d7c86e39bf71172c0abab3551e300e3ced142ce68c"
+          },
+          "registration_pointer": "/sources/0",
+          "read_attribution": "Own Lens13 full personal body"
+        }
+      ],
+      "remaining_evidence": [
+        "Actual food projections/UI preview consumers, lot/native inventory/amount/object/volume helpers, exact own core cooking proof; current source and first-operation aliases."
+      ],
+      "dependencies": [
+        "Native food lot/amount/custody contracts"
+      ],
+      "closure_condition": [
+        "Document supported producer\u2192API\u2192state\u2192consumer\u2192native trace and explicit preview/amount policy; retained finding, conditional, policy question or rejection may close audit discovery with current/alias qualifications. Runtime acceptance is separate."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "read": {
+        "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-247.json",
+        "sha256": "1662c0dd9efe0c9c53c500848450a8708aef1043caf8b41907fb1d7f523d9096"
+      }
+    },
+    "/frozen_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "/current_reconciled": false,
+    "/global_clearance": false,
+    "/product_execution": false,
+    "/implementation_gate_complete": false
+  }
+}

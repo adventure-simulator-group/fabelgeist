@@ -1,0 +1,46 @@
+{
+  "/newly_assessed_ledger/entries/78": {
+    "id": "REVIEW-PREPARATION-RIGHTS-BINDING-001",
+    "lens": 3,
+    "severity": "unassigned; a public planner contract and trusted-caller policy require review",
+    "classification": "bounded 95e preparation planner decision-binding question; actual selected native caller constructs matched authority",
+    "historical_related_records": [
+      "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/277"
+    ],
+    "relationship_qualification": "Earlier PL13-170 is broader and remains attributed to Lens 13 with zero unique-count change; no final checkpoint restoration or complete alias is claimed.",
+    "discovery": "partial; intended trust boundary, revision policy, all callers and aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-L03-PREPARATION-RIGHTS-95E.json"
+  },
+  "/newly_assessed_ledger/entries/82": {
+    "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+    "lens": 4,
+    "severity": "unassigned; current authored cooking vessels are below the demonstrated precision threshold",
+    "classification": "bounded exact cooking-water volume and binary32 conversion question",
+    "historical_related_records": [
+      "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/334",
+      "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346"
+    ],
+    "relationship_qualification": "The two earlier delegated records left broad connected volume, provenance and native bounds open; the selected 95e precision example is newly assessed, not an accepted historical finding or restored 3821 record.",
+    "discovery": "partial; supported larger vessels, chronology and historical aliases open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json"
+  },
+  "/newly_assessed_ledger/entries/98": {
+    "id": "REVIEW-VESSEL-NESTED-CONTENTS-DOC-001",
+    "lens": 8,
+    "severity": "low; documentation conflict, intent and admitted nested example remain conditional",
+    "classification": "documentation claims all-depth ingredients while unchanged selected vessel reducer uses direct children",
+    "historical_related_records": [
+      "baseline-059/ledger.json#/segovb_continuation/lens12/pending_connected_contracts/8",
+      "ASSESSMENT-L01-HISTORICAL-202-204.json#/observations/3"
+    ],
+    "relationship_qualification": "The historical journal and separately attributed source reads already observed the conflict. A byte-matched selected function is not evidence that the whole files match or that a regression occurred.",
+    "discovery": "partial; product policy, concrete nested-item admissibility, UI wording and exact aliases remain open",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-L08-NESTED-VESSEL-95E.json"
+  }
+}

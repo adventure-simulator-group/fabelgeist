@@ -1,0 +1,17 @@
+{
+  "lens_assessed": 1,
+  "current_revision": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "historical_assessment": "ASSESSMENT-L01-HISTORICAL-106-110.json",
+  "classification": "Conditional invalid aggregate contamination policy question; no unsafe supported cooking input or output demonstrated.",
+  "trace": [
+    "microbial_concentration returns 0 for a nonfinite or negative load, nonfinite mass, or nonpositive mass. In contrast contamination_at maps nonfinite anchor or growth to MAX_CONTAMINATION. Returning a zero concentration for an invalid load is a distinct policy choice that could erase contamination if such a load is actually admitted; no such product execution or supported failing path was established.",
+    "The inspected cooking path rejects nonfinite or negative individual lot mass and nutritional fields, obtains food and water concentrations through contamination_at, accumulates load and mass, and requires a finite positive mass at most 25 kg through cooking_duration_minutes_for_check before constructing the dish. Those safeguards substantially qualify the hypothetical; complete water-transfer bounds, all callers, aggregate arithmetic and retained-state admissions are still open.",
+    "Do not conflate true zero microbial load with invalid aggregate input, or assume ingredient risk is measured by visible food quality. Existing exact zero-mass behavior and culinary semantics require an explicit owner decision before any future repair."
+  ],
+  "remaining": [
+    "Complete mathematical bounds and all callers before classifying live reachability. No product build, test or runtime probe was performed."
+  ],
+  "discovery_status": "partial; differing invalid-input policies, not a demonstrated disease event",
+  "repair_status": "not started",
+  "validation_status": "not performed"
+}

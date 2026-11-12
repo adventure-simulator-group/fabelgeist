@@ -1,0 +1,21 @@
+SOURCE crates/strategic-web/src/templates/settlement/cooking/selection.rs:1-20
+   1 //! Draft ingredients and explicit cooking commitment.
+   2 use maud::{Markup, html};
+   3 pub(super) fn selection(action_base: &str, inventory_scope: &str, method: &str) -> Markup {
+   4     html! {
+   5         section class="cooking-activity" {
+   6             input type="radio" name="method-preview" value=(method) checked hidden data-cooking-method;
+   7             form id="cooking-submit-form" method="post" action=(format!("{action_base}/ingredients")) {
+   8                 input type="hidden" name="inventory_scope" value=(inventory_scope);
+   9                 input type="hidden" name="inventory_item_ids" value="" data-cooking-ids;
+  10                 input type="hidden" name="fractions_micros" value="" data-cooking-amounts;
+  11                 h2 { "Prepare a spit roast" }
+  12                 p { "Add food portions from your ingredients. Starting the roast combines them into one meal. Vessels cook their own contents separately." }
+  13                 p class="small-copy text-muted cooking-preview" data-cooking-preview { "Stage at least one measured food portion." }
+  14                 button type="submit" class="btn btn-primary" disabled data-cook-submit { "Start spit roast" }
+  15             }
+  16             p data-cooking-pot-empty { "No ingredients selected." }
+  17             div data-inventory-browser="cooking-pot-left" { table class="trade-inventory-table" aria-label="Selected ingredients" { tbody {} } }
+  18         }
+  19     }
+  20 }

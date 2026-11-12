@@ -1,0 +1,71 @@
+SOURCE crates/adventuresim-stdb-module/src/time/advancement.rs:151-220
+ 151     ctx: &ReducerContext,
+ 152     character_id: u64,
+ 153     requested: u64,
+ 154 ) -> Result<u64, String> {
+ 155     let injury = crate::surgery::preview_injury_boundary(
+ 156         ctx,
+ 157         character_id,
+ 158         requested,
+ 159         InjuryRecoveryMinutes::NONE,
+ 160     )?;
+ 161     crate::disease::preview_elapsed_for_disease(ctx, character_id, injury.elapsed, false)
+ 162 }
+ 163 
+ 164 pub fn preview_travel_time_in_plan(
+ 165     ctx: &ReducerContext,
+ 166     character_id: u64,
+ 167     requested: u64,
+ 168     plan: &crate::disease::PartyDiseaseIntervalPlan,
+ 169 ) -> Result<u64, String> {
+ 170     let injury = crate::surgery::preview_injury_boundary(
+ 171         ctx,
+ 172         character_id,
+ 173         requested,
+ 174         InjuryRecoveryMinutes::NONE,
+ 175     )?;
+ 176     crate::disease::preview_elapsed_for_disease_in_plan(
+ 177         ctx,
+ 178         character_id,
+ 179         injury.elapsed,
+ 180         false,
+ 181         plan,
+ 182     )
+ 183 }
+ 184 
+ 185 /// Commit a terminal injury or disease event that falls exactly on the
+ 186 /// character's current strategic minute. This intentionally grants no elapsed
+ 187 /// travel time, condition use, filth, or training.
+ 188 pub fn settle_travel_boundary(ctx: &ReducerContext, character_id: u64) -> Result<bool, String> {
+ 189     let character = ctx
+ 190         .db
+ 191         .character()
+ 192         .id()
+ 193         .find(character_id)
+ 194         .ok_or("Character not found")?;
+ 195     if !character.alive {
+ 196         return Ok(false);
+ 197     }
+ 198     advance_character_time(ctx, character_id, 0)
+ 199 }
+ 200 
+ 201 pub fn advance_travel_time(
+ 202     ctx: &ReducerContext,
+ 203     character_id: u64,
+ 204     mut minutes: u64,
+ 205 ) -> Result<bool, String> {
+ 206     while minutes > 0 {
+ 207         let chunk = minutes.min(crate::filth::next_travel_dirt_boundary(ctx, character_id));
+ 208         let before = ctx
+ 209             .db
+ 210             .character_time()
+ 211             .character_id()
+ 212             .find(character_id)
+ 213             .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 214         let alive = advance_character_time(ctx, character_id, chunk)?;
+ 215         let after = ctx
+ 216             .db
+ 217             .character_time()
+ 218             .character_id()
+ 219             .find(character_id)
+ 220             .map_or(before, |t| t.minutes);

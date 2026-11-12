@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "kind": "bounded locators",
+      "detail": "Source RigJointTable has 240 results: 100 retained, 140 omitted. Initial source/evidence locators printed only first 20 per pattern. Other locator registrations specify first 20, 25 or 30. Locator lines are navigation, never body-read credit."
+    },
+    {
+      "kind": "corrected historical locator",
+      "detail": "The first UV historical locator only examined string values directly in dictionaries and therefore missed matching strings in lists. It reported no pointers and cannot support absence. A separately registered all-string-leaf locator corrected the search; both results are retained."
+    },
+    {
+      "kind": "actual EOF clamp",
+      "detail": "DeviceBody display requested lines 1-100 after prior registration; actual EOF was 26 and the complete displayed range was 1-26. No unseen lines are credited."
+    },
+    {
+      "kind": "test source only",
+      "detail": "MHR character source display included lines under cfg(test); no test or fixture was run."
+    }
+  ]
+}

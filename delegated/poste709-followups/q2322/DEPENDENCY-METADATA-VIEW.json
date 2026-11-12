@@ -1,0 +1,324 @@
+[
+  {
+    "path": "crates/adventuresim-core/src/skill.rs",
+    "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+    "blob": "616d9d164bd04cb8a29b745e1a530540756f9fd7",
+    "lines": 1165,
+    "locators": {
+      "fn skill_check_by_parts": {
+        "count": 1,
+        "first_20": [
+          1132
+        ],
+        "truncated": false
+      },
+      "fn apply_direct_training": {
+        "count": 1,
+        "first_20": [
+          1061
+        ],
+        "truncated": false
+      },
+      "limb": {
+        "count": 45,
+        "first_20": [
+          3,
+          6,
+          126,
+          127,
+          135,
+          139,
+          140,
+          143,
+          213,
+          215,
+          216,
+          217,
+          218,
+          224,
+          228,
+          262,
+          295,
+          299,
+          316,
+          350
+        ],
+        "truncated": true
+      },
+      "condition": {
+        "count": 2,
+        "first_20": [
+          733,
+          1160
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+    "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+    "blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+    "lines": 582,
+    "locators": {
+      "fn advance_investigation_time": {
+        "count": 1,
+        "first_20": [
+          266
+        ],
+        "truncated": false
+      },
+      "fatigue": {
+        "count": 2,
+        "first_20": [
+          263,
+          416
+        ],
+        "truncated": false
+      },
+      "condition": {
+        "count": 14,
+        "first_20": [
+          49,
+          69,
+          70,
+          142,
+          143,
+          187,
+          408,
+          468,
+          492,
+          494,
+          495,
+          575,
+          577,
+          578
+        ],
+        "truncated": false
+      },
+      "elapsed": {
+        "count": 54,
+        "first_20": [
+          37,
+          38,
+          39,
+          41,
+          42,
+          43,
+          53,
+          65,
+          69,
+          112,
+          113,
+          121,
+          122,
+          124,
+          136,
+          138,
+          142,
+          161,
+          176,
+          179
+        ],
+        "truncated": true
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/capability.rs",
+    "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+    "blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+    "lines": 694,
+    "locators": {
+      "struct StrategicEquipment": {
+        "count": 1,
+        "first_20": [
+          255
+        ],
+        "truncated": false
+      },
+      "incapacitation": {
+        "count": 1,
+        "first_20": [
+          130
+        ],
+        "truncated": false
+      },
+      "limb": {
+        "count": 7,
+        "first_20": [
+          13,
+          14,
+          96,
+          99,
+          168,
+          201,
+          202
+        ],
+        "truncated": false
+      },
+      "condition": {
+        "count": 9,
+        "first_20": [
+          8,
+          11,
+          15,
+          122,
+          124,
+          130,
+          131,
+          132,
+          588
+        ],
+        "truncated": false
+      },
+      "elapsed": {
+        "count": 1,
+        "first_20": [
+          481
+        ],
+        "truncated": false
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+    "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+    "blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+    "lines": 1435,
+    "locators": {
+      "fn preview_injury_boundary": {
+        "count": 3,
+        "first_20": [
+          396,
+          1357,
+          1379
+        ],
+        "truncated": false
+      },
+      "limb": {
+        "count": 101,
+        "first_20": [
+          1,
+          32,
+          52,
+          76,
+          89,
+          103,
+          104,
+          109,
+          138,
+          146,
+          147,
+          150,
+          151,
+          152,
+          154,
+          171,
+          173,
+          174,
+          179,
+          181
+        ],
+        "truncated": true
+      },
+      "condition": {
+        "count": 8,
+        "first_20": [
+          32,
+          114,
+          404,
+          454,
+          457,
+          555,
+          1126,
+          1363
+        ],
+        "truncated": false
+      },
+      "elapsed": {
+        "count": 21,
+        "first_20": [
+          383,
+          389,
+          434,
+          445,
+          448,
+          450,
+          481,
+          483,
+          484,
+          486,
+          487,
+          520,
+          534,
+          551,
+          554,
+          563,
+          849,
+          863,
+          871,
+          1341
+        ],
+        "truncated": true
+      }
+    }
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/disease.rs",
+    "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+    "blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+    "lines": 2950,
+    "locators": {
+      "fn preview_disease_terminal_boundary": {
+        "count": 2,
+        "first_20": [
+          1998,
+          2918
+        ],
+        "truncated": false
+      },
+      "hydration": {
+        "count": 1,
+        "first_20": [
+          1762
+        ],
+        "truncated": false
+      },
+      "limb": {
+        "count": 2,
+        "first_20": [
+          1504,
+          2354
+        ],
+        "truncated": false
+      },
+      "elapsed": {
+        "count": 25,
+        "first_20": [
+          340,
+          360,
+          368,
+          651,
+          695,
+          704,
+          1282,
+          1350,
+          1825,
+          1884,
+          1927,
+          1932,
+          1938,
+          1941,
+          1948,
+          1990,
+          1996,
+          2007,
+          2017,
+          2355
+        ],
+        "truncated": true
+      }
+    }
+  }
+]

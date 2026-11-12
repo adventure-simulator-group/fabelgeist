@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-core/src/food.rs:71-110
+  71         CookingMethod::Roast => {
+  72             let drying = ((elapsed_minutes - target) as f64 / target as f64).clamp(0.0, 1.0) as f32;
+  73             DonenessOutcome {
+  74                 progress: 1.0 + drying,
+  75                 calorie_factor: 1.0 - SMOKED_ADDITIONAL_NUTRITION_LOSS * drying,
+  76                 contamination_kill_progress: 1.0,
+  77                 quality_penalty: 0,
+  78             }
+  79         }
+  80         CookingMethod::PanFry | CookingMethod::Bake => raw,
+  81     }
+  82 }
+  83 
+  84 pub fn preparation_safety_minutes(raw_minutes: u32, preparation_factor: f32) -> Option<u32> {
+  85     if !preparation_factor.is_finite() || !(0.0..=1.0).contains(&preparation_factor) {
+  86         return None;
+  87     }
+  88     Some(((raw_minutes as f32) * preparation_factor).ceil().max(1.0) as u32)
+  89 }
+  90 
+  91 /// Geometric interpolation from the raw load to the full method kill. This is
+  92 /// stable at zero and keeps partial cooking meaningfully riskier than ready.
+  93 pub fn partially_cooked_contamination(raw: f32, method: CookingMethod, kill_progress: f32) -> f32 {
+  94     let raw = if raw.is_finite() {
+  95         raw.max(0.0)
+  96     } else {
+  97         MAX_CONTAMINATION
+  98     };
+  99     let fully_cooked = cooked_contamination(raw, method);
+ 100     let progress = if kill_progress.is_finite() {
+ 101         kill_progress.clamp(0.0, 1.0)
+ 102     } else {
+ 103         0.0
+ 104     };
+ 105     if raw <= 0.0 {
+ 106         return 0.0;
+ 107     }
+ 108     let ratio = (fully_cooked / raw).clamp(0.0, 1.0);
+ 109     (raw * ratio.powf(progress)).clamp(0.0, MAX_CONTAMINATION)
+ 110 }

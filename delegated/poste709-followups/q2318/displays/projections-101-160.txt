@@ -1,0 +1,60 @@
+ 101                                     CarriedInventoryScope::Party,
+ 102                                     &object,
+ 103                                 )
+ 104                         },
+ 105                     )
+ 106                 })
+ 107                 .map(|row| (CarriedInventoryScope::Party, row.id, row.item_id)),
+ 108         );
+ 109     }
+ 110     rows
+ 111 }
+ 112 
+ 113 fn view_cutting_weapon_binding(ctx: &ViewContext, actor: &crate::Character) -> Option<String> {
+ 114     view_carried_item_rows(ctx, actor)
+ 115         .into_iter()
+ 116         .filter_map(|(scope, row_id, item_id)| {
+ 117             let item = ctx.db.item().id().find(item_id)?;
+ 118             if item.precision < 0.5 {
+ 119                 return None;
+ 120             }
+ 121             let damage = if scope == CarriedInventoryScope::Personal {
+ 122                 ctx.db
+ 123                     .item_condition()
+ 124                     .inventory_item_id()
+ 125                     .find(row_id)
+ 126                     .map(|condition| condition.bins())
+ 127             } else {
+ 128                 ctx.db
+ 129                     .party_item_condition()
+ 130                     .party_inventory_item_id()
+ 131                     .find(row_id)
+ 132                     .map(|condition| {
+ 133                         DamageBins([
+ 134                             condition.tier_1,
+ 135                             condition.tier_2,
+ 136                             condition.tier_3,
+ 137                             condition.tier_4,
+ 138                             condition.tier_5,
+ 139                         ])
+ 140                         .normalized()
+ 141                     })
+ 142             }
+ 143             .unwrap_or_default();
+ 144             (effective_weapon_stat(item.precision, damage, item.edge_sensitivity) >= 0.5).then(
+ 145                 || {
+ 146                     cutting_weapon_binding(
+ 147                         scope,
+ 148                         row_id,
+ 149                         &item.id,
+ 150                         item.precision,
+ 151                         item.edge_sensitivity,
+ 152                         damage,
+ 153                     )
+ 154                 },
+ 155             )
+ 156         })
+ 157         .min()
+ 158 }
+ 159 
+ 160 fn view_preparation_skill_check(ctx: &ViewContext, character_id: u64, skill: Skill) -> Option<f32> {

@@ -1,0 +1,110 @@
+   1 //! Native tensor construction from the admitted MHR host aggregates.
+   2 
+   3 use super::{
+   4     Mhr, NUM_BLEND_SHAPES, NUM_FACE_EXPRESSION_BLEND_SHAPES, NUM_IDENTITY_BLEND_SHAPES, rig,
+   5 };
+   6 use crate::character::{Character, PARAMETERS_PER_JOINT};
+   7 use crate::correctives::PoseCorrectives;
+   8 use crate::model_def::ParameterTransform;
+   9 use anyhow::{Result, bail};
+  10 use burn::tensor::{Device, Tensor, TensorData};
+  11 use fabelgeist_numpy_storage::NpyDimension;
+  12 
+  13 /// Sparse i32 index words and coefficients for Burn's influence kernel.
+  14 struct SparseSkinUpload {
+  15     joints: Vec<i32>,
+  16     vertices: Vec<i32>,
+  17     weights: Vec<f32>,
+  18 }
+  19 
+  20 struct RestRigTensors {
+  21     translations: Tensor<3>,
+  22     prerotations: Tensor<3>,
+  23     inverse_bind_pose: Tensor<3>,
+  24     base_shape: Tensor<2>,
+  25 }
+  26 
+  27 struct BlendBasisTensors {
+  28     identity: Tensor<2>,
+  29     expression: Tensor<2>,
+  30 }
+  31 
+  32 impl Mhr {
+  33     pub(super) fn new(
+  34         character: Character,
+  35         parameter_transform: ParameterTransform,
+  36         num_model_parameters: NpyDimension,
+  37         correctives: Option<PoseCorrectives>,
+  38         device: &Device,
+  39     ) -> Result<Self> {
+  40         let joints = character.skeleton.names.joint_count();
+  41         if character.blend_shapes.len() != NUM_BLEND_SHAPES {
+  42             bail!(
+  43                 "rig has {} blend shapes, expected {NUM_IDENTITY_BLEND_SHAPES} identity plus \
+  44                  {NUM_FACE_EXPRESSION_BLEND_SHAPES} expression",
+  45                 character.blend_shapes.len()
+  46             );
+  47         }
+  48 
+  49         // Transposed so a forward pass is `parameters @ transform`.
+  50         let transform = parameter_transform
+  51             .transform
+  52             .tensor_transpose(num_model_parameters)?;
+  53 
+  54         let offsets = parameter_transform
+  55             .offsets
+  56             .iter()
+  57             .any(|offset| *offset != 0.0)
+  58             .then(|| {
+  59                 Tensor::from_data(
+  60                     TensorData::new(
+  61                         parameter_transform.offsets.tensor_values(),
+  62                         [1, joints.native_joint_count() * PARAMETERS_PER_JOINT],
+  63                     ),
+  64                     device,
+  65                 )
+  66             });
+  67 
+  68         let fk_levels = rig::fk_level_tensors(&character, device)?;
+  69 
+  70         let basis = BlendBasisTensors::from_character(&character, device);
+  71 
+  72         let skin = SparseSkinUpload::from_character(&character)?;
+  73         let influences = skin.weights.len();
+  74 
+  75         let face_corners: Vec<i32> = character
+  76             .mesh
+  77             .faces
+  78             .iter()
+  79             .flatten()
+  80             .map(|corner| i32::try_from(*corner))
+  81             .collect::<Result<_, _>>()?;
+  82         let num_corners = face_corners.len();
+  83 
+  84         let rest = RestRigTensors::from_character(&character, device);
+  85         Ok(Self {
+  86             device: device.clone(),
+  87             transform: Tensor::from_data(
+  88                 TensorData::new(
+  89                     transform,
+  90                     [
+  91                         usize::from(num_model_parameters),
+  92                         joints.native_joint_count() * PARAMETERS_PER_JOINT,
+  93                     ],
+  94                 ),
+  95                 device,
+  96             ),
+  97             offsets,
+  98             num_model_parameters,
+  99             joint_translation_offsets: rest.translations,
+ 100             joint_prerotations: rest.prerotations,
+ 101             inverse_bind_pose: rest.inverse_bind_pose,
+ 102             fk_levels,
+ 103             identity_basis: basis.identity,
+ 104             expression_basis: basis.expression,
+ 105             base_shape: rest.base_shape,
+ 106             face_corners: Tensor::from_data(TensorData::new(face_corners, [num_corners]), device),
+ 107             skin_joint_indices: Tensor::from_data(
+ 108                 TensorData::new(skin.joints, [influences]),
+ 109                 device,
+ 110             ),

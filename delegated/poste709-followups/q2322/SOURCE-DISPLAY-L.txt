@@ -1,0 +1,36 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:726-760
+ 726     );
+ 727     let decisions = license_decisions(ctx, actor, source_ids, current_minute.get())?;
+ 728     Ok(foraging::build_forage_plan(foraging::ForagePlanAuthority {
+ 729         coordinates,
+ 730         provenance: PlanProvenance {
+ 731             request_id: ActionRequestId::try_new(request_id)
+ 732                 .map_err(|_| "Forage request is malformed")?,
+ 733             action_id: ActionDefinitionId::try_new("forage:current-vicinity")
+ 734                 .map_err(|_| "Forage definition is malformed")?,
+ 735             input_digest: SnapshotDigest(digest),
+ 736             authority_binding: AuthorityBinding(digest),
+ 737         },
+ 738         snapshot: AuthoritativeSnapshot {
+ 739             revision: SnapshotRevision(attempt_generation),
+ 740             digest: SnapshotDigest(digest),
+ 741         },
+ 742         current_minute,
+ 743         duration,
+ 744         terminal_minute,
+ 745         exact_presence: true,
+ 746         encounter_clear: true,
+ 747         environment_current: true,
+ 748         capability_current: true,
+ 749         sources_available: true,
+ 750         license_decisions: decisions,
+ 751         local_restriction: environment.settlement || environment.cultivated,
+ 752         legality: if environment.settlement
+ 753             || environment.cultivated
+ 754             || environment.license_violation
+ 755         {
+ 756             ForageLegality::IllegalAttempt
+ 757         } else {
+ 758             ForageLegality::Legal
+ 759         },
+ 760         source_ids: source_ids.to_vec(),

@@ -1,0 +1,65 @@
+{
+  "lens": 13,
+  "namespace": "PL13-171",
+  "status": "Ordered actual measured inventory fixed-point quantity/basis/price arithmetic",
+  "registration": {
+    "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-171.json",
+    "sha256": "a3edcbba01f28239f0f3225f6d1a943f25c864cf29ec29fef03c0401e57bb6b5"
+  },
+  "registered_before_read_attestation": true,
+  "rows": [
+    {
+      "original": 933,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "object_path": "target/726-audit-adler-20261027/evidence/continuation-segovb/source-objects/2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "actual_eof": 804,
+      "prospective_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "scope_kind": "affected_unchanged_reached_contract",
+      "source_revision": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+      "purpose": "Ordered own Lens13 measured inventory decimal/fraction/quantity/time numeric producer-state-native contracts; source only.",
+      "fresh_personal_assessed_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "untruncated_body_outputs": true
+    }
+  ],
+  "connected": [],
+  "numeric_role_inventory": [
+    "933 ItemQuantity NonZeroU32 Serde transparent retainsnonzero throughactualNonZeroowner. ConsumableFractionMicrosprivateu32 try_new<=1e6, ratiosceil viau128 thenclampwhole, floor scalingu128 product<=u64whole*1e6 returns<=whole; validfractionfactor0..1. whole_divided_by assertspositiveparts andfloorspossibly0 forparts>1e6; actualcallersemantics needed beforezero-sharefinding, zero isvalidfractionmodehere.",
+    "933 MeasurementBasis numeric u64capacity/mass/value/tare retainedperobject; MeasurementProfile::effective_totals validatesnonzerocapacity/noncontainerzerotare/checkedfullsums, measuredrowsingleton/requiredimmutableinstancebasis/amount<=capacity. BulkLotmustalwaysmeasuredsingleton. Unopenedstackscheckedmultiply fulltotals, measuredcontentsproratedu128 thencheckedtareadd. Samecheckedowner acceptsderivedbasis distinctfromcatalogue standard, so no automaticduplicateauthorityfinding frombothbasisroles.",
+    "933 prorated_floor fullu64*amountu64 fitsu128; amount<=capacity ensures result<=full beforecastu64. Allsplitrounding towardzero explicitconservationpolicy, notcompatibilitydefect. Actualnativeinventoryamount/profile/basisconstruction andbulkfood/medication/soap consumption stillneededforendtoendmaterialconservation.",
+    "933 checked_aggregate_price sumsrowu64checked, validatespositivefactor num/den, cancelscrossGCD andlineGCD thencheckedu128 products, onlyoneFloor/Ceil andcheckedu64 conversion. Overflowfailureexplicitbudget; no requirementtoacceptarbitrarylengthfactorchainswhoseintermediateexceedsbudgetassumed. Native tradefactorpolicy/complete-lineaggregation requiredbeforeeconomicacceptance.",
+    "933 moduleintroclaims persistent schema notimplemented but actualown1136callsinventory_amount/foodlots, so do nottreatobsoletecommentascodeauthority/unsupported exemption. Sourcefixtures379..804 readonlynotruntimevalidation."
+  ],
+  "proposed_findings": [],
+  "connected_contracts": [
+    {
+      "proposed_id": "PL13-171-MEASURED-INVENTORY-NATIVE-CONSERVATION-PENDING",
+      "status": "Connected actual native basis/fraction/pricing producer and consumer proof required",
+      "scope": "Actualinventoryamountimmutablebasis/amountsnapshot, materiallots partialconsumption/soapcapacitypoints/tradecomplete-linevalue andfactorpolicy. Wholefraction>1e6partszeroshare dependsactualcallers, noinventedordinarycase. Purecheckedmathassessed, allnativecommits/currentaliases remainseparate.",
+      "accepted_unique_count_change": 0,
+      "current_reconciled": false
+    }
+  ],
+  "necessary_extensions": [],
+  "future_same_lens_reuse_proofs": [],
+  "original_delta_proposed": 1,
+  "proposed_next_original": 934,
+  "authoritative_counts_changed": false,
+  "accepted_unique_count_change": 0,
+  "product_execution": false,
+  "current_reconciled": false,
+  "global_clearance": false,
+  "qualifications": [
+    "Fresh933full804personallyread1..230/231..460/461..690/691..804 after REG171, alluntruncated. No productexecution orcurrent/foreigntransfer."
+  ]
+}

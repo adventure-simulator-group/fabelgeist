@@ -1,0 +1,25 @@
+SOURCE crates/strategic-web/src/templates/layout/shell.rs:95-118
+  95             script src="/static/chat-dock.js?v=1" defer {}
+  96             script src="/static/portrait-navigation.js?v=1" defer {}
+  97             script src="/static/stats-panels.js?v=1" defer {}
+  98             script src="/static/action-previews.js?v=1" defer {}
+  99             @if scripts != ScriptProfile::Entry {
+ 100                 script src="/static/live-state.js?v=location-urls-1" defer {}
+ 101                 script src="/static/live-regions.js?v=location-urls-1" defer {}
+ 102             }
+ 103             @if scripts == ScriptProfile::Strategic {
+ 104                 script src="/static/strategic-navigation.js?v=places-scroll-1" defer {}
+ 105                 // Before the renderer: the client calls window.sfx* from its first frame.
+ 106                 script src="/tactical/sfx.js?v=web-audio-1" {}
+ 107                 script type="module" src="/static/strategic-renderer.js?v=tactical-hud-1" {}
+ 108                 script src="/static/strategic-mutations.js?v=formaction-override-1" defer {}
+ 109                 script src="/static/character-switcher.js?v=multi-character-switcher-1" defer {}
+ 110                 script src="/static/journal-tab.js?v=journal-tab-1" defer {}
+ 111                 script src="/static/numeric-editor.js?v=draft-callbacks-3" defer {}
+ 112                 script src="/static/inventory-browser.js?v=framed-equipment-portraits-1" defer {}
+ 113                 script src="/static/party-trade.js?v=provision-party-food-1-slot-controls-1" defer {}
+ 114                 script src="/static/cooking.js?v=fireplace-station-1" defer {}
+ 115                 script src="/static/herbalism.js?v=bounded-craft-1" defer {}
+ 116                 script src="/static/equipment-toggle.js?v=location-keyboard-slots-5" defer {}
+ 117                 script src="/static/party-notifications.js?v=standing-leadership-votes-5" defer {}
+ 118             script src="/static/party-recruitment.js?v=party-recruitment-live-3" defer {}

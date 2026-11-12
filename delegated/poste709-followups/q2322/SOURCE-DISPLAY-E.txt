@@ -1,0 +1,102 @@
+SOURCE crates/adventuresim-stdb-module/src/foraging.rs:430-530
+ 430         .find(0)
+ 431         .ok_or("Strategic gateway is not registered")?;
+ 432     if gateway.terrain_schema != 3
+ 433         || gateway.terrain_package_digest.as_deref() != Some(&attestation.package_digest)
+ 434     {
+ 435         return Err("Forage environment uses a stale terrain package".into());
+ 436     }
+ 437     let vicinity = expected_location(ctx, character_id)?;
+ 438     if attestation.context_kind != vicinity.context_kind
+ 439         || attestation.context_id != vicinity.context_id
+ 440         || attestation.latitude_e7 != vicinity.latitude_e7
+ 441         || attestation.longitude_e7 != vicinity.longitude_e7
+ 442     {
+ 443         return Err("Forage environment does not match the authoritative location".into());
+ 444     }
+ 445     let terrain = LocalTerrainMixture {
+ 446         plains: attestation.plains,
+ 447         forest: attestation.forest,
+ 448         hills: attestation.hills,
+ 449         wetlands: attestation.wetlands,
+ 450     };
+ 451     if !terrain.is_normalized() {
+ 452         return Err("Forage environment terrain mixture is invalid".into());
+ 453     }
+ 454     Ok((
+ 455         vicinity.clone(),
+ 456         ForageEnvironment {
+ 457             terrain,
+ 458             river_or_wet_ground: attestation.river_or_wet_ground,
+ 459             sea_or_coast: attestation.sea_or_coast,
+ 460             cultivated: attestation.cultivated,
+ 461             settlement: vicinity.settlement,
+ 462             license_violation: false,
+ 463         },
+ 464     ))
+ 465 }
+ 466 
+ 467 fn acting_checks(
+ 468     ctx: &ReducerContext,
+ 469     character_id: u64,
+ 470     mixture: LocalTerrainMixture,
+ 471 ) -> Result<(u16, u16), String> {
+ 472     let attributes = ctx
+ 473         .db
+ 474         .character_attributes()
+ 475         .character_id()
+ 476         .find(character_id)
+ 477         .ok_or("Character attributes not found")?;
+ 478     let limbs = ctx
+ 479         .db
+ 480         .character_limbs()
+ 481         .character_id()
+ 482         .find(character_id)
+ 483         .ok_or("Character limbs not found")?;
+ 484     let skills = ctx
+ 485         .db
+ 486         .character_skills()
+ 487         .character_id()
+ 488         .find(character_id)
+ 489         .ok_or("Character skills not found")?;
+ 490     let stats = ctx
+ 491         .db
+ 492         .character_stats()
+ 493         .character_id()
+ 494         .find(character_id)
+ 495         .ok_or("Character stats not found")?;
+ 496     let equipment = StrategicEquipment::load(ctx, character_id);
+ 497     let check = |skill| {
+ 498         skills.skill_check_by_parts(
+ 499             skill,
+ 500             &attributes,
+ 501             &limbs,
+ 502             &stats,
+ 503             &equipment,
+ 504             LimbWeights::all_equal(),
+ 505         )
+ 506     };
+ 507     let terrain_training = check(Skill::TerrainPlains) * f32::from(mixture.plains) / 1_000.0
+ 508         + check(Skill::TerrainForest) * f32::from(mixture.forest) / 1_000.0
+ 509         + check(Skill::TerrainHills) * f32::from(mixture.hills) / 1_000.0
+ 510         + check(Skill::TerrainWetlands) * f32::from(mixture.wetlands) / 1_000.0;
+ 511     let stealth_training = check(Skill::Stealth);
+ 512     Ok((
+ 513         (terrain_training.clamp(0.0, 5.0) * 1_000.0).round() as u16,
+ 514         (stealth_training.clamp(0.0, 5.0) * 1_000.0).round() as u16,
+ 515     ))
+ 516 }
+ 517 
+ 518 fn resolution_seed(
+ 519     private_entropy: u64,
+ 520     character_id: u64,
+ 521     started_at: StrategicMinute,
+ 522     attestation: &ForageEnvironmentAttestation,
+ 523     sources: &[String],
+ 524 ) -> fabelgeist_determinism::Seed {
+ 525     let mut hasher = Sha256::new();
+ 526     hasher.update(b"forage-resolution-v2");
+ 527     hasher.update(private_entropy.to_le_bytes());
+ 528     hasher.update(character_id.to_le_bytes());
+ 529     hasher.update(started_at.get().to_le_bytes());
+ 530     hasher.update(attestation.latitude_e7.to_le_bytes());

@@ -1,0 +1,66 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs:416-480
+ 416                         IngredientPreparationAction::Grind,
+ 417                         "Ground",
+ 418                         grinding_tool.clone(),
+ 419                     )),
+ 420                 ],
+ 421                 _ => [None, None],
+ 422             };
+ 423             for (action, skill, physical, prefix, tool_binding) in actions.into_iter().flatten() {
+ 424                 let Some(check) = view_preparation_skill_check(ctx, actor.id, skill) else {
+ 425                     continue;
+ 426                 };
+ 427                 let base_name = lot
+ 428                     .display_name
+ 429                     .trim_start_matches("Cut ")
+ 430                     .trim_start_matches("Ground ");
+ 431                 let Some(attempt_generation) = view_next_preparation_generation(
+ 432                     ctx,
+ 433                     actor.id,
+ 434                     scope.as_str(),
+ 435                     row_id,
+ 436                     lot.id,
+ 437                     object.id,
+ 438                     lot.material_revision,
+ 439                     action,
+ 440                 ) else {
+ 441                     continue;
+ 442                 };
+ 443                 let duration = herbalism::physical_preparation_minutes(
+ 444                     physical,
+ 445                     check,
+ 446                     tool_binding != "hands",
+ 447                 );
+ 448                 plans.push(BackendIngredientPreparationPlan {
+ 449                     actor_character_id: actor.id,
+ 450                     inventory_scope: scope.as_str().into(),
+ 451                     inventory_item_id: row_id,
+ 452                     food_lot_id: lot.id,
+ 453                     material_object_id: object.id,
+ 454                     request_id: preparation_request_id(
+ 455                         actor.id,
+ 456                         scope.as_str(),
+ 457                         row_id,
+ 458                         lot.id,
+ 459                         object.id,
+ 460                         lot.material_revision,
+ 461                         action,
+ 462                         attempt_generation,
+ 463                         &place.to_string(),
+ 464                         &custody_binding,
+ 465                     ),
+ 466                     expected_revision: lot.material_revision,
+ 467                     attempt_generation,
+ 468                     action,
+ 469                     duration_minutes: duration,
+ 470                     next_display_name: format!("{prefix} {base_name}"),
+ 471                 });
+ 472             }
+ 473         }
+ 474     }
+ 475     plans
+ 476 }
+ 477 
+ 478 #[derive(Clone, Debug, SpacetimeType)]
+ 479 pub struct BackendFireplaceStation {
+ 480     pub key: String,

@@ -1,0 +1,83 @@
+{
+  "registered_at_utc": "2026-11-12T16:14:28.098918+00:00",
+  "repository": "adventure-simulator-group/fabelgeist",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "current_sources": {
+    "crates/adventuresim-stdb-module/src/food/projections.rs": [
+      "backend_ingredient_preparation_plans",
+      "IngredientPreparation",
+      "preparation",
+      "material",
+      "duration"
+    ],
+    "crates/adventuresim-stdb-module/src/food/preparation_authority.rs": [
+      "material_snapshot",
+      "Milligrams",
+      "MaterialMeasure",
+      "load_preparation_authority"
+    ],
+    "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs": [
+      "prepare_ingredient_lot",
+      "load_preparation_authority"
+    ],
+    "crates/adventuresim-stdb-module/src/food/lot_inventory.rs": [
+      "retain_lot_fraction",
+      "create_personal_food_lot",
+      "ensure_food_material_object"
+    ],
+    "crates/adventuresim-stdb-module/src/food/cooking.rs": [
+      "retain_lot_fraction",
+      "fraction",
+      "available"
+    ],
+    "crates/adventuresim-stdb-module/src/food/consumption.rs": [
+      "retain_lot_fraction",
+      "fraction"
+    ],
+    "crates/adventuresim-core/src/inventory_measurement.rs": [
+      "ConsumableFractionMicros",
+      "try_new",
+      "checked_sub"
+    ],
+    "crates/adventuresim-core/src/material.rs": [
+      "struct Milligrams",
+      "try_from_kilograms",
+      "struct MaterialMeasure",
+      "EmptyMeasure",
+      "struct PrivateMaterialSnapshot"
+    ],
+    "crates/adventuresim-core/src/food.rs": [
+      "retained_component",
+      "definition"
+    ],
+    "crates/adventuresim-core/src/ingredient_preparation.rs": [
+      "Grind",
+      "duration",
+      "preparation"
+    ],
+    "content/items/catalog.yaml": [
+      "id: apple",
+      "mass_kg",
+      "weight"
+    ],
+    "crates/strategic-web/src/routes/settlements/party/training_activity.rs": [
+      "backend_ingredient_preparation_plans",
+      "preparation_plans"
+    ],
+    "crates/strategic-web/src/templates/settlement/trade/discard.rs": [
+      "preparation_plan",
+      "Grind"
+    ],
+    "crates/strategic-web/src/templates/settlement/trade/party_pool.rs": [
+      "preparation_plan",
+      "Grind"
+    ]
+  },
+  "old_ref": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "historical_paths": [
+    "crates/adventuresim-stdb-module/src/food/projections.rs",
+    "content/items/catalog.yaml"
+  ],
+  "operation": "capture exact file bytes; output registered literal locator positions only, source displays separately registered",
+  "qualification": "physical-worktree matches were navigation only; metadata lists bounded/truncation explicit"
+}

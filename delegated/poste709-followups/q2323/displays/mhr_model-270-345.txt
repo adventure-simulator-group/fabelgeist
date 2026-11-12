@@ -1,0 +1,76 @@
+ 270         Tensor::zeros(
+ 271             [batch, usize::from(self.num_model_parameters)],
+ 272             &self.device,
+ 273         )
+ 274     }
+ 275 
+ 276     /// Runs the model.
+ 277     ///
+ 278     /// * `identity` — `[batch, 45]` shape coefficients (a single row is broadcast).
+ 279     /// * `model_parameters` — `[batch, 204]` pose and scale parameters.
+ 280     /// * `expression` — `[batch, 72]` facial expression coefficients, optional.
+ 281     pub fn forward(
+ 282         &self,
+ 283         identity: Tensor<2>,
+ 284         model_parameters: Tensor<2>,
+ 285         expression: Option<Tensor<2>>,
+ 286     ) -> Result<MhrOutput> {
+ 287         self.forward_with(identity, model_parameters, expression, true)
+ 288     }
+ 289 
+ 290     /// As [`Mhr::forward`], but able to skip the pose correctives.
+ 291     pub fn forward_with(
+ 292         &self,
+ 293         identity: Tensor<2>,
+ 294         model_parameters: Tensor<2>,
+ 295         expression: Option<Tensor<2>>,
+ 296         apply_correctives: bool,
+ 297     ) -> Result<MhrOutput> {
+ 298         let batch = model_parameters.dims()[0];
+ 299         let joints = self.num_joints();
+ 300         let vertices = self.num_vertices();
+ 301 
+ 302         let [identity_rows, identity_columns] = identity.dims();
+ 303         if identity_columns != NUM_IDENTITY_BLEND_SHAPES {
+ 304             bail!(
+ 305                 "identity coefficients have {identity_columns} columns, expected {NUM_IDENTITY_BLEND_SHAPES}"
+ 306             );
+ 307         }
+ 308         if identity_rows != batch && identity_rows != 1 {
+ 309             bail!("identity coefficients have {identity_rows} rows, expected {batch} or 1");
+ 310         }
+ 311         if NpyDimension::from(model_parameters.dims()[1]) != self.num_model_parameters {
+ 312             bail!(
+ 313                 "model parameters have {} columns, expected {}",
+ 314                 model_parameters.dims()[1],
+ 315                 self.num_model_parameters
+ 316             );
+ 317         }
+ 318 
+ 319         // Rest shape: mean plus identity and expression offsets.
+ 320         let identity = if identity_rows == batch {
+ 321             identity
+ 322         } else {
+ 323             identity.expand([batch, NUM_IDENTITY_BLEND_SHAPES])
+ 324         };
+ 325         let mut rest = self.base_shape.clone() + identity.matmul(self.identity_basis.clone());
+ 326         if let Some(expression) = expression {
+ 327             let [rows, columns] = expression.dims();
+ 328             if columns != NUM_FACE_EXPRESSION_BLEND_SHAPES {
+ 329                 bail!(
+ 330                     "expression coefficients have {columns} columns, expected {NUM_FACE_EXPRESSION_BLEND_SHAPES}"
+ 331                 );
+ 332             }
+ 333             if rows != batch {
+ 334                 bail!("expression coefficients have {rows} rows, expected {batch}");
+ 335             }
+ 336             rest = rest + expression.matmul(self.expression_basis.clone());
+ 337         }
+ 338 
+ 339         // Model parameters drive joint parameters, seven channels per joint.
+ 340         //
+ 341         // Deliberately a broadcast product and reduction rather than a matmul:
+ 342         // the CUDA backend promotes f32 matmuls to tf32, whose 10-bit mantissa
+ 343         // costs about 2e-4 relative accuracy. That is invisible in a blend
+ 344         // shape but not here, where every joint angle and translation is
+ 345         // amplified along the kinematic chain. The tensor is 204 x 889, so the

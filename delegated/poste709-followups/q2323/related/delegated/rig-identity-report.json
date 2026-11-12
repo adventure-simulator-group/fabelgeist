@@ -1,0 +1,655 @@
+{
+  "schema": "726-delegated-rig-identity-audit-v1",
+  "created_utc": "2026-11-11 18:53:47 UTC",
+  "reader": "current-session delegate /root/rig_identity",
+  "pinned_authoritative_working_source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_requested_source_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "baseline_qualification": "This is a bounded delegated contribution to an incomplete central working baseline; original checkpoint3821 final ledger and queue remain missing. Original059 registry, ledger and queue are distinct recovered records. No source, receipt or audit conclusion is promoted to checkpoint3821.",
+  "scope": "Original Lens1 role identities 2332–2335 and separately registered bounded support. All thirteen lens questions considered for this source family only. Complete source-body reads do not close producer/consumer traces, any entire lens, mandatory populations, global aliases, or a queue record.",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "5f796ba0ae0c2e86b362d242eb22e2bff35e37997a618623b06ce462169cc917",
+    "timestamp": "2026-11-11 18:45:46 UTC",
+    "prospective": true
+  },
+  "support_registrations": [
+    {
+      "path": "support-registration-2.json",
+      "sha256": "e0f48010740f2cbe8d473f3c26a637c01c376c8d16557d0e191be04fbd4b5f37"
+    },
+    {
+      "path": "support-registration-3.json",
+      "sha256": "81f7eaab7af413baae8d97ee13a0aab11f54ec21dfdc76e276ee31e34b00a5f8"
+    },
+    {
+      "path": "support-registration-4.json",
+      "sha256": "076b93151477899a689b43389b09a3ca9043eed42a5ab8edf547321150548cfe"
+    },
+    {
+      "path": "support-registration-5.json",
+      "sha256": "f372a3aebf27495fd4049b482b9e16092e67e2695e3c937b4700d05c8e38051c"
+    },
+    {
+      "path": "support-registration.json",
+      "sha256": "a60ab903b57961bd6aea93dbcb2ebc881b06fae9d55ec3a82b9d0f426751ab20"
+    }
+  ],
+  "original_roles": [
+    {
+      "original_index": 2332,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "git_blob": "711237c82078c4612f9c01266e19254b47b7308a",
+      "bytes": 4369,
+      "lines": 155,
+      "historical_current_identical": true,
+      "current_personal_displayed_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "current_preserved_bytes": "sources/95e6/crates/fabelgeist-rig/src/lib.rs",
+      "historical_preserved_bytes": "sources/6533/crates/fabelgeist-rig/src/lib.rs",
+      "qualification": "Complete body displayed once from current revision after this delegate prospective registration; identical 6533 source bytes independently retrieved and hashed. Earlier historical reads retain their own names, lenses, revisions and scopes."
+    },
+    {
+      "original_index": 2333,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/mhr.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c5f8425545851f8a1162c1f48129cbc6acdfba3b8a627dd8b17bdd91040a530a",
+      "git_blob": "21862132a3c6713a564c5cc448d7982953ee9afc",
+      "bytes": 1213,
+      "lines": 35,
+      "historical_current_identical": true,
+      "current_personal_displayed_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "current_preserved_bytes": "sources/95e6/crates/fabelgeist-rig/src/mhr.rs",
+      "historical_preserved_bytes": "sources/6533/crates/fabelgeist-rig/src/mhr.rs",
+      "qualification": "Complete body displayed once from current revision after this delegate prospective registration; identical 6533 source bytes independently retrieved and hashed. Earlier historical reads retain their own names, lenses, revisions and scopes."
+    },
+    {
+      "original_index": 2334,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/names.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "git_blob": "e32c8372ceeed04055ca0084b1a80deefce45bb2",
+      "bytes": 5002,
+      "lines": 78,
+      "historical_current_identical": true,
+      "current_personal_displayed_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "current_preserved_bytes": "sources/95e6/crates/fabelgeist-rig/src/names.rs",
+      "historical_preserved_bytes": "sources/6533/crates/fabelgeist-rig/src/names.rs",
+      "qualification": "Complete body displayed once from current revision after this delegate prospective registration; identical 6533 source bytes independently retrieved and hashed. Earlier historical reads retain their own names, lenses, revisions and scopes."
+    },
+    {
+      "original_index": 2335,
+      "original_source_id": "pr-working:crates/fabelgeist-rig/src/part.rs",
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "git_blob": "2fddbe676b6ef4be15f6b0a4beea412f2af52d7e",
+      "bytes": 3350,
+      "lines": 135,
+      "historical_current_identical": true,
+      "current_personal_displayed_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "current_preserved_bytes": "sources/95e6/crates/fabelgeist-rig/src/part.rs",
+      "historical_preserved_bytes": "sources/6533/crates/fabelgeist-rig/src/part.rs",
+      "qualification": "Complete body displayed once from current revision after this delegate prospective registration; identical 6533 source bytes independently retrieved and hashed. Earlier historical reads retain their own names, lenses, revisions and scopes."
+    }
+  ],
+  "supporting_source_reads": [
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "sha256": "330da7b3558ef374c2d60b787e0d32870a6b0b6f338f2f2ebb25f5b4c18ec511",
+      "git_blob": "bd35c56639297a571e2d3defe4027c8ff8f80b6d",
+      "bytes": 2998,
+      "planned_full_read": [
+        1,
+        108
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            108
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-rig/src/table.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/tests.rs",
+      "sha256": "bc8737a1c0be2c7ef33bb21baa1bad4c9d569117fa2bd6ff1324536daeb8d284",
+      "git_blob": "7cd454c735f2f9189e263d19373bde5aa40287b2",
+      "bytes": 3343,
+      "planned_full_read": [
+        1,
+        108
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            108
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-rig/src/tests.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e",
+      "git_blob": "164ba310ec9f23be5f6bea385a88ee647c2460b8",
+      "bytes": 7932,
+      "planned_full_read": [
+        1,
+        239
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            239
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-rig/src/skin.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-rig/README.md",
+      "sha256": "6c65e76c80820396e8f2be0f4660188eb1b7f473f46454d6d0697b9a479b8bbb",
+      "git_blob": "1913bdf536cdfc941db39e122b54076950cdc8ad",
+      "bytes": 2527,
+      "planned_full_read": [
+        1,
+        43
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            43
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-rig/README.md"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+      "sha256": "2383576b6c27646e1d1a0f8d8ace26b841a830c28d9bdf745a3a6efe0df1d50d",
+      "git_blob": "a49e3d5e4f9fad4a970bcd8a93fdcf825cf291bf",
+      "bytes": 4731,
+      "planned_full_read": [
+        1,
+        136
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            136
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-mhr/src/character/skeleton.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "git_blob": "9cc8f25516d91650f9eb528c16bb1fa971a511da",
+      "bytes": 13401,
+      "planned_full_read": [
+        1,
+        390
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            390
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-tactical-client/src/animation/loading.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "f1ab48b207688209504ac8ab5ddef2286d7ebac5d6e2d8545313f87e1e3db474",
+      "git_blob": "9a9076fc436f2db100e1bb47fdf91a0daf9a6336",
+      "bytes": 17394,
+      "planned_full_read": [
+        1,
+        480
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            480
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/skin_rules.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/clothing/rig_selection.rs",
+      "sha256": "ad1d98a61735793cf092069424b3571e3cc44e00b3634d2a38886a37fafc5e9c",
+      "git_blob": "5667c48bf8e877af26c7025133300a59ffb38afb",
+      "bytes": 1237,
+      "planned_full_read": [
+        1,
+        41
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            41
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/clothing/rig_selection.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "git_blob": "716b1d173280248c05e9592d1ff1ebddbb96a1ad",
+      "bytes": 18452,
+      "planned_full_read": [
+        1,
+        510
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            510
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/device_fit.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "fe34032d99c2145bb74dcd9f8228ea479fee4f2e61d3b1b3f41c8b8409e380d1",
+      "git_blob": "85db2762cce5bffb05c2323d2cabd32db4aa0de6",
+      "bytes": 8313,
+      "planned_full_read": [
+        1,
+        299
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            299
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/lib.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export/skinning.rs",
+      "sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "git_blob": "456b221075a5d9841f06ed1c595d5428da7ac52c",
+      "bytes": 1997,
+      "planned_full_read": [
+        1,
+        63
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            63
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/export/skinning.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "4994b1974149becac0c96f9e0dafeb0d26c1db776cc4adef9d2e1b388b033058",
+      "git_blob": "13cc5db4fbc7eb312f030639d19c27e66115b25a",
+      "bytes": 6310,
+      "planned_full_read": [
+        1,
+        185
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            185
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "fe5c1027be20d6ab87b6bd34c3227d38b5eddaf7e33382917ff75e1459a37d69",
+      "git_blob": "85dfe90f90e6ab7dcdae56905d9b1fe3450eddb9",
+      "bytes": 66481,
+      "registered_max_scope": [
+        1,
+        1780
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            570,
+            650
+          ],
+          [
+            1050,
+            1120
+          ]
+        ],
+        "additional_search_result_lines": [
+          17,
+          193,
+          196,
+          597,
+          622,
+          916,
+          917,
+          944,
+          945,
+          949,
+          1073,
+          1074,
+          1090,
+          1091,
+          1095,
+          1133,
+          1134,
+          1160,
+          1161,
+          1179,
+          1180,
+          1184,
+          1262,
+          1263,
+          1277,
+          1278,
+          1300,
+          1301,
+          1305,
+          1388,
+          1389,
+          1408,
+          1409,
+          1438,
+          1439,
+          1443,
+          1553,
+          1554,
+          1572,
+          1577,
+          1657,
+          1658,
+          1661,
+          1675,
+          1676,
+          1680,
+          1701,
+          1702,
+          1759,
+          1760
+        ],
+        "qualification": "Only these ranges and individual matching lines were displayed; full file bytes are preserved but full-file reading is not claimed."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/export.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "93b0aa654eacc98d66c072b54cb1a1d0444b75e6bdc3cc0ecd7d76325f085bd6",
+      "git_blob": "570059b5ac6c6017b3256b56a9bc6ac4d3a67f54",
+      "bytes": 4521,
+      "registered_max_scope": [
+        1,
+        111
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            111
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/export/shell.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "git_blob": "faa5b2fa34227e958a49d3cd64d22b41f2904154",
+      "bytes": 5949,
+      "planned_full_read": [
+        1,
+        164
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            164
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/adventuresim-character-creator/src/export/validation.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-mhr/src/character.rs",
+      "sha256": "582999d2d449669acea9251cf4f2c64ddcc4a876d3834bddca1efa1edba6afcc",
+      "git_blob": "936cec9026b5ba0551a95dc1f9b7a70cde14db31",
+      "bytes": 10729,
+      "planned_full_read": [
+        1,
+        328
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            328
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-mhr/src/character.rs"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-mhr/src/lib.rs",
+      "sha256": "f760d4ca6d1b6e6c9909be505ee450addca82166bc499f403db08c897d69836d",
+      "git_blob": "78258981301c8c6dff66b0464986f479acea6168",
+      "bytes": 1656,
+      "planned_full_read": [
+        1,
+        43
+      ],
+      "actual_reads": {
+        "displayed_ranges": [
+          [
+            1,
+            43
+          ]
+        ],
+        "qualification": "Full support source body personally displayed after this delegate registration; no original ordered-role credit."
+      },
+      "preserved_bytes": "support/crates/fabelgeist-mhr/src/lib.rs"
+    }
+  ],
+  "historical_evidence": {
+    "manifest": "history-manifest.json",
+    "original_registry": "original-registry.json.gz",
+    "registry_selection": "registry-selection-reconstructed.json",
+    "transport_manifest": "original-transport-manifest.json.gz",
+    "record_qualification": "The exact historical registry and 059 transport manifest are copied; registry-selection is a clearly identified reconstruction. The original 059 bytes are matched by SHA-256, byte count and Git blob; original authorship and revision are not transferred. Earlier 774 source/owner receipts are exact local copies verified byte-for-byte against the separately pinned f82 transport Git tree.",
+    "older_774_supplier_and_producer": {
+      "supplier": "historical-774/audit-existing-type-owners/rig/coverage.jsonl",
+      "producer": "historical-774/audit-producer-propagation/rig/sources.json",
+      "original_revision_qualification": "The receipt says pr-working; f82 is the historical handoff transport revision, not a product-source revision. Source body hashes separately match 6533 and 95e.",
+      "supplier_rows": "JSONL physical lines 3–6 correspond to registry zero-based rows 2–5; each records full range under audit-existing-type-owners, with connected owner-fit findings and no clearance.",
+      "producer_cells": "168–171 each records full range and source_read_complete true, but coverage source-read-trace-incomplete; historical closure references do not close this present audit."
+    },
+    "adler_l11_original": "adler/READ-L11-374.json records fresh full original roles 2332–2335 at Lens11 and zero accepted unique count change; it does not supply this delegate’s current read or another lens credit.",
+    "adler_future_support": "adler/READ-L11-180.json independently recorded full lib 1–155 and names 1–78 as connected future original evidence with zero original frontier credit; keep separately attributed from his later READ-L11-374.",
+    "lens12_independent": "segovb/READ-L12-770.json adopts historical /root/lens12_frontier full prospective reads of each of four roles; root_personal_rereads was empty and accepted unique change zero. Earlier segovb/READ-L12-364.json personally read lib 1–50 and 109–155 and names 1–10 only as supporting evidence with zero original-role credit; do not rewrite that older partial as full.",
+    "missing_qualification": "adler/VERIFY-L11-180.json was not found in the original 059 transport manifest or a bounded filename search of local worktrees and the local main project target; no assertion that such a file ever existed or that all storage was searched. Exact READ180 and original 146/147 registrations are independently hash-matched; later READ374 records its own fresh reads."
+  },
+  "findings_and_open_questions": [
+    {
+      "id": "SEGOVB-L12-RIG-JOINT-DESCENDANT-PRIVATE-API",
+      "historical_queue_index": 254,
+      "classification": "historical finding independently reconnected to current source; no new unique-finding assertion",
+      "source_trace": [
+        "crates/fabelgeist-rig/src/lib.rs:17-19,45-48,148-151 defines exact open RigJointName",
+        "crates/fabelgeist-rig/src/names.rs:9 typed SKELETON",
+        "crates/adventuresim-tactical-client/src/animation/loading.rs:236-240 extracts .as_ref() before private helper",
+        "crates/adventuresim-tactical-client/src/animation/loading.rs:266-274 carries target: &str through traversal until native Bevy Name comparison"
+      ],
+      "consequence": "A semantic name is reduced to an internal primitive before the actual native Name adapter, contrary to producer propagation guidance; this is a type propagation and ownership gap, not a demonstrated wrong lookup. The only textual helper usages found by pinned Git filename search are in this same file.",
+      "repair_direction": "In the future carry the existing exact open RigJointName through the helper and project it at native Name comparison. Preserve exact case, duplicate traversal semantics and unfamiliar/empty labels; do not invent a closed anatomy enum.",
+      "remaining": "Reconcile other internal callers or generated references as appropriate and all formal aliases. No runtime observation or implementation."
+    },
+    {
+      "id": "DELEGATE-RIG-SKELETON-PARALLEL-COLUMNS",
+      "classification": "newly assessed conditional public-aggregate contract exposure; central owner decides identity and alias relationship",
+      "source_trace": [
+        "crates/fabelgeist-mhr/src/lib.rs:30,38 publicly exports Skeleton",
+        "crates/fabelgeist-mhr/src/character/skeleton.rs:7-16 publicly exposes independently mutable names, parents, offsets and prerotations",
+        "crates/fabelgeist-rig/src/table.rs:9-14,70-72,94-101 documents and exposes separate table construction/mutation and direct ordinal indexing",
+        "crates/fabelgeist-mhr/src/character/skeleton.rs:43-63 bind_pose traverses names and directly indexes the other columns",
+        "crates/fabelgeist-mhr/src/character/skeleton.rs:101-118 ordinary FBX builder pushes every column together before visiting children"
+      ],
+      "counterexample": "As a source-level construction, Skeleton::default followed by inserting one name but no offset is representable through public fields; bind_pose then indexes offset ordinal 0 beyond the empty table. This is a mathematical/source-level scenario only; no value was constructed or method executed. Normal parsed FBX construction shown above fills parallel columns and is not demonstrated to fail.",
+      "related_historical_records": [
+        "baseline-059/queue.json#/entries/433 (SEGOVB-L12-CONNECTED-MHR-FK-CYCLE-ADMISSION)",
+        "baseline-059/queue.json#/entries/434 (SEGOVB-L12-CONNECTED-MHR-FK-PARENT-MEMBERSHIP-ADMISSION)",
+        "adler/READ-L11-374.json notes application graph and parallel-column admission; neither of these historical parent-topology IDs by itself asserts this exact short-offset first failure"
+      ],
+      "relationship_qualification": "Connected admission family, but short offset/prerotation/parent column and cyclic or out-of-range parent are different first failures. Do not force an alias or count independent bugs before global reconciliation.",
+      "repair_direction": "At the application Skeleton aggregate boundary establish matching ordered columns and valid parent membership/ordering atomically, or return a typed error before consuming unproven state; retain ordinary builder traversal and intended multiple-root behavior. Do not make the generic ordinal claim universal rig membership.",
+      "remaining": "Actual non-builder public callers, permitted mutation policy, full parent/forward consumers and canonical alias inventory remain open; no test or runtime validation."
+    },
+    {
+      "id": "DELEGATE-RIG-EQUAL-BOUND-INSTANCE-QUESTION",
+      "classification": "related conditional public-boundary policy question, not an asserted ordinary runtime bug",
+      "source_trace": [
+        "crates/fabelgeist-rig/src/skin.rs:6-7,112-124 validates ordinal bound, not rig identity",
+        "crates/fabelgeist-rig/src/table.rs:8-10 says equal columns do not prove one rig instance",
+        "crates/adventuresim-character-creator/src/lib.rs:61,130 exposes device_fit and skin_rules",
+        "crates/adventuresim-character-creator/src/skin_rules.rs:23-35,59-63,211-223 checks bounds and writes the lookup ordinal",
+        "crates/adventuresim-character-creator/src/device_fit.rs:428-446,477-500 constructs armor and calls attach using separately supplied public Fitted names and joints"
+      ],
+      "counterexample": "If the exposed name order is [C_HEAD, ROOT] and a separately associated packed skin/receiving skeleton order is [ROOT, C_HEAD], both bounds equal two; a helmet lookup writes ordinal zero, which the second order interprets as ROOT. This requires mismatched externally supplied associations and a downstream consumer using that second order; neither an ordinary mismatched caller nor an actual run is established.",
+      "related_historical_records": [
+        "baseline-059/queue.json#/entries/2323 REVIEW-L11-CREATOR-PRIVATE-BODY-FIT-PAIRING"
+      ],
+      "relationship_qualification": "Earlier review explicitly rejected the ordinary private creator mismatch suspicion after tracing a single cached GeneratedCharacter and left public crossmodel association policy open. This bounded observation adds the current public API/consumer path, without contradicting that rejection or assigning a unique defect.",
+      "repair_direction": "Decide whether public APIs support independent crossmodel inputs. If so, admit a coherent source-instance/order relationship before attachment or carry one authoritative aggregate; preserve valid same-rig reuse and do not equate count equality with identity.",
+      "remaining": "Actual public callers, compatibility policy, final receiving skeleton and historical aliases; no runtime validation."
+    },
+    {
+      "id": "ADLER-L11-RIG-INFLUENCE-NORMALIZATION / SEGOVB-L12-CONNECTED-RIG-STRONGEST-FOUR-ZERO-SUM-POLICY",
+      "historical_queue_indices": [
+        175,
+        436,
+        167,
+        572
+      ],
+      "classification": "historical numeric policy family reconnected to current support, exact alias status remains open",
+      "source_trace": [
+        "crates/fabelgeist-rig/src/skin.rs:19-25 publicly admits unconstrained individual weights",
+        "crates/fabelgeist-rig/src/skin.rs:79-99 merges equal ordinals, sorts, truncates and divides by the retained sum",
+        "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs:120-126,158-165 sends strongest_four results to native Mesh attributes",
+        "crates/adventuresim-character-creator/src/export.rs:587-597,621-622 calls validate before export reduction",
+        "crates/adventuresim-character-creator/src/export/validation.rs:13-18,45-49,120-130 checks mesh and shell array lengths and finite near-one sums",
+        "crates/adventuresim-character-creator/src/export/skinning.rs:4-19,28-30 writes reduced results"
+      ],
+      "counterexample": "For nonempty WIDTH and all zero weights, combined entries exist, retained sum is zero and division is 0/0, yielding NaN under IEEE arithmetic; WIDTH=0 has no entries and no such division. Public fields permit this shape, but no product value or arithmetic was executed. The inspected GLB exporter rejects a zero-total row before reduction, so do not call zero an ordinary validated GLB export failure. The separately inspected runtime mesh path has no local equivalent check; upstream guarantees and ordinary zero-weight reachability remain untraced.",
+      "additional_numeric_policy": "A row over eight distinct ordinals with weights [2,-1,0,0,0,0,0,0] has a finite total of one and meets the shown total-only check; source sorting drops the negative contribution and normalizes the retained two to one. Whether such negative values should be admissible is an explicit unresolved policy, not an asserted supported production input.",
+      "relationship_qualification": "The 6533 historical skin receipt covered 226 lines with SHA c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206. The current 95e support is 239 lines with SHA 511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e; prior bodies were not silently promoted. q175, q436, q167 and q572 are retained distinctly pending exact alias and policy reconciliation.",
+      "repair_direction": "Before future reduction define individual weight validity and zero/unweighted policy; preserve valid duplicate merging, descending weight, ordinal tie order and zero padding, and verify at every actual producer boundary.",
+      "remaining": "Complete production armor/source weight admission, native Bevy policy, all producers/consumers, exact aliases and historical statuses before closure."
+    }
+  ],
+  "not_findings_and_qualifications": [
+    "RigJointName deliberately retains empty, unfamiliar, namespaced, whitespace, and exact case; scalar Serde is consistent with that explicit open identity contract. Source test bodies were read, not run.",
+    "MHR membership classifies the profile spelling and does not prove a joint is in a receiving rig. Source tests intentionally accept l_ and its r_ proposal; no malformed-name rejection or compatibility defect is inferred.",
+    "RigJointPart is the closed fragment vocabulary and contains_part is intentionally a substring query including helper suffixes, not a canonical-anatomy proof. Similar Loleg/Lowleg, Loarm/Lowarm and upperarm/uparm spellings are not merged without authored-asset evidence.",
+    "RigJointName::index_in deliberately chooses the first duplicate. RigJointOrdinal represents an ordered position and explicitly does not prove another rig membership; RigJointTable::get is checked and Index requires a previously established ordinal.",
+    "LEFT_LEG_CHAIN/RIGHT_LEG_CHAIN express ordered labels, not evidence that a receiving rig has those joints or actual ancestry. RigSide, RigJointPart, RigJointName and RigJointOrdinal represent distinct meanings.",
+    "The four scoped product files are byte-identical between 6533 and 95e. This establishes no behavioral regression within those bytes, nor proves whole-repository behavior preservation. Support files such as skin.rs and table.rs changed across revisions.",
+    "No handwritten trait replacement is recommended without evidence of equivalent macro semantics, bounds and admission. Membership-to-u32 0/1 is a native encoding, while eq_ignore_ascii_case is a predicate."
+  ],
+  "thirteen_lens_dispositions": {
+    "producer_propagation": "Partial; q254 current private typed-name gap traced; other producers and consumers remain open.",
+    "existing_type_owners": "Partial; existing RigJointName fits exact open label query and must not be replaced by closed anatomy; all candidates not traced.",
+    "admission_contracts": "Partial; open names intentionally admit arbitrary text; public Skeleton aggregate needs independently qualified admission.",
+    "invariant_operations": "Partial; current strongest_four and checked native conversion traced as support; all operations/consumers remain open.",
+    "aggregate_states": "Partial; public Skeleton columns and same-rig association counterexamples are conditional cases; complete application policy unverified.",
+    "type_ownership": "Partial; identity/profile/fragment/ordinal have distinct owners; no all-repository duplicate-owner verdict.",
+    "redundant_authority": "Partial; equal counts do not establish instance/order identity; no cache or globally unique authority verdict.",
+    "behavior_preservation": "Partial; four source bodies identical across named revisions; intentionally first duplicate and open name policies preserved, no behavioral execution.",
+    "enum_shapes": "Partial; side, membership and fragment use named enums; case-insensitive equality is an ordinary predicate; all consumers untraced.",
+    "derivability": "Partial; derives coexist with explicit semantic conversion and lookup logic; proc-macro internals were not executed or fully inspected.",
+    "type_granularity": "Partial; identity, part, side and ordinal prevent distinct mix-ups; receiving membership remains separate.",
+    "magic_strings": "Partial; exact label and profile grammar own local strings; q254 remains internal primitive migration gap.",
+    "magic_numbers": "Partial; ordinal/count/native-width and membership encodings distinguished; weight scalar and reduction contracts remain open."
+  },
+  "constraints_observed": "Source and historical evidence inspection, Git byte retrieval, hash verification and mathematical reasoning only. No repairs, product builds, product tests, runtime probes, simulated fixtures, shaders, UI or rendering performed.",
+  "status": "Complete bounded delegate report; central baseline, cross-lens reconciliation, repair ledger and checkpoint publication remain with coordinating agent. Overall audit and all thirteen lenses remain incomplete."
+}

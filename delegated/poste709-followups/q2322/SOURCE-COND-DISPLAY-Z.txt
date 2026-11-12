@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-core/src/skill.rs:780-825
+ 780         self.capped_rank_for_aptitude(hours, self.governing_aptitude(attr))
+ 781     }
+ 782 
+ 783     pub fn capped_rank_for_aptitude(self, hours: f32, aptitude: f32) -> f32 {
+ 784         let aptitude = if aptitude.is_finite() {
+ 785             aptitude.clamp(0.0, MAX_CHECK)
+ 786         } else {
+ 787             0.0
+ 788         };
+ 789         self.training_rank(hours).min(aptitude)
+ 790     }
+ 791 
+ 792     pub const fn is_intuitive(&self) -> bool {
+ 793         !self.is_trained()
+ 794     }
+ 795 
+ 796     pub const fn is_mental(&self) -> bool {
+ 797         matches!(self.kind(), SkillKind::Mental)
+ 798     }
+ 799 
+ 800     pub const fn is_physical(&self) -> bool {
+ 801         matches!(self.kind(), SkillKind::Physical)
+ 802     }
+ 803 
+ 804     /// Whether this value names a family whose trained hours live on separate,
+ 805     /// correlated subskills rather than on the parent itself.
+ 806     pub const fn is_meta_skill(&self) -> bool {
+ 807         matches!(self, Skill::Religion | Skill::Bestiary)
+ 808     }
+ 809 
+ 810     pub const fn is_upper_body(&self) -> bool {
+ 811         matches!(
+ 812             self,
+ 813             Skill::Polearm
+ 814                 | Skill::Axe
+ 815                 | Skill::Bludgeon
+ 816                 | Skill::Sword
+ 817                 | Skill::Knife
+ 818                 | Skill::Bow
+ 819                 | Skill::Crossbow
+ 820                 | Skill::Firearm
+ 821                 | Skill::Throw
+ 822                 | Skill::Block
+ 823                 | Skill::Stealth
+ 824                 | Skill::Tailoring
+ 825                 | Skill::Smithing

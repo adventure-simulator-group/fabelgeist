@@ -1,0 +1,46 @@
+SOURCE crates/adventuresim-stdb-module/src/food/preparation_authority.rs:1-45
+   1 // Owns immutable request identity, custody/material validation, and authority digests.
+   2 #[expect(
+   3     clippy::too_many_arguments,
+   4     reason = "stable request identity frames every preparation coordinate explicitly"
+   5 )]
+   6 fn preparation_request_id(
+   7     character_id: u64,
+   8     inventory_scope: &str,
+   9     inventory_item_id: u64,
+  10     food_lot_id: u64,
+  11     material_object_id: u64,
+  12     revision: u64,
+  13     action: IngredientPreparationAction,
+  14     attempt_generation: u64,
+  15     canonical_place: &str,
+  16     direct_custody_binding: &str,
+  17 ) -> String {
+  18     use sha2::Digest as _;
+  19     let mut hash = sha2::Sha256::new();
+  20     hash.update(b"ingredient-preparation-request-v2");
+  21     hash.update(character_id.to_le_bytes());
+  22     hash.update((inventory_scope.len() as u64).to_le_bytes());
+  23     hash.update(inventory_scope.as_bytes());
+  24     hash.update(inventory_item_id.to_le_bytes());
+  25     hash.update(food_lot_id.to_le_bytes());
+  26     hash.update(material_object_id.to_le_bytes());
+  27     hash.update(revision.to_le_bytes());
+  28     hash.update([action.stable_code()]);
+  29     hash.update(attempt_generation.to_le_bytes());
+  30     hash.update((canonical_place.len() as u64).to_le_bytes());
+  31     hash.update(canonical_place.as_bytes());
+  32     hash.update((direct_custody_binding.len() as u64).to_le_bytes());
+  33     hash.update(direct_custody_binding.as_bytes());
+  34     encode_digest(&hash.finalize())
+  35 }
+  36 
+  37 fn preparation_place(
+  38     ctx: &ReducerContext,
+  39     actor: &crate::Character,
+  40 ) -> Result<adventuresim_core::strategic_place::StrategicPlaceId, String> {
+  41     if let Some(settlement_id) = actor.current_settlement_id.as_deref() {
+  42         return adventuresim_core::strategic_place::StrategicPlaceId::settlement(settlement_id)
+  43             .map_err(|_| "Ingredient preparation settlement identity is malformed".into());
+  44     }
+  45     if let Some(site_id) = crate::investigation::character_case_site_id(ctx, actor.id) {

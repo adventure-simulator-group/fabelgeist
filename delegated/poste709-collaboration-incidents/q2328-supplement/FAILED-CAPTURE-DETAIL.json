@@ -1,0 +1,8 @@
+{
+  "operation": "initial attempt to capture f52f5a9194bd3808ec5279289319b9a2d12033d6 Git tree connector response before chunked capture",
+  "exec_command_construction": "\"printf '%s' '\"+b+\"' | base64 -d > '\"+p+\"'\"",
+  "p_value": "target/726-audit-baseline/private-originals/q2328-wkrzjdwo/TREE-CONNECTOR-2-f52f5a9194bd3808ec5279289319b9a2d12033d6.json",
+  "b_value": "base64 of JSON.stringify(first connector response); the first response and full resulting command argument were not retained, so the exact expanded command cannot be independently reconstructed from this evidence",
+  "exact_tool_error": "Script error:\nexec_command failed: CreateProcess { message: \"Rejected(\\\"Failed to create unified exec process: Argument list too long (os error 7)\\\")\" }",
+  "effect": "Process did not start; no destination file created by this failed attempt. A later refetch, chunked capture and decode led to separately documented shell quoting error."
+}

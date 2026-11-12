@@ -1,0 +1,117 @@
+   1 //! Mesh vertex roles and storage-owned membership.
+   2 
+   3 use derive_more::{Display, From, IntoIterator};
+   4 use std::ops::{Index, IndexMut};
+   5 
+   6 /// Number of vertices in an MHR mesh, distinct from a generic tensor axis.
+   7 /// Equal counts do not establish mesh-instance identity.
+   8 #[derive(Debug, Clone, Copy, Display, PartialEq, Eq)]
+   9 pub struct MeshVertexCount(usize);
+  10 
+  11 /// Candidate vertex ordinal. Membership is established by the selected table,
+  12 /// not by this role alone; the same ordinal may name different mesh vertices.
+  13 #[derive(Debug, Clone, Copy, Display, PartialEq, Eq)]
+  14 pub struct MeshVertexIndex(usize);
+  15 
+  16 /// Values in mesh vertex order. Native allocation and indexing stay here.
+  17 #[derive(Debug, Clone, From, IntoIterator)]
+  18 #[into_iterator(owned, ref, ref_mut)]
+  19 pub struct MeshVertexTable<T>(Vec<T>);
+  20 
+  21 impl MeshVertexCount {
+  22     /// Admits a count at a mesh-storage or literal boundary, including zero.
+  23     pub const fn from_native_vertex_count(vertices: usize) -> Self {
+  24         Self(vertices)
+  25     }
+  26 
+  27     /// Projects at a native numerical, allocation or serialization boundary.
+  28     pub const fn native_vertex_count(self) -> usize {
+  29         self.0
+  30     }
+  31 
+  32     pub const fn is_empty(self) -> bool {
+  33         self.0 == 0
+  34     }
+  35 }
+  36 
+  37 impl MeshVertexIndex {
+  38     /// Admits a decoded or native-buffer ordinal without claiming membership.
+  39     pub const fn from_native_vertex_index(vertex: usize) -> Self {
+  40         Self(vertex)
+  41     }
+  42 
+  43     /// Native vertex-buffer addressing at a numerical or encoding boundary.
+  44     pub const fn native_vertex_index(self) -> usize {
+  45         self.0
+  46     }
+  47 }
+  48 
+  49 impl<T> MeshVertexTable<T> {
+  50     pub fn vertex_count(&self) -> MeshVertexCount {
+  51         MeshVertexCount(self.0.len())
+  52     }
+  53 
+  54     pub fn get(&self, vertex: MeshVertexIndex) -> Option<&T> {
+  55         self.0.get(vertex.0)
+  56     }
+  57 
+  58     pub fn get_mut(&mut self, vertex: MeshVertexIndex) -> Option<&mut T> {
+  59         self.0.get_mut(vertex.0)
+  60     }
+  61 
+  62     pub fn indexed(&self) -> impl ExactSizeIterator<Item = (MeshVertexIndex, &T)> {
+  63         self.0
+  64             .iter()
+  65             .enumerate()
+  66             .map(|(vertex, value)| (MeshVertexIndex(vertex), value))
+  67     }
+  68 
+  69     pub fn indexed_mut(&mut self) -> impl ExactSizeIterator<Item = (MeshVertexIndex, &mut T)> {
+  70         self.0
+  71             .iter_mut()
+  72             .enumerate()
+  73             .map(|(vertex, value)| (MeshVertexIndex(vertex), value))
+  74     }
+  75 
+  76     /// Contiguous mesh-order values for numerical or model-agnostic geometry ports.
+  77     pub fn as_native_slice(&self) -> &[T] {
+  78         &self.0
+  79     }
+  80 
+  81     pub fn into_native_values(self) -> Vec<T> {
+  82         self.0
+  83     }
+  84 }
+  85 
+  86 impl<T: Clone> MeshVertexTable<T> {
+  87     pub fn filled(vertices: MeshVertexCount, value: T) -> Self {
+  88         Self(vec![value; vertices.0])
+  89     }
+  90 }
+  91 
+  92 impl<T> Default for MeshVertexTable<T> {
+  93     fn default() -> Self {
+  94         Self(Vec::new())
+  95     }
+  96 }
+  97 
+  98 impl<T> FromIterator<T> for MeshVertexTable<T> {
+  99     fn from_iter<I: IntoIterator<Item = T>>(values: I) -> Self {
+ 100         Self(values.into_iter().collect())
+ 101     }
+ 102 }
+ 103 
+ 104 impl<T> Index<MeshVertexIndex> for MeshVertexTable<T> {
+ 105     type Output = T;
+ 106 
+ 107     /// Use only after this table's construction or traversal establishes membership.
+ 108     fn index(&self, vertex: MeshVertexIndex) -> &T {
+ 109         &self.0[vertex.0]
+ 110     }
+ 111 }
+ 112 
+ 113 impl<T> IndexMut<MeshVertexIndex> for MeshVertexTable<T> {
+ 114     fn index_mut(&mut self, vertex: MeshVertexIndex) -> &mut T {
+ 115         &mut self.0[vertex.0]
+ 116     }
+ 117 }

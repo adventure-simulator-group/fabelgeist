@@ -1,0 +1,24 @@
+ 219 fn add_fireplace_ingredients_at(
+ 220     ctx: &ReducerContext,
+ 221     character_id: u64,
+ 222     fireplace_fixture_id: String,
+ 223     inventory_scope: String,
+ 224     inventory_item_ids: Vec<u64>,
+ 225     fractions: Vec<ConsumableFractionMicros>,
+ 226     vessel_station: Option<FireplaceStation>,
+ 227 ) -> Result<(), String> {
+ 228     crate::strategic::require_strategic_gateway(ctx)?;
+ 229     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 230     if actor.has_tactical_server_assignment() {
+ 231         return Err("Cooking is unavailable during a tactical encounter".into());
+ 232     }
+ 233     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 234     let inventory_scope = CarriedInventoryScope::try_from(inventory_scope.as_str())
+ 235         .map_err(|error| error.to_string())?;
+ 236     let is_vessel = vessel_station.is_some();
+ 237     let station = vessel_station
+ 238         .unwrap_or_else(|| fireplace_station_for(ctx, character_id, &fireplace_fixture_id));
+ 239     let station_fixture = validate_persisted_station_fixture(ctx, &station)?;
+ 240     if station_fixture.to_string() != fireplace_fixture_id {
+ 241         return Err("Fireplace station conflicts with the requested canonical fixture".into());
+ 242     }

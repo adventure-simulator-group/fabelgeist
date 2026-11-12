@@ -1,0 +1,79 @@
+     1	//! Translate the pinned MHR parameter definition into the portable skeleton basis.
+     2	
+     3	use adventuresim_core::character_proportions::{
+     4	    BODY_PROPORTION_COUNT, BodyProportion, CharacterProportions, JointProportionBasis,
+     5	};
+     6	use anyhow::{Context, Result, ensure};
+     7	use fabelgeist_mhr::{
+     8	    Mhr,
+     9	    model_def::{JointChannel, ModelParameterName, ModelParameterTable},
+    10	};
+    11	use fabelgeist_rig::RigJointTable;
+    12	
+    13	const CENTIMETRES_PER_METRE: f32 = 100.0;
+    14	
+    15	pub fn model_parameters(
+    16	    model: &Mhr,
+    17	    proportions: CharacterProportions,
+    18	) -> Result<ModelParameterTable<f32>> {
+    19	    let mut parameters = ModelParameterTable::filled(model.num_model_parameters(), 0.0);
+    20	    for proportion in BodyProportion::ALL {
+    21	        let column = model
+    22	            .parameter_transform
+    23	            .parameter_index(&ModelParameterName::from(proportion.mhr_parameter()))
+    24	            .with_context(|| format!("MHR is missing {}", proportion.mhr_parameter()))?;
+    25	        parameters[column] = proportions.get(proportion);
+    26	    }
+    27	    Ok(parameters)
+    28	}
+    29	
+    30	pub fn joint_bases(
+    31	    model: &Mhr,
+    32	    reference: CharacterProportions,
+    33	) -> Result<RigJointTable<JointProportionBasis>> {
+    34	    let transform = &model.parameter_transform;
+    35	    let mut bases: RigJointTable<_> = transform
+    36	        .joints()
+    37	        .map(|_| JointProportionBasis {
+    38	            reference,
+    39	            translation_metres: [[0.0; 3]; BODY_PROPORTION_COUNT],
+    40	        })
+    41	        .collect();
+    42	    for proportion in BodyProportion::ALL {
+    43	        let column = transform
+    44	            .parameter_index(&ModelParameterName::from(proportion.mhr_parameter()))
+    45	            .with_context(|| format!("MHR is missing {}", proportion.mhr_parameter()))?;
+    46	        let limits = transform
+    47	            .limits()
+    48	            .iter()
+    49	            .find(|limit| limit.parameter == column)
+    50	            .context("MHR body proportion has no limits")?;
+    51	        ensure!(
+    52	            limits.min == -proportion.limit() && limits.max == proportion.limit(),
+    53	            "MHR body proportion limits differ from the shared contract"
+    54	        );
+    55	        for (joint, basis) in transform.joints().zip(bases.iter_mut()) {
+    56	            for (axis, channel) in JointChannel::TRANSLATIONS.into_iter().enumerate() {
+    57	                basis.translation_metres[proportion.index()][axis] = *joint
+    58	                    .channel(channel)
+    59	                    .get(column)
+    60	                    .context("MHR translation row is missing its parameter column")?
+    61	                    / CENTIMETRES_PER_METRE;
+    62	            }
+    63	            let mut translation_only = true;
+    64	            for channel in JointChannel::ROTATION_AND_SCALE {
+    65	                translation_only &= *joint
+    66	                    .channel(channel)
+    67	                    .get(column)
+    68	                    .context("MHR rotation/scale row is missing its parameter column")?
+    69	                    == 0.0;
+    70	            }
+    71	            ensure!(
+    72	                translation_only,
+    73	                "skeletal translation basis cannot encode rotation or scale for {}",
+    74	                proportion.mhr_parameter()
+    75	            );
+    76	        }
+    77	    }
+    78	    Ok(bases)
+    79	}

@@ -1,0 +1,57 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:580-635
+ 580     Form(form): Form<FireplaceRetrieveForm>,
+ 581 ) -> Response {
+ 582     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 583         return Redirect::to("/characters").into_response();
+ 584     };
+ 585     let context = match fireplace_post_context(&state, &actor, None).await {
+ 586         Ok(v) => v,
+ 587         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
+ 588     };
+ 589     post_fireplace_retrieve(
+ 590         state,
+ 591         actor,
+ 592         context,
+ 593         form,
+ 594         paths::CAMP_FIREPLACE_PAGE.pattern().into(),
+ 595     )
+ 596     .await
+ 597 }
+ 598 
+ 599 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+ 600 enum FireplaceContainerOperation {
+ 601     Place,
+ 602     StartCooking,
+ 603     Retrieve,
+ 604 }
+ 605 
+ 606 impl FireplaceContainerOperation {
+ 607     const fn reducer(self) -> &'static str {
+ 608         match self {
+ 609             Self::Place => "place_fireplace_container",
+ 610             Self::StartCooking => "start_fireplace_container_cooking",
+ 611             Self::Retrieve => "retrieve_fireplace_container",
+ 612         }
+ 613     }
+ 614 }
+ 615 
+ 616 async fn post_fireplace_container(
+ 617     state: AppState,
+ 618     actor: CharacterView,
+ 619     context: String,
+ 620     operation: FireplaceContainerOperation,
+ 621     args: Vec<serde_json::Value>,
+ 622     redirect: String,
+ 623 ) -> Response {
+ 624     let mut reducer_args = vec![json!(actor.id), json!(context)];
+ 625     reducer_args.extend(args);
+ 626     match state.db.call(operation.reducer(), &reducer_args).await {
+ 627         Ok(()) => Redirect::to(&redirect).into_response(),
+ 628         Err(error) => (StatusCode::BAD_REQUEST, error.to_string()).into_response(),
+ 629     }
+ 630 }
+ 631 
+ 632 pub(super) async fn settlement_fireplace_container_place(
+ 633     State(state): State<AppState>,
+ 634     Path((id, place)): Path<(String, String)>,
+ 635     session: Session,

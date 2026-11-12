@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/capability.rs:250-320
+ 250     fn bestiary_hours_for(&self, category: adventuresim_world_schema::BestiaryCategory) -> f32 {
+ 251         self.bestiary_hours.effective(category)
+ 252     }
+ 253 }
+ 254 
+ 255 pub(crate) struct StrategicEquipment {
+ 256     hands: [Option<Item>; 2],
+ 257     weapon: Option<Item>,
+ 258     weapon_side: Option<BodySide>,
+ 259     melee_weapon: Option<Item>,
+ 260     melee_weapon_inventory_id: Option<u64>,
+ 261     melee_weapon_geometry: Option<adventuresim_core::equipment::ParametricWeaponCombatGeometry>,
+ 262     melee_weapon_side: Option<BodySide>,
+ 263     ranged_weapon: Option<Item>,
+ 264     ranged_weapon_inventory_id: Option<u64>,
+ 265     ranged_weapon_side: Option<BodySide>,
+ 266     ammunition: u32,
+ 267     shield: Option<Item>,
+ 268     shield_inventory_id: Option<u64>,
+ 269     shield_side: Option<BodySide>,
+ 270     armor: [adventuresim_core::equipment::LayeredArmor; 7],
+ 271     armor_inventory_item_ids: [Option<u64>; 7],
+ 272     armor_materials: [Option<adventuresim_core::item_catalog::EquipmentMaterial>; 7],
+ 273     armor_coverage_geometry: [Option<adventuresim_core::combat::AuthoredArmorCoverage>; 7],
+ 274     survival_clothing: adventuresim_core::survival::ClothingExposure,
+ 275     inventory_weight: f32,
+ 276 }
+ 277 
+ 278 impl StrategicEquipment {
+ 279     pub(crate) fn load(ctx: &ReducerContext, character_id: u64) -> Self {
+ 280         let definition = |inventory_id| effective_item_definition(ctx, inventory_id);
+ 281         let normalized_hand = |location| {
+ 282             ctx.db
+ 283                 .equipment_occupancy()
+ 284                 .character_id()
+ 285                 .filter(character_id)
+ 286                 .find(|row| row.location == Some(location) && row.channel == EquipmentChannel::Held)
+ 287                 .map(|row| row.inventory_item_id)
+ 288         };
+ 289         let hand_inventory_ids = [
+ 290             normalized_hand(EquipmentLocation::LeftHand),
+ 291             normalized_hand(EquipmentLocation::RightHand),
+ 292         ];
+ 293         let hands = [
+ 294             definition(hand_inventory_ids[0]),
+ 295             definition(hand_inventory_ids[1]),
+ 296         ];
+ 297         let weapon_index = hands.iter().position(|item| {
+ 298             item.as_ref()
+ 299                 .is_some_and(|item| item.kind == CatalogItemKind::Weapon)
+ 300         });
+ 301         let weapon = weapon_index.and_then(|index| hands[index].clone());
+ 302         let weapon_side = weapon_index.map(|index| {
+ 303             if index == 0 {
+ 304                 BodySide::Left
+ 305             } else {
+ 306                 BodySide::Right
+ 307             }
+ 308         });
+ 309         let shield_index = hands.iter().position(|item| {
+ 310             item.as_ref()
+ 311                 .is_some_and(|item| item.kind == CatalogItemKind::Shield)
+ 312         });
+ 313         let shield = shield_index.and_then(|index| hands[index].clone());
+ 314         let shield_inventory_id = shield_index.and_then(|index| hand_inventory_ids[index]);
+ 315         let shield_side = shield_index.map(hand_side);
+ 316         let melee_weapon = hands
+ 317             .iter()
+ 318             .flatten()
+ 319             .find(|item| item.kind == CatalogItemKind::Weapon && item.melee)
+ 320             .cloned();

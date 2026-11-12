@@ -1,0 +1,31 @@
+SOURCE 95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs:73-102
+  73 fn parse_consumable_fractions(
+  74     fractions_micros: Vec<u32>,
+  75 ) -> Result<Vec<ConsumableFractionMicros>, String> {
+  76     fractions_micros
+  77         .into_iter()
+  78         .map(|value| {
+  79             ConsumableFractionMicros::try_new(value)
+  80                 .map_err(|_| "Ingredient fraction cannot exceed one whole".to_owned())
+  81         })
+  82         .collect()
+  83 }
+  84 
+  85 #[reducer]
+  86 pub fn add_fireplace_ingredients(
+  87     ctx: &ReducerContext,
+  88     character_id: u64,
+  89     fireplace_fixture_id: String,
+  90     inventory_scope: String,
+  91     inventory_item_ids: Vec<u64>,
+  92     fractions_micros: Vec<u32>,
+  93 ) -> Result<(), String> {
+  94     add_fireplace_ingredients_at(
+  95         ctx,
+  96         character_id,
+  97         fireplace_fixture_id,
+  98         inventory_scope,
+  99         inventory_item_ids,
+ 100         parse_consumable_fractions(fractions_micros)?,
+ 101         None,
+ 102     )

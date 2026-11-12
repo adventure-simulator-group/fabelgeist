@@ -1,0 +1,101 @@
+ 830 
+ 831     #[test]
+ 832     fn direct_object_mutators_require_resolved_actor_custody() {
+ 833         let source = include_str!("inventory_container.rs")
+ 834             .rsplit_once("pub(crate) fn require_object")
+ 835             .expect("post-test production section")
+ 836             .1;
+ 837         for reducer in [
+ 838             "pub fn remove_inventory_item_from_container",
+ 839             "pub fn discard_container_water",
+ 840         ] {
+ 841             let body = source.split(reducer).nth(1).expect("direct object reducer");
+ 842             assert!(body.contains("require_actor_carried_object"));
+ 843         }
+ 844         let lookup = include_str!("inventory_container.rs")
+ 845             .split("pub(crate) fn object_for_row")
+ 846             .nth(1)
+ 847             .and_then(|tail| tail.split("fn insert_carried_object").next())
+ 848             .expect("physical object lookup");
+ 849         assert!(lookup.contains("if matches.next().is_some()"));
+ 850         assert!(lookup.contains("duplicate physical object identities"));
+ 851     }
+ 852 
+ 853     #[test]
+ 854     fn empty_container_merge_authenticates_exact_root_before_mutation() {
+ 855         let source = crate::production_source(include_str!("inventory_container.rs"));
+ 856         let merge = source
+ 857             .split("pub(crate) fn merge_empty_container")
+ 858             .nth(1)
+ 859             .and_then(|tail| tail.split("#[cfg(test)]").next())
+ 860             .expect("empty-container merge");
+ 861         let source_validation = merge
+ 862             .find("require_exact_carried_backing(ctx, &emptied, &expected)?")
+ 863             .unwrap();
+ 864         let target_validation = merge
+ 865             .find("require_exact_carried_backing(ctx, &object, &expected)?")
+ 866             .unwrap();
+ 867         let first_delete = merge.find(".delete(source.id)").unwrap();
+ 868         assert!(source_validation < first_delete);
+ 869         assert!(target_validation < first_delete);
+ 870     }
+ 871 
+ 872     #[test]
+ 873     fn subtree_alias_failure_is_preflighted_before_every_delete() {
+ 874         let deletion = include_str!("inventory_container.rs")
+ 875             .split("pub(crate) fn delete_subtree")
+ 876             .nth(1)
+ 877             .and_then(|tail| tail.split("fn require_exact_carried_backing").next())
+ 878             .expect("subtree deletion");
+ 879         let descendant_validation = deletion
+ 880             .find("require_exact_carried_backing(ctx, &object, &root_custody)?")
+ 881             .unwrap();
+ 882         let completed_preflight = deletion.find("objects.reverse()").unwrap();
+ 883         let first_delete = deletion.find(".delete(").unwrap();
+ 884         assert!(descendant_validation < completed_preflight);
+ 885         assert!(completed_preflight < first_delete);
+ 886     }
+ 887 
+ 888     #[test]
+ 889     fn water_exists_only_in_physical_containers() {
+ 890         let source = include_str!("inventory_container.rs")
+ 891             .rsplit_once("pub(crate) fn require_object")
+ 892             .expect("post-test production section")
+ 893             .1;
+ 894         assert!(!source.contains("carried_water_ml"));
+ 895         assert!(!source.contains("pooled_water_ml"));
+ 896         assert!(!source.contains("pour_water_into_container"));
+ 897         assert!(source.contains("take_container_water_contributions"));
+ 898         let deletion = include_str!("inventory_container.rs")
+ 899             .split("pub(crate) fn delete_subtree")
+ 900             .nth(1)
+ 901             .unwrap()
+ 902             .split("fn require_exact_carried_backing")
+ 903             .next()
+ 904             .unwrap();
+ 905         assert_eq!(
+ 906             deletion
+ 907                 .matches("delete_container_water_contributions")
+ 908                 .count(),
+ 909             1
+ 910         );
+ 911     }
+ 912 }
+ 913 
+ 914 pub(crate) fn require_object(
+ 915     ctx: &ReducerContext,
+ 916     character_id: u64,
+ 917     scope: CarriedInventoryScope,
+ 918     row_id: u64,
+ 919 ) -> Result<InventoryObject, String> {
+ 920     let object = object_for_row(ctx, scope, row_id)?
+ 921         .ok_or("Inventory row has no stable physical object identity")?;
+ 922     let actor = ctx
+ 923         .db
+ 924         .character()
+ 925         .id()
+ 926         .find(character_id)
+ 927         .ok_or("Character not found")?;
+ 928     crate::object_custody::require_actor_carried_object(ctx, &actor, &object)?;
+ 929     Ok(object)
+ 930 }

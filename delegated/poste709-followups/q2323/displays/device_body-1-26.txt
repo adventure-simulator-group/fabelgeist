@@ -1,0 +1,26 @@
+   1 //! A body realization's upload to the armor device, made once.
+   2 
+   3 use std::sync::OnceLock;
+   4 
+   5 use anyhow::Result;
+   6 use fabelgeist_armor::gpu::body::GpuBody;
+   7 
+   8 /// The device copy of one body realization -- the wearer or a morph sample.
+   9 ///
+  10 /// Every armor piece fitted to a body reads the same positions, normals and
+  11 /// skin; the realization keeps its upload so that the pieces share it rather
+  12 /// than each sending the body, and every morph sample, again.
+  13 #[derive(Clone, Debug, Default)]
+  14 pub struct DeviceBody(OnceLock<GpuBody>);
+  15 
+  16 impl DeviceBody {
+  17     /// The uploaded body, uploading it with `upload` on first use.
+  18     pub fn get_or_upload(&self, upload: impl FnOnce() -> Result<GpuBody>) -> Result<&GpuBody> {
+  19         if let Some(body) = self.0.get() {
+  20             return Ok(body);
+  21         }
+  22         let body = upload()?;
+  23         // A racing thread may have uploaded it too; either copy is the same.
+  24         Ok(self.0.get_or_init(|| body))
+  25     }
+  26 }

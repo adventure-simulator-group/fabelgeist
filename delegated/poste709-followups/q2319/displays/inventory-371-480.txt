@@ -1,0 +1,110 @@
+ 371 /// Rehomes every carried row and linked measured/food/condition state in one
+ 372 /// reducer transaction. Descendant object owners are never left behind.
+ 373 pub(crate) fn rehome_subtree(
+ 374     ctx: &ReducerContext,
+ 375     root_object_id: u64,
+ 376     destination: &OperationalCustody,
+ 377 ) -> Result<(), String> {
+ 378     prevalidate_rehome_subtree(ctx, root_object_id, destination)?;
+ 379     let ids = subtree_object_ids(ctx, root_object_id)?;
+ 380     for id in ids {
+ 381         let mut object = ctx
+ 382             .db
+ 383             .inventory_object()
+ 384             .id()
+ 385             .find(id)
+ 386             .ok_or("Inventory subtree object is missing")?;
+ 387         match (&object.location, destination) {
+ 388             (
+ 389                 InventoryLocation::Personal(location),
+ 390                 OperationalCustody::Character(character_id),
+ 391             ) => {
+ 392                 let row_id = location.row_id;
+ 393                 let mut row = ctx
+ 394                     .db
+ 395                     .inventory_item()
+ 396                     .id()
+ 397                     .find(row_id)
+ 398                     .ok_or("Inventory subtree row is missing")?;
+ 399                 row.character_id = character_id.get();
+ 400                 ctx.db.inventory_item().id().update(row);
+ 401                 object.location = InventoryLocation::personal(character_id.get(), row_id);
+ 402             }
+ 403             (InventoryLocation::Party(location), OperationalCustody::Party(party_id)) => {
+ 404                 let row_id = location.row_id;
+ 405                 let mut row = ctx
+ 406                     .db
+ 407                     .party_inventory_item()
+ 408                     .id()
+ 409                     .find(row_id)
+ 410                     .ok_or("Party inventory subtree row is missing")?;
+ 411                 row.party_id = party_id.as_str().into();
+ 412                 ctx.db.party_inventory_item().id().update(row);
+ 413                 object.location = InventoryLocation::party(party_id.as_str(), row_id);
+ 414             }
+ 415             (InventoryLocation::Personal(location), OperationalCustody::Party(party_id)) => {
+ 416                 let source = ctx
+ 417                     .db
+ 418                     .inventory_item()
+ 419                     .id()
+ 420                     .find(location.row_id)
+ 421                     .ok_or("Inventory subtree row is missing")?;
+ 422                 if source.quantity != 1 {
+ 423                     return Err("Stable inventory objects must be quantity one".into());
+ 424                 }
+ 425                 let destination_row =
+ 426                     ctx.db
+ 427                         .party_inventory_item()
+ 428                         .insert(crate::strategic::PartyInventoryItem {
+ 429                             id: 0,
+ 430                             party_id: party_id.as_str().into(),
+ 431                             item_id: source.item_id.clone(),
+ 432                             quantity: 1,
+ 433                         });
+ 434                 if crate::food::personal_lot(ctx, source.id).is_some() {
+ 435                     crate::food::move_or_split_to_party(ctx, source.id, destination_row.id, 1, 1)?;
+ 436                 }
+ 437                 if crate::inventory_amount::personal_fraction(ctx, source.id).is_some() {
+ 438                     crate::inventory_amount::move_personal_to_party(
+ 439                         ctx,
+ 440                         source.id,
+ 441                         destination_row.id,
+ 442                     )?;
+ 443                 }
+ 444                 if let Some(condition) = ctx.db.item_condition().inventory_item_id().find(source.id)
+ 445                 {
+ 446                     ctx.db
+ 447                         .item_condition()
+ 448                         .inventory_item_id()
+ 449                         .delete(source.id);
+ 450                     ctx.db
+ 451                         .party_item_condition()
+ 452                         .insert(crate::strategic::PartyItemCondition {
+ 453                             party_inventory_item_id: destination_row.id,
+ 454                             tier_1: condition.tier_1,
+ 455                             tier_2: condition.tier_2,
+ 456                             tier_3: condition.tier_3,
+ 457                             tier_4: condition.tier_4,
+ 458                             tier_5: condition.tier_5,
+ 459                         });
+ 460                 }
+ 461                 ctx.db.inventory_item().id().delete(source.id);
+ 462                 object.location = InventoryLocation::party(party_id.as_str(), destination_row.id);
+ 463             }
+ 464             (InventoryLocation::Party(location), OperationalCustody::Character(character_id)) => {
+ 465                 let source = ctx
+ 466                     .db
+ 467                     .party_inventory_item()
+ 468                     .id()
+ 469                     .find(location.row_id)
+ 470                     .ok_or("Party inventory subtree row is missing")?;
+ 471                 if source.quantity != 1 {
+ 472                     return Err("Stable inventory objects must be quantity one".into());
+ 473                 }
+ 474                 let destination_row = ctx.db.inventory_item().insert(crate::InventoryItem {
+ 475                     id: 0,
+ 476                     character_id: character_id.get(),
+ 477                     item_id: source.item_id.clone(),
+ 478                     quantity: 1,
+ 479                 });
+ 480                 if crate::food::party_lot(ctx, source.id).is_some() {

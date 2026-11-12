@@ -1,0 +1,16 @@
+{
+  "id": "REVIEW-PARTY-MERGE-FOOD-REINITIALIZATION-001",
+  "severity": "P2 provisional; source-derived state conservation failure with actual reducer execution unverified",
+  "classification": "conditional source-derived food amount and provenance reset during successful party merge; no product execution",
+  "detail": "The party-join acceptance reducer snapshots every source party inventory row. For an item whose catalog projection is not repairable, it grants the target party entry.quantity of that item and deletes the source row, without selecting the existing stable object, amount or food lot. Food is a measured, stable-object item, so the checked grant for a positive quantity creates a new quantity-one row, new object, whole amount and fresh catalog-derived FoodLot and contamination state. This happens even if the grant succeeds; error erasure is a separate connected concern. Under an authorized otherwise-successful merge with one source travel_ration row whose amount and food lot have been partly consumed, the destination row is initialized as a full catalog ration rather than receiving the original remainder. The pinned SpacetimeDB dependency documents that a successful reducer commits; actual transaction and user-visible behavior were not executed.",
+  "safeguards": "Acceptance checks authenticated strategic actor, living leader, open recruitment offer as applicable, available role, same simulation scope, no unresolved encounter, no active source quest and same synchronized settlement. A later propagated error would roll back the transaction under the pinned documented reducer semantics. Durable rows with stable objects take the rehome_subtree path, and other deposit code uses stable-object rehoming. Full merge caller, item admission, source lot state, nested-object ordering and database side-row behavior remain open.",
+  "connected_scope": "Party merge inventory loop and snapshot ordering; every stable physical object including food, measured material and nested containers; whole and fractional amount, food material, preparation, contamination, provenance and medicine; rehome_subtree and old backing-row cleanup; grant error propagation, stakes/reserve and transaction semantics; current UI and all merge callers.",
+  "historical_related_candidates": [
+    "SEGOVB-L12-PARTY-GRANT-ERROR-ERASURE",
+    "PL13-248-FIREPLACE-SUBTREE-DEATH-ESTATE-LIFECYCLE-PENDING"
+  ],
+  "relationship_qualification": "Checkpoint 059 records the same party grant helper and notes merge as an error-erasure caller, and separately qualifies the subtree custody helper in a different lifecycle contract. The current food reconstruction occurs on a successful grant and is a distinct first-failure question, not an automatic alias of either historical record. The old party-grant record retains pr-working source attribution, open status and zero accepted unique-count change. Pr-working governance role 1220 and inventory-trade role 1225 match the current Git blobs; the personally read physical-p16 governance role 282 differs. No global alias, completed lens or checkpoint 3821 state is asserted.",
+  "discovery": "partial; all merge and nested-object orders, supported production state, native side-row behavior and global historical aliases remain open",
+  "repair": "not started",
+  "validation": "not performed"
+}

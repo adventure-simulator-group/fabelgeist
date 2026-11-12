@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-core/src/foraging.rs:300-350
+ 300             && self.wetlands <= Self::TOTAL
+ 301             && self.plains + self.forest + self.hills + self.wetlands == Self::TOTAL
+ 302     }
+ 303 }
+ 304 
+ 305 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+ 306 pub struct ForageEnvironment {
+ 307     pub terrain: LocalTerrainMixture,
+ 308     pub river_or_wet_ground: bool,
+ 309     pub sea_or_coast: bool,
+ 310     pub cultivated: bool,
+ 311     pub settlement: bool,
+ 312     /// Authoritative license evaluation, never supplied by the browser.
+ 313     pub license_violation: bool,
+ 314 }
+ 315 
+ 316 #[derive(Clone, Debug, Eq, PartialEq)]
+ 317 pub struct ForageYield {
+ 318     pub item_id: &'static str,
+ 319     pub quantity: u16,
+ 320 }
+ 321 
+ 322 #[derive(Clone, Debug, Eq, PartialEq)]
+ 323 pub struct ForageResolution {
+ 324     pub yields: Vec<ForageYield>,
+ 325     pub stealth_dc_millirank: Option<u16>,
+ 326     pub stealth_succeeded: Option<bool>,
+ 327 }
+ 328 
+ 329 pub fn validate_duration(minutes: u64) -> Result<(), &'static str> {
+ 330     if (MIN_FORAGE_MINUTES..=MAX_FORAGE_MINUTES).contains(&minutes) && minutes.is_multiple_of(60) {
+ 331         Ok(())
+ 332     } else {
+ 333         Err("Foraging duration must use whole hours from one to 24 hours")
+ 334     }
+ 335 }
+ 336 
+ 337 pub fn resource(item_id: &str) -> Option<&'static ForageResource> {
+ 338     FORAGE_RESOURCES
+ 339         .iter()
+ 340         .find(|entry| entry.item_id == item_id)
+ 341 }
+ 342 
+ 343 pub fn source_available(source: ForageSource, environment: ForageEnvironment) -> bool {
+ 344     FORAGE_RESOURCES
+ 345         .iter()
+ 346         .any(|resource| resource.source == source && available(resource, environment))
+ 347 }
+ 348 
+ 349 fn search_budget_divisor(selected_source_count: u64, available_resource_count: u64) -> u64 {
+ 350     selected_source_count.saturating_mul(available_resource_count)

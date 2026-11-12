@@ -1,0 +1,39 @@
+{
+  "existing_roots": [
+    "crates"
+  ],
+  "absent_roots": [
+    "web",
+    "src"
+  ],
+  "terms": {
+    "preview_cooking": {
+      "exit_status": 0,
+      "files": [
+        "crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+        "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+        "crates/adventuresim-stdb-module/src/food/cooking.rs"
+      ],
+      "stderr": ""
+    },
+    "previewCooking": {
+      "exit_status": 1,
+      "files": [],
+      "stderr": ""
+    },
+    "PreviewCooking": {
+      "exit_status": 1,
+      "files": [],
+      "stderr": ""
+    },
+    "add_fireplace_ingredients_at": {
+      "exit_status": 0,
+      "files": [
+        "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+        "crates/adventuresim-stdb-module/src/food/cooking.rs"
+      ],
+      "stderr": ""
+    }
+  },
+  "qualification": "Physical working copy is discovery only; ignored/unsearched files and different revision may hide additional callers. No semantic absence or full caller inventory claim."
+}

@@ -1,0 +1,10 @@
+{
+  "registered_utc": "2026-11-12T16:04:52.322874+00:00",
+  "purpose": "Read structure and exact 11 receipt rows and corresponding plan rows named by q2323; separately read root adoption mappings and verification status, not claim root rereads or current credit.",
+  "selectors": [
+    "q2323 exact source receipt_pointer",
+    "q2323 registration_ref_and_sha256.json_pointer",
+    "root matching source identity/registration mapping",
+    "verification attribution and status"
+  ]
+}

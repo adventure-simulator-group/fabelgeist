@@ -1,0 +1,72 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:430-500
+ 430         Some((id, building)) => {
+ 431             if actor.current_settlement_id.as_deref() != Some(id) {
+ 432                 return Err("The character is not at this settlement");
+ 433             }
+ 434             let settlement = state
+ 435                 .db
+ 436                 .query_one_sats_into::<DbSettlement, SettlementView>(&db::settlement_by_id(id))
+ 437                 .await
+ 438                 .map_err(|_| "Settlement state unavailable")?
+ 439                 .ok_or("Settlement not found")?;
+ 440             settlement_fireplace_context(&settlement, building)
+ 441         }
+ 442         None => camp_fireplace_context(state, actor).await,
+ 443     }
+ 444 }
+ 445 
+ 446 async fn post_fireplace_ingredients(
+ 447     state: AppState,
+ 448     actor: CharacterView,
+ 449     context: String,
+ 450     form: CookFoodForm,
+ 451     redirect: String,
+ 452 ) -> Response {
+ 453     let parse_ids = form
+ 454         .inventory_item_ids
+ 455         .split(',')
+ 456         .filter(|v| !v.is_empty())
+ 457         .map(str::parse)
+ 458         .collect::<Result<Vec<u64>, _>>();
+ 459     let parse_amounts = form
+ 460         .fractions_micros
+ 461         .split(',')
+ 462         .filter(|v| !v.is_empty())
+ 463         .map(str::parse)
+ 464         .collect::<Result<Vec<u32>, _>>();
+ 465     let (Ok(ids), Ok(amounts)) = (parse_ids, parse_amounts) else {
+ 466         return (StatusCode::BAD_REQUEST, "Invalid ingredient selection").into_response();
+ 467     };
+ 468     match state
+ 469         .db
+ 470         .call(
+ 471             "add_fireplace_ingredients",
+ 472             &[
+ 473                 json!(actor.id),
+ 474                 json!(context),
+ 475                 json!(form.inventory_scope),
+ 476                 json!(ids),
+ 477                 json!(amounts),
+ 478             ],
+ 479         )
+ 480         .await
+ 481     {
+ 482         Ok(()) => Redirect::to(&redirect).into_response(),
+ 483         Err(e) => (StatusCode::BAD_REQUEST, e.to_string()).into_response(),
+ 484     }
+ 485 }
+ 486 
+ 487 pub(super) async fn settlement_fireplace_ingredients(
+ 488     State(state): State<AppState>,
+ 489     Path((id, place)): Path<(String, String)>,
+ 490     session: Session,
+ 491     Form(form): Form<CookFoodForm>,
+ 492 ) -> Response {
+ 493     let Some((actor, _)) = get_active_character(&state, session.character_id_u64()).await else {
+ 494         return Redirect::to("/characters").into_response();
+ 495     };
+ 496     let context = match fireplace_post_context(&state, &actor, Some((&id, &place))).await {
+ 497         Ok(v) => v,
+ 498         Err(e) => return (StatusCode::BAD_REQUEST, e).into_response(),
+ 499     };
+ 500     post_fireplace_ingredients(

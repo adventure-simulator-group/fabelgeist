@@ -1,0 +1,81 @@
+SOURCE crates/adventuresim-stdb-module/src/time/advancement.rs:1-80
+   1 // Owns travel, investigation, party synchronization, and neutral wait advancement policy.
+   2 include!("advancement/lifecycle.rs");
+   3 
+   4 /// Record time spent travelling without applying recovery, activities, or
+   5 /// training. Travel time belongs only to the character's personal clock.
+   6 pub fn advance_character_time(
+   7     ctx: &ReducerContext,
+   8     character_id: u64,
+   9     minutes: u64,
+  10 ) -> Result<bool, String> {
+  11     crate::character::require_living_character(ctx, character_id)?;
+  12     ensure_character_time(ctx, character_id)?;
+  13     let mut character_time = ctx
+  14         .db
+  15         .character_time()
+  16         .character_id()
+  17         .find(character_id)
+  18         .ok_or_else(|| "Character time record not found".to_string())?;
+  19     let starting_minute = character_time.minutes;
+  20     if let Some(first) = first_lifecycle_segment(
+  21         ctx,
+  22         character_id,
+  23         starting_minute,
+  24         minutes,
+  25     ) {
+  26         if !advance_character_time(ctx, character_id, first)? {
+  27             return Ok(false);
+  28         }
+  29         return advance_character_time(ctx, character_id, minutes.saturating_sub(first));
+  30     }
+  31     let injury_limit = crate::surgery::preview_injury_boundary(
+  32         ctx,
+  33         character_id,
+  34         minutes,
+  35         InjuryRecoveryMinutes::NONE,
+  36     )?
+  37     .elapsed;
+  38     let (elapsed, terminal) =
+  39         crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, false)?;
+  40     let settled =
+  41         crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;
+  42     let elapsed = settled.elapsed;
+  43     let interval_end = character_time.minutes.saturating_add_minutes(elapsed);
+  44     character_time.minutes = interval_end;
+  45     ctx.db
+  46         .character_time()
+  47         .character_id()
+  48         .update(character_time);
+  49     crate::condition::apply_weather_exposure(
+  50         ctx,
+  51         character_id,
+  52         starting_minute,
+  53         elapsed,
+  54         true,
+  55         ExposureShelter::Field(FieldShelter::Bivouac),
+  56     )?;
+  57     crate::organization::settle_membership_dues(ctx, character_id)?;
+  58     crate::social::settle_shared_party_time(ctx, character_id);
+  59     crate::disease::finish_disease_interval(ctx, character_id, terminal)?;
+  60     settle_lifecycle_after_character_time_write(
+  61         ctx,
+  62         character_id,
+  63         interval_end,
+  64     )?;
+  65     advance_married_family_by(ctx, character_id, elapsed)?;
+  66     if terminal.is_some() || !settled.alive {
+  67         return Ok(false);
+  68     }
+  69     crate::condition::apply_travel_condition(ctx, character_id, starting_minute, elapsed, 0)?;
+  70     crate::condition::refresh_character_strategic_condition(ctx, character_id)?;
+  71     crate::capability::refresh_character_capability(ctx, character_id)?;
+  72     Ok(true)
+  73 }
+  74 
+  75 fn advance_character_time_in_plan(
+  76     ctx: &ReducerContext,
+  77     character_id: u64,
+  78     minutes: u64,
+  79     plan: &crate::disease::PartyDiseaseIntervalPlan,
+  80 ) -> Result<bool, String> {

@@ -1,0 +1,77 @@
+{
+  "schema": "726-poste709-time-bound-followup-snapshot-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "e709f11f0aa6bf736bd20819a628e4790cd03999",
+  "observed_counts": {
+    "lenses": 13,
+    "lenses_complete": 0,
+    "queue_records": 3713,
+    "queue_semantically_reconciled": 0,
+    "current_ledger_entries_and_relationships": 1051
+  },
+  "queue_selections": [
+    {
+      "index": 2317,
+      "contract_id": "PL13-247-COOKING-PREVIEW-TARGET-CONTRACT-PENDING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; earlier open record retains its original revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2318,
+      "contract_id": "PL13-247-COOKING-MATERIAL-AMOUNT-NATIVE-PENDING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; earlier open record retains its original revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2319,
+      "contract_id": "PL13-248-FIREPLACE-SUBTREE-DEATH-ESTATE-LIFECYCLE-PENDING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; earlier open record retains its original revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2320,
+      "contract_id": "PL13-249-PREPARATION-GUARDED-NATIVE-AUTHORITY-PENDING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; earlier open record retains its original revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2321,
+      "contract_id": "PL13-252-PREPARATION-VIEW-MATERIAL-QUANTUM-PENDING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; earlier open record retains its original revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2322,
+      "contract_id": "PL13-254-FORAGE-TIME-CAPABILITY-COMMIT-PENDING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; earlier open record retains its original revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2323,
+      "contract_id": "REVIEW-L11-CREATOR-PRIVATE-BODY-FIT-PAIRING",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; historical named-scope disposition retains its original e275 revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2324,
+      "contract_id": "REVIEW-L11-CREATOR-HYPOTHETICAL-PROBE-ORIENTATION-POLICY",
+      "current_reconciliation_at_snapshot": "partial current 95e source relationship in ASSESSMENT-CENTRAL-FOLLOWUPS-14B-95E.json; historical named-scope disposition retains its original e275 revision and reader; producers, policy, outcomes and global aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2327,
+      "contract_id": "REVIEW-L11-CREATOR-CORRECTIVE-MODEL-CACHE-DEPENDENCY-POLICY",
+      "current_reconciliation_at_snapshot": "partial current 95e source and historical first-failure relation; ASSESSMENT-L01-CORRECTIVE-CACHE-95E.json; actual assets, output policy and global aliases remain open"
+    }
+  ],
+  "added_ledger_relationship_ids": [
+    "candidate-cooking-draft-preview-preparation-95e",
+    "relationship-cooking-vessel-direct-contents-95e",
+    "relationship-cooking-lot-output-identity-95e",
+    "relationship-fireplace-death-estate-root-side-state-95e",
+    "candidate-preparation-exhausted-clock-wait-95e",
+    "candidate-forage-self-invalidating-capability-95e",
+    "relationship-preparation-view-material-quantum-95e",
+    "relationship-creator-fit-cached-model-pairing-95e",
+    "relationship-creator-uv-cardinality-projection-95e",
+    "relationship-creator-nonfinite-probe-fallback-95e"
+  ],
+  "central_report_sha256": "49bcf7ead548ccaceee760c20e3d0a1fe56f3f63c4784be4e43833e68da40d99",
+  "bundle_catalog_sha256": "5db3d852459561ea0e4fb56b754f4f38f3f6a8bf9ec48f3163c13ff2220638fe",
+  "e709_recovery_manifest_sha256": "4324e0eb50cd9901be11b8a77bda27c6f032dba6b75d94b78d6409fef5146cd8",
+  "qualification": "Time-bound counts include relationships and conditional candidates, not independent defects. Historical, reconstructed and current work retain original attribution. Final checkpoint3821 queue and ledger remain missing.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

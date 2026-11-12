@@ -1,0 +1,52 @@
+SOURCE crates/adventuresim-core/src/food.rs:680-730
+ 680 
+ 681     #[test]
+ 682     fn standard_cooked_meal_is_positive_and_unique() {
+ 683         let meal = definition("cooked_meal").expect("standard cooked meal");
+ 684         assert_eq!(meal.class, FoodClass::MixedMeal);
+ 685         assert!(meal.kcal_per_unit > 0.0);
+ 686         assert!(meal.mass_kg_per_unit > 0.0);
+ 687         assert!(meal.value_per_unit > 0.0);
+ 688         assert!(meal.growth_per_hour > 0.0);
+ 689         assert_eq!(
+ 690             FOOD_CATALOG
+ 691                 .iter()
+ 692                 .filter(|food| food.id == "cooked_meal")
+ 693                 .count(),
+ 694             1
+ 695         );
+ 696     }
+ 697 
+ 698     #[test]
+ 699     fn forage_meats_have_complete_raw_food_definitions() {
+ 700         for id in ["raw_venison", "raw_fowl", "raw_fish", "raw_beast_meat"] {
+ 701             let food = definition(id).unwrap();
+ 702             assert_eq!(food.class, FoodClass::RawMeat);
+ 703             assert!(food.kcal_per_unit > 0.0);
+ 704             assert!(food.mass_kg_per_unit > 0.0);
+ 705             assert!(food.value_per_unit > 0.0);
+ 706             assert!(food.growth_per_hour > 0.0);
+ 707             assert!(food.cooking_minutes > 0);
+ 708             assert!(food.flavors_per_unit.valid());
+ 709             assert!((1..=5).contains(&food.default_quality));
+ 710         }
+ 711     }
+ 712 
+ 713     #[test]
+ 714     fn catalog_flavor_metadata_is_valid_and_salt_uses_exact_calibration() {
+ 715         for item in FOOD_CATALOG.iter() {
+ 716             assert!(item.flavors_per_unit.valid(), "{}", item.id);
+ 717             assert!((1..=5).contains(&item.default_quality), "{}", item.id);
+ 718         }
+ 719         assert_eq!(definition("salt").unwrap().flavors_per_unit.salty, 1.0);
+ 720         assert_eq!(definition("salt").unwrap().mass_kg_per_unit, 0.01);
+ 721     }
+ 722 
+ 723     #[test]
+ 724     fn partial_lot_components_are_conserved() {
+ 725         for value in [0.25, 3.0, 2_500.0, 25.0] {
+ 726             let remaining = retained_component(value, 0.37);
+ 727             let consumed = retained_component(value, 0.63);
+ 728             assert!((remaining + consumed - value).abs() < 0.001);
+ 729         }
+ 730     }

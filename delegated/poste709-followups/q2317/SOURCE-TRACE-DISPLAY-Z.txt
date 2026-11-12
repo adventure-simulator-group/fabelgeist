@@ -1,0 +1,37 @@
+SOURCE crates/strategic-web/src/routes/settlements/party/cooking.rs:175-210
+ 175 adventuresim_world_schema::calendar::StrategicMinute::new(journey.departure_minute.minutes),
+ 176         journey.completed_movement_minutes,
+ 177     )
+ 178     .map_err(|_| "This journey camp has no canonical identity")?;
+ 179     adventuresim_core::strategic_place::StrategicFixtureId::fireplace(place)
+ 180         .map(|fixture| fixture.to_string())
+ 181         .map_err(|_| "This journey camp has no fireplace")
+ 182 }
+ 183 
+ 184 async fn fireplace_rows(
+ 185     state: &AppState,
+ 186     actor: &CharacterView,
+ 187     fireplace_fixture_id: &str,
+ 188 ) -> (
+ 189     Vec<InventoryItem>,
+ 190     Vec<PartyInventoryItem>,
+ 191     Vec<InventoryItemAmount>,
+ 192     Vec<PartyItemAmount>,
+ 193     Vec<FoodLot>,
+ 194     Vec<CatalogItemView>,
+ 195     Option<BackendFireplaceStation>,
+ 196     Option<BackendFireplaceDish>,
+ 197     Vec<BackendFireplaceStation>,
+ 198     Vec<BackendFireplaceDish>,
+ 199     StrategicMinute,
+ 200 ) {
+ 201     let personal = state
+ 202         .db
+ 203         .query_sats::<InventoryItem>(&format!(
+ 204             "SELECT * FROM inventory_item WHERE character_id = {}",
+ 205             actor.id
+ 206         ))
+ 207         .await
+ 208         .unwrap_or_default();
+ 209     let party = if let Some(party_id) = actor.party_id.as_deref() {
+ 210         state

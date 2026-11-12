@@ -1,0 +1,724 @@
+{
+  "method": "git SHA1 type/length framing plus exact SHA256",
+  "commits": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009": {
+      "commit_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e": {
+      "commit_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8"
+    }
+  },
+  "paths": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/projections.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "projections.rs",
+          "mode": "100644",
+          "oid": "5f635b371add61bea86d59e9c7c1944f0b6ab894"
+        }
+      ],
+      "blob_oid": "5f635b371add61bea86d59e9c7c1944f0b6ab894",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/preparation_authority.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "preparation_authority.rs",
+          "mode": "100644",
+          "oid": "2d387ce80a040a6af622ebbb6f6fdcd2491a7fab"
+        }
+      ],
+      "blob_oid": "2d387ce80a040a6af622ebbb6f6fdcd2491a7fab",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "ingredient_preparation.rs",
+          "mode": "100644",
+          "oid": "f9036dc00887bea10f15efb881899107243cdb36"
+        }
+      ],
+      "blob_oid": "f9036dc00887bea10f15efb881899107243cdb36",
+      "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/lot_inventory.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "lot_inventory.rs",
+          "mode": "100644",
+          "oid": "9b3721a9f00be8183915424b975aba69c9eda0ac"
+        }
+      ],
+      "blob_oid": "9b3721a9f00be8183915424b975aba69c9eda0ac",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/cooking.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "cooking.rs",
+          "mode": "100644",
+          "oid": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e"
+        }
+      ],
+      "blob_oid": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/consumption.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "consumption.rs",
+          "mode": "100644",
+          "oid": "28a834828b3966fd7438565f3866c82ed869a5e3"
+        }
+      ],
+      "blob_oid": "28a834828b3966fd7438565f3866c82ed869a5e3",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/inventory_measurement.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "inventory_measurement.rs",
+          "mode": "100644",
+          "oid": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a"
+        }
+      ],
+      "blob_oid": "04c4ebb609cb7b6dbfddf9dab719bda285f3676a",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/material.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "material.rs",
+          "mode": "100644",
+          "oid": "164a9844e1618633fcc978063f349c8c2d0dd29a"
+        }
+      ],
+      "blob_oid": "164a9844e1618633fcc978063f349c8c2d0dd29a",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/food.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "food.rs",
+          "mode": "100644",
+          "oid": "1b8f2794a247f5b894ee708ca699162f08c3d012"
+        }
+      ],
+      "blob_oid": "1b8f2794a247f5b894ee708ca699162f08c3d012",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-core/src/ingredient_preparation.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "ingredient_preparation.rs",
+          "mode": "100644",
+          "oid": "d6646a7eef21ef3c2f8bdeda4664b2d99fc62227"
+        }
+      ],
+      "blob_oid": "d6646a7eef21ef3c2f8bdeda4664b2d99fc62227",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:content/items/catalog.yaml": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "content",
+          "mode": "40000",
+          "oid": "6738ea363c5fa98a7605f3888e2560b4c83b0399"
+        },
+        {
+          "tree": "6738ea363c5fa98a7605f3888e2560b4c83b0399",
+          "entry": "items",
+          "mode": "40000",
+          "oid": "6e6eb921424e5bbc4d5ba7e76d6ff6e8dfcd4c11"
+        },
+        {
+          "tree": "6e6eb921424e5bbc4d5ba7e76d6ff6e8dfcd4c11",
+          "entry": "catalog.yaml",
+          "mode": "100644",
+          "oid": "047ffe1d42128b056f5c1b97106a7ed23d26263f"
+        }
+      ],
+      "blob_oid": "047ffe1d42128b056f5c1b97106a7ed23d26263f",
+      "sha256": "2be8ff76fb41fc3e7872a3006e3f6201722bfd2c1ca372c4397db465a5772c50"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/training_activity.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "strategic-web",
+          "mode": "40000",
+          "oid": "b0c457b47a331c3f069c91f61e52287a19d92951"
+        },
+        {
+          "tree": "b0c457b47a331c3f069c91f61e52287a19d92951",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "6aaf16db886e39fed4af5def8689c44b8389b339"
+        },
+        {
+          "tree": "6aaf16db886e39fed4af5def8689c44b8389b339",
+          "entry": "routes",
+          "mode": "40000",
+          "oid": "14fdada7a01595714078adff293827a2ec3d0cbc"
+        },
+        {
+          "tree": "14fdada7a01595714078adff293827a2ec3d0cbc",
+          "entry": "settlements",
+          "mode": "40000",
+          "oid": "5d6cc1df3f9f379ae7ba96fbcee921d0b359be31"
+        },
+        {
+          "tree": "5d6cc1df3f9f379ae7ba96fbcee921d0b359be31",
+          "entry": "party",
+          "mode": "40000",
+          "oid": "401b5c1a8819b50320c682eec085879f29f42378"
+        },
+        {
+          "tree": "401b5c1a8819b50320c682eec085879f29f42378",
+          "entry": "training_activity.rs",
+          "mode": "100644",
+          "oid": "500dc7d5a5a5605c2c52b92b4cb87ea70bd1751e"
+        }
+      ],
+      "blob_oid": "500dc7d5a5a5605c2c52b92b4cb87ea70bd1751e",
+      "sha256": "e1bce038737f2fed9cc5c216c73ab9e0e4325e6cbfb2fbf82dbf02101faac493"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/templates/settlement/trade/discard.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "strategic-web",
+          "mode": "40000",
+          "oid": "b0c457b47a331c3f069c91f61e52287a19d92951"
+        },
+        {
+          "tree": "b0c457b47a331c3f069c91f61e52287a19d92951",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "6aaf16db886e39fed4af5def8689c44b8389b339"
+        },
+        {
+          "tree": "6aaf16db886e39fed4af5def8689c44b8389b339",
+          "entry": "templates",
+          "mode": "40000",
+          "oid": "1a940be6acb979740291a39b3ce5eb84fb247c08"
+        },
+        {
+          "tree": "1a940be6acb979740291a39b3ce5eb84fb247c08",
+          "entry": "settlement",
+          "mode": "40000",
+          "oid": "50500dd205f9d4dc34b499990f5d4196537ac349"
+        },
+        {
+          "tree": "50500dd205f9d4dc34b499990f5d4196537ac349",
+          "entry": "trade",
+          "mode": "40000",
+          "oid": "13c5b3801d88a43047282c81bb5b72a9422bcddc"
+        },
+        {
+          "tree": "13c5b3801d88a43047282c81bb5b72a9422bcddc",
+          "entry": "discard.rs",
+          "mode": "100644",
+          "oid": "4507094ecf080ba75b84751f10b807607074f9bd"
+        }
+      ],
+      "blob_oid": "4507094ecf080ba75b84751f10b807607074f9bd",
+      "sha256": "6cc7a146f21918240ec83835a11b882fca0ac7e400c1344d9cf8876d67921e99"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/templates/settlement/trade/party_pool.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "strategic-web",
+          "mode": "40000",
+          "oid": "b0c457b47a331c3f069c91f61e52287a19d92951"
+        },
+        {
+          "tree": "b0c457b47a331c3f069c91f61e52287a19d92951",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "6aaf16db886e39fed4af5def8689c44b8389b339"
+        },
+        {
+          "tree": "6aaf16db886e39fed4af5def8689c44b8389b339",
+          "entry": "templates",
+          "mode": "40000",
+          "oid": "1a940be6acb979740291a39b3ce5eb84fb247c08"
+        },
+        {
+          "tree": "1a940be6acb979740291a39b3ce5eb84fb247c08",
+          "entry": "settlement",
+          "mode": "40000",
+          "oid": "50500dd205f9d4dc34b499990f5d4196537ac349"
+        },
+        {
+          "tree": "50500dd205f9d4dc34b499990f5d4196537ac349",
+          "entry": "trade",
+          "mode": "40000",
+          "oid": "13c5b3801d88a43047282c81bb5b72a9422bcddc"
+        },
+        {
+          "tree": "13c5b3801d88a43047282c81bb5b72a9422bcddc",
+          "entry": "party_pool.rs",
+          "mode": "100644",
+          "oid": "08dc120abb7a100d027b098079f04f2e2e189309"
+        }
+      ],
+      "blob_oid": "08dc120abb7a100d027b098079f04f2e2e189309",
+      "sha256": "e1fdb4d40115cec463e035b77a38e6b7afa27d0e7c86eea6f23a6f4239b60981"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/strategic-web/src/routes/settlements/party/ingredient_preparation.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "strategic-web",
+          "mode": "40000",
+          "oid": "b0c457b47a331c3f069c91f61e52287a19d92951"
+        },
+        {
+          "tree": "b0c457b47a331c3f069c91f61e52287a19d92951",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "6aaf16db886e39fed4af5def8689c44b8389b339"
+        },
+        {
+          "tree": "6aaf16db886e39fed4af5def8689c44b8389b339",
+          "entry": "routes",
+          "mode": "40000",
+          "oid": "14fdada7a01595714078adff293827a2ec3d0cbc"
+        },
+        {
+          "tree": "14fdada7a01595714078adff293827a2ec3d0cbc",
+          "entry": "settlements",
+          "mode": "40000",
+          "oid": "5d6cc1df3f9f379ae7ba96fbcee921d0b359be31"
+        },
+        {
+          "tree": "5d6cc1df3f9f379ae7ba96fbcee921d0b359be31",
+          "entry": "party",
+          "mode": "40000",
+          "oid": "401b5c1a8819b50320c682eec085879f29f42378"
+        },
+        {
+          "tree": "401b5c1a8819b50320c682eec085879f29f42378",
+          "entry": "ingredient_preparation.rs",
+          "mode": "100644",
+          "oid": "2a99dd99892f2cfed63f065af223103b71179feb"
+        }
+      ],
+      "blob_oid": "2a99dd99892f2cfed63f065af223103b71179feb",
+      "sha256": "52a18d2ff1c3e976a3fc7679a39ba20d52513ea40bf4fba2f4c43b0e090753f7"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/inventory_amount.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "inventory_amount.rs",
+          "mode": "100644",
+          "oid": "358fb3e0656253372229a74997eaee186fdf9ecf"
+        }
+      ],
+      "blob_oid": "358fb3e0656253372229a74997eaee186fdf9ecf",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/item.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "item.rs",
+          "mode": "100644",
+          "oid": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa"
+        }
+      ],
+      "blob_oid": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009:crates/adventuresim-stdb-module/src/food/model.rs": {
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "model.rs",
+          "mode": "100644",
+          "oid": "5ed3ad5655e51693f0ed66989bcf03b63a39c613"
+        }
+      ],
+      "blob_oid": "5ed3ad5655e51693f0ed66989bcf03b63a39c613",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/food/projections.rs": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "entry": "adventuresim-stdb-module",
+          "mode": "40000",
+          "oid": "5f4bad04db2e8639d101944bca6fa591e6bee502"
+        },
+        {
+          "tree": "5f4bad04db2e8639d101944bca6fa591e6bee502",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "f8ade91d6a9e66d361398296d6199b67f0e6c162"
+        },
+        {
+          "tree": "f8ade91d6a9e66d361398296d6199b67f0e6c162",
+          "entry": "food",
+          "mode": "40000",
+          "oid": "49011a68050b71509ac2323e419cee78091a751b"
+        },
+        {
+          "tree": "49011a68050b71509ac2323e419cee78091a751b",
+          "entry": "projections.rs",
+          "mode": "100644",
+          "oid": "5f635b371add61bea86d59e9c7c1944f0b6ab894"
+        }
+      ],
+      "blob_oid": "5f635b371add61bea86d59e9c7c1944f0b6ab894",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7"
+    },
+    "6533e444fa37552927070cc8d8190907fd3b413e:content/items/catalog.yaml": {
+      "chain": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "entry": "content",
+          "mode": "40000",
+          "oid": "d3e8d9936656a51ae680b85c2c716d0de3a86d5e"
+        },
+        {
+          "tree": "d3e8d9936656a51ae680b85c2c716d0de3a86d5e",
+          "entry": "items",
+          "mode": "40000",
+          "oid": "31eded7042ca4d3880f930a8ac773bf29ab5f962"
+        },
+        {
+          "tree": "31eded7042ca4d3880f930a8ac773bf29ab5f962",
+          "entry": "catalog.yaml",
+          "mode": "100644",
+          "oid": "68986b372ab976b8faf5d0f64daa6714794e84fd"
+        }
+      ],
+      "blob_oid": "68986b372ab976b8faf5d0f64daa6714794e84fd",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b"
+    }
+  },
+  "errors": []
+}

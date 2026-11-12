@@ -1,0 +1,74 @@
+{
+  "schema": "726-q2320-independent-source-review-v1",
+  "reviewer": "/root/mhr_character",
+  "created_utc": "2026-11-12T16:09:48.422076+00:00",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "historical_queue": {
+    "source_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "pointer": "/entries/2320",
+    "contract": "PL13-249-PREPARATION-GUARDED-NATIVE-AUTHORITY-PENDING",
+    "raw_slice": "QUEUE-2320-RAW.json",
+    "qualification": "Original raw object slice; later public selected projection matches semantically, not whole queue byte equality. Original queue and ledger 3821 unavailable."
+  },
+  "historical_reader_attribution": [
+    "Delegated PL13-249 full role 1105 body 1-652 at historical pr-working object; root adoption reports no personal reread or new finding count.",
+    "Delegated PL13-251 full role 1109 body 1-635; separately adopted granular update to the same pending contract; no unique count change.",
+    "Historical reviewer individuals are not identified beyond recorded PL13 namespaces; no credit transfer."
+  ],
+  "current_personal_scope": "READ-LIMITS.json",
+  "findings": [
+    {
+      "id": "Q2320-CONDITIONAL-CLOCK-WAIT-ELAPSED",
+      "classification": "source-derived conditional discrepancy; supported reachability, transaction and global alias open",
+      "premise": "valid request at StrategicMinute::MAX, no earlier terminal or lifecycle segment, successful helpers/transaction",
+      "planned_elapsed": 0,
+      "wait_effect": "passes requested positive duration",
+      "source_refs": [
+        "crates/adventuresim-core/src/strategic_action.rs:374",
+        "crates/adventuresim-core/src/herbalism.rs:264",
+        "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs:457",
+        "crates/adventuresim-stdb-module/src/time/advancement.rs:417",
+        "crates/adventuresim-stdb-module/src/disease.rs:1915",
+        "crates/adventuresim-core/src/surgery.rs:127",
+        "crates/adventuresim-stdb-module/src/surgery.rs:486"
+      ],
+      "future_repair_direction": "reconcile planned representable elapsed and wait/lifecycle effects after authorization",
+      "counts": "no unique count assigned"
+    },
+    {
+      "id": "Q2320-CONDITIONAL-CONTAMINANT-LOAD-DOMAIN",
+      "classification": "historically pending representable-domain question, supported producer reachability unproved",
+      "premise": "20,000 kg valid lot at concentration 1e9; product exceeds u64 range and float-to-integer cast saturates",
+      "source_refs": [
+        "crates/adventuresim-stdb-module/src/food/preparation_authority.rs:189",
+        "crates/adventuresim-stdb-module/src/food/preparation_authority.rs:216",
+        "crates/adventuresim-core/src/food.rs:10",
+        "crates/adventuresim-core/src/food.rs:322",
+        "crates/adventuresim-stdb-module/src/item.rs:336",
+        "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs:481"
+      ],
+      "qualification": "No actual native contamination loss or supported 20,000 kg lot established; selected normal producers use one food unit per object. No new count."
+    }
+  ],
+  "nonfinding": "None and Some(MAX) share digest encoding, but validate_commit compares full resolved time and calculation. No unsafe completion caused by that equality was established.",
+  "relationships": [
+    "059 q2291 PL13-243 terminal structural question",
+    "059 q2210 PL13-212 itinerary clock exhaustion",
+    "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001",
+    "REVIEW-RESIDENCE-BILLING-CLOCK-EXHAUSTION-001",
+    "REVIEW-PREPARATION-RIGHTS-BINDING-001",
+    "q2317 independently attributed current support"
+  ],
+  "open_questions": [
+    "Can supported production state reach MAX?",
+    "Are no-terminal and successful full transaction conditions reachable, and what is the actual commit/rollback policy?",
+    "What do all lifecycle, disease, injury, rest and need consumers require at a saturated clock?",
+    "Do any supported lot producers, catalog bounds or merge routes permit a load beyond u64?",
+    "What exact identities and first failing operations link to existing historical/current findings?",
+    "Do trusted-caller rights, all external callers, planner effects and native validation satisfy the desired policy?"
+  ],
+  "execution": "Source inspection and evidence verification only; no product execution, test, build, probe, implementation, ledger or publication edits.",
+  "assessment": "ASSESSMENT.md",
+  "limits": "Per-file identity is not clean historical tree; copied sources do not credit unread ranges; missing 3821 and independent custody remain open."
+}

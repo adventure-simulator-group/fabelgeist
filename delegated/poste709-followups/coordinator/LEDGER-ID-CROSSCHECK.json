@@ -1,0 +1,70 @@
+{
+  "baseline_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "ledger_entries": 1041,
+  "relationships": [
+    {
+      "relationship": "candidate-cooking-draft-preview-preparation-95e",
+      "current_related_ids": [
+        "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+        "REVIEW-SIM-PROVISION-FIREPLACE-FOOD-001"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "relationship-cooking-vessel-direct-contents-95e",
+      "current_related_ids": [
+        "REVIEW-COOKING-WATER-EXACT-VOLUME-001"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "relationship-cooking-lot-output-identity-95e",
+      "current_related_ids": [
+        "REVIEW-PARTY-MERGE-FOOD-REINITIALIZATION-001"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "relationship-fireplace-death-estate-root-side-state-95e",
+      "current_related_ids": [
+        "REVIEW-PARTY-MERGE-FOOD-REINITIALIZATION-001",
+        "REVIEW-SIM-PROVISION-FIREPLACE-FOOD-001"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "candidate-preparation-exhausted-clock-wait-95e",
+      "current_related_ids": [
+        "REVIEW-ITINERARY-CLOCK-NONPROGRESS-001",
+        "REVIEW-RESIDENCE-BILLING-CLOCK-EXHAUSTION-001",
+        "REVIEW-PREPARATION-RIGHTS-BINDING-001"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "candidate-forage-self-invalidating-capability-95e",
+      "current_related_ids": [
+        "REVIEW-STRATEGIC-OVERFATIGUE-TRANSFER-001",
+        "ADLER-L11-FORAGE-COMPLETION-RECEIPT-IDENTITY",
+        "REVIEW-FORAGE-NOTICED-INFAMY-CUE-95E"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "relationship-creator-fit-cached-model-pairing-95e",
+      "current_related_ids": [
+        "REVIEW-CREATOR-CORRECTIVE-CACHE-POLICY-001",
+        "REVIEW-RUNTIME-BODY-DEVICE-CACHE-IDENTITY-001"
+      ],
+      "all_exact_ids_present": true
+    },
+    {
+      "relationship": "relationship-creator-uv-cardinality-projection-95e",
+      "current_related_ids": [
+        "REVIEW-SURFACE-CUT-UV-FACE-ADMISSION-001"
+      ],
+      "all_exact_ids_present": true
+    }
+  ],
+  "qualification": "Exact ID membership only at this snapshot; no exhaustive semantic search, alias proof or source-read credit."
+}

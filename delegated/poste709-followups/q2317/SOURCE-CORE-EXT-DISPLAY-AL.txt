@@ -1,0 +1,41 @@
+SOURCE crates/adventuresim-core/src/food.rs:281-320
+ 281                     "raw_meat" => FoodClass::RawMeat,
+ 282                     "cooked_meat" => FoodClass::CookedMeat,
+ 283                     "mixed_meal" => FoodClass::MixedMeal,
+ 284                     _ => unreachable!("validated food class"),
+ 285                 };
+ 286                 Some(FoodDefinition {
+ 287                     id: item.id.as_str(),
+ 288                     name: item.display_name.as_str(),
+ 289                     class,
+ 290                     kcal_per_unit: food.nutrition_kcal,
+ 291                     mass_kg_per_unit: item.weight_kg,
+ 292                     value_per_unit: food.value_per_unit,
+ 293                     growth_per_hour: food.growth_per_hour,
+ 294                     cooking_minutes: food.cooking_minutes,
+ 295                     flavors_per_unit: FlavorProfile::new(
+ 296                         food.flavors_kg.salty,
+ 297                         food.flavors_kg.spicy,
+ 298                         food.flavors_kg.sweet,
+ 299                         food.flavors_kg.sour,
+ 300                         food.flavors_kg.savory,
+ 301                     ),
+ 302                     culinary_fat: food.culinary_fat,
+ 303                     default_quality: food.quality,
+ 304                 })
+ 305             })
+ 306             .collect()
+ 307     });
+ 308 
+ 309 pub fn definition(id: &str) -> Option<&'static FoodDefinition> {
+ 310     FOOD_CATALOG.iter().find(|food| food.id == id)
+ 311 }
+ 312 
+ 313 pub fn deterministic_initial_contamination(seed: Seed) -> f32 {
+ 314     let unit = fabelgeist_determinism::StreamId::new("food.initial-contamination")
+ 315         .rng(seed, &[])
+ 316         .unit_f64();
+ 317     let log_min = (MIN_INITIAL_CONTAMINATION as f64).ln();
+ 318     let log_max = (MAX_INITIAL_CONTAMINATION as f64).ln();
+ 319     (log_min + unit * (log_max - log_min)).exp() as f32
+ 320 }

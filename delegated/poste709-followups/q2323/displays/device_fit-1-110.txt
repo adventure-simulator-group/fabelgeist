@@ -1,0 +1,110 @@
+   1 //! Catalog recipes fitted, thickened and skinned on the device.
+   2 //!
+   3 //! The wearer's body and every morph realization are uploaded once, each
+   4 //! piece is recorded and submitted against every one of them, and everything
+   5 //! is read back together. The studio and the runtime client share this path.
+   6 
+   7 use crate::armor_frames::FittingPlacement;
+   8 use anyhow::{Context, Result};
+   9 use fabelgeist_armor::gpu::body::{BodySurface, Correspondence, GpuBody, Skin};
+  10 use fabelgeist_armor::{
+  11     ArmorComponent, ArmorComponentRole, ArmorGpu, ArmorMorph, BuiltPart, GeneratedArmor,
+  12     HelmetDesign, LimbArmorDesign, PartFrame, TASSET_SUSPENSION_GAP_M,
+  13 };
+  14 use fabelgeist_compute::KernelBatch;
+  15 use fabelgeist_rig::RigJointName;
+  16 
+  17 use crate::armor_frames::{FitRegion, Wearer};
+  18 use crate::armor_layer::ArmorLayerSurface;
+  19 use crate::armor_recipes::{self, ParametricDesign};
+  20 use crate::device_body::DeviceBody;
+  21 use crate::device_frames::DeviceWearer;
+  22 use crate::device_piece::DeviceRecording;
+  23 
+  24 #[path = "device_fit_readback.rs"]
+  25 mod readback;
+  26 
+  27 /// What every realization of one body shares: its topology, surface
+  28 /// coordinates and skin.
+  29 #[derive(Clone, Copy)]
+  30 pub struct FitBody<'a> {
+  31     pub faces: &'a [[u32; 3]],
+  32     /// Each vertex's anatomical surface coordinate.
+  33     pub texcoords: &'a [[f32; 2]],
+  34     pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
+  35     pub joint_weights: &'a [[f32; 8]],
+  36     pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
+  37 }
+  38 
+  39 /// One shape of the body: the wearer or a morph realization, with its device
+  40 /// upload.
+  41 #[derive(Clone, Copy)]
+  42 pub struct Realization<'a> {
+  43     pub positions: &'a [[f32; 3]],
+  44     pub normals: &'a [[f32; 3]],
+  45     pub joints: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
+  46     pub device: &'a DeviceBody,
+  47 }
+  48 
+  49 impl<'a> Realization<'a> {
+  50     /// The body on the device, uploaded once per shape.
+  51     fn upload(&self, gpu: &ArmorGpu, body: &FitBody<'_>) -> Result<&'a GpuBody> {
+  52         anyhow::ensure!(
+  53             body.joint_indices.joint_count() == body.joint_names.joint_count(),
+  54             "fitting skin and joint names have different rig bounds"
+  55         );
+  56         self.device.get_or_upload(|| {
+  57             Ok(GpuBody::new(
+  58                 gpu,
+  59                 BodySurface {
+  60                     positions: self.positions,
+  61                     normals: self.normals,
+  62                     faces: body.faces,
+  63                     texcoords: body.texcoords,
+  64                     joint_indices: body.joint_indices,
+  65                     joint_weights: body.joint_weights,
+  66                     joints: self.joints,
+  67                 },
+  68             )?)
+  69         })
+  70     }
+  71 
+  72     pub fn wearer(&self, body: &FitBody<'a>) -> Wearer<'a> {
+  73         Wearer {
+  74             faces: body.faces,
+  75             positions: self.positions,
+  76             normals: self.normals,
+  77             joints: self.joints,
+  78             joint_indices: body.joint_indices,
+  79             joint_weights: body.joint_weights,
+  80             joint_names: body.joint_names,
+  81         }
+  82     }
+  83 }
+  84 
+  85 /// A piece fitted to the wearer and to each morph realization, with the
+  86 /// wearer's skin carried onto it.
+  87 #[derive(Clone)]
+  88 pub struct DevicePiece {
+  89     pub base: BuiltPart,
+  90     pub skin: Skin,
+  91     pub endpoints: Vec<BuiltPart>,
+  92     /// Native final-vertex aliases supplied by the authoritative shell topology.
+  93     pub skin_aliases: Vec<usize>,
+  94 }
+  95 
+  96 /// The part frame of `region` fitted to `wearer` on the device.
+  97 pub fn frame(
+  98     gpu: &ArmorGpu,
+  99     body: &FitBody<'_>,
+ 100     wearer: &Realization<'_>,
+ 101     region: FitRegion,
+ 102 ) -> Result<PartFrame> {
+ 103     let device = wearer.upload(gpu, body)?;
+ 104     let host = wearer.wearer(body);
+ 105     DeviceWearer {
+ 106         gpu,
+ 107         body: device,
+ 108         host: &host,
+ 109     }
+ 110     .read_frame(region)

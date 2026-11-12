@@ -1,0 +1,54 @@
+ 216             None
+ 217         };
+ 218 
+ 219         Self::from_loaded_assets(character, definition, correctives, device)
+ 220     }
+ 221 
+ 222     fn from_loaded_assets(
+ 223         character: Character,
+ 224         definition: &str,
+ 225         correctives: Option<PoseCorrectives>,
+ 226         device: &Device,
+ 227     ) -> Result<Self> {
+ 228         let mut parameter_transform = parse_model_definition(definition, &character.skeleton)
+ 229             .context("parsing the MHR model definition")?;
+ 230         let num_model_parameters = parameter_transform.num_parameters();
+ 231         // momentum appends one model parameter per identity blend shape when a
+ 232         // blend shape is attached to the character.
+ 233         append_blend_shape_parameters(
+ 234             &mut parameter_transform,
+ 235             NpyDimension::from(NUM_IDENTITY_BLEND_SHAPES),
+ 236         )?;
+ 237         Self::new(
+ 238             character,
+ 239             parameter_transform,
+ 240             num_model_parameters,
+ 241             correctives,
+ 242             device,
+ 243         )
+ 244     }
+ 245 
+ 246     pub fn num_joints(&self) -> RigJointCount {
+ 247         self.character.skeleton.names.joint_count()
+ 248     }
+ 249 
+ 250     pub fn num_vertices(&self) -> MeshVertexCount {
+ 251         self.character.mesh.vertex_count()
+ 252     }
+ 253 
+ 254     /// Number of pose/scale parameters the model takes, excluding the blend
+ 255     /// shape coefficients momentum appends to the parameter vector.
+ 256     pub fn num_model_parameters(&self) -> NpyDimension {
+ 257         self.num_model_parameters
+ 258     }
+ 259 
+ 260     pub fn has_pose_correctives(&self) -> bool {
+ 261         self.correctives.is_some()
+ 262     }
+ 263 
+ 264     pub fn device(&self) -> &Device {
+ 265         &self.device
+ 266     }
+ 267 
+ 268     /// Zero parameters for a batch, i.e. the rest pose.
+ 269     pub fn zero_parameters(&self, batch: usize) -> Tensor<2> {

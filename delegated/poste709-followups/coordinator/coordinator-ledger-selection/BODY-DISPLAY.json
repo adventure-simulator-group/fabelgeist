@@ -1,0 +1,57 @@
+[
+  {
+    "index": 16,
+    "entry": {
+      "id": "REVIEW-PARTY-MERGE-FOOD-REINITIALIZATION-001",
+      "severity": "P2 provisional; source-derived state conservation failure with actual reducer execution unverified",
+      "classification": "conditional source-derived food amount and provenance reset during successful party merge; no product execution",
+      "discovery": "partial; all merge and nested-object orders, supported production state, native side-row behavior and global historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "relationship_qualification": "Checkpoint 059 records the same party grant helper and notes merge as an error-erasure caller, and separately qualifies the subtree custody helper in a different lifecycle contract. The current food reconstruction occurs on a successful grant and is a distinct first-failure question, not an automatic alias of either historical record. The old party-grant record retains pr-working source attribution, open status and zero accepted unique-count change. Pr-working governance role 1220 and inventory-trade role 1225 match the current Git blobs; the personally read physical-p16 governance role 282 differs. No global alias, completed lens or checkpoint 3821 state is asserted.",
+      "historical_related_candidates": [
+        "SEGOVB-L12-PARTY-GRANT-ERROR-ERASURE",
+        "PL13-248-FIREPLACE-SUBTREE-DEATH-ESTATE-LIFECYCLE-PENDING"
+      ],
+      "record": "ASSESSMENT-L01-PARTY-MERGE-FOOD-95E.json"
+    }
+  },
+  {
+    "index": 82,
+    "entry": {
+      "id": "REVIEW-COOKING-WATER-EXACT-VOLUME-001",
+      "lens": 4,
+      "severity": "unassigned; current authored cooking vessels are below the demonstrated precision threshold",
+      "classification": "bounded exact cooking-water volume and binary32 conversion question",
+      "historical_related_records": [
+        "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/334",
+        "baseline-059/ledger.json#/segovb_continuation/lens13/delegated_connected_contracts_pending_alias/346"
+      ],
+      "relationship_qualification": "The two earlier delegated records left broad connected volume, provenance and native bounds open; the selected 95e precision example is newly assessed, not an accepted historical finding or restored 3821 record.",
+      "discovery": "partial; supported larger vessels, chronology and historical aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-L04-COOKING-WATER-PRECISION-95E.json"
+    }
+  },
+  {
+    "index": 185,
+    "entry": {
+      "id": "REVIEW-SIM-PROVISION-FIREPLACE-FOOD-001",
+      "lens": 7,
+      "severity": "unassigned; conditional food-custody forecast mismatch",
+      "classification": "New bounded current provisioning producer-to-native-consumer authority question; related to but distinct from the existing water post-refill forecast.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1089 (earlier broad provisioning/custody question)",
+        "segovb/READ-L12-349.json via ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json",
+        "ASSESSMENT-L01-TRAVEL-WATER-FORECAST-95E.json (distinct post-refill water forecast)",
+        "baseline-059/queue.json#/entries/2319 (separate fireplace lifecycle question)"
+      ],
+      "relationship_qualification": "Earlier broad records retain original source revision, attribution, read limits and pending status. Shared custody or repair scope does not establish a global alias or checkpoint 3821 authority.",
+      "discovery": "partial; complete departure and settlement custody lifecycle, admissible public snapshot/cache ordering, exact policy, actual shortfall and historical aliases remain open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-SIM-TRAVEL-CUSTODY-95E.json"
+    }
+  }
+]

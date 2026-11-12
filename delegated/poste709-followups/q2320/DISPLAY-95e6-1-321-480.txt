@@ -1,0 +1,160 @@
+   321	            RoundingTolerance::exact(),
+   322	            Vec::new(),
+   323	            Vec::new(),
+   324	        )
+   325	        .map_err(|error| format!("Invalid preparation conservation: {error:?}"))?,
+   326	        herbalism::PreparationMaterialReceipt {
+   327	            action,
+   328	        },
+   329	    )
+   330	    .map_err(|error| format!("Ingredient conservation failed: {error:?}"))
+   331	}
+   332	
+   333	#[expect(
+   334	    clippy::too_many_arguments,
+   335	    reason = "this domain boundary names each independent input explicitly"
+   336	)]
+   337	fn load_preparation_authority(
+   338	    ctx: &ReducerContext,
+   339	    actor: &crate::Character,
+   340	    inventory_scope: &str,
+   341	    inventory_item_id: u64,
+   342	    food_lot_id: u64,
+   343	    material_object_id: u64,
+   344	    request_id: &str,
+   345	    expected_revision: u64,
+   346	    action: IngredientPreparationAction,
+   347	    current_minute: StrategicMinute,
+   348	) -> Result<PreparationAuthority, String> {
+   349	    let inventory_scope =
+   350	        CarriedInventoryScope::try_from(inventory_scope).map_err(|error| error.to_string())?;
+   351	    let lot = ctx
+   352	        .db
+   353	        .food_lot()
+   354	        .id()
+   355	        .find(food_lot_id)
+   356	        .ok_or("Ingredient lot not found")?;
+   357	    if lot.material_revision == 0 || lot.material_revision != expected_revision {
+   358	        return Err("Ingredient preparation revision is stale".into());
+   359	    }
+   360	    let linked_row = match inventory_scope {
+   361	        CarriedInventoryScope::Personal => lot.inventory_item_id == Some(inventory_item_id),
+   362	        CarriedInventoryScope::Party => lot.party_inventory_item_id == Some(inventory_item_id),
+   363	    };
+   364	    if !linked_row {
+   365	        return Err("Ingredient lot does not match the selected inventory row".into());
+   366	    }
+   367	    let object =
+   368	        crate::inventory_container::object_for_row(ctx, inventory_scope, inventory_item_id)?
+   369	            .ok_or("Ingredient lot has no stable material object")?;
+   370	    if object.id != material_object_id {
+   371	        return Err("Ingredient material object is stale or ambiguous".into());
+   372	    }
+   373	    let resolved = crate::object_custody::require_actor_carried_object(ctx, actor, &object)?;
+   374	    if crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id) {
+   375	        return Err("Ingredient lot is not in carried preparation custody".into());
+   376	    }
+   377	    let (skill, next, prefix, tool_binding) = match action {
+   378	        IngredientPreparationAction::Cut => {
+   379	            if lot.preparation != FoodPreparation::Raw {
+   380	                return Err("Only a raw ingredient can be cut".into());
+   381	            }
+   382	            let tool_binding = qualifying_cutting_weapon_binding(ctx, actor.id).ok_or(
+   383	                "Cutting requires a carried edged weapon with current precision of at least 0.5",
+   384	            )?;
+   385	            (
+   386	                Skill::Knife,
+   387	                FoodPreparation::Cut,
+   388	                "Cut",
+   389	                tool_binding,
+   390	            )
+   391	        }
+   392	        IngredientPreparationAction::Grind => {
+   393	            if !matches!(lot.preparation, FoodPreparation::Raw | FoodPreparation::Cut) {
+   394	                return Err("Only a raw or cut ingredient can be ground".into());
+   395	            }
+   396	            (
+   397	                Skill::Bludgeon,
+   398	                FoodPreparation::Ground,
+   399	                "Ground",
+   400	                grinding_tool_binding(ctx, actor.id),
+   401	            )
+   402	        }
+   403	    };
+   404	    let duration = herbalism::physical_preparation_minutes(
+   405	        action,
+   406	        preparation_skill_check(ctx, actor.id, skill)?,
+   407	        tool_binding != "hands",
+   408	    );
+   409	    let place = preparation_place(ctx, actor)?;
+   410	    let custody_binding =
+   411	        crate::object_custody::canonical_custody_binding(resolved.object.custody());
+   412	    let snapshot = material_snapshot(
+   413	        ctx,
+   414	        &lot,
+   415	        &object,
+   416	        resolved.object.custody().clone(),
+   417	        current_minute,
+   418	    )?;
+   419	    let material_receipt = preparation_material_receipt(&snapshot, request_id, action)?;
+   420	    Ok(PreparationAuthority {
+   421	        inventory_scope: inventory_scope.as_str().into(),
+   422	        inventory_item_id,
+   423	        lot,
+   424	        object,
+   425	        custody_binding,
+   426	        place,
+   427	        skill,
+   428	        next,
+   429	        prefix,
+   430	        tool_binding,
+   431	        duration,
+   432	        material_source_digest: preparation_material_source_digest(ctx, food_lot_id),
+   433	        material_current_digest: preparation_material_current_digest(
+   434	            ctx,
+   435	            food_lot_id,
+   436	            current_minute,
+   437	        ),
+   438	        material_snapshot: snapshot,
+   439	        material_receipt,
+   440	    })
+   441	}
+   442	
+   443	fn build_preparation_planner(
+   444	    actor: &crate::Character,
+   445	    authority: &PreparationAuthority,
+   446	    request_id: &str,
+   447	    action: IngredientPreparationAction,
+   448	    current_minute: StrategicMinute,
+   449	    terminal_minute: Option<StrategicMinute>,
+   450	    attempt_generation: u64,
+   451	) -> Result<herbalism::PreparationPlanningOutcome, String> {
+   452	    use adventuresim_core::{
+   453	        physical_object::{CustodyCharacterId, PhysicalObjectId},
+   454	        strategic_action::{
+   455	            ActionCoordinates, ActionDefinitionId, ActionRequestId, ActionTarget,
+   456	            AuthoritativeSnapshot, AuthorityBinding, PlanProvenance, RequestedDuration,
+   457	            SnapshotDigest, SnapshotRevision,
+   458	        },
+   459	    };
+   460	    let actor_id = CustodyCharacterId::try_new(actor.id).map_err(|error| error.to_string())?;
+   461	    let object_id =
+   462	        PhysicalObjectId::try_new(authority.object.id).map_err(|error| error.to_string())?;
+   463	    let coordinates = ActionCoordinates::try_new(
+   464	        actor_id,
+   465	        ActionTarget::Object(object_id),
+   466	        authority.place.clone(),
+   467	        None,
+   468	        Vec::new(),
+   469	    )
+   470	    .map_err(|_| "Ingredient preparation coordinates are inconsistent")?;
+   471	    let rights_question =
+   472	        herbalism::preparation_rights_question(actor_id, object_id, authority.place.clone())
+   473	            .map_err(|_| "Ingredient preparation rights question is inconsistent")?;
+   474	    let rights = herbalism::decide_preparation_rights(
+   475	        &rights_question,
+   476	        true,
+   477	        authority.lot.material_revision,
+   478	    );
+   479	    let digest = preparation_authority_digest(
+   480	        actor,

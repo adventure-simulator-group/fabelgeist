@@ -1,0 +1,47 @@
+{
+  "existing_roots": [
+    "crates",
+    "assets"
+  ],
+  "absent_roots": [
+    "data"
+  ],
+  "terms": {
+    "raw_venison": {
+      "exit": 0,
+      "files": [
+        "crates/strategic-web/src/templates/settlement/trade/merchant/tests.rs",
+        "crates/strategic-web/src/routes/settlements/encumbrance_tests.rs",
+        "crates/strategic-web/tests/inventory-browser.dom.test.cjs",
+        "crates/adventuresim-core/src/foraging.rs",
+        "crates/adventuresim-core/src/food.rs"
+      ],
+      "stderr": ""
+    },
+    "cooking_minutes": {
+      "exit": 0,
+      "files": [
+        "crates/strategic-web/src/templates/settlement/cooking.rs",
+        "crates/adventuresim-core/src/item_catalog_validation.rs",
+        "crates/adventuresim-core/src/item_catalog_schema.rs",
+        "crates/adventuresim-core/src/food.rs",
+        "crates/adventuresim-stdb-module/src/food/cooking.rs"
+      ],
+      "stderr": ""
+    },
+    "fn catalog(": {
+      "exit": 0,
+      "files": [
+        "crates/fabelgeist-armor/src/helmets.rs",
+        "crates/adventuresim-world-schema/src/person_names.rs",
+        "crates/adventuresim-core/src/settlement_property/tests.rs",
+        "crates/adventuresim-core/src/quest_catalog.rs",
+        "crates/adventuresim-core/src/item_catalog.rs",
+        "crates/adventuresim-core/src/organization.rs",
+        "crates/adventuresim-tactical-client/src/art_demo/exhibits.rs",
+        "crates/adventuresim-dialogue/src/lib.rs"
+      ],
+      "stderr": ""
+    }
+  }
+}

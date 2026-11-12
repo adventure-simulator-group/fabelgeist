@@ -1,0 +1,66 @@
+ 300                 })
+ 301                 .set(WindowPlugin {
+ 302                     primary_window: Some(Window {
+ 303                         title: "Fabelgeist · Character Studio".into(),
+ 304                         resolution: (1440, 900).into(),
+ 305                         ..default()
+ 306                     }),
+ 307                     ..default()
+ 308                 }),
+ 309         )
+ 310         .add_plugins((
+ 311             EguiPlugin::default(),
+ 312             hair_preview::HairShadingPlugin,
+ 313             hair_preview::HairGpuPlugin,
+ 314         ))
+ 315         .init_resource::<CreatorPanelRight>()
+ 316         .init_resource::<studio_scene::CharacterBounds>()
+ 317         .init_resource::<studio_scene::ShotRequest>()
+ 318         .init_resource::<armory::Armory>()
+ 319         .init_resource::<studio_cache::StudioCache>()
+ 320         .init_resource::<wardrobe_tab::WardrobeTab>()
+ 321         .init_resource::<hair_preview::HairPreview>()
+ 322         .add_systems(Startup, (setup, armory::setup, animation_preview::request))
+ 323         .add_systems(
+ 324             EguiPrimaryContextPass,
+ 325             (studio_theme::install, studio_ui::show, armory_ui::labels).chain(),
+ 326         )
+ 327         .add_systems(
+ 328             Update,
+ 329             (
+ 330                 reload_model.before(regenerate_mesh),
+ 331                 animation_preview::prepare,
+ 332                 regenerate_mesh,
+ 333                 drape_preview::poll.after(regenerate_mesh),
+ 334                 hair_preview::refresh.after(regenerate_mesh),
+ 335                 hair_preview::show_layers.after(hair_preview::refresh),
+ 336                 drape_preview::refresh_mail.after(drape_preview::poll),
+ 337                 (
+ 338                     armory::enter_or_leave,
+ 339                     armory::refit,
+ 340                     armory::display,
+ 341                     armory::frame_camera,
+ 342                 )
+ 343                     .chain()
+ 344                     .after(reload_model)
+ 345                     .before(regenerate_mesh),
+ 346                 (wardrobe_tab::update, wardrobe_tab::display)
+ 347                     .chain()
+ 348                     .after(reload_model)
+ 349                     .before(regenerate_mesh),
+ 350                 studio_scene::frame_shot.after(armory::frame_camera),
+ 351                 studio_scene::center_beside_panel,
+ 352                 orbit_camera.after(studio_scene::frame_shot),
+ 353             ),
+ 354         )
+ 355         .add_systems(
+ 356             PostUpdate,
+ 357             animation_preview::deform_cloth.after(bevy::transform::TransformSystems::Propagate),
+ 358         )
+ 359         .run();
+ 360 }
+ 361 
+ 362 fn save_recipe(studio: &Studio) -> Result<String> {
+ 363     studio.recipe.validate().map_err(anyhow::Error::msg)?;
+ 364     let path = std::path::Path::new(&studio.recipe_path);
+ 365     if let Some(parent) = path

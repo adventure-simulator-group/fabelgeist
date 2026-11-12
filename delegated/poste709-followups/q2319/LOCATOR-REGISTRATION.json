@@ -1,0 +1,25 @@
+{
+  "registered_utc": "2026-11-12T15:52:37.234199+00:00",
+  "purpose": "Fixed-string source and related-record filename/line locators only; no source body credit. Save at most 100 per pattern and report omissions; console first 20.",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_scopes": [
+    "crates/adventuresim-stdb-module/src"
+  ],
+  "source_patterns": [
+    "prevalidate_rehome_subtree",
+    "rehome_subtree",
+    "merge_empty_container",
+    "delete_subtree",
+    "fireplace_station",
+    "estate"
+  ],
+  "evidence_revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+  "evidence_scopes": [
+    "."
+  ],
+  "evidence_patterns": [
+    "PL13-248-FIREPLACE-SUBTREE-DEATH-ESTATE-LIFECYCLE-PENDING",
+    "PL13-241-ESTATE-SUBTREE-CUSTODY-AND-LIFECYCLE-PENDING",
+    "prevalidate_rehome_subtree"
+  ]
+}

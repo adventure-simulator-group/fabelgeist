@@ -1,0 +1,61 @@
+ 400         EquipmentLocation::LeftBelt => [1.0, 0.0, 0.0],
+ 401         EquipmentLocation::RightBelt => [-1.0, 0.0, 0.0],
+ 402         EquipmentLocation::FrontBelt => [0.0, 0.0, -1.0],
+ 403         EquipmentLocation::BackBelt => [0.0, 0.0, 1.0],
+ 404         _ => return None,
+ 405     })
+ 406 }
+ 407 
+ 408 fn load_body_model(
+ 409     assets: &std::path::Path,
+ 410     lod: u8,
+ 411     correctives: bool,
+ 412     device: &Device,
+ 413 ) -> Result<BodyModel> {
+ 414     CharacterLod::try_from(lod)?;
+ 415     let mhr = Mhr::from_files(
+ 416         assets,
+ 417         MhrConfig {
+ 418             lod,
+ 419             pose_correctives: correctives,
+ 420         },
+ 421         device,
+ 422     )?;
+ 423     Ok(BodyModel {
+ 424         mhr,
+ 425         lod,
+ 426         correctives,
+ 427     })
+ 428 }
+ 429 
+ 430 fn reload_model(args: Res<Args>, mut model: ResMut<BodyModel>, mut studio: ResMut<Studio>) {
+ 431     if studio.selected_lod == model.lod && studio.selected_correctives == model.correctives {
+ 432         return;
+ 433     }
+ 434     let requested = studio.selected_lod;
+ 435     let requested_correctives = studio.selected_correctives;
+ 436     let device = Device::default();
+ 437     match load_body_model(&args.assets, requested, requested_correctives, &device) {
+ 438         Ok(loaded) => {
+ 439             *model = loaded;
+ 440             studio.dirty = true;
+ 441             studio.status = format!(
+ 442                 "MHR LOD {requested} ready · correctives {}",
+ 443                 if requested_correctives { "on" } else { "off" }
+ 444             );
+ 445         }
+ 446         Err(error) => {
+ 447             studio.selected_lod = model.lod;
+ 448             studio.selected_correctives = model.correctives;
+ 449             studio.status = format!(
+ 450                 "Could not load LOD {requested} with correctives {}: {error:#}",
+ 451                 if requested_correctives { "on" } else { "off" }
+ 452             );
+ 453         }
+ 454     }
+ 455 }
+ 456 
+ 457 #[cfg(test)]
+ 458 mod belt_mount_tests {
+ 459     use super::*;
+ 460 

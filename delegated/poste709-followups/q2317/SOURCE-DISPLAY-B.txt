@@ -1,0 +1,72 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:180-250
+ 180         };
+ 181         let (Some(lot), Some(amount)) = (lot, amount) else {
+ 182             continue;
+ 183         };
+ 184         if !matches!(
+ 185             lot.preparation,
+ 186             FoodPreparation::Raw
+ 187                 | FoodPreparation::Cut
+ 188                 | FoodPreparation::Ground
+ 189                 | FoodPreparation::Preserved
+ 190         ) {
+ 191             return Err("A cooked meal cannot be cooked again".into());
+ 192         }
+ 193         ids.push(row_id);
+ 194         amounts.push(amount);
+ 195         consumed_objects.push(child.id);
+ 196     }
+ 197     if ids.is_empty() {
+ 198         return Err("Put at least one uncooked food lot in the container".into());
+ 199     }
+ 200     add_fireplace_ingredients_at(
+ 201         ctx,
+ 202         character_id,
+ 203         fireplace_fixture_id,
+ 204         scope.as_str().into(),
+ 205         ids,
+ 206         amounts,
+ 207         Some(station),
+ 208     )?;
+ 209     for object_id in consumed_objects {
+ 210         ctx.db
+ 211             .inventory_containment()
+ 212             .child_object_id()
+ 213             .delete(object_id);
+ 214         ctx.db.inventory_object().id().delete(object_id);
+ 215     }
+ 216     Ok(())
+ 217 }
+ 218 
+ 219 fn add_fireplace_ingredients_at(
+ 220     ctx: &ReducerContext,
+ 221     character_id: u64,
+ 222     fireplace_fixture_id: String,
+ 223     inventory_scope: String,
+ 224     inventory_item_ids: Vec<u64>,
+ 225     fractions: Vec<ConsumableFractionMicros>,
+ 226     vessel_station: Option<FireplaceStation>,
+ 227 ) -> Result<(), String> {
+ 228     crate::strategic::require_strategic_gateway(ctx)?;
+ 229     let actor = crate::character::require_living_character(ctx, character_id)?;
+ 230     if actor.has_tactical_server_assignment() {
+ 231         return Err("Cooking is unavailable during a tactical encounter".into());
+ 232     }
+ 233     validate_fireplace_fixture(ctx, &actor, &fireplace_fixture_id)?;
+ 234     let inventory_scope = CarriedInventoryScope::try_from(inventory_scope.as_str())
+ 235         .map_err(|error| error.to_string())?;
+ 236     let is_vessel = vessel_station.is_some();
+ 237     let station = vessel_station
+ 238         .unwrap_or_else(|| fireplace_station_for(ctx, character_id, &fireplace_fixture_id));
+ 239     let station_fixture = validate_persisted_station_fixture(ctx, &station)?;
+ 240     if station_fixture.to_string() != fireplace_fixture_id {
+ 241         return Err("Fireplace station conflicts with the requested canonical fixture".into());
+ 242     }
+ 243     let return_custody = if is_vessel {
+ 244         let custody = station
+ 245             .instrument_return_custody
+ 246             .clone()
+ 247             .ok_or("Container return custody is unknown")?;
+ 248         let destination = crate::object_custody::carried_destination(&custody, character_id)?;
+ 249         let destination_scope = match &destination {
+ 250             OperationalCustody::Character(_) => CarriedInventoryScope::Personal,

@@ -1,0 +1,47 @@
+SOURCE crates/adventuresim-stdb-module/src/food/preparation_authority.rs:350-395
+ 350         CarriedInventoryScope::try_from(inventory_scope).map_err(|error| error.to_string())?;
+ 351     let lot = ctx
+ 352         .db
+ 353         .food_lot()
+ 354         .id()
+ 355         .find(food_lot_id)
+ 356         .ok_or("Ingredient lot not found")?;
+ 357     if lot.material_revision == 0 || lot.material_revision != expected_revision {
+ 358         return Err("Ingredient preparation revision is stale".into());
+ 359     }
+ 360     let linked_row = match inventory_scope {
+ 361         CarriedInventoryScope::Personal => lot.inventory_item_id == Some(inventory_item_id),
+ 362         CarriedInventoryScope::Party => lot.party_inventory_item_id == Some(inventory_item_id),
+ 363     };
+ 364     if !linked_row {
+ 365         return Err("Ingredient lot does not match the selected inventory row".into());
+ 366     }
+ 367     let object =
+ 368         crate::inventory_container::object_for_row(ctx, inventory_scope, inventory_item_id)?
+ 369             .ok_or("Ingredient lot has no stable material object")?;
+ 370     if object.id != material_object_id {
+ 371         return Err("Ingredient material object is stale or ambiguous".into());
+ 372     }
+ 373     let resolved = crate::object_custody::require_actor_carried_object(ctx, actor, &object)?;
+ 374     if crate::inventory_container::ancestry_reaches_fireplace(ctx, object.id) {
+ 375         return Err("Ingredient lot is not in carried preparation custody".into());
+ 376     }
+ 377     let (skill, next, prefix, tool_binding) = match action {
+ 378         IngredientPreparationAction::Cut => {
+ 379             if lot.preparation != FoodPreparation::Raw {
+ 380                 return Err("Only a raw ingredient can be cut".into());
+ 381             }
+ 382             let tool_binding = qualifying_cutting_weapon_binding(ctx, actor.id).ok_or(
+ 383                 "Cutting requires a carried edged weapon with current precision of at least 0.5",
+ 384             )?;
+ 385             (
+ 386                 Skill::Knife,
+ 387                 FoodPreparation::Cut,
+ 388                 "Cut",
+ 389                 tool_binding,
+ 390             )
+ 391         }
+ 392         IngredientPreparationAction::Grind => {
+ 393             if !matches!(lot.preparation, FoodPreparation::Raw | FoodPreparation::Cut) {
+ 394                 return Err("Only a raw or cut ingredient can be ground".into());
+ 395             }

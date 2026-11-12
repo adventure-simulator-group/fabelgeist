@@ -1,0 +1,20 @@
+SOURCE crates/adventuresim-stdb-module/src/food/cooking.rs:411-429
+ 411                     _ => None,
+ 412                 };
+ 413                 if let Some(profile) = profile {
+ 414                     *medicinal.entry(profile.into()).or_default() +=
+ 415                         food::retained_component(*quantity, ratio)
+ 416                             * (0.5 + 0.1 * herbalism_check.clamp(1.0, 5.0));
+ 417                 }
+ 418             }
+ 419         }
+ 420         let selected_mass = lot.mass_kg * ratio;
+ 421         mass += selected_mass;
+ 422         kcal += lot.nutrition_kcal * ratio;
+ 423         value += lot.total_value * ratio;
+ 424         flavors.add_assign(
+ 425             food::FlavorProfile::new(
+ 426                 lot.salty_kg,
+ 427                 lot.spicy_kg,
+ 428                 lot.sweet_kg,
+ 429                 lot.sour_kg,

@@ -1,0 +1,19 @@
+{
+  "registered_at_utc": "2026-11-12T15:37:26.877787+00:00",
+  "purpose": "Search physical strategic-web/stdb worktree for candidate UI and gateway files using exact terms; output counts and at most first 20 filenames only.",
+  "roots": [
+    "crates/strategic-web",
+    "crates/adventuresim-stdb-module",
+    "crates/adventuresim-stdb-client"
+  ],
+  "terms": [
+    "cooking_duration",
+    "cooking_preview",
+    "preview_cooking",
+    "start_fireplace_container_cooking",
+    "add_fireplace_ingredients",
+    "fireplace_dish",
+    "target_minutes"
+  ],
+  "qualification": "Unpinned filename navigation; ignored and unsearched sources are not covered. No semantic absence claim."
+}

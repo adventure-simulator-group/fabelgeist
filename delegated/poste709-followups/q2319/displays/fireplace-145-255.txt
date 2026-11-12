@@ -1,0 +1,111 @@
+ 145     } else {
+ 146         Ok(())
+ 147     }
+ 148 }
+ 149 
+ 150 /// Resolves only the dead character's private station rows. Unretrieved food is
+ 151 /// abandoned. Tools return to their exact recorded source when it still exists;
+ 152 /// otherwise they move to the dead character's personal estate inventory. If
+ 153 /// even that character row is absent, the tool is abandoned with the station.
+ 154 /// A stale party reference can therefore never lock travel or leak another
+ 155 /// player's dish.
+ 156 pub(crate) fn cleanup_fireplace_custody_for_death(
+ 157     ctx: &ReducerContext,
+ 158     character_id: u64,
+ 159 ) -> Result<(), String> {
+ 160     enum StationCleanup {
+ 161         Delete {
+ 162             station_key: String,
+ 163         },
+ 164         Abandon,
+ 165         Return {
+ 166             station_key: String,
+ 167             item_id: String,
+ 168             object_id: Option<u64>,
+ 169             destination: OperationalCustody,
+ 170         },
+ 171     }
+ 172 
+ 173     let personal_estate_exists = ctx.db.character().id().find(character_id).is_some();
+ 174     let stations = ctx
+ 175         .db
+ 176         .fireplace_station()
+ 177         .character_id()
+ 178         .filter(character_id)
+ 179         .collect::<Vec<_>>();
+ 180     let mut cleanup = Vec::with_capacity(stations.len());
+ 181 
+ 182     // Resolve and validate every return before deleting a dish, changing an
+ 183     // object row, or removing a station.
+ 184     for station in &stations {
+ 185         validate_persisted_station_fixture(ctx, station)?;
+ 186         let Some(item_id) = station.instrument_item_id.as_deref() else {
+ 187             cleanup.push(StationCleanup::Delete {
+ 188                 station_key: station.key.clone(),
+ 189             });
+ 190             continue;
+ 191         };
+ 192         let recorded_destination = crate::object_custody::carried_destination(
+ 193             station
+ 194                 .instrument_return_custody
+ 195                 .as_ref()
+ 196                 .ok_or("Fireplace instrument return custody is missing")?,
+ 197             character_id,
+ 198         )?;
+ 199         let exact_party = match &recorded_destination {
+ 200             OperationalCustody::Party(party_id) => Some(party_id),
+ 201             _ => None,
+ 202         }
+ 203         .filter(|party_id| {
+ 204             ctx.db
+ 205                 .party_authority()
+ 206                 .id()
+ 207                 .find(party_id.as_str().to_owned())
+ 208                 .is_some()
+ 209         });
+ 210         let destination = if let Some(party_id) = exact_party {
+ 211             Some(OperationalCustody::party(party_id.as_str()).map_err(|error| error.to_string())?)
+ 212         } else if personal_estate_exists {
+ 213             Some(OperationalCustody::character(character_id).map_err(|error| error.to_string())?)
+ 214         } else {
+ 215             None
+ 216         };
+ 217         let Some(destination) = destination else {
+ 218             cleanup.push(StationCleanup::Abandon);
+ 219             continue;
+ 220         };
+ 221         if let Some(object_id) = station.instrument_object_id {
+ 222             let object = ctx
+ 223                 .db
+ 224                 .inventory_object()
+ 225                 .id()
+ 226                 .find(object_id)
+ 227                 .ok_or("Fireplace instrument object is missing")?;
+ 228             if object.item_id != item_id {
+ 229                 return Err("Fireplace instrument conflicts with its physical object".into());
+ 230             }
+ 231             crate::inventory_container::prevalidate_rehome_subtree(ctx, object_id, &destination)?;
+ 232         }
+ 233         cleanup.push(StationCleanup::Return {
+ 234             station_key: station.key.clone(),
+ 235             item_id: item_id.into(),
+ 236             object_id: station.instrument_object_id,
+ 237             destination,
+ 238         });
+ 239     }
+ 240 
+ 241     for dish in ctx
+ 242         .db
+ 243         .fireplace_dish()
+ 244         .character_id()
+ 245         .filter(character_id)
+ 246         .collect::<Vec<_>>()
+ 247     {
+ 248         ctx.db
+ 249             .fireplace_dish()
+ 250             .station_key()
+ 251             .delete(dish.station_key);
+ 252     }
+ 253     for plan in cleanup {
+ 254         let StationCleanup::Return {
+ 255             station_key,

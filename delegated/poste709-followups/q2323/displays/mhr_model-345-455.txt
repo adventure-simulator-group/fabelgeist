@@ -1,0 +1,111 @@
+ 345         // amplified along the kinematic chain. The tensor is 204 x 889, so the
+ 346         // exact form is cheap.
+ 347         let mut joint_parameters = (model_parameters.unsqueeze_dim::<3>(2)
+ 348             * self.transform.clone().unsqueeze::<3>())
+ 349         .sum_dim(1)
+ 350         .reshape([batch, joints.native_joint_count() * PARAMETERS_PER_JOINT]);
+ 351         if let Some(offsets) = &self.offsets {
+ 352             joint_parameters = joint_parameters + offsets.clone();
+ 353         }
+ 354         let joint_parameters =
+ 355             joint_parameters.reshape([batch, joints.native_joint_count(), PARAMETERS_PER_JOINT]);
+ 356 
+ 357         let skeleton_state = self.skeleton_state(joint_parameters.clone());
+ 358 
+ 359         let mut rest = rest.reshape([batch, vertices.native_vertex_count(), 3]);
+ 360         if apply_correctives && let Some(correctives) = &self.correctives {
+ 361             rest = rest + correctives.forward(joint_parameters)?;
+ 362         }
+ 363 
+ 364         let vertices = self.skin(skeleton_state.clone(), rest);
+ 365 
+ 366         Ok(MhrOutput {
+ 367             normals: self.vertex_normals(vertices.clone()),
+ 368             vertices,
+ 369             skeleton_state,
+ 370         })
+ 371     }
+ 372 
+ 373     /// Joint parameters `[batch, joints, 7]` to global skeleton states.
+ 374     fn skeleton_state(&self, joint_parameters: Tensor<3>) -> Tensor<3> {
+ 375         let translation =
+ 376             joint_parameters.clone().narrow(2, 0, 3) + self.joint_translation_offsets.clone();
+ 377         let rotation = skel_state::quaternion_multiply(
+ 378             self.joint_prerotations.clone(),
+ 379             skel_state::euler_xyz_to_quaternion(joint_parameters.clone().narrow(2, 3, 3)),
+ 380         );
+ 381         // momentum stores scale as a power of two.
+ 382         let scale = (joint_parameters.narrow(2, 6, 1) * std::f32::consts::LN_2).exp();
+ 383 
+ 384         let mut state = Tensor::cat(vec![translation, rotation, scale], 2);
+ 385         for (source, target) in &self.fk_levels {
+ 386             let parent = state.clone().select(1, target.clone());
+ 387             let child = state.clone().select(1, source.clone());
+ 388             // An overwrite expressed as an accumulation: source indices are
+ 389             // unique within a level, and `Assign` has no backend kernel here.
+ 390             let delta = skel_state::multiply(parent, child.clone()) - child;
+ 391             state = state.select_assign(1, source.clone(), delta, IndexingUpdateOp::Add);
+ 392         }
+ 393         state
+ 394     }
+ 395 
+ 396     /// Area-weighted vertex normals of a posed mesh, `[batch, vertices, 3]`.
+ 397     ///
+ 398     /// Each triangle contributes its unnormalized cross product, whose length
+ 399     /// is twice the triangle's area, to all three of its corners. That is the
+ 400     /// weighting `THREE.BufferGeometry.computeVertexNormals` uses, which is
+ 401     /// what the reference web viewer shades MHR with.
+ 402     fn vertex_normals(&self, vertices: Tensor<3>) -> Tensor<3> {
+ 403         let batch = vertices.dims()[0];
+ 404         let faces = self.character.mesh.faces.len();
+ 405 
+ 406         let corners = vertices
+ 407             .select(1, self.face_corners.clone())
+ 408             .reshape([batch, faces, 3, 3]);
+ 409         let corner = |index: usize| {
+ 410             corners
+ 411                 .clone()
+ 412                 .narrow(2, index, 1)
+ 413                 .reshape([batch, faces, 3])
+ 414         };
+ 415         let (first, second, third) = (corner(0), corner(1), corner(2));
+ 416         let (u, v) = (second - first.clone(), third - first);
+ 417 
+ 418         let axis = |t: &Tensor<3>, index: usize| t.clone().narrow(2, index, 1);
+ 419         let cross = Tensor::cat(
+ 420             vec![
+ 421                 axis(&u, 1) * axis(&v, 2) - axis(&u, 2) * axis(&v, 1),
+ 422                 axis(&u, 2) * axis(&v, 0) - axis(&u, 0) * axis(&v, 2),
+ 423                 axis(&u, 0) * axis(&v, 1) - axis(&u, 1) * axis(&v, 0),
+ 424             ],
+ 425             2,
+ 426         );
+ 427 
+ 428         // The same face normal lands on each of the face's three corners.
+ 429         let contribution = cross
+ 430             .unsqueeze_dim::<4>(2)
+ 431             .expand([batch, faces, 3, 3])
+ 432             .reshape([batch, faces * 3, 3]);
+ 433         let accumulated = Tensor::zeros(
+ 434             [batch, self.num_vertices().native_vertex_count(), 3],
+ 435             &self.device,
+ 436         )
+ 437         .select_assign(
+ 438             1,
+ 439             self.face_corners.clone(),
+ 440             contribution,
+ 441             IndexingUpdateOp::Add,
+ 442         );
+ 443 
+ 444         // A vertex no triangle references keeps a zero normal, as it does in
+ 445         // three.js; nothing rasterizes it, so there is no direction to invent.
+ 446         let length = accumulated
+ 447             .clone()
+ 448             .powi_scalar(2)
+ 449             .sum_dim(2)
+ 450             .sqrt()
+ 451             .clamp_min(1e-12);
+ 452         accumulated / length
+ 453     }
+ 454 
+ 455     /// Linear blend skinning of `rest` `[batch, vertices, 3]`.

@@ -1,0 +1,20 @@
+     1	//! Pure food-lot, spoilage, meal, and cooking rules.
+     2	
+     3	use fabelgeist_determinism::Seed;
+     4	use serde::{Deserialize, Serialize};
+     5	
+     6	pub const MAX_MEAL_FULLNESS_KCAL: f32 = 3_000.0;
+     7	pub const MIN_INITIAL_CONTAMINATION: f32 = 1.0e-8;
+     8	pub const MAX_INITIAL_CONTAMINATION: f32 = 1.0e-5;
+     9	pub const RECONTAMINATION_FLOOR: f32 = 1.0e-9;
+    10	pub const MAX_CONTAMINATION: f32 = 1.0e9;
+    11	pub const PAN_FRY_MIN_FAT_MASS_RATIO: f32 = 0.02;
+    12	pub const CUT_COOKING_TIME_FACTOR: f32 = 0.75;
+    13	pub const GROUND_COOKING_TIME_FACTOR: f32 = 0.50;
+    14	pub const SMOKED_ADDITIONAL_NUTRITION_LOSS: f32 = 0.15;
+    15	
+    16	/// Retrieval-time effects for a dish left on a fireplace. Quality is a
+    17	/// discrete tier adjustment applied to the ready dish. Early retrieval moves
+    18	/// proportionally from raw calories toward the method's ready retention and
+    19	/// only applies a fraction of the method's microbial kill;
+    20	/// after readiness calories fall linearly to zero over one more target

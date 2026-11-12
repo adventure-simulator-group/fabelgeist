@@ -1,0 +1,32 @@
+SOURCE crates/adventuresim-stdb-module/src/food/preparation_authority.rs:285-315
+ 285             .map_err(|error| format!("Invalid material request: {error:?}"))?,
+ 286         process_id: MaterialProcessId::try_new(snapshot.identity().lot_id().get())
+ 287             .map_err(|error| format!("Invalid material process: {error:?}"))?,
+ 288     };
+ 289     let (source, remainder) = SourceLotContribution::from_snapshot(
+ 290         snapshot,
+ 291         Portion::try_new(1, 1).map_err(|error| format!("Invalid whole portion: {error:?}"))?,
+ 292     )
+ 293     .map_err(|error| format!("Invalid preparation source: {error:?}"))?;
+ 294     if remainder.is_some() {
+ 295         return Err("Whole-lot preparation unexpectedly produced a remainder".into());
+ 296     }
+ 297     let output = adventuresim_core::material::PrivateMaterialSnapshot::try_new(
+ 298         snapshot.identity().clone(),
+ 299         snapshot.measure(),
+ 300         match action {
+ 301             IngredientPreparationAction::Cut => MaterialPreparation::Cut,
+ 302             IngredientPreparationAction::Grind => MaterialPreparation::Ground,
+ 303         },
+ 304         snapshot.private_truth().clone(),
+ 305         snapshot
+ 306             .revision()
+ 307             .checked_add(1)
+ 308             .ok_or("Ingredient material revision is exhausted")?,
+ 309     )
+ 310     .map_err(|error| format!("Invalid preparation output: {error:?}"))?;
+ 311     MaterialTransformationReceipt::try_new(
+ 312         provenance,
+ 313         vec![source],
+ 314         vec![
+ 315             ProducedMaterial::try_new(output)
