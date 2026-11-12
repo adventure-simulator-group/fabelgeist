@@ -1,0 +1,57 @@
+55: pub use query::{SupportCeiling, SupportQuery};
+56: mod selection;
+57: pub use selection::CompoundSupportRequest;
+58: mod stairs;
+59: #[cfg(test)]
+60: mod tests;
+61: pub use foundations::{
+62:     BoundedPropertyTerrain, BoundedSettlementTerrain, FoundationEmbedment, GeographicHeightControl,
+63:     GeographicHeightRange, GeographicRegionMeasurement, GeographicSurface,
+64:     GeographicSurfaceComparison, PropertyFoundationMesh, SettlementSupportError,
+65:     SurfaceDifferenceControl,
+66: };
+67: pub use mesh::PropertySupportMesh;
+68: use mesh::SupportFaceRole;
+69: use profile::{FloorBasisRole, ProfileCoordinate, ProfilePoint, SupportProfile};
+70: use stairs::CourtStair;
+71: pub use stairs::{CourtStairLimits, SupportStairFlight};
+72: 
+73: /// Finite architectural floor or support elevation in scene metres.
+74: #[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::reflect::Reflect)]
+75: #[reflect(opaque)]
+76: #[serde(transparent)]
+77: pub struct SupportElevation(f32);
+78: 
+79: impl SupportElevation {
+80:     pub const ZERO: Self = Self(0.0);
+81:     pub fn from_metres(metres: f32) -> Option<Self> {
+82:         metres.is_finite().then_some(Self(metres))
+83:     }
+84:     pub fn metres(self) -> f32 {
+85:         self.0
+86:     }
+87:     pub fn max(self, other: Self) -> Self {
+88:         Self(self.0.max(other.0))
+89:     }
+90:     pub fn translated(
+91:         self,
+92:         offset: adventuresim_building_generator::spatial_geometry::SignedLength,
+93:     ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Self> {
+94:         use adventuresim_building_generator::spatial_geometry::{
+95:             CoordinateAxis, GeometryError, GeometryRole,
+96:         };
+97:         Self::from_metres(self.0 + offset.metres()).ok_or(GeometryError::NonFinite {
+98:             role: GeometryRole::Elevation,
+99:             axis: CoordinateAxis::Y,
+100:         })
+101:     }
+102: }
+103: 
+104: impl<'de> Deserialize<'de> for SupportElevation {
+105:     fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+106:         let metres = f32::deserialize(deserializer)?;
+107:         Self::from_metres(metres)
+108:             .ok_or_else(|| serde::de::Error::custom("support elevation must be finite"))
+109:     }
+110: }
+111: 

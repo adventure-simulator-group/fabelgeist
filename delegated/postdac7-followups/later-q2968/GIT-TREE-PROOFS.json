@@ -1,0 +1,467 @@
+{
+  "qualification": "Internal tree-to-blob hashes are portable; commit-to-root identity needs external pinned commit metadata/store, no raw commit object copied. Equality here is per file, not whole-tree.",
+  "proofs": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "blob": "27475f5e3fad6f475cde51f1e8b2317feea85b95",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "source_file": "historical-6533.source",
+      "steps": [
+        {
+          "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+        },
+        {
+          "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+          "entry": "adventuresim-tactical-server-dispatcher",
+          "mode": "40000",
+          "oid": "7120d6b21f66767cd6432346b0cba91227cca00f"
+        },
+        {
+          "tree": "7120d6b21f66767cd6432346b0cba91227cca00f",
+          "entry": "examples",
+          "mode": "40000",
+          "oid": "731eae3824a32066a4a3c10051c40ca2a78067b7"
+        },
+        {
+          "tree": "731eae3824a32066a4a3c10051c40ca2a78067b7",
+          "entry": "validate-city-support.rs",
+          "mode": "100644",
+          "oid": "27475f5e3fad6f475cde51f1e8b2317feea85b95"
+        }
+      ]
+    },
+    {
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "blob": "27475f5e3fad6f475cde51f1e8b2317feea85b95",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "source_file": "historical-e275.source",
+      "steps": [
+        {
+          "tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "aa5546dfa40d26f0e800e424e7977c40ba94394e"
+        },
+        {
+          "tree": "aa5546dfa40d26f0e800e424e7977c40ba94394e",
+          "entry": "adventuresim-tactical-server-dispatcher",
+          "mode": "40000",
+          "oid": "7120d6b21f66767cd6432346b0cba91227cca00f"
+        },
+        {
+          "tree": "7120d6b21f66767cd6432346b0cba91227cca00f",
+          "entry": "examples",
+          "mode": "40000",
+          "oid": "731eae3824a32066a4a3c10051c40ca2a78067b7"
+        },
+        {
+          "tree": "731eae3824a32066a4a3c10051c40ca2a78067b7",
+          "entry": "validate-city-support.rs",
+          "mode": "100644",
+          "oid": "27475f5e3fad6f475cde51f1e8b2317feea85b95"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "blob": "27475f5e3fad6f475cde51f1e8b2317feea85b95",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "source_file": "current-95e.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-server-dispatcher",
+          "mode": "40000",
+          "oid": "7120d6b21f66767cd6432346b0cba91227cca00f"
+        },
+        {
+          "tree": "7120d6b21f66767cd6432346b0cba91227cca00f",
+          "entry": "examples",
+          "mode": "40000",
+          "oid": "731eae3824a32066a4a3c10051c40ca2a78067b7"
+        },
+        {
+          "tree": "731eae3824a32066a4a3c10051c40ca2a78067b7",
+          "entry": "validate-city-support.rs",
+          "mode": "100644",
+          "oid": "27475f5e3fad6f475cde51f1e8b2317feea85b95"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "blob": "2f153d59e12485f5e84875debc40e1749ca1d294",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "source_file": "support/compound.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-core",
+          "mode": "40000",
+          "oid": "cb5fc1867680485bb50e0350ad129e94b630a8fe"
+        },
+        {
+          "tree": "cb5fc1867680485bb50e0350ad129e94b630a8fe",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "39f2719586aaf4ff2d793b51529834b2bba85953"
+        },
+        {
+          "tree": "39f2719586aaf4ff2d793b51529834b2bba85953",
+          "entry": "city_layout",
+          "mode": "40000",
+          "oid": "a58a8b7af546facb1e9f8cdcce65249573981d02"
+        },
+        {
+          "tree": "a58a8b7af546facb1e9f8cdcce65249573981d02",
+          "entry": "compound.rs",
+          "mode": "100644",
+          "oid": "2f153d59e12485f5e84875debc40e1749ca1d294"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "blob": "ce5e205c98dc45232f19e7762729c8a9a59ebac4",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "source_file": "support/scene.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-core",
+          "mode": "40000",
+          "oid": "cb5fc1867680485bb50e0350ad129e94b630a8fe"
+        },
+        {
+          "tree": "cb5fc1867680485bb50e0350ad129e94b630a8fe",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "39f2719586aaf4ff2d793b51529834b2bba85953"
+        },
+        {
+          "tree": "39f2719586aaf4ff2d793b51529834b2bba85953",
+          "entry": "scene_input.rs",
+          "mode": "100644",
+          "oid": "ce5e205c98dc45232f19e7762729c8a9a59ebac4"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-core/src/settlement_property.rs",
+      "blob": "a04c1d64c6ff0f2364a88fa7caef29ea1d5cd5a2",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "source_file": "support/settlement.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-core",
+          "mode": "40000",
+          "oid": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "entry": "settlement_property.rs",
+          "mode": "100644",
+          "oid": "a04c1d64c6ff0f2364a88fa7caef29ea1d5cd5a2"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/layout.rs",
+      "blob": "dac10d08bfb8141d5fe57924929778e602056624",
+      "sha256": "f7e90dc62671c7b3931afc40e14d878f91c9ee0a52384970cce61e4755962146",
+      "source_file": "support/example-layout.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-server-dispatcher",
+          "mode": "40000",
+          "oid": "7120d6b21f66767cd6432346b0cba91227cca00f"
+        },
+        {
+          "tree": "7120d6b21f66767cd6432346b0cba91227cca00f",
+          "entry": "examples",
+          "mode": "40000",
+          "oid": "731eae3824a32066a4a3c10051c40ca2a78067b7"
+        },
+        {
+          "tree": "731eae3824a32066a4a3c10051c40ca2a78067b7",
+          "entry": "validate_city_support",
+          "mode": "40000",
+          "oid": "5b23fbbfa90f818513f5a7c4dca6c0db3625d067"
+        },
+        {
+          "tree": "5b23fbbfa90f818513f5a7c4dca6c0db3625d067",
+          "entry": "layout.rs",
+          "mode": "100644",
+          "oid": "dac10d08bfb8141d5fe57924929778e602056624"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/single_support.rs",
+      "blob": "f2de6e26034c1262304bbce3efc1ba038aa161f7",
+      "sha256": "9927367b2d5cebf2b639c1f364a023b1ce1c4125733db42eee5a6f72b8f3bfa8",
+      "source_file": "support/single.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-core",
+          "mode": "40000",
+          "oid": "cb5fc1867680485bb50e0350ad129e94b630a8fe"
+        },
+        {
+          "tree": "cb5fc1867680485bb50e0350ad129e94b630a8fe",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "39f2719586aaf4ff2d793b51529834b2bba85953"
+        },
+        {
+          "tree": "39f2719586aaf4ff2d793b51529834b2bba85953",
+          "entry": "city_layout",
+          "mode": "40000",
+          "oid": "a58a8b7af546facb1e9f8cdcce65249573981d02"
+        },
+        {
+          "tree": "a58a8b7af546facb1e9f8cdcce65249573981d02",
+          "entry": "compiled",
+          "mode": "40000",
+          "oid": "d559286286cd1fb1bd7fd5c3842c644550d3e152"
+        },
+        {
+          "tree": "d559286286cd1fb1bd7fd5c3842c644550d3e152",
+          "entry": "single_support.rs",
+          "mode": "100644",
+          "oid": "f2de6e26034c1262304bbce3efc1ba038aa161f7"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/assembly.rs",
+      "blob": "76e6b7d5a49a54901beb0332dd5060e75f233976",
+      "sha256": "a8a469dd521e1e0597fdde6b48afb329dc8de744dacd3cbf8d2b6df84d81d13f",
+      "source_file": "support/assembly.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-core",
+          "mode": "40000",
+          "oid": "cb5fc1867680485bb50e0350ad129e94b630a8fe"
+        },
+        {
+          "tree": "cb5fc1867680485bb50e0350ad129e94b630a8fe",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "39f2719586aaf4ff2d793b51529834b2bba85953"
+        },
+        {
+          "tree": "39f2719586aaf4ff2d793b51529834b2bba85953",
+          "entry": "city_layout",
+          "mode": "40000",
+          "oid": "a58a8b7af546facb1e9f8cdcce65249573981d02"
+        },
+        {
+          "tree": "a58a8b7af546facb1e9f8cdcce65249573981d02",
+          "entry": "compiled",
+          "mode": "40000",
+          "oid": "d559286286cd1fb1bd7fd5c3842c644550d3e152"
+        },
+        {
+          "tree": "d559286286cd1fb1bd7fd5c3842c644550d3e152",
+          "entry": "assembly.rs",
+          "mode": "100644",
+          "oid": "76e6b7d5a49a54901beb0332dd5060e75f233976"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "blob": "ad894a6f76bdab9bb22efc9324cd481f3a115853",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "source_file": "support/property.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-core",
+          "mode": "40000",
+          "oid": "cb5fc1867680485bb50e0350ad129e94b630a8fe"
+        },
+        {
+          "tree": "cb5fc1867680485bb50e0350ad129e94b630a8fe",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "39f2719586aaf4ff2d793b51529834b2bba85953"
+        },
+        {
+          "tree": "39f2719586aaf4ff2d793b51529834b2bba85953",
+          "entry": "city_layout",
+          "mode": "40000",
+          "oid": "a58a8b7af546facb1e9f8cdcce65249573981d02"
+        },
+        {
+          "tree": "a58a8b7af546facb1e9f8cdcce65249573981d02",
+          "entry": "compiled",
+          "mode": "40000",
+          "oid": "d559286286cd1fb1bd7fd5c3842c644550d3e152"
+        },
+        {
+          "tree": "d559286286cd1fb1bd7fd5c3842c644550d3e152",
+          "entry": "property.rs",
+          "mode": "100644",
+          "oid": "ad894a6f76bdab9bb22efc9324cd481f3a115853"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "blob": "b45a3494a89213894d786b281bc4693736da2939",
+      "sha256": "d2ea661c716a406090f74c7caf955d7381bb8eee5f02850af42cd153b3fedd84",
+      "source_file": "support/scene-source.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-tactical-core",
+          "mode": "40000",
+          "oid": "cb5fc1867680485bb50e0350ad129e94b630a8fe"
+        },
+        {
+          "tree": "cb5fc1867680485bb50e0350ad129e94b630a8fe",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "39f2719586aaf4ff2d793b51529834b2bba85953"
+        },
+        {
+          "tree": "39f2719586aaf4ff2d793b51529834b2bba85953",
+          "entry": "scene_input",
+          "mode": "40000",
+          "oid": "5765ab263f0a606fbdaf26d9592cdd322a6ba25d"
+        },
+        {
+          "tree": "5765ab263f0a606fbdaf26d9592cdd322a6ba25d",
+          "entry": "terrain_samples.rs",
+          "mode": "100644",
+          "oid": "b45a3494a89213894d786b281bc4693736da2939"
+        }
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "path": "crates/adventuresim-world-schema/src/source_package.rs",
+      "blob": "2af94e731dce3671e07608bf2e5750d1073e0481",
+      "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "source_file": "support/package-digest.source",
+      "steps": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "entry": "crates",
+          "mode": "40000",
+          "oid": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "entry": "adventuresim-world-schema",
+          "mode": "40000",
+          "oid": "c4d058454e460b3f7de9c34e808b746ccff07eb0"
+        },
+        {
+          "tree": "c4d058454e460b3f7de9c34e808b746ccff07eb0",
+          "entry": "src",
+          "mode": "40000",
+          "oid": "7fb776454b47bc8bc1e50fe289ce543e32c5421a"
+        },
+        {
+          "tree": "7fb776454b47bc8bc1e50fe289ce543e32c5421a",
+          "entry": "source_package.rs",
+          "mode": "100644",
+          "oid": "2af94e731dce3671e07608bf2e5750d1073e0481"
+        }
+      ]
+    }
+  ]
+}

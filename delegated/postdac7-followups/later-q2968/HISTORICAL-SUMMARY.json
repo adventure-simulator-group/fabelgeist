@@ -1,0 +1,64 @@
+{
+  "kind": "Reviewer-authored reconstruction from selected fields of restricted original records, not their raw bytes",
+  "original_queue": {
+    "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "path": "baseline-059/queue.json",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad"
+  },
+  "reconstructed_queue": {
+    "revision": "dac7d0055716053f245139971eb67ddfd87fa462",
+    "path": "baseline-059/queue.json",
+    "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+    "blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5"
+  },
+  "selected_original_and_reconstruction_identical_sha256": {
+    "2968": "9c93f18b314b3a1e9fc20f2a2e6ce1b12553d9252562c3ff9dbc1b60978ce43f",
+    "2370": "2e8eaea7155adfac85c330f93c1b524aa383696de1d31b8104048e26251cd156",
+    "3126": "ac370641252e541eb910f793b5605b7410d74d3708e7b84243cedcf90dd4ef05"
+  },
+  "prior_root_l2": {
+    "record": "/entries/2370",
+    "status": "open-connected-owner-current-alias-qualification",
+    "6533": "Root fresh Lens2 full 1-140 example and 1-25 compound",
+    "e275": "qualified identical same-Lens2 reuse only, no fresh personal ranges",
+    "receipt_6533": "b11a5eea895a5322691d37fafe79745efcb524e4d41491d6c371aed8b68bda66",
+    "receipt_e275": "55aa86643477728a7fc47801a6bca57d3434960a948e0c3dad1fded4f84d15d1",
+    "registration_example": "94b4025fc1750ad249d4854fa4f882582120d869d43fbd24f83f1dd7860b545f",
+    "registration_compound": "955672d2b90da26ed487e91f0c419fe770d3417364637bdbaa876d1d1cec98a4"
+  },
+  "prior_root_l3": {
+    "record": "/entries/3126",
+    "6533": "Root fresh Lens3 example 1-140",
+    "e275": "qualified identical same-Lens3 reuse only, no fresh personal ranges",
+    "receipt_6533": "8f42acb336d90954c4c59d4f729197f4a29c5e7b00f96935ca58615ccb215ce8",
+    "receipt_e275": "21ca2b9debf4c11ec5c9351d095522cb1a99a6923c73767c6de7725cae95416f",
+    "registration_6533": "52cd1cccefd4bd8e9a4e433696ca018b72ff6603ed17cedaf3fa65dc9af8b3e8",
+    "registration_e275": "c3b6bd824bca261fc1037e7b1070028e48136a8939e4ce4e4ced688e223114b6"
+  },
+  "adler_l11": {
+    "original_role": 1995,
+    "registration_sha256": "e16ef24c1ddcb2771ca1bacd2af8dbdc1969e13d69390dd23f228ce96ad0f366",
+    "receipt_measured_sha256": "315b5fd262fd97d09fa2d4bc459306ed5d3793869338040deb3a0f3cc0939c63",
+    "historical_receipt_hash_expectation": "not independently located",
+    "fresh_ranges": [
+      [
+        1,
+        36
+      ],
+      [
+        37,
+        140
+      ]
+    ],
+    "attribution": "earlier Adler reviewer; no credit transfer"
+  },
+  "ledger_observation": {
+    "state": "working observed, no committed baseline claim",
+    "sha256": "842c3eabfaa1811441dc48461f21157e3f0e3ffc6df2f939e55ba6baa42cfa98",
+    "entries_examined_structurally": 1084,
+    "direct_term_matches": 0,
+    "qualification": "bounded textual search does not exclude aliases"
+  },
+  "nonclosure": "No checkpoint3821 promotion, no complete native/runtime or alias claim."
+}

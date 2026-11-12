@@ -1,0 +1,52 @@
+1: //! Ordered physical membership rejects duplicates without canonicalizing input.
+2: use crate::scene_input::SceneBuildingId;
+3: use serde::{Deserialize, Serialize};
+4: #[derive(Clone, Debug, PartialEq, Eq, Serialize, bevy::reflect::Reflect)]
+5: #[serde(transparent)]
+6: #[reflect(opaque)]
+7: pub struct PropertyMembers(Vec<SceneBuildingId>);
+8: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, thiserror::Error)]
+9: pub enum PropertyMemberIssue {
+10:     #[error("property has no physical members")]
+11:     Empty,
+12:     #[error("property member {index} has zero physical identity")]
+13:     Zero { index: usize },
+14:     #[error("building {building} is repeated at member {index}, first at {first}")]
+15:     Duplicate {
+16:         building: SceneBuildingId,
+17:         first: usize,
+18:         index: usize,
+19:     },
+20: }
+21: impl PropertyMembers {
+22:     pub fn new(ids: Vec<SceneBuildingId>) -> Result<Self, PropertyMemberIssue> {
+23:         Self::validate(&ids)?;
+24:         Ok(Self(ids))
+25:     }
+26:     pub fn ids(&self) -> &[SceneBuildingId] {
+27:         &self.0
+28:     }
+29:     pub(super) fn validate(ids: &[SceneBuildingId]) -> Result<(), PropertyMemberIssue> {
+30:         if ids.is_empty() {
+31:             return Err(PropertyMemberIssue::Empty);
+32:         }
+33:         for (index, building) in ids.iter().enumerate() {
+34:             if building.0 == 0 {
+35:                 return Err(PropertyMemberIssue::Zero { index });
+36:             }
+37:             if let Some(first) = ids[..index].iter().position(|id| id == building) {
+38:                 return Err(PropertyMemberIssue::Duplicate {
+39:                     building: *building,
+40:                     first,
+41:                     index,
+42:                 });
+43:             }
+44:         }
+45:         Ok(())
+46:     }
+47: }
+48: impl<'de> Deserialize<'de> for PropertyMembers {
+49:     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+50:         Self::new(Vec::deserialize(d)?).map_err(serde::de::Error::custom)
+51:     }
+52: }

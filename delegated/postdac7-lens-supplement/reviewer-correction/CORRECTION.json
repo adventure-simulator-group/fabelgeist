@@ -1,0 +1,78 @@
+{
+  "schema": "726-q2754-q2910-lens-correction-v1",
+  "reviewer_qualification": "Fresh self-correction by the same reviewer who performed the two original source reviews; not independent-author corroboration.",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "mapping_authority": {
+    "baseline_revision": "dac7d0055716053f245139971eb67ddfd87fa462",
+    "baseline_file": "BASELINE-95E-20261110.json",
+    "lens_1": "producer propagation",
+    "lens_6": "type ownership",
+    "qualification": "The pinned handoff directs recovery via README/AUDIT-RESUME rather than numbering lenses in PROMPT itself; the recovered baseline lens_names and audit suite order agree."
+  },
+  "packets": [
+    {
+      "queue_index": 2754,
+      "historical_entry": {
+        "queue_index": 2754,
+        "contract_id": "OBLIGATION-ROOT-L3-EXT-0005-LENS-01",
+        "lens": 1,
+        "status": "own-lens-proof-qualification-or-read-pending",
+        "body_or_population_credit": 0,
+        "selected_sha256": "a1531c9323723da5f4b0b23dcf0d852f9533e756fdf518a3ef6972b959a9bb79",
+        "bytes": 3300
+      },
+      "historical_lens": 1,
+      "observed_perspective": "type ownership",
+      "applied_skill_qualification": "Exact registration and report describe and apply type ownership; bounded authenticated private-tar search found no separately captured focused-skill file or literal skill-name receipt.",
+      "public_archive": "delegated/postdac7-followups/transport/q2754.tar.gz",
+      "archive_sha256": "a333df07d2664562aaec882152d694b0633b412855d015564936c2f5780827ce",
+      "report_member": "evidence/REPORT-v2.json",
+      "report_sha256": "cd3a0374eba40d691e3ab130902f54aa575fc36adbbc50f12677e6fc5b77b2ed",
+      "registration_member": "evidence/REGISTRATION.json",
+      "registration_sha256": "0d3cd467225f58bf78e3c6f170b67f534df1e2001a8b603e9f109ef4634f3e5b",
+      "recorded_personal_source_scope": "prepared.rs 1-54 at 95e; the historical versions were byte-identity checked, not credited as fresh personal displays."
+    },
+    {
+      "queue_index": 2910,
+      "historical_entry": {
+        "queue_index": 2910,
+        "contract_id": "OBLIGATION-ROOT-L3-EXT-0018-LENS-01",
+        "lens": 1,
+        "status": "own-lens-proof-qualification-or-read-pending",
+        "body_or_population_credit": 0,
+        "selected_sha256": "9c47db07898cf8300edaf0e8ba8f9eccb167228612fc0076c7d9575cdd53770b",
+        "bytes": 2800
+      },
+      "historical_lens": 1,
+      "observed_perspective": "type ownership",
+      "applied_skill_qualification": "The separately retained registration explicitly records reading audit-type-ownership, and the captured focused skill names that skill.",
+      "public_report": "delegated/postdac7-followups/q2910-packet/REPORT.json",
+      "report_sha256": "5d90039b75f1b013f366442572baa14711eff12b0051dc4de9066c6285af26aa",
+      "public_manifest_sha256": "397f13356057580b62d6b4fffcc8a3756378224b86186f8973a014e9179e949d",
+      "focused_skill_sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0",
+      "registration_sha256": "e2a07e1581997eed1a41788ba04921b54404dc2253e7c2c99dc5244e8d2ed311",
+      "recorded_personal_source_scope": "handles.rs 1-110 separately at 6533, e275 and 95e; per-file identity is not whole-tree identity."
+    }
+  ],
+  "field_level_interpretation": [
+    {
+      "paths": [
+        "delegated/postdac7-followups/PENDING-DELEGATES-INITIAL.json#/packets/5",
+        "delegated/postdac7-followups/PENDING-DELEGATES.json#/packets/5",
+        "delegated/postdac7-followups/transport/q2754.tar.gz!evidence/REPORT-v2.json#/queue",
+        "delegated/postdac7-followups/transport/q2754.tar.gz!evidence/REPORT-v2.json#/assigned_source"
+      ],
+      "correction": "The numeric Lens 1 assignment is historically accurate, but the associated type-ownership analysis and source displays must not automatically be treated as a producer-propagation assessment."
+    },
+    {
+      "paths": [
+        "delegated/postdac7-followups/PENDING-DELEGATES-INITIAL.json#/packets/8",
+        "delegated/postdac7-followups/PENDING-DELEGATES.json#/packets/8",
+        "delegated/postdac7-followups/q2910-packet/REPORT.json#/schema",
+        "delegated/postdac7-followups/q2910-packet/REPORT.json#/scope"
+      ],
+      "correction": "The historical Lens 1 obligation and personal source displays are retained; the recorded focused skill was type ownership, so producer-propagation qualification remains pending."
+    }
+  ],
+  "nonclosure": "Original records and evidence remain unchanged. Neither review grants automatic Lens1 producer-propagation credit nor automatic Lens6 qualification or closure. Preserve all existing historical revisions, attributions, privacy and recovery limitations; no new defect count, alias, repair, product validation or checkpoint3821 recovery."
+}

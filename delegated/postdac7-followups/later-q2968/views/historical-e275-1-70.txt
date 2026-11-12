@@ -1,0 +1,70 @@
+    1	//! Fixed-input acceptance probe before installation of geographic city support.
+    2	use adventuresim_tactical_core::{city_layout::grounding::*, city_layout::*, scene_input::*};
+    3	use bevy::math::Vec2;
+    4	use clap::Parser;
+    5	use serde::Deserialize;
+    6	use serde_json::{Value, json};
+    7	use std::{path::PathBuf, time::Instant};
+    8	#[path = "compare_city_terrain/capture.rs"]
+    9	mod capture;
+   10	#[path = "validate_city_support/composition.rs"]
+   11	mod composition;
+   12	#[path = "validate_city_support/diagnostic.rs"]
+   13	mod diagnostic;
+   14	#[path = "validate_city_support/layout.rs"]
+   15	mod layout;
+   16	#[path = "validate_city_support/placements.rs"]
+   17	mod placements;
+   18	#[path = "validate_city_support/policy.rs"]
+   19	mod policy;
+   20	#[path = "validate_city_support/projection.rs"]
+   21	mod projection;
+   22	
+   23	#[derive(Parser)]
+   24	struct Request {
+   25	    #[arg(long)]
+   26	    scene_input: PathBuf,
+   27	    #[arg(long)]
+   28	    world: PathBuf,
+   29	    #[arg(long)]
+   30	    terrain_stages: PathBuf,
+   31	    #[arg(long)]
+   32	    policy_fixture: PathBuf,
+   33	    #[arg(long)]
+   34	    output: PathBuf,
+   35	    /// Restrict reproduction to this exact property; omission checks all.
+   36	    #[arg(long)]
+   37	    property_id: Option<u64>,
+   38	    /// Explicit prepared-terrain capture with verified scene and source identity.
+   39	    #[arg(long)]
+   40	    prepared_terrain: Option<PathBuf>,
+   41	    /// Save accepted immutable geometry for bounded collision/render inspection.
+   42	    #[arg(long)]
+   43	    surface_output: Option<PathBuf>,
+   44	    /// Save exact seated placements for handoff inspection; not a scene input.
+   45	    #[arg(long)]
+   46	    grounded_placements_output: Option<PathBuf>,
+   47	    /// Save compact plans only after their exact reconstruction passes.
+   48	    #[arg(long)]
+   49	    support_projection_output: Option<PathBuf>,
+   50	}
+   51	
+   52	#[derive(Deserialize)]
+   53	struct TerrainStages {
+   54	    input_digest: String,
+   55	    source_digest: adventuresim_world_schema::source_package::SourcePackageDigest,
+   56	    ungraded_vista: VistaSample,
+   57	}
+   58	
+   59	fn main() -> Result<(), Box<dyn std::error::Error>> {
+   60	    let request = Request::parse();
+   61	    let input = TacticalSceneInput::load(&request.scene_input)?;
+   62	    let digest = input.digest()?;
+   63	    let stages: TerrainStages = serde_json::from_slice(&std::fs::read(&request.terrain_stages)?)?;
+   64	    if stages.input_digest != digest
+   65	        || input.source != SceneSource::ImportedPackage(stages.source_digest.clone())
+   66	    {
+   67	        return Err("terrain stages must identify this exact input and source".into());
+   68	    }
+   69	    let lod = stages
+   70	        .ungraded_vista

@@ -1,0 +1,26 @@
+{
+  "schema": "726-postdac7-control-restore-v1",
+  "control_manifest_sha256": "636149c3abc9e32b3051a2cee7c1b1f6446dea34b673c4e232210e048c23b963",
+  "q2968_manifest_sha256": "9dd9534aff5f01db67221eb4912a6be75513efe587cb70c0bbd2f73f27dcdf1e",
+  "steps": [
+    {
+      "label": "control-keyless",
+      "exit": 0,
+      "stdout_bytes": 148,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "control-keyed-restore",
+      "exit": 0,
+      "stdout_bytes": 212,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2968-restored",
+      "exit": 0,
+      "stdout_bytes": 153,
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Same-machine restoration into a new directory; q2968 was replayed using the separately restored selected Git store and restored restricted originals. Full commands and outputs are retained locally for the next checkpoint. No independent custody, complete Git history, product behavior, unique-count increase, lens closure or checkpoint3821 recovery is established."
+}

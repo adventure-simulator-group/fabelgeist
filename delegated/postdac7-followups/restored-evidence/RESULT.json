@@ -1,0 +1,149 @@
+{
+  "schema": "726-postdac7-authenticated-restore-v1",
+  "encrypted_manifest_sha256": "e01befd21f27ab2995740a684217288fcafd1d4c5a655316bb1b890775d9edb0",
+  "guide_manifest_sha256": "441c44ef29641d4cae17c32110ae8561813a6d9ce97858e84e75c8ea177cf0e7",
+  "q2945_manifest_sha256": "e15f520725f65d38db894324db291b0b3193648c0eff335140bd3aa1dacd74ba",
+  "steps": [
+    {
+      "label": "keyless",
+      "exit": 0,
+      "stdout_bytes": 148,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "keyed-restore",
+      "exit": 0,
+      "stdout_bytes": 212,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "anchors",
+      "exit": 0,
+      "stdout_bytes": 184,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "guide-restored",
+      "exit": 0,
+      "stdout_bytes": 415,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2945-restored",
+      "exit": 0,
+      "stdout_bytes": 412,
+      "stderr_bytes": 0
+    }
+  ],
+  "selected_guide_checks": [
+    {
+      "label": "checkpoint",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "selected_store",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "q2904_standalone_store",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "historical_anchors",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "restore_packets",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "restore_reviews",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "restore_extra_reviews",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "q2748",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "q2754",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "q2896",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "q2904",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "q2910",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "four_review",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "dialogue_review",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "prepared_review",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "stream_review",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "stream_private",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    },
+    {
+      "label": "stream_scan_receipts",
+      "exit": 0,
+      "timeout": false,
+      "result": "PASS"
+    }
+  ],
+  "qualification": "All collections were authenticated and restored into a newly created directory and selected evidence checks reran from restored copies on the same machine. q2945 was separately verified. Full command vectors and outputs are retained in encrypted checkpoint control. This is not independent custody, a fresh private-corpus scan, product behavior, full Git history, complete audit or checkpoint3821 recovery."
+}

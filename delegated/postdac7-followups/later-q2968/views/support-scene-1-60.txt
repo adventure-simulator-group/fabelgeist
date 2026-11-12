@@ -1,0 +1,60 @@
+   1 //! Versioned, bounded input for deterministic tactical scene generation.
+   2 //!
+   3 //! This is deliberately data-only. Production dispatchers can sample the
+   4 //! imported terrain pack into it, while tactical-only tools can serialize a
+   5 //! synthetic fixture. Short-lived servers consume the identical format and
+   6 //! never need access to the continental source pack.
+   7 
+   8 use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
+   9 use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
+  10 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+  11 use bevy::prelude::Component;
+  12 use serde::{Deserialize, Serialize};
+  13 use sha2::{Digest, Sha256};
+  14 use std::{fs, path::Path};
+  15 
+  16 use crate::scene_ground::build_scene_ground;
+  17 #[cfg(test)]
+  18 use crate::scene_ground::tree_leaf_litter_probability;
+  19 use crate::terrain_streams as streams;
+  20 use crate::{
+  21     city_layout::{CityStreetPatch, CityYardPatch},
+  22     scene::{GroundCover, GroundSubstrate, GroundSurface, SceneGround, SceneTerrain},
+  23     volumetric_terrain::TerrainLandformRecipe,
+  24 };
+  25 
+  26 pub use buildings::{
+  27     BuildingOrientation, DistantBuildingPlacement, DistantBuildingVariant, GeneratedBuilding,
+  28     SceneBuilding, SceneBuildingId, SceneDoor, SceneDoorError, SceneWindow, SceneWindowError,
+  29     TacticalBuildingPlacement, compile_tactical_building_collider,
+  30 };
+  31 pub use compounds::{GeneratedBoundary, SceneBoundary};
+  32 pub use descriptor::{
+  33     MAX_SCENE_INPUT_BYTES, TACTICAL_SCENE_GENERATION_VERSION, TACTICAL_SCENE_SCHEMA_VERSION,
+  34     TacticalSceneInput,
+  35 };
+  36 use detail_noise::value_noise;
+  37 pub use environment::{SceneEnvironment, SceneEnvironmentFixture};
+  38 pub use error::{SceneInputError, SceneInputResult};
+  39 pub use establishments::SceneEstablishment;
+  40 pub use gardens::{GardenPlantSupport, GardenSupportError, SceneGarden};
+  41 pub use generated::{GeneratedTacticalScene, SceneRepairReport};
+  42 pub use generation::{SupportedSceneTerrain, UngradedSceneTerrain};
+  43 pub use recipes::{GeneratedBuildingRecipe, GeneratedBuildingRecipes, ProgramFurnitureSite};
+  44 use rock_recipe::rock_recipe;
+  45 pub use terrain_samples::{
+  46     EnvironmentalSample, SceneSource, TacticalSurface, TerrainSampleGrid, VistaLevelIndex,
+  47     VistaLod, VistaSample,
+  48 };
+  49 pub use validation_error::{SampleGridKind, SceneValidationError};
+  50 
+  51 mod absolute_elevation_wire;
+  52 pub(crate) mod buildings;
+  53 mod compounds;
+  54 mod descriptor;
+  55 mod detail_noise;
+  56 mod detail_obstacles;
+  57 mod environment;
+  58 mod error;
+  59 mod establishments;
+  60 pub mod furniture;

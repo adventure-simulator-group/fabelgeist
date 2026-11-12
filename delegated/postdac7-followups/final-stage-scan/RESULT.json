@@ -1,0 +1,48 @@
+{
+  "schema": "726-postdac7-final-stage-scan-v1",
+  "scan_results": [
+    {
+      "label": "private-digests",
+      "exit": 0,
+      "stdout_bytes": 1185,
+      "stderr_bytes": 0,
+      "stdout_sha256": "349106d1eddccb4f65d5679739f04d7c39d94fc873b56a1581be9a2f5a82601e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_utc": "2026-11-12T22:39:25.492179+00:00",
+      "finished_utc": "2026-11-12T22:39:40.546274+00:00"
+    },
+    {
+      "label": "tar-patterns",
+      "exit": 0,
+      "stdout_bytes": 90,
+      "stderr_bytes": 0,
+      "stdout_sha256": "e1f5828a45234e9b235c0b13c33619b1b018ef1a8e48cb9d89d4d53a30b86b57",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_utc": "2026-11-12T22:39:40.546305+00:00",
+      "finished_utc": "2026-11-12T22:39:48.312986+00:00"
+    }
+  ],
+  "stats": {
+    "top_files": 334,
+    "views": 1476,
+    "text_views": 1226,
+    "gzip_views": 15,
+    "gzip_members": 15,
+    "tar_views": 15,
+    "tar_members": 1171,
+    "cached_views": 3933,
+    "binary_views": 220
+  },
+  "corpus_counts": {
+    "original_map_fields": 45,
+    "original_map_values": 47,
+    "public_map_fields": 2,
+    "public_map_values": 2,
+    "scan_prefix_fields": 60,
+    "distinct_sensitive_digests": 40
+  },
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": [],
+  "qualification": "Bounded scan of prospective public files after control encryption and supplemental q2968, before adding this receipt itself. Supported gzip/tar views were inspected; ciphertext, unknown binary formats, excluded symlinks, unknown values/encodings, Git history and caches remain outside scope. Exact commands and raw outputs are separately retained for the next checkpoint; staged-copy scans cover this receipt later."
+}

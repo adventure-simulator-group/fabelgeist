@@ -1,0 +1,15 @@
+{
+  "schema": "726-postdac7-lens-map-amendment-v1",
+  "original_checkpoint_parent": "dac7d0055716053f245139971eb67ddfd87fa462",
+  "manifest_sha256": {
+    "mapping": "d43aa2c992a6a442a4033efeec32cf85b3031e861a31e877e4e82135012862c7",
+    "field-note": "d0628a68bd03aa12662a3b1ed46d29c482e9e572c61758b25f7692fa1d37a1c5",
+    "mapping-scan": "6504bca5d0ad732f042165d7f50b1d77f9d04a43b5837b55f6f449738833d378",
+    "field-scan": "f4c460f381e516dc5651b8e6e87b89f07ba9587890d116c25c5c7bdf6f05e6c0"
+  },
+  "continuation_before_sha256": "510a7f5d0b6337ea9e05b683b2f5f0f03d68802133a0db2b5c3de34717dc67e8",
+  "continuation_after_sha256": "4a26559f9c7f19cccabd57f6e3bf62d20b0d697f5017efbe95d2d2f05f0554eb",
+  "anchor": "`MAIN-RECHECK-20261112-2101.json` records a later point-in-time\n",
+  "insertion": "`delegated/postdac7-lens-map-correction/` corrects the later q2968 packet:\nthe reviewer applied type ownership, while historical Lens 1 is producer\npropagation. The source displays remain attributed to that reviewer, but\nthey do not automatically establish a Lens 1 disposition. The packet\nand its original wording remain intact, and q2968 remains pending. A later\nq3016 packet has the same qualification and is outside this checkpoint.\n\n",
+  "qualification": "Additive correction. The original q2968 packet remains unchanged. Its personal source displays and type-ownership analysis are not automatically Lens1 producer-propagation credit. The separately sealed q3016 packet is after this checkpoint cutoff and is not contained here; its full external binding is not claimed by the portable verifier. No change to counts, aliases, repairs, or product validation."
+}

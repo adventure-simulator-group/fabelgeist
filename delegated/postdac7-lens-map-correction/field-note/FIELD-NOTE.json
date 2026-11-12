@@ -1,0 +1,56 @@
+{
+  "at_utc": "2026-11-12T23:15:45.300124+00:00",
+  "author": "/root/mhr_character",
+  "prior_mapping_correction_manifest_sha256": "d43aa2c992a6a442a4033efeec32cf85b3031e861a31e877e4e82135012862c7",
+  "packets": {
+    "q2968": {
+      "manifest_sha256": "9dd9534aff5f01db67221eb4912a6be75513efe587cb70c0bbd2f73f27dcdf1e",
+      "report_sha256": "69c8aadafff32598c97b848d3afbc9048ebf9e0013ba49bee98ab72d590a1084",
+      "receipt_sha256": "613c2e5c912f76fa6bd011198b81735768fc1887a02fd931105f785921861364",
+      "focused_skill_sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0"
+    },
+    "q3016": {
+      "manifest_sha256": "c9ed3888a1a481c3a17000ea426c2a4a43c250ce8de78179091c98ce4722e928",
+      "report_sha256": "90d1b1f9ba0fc302980be2dfe67fe45ce04574bc80901f93adf3dd7aca63317d",
+      "receipt_sha256": "557fd29d4ab903f21982f1bdf224f00fdb861dc72e4b0d391ec56eef6b26a3bf",
+      "focused_skill_sha256": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0"
+    }
+  },
+  "mapped_obligation": "Historical Lens 1 means producer propagation; Lens 6 means type ownership, per separately captured observed map and focused suite table.",
+  "field_level_qualification": [
+    {
+      "packet": "q2968",
+      "file": "REPORT.md",
+      "lines": [
+        1,
+        12,
+        34,
+        114
+      ],
+      "detail": "Heading correctly describes type-ownership work and line12 correctly transcribes the historical queue number, but line34 reference to my Lens1 credit and line114 own-lens coverage could be read as asserting producer-propagation coverage. Interpret these only as personally displayed source evidence and type-ownership analysis; no independent Lens1 disposition follows."
+    },
+    {
+      "packet": "q3016",
+      "file": "REPORT.md",
+      "lines": [
+        1,
+        11,
+        12,
+        13,
+        14
+      ],
+      "detail": "Heading correctly describes type-ownership work and lines11\u201314 correctly identify the Lens1 historical obligation and independently displayed source ranges; their juxtaposition does not establish that the requested producer-propagation lens was applied. The prior distinct Lens1 historical read described at lines31\u201334 retains its own recorded reviewer and scope, with no transfer."
+    },
+    {
+      "packet": "q2968 and q3016",
+      "file": "FOCUSED-SKILL.md",
+      "pointer": "whole file",
+      "detail": "Both packets preserve the type-ownership skill, demonstrating the actual applied perspective. SOURCE-REGISTRATION and READ-RECEIPT preserve identities and personal display scopes; they are not rewritten or reattributed."
+    }
+  ],
+  "read_credit_preserved": {
+    "q2968": "Reviewer personally displayed lines1\u2013140 at each 6533, e275 and 95e; exact receipts and historical attributions remain unchanged.",
+    "q3016": "Reviewer personally displayed lines1\u2013330 at each 6533, e275 and 95e; exact receipts, separately attributed earlier Lens1, Lens2 and Lens3 evidence remain unchanged."
+  },
+  "nonclosure": "No automatic own-Lens1 producer-propagation credit, Lens6 closure, alias/count decision, checkpoint3821 claim or runtime validation. Central owner determines qualified reuse."
+}

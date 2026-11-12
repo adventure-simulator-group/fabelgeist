@@ -1,0 +1,8 @@
+{
+  "schema": "726-postdac7-correction-inspection-qualifications-v1",
+  "observations": [
+    "A coordinator read-only inspection requested digest.out in the existing staged-scan directory, but the file was named private-digests.out; the inspection stopped with FileNotFoundError. A later directory listing and read used the correct names. The tool output was not separately captured.",
+    "A coordinator read-only inspection requested REPORT.md in the mapping-correction directory, but its summary was CORRECTION.json. The later read used the correct name. The tool output was not separately captured."
+  ],
+  "qualification": "Neither locator failure establishes missing source, scan failure, product behavior, or additional read credit. These are reconstructed summaries of the observed tool output."
+}

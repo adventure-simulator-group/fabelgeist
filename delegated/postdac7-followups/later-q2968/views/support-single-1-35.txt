@@ -1,0 +1,35 @@
+   1 //! Retained single-building reservations supply exact bounded support ownership.
+   2 use super::*;
+   3 use crate::city_layout::grounding::*;
+   4 use bevy::math::Vec3Swizzles;
+   5 use serde::{Deserialize, Serialize};
+   6 use std::collections::BTreeMap;
+   7 mod bearing;
+   8 
+   9 /// A generated home or service property without a separate rear-range member.
+  10 /// Its complete court and passage reservation survives recipe compilation.
+  11 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+  12 pub struct CitySingleProperty {
+  13     pub id: CityPropertyId,
+  14     pub building_id: crate::scene_input::SceneBuildingId,
+  15     pub plot: CityPlotBounds,
+  16 }
+  17 
+  18 #[derive(Clone, Copy, Debug)]
+  19 pub struct SinglePropertyGradingPolicy {
+  20     pub limits: SupportLimits,
+  21     pub stairs: CourtStairLimits,
+  22     pub embedment: FoundationEmbedment,
+  23     /// Validated clear width and maximum perpendicular doorway approach.
+  24     pub doorway_apron: StreetApronDimensions,
+  25 }
+  26 
+  27 impl CitySceneLayout {
+  28     pub fn plan_single_property_support(
+  29         &self,
+  30         geographic: &GeographicSurface,
+  31         policy: SinglePropertyGradingPolicy,
+  32     ) -> Result<Vec<SingleBuildingSupportPlan>, CitySupportError> {
+  33         self.validate_physical_support_members()?;
+  34         let mut recipes = self.support_recipes.clone();
+  35         let mut properties: Vec<_> = self.single_properties.iter().collect();

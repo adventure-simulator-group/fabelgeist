@@ -1,0 +1,6 @@
+{
+  "at_utc": "2026-11-12T22:30:19.179399+00:00",
+  "incident": "A verifier template was created at a fixed /tmp path using nonexclusive shell redirection outside the uniquely created packet. Its pre-write existence was not independently established, so an overwrite cannot be ruled out. The file is left untouched and is not needed for replay after its copied verifier is sealed.",
+  "scope": "No publication, source, user extraction or prior packet was written by this action. Subsequent outputs use fresh unique directories and exclusive creation.",
+  "corrective_handling": "Preserve this incident separately; do not delete or modify the unverified fixed-path template."
+}

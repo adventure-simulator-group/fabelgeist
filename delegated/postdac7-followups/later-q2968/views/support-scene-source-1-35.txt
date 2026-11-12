@@ -1,0 +1,35 @@
+   1 //! Captured geographic samples shared by all scene representations.
+   2 use adventuresim_world_schema::source_package::SourcePackageDigest;
+   3 use serde::{Deserialize, Serialize};
+   4 
+   5 #[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]
+   6 #[serde(
+   7     rename_all = "snake_case",
+   8     tag = "kind",
+   9     content = "id",
+  10     deny_unknown_fields
+  11 )]
+  12 pub enum SceneSource {
+  13     ImportedPackage(SourcePackageDigest),
+  14     SyntheticFixture(String),
+  15 }
+  16 
+  17 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
+  18 #[serde(deny_unknown_fields)]
+  19 pub struct EnvironmentalSample {
+  20     pub canopy_bps: u16,
+  21     pub wetland_bps: u16,
+  22     pub cultivation_bps: u16,
+  23     pub water_bps: u16,
+  24     pub hilly_bps: u16,
+  25     pub crossing_bps: u16,
+  26     pub surface: TacticalSurface,
+  27 }
+  28 
+  29 /// Captured scene transport vocabulary. The dispatcher exhaustively adapts
+  30 /// terrain-pack routing cells; tactical consumers use the immutable snapshot
+  31 /// without depending on the terrain package runtime or updating routing data.
+  32 #[derive(Clone, Copy, Debug, Default, Eq, PartialEq, Serialize, Deserialize)]
+  33 #[serde(rename_all = "snake_case")]
+  34 pub enum TacticalSurface {
+  35     Road,

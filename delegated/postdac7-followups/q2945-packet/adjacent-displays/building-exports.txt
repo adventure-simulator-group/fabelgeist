@@ -1,0 +1,65 @@
+1: use super::{SceneInputError, SceneInputResult, SceneValidationError, invalid};
+2: use crate::city_layout::MAX_CITY_BUILDING_INSTANCES;
+3: use adventuresim_building_generator::spatial_geometry::GeometryResult;
+4: use adventuresim_building_generator::{
+5:     BuildingArchetype, BuildingCollision, BuildingPlan, BuildingProgram,
+6: };
+7: #[cfg(test)]
+8: use adventuresim_building_generator::{compile_building_collision, generate};
+9: use bevy::{math::Vec2, prelude::Component};
+10: pub use collision::compile_tactical_building_collider;
+11: pub use exterior::DistantBuildingVariant;
+12: pub use identity::SceneBuildingId;
+13: pub(super) use reservations::{ObstacleReservation, obstacle_intersects_building};
+14: use serde::{Deserialize, Serialize};
+15: pub use window::{SceneWindow, SceneWindowError};
+16: 
+17: mod collision;
+18: mod exterior;
+19: mod identity;
+20: mod placement;
+21: mod reservations;
+22: mod window;
+23: 
+24: pub(crate) const MAX_TACTICAL_BUILDINGS: usize = 64;
+25: const PARTY_WALL_PROJECTION_ALLOWANCE_METRES: f32 = 0.4;
+26: 
+27: /// Rotation of one orthogonal building grid in the settlement plane.
+28: #[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::prelude::Reflect)]
+29: #[serde(transparent)]
+30: #[reflect(opaque)]
+31: pub struct BuildingOrientation(f32);
+32: 
+33: impl<'de> Deserialize<'de> for BuildingOrientation {
+34:     fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+35:         let orientation = Self(f32::deserialize(d)?);
+36:         if orientation.is_valid() {
+37:             Ok(orientation)
+38:         } else {
+39:             Err(serde::de::Error::custom(
+40:                 "building orientation must be finite and in [-pi, pi)",
+41:             ))
+42:         }
+43:     }
+44: }
+45: 
+46: impl BuildingOrientation {
+47:     pub const IDENTITY: Self = Self(0.0);
+48: 
+49:     pub fn from_radians(yaw_radians: f32) -> Option<Self> {
+50:         yaw_radians.is_finite().then(|| {
+51:             Self(
+52:                 (yaw_radians + core::f32::consts::PI).rem_euclid(core::f32::consts::TAU)
+53:                     - core::f32::consts::PI,
+54:             )
+55:         })
+56:     }
+57: 
+58:     pub fn from_frontage_tangent(tangent: Vec2) -> Option<Self> {
+59:         tangent.try_normalize().map(|tangent| {
+60:             let yaw = (-tangent.y).atan2(tangent.x);
+61:             // Signed zero can represent the positive endpoint of atan2's
+62:             // range. Canonicalize only that previously inadmissible endpoint.
+63:             Self(if yaw == core::f32::consts::PI {
+64:                 -core::f32::consts::PI
+65:             } else {

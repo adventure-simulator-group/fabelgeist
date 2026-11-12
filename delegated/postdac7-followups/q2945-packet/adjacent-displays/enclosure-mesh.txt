@@ -1,0 +1,41 @@
+190:         }
+191:     }
+192: }
+193: 
+194: /// Scene-relative enclosure geometry. The scene parent is the accepted gate
+195: /// datum. Bodies follow local terraces; post heads remain at the gate elevation,
+196: /// with masonry plinths reaching the lower soil wherever a post crosses a step.
+197: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+198: #[serde(try_from = "BoundaryMeshWire")]
+199: pub struct BoundarySupportMesh {
+200:     pub(super) binding: BoundaryOwnerBinding,
+201:     pub(super) cells: Vec<BoundarySupportCell>,
+202: }
+203: 
+204: #[derive(Deserialize)]
+205: struct BoundaryMeshWire {
+206:     binding: BoundaryOwnerBinding,
+207:     cells: Vec<BoundarySupportCell>,
+208: }
+209: impl TryFrom<BoundaryMeshWire> for BoundarySupportMesh {
+210:     type Error = SupportGeometryIssue;
+211:     fn try_from(wire: BoundaryMeshWire) -> Result<Self, Self::Error> {
+212:         wire.binding.validate_cells(&wire.cells)?;
+213:         Ok(Self {
+214:             binding: wire.binding,
+215:             cells: wire.cells,
+216:         })
+217:     }
+218: }
+219: impl BoundarySupportMesh {
+220:     pub fn binding(&self) -> &BoundaryOwnerBinding {
+221:         &self.binding
+222:     }
+223: 
+224:     pub fn cells(&self) -> &[BoundarySupportCell] {
+225:         &self.cells
+226:     }
+227:     pub fn collider(&self) -> Result<SupportCollision, SupportColliderError> {
+228:         let mut parts = Vec::new();
+229:         for (index, cell) in self.cells.iter().enumerate() {
+230:             let points = cell.native_positions();

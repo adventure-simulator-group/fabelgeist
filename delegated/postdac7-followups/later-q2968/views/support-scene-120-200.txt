@@ -1,0 +1,81 @@
+ 120 }
+ 121 
+ 122 /// Compact replicated identity for a server-authoritative static obstacle.
+ 123 /// Its Transform locates the collider center; presentation derives matching
+ 124 /// proxy geometry from this recipe on each client.
+ 125 #[derive(Clone, Copy, Debug, Eq, PartialEq, Component, Serialize, Deserialize)]
+ 126 #[component(immutable)]
+ 127 #[serde(rename_all = "snake_case")]
+ 128 pub enum SceneObstacle {
+ 129     Tree,
+ 130     Rock(RockRecipe),
+ 131 }
+ 132 
+ 133 #[derive(Clone, Copy, Debug, Eq, PartialEq, Serialize, Deserialize)]
+ 134 pub enum GeneratedObstacle {
+ 135     Tree { x: u16, z: u16 },
+ 136     Rock { x: u16, z: u16, recipe: RockRecipe },
+ 137 }
+ 138 
+ 139 impl RockRecipe {
+ 140     pub fn collision_radius_metres(self) -> f32 {
+ 141         f32::from(self.collision_radius_cm) / 100.0
+ 142     }
+ 143 
+ 144     pub fn dimensions_metres(self) -> [f32; 3] {
+ 145         self.dimensions_cm
+ 146             .map(|dimension| f32::from(dimension) / 100.0)
+ 147     }
+ 148 }
+ 149 
+ 150 impl TacticalSceneInput {
+ 151     pub fn load(path: &Path) -> SceneInputResult<Self> {
+ 152         let length = fs::metadata(path)?.len();
+ 153         if length == 0 || length > MAX_SCENE_INPUT_BYTES {
+ 154             return Err(SceneInputError::Validation(SceneValidationError::FileSize));
+ 155         }
+ 156         let input: Self = serde_json::from_slice(&fs::read(path)?)?;
+ 157         input.validate()?;
+ 158         Ok(input)
+ 159     }
+ 160 
+ 161     pub fn validate(&self) -> SceneInputResult<()> {
+ 162         self.validate_source()?;
+ 163         self.validate_grounding()
+ 164     }
+ 165 
+ 166     pub fn digest(&self) -> SceneInputResult<String> {
+ 167         self.validate()?;
+ 168         let bytes = serde_json::to_vec(self)?;
+ 169         Ok(Sha256::digest(bytes)
+ 170             .iter()
+ 171             .map(|byte| format!("{byte:02x}"))
+ 172             .collect())
+ 173     }
+ 174 
+ 175     pub fn environment_snapshot(&self, scene_digest: String) -> SceneEnvironment {
+ 176         let count = self.playable.environment.len().max(1) as u64;
+ 177         let sum = self
+ 178             .playable
+ 179             .environment
+ 180             .iter()
+ 181             .fold([0u64; 5], |mut sum, sample| {
+ 182                 sum[0] += u64::from(sample.canopy_bps);
+ 183                 sum[1] += u64::from(sample.wetland_bps);
+ 184                 sum[2] += u64::from(sample.cultivation_bps);
+ 185                 sum[3] += u64::from(sample.water_bps);
+ 186                 sum[4] += u64::from(sample.hilly_bps);
+ 187                 sum
+ 188             });
+ 189         SceneEnvironment {
+ 190             scene_digest,
+ 191             generation_version: self.generation_version,
+ 192             latitude_microdegrees: self.latitude_microdegrees,
+ 193             longitude_microdegrees: self.longitude_microdegrees,
+ 194             absolute_minute: self.absolute_minute,
+ 195             lunar_phase_minute: self.lunar_phase_minute,
+ 196             absolute_elevation_metres: self.absolute_elevation_metres,
+ 197             weather: self.weather,
+ 198             canopy_bps: (sum[0] / count) as u16,
+ 199             wetland_bps: (sum[1] / count) as u16,
+ 200             cultivation_bps: (sum[2] / count) as u16,

@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip tar; exact bytes and modes; normalized uid/gid/mtime",
+  "objects": [
+    {
+      "label": "post-encryption-control",
+      "ciphertext": "post-encryption-control.aesgcm",
+      "ciphertext_sha256": "d9857ddda251fd31310e2be3dac92bf3dbfaa941b8c0981f07a44c93d48ab8e9",
+      "ciphertext_bytes": 3410982,
+      "plaintext_archive_sha256": "c4fff07aeb97c691f8b431487b79e58fa324dacbac8f4c2574e4a75ebb881737",
+      "plaintext_archive_bytes": 3410954,
+      "regular_files": 440,
+      "directories": 31,
+      "associated_data": "726-audit-private-evidence:post-encryption-control:v1"
+    }
+  ],
+  "key_custody": "The same separately held primary key; fresh nonce checked against 44 prior primary-key ciphertexts and every new encrypted collection.",
+  "qualification": "Exact encryption and pre-final scan control inputs are encrypted; final subsequent scan logs are separately retained for the next checkpoint. Same-machine custody, ciphertext privacy, complete history and product behavior remain separately qualified."
+}

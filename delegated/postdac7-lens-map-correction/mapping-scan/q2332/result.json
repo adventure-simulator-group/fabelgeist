@@ -1,0 +1,17 @@
+{
+  "schema": "q2332-private-removed-value-digest-scan-v1",
+  "corpus": {
+    "historical_path_occurrences": 42,
+    "distinct_removed_values": 6,
+    "distinct_containing_json_strings": 6,
+    "distinct_path_prefixes": 11,
+    "distinct_sha256_digests": 11
+  },
+  "stats": {
+    "views": 6
+  },
+  "matching_occurrences": 0,
+  "locations": [],
+  "exceptions": [],
+  "qualification": "Corpus is derived in memory from privately held removed path values, containing JSON strings and path prefixes; no path value or individual value digest is printed. Raw and case variants of SHA-256 are checked recursively over public transport and separate receipts, including compressed metadata and content. Bounds: 128 MiB per view and 18 levels. Counted views may overlap across representations, and unknown encodings or hash algorithms remain outside scope."
+}

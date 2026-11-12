@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 20:30:32–20:30:33 UTC before staged evidence checking; main may advance. See MAIN-RECHECK-20261112-2030.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 21:01:35 UTC; this is a point-in-time observation and main may advance. See MAIN-RECHECK-20261112-2101.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1084,
+  "new_current_ledger_candidates": 1093,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2393,5 +2393,11 @@
   "post31e1_pending_resolution": "The eight packet families pending in the 15A snapshot received bounded central review in 15B/15C; none is fully reconciled.",
   "post0a24_independent_review": "delegated/post0a24-followups/INDEPENDENT-REVIEWS.json and REVIEW-CORRECTIONS.json; exact private inputs remain encrypted.",
   "post0a24_private_recovery": "delegated/post0a24-followups/encrypted-originals/README.md; the same-machine key remains a recovery dependency.",
-  "main_recheck_20261112_2030": "MAIN-RECHECK-20261112-2030.json"
+  "main_recheck_20261112_2030": "MAIN-RECHECK-20261112-2030.json",
+  "central_postdac7_bounded_reconciliations": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; seven partial assessments and nine planning relationships; no queue or lens closure or accepted unique count increment.",
+  "checkpoint_dac7_same_machine_recovery": "delegated/postdac7-followups/checkpoint-dac7/README.md; identical evidence transcript in a separate checkout on the same machine; independent custody and product behavior remain unproved.",
+  "postdac7_pending_delegated_packets": "delegated/postdac7-followups/PENDING-DELEGATES.json; 10 packets remain pending central reconciliation at this snapshot.",
+  "post0a24_pending_resolution": "Seven of the eleven prior pending packets now have partial assessment; four remain pending. The historical index is retained unchanged and does not imply closure.",
+  "postdac7_private_recovery": "delegated/postdac7-followups/encrypted-originals/README.md; separately held same-machine primary key and named prior dependencies remain required.",
+  "main_recheck_20261112_2101": "MAIN-RECHECK-20261112-2101.json"
 }

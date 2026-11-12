@@ -34,6 +34,38 @@ records same-machine recovery of checkpoint 31e1 with an identical transcript.
 `delegated/post0a24-followups/checkpoint-0a24/recovery/RECOVERY-RECORD.json`
 records same-machine recovery of checkpoint 0a24 with an identical transcript.
 
+`delegated/postdac7-followups/checkpoint-dac7/README.md` records the
+same-machine separate-checkout recovery of checkpoint dac7 with an
+identical evidence transcript. This does not establish independent
+custody or product behavior.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json` connects seven bounded
+partial assessments and nine planning relationships, preserving the
+original report and independently reviewed corrections. 10 delegated
+packets remain pending central reconciliation in
+`delegated/postdac7-followups/PENDING-DELEGATES.json`. None closes a
+semantic queue record or lens or adds an accepted unique-defect count.
+
+`delegated/postdac7-lens-map-correction/` corrects the later q2968 packet:
+the reviewer applied type ownership, while historical Lens 1 is producer
+propagation. The source displays remain attributed to that reviewer, but
+they do not automatically establish a Lens 1 disposition. The packet
+and its original wording remain intact, and q2968 remains pending. A later
+q3016 packet has the same qualification and is outside this checkpoint.
+
+`delegated/postdac7-lens-supplement/` records the same mapping correction
+for pending q2754 and q2910: their reviewers applied type ownership while
+their historical Lens 1 obligations concern producer propagation. Their
+original reports and source displays remain intact; neither review supplies
+automatic Lens 1 credit or Lens 6 closure. Their restricted proof is
+recoverable with the separately held same-machine key and stated inputs.
+
+`MAIN-RECHECK-20261112-2101.json` records a later point-in-time
+connector observation of main at 95e; main may have moved since.
+
+The following 15B/15C paragraph describes its earlier time-bound
+snapshot; seven of its pending records now have partial assessment.
+
 `ASSESSMENT-CENTRAL-FOLLOWUPS-15B-95E.json` and
 `ASSESSMENT-CENTRAL-FOLLOWUPS-15C-95E.json` connect fifteen bounded source
 assessments to their separately attributed historical records. Independent

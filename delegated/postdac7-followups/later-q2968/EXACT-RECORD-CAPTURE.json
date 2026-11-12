@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-11-12T22:26:41.924906+00:00",
+  "purpose": "Exact restricted originals for portable selected-record replay; full original and reconstructed queue streams remain distinct and contain private paths; no checkpoint3821 assertion.",
+  "entries": [
+    {
+      "label": "queue-original-56f",
+      "rev": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+      "path": "baseline-059/queue.json",
+      "bytes": 21632843,
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08"
+    },
+    {
+      "label": "queue-reconstructed-dac7d",
+      "rev": "dac7d0055716053f245139971eb67ddfd87fa462",
+      "path": "baseline-059/queue.json",
+      "bytes": 21631815,
+      "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173"
+    },
+    {
+      "label": "ledger-observed-working",
+      "path": "BASELINE-95E-20261110.json",
+      "revision": "working observation, not a committed baseline claim",
+      "bytes": 1477057,
+      "sha256": "842c3eabfaa1811441dc48461f21157e3f0e3ffc6df2f939e55ba6baa42cfa98"
+    }
+  ]
+}

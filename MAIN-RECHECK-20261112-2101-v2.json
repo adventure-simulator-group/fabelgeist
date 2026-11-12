@@ -1,0 +1,15 @@
+{
+  "ref": "refs/heads/main",
+  "observed_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "observed_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "bracket_before_utc": "2026-11-12 21:01:35 UTC",
+  "bracket_after_utc": "2026-11-12 21:01:35 UTC",
+  "source": "GitHub connector branches/main",
+  "qualification": "Point-in-time connector observation, not a guarantee that main cannot move. The frozen staged checkpoint carries the earlier 20:30 observation; this later observation is preserved for the next checkpoint.",
+  "method": "GitHub connector fetch branches/main API",
+  "normalization": {
+    "original_file": "MAIN-RECHECK-20261112-2101.json",
+    "original_sha256": "b8bd24bef6d57226c89966c45c3b6dffb7178c9b1bc5c8c070d7c18c3f1a9668",
+    "qualification": "Adds the method name required by earlier evidence verifiers, normalized from the original source field. This is not a new main observation."
+  }
+}

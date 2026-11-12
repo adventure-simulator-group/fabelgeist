@@ -1,0 +1,209 @@
+1: //! Enclosure geometry retains the property, physical members and gate datum.
+2: use super::*;
+3: use sha2::{Digest, Sha256};
+4: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+5: #[serde(try_from = "BindingWire")]
+6: pub struct BoundaryOwnerBinding {
+7:     property: CityPropertyId,
+8:     members: PropertyMembers,
+9:     gate: SupportElevation,
+10:     descriptor_digest: BoundaryDescriptorDigest,
+11:     elements: Vec<BoundarySupportElement>,
+12: }
+13: #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+14: #[serde(transparent)]
+15: struct BoundaryDescriptorDigest([u8; 32]);
+16: impl BoundaryDescriptorDigest {
+17:     fn of(boundary: &crate::city_layout::CityBoundary) -> Self {
+18:         // Descriptor hashing is an explicit little-endian scalar boundary;
+19:         // every authored field participates, including wall order and hinge.
+20:         let mut digest = Sha256::new();
+21:         digest.update((boundary.walls.len() as u64).to_le_bytes());
+22:         for wall in &boundary.walls {
+23:             for scalar in [
+24:                 wall.start_metres.x,
+25:                 wall.start_metres.y,
+26:                 wall.end_metres.x,
+27:                 wall.end_metres.y,
+28:                 wall.height_metres,
+29:                 wall.thickness_metres,
+30:             ] {
+31:                 digest.update(scalar.to_bits().to_le_bytes());
+32:             }
+33:         }
+34:         let gate = boundary.gate;
+35:         digest.update([match gate.hinge {
+36:             crate::city_layout::PropertySide::Left => 0,
+37:             crate::city_layout::PropertySide::Right => 1,
+38:         }]);
+39:         for scalar in [
+40:             gate.centre_metres.x,
+41:             gate.centre_metres.y,
+42:             gate.orientation.yaw_radians(),
+43:             gate.width_metres,
+44:             gate.height_metres,
+45:         ] {
+46:             digest.update(scalar.to_bits().to_le_bytes());
+47:         }
+48:         Self(digest.finalize().into())
+49:     }
+50: }
+51: #[derive(Deserialize)]
+52: struct BindingWire {
+53:     property: CityPropertyId,
+54:     members: PropertyMembers,
+55:     gate: SupportElevation,
+56:     descriptor_digest: BoundaryDescriptorDigest,
+57:     elements: Vec<BoundarySupportElement>,
+58: }
+59: impl TryFrom<BindingWire> for BoundaryOwnerBinding {
+60:     type Error = SupportGeometryIssue;
+61:     fn try_from(wire: BindingWire) -> Result<Self, Self::Error> {
+62:         let binding = Self {
+63:             property: wire.property,
+64:             members: wire.members,
+65:             gate: wire.gate,
+66:             descriptor_digest: wire.descriptor_digest,
+67:             elements: wire.elements,
+68:         };
+69:         binding.validate()?;
+70:         Ok(binding)
+71:     }
+72: }
+73: impl BoundaryOwnerBinding {
+74:     pub(super) fn from_property(
+75:         property: &CityCompound,
+76:         gate: SupportElevation,
+77:     ) -> Result<Self, BoundaryAdmissionError> {
+78:         let members =
+79:             PropertyMembers::new(vec![property.front_building_id, property.rear_building_id])
+80:                 .map_err(|_| BoundaryAdmissionError::Owner {
+81:                     property: property.id,
+82:                     front: property.front_building_id,
+83:                 })?;
+84:         let elements = property
+85:             .boundary
+86:             .fixed_members()
+87:             .map_err(|cause| BoundaryAdmissionError::Geometry {
+88:                 property: property.id,
+89:                 cause,
+90:             })?
+91:             .into_iter()
+92:             .map(|member| member.pose.element())
+93:             .collect();
+94:         let binding = Self {
+95:             property: property.id,
+96:             members,
+97:             gate,
+98:             descriptor_digest: BoundaryDescriptorDigest::of(&property.boundary),
+99:             elements,
+100:         };
+101:         binding
+102:             .validate()
+103:             .map_err(|issue| BoundaryAdmissionError::Support {
+104:                 property: property.id,
+105:                 issue,
+106:             })?;
+107:         Ok(binding)
+108:     }
+109:     fn validate(&self) -> Result<(), SupportGeometryIssue> {
+110:         if self.property.0 == 0
+111:             || self.members.ids().len() != 2
+112:             || self.elements.is_empty()
+113:             || self.elements.iter().enumerate().any(|(index, element)| {
+114:                 self.elements[..index].contains(element)
+115:                     || matches!(
+116:                         element,
+117:                         BoundarySupportElement::Owner | BoundarySupportElement::GateLanding
+118:                     )
+119:             })
+120:         {
+121:             return Err(SupportGeometryIssue::Members);
+122:         }
+123:         Ok(())
+124:     }
+125:     pub fn property(&self) -> CityPropertyId {
+126:         self.property
+127:     }
+128:     pub fn members(&self) -> &PropertyMembers {
+129:         &self.members
+130:     }
+131:     pub fn gate(&self) -> SupportElevation {
+132:         self.gate
+133:     }
+134:     pub fn validate_scene(
+135:         &self,
+136:         property: CityPropertyId,
+137:         front: crate::scene_input::SceneBuildingId,
+138:         boundary: &crate::city_layout::CityBoundary,
+139:     ) -> Result<(), BoundaryAdmissionError> {
+140:         if property != self.property || self.members.ids().first() != Some(&front) {
+141:             return Err(BoundaryAdmissionError::Owner { property, front });
+142:         }
+143:         let elements: Vec<_> = boundary
+144:             .fixed_members()
+145:             .map_err(|cause| BoundaryAdmissionError::Geometry { property, cause })?
+146:             .into_iter()
+147:             .map(|member| member.pose.element())
+148:             .collect();
+149:         if elements != self.elements {
+150:             return Err(BoundaryAdmissionError::Descriptor { property });
+151:         }
+152:         if BoundaryDescriptorDigest::of(boundary) != self.descriptor_digest {
+153:             return Err(BoundaryAdmissionError::Descriptor { property });
+154:         }
+155:         Ok(())
+156:     }
+157:     pub(super) fn validate_cells(
+158:         &self,
+159:         cells: &[BoundarySupportCell],
+160:     ) -> Result<(), SupportGeometryIssue> {
+161:         if cells.len() > u32::MAX as usize / (6 * 8)
+162:             || cells
+163:                 .iter()
+164:                 .any(|cell| !self.elements.contains(&cell.element))
+165:             || self
+166:                 .elements
+167:                 .iter()
+168:                 .any(|element| !cells.iter().any(|cell| cell.element == *element))
+169:         {
+170:             return Err(SupportGeometryIssue::Topology);
+171:         }
+172:         Ok(())
+173:     }
+174: }
+175: #[derive(Clone, Debug, PartialEq, Serialize, thiserror::Error)]
+176: pub enum BoundaryAdmissionError {
+177:     #[error(
+178:         "property {property:?}, front building {front} disagrees with its fixed enclosure owner"
+179:     )]
+180:     Owner {
+181:         property: CityPropertyId,
+182:         front: crate::scene_input::SceneBuildingId,
+183:     },
+184:     #[error("property {property:?} enclosure descriptor disagrees with its fixed geometry")]
+185:     Descriptor { property: CityPropertyId },
+186:     #[error("property {property:?} gate datum {actual:?} differs from bound datum {expected:?}")]
+187:     Datum {
+188:         property: CityPropertyId,
+189:         actual: SupportElevation,
+190:         expected: SupportElevation,
+191:     },
+192:     #[error("property {property:?} descriptor geometry: {cause}")]
+193:     Geometry {
+194:         property: CityPropertyId,
+195:         #[source]
+196:         cause: crate::city_layout::BoundaryGeometryError,
+197:     },
+198:     #[error("property {property:?} fixed support: {issue}")]
+199:     Support {
+200:         property: CityPropertyId,
+201:         #[source]
+202:         issue: SupportGeometryIssue,
+203:     },
+204: }
+205: #[derive(Clone, Debug, PartialEq)]
+206: pub struct BoundarySupportProjection {
+207:     pub mesh: BoundarySupportMesh,
+208:     pub gate_elevation: SupportElevation,
+209: }

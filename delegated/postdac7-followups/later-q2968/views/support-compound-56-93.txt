@@ -1,0 +1,38 @@
+  56 }
+  57 
+  58 /// An inward-opening timber gate, in the same horizontal coordinates as its plot.
+  59 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, Reflect)]
+  60 #[serde(deny_unknown_fields)]
+  61 pub struct CityGate {
+  62     pub hinge: PropertySide,
+  63     pub centre_metres: Vec2,
+  64     pub orientation: BuildingOrientation,
+  65     pub width_metres: f32,
+  66     pub height_metres: f32,
+  67 }
+  68 
+  69 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Reflect)]
+  70 #[serde(deny_unknown_fields)]
+  71 pub struct CityBoundary {
+  72     pub walls: Vec<CityBoundarySegment>,
+  73     pub gate: CityGate,
+  74 }
+  75 
+  76 /// Front and rear are members of one property; the rear adds no service or residents.
+  77 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize, Reflect)]
+  78 #[serde(deny_unknown_fields)]
+  79 pub struct CityCompound {
+  80     pub id: CityPropertyId,
+  81     pub front_building_id: crate::scene_input::SceneBuildingId,
+  82     pub rear_building_id: crate::scene_input::SceneBuildingId,
+  83     pub plot: CityPlotBounds,
+  84     pub court: CityPlotBounds,
+  85     pub access: Vec<CityAccessSegment>,
+  86     pub boundary: CityBoundary,
+  87 }
+  88 
+  89 impl CityBuildingLot {
+  90     pub fn has_rear_range(self) -> bool {
+  91         self.service.is_none() && self.house_class == CityHouseClass::MerchantHouse
+  92     }
+  93 }

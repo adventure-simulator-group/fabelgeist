@@ -1,0 +1,77 @@
+{
+  "schema": "726-postdac7-application-v1",
+  "parent": "dac7d0055716053f245139971eb67ddfd87fa462",
+  "archive": "APPLICATION-EVIDENCE.tar.gz",
+  "archive_bytes": 771455,
+  "archive_sha256": "b3979be24aac46fb01c314a7b6341141916e5cdcb6dc2de08ac2aacb51fc7e56",
+  "transform_sha256": "74fd272b3e551f89deb6bb668d376bc534526f88fe6c09f16345ce55530052e5",
+  "members": [
+    {
+      "path": "after/BASELINE-95E-20261110.json",
+      "bytes": 1493420,
+      "sha256": "ef03a2139c886acde97c016baf34d06e28d42f9de8d697e2ace142a32b7962d4",
+      "mode": "0644"
+    },
+    {
+      "path": "after/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 124360,
+      "sha256": "6fdecd13f48f5662f3dcf269517a03b3b6b1c908a088e51fd96926e1e169859b",
+      "mode": "0644"
+    },
+    {
+      "path": "after/CONTINUATION.md",
+      "bytes": 118944,
+      "sha256": "510a7f5d0b6337ea9e05b683b2f5f0f03d68802133a0db2b5c3de34717dc67e8",
+      "mode": "0644"
+    },
+    {
+      "path": "after/RECONCILIATION-059.json",
+      "bytes": 1253609,
+      "sha256": "f1adf87fc903946fae9e7e4aa7833852f359a392148efb257ff02d924a798ccc",
+      "mode": "0644"
+    },
+    {
+      "path": "before/BASELINE-95E-20261110.json",
+      "bytes": 1477057,
+      "sha256": "842c3eabfaa1811441dc48461f21157e3f0e3ffc6df2f939e55ba6baa42cfa98",
+      "mode": "0644"
+    },
+    {
+      "path": "before/CONTINUATION-PROGRESS-95E.json",
+      "bytes": 123305,
+      "sha256": "7e1272e4b923016c11166bd1b133249829517bd4d068550ec69372274808b071",
+      "mode": "0644"
+    },
+    {
+      "path": "before/CONTINUATION.md",
+      "bytes": 118051,
+      "sha256": "92ffa0ef4bc6d942624b1a4f114a5a18693ff0ad523c6ec81e30e47d2b6ada36",
+      "mode": "0644"
+    },
+    {
+      "path": "before/RECONCILIATION-059.json",
+      "bytes": 1251495,
+      "sha256": "014fde3086691d036a008014d2d4d2b77dd807078fd5287eef788d93b4a5896e",
+      "mode": "0644"
+    },
+    {
+      "path": "inputs/main-observation.json",
+      "bytes": 535,
+      "sha256": "b8bd24bef6d57226c89966c45c3b6dffb7178c9b1bc5c8c070d7c18c3f1a9668",
+      "mode": "0644"
+    },
+    {
+      "path": "inputs/pending.json",
+      "bytes": 9373,
+      "sha256": "4b2c44c25ce05f96131aa823803c791006dec100c0e802e2f5e04d3e110d7759",
+      "mode": "0644"
+    },
+    {
+      "path": "inputs/report.json",
+      "bytes": 45773,
+      "sha256": "f2c8647a79546f0f5395140ecbbab20a8a9dd1dc654323a66ac9a9db4d3532a1",
+      "mode": "0644"
+    }
+  ],
+  "qualification": "Exact before/after application is evidence-only and time-bound. Older source and queue records are not promoted to checkpoint3821, partial entries are not semantic closures, and no product work occurred."
+}

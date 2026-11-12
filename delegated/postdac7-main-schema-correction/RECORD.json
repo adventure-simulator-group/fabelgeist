@@ -1,0 +1,13 @@
+{
+  "schema": "726-postdac7-main-schema-correction-v1",
+  "original_observation": "MAIN-RECHECK-20261112-2101.json",
+  "original_sha256": "b8bd24bef6d57226c89966c45c3b6dffb7178c9b1bc5c8c070d7c18c3f1a9668",
+  "successor_observation": "MAIN-RECHECK-20261112-2101-v2.json",
+  "successor_sha256": "f1584ac9ce3aaabd683dee1441324a680884f286a9f50022a667ed30400f8a88",
+  "baseline_before_sha256": "ef03a2139c886acde97c016baf34d06e28d42f9de8d697e2ace142a32b7962d4",
+  "baseline_after_sha256": "a44137624c56f7567ff936137294289f762228408bada87be81476877a6d595e",
+  "failed_driver_result_sha256": "08e74417803f7421fa154fb9265de50be4d677c3bd5b5494f29464c880665471",
+  "encrypted_manifest_sha256": "2bace1cd8ff77c50277c745582d03445d85424030442c29683e4f44b9097df14",
+  "packaging_failure": "The initial ciphertext enumeration assertion failed before encryption; a corrected enumeration then verified 44 historical and 29 new primary-key nonces. Exact script and transcript-only limitation are retained in the encrypted control.",
+  "qualification": "The prepublication evidence driver failed because the original point-in-time observation lacked the method field required by an earlier verifier. The original observation and failed run are retained; the successor adds only a normalized method and attribution. No new main observation, queue closure, product validation or checkpoint3821 recovery is asserted."
+}

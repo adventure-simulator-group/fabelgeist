@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; ciphertext file is 12-byte nonce followed by authenticated ciphertext and tag",
+  "plaintext_format": "gzip-compressed tar; normalized uid/gid/mtime, preserved file bytes and modes; relative evidence/ paths",
+  "objects": [
+    {
+      "label": "postdac7-lens-correction-control",
+      "ciphertext": "postdac7-lens-correction-control.aesgcm",
+      "ciphertext_sha256": "d2553dd5137d699c557644687e11e5f746fee7ef1af56ff9577f5800e29b86a1",
+      "ciphertext_bytes": 4362518,
+      "plaintext_archive_sha256": "5ecef019c108c52dac28fe936c8187bf5448737218765a1430683740807d0b14",
+      "plaintext_archive_bytes": 4362490,
+      "regular_files": 129,
+      "directories": 13,
+      "associated_data": "726-audit-private-evidence:postdac7-lens-correction-control:v1"
+    }
+  ],
+  "key_custody": "Separately held same-machine preservation key; fresh nonce checked against staged/tracked ciphertext prefixes. Original q2754 and q2910 packet replay also requires their separately held inner keys and Git inputs.",
+  "qualification": "Authenticated same-machine exact restricted correction originals, reviewer scan, prior frozen v2/v3 driver and scan receipts, and preceding bracketed main observation. Ciphertext is opaque to public scans; no independent custody, product behavior, all-history coverage or checkpoint3821 recovery is established."
+}

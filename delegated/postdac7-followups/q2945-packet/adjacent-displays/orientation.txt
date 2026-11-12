@@ -1,0 +1,38 @@
+65:             } else {
+66:                 yaw
+67:             })
+68:         })
+69:     }
+70: 
+71:     pub fn yaw_radians(self) -> f32 {
+72:         self.0
+73:     }
+74: 
+75:     pub fn is_valid(self) -> bool {
+76:         self.0.is_finite() && self.0 >= -core::f32::consts::PI && self.0 < core::f32::consts::PI
+77:     }
+78: 
+79:     pub fn local_to_world(self, vector: Vec2) -> Vec2 {
+80:         let (sine, cosine) = self.0.sin_cos();
+81:         Vec2::new(
+82:             cosine * vector.x + sine * vector.y,
+83:             -sine * vector.x + cosine * vector.y,
+84:         )
+85:     }
+86: 
+87:     pub fn world_to_local(self, vector: Vec2) -> Vec2 {
+88:         let (sine, cosine) = self.0.sin_cos();
+89:         Vec2::new(
+90:             cosine * vector.x - sine * vector.y,
+91:             sine * vector.x + cosine * vector.y,
+92:         )
+93:     }
+94: }
+95: 
+96: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+97: #[serde(deny_unknown_fields)]
+98: pub struct TacticalBuildingPlacement {
+99:     pub id: SceneBuildingId,
+100:     pub program: BuildingProgram,
+101:     pub centre_metres: crate::scene_coordinates::ScenePlanPoint,
+102:     /// Scene elevation of architectural Y=0, retained through detail changes.

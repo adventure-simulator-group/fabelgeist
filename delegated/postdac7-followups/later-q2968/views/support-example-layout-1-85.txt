@@ -1,0 +1,85 @@
+   1 //! Recreate exact reservations from the recorded settlement and verify identity.
+   2 use super::*;
+   3 use adventuresim_tactical_server_dispatcher::settlement_buildings::{
+   4     SettlementSceneProfile, place_settlement_buildings,
+   5 };
+   6 use adventuresim_world_schema::{
+   7     CURRENT_INFERENCE_RULES_VERSION, CompiledWorld, WORLD_SCHEMA_VERSION,
+   8 };
+   9 
+  10 pub(super) fn reproduce(
+  11     input: &TacticalSceneInput,
+  12     world_path: &std::path::Path,
+  13 ) -> Result<CitySceneLayout, Box<dyn std::error::Error>> {
+  14     let world: CompiledWorld = serde_json::from_slice(&std::fs::read(world_path)?)?;
+  15     if world.metadata.schema_version != WORLD_SCHEMA_VERSION
+  16         || world.metadata.inference_rules_version != CURRENT_INFERENCE_RULES_VERSION
+  17     {
+  18         return Err("support reproduction requires the current imported world schema".into());
+  19     }
+  20     let id = &input
+  21         .properties
+  22         .as_ref()
+  23         .ok_or("production fixture lacks authoritative home catalogue")?
+  24         .settlement_id;
+  25     let settlement = world
+  26         .settlements
+  27         .iter()
+  28         .find(|s| s.id == *id)
+  29         .ok_or("fixture settlement is absent from imported world")?;
+  30     let profile = SettlementSceneProfile {
+  31         id: settlement.id.clone(),
+  32         population_level: settlement.population_level,
+  33         population_estimate: settlement.population_estimate,
+  34         economy: settlement.economy.clone(),
+  35         operators: Vec::new(),
+  36     };
+  37     let extent = f32::from(input.playable.width - 1) * input.playable.spacing_metres * 0.5;
+  38     let layout = place_settlement_buildings(&profile, extent)?;
+  39     verify(input, &layout)?;
+  40     Ok(layout)
+  41 }
+  42 
+  43 fn verify(
+  44     input: &TacticalSceneInput,
+  45     layout: &CitySceneLayout,
+  46 ) -> Result<(), Box<dyn std::error::Error>> {
+  47     // Check published floors against their accepted projection before excluding
+  48     // them from the comparison with the compiler's unseated placements.
+  49     input.validate()?;
+  50     let playable_matches = layout.playable.len() == input.buildings.len()
+  51         && layout
+  52             .playable
+  53             .iter()
+  54             .zip(&input.buildings)
+  55             .all(|(raw, seated)| {
+  56                 let mut expected = raw.clone();
+  57                 expected.base_elevation_metres = seated.base_elevation_metres;
+  58                 expected == *seated
+  59             });
+  60     let distant_matches = layout.distant.len() == input.distant_buildings.len()
+  61         && layout
+  62             .distant
+  63             .iter()
+  64             .zip(&input.distant_buildings)
+  65             .all(|(raw, seated)| {
+  66                 let mut expected = *raw;
+  67                 expected.base_elevation_metres = seated.base_elevation_metres;
+  68                 expected == *seated
+  69             });
+  70     if !playable_matches
+  71         || !distant_matches
+  72         || layout.compounds != input.compounds
+  73         || layout.gardens != input.gardens
+  74         || layout.streets != input.streets
+  75         || layout.yards != input.yards
+  76         || layout.parishes != input.parishes
+  77     {
+  78         return Err("recreated programmes, membership or horizontal placement differs from the frozen input".into());
+  79     }
+  80     Ok(())
+  81 }
+  82 
+  83 #[cfg(test)]
+  84 #[path = "layout/tests.rs"]
+  85 mod tests;

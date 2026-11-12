@@ -1,0 +1,90 @@
+1: //! Fixed enclosure and operable gate geometry share one descriptor.
+2: use super::*;
+3: use crate::scene_coordinates::{GateRelative, GroundRelative};
+4: use adventuresim_building_generator::spatial_geometry::{
+5:     CuboidDimensions, GeometryError, Position,
+6: };
+7: use adventuresim_building_generator::{DoorSpec, OpeningAssemblyId, ResolvedItemId};
+8: use bevy::math::Vec3;
+9: 
+10: const BOUNDARY_GATE_OPENING_DOMAIN: u64 = 0xc300_0000_0000_0000;
+11: const GATE_LEAF_THICKNESS_METRES: f32 = 0.055;
+12: const GATE_GROUND_GAP_METRES: f32 = 0.05;
+13: const GATE_POST_WIDTH_METRES: f32 = 0.3;
+14: const GATE_POST_HEAD_METRES: f32 = 0.15;
+15: const WALL_CAP_HEIGHT_METRES: f32 = 0.1;
+16: const WALL_CAP_OVERHANG_METRES: f32 = 0.025;
+17: const GATE_OPEN_ANGLE_RADIANS: f32 = core::f32::consts::FRAC_PI_2;
+18: const GATE_HINGE_CLEARANCE_METRES: f32 = 0.025;
+19: 
+20: #[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+21: pub enum CityBoundaryMaterial {
+22:     Masonry,
+23:     Timber,
+24:     Iron,
+25: }
+26: 
+27: /// Identity of one fixed enclosure member, retained through support projection.
+28: #[derive(Clone, Copy, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+29: #[serde(rename_all = "snake_case")]
+30: pub enum BoundarySupportElement {
+31:     Owner,
+32:     GateLanding,
+33:     Wall(usize),
+34:     WallCap(usize),
+35:     GatePost(PropertySide),
+36: }
+37: 
+38: /// The datum and support policy accompany each pose rather than being inferred
+39: /// from an unframed vector or an independently enumerated member list.
+40: #[derive(Clone, Copy, Debug, PartialEq)]
+41: pub enum CityBoundaryPose {
+42:     Wall {
+43:         index: usize,
+44:         centre: Position<GroundRelative>,
+45:     },
+46:     WallCap {
+47:         index: usize,
+48:         centre: Position<GroundRelative>,
+49:     },
+50:     GatePost {
+51:         side: PropertySide,
+52:         centre: Position<GateRelative>,
+53:     },
+54: }
+55: impl CityBoundaryPose {
+56:     pub fn element(self) -> BoundarySupportElement {
+57:         match self {
+58:             Self::Wall { index, .. } => BoundarySupportElement::Wall(index),
+59:             Self::WallCap { index, .. } => BoundarySupportElement::WallCap(index),
+60:             Self::GatePost { side, .. } => BoundarySupportElement::GatePost(side),
+61:         }
+62:     }
+63:     /// Native arithmetic adapter: X/Z are already scene coordinates in all
+64:     /// cases. The caller must match the pose before interpreting its Y datum.
+65:     pub fn plan_metres(self) -> Vec2 {
+66:         match self {
+67:             Self::Wall { centre, .. } | Self::WallCap { centre, .. } => {
+68:                 Vec2::new(centre.metres().x, centre.metres().z)
+69:             }
+70:             Self::GatePost { centre, .. } => Vec2::new(centre.metres().x, centre.metres().z),
+71:         }
+72:     }
+73: }
+74: #[derive(Clone, Copy, Debug, PartialEq)]
+75: pub struct CityBoundaryMember {
+76:     pub pose: CityBoundaryPose,
+77:     pub size_metres: CuboidDimensions,
+78:     pub orientation: BuildingOrientation,
+79:     pub material: CityBoundaryMaterial,
+80: }
+81: impl CityBoundaryMember {
+82:     /// Before grading, the packing check explicitly binds every relative height
+83:     /// to the same zero datum. Terrain projection later uses the declared pose.
+84:     pub fn packing_cuboid(
+85:         self,
+86:         source: ResolvedItemId,
+87:     ) -> Result<
+88:         adventuresim_building_generator::CollisionCuboid<GateRelative>,
+89:         adventuresim_building_generator::CollisionError,
+90:     > {

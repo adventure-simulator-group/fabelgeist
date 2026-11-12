@@ -1,0 +1,80 @@
+1: //! Enclosures bind to accepted property triangles, without additional grading.
+2: use super::foundations::GroundTriangle;
+3: use super::*;
+4: use crate::city_layout::{CityBoundaryMaterial, CityBoundaryMember};
+5: use crate::scene_coordinates::GateRelative;
+6: use adventuresim_building_generator::spatial_geometry::Position;
+7: use bevy::math::{DVec2, Quat, Vec3Swizzles};
+8: mod binding;
+9: mod projection;
+10: pub use binding::{BoundaryAdmissionError, BoundaryOwnerBinding, BoundarySupportProjection};
+11: 
+12: /// Closed prism topology shared by rendering and collision. Top precedes base.
+13: const ENCLOSURE_CELL_FACES: [[u32; 3]; 8] = [
+14:     [0, 2, 1],
+15:     [3, 4, 5],
+16:     [0, 1, 4],
+17:     [0, 4, 3],
+18:     [1, 2, 5],
+19:     [1, 5, 4],
+20:     [2, 0, 3],
+21:     [2, 3, 5],
+22: ];
+23: 
+24: /// An exact finite masonry cell; its base follows the complete bearing polygon.
+25: #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+26: #[serde(try_from = "BoundaryCellWire")]
+27: pub struct BoundarySupportCell {
+28:     positions_metres: [Position<GateRelative>; 6],
+29:     material: CityBoundaryMaterial,
+30:     element: BoundarySupportElement,
+31: }
+32: 
+33: #[derive(Deserialize)]
+34: struct BoundaryCellWire {
+35:     positions_metres: [Position<GateRelative>; 6],
+36:     material: CityBoundaryMaterial,
+37:     element: BoundarySupportElement,
+38: }
+39: impl TryFrom<BoundaryCellWire> for BoundarySupportCell {
+40:     type Error = SupportGeometryIssue;
+41:     fn try_from(wire: BoundaryCellWire) -> Result<Self, Self::Error> {
+42:         Self::new(wire.positions_metres, wire.material, wire.element)
+43:     }
+44: }
+45: impl BoundarySupportCell {
+46:     pub fn new(
+47:         positions: [Position<GateRelative>; 6],
+48:         material: CityBoundaryMaterial,
+49:         element: BoundarySupportElement,
+50:     ) -> Result<Self, SupportGeometryIssue> {
+51:         super::admission::prism(&positions.map(Position::metres))?;
+52:         Ok(Self {
+53:             positions_metres: positions,
+54:             material,
+55:             element,
+56:         })
+57:     }
+58:     /// Explicit mesh/physics port: scene X/Z, height relative to the bound gate.
+59:     pub fn native_positions(&self) -> [Vec3; 6] {
+60:         self.positions_metres.map(Position::metres)
+61:     }
+62:     pub fn positions(&self) -> &[Position<GateRelative>; 6] {
+63:         &self.positions_metres
+64:     }
+65:     pub fn material(&self) -> CityBoundaryMaterial {
+66:         self.material
+67:     }
+68:     pub fn element(&self) -> BoundarySupportElement {
+69:         self.element
+70:     }
+71: 
+72:     pub fn triangles(&self) -> impl Iterator<Item = [Vec3; 3]> + '_ {
+73:         ENCLOSURE_CELL_FACES
+74:             .map(|indices| indices.map(|i| self.positions_metres[i as usize].metres()))
+75:             .into_iter()
+76:     }
+77: }
+78: 
+79: pub use crate::city_layout::compound::BoundarySupportElement;
+80: 

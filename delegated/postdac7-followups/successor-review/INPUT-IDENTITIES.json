@@ -1,0 +1,73 @@
+{
+  "schema": "followups16-successor-review-input-identities-v1",
+  "inputs": [
+    {
+      "file": "report-v1.json",
+      "bytes": 43892,
+      "sha256": "d91ff3ecd952a7d8ae0a20122d3e90366d27f05d8de98c7ce242a16eb59f8e0b"
+    },
+    {
+      "file": "report-v2.json",
+      "bytes": 45725,
+      "sha256": "49e4e49b68b56f11385a61835af0d659a2898e9ec7e4f168557a018b42b4d304"
+    },
+    {
+      "file": "corrections.json",
+      "bytes": 9101,
+      "sha256": "98f88e7adda69b9de1a0dda95d24060f0d8bb06d607d3502a3d373b6ad29be58"
+    },
+    {
+      "file": "prior-review.md",
+      "bytes": 7224,
+      "sha256": "7260e8f7049e39306b5196c5a5fae8f753118886653704241d754265130f69a6"
+    },
+    {
+      "file": "prior-manifest.json",
+      "bytes": 22877,
+      "sha256": "6832487190607714b2ea71088946f6510896078658b6163b854f06a87309b6df"
+    },
+    {
+      "file": "reviewer-confirmation.json",
+      "bytes": 530,
+      "sha256": "f0775f1eb379580e4647df2b70247a36f057604959932141360421538eededbb"
+    },
+    {
+      "file": "report-v3.json",
+      "sha256": "f2c8647a79546f0f5395140ecbbab20a8a9dd1dc654323a66ac9a9db4d3532a1",
+      "bytes": 45773
+    },
+    {
+      "file": "corrections-v2.json",
+      "sha256": "e3e0a8e7bb446e542f3c11caebd05a739687a02c7151471560b1dcb0c43b8c2e",
+      "bytes": 4757
+    }
+  ],
+  "previous_review_manifest_sha256": "6832487190607714b2ea71088946f6510896078658b6163b854f06a87309b6df",
+  "published_recovery_readme": {
+    "label": 0,
+    "git_path": "README.md",
+    "bytes": 18120,
+    "sha256": "b5044a3a245e55d00748304bf78291d85c992fef3cb357e0e784bc7134b0367b",
+    "git_blob": "bede50fc9d8d3570c7335ab7e26443382995ba32"
+  },
+  "published_440_manifest": {
+    "revision": "dac7d0055716053f245139971eb67ddfd87fa462",
+    "path": "recovered/selected-lens-440-values/MANIFEST.json",
+    "sha256": "4fdab95e1b08f836f8cc4d571db3be4d61a78038760b29ca09f738d273d715d1",
+    "git_blob": "a1882d869e4984704897e94fc85f1610ad073d9a"
+  },
+  "published_440_snapshot": {
+    "revision": "dac7d0055716053f245139971eb67ddfd87fa462",
+    "path": "recovered/selected-lens-440-values/eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+    "bytes": 15560,
+    "sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232",
+    "matches_manifest": true,
+    "git_blob": "3fe1b4ba53859a05db3b4cce3da5239fd23f1e9e",
+    "qualification": "Exact snapshot bytes/hash only; missing selected state lenses remain separately qualified and final authority not recovered."
+  },
+  "qualifications": [
+    "Source paths are Git-tree-relative; no local account path or individual private-path value digest is included.",
+    "Exact source and report bytes are input evidence, not personal reading credit.",
+    "The earlier receipt and direct reviewer confirmation are same-machine statements, not authenticated signatures."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "at_utc": "2026-11-12T23:14:23.421939+00:00",
+  "author": "/root/mhr_character",
+  "scope": "Additive correction of own q2968 and q3016 review labels; frozen packets remain unmodified.",
+  "observed_working_baseline_sha256": "a44137624c56f7567ff936137294289f762228408bada87be81476877a6d595e",
+  "lens_names": [
+    "producer propagation",
+    "existing owners",
+    "admission",
+    "operations",
+    "aggregates",
+    "type ownership",
+    "redundant authority",
+    "behavior preservation",
+    "enum shapes",
+    "derivability",
+    "type granularity",
+    "raw strings",
+    "raw primitives"
+  ],
+  "skills_sha256": {
+    "producer-propagation": "9d202f015eed4818d6d2753c7624faa64fb5522e03cc55284fc68a366a204293",
+    "type-ownership": "4e6ed19f7244c134db991a339145858059bb098ac2b804076675c8fe71de87e0",
+    "bespoke-map": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182"
+  },
+  "packet_identities": {
+    "q2968": {
+      "manifest_sha256": "9dd9534aff5f01db67221eb4912a6be75513efe587cb70c0bbd2f73f27dcdf1e",
+      "report_sha256": "69c8aadafff32598c97b848d3afbc9048ebf9e0013ba49bee98ab72d590a1084",
+      "historical_entry_lens": 1,
+      "applied_skill": "audit-type-ownership",
+      "required_historical_lens_name": "producer propagation"
+    },
+    "q3016": {
+      "manifest_sha256": "c9ed3888a1a481c3a17000ea426c2a4a43c250ce8de78179091c98ce4722e928",
+      "report_sha256": "90d1b1f9ba0fc302980be2dfe67fe45ce04574bc80901f93adf3dd7aca63317d",
+      "historical_entry_lens": 1,
+      "applied_skill": "audit-type-ownership",
+      "required_historical_lens_name": "producer propagation"
+    }
+  },
+  "finding": "Both prior packets were assigned as Lens 1 but explicitly applied the type-ownership skill. The observed working audit map identifies Lens 1 as producer propagation and Lens 6 as type ownership; the skill suite table matches this order. Their actual personal source read ranges and findings remain as recorded, and some traces may be relevant to propagation, but the packets must not automatically be credited as full independent Lens 1 producer-propagation assessments. Do not infer Lens 6 closure either; central review determines any qualified use and any remaining work.",
+  "history_qualification": "Map source is observed working baseline, not a claim that its full bytes were a committed checkpoint; 059 selected entries themselves specify lens number but not a name. No 3821 promotion or source execution."
+}

@@ -1,0 +1,55 @@
+{
+  "schema": "postdac7-prepared-stream-evidence-replay-v1",
+  "reviewer": "/root/verifier_scope",
+  "scope": "Read-only verification of staged prepared-review/q2760 and stream-review/q2773 evidence using the separate q2812 anchor collection and retained Git checkout. q2910 is a later separate packet and was not altered.",
+  "result": "PASS for all seven evidence-only invocations; zero stderr and no timeouts.",
+  "replays": [
+    {
+      "name": "q2812 anchor collection",
+      "result": "PASS",
+      "details": "Seven exact anchor files and support files match registered byte identities and modes; private collection directory mode verified."
+    },
+    {
+      "name": "prepared prior restricted",
+      "result": "PASS",
+      "details": "Restricted manifest, source and transport Git proofs, registered displays, delegated evidence, ledger, draft correction, historical spans and complete original/reconstructed queue membership against q2812 verified."
+    },
+    {
+      "name": "prepared v3 full",
+      "result": "PASS",
+      "details": "13 v3 packet files, exact q2760 v2/v3 correction, 343 prior restricted files and nested full evidence replay verified."
+    },
+    {
+      "name": "prepared public full",
+      "result": "PASS",
+      "details": "58 public manifest files and modes, nine source blobs, tree paths, eleven selected displays, three delegate transcripts, historical path identity, and nested restricted/v3/anchor verification."
+    },
+    {
+      "name": "stream restricted",
+      "result": "PASS",
+      "details": "185 manifest files, six commit objects, eight publication trees, five decoded Git blobs and eight historical exact slices; bound to the public manifest."
+    },
+    {
+      "name": "stream public full",
+      "result": "PASS",
+      "details": "134 manifest files, 22 tree objects, 14 source path proofs, 26 independent displays, 12 coordinator displays, one guide view and 15 delegate members; all six optional source-root, delegate, historical-queue, ledger, restricted-draft and coordinator-capture bindings true."
+    },
+    {
+      "name": "stream stored-scan receipt",
+      "result": "PASS",
+      "details": "15 stored receipt files and both public/restricted manifest bindings checked. This does not rerun private-corpus privacy scans."
+    }
+  ],
+  "missing_or_external_dependencies": [
+    "No dependency required by the seven attempted full verification commands was missing at the time of replay.",
+    "The q2812 anchor collection and the Git object store used for the strongest stream bindings were separately held on the same machine; retain them for future replay. The complete prepared/stream staged packets and q2812 collection are included in this restricted evidence seal; Git objects are separately held.",
+    "Three privacy scanner source identities were found by whole-file hash during a bounded local search. The separate GPU and q2332 private corpus inputs were not independently located or revalidated; the 059 original queue is available in q2812 anchors. Stored scan receipts do not prove a fresh scan.",
+    "Same-machine key and private evidence custody are not independent public recoverability. Prior delegate original encrypted materials and keys may remain separate provenance dependencies."
+  ],
+  "preservation_and_qualifications": [
+    "Before/after inventories of the staged packets show the same file names, sizes and modes, with no additions or removals; this metadata comparison is not itself a full byte-for-byte pre/post proof. The verifiers checked listed file bytes and modes during their runs.",
+    "The initial recursive inventory display was wrapper-truncated; its complete capture and focused follow-up are retained. An ad hoc read-only scan-metadata summary failed on a list/object assumption; that failure is recorded and the corrected summary was run. A guessed optional metadata filename was absent and was not required by any passing replay.",
+    "Prepared verification includes separately run nested verifiers so their full stdout/stderr are captured; the public verifier itself captures its nested child output. Exact argument vectors, working directory, safe environment overrides and complete stdout/stderr are retained privately.",
+    "Original and reconstructed historical 059 evidence, historical attribution and newly assessed work remain distinct; no checkpoint 3821 restoration, whole-lens closure, new issue count, product execution, build, test or runtime validation is inferred."
+  ]
+}

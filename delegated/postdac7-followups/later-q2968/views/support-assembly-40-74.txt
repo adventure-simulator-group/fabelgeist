@@ -1,0 +1,35 @@
+  40                 church::validate(lot, &front, &recipe, &self.streets)?;
+  41             }
+  42             envelopes.push((front.id, gardens::envelope(&front, &recipe)?));
+  43             if let Some(garden) = gardens::compile(seed, lot, &front, &recipe, &self.streets) {
+  44                 gardens.push(garden);
+  45             }
+  46             if lot.has_rear_range() {
+  47                 let range = palette.range()?;
+  48                 let (rear, compound) = property::compile(
+  49                     lot,
+  50                     &front,
+  51                     &recipe,
+  52                     &range,
+  53                     &self.streets,
+  54                     &mut clearance_cache,
+  55                 )?;
+  56                 envelopes.push((rear.id, gardens::envelope(&rear, &range)?));
+  57                 buildings.push(rear);
+  58                 compounds.push(compound);
+  59             }
+  60             if !lot.has_rear_range() {
+  61                 single_properties.push(CitySingleProperty {
+  62                     id: CityPropertyId(lot.id),
+  63                     building_id: front.id,
+  64                     plot: CityPlotBounds::try_from(plots::reservation(lot))?,
+  65                 });
+  66             }
+  67             buildings.push(front);
+  68         }
+  69         gardens.retain(|garden| {
+  70             envelopes
+  71                 .iter()
+  72                 .all(|(_, envelope)| garden.clears_building(*envelope))
+  73         });
+  74         let mut yards = self.yards;

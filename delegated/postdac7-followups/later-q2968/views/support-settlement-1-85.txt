@@ -1,0 +1,85 @@
+   1 //! Physical home identity and bounded household allocation, independent of UI.
+   2 use fabelgeist_determinism::Seed;
+   3 use std::collections::BTreeSet;
+   4 
+   5 use serde::{Deserialize, Serialize};
+   6 
+   7 use crate::{courtship::HousingTier, strategic_place::StrategicIdentityComponent};
+   8 
+   9 const MAX_PROPERTY_CATALOG_BYTES: usize = 4 * 1024 * 1024;
+  10 
+  11 /// A settlement-scoped front building. Rear stores are parts of its property,
+  12 /// not extra homes. Identity does not include a player, household or tenancy.
+  13 #[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize)]
+  14 #[serde(transparent)]
+  15 pub struct PropertyId(String);
+  16 
+  17 impl PropertyId {
+  18     pub fn new(settlement: &str, building_id: u64) -> Result<Self, PropertyError> {
+  19         StrategicIdentityComponent::try_new(settlement)
+  20             .map_err(|_| PropertyError::InvalidIdentity)?;
+  21         if building_id == 0 {
+  22             return Err(PropertyError::InvalidIdentity);
+  23         }
+  24         Ok(Self(format!(
+  25             "property:{}:{settlement}:{building_id}",
+  26             settlement.len()
+  27         )))
+  28     }
+  29 
+  30     pub fn as_str(&self) -> &str {
+  31         &self.0
+  32     }
+  33 }
+  34 
+  35 /// One bounded vacant home in each price tier, reserved before housing the
+  36 /// settlement population. This is explicit game supply, not a vacancy estimate.
+  37 pub struct HousingMarketReserve(Vec<HousingTier>);
+  38 
+  39 impl Default for HousingMarketReserve {
+  40     fn default() -> Self {
+  41         Self(HousingTier::ALL.to_vec())
+  42     }
+  43 }
+  44 
+  45 impl HousingMarketReserve {
+  46     pub fn reserve(&mut self, tier: HousingTier) -> bool {
+  47         if let Some(index) = self.0.iter().position(|candidate| *candidate == tier) {
+  48             self.0.remove(index);
+  49             true
+  50         } else {
+  51             false
+  52         }
+  53     }
+  54 
+  55     pub fn complete(&self) -> bool {
+  56         self.0.is_empty()
+  57     }
+  58 }
+  59 
+  60 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  61 #[serde(deny_unknown_fields)]
+  62 pub struct GeneratedHome {
+  63     pub id: PropertyId,
+  64     pub building_id: u64,
+  65     pub tier: HousingTier,
+  66     pub resident_capacity: u32,
+  67     pub market_reserve: bool,
+  68     pub east_metres: f32,
+  69     pub north_metres: f32,
+  70     pub yaw_radians: f32,
+  71     pub width_metres: f32,
+  72     pub depth_metres: f32,
+  73 }
+  74 
+  75 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+  76 #[serde(deny_unknown_fields)]
+  77 pub struct GeneratedHomeCatalog {
+  78     pub settlement_id: String,
+  79     pub seed: Seed,
+  80     pub population: u32,
+  81     pub homes: Vec<GeneratedHome>,
+  82 }
+  83 
+  84 #[derive(Clone, Debug, PartialEq, Eq, thiserror::Error)]
+  85 pub enum PropertyError {

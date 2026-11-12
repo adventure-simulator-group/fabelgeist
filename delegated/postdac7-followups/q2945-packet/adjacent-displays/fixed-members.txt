@@ -1,0 +1,76 @@
+110:                 source_id: source,
+111:                 cause,
+112:             })?,
+113:             crossfall_radians: adventuresim_building_generator::spatial_geometry::Radians::ZERO,
+114:             longfall_radians: adventuresim_building_generator::spatial_geometry::Radians::ZERO,
+115:         })
+116:     }
+117: }
+118: #[derive(Clone, Debug, PartialEq, serde::Serialize, thiserror::Error)]
+119: #[error("enclosure {element:?}: {cause}")]
+120: pub struct BoundaryGeometryError {
+121:     pub element: BoundarySupportElement,
+122:     #[source]
+123:     pub cause: GeometryError,
+124: }
+125: impl CityBoundary {
+126:     pub fn fixed_members(&self) -> Result<Vec<CityBoundaryMember>, BoundaryGeometryError> {
+127:         let mut members = Vec::new();
+128:         for (index, wall) in self.walls.iter().enumerate() {
+129:             let centre = (wall.start_metres + wall.end_metres) * 0.5;
+130:             let length = wall.start_metres.distance(wall.end_metres);
+131:             let orientation =
+132:                 BuildingOrientation::from_frontage_tangent(wall.end_metres - wall.start_metres)
+133:                     .ok_or(BoundaryGeometryError {
+134:                         element: BoundarySupportElement::Wall(index),
+135:                         cause: GeometryError::InvalidProjection,
+136:                     })?;
+137:             for (cap, height, thickness, elevation) in [
+138:                 (
+139:                     false,
+140:                     wall.height_metres,
+141:                     wall.thickness_metres,
+142:                     wall.height_metres * 0.5,
+143:                 ),
+144:                 (
+145:                     true,
+146:                     WALL_CAP_HEIGHT_METRES,
+147:                     wall.thickness_metres + WALL_CAP_OVERHANG_METRES * 2.0,
+148:                     wall.height_metres + WALL_CAP_HEIGHT_METRES * 0.5,
+149:                 ),
+150:             ] {
+151:                 let element = if cap {
+152:                     BoundarySupportElement::WallCap(index)
+153:                 } else {
+154:                     BoundarySupportElement::Wall(index)
+155:                 };
+156:                 let construct = || {
+157:                     let centre = Position::from_metres(Vec3::new(centre.x, elevation, centre.y))?;
+158:                     Ok(CityBoundaryMember {
+159:                         pose: if cap {
+160:                             CityBoundaryPose::WallCap { index, centre }
+161:                         } else {
+162:                             CityBoundaryPose::Wall { index, centre }
+163:                         },
+164:                         size_metres: CuboidDimensions::from_metres(Vec3::new(
+165:                             length, height, thickness,
+166:                         ))?,
+167:                         orientation,
+168:                         material: CityBoundaryMaterial::Masonry,
+169:                     })
+170:                 };
+171:                 members
+172:                     .push(construct().map_err(|cause| BoundaryGeometryError { element, cause })?);
+173:             }
+174:         }
+175:         for side in [PropertySide::Left, PropertySide::Right] {
+176:             members.push(self.gate.post(side)?);
+177:         }
+178:         Ok(members)
+179:     }
+180: }
+181: impl CityGate {
+182:     /// Scene X/Z and gate-relative Y; support planning binds the post's head to
+183:     /// the accepted gate datum, with its base embedded in the local surface.
+184:     pub fn post(self, side: PropertySide) -> Result<CityBoundaryMember, BoundaryGeometryError> {
+185:         let centre = self.centre_metres

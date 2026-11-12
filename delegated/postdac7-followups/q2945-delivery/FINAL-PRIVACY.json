@@ -1,0 +1,22 @@
+{
+  "classification": "bounded final privacy scan",
+  "files_scanned": 86,
+  "private_values_and_prefixes": 4163,
+  "private_files_sampled": 751,
+  "variant_families": [
+    "raw values",
+    "SHA-256 raw and hex",
+    "SHA-1 raw and hex",
+    "MD5 raw and hex"
+  ],
+  "generic_patterns": [
+    "local path roots",
+    "email-shaped strings",
+    "private-key markers",
+    "GitHub-token shapes"
+  ],
+  "counts": {},
+  "locations": {},
+  "scope": "Sealed package, gzip archive bytes and replay/archive receipts; archive members separately compared byte-for-byte with scanned package. This receipt is scanned separately after creation.",
+  "qualification": "Finite regex-derived corpus and patterns, not a guarantee of finding every sensitive value; separately held originals remain restricted."
+}

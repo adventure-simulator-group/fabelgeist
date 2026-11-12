@@ -1,0 +1,35 @@
+{
+  "schema": "726-lens-supplement-restore-v1",
+  "recorded_utc": "2026-11-12T23:38:19.671365+00:00",
+  "ciphertext_manifest_sha256": "7f87bb1e9168fe5cabdc14da7d3bab131aaee0dca2179332580c3daa52c69f36",
+  "correction_manifest_sha256": "7c34ef0b75ee425173e93fb841902a4547a924d32ba5206f693a028727e506a9",
+  "checks": [
+    {
+      "check": "restore",
+      "exit": 0,
+      "stdout_bytes": 212,
+      "stdout_sha256": "e755e9946a07c5b9d2d95a569ac4b23b98d855e93757cd1540e37471686ad83b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "private-proof",
+      "exit": 0,
+      "stdout_bytes": 171,
+      "stdout_sha256": "ebf970361888efd6cec7ccf6f123279ba85a0c404c1c537cc4c8ccce94e2c1dd",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "check": "bound-public-proof",
+      "exit": 0,
+      "stdout_bytes": 262,
+      "stdout_sha256": "9e9474ef9a3a399c65408f40b13aed65be465afaad9ed34e3a5625bfd251ccdf",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "preceding_v2_v3_driver_logs_match_results": true,
+  "preceding_v3_scan_exit_zero": true,
+  "qualification": "Authenticated restoration into a newly created same-machine destination and offline evidence replay. Exact logs and private paths are held locally; original q2754/q2910 packet replays retain their separate inner keys and Git inputs. No independent custody, full-history claim, checkpoint3821 recovery or product validation."
+}

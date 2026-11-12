@@ -1,0 +1,20 @@
+{
+  "classification": "bounded pre-seal privacy review",
+  "files_scanned": 77,
+  "private_values_and_prefixes": 4163,
+  "variant_families": [
+    "raw values",
+    "SHA-256 raw and hex",
+    "SHA-1 raw and hex",
+    "MD5 raw and hex"
+  ],
+  "generic_patterns": [
+    "local path roots",
+    "email-shaped strings",
+    "private-key markers",
+    "GitHub-token shapes"
+  ],
+  "counts": {},
+  "locations": {},
+  "qualification": "Finite regex-derived corpus from separately held evidence and anchors; not proof of no sensitive information. Sealed packet, archive and replay receipts receive a separate scan."
+}

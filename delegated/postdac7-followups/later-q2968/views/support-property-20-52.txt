@@ -1,0 +1,33 @@
+  20 #[derive(Default)]
+  21 pub(super) struct ClearanceCache {
+  22     programmes: Vec<(
+  23         adventuresim_building_generator::BuildingProgram,
+  24         adventuresim_building_generator::BuildingProgram,
+  25         Vec2,
+  26         PropertySide,
+  27     )>,
+  28 }
+  29 
+  30 pub(super) fn compile(
+  31     lot: CityBuildingLot,
+  32     front: &TacticalBuildingPlacement,
+  33     front_recipe: &Recipe,
+  34     range_recipe: &Recipe,
+  35     streets: &[CityStreetPatch],
+  36     clearance_cache: &mut ClearanceCache,
+  37 ) -> Result<(TacticalBuildingPlacement, CityCompound), CityCompileError> {
+  38     let id = CityPropertyId(lot.id);
+  39     let world = |p| lot.centre_metres + lot.orientation.local_to_world(p);
+  40     let front_half = lot.footprint_metres * 0.5;
+  41     let court_depth = plots::REAR_COURT_METRES;
+  42     let rear = range_recipe.place(
+  43         (AUXILIARY_BUILDING_ID_BASE + lot.id).into(),
+  44         world(Vec2::new(
+  45             lot.passage_side.sign() * REAR_RANGE_SIDE_OFFSET_METRES,
+  46             front_half.y + court_depth + compound::REAR_RANGE_DEPTH_METRES * 0.5,
+  47         )),
+  48         lot.orientation,
+  49     )?;
+  50     let plot = CityPlotBounds::try_from(plots::reservation(lot))?;
+  51     if !front_recipe.fits(front, plot) || !range_recipe.fits(&rear, plot) {
+  52         return Err(CityCompileError::Compound {

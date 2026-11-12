@@ -1,0 +1,20 @@
+{
+  "schema": "726-encrypted-private-evidence-v1",
+  "algorithm": "AES-256-GCM; 12-byte nonce and authenticated ciphertext",
+  "plaintext_format": "gzip tar; exact file bytes and modes",
+  "objects": [
+    {
+      "label": "postdac7-main-schema-control",
+      "ciphertext": "postdac7-main-schema-control.aesgcm",
+      "ciphertext_sha256": "88edfc414c8af300bb66a30310658dc5589796d31ab1401f7dbdd5c6564cd380",
+      "ciphertext_bytes": 39180,
+      "plaintext_archive_sha256": "02fc412276e5c08ff487d418678275689a01fa6c25faf6818967aa9f0437b2fd",
+      "plaintext_archive_bytes": 39152,
+      "regular_files": 23,
+      "directories": 5,
+      "associated_data": "726-audit-private-evidence:postdac7-main-schema-control:v1"
+    }
+  ],
+  "key_custody": "Same separately held primary key; nonce checked against 44 earlier and 29 new primary-key ciphertexts.",
+  "qualification": "The exact failed verification run, staged capture, scan logs and failed packaging attempt contain local paths and are encrypted. No independent custody or product behavior is inferred."
+}

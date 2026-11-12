@@ -1,0 +1,42 @@
+{
+  "schema": "726-extra-transport-replay-v1",
+  "results": [
+    {
+      "label": "restore",
+      "exit": 0,
+      "stdout_bytes": 114,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "prepared_public_full",
+      "exit": 0,
+      "stdout_bytes": 371,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "stream_public_full",
+      "exit": 0,
+      "stdout_bytes": 602,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "overflow-prior",
+      "exit": 0,
+      "stdout_bytes": 267,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "overflow-v7",
+      "exit": 0,
+      "stdout_bytes": 181,
+      "stderr_bytes": 0
+    },
+    {
+      "label": "q2910-v6",
+      "exit": 0,
+      "stdout_bytes": 337,
+      "stderr_bytes": 0
+    }
+  ],
+  "qualification": "Restoration to a new same-machine scratch directory and source/evidence-only replay; exact commands and full outputs are retained in encrypted originals. This does not establish independent custody, product behavior or a fresh private-corpus scan."
+}

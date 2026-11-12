@@ -1,0 +1,80 @@
+1: //! Exact clipping retains terraces across the thickness of every wall and post.
+2: use super::*;
+3: 
+4: pub(super) fn project(
+5:     property: &CityCompound,
+6:     foundation: &PropertyFoundationMesh,
+7:     limits: SupportLimits,
+8:     embedment: FoundationEmbedment,
+9: ) -> Result<BoundarySupportProjection, BoundarySupportError> {
+10:     if foundation.property_id != property.id
+11:         || foundation.member_building_ids.len() != 2
+12:         || ![property.front_building_id, property.rear_building_id]
+13:             .iter()
+14:             .all(|id| foundation.member_building_ids.contains(id))
+15:     {
+16:         return Err(BoundarySupportError::new(
+17:             property,
+18:             BoundarySupportElement::Owner,
+19:             BoundarySupportConstraint::OwnerBinding,
+20:             property.plot.centre_metres(),
+21:             1.0,
+22:             0.0,
+23:         ));
+24:     }
+25:     let mut triangles: Vec<_> = foundation
+26:         .support_triangles
+27:         .iter()
+28:         .filter_map(|indices| {
+29:             GroundTriangle::new(indices.map(|i| foundation.positions[i as usize]))
+30:         })
+31:         .collect();
+32:     triangles.sort_by(GroundTriangle::compare);
+33:     let gate = gate_datum(property, &triangles, limits)?;
+34:     let binding = BoundaryOwnerBinding::from_property(property, gate)
+35:         .map_err(|cause| BoundarySupportError::binding(property, cause))?;
+36:     let mut mesh = BoundarySupportMesh {
+37:         binding,
+38:         cells: Vec::new(),
+39:     };
+40:     for member in property
+41:         .boundary
+42:         .fixed_members()
+43:         .map_err(|cause| BoundarySupportError::construction(property, cause))?
+44:     {
+45:         let element = member.pose.element();
+46:         MemberProjection {
+47:             property,
+48:             triangles: &triangles,
+49:             member,
+50:             element,
+51:             gate,
+52:             limits,
+53:             embedment,
+54:         }
+55:         .append(&mut mesh)?;
+56:     }
+57:     mesh.binding.validate_cells(&mesh.cells).map_err(|issue| {
+58:         BoundarySupportError::cell(property, BoundarySupportElement::Owner, issue)
+59:     })?;
+60:     Ok(BoundarySupportProjection {
+61:         mesh,
+62:         gate_elevation: gate,
+63:     })
+64: }
+65: 
+66: fn gate_datum(
+67:     property: &CityCompound,
+68:     triangles: &[GroundTriangle],
+69:     limits: SupportLimits,
+70: ) -> Result<SupportElevation, BoundarySupportError> {
+71:     let point = property.boundary.gate.centre_metres;
+72:     let mut heights: Vec<_> = triangles
+73:         .iter()
+74:         .filter(|t| t.contains(point, limits.contact_tolerance_metres.metres()))
+75:         .map(|t| t.height_at(point))
+76:         .collect();
+77:     heights.sort_by(f32::total_cmp);
+78:     let range = heights
+79:         .first()
+80:         .zip(heights.last())

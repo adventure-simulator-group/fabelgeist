@@ -1,0 +1,93 @@
+{
+  "schema": "q2910-independent-lens1-source-review-v1",
+  "reviewer": "/root/verifier_scope",
+  "scope": {
+    "queue": "059 original 56f /entries/2910 OBLIGATION-ROOT-L3-EXT-0018-LENS-01",
+    "source": "crates/adventuresim-procedural-textures/src/runtime/handles.rs",
+    "required_historical_range": [
+      1,
+      110
+    ],
+    "own_display_6533": [
+      1,
+      110
+    ],
+    "own_display_e275": [
+      1,
+      110
+    ],
+    "own_display_95e": [
+      1,
+      110
+    ],
+    "pinned_product_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "source_sha256": "d39e2fce7f4e99648f2c1b5409b52a5a34a55d97514699a77d803e1e2273ffd1",
+    "git_blob": "fca01420ed189a94e58bb88b40ae87e20627c147",
+    "qualification": "The exact same 110-line path bytes are present at 6533, e275 and 95e, and the protected original object matches. This does not prove the entire pr-working snapshot or trees match."
+  },
+  "historical_attribution": {
+    "original_queue_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "reconstructed_queue_revision": "0a2466a7485388575ef272e0a8355b9714204a37",
+    "selected_entry_bytes_equal": true,
+    "original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "reconstructed_queue_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+    "root_historical": "Root personally read 6533 1–110 under Lens 3, as registered and recorded by EXT-018. The e275 CURRENT-001 row 5 contains no fresh personal range and records qualified reuse of that same-Lens-3 read. It explicitly retains source_adoption_pending_for_frozen18_19=true and says authority acceptance requires that adoption in the same root transaction; this review does not infer later resolution.",
+    "reader_qualification": "The present reviewer separately registered and displayed the exact full body under Lens 1 for 6533, e275 and 95e. No historical Lens 3, delegated Lens 6, or foreign-reader credit transfers. The 059 original and reconstructed selected entry matches, but full queues differ; neither restores missing checkpoint 3821."
+  },
+  "owner_map": {
+    "established_owners": "TextureRecipeId and its slugs are defined in catalogue.rs:1–59. MapChannel and BakedRecipe are defined in bake.rs:11–28,78–95 and reexported by lib.rs:8–16,37–40. The same procedural-textures crate owns named Leaf/Surface/Bark/Ground/Glass texture sets and the aggregate in lib.rs:69–144; runtime.rs:32–81 owns requested, installed and recipe/channel destination state. The tactical client imports the same resource and declares the workspace dependency (presentation/mod.rs:65–66, tactical Cargo.toml:75–82, root Cargo.toml:78–83). Texture Cargo.toml:1–21 has no reverse tactical-client dependency. Manifest text does not prove resolved features.",
+    "distinct_output_vocabulary": "catalogue.rs:76–123,136–163 describes TextureOutput categories; bake.rs:160–170,206–211 and handles.rs:16–33,70–84 use more specific front/back and litter channel identities. These names are not established as equivalent types or interchangeable contracts."
+  },
+  "connected_recipe_channel_relationship": {
+    "source_observation": "bake.rs:136–225 chooses concrete recipe/channel outputs, while handles.rs:16–63,70–110 separately reserves concrete destinations. wire.rs:60–123 checks nonempty/bounded unique channels and other metadata but does not establish the set belongs to the decoded recipe in this inspected function. runtime.rs:95–105 looks up each reserved pair and marks the recipe installed after the map loop.",
+    "classification": "Corroborates existing conditional q2701/q2934 operation and independently attributed q2734 Lens 6 trace; no new unique count, global alias or additional demonstrated defect. A correctly named structurally admitted extra channel can reach an absent destination if installation reaches it; a nonempty proper subset can complete while another reserved map remains default. Supported malformed assets, sparse-map policy, event scheduling and native outcomes remain open.",
+    "future_connected_direction": "Decide which low shared procedural-texture owner specifies the required/permitted concrete channel set per recipe, then coordinate generator dispatch, reservation, wire admission and readiness/failure behavior. Do not equate general TextureOutput descriptors with concrete channels without a policy proof. A future separately authorized acceptance should establish valid recipes and explicitly decide missing/extra/sparse channel and failure semantics."
+  },
+  "transient_mask_owner_question": {
+    "source_observation": "The aggregate creates a 1024-square transient terrain blood Image (lib.rs:67,117–143,198–249; handles.rs:63–65); tactical combat_effects.rs:259–303 mutates that handle for terrain hits, and presentation/terrain/material.rs:5–12,91–100 binds it. combat_effects/blood_decals.rs:13–16,47–50,72–115,239–276 independently constructs per-surface 512-square blood Images. Both constructors specify zeroed R8, clamp-to-edge linear sampling and main/render usage, but terrain and character masks have different owners, allocation points, dimensions, UV versus world-to-terrain coordinate mappings and retained roles.",
+    "classification": "A source-supported type/resource ownership and common-image-construction design question, not a proven functional defect, explicit crate-rule violation, identical bespoke type or automatic candidate count. The texture crate guide permits Bevy images and prohibits tactical materials/scene entities; the selected constructor creates an Image, so that rule alone does not prohibit it. The same resource handle is used by the displayed consumers; supported scene lifecycle, reset/replacement, retention and visible effects are not established.",
+    "future_connected_direction": "Decide whether transient terrain presentation mask identity/lifetime belongs with tactical presentation and how its handle is handed to stamping and terrain material consumers. Consider sharing only the genuinely common image-construction mechanics while preserving distinct surface/terrain sizes, coordinate frames, sampler/data representation and lifetimes. A future separately authorized acceptance should establish scene transitions, resource creation/reset, per-surface independence and intended rendering behavior."
+  },
+  "related_evidence": [
+    {
+      "record": "059 q2701 REVIEW-L3-TEXTURE-RECIPE-CHANNEL-INSTALL-ADMISSION",
+      "qualification": "Explicitly names q2934 canonical; named_scope_discovery_complete=true, frozen_named_scope_discovery_complete=false and current_reconciled=false all remain as recorded."
+    },
+    {
+      "record": "059 q2934 SEGOVB-L3-TEXTURE-RECIPE-CHANNEL-ADMISSION",
+      "qualification": "Prior conditional admission-to-missing-destination relationship; not newly discovered here."
+    },
+    {
+      "record": "059 q2355 L2-EXT-TEXTURE-MAP-NATIVE-OWNER-FIT; dac7d newly_assessed_ledger.entries[1078] relationship-texture-wire-scale-owner-95e",
+      "qualification": "Related tile-scale/native owner and recipe/channel planning relationship; separate focus and no automatic alias."
+    },
+    {
+      "record": "dac7d newly_assessed_ledger.entries[201] ADLER-L11-TEXTURE-RESIDENCY-FAILURE-STATE",
+      "qualification": "Retained load failure/readiness first operation; related resource, separate issue."
+    },
+    {
+      "record": "059 ADLER-L11-BLOOD-SURFACE-DISTANCE-FRAME; dac7d entries[209]",
+      "qualification": "Earlier Adler local-space distance ranking across character surface transforms; distinct operation from the terrain mask ownership question. 56f original and 0a/dac7d reconstructed selected objects compare equal while whole ledger streams differ; no checkpoint3821 inference."
+    },
+    {
+      "record": "dac7d entries[1032] and [1033]",
+      "qualification": "Strategic blood exposure/clock arithmetic uses a different concept and first operation; do not merge with visual mask ownership."
+    }
+  ],
+  "open_questions": [
+    "What exact channel sets are required or permitted per recipe at every supported producer, serialized admission and runtime installation boundary?",
+    "Are there lower shared owners or alternate consumers outside the registered source slices that constrain either proposed owner?",
+    "What lifetime and reset policy governs the terrain blood mask across supported scene transitions, and are the same 1024 and 512 image formats intentionally maintained independently?",
+    "Which native features, engine lifecycle behaviors, supported malformed inputs and render effects occur? No dependency resolution or runtime execution was performed.",
+    "What later evidence resolves the historical frozen18/19 adoption condition and global alias inventory?"
+  ],
+  "read_and_recovery_qualifications": [
+    "Original 56f and reconstructed 0a queues and original/reconstructed 059 ledger copies have distinct complete hashes. Equal selected records do not establish full-stream equality.",
+    "The initial filename locator was not separately registered or retained as a standalone transcript and confers no body credit. A broad navigation output may have been display-limited; the complete captured locator is retained and all conclusions derive from later prospectively registered body windows.",
+    "A registered root Cargo.toml display was wrapper-truncated; the affected ranges were fully redisplayed in a separately retained receipt. Terrain material and procedural texture Cargo ranges were clipped at actual EOF as documented. Blood lines 307–315 contain test source text only; no tests ran.",
+    "All 73 nontext/no-positive-EOF and missing checkpoint 3821 qualifications remain. This bounded assessment does not close the whole lens, choose unique-count aliases, implement repairs, or validate product behavior.",
+    "The separately held same-machine authenticated-encryption key is required to recover restricted exact originals and is not independent public custody. The full prior delegate transport and separately retained Git object store provide additional provenance; no raw Git commit objects are included."
+  ],
+  "implementation": "not started",
+  "product_validation": "not performed"
+}

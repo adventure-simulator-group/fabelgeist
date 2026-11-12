@@ -1,0 +1,53 @@
+   1 //! Checked identity of an immutable imported source package.
+   2 //!
+   3 //! Shared geographic producers and consumers use this authority without
+   4 //! depending on tactical scene generation. Geometry content and placement
+   5 //! bindings have separate identities.
+   6 use serde::{Deserialize, Serialize};
+   7 use std::fmt;
+   8 
+   9 const SHA256_HEX_BYTES: usize = 64;
+  10 
+  11 #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize)]
+  12 #[serde(transparent)]
+  13 pub struct SourcePackageDigest(String);
+  14 
+  15 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+  16 pub struct SourcePackageDigestError;
+  17 
+  18 impl SourcePackageDigest {
+  19     pub fn from_hex(value: &str) -> Result<Self, SourcePackageDigestError> {
+  20         if value.len() != SHA256_HEX_BYTES
+  21             || !value
+  22                 .bytes()
+  23                 .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
+  24         {
+  25             return Err(SourcePackageDigestError);
+  26         }
+  27         Ok(Self(value.into()))
+  28     }
+  29 
+  30     pub fn as_str(&self) -> &str {
+  31         &self.0
+  32     }
+  33 }
+  34 
+  35 impl fmt::Display for SourcePackageDigest {
+  36     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  37         self.0.fmt(formatter)
+  38     }
+  39 }
+  40 
+  41 impl<'de> Deserialize<'de> for SourcePackageDigest {
+  42     fn deserialize<D: serde::Deserializer<'de>>(decoder: D) -> Result<Self, D::Error> {
+  43         Self::from_hex(&String::deserialize(decoder)?).map_err(serde::de::Error::custom)
+  44     }
+  45 }
+  46 
+  47 impl fmt::Display for SourcePackageDigestError {
+  48     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  49         formatter.write_str("imported source identity must be a lowercase SHA-256 digest")
+  50     }
+  51 }
+  52 
+  53 impl std::error::Error for SourcePackageDigestError {}

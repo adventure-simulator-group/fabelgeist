@@ -1,0 +1,40 @@
+1: //! Identity shared by a physical scene building and its operable openings.
+2: use serde::{Deserialize, Serialize};
+3: 
+4: /// Stable scene building number, independent of an opening or geometry source.
+5: /// Placement, support and opening bindings carry this same physical identity.
+6: ///
+7: /// ```compile_fail
+8: /// use adventuresim_tactical_core::scene_input::SceneBuildingId;
+9: /// use adventuresim_building_generator::OpeningAssemblyId;
+10: /// fn wrong_identity(opening: OpeningAssemblyId) -> SceneBuildingId { opening }
+11: /// ```
+12: #[derive(
+13:     Clone,
+14:     Copy,
+15:     Debug,
+16:     Eq,
+17:     Hash,
+18:     Ord,
+19:     PartialEq,
+20:     PartialOrd,
+21:     Serialize,
+22:     Deserialize,
+23:     bevy::reflect::Reflect,
+24: )]
+25: #[repr(transparent)]
+26: #[reflect(opaque)]
+27: #[serde(transparent)]
+28: pub struct SceneBuildingId(pub u64);
+29: 
+30: impl From<u64> for SceneBuildingId {
+31:     fn from(value: u64) -> Self {
+32:         Self(value)
+33:     }
+34: }
+35: 
+36: impl std::fmt::Display for SceneBuildingId {
+37:     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+38:         self.0.fmt(f)
+39:     }
+40: }

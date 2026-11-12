@@ -1,0 +1,80 @@
+{
+  "schema": "726-central-report-successor-corrections-v2",
+  "original": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+  "original_sha256": "49e4e49b68b56f11385a61835af0d659a2898e9ec7e4f168557a018b42b4d304",
+  "successor": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json",
+  "successor_sha256": "f2c8647a79546f0f5395140ecbbab20a8a9dd1dc654323a66ac9a9db4d3532a1",
+  "changes": [
+    {
+      "path": "/ledger_relationships/relationship-regional-install-phase-error-shape-95e/classification",
+      "before": "The selected ticket, phase and optional error fields can represent incompatible pairs. Shown constructors pair them coherently; the in-place Ready transition depends on its incoming error invariant. No invalid transition is demonstrated.",
+      "after": "The selected ticket, phase and optional error fields can represent incompatible pairs. Shown constructors pair them coherently; the in-place Ready transition depends on its incoming error invariant. No selected transition demonstrates an invalid pair."
+    },
+    {
+      "path": "/ledger_relationships/relationship-texture-recipe-channel-install-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-dialogue-multi-ballot-order-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-dialogue-claim-occurrence-identity-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-vista-cache-prepared-asset-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-chunk-render-subapp-startup-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-prepared-venue-take-retry-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-regional-install-phase-error-shape-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-regional-city-cross-request-failure-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/ledger_relationships/relationship-selected-production-expect-rule-95e/record",
+      "before": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+      "after": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json"
+    },
+    {
+      "path": "/supersedes_report",
+      "before": {
+        "file": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E.json",
+        "sha256": "d91ff3ecd952a7d8ae0a20122d3e90366d27f05d8de98c7ce242a16eb59f8e0b",
+        "qualification": "Successor retains the original report and changes only the listed precision, attribution and navigation fields; seven assessments and counts are unchanged."
+      },
+      "after": {
+        "file": "ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v2.json",
+        "sha256": "49e4e49b68b56f11385a61835af0d659a2898e9ec7e4f168557a018b42b4d304",
+        "qualification": "Successor preserves v2 and the original report, explicitly narrows the selected-transition statement, corrects staging chronology and keeps all seven assessments and counts unchanged."
+      }
+    },
+    {
+      "path": "/successor_corrections",
+      "before": "delegated/postdac7-followups/central/REPORT-SUCCESSOR-CORRECTIONS.json",
+      "after": "delegated/postdac7-followups/central/REPORT-SUCCESSOR-CORRECTIONS-v2.json"
+    }
+  ],
+  "chronology_correction": "The preceding correction record said that the original remains published alongside its successor. At the time that record was created, neither follow-ups-16 report was yet published: both were retained in staging for the next checkpoint. This correction does not claim that the pending checkpoint has been published.",
+  "basis": "Independent successor spot-check by /root/mhr_character.",
+  "qualification": "The original report and prior correction record are retained exactly. No new supported behavior, alias, unique defect count, checkpoint3821 state or semantic/lens closure is established."
+}

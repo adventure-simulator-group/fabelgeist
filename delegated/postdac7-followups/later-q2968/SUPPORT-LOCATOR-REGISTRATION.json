@@ -1,0 +1,45 @@
+{
+  "reviewer": "/root/mhr_character",
+  "registered_utc": "2026-11-12T22:20:57.771846+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "locators": [
+    {
+      "label": "compound",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "terms": [
+        "struct PropertyId",
+        "PropertyId",
+        "struct Single"
+      ]
+    },
+    {
+      "label": "scene",
+      "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "terms": [
+        "fn digest",
+        "struct TacticalSceneInput",
+        "pub enum SceneSource",
+        "SceneSource"
+      ]
+    },
+    {
+      "label": "settlement",
+      "path": "crates/adventuresim-core/src/settlement_property.rs",
+      "terms": [
+        "struct PropertyId",
+        "struct SettlementPropertyId",
+        "struct Property"
+      ]
+    },
+    {
+      "label": "example-layout",
+      "path": "crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/layout.rs",
+      "terms": [
+        "fn reproduce",
+        "PropertyId",
+        "TacticalSceneInput"
+      ]
+    }
+  ],
+  "scope": "Capture exact source bytes, EOF and Git identity; locate line numbers only. Any actual source displays require separate prospective registration."
+}

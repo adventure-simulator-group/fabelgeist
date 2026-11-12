@@ -1,0 +1,5 @@
+{
+  "attempt": "Add restored-evidence verifier to the new root wrapper.",
+  "result": "First helper invocation used a path relative to the wrong working directory and failed its directory-count assertion before making changes. The traceback appeared in the tool transcript; no standalone stderr was captured.",
+  "correction": "The same helper was rerun with the publication directory as its explicit base, preserving the initial wrapper before writing its successor."
+}

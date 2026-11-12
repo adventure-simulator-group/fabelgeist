@@ -1,0 +1,69 @@
+{
+  "schema": "726-postdac7-evidence-snapshot-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "dac7d0055716053f245139971eb67ddfd87fa462",
+  "bundle_catalog_sha256": "84ed45b099950706c4eb2e32a8a9af072cdb0e8b3fa59e84ffe5713124c7ead2",
+  "observed_counts": {
+    "lenses": 13,
+    "lenses_complete": 0,
+    "queue_records": 3713,
+    "queue_semantically_reconciled": 0,
+    "current_ledger_entries_and_relationships": 1093,
+    "predecessor_ledger_entries": 45,
+    "queue_partial": 1348,
+    "queue_unassessed": 2365
+  },
+  "queue_selections": [
+    {
+      "index": 2708,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0001-LENS-04",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    },
+    {
+      "index": 2721,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0002-LENS-05",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    },
+    {
+      "index": 2734,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0003-LENS-06",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    },
+    {
+      "index": 2747,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0004-LENS-07",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    },
+    {
+      "index": 2750,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0004-LENS-10",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    },
+    {
+      "index": 2760,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0005-LENS-08",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    },
+    {
+      "index": 2773,
+      "contract_id": "OBLIGATION-ROOT-L3-EXT-0006-LENS-09",
+      "current_reconciliation_at_snapshot": "partial current 95e source assessment and historical relationship; see ASSESSMENT-CENTRAL-FOLLOWUPS-16-95E-v3.json; no semantic queue or lens closure and no checkpoint3821 attribution"
+    }
+  ],
+  "added_ledger_relationship_ids": [
+    "relationship-texture-recipe-channel-install-95e",
+    "relationship-dialogue-multi-ballot-order-95e",
+    "relationship-dialogue-claim-occurrence-identity-95e",
+    "relationship-vista-cache-prepared-asset-95e",
+    "relationship-chunk-render-subapp-startup-95e",
+    "relationship-prepared-venue-take-retry-95e",
+    "relationship-regional-install-phase-error-shape-95e",
+    "relationship-regional-city-cross-request-failure-95e",
+    "relationship-selected-production-expect-rule-95e"
+  ],
+  "pending_delegated_packets": 10,
+  "later_sealed_packets": 1,
+  "repair": "not started",
+  "product_validation": "not performed",
+  "qualification": "Time-bound evidence snapshot. Relationship rows are not unique-defect counts, historical 059 or older records are not checkpoint3821, and subsequent source/audit work must retain its own provenance."
+}

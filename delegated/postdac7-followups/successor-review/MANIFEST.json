@@ -1,0 +1,78 @@
+{
+  "schema": "726-followups16-successor-independent-review-v1",
+  "files": {
+    "INPUT-IDENTITIES.json": {
+      "bytes": 2853,
+      "sha256": "49a7146e08fa2f9e2f16fbb004446ead8648b13db9c40334d03048304ec3029a"
+    },
+    "LIMITS.md": {
+      "bytes": 698,
+      "sha256": "b44f3329e62e21ce0a30ea29662dd38d9b5ed984d774b282421ea55b9bce32c1"
+    },
+    "PUBLICATION-CHRONOLOGY.json": {
+      "bytes": 414,
+      "sha256": "8ec4a7a0cb97f65dbfd0634330e6ca910906c3c54c740623bd9d5040dee5c3b4"
+    },
+    "REVIEW.md": {
+      "bytes": 4394,
+      "sha256": "00edf4bee40424603d789ee235bff799e4de334c621e7d53ea9fee70d8c160e7"
+    },
+    "VERIFIER-QUALIFICATION.json": {
+      "bytes": 484,
+      "sha256": "9d5ccb20b6a631da97584204259cc5b06bec0402e1ffa0405e79eda8d9599f18"
+    },
+    "VERIFY.py": {
+      "bytes": 7162,
+      "sha256": "ffe241d08906dde761f8abb16de7fcc8ac02a2a7750e01374db82fab888c6928"
+    },
+    "inputs/CORRECTION-REPLAY.json": {
+      "bytes": 1856,
+      "sha256": "63b2a18c90181676bf01493aa0468e055e41090e9affbe44c89f7708589335d8"
+    },
+    "inputs/V3-CORRECTION-REPLAY.json": {
+      "bytes": 362,
+      "sha256": "74ec04a3178db7eabed1dbd1bbe56e792431326a8ab5cbf526b752fe4d2a0874"
+    },
+    "inputs/corrections-v2.json": {
+      "bytes": 4757,
+      "sha256": "e3e0a8e7bb446e542f3c11caebd05a739687a02c7151471560b1dcb0c43b8c2e"
+    },
+    "inputs/corrections.json": {
+      "bytes": 9101,
+      "sha256": "98f88e7adda69b9de1a0dda95d24060f0d8bb06d607d3502a3d373b6ad29be58"
+    },
+    "inputs/prior-review.md": {
+      "bytes": 7224,
+      "sha256": "7260e8f7049e39306b5196c5a5fae8f753118886653704241d754265130f69a6"
+    },
+    "inputs/recovery-0.dat": {
+      "bytes": 18120,
+      "sha256": "b5044a3a245e55d00748304bf78291d85c992fef3cb357e0e784bc7134b0367b"
+    },
+    "inputs/recovery-440-manifest.json": {
+      "bytes": 9785,
+      "sha256": "4fdab95e1b08f836f8cc4d571db3be4d61a78038760b29ca09f738d273d715d1"
+    },
+    "inputs/recovery-440-snapshot.dat": {
+      "bytes": 15560,
+      "sha256": "eccc459c300b5faddd10db40aec1bfa7b0f59d91f58e5243760680670f51d232"
+    },
+    "inputs/report-v1.json": {
+      "bytes": 43892,
+      "sha256": "d91ff3ecd952a7d8ae0a20122d3e90366d27f05d8de98c7ce242a16eb59f8e0b"
+    },
+    "inputs/report-v2.json": {
+      "bytes": 45725,
+      "sha256": "49e4e49b68b56f11385a61835af0d659a2898e9ec7e4f168557a018b42b4d304"
+    },
+    "inputs/report-v3.json": {
+      "bytes": 45773,
+      "sha256": "f2c8647a79546f0f5395140ecbbab20a8a9dd1dc654323a66ac9a9db4d3532a1"
+    },
+    "inputs/reviewer-confirmation.json": {
+      "bytes": 530,
+      "sha256": "f0775f1eb379580e4647df2b70247a36f057604959932141360421538eededbb"
+    }
+  },
+  "qualification": "Exact selected report/recovery copies and evidence-only verifier; root manifest excludes itself."
+}

@@ -1,0 +1,7 @@
+{
+  "schema": "726-postdac7-collaboration-incident-v1",
+  "reviewer": "/root/mhr_character",
+  "reported_scope": "While preparing an evidence verifier for a later q2968 source review, the reviewer used nonexclusive shell redirection to a fixed file under /tmp outside the unique evidence packet.",
+  "qualification": "The reviewer had not established whether the file existed and cannot rule out overwriting prior bytes. This is the reviewer's self-report; the earlier contents and prior existence are not established. The reviewer reports no product checkout, publication checkout or supplied evidence extraction was written. The fixed file was left untouched after the incident. Exact reported details are retained in restricted checkpoint control.",
+  "disposition": "Incident recorded; the q2968 source review remains outside this frozen checkpoint. No repair, product build, test or runtime probe was authorized by this incident."
+}

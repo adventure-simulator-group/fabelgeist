@@ -1,0 +1,48 @@
+{
+  "schema": "726-postdac7-prescan-v1",
+  "scan_results": [
+    {
+      "label": "private-digests",
+      "exit": 0,
+      "stdout_bytes": 1185,
+      "stderr_bytes": 0,
+      "stdout_sha256": "9f3b7d0d4360f7d925fc85ef16dfeb58567bcc7a24cad562518ed903bc1c344f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_utc": "2026-11-12T22:28:11.505001+00:00",
+      "finished_utc": "2026-11-12T22:28:26.408202+00:00"
+    },
+    {
+      "label": "tar-patterns",
+      "exit": 0,
+      "stdout_bytes": 90,
+      "stderr_bytes": 0,
+      "stdout_sha256": "87e9739e36527ba704af550ac6dc4b42df12386f10427a9c2a64e4f9f0bebf1f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "started_utc": "2026-11-12T22:28:26.408248+00:00",
+      "finished_utc": "2026-11-12T22:28:33.935116+00:00"
+    }
+  ],
+  "corpus_counts": {
+    "original_map_fields": 45,
+    "original_map_values": 47,
+    "public_map_fields": 2,
+    "public_map_values": 2,
+    "scan_prefix_fields": 60,
+    "distinct_sensitive_digests": 40
+  },
+  "stats": {
+    "top_files": 239,
+    "views": 1381,
+    "text_views": 1150,
+    "gzip_views": 15,
+    "gzip_members": 15,
+    "tar_views": 15,
+    "tar_members": 1171,
+    "cached_views": 3912,
+    "binary_views": 201
+  },
+  "forbidden_digest_total": 0,
+  "other_candidate_counts": {},
+  "exceptions": [],
+  "qualification": "Bounded pre-final working-tree scan, including supported nested gzip and tar views. Ciphertext and unknown binary formats are opaque; excluded symlinks, unknown values, encodings, credentials, historical Git objects and caches remain outside scope. Exact raw logs and commands are encrypted in the checkpoint control. A later final scan is separately recorded."
+}

@@ -1,0 +1,70 @@
+   71	        .lods
+   72	        .iter()
+   73	        .find(|lod| lod.level == adventuresim_tactical_core::scene_input::VistaLevelIndex::new(0))
+   74	        .ok_or("source near vista is absent")?;
+   75	    let geographic = if let Some(path) = &request.prepared_terrain {
+   76	        let capture: capture::PreparedTerrainCapture =
+   77	            serde_json::from_slice(&std::fs::read(path)?)?;
+   78	        capture.geographic_surface(&input, &stages.ungraded_vista)?
+   79	    } else {
+   80	        GeographicSurface::from_vista_lod(lod).ok_or("invalid source triangles")?
+   81	    };
+   82	    let policy = policy::read(&request.policy_fixture)?;
+   83	    let mut layout = layout::reproduce(&input, &request.world)?;
+   84	    if let Some(id) = request.property_id {
+   85	        layout.compounds.retain(|p| p.id.0 == id);
+   86	        layout.single_properties.retain(|p| p.id.0 == id);
+   87	        if layout.compounds.len() + layout.single_properties.len() != 1 {
+   88	            return Err("requested exact property is absent or duplicated".into());
+   89	        }
+   90	        let members: std::collections::BTreeSet<_> = layout
+   91	            .compounds
+   92	            .iter()
+   93	            .flat_map(|p| [p.front_building_id, p.rear_building_id])
+   94	            .chain(layout.single_properties.iter().map(|p| p.building_id))
+   95	            .collect();
+   96	        layout.playable.retain(|p| members.contains(&p.id));
+   97	        layout.distant.retain(|p| members.contains(&p.id));
+   98	        layout
+   99	            .gardens
+  100	            .retain(|p| members.contains(&p.front_building_id));
+  101	        layout
+  102	            .businesses
+  103	            .retain(|p| members.contains(&p.building_id));
+  104	    }
+  105	    let start = Instant::now();
+  106	    let selected = SelectedCityGrounding::select(&layout, &geographic, policy);
+  107	    let seconds = start.elapsed().as_secs_f64();
+  108	    let mut accepted = selected.is_ok();
+  109	    let outcome = match selected {
+  110	        Ok(selected) => {
+  111	            let composed = composition::Composition::compile(
+  112	                selected,
+  113	                &geographic,
+  114	                policy,
+  115	                request.surface_output.as_deref(),
+  116	                request.grounded_placements_output.as_deref(),
+  117	                request.support_projection_output.as_deref(),
+  118	            )?;
+  119	            accepted = composed.accepted;
+  120	            composed.report
+  121	        }
+  122	        Err(CityGroundingError::Binding(CitySupportError::Support(error))) => {
+  123	            diagnostic::failed_property(&input, &layout, error)?
+  124	        }
+  125	        Err(error) => json!({"binding_failure":error.to_string()}),
+  126	    };
+  127	    let report = json!({"fixture":input.properties.as_ref().map(|p| &p.settlement_id),"scene_key":input.scene_key,"input_digest":digest,"source_digest":stages.source_digest,
+  128	        "schema":input.schema_version,"generation":input.generation_version,"seed":input.seed,"absolute_minute":input.absolute_minute,
+  129	        "source_preparation":if request.prepared_terrain.is_some() { "explicit prepared fine playable and presented vista rings; preparation purpose retained in the capture" } else { "ungraded near vista only" },"source_level":lod.level,"source_spacing_m":lod.spacing_metres,"source_triangles":geographic.triangles().count(),
+  130	        "properties":layout.compounds.len()+layout.single_properties.len(),"execution":"native serial support planning; no browser worker execution",
+  131	        "seconds":seconds,"support_pass":accepted,"outcome":outcome,
+  132	        "scope":"Original source/layout unchanged. Accepted projection seats exact member floors after complete support composition. Not production scene installation, collision/enclosure, full access, capacity, visual or performance acceptance.","property_scope":request.property_id});
+  133	    std::fs::write(&request.output, serde_json::to_vec_pretty(&report)?)?;
+  134	    if !accepted {
+  135	        return Err(
+  136	            "required positive support remains rejected; see exact output constraint".into(),
+  137	        );
+  138	    }
+  139	    Ok(())
+  140	}

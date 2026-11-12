@@ -1,0 +1,28 @@
+{
+        "id": "REVIEW-BOUNDARY-WIRE-CONTACT-ONLY-001",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          4,
+          8,
+          12
+        ],
+        "severity": "unassigned; conditional aggregate admission question",
+        "classification": "An accepted physical enclosure should have the solid coverage required by its owning descriptor, while preserving legitimate individual zero-area contact cells.",
+        "historical_related_candidates": [
+          "baseline-059/queue.json#/entries/1491",
+          "baseline-059/queue.json#/entries/1494",
+          "baseline-059/queue.json#/entries/3125",
+          "segovb/READ-L12-591.json",
+          "root-l3-extension-20261030/READ-ROOT-L3-EXT-020-027.json"
+        ],
+        "relationship_qualification": "New conditional current source inference related to original059 pending and individual-cell contracts; zero historical unique count change, no checkpoint3821 promotion or assumed alias.",
+        "discovery": "partial; source-only conditional wire and contact-only chain established, supported reachability and owner policy open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-GROUNDING-BOUNDARY-95E.json",
+        "related_current_evidence": [
+          "ASSESSMENT-GROUNDING-FIXTURES-95E.json"
+        ]
+      }
