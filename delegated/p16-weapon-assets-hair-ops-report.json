@@ -1,0 +1,280 @@
+{
+  "status": "bounded source assessment; no global lens completion or implementation/validation",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T00:13:22.453677+00:00",
+  "baseline": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source": "original registry physical-p16 dirty snapshot; per-source objects transported by f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "p16_clean_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "pr_comparison": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "qualification": "The P16 recorded snapshot was dirty. These two archived source objects happen to equal the corresponding a120 blobs individually, which does not make the overall snapshot clean. 6533 identity checks are per file, not proof of a clean pr-working snapshot."
+  },
+  "recovery_qualification": {
+    "original_registry_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "objects_archive_sha256": "794e0b45957709e304ee8e7d9e98f1390c1786644ac4f02891dbaea75e025824",
+    "tracked_diff_sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+    "chronology": "Initial read-only live P16 comparison reproduced the registry-recorded tracked diff hash using git diff --binary HEAD but did not save that initial stream; central later independently reproduced and published the matching 524542-byte tracked.patch. The recorded original registry did not specify its patch-generation command; the match does not establish original invocation or uninterrupted custody. Seven untracked files are separately represented in the original source archive; the later comparison reported 158 extant dirty paths matched. See linked RECOVERY-PHYSICAL-P16-PATCH-20261111.json and prior comparison for exact qualifications."
+  },
+  "assigned_roles": [
+    {
+      "index": 2591,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+      "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+      "original_snapshot": "physical-p16",
+      "p16_sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "p16_lines": 131,
+      "p16_display": "source/p16-2591.rs",
+      "current_sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "current_lines": 131,
+      "current_display": "source/95e-2591.rs",
+      "a120_equal_to_p16": true,
+      "current_equal_to_p16": true,
+      "pr_file_comparison": {
+        "role": 2591,
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+        "git_blob": "1b038461f411ea5c0cd39b2149bf724495835394",
+        "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+        "matches_p16": true,
+        "matches_current": true,
+        "qualification": "Per-file historic PR identity check only; no separate personal 6533 display or whole pr-working clean-tree claim."
+      },
+      "prior_rig_774_qualified_ranges": [
+        [
+          1,
+          3
+        ],
+        [
+          74,
+          87
+        ]
+      ]
+    },
+    {
+      "index": 2592,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+      "path": "crates/adventuresim-core/src/equipment_assets.rs",
+      "original_snapshot": "physical-p16",
+      "p16_sha256": "87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+      "p16_lines": 106,
+      "p16_display": "source/p16-2592.rs",
+      "current_sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "current_lines": 107,
+      "current_display": "source/95e-2592.rs",
+      "a120_equal_to_p16": true,
+      "current_equal_to_p16": false,
+      "pr_file_comparison": {
+        "role": 2592,
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-core/src/equipment_assets.rs",
+        "git_blob": "5bbc0345520582e375cc99e008154b7cd889e7bf",
+        "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+        "matches_p16": false,
+        "matches_current": true,
+        "qualification": "Per-file historic PR identity check only; no separate personal 6533 display or whole pr-working clean-tree claim."
+      },
+      "prior_rig_774_qualified_ranges": [
+        [
+          1,
+          106
+        ]
+      ]
+    }
+  ],
+  "actual_reading": {
+    "reader": "/root/hair_ops",
+    "prospective_registrations": [
+      {
+        "path": "registration.json",
+        "sha256": "8e497344e7081cd643761bf75b1aff5f255c38dce14e42a106d7745b608d549a"
+      },
+      {
+        "path": "support-registration.json",
+        "sha256": "085e600a46cac442d00b1f70bb6daef786705616e13fce45a9ff8a0f13da316e"
+      },
+      {
+        "path": "support-registration-2.json",
+        "sha256": "933653d22d451eb1ba19606e84caa8a23d138520e96e419ab2ea5a61ac3e9077"
+      }
+    ],
+    "registration_utc": "2026-11-12T00:09:18.420020+00:00",
+    "receipt": "read-receipt.json",
+    "assigned": "Both P16 objects and both 95e counterparts separately personally displayed in full after prospective registration; see receipt exact ranges. a120 and 6533 were hash/Git-verified without separate source-body displays.",
+    "support": "Eight separately registered current source windows, exact actual and unread complements in receipt; no ordered-role credit or other reviewers’ personal reads transferred. Navigation outside those windows is not assessed source-body coverage.",
+    "proofs": "git-proofs.json provides independently recomputable Git object membership and clean-base nonmembership; source/ and support/ retain the exact read objects. historical/current-2592.diff is a newly reconstructed static comparison, not an original historical receipt."
+  },
+  "observations": [
+    {
+      "id": "OBS-WEAPON-DEFAULT-ADMISSION-2591",
+      "classification": "conditional failure and existing connected owner question; no independently established defect",
+      "current_source": [
+        "crates/adventuresim-weapon-model/src/catalog.rs:74-87",
+        "crates/adventuresim-weapon-model/src/design/recipe.rs:11-16",
+        "crates/adventuresim-weapon-model/src/derive.rs:3-6",
+        "crates/adventuresim-weapon-model/src/model/mod.rs:81-83",
+        "crates/adventuresim-core/src/item_catalog.rs:27-48"
+      ],
+      "historical_source": [
+        "physical-p16 crates/adventuresim-weapon-model/src/catalog.rs:74-87; same bytes at 95e and 6533"
+      ],
+      "analysis": "The private gameplay OnceLock deserializes committed JSON and panics on decode failure. default_design clones the first matching open catalog_id and returns None for an absent key; this function does not perform recipe validation. The selected core item-catalog caller expects a melee default and expects successful derive_properties; that downstream function invokes identity admission and Construction::new invokes recipe.validate. If malformed committed data reaches the first expect, or a missing melee default or invalid design reaches the respective caller expect, it can panic. We did not inspect the dataset or prove any such actual input or reachability, and did not establish all callers use that downstream validation.",
+      "nonfindings": "The absent-key Option and recommended_holder None are supported by their interfaces; separate constant lists do not establish mismatch or invalidity.",
+      "relationship": "774 rig ADDITIONAL-011 and 774 camera CAMERA-ADM03-057 already document the loader and missing semantic validation at this boundary; 059 queue index 1255 asks for canonical weapon/default-design source and consumers. Do not count this observation as a separate established defect or merge identities automatically.",
+      "future_direction_if_needed": "Trace actual committed data and consumers; if a source-backed contract is violated, place explicit validation or error handling at the appropriate authoritative boundary rather than presuming every Option is invalid."
+    },
+    {
+      "id": "OBS-EQUIPMENT-ASSET-IDENTITY-2592",
+      "classification": "reconciled bounded source relationship and policy questions; no independently established defect",
+      "current_source": [
+        "crates/adventuresim-core/src/equipment_assets.rs:13-35,47-105",
+        "crates/adventuresim-core/src/equipment_assets/selection.rs:8-22,35-75,78-107,127-153",
+        "crates/adventuresim-tactical-client/src/equipment.rs:71-80,169-176",
+        "crates/adventuresim-tactical-client/src/equipment/icons.rs:185-215"
+      ],
+      "historical_source": [
+        "physical-p16 crates/adventuresim-core/src/equipment_assets.rs:45-106"
+      ],
+      "analysis": "P16 decoder resolves item and its placement, rejects duplicate pointer pairs, sorts keys lexically and its optional lookup selects the first placement. The 95e version encodes the admitted relation as CatalogItem/CatalogPlacement, rejects duplicate selections, sorts the same keys and separates exact lookup from default_file_for. Those private wrappers prove membership and same-item placement only for the provided slice; they do not assert unique IDs, globally authoritative slice, content authenticity or eligibility. A selected current tactical path resolves raw item/placement text against the global catalog before lookup. Current from_json parses metadata fields but retains selection and file without inspecting the metadata values or imposing a filename/path policy; one inspected icon consumer silently skips a file without .glb suffix. If malformed embedded manifest decoding or membership fails and LazyLock is reached, this selected consumer panics. We did not inspect actual manifest content or native asset-loader behavior, and no defect or security issue follows solely from the stated policy gaps.",
+      "nonfindings": "An omitted placement and first lexical default are supported intended behavior in these bodies. The typed pair preserves its own item-placement relation; actual selection in a caller-provided slice does not by itself mean a global catalog identity.",
+      "relationship": "Original 774 rig ADDITIONAL-026 covers 106-line P16 decoder; its CONTRACT-055 and CONTRACT-056 already cover the later PR typed design and explicitly qualify unchecked metadata. The selected current boundary narrows but does not resolve 059 queue index 2482, L12-CLOSURE-RUNTIME-EQUIPMENT-PRESENTATION-IDENTITY; raw upstream runtime, sockets, cache and native consumers remain separately unresolved. Prior 95e role 922/assessment remains separately attributed. No automatic alias or closure.",
+      "future_direction_if_needed": "Establish the intended producer-to-native filename and metadata contract and trace remaining identities; only if the actual input is required to guarantee more, assign validation and propagation to its true owner."
+    }
+  ],
+  "historical_relations": [
+    {
+      "record": "774 rig RIG-ADMISSION03-REGISTER-024; ADDITIONAL-011",
+      "revision": "dirty physical-p16, original f82 evidence transport",
+      "reviewer": "rig",
+      "actual_ranges": [
+        [
+          1,
+          3
+        ],
+        [
+          74,
+          87
+        ]
+      ],
+      "qualification": "Prospective 70–87 later qualified to 74–87, with 1–3; exclude dataset, presets, holder and unrelated scope."
+    },
+    {
+      "record": "774 camera CAMERA-ADM03-REG012-physical-p16; CAMERA-ADM03-057",
+      "revision": "dirty physical-p16, original f82 evidence transport",
+      "reviewer": "camera",
+      "actual_ranges": [
+        [
+          1,
+          2
+        ],
+        [
+          74,
+          87
+        ]
+      ],
+      "qualification": "Original registration, later qualification and actual source contract personally attributed to camera; dataset and later lenses excluded. Selected original raw lines and their full-source hash links are in historical/774-camera-selection-reconstructed.json."
+    },
+    {
+      "record": "774 rig RIG-ADMISSION03-REGISTER-026; ADDITIONAL-026",
+      "revision": "dirty physical-p16",
+      "reviewer": "rig",
+      "actual_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "qualification": "Prospectively requested 1–107, but original source EOF is 106 and qualifier excludes nonexistent 107; rig reported no P16 selection module. This is independent of a120 clean-base nonmembership and later live-worktree absence; it does not claim proof of absence throughout the dirty snapshot from clean-base alone."
+    },
+    {
+      "record": "774 rig CONTRACT-055/056",
+      "revision": "original pr-working source per original record; per-file 6533 identity independently verified",
+      "reviewer": "rig",
+      "actual_ranges": [
+        [
+          1,
+          107
+        ],
+        [
+          1,
+          170
+        ]
+      ],
+      "qualification": "Original PR assets/selection ranges and policy qualifications preserved in selected original line bytes, not granted as P16 or our 6533 reads."
+    },
+    {
+      "record": "059 queue 2482, PROPOSAL-L12-881, REGISTRATION-PAR-L12-657",
+      "revision": "f82 P16 source object",
+      "reviewer": "/root/lens12_frontier",
+      "actual_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "qualification": "Original receipt and registration separately retained; the related runtime-equipment role2593 is their read, not ours. Historical contract remains open pending wider reconciliation."
+    },
+    {
+      "record": "059 queue 1255",
+      "revision": "as recorded in queue",
+      "reviewer": "original authors in linked queue and prior artifacts",
+      "qualification": "A connected canonical weapon/default_design owner question; queue entry itself grants zero body credit."
+    },
+    {
+      "record": "original role 2740",
+      "revision": "source_id and resolved path say pr-working; registry snapshot field says pinned-native-dependency",
+      "reviewer": "camera",
+      "actual_ranges": [
+        [
+          1,
+          2
+        ],
+        [
+          74,
+          87
+        ]
+      ],
+      "qualification": "Exact registry discrepancy is preserved without resolving or transferring credit. This distinct original role shares object hash with 2591 but is not newly credited by this assigned read."
+    },
+    {
+      "record": "ASSESSMENT-L01-HISTORICAL-917-925 and ASSESSMENT-WEAPON-IDENTITY-95E",
+      "revision": "as recorded in linked prior assessments",
+      "reviewer": "as originally recorded, not reassigned",
+      "qualification": "Prior role 922 and weapon trace are separate personal histories; comparison or shared bytes do not transfer author, range or checkpoint credit."
+    }
+  ],
+  "thirteen_bounded_lenses": {
+    "producer_propagation": "Current selected tactical boundary maps raw identifiers to the global catalogue; upstream/native/socket/cached propagation remains open. Default weapon caller has a downstream derive gate, not a proof about all callers.",
+    "existing_type_owners": "CatalogItem/CatalogPlacement own slice-relative relations in current assets; raw catalog IDs and manifest file names remain boundary data. Global ownership beyond these windows remains open.",
+    "admission_contracts": "Serde parsing, membership/duplicate rejection, embedded caller expects and explicit lack of content/path admission are source-backed and conditional on input; full data admission not assessed.",
+    "invariant_operations": "Pointer equality and the retained placement ordinal derive from the same immutable snapshot in inspected constructors; this bounded path exposes no established mutation bypass.",
+    "aggregate_states": "Current wrappers connect each placement to its actual item and reject duplicate selected pairs. Source does not establish whole-catalog uniqueness or validate relation between unretained metadata fields.",
+    "type_ownership": "Selection belongs to its supplied catalogue slice; whether broader runtime presentation should retain the same owner remains a connected question.",
+    "redundant_authority": "Weapon catalog ID lists and raw manifest keys are potential multiple authorities requiring data/consumer trace, not proof of conflicting truth.",
+    "behavior_preservation": "P16 optional placement lookup and 95e explicit default both select first lexical available placement within these functions; no runtime or broader behavioral validation performed.",
+    "enum_shapes": "Option placement legitimately distinguishes explicit and default lookup here; no demonstrated enum or optionality defect within actual reads.",
+    "derivability": "Serde derives and pointer equality serve different visible roles; no unsupported derive replacement asserted from bounded evidence.",
+    "type_granularity": "Borrowed CatalogItem/CatalogPlacement distinguish membership and association from unvalidated text; they intentionally do not guarantee global uniqueness or eligibility.",
+    "magic_strings": "Catalog, placement, file, schema release and icon suffix text carry distinct meanings; data content, filename policy and all consumers remain open.",
+    "magic_numbers": "Schema/lod/count/coverage values decode but are not semantically checked here; whether further constraints are required is an unproved boundary-policy question."
+  },
+  "open_questions": [
+    "What actual producer and committed gameplay content guarantee that every required melee ID has one semantically valid default?",
+    "What manifest producer owns schema version, file format/path and metadata authenticity or range policies, and what do actual native consumers require?",
+    "How do raw runtime equipment IDs, topology, sockets, caches and native entities interact outside the selected current boundary?",
+    "Do earlier weapon and equipment questions share the same first failed contract, or merely neighboring owners? Central must reconcile evidence before an alias or count.",
+    "The rest of all thirteen lenses, wider package source, feature configurations, actual asset content and runtime behavior remain unassessed."
+  ],
+  "limits": "Source inspection and evidence-integrity verification only. No source edits, repairs, builds, tests, fixtures, simulations, product execution, browser, renderer, runtime probes or product validation. Historical evidence is neither reconstructed as an original whole record nor promoted to checkpoint 3821. No accepted new unique finding count is asserted.",
+  "evidence_index": {
+    "registration": "registration.json",
+    "receipt": "read-receipt.json",
+    "git_proofs": "git-proofs.json",
+    "historical_manifest": "historical-manifest.json",
+    "original_camera_rows": "historical/774-camera-selection-reconstructed.json",
+    "prior_queue_rows": "historical/059-queue-selection-reconstructed.json",
+    "prior_registry_2740": "historical/role2740-reconstructed.json",
+    "current_old_comparison": "historical/current-2592.diff",
+    "original_contract_selected_rows": "historical/774-contract-selection-reconstructed.json",
+    "packet_external_dependencies": "historical-manifest.json and the selected-row wrappers include exact paths and hashes; central publication must preserve or relink those exact files."
+  }
+}

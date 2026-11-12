@@ -1,0 +1,44 @@
+{
+  "schema": "726-checkpoint10-registration-redaction-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+  "qualification": "This later verification makes the already-published recursive original/public hash mappings explicit; it does not change the original packets, authors, chronological claims or read credit. The baseline 059 queue exact source bytes are separately preserved in baseline-059/queue.json; a redacted recompressed member named original is not assumed byte-identical.",
+  "rows": [
+    {
+      "bundle_id": "sdk-noiz-sats-hair",
+      "author": "/root/hair_ops",
+      "archive": "delegated/sdk-noiz-sats-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "registration_member": "registration.json",
+      "receipt_registration_sha256": "ef23dd30960cca5124ca2b1039efe6d16d4da29a5bee901927585853513ea608",
+      "original_bytes": 6534,
+      "published_registration_sha256": "4838e23bbcac26d7ce61d06c4c2904e3d785dad62faa3a9584070edf2fdddc9a",
+      "published_bytes": 5952,
+      "qualification": "The unchanged receipt identifies the original registration bytes. The public registration is a path-redacted reconstruction and cannot itself satisfy that original hash. Exact originals have been independently rehashed and retained in the local ignored evidence store and original packets; that store is on this machine, not independent-machine recovery."
+    },
+    {
+      "bundle_id": "p16-config",
+      "author": "/root/mhr_character",
+      "archive": "delegated/p16-config-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "registration_member": "registration.json",
+      "receipt_registration_sha256": "747963f4851d96aa3bb85db6e36106926249f793588e1dc15fc1ee33187906b0",
+      "original_bytes": 17260,
+      "published_registration_sha256": "732bc672a5c68f4de94209791850430b0366a0a24fff85c3b7989967599e27fb",
+      "published_bytes": 16699,
+      "qualification": "The unchanged receipt identifies the original registration bytes. The public registration is a path-redacted reconstruction and cannot itself satisfy that original hash. Exact originals have been independently rehashed and retained in the local ignored evidence store and original packets; that store is on this machine, not independent-machine recovery."
+    },
+    {
+      "bundle_id": "p16-body-target-hair",
+      "author": "/root/hair_ops",
+      "archive": "delegated/p16-body-target-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "registration_member": "registration.json",
+      "receipt_registration_sha256": "c3a70db2c525a270cad3c1de969343ec980a20abd53559a3b028b60d23472e23",
+      "original_bytes": 18730,
+      "published_registration_sha256": "76c11e3b8b449790d22e3ad711eccd4ae27902600629e8d63a09a8472ead5d74",
+      "published_bytes": 18324,
+      "qualification": "The unchanged receipt identifies the original registration bytes. The public registration is a path-redacted reconstruction and cannot itself satisfy that original hash. Exact originals have been independently rehashed and retained in the local ignored evidence store and original packets; that store is on this machine, not independent-machine recovery."
+    }
+  ],
+  "product_validation": "not performed"
+}

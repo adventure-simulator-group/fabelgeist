@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261112-0008.json`).
+2026-11-10 and rechecked on 2026-11-11 (`MAIN-RECHECK-20261112-0029.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -28,9 +28,19 @@ relationships remain distinct.
 `RECOVERY-VERIFICATION-EE46ADA3.json` records the later same-machine
 recovery check of the P16-patch checkpoint, with transcript limitations.
 
+`RECOVERY-VERIFICATION-2E06C7DF.json` records the same-machine recovery
+check of the following central reconciliation, with transcript limitations.
+
 `DELEGATED-EVIDENCE-CHECKPOINT-14.json` preserves three compact catalogue
 source packets, including the separate recorded P16 patch recovery and its
 untracked-file qualification. Their observations await central reconciliation.
+
+`DELEGATED-EVIDENCE-CHECKPOINT-15.json` preserves three additional compact
+source packets and three separately attributed reconciliation proposals,
+all pending central reconciliation.
+`QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes
+three original registration hashes cited by receipts from their reconstructed
+public copies; exact originals are separately retained locally.
 
 `CONTINUATION-PROGRESS-95E.json` gives the current transition counts and
 qualifications. `BASELINE-20261110.json`, `CONTINUATION-PROGRESS.json`, and

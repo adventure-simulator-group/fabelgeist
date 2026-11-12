@@ -1,0 +1,341 @@
+{
+  "schema": "726-bounded-p16-main-validator-serde-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T00:11:33.341208+00:00",
+  "scope": "Original registry roles 2587\u20132588 and separately registered current schema support; source inspection only, no global lens completion.",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_snapshot": {
+    "id": "physical-p16",
+    "base_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "qualification": "The base is not a commit representing the P16 dirty snapshot. Role2587 independently matches the base file and is not a changed status path; this does not make the 159-path snapshot clean. f82 is source transport, not product or package revision. Later recovered tracked patch matches the original registry digest fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 and excludes seven separately preserved untracked objects. No uninterrupted custody or checkpoint 3821 restoration inferred.",
+    "recovery_link": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json in evidence-links.json"
+  },
+  "read_scope": {
+    "registration": "registration.json",
+    "receipt": "personal-read-receipt.json",
+    "role2587": "Personally displayed current 95e production lines 1\u20131492. Historical P16 personally displayed only 1\u2013120 and 601\u2013960. 95e and P16 production lines 1\u20131492 mechanically byte-identical; the earlier historical unread ranges are not relabeled fresh personal historical reads. Old tests 1493\u20132053/current tests 1493\u20132059 uninspected and not executed; mechanical line-diff shows differences only in those uninspected tails, without a behavior claim.",
+    "role2588": "Personally displayed pinned serde_core 1.0.229 lines 81\u2013153, 222\u2013243 and 449\u2013457; unread complements in receipt. Original rig effective material scopes 129\u2013152, 222\u2013242 and 450\u2013456 are narrower. Pinned source equals package member and f82 original object; package archive checksum equals both original dirty P16 and current 95e lock records. Lock structural parsing is metadata evidence, not a personal line-by-line read or proof of activated features.",
+    "support": "Current schema 14\u201345 and 480\u2013510; prior support in other packets retains its original reader and read scopes."
+  },
+  "observations": [
+    {
+      "id": "CATALOG-REQUIRED-CAPABILITY-OMISSION",
+      "classification": "source-backed current revisit of historical CAMERA-ADM03-F004, not a new independent finding",
+      "condition": "An otherwise valid item of a kind whose capabilities are required omits the entire capabilities field.",
+      "trace": "The current outer item validator invokes validate_capabilities only when the field is present; inside that function repairable kinds require durability, food requires food metadata, and container requires container metadata. The current typed ItemDefinition defaults the absent field to Capabilities, whose derived Default contains optional members. Thus, the required-kind checks are skipped for field omission and the typed default does not itself restore them. This is a static conditional admission gap on the shown route; no example catalog, fixture, validator, build, product, or consumer ran. Other required fields and any alternative semantic gates must be accounted for before claiming a runtime effect.",
+      "refs": [
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            526,
+            543
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            1204,
+            1214
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            1278,
+            1283
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            1353,
+            1359
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/support-current-schema.rs",
+          "line_range": [
+            22,
+            40
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c"
+        },
+        {
+          "archive": "sources/support-current-schema.rs",
+          "line_range": [
+            488,
+            495
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            249,
+            273
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            301,
+            310
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        }
+      ],
+      "historical_relationship": "Original 774 camera CAMERA-ADM03-F004 independently identified this same first gate at the historical pr-working body, with separately sourced P16 schema evidence. 059 queue Q-L11-bc1410a8b8f757677a38 (index 602) retained the absent-capabilities question. This current source revisit does not assert an automatic ledger alias or duplicate increment; central reconciliation owns disposition.",
+      "future_repair_direction": "After audit and authorization, enforce required kind/capability relations at the canonical admission boundary even when the outer field is omitted, while preserving legitimately optional capabilities for other kinds; trace other constructors and consumers first."
+    },
+    {
+      "id": "CATALOG-PHYSICAL-DIMENSION-NARROWING-RELATION",
+      "classification": "existing current finding REVIEW-CATALOG-PHYSICAL-DIMENSION-NARROWING-001; no new independent finding",
+      "condition": "An authored finite positive f64 axis is positive in source representation but rounds to zero after conversion to f32.",
+      "trace": "Main validator checks physical dimensions as finite positive f64; separately the typed document is decoded and only an error is retained. Pinned serde_core f32 visitor has an f64 branch performing a cast, with sign handling under std, rather than domain-specific positivity admission. A tiny positive value such as 1e-100 is a mathematical source-level counterexample under the specific non-arbitrary-precision serde_json Value path traced by the existing published assessment; decoder dispatch, feature activation, runtime behavior and actual authored occurrence cannot be inferred from the package visitor alone.",
+      "refs": [
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            690,
+            701
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            249,
+            273
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2588-original.rs",
+          "line_range": [
+            129,
+            152
+          ],
+          "identity": "serde_core-1.0.229",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c"
+        },
+        {
+          "archive": "sources/2588-original.rs",
+          "line_range": [
+            222,
+            242
+          ],
+          "identity": "serde_core-1.0.229",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c"
+        },
+        {
+          "archive": "sources/2588-original.rs",
+          "line_range": [
+            450,
+            456
+          ],
+          "identity": "serde_core-1.0.229",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c"
+        }
+      ],
+      "historical_relationship": "Original 774 CAMERA-ADM03-F005; current published ASSESSMENT-L03-CATALOG-DIMENSIONS-95E.json and 059 Q-L11-bc1410a8b8f757677a38 preserve separate revisions/readers. Prior 95e assessment counted no tiny dimension among its source-only authored census and retained feature resolution/tactical consequence as conditional. Our prior role2586 packet shows positive_f32_in coverage guard; do not treat all numeric paths as guarded.",
+      "future_repair_direction": "At the owner, consider final-representation positivity for equipment axes while retaining valid zero and signed policies for other meanings; trace exact features and consumers first."
+    },
+    {
+      "id": "CATALOG-DIAGNOSTIC-COORDINATE-LOCATOR",
+      "classification": "conditional source-backed diagnostic precision question, previously raised by original 059 Lens12",
+      "condition": "A valid JSON document uses permitted whitespace different from the exact formatted id substring searched by source_coordinates.",
+      "trace": "The displayed locator searches globally for the exact substring \"id\": \"<id>\" and falls back to offset zero if absent; it then searches for the diagnostic field from that offset. In a document with multiple items and an earlier occurrence of the same field, the line and column can indicate the earlier location rather than the item carrying the diagnostic. Display uses this locator only when a corresponding source string exists. This is static string-control-flow reasoning, not an executed example or a claim about input currently authored.",
+      "refs": [
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            58,
+            87
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            107,
+            130
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            323,
+            327
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            362,
+            371
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        }
+      ],
+      "historical_relationship": "Original 059 READ-L12-878 attributes this exact conditional coordinate question to /root/lens12_frontier on the P16 body. This packet independently inspects 95e but does not count it as a new defect without central exact-contract reconciliation.",
+      "future_repair_direction": "If reliable coordinates are an intended contract, attach parsed source spans or use a location-aware source mapping at the parsing boundary; retain native errors and first-failure semantics. Exact loader/source-file usage and user impact remain open."
+    },
+    {
+      "id": "CATALOG-TYPED-AND-AGGREGATE-BOUNDARIES",
+      "classification": "existing related contracts; scope qualification",
+      "trace": "The shown validator rejects malformed typed documents after its manual checks, so an occupancy helper local .ok() alone does not establish typed-malformed acceptance. Separately, mixed occupancy plus parent placement passes this specific at-least-one gate; and raw schema default does not establish semantic capability requirements. These are different contracts, not one universal typed-parse guarantee.",
+      "refs": [
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            249,
+            273
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            301,
+            310
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            789,
+            812
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/2587-current.rs",
+          "line_range": [
+            537,
+            543
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704"
+        },
+        {
+          "archive": "sources/support-current-schema.rs",
+          "line_range": [
+            22,
+            40
+          ],
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c"
+        }
+      ],
+      "historical_relationship": "059 L12-CLOSURE-CATALOG-TYPED-ADMISSION-RESULT addresses the first case; published ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json addresses mixed placement with zero stock occurrences in a source-only census. Own prior roles2585\u20132586 and /root/mhr_character roles2581\u20132582 independently recorded related DTO/validator limits; do not transfer attribution or count duplicate findings."
+    }
+  ],
+  "nonfindings": [
+    "The pinned serde_core primitive visitor is a general numeric interface and lacks application-specific positivity; that fact alone is not a dependency defect or proof of first-party runtime reachability.",
+    "The diagnostic cap is positive and typed decode failures produce diagnostics on the shown whole-document path; do not infer local .ok() accepts malformed occupancy on that route.",
+    "Known package checksum and lock membership do not establish Cargo feature unification, native deserializer dispatch in every configuration, or project execution.",
+    "The historical original 774 rig main record qualified its P16 full effective production scope via prior Camera PR source and an actual comparison plus fresh critical P16 predicates; it must not be rewritten as an independent full fresh P16 read.",
+    "No test source tails, product builds, tests, runtime probes, rendering, simulation, implementation or product validation."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "magic-strings",
+      "scope": "Native keys, ids and diagnostics reviewed in main 1\u20131492; exact id spacing enters source-coordinate heuristic; distinguish typed owner and literal diagnostics."
+    },
+    {
+      "lens": "magic-numbers",
+      "scope": "f64 positivity and selected f32 boundaries examined; documented caps and normalized tolerance remain purpose-specific, not blanket numeric clearance."
+    },
+    {
+      "lens": "type-ownership",
+      "scope": "Capabilities relation needs an explicit owner at item-kind admission; native serde primitive f32 is not the bespoke owner of positivity."
+    },
+    {
+      "lens": "existing-type-owners",
+      "scope": "Typed schema preflight and parent/occupancy helper calls considered; raw vocabularies remain in serialized diagnostic boundary."
+    },
+    {
+      "lens": "type-granularity",
+      "scope": "f64 input, f32 stored representation, signed offsets and nonnegative grip have different contracts; do not impose one stronger universal numeric type."
+    },
+    {
+      "lens": "invariant-operations",
+      "scope": "Default construction and conversion can cross a semantic boundary; actual downstream mutation and consumers remain uninspected."
+    },
+    {
+      "lens": "aggregate-states",
+      "scope": "Item kind/capabilities and occupancy/parent relationships cross fields; surface/protection related prior records retain separate scopes."
+    },
+    {
+      "lens": "admission-contracts",
+      "scope": "Outer optional-capability branch misses the inner required-kind predicate on omission; typed schema catches type shape, not every aggregate semantic invariant."
+    },
+    {
+      "lens": "enum-shapes",
+      "scope": "Kind-specific required payloads are conditional; existing optional modes need policy before changing enum or payload shape."
+    },
+    {
+      "lens": "redundant-authority",
+      "scope": "Manual whitelist/typed schema and source path/id string protocol are multiple representations; no unproved alias or drift generalized."
+    },
+    {
+      "lens": "behavior-preservation",
+      "scope": "Production role2587 P16/95e bytes identical; test tails differ but remain unread and no test behavior asserted. Neighbor occupancy policy did change in the prior packet."
+    },
+    {
+      "lens": "producer-propagation",
+      "scope": "Main validation path and typed preflight examined; compiler, generated storage and runtime consumers rely on separately attributed prior evidence and remain incomplete."
+    },
+    {
+      "lens": "derivability",
+      "scope": "Schema default and serde derives inspected as relevant admission behavior; no boilerplate removal claim established."
+    }
+  ],
+  "historical_attribution": {
+    "original_774": "RIG-ADMISSION03-REGISTER-020 and 021; role2587 effective 1\u20131492 was qualified as Camera PR full-body proof, actual P16 comparison, critical fresh P16 predicate reads and P16 test exclusion; role2588 effective 129\u2013152, 222\u2013242, 450\u2013456. Original camera findings F004/F005 and original schema witness preserved under historical-774, transported via f82.",
+    "original_059": "Segovb READ-L11-424 and REGISTRATION-SEGOVB-1498 fresh P16 1\u20131492; Segovb READ-L11-425 and REGISTRATION-SEGOVB-1499 native source 129\u2013152,222\u2013242,450\u2013456. Delegated /root/lens12_frontier personally read P16 1\u20131492 via PROPOSAL-L12-878 / READ-L12-878 and pinned package 81\u2013153,222\u2013243,449\u2013457 via PROPOSAL-L12-879 / READ-L12-879; root adoption is not a root personal reread. Windows qualifications and lock-authority record preserved.",
+    "newly_assessed": "Independent current 95e full production read and limited original P16 reads exactly as personal-read-receipt.json; separately registered current schema and pinned package windows. Never transfer old reviewer credit to this work or to checkpoint3821."
+  },
+  "open_questions": [
+    "Whether any other semantic gate or catalog producer rejects absent capabilities for the implicated kinds, and what valid downstream consumers require.",
+    "Feature unification and alternate deserializer paths; exact runtime representation and actual authored values.",
+    "Whether diagnostic coordinates are an explicit accuracy contract and whether real supported input exhibits the heuristic miss.",
+    "Full all-lens graph and authoritative deduplication, including related prior package, schema and mixed-placement assessments."
+  ],
+  "evidence_map": {
+    "registrations": "registration.json; support-registration.json",
+    "personal_receipt": "personal-read-receipt.json",
+    "original_history": "historical-attribution.json",
+    "reconstructed_registry": "registry-selection-reconstructed.json",
+    "reconstructed_queue": "queue-selection-reconstructed.json",
+    "links": "evidence-links.json",
+    "git_proofs": "git-proofs.json and git-objects/",
+    "package": "metadata/serde_core-1.0.229.crate plus hash-linked dirty and current lock records"
+  },
+  "restriction": "No source/publication changes, implementation, product builds, tests, runtime probes, rendering, simulations or validation. Evidence verification only."
+}

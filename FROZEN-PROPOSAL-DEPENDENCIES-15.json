@@ -1,0 +1,25 @@
+{
+  "schema": "726-proposal-source-freeze-v1",
+  "source_commit": "2e06c7dfcee6847236dd087f01768ea938fb444e",
+  "rows": [
+    {
+      "prior_path": "BASELINE-95E-20261110.json",
+      "preserved_gzip": "recovered/checkpoint15-proposal-sources/BASELINE-95E-20261110.json.gz",
+      "original_sha256": "107482ea2e752fe78531ee33b4848a2dedb6c75ffdc01d7ebcb3df836b753ecf",
+      "original_bytes": 1169161,
+      "gzip_sha256": "24c161306446b8bbc68356b9fd7f191f74ca486678062887205abf1255438af9",
+      "gzip_bytes": 161525,
+      "qualification": "Exact point-in-time bytes compressed for recovery; later updates to the live record do not change this frozen copy."
+    },
+    {
+      "prior_path": "RECONCILIATION-059.json",
+      "preserved_gzip": "recovered/checkpoint15-proposal-sources/RECONCILIATION-059.json.gz",
+      "original_sha256": "4e62c30cfdc5078a00b45dcd47a70dc3dcb5495c6064f5c8b614991bd002d1de",
+      "original_bytes": 1230051,
+      "gzip_sha256": "4a7e17cb93a7c4fd01cafd5ff8951d06dea3be40cd3b9f5dd641fada32f05383",
+      "gzip_bytes": 117016,
+      "qualification": "Exact point-in-time bytes compressed for recovery; later updates to the live record do not change this frozen copy."
+    }
+  ],
+  "qualification": "These are prior source documents used by the delegated reconciliation proposals. Freezing them does not promote their historical content into checkpoint3821 or give review credit."
+}

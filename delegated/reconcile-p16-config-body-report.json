@@ -1,0 +1,919 @@
+{
+  "schema": "726-p16-config-body-reconciliation-proposal-v1",
+  "created_utc": "2026-11-12T00:20:27.078360+00:00",
+  "author": "/root/hair_ops",
+  "scope": "Read-only central reconciliation of published checkpoint10 p16-config and p16-body-target-hair, original registry and earlier historical records. Does not adopt role credit, modify ledger or claim additional current source body reads.",
+  "sources": {
+    "checkpoint10": {
+      "path": "<LOCAL_PATH_0>",
+      "sha256": "8c732828739242c06763d9b267bc65e7fcef746096e9fca1cdb98ddd06fdb7b3",
+      "bytes": 7628937
+    },
+    "registry_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+    "registry_archive": {
+      "path": "<LOCAL_PATH_1>",
+      "sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "bytes": 1205722
+    },
+    "source_archive": {
+      "path": "<LOCAL_PATH_2>",
+      "sha256": "794e0b45957709e304ee8e7d9e98f1390c1786644ac4f02891dbaea75e025824",
+      "bytes": 7274777
+    },
+    "baseline_ledger": {
+      "path": "<LOCAL_PATH_3>",
+      "sha256": "107482ea2e752fe78531ee33b4848a2dedb6c75ffdc01d7ebcb3df836b753ecf",
+      "bytes": 1169161
+    },
+    "baseline_queue": {
+      "path": "<LOCAL_PATH_4>",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "bytes": 21632843
+    },
+    "reconciliation": {
+      "path": "<LOCAL_PATH_5>",
+      "sha256": "4e62c30cfdc5078a00b45dcd47a70dc3dcb5495c6064f5c8b614991bd002d1de",
+      "bytes": 1230051
+    },
+    "earlier_059_receipts": [
+      {
+        "path": "<LOCAL_PATH_6>",
+        "sha256": "1b35fb4ac9a67c10bc564d604abc3903199182d66329e0d4649e69868b8d6eef",
+        "bytes": 9761
+      },
+      {
+        "path": "<LOCAL_PATH_7>",
+        "sha256": "c8a02178161cff929012e6ffa497ea24c0280a4429bcbab9e891cb20838f160d",
+        "bytes": 5988
+      },
+      {
+        "path": "<LOCAL_PATH_8>",
+        "sha256": "bbffe345019049f44bf9eb4b0c66f90cf1f8ab8b551e32770d900f0de76a4c82",
+        "bytes": 19118
+      },
+      {
+        "path": "<LOCAL_PATH_9>",
+        "sha256": "af35196d7a175af3a52395ace4fa1acb7eb05eab21dae03a784ae96a0605c25e",
+        "bytes": 19584
+      },
+      {
+        "path": "<LOCAL_PATH_10>",
+        "sha256": "a66d91cac0dadd8e3239a9f5980c48bc6ff78e9b61667f37d4d0e0d73bfe4bd0",
+        "bytes": 9903
+      },
+      {
+        "path": "<LOCAL_PATH_11>",
+        "sha256": "915e9448babf3ea81e77a79bb6590add3315f16ac0ac8b04e985beff767b32c4",
+        "bytes": 11771
+      },
+      {
+        "path": "<LOCAL_PATH_12>",
+        "sha256": "21b0b0da36fa93f6b3870bc2ac52b7721608dff34e3a49c4ba2882aa06337ee8",
+        "bytes": 16199
+      }
+    ],
+    "current_prior_assessments": [
+      {
+        "path": "<LOCAL_PATH_13>",
+        "sha256": "9c938d2faef1ceb111919702cf04ba579950ef0dca319ba471ee0ef5606307cb",
+        "bytes": 36336
+      },
+      {
+        "path": "<LOCAL_PATH_14>",
+        "sha256": "8700fe8be02381469d85b8e9162962fc14516047e79f6cfaa246ca142128f597",
+        "bytes": 36200
+      },
+      {
+        "path": "<LOCAL_PATH_15>",
+        "sha256": "a1595c6a5fd52e0b02fe7ff08d6da8f3a1e36c3ca643288b5ad1c4ed610e29ac",
+        "bytes": 47943
+      },
+      {
+        "path": "<LOCAL_PATH_16>",
+        "sha256": "a67f046fc9af3522b401b52ccc2707e71d818945220cf74264aa74d18135f0bd",
+        "bytes": 49666
+      },
+      {
+        "path": "<LOCAL_PATH_17>",
+        "sha256": "723f39992bf822be4fe6c4c037c287cc7d535f33255a56d7110b6bdee726ef42",
+        "bytes": 21490
+      },
+      {
+        "path": "<LOCAL_PATH_18>",
+        "sha256": "30184a296be0ff10031776e078f1b639f273f77e7387534f5a4eb5d5b4aa8007",
+        "bytes": 4672
+      }
+    ]
+  },
+  "roles": [
+    {
+      "index": 2483,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "original_registry_sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "bytes": 3223,
+      "eof": 66,
+      "registry_audit_owner": "camera",
+      "registry_status": "navigation_only_no_body_analysis",
+      "original_registry_requested_ranges_metadata_only": [
+        [
+          1,
+          60
+        ]
+      ],
+      "prior_segovb_l11_actual": [
+        [
+          1,
+          60
+        ]
+      ],
+      "prior_lens12_frontier_actual": [
+        [
+          1,
+          60
+        ]
+      ],
+      "prior_adler_pr_working_role": 1868,
+      "prior_adler_pr_working_actual": [
+        [
+          1,
+          66
+        ]
+      ],
+      "new_reader": "/root/mhr_character",
+      "new_p16_actual_chunks": [
+        [
+          1,
+          66
+        ]
+      ],
+      "new_95e_actual_chunks": [
+        [
+          1,
+          66
+        ]
+      ],
+      "new_unread_p16_and_95e": [],
+      "per_file_git_equal": [
+        "a120390947c89b703dc74c4255a13c035d054c50",
+        "039329518e264f19206cf5b0b98d177433f40c17",
+        "6533e444fa37552927070cc8d8190907fd3b413e",
+        "95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "f82_evidence_transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "qualification": "Historical P16 is dirty; a120 is its recorded base. Hash/Git equalities establish only these path bytes, not whole-snapshot identity, additional personal reads, independent lens clearance or checkpoint3821 credit."
+    },
+    {
+      "index": 2484,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "original_registry_sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "bytes": 4630,
+      "eof": 112,
+      "registry_audit_owner": "camera",
+      "registry_status": "navigation_only_no_body_analysis",
+      "original_registry_requested_ranges_metadata_only": [
+        [
+          1,
+          50
+        ]
+      ],
+      "prior_segovb_l11_actual": [
+        [
+          1,
+          50
+        ]
+      ],
+      "prior_lens12_frontier_actual": [
+        [
+          1,
+          59
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "prior_adler_pr_working_role": 1869,
+      "prior_adler_pr_working_actual": [
+        [
+          1,
+          112
+        ]
+      ],
+      "new_reader": "/root/mhr_character",
+      "new_p16_actual_chunks": [
+        [
+          1,
+          80
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "new_95e_actual_chunks": [
+        [
+          1,
+          80
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "new_unread_p16_and_95e": [],
+      "per_file_git_equal": [
+        "a120390947c89b703dc74c4255a13c035d054c50",
+        "039329518e264f19206cf5b0b98d177433f40c17",
+        "6533e444fa37552927070cc8d8190907fd3b413e",
+        "95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "f82_evidence_transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "qualification": "Historical P16 is dirty; a120 is its recorded base. Hash/Git equalities establish only these path bytes, not whole-snapshot identity, additional personal reads, independent lens clearance or checkpoint3821 credit."
+    },
+    {
+      "index": 2485,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "original_registry_sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "bytes": 2253,
+      "eof": 48,
+      "registry_audit_owner": "camera",
+      "registry_status": "navigation_only_no_body_analysis",
+      "original_registry_requested_ranges_metadata_only": [
+        [
+          1,
+          25
+        ]
+      ],
+      "prior_segovb_l11_actual": [
+        [
+          1,
+          25
+        ]
+      ],
+      "prior_lens12_frontier_actual": [
+        [
+          1,
+          25
+        ]
+      ],
+      "prior_adler_pr_working_role": 1866,
+      "prior_adler_pr_working_actual": [
+        [
+          1,
+          48
+        ]
+      ],
+      "new_reader": "/root/mhr_character",
+      "new_p16_actual_chunks": [
+        [
+          1,
+          48
+        ]
+      ],
+      "new_95e_actual_chunks": [
+        [
+          1,
+          48
+        ]
+      ],
+      "new_unread_p16_and_95e": [],
+      "per_file_git_equal": [
+        "a120390947c89b703dc74c4255a13c035d054c50",
+        "039329518e264f19206cf5b0b98d177433f40c17",
+        "6533e444fa37552927070cc8d8190907fd3b413e",
+        "95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "f82_evidence_transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "qualification": "Historical P16 is dirty; a120 is its recorded base. Hash/Git equalities establish only these path bytes, not whole-snapshot identity, additional personal reads, independent lens clearance or checkpoint3821 credit."
+    },
+    {
+      "index": 2486,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "original_registry_sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "bytes": 6019,
+      "eof": 140,
+      "registry_audit_owner": "camera",
+      "registry_status": "navigation_only_no_body_analysis",
+      "original_registry_requested_ranges_metadata_only": [
+        [
+          84,
+          140
+        ]
+      ],
+      "prior_segovb_l11_actual": [
+        [
+          84,
+          140
+        ]
+      ],
+      "prior_lens12_frontier_actual": [
+        [
+          84,
+          140
+        ]
+      ],
+      "prior_adler_pr_working_role": 1358,
+      "prior_adler_pr_working_actual": [
+        [
+          1,
+          140
+        ]
+      ],
+      "new_reader": "/root/hair_ops",
+      "new_p16_actual_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          140
+        ]
+      ],
+      "new_95e_actual_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          140
+        ]
+      ],
+      "new_unread_p16_and_95e": [],
+      "per_file_git_equal": [
+        "a120390947c89b703dc74c4255a13c035d054c50",
+        "039329518e264f19206cf5b0b98d177433f40c17",
+        "6533e444fa37552927070cc8d8190907fd3b413e",
+        "95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "f82_evidence_transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "qualification": "Historical P16 is dirty; a120 is its recorded base. Hash/Git equalities establish only these path bytes, not whole-snapshot identity, additional personal reads, independent lens clearance or checkpoint3821 credit."
+    },
+    {
+      "index": 2487,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "original_registry_sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "bytes": 19821,
+      "eof": 490,
+      "registry_audit_owner": "camera",
+      "registry_status": "navigation_only_no_body_analysis",
+      "original_registry_requested_ranges_metadata_only": [
+        [
+          195,
+          217
+        ]
+      ],
+      "prior_segovb_l11_actual": [
+        [
+          195,
+          217
+        ]
+      ],
+      "prior_lens12_frontier_actual": [
+        [
+          195,
+          217
+        ]
+      ],
+      "prior_adler_pr_working_role": 1357,
+      "prior_adler_pr_working_actual": [
+        [
+          1,
+          170
+        ],
+        [
+          171,
+          340
+        ],
+        [
+          341,
+          490
+        ]
+      ],
+      "new_reader": "/root/hair_ops",
+      "new_p16_actual_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          400
+        ],
+        [
+          401,
+          490
+        ]
+      ],
+      "new_95e_actual_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          400
+        ],
+        [
+          401,
+          490
+        ]
+      ],
+      "new_unread_p16_and_95e": [],
+      "per_file_git_equal": [
+        "a120390947c89b703dc74c4255a13c035d054c50",
+        "039329518e264f19206cf5b0b98d177433f40c17",
+        "6533e444fa37552927070cc8d8190907fd3b413e",
+        "95e63628f9d70b8dd6e6fede64334696c6995009"
+      ],
+      "f82_evidence_transport_path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "qualification": "Historical P16 is dirty; a120 is its recorded base. Hash/Git equalities establish only these path bytes, not whole-snapshot identity, additional personal reads, independent lens clearance or checkpoint3821 credit."
+    }
+  ],
+  "history": {
+    "registry_camera": "All five original camera owner rows are metadata/navigation only with no body or other-lens credit; 2484 has separately embedded prospective owner81 ranges 51–59 and 81–112, excluding 60–80. Original 774 camera qualifications and findings are separate, scoped evidence.",
+    "segovb_l11": "Original historical personal bounded P16 reads as listed per role; same-lens reuse of Adler full pr-working reads was documented separately, not a new full P16 personal read.",
+    "frontier_l12": "Original /root/lens12_frontier personal P16 windows in READ-L12-842 and -843, adopted by historical root with root_personal_rereads empty. Separately connected support 2483 61–66 and 2485 26–48, and P16 parent config ranges 414–446 and 680–780; 2484 60–80 excluded for that reviewer.",
+    "adler": "Original Adler READ-L11-283 pr-working roles 1868/1869/1866 and READ-L11-186 pr-working roles 1358/1357 read full; independent identity equalities do not transfer those reads into P16/current or other lenses.",
+    "native_774": "Body/target original 774 native pr-working roles 1357/1358, respectively body 1–490 and target 1–140, with closure rows not extra reads; retain original supplier attribution and lens. No source credit comes from a registry status or equal hash."
+  },
+  "findings": [
+    {
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "recommendation": "Same existing q39 and current ASSESSMENT-BODY-FRAME-HEIGHT-95E source observation; add corroboration only, no new unique finding. Cross-frame prior local velocity vs current filtered acceleration requires an eligible turning case; supported rates/timing and filter policy remain open."
+    },
+    {
+      "id": "REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001",
+      "recommendation": "Same existing current ledger entry 312 and ASSESSMENT-PACK-RESPONSE-95E; add independent corroboration only. A tiny positive divisor with suitable finite nonzero acceleration can reject the candidate before commit; real supported tuning and inputs unproved. Related q1452 is not a proven alias. Distinct first operation from q39."
+    },
+    {
+      "id": "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+      "recommendation": "Conditional current visual grounding schedule/policy candidate: repeated qualifying Update contact applies retention^N, but per-frame retention may be deliberate. No known existing exact ID found in inspected current ledger; reserve candidate, no unconditional defect or globally unique count. Different update/first contract than muscle relative angular damping or kick overflow; aliases remain central."
+    },
+    {
+      "id": "P16-CONFIG-MUSCLE-ENVELOPE-POLICY",
+      "recommendation": "Existing config packet observation exactly repeated as P16-MUSCLE-ENVELOPE-AND-PHASE-LIMITS in the later p16-animation packet by same /root/mhr_character: one linked question, no duplicate count. The 774 camera explicit max(1ms) zero-duration policy is a constraint. The current ledger muscle-kick overflow, q579 and q1193 concern connected native/split numeric policy, but a tiny-value threshold and a large-value kick overflow have different trigger/first operation; no automatic alias."
+    },
+    {
+      "id": "P16-CONFIG-PHASE-DEADBAND-SNAP",
+      "recommendation": "Same phase portion of later P16-MUSCLE-ENVELOPE-AND-PHASE-LIMITS, not an additional finding. With changed source and initially zero accumulator, deadband >= snap leaves no initial measured blending region; snap-or-ignore may be intended. Preserve q817 valid zero and >1 policies, and do not generalize across prior state/schedules."
+    },
+    {
+      "id": "P16-CONFIG-GROUPED-ERROR",
+      "recommendation": "Unresolved config predicate-to-reason/native caller policy; relate 059 connected validator/error evidence. SEGOVB-L12-TACTICAL-STARTUP-ERROR-OWNERSHIP is separately recorded startup-layer cause loss, not automatically same first failed contract as grouped config diagnostic; caller requirements and alias remain open."
+    },
+    {
+      "id": "P16-PRESENTATION-REJECTED-TICK",
+      "recommendation": "Later p16-animation packet concerns a potentially distinct presentation tick/commit boundary. No proof in these two packets that the tiny-reference ratio case reaches that exact caller or produces the same first failure; do not merge or independently link causal reachability without source trace."
+    }
+  ],
+  "nonfindings": "Validated procedural config rejects too-small max response versus report margin on this inspected path; prior speculative cap failure is not established. The inspected successful capture path shares simulation tick through projection, without proving every producer or schedule. The config distinguishes snap/ignore and zero policies; no visual/product behavior was run.",
+  "queue_rows": [
+    {
+      "index": 39,
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "historical_status": "open-reconciliation",
+      "central_reconciliation": "partial current body-observation frame and selected authoritative projection in ASSESSMENT-BODY-FRAME-HEIGHT-95E.json; actual producer, frame/behavior policy, native and exact-alias obligations remain open"
+    },
+    {
+      "index": 579,
+      "id": "Q-L11-cae61dc3f95d79a80ef2",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "unassessed"
+    },
+    {
+      "index": 816,
+      "id": "Q-L1-2d9d76f9558a0256ccec",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "unassessed"
+    },
+    {
+      "index": 817,
+      "id": "Q-L1-960b32dd9b4be22c9112",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "unassessed"
+    },
+    {
+      "index": 818,
+      "id": "Q-L1-b4c8726341b6ceda5a3c",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "unassessed"
+    },
+    {
+      "index": 845,
+      "id": "Q-L1-a11146c45429bef91a6c",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial current landing and locomotion profile positive-owner source in ASSESSMENT-GAIT-PROFILE-95E.json; earlier e275 current-read attribution, full producers and native contract remain separate"
+    },
+    {
+      "index": 846,
+      "id": "Q-L1-07e87093d2084a951f1e",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "unassessed"
+    },
+    {
+      "index": 1152,
+      "id": "Q-L12-2b3c5abf1e432223a1c2",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial historical body and selected current source/diff in ASSESSMENT-BODY-FRAME-HEIGHT-95E.json; actual producer, frame/behavior policy, native and exact-alias obligations remain open"
+    },
+    {
+      "index": 1153,
+      "id": "Q-L12-aa54c6c27c21db88d3a8",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial historical body and selected current source/diff in ASSESSMENT-BODY-FRAME-HEIGHT-95E.json; actual producer, frame/behavior policy, native and exact-alias obligations remain open"
+    },
+    {
+      "index": 1154,
+      "id": "Q-L12-f6f49764320c55b4570a",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial historical body and selected current source/diff in ASSESSMENT-BODY-FRAME-HEIGHT-95E.json; actual producer, frame/behavior policy, native and exact-alias obligations remain open"
+    },
+    {
+      "index": 1155,
+      "id": "Q-L12-557d95021ea723d43040",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial historical body and selected current source/diff in ASSESSMENT-BODY-FRAME-HEIGHT-95E.json; actual producer, frame/behavior policy, native and exact-alias obligations remain open"
+    },
+    {
+      "index": 1193,
+      "id": "Q-L12-322d593faf0f5a24753f",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial original body and selected current muscle/resolver source connection in ASSESSMENT-MUSCLE-RESOLVER-CONNECTIONS-95E.json; native producers, policy, full consumers and exact-alias obligations remain open"
+    },
+    {
+      "index": 1452,
+      "id": "Q-L12-33d996bc3f4b27cdf996",
+      "historical_status": "open-evidence-or-disposition",
+      "central_reconciliation": "partial current body-response ratios, angle admission and configuration relation in ASSESSMENT-PACK-RESPONSE-95E.json; actual producer bounds, supported numeric policy, quantity context and aliases remain open"
+    }
+  ],
+  "existing_current_ledger_rows": [
+    {
+      "id": "REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001",
+      "lens": 4,
+      "additional_current_lenses": [
+        3,
+        7,
+        8,
+        13
+      ],
+      "severity": "unassigned; source discrepancy or conditional representability",
+      "classification": "New95e conditional representability question for a configured reference acceleration and presentation angle; no live failure observed.",
+      "historical_related_records": [
+        "segovb/READ-L12-572.json",
+        "segovb/READ-L12-573.json",
+        "baseline-059/queue.json#/entries/1450",
+        "baseline-059/queue.json#/entries/1452"
+      ],
+      "relationship_qualification": "Original6533 review and its unresolved input/policy qualifications remain separately attributed; current source and symbolic arithmetic change no historical or checkpoint3821 count.",
+      "discovery": "partial; divisor, actual consumer, rejection path and exact hypothetical ratio connected; full configuration/sample reachability and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-PACK-RESPONSE-95E.json"
+    },
+    {
+      "id": "REVIEW-RAGDOLL-MUSCLE-KICK-OVERFLOW-001",
+      "lens": 4,
+      "severity": "unassigned; conditional source-level arithmetic, supported native state unproved",
+      "classification": "New current-source muscle operation candidate linked to an earlier Lens12 contract; it is distinct from the earlier entry-seed admission finding but global alias reconciliation is incomplete.",
+      "historical_related_records": [
+        "baseline-059/queue.json#/entries/1193 (earlier muscle/native contract)",
+        "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-RAGDOLL-SEED-PREFLIGHT (earlier distinct entry-seed admission)"
+      ],
+      "relationship_qualification": "The earlier entry boundary and later control operation are separately identified; incomplete recovered checkpoint 3821 and all aliases prohibit a global nonduplication claim.",
+      "discovery": "partial; native state reachability, policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-MUSCLE-RESOLVER-CONNECTIONS-95E.json"
+    },
+    {
+      "id": "SEGOVB-L12-TACTICAL-STARTUP-ERROR-OWNERSHIP",
+      "lens": 12,
+      "additional_current_lenses": [
+        1,
+        3,
+        7,
+        8,
+        13
+      ],
+      "severity": "unassigned; error ownership and diagnosability",
+      "classification": "Startup input errors should retain their typed cause and input context until the final presentation boundary.",
+      "historical_related_candidates": [
+        "baseline-059/queue.json#/entries/278",
+        "baseline-059/queue.json#/entries/1547",
+        "baseline-059/queue.json#/entries/1549",
+        "segovb/READ-L12-698.json",
+        "parallel-l12-20261029/PROPOSAL-L12-698.json"
+      ],
+      "relationship_qualification": "Current source reassessment of original059 delegated proposal, preserving its original reader and no historical unique count or checkpoint3821 claim; exact aliases remain open.",
+      "discovery": "partial; exact current source conversion and final caller established, typed diagnosis policy and global aliases open",
+      "repair": "not started",
+      "validation": "not performed",
+      "record": "ASSESSMENT-COMBAT-CONFIG-ERROR-95E.json"
+    }
+  ],
+  "public_transport": [
+    {
+      "bundle": "p16-config",
+      "archive": {
+        "path": "<LOCAL_PATH_19>",
+        "sha256": "4bc703cb42b5ab2edb7ad2ff0c8439bc3fc37304403a67c0d296b6786683c0b8",
+        "bytes": 6011280
+      },
+      "report": {
+        "path": "<LOCAL_PATH_20>",
+        "sha256": "7c54e5638c3a2fd134a1e9a7734fbb2a0c21f6c64654b1f2f1a1127e4cb0e742",
+        "bytes": 23424
+      },
+      "original_packet_manifest_member": "BUNDLE-MANIFEST.json",
+      "manifest_sha256": "72148746951f778b4b53818a1c094f3495ffad8fd4f0658d3c56ced6397b79dd",
+      "manifest_entries": 116,
+      "public_member_differences": [
+        {
+          "path": "attach-references.py",
+          "original_sha256": "5a5bf82749d7aa53df587685de49d260f830c53e40b81a7e77aa5e1b0c6d0f21",
+          "published_sha256": "635e87354e7911647303ea2a352c88a8ff0c6095dbc69d28d7990271b06aefbe",
+          "original_bytes": 1433,
+          "published_bytes": 1419,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "build-proof.py",
+          "original_sha256": "341d357467f79da6f2692fae2dc154aa7e63ab8b42ed0b522da13b248fac71c0",
+          "published_sha256": "c906d8803c88578687c6e415e3037e6812439e5c94f03ae40e7c74e33e322f8c",
+          "original_bytes": 4852,
+          "published_bytes": 4754,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "check-evidence.py",
+          "original_sha256": "f619f9b32ecc70ec9d8031d6a2d018c79dd504ffc1c301e164e7c1b390a83ca6",
+          "published_sha256": "ebc56451b70659d2fc7455621cbec2c356c2076f1c952efb535b75fe13b0a4ef",
+          "original_bytes": 5615,
+          "published_bytes": 5601,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "copy-evidence.py",
+          "original_sha256": "79ac4927edf2bfdfec39c68060ecaa8f66787e83c643beb4f01c4b09479013f7",
+          "published_sha256": "2d10eaadbf7b5972a235d85d5b255c138e95f1650e887511eea3c8c4adbc9642",
+          "original_bytes": 5975,
+          "published_bytes": 5726,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "make-manifest.py",
+          "original_sha256": "d29f8166852d56bf75c570ae2985c6f6fcfed3a3c7cf19959ccf84c1b2f8b1d5",
+          "published_sha256": "7fcc8d0458f71ee30c7a4c335da322f91fc4e5643c7c4d029a520a20c797b6d0",
+          "original_bytes": 791,
+          "published_bytes": 777,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "older-774-index.json",
+          "original_sha256": "7462b9fe274d82ca81131e1dd03b24036921416aeb2df2d27f44b46e7937d213",
+          "published_sha256": "b0c30a8bbfeeeff1b1729dbc0be3d3c173427f6217218a518225c60a412acb0b",
+          "original_bytes": 3805,
+          "published_bytes": 3273,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "reference/059-queue-original-bytes.json.gz",
+          "original_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+          "published_sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+          "original_bytes": 1438797,
+          "published_bytes": 1438706,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register-support-02.py",
+          "original_sha256": "fbc4d7a2851bcaeb650c7e38d9e4899b9d948964e8f5b68faf88bddff67310b4",
+          "published_sha256": "e6f7f124dc02be3b3db4d70a464ecd9f708d02f3f3ad98d7b447a459ae5dc876",
+          "original_bytes": 1433,
+          "published_bytes": 1335,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register-support-03.py",
+          "original_sha256": "e679e38c7d4c112744a91dc54bffa031c0408a468dc8e7d35a96b6d6ea94bca0",
+          "published_sha256": "ba8c573fdb3d1db5d5c5c203759617c64fdd0d7b8d8bda66c1386ec01c258506",
+          "original_bytes": 1338,
+          "published_bytes": 1240,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register-support-04.py",
+          "original_sha256": "0a45d6b9f019da9786ba7136dc1011e4f249a3fe23b85272d1ab976ada23b99a",
+          "published_sha256": "d54ac98d43fada26ebc04e2f905ba7de703d2132a0bb6a18a2fadfb3ad85a683",
+          "original_bytes": 1168,
+          "published_bytes": 1070,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register-support.py",
+          "original_sha256": "665032517e87dd3c58ab3d6f3b99dcd838d3aed1dbd4e6ef7f73f69afba0e331",
+          "published_sha256": "2be227917eea33c51f4551f8e1064f4be515127906fd9348cb271d70b9dfc5fd",
+          "original_bytes": 1905,
+          "published_bytes": 1807,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register.py",
+          "original_sha256": "2fb398aa51dd25c7fa96690dd4d856666f316a53dfc460cae702f0d98a684537",
+          "published_sha256": "dfc083ae03920f91e7b1d3064c473a40668f791ff492f36e352a9279053f24ca",
+          "original_bytes": 2939,
+          "published_bytes": 2669,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "registration.json",
+          "original_sha256": "747963f4851d96aa3bb85db6e36106926249f793588e1dc15fc1ee33187906b0",
+          "published_sha256": "732bc672a5c68f4de94209791850430b0366a0a24fff85c3b7989967599e27fb",
+          "original_bytes": 17260,
+          "published_bytes": 16699,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "write-report.py",
+          "original_sha256": "2b9cae55e3c056530df2056368c306dbe1b6f99dcd5d0470d07029138b203439",
+          "published_sha256": "12b162ea50f1c156bc4dc339123a8098fe35d0dae440a95f2002229d4a99e5c3",
+          "original_bytes": 17410,
+          "published_bytes": 17396,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        }
+      ],
+      "qualification": "Original packet manifest is unchanged historical evidence; check public bytes using checkpoint10 member mapping, not the unmodified original manifest."
+    },
+    {
+      "bundle": "p16-body-target-hair",
+      "archive": {
+        "path": "<LOCAL_PATH_21>",
+        "sha256": "7083830ddfe7d20da76c7a2469890c0d6aaad74ed19c493ee072cb75076ef7ea",
+        "bytes": 7106648
+      },
+      "report": {
+        "path": "<LOCAL_PATH_22>",
+        "sha256": "63ece836818246a03aa51c7f06add166754c61d1c7afd15f69359b90fc8fcf89",
+        "bytes": 17784
+      },
+      "original_packet_manifest_member": "packet-manifest.json",
+      "manifest_sha256": "aa44ecb2f4a4a06f1881cc61f6a66f480d7a47473e4dfc412b2a4a35163c38d4",
+      "manifest_entries": 143,
+      "public_member_differences": [
+        {
+          "path": "check_evidence.py",
+          "original_sha256": "b62c77cd5722bb43b03551363870c86319705f3a0c3d70c41e800c74da6fd4bb",
+          "published_sha256": "3480746ec8b5e300e263e3a023b3bb7052e86fff360e90738fc4f823191841e9",
+          "original_bytes": 7576,
+          "published_bytes": 7455,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "copy_history.py",
+          "original_sha256": "ecf4c11da64fdf095b0fec51faf1798fea160d8b217e4ed6566c6b5a3fe88243",
+          "published_sha256": "15bb7b03ebb310ee8d44959cb6724ae0601fe94484aa06bdbfbf3e44c17935fd",
+          "original_bytes": 5257,
+          "published_bytes": 4926,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "freeze.py",
+          "original_sha256": "8ccd4d030ebfcdc60d1616a6ded35b260326eb0d949541b760927ac188b85eb8",
+          "published_sha256": "ce4329b4e3646b1cab0f03cf5385d440233c9d67857d5fe6c865ee6c643111e9",
+          "original_bytes": 901,
+          "published_bytes": 864,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "prepare_proofs.py",
+          "original_sha256": "08235e2aae9b9079044fdbafb3e20b2640619ce2a3dff6a3cb1c7f1297623d25",
+          "published_sha256": "4fed0d01e932e42448cd553190b926b2090e0aea07a8c30d478cabab4cfdc000",
+          "original_bytes": 4225,
+          "published_bytes": 4104,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "reference/older-source-catalog.json.gz",
+          "original_sha256": "113c90b10e159519a8dcb91710b0c0633a152e5a2cb9cbb78e0f91eb0907df59",
+          "published_sha256": "e213f22a583d6b49037d0b5ad47cb17da6575ab654ae455c80080b50b7d30436",
+          "original_bytes": 226711,
+          "published_bytes": 216224,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "reference/queue-059.json.gz",
+          "original_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+          "published_sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+          "original_bytes": 1438797,
+          "published_bytes": 1438706,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register.py",
+          "original_sha256": "1127e87497d8352f281106c821a4301a1d4be99ce02ff7a7957c1dd6219e32ac",
+          "published_sha256": "0af64d907c81cb6c4cf6480e7a76bfd0dfbc36673bb8f52a17b2882f6ad8e9e8",
+          "original_bytes": 3835,
+          "published_bytes": 3678,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register_support.py",
+          "original_sha256": "796c028992a100c964e06824747b87343bee50caca002fd9bda0aa56b3fd5477",
+          "published_sha256": "4a8f26f95c122aced8781e71f673e39651a98c6f99e49266723afe7f69e5bc09",
+          "original_bytes": 2411,
+          "published_bytes": 2290,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register_support2.py",
+          "original_sha256": "e05f5ec5ed0a6dd3853e773fead92da2f3c826a558eb4a6b3cd02b0fd625a613",
+          "published_sha256": "10d59690c25dc6306502d7440727d548835af44d317a235a9cba40cc6a1af3b8",
+          "original_bytes": 1577,
+          "published_bytes": 1456,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register_support3.py",
+          "original_sha256": "882597b8dd67ef313b6619fa44c8b88c120a5cc3341f74cd51b0e5cefc9ce0cf",
+          "published_sha256": "6bd624c71a917e22eee5d0a2375dc8c094901fb4b5d78923738ff7c27ccbcf41",
+          "original_bytes": 1092,
+          "published_bytes": 971,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "register_support4.py",
+          "original_sha256": "b61156eff765b6f56eaff22d1edf5e7fdd8a6d22db9a0eea950a5c55cd1dfab7",
+          "published_sha256": "3cf52659938f372919c1656ff7c81cf6c01ec926f3a3d68c3e2d0df2a5f002be",
+          "original_bytes": 1059,
+          "published_bytes": 938,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "registration.json",
+          "original_sha256": "c3a70db2c525a270cad3c1de969343ec980a20abd53559a3b028b60d23472e23",
+          "published_sha256": "76c11e3b8b449790d22e3ad711eccd4ae27902600629e8d63a09a8472ead5d74",
+          "original_bytes": 18730,
+          "published_bytes": 18324,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        },
+        {
+          "path": "write_report.py",
+          "original_sha256": "73e697c3eb82633d1fff7f3139402b4e4899c854e6658a11747b82ab1f29296d",
+          "published_sha256": "32f153c60b9c58ab29240c1147309d87476a1584df8c3669348ea8f46b8c3ed6",
+          "original_bytes": 14015,
+          "published_bytes": 13978,
+          "qualification": "Reconstructed public copy: nonessential local paths redacted in this content or nested members; original byte and uncompressed digests and lengths retained."
+        }
+      ],
+      "qualification": "Original packet manifest is unchanged historical evidence; check public bytes using checkpoint10 member mapping, not the unmodified original manifest."
+    }
+  ],
+  "exact_local_assigned_registrations": [
+    {
+      "bundle": "p16-config",
+      "member": "registration.json",
+      "original": {
+        "path": "<LOCAL_PATH_23>",
+        "sha256": "747963f4851d96aa3bb85db6e36106926249f793588e1dc15fc1ee33187906b0",
+        "bytes": 17260
+      },
+      "public_member_sha256": "732bc672a5c68f4de94209791850430b0366a0a24fff85c3b7989967599e27fb",
+      "original_receipt_sha256": "a6ed4b68174776e208dd1888a4a6b4550ac096e81c31c05b9af60db9d10da876",
+      "receipt_original_registration_sha256": "747963f4851d96aa3bb85db6e36106926249f793588e1dc15fc1ee33187906b0",
+      "qualification": "Exact original registration remains local. Public registration is a path-redacted reconstruction; original/public byte identities are mapped in published checkpoint10 manifest."
+    },
+    {
+      "bundle": "p16-body-target-hair",
+      "member": "registration.json",
+      "original": {
+        "path": "<LOCAL_PATH_24>",
+        "sha256": "c3a70db2c525a270cad3c1de969343ec980a20abd53559a3b028b60d23472e23",
+        "bytes": 18730
+      },
+      "public_member_sha256": "76c11e3b8b449790d22e3ad711eccd4ae27902600629e8d63a09a8472ead5d74",
+      "original_receipt_sha256": "16a59bdff9cb7d20ed2033f3a3c23b3ceb781bf69e853b52aaf82eda8b8d905f",
+      "receipt_original_registration_sha256": "c3a70db2c525a270cad3c1de969343ec980a20abd53559a3b028b60d23472e23",
+      "qualification": "Exact original registration remains local. Public registration is a path-redacted reconstruction; original/public byte identities are mapped in published checkpoint10 manifest."
+    }
+  ],
+  "patch_recovery": "Both frozen packet reports truthfully said matching patch bytes had not yet been recovered. Later, central reproduced and saved tracked.patch sha fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 (524542 bytes), matching the registry recorded hash. Recorded status is 151 tracked modifications, one deletion and seven untracked; the latter are separate original archive objects. 158 existing dirty paths matched original registry. Original patch-generation command and uninterrupted custody are unproved. Preserve the reports as historical and cite the later recovery without saying the whole snapshot is clean or attributing a later discovery to those reports.",
+  "limits": "Only exact source-object/Git/receipt/transport integrity and report-ledger relationships checked. Remaining source, data, actual input reachability, all lenses and aliases open. No checkpoint3821 promotion, product execution, builds, tests, probes, rendering, simulation, validation, repairs, deletion, publication or product-source changes."
+}

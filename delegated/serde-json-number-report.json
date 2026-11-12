@@ -1,0 +1,304 @@
+{
+  "schema": "726-bounded-source-audit-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-12T00:11:49.080593+00:00",
+  "scope": {
+    "original_roles": [
+      2589,
+      2590
+    ],
+    "recorded_snapshot": {
+      "2589": "pinned-cargo",
+      "2590": "pinned-cargo"
+    },
+    "native_package": "serde_json 1.0.151",
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "assigned_personal_displays": {
+      "2589": [
+        [
+          160,
+          205
+        ],
+        [
+          300,
+          325
+        ]
+      ],
+      "2590": [
+        [
+          525,
+          625
+        ]
+      ]
+    },
+    "assigned_unread": {
+      "2589": [
+        [
+          1,
+          159
+        ],
+        [
+          206,
+          299
+        ],
+        [
+          326,
+          1507
+        ]
+      ],
+      "2590": [
+        [
+          1,
+          524
+        ],
+        [
+          626,
+          814
+        ]
+      ]
+    },
+    "support": "Independently registered serde_core 1.0.229 visitor windows 120\u2013155,215\u2013245,445\u2013465; four current catalog code windows; Cargo.lock serde_core and serde_json stanzas. Exact complements in receipts. No role2588 ordered credit.",
+    "archive_qualification": "serde_json archive stored in this compact packet and also hash-linked to previously published native evidence 0083173b; serde_core archive hash-linked to same published commit. 008 and f82 are evidence transport commits, not project source revision.",
+    "limits": "No full native package or lens clearance, feature activation proof, product validation or reviewer credit transfer."
+  },
+  "historical_attribution": {
+    "774_rig": "REGISTER-022 original value/de 169\u2013194,310\u2013314 qualified 169\u2013193 and 313; REGISTER-023 number 582\u2013619 qualified 582\u2013600,602\u2013618; REGISTER-025 number 535\u2013580. Rig catalogue-schema-receiver witnesses are historic separately dated source work, not this agent\u2019s P16 body read.",
+    "774_pin_qualification": "Root046 rig registration expected 9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe; later first35 cbbfee078a21b7d56c7d4b499225de25fad99e47bfb9057defc14eb932c1d859 differs, while first31 qualifications match f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258. Prior catalog-fit-surface packet preserves bounded 20-file search and original 046/witness copies; no global absence or later-registry substitution.",
+    "059_l11": "READ-L11-425 credits /root/segovb fresh exact original material ranges, registrations 1500 and 1501.",
+    "059_l12": "READ-L12-879 credits /root/lens12_frontier Value169\u2013194,310\u2013314; READ-L12-880 credits Number535\u2013580,582\u2013619. Root personal rereads empty. Frontier\u2019s connected lock receipt reads separately registered historical dirty-P16 and 6533 Cargo.lock stanzas; no feature activation inferred.",
+    "parallel_hair": "/root/hair_ops support read serde_core 129\u2013151,222\u2013242,450\u2013456 and current 2583\u20132584 catalog source; its packet and report are hash-linked, not transferred as personal read.",
+    "later_p16_recovery": "/root/hair_ops first reproduced tracked patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 in memory; central later saved/published matching tracked.patch at ee46ada33828e38510b9e3e781fdcefdf1c04de2. Neither establishes the historical command; the seven untracked files remain separate. This fact does not change dirty-P16 lock/source attribution.",
+    "credit": "No historical source is promoted into checkpoint3821; central owns counts, ordered coverage and ledger reconciliation."
+  },
+  "assessments": [
+    {
+      "id": "NATIVE-OWNED-VALUE-F32-DISPATCH",
+      "kind": "bounded native source behavior, not an independent product defect",
+      "contract": "In the non-arbitrary_precision branch, owned serde_json::Value numeric deserialization delegates to Number::deserialize_any; Number dispatches its Float variant to visit_f64. The serde_core f32 Deserialize visitor casts f64 to f32, preserving sign under the shown std branch, without a field-specific finite/positive check. In the arbitrary_precision branch the number invokes the target method which parses and passes that target to its visitor; this is a distinct conditional route.",
+      "condition": "The actual enabled feature graph, the selected input representation, direct streaming from_str path, unrelated number kinds and other visitor implementations are not established by lockfile or these bounded reads. No decoder or fixture ran.",
+      "future_direction": "At each actual numeric owner, validate the destination representation and field-specific constraints; analyze feature-specific paths before asserting runtime outcomes.",
+      "source_refs": [
+        {
+          "source_kind": "native-package",
+          "package": "serde_json",
+          "version": "1.0.151",
+          "path": "src/value/de.rs",
+          "lines": [
+            [
+              169,
+              193
+            ],
+            [
+              303,
+              314
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde_json",
+          "version": "1.0.151",
+          "path": "src/number.rs",
+          "lines": [
+            [
+              535,
+              580
+            ],
+            [
+              582,
+              618
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde_core",
+          "version": "1.0.229",
+          "path": "src/de/impls.rs",
+          "lines": [
+            [
+              129,
+              151
+            ],
+            [
+              222,
+              242
+            ],
+            [
+              450,
+              456
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CATALOG-PHYSICAL-NARROWING-REVISIT",
+      "kind": "current conditional source assessment related to existing issue, no new count",
+      "contract": "Current EquipmentPhysical stores dimensions as [f32;3] and grip/anchor components as f32. The current JSON value validator requires each dimension to be finite positive in f64 and grip/anchor values finite with their own nonnegative/signed rules. The typed preflight is decoded from a clone and discarded, while build source later serializes the original Value. Under the inspected non-arbitrary_precision Value/Number/visitor branch and otherwise valid catalog conditions, a sufficiently small positive f64 can cast to f32 zero, while sufficiently large finite signed anchor or nonnegative grip values can cast to infinity during that typed preflight.",
+      "condition": "This is mathematical/source reasoning about the shown conditional Value path, not evidence of a checked-in input or actual runtime result. Runtime catalog uses from_str, whose distinct parser branches and resolved host/target features were not personally traced here. Typed preflight acceptance, build completion and downstream effects require all other gates and actual feature selection; no build, parser, product or test was run.",
+      "future_direction": "After audit and separately authorized repair, ensure physical field constraints survive conversion to their actual stored f32 type. Preserve zero-valid generic geometry, legitimate zero grip and signed offsets; do not choose or implement the repair in this audit.",
+      "relationships": [
+        "774 rig catalogue-schema-receiver witnesses and CAMERA-ADM03-F005 cover the historical P16 positive-dimension representation boundary; that dirty snapshot used a distinct physical schema and must not be relabeled as 95e.",
+        "/root/hair_ops packet roles 2583\u20132584 independently assessed the current narrowing and related finite overflow with additional runtime feature-dependent possibilities. Its reviewer, read scopes and aliases remain separate; no added duplicate count or automatic merge.",
+        "059 Q2435 L12-CLOSURE-CATALOG-PHYSICAL-SERDE-NATIVE-F32 stays open with its original conditional scope; central decides its relation to later source evidence."
+      ],
+      "source_refs": [
+        {
+          "source_kind": "native-package",
+          "package": "serde_json",
+          "version": "1.0.151",
+          "path": "src/value/de.rs",
+          "lines": [
+            [
+              169,
+              193
+            ],
+            [
+              303,
+              314
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde_json",
+          "version": "1.0.151",
+          "path": "src/number.rs",
+          "lines": [
+            [
+              535,
+              580
+            ],
+            [
+              582,
+              618
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde_core",
+          "version": "1.0.229",
+          "path": "src/de/impls.rs",
+          "lines": [
+            [
+              129,
+              151
+            ],
+            [
+              222,
+              242
+            ],
+            [
+              450,
+              456
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+          "lines": [
+            [
+              72,
+              85
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+          "lines": [
+            [
+              249,
+              273
+            ],
+            [
+              682,
+              725
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/build.rs",
+          "lines": [
+            [
+              239,
+              262
+            ],
+            [
+              274,
+              280
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/item_catalog.rs",
+          "lines": [
+            [
+              27,
+              35
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NATIVE-PACKAGE-AND-LOCK-IDENTITY",
+      "kind": "evidence provenance",
+      "contract": "Pinned 95e Cargo.lock names serde_json 1.0.151 and serde_core 1.0.229 with checksums matching their exact package archives. Both assigned serde_json source objects and the independently read serde_core support member match original 059 objects, exact native archive members and f82 source-object transport.",
+      "condition": "Native package versions are not project Git revisions or feature activation. The 059 historical 6533 and dirty-P16 lock receipts are separately attributed to frontier; f82 is P16 lock transport, not clean a120 source. Earlier P16 patch reproduction and later saved published patch are temporal evidence, not proof of original command or coverage of seven untracked files.",
+      "future_direction": "Retain archive/member identity, historical lock revision, original reviewer and feature uncertainty in the central ledger.",
+      "source_refs": [
+        {
+          "source_kind": "current-lock",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "Cargo.lock",
+          "lines": [
+            [
+              9397,
+              9405
+            ],
+            [
+              9417,
+              9430
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "A general-purpose JSON numeric decoder is not itself responsible for project-specific positive-dimension semantics.",
+    "The locked package checksum proves version/archive identity, not enabled arbitrary_precision or float_roundtrip features.",
+    "The distinct arbitrary_precision target parse is not treated as equivalent to the normal Value dispatch without separate proof."
+  ],
+  "open_questions": [
+    "What serde_json feature configuration applies separately to catalog build host and runtime targets?",
+    "What exactly happens in the distinct runtime from_str path for each edge value and are relevant data and downstream consumers reachable?",
+    "Which owner and shared repair correctly connect historical CAMERA-ADM03-F005, Q2435 and the current hair_ops source assessment?"
+  ],
+  "perspectives": {
+    "producer-propagation": "Raw numeric Value reaches a destination f32 visitor and possibly an independently parsed embedded runtime catalog; actual feature/caller paths need separate assessment.",
+    "existing-type-owners": "Catalog dimensions, signed offsets and nonnegative grip have distinct target constraints; zero-valid generic geometry must not be redefined wholesale.",
+    "admission": "The non-arbitrary Value-to-f32 route performs a primitive cast rather than owner-specific finite/positive validation.",
+    "invariant-operations": "f64 to f32 narrowing can lose nonzero magnitude or exceed the finite f32 range; consequences depend on the actual route.",
+    "aggregate-states": "A three-axis physical box has per-axis positivity and aggregate dimensional meaning that a generic float type alone cannot establish.",
+    "type-ownership": "Native serde owns data decoding; the project catalog must own its physical field policy at an effective boundary.",
+    "redundant-authority": "Typed preflight is discarded and original Value is serialized; whether a single validated representation should own the retained state is a future design question.",
+    "behavior-preservation": "Preserve valid signed anchor offsets, permitted zero grip, positive representable dimensions and intentional generic zero dimensions.",
+    "enum-shapes": "No semantic enum-shape claim follows from these numeric dispatch excerpts.",
+    "derivability": "Derived Deserialize supplies a structural type route; the bounded code does not demonstrate removable custom boilerplate.",
+    "type-granularity": "f32 finiteness, strict positive axes, signed offsets and zero-valid scalar domains are different semantic contracts.",
+    "magic-strings": "Native parser error/type metadata and external format tokens are not demonstrated application classification keys.",
+    "magic-numbers": "The limits of f32 representation matter separately from field-specific positivity and geometry policies; no arbitrary clamp is justified."
+  },
+  "limitations": "Source inspection and evidence verification only. No product builds, tests, runtime probes, parsers, fixtures, rendering or repairs."
+}

@@ -1,0 +1,630 @@
+{
+  "schema": "726-sdk-noiz-sats-central-reconciliation-proposal-v1",
+  "created_utc": "2026-11-12T00:21:06.916251+00:00",
+  "author": "/root/mhr_character",
+  "status": "Recommendation for central review only; no authoritative role, ledger, queue, checkpoint, or accepted finding count changed.",
+  "scope": "Read-only reconciliation of frozen delegate report, exact registry, receipts, historical records, package/lock identities and current central ledger. I did not personally display any project or package source body. Delegate source observations and old reviewers remain attributed to them.",
+  "authority": {
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_lock_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "native_source_revision": "Native package/version/checksum plus exact member, not project Git revision; f82 in some older records is evidence transport, not project HEAD.",
+    "archive_path": "delegated/sdk-noiz-sats-hair-evidence.tar.gz",
+    "archive_sha256": "421ed4b801935c1995a630147c88af97cebd478fb7ea05a33cda143dcc99998a",
+    "report_path": "delegated/sdk-noiz-sats-hair-report.json",
+    "report_sha256": "85a37428426a3bd4eaff384a676cc431865ded7bcfc3e36efd9132c122345b1d",
+    "checkpoint_path": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+    "checkpoint_sha256": "8c732828739242c06763d9b267bc65e7fcef746096e9fca1cdb98ddd06fdb7b3",
+    "checkpoint_qualification": "DELEGATED-CHECKPOINT-10-QUALIFICATION.json",
+    "ledger_path": "baseline-059/ledger.json",
+    "ledger_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+    "queue_path": "baseline-059/queue.json",
+    "queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "earlier_assessment_path": "ASSESSMENT-L01-HISTORICAL-495.json",
+    "earlier_assessment_sha256": "3897f20cdb092533f89785176a9b79be239e9e8a3fee89fdd09fd6e412c4640d"
+  },
+  "verification": {
+    "independent_checks": "All 94 checkpoint10 published member lengths and SHA-256 values and archive SHA verified; external report equals tar member; native source members byte-match their matching .crate files; archive checksums and exact package versions match both preserved lockfiles; 13 preserved raw Git commit/tree/blob chains verified; eleven 95e support bodies and two 6533/95e lock bodies independently match objects in the separate publication Git repository. Six newly attached 059 records match original transport length, SHA-256 and Git blob.",
+    "limitations": "These are evidence integrity/identity checks, not a product test, runtime observation or independently acquired source-read credit. Full source bytes held in archive do not imply independent review. Prior verifier PASS is retained as its reviewer's historical result.",
+    "failed_lookup_correction": "A preliminary lookup in the outer worktree and main clone failed because they do not hold 95e; the separate publication Git repository holds it and the correct scoped lookup succeeded."
+  },
+  "native_roles": [
+    {
+      "original_index": 2476,
+      "source_id": "sdk-noiz-0.5.0:src/lib.rs",
+      "snapshot": "sdk-noiz-0.5.0",
+      "member": "noiz-0.5.0/src/lib.rs",
+      "member_sha256": "75fd184c107067ee24f751adf6f49829c698ba89899a3595e6a608b63c6413f6",
+      "archive_sha256": "937ac4a1ea826fc4977c4db2629fa1278e998012c24e7f9c2be32020c66d7815",
+      "lines": 441,
+      "delegate_read": [
+        [
+          1,
+          110
+        ],
+        [
+          111,
+          220
+        ],
+        [
+          221,
+          330
+        ],
+        [
+          331,
+          441
+        ]
+      ]
+    },
+    {
+      "original_index": 2477,
+      "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs",
+      "snapshot": "sdk-spacetimedb-sats-2.6.1",
+      "member": "spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "member_sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "archive_sha256": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+      "lines": 343,
+      "delegate_read": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          275
+        ],
+        [
+          276,
+          343
+        ]
+      ]
+    }
+  ],
+  "delegate_scope": {
+    "reviewer": "/root/hair_ops",
+    "registration_utc": "2026-11-11T21:43:32.747205+00:00",
+    "receipt_utc": "2026-11-11T21:45:27.086450+00:00",
+    "registration_original_sha256": "ef23dd30960cca5124ca2b1039efe6d16d4da29a5bee901927585853513ea608",
+    "registration_reconstructed_public_sha256": "4838e23bbcac26d7ce61d06c4c2904e3d785dad62faa3a9584070edf2fdddc9a",
+    "receipt_sha256": "c81e30a6886a599a258f01398e18d50b6d781e0bc48ec7361a6be242e58a3076",
+    "qualification": "Receipt binds original registration, preserved locally in this packet; public registration is a path-redacted reconstruction. Never say receipt matches the public registration bytes. Source bodies and receipt are unchanged. Full bodies include test/example source text only, not execution. These are bounded thirteen-lens perspectives, not thirteen completed populations.",
+    "support_read_scopes": [
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/scene.rs",
+        "archive": "support/00-crates__adventuresim-tactical-core__src__scene.rs",
+        "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+        "eof": 553,
+        "actual_body_display_ranges": [
+          [
+            1,
+            125
+          ],
+          [
+            119,
+            220
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-stdb-module/src/time/clock.rs",
+        "archive": "support/01-crates__adventuresim-stdb-module__src__time__clock.rs",
+        "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+        "eof": 127,
+        "actual_body_display_ranges": [
+          [
+            1,
+            127
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-stdb-module/src/time/model.rs",
+        "archive": "support/02-crates__adventuresim-stdb-module__src__time__model.rs",
+        "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+        "eof": 98,
+        "actual_body_display_ranges": [
+          [
+            1,
+            98
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-stdb-module/src/time/mod.rs",
+        "archive": "support/03-crates__adventuresim-stdb-module__src__time__mod.rs",
+        "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+        "eof": 107,
+        "actual_body_display_ranges": [
+          [
+            1,
+            107
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/Cargo.toml",
+        "archive": "support/04-crates__adventuresim-tactical-core__Cargo.toml",
+        "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+        "eof": 44,
+        "actual_body_display_ranges": [
+          [
+            1,
+            44
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-stdb-module/Cargo.toml",
+        "archive": "support/05-crates__adventuresim-stdb-module__Cargo.toml",
+        "sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+        "eof": 31,
+        "actual_body_display_ranges": [
+          [
+            1,
+            31
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "Cargo.toml",
+        "archive": "support/06-Cargo.toml",
+        "sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+        "eof": 211,
+        "actual_body_display_ranges": [
+          [
+            124,
+            138
+          ],
+          [
+            169,
+            182
+          ]
+        ]
+      },
+      {
+        "kind": "pinned registry support",
+        "revision": null,
+        "path": "spacetimedb-sats-2.6.1/src/time_duration.rs",
+        "archive": "support/07-sats-time_duration.rs",
+        "sha256": "e78605fb6eb9b18a8c886cb41c1fbc9d60d66ef43a0e654e7069a7e6c89e2b30",
+        "eof": 241,
+        "actual_body_display_ranges": [
+          [
+            1,
+            120
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/scene/admission.rs",
+        "archive": "support/extra-0-crates__adventuresim-tactical-core__src__scene__admission.rs",
+        "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+        "eof": 98,
+        "actual_body_display_ranges": [
+          [
+            1,
+            98
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-core/src/strategic_time.rs",
+        "archive": "support/extra-1-crates__adventuresim-core__src__strategic_time.rs",
+        "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+        "eof": 860,
+        "actual_body_display_ranges": [
+          [
+            350,
+            435
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+        "archive": "support/extra-2-crates__adventuresim-tactical-client__src__animation_viewer__setup.rs",
+        "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+        "eof": 94,
+        "actual_body_display_ranges": [
+          [
+            1,
+            65
+          ]
+        ]
+      },
+      {
+        "kind": "project git support",
+        "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+        "archive": "support/extra-3-crates__adventuresim-stdb-module__src__simulation.rs",
+        "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+        "eof": 610,
+        "actual_body_display_ranges": [
+          [
+            275,
+            330
+          ]
+        ]
+      }
+    ]
+  },
+  "historical_records": [
+    {
+      "transport_path": "evidence/continuation-segovb/audit13-successor-007.json",
+      "local_file": "original-059/audit13-successor-007.json",
+      "bytes": 12820,
+      "sha256": "f05475d48b5de82bffd018a36cd6d3745afee8da3c0068f4019213862d8e07c6",
+      "git_blob": "6a0243f14b084ecf08f1506d7d872e53324f8469",
+      "qualification": "Original exact recovered 059 bytes; do not relabel as current or 3821."
+    },
+    {
+      "transport_path": "evidence/continuation-segovb/audit13-successor-008.json",
+      "local_file": "original-059/audit13-successor-008.json",
+      "bytes": 18074,
+      "sha256": "94ac5fd8795f1277dca09d3be985d4612c6eddfd6e87763bac3522a2370add3f",
+      "git_blob": "33c9961b9368448278cfd836d3731c40fe73344f",
+      "qualification": "Original exact recovered 059 bytes; do not relabel as current or 3821."
+    },
+    {
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1375.json",
+      "local_file": "original-059/REGISTRATION-SEGOVB-1375.json",
+      "bytes": 879,
+      "sha256": "a7e7e9a791bac154ce27fc8f3613d931ef777c0f6596280ba853cc47039066d1",
+      "git_blob": "f44e2be9a32019d017588d4096c1aab32f7e834e",
+      "qualification": "Original exact recovered 059 bytes; do not relabel as current or 3821."
+    },
+    {
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1376.json",
+      "local_file": "original-059/REGISTRATION-SEGOVB-1376.json",
+      "bytes": 909,
+      "sha256": "1b6ca27c95d672b397b77ef940e0bd642fb08ba4073b0cfcf4a4b83860d3cbed",
+      "git_blob": "96886d5d1e2a31277490a31808db90e664e64ac3",
+      "qualification": "Original exact recovered 059 bytes; do not relabel as current or 3821."
+    },
+    {
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1380.json",
+      "local_file": "original-059/REGISTRATION-SEGOVB-1380.json",
+      "bytes": 966,
+      "sha256": "0973ad22d20247828ed81a18800c675cd8a84135b6de0f73b0a6948d1a054146",
+      "git_blob": "92a2d8e9dcc111dd4df0c95d218908f6e219d667",
+      "qualification": "Original exact recovered 059 bytes; do not relabel as current or 3821."
+    },
+    {
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1381.json",
+      "local_file": "original-059/REGISTRATION-SEGOVB-1381.json",
+      "bytes": 998,
+      "sha256": "ded802e67dc9a47cfe3c8ff7a15a289b5c24b95596e5f4ee3996d950c059edc8",
+      "git_blob": "3d36a9e654b48df599c8638b7fa155a57376c65f",
+      "qualification": "Original exact recovered 059 bytes; do not relabel as current or 3821."
+    }
+  ],
+  "historical_read_scopes": [
+    {
+      "record": "774 root additional-sources rows 33 and 30 and producer-supplement ROOT-PPS-BOUNDARY-METADATA-028 /source_proofs/3 and /source_proofs/2",
+      "author": "774 root supplier/producer reviewer",
+      "source_ranges": {
+        "2476": [
+          [
+            100,
+            180
+          ]
+        ],
+        "2477": [
+          [
+            1,
+            195
+          ]
+        ]
+      },
+      "qualification": "External native source; exact bounded supplier evidence, not whole-file, later-lens, current or checkpoint3821 credit. Original owner-fit delta remained incomplete."
+    },
+    {
+      "record": "059 segovb/READ-L11-411.json and REGISTRATION-SEGOVB-1375,1376,1380,1381",
+      "author": "059 Segovb Lens11 reviewer",
+      "source_ranges": {
+        "2476": [
+          [
+            100,
+            180
+          ],
+          [
+            181,
+            214
+          ]
+        ],
+        "2477": [
+          [
+            1,
+            195
+          ],
+          [
+            196,
+            201
+          ]
+        ]
+      },
+      "qualification": "Fresh additive bounded source ranges, not full bodies. 059 original registration bytes are preserved locally; checkpoint10 published path-redacted reconstructions have separate hashes."
+    },
+    {
+      "record": "059 segovb/READ-L12-839.json and parallel-l12-20261029/PROPOSAL-L12-839.json",
+      "author": "/root/lens12_frontier; root adoption with no root personal rereads",
+      "source_ranges": {
+        "2476": [
+          [
+            100,
+            180
+          ]
+        ],
+        "2477": [
+          [
+            1,
+            195
+          ]
+        ]
+      },
+      "qualification": "Do not transfer source body credit across reviewers, roles, lenses or revisions."
+    },
+    {
+      "record": "059 READ-CONNECTED-PAR-L12-839-TIMESTAMP-NATIVE-TAIL.json and READ-L12-CONNECTED-TEAM-015.json",
+      "author": "/root/lens12_frontier; root adoption with no root personal rereads",
+      "source_ranges": {
+        "2477": [
+          [
+            196,
+            343
+          ]
+        ]
+      },
+      "qualification": "Zero new original role/population credit; other lens credit zero. TEAM-015 at 2026-10-29T23:58:16.065177+00:00 explicitly adopts the tail; READ-L12-839 at 23:58:42.226471+00:00 and q1923 still record tail adoption pending. Preserve both statements and add a scoped link; do not overwrite 059."
+    },
+    {
+      "record": "059 segovb/READ-L11-571.json and parallel-l11 READ-035",
+      "author": "Original same-lens historical owner; no fresh root/delegate body reread in that inherited record",
+      "source_ranges": {
+        "2476": [
+          [
+            181,
+            214
+          ]
+        ],
+        "2477": [
+          [
+            196,
+            201
+          ]
+        ]
+      },
+      "project_lock_revision_as_recorded": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "qualification": "Historical lock/source identity qualification; do not rewrite e275 to 95e or award fresh credit."
+    },
+    {
+      "record": "059 parallel-l13 READ-PL13-023 and root adoption READ-L13-PARALLEL-021",
+      "author": "Original delegated L13 reviewer as recorded; root adoption no personal reread",
+      "original_role": 495,
+      "source_ranges": {
+        "495": [
+          [
+            1,
+            343
+          ]
+        ]
+      },
+      "qualification": "Same source bytes as role2477 under separate pinned-sdk original role and population. No automatic role, reviewer, lens or checkpoint3821 transfer."
+    },
+    {
+      "record": "059 evidence/continuation-segovb/audit13-successor-007.json",
+      "author": "Original L13 successor reviewer; author name not stated in receipt",
+      "original_role": "23 in that prior independent native-dependency inventory",
+      "source_ranges": {
+        "timestamp_requested": [
+          [
+            1,
+            95
+          ],
+          [
+            210,
+            251
+          ]
+        ],
+        "timestamp_connected": [
+          [
+            96,
+            209
+          ],
+          [
+            251,
+            267
+          ]
+        ],
+        "time_duration_connected": [
+          [
+            1,
+            84
+          ],
+          [
+            115,
+            141
+          ]
+        ]
+      },
+      "qualification": "timestamp 268–343 explicitly not read in this prior packet; time_duration was a newly recovered cached archive member, not a presumed frozen source object. f82 is transport evidence authority, not project source HEAD. Native observations non-counted; no alias, application reach or fix claimed at the time."
+    },
+    {
+      "record": "059 evidence/continuation-segovb/audit13-successor-008.json",
+      "author": "/root/texture_code_review",
+      "qualification": "L13 successor WS v2 nanoseconds comment discrepancy is a different source location from the SDK Timestamp range documentation issue; no unique count."
+    },
+    {
+      "record": "ASSESSMENT-L01-HISTORICAL-495.json",
+      "author": "Earlier central assessment, independent exact registration and personal read",
+      "original_role": 495,
+      "source_ranges": {
+        "495": [
+          [
+            1,
+            343
+          ]
+        ]
+      },
+      "qualification": "Earlier exact minimum-negation observation; retain its attribution, no role2477 identity or other-lens credit implied."
+    }
+  ],
+  "reconstructed_public_member_qualifications": [
+    {
+      "path": "historical/parallel-l11-20261029/MANDATORY-CURRENT-LOCK-NATIVE-IDENTITIES-001.json",
+      "original_sha256": "75e790f4371a1466a5b0b9349bc80e67c763393522106be47695526a3774d626",
+      "published_sha256": "3d19abefd7e2e382b621330b8f2141bdbd712cc5df6f2bb934ec8d69ac1140dd"
+    },
+    {
+      "path": "historical/parallel-l11-20261029/READ-035.json",
+      "original_sha256": "fe59032840b95ae4c8c35a3a86fd1c9b60f86fc70d90a252cd5a00bfe12ccc7b",
+      "published_sha256": "7e5021e569867d246d6bef34f3d0ce9e81af8e39011513801db775700548d9b6"
+    },
+    {
+      "path": "historical/segovb/READ-L11-571.json",
+      "original_sha256": "61d9bcd1d88965e3c0e94048d3deb658eba72f1a9146fe61fa82e233e2be9d64",
+      "published_sha256": "330282f2bfda068c65bec44be6b3d64d75e57e6d0f62cfeb4b3378a53c7453a2"
+    },
+    {
+      "path": "historical/segovb/REGISTRATION-SEGOVB-1375.json",
+      "original_sha256": "a7e7e9a791bac154ce27fc8f3613d931ef777c0f6596280ba853cc47039066d1",
+      "published_sha256": "07fbfeb5a38db104872982c42be32250513a78de433366e253b7e2edccab1283"
+    },
+    {
+      "path": "historical/segovb/REGISTRATION-SEGOVB-1376.json",
+      "original_sha256": "1b6ca27c95d672b397b77ef940e0bd642fb08ba4073b0cfcf4a4b83860d3cbed",
+      "published_sha256": "f73a522c3e36d16ad3f970af40820bbf81e888391684023f0b4ff1c6ee1c158b"
+    },
+    {
+      "path": "historical/segovb/REGISTRATION-SEGOVB-1380.json",
+      "original_sha256": "0973ad22d20247828ed81a18800c675cd8a84135b6de0f73b0a6948d1a054146",
+      "published_sha256": "4c04dcddbbadc5cbc17bb5417071f8c2d009c62076a7c0644dab12fa40c2e509"
+    },
+    {
+      "path": "historical/segovb/REGISTRATION-SEGOVB-1381.json",
+      "original_sha256": "ded802e67dc9a47cfe3c8ff7a15a289b5c24b95596e5f4ee3996d950c059edc8",
+      "published_sha256": "9bea37223f8d9348224149ce7434a48d62af7b1f49f0068cc1711252cf85cc54"
+    },
+    {
+      "path": "registration.json",
+      "original_sha256": "ef23dd30960cca5124ca2b1039efe6d16d4da29a5bee901927585853513ea608",
+      "published_sha256": "4838e23bbcac26d7ce61d06c4c2904e3d785dad62faa3a9584070edf2fdddc9a"
+    }
+  ],
+  "reconciliation": [
+    {
+      "id": "TERRAIN-NOIZ-PERIOD-OWNER-QUESTION",
+      "disposition": "Related to open 059 q577, q885, q1923 and P06, without claiming exact defect alias or new accepted finding.",
+      "source_refs": [
+        "95e crates/adventuresim-tactical-core/src/scene.rs:23-31,56-87,119-146",
+        "95e crates/adventuresim-tactical-core/src/scene/admission.rs:41-84",
+        "noiz-0.5.0/src/lib.rs:118-158,289-299,322-339,352-369",
+        "95e crates/adventuresim-tactical-client/src/animation_viewer/setup.rs:4-13"
+      ],
+      "condition": "Public raw f32 period is forwarded to native reciprocal before sampling; zero mathematically leads to infinite reciprocal. The inspected caller uses positive 200.0. Actual supported producer domain, noiz sibling implementation, resulting sample, resource policy and application reach remain open; no incident or arbitrary prohibition is proved.",
+      "cross_lens": "Keep separate from CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION: its first contract concerns admitted in-grid sampled geometry operation and required-query misclassification. A shared terrain path is not exact defect identity."
+    },
+    {
+      "id": "SATS-TIMESTAMP-MINIMUM-CONVERSION-QUESTION",
+      "disposition": "Exact source-operation corroboration of earlier central historical-495 and A13-NATIVE-TIMESTAMP-NEGMIN-OBS007, no duplicate count.",
+      "source_refs": [
+        "spacetimedb-sats-2.6.1/src/timestamp.rs:34-50,60-68,82-98",
+        "spacetimedb-sats-2.6.1/src/time_duration.rs:40-48",
+        "95e crates/adventuresim-stdb-module/src/time/clock.rs:2-30",
+        "95e crates/adventuresim-core/src/strategic_time.rs:381-411"
+      ],
+      "condition": "i64::MIN is admitted by native constructor but unary signed negation cannot be represented; overflow-check behavior and actual supported producer/caller reach are unassessed. The bounded first-party clock projection is a different operation. Distinguish epoch instant, signed duration and strategic minute."
+    },
+    {
+      "id": "SATS-CHECKED-DURATION-CONVERSION-QUESTION",
+      "disposition": "Exact source-contract match to A13-NATIVE-DURATION-CONVERSION-OBS007: same native timestamp methods and same TimeDuration receiver SHA; no duplicate count or accepted first-party defect. Keep separate from minimum signed-negation trigger.",
+      "source_refs": [
+        "spacetimedb-sats-2.6.1/src/timestamp.rs:143-172,187-215",
+        "spacetimedb-sats-2.6.1/src/time_duration.rs:70-79"
+      ],
+      "condition": "A std::time::Duration above i64::MAX microseconds fails the expect conversion before checked timestamp arithmetic returns Option. No supported first-party caller or runtime execution established; trace actual first-party boundary before assigning project remedy."
+    },
+    {
+      "id": "SATS-RANGE-DOCUMENTATION",
+      "disposition": "Non-counted external native documentation discrepancy; separate from 059 NATIVE-TIMESTAMP-DOC-UNIT, which refers to WS v2 comments describing nanoseconds.",
+      "source_refs": [
+        "spacetimedb-sats-2.6.1/src/timestamp.rs:11-14,42-49,101-106"
+      ],
+      "condition": "Signed i64 microseconds correspond to approximately 292,000 years on either side of the Unix epoch, while timestamp source text says approximately 292 years. Chrono/SystemTime bounds and runtime support are separate open questions."
+    }
+  ],
+  "queue_relationships": [
+    {
+      "index": 577,
+      "id": "Q-L11-7fbe7ece0c0273c3faa8",
+      "status": "open-evidence-or-disposition",
+      "credit": 0
+    },
+    {
+      "index": 885,
+      "id": "Q-L1-bd95668776b2b023d37f",
+      "status": "open-evidence-or-disposition",
+      "credit": 0,
+      "qualification": "Earlier e275 full same-lens supplier source and separate fresh root scopes remain as recorded; byte equality with 95e does not transfer the older verdict."
+    },
+    {
+      "index": 1923,
+      "id": "Q-L12-8b87c7a554dfc92f0992",
+      "status": "open-evidence-or-disposition",
+      "credit": 0,
+      "qualification": "Historical pending tail adoption statement is retained with separate TEAM-015 adoption evidence; other noiz/clock/all-lens issues remain open."
+    },
+    {
+      "index": 2105,
+      "id": "OBL-L12-other_lens_extension_queues-19",
+      "status": "open-scope-qualification",
+      "credit": 0,
+      "qualification": "Includes timestamp 196–343 for independently required other-lens body/contract work, plus unrelated clothing and timber; do not drop those scopes."
+    }
+  ],
+  "open_questions": [
+    "Which public TerrainGenerator inputs and parameter domains are actually supported, and which additional producers can supply them?",
+    "What do the specific noiz sibling algorithms do for zero, subnormal, nonfinite or extreme finite frequencies and sampled coordinates? No algorithm execution or runtime result is asserted.",
+    "What are the real first-party Timestamp producer ranges and conversion/operator/display call sites, including external SDK and chrono/platform constraints?",
+    "What admission belongs to raw stored wall epoch micros versus strategic calendar time, and which owner already enforces it?",
+    "Does any supported caller feed out-of-range Duration into checked native timestamp arithmetic or rely on other platform-specific temporal bounds?",
+    "What are the exact canonical relationships among 059 q577, q885, q1923 and any broader terrain/clock repair? Central ledger owns alias and closure decisions.",
+    "How should the differing original q1923 and earlier-timestamped TEAM-015 tail-adoption statements be historically explained, beyond recording both and the actual separately scoped adoption?",
+    "What exact review/closure is still required for 774 owner-fit delta for each native role, separately from population and 13-lens credit?"
+  ],
+  "nonfindings": [
+    "SeedableNoise accepts any u32 including zero; first-party source explicitly exports the low word of the existing seed, which is a native width boundary rather than evidence of accidental seed collision policy. No claim that all seed sources or reproducibility have been reviewed.",
+    "Timestamp and TimeDuration distinguish time point and signed duration; raw epoch micros in first-party storage is an owner/propagation question, not automatically equivalent to a strategic minute. SDK checked and panicking methods have different semantics.",
+    "Timestamp::now is a deprecated panic stub under wasm32-unknown, but the inspected module consumes ReducerContext.timestamp; no supported invocation of the stub was identified.",
+    "Source tests, examples, and generated fixtures were not run. Exact package checksum and full member read do not establish Cargo feature resolution or package execution."
+  ],
+  "prohibited_conclusions": [
+    "No checkpoint3821 promotion.",
+    "No complete lens or audit clearance.",
+    "No new accepted unique finding or repair assignment solely from these source edges.",
+    "No inferred feature activation, package execution, SDK algorithm output, supported i64 minimum/oversized-duration caller, production incident, or platform range.",
+    "No product validation, tests, builds, probes, simulations, rendering, repairs, or product/publication edits."
+  ]
+}

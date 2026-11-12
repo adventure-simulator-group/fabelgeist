@@ -1,0 +1,653 @@
+{
+  "schema": "726-physics-collider-count-central-reconciliation-proposal-v1",
+  "created_utc": "2026-11-12T00:19:06.721598+00:00",
+  "author": "/root/rig_identity",
+  "authority": "Proposal only: central owner controls ledgers, aliases and publication; no mutation of publication.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "source_roles": [
+    {
+      "original_index": 2481,
+      "registry_source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "original_locator": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-physics\\src\\contact\\count.rs",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "actual_eof": 55,
+      "original_registry_material_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "historical_and_current_personal_original_role_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "separately_registered_personal_connected_support_ranges": [],
+      "qualification": "Role scope from original registry. Any connected support is not original-role expansion or other reviewer credit; file equality does not mean full pr-working snapshot clean."
+    },
+    {
+      "original_index": 2482,
+      "registry_source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "original_locator": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-physics\\src\\collider.rs",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "actual_eof": 218,
+      "original_registry_material_ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "historical_and_current_personal_original_role_ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "separately_registered_personal_connected_support_ranges": [
+        [
+          134,
+          211
+        ]
+      ],
+      "qualification": "Role scope from original registry. Any connected support is not original-role expansion or other reviewer credit; file equality does not mean full pr-working snapshot clean."
+    }
+  ],
+  "original_attribution": {
+    "774": "Rig owner-fit EXTENSION-013 count request 1\u2013120 exceeds actual EOF55; actual coverage credits 1\u201355. EXTENSION-014 collider requests 116\u2013147, but actual COVERAGE credits only 1\u2013133 plus independently EXTENSION-015 212\u2013218, explicitly excluding host signed-distance and quaternion math. f82 is transport. Earlier initial attribution conflated wave-01 variants with continuation; retain ATTRIBUTION-CORRECTION.json and exact original records, do not silently rewrite.",
+    "059_l11": "Adler READ-L11-373 personally read role2481 1\u201355, role2482 original 1\u2013133/212\u2013218 under REG1192 plus separate connected 134\u2013211 under REG1194. Segovb L11-412 qualified same-lens reuse with fresh personal reads empty.",
+    "059_l12": "/root/lens12_frontier READ-CONNECTED-PAR-L12-769 personally read count under PAR294, collider original material under PAR295 and connected 134\u2013211 under PAR296. Its connected read had zero ordered credit; later READ-L12-841 adopted original roles once, with no new root rereads or added original-role 134\u2013211 credit.",
+    "new_current": "/root/rig_identity independently displayed old/current file bodies under prospective registrations; host body 134\u2013211 separately described as connected support in personal receipt. Prior physics-contact 95e source support is separate; no transfer.",
+    "publication": "Checkpoint10 report exact original bytes; 15 archive members are reconstructed path-redacted copies, including 774 coverage and nested 059 queue/ledger; retain both digests and redaction qualification. Original coverage object SHA 631409c2f7c33eaa1f5b7e2aeb17854ec0b8f86e86feb9b650c9a50eacbb21f1 remains bound to f82 and frozen original local packet. No historical record is checkpoint3821."
+  },
+  "rows": [
+    {
+      "id": "PHYSICS-COLLIDER-BOX-UNIT-ROTATION-ADMISSION",
+      "proposed_disposition": "Candidate separate first-contract row; no exact alias established and no unique count adjudicated.",
+      "exact_first_contract": "A box explicitly described as using a unit quaternion admits an arbitrary four-float rotation and then treats its conjugate as an inverse without verifying that guarantee.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            34,
+            40
+          ],
+          "scope": "original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            43,
+            61
+          ],
+          "scope": "original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            114,
+            131
+          ],
+          "scope": "original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            172,
+            194
+          ],
+          "scope": "separate connected support outside original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            200,
+            208
+          ],
+          "scope": "separate connected support outside original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/contact.rs",
+          "range": [
+            71,
+            88
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            25,
+            31
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            77,
+            98
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            179,
+            190
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "range": [
+            84,
+            105
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/Cargo.toml",
+          "range": [
+            8,
+            13
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "q2408 is a broad host/native shape-owner question; q1925 groups count/parity and source-scope questions. Different from q174, which uses a valid unit identity rotation.",
+      "condition": "Direct public Shape::Box may contain zero quaternion; Collider::new and pack do not enforce documented unit quaternion. A symbolic zero-quaternion case produces zero rotated vectors and an erroneous inward distance in the shown host arithmetic.",
+      "limits": "Actual producer, validation before API, acceptable normalizing versus rejecting policy, host/GPU use and native behavior unproved; building-generator unit rotation is a possible owner only if dependency and frame semantics fit.",
+      "repair_direction_if_authorized": "Choose the lowest suitable shared unit-rotation owner or explicit checked box admission; reject malformed/nonfinite quaternions at the actual public construction boundary and carry the admitted rotation through packing and host/GPU use. Preserve valid xyzw world-frame semantics and legitimate identity rotation."
+    },
+    {
+      "id": "PHYSICS-COLLIDER-PLANE-UNIT-NORMAL-ADMISSION",
+      "proposed_disposition": "Candidate separate first-contract row; no exact alias established and no unique count adjudicated.",
+      "exact_first_contract": "The plane signed-distance and correction paths use the supplied normal as a unit direction, but the public plane constructor does not establish that norm.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            15,
+            22
+          ],
+          "scope": "original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            64,
+            70
+          ],
+          "scope": "original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            135,
+            142
+          ],
+          "scope": "separate connected support outside original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            39,
+            45
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            110,
+            127
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            179,
+            190
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/AGENTS.md",
+          "range": [
+            31,
+            35
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "Related broad q2408; do not equate with box quaternion, q174, count, or capsule issue.",
+      "condition": "A public plane can be given normal (0,2,0), offset0; the shown formulas return distance2 and a length2 direction for point (0,1,0), while geometric Euclidean distance to the plane is1.",
+      "limits": "Built-in ground uses unit Y; no real nonunit caller established. Decide whether offset is metric distance or general coefficient, and whether normalizing normal and offset or rejecting is required.",
+      "repair_direction_if_authorized": "Admit a finite unit direction at the plane boundary or consistently normalize both normal and offset under an explicit plane-equation policy; retain zero/invalid handling and the actual world coordinate frame."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+      "proposed_disposition": "Existing 059 q479 and central assessment 3 observation 11: retain exact ID; no duplicate increment.",
+      "exact_first_contract": "Host collider cardinality is narrowed to u32 before capacity fit and binding without proving native representability.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/contact/count.rs",
+          "range": [
+            5,
+            22
+          ],
+          "scope": "original role 2481"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/contact/count.rs",
+          "range": [
+            25,
+            44
+          ],
+          "scope": "original role 2481"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/contact.rs",
+          "range": [
+            67,
+            88
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "range": [
+            127,
+            129
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+          "range": [
+            25,
+            31
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            154,
+            160
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            179,
+            180
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "q157 buffer write extent and q480 capacity/error aggregate are connected distinct first failures.",
+      "condition": "Symbolic 64-bit 2^32+1 truncates to1; 2^31+1 growth rounds to2^32 then narrows to0.",
+      "limits": "No vector/buffer was allocated; practical host/device limits, real callers and native queue acceptance unproved; do not report actual oversized GPU write.",
+      "repair_direction_if_authorized": "Admit one checked host count/capacity through allocation, packed byte extent, binding and dispatch; reject unsupported sizes before mutating retained state or issuing upload. Coordinate but do not equate this with generic shared buffer-boundary admission."
+    },
+    {
+      "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+      "proposed_disposition": "Existing 059 q480 and central assessment 3 observation 12: retain ID and earlier hypothesis; no duplicate increment.",
+      "exact_first_contract": "A failed buffer replacement can leave a separately stored capacity updated before the buffer is replaced.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/contact.rs",
+          "range": [
+            71,
+            88
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/contact/count.rs",
+          "range": [
+            25,
+            44
+          ],
+          "scope": "original role 2481"
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+          "range": [
+            22,
+            37
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+          "range": [
+            119,
+            133
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "Related q479, but retained-state atomicity and count representability are not identical.",
+      "condition": "With symbolic 64-bit 2^31+1, growth capacity narrows to zero, is stored, then explicit zero-byte Buffer::new error returns before replacing prior list or buffer.",
+      "limits": "Shown failure leaves an under-estimated stored capacity; it does not demonstrate the historical hypothesis of capacity larger than old buffer, native panic/device-error behavior, or later overflow.",
+      "repair_direction_if_authorized": "Compute and validate new capacity and candidate buffer before committing their correlated retained state, preserving the original list/buffer when replacement returns an error."
+    },
+    {
+      "id": "ADLER-L11-BOX-MEDIAL-NORMAL-PARITY",
+      "proposed_disposition": "Existing 059 q174 and central assessment 3 observation 10: retain ID; no duplicate increment.",
+      "exact_first_contract": "For an interior valid box at a medial coordinate, host and WGSL sign rules can produce different outward normal selection.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            172,
+            194
+          ],
+          "scope": "separate connected support outside original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            77,
+            98
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            179,
+            190
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "Distinct from malformed quaternion admission; witness uses valid identity rotation.",
+      "condition": "At a symbolic center point of a box with distinct half extents, host signum and WGSL sign produce different medial direction according to cited language contracts.",
+      "limits": "No host/device execution; Rust docs viewed version 1.99.1, not demonstrated pinned compiler. Signed zero, ties, geometry producer and device conformance remain open.",
+      "repair_direction_if_authorized": "Decide deterministic finite medial normals and preserve the same policy in host and shader implementations, with signed-zero and ties handled deliberately."
+    },
+    {
+      "id": "physics-contact-capsule-nonzero-short-segment",
+      "proposed_disposition": "Existing conditional candidate at central assessment 3 observation 13, not a separate new duplicate; whether to add a standalone ledger row is central decision.",
+      "exact_first_contract": "A finite nonzero capsule segment can be treated as degenerate by the fixed squared-length floor and use the wrong closest endpoint.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            27,
+            33
+          ],
+          "scope": "original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/collider.rs",
+          "range": [
+            153,
+            170
+          ],
+          "scope": "separate connected support outside original role 2482"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/wgsl.rs",
+          "range": [
+            58,
+            74
+          ],
+          "scope": "separate supporting source"
+        },
+        {
+          "path": "crates/AGENTS.md",
+          "range": [
+            143,
+            152
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "Different from deliberately zero-axis sphere mode in earlier historical evidence.",
+      "condition": "A small finite nonzero segment has squared length below fixed 1e-12, causing the inspected formulas to choose the first endpoint.",
+      "limits": "Mathematical source analysis only; supported scale, actual producer reachability and GPU numerical behavior are open.",
+      "repair_direction_if_authorized": "Specify supported geometry scales and use a robust nonzero-segment closest-point calculation with an owned numerical budget while preserving true-zero degenerate sphere behavior."
+    },
+    {
+      "id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+      "proposed_disposition": "Existing 059 q435 and central assessment 3 observation 16: retain ID; no duplicate increment.",
+      "exact_first_contract": "The update count mismatch is emitted as formatted text rather than retaining held and provided counts as a typed diagnostic.",
+      "source_references_95e": [
+        {
+          "path": "crates/fabelgeist-physics/src/contact/count.rs",
+          "range": [
+            5,
+            16
+          ],
+          "scope": "original role 2481"
+        },
+        {
+          "path": "crates/fabelgeist-physics/src/contact.rs",
+          "range": [
+            92,
+            105
+          ],
+          "scope": "separate supporting source"
+        }
+      ],
+      "relationships": "Typed diagnostic question is distinct from q479 native representability, q480 state coherence and q157 buffer extent.",
+      "condition": "Mismatch compares full host counts then formats them as prose.",
+      "limits": "No demonstrated caller parsing text or requirement for structured recovery; policy remains open.",
+      "repair_direction_if_authorized": "If supported callers need structured failure handling, retain both typed count values and their source context through the error boundary."
+    }
+  ],
+  "related_original_queue": [
+    {
+      "index_zero_based": 157,
+      "contract_id": "ADLER-L11-BUFFER-WRITE-EXTENT-ADMISSION",
+      "historical_status": "open-reconciliation",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    },
+    {
+      "index_zero_based": 174,
+      "contract_id": "ADLER-L11-BOX-MEDIAL-NORMAL-PARITY",
+      "historical_status": "open-reconciliation",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    },
+    {
+      "index_zero_based": 435,
+      "contract_id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+      "historical_status": "open-reconciliation",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    },
+    {
+      "index_zero_based": 479,
+      "contract_id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+      "historical_status": "open-reconciliation",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    },
+    {
+      "index_zero_based": 480,
+      "contract_id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+      "historical_status": "open-reconciliation",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    },
+    {
+      "index_zero_based": 1925,
+      "contract_id": "Q-L12-900430ef7d0c04be30b0",
+      "historical_status": "open-evidence-or-disposition",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    },
+    {
+      "index_zero_based": 2408,
+      "contract_id": "L2-EXT-PHYSICS-HOST-NATIVE-SHAPE-OWNERS",
+      "historical_status": "open-connected-owner-current-alias-qualification",
+      "qualification": "Exact 059 queue record retained; not an automatic alias or closure."
+    }
+  ],
+  "open_questions": [
+    "Which actual producers can supply nonunit plane normals or invalid box quaternions, and which gates or policies precede collider API use?",
+    "Is a plane offset a metric distance or a general coefficient, and where is the unit direction authority?",
+    "Are collider host cardinality examples feasible for supported assets, and what are actual platform and device limits?",
+    "Which returned failure modes can occur, and how are list, capacity and live allocation correlated?",
+    "What geometry scales, zero-axis sphere behavior, signed-zero and ties are supported across host and shader; what language/compiler/device conditions apply?",
+    "Do callers need typed mismatch recovery? Which original questions have exact same first-contract owner, and which require separate rows?"
+  ],
+  "verification": "Prior frozen evidence verifier independently rerun: 44 original 059 records, 7 older 774 records, 19 Git memberships and 41 raw commit/tree objects. Evidence-only checks; no product, tests, builds, shader, simulation, probe, rendering or repairs.",
+  "links": {
+    "publication_root": "<LOCAL_PATH_0>",
+    "publication": [
+      {
+        "path": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+        "sha256": "8c732828739242c06763d9b267bc65e7fcef746096e9fca1cdb98ddd06fdb7b3",
+        "bytes": 7628937,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "DELEGATED-CHECKPOINT-10-QUALIFICATION.json",
+        "sha256": "c842061763e4b40a8530c2e44ce855b138dfd50ece1496075c5a8b8f474e5b4d",
+        "bytes": 25972,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "delegated/physics-collider-count-report.json",
+        "sha256": "f32724fa0daf5fa0122122215ea61e2f86d67751ec96888580f1f9df35cb6188",
+        "bytes": 32674,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "delegated/physics-collider-count-evidence.tar.gz",
+        "sha256": "d527ba95bfe731219763ad01f42dd525e45ec743f2aeeb27f83a8a73dfadb2ae",
+        "bytes": 7999156,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "sha256": "43f9df92acbb3dee9efe5f05ee5461161b824347b1eb54397920c29e1b83118a",
+        "bytes": 52502,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "RECONCILIATION-059.json",
+        "sha256": "4e62c30cfdc5078a00b45dcd47a70dc3dcb5495c6064f5c8b614991bd002d1de",
+        "bytes": 1230051,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      },
+      {
+        "path": "recovered/original-registry-source-archive/registry.json.gz",
+        "sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+        "bytes": 1205722,
+        "qualification": "Point-in-time read-only publication reference; current reconciliation may later advance."
+      }
+    ],
+    "local_packet": [
+      {
+        "path": "<LOCAL_PATH_1>",
+        "sha256": "5aab93829e980c5b60cafe7330bc753b0f9585cc270d92085f9303877e64df84",
+        "bytes": 26322,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_2>",
+        "sha256": "f32724fa0daf5fa0122122215ea61e2f86d67751ec96888580f1f9df35cb6188",
+        "bytes": 32674,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_3>",
+        "sha256": "5e01a2030d5ee6bd21285e7db6df1694613bad2fb2318b1b9b632bf3620bf650",
+        "bytes": 2497,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_4>",
+        "sha256": "e38a6b0b5d84db4c9eb841fae6b4280ae3326998101122a03f1587b1aeb4ec23",
+        "bytes": 1688,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_5>",
+        "sha256": "91c1f04f68bb89adf8db261ee3c15b06d1c2e39529cbfa2fb979a4500248f554",
+        "bytes": 8381,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_6>",
+        "sha256": "7003fc6460bbd84479d4b61ad5d7ed038cf2a01fae782acd6719d2ca4416d5ec",
+        "bytes": 21750,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_7>",
+        "sha256": "61abcbc650a16e6db05ab82c7b573572dc123fb6814d05fb656cbbd25d837f96",
+        "bytes": 1212,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_8>",
+        "sha256": "c6e72ac1b7226c087b623b9994fbc72d1ac2ea3e6019eb70f9afcfb73190fa8a",
+        "bytes": 1938,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_9>",
+        "sha256": "fb9c316197d33b42681e0a8dd8f5b2194742e1e0716a16f0defa3cb9e975313e",
+        "bytes": 12584,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_10>",
+        "sha256": "31147fdd01d815945b32361b02b970f7c115acc521df8d50ee21cf4d12640de9",
+        "bytes": 5593,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_11>",
+        "sha256": "03fff62dde7099c73f5a0cd9f7d1f33655c266cadf4d923aff36d810542d4fe0",
+        "bytes": 17161,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_12>",
+        "sha256": "1f5feff543a1b81f1e14e2e10c48121475b3fe994f4ff649621610d1d5fb00df",
+        "bytes": 24935,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_13>",
+        "sha256": "e3f2ccd8b5afa8c6390bbbb8bd0b157276b7fd1e2b467676553674e919549efd",
+        "bytes": 38744,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      },
+      {
+        "path": "<LOCAL_PATH_14>",
+        "sha256": "631409c2f7c33eaa1f5b7e2aeb17854ec0b8f86e86feb9b650c9a50eacbb21f1",
+        "bytes": 879522,
+        "qualification": "Exact frozen local packet bytes, no copied archives."
+      }
+    ],
+    "qualification": "Compact hash links only. Paths refer to existing evidence; no large archival duplication. Report links capture observed state, not future mutable reconciliation state."
+  }
+}
