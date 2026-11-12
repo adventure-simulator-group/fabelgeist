@@ -1,0 +1,118 @@
+### readiness.rs:1-32
+1: //! Capture warmup and authored-motion readiness, without advancing the frame early.
+2: 
+3: use super::*;
+4: 
+5: impl CaptureSequence {
+6:     pub(super) fn ready_for_frame(
+7:         &mut self,
+8:         frame: &PlannedFrame,
+9:         animation_runtime: &AnimationRuntime,
+10:         playback: Option<&AnimationPlayback>,
+11:     ) -> bool {
+12:         if self.warmup_frames > 0 {
+13:             self.warmup_frames -= 1;
+14:             return false;
+15:         }
+16:         if frame.scenario_frame == 0
+17:             && let Some(motion) = frame.scenario.required_motion()
+18:         {
+19:             if !animation_runtime.motion_is_processed(motion)
+20:                 || !playback.is_some_and(AnimationPlayback::presentation_is_settled)
+21:             {
+22:                 self.motion_ready_frames = 0;
+23:                 return false;
+24:             }
+25:             self.motion_ready_frames += 1;
+26:             if self.motion_ready_frames < 2 {
+27:                 return false;
+28:             }
+29:         }
+30:         true
+31:     }
+32: }
+### admission.rs:110-135
+110:                         quantity: AnimationQuantity::SupportObservation,
+111:                     },
+112:                 ));
+113:                 None
+114:             }
+115:         }
+116:     }
+117: 
+118:     /// Driving is permitted only before admission terminates and between captures.
+119:     pub(super) fn can_drive_frame(&self) -> bool {
+120:         self.admission.is_open()
+121:             && !self.applied
+122:             && !self.capture_in_flight
+123:             && self.index < self.plan.len()
+124:     }
+125: }
+126: 
+127: impl CaptureAdmission {
+128:     pub(super) fn is_open(&self) -> bool {
+129:         matches!(self, Self::Open)
+130:     }
+131: }
+132: 
+133: impl RejectedCaptureAdmission {
+134:     pub(super) fn message(&self) -> String {
+135:         match self {
+### schedule.rs:1-57
+1: //! Capture-phase registration and its ordered readiness/terminal-consumption policy.
+2: 
+3: use super::overlay::draw_skeleton_overlay;
+4: use super::{
+5:     CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
+6:     drive_sequence, freeze_capture_look, reject_capture,
+7: };
+8: use crate::animation_viewer::{
+9:     harness, inspection, setup::setup_viewer, view::position_capture_camera,
+10: };
+11: use crate::camera::TacticalCameraSet;
+12: use bevy::prelude::*;
+13: 
+14: pub(in crate::animation_viewer) struct CapturePlugin;
+15: 
+16: impl Plugin for CapturePlugin {
+17:     fn build(&self, app: &mut App) {
+18:         app.add_systems(Startup, setup_viewer)
+19:             .add_systems(
+20:                 PreUpdate,
+21:                 (
+22:                     drive_sequence.run_if(admission_is_open),
+23:                     freeze_capture_look,
+24:                 )
+25:                     .chain(),
+26:             )
+27:             .add_systems(
+28:                 PostUpdate,
+29:                 position_capture_camera
+30:                     .after(TacticalCameraSet::Offset)
+31:                     .before(TransformSystems::Propagate),
+32:             )
+33:             .add_systems(
+34:                 PostUpdate,
+35:                 (draw_flat_ground_grid, draw_skeleton_overlay)
+36:                     .chain()
+37:                     .after(TransformSystems::Propagate),
+38:             )
+39:             .add_systems(
+40:                 Last,
+41:                 (
+42:                     inspection::inspect_materials,
+43:                     harness::update_readiness,
+44:                     collect_locomotion_presentation_events,
+45:                     reject_capture,
+46:                     capture_frame
+47:                         .run_if(harness::ready)
+48:                         .run_if(admission_is_open),
+49:                 )
+50:                     .chain(),
+51:             );
+52:     }
+53: }
+54: 
+55: fn admission_is_open(sequence: Res<CaptureSequence>) -> bool {
+56:     sequence.admission.is_open()
+57: }

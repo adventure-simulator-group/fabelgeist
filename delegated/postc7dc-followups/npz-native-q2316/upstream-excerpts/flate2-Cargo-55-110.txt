@@ -1,0 +1,56 @@
+]
+
+[features]
+any_c_zlib = ["any_zlib"]
+any_impl = []
+any_zlib = ["any_impl"]
+cloudflare_zlib = ["zlib"]
+default = [
+    "rust_backend",
+    "runtime_detection",
+]
+miniz-sys = ["rust_backend"]
+miniz_oxide = [
+    "any_impl",
+    "dep:miniz_oxide",
+    "dep:crc32fast",
+]
+runtime_detection = [
+    "zlib-rs?/std",
+    "crc32fast?/std",
+]
+rust_backend = [
+    "miniz_oxide",
+    "any_impl",
+]
+zlib = [
+    "any_c_zlib",
+    "libz-sys",
+    "dep:crc32fast",
+]
+zlib-default = [
+    "any_c_zlib",
+    "libz-sys/default",
+    "dep:crc32fast",
+]
+zlib-ng = [
+    "any_c_zlib",
+    "libz-ng-sys",
+    "dep:crc32fast",
+]
+zlib-ng-compat = [
+    "zlib",
+    "libz-sys/zlib-ng",
+    "dep:crc32fast",
+]
+zlib-rs = [
+    "any_zlib",
+    "dep:zlib-rs",
+]
+
+[lib]
+name = "flate2"
+path = "src/lib.rs"
+
+[[example]]
+name = "compress_file"

@@ -1,0 +1,7 @@
+{
+  "event": "The coordinator created an evidence-only central update script using a fixed temporary filename and a truncating redirection, without first checking that filename for a prior file.",
+  "uncertainty": "Whether that temporary filename existed beforehand, and any earlier contents if it did, are unknown; no earlier contents can be reconstructed from this action. Do not infer an overwrite occurred or that the prior path was definitely absent.",
+  "scope": "The executed script updated only the audit publication working copy. It did not restore onto or overwrite the separately protected extracted evidence directory, and it did not run product code, builds, tests or runtime probes.",
+  "preservation": "The exact script bytes are retained here as inert text and separately in private scratch; script SHA-256 04837cb463f976cf85ca506e221a1562f6c8e7e7d4635c5a474cac02c0fdcd1a. Subsequent scratch paths use unique directories.",
+  "qualification": "This record does not establish the earlier state of the temporary path."
+}

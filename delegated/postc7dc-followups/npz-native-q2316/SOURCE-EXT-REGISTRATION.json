@@ -1,0 +1,93 @@
+{
+  "schema": "726-npz-q2316-source-extension-registration-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T14:33:03.182488+00:00",
+  "prior_registration_sha256": "9febdde6c99432ccf6fead322f7a6352a8a89059920b42d23348ad902d0c5aa3",
+  "rows": [
+    {
+      "kind": "checksum-bound registry package member",
+      "package": "rawzip",
+      "version": "0.5.2",
+      "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "archive_member": "rawzip-0.5.2/src/archive/reader.rs",
+      "source_file": "upstream/rawzip/src/archive/reader.rs",
+      "sha256": "7c5206169c0fd705d1894898f269df2494edb53f264e0c83ad31c7078b68adec",
+      "bytes": 29780,
+      "line_count": 824,
+      "registered_ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          420,
+          465
+        ]
+      ]
+    },
+    {
+      "kind": "checksum-bound registry package member",
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_member": "flate2-1.1.10/src/mem.rs",
+      "source_file": "upstream/flate2/src/mem.rs",
+      "sha256": "96d29977a5cbd84d820c07406405fc6f7ad917a073de8c293493358bf58e8a44",
+      "bytes": 30886,
+      "line_count": 828,
+      "registered_ranges": [
+        [
+          399,
+          455
+        ],
+        [
+          480,
+          535
+        ]
+      ]
+    },
+    {
+      "kind": "checksum-bound registry package member",
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_member": "flate2-1.1.10/src/zio.rs",
+      "source_file": "upstream/flate2/src/zio.rs",
+      "sha256": "7534bdd7cc2fcfc1ba976c9ad5f1780df3ece2c66aeaee201b1112ea7240c182",
+      "bytes": 8516,
+      "line_count": 302,
+      "registered_ranges": [
+        [
+          85,
+          173
+        ]
+      ]
+    },
+    {
+      "kind": "extension of previously registered checksum-bound member",
+      "package": "rawzip",
+      "version": "0.5.2",
+      "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "archive_member": "rawzip-0.5.2/src/archive.rs",
+      "source_file": "upstream/rawzip/src/archive.rs",
+      "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+      "bytes": 64320,
+      "line_count": 1797,
+      "registered_ranges": [
+        [
+          590,
+          640
+        ],
+        [
+          1200,
+          1260
+        ],
+        [
+          1435,
+          1485
+        ]
+      ]
+    }
+  ],
+  "qualification": "Exact registry-member source windows registered before display; original archive checksums were verified. A prior unregistered metadata-only query is separately documented and gives no credit."
+}

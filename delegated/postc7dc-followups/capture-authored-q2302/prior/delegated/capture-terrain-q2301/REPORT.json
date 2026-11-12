@@ -1,0 +1,92 @@
+{
+  "schema": "726-q2301-current-source-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T13:41:57.384971+00:00",
+  "historical_record": "REVIEW-L11-CAPTURE-REQUIRED-ROOT-TERRAIN-ADMISSION",
+  "historical_queue_pointer": "baseline-059/queue.json#/entries/2301",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "recommended_scoped_disposition": "The shown 95e initial-root, quickstep and enabled-IK paths support the historical source-qualified rejection of a silent missing-height-to-zero fallback at the required query boundary: a None returned by height_at becomes MissingSupport, then a typed capture rejection and early return before the displayed root transform assignment. This is a bounded source assessment, not queue or lens closure, proof of all terrain producers, or runtime validation.",
+  "selected_trace": [
+    {
+      "name": "Required initial root",
+      "references": [
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:51-66",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:240-264",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs:26-39",
+        "crates/adventuresim-tactical-core/src/scene/queries.rs:18-23",
+        "crates/adventuresim-tactical-core/src/scene/queries.rs:61-68"
+      ],
+      "analysis": "Initial root asks for required origin terrain height, then admits a complete Scene position; either failed Result or Option exits before the caller assigns that root Transform. Some earlier sequence and skeleton state is reset before initial_root, so this is not a claim of transaction-wide absence of mutation."
+    },
+    {
+      "name": "Selected movement and explicit branch policies",
+      "references": [
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:321-342",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:393-411",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:69-94",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs:42-64",
+        "crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs:5-32"
+      ],
+      "analysis": "The driver chooses the per-frame terrain IK mode, then the root-motion helper first admits the horizontal point. Quickstep requires a terrain height regardless of IK mode; otherwise enabled IK requires a height; otherwise it deliberately retains current Y. Required height and complete-position errors return before the shown final translation assignment. ScenarioTerrain::Authored is one of the modes enabling IK; it must not be conflated with the separate authored-plane observation used when IK is disabled."
+    },
+    {
+      "name": "Required query and capture rejection",
+      "references": [
+        "crates/adventuresim-tactical-core/src/scene/queries.rs:61-68",
+        "crates/adventuresim-tactical-core/src/scene/queries.rs:86-88",
+        "crates/adventuresim-tactical-core/src/scene/queries.rs:102-165",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs:12-23",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs:118-130",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs:146-168",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs:16-25",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs:39-56"
+      ],
+      "analysis": "Required height converts an absent optional query result to MissingSupport; capture records Terrain rejection. Subsequent driver admission checks require Open; the selected schedule requests terminal rejection handling and an error exit. This is source-level control flow; filesystem write success and runtime scheduling were not validated. Sampled geometry returns None for displayed invalid/outside/missing-sample cases; Owned geometry delegates to a different uninspected surface owner, so no universal terrain correctness claim is made."
+    },
+    {
+      "name": "Optional terrain observation",
+      "references": [
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:12-47",
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:114-134"
+      ],
+      "analysis": "CaptureGround::Terrain retains an optional per-bone observation if an individual query is absent. With IK disabled, capture_ground admits a finite authored-plane elevation derived from the subject or records geometry rejection; it does not silently invent zero or fall back to terrain on failed plane admission. Optional bone observations and later metric reductions have a separate contract from required root admission."
+    }
+  ],
+  "historic_provenance": {
+    "queue": "QUEUE-2301-RECONSTRUCTED.json",
+    "exact_original_queue_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "original_status": "The 059 row itself records a named source-qualified rejection and discovery closure only within its then-exact named scope, with zero body/population credit and no repair/runtime pass. Preserve that historical record; this current proposal does not declare a queue or lens closure or substitute for missing checkpoint3821.",
+    "reviewer": "parallel lens11_reconcile agent personally read e275 root_motion.rs 1–136, admission.rs 1–168, and capture.rs 169–526, 799–822, 900–1021 under their respective PL11 registrations; historical source/read attribution remains theirs.",
+    "root_adoption": "READ/VERIFY-L11-705 and 704, and READ/VERIFY-L11-557 adopt the separately attributed views without claiming root rereads. Thirteen original PLAN/READ/VERIFY/proposal files were individually matched to q2301 hashes and retained exactly.",
+    "source_equality": "Each of the three historical e275 files independently matches its pinned 95e Git object and SHA-256; this is per-file equality, not tree equivalence or transferred read credit.",
+    "source": "QUEUE-2301-RECONSTRUCTED.json and history-exact/; original full queue not copied because unrelated local paths are present."
+  },
+  "existing_records": [
+    {
+      "id": "REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E",
+      "relationship": "Previously attributed hair observation, independently corroborated by MHR, concerns conditional absence in per-bone or later clearance/relief reduction; required-root admission does not dispose of that separate issue. No alias or new count is assumed."
+    },
+    {
+      "id": "CAPTURE-GROUND-CLEARANCE-ADMISSION-95E",
+      "relationship": "Prior conditional nonfinite computed clearance question at an optional observation boundary, not the required root-height admission under review."
+    },
+    {
+      "id": "prior report-p17 root-motion evidence",
+      "relationship": "Prior root-motion report preserves separately attributed 90a report-p17 history and 95e contrasts; its historic source revision and scopes are not converted into e275 or checkpoint3821 credit."
+    }
+  ],
+  "remaining_open": [
+    "Whether sampled or owned terrain producers supply faithful finite support on all relevant supported scenes; Owned highest_surface_at internals and full scene generation were not traced.",
+    "Actual scenario reachability, Bevy execution and error/exit/filesystem behavior; selected source paths do not prove these occurred.",
+    "How optional per-bone missing terrain and nonfinite clearances propagate through report consumers and whether earlier ledger records share an owner or alias.",
+    "All other source families, lenses, global alias inventory and original final checkpoint3821 records remain open."
+  ],
+  "read_and_recovery_qualifications": [
+    "Source windows and independent receipts are explicit. The first queries.rs 101–170 display occurred before registration and receives no retrospective registered-read credit; the same window was then prospectively registered and redisplayed, with a separate subsequent receipt. The earlier display transcript is reconstructed from unchanged bytes; its exact timestamp was not retained.",
+    "The first mutable-ledger selection attempt aborted after the working file hash changed; the committed rows were displayed but no working rows were saved then. A fresh registration and subsequent working capture are retained separately; their selected values equal the committed rows, while full file hashes differ.",
+    "The protected extraction was read only, with exact historical records copied to new restricted and candidate evidence locations. No source, publication, prior packet or extraction files were modified.",
+    "No product, test, fixture, shader, build, runtime probe or repair was executed; source tests are text only. Complete captured sources do not imply full personal reads. Git tree chains prove file membership under recorded roots; optional Git checks bind roots to commits."
+  ],
+  "repair": "not started",
+  "product_validation": "not performed"
+}

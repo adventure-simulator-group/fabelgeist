@@ -1,0 +1,472 @@
+{
+  "schema": "726-npz-q2316-source-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T14:36:56.399277+00:00",
+  "registrations": {
+    "SOURCE-REGISTRATION.json": "9febdde6c99432ccf6fead322f7a6352a8a89059920b42d23348ad902d0c5aa3",
+    "SOURCE-EXT-REGISTRATION.json": "9e26df8a5b28b3b1f194a6ecec9f904832ac5c0db819bd16d5184fee05af6d62",
+    "SOURCE-EXT2-REGISTRATION.json": "03cc33fcd5616fa383d8e32cb668739acd1958a191f95e20e232c9f7829344cd"
+  },
+  "displays": [
+    {
+      "file": "SOURCE-DISPLAY-A.txt",
+      "sha256": "f661ba66ecc286af8aeeb6a53512a50eb89d96e8f44ef52a4fb305147bda9edc",
+      "bytes": 2267,
+      "observed_mtime_utc": "2026-11-12T14:30:40.683738+00:00",
+      "rows": [
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.toml",
+          "range": [
+            1,
+            31
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.lock",
+          "range": [
+            2098,
+            2109
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.lock",
+          "range": [
+            2159,
+            2169
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.lock",
+          "range": [
+            4304,
+            4309
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-B.txt",
+      "sha256": "6592d3faccd9c52323f09a18ada239c61e2ab0a54e4adfbbbb2f52906e7ec082",
+      "bytes": 2617,
+      "observed_mtime_utc": "2026-11-12T14:30:44.763612+00:00",
+      "rows": [
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.lock",
+          "range": [
+            1042,
+            1050
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.lock",
+          "range": [
+            3272,
+            3291
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/Cargo.lock",
+          "range": [
+            6194,
+            6199
+          ]
+        },
+        {
+          "source_file": "upstream/flate2/Cargo.toml",
+          "range": [
+            55,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-C.txt",
+      "sha256": "faf38219bc46df19bd095d4423c67b927d432df748b3e15f85efdd24022d5365",
+      "bytes": 4862,
+      "observed_mtime_utc": "2026-11-12T14:30:49.829437+00:00",
+      "rows": [
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/npz.rs",
+          "range": [
+            55,
+            86
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/zip.rs",
+          "range": [
+            151,
+            184
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+          "range": [
+            1,
+            44
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-D.txt",
+      "sha256": "f3b90ae253638e287e30485bcf672ddb4b944bb7f18c7008700e03ec24863a68",
+      "bytes": 4949,
+      "observed_mtime_utc": "2026-11-12T14:30:56.011009+00:00",
+      "rows": [
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/zip.rs",
+          "range": [
+            31,
+            48
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/zip.rs",
+          "range": [
+            86,
+            109
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/npy.rs",
+          "range": [
+            118,
+            130
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/npy/header.rs",
+          "range": [
+            70,
+            87
+          ]
+        },
+        {
+          "source_file": "first-party/crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+          "range": [
+            113,
+            143
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-E.txt",
+      "sha256": "f01bd2a1fac7786235f3d4c9e9cd0ce402261f699d5c7604ada4b142705b560c",
+      "bytes": 3577,
+      "observed_mtime_utc": "2026-11-12T14:30:58.805044+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            150,
+            220
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-F.txt",
+      "sha256": "2dad73c4639f2e222abac63c85139ed58b1f331a1ab9ea9b0e2e5e79c8c9b714",
+      "bytes": 4621,
+      "observed_mtime_utc": "2026-11-12T14:31:02.220528+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            221,
+            282
+          ]
+        },
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            490,
+            535
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-G.txt",
+      "sha256": "1e2aa281bd45658dcee48f5f89a9912111d44bc0c398031c36e4183507976042",
+      "bytes": 3283,
+      "observed_mtime_utc": "2026-11-12T14:31:27.974834+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/flate2/src/deflate/read.rs",
+          "range": [
+            150,
+            205
+          ]
+        },
+        {
+          "source_file": "upstream/flate2/src/deflate/read.rs",
+          "range": [
+            230,
+            254
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-H.txt",
+      "sha256": "38c607c4fff1ea3b0a4aea688e534d4802e8dc00419e72305fb8c9eb72e15399",
+      "bytes": 4186,
+      "observed_mtime_utc": "2026-11-12T14:31:31.394152+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/flate2/src/deflate/bufread.rs",
+          "range": [
+            150,
+            210
+          ]
+        },
+        {
+          "source_file": "upstream/flate2/src/deflate/bufread.rs",
+          "range": [
+            230,
+            275
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-I.txt",
+      "sha256": "e21a39218a0c6f4609ad234f096e936d8e54958e75f97114b2c9ecc537e4045c",
+      "bytes": 2031,
+      "observed_mtime_utc": "2026-11-12T14:31:36.334336+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/flate2/src/ffi/mod.rs",
+          "range": [
+            55,
+            88
+          ]
+        },
+        {
+          "source_file": "upstream/flate2/Cargo.toml",
+          "range": [
+            230,
+            250
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-J.txt",
+      "sha256": "ecca801955aaff920d6f21484c024207d14211dd63665021e9275a41d56b2b20",
+      "bytes": 4018,
+      "observed_mtime_utc": "2026-11-12T14:31:39.304524+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/flate2/src/ffi/miniz_oxide.rs",
+          "range": [
+            1,
+            120
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-K.txt",
+      "sha256": "72eb7e1dde71a412199350fe6958b0a8ca1ff89294275a7508558d2366fae68b",
+      "bytes": 3252,
+      "observed_mtime_utc": "2026-11-12T14:31:43.843411+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/miniz_oxide/src/inflate/stream.rs",
+          "range": [
+            160,
+            230
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-L.txt",
+      "sha256": "8d1b6be520ad30867381f35c07765b98cb07d16fee1ee4c5bf2a70421ea7c819",
+      "bytes": 3733,
+      "observed_mtime_utc": "2026-11-12T14:31:48.464453+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/miniz_oxide/src/inflate/stream.rs",
+          "range": [
+            231,
+            270
+          ]
+        },
+        {
+          "source_file": "upstream/miniz_oxide/src/inflate/stream.rs",
+          "range": [
+            300,
+            350
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-M.txt",
+      "sha256": "2d4bf27fd13fe9aa31aedc3812d6cbc64442c43e3e934e898b1518f8cbc6162f",
+      "bytes": 3502,
+      "observed_mtime_utc": "2026-11-12T14:31:51.423085+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/miniz_oxide/src/inflate/stream.rs",
+          "range": [
+            351,
+            420
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT-DISPLAY-A.txt",
+      "sha256": "284a4bd35ddf3c683a6a68f658db527898e553231610d9d9ec71d14bb98d339e",
+      "bytes": 3602,
+      "observed_mtime_utc": "2026-11-12T14:33:16.660712+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive/reader.rs",
+          "range": [
+            1,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT-DISPLAY-B.txt",
+      "sha256": "a46e3f919c5917933f969b443ebb94d6f780d1f639785b5d16f80ac31a976416",
+      "bytes": 3954,
+      "observed_mtime_utc": "2026-11-12T14:33:19.888096+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive/reader.rs",
+          "range": [
+            420,
+            465
+          ]
+        },
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            590,
+            640
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT-DISPLAY-C.txt",
+      "sha256": "deeb90934f3f86df09efdd6036f77c474304e51e16a13381c2cfbaa8e36b4547",
+      "bytes": 4447,
+      "observed_mtime_utc": "2026-11-12T14:33:30.112307+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            1200,
+            1260
+          ]
+        },
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            1435,
+            1485
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT-DISPLAY-D.txt",
+      "sha256": "61f498ff9d67a112e361a2dbdf75444654659341986b27908e8892e2920ceb89",
+      "bytes": 5125,
+      "observed_mtime_utc": "2026-11-12T14:33:50.447241+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/flate2/src/mem.rs",
+          "range": [
+            399,
+            455
+          ]
+        },
+        {
+          "source_file": "upstream/flate2/src/mem.rs",
+          "range": [
+            480,
+            535
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT-DISPLAY-E.txt",
+      "sha256": "2bdfa26693817cf2215ba660ee8f75d03d6d4486971c4e3bbdbceb6db00c8307",
+      "bytes": 3088,
+      "observed_mtime_utc": "2026-11-12T14:33:53.510031+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/flate2/src/zio.rs",
+          "range": [
+            85,
+            173
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT2-DISPLAY-A.txt",
+      "sha256": "cf3f4422f9946d14e393beb9dbfee77ed313585a3cfa0d8bc415a9fc1da0843e",
+      "bytes": 2677,
+      "observed_mtime_utc": "2026-11-12T14:34:27.745272+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            1070,
+            1135
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-EXT2-DISPLAY-B.txt",
+      "sha256": "b8f3f5675fadf0fc25f38255074cbec8761db8be02f64c1ea6958a8121facd02",
+      "bytes": 2891,
+      "observed_mtime_utc": "2026-11-12T14:34:30.784823+00:00",
+      "rows": [
+        {
+          "source_file": "upstream/rawzip/src/archive.rs",
+          "range": [
+            1136,
+            1200
+          ]
+        }
+      ]
+    }
+  ],
+  "duplicate_displayed_line": {
+    "source": "upstream/rawzip/src/archive.rs",
+    "line": 1200,
+    "qualification": "Displayed under two separately registered overlapping windows; count once."
+  },
+  "source_test_lines_displayed_not_executed": {
+    "upstream/flate2/src/deflate/bufread.rs": [
+      [
+        258,
+        275
+      ]
+    ],
+    "upstream/miniz_oxide/src/inflate/stream.rs": [
+      [
+        381,
+        420
+      ]
+    ]
+  },
+  "qualification": "All numbered source displays returned without tool truncation after their respective prospective registrations. Full source copies and locator searches do not grant personal-read credit outside displayed ranges. No source, test, fixture, archive parser or product code was executed."
+}

@@ -1,0 +1,74 @@
+--- native-attempts 1-49 ---
+   1 /// Blood exposure replay over a bounded absolute interval.
+   2 #[expect(
+   3     clippy::too_many_arguments,
+   4     reason = "exposure replay keeps each bounded cursor and authority input explicit"
+   5 )]
+   6 pub fn blood_exposure_attempts_through(
+   7     ctx: &ReducerContext,
+   8     character_id: u64,
+   9     from: StrategicMinute,
+  10     to: StrategicMinute,
+  11     persist_checkpoint: bool,
+  12     allow_healing: bool,
+  13     plan: Option<&crate::disease::PartyDiseaseIntervalPlan>,
+  14     max_work: u64,
+  15 ) -> Result<Vec<adventuresim_core::disease::AcquisitionAttempt>, String> {
+  16     if to <= from {
+  17         return Ok(Vec::new());
+  18     }
+  19     let all_deposits = deposits(ctx, character_id)?;
+  20     if !exposure_windows::has_active_compatible_foreign_blood(&all_deposits, from, to) {
+  21         return Ok(Vec::new());
+  22     }
+  23     let routes = predicted_wound_routes(ctx, character_id, allow_healing)?;
+  24     let mut attempts = Vec::new();
+  25     let mut work = 0;
+  26     for disease_id in adventuresim_core::disease::STARTER_DISEASES
+  27         .iter()
+  28         .filter(|definition| {
+  29             definition.supports(adventuresim_core::disease::TransmissionVector::Blood)
+  30         })
+  31         .map(|definition| definition.id)
+  32     {
+  33         let key = format!("{character_id}:{}", disease_id.stable_id());
+  34         let checkpoint = ctx.db.blood_exposure_checkpoint().id().find(&key);
+  35         let start = from.saturating_add_minutes(1).max(
+  36             checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| row.evaluated_through.saturating_add_minutes(1)),
+  37         );
+  38         let relevant = relevant_blood_deposits(&all_deposits, disease_id);
+  39         let windows = exposure_windows::blood_infectious_windows(
+  40             &relevant,
+  41             disease_id,
+  42             start.saturating_sub_minutes(1),
+  43             to,
+  44         );
+  45         for minute in windows
+  46             .into_iter()
+  47             .flat_map(|(window_start, window_end)| window_start.iter_through(window_end))
+  48         {
+  49             adventuresim_core::disease::add_bounded_work(&mut work, 1, max_work)
+--- native-attempts 96-118 ---
+  96         if persist_checkpoint {
+  97             persist_blood_checkpoint(ctx, key, character_id, disease_id, to, checkpoint.is_some());
+  98         }
+  99     }
+ 100     Ok(attempts)
+ 101 }
+ 102 
+ 103 fn relevant_blood_deposits(
+ 104     all_deposits: &[Deposit],
+ 105     disease_id: adventuresim_core::disease::DiseaseId,
+ 106 ) -> Vec<Deposit> {
+ 107     all_deposits
+ 108         .iter()
+ 109         .filter(|deposit| {
+ 110             deposit.foreign_blood()
+ 111                 && deposit
+ 112                     .diseases
+ 113                     .iter()
+ 114                     .any(|snapshot| snapshot.disease_id == disease_id)
+ 115         })
+ 116         .cloned()
+ 117         .collect()
+ 118 }

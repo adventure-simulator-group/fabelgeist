@@ -1,0 +1,120 @@
+{
+  "schema": "726-npz-q2316-dependency-metadata-v1",
+  "recorded_utc": "2026-11-12T14:36:56.398748+00:00",
+  "child_lock_sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89",
+  "child_manifest_sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+  "root_lock_sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+  "child_packages": [
+    {
+      "name": "crc32fast",
+      "version": "1.5.2",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "01a7799fd6b852db0e61728dde9a204c423b44d689dbd432522543614b490e78",
+      "dependencies": [
+        "cfg-if"
+      ]
+    },
+    {
+      "name": "flate2",
+      "version": "1.1.10",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "dependencies": [
+        "crc32fast",
+        "miniz_oxide 0.9.1",
+        "zlib-rs"
+      ]
+    },
+    {
+      "name": "miniz_oxide",
+      "version": "0.8.9",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316",
+      "dependencies": [
+        "adler2",
+        "simd-adler32"
+      ]
+    },
+    {
+      "name": "miniz_oxide",
+      "version": "0.9.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "b63fbc4a50860e98e7b2aa7804ded1db5cbc3aff9193adaff57a6931bf7c4b4c",
+      "dependencies": [
+        "adler2",
+        "simd-adler32"
+      ]
+    },
+    {
+      "name": "rawzip",
+      "version": "0.5.2",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
+    },
+    {
+      "name": "zlib-rs",
+      "version": "0.6.8",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "b268e58e7c693d7c271f93ffc4ba3b380412554231c85bf61ca7af91042a4112"
+    }
+  ],
+  "root_packages": [
+    {
+      "name": "crc32fast",
+      "version": "1.5.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "8498c871161e1742aaa9d52551b2d6ebdd4c3d45a3be423e3728f33b955be550",
+      "dependencies": [
+        "cfg-if"
+      ]
+    },
+    {
+      "name": "flate2",
+      "version": "1.1.10",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "dependencies": [
+        "crc32fast",
+        "miniz_oxide 0.9.1",
+        "zlib-rs"
+      ]
+    },
+    {
+      "name": "miniz_oxide",
+      "version": "0.8.9",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316",
+      "dependencies": [
+        "adler2",
+        "simd-adler32"
+      ]
+    },
+    {
+      "name": "miniz_oxide",
+      "version": "0.9.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "b63fbc4a50860e98e7b2aa7804ded1db5cbc3aff9193adaff57a6931bf7c4b4c",
+      "dependencies": [
+        "adler2",
+        "simd-adler32"
+      ]
+    },
+    {
+      "name": "zlib-rs",
+      "version": "0.6.7",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "34b31d188d9d685a4f9c7b46d6e36631b07058d2cfe190267adce54dc230bf12"
+    }
+  ],
+  "child_direct_dependencies": {
+    "rawzip": "=0.5.2",
+    "flate2": {
+      "version": "1",
+      "default-features": false,
+      "features": [
+        "rust_backend"
+      ]
+    }
+  },
+  "qualification": "Metadata extracted from the registered pinned child manifest/lock and previously preserved pinned root lock. Root lock does not list rawzip; child manifest is a separate workspace. Lock presence does not establish feature unification, target or actual build invocation. Root full lock is not copied in this packet."
+}

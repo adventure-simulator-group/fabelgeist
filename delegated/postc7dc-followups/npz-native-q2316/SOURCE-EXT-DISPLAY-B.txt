@@ -1,0 +1,99 @@
+=== upstream/rawzip/src/archive/reader.rs 420..465 ===
+ 420 | }
+ 421 | 
+ 422 | /// Verifies the checksum of the decompressed data matches the checksum listed
+ 423 | /// in the central directory.
+ 424 | #[derive(Debug, Clone)]
+ 425 | pub struct ZipVerifier<Decompressor> {
+ 426 |     pub(super) reader: Decompressor,
+ 427 |     pub(super) crc: Crc32,
+ 428 |     pub(super) size: u64,
+ 429 |     pub(super) verifier: ZipVerification,
+ 430 | }
+ 431 | 
+ 432 | impl<Decompressor> ZipVerifier<Decompressor> {
+ 433 |     /// Consumes the [`ZipVerifier`], returning the underlying decompressor
+ 434 |     /// without verifying.
+ 435 |     pub fn into_inner(self) -> Decompressor {
+ 436 |         self.reader
+ 437 |     }
+ 438 | }
+ 439 | 
+ 440 | impl<Decompressor> std::io::Read for ZipVerifier<Decompressor>
+ 441 | where
+ 442 |     Decompressor: std::io::Read,
+ 443 | {
+ 444 |     fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+ 445 |         if buf.is_empty() {
+ 446 |             return Ok(0);
+ 447 |         }
+ 448 | 
+ 449 |         let read = self.reader.read(buf)?;
+ 450 |         self.crc.update(&buf[..read]);
+ 451 |         self.size += read as u64;
+ 452 | 
+ 453 |         if read == 0 || self.size >= self.verifier.uncompressed_size {
+ 454 |             self.verifier
+ 455 |                 .valid(ZipVerification {
+ 456 |                     crc: self.crc.checksum(),
+ 457 |                     uncompressed_size: self.size,
+ 458 |                 })
+ 459 |                 .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
+ 460 |         }
+ 461 | 
+ 462 |         Ok(read)
+ 463 |     }
+ 464 | }
+ 465 | 
+=== upstream/rawzip/src/archive.rs 590..640 ===
+ 590 |         )
+ 591 |     }
+ 592 | 
+ 593 |     /// The CRC32 checksum declared in the local file header.
+ 594 |     ///
+ 595 |     /// **WARNING**: this value is zero when written by a streaming writer,
+ 596 |     /// and may otherwise differ from the central directory record's value.
+ 597 |     #[inline]
+ 598 |     pub fn crc32(&self) -> u32 {
+ 599 |         self.fixed.crc32
+ 600 |     }
+ 601 | 
+ 602 |     /// The purported number of bytes of the compressed data from the local file header.
+ 603 |     ///
+ 604 |     /// **WARNING**: this value is zero when written by a streaming writer,
+ 605 |     /// and may otherwise differ from the central directory record's value.
+ 606 |     #[inline]
+ 607 |     pub fn compressed_size_hint(&self) -> u64 {
+ 608 |         self.compressed_size
+ 609 |     }
+ 610 | 
+ 611 |     /// The purported number of bytes of the uncompressed data from the local file header.
+ 612 |     ///
+ 613 |     /// **WARNING**: this value is zero when written by a streaming writer,
+ 614 |     /// and may otherwise differ from the central directory record's value.
+ 615 |     #[inline]
+ 616 |     pub fn uncompressed_size_hint(&self) -> u64 {
+ 617 |         self.uncompressed_size
+ 618 |     }
+ 619 | 
+ 620 |     /// Returns an iterator over the extra fields from the local file header.
+ 621 |     ///
+ 622 |     /// Extra fields in the local header may differ from those in the central directory.
+ 623 |     /// The local header may contain additional or different metadata compared to the
+ 624 |     /// central directory entry.
+ 625 |     #[inline]
+ 626 |     pub fn extra_fields(&self) -> ExtraFields<'a> {
+ 627 |         ExtraFields::new(self.extra_field)
+ 628 |     }
+ 629 | }
+ 630 | 
+ 631 | fn local_header_size_hints(header: &ZipLocalFileHeaderFixed, extra_field: &[u8]) -> (u64, u64) {
+ 632 |     let mut compressed_size = u64::from(header.compressed_size);
+ 633 |     let mut uncompressed_size = u64::from(header.uncompressed_size);
+ 634 | 
+ 635 |     if header.compressed_size == u32::MAX || header.uncompressed_size == u32::MAX {
+ 636 |         for (field_id, field_data) in ExtraFields::new(extra_field) {
+ 637 |             if field_id != ExtraFieldId::ZIP64 {
+ 638 |                 continue;
+ 639 |             }
+ 640 | 

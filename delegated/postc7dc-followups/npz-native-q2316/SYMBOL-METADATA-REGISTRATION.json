@@ -1,0 +1,114 @@
+{
+  "schema": "726-npz-q2316-prospective-symbol-metadata-registration-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T14:28:46.339459+00:00",
+  "members": [
+    {
+      "package": "rawzip",
+      "version": "0.5.2",
+      "archive_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "archive_bytes": 260248,
+      "archive_member": "rawzip-0.5.2/src/archive.rs",
+      "copy": "upstream/rawzip/src/archive.rs",
+      "member_sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+      "bytes": 64320,
+      "lines": 1797
+    },
+    {
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_bytes": 80244,
+      "archive_member": "flate2-1.1.10/Cargo.toml",
+      "copy": "upstream/flate2/Cargo.toml",
+      "member_sha256": "1365f28dd7ad9f83ebcc9afd545d7cdcedb284bf6e059081b0e1d1847ce6a94e",
+      "bytes": 5101,
+      "lines": 264
+    },
+    {
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_bytes": 80244,
+      "archive_member": "flate2-1.1.10/src/deflate/read.rs",
+      "copy": "upstream/flate2/src/deflate/read.rs",
+      "member_sha256": "62768dea99067f3ffd76f08c99b502eef239fdf818c7a0a4c653fbc278106c0a",
+      "bytes": 8669,
+      "lines": 254
+    },
+    {
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_bytes": 80244,
+      "archive_member": "flate2-1.1.10/src/deflate/bufread.rs",
+      "copy": "upstream/flate2/src/deflate/bufread.rs",
+      "member_sha256": "11d568b35dcdf403c139fcef4be814fc96abf01d3d1411ff8e0a53c35143ec89",
+      "bytes": 9575,
+      "lines": 304
+    },
+    {
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_bytes": 80244,
+      "archive_member": "flate2-1.1.10/src/ffi/mod.rs",
+      "copy": "upstream/flate2/src/ffi/mod.rs",
+      "member_sha256": "5b82d9100a238356200886d986ecc9dd3d50994010e1dc3367c85ddad8072caa",
+      "bytes": 2833,
+      "lines": 88
+    },
+    {
+      "package": "flate2",
+      "version": "1.1.10",
+      "archive_sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "archive_bytes": 80244,
+      "archive_member": "flate2-1.1.10/src/ffi/miniz_oxide.rs",
+      "copy": "upstream/flate2/src/ffi/miniz_oxide.rs",
+      "member_sha256": "127a669987b36b435ccee0d02ad4aaeb3aa05d8328bfd1d0384cc42364973d2e",
+      "bytes": 5600,
+      "lines": 206
+    },
+    {
+      "package": "miniz_oxide",
+      "version": "0.9.1",
+      "archive_sha256": "b63fbc4a50860e98e7b2aa7804ded1db5cbc3aff9193adaff57a6931bf7c4b4c",
+      "archive_bytes": 70519,
+      "archive_member": "miniz_oxide-0.9.1/src/inflate/stream.rs",
+      "copy": "upstream/miniz_oxide/src/inflate/stream.rs",
+      "member_sha256": "e6dd9e06e927dbe5a59299db1bc96bf1c55cad8ef995fccec314ecf056622884",
+      "bytes": 17760,
+      "lines": 508
+    },
+    {
+      "package": "miniz_oxide",
+      "version": "0.9.1",
+      "archive_sha256": "b63fbc4a50860e98e7b2aa7804ded1db5cbc3aff9193adaff57a6931bf7c4b4c",
+      "archive_bytes": 70519,
+      "archive_member": "miniz_oxide-0.9.1/src/inflate/mod.rs",
+      "copy": "upstream/miniz_oxide/src/inflate/mod.rs",
+      "member_sha256": "24a041eeb9404079395fd8ac5a51b8e2494fdf46a511681bb727e0b2b7017b57",
+      "bytes": 16376,
+      "lines": 391
+    }
+  ],
+  "symbol_locator_terms": [
+    "claim_verifier",
+    "verifying_reader",
+    "ZipVerification",
+    "valid",
+    "get_entry",
+    "uncompressed_size",
+    "checksum",
+    "DeflateDecoder",
+    "read",
+    "decompress",
+    "rust_backend",
+    "miniz_oxide",
+    "inflate",
+    "MZStatus",
+    "MZError"
+  ],
+  "scope": "Locate line numbers for these named symbols and relevant Cargo lock sections only. This is metadata navigation, not source display or personal body credit. Register exact source line windows separately before displaying.",
+  "qualification": "Archive SHA-256 matches the checksum in the current child Cargo.lock for each package; mere lock listing does not resolve selected Cargo feature unification or runtime backend."
+}

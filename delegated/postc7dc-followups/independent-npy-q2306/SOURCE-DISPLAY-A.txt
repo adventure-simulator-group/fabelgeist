@@ -1,0 +1,71 @@
+### frame.rs:1-70
+1: //! Native NPY framing admits the dictionary and payload into one header.
+2: 
+3: use anyhow::{Context, Result, bail};
+4: 
+5: use super::NpyHeader;
+6: 
+7: const MAGIC: &[u8] = b"\x93NUMPY";
+8: const VERSION_START: usize = MAGIC.len();
+9: const LENGTH_START: usize = VERSION_START + 2;
+10: const SHORT_HEADER_START: usize = LENGTH_START + size_of::<u16>();
+11: const LONG_HEADER_START: usize = LENGTH_START + size_of::<u32>();
+12: 
+13: enum HeaderVersion {
+14:     ShortLength,
+15:     LongLength,
+16: }
+17: 
+18: impl<'a> NpyHeader<'a> {
+19:     pub(in super::super) fn from_bytes(bytes: &'a [u8]) -> Result<Self> {
+20:         let prefix = bytes
+21:             .get(..SHORT_HEADER_START)
+22:             .filter(|prefix| prefix.starts_with(MAGIC))
+23:             .context("not a .npy array")?;
+24:         let version = match prefix.get(VERSION_START..LENGTH_START) {
+25:             Some([1, 0]) => HeaderVersion::ShortLength,
+26:             Some([2 | 3, 0]) => HeaderVersion::LongLength,
+27:             Some(version) => bail!("unsupported .npy version {version:?}"),
+28:             None => bail!("not a .npy array"),
+29:         };
+30:         let start = version.header_start();
+31:         let length = version.header_length(bytes)?;
+32:         let (dictionary, payload) = bytes
+33:             .get(start..)
+34:             .and_then(|tail| tail.split_at_checked(length))
+35:             .context("truncated .npy header")?;
+36:         Self::from_dictionary(
+37:             std::str::from_utf8(dictionary).context("non-UTF-8 .npy header")?,
+38:             payload,
+39:         )
+40:     }
+41: }
+42: 
+43: impl HeaderVersion {
+44:     fn header_start(&self) -> usize {
+45:         match self {
+46:             Self::ShortLength => SHORT_HEADER_START,
+47:             Self::LongLength => LONG_HEADER_START,
+48:         }
+49:     }
+50: 
+51:     fn header_length(&self, bytes: &[u8]) -> Result<usize> {
+52:         match self {
+53:             Self::ShortLength => {
+54:                 let encoded = bytes
+55:                     .get(LENGTH_START..SHORT_HEADER_START)
+56:                     .context("truncated .npy header")?
+57:                     .try_into()?;
+58:                 Ok(usize::from(u16::from_le_bytes(encoded)))
+59:             }
+60:             Self::LongLength => {
+61:                 let encoded = bytes
+62:                     .get(LENGTH_START..LONG_HEADER_START)
+63:                     .context("truncated .npy header")?
+64:                     .try_into()?;
+65:                 usize::try_from(u32::from_le_bytes(encoded))
+66:                     .context(".npy header length does not fit this platform")
+67:             }
+68:         }
+69:     }
+70: }

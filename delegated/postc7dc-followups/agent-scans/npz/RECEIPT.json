@@ -1,0 +1,30 @@
+{
+  "schema": "726-npz-q2316-final-scan-receipt-v1",
+  "completed_utc": "2026-11-12T14:42:22.099892+00:00",
+  "packet_manifest_sha256": "8ff59f01da517c1ca87d641d1b120253b1dada5c46413e585efa65db80506bf2",
+  "digest_result_sha256": "47a2b61972554742a8f359fff6e03ee2596376c5b3d54521b97ab776e5c01b03",
+  "pattern_result_sha256": "97d08a456ff0942423746da5b5478bee94182fc6d09065cdb98194acb18990e3",
+  "digest_scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+  "pattern_scanner_sha256": "1fde152aab28c284144b8158b7c0dc849a52dfb9cf64adc7b291cd982a1fe7ad",
+  "digest_status": {
+    "exit": 0,
+    "top_files": 97,
+    "views": 97,
+    "digest_matches": 0,
+    "candidate_counts": {},
+    "exceptions": 0
+  },
+  "pattern_status": {
+    "exit": 0,
+    "files": 97,
+    "views": 97,
+    "counts": {
+      "local_home": 0,
+      "temporary_path": 0,
+      "windows_user": 0,
+      "email": 0,
+      "credential": 0
+    }
+  },
+  "qualification": "The safe packet including manifest was scanned as it then existed. The three exact original archives, raw Git anchors, full flate2 Cargo.toml and original 059 queue are separately held and excluded. Their archive pre-scan had email candidates and unsupported nested formats; see ARCHIVE-PRIVACY-QUALIFICATION.json. Derived 40-digest and selected path/credential/email patterns are bounded and cannot establish general privacy. No product code executed."
+}

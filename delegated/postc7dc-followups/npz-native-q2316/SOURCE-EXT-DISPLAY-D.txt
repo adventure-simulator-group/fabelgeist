@@ -1,0 +1,115 @@
+=== upstream/flate2/src/mem.rs 399..455 ===
+ 399 | impl Decompress {
+ 400 |     /// Creates a new object ready for decompressing data that it's given.
+ 401 |     ///
+ 402 |     /// The `zlib_header` argument indicates whether the input data is expected
+ 403 |     /// to have a zlib header or not.
+ 404 |     pub fn new(zlib_header: bool) -> Decompress {
+ 405 |         Decompress {
+ 406 |             inner: Inflate::make(zlib_header, ffi::MZ_DEFAULT_WINDOW_BITS as u8),
+ 407 |         }
+ 408 |     }
+ 409 | 
+ 410 |     /// Creates a new object ready for decompressing data that it's given.
+ 411 |     ///
+ 412 |     /// The `zlib_header` argument indicates whether the input data is expected
+ 413 |     /// to have a zlib header or not. The `window_bits` parameter indicates the
+ 414 |     /// base-2 logarithm of the sliding window size and must be between 9 and 15.
+ 415 |     ///
+ 416 |     /// # Panics
+ 417 |     ///
+ 418 |     /// If `window_bits` does not fall into the range 9 ..= 15,
+ 419 |     /// this function will panic.
+ 420 |     #[cfg(feature = "any_zlib")]
+ 421 |     pub fn new_with_window_bits(zlib_header: bool, window_bits: u8) -> Decompress {
+ 422 |         assert!(
+ 423 |             window_bits > 8 && window_bits < 16,
+ 424 |             "window_bits must be within 9 ..= 15"
+ 425 |         );
+ 426 |         Decompress {
+ 427 |             inner: Inflate::make(zlib_header, window_bits),
+ 428 |         }
+ 429 |     }
+ 430 | 
+ 431 |     /// Creates a new object ready for decompressing data that it's given.
+ 432 |     ///
+ 433 |     /// The Decompress object produced by this constructor expects gzip headers
+ 434 |     /// for the compressed data.
+ 435 |     ///
+ 436 |     /// # Panics
+ 437 |     ///
+ 438 |     /// If `window_bits` does not fall into the range 9 ..= 15,
+ 439 |     /// this function will panic.
+ 440 |     #[cfg(feature = "any_zlib")]
+ 441 |     pub fn new_gzip(window_bits: u8) -> Decompress {
+ 442 |         assert!(
+ 443 |             window_bits > 8 && window_bits < 16,
+ 444 |             "window_bits must be within 9 ..= 15"
+ 445 |         );
+ 446 |         Decompress {
+ 447 |             inner: Inflate::make(true, window_bits + 16),
+ 448 |         }
+ 449 |     }
+ 450 | 
+ 451 |     /// Returns the total number of input bytes which have been processed by
+ 452 |     /// this decompression object.
+ 453 |     pub fn total_in(&self) -> u64 {
+ 454 |         self.inner.total_in()
+ 455 |     }
+=== upstream/flate2/src/mem.rs 480..535 ===
+ 480 |     /// # Errors
+ 481 |     ///
+ 482 |     /// If the input data to this instance of `Decompress` is not a valid
+ 483 |     /// zlib/deflate stream then this function may return an instance of
+ 484 |     /// `DecompressError` to indicate that the stream of input bytes is corrupted.
+ 485 |     pub fn decompress(
+ 486 |         &mut self,
+ 487 |         input: &[u8],
+ 488 |         output: &mut [u8],
+ 489 |         flush: FlushDecompress,
+ 490 |     ) -> Result<Status, DecompressError> {
+ 491 |         self.inner.decompress(input, output, flush)
+ 492 |     }
+ 493 | 
+ 494 |     /// Similar to [`Self::decompress`] but accepts uninitialized buffer
+ 495 |     ///
+ 496 |     /// If you want to avoid the overhead of zero initializing the
+ 497 |     /// buffer and you don't want to use a [`Vec`], then please use
+ 498 |     /// this API.
+ 499 |     pub fn decompress_uninit(
+ 500 |         &mut self,
+ 501 |         input: &[u8],
+ 502 |         output: &mut [MaybeUninit<u8>],
+ 503 |         flush: FlushDecompress,
+ 504 |     ) -> Result<Status, DecompressError> {
+ 505 |         self.inner.decompress_uninit(input, output, flush)
+ 506 |     }
+ 507 | 
+ 508 |     /// Decompresses the input data into the extra space in the output vector
+ 509 |     /// specified by `output`.
+ 510 |     ///
+ 511 |     /// This function has the same semantics as `decompress`, except that the
+ 512 |     /// length of `vec` is managed by this function. This will not reallocate
+ 513 |     /// the vector provided or attempt to grow it, so space for the output must
+ 514 |     /// be reserved in the output vector by the caller before calling this
+ 515 |     /// function.
+ 516 |     ///
+ 517 |     /// # Errors
+ 518 |     ///
+ 519 |     /// If the input data to this instance of `Decompress` is not a valid
+ 520 |     /// zlib/deflate stream then this function may return an instance of
+ 521 |     /// `DecompressError` to indicate that the stream of input bytes is corrupted.
+ 522 |     pub fn decompress_vec(
+ 523 |         &mut self,
+ 524 |         input: &[u8],
+ 525 |         output: &mut Vec<u8>,
+ 526 |         flush: FlushDecompress,
+ 527 |     ) -> Result<Status, DecompressError> {
+ 528 |         // SAFETY: bytes_written is the number of bytes written into `out`
+ 529 |         unsafe {
+ 530 |             write_to_spare_capacity_of_vec(output, |out| {
+ 531 |                 let before = self.total_out();
+ 532 |                 let ret = self.decompress_uninit(input, out, flush);
+ 533 |                 let bytes_written = self.total_out() - before;
+ 534 |                 (bytes_written as usize, ret)
+ 535 |             })

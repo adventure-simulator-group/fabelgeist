@@ -1,0 +1,6 @@
+{
+  "event": "Two recovery-scan invocations used four predetermined output filenames for result and stderr streams in private scratch with truncating redirection before prior existence was checked.",
+  "uncertainty": "Whether any of those four paths held prior contents is unknown; no earlier contents can be reconstructed from this action. Do not infer an overwrite occurred or that the paths were definitely absent.",
+  "preservation": "The resulting scan outputs and their contents are retained. All subsequent scratch output should use uniquely created directories.",
+  "scope": "The protected extracted evidence directory and product source were not targeted by these redirections."
+}

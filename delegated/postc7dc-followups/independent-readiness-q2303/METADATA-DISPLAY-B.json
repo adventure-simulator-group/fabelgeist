@@ -1,0 +1,170 @@
+{
+  "QUEUE-REGISTRATION.json": {
+    "schema": "726-q2303-queue-registration-v1",
+    "reader": "/root/mhr_character",
+    "registered_utc": "2026-11-12T13:46:49.804501+00:00",
+    "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "git_path": "baseline-059/queue.json",
+    "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "bytes": 21632843,
+    "planned_pointers": [
+      "/entries/2303"
+    ],
+    "qualification": "059 historical queue selected value, not missing checkpoint3821. Full original queue is not copied because unrelated local paths are present."
+  },
+  "RELATED-QUEUE-REGISTRATION.json": {
+    "schema": "726-q2303-related-queue-registration-v1",
+    "reader": "/root/mhr_character",
+    "registered_utc": "2026-11-12T13:50:02.703811+00:00",
+    "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "git_path": "baseline-059/queue.json",
+    "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "planned_pointers": [
+      "/entries/1214"
+    ],
+    "qualification": "Prospective related historical record; no inferred alias or 3821 promotion."
+  },
+  "HISTORY-REGISTRATION.json": {
+    "schema": "726-q2303-historical-registration-v1",
+    "reader": "/root/mhr_character",
+    "registered_utc": "2026-11-12T13:49:40.737348+00:00",
+    "entries": [
+      {
+        "historical_relative_path": "parallel-l11-20261029/PLAN-189.json",
+        "bytes": 1096,
+        "sha256": "66b7becb8075b37a7cae65f33e294bceedbba42d5674a51212d6c9f9aa4920d6",
+        "planned_selectors": [
+          "/kind",
+          "/lens",
+          "/revision",
+          "/rows/0"
+        ]
+      },
+      {
+        "historical_relative_path": "parallel-l11-20261029/PLAN-190.json",
+        "bytes": 3350,
+        "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+        "planned_selectors": [
+          "/kind",
+          "/lens",
+          "/revision",
+          "/rows/1"
+        ]
+      },
+      {
+        "historical_relative_path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+        "bytes": 192315,
+        "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+        "planned_selectors": [
+          "/contract_updates/3"
+        ]
+      },
+      {
+        "historical_relative_path": "parallel-l11-20261029/READ-168.json",
+        "bytes": 7158,
+        "sha256": "53d72dcc59395bea8a29bbddbbc1e8ffe207ea597ce62eadd5a1e7c27b626b0e",
+        "planned_selectors": [
+          "/kind",
+          "/lens",
+          "/revision",
+          "/rows/0",
+          "/native_runtime_validation",
+          "/authority"
+        ]
+      },
+      {
+        "historical_relative_path": "parallel-l11-20261029/READ-169.json",
+        "bytes": 10728,
+        "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85",
+        "planned_selectors": [
+          "/kind",
+          "/lens",
+          "/revision",
+          "/rows/1",
+          "/native_runtime_validation",
+          "/authority"
+        ]
+      },
+      {
+        "historical_relative_path": "segovb/READ-L11-704.json",
+        "bytes": 9047,
+        "sha256": "6a8a57138b4eed0865dd9a0938a5ed02aecfcfd23f6c55240f67bc35cb04ae7c",
+        "planned_selectors": [
+          "/kind",
+          "/at",
+          "/rows/0",
+          "/adopted_registration_mapping",
+          "/source_revision",
+          "/runtime_validation"
+        ]
+      },
+      {
+        "historical_relative_path": "segovb/READ-L11-705.json",
+        "bytes": 13761,
+        "sha256": "a3ba6dd475995ae008da3e50a16c5cf25d0f513d859c5aade286010f1cb0b525",
+        "planned_selectors": [
+          "/kind",
+          "/at",
+          "/rows/1",
+          "/adopted_registration_mapping",
+          "/source_revision",
+          "/runtime_validation"
+        ]
+      },
+      {
+        "historical_relative_path": "segovb/VERIFY-L11-704.json",
+        "bytes": 1027,
+        "sha256": "184366f4c3904d36f058c8b49e0b28bc211305f8976b0bb4cd83bbfadad83860",
+        "planned_selectors": [
+          "/"
+        ]
+      },
+      {
+        "historical_relative_path": "segovb/VERIFY-L11-705.json",
+        "bytes": 1027,
+        "sha256": "7459849d92fed125a4f12352e1963764f87f1f13f6706c02c788bf8cb127d46a",
+        "planned_selectors": [
+          "/"
+        ]
+      }
+    ],
+    "qualification": "Nine exact historical records recovered from an independently hash-verified earlier private capture; hash matches 059 queue. Registration precedes selected historical displays. Original e275 readers and root adoption remain separate."
+  },
+  "HISTORY-READ-RECEIPT.json": {
+    "reader": "/root/mhr_character",
+    "registration": "HISTORY-REGISTRATION.json",
+    "registration_sha256": "f8c5ca287ccb79c5977f43b5d6f4ac7d9b008c131f3d4d2f2776072be45da22e",
+    "selected_values": "HISTORY-SELECTED-RECONSTRUCTED.json",
+    "selected_values_sha256": "6a60f04568453255d47d91d68422716e74a7fd1cf6654217e6fcc2da1585d0cd",
+    "actual_display": "all registered selected values personally displayed in three bounded, untruncated calls; full historical records retained as exact bytes but are not claimed as fully personally read",
+    "qualification": "Original parallel lens11_reconcile e275 source reads and subsequent root adoption without reread retain their separate attributions. Queue proposal still says pending. This is not checkpoint3821."
+  },
+  "LEDGER-REGISTRATION.json": {
+    "created_utc": "2026-11-12T13:53:58.448285+00:00",
+    "source": {
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "path": "BASELINE-95E-20261110.json",
+      "git_blob": "249d83488eb0fb59ffbf7701c35996b04d6c85a9",
+      "sha256": "a0bbeccf980b4d67ed713b7edb2777364fcaf231cdb3c072aee314e5643dd4f6",
+      "bytes": 1395955
+    },
+    "planned_selection": {
+      "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001"
+    },
+    "qualification": "An earlier unregistered rg/sed preview located this ledger relation. It is not credited as a registered read; this registration precedes the selected re-display. The committed publication record is separate from any observed mutable working copy and from the pinned product revision."
+  },
+  "PRIOR-ASSESSMENT-REGISTRATION.json": {
+    "created_utc": "2026-11-12T13:54:17.172157+00:00",
+    "source": {
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "path": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+      "git_blob": "d4aa2d4d178dd0ba7c1f2d39b15c6d36f2b6b05b",
+      "sha256": "4470ef3092c69a1381dc4d3d93e83b5339352fef27fb481bccab4d13a04c1e6b",
+      "bytes": 33654
+    },
+    "planned_display": "Entire JSON record if no larger than 50 KiB; otherwise no body read and revise registration.",
+    "qualification": "Prior central assessment, independent earlier attribution; no read credit transferred."
+  }
+}

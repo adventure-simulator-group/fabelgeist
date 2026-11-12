@@ -15,9 +15,9 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 14:29:30\u201314:29:31 UTC while preparing this checkpoint; main may advance. See MAIN-RECHECK-20261112-1429.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e at 2026-11-12 15:10:58–15:10:59 UTC before staged evidence checking; main may advance. See MAIN-RECHECK-20261112-1510.json.",
   "new_transition_lens_cells_partial": 1,
-  "new_current_ledger_candidates": 1033,
+  "new_current_ledger_candidates": 1034,
   "post_transition_historical_body_reads": [
     "ASSESSMENT-L01-HISTORICAL-130.json",
     "ASSESSMENT-L01-HISTORICAL-131.json",
@@ -2270,7 +2270,7 @@
   "delegated_batch29_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-29.json",
   "delegated_batch30_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
   "delegated_batch31_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-31.json",
-  "delegated_batch12_reconciliation_qualification": "All eleven checkpoint 12 packets received bounded coordinator reconciliation through 12A\u201312H only. Their connected scopes, other packets, thirteen lenses and historical semantic queue remain open.",
+  "delegated_batch12_reconciliation_qualification": "All eleven checkpoint 12 packets received bounded coordinator reconciliation through 12A–12H only. Their connected scopes, other packets, thirteen lenses and historical semantic queue remain open.",
   "checkpoint30_prior_manifests_qualification": "QUALIFICATION-CHECKPOINT30-PRIOR-MANIFESTS.json",
   "checkpoint31_saphyr_registration_qualification": "delegated/saphyr-2573-2576-reconcile-evidence.tar.gz!history-pin-qualification.json",
   "delegated_batch32_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-32.json",
@@ -2324,11 +2324,11 @@
     "delegated/independent-review-followup40-41-original/REPORT.json",
     "delegated/independent-review-followup42/REPORT.json"
   ],
-  "delegated_followup_43_pending_central_reconciliation": "delegated/followup-43-xpbd/REPORT.json; roles 2648\u20132649 and separate prior-reader attribution addendum, private originals and reconstructed public bytes separately qualified in FOLLOWUP-43-PRIVATE-RETENTION.json.",
+  "delegated_followup_43_pending_central_reconciliation": "delegated/followup-43-xpbd/REPORT.json; roles 2648–2649 and separate prior-reader attribution addendum, private originals and reconstructed public bytes separately qualified in FOLLOWUP-43-PRIVATE-RETENTION.json.",
   "independent_review_13m": "delegated/independent-review-13m-collider/REPORT.json; corrected assessment separately reviewed, prior draft and verifier failure preserved; restricted originals and reconstructed public bytes qualified in INDEPENDENT-REVIEW-13M-PRIVATE-RETENTION.json.",
   "published_path_digest_independent_review": "delegated/published-path-digest-independent-review/REPORT.json; 15 prior-public text paths, bounded recursive findings and unread archive members, current-tip correction pending; prior history remains.",
   "followup4041_safe_successor_review": "delegated/followup-40-41-qualified/DIGEST-OMISSION-QUALIFICATION.json; unpublished draft privately retained, separately sealed scan and handoff qualification; no private replay claim from public checks.",
-  "delegated_followup_44_pending_central_reconciliation": "delegated/followup-44-physics-tests/PUBLIC-REPORT.json; roles 2650\u20132651 were inspected as source text only, with original bytes and inert script-name changes qualified in FOLLOWUP-44-PHYSICS-RETENTION.json.",
+  "delegated_followup_44_pending_central_reconciliation": "delegated/followup-44-physics-tests/PUBLIC-REPORT.json; roles 2650–2651 were inspected as source text only, with original bytes and inert script-name changes qualified in FOLLOWUP-44-PHYSICS-RETENTION.json.",
   "independent_review_followup4041_successor": "delegated/independent-review-followup4041-successor/REPORT.json; exact successor and prior private stage independently checked on the same machine, with corpus and archive limits.",
   "path_digest_correction_unapplied_proposal": "PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json; 15 separately reconstructed files, 795 identified digest fields, exact private originals, recorded optional-check mismatch and legacy adapter review pending.",
   "checkpoint_privacy_prescan": "delegated/checkpoint-privacy-prescan/REPORT.json; a bounded point-in-time staged-input receipt, not a scan of later files or old Git history.",
@@ -2358,5 +2358,7 @@
   "independent_capture_clock_review": "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-REVIEW-ADDENDUM.json",
   "just_prior_same_machine_recovery_verification": "delegated/checkpointa9b-verification/RECOVERY-RECORD.json",
   "independent_live_state_successor_design": "LIVE-STATE-SUCCESSOR-DESIGN-QUALIFICATION.json",
-  "post26e_evidence_snapshot": "FOLLOWUP-POST26E-EVIDENCE.json"
+  "post26e_evidence_snapshot": "FOLLOWUP-POST26E-EVIDENCE.json",
+  "central_postc7dc_bounded_reconciliation": "ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json",
+  "latest_c7dc_same_machine_recovery_verification": "delegated/checkpointc7dc-verification/RECOVERY-RECORD.json"
 }

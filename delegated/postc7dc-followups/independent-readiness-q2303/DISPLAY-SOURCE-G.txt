@@ -1,0 +1,41 @@
+### harness.rs:296-335
+296:                 );
+297:                 return;
+298:             }
+299:             EquipmentVisualState::Missing | EquipmentVisualState::Loading => capture.ready = false,
+300:         }
+301:     }
+302:     if capture.ready && !was_ready {
+303:         let parts = armor
+304:             .iter()
+305:             .map(|(entity, item)| {
+306:                 serde_json::json!({
+307:                     "item_id": item.id, "parts": visuals.summary(entity),
+308:                 })
+309:             })
+310:             .collect::<Vec<_>>();
+311:         fs::write(
+312:             capture.output.join("armor-readiness.json"),
+313:             serde_json::to_vec_pretty(&parts).expect("serialize armor readiness"),
+314:         )
+315:         .expect("write armor readiness");
+316:     }
+317:     // A requested fit includes first-use device compilation. Count unresolved
+318:     // presentation frames after that asynchronous task completes.
+319:     if !capture.ready && !equipment.is_preparing() {
+320:         capture.waited += 1;
+321:         if capture.waited >= CAPTURE_LOAD_FRAME_LIMIT {
+322:             capture.fail("Timed out waiting for every armor mesh, material, morph, and wearer skin to resolve", &mut exit);
+323:         }
+324:     }
+325: }
+326: 
+327: pub(super) fn ready(capture: Res<ArmorCapture>) -> bool {
+328:     capture.ready && !capture.failed
+329: }
+330: 
+331: #[cfg(test)]
+332: mod tests {
+333:     use super::*;
+334:     use adventuresim_core::equipment::{EquipmentGraph, EquipmentGraphPlacement};
+335:     use bevy::ecs::system::RunSystemOnce;

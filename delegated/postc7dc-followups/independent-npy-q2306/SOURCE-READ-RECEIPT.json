@@ -1,0 +1,287 @@
+{
+  "reader": "/root/verifier_scope",
+  "written_utc": "2026-11-12T14:40:58.866615+00:00",
+  "registration": "SOURCE-REGISTRATION.json",
+  "chunks": [
+    {
+      "display": "SOURCE-DISPLAY-A.txt",
+      "sha256": "eb16400f9802c90ca3bf86efd409c3cc9731e5a320f624026766b20696a177ad",
+      "saved_utc": "2026-11-12T14:37:10.321426+00:00",
+      "ranges": [
+        {
+          "file": "frame.rs",
+          "start": 1,
+          "end": 70
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-B.txt",
+      "sha256": "8d827c7708a82ff7d823fde12538d9067be299254df50ec66442825313013d07",
+      "saved_utc": "2026-11-12T14:37:15.278307+00:00",
+      "ranges": [
+        {
+          "file": "header.rs",
+          "start": 1,
+          "end": 80
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-C.txt",
+      "sha256": "a9cee7a946f89be38f2705d4797bcba3e5bbdb791cbbcbf87da6429eb1483def",
+      "saved_utc": "2026-11-12T14:37:19.176020+00:00",
+      "ranges": [
+        {
+          "file": "header.rs",
+          "start": 81,
+          "end": 160
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-D.txt",
+      "sha256": "fc67d1f3a80ae731d1c939830bfb56d07d94fff2633554a8da50e1a1bd046176",
+      "saved_utc": "2026-11-12T14:37:25.676422+00:00",
+      "ranges": [
+        {
+          "file": "metadata.rs",
+          "start": 1,
+          "end": 85
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-E.txt",
+      "sha256": "a96047282517dd764887900696d284b0f1d9283f2d3190bdc3fb629668750dd1",
+      "saved_utc": "2026-11-12T14:37:29.716043+00:00",
+      "ranges": [
+        {
+          "file": "metadata.rs",
+          "start": 86,
+          "end": 160
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-F.txt",
+      "sha256": "69a190dbab65ebed3ab3cf8344814a08499156c2cdaa28ac9047a24020601d0d",
+      "saved_utc": "2026-11-12T14:37:34.720654+00:00",
+      "ranges": [
+        {
+          "file": "npy.rs",
+          "start": 1,
+          "end": 75
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-G.txt",
+      "sha256": "4776ecd10d12b8acd9b37084f15177fe62dc9d92a2649b92a542858f7c7a801f",
+      "saved_utc": "2026-11-12T14:37:38.538737+00:00",
+      "ranges": [
+        {
+          "file": "npy.rs",
+          "start": 76,
+          "end": 140
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-H.txt",
+      "sha256": "39698a97417ff875aaf614fd420a50bfa606d797279cccf9df77318c09361e9b",
+      "saved_utc": "2026-11-12T14:37:43.188253+00:00",
+      "ranges": [
+        {
+          "file": "tensor.rs",
+          "start": 1,
+          "end": 110
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-I.txt",
+      "sha256": "3e198d5977e36cd3d4d623ba251b0bf4b6d0084a26ec124f198c801412a289f0",
+      "saved_utc": "2026-11-12T14:37:50.133858+00:00",
+      "ranges": [
+        {
+          "file": "values.rs",
+          "start": 1,
+          "end": 85
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-J.txt",
+      "sha256": "c798b65c782dddfd159036c839ab9fafb27f331fb80599996e8ae345ec372f0c",
+      "saved_utc": "2026-11-12T14:37:54.148374+00:00",
+      "ranges": [
+        {
+          "file": "values.rs",
+          "start": 86,
+          "end": 166
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    },
+    {
+      "display": "SOURCE-DISPLAY-K.txt",
+      "sha256": "69879117da5a7b78871715b2a68dd391deb5600d526401d582c230ced04d9f69",
+      "saved_utc": "2026-11-12T14:38:00.347637+00:00",
+      "ranges": [
+        {
+          "file": "lib.rs",
+          "start": 1,
+          "end": 29
+        },
+        {
+          "file": "cargo-historical.toml",
+          "start": 1,
+          "end": 26
+        },
+        {
+          "file": "cargo-current.toml",
+          "start": 1,
+          "end": 31
+        }
+      ],
+      "qualification": "Personally displayed as bounded source text; not truncated."
+    }
+  ],
+  "coverage": [
+    {
+      "file": "lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 29,
+      "actual": [
+        [
+          1,
+          29
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "npy.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 229,
+      "actual": [
+        [
+          1,
+          140
+        ]
+      ],
+      "unread": [
+        [
+          141,
+          229
+        ]
+      ]
+    },
+    {
+      "file": "header.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 160,
+      "actual": [
+        [
+          1,
+          160
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "frame.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 70,
+      "actual": [
+        [
+          1,
+          70
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "metadata.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 174,
+      "actual": [
+        [
+          1,
+          160
+        ]
+      ],
+      "unread": [
+        [
+          161,
+          174
+        ]
+      ]
+    },
+    {
+      "file": "tensor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 110,
+      "actual": [
+        [
+          1,
+          110
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "values.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 174,
+      "actual": [
+        [
+          1,
+          166
+        ]
+      ],
+      "unread": [
+        [
+          167,
+          174
+        ]
+      ]
+    },
+    {
+      "file": "cargo-current.toml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "eof": 31,
+      "actual": [
+        [
+          1,
+          31
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "cargo-historical.toml",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "eof": 26,
+      "actual": [
+        [
+          1,
+          26
+        ]
+      ],
+      "unread": []
+    }
+  ],
+  "total_unique_displayed_lines_across_registered_bodies": 892,
+  "qualification": "Only the seven 95e Rust source windows and the separately registered full e275/95e Cargo.toml manifests were personally displayed. Full body captures and historical e275 Rust hash checks confer no further read credit. Any displayed doc-test text was not executed."
+}

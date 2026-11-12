@@ -1,0 +1,53 @@
+{
+  "schema": "726-blood-future-final-receipt-v1",
+  "created_utc": "2026-11-12T14:43:14.291040+00:00",
+  "archive_name": "blood-future-evidence.tar.gz",
+  "archive_sha256": "16ee12868ad7550428abacfb79beaed71fed143d8c3f02eceb1f9438a6cca858",
+  "archive_bytes": 189909,
+  "manifest_sha256": "27cef5264143cbb1bb3c469f7dd550c35c961b90495ded41fd91ad17938456fe",
+  "report_sha256": "8a1250ce291359969ec443eda5821ed7b1973111243d497388b5d2a2df40b5de",
+  "members_verified_byte_identical": 67,
+  "read_only_evidence_verification": {
+    "status": "passed",
+    "manifest_files": 66,
+    "source_tree_proofs": 12,
+    "historic_original_records": 4,
+    "git_roots_059_and_recorded_stage_vs_head_checked": true,
+    "scope": "Evidence identity only; no product behavior, human perception, reachability or audit closure is proven."
+  },
+  "privacy_scan": {
+    "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "receipt_sha256": "82b8837f64534f9d63095f6979d3aad4f9c0bfb135021811e355bbf78fdac274",
+    "scope": "Recursive gzip and tar over archive; max depth 8 and per-view max 83,886,080 bytes.",
+    "result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 69,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 67,
+        "cached_views": 200,
+        "text_views": 52,
+        "binary_views": 15
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "limitations": "Known restricted path-value and prefix digests plus selected path/credential patterns only; unknown values, encodings, formats, binary metadata and Git history are not generally cleared. No Git commit bodies or author metadata included."
+  },
+  "qualification": "Additive external receipt; evidence verification does not validate product behavior, reachability, policy or audit closure."
+}

@@ -1,0 +1,71 @@
+=== upstream/miniz_oxide/src/inflate/stream.rs 351..420 ===
+ 351 |                 };
+ 352 |             // No more space in the output buffer, but we're not done.
+ 353 |             } else if next_out.is_empty() {
+ 354 |                 return Err(MZError::Buf);
+ 355 |             }
+ 356 |         } else {
+ 357 |             // We're not expected to finish, so it's fine if we can't flush everything yet.
+ 358 |             let empty_buf = next_in.is_empty() || next_out.is_empty();
+ 359 |             if (status == TINFLStatus::Done) || empty_buf || (state.dict_avail != 0) {
+ 360 |                 return if (status == TINFLStatus::Done) && (state.dict_avail == 0) {
+ 361 |                     // No more data left, we're done.
+ 362 |                     Ok(MZStatus::StreamEnd)
+ 363 |                 } else {
+ 364 |                     // Ok for now, still waiting for more input data or output space.
+ 365 |                     Ok(MZStatus::Ok)
+ 366 |                 };
+ 367 |             }
+ 368 |         }
+ 369 |     }
+ 370 | }
+ 371 | 
+ 372 | fn push_dict_out(state: &mut InflateState, next_out: &mut &mut [u8]) -> usize {
+ 373 |     let n = cmp::min(state.dict_avail, next_out.len());
+ 374 |     (next_out[..n]).copy_from_slice(&state.dict[state.dict_ofs..state.dict_ofs + n]);
+ 375 |     *next_out = &mut mem::take(next_out)[n..];
+ 376 |     state.dict_avail -= n;
+ 377 |     state.dict_ofs = (state.dict_ofs + (n)) & (TINFL_LZ_DICT_SIZE - 1);
+ 378 |     n
+ 379 | }
+ 380 | 
+ 381 | #[cfg(all(test, feature = "with-alloc"))]
+ 382 | mod test {
+ 383 |     use super::{inflate, InflateState};
+ 384 |     use crate::{DataFormat, MZFlush, MZStatus};
+ 385 |     use alloc::vec;
+ 386 | 
+ 387 |     #[test]
+ 388 |     fn test_state() {
+ 389 |         let encoded = [
+ 390 |             120u8, 156, 243, 72, 205, 201, 201, 215, 81, 168, 202, 201, 76, 82, 4, 0, 27, 101, 4,
+ 391 |             19,
+ 392 |         ];
+ 393 |         let mut out = vec![0; 50];
+ 394 |         let mut state = InflateState::new_boxed(DataFormat::Zlib);
+ 395 |         let res = inflate(&mut state, &encoded, &mut out, MZFlush::Finish);
+ 396 |         let status = res.status.expect("Failed to decompress!");
+ 397 |         assert_eq!(status, MZStatus::StreamEnd);
+ 398 |         assert_eq!(out[..res.bytes_written as usize], b"Hello, zlib!"[..]);
+ 399 |         assert_eq!(res.bytes_consumed, encoded.len());
+ 400 | 
+ 401 |         state.reset_as(super::ZeroReset);
+ 402 |         out.iter_mut().map(|x| *x = 0).count();
+ 403 |         let res = inflate(&mut state, &encoded, &mut out, MZFlush::Finish);
+ 404 |         let status = res.status.expect("Failed to decompress!");
+ 405 |         assert_eq!(status, MZStatus::StreamEnd);
+ 406 |         assert_eq!(out[..res.bytes_written as usize], b"Hello, zlib!"[..]);
+ 407 |         assert_eq!(res.bytes_consumed, encoded.len());
+ 408 | 
+ 409 |         state.reset_as(super::MinReset);
+ 410 |         out.iter_mut().map(|x| *x = 0).count();
+ 411 |         let res = inflate(&mut state, &encoded, &mut out, MZFlush::Finish);
+ 412 |         let status = res
+ 413 |             .status
+ 414 |             .map_err(|err| panic!("Decompress failed with {:?}", err))
+ 415 |             .unwrap();
+ 416 |         assert_eq!(status, MZStatus::StreamEnd);
+ 417 |         assert_eq!(out[..res.bytes_written as usize], b"Hello, zlib!"[..]);
+ 418 |         assert_eq!(res.bytes_consumed, encoded.len());
+ 419 |         assert_eq!(state.decompressor().adler32(), Some(459605011));
+ 420 | 

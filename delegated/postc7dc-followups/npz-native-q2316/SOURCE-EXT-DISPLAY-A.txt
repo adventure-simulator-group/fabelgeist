@@ -1,0 +1,91 @@
+=== upstream/rawzip/src/archive/reader.rs 1..90 ===
+   1 | use super::*;
+   2 | use crate::Crc32;
+   3 | use crate::reader_at::{FileReader, MutexReader, RangeReader, ReaderAt, ReaderAtExt};
+   4 | use std::io::{Read, Seek};
+   5 | 
+   6 | #[derive(Debug, Clone)]
+   7 | pub struct ZipSliceVerifier<Decompressor>(pub(super) ZipVerifier<Decompressor>);
+   8 | 
+   9 | impl<Decompressor> ZipSliceVerifier<Decompressor> {
+  10 |     /// Consumes the [`ZipSliceVerifier`], returning the underlying decompressor
+  11 |     /// without verifying.
+  12 |     pub fn into_inner(self) -> Decompressor {
+  13 |         self.0.into_inner()
+  14 |     }
+  15 | }
+  16 | 
+  17 | impl<Decompressor> std::io::Read for ZipSliceVerifier<Decompressor>
+  18 | where
+  19 |     Decompressor: std::io::Read,
+  20 | {
+  21 |     fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+  22 |         self.0.read(buf)
+  23 |     }
+  24 | }
+  25 | 
+  26 | impl ZipArchive<()> {
+  27 |     /// Parses an archive from a file by reading the End of Central Directory.
+  28 |     ///
+  29 |     /// A buffer is required to read parts of the file.
+  30 |     /// [`RECOMMENDED_BUFFER_SIZE`] can be used to construct this buffer.
+  31 |     pub fn from_file(
+  32 |         file: std::fs::File,
+  33 |         buffer: &mut [u8],
+  34 |     ) -> Result<ZipArchive<FileReader>, Error> {
+  35 |         ZipLocator::new()
+  36 |             .locate_in_file(file, buffer)
+  37 |             .map_err(|(_, e)| e)
+  38 |     }
+  39 | 
+  40 |     /// Parses an archive from a seekable reader.
+  41 |     ///
+  42 |     /// Prefer [`ZipArchive::from_file`] and [`ZipArchive::from_slice`] when
+  43 |     /// possible, as they are more efficient due to not wrapping the underlying
+  44 |     /// reader in a mutex to support positioned io.
+  45 |     ///
+  46 |     /// ```rust
+  47 |     /// # use rawzip::{ZipArchive, Error, RECOMMENDED_BUFFER_SIZE, ZipFileHeaderRecord};
+  48 |     /// # use std::io::Cursor;
+  49 |     /// fn example(zip_data: &[u8]) -> Result<(), Error> {
+  50 |     ///     let mut buffer = vec![0u8; RECOMMENDED_BUFFER_SIZE];
+  51 |     ///     let archive = ZipArchive::from_seekable(Cursor::new(zip_data), &mut buffer)?;
+  52 |     ///     Ok(())
+  53 |     /// }
+  54 |     /// ```
+  55 |     pub fn from_seekable<R>(
+  56 |         mut reader: R,
+  57 |         buffer: &mut [u8],
+  58 |     ) -> Result<ZipArchive<MutexReader<R>>, Error>
+  59 |     where
+  60 |         R: Read + Seek,
+  61 |     {
+  62 |         let end_offset = reader.seek(std::io::SeekFrom::End(0))?;
+  63 |         let reader = MutexReader::new(reader);
+  64 |         ZipLocator::new()
+  65 |             .locate_in_reader(reader, buffer, end_offset)
+  66 |             .map_err(|(_, e)| e)
+  67 |     }
+  68 | }
+  69 | 
+  70 | impl<R> ZipArchive<R> {
+  71 |     pub(crate) fn new(reader: R, eocd: EndOfCentralDirectory) -> Self {
+  72 |         ZipArchive { reader, eocd }
+  73 |     }
+  74 | 
+  75 |     /// Returns a reference to the underlying reader.
+  76 |     pub fn get_ref(&self) -> &R {
+  77 |         &self.reader
+  78 |     }
+  79 | 
+  80 |     /// Returns a mutable reference to the underlying reader.
+  81 |     ///
+  82 |     /// This is in contrast to [`ZipSliceArchive`], which cannot safely expose
+  83 |     /// mutable access, as it relies on offsets and direct indexing.
+  84 |     pub fn get_mut(&mut self) -> &mut R {
+  85 |         &mut self.reader
+  86 |     }
+  87 | 
+  88 |     /// Consumes this archive and returns the underlying reader.
+  89 |     pub fn into_inner(self) -> R {
+  90 |         self.reader

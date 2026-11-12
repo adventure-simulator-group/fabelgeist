@@ -1,0 +1,57 @@
+=== upstream/flate2/src/ffi/mod.rs 55..88 ===
+  55 |         flush: FlushCompress,
+  56 |     ) -> Result<Status, CompressError> {
+  57 |         self.compress(input, initialize_buffer(output), flush)
+  58 |     }
+  59 |     fn reset(&mut self);
+  60 | }
+  61 | 
+  62 | // Default to Rust implementation unless explicitly opted in to a different backend.
+  63 | #[cfg(feature = "any_c_zlib")]
+  64 | mod c;
+  65 | #[cfg(feature = "any_c_zlib")]
+  66 | pub use self::c::*;
+  67 | 
+  68 | // Only bring in `zlib-rs` if there is no C-based backend.
+  69 | #[cfg(all(not(feature = "any_c_zlib"), feature = "zlib-rs"))]
+  70 | mod zlib_rs;
+  71 | #[cfg(all(not(feature = "any_c_zlib"), feature = "zlib-rs"))]
+  72 | pub use self::zlib_rs::*;
+  73 | 
+  74 | // Use miniz_oxide when no fully compliant zlib is selected.
+  75 | #[cfg(all(not(feature = "any_zlib"), feature = "miniz_oxide"))]
+  76 | mod miniz_oxide;
+  77 | #[cfg(all(not(feature = "any_zlib"), feature = "miniz_oxide"))]
+  78 | pub use self::miniz_oxide::*;
+  79 | 
+  80 | // If no backend is enabled, fail fast with a clear error message.
+  81 | #[cfg(not(feature = "any_impl"))]
+  82 | compile_error!("No compression backend selected; enable one of `zlib`, `zlib-ng`, `zlib-rs`, or the default `rust_backend` feature.");
+  83 | 
+  84 | impl core::fmt::Debug for ErrorMessage {
+  85 |     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+  86 |         self.get().fmt(f)
+  87 |     }
+  88 | }
+=== upstream/flate2/Cargo.toml 230..250 ===
+ 230 | [dependencies.libz-ng-sys]
+ 231 | version = "1.1.16"
+ 232 | optional = true
+ 233 | 
+ 234 | [dependencies.libz-sys]
+ 235 | version = "1.1.20"
+ 236 | optional = true
+ 237 | default-features = false
+ 238 | 
+ 239 | [dependencies.miniz_oxide]
+ 240 | version = "0.9.0"
+ 241 | features = ["simd"]
+ 242 | optional = true
+ 243 | 
+ 244 | [dependencies.zlib-rs]
+ 245 | version = "0.6.0"
+ 246 | features = ["rust-allocator"]
+ 247 | optional = true
+ 248 | default-features = false
+ 249 | 
+ 250 | [dev-dependencies.futures]

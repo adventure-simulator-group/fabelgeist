@@ -1,0 +1,40 @@
+{
+  "source_assessment": [
+    {
+      "id": "Q2303-NARROW-GATE",
+      "type": "qualified source safeguard; not a new defect or closure",
+      "source": [
+        "capture/readiness.rs:6\u201330",
+        "capture.rs:213\u2013238, 450\u2013464",
+        "capture/admission.rs:119\u2013130",
+        "capture/capture_schedule.rs:16\u201325"
+      ],
+      "analysis": "For an open, driveable sequence that reaches ready_for_frame, a positive warmup counter is decremented and returns false before applied is set. On scenario_frame zero only, when required_motion returns Some, missing processed motion or a false presentation predicate resets motion_ready_frames and returns false; two successful readiness calls are required before true. The shown drive sets applied only after ready_for_frame returns true. A missing subject playback and a non-FullRagdoll unready authored pose separately return before this point.",
+      "qualification": "The required-motion/two-success branch is conditional, not universal to every frame; two successful calls are not independently proven to represent two rendered or visually settled frames. We did not run scheduling, the viewer, a fixture, or a capture."
+    },
+    {
+      "id": "Q2303-PREDICATE-AND-PROGRESSION-LIMITS",
+      "type": "semantic qualification of the same scoped source claim; alias and policy open",
+      "source": [
+        "animation/mod.rs:254\u2013261",
+        "animation/playback_state.rs:84\u201391",
+        "capture.rs:219\u2013237, 363\u2013449",
+        "capture/readiness.rs:16\u201330"
+      ],
+      "analysis": "motion_is_processed tests for any loaded clip key matching a MotionId, while presentation_is_settled currently delegates to authored_pose_is_ready, whose test is that the plan is not bind. These source predicates alone do not establish that the observed playback is the required clip on the intended rig, or establish visual settling. Before testing the readiness result, the shown driver can update simulation tick, skeleton/transform and motion state; the applied gate therefore does not mean that no state change occurs before acceptance.",
+      "qualification": "Required-motion selection, legitimate multiple packs/rigs, visual-settling policy, allowed pre-application updates, subject cardinality and scheduler behavior require owner evidence. The original q2303 claim of no early application must not be silently broadened into a stronger motion-identity or visual outcome claim."
+    },
+    {
+      "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+      "type": "existing separately attributed current conditional candidate, not a new duplicate",
+      "source": [
+        "capture.rs:232\u2013237, 450\u2013451, 559\u2013604, 900\u2013913",
+        "capture/capture_schedule.rs:39\u201350",
+        "harness.rs:204\u2013220, 263\u2013329",
+        "animation_viewer/mod.rs:70"
+      ],
+      "analysis": "If an otherwise driveable selected frame persistently returns before applied because playback or a required motion never becomes ready, capture_frame's !applied return precedes its wait_or_fail counter. With no armor harness, ArmorCapture starts ready and update_readiness returns; with a configured harness, its separate 1,200-frame timeout increments only when equipment is not ready and is not preparing, and an explicit equipment failure follows its own error path. These facts do not show that all independent process or external watchdogs are absent.",
+      "prior_record": "The exact committed prior assessment in prior/ and the separately selected ledger row already own this conditional candidate. Original 059 q1214 is an open, less-resolved readiness/native-failure question, not a newly discovered duplicate. No inference of actual missing assets, an unbounded whole-program wait, defect count, or absent external watchdog is warranted."
+    }
+  ]
+}

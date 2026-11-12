@@ -1,0 +1,33 @@
+{
+  "schema": "726-npz-q2316-public-safe-packet-qualification-v1",
+  "created_utc": "2026-11-12T14:38:37.314695+00:00",
+  "source_file_omitted": "upstream/flate2/Cargo.toml",
+  "full_source_sha256": "1365f28dd7ad9f83ebcc9afd545d7cdcedb284bf6e059081b0e1d1847ce6a94e",
+  "full_source_bytes": 5101,
+  "reason": "The full exact registry member contains two email candidates. Its exact source remains in restricted archive and original scratch; only the prospectively read exact ranges are retained as excerpts.",
+  "excerpts": [
+    {
+      "path": "upstream-excerpts/flate2-Cargo-55-110.txt",
+      "source_range": [
+        55,
+        110
+      ],
+      "sha256": "96a8cc16b2babbd4302669a0d7d37c52a4b5713a988ce59676a1b654e726212f",
+      "bytes": 817
+    },
+    {
+      "path": "upstream-excerpts/flate2-Cargo-230-250.txt",
+      "source_range": [
+        230,
+        250
+      ],
+      "sha256": "2b966d5da2c61c10a54b208f77b8843c9160bfc2006f20f67ca2f62c7822dba2",
+      "bytes": 370
+    }
+  ],
+  "other_exclusions": [
+    "captured/Cargo.lock and captured/Cargo.toml are duplicate source captures; exact Git-verified copies are present under first-party/",
+    "raw commit anchors, three original crate archives, and full original queue remain separately controlled"
+  ],
+  "qualification": "The safe packet is a separately constructed subset, not an altered original archive or claim that historical Git/public copies were cleared. Replaying flate Cargo source membership/displays requires the separately retained checksum-bound archive. No information is deleted from the original scratch."
+}

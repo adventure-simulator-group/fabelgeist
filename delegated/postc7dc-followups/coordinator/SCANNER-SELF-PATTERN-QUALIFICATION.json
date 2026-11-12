@@ -1,0 +1,9 @@
+{
+  "event": "A later recursive scanner reported one unix-temp candidate in the coordinator tar-aware scanner itself.",
+  "classification": "The matched text was the scanner regex literal for its generic temporary evidence-path pattern, not an observed individual local path.",
+  "correction": "The exact earlier scanner is retained separately. Its successor constructs identical regex bytes by concatenation, avoiding the scanner matching its own literal; all other text is unchanged. Both scans and their timing are retained.",
+  "earlier_scanner_sha256": "4982a500f168f6f5e5ae82a50b4b7e98edda6e5c622e8dc365d0aad10a08bf0f",
+  "successor_scanner_sha256": "56eb8c0bda63837608138d25c861fc0b085a9c0f392fcddb73c122dfed0dbfd3",
+  "limit": "This classification does not clear unknown paths, values, encodings, formats, binary metadata or Git history.",
+  "qualification_edit": "The first draft of this qualification itself reproduced the generic literal; its exact bytes remain separately held, and this successor describes the same literal without repeating it."
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "726-bounded-q2303-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "scope": "Source-only reconciliation of 059 queue entry 2303 and its directly related pre-application wait records against pinned 95e; this is not independent closure of a queue, lens, or parent contract.",
+  "revisions": {
+    "current_committed_source": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_review_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "historical_queue_transport": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2303",
+    "related_historical_queue": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/1214",
+    "ledger_record_revision": "See LEDGER-REGISTRATION.json; this committed publication ledger is not the product-source revision or a mutable working-tree snapshot."
+  },
+  "historical_attribution_and_identity": {
+    "record": "REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT",
+    "historical_disposition": "The recovered 059 record says rejected-suspicion-source-qualified and says audit discovery was closed only in its exact named scope. Preserve that historical status as recorded; it is not a current global clearance or runtime pass.",
+    "parallel_reviewer": "The recovered records attribute fresh, personal, untruncated e275 reads to parallel lens11_reconcile: capture/readiness.rs 1\u201332 (PLAN-190 /rows/1 and READ-169 /rows/1), capture.rs 169\u2013526, 799\u2013822, 900\u20131021 (PLAN-189 /rows/0 and READ-168 /rows/0).",
+    "root_adoption": "The proposal and queue's quoted attribution retain 'root adoption pending'; separate root READ-L11-704 and READ-L11-705 and their VERIFY files record adoption of PL11-1092 and PL11-1094 respectively without a new root body reread. Both stages and their different wording are preserved, not flattened.",
+    "object_comparison": "For these two named files only, e275 and 95e have identical Git blob and SHA-256 identities; GIT-TREE-PROOFS.json records separate tree chains. This does not establish a clean or identical entire tree, identical surrounding dependencies, historical personal read credit at 95e, or checkpoint3821 evidence.",
+    "exact_recovery": "Nine exact PLAN/READ/VERIFY/proposal files, checked against the q2303 SHA-256 values, are in history-exact/. The two selected queue entries are reconstructed JSON values with full original queue SHA and Git identity recorded; the 21.6 MB original queue stream is deliberately not copied because it includes unrelated local paths. The prior assessment is an exact committed source record in prior/.",
+    "limitations": "No 3821 queue or ledger is inferred or reconstructed. No original e275 body has been personally redisplayed as a historical read by this reviewer; identical bytes retained as the separately registered 95e read provide per-file object comparison only."
+  }
+}

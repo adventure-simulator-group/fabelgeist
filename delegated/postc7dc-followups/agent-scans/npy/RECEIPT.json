@@ -1,0 +1,30 @@
+{
+  "created_utc": "2026-11-12T14:43:29.970585+00:00",
+  "packet_manifest_sha256": "8c0fabd4ad1c46b240240cb744e6bc4cd813f86e5d78cc85e33110e7020ca6c5",
+  "packet_manifest_bytes": 6957,
+  "verification": {
+    "portable_log_sha256": "1ba7293dd8ea1db76c41e11aad58fbd9a1b0163b366c554d598d4a6bd5c01587",
+    "portable_exit": 0,
+    "with_dependencies_log_sha256": "fada64ed0d4e455eaad27c4ee1a67427b8725d4749f800a3f9a4c6fd760b4354",
+    "with_dependencies_exit": 0
+  },
+  "scans": {
+    "private_digest": {
+      "tool_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+      "result_sha256": "a228924f34c52cf3043194b31d8f065f8bc5f311a9b8bb91c038187518376363",
+      "exit": 0,
+      "forbidden_digest_total": 0,
+      "other_candidate_counts": {},
+      "exceptions_count": 0,
+      "corpus_count": 40
+    },
+    "supplementary_pattern": {
+      "tool_sha256": "7d33a0e78d17ad30768ac30d518a9b1f8203f1350536a16cdb9fd740c675edf9",
+      "result_sha256": "6bebd447ae5d556beb7519f14c9f0ad71f7f37033d416e08c16dffe6d61e2d4d",
+      "exit": 0,
+      "candidate_counts": {},
+      "exceptions_count": 0
+    }
+  },
+  "scope_and_limits": "Bounded scans of the evidence packet and supported recursive formats only. Known digest corpus and patterns do not clear unknown secrets, encodings, excluded roots, symlinks, binary Git object metadata, repository history or separately retained originals. Scans do not prove semantic correctness or runtime behavior."
+}

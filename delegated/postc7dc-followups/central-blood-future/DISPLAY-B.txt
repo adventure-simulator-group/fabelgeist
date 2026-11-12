@@ -1,0 +1,149 @@
+--- native-corpse 1280-1360 ---
+1280     if corpse.opened {
+1281         return Ok(());
+1282     }
+1283     if corpse.revision != expected_revision {
+1284         return Err("Corpse state changed; refresh before opening it".into());
+1285     }
+1286     if permission_for(
+1287         ctx,
+1288         &corpse_id,
+1289         &party_id,
+1290         CorpsePermissionScope::Examination,
+1291     )
+1292     .is_none()
+1293         && !confirm_unauthorized
+1294     {
+1295         return Err(
+1296             "Permission is missing; confirm the likely family penalties and settlement infamy"
+1297                 .into(),
+1298         );
+1299     }
+1300     let surgery = skill_check(ctx, actor_id, "surgery")?;
+1301     if !advance_character_wait_time(ctx, actor_id, OPEN_BODY_MINUTES)? {
+1302         return Ok(());
+1303     }
+1304     apply_unauthorized_consequences(
+1305         ctx,
+1306         actor_id,
+1307         &corpse,
+1308         &party_id,
+1309         &receipt_id,
+1310         CorpsePermissionScope::Examination,
+1311     )?;
+1312     let completed_minute = now(ctx, actor_id)?;
+1313     let entropy = draws::opening_quality(&corpse, actor_id, &receipt_id);
+1314     let (quality, obscuration) = opening_quality_bps(surgery, entropy);
+1315     corpse.opened = true;
+1316     corpse.opening_quality_bps = quality;
+1317     corpse.opening_obscuration_bps = obscuration;
+1318     corpse.handling_damage_bps = corpse.handling_damage_bps.saturating_add(obscuration / 8);
+1319     corpse.revision = corpse.revision.saturating_add(1);
+1320     ctx.db.strategic_corpse().id().update(corpse);
+1321     let exposure = adventuresim_core::surgery::procedure_blood_exposure(
+1322         adventuresim_core::surgery::SurgeryProcedure::OpenBody,
+1323         true,
+1324     );
+1325     if exposure > 0 {
+1326         crate::filth::deposit_now(
+1327             ctx,
+1328             actor_id,
+1329             adventuresim_core::filth::FilthSubstance::Blood,
+1330             None,
+1331             exposure,
+1332         )?;
+1333     }
+1334     ctx.db.autopsy_action_receipt().insert(AutopsyActionReceipt {
+1335         id: receipt_id,
+1336         corpse_id,
+1337         observer_id: actor_id,
+1338         action_kind: "surgery".into(),
+1339         stage: "opening".into(),
+1340         finding: format!(
+1341             "The body was opened with {}% dissection precision; incision damage may obscure internal evidence.",
+1342             quality / 100
+1343         ),
+1344         performed_minute: completed_minute,
+1345     });
+1346     Ok(())
+1347 }
+1348 
+1349 #[reducer]
+1350 pub fn exhume_corpse(
+1351     ctx: &ReducerContext,
+1352     actor_id: u64,
+1353     corpse_id: String,
+1354     action_id: String,
+1355     expected_revision: u32,
+1356     confirm_unauthorized: bool,
+1357 ) -> Result<(), String> {
+1358     crate::strategic::require_strategic_gateway(ctx)?;
+1359     validate_client_action_id(&action_id)?;
+1360     let receipt_id = action_receipt_id(
+--- native-filth 490-555 ---
+ 490         let assigned = take_units(&mut personal, needed);
+ 491         let personal_used = assigned.iter().map(|stack| stack.quantity).sum::<u32>();
+ 492         subjects.push(Subject {
+ 493             id,
+ 494             cut: has_cut(ctx, id),
+ 495             dirty,
+ 496             assigned,
+ 497             remaining: needed.saturating_sub(personal_used),
+ 498         });
+ 499     }
+ 500     let mut shared = party_id.as_ref().map_or_else(Vec::new, |party_id| {
+ 501         ctx.db
+ 502             .party_inventory_item()
+ 503             .party_id()
+ 504             .filter(party_id)
+ 505             .filter(|stack| stack.item_id == SOFT_SOAP_ID)
+ 506             .map(|stack| WashStack {
+ 507                 key: SoapStackId {
+ 508                     source: SoapSource::Party,
+ 509                     id: stack.id,
+ 510                 },
+ 511                 quantity: crate::inventory_amount::party_fraction(ctx, stack.id)
+ 512                     .unwrap_or_default()
+ 513                     .get()
+ 514                     / SOAP_FRACTION_PER_CLEANSING_POINT.get(),
+ 515             })
+ 516             .collect::<Vec<_>>()
+ 517     });
+ 518     let mut priorities = subjects
+ 519         .iter()
+ 520         .map(|subject| {
+ 521             let now = ctx
+ 522                 .db
+ 523                 .character_time()
+ 524                 .character_id()
+ 525                 .find(subject.id)
+ 526                 .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 527             let exposure = filth::blood_exposure(
+ 528                 &subject.dirty,
+ 529                 adventuresim_core::disease::DiseaseId::Plague,
+ 530                 now,
+ 531                 filth::timed_cut_exposure(&predicted_wound_routes(ctx, subject.id, false)?, 0),
+ 532             );
+ 533             Ok::<_, String>(filth::wash_priority(
+ 534                 subject.id,
+ 535                 &subject.dirty,
+ 536                 subject.cut,
+ 537                 exposure,
+ 538             ))
+ 539         })
+ 540         .collect::<Result<Vec<_>, _>>()?;
+ 541     filth::sort_wash_priorities(&mut priorities);
+ 542     for priority in priorities {
+ 543         let subject = subjects
+ 544             .iter_mut()
+ 545             .find(|subject| subject.id == priority.character_id)
+ 546             .unwrap();
+ 547         let assigned = take_units(&mut shared, subject.remaining);
+ 548         let used = assigned.iter().map(|stack| stack.quantity).sum::<u32>();
+ 549         subject.remaining -= used;
+ 550         subject.assigned.extend(assigned);
+ 551     }
+ 552     let mut summary = WashSummary::default();
+ 553     let planned = subjects
+ 554         .into_iter()
+ 555         .map(|subject| {

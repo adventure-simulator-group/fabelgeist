@@ -1,0 +1,72 @@
+=== upstream/miniz_oxide/src/inflate/stream.rs 160..230 ===
+ 160 |     }
+ 161 | }
+ 162 | 
+ 163 | /// Try to decompress from `input` to `output` with the given [`InflateState`]
+ 164 | ///
+ 165 | /// # `flush`
+ 166 | ///
+ 167 | /// Generally, the various [`MZFlush`] flags have meaning only on the compression side.  They can be
+ 168 | /// supplied here, but the only one that has any semantic meaning is [`MZFlush::Finish`], which is a
+ 169 | /// signal that the stream is expected to finish, and failing to do so is an error.  It isn't
+ 170 | /// necessary to specify it when the stream ends; you'll still get returned a
+ 171 | /// [`MZStatus::StreamEnd`] anyway.  Other values either have no effect or cause errors.  It's
+ 172 | /// likely that you'll almost always just want to use [`MZFlush::None`].
+ 173 | ///
+ 174 | /// # Errors
+ 175 | ///
+ 176 | /// Returns [`MZError::Buf`] if the size of the `output` slice is empty or no progress was made due
+ 177 | /// to lack of expected input data, or if called with [`MZFlush::Finish`] and input wasn't all
+ 178 | /// consumed.
+ 179 | ///
+ 180 | /// Returns [`MZError::Data`] if this or a a previous call failed with an error return from
+ 181 | /// [`TINFLStatus`]; probably indicates corrupted data.
+ 182 | ///
+ 183 | /// Returns [`MZError::Stream`] when called with [`MZFlush::Full`] (meaningless on
+ 184 | /// decompression), or when called without [`MZFlush::Finish`] after an earlier call with
+ 185 | /// [`MZFlush::Finish`] has been made.
+ 186 | pub fn inflate(
+ 187 |     state: &mut InflateState,
+ 188 |     input: &[u8],
+ 189 |     output: &mut [u8],
+ 190 |     flush: MZFlush,
+ 191 | ) -> StreamResult {
+ 192 |     let mut bytes_consumed = 0;
+ 193 |     let mut bytes_written = 0;
+ 194 |     let mut next_in = input;
+ 195 |     let mut next_out = output;
+ 196 | 
+ 197 |     if flush == MZFlush::Full {
+ 198 |         return StreamResult::error(MZError::Stream);
+ 199 |     }
+ 200 | 
+ 201 |     let mut decomp_flags = if state.data_format == DataFormat::Zlib {
+ 202 |         inflate_flags::TINFL_FLAG_COMPUTE_ADLER32
+ 203 |     } else {
+ 204 |         inflate_flags::TINFL_FLAG_IGNORE_ADLER32
+ 205 |     };
+ 206 | 
+ 207 |     if (state.data_format == DataFormat::Zlib)
+ 208 |         | (state.data_format == DataFormat::ZLibIgnoreChecksum)
+ 209 |     {
+ 210 |         decomp_flags |= inflate_flags::TINFL_FLAG_PARSE_ZLIB_HEADER;
+ 211 |     }
+ 212 | 
+ 213 |     let first_call = state.first_call;
+ 214 |     state.first_call = false;
+ 215 |     if state.last_status == TINFLStatus::FailedCannotMakeProgress {
+ 216 |         return StreamResult::error(MZError::Buf);
+ 217 |     }
+ 218 |     if (state.last_status as i32) < 0 {
+ 219 |         return StreamResult::error(MZError::Data);
+ 220 |     }
+ 221 | 
+ 222 |     if state.has_flushed && (flush != MZFlush::Finish) {
+ 223 |         return StreamResult::error(MZError::Stream);
+ 224 |     }
+ 225 |     state.has_flushed |= flush == MZFlush::Finish;
+ 226 | 
+ 227 |     if (flush == MZFlush::Finish) && first_call {
+ 228 |         decomp_flags |= inflate_flags::TINFL_FLAG_USING_NON_WRAPPING_OUTPUT_BUF;
+ 229 | 
+ 230 |         // The caller is indicating that they want to finish the compression and this is the first call with the current stream

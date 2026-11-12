@@ -1,0 +1,1462 @@
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-136 ---
+     1	//! Scene-root fixture motion and explicit capture ground-observation authority.
+     2	
+     3	use super::*;
+     4	use adventuresim_building_generator::spatial_geometry::{
+     5	    CoordinateAxis, GeometryError, GeometryRole, Position,
+     6	};
+     7	use adventuresim_tactical_core::{
+     8	    city_layout::grounding::SupportElevation,
+     9	    scene_coordinates::{Scene, ScenePlanPoint},
+    10	};
+    11	
+    12	#[derive(Clone, Copy)]
+    13	pub(super) enum CaptureGround {
+    14	    Terrain,
+    15	    AuthoredPlane(SupportElevation),
+    16	}
+    17	
+    18	impl CaptureGround {
+    19	    pub(super) fn collect_bones(
+    20	        self,
+    21	        subject: Entity,
+    22	        bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+    23	        terrain: &SceneTerrain,
+    24	    ) -> CapturedBones {
+    25	        bones
+    26	            .iter()
+    27	            .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
+    28	            .map(|(bone, transform)| {
+    29	                let rotation = transform.rotation();
+    30	                let elevation = match self {
+    31	                    CaptureGround::AuthoredPlane(height) => Some(height),
+    32	                    CaptureGround::Terrain => {
+    33	                        ScenePlanPoint::from_metres(transform.translation().xz())
+    34	                            .and_then(|point| terrain.height_at(point))
+    35	                    }
+    36	                };
+    37	                (
+    38	                    bone.role,
+    39	                    BoneSample {
+    40	                        position: transform.translation().to_array(),
+    41	                        rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+    42	                        terrain_clearance_metres: elevation
+    43	                            .map(|height| transform.translation().y - height.metres()),
+    44	                    },
+    45	                )
+    46	            })
+    47	            .collect()
+    48	    }
+    49	}
+    50	
+    51	impl CaptureSequence {
+    52	    /// Admit the initial scene root while retaining its current scale.
+    53	    pub(super) fn initial_root(
+    54	        &mut self,
+    55	        terrain: &SceneTerrain,
+    56	        mut transform: Transform,
+    57	    ) -> Option<Transform> {
+    58	        let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
+    59	        let position = self.admit_scene_position(Vec3::new(
+    60	            0.0,
+    61	            ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
+    62	            0.0,
+    63	        ))?;
+    64	        transform.translation = position.metres();
+    65	        transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
+    66	        Some(transform)
+    67	    }
+    68	
+    69	    /// Native scene-root translation advances by the existing controller step;
+    70	    /// admit its footprint before queries and its complete position before Bevy.
+    71	    pub(super) fn fixture_root_position(
+    72	        &mut self,
+    73	        terrain: &SceneTerrain,
+    74	        current: Vec3,
+    75	        frame: &PlannedFrame,
+    76	        motion: &subject_motion::CaptureMotion,
+    77	        terrain_ik: TerrainIkMode,
+    78	    ) -> Option<Position<Scene>> {
+    79	        let horizontal = current.xz() + motion.world_velocity.xz() * motion.elapsed.seconds();
+    80	        let point = self.admit_terrain_point(horizontal)?;
+    81	        let vertical = if is_quickstep_scenario(&frame.scenario) {
+    82	            let ground = self.admit_terrain_height(terrain, point)?.metres()
+    83	                + CAPTURE_ROOT_GROUND_OFFSET_METRES;
+    84	            ground
+    85	                + quickstep_fixture_vertical_state(frame.scenario_frame)
+    86	                    .0
+    87	                    .max(0.0)
+    88	        } else if terrain_ik.is_enabled() {
+    89	            self.admit_terrain_height(terrain, point)?.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES
+    90	        } else {
+    91	            current.y
+    92	        };
+    93	        self.admit_scene_position(Vec3::new(horizontal.x, vertical, horizontal.y))
+    94	    }
+    95	
+    96	    /// The full ragdoll scenario lowers the production-like controller root
+    97	    /// while its capsule island resolves contact against the same terrain.
+    98	    pub(super) fn full_ragdoll_root(
+    99	        &mut self,
+   100	        terrain: &SceneTerrain,
+   101	        mut transform: Transform,
+   102	        frame: &PlannedFrame,
+   103	    ) -> Option<Transform> {
+   104	        let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
+   105	        transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
+   106	            * Quat::from_rotation_x(1.25 * smoothstep01(fall));
+   107	        let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
+   108	        transform.translation.y =
+   109	            ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
+   110	        transform.translation = self.admit_scene_position(transform.translation)?.metres();
+   111	        Some(transform)
+   112	    }
+   113	
+   114	    /// An authored flat plane is measured from the visible scene-root datum;
+   115	    /// failure to admit that observation cannot select terrain instead.
+   116	    pub(super) fn capture_ground(
+   117	        &mut self,
+   118	        terrain_ik: TerrainIkMode,
+   119	        subject: Vec3,
+   120	    ) -> Option<CaptureGround> {
+   121	        if terrain_ik.is_enabled() {
+   122	            return Some(CaptureGround::Terrain);
+   123	        }
+   124	        let height = subject.y - CAPTURE_ROOT_GROUND_OFFSET_METRES;
+   125	        if let Some(height) = SupportElevation::from_metres(height) {
+   126	            return Some(CaptureGround::AuthoredPlane(height));
+   127	        }
+   128	        self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(
+   129	            GeometryError::NonFinite {
+   130	                role: GeometryRole::Elevation,
+   131	                axis: CoordinateAxis::Y,
+   132	            },
+   133	        ));
+   134	        None
+   135	    }
+   136	}
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-168 ---
+     1	//! Terminal capture admission rejection, separate from loading/readiness waits.
+     2	
+     3	use super::*;
+     4	use adventuresim_building_generator::spatial_geometry::{GeometryError, Position};
+     5	use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
+     6	use adventuresim_tactical_core::{
+     7	    city_layout::grounding::SupportElevation,
+     8	    scene::TerrainSupportError,
+     9	    scene_coordinates::{Scene, ScenePlanPoint},
+    10	};
+    11	
+    12	/// One terminal authority: a rejected admission cannot return to driving.
+    13	pub(super) enum CaptureAdmission {
+    14	    Open,
+    15	    Rejected(RejectedCaptureAdmission),
+    16	    Terminated,
+    17	}
+    18	
+    19	pub(super) enum RejectedCaptureAdmission {
+    20	    FrameInterval(AnimationValueError),
+    21	    Locomotion(AnimationValueError),
+    22	    Terrain(TerrainSupportError),
+    23	    Geometry(GeometryError),
+    24	}
+    25	
+    26	impl CaptureSequence {
+    27	    pub(in crate::animation_viewer) fn admit_terrain_height(
+    28	        &mut self,
+    29	        terrain: &SceneTerrain,
+    30	        point: ScenePlanPoint,
+    31	    ) -> Option<SupportElevation> {
+    32	        match terrain.required_height_at(point) {
+    33	            Ok(height) => Some(height),
+    34	            Err(error) => {
+    35	                self.admission =
+    36	                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Terrain(error));
+    37	                None
+    38	            }
+    39	        }
+    40	    }
+    41	
+    42	    pub(super) fn admit_terrain_point(&mut self, metres: Vec2) -> Option<ScenePlanPoint> {
+    43	        match ScenePlanPoint::try_from(metres) {
+    44	            Ok(point) => Some(point),
+    45	            Err(error) => {
+    46	                self.admission =
+    47	                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+    48	                None
+    49	            }
+    50	        }
+    51	    }
+    52	
+    53	    pub(in crate::animation_viewer) fn admit_scene_position(
+    54	        &mut self,
+    55	        metres: Vec3,
+    56	    ) -> Option<Position<Scene>> {
+    57	        match Position::from_metres(metres) {
+    58	            Ok(position) => Some(position),
+    59	            Err(error) => {
+    60	                self.admission =
+    61	                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+    62	                None
+    63	            }
+    64	        }
+    65	    }
+    66	
+    67	    /// A failed support calculation is terminal admission, not another readiness wait.
+    68	    pub(super) fn admit_locomotion_support(
+    69	        &mut self,
+    70	        skeleton: &SkeletonState,
+    71	        speed: NonnegativeSpeed,
+    72	    ) -> Option<(
+    73	        adventuresim_tactical_core::animation::UnitInterval,
+    74	        adventuresim_tactical_core::animation::UnitInterval,
+    75	    )> {
+    76	        match locomotion_support_weights(skeleton, speed) {
+    77	            Ok(weights) => Some(weights),
+    78	            Err(error) => {
+    79	                self.admission =
+    80	                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+    81	                None
+    82	            }
+    83	        }
+    84	    }
+    85	
+    86	    /// Active IK owns these observations; absent observations cannot become flight.
+    87	    pub(super) fn admit_ik_support(
+    88	        &mut self,
+    89	        diagnostics: LegIkDiagnostics,
+    90	        cadence: (UnitInterval, UnitInterval),
+    91	        skeleton: &SkeletonState,
+    92	        terrain_ik: TerrainIkMode,
+    93	    ) -> Option<(UnitInterval, UnitInterval)> {
+    94	        let ordinary_support_required =
+    95	            terrain_ik.is_enabled() && crate::animation::authored_locomotion_ik_owns(skeleton);
+    96	        if !ordinary_support_required
+    97	            && diagnostics.left_solve_target.is_none()
+    98	            && diagnostics.right_solve_target.is_none()
+    99	        {
+   100	            return Some(cadence);
+   101	        }
+   102	        match diagnostics
+   103	            .left_support_weight
+   104	            .zip(diagnostics.right_support_weight)
+   105	        {
+   106	            Some(weights) => Some(weights),
+   107	            None => {
+   108	                self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(
+   109	                    AnimationValueError::UnavailableObservation {
+   110	                        quantity: AnimationQuantity::SupportObservation,
+   111	                    },
+   112	                ));
+   113	                None
+   114	            }
+   115	        }
+   116	    }
+   117	
+   118	    /// Driving is permitted only before admission terminates and between captures.
+   119	    pub(super) fn can_drive_frame(&self) -> bool {
+   120	        self.admission.is_open()
+   121	            && !self.applied
+   122	            && !self.capture_in_flight
+   123	            && self.index < self.plan.len()
+   124	    }
+   125	}
+   126	
+   127	impl CaptureAdmission {
+   128	    pub(super) fn is_open(&self) -> bool {
+   129	        matches!(self, Self::Open)
+   130	    }
+   131	}
+   132	
+   133	impl RejectedCaptureAdmission {
+   134	    pub(super) fn message(&self) -> String {
+   135	        match self {
+   136	            Self::FrameInterval(error) => format!("capture frame interval rejected: {error}\n"),
+   137	            Self::Locomotion(error) => {
+   138	                format!("capture locomotion observation rejected: {error}\n")
+   139	            }
+   140	            Self::Terrain(error) => format!("capture terrain support rejected: {error}\n"),
+   141	            Self::Geometry(error) => format!("capture scene geometry rejected: {error}\n"),
+   142	        }
+   143	    }
+   144	}
+   145	
+   146	/// Admission rejection must terminate even while equipment is still loading.
+   147	pub(in crate::animation_viewer) fn reject_capture(
+   148	    mut sequence: ResMut<CaptureSequence>,
+   149	    mut exit: MessageWriter<AppExit>,
+   150	) {
+   151	    if let CaptureAdmission::Rejected(rejection) = &sequence.admission {
+   152	        fail_capture(&sequence, &rejection.message(), &mut exit);
+   153	        sequence.admission = CaptureAdmission::Terminated;
+   154	    }
+   155	}
+   156	
+   157	pub(super) fn fail_capture(
+   158	    sequence: &CaptureSequence,
+   159	    message: &str,
+   160	    exit: &mut MessageWriter<AppExit>,
+   161	) {
+   162	    let path = sequence.output.join("failure.txt");
+   163	    if let Err(error) = fs::write(&path, message) {
+   164	        error!(%error, ?path, "Failed to write capture failure artifact");
+   165	    }
+   166	    error!(%message, ?path, "Animation capture failed");
+   167	    exit.write(AppExit::Error(std::num::NonZeroU8::MIN));
+   168	}
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-40 ---
+     1	//! Terrain and flight policy classified once at scenario source admission.
+     2	
+     3	use super::*;
+     4	
+     5	pub(in crate::animation_viewer) fn scenario_uses_terrain_ik(
+     6	    scenario: &ScenarioMetadata<'_>,
+     7	) -> bool {
+     8	    matches!(
+     9	        scenario.terrain(),
+    10	        ScenarioTerrain::Authored | ScenarioTerrain::RaisedStop { .. } | ScenarioTerrain::Toggle
+    11	    )
+    12	}
+    13	
+    14	/// Startup selection excludes per-frame raised-stop and toggle-window overrides.
+    15	pub(in crate::animation_viewer) fn startup_terrain_ik_mode(
+    16	    scenario: Option<&ScenarioMetadata<'_>>,
+    17	) -> TerrainIkMode {
+    18	    scenario.map_or(TerrainIkMode::Disabled, |scenario| {
+    19	        scenario.terrain().startup()
+    20	    })
+    21	}
+    22	
+    23	pub(in crate::animation_viewer) fn terrain_ik_mode_for_frame(
+    24	    frame: &PlannedFrame,
+    25	) -> TerrainIkMode {
+    26	    match frame.scenario.terrain() {
+    27	        ScenarioTerrain::Absent => TerrainIkMode::Disabled,
+    28	        ScenarioTerrain::Toggle if !(16..80).contains(&frame.scenario_frame) => {
+    29	            TerrainIkMode::Disabled
+    30	        }
+    31	        _ => TerrainIkMode::Enabled,
+    32	    }
+    33	}
+    34	
+    35	pub(in crate::animation_viewer) fn raised_scenario_requires_zero_flight(
+    36	    scenario: &ScenarioMetadata<'_>,
+    37	) -> bool {
+    38	    scenario.kind() == ScenarioKind::RaisedGuard
+    39	        && !matches!(scenario.terrain(), ScenarioTerrain::RaisedStop { .. })
+    40	}
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation/review_scenarios.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-145 ---
+     1	//! Admitted animation-review policy shared by capture, metrics and jitter.
+     2	
+     3	use super::{MotionId, TerrainIkMode};
+     4	use adventuresim_tactical_core::prelude::*;
+     5	pub(crate) use authored::ScenarioId;
+     6	pub(crate) use feature_policy::ScenarioFeature;
+     7	pub(crate) use metadata::{Repeatability, SolverUse};
+     8	use serde::Serialize;
+     9	use std::{borrow::Cow, collections::BTreeSet};
+    10	
+    11	mod authored;
+    12	mod authored_policy;
+    13	mod feature_policy;
+    14	mod metadata;
+    15	
+    16	#[derive(Debug, Clone, Eq)]
+    17	pub(crate) struct ScenarioMetadata<'a> {
+    18	    label: Cow<'a, str>,
+    19	    identity: Option<ScenarioId>,
+    20	    features: BTreeSet<ScenarioFeature>,
+    21	    terrain: ScenarioTerrain,
+    22	    kind: ScenarioKind,
+    23	    repeatable: Repeatability,
+    24	    procedural_solver: SolverUse,
+    25	    execution: ScenarioExecution,
+    26	}
+    27	
+    28	#[derive(Debug, Clone, Default, PartialEq, Eq)]
+    29	struct ScenarioExecution {
+    30	    body: Option<BodyState>,
+    31	    motion: Option<MotionId>,
+    32	    transition: Option<(BodyState, PostureTransitionKind)>,
+    33	}
+    34	
+    35	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    36	pub(crate) enum ScenarioKind {
+    37	    Ordinary,
+    38	    RaisedGuard,
+    39	    Terrain,
+    40	    Transition,
+    41	    Landing,
+    42	    Attack,
+    43	}
+    44	
+    45	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    46	pub(crate) enum ScenarioTerrain {
+    47	    Absent,
+    48	    Authored,
+    49	    Named,
+    50	    RaisedStop { startup: TerrainIkMode },
+    51	    Toggle,
+    52	}
+    53	
+    54	impl ScenarioTerrain {
+    55	    pub(crate) fn admit(name: &ScenarioMetadata<'_>, kind: ScenarioKind) -> Self {
+    56	        let toggle = name.is(ScenarioId::TerrainToggleMidStride);
+    57	        let raised_stop = name.has(ScenarioFeature::RaisedTapStop);
+    58	        let named = name.has(ScenarioFeature::TerrainNamed);
+    59	        if toggle {
+    60	            Self::Toggle
+    61	        } else if raised_stop {
+    62	            Self::RaisedStop {
+    63	                startup: if named {
+    64	                    TerrainIkMode::Enabled
+    65	                } else {
+    66	                    TerrainIkMode::Disabled
+    67	                },
+    68	            }
+    69	        } else if kind == ScenarioKind::Terrain {
+    70	            Self::Authored
+    71	        } else if named {
+    72	            Self::Named
+    73	        } else {
+    74	            Self::Absent
+    75	        }
+    76	    }
+    77	
+    78	    pub(crate) fn startup(self) -> TerrainIkMode {
+    79	        match self {
+    80	            Self::Absent => TerrainIkMode::Disabled,
+    81	            Self::RaisedStop { startup } => startup,
+    82	            Self::Authored | Self::Named | Self::Toggle => TerrainIkMode::Enabled,
+    83	        }
+    84	    }
+    85	}
+    86	
+    87	pub(crate) fn uses_authored_combat_locomotion(name: &ScenarioMetadata<'_>) -> bool {
+    88	    name.has(ScenarioFeature::RaisedGuard)
+    89	        && !is_guard_stop_transition(name)
+    90	        && !matches!(
+    91	            name.identity,
+    92	            Some(ScenarioId::RaisedGuardStationaryTurn) | Some(ScenarioId::RaisedGuardTransition)
+    93	        )
+    94	}
+    95	
+    96	pub(crate) fn is_guard_stop_transition(name: &ScenarioMetadata<'_>) -> bool {
+    97	    name.has(ScenarioFeature::RaisedGuard)
+    98	        && (name.has(ScenarioFeature::Release) || name.has(ScenarioFeature::TapStop))
+    99	}
+   100	
+   101	pub(crate) fn is_quickstep_scenario(name: &ScenarioMetadata<'_>) -> bool {
+   102	    name.has(ScenarioFeature::Quickstep)
+   103	}
+   104	
+   105	fn scenario_metadata(
+   106	    label: Cow<'_, str>,
+   107	    identity: Option<ScenarioId>,
+   108	    features: BTreeSet<ScenarioFeature>,
+   109	) -> ScenarioMetadata<'_> {
+   110	    let name = ScenarioMetadata {
+   111	        label,
+   112	        identity,
+   113	        features,
+   114	        terrain: ScenarioTerrain::Absent,
+   115	        kind: ScenarioKind::Ordinary,
+   116	        repeatable: Repeatability::Repeating,
+   117	        procedural_solver: SolverUse::Authored,
+   118	        execution: ScenarioExecution::default(),
+   119	    };
+   120	    let classified = |kind, repeatable, procedural_solver| ScenarioMetadata {
+   121	        label: name.label.clone(),
+   122	        identity: name.identity,
+   123	        features: name.features.clone(),
+   124	        terrain: ScenarioTerrain::admit(&name, kind),
+   125	        kind,
+   126	        execution: ScenarioExecution {
+   127	            body: downed_body_for_scenario(&name),
+   128	            motion: required_motion_for_scenario(&name),
+   129	            transition: transition_for_scenario(&name),
+   130	        },
+   131	        repeatable: if repeatable {
+   132	            Repeatability::Repeating
+   133	        } else {
+   134	            Repeatability::Transition
+   135	        },
+   136	        procedural_solver: if procedural_solver {
+   137	            SolverUse::Procedural
+   138	        } else {
+   139	            SolverUse::Authored
+   140	        },
+   141	    };
+   142	    if is_quickstep_scenario(&name)
+   143	        || name.has(ScenarioFeature::Downed)
+   144	        || name.has(ScenarioFeature::Dive)
+   145	        || name.has(ScenarioFeature::GetUp)
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-115 ---
+     1	//! One open scenario-label admission boundary and retained metadata.
+     2	
+     3	use super::*;
+     4	use std::cmp::Ordering;
+     5	
+     6	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+     7	pub(crate) enum Repeatability {
+     8	    Repeating,
+     9	    Transition,
+    10	}
+    11	
+    12	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    13	pub(crate) enum SolverUse {
+    14	    Procedural,
+    15	    Authored,
+    16	}
+    17	
+    18	impl<'a> ScenarioMetadata<'a> {
+    19	    pub(crate) fn from_label(label: &'a str) -> Self {
+    20	        let identity = label.parse::<ScenarioId>().ok();
+    21	        let features = match identity {
+    22	            Some(identity) => identity.features(),
+    23	            None => ScenarioFeature::from_open_label(label),
+    24	        };
+    25	        scenario_metadata(Cow::Borrowed(label), identity, features)
+    26	    }
+    27	    pub(crate) fn authored(identity: ScenarioId) -> ScenarioMetadata<'static> {
+    28	        scenario_metadata(
+    29	            Cow::Borrowed(identity.into()),
+    30	            Some(identity),
+    31	            identity.features(),
+    32	        )
+    33	    }
+    34	    pub(crate) fn label(&self) -> &str {
+    35	        &self.label
+    36	    }
+    37	    pub(crate) fn identity(&self) -> Option<ScenarioId> {
+    38	        self.identity
+    39	    }
+    40	    pub(crate) fn terrain(&self) -> ScenarioTerrain {
+    41	        self.terrain
+    42	    }
+    43	    pub(crate) fn body(&self) -> Option<BodyState> {
+    44	        self.execution.body
+    45	    }
+    46	    pub(crate) fn required_motion(&self) -> Option<&MotionId> {
+    47	        self.execution.motion.as_ref()
+    48	    }
+    49	    pub(crate) fn dive_direction(&self) -> Option<DiveDirection> {
+    50	        match self.execution.transition {
+    51	            Some((_, PostureTransitionKind::DiveToDowned { direction, .. })) => Some(direction),
+    52	            _ => None,
+    53	        }
+    54	    }
+    55	    pub(crate) fn transition(&self) -> Option<(BodyState, PostureTransitionKind)> {
+    56	        self.execution.transition
+    57	    }
+    58	    pub(crate) fn kind(&self) -> ScenarioKind {
+    59	        self.kind
+    60	    }
+    61	    pub(crate) fn repeatable(&self) -> bool {
+    62	        matches!(self.repeatable, Repeatability::Repeating)
+    63	    }
+    64	    pub(crate) fn procedural_solver(&self) -> bool {
+    65	        matches!(self.procedural_solver, SolverUse::Procedural)
+    66	    }
+    67	    pub(crate) fn has(&self, feature: ScenarioFeature) -> bool {
+    68	        self.features.contains(&feature)
+    69	    }
+    70	    pub(crate) fn is(&self, identity: ScenarioId) -> bool {
+    71	        self.identity == Some(identity)
+    72	    }
+    73	    pub(crate) fn into_owned(self) -> ScenarioMetadata<'static> {
+    74	        ScenarioMetadata {
+    75	            label: Cow::Owned(self.label.into_owned()),
+    76	            identity: self.identity,
+    77	            features: self.features,
+    78	            terrain: self.terrain,
+    79	            kind: self.kind,
+    80	            repeatable: self.repeatable,
+    81	            procedural_solver: self.procedural_solver,
+    82	            execution: self.execution,
+    83	        }
+    84	    }
+    85	}
+    86	impl PartialEq for ScenarioMetadata<'_> {
+    87	    fn eq(&self, other: &Self) -> bool {
+    88	        self.label == other.label
+    89	    }
+    90	}
+    91	impl PartialOrd for ScenarioMetadata<'_> {
+    92	    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
+    93	        Some(self.cmp(other))
+    94	    }
+    95	}
+    96	impl Ord for ScenarioMetadata<'_> {
+    97	    fn cmp(&self, other: &Self) -> Ordering {
+    98	        self.label.cmp(&other.label)
+    99	    }
+   100	}
+   101	impl Serialize for ScenarioMetadata<'_> {
+   102	    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+   103	        serializer.serialize_str(self.label())
+   104	    }
+   105	}
+   106	impl From<&str> for ScenarioMetadata<'static> {
+   107	    fn from(label: &str) -> Self {
+   108	        ScenarioMetadata::from_label(label).into_owned()
+   109	    }
+   110	}
+   111	impl From<String> for ScenarioMetadata<'static> {
+   112	    fn from(label: String) -> Self {
+   113	        ScenarioMetadata::from_label(&label).into_owned()
+   114	    }
+   115	}
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture.rs 95e63628f9d70b8dd6e6fede64334696c6995009 190-280 ---
+   190	pub(super) fn drive_sequence(
+   191	    mut sequence: ResMut<CaptureSequence>,
+   192	    mut procedural_clock: ResMut<ProceduralAnimationClock>,
+   193	    mut terrain_ik: ResMut<TerrainIkMode>,
+   194	    mut guard_input: ResMut<WeaponGuardInputState>,
+   195	    animation_runtime: Res<AnimationRuntime>,
+   196	    terrain: Single<&SceneTerrain>,
+   197	    mut subjects: Query<
+   198	        (
+   199	            &mut SkeletonState,
+   200	            &mut Transform,
+   201	            &mut CharacterLook,
+   202	            Option<&AnimationPlayback>,
+   203	            Option<&mut LegIkState>,
+   204	            Option<&mut ArmIkState>,
+   205	            Option<&mut RaisedFootworkState>,
+   206	            Option<&mut LocomotionHeightState>,
+   207	            Option<&mut LocomotionBodyResponseState>,
+   208	        ),
+   209	        With<CaptureSubject>,
+   210	    >,
+   211	    mut labels: Query<&mut Text, With<CaptureLabel>>,
+   212	) {
+   213	    if !sequence.can_drive_frame() {
+   214	        return;
+   215	    }
+   216	    let frame = sequence.plan[sequence.index].clone();
+   217	    let metadata = frame.scenario.clone();
+   218	    let mut gait_phase = CyclePhase::ZERO;
+   219	    let mut observed_playback = None;
+   220	    for (
+   221	        mut skeleton,
+   222	        mut transform,
+   223	        mut look,
+   224	        playback,
+   225	        ik_state,
+   226	        arm_ik_state,
+   227	        raised_footwork,
+   228	        height_state,
+   229	        body_response,
+   230	    ) in &mut subjects
+   231	    {
+   232	        let Some(playback) = playback else {
+   233	            return;
+   234	        };
+   235	        observed_playback = Some(playback);
+   236	        if !frame.scenario.is(ScenarioId::FullRagdoll) && !playback.authored_pose_is_ready() {
+   237	            return;
+   238	        }
+   239	
+   240	        if sequence.active_scenario.as_ref() != Some(&frame.scenario) {
+   241	            sequence.active_scenario = Some(frame.scenario.clone());
+   242	            sequence.scenario_distance = 0.0;
+   243	            sequence.motion_ready_frames = 0;
+   244	            *skeleton = SkeletonState::default();
+   245	            *guard_input = WeaponGuardInputState::default();
+   246	            if let Some(mut ik_state) = ik_state {
+   247	                *ik_state = LegIkState::default();
+   248	            }
+   249	            if let Some(mut arm_ik_state) = arm_ik_state {
+   250	                *arm_ik_state = ArmIkState::default();
+   251	            }
+   252	            if let Some(mut raised_footwork) = raised_footwork {
+   253	                *raised_footwork = RaisedFootworkState::default();
+   254	            }
+   255	            if let Some(mut height_state) = height_state {
+   256	                *height_state = LocomotionHeightState::default();
+   257	            }
+   258	            if let Some(mut body_response) = body_response {
+   259	                *body_response = LocomotionBodyResponseState::default();
+   260	            }
+   261	            let Some(initial) = sequence.initial_root(&terrain, *transform) else {
+   262	                return;
+   263	            };
+   264	            *transform = initial;
+   265	            if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
+   266	                // Prime the static combat stance and its terrain-conformed IK
+   267	                // before judging the later six-frame movement tap. A live
+   268	                // character has already held this stance; capturing component
+   269	                // allocation and pelvis acquisition would test viewer spawn,
+   270	                // not the authored-to-procedural stop transition.
+   271	                sequence.warmup_frames = 8;
+   272	            }
+   273	            if let Some((start_body, _)) = frame.scenario.transition() {
+   274	                skeleton.transition_body(start_body);
+   275	                // Prime the authored endpoint before beginning the transition.
+   276	                // Live characters have already evaluated their prone/supine or
+   277	                // upright base; a fresh viewer subject otherwise crossfades
+   278	                // from its default standing pose during the first samples.
+   279	                sequence.warmup_frames = 8;
+   280	            }
+--- SOURCE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture.rs 95e63628f9d70b8dd6e6fede64334696c6995009 600-665 ---
+   600	            &mut sequence,
+   601	            "authored locomotion clip has not resolved",
+   602	            &mut exit,
+   603	        );
+   604	        return;
+   605	    }
+   606	    sequence.waiting = 0;
+   607	    sequence.settled += 1;
+   608	    let required = if sequence.index == 0 {
+   609	        sequence.settle_frames.max(60)
+   610	    } else {
+   611	        // A view change needs one complete render before requesting the next
+   612	        // asynchronous screenshot; otherwise two paths may receive the same
+   613	        // previously rendered camera image.
+   614	        sequence.settle_frames.max(2)
+   615	    };
+   616	    if sequence.settled < required {
+   617	        return;
+   618	    }
+   619	
+   620	    let frame = sequence.plan[sequence.index].clone();
+   621	    let view = VIEWS[sequence.view_index];
+   622	    let file_name = view.screenshot_name(&frame);
+   623	    let path = sequence.output.join(&file_name);
+   624	    let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
+   625	        return;
+   626	    };
+   627	    let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
+   628	    let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
+   629	    sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
+   630	    if sequence.view_index == 0 {
+   631	        sequence.global_bone_frames.push(GlobalBoneFrame::capture(
+   632	            &frame,
+   633	            skeleton,
+   634	            subject_global,
+   635	            subject,
+   636	            &animation_bones,
+   637	        ));
+   638	        let Some(cadence_support) =
+   639	            sequence.admit_locomotion_support(skeleton, semantic_route.inputs.speed)
+   640	        else {
+   641	            return;
+   642	        };
+   643	        let root_distance_metres = sequence.scenario_distance;
+   644	        let (desired_left_foot_target, desired_right_foot_target) = raised_footwork
+   645	            .map(|state| (state.left_solve_target, state.right_solve_target))
+   646	            .unwrap_or_default();
+   647	        let leg_ik = evaluation_leg_ik;
+   648	        let Some(ik_support) =
+   649	            sequence.admit_ik_support(leg_ik, cadence_support, skeleton, *terrain_ik)
+   650	        else {
+   651	            return;
+   652	        };
+   653	        let (left_support_weight, right_support_weight) = raised_footwork
+   654	            .filter(|state| state.initialized())
+   655	            .map(|state| (state.left_support_weight, state.right_support_weight))
+   656	            .unwrap_or(ik_support);
+   657	        sequence.samples.push(FrameSample {
+   658	            scenario: frame.scenario.clone(),
+   659	            scenario_frame: frame.scenario_frame,
+   660	            time_seconds: frame.time_seconds,
+   661	            speed_metres_per_second: frame.speed,
+   662	            gait_phase: skeleton.gait_phase,
+   663	            locomotion_sample_tick: skeleton.locomotion_sample_tick,
+   664	            body_acceleration: (subject_global.rotation().inverse() * skeleton.world_acceleration)
+   665	                .to_array(),
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-core/src/city_layout/grounding.rs 95e63628f9d70b8dd6e6fede64334696c6995009 70-110 ---
+    70	use stairs::CourtStair;
+    71	pub use stairs::{CourtStairLimits, SupportStairFlight};
+    72	
+    73	/// Finite architectural floor or support elevation in scene metres.
+    74	#[derive(Clone, Copy, Debug, PartialEq, Serialize, bevy::reflect::Reflect)]
+    75	#[reflect(opaque)]
+    76	#[serde(transparent)]
+    77	pub struct SupportElevation(f32);
+    78	
+    79	impl SupportElevation {
+    80	    pub const ZERO: Self = Self(0.0);
+    81	    pub fn from_metres(metres: f32) -> Option<Self> {
+    82	        metres.is_finite().then_some(Self(metres))
+    83	    }
+    84	    pub fn metres(self) -> f32 {
+    85	        self.0
+    86	    }
+    87	    pub fn max(self, other: Self) -> Self {
+    88	        Self(self.0.max(other.0))
+    89	    }
+    90	    pub fn translated(
+    91	        self,
+    92	        offset: adventuresim_building_generator::spatial_geometry::SignedLength,
+    93	    ) -> adventuresim_building_generator::spatial_geometry::GeometryResult<Self> {
+    94	        use adventuresim_building_generator::spatial_geometry::{
+    95	            CoordinateAxis, GeometryError, GeometryRole,
+    96	        };
+    97	        Self::from_metres(self.0 + offset.metres()).ok_or(GeometryError::NonFinite {
+    98	            role: GeometryRole::Elevation,
+    99	            axis: CoordinateAxis::Y,
+   100	        })
+   101	    }
+   102	}
+   103	
+   104	impl<'de> Deserialize<'de> for SupportElevation {
+   105	    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+   106	        let metres = f32::deserialize(deserializer)?;
+   107	        Self::from_metres(metres)
+   108	            .ok_or_else(|| serde::de::Error::custom("support elevation must be finite"))
+   109	    }
+   110	}
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-core/src/scene/queries.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-100 ---
+     1	//! Scene support queries share the rendered and collided triangle surface.
+     2	use super::{SceneTerrain, TerrainGeometry};
+     3	use crate::{
+     4	    city_layout::grounding::{SupportElevation, SurfaceHit},
+     5	    scene_coordinates::ScenePlanPoint,
+     6	};
+     7	use bevy::math::{Dir3, Vec2, Vec3};
+     8	
+     9	pub type TerrainSupportResult<T> = Result<T, TerrainSupportError>;
+    10	
+    11	/// Nonempty ordered bounds in absolute scene elevation metres.
+    12	#[derive(Clone, Copy, Debug, PartialEq)]
+    13	pub struct SceneElevationRange {
+    14	    minimum: SupportElevation,
+    15	    maximum: SupportElevation,
+    16	}
+    17	
+    18	#[derive(Clone, Copy, Debug, PartialEq, thiserror::Error)]
+    19	pub enum TerrainSupportError {
+    20	    #[error("terrain has no physical support at {point:?}")]
+    21	    MissingSupport { point: ScenePlanPoint },
+    22	    #[error("terrain has no finite nonempty elevation bounds")]
+    23	    MissingElevationRange,
+    24	}
+    25	
+    26	impl SceneElevationRange {
+    27	    pub fn new(minimum: SupportElevation, maximum: SupportElevation) -> Option<Self> {
+    28	        (minimum.metres() <= maximum.metres()).then_some(Self { minimum, maximum })
+    29	    }
+    30	
+    31	    pub fn minimum(self) -> SupportElevation {
+    32	        self.minimum
+    33	    }
+    34	
+    35	    pub fn maximum(self) -> SupportElevation {
+    36	        self.maximum
+    37	    }
+    38	
+    39	    /// Complete the reduction over native heightfield or compiled mesh samples.
+    40	    fn from_native_metres(mut heights: impl Iterator<Item = f32>) -> Option<Self> {
+    41	        let first = heights.next()?;
+    42	        if !first.is_finite() {
+    43	            return None;
+    44	        }
+    45	        let mut minimum = first;
+    46	        let mut maximum = first;
+    47	        for height in heights {
+    48	            if !height.is_finite() {
+    49	                return None;
+    50	            }
+    51	            minimum = minimum.min(height);
+    52	            maximum = maximum.max(height);
+    53	        }
+    54	        Self::new(
+    55	            SupportElevation::from_metres(minimum)?,
+    56	            SupportElevation::from_metres(maximum)?,
+    57	        )
+    58	    }
+    59	}
+    60	
+    61	impl SceneTerrain {
+    62	    pub fn required_height_at(
+    63	        &self,
+    64	        point: ScenePlanPoint,
+    65	    ) -> TerrainSupportResult<SupportElevation> {
+    66	        self.height_at(point)
+    67	            .ok_or(TerrainSupportError::MissingSupport { point })
+    68	    }
+    69	
+    70	    pub fn required_elevation_range(&self) -> TerrainSupportResult<SceneElevationRange> {
+    71	        self.elevation_range()
+    72	            .ok_or(TerrainSupportError::MissingElevationRange)
+    73	    }
+    74	
+    75	    pub fn elevation_range(&self) -> Option<SceneElevationRange> {
+    76	        match &self.geometry {
+    77	            TerrainGeometry::Sampled => {
+    78	                SceneElevationRange::from_native_metres(self.heightmap.iter().copied())
+    79	            }
+    80	            TerrainGeometry::Owned(surface) => {
+    81	                SceneElevationRange::from_native_metres(surface.support_heights())
+    82	            }
+    83	        }
+    84	    }
+    85	
+    86	    pub fn height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
+    87	        self.surface_at_stride(point, 1)
+    88	            .map(|sample| sample.elevation)
+    89	    }
+    90	
+    91	    /// Samples the triangle surface used by the coarse render LOD.
+    92	    pub fn coarse_height_at(&self, point: ScenePlanPoint) -> Option<SupportElevation> {
+    93	        self.surface_at_stride(point, self.coarse_stride.max(1))
+    94	            .map(|sample| sample.elevation)
+    95	    }
+    96	
+    97	    /// Returns the finite, normalized normal of the rendered/collided triangle.
+    98	    pub fn normal_at(&self, point: ScenePlanPoint) -> Option<Dir3> {
+    99	        self.surface_at_stride(point, 1).map(|sample| sample.normal)
+   100	    }
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-core/src/scene/queries.rs 95e63628f9d70b8dd6e6fede64334696c6995009 101-170 ---
+   101	
+   102	    /// Samples the same triangle surface used by the rendered mesh and
+   103	    /// authoritative collider. Returning the triangle normal alongside the
+   104	    /// height keeps terrain IK from fitting a foot to a different, bilinear
+   105	    /// surface than the one visible beneath it.
+   106	    pub(super) fn surface_at_stride(
+   107	        &self,
+   108	        point: ScenePlanPoint,
+   109	        stride: usize,
+   110	    ) -> Option<SurfaceHit> {
+   111	        if let TerrainGeometry::Owned(surface) = &self.geometry {
+   112	            return surface.highest_surface_at(point);
+   113	        }
+   114	        if self.scale <= 0.0 || self.grid_width() < 2 || self.grid_depth() < 2 {
+   115	            return None;
+   116	        }
+   117	        // The sampled grid is centered in scene-local east/north metres.
+   118	        let pos = point.metres() + Vec2::new(self.width(), self.depth()) * 0.5;
+   119	        let grid = pos / self.scale;
+   120	        if grid.x < 0.0
+   121	            || grid.y < 0.0
+   122	            || grid.x > (self.grid_width() - 1) as f32
+   123	            || grid.y > (self.grid_depth() - 1) as f32
+   124	        {
+   125	            return None;
+   126	        }
+   127	        // The final vertex has no cell to its right/below. Sample its adjacent
+   128	        // cell with a coordinate of one so edges remain well-defined.
+   129	        let stride = stride.max(1);
+   130	        let last_cell_x = ((self.grid_width() - 2) / stride) * stride;
+   131	        let last_cell_y = ((self.grid_depth() - 2) / stride) * stride;
+   132	        let min_x = ((grid.x / stride as f32).floor() as usize * stride).min(last_cell_x);
+   133	        let min_y = ((grid.y / stride as f32).floor() as usize * stride).min(last_cell_y);
+   134	        let max_x = (min_x + stride).min(self.grid_width() - 1);
+   135	        let max_y = (min_y + stride).min(self.grid_depth() - 1);
+   136	        let cell_scale_x = (max_x - min_x) as f32 * self.scale;
+   137	        let cell_scale_z = (max_y - min_y) as f32 * self.scale;
+   138	        let fraction = Vec2::new(
+   139	            (grid.x - min_x as f32) / (max_x - min_x) as f32,
+   140	            (grid.y - min_y as f32) / (max_y - min_y) as f32,
+   141	        );
+   142	
+   143	        let x0y0 = *self.heightmap.get(min_x + min_y * self.width)?;
+   144	        let x1y0 = *self.heightmap.get(max_x + min_y * self.width)?;
+   145	        let x0y1 = *self.heightmap.get(min_x + max_y * self.width)?;
+   146	        let x1y1 = *self.heightmap.get(max_x + max_y * self.width)?;
+   147	
+   148	        let (height, tangent_x, tangent_z) = if fraction.x + fraction.y <= 1.0 {
+   149	            // Matches [x0y0, x0y1, x1y0] in `mesh_components_with_stride` and
+   150	            // Avian's default heightfield subdivision.
+   151	            (
+   152	                x0y0 + (x1y0 - x0y0) * fraction.x + (x0y1 - x0y0) * fraction.y,
+   153	                Vec3::new(cell_scale_x, x1y0 - x0y0, 0.0),
+   154	                Vec3::new(0.0, x0y1 - x0y0, cell_scale_z),
+   155	            )
+   156	        } else {
+   157	            // Matches [x1y0, x0y1, x1y1].
+   158	            (
+   159	                x1y1 + (x0y1 - x1y1) * (1.0 - fraction.x) + (x1y0 - x1y1) * (1.0 - fraction.y),
+   160	                Vec3::new(cell_scale_x, x1y1 - x0y1, 0.0),
+   161	                Vec3::new(0.0, x1y1 - x1y0, cell_scale_z),
+   162	            )
+   163	        };
+   164	        let normal = tangent_z.cross(tangent_x);
+   165	        SurfaceHit::from_geometry(height, normal)
+   166	    }
+   167	}
+   168	
+   169	#[cfg(test)]
+   170	mod tests;
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs 95e63628f9d70b8dd6e6fede64334696c6995009 320-375 ---
+   320	                start.right_support_weight.fraction(),
+   321	                end.right_support_weight.fraction(),
+   322	                start.left_support_weight.fraction(),
+   323	                end.left_support_weight.fraction(),
+   324	            )
+   325	        };
+   326	
+   327	        completed_half_steps += 1;
+   328	        let support_swap_valid = start_swing_support <= 0.25
+   329	            && end_swing_support >= 0.75
+   330	            && start_other_support >= 0.75
+   331	            && end_other_support <= 0.25;
+   332	        let travel = start
+   333	            .bones
+   334	            .get(swing_foot)
+   335	            .zip(end.bones.get(swing_foot))
+   336	            .map_or(0.0, |(start, end)| {
+   337	                (Vec3::from_array(end.position) - Vec3::from_array(start.position))
+   338	                    .xz()
+   339	                    .length()
+   340	            });
+   341	        let interval = &frames[interval_start..=interval_end];
+   342	        let start_clearance = start
+   343	            .bones
+   344	            .get(swing_foot)
+   345	            .and_then(|bone| bone.terrain_clearance_metres);
+   346	        let end_clearance = end
+   347	            .bones
+   348	            .get(swing_foot)
+   349	            .and_then(|bone| bone.terrain_clearance_metres);
+   350	        let maximum_clearance = interval
+   351	            .iter()
+   352	            .filter_map(|frame| {
+   353	                frame
+   354	                    .bones
+   355	                    .get(swing_foot)
+   356	                    .and_then(|bone| bone.terrain_clearance_metres)
+   357	            })
+   358	            .fold(f32::NEG_INFINITY, f32::max);
+   359	        let clearance_gain = start_clearance
+   360	            .zip(end_clearance)
+   361	            .filter(|_| maximum_clearance.is_finite())
+   362	            .map_or(0.0, |(start, end)| maximum_clearance - start.max(end));
+   363	
+   364	        minimum_swing_travel = minimum_swing_travel.min(travel);
+   365	        minimum_swing_clearance_gain = minimum_swing_clearance_gain.min(clearance_gain);
+   366	        if support_swap_valid
+   367	            && travel >= MINIMUM_GUARD_SWING_TRAVEL_METRES
+   368	            && clearance_gain >= MINIMUM_GUARD_SWING_CLEARANCE_GAIN_METRES
+   369	        {
+   370	            visible_half_steps += 1;
+   371	        }
+   372	        interval_start = interval_end;
+   373	    }
+   374	
+   375	    GuardStepLivenessMetrics {
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1135-1180 ---
+  1135	        };
+  1136	        let support = if left.fraction().max(right.fraction()) < 0.5 {
+  1137	            None
+  1138	        } else {
+  1139	            Some(left.fraction() >= right.fraction())
+  1140	        };
+  1141	        if support != last {
+  1142	            if let Some(left) = support {
+  1143	                acquisitions.push(left);
+  1144	            }
+  1145	            last = support;
+  1146	        }
+  1147	    }
+  1148	    acquisitions.len() >= 4
+  1149	        && acquisitions.contains(&true)
+  1150	        && acquisitions.contains(&false)
+  1151	        && acquisitions.windows(2).all(|pair| pair[0] != pair[1])
+  1152	        && (0.08..=0.20).contains(&maximum_no_support_seconds(&warmed))
+  1153	}
+  1154	
+  1155	/// Terrain height variation under the two sampled feet relative to the
+  1156	/// controller root's ground point. Subtracting this measured relief from the
+  1157	/// torso range preserves the flat-ground gait envelope while allowing the
+  1158	/// bounded pelvis correction required to keep both legs reachable on a slope.
+  1159	pub(super) fn foot_terrain_relief(frames: &[&FrameSample]) -> f32 {
+  1160	    let (minimum, maximum) = frames
+  1161	        .iter()
+  1162	        .flat_map(|frame| {
+  1163	            [BoneRole::FootLeft, BoneRole::FootRight]
+  1164	                .into_iter()
+  1165	                .filter_map(|foot| {
+  1166	                    let bone = frame.bones.get(foot)?;
+  1167	                    let clearance = bone.terrain_clearance_metres?;
+  1168	                    let terrain_height = bone.position[1] - clearance;
+  1169	                    let root_ground =
+  1170	                        frame.root_position_metres[1] - CAPTURE_ROOT_GROUND_OFFSET_METRES;
+  1171	                    Some(terrain_height - root_ground)
+  1172	                })
+  1173	        })
+  1174	        .fold(
+  1175	            (f32::INFINITY, f32::NEG_INFINITY),
+  1176	            |(minimum, maximum), value| (minimum.min(value), maximum.max(value)),
+  1177	        );
+  1178	    if minimum.is_finite() && maximum.is_finite() {
+  1179	        maximum - minimum
+  1180	    } else {
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs 95e63628f9d70b8dd6e6fede64334696c6995009 135-175 ---
+   135	    pub(in crate::animation_viewer) worst_rotation: Option<ContinuityLocation>,
+   136	    pub(in crate::animation_viewer) loop_seam_position_metres: Option<f32>,
+   137	    pub(in crate::animation_viewer) loop_seam_rotation_degrees: Option<f32>,
+   138	    pub(in crate::animation_viewer) pelvis_vertical_range_metres: f32,
+   139	    pub(in crate::animation_viewer) maximum_pelvis_vertical_step_metres: f32,
+   140	    pub(in crate::animation_viewer) controller_vertical_range_metres: f32,
+   141	    pub(in crate::animation_viewer) phase_height_range_metres: f32,
+   142	    pub(in crate::animation_viewer) contact_to_passing_height_gain_metres: f32,
+   143	    pub(in crate::animation_viewer) visual_height_peak_count: usize,
+   144	    pub(in crate::animation_viewer) visual_height_peaks_in_passing_windows: bool,
+   145	    pub(in crate::animation_viewer) maximum_no_support_seconds: f32,
+   146	    pub(in crate::animation_viewer) minimum_flight_sole_clearance_metres: f32,
+   147	    pub(in crate::animation_viewer) minimum_contact_sole_clearance_metres: f32,
+   148	    pub(in crate::animation_viewer) maximum_contact_sole_clearance_metres: f32,
+   149	    pub(in crate::animation_viewer) minimum_flight_toe_clearance_metres: f32,
+   150	    pub(in crate::animation_viewer) minimum_contact_toe_clearance_metres: f32,
+   151	    pub(in crate::animation_viewer) head_vertical_range_metres: f32,
+   152	    pub(in crate::animation_viewer) foot_terrain_relief_metres: f32,
+   153	    pub(in crate::animation_viewer) minimum_knee_forward_bend_metres: f32,
+   154	    pub(in crate::animation_viewer) minimum_signed_foot_track_metres: f32,
+   155	    pub(in crate::animation_viewer) minimum_inter_foot_separation_metres: f32,
+   156	    pub(in crate::animation_viewer) minimum_knee_flexion_degrees: f32,
+   157	    pub(in crate::animation_viewer) minimum_knee_hemisphere_dot: f32,
+   158	    pub(in crate::animation_viewer) maximum_knee_foot_yaw_offset_degrees: f32,
+   159	    pub(in crate::animation_viewer) maximum_facing_motion_error_degrees: f32,
+   160	    pub(in crate::animation_viewer) maximum_facing_tracking_excess_degrees: f32,
+   161	    pub(in crate::animation_viewer) maximum_guard_facing_error_degrees: f32,
+   162	    pub(in crate::animation_viewer) final_facing_motion_error_degrees: f32,
+   163	    pub(in crate::animation_viewer) maximum_dive_axis_motion_error_degrees: f32,
+   164	    pub(in crate::animation_viewer) maximum_supported_foot_slip_metres_per_frame: f32,
+   165	    pub(in crate::animation_viewer) maximum_planted_foot_drift_metres: f32,
+   166	    pub(in crate::animation_viewer) guard_step_liveness_required: bool,
+   167	    pub(in crate::animation_viewer) completed_guard_half_step_count: usize,
+   168	    pub(in crate::animation_viewer) visible_guard_half_step_count: usize,
+   169	    pub(in crate::animation_viewer) minimum_guard_swing_travel_metres: f32,
+   170	    pub(in crate::animation_viewer) minimum_guard_swing_clearance_gain_metres: f32,
+   171	    pub(in crate::animation_viewer) minimum_foot_clearance_metres: f32,
+   172	}
+   173	
+   174	#[derive(Debug, Clone, Serialize)]
+   175	pub(in crate::animation_viewer) struct ContinuityLocation {
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs 95e63628f9d70b8dd6e6fede64334696c6995009 245-265 ---
+   245	impl FrameSample {
+   246	    /// Required procedural-support readers distinguish absence from measured zero.
+   247	    pub(super) fn required_ik_support(&self) -> AnimationValueResult<(UnitInterval, UnitInterval)> {
+   248	        self.ik_left_support_weight
+   249	            .zip(self.ik_right_support_weight)
+   250	            .ok_or(AnimationValueError::UnavailableObservation {
+   251	                quantity: AnimationQuantity::SupportObservation,
+   252	            })
+   253	    }
+   254	}
+   255	
+   256	#[derive(Debug, Clone, Copy, Serialize)]
+   257	pub(in crate::animation_viewer) struct BoneSample {
+   258	    pub(in crate::animation_viewer) position: [f32; 3],
+   259	    pub(in crate::animation_viewer) rotation_xyzw: [f32; 4],
+   260	    pub(in crate::animation_viewer) terrain_clearance_metres: Option<f32>,
+   261	}
+   262	
+   263	#[derive(Debug, Serialize)]
+   264	pub(in crate::animation_viewer) struct GlobalBoneFrame {
+   265	    pub(in crate::animation_viewer) scenario: String,
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs 95e63628f9d70b8dd6e6fede64334696c6995009 270-310 ---
+   270	                .max_by(|left, right| {
+   271	                    left.landing_compression_metres
+   272	                        .metres()
+   273	                        .total_cmp(&right.landing_compression_metres.metres())
+   274	                })
+   275	                .is_some_and(|frame| frame_minimum_knee_flexion(frame) >= 10.0));
+   276	    let landing_grounded_frames = landing_frames
+   277	        .iter()
+   278	        .copied()
+   279	        .filter(|frame| frame.scenario_frame >= 32)
+   280	        .collect::<Vec<_>>();
+   281	    let landing_foot_preservation_valid = landing_frames.is_empty()
+   282	        || landing_grounded_frames.last().is_some_and(|reference| {
+   283	            [BoneRole::FootLeft, BoneRole::FootRight]
+   284	                .iter()
+   285	                .all(|name| {
+   286	                    let Some(reference_position) = reference
+   287	                        .bones
+   288	                        .get(*name)
+   289	                        .map(|bone| Vec3::from_array(bone.position))
+   290	                    else {
+   291	                        return false;
+   292	                    };
+   293	                    landing_grounded_frames.iter().all(|frame| {
+   294	                        frame.bones.get(*name).is_some_and(|bone| {
+   295	                            Vec3::from_array(bone.position).distance(reference_position) <= 0.01
+   296	                                && bone
+   297	                                    .terrain_clearance_metres
+   298	                                    .is_some_and(|height| height >= -0.01)
+   299	                        })
+   300	                    })
+   301	                })
+   302	        });
+   303	    let ordinary_swing_tracking_valid = frames.iter().all(ordinary_swing_frame_is_owned)
+   304	        && frames.windows(2).all(|pair| {
+   305	            if pair[0].scenario != pair[1].scenario {
+   306	                return true;
+   307	            }
+   308	            if pair[1].scenario.kind() != ScenarioKind::Terrain
+   309	                || pair[1].speed_metres_per_second
+   310	                    <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
+--- SUPPORT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs 95e63628f9d70b8dd6e6fede64334696c6995009 425-455 ---
+   425	            // dives. Judge the posed pelvis-to-head long axis instead.
+   426	            return metrics.maximum_dive_axis_motion_error_degrees <= 20.0;
+   427	        }
+   428	        if metrics.scenario.is(ScenarioId::FullRagdoll)
+   429	            || metrics.scenario.has(ScenarioFeature::Downed)
+   430	            || metrics.scenario.has(ScenarioFeature::GetUp)
+   431	            || metrics.scenario.is(ScenarioId::JumpChargeAnticipation)
+   432	            || metrics.scenario.is(ScenarioId::OrdinaryCameraPitch)
+   433	        {
+   434	            // Posture scenarios deliberately leave the upright foot-track and
+   435	            // knee hemispheres; the stationary camera-pitch diagnostic has no
+   436	            // gait to validate. Their acceptance gates are finite output,
+   437	            // continuity, penetration, and visual review of the authored arc.
+   438	            return true;
+   439	        }
+   440	        // Raised guard deliberately adds a little vertical readiness through
+   441	        // the pelvis and torso. Keep the stricter ordinary-locomotion gate,
+   442	        // while allowing the documented guard silhouette (including the
+   443	        // transition scenario) rather than reporting it as a regression.
+   444	        let vertical_range_limit =
+   445	            vertical_range_limit(&metrics.scenario, metrics.foot_terrain_relief_metres);
+   446	        // Knee reserve/hemisphere are analytic-solver contracts, not authored
+   447	        // FK pose requirements. Apply them only where that solver is active.
+   448	        let procedural_solver_gates_apply = procedural_leg_solver_gates_apply(&metrics.scenario);
+   449	        if metrics.scenario.has(ScenarioFeature::RaisedTapStopAny) {
+   450	            return metrics.minimum_inter_foot_separation_metres
+   451	                >= inter_foot_separation_limit(&metrics.scenario)
+   452	                && metrics.final_facing_motion_error_degrees <= 3.0
+   453	                && metrics.pelvis_vertical_range_metres <= vertical_range_limit
+   454	                && metrics.head_vertical_range_metres <= vertical_range_limit;
+   455	        }
+--- METRICS-EXTENSION-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1155-1188 ---
+  1155	/// Terrain height variation under the two sampled feet relative to the
+  1156	/// controller root's ground point. Subtracting this measured relief from the
+  1157	/// torso range preserves the flat-ground gait envelope while allowing the
+  1158	/// bounded pelvis correction required to keep both legs reachable on a slope.
+  1159	pub(super) fn foot_terrain_relief(frames: &[&FrameSample]) -> f32 {
+  1160	    let (minimum, maximum) = frames
+  1161	        .iter()
+  1162	        .flat_map(|frame| {
+  1163	            [BoneRole::FootLeft, BoneRole::FootRight]
+  1164	                .into_iter()
+  1165	                .filter_map(|foot| {
+  1166	                    let bone = frame.bones.get(foot)?;
+  1167	                    let clearance = bone.terrain_clearance_metres?;
+  1168	                    let terrain_height = bone.position[1] - clearance;
+  1169	                    let root_ground =
+  1170	                        frame.root_position_metres[1] - CAPTURE_ROOT_GROUND_OFFSET_METRES;
+  1171	                    Some(terrain_height - root_ground)
+  1172	                })
+  1173	        })
+  1174	        .fold(
+  1175	            (f32::INFINITY, f32::NEG_INFINITY),
+  1176	            |(minimum, maximum), value| (minimum.min(value), maximum.max(value)),
+  1177	        );
+  1178	    if minimum.is_finite() && maximum.is_finite() {
+  1179	        maximum - minimum
+  1180	    } else {
+  1181	        0.0
+  1182	    }
+  1183	}
+  1184	
+  1185	fn maximum_planted_foot_drift(metadata: &ScenarioMetadata<'_>, frames: &[&FrameSample]) -> f32 {
+  1186	    let mut maximum = 0.0_f32;
+  1187	    for (foot, left) in [(BoneRole::FootLeft, true), (BoneRole::FootRight, false)] {
+  1188	        let mut anchor = None;
+--- DRIVER-EXTENSION-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture.rs 95e63628f9d70b8dd6e6fede64334696c6995009 300-350 ---
+   300	                    DownedMotion::Turning
+   301	                } else {
+   302	                    DownedMotion::Resting
+   303	                },
+   304	            );
+   305	        }
+   306	
+   307	        let orientation = Quat::from_euler(
+   308	            EulerRot::YXZ,
+   309	            frame.camera_yaw.radians(),
+   310	            frame.camera_pitch.radians(),
+   311	            0.0,
+   312	        );
+   313	        look.yaw = frame.camera_yaw.radians();
+   314	        look.pitch = frame.camera_pitch.radians();
+   315	        let attack_start_frame = frame.scenario.has(ScenarioFeature::AttackLive).then_some(8);
+   316	        if frame.action != SkeletonAction::Attack
+   317	            || attack_start_frame == Some(frame.scenario_frame)
+   318	        {
+   319	            skeleton.lead_foot = frame.lead_foot;
+   320	        }
+   321	        *terrain_ik = terrain_ik_mode_for_frame(&frame);
+   322	        guard_input.desired = frame.weapon_guard;
+   323	        set_weapon_guard(&mut skeleton, guard_input.desired);
+   324	        if frame.scenario.is(ScenarioId::DownedProneLookAt) {
+   325	            let target = downed_camera_roll_target(transform.rotation, orientation);
+   326	            let step = if frame.scenario_frame == 0 {
+   327	                Ok(DownedFacingStep::ZERO)
+   328	            } else {
+   329	                DownedFacingStep::from_half_turns(1.0 / 84.0)
+   330	            };
+   331	            if let Err(error) = step.and_then(|step| {
+   332	                skeleton.advance_downed_facing(target, DownedFacingAim::Held, step)
+   333	            }) {
+   334	                sequence.admission =
+   335	                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+   336	                return;
+   337	            }
+   338	        }
+   339	        let dive_impact = frame.scenario.has(ScenarioFeature::Impact);
+   340	        let quickstep = is_quickstep_scenario(&frame.scenario);
+   341	        let grounded = if quickstep {
+   342	            frame.scenario_frame < quickstep_release_frame()
+   343	                || frame.scenario_frame >= quickstep_landing_frame()
+   344	        } else if dive_impact {
+   345	            frame.scenario_frame == 0 || frame.scenario_frame >= 17
+   346	        } else {
+   347	            metadata.kind() != ScenarioKind::Landing || frame.scenario_frame >= 32
+   348	        };
+   349	        let vertical_velocity = if quickstep && frame.scenario_frame < quickstep_landing_frame() {
+   350	            quickstep_fixture_vertical_state(frame.scenario_frame).1
+--- DRIVER-EXTENSION-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture.rs 95e63628f9d70b8dd6e6fede64334696c6995009 390-411 ---
+   390	                AnimationSampleSpan::from(duration as u64),
+   391	            );
+   392	        }
+   393	        let elapsed = capture_frame_elapsed(frame.scenario_frame);
+   394	        let delta_seconds = elapsed.seconds();
+   395	        procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+   396	        let motion = subject_motion::CaptureMotion {
+   397	            orientation,
+   398	            world_velocity,
+   399	            contact: GroundContact::from(grounded),
+   400	            elapsed,
+   401	        };
+   402	        let Some(position) = sequence.fixture_root_position(
+   403	            &terrain,
+   404	            transform.translation,
+   405	            &frame,
+   406	            &motion,
+   407	            *terrain_ik,
+   408	        ) else {
+   409	            return;
+   410	        };
+   411	        transform.translation = position.metres();
+--- DRIVER-EXTENSION-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/capture.rs 95e63628f9d70b8dd6e6fede64334696c6995009 530-599 ---
+   530	    pose_buffer_metrics: Res<PoseBufferMetrics>,
+   531	    bouncy_bones_telemetry: Res<BouncyBonesTelemetry>,
+   532	    terrain_ik: Res<TerrainIkMode>,
+   533	    subjects: Query<
+   534	        (
+   535	            Entity,
+   536	            &PresentedSkeleton,
+   537	            &GlobalTransform,
+   538	            Option<&AnimationPlayback>,
+   539	            Option<&RaisedFootworkState>,
+   540	            Option<&LocomotionBodyResponseState>,
+   541	            Option<&LocomotionHeightState>,
+   542	            Option<&LegIkState>,
+   543	            Option<&SemanticRouteTrace>,
+   544	        ),
+   545	        With<CaptureSubject>,
+   546	    >,
+   547	    bones: Query<(&HumanoidBone, &GlobalTransform)>,
+   548	    animation_bones: Query<(
+   549	        &AnimationTargetId,
+   550	        &AuthoredBindTransform,
+   551	        Option<&Name>,
+   552	        &GlobalTransform,
+   553	    )>,
+   554	    terrain: Single<&SceneTerrain>,
+   555	    mut exit: MessageWriter<AppExit>,
+   556	) {
+   557	    let playback_backend = "pose_buffer";
+   558	    let pose_buffer_metrics = *pose_buffer_metrics;
+   559	    if !sequence.admission.is_open() || !sequence.applied || sequence.capture_in_flight {
+   560	        return;
+   561	    }
+   562	    let Ok((
+   563	        subject,
+   564	        skeleton,
+   565	        subject_global,
+   566	        playback,
+   567	        raised_footwork,
+   568	        body_response,
+   569	        height_state,
+   570	        leg_ik,
+   571	        semantic_route,
+   572	    )) = subjects.single()
+   573	    else {
+   574	        wait_or_fail(&mut sequence, "capture subject is missing", &mut exit);
+   575	        return;
+   576	    };
+   577	    let Some(playback) = playback else {
+   578	        wait_or_fail(
+   579	            &mut sequence,
+   580	            "capture subject has no AnimationPlayback",
+   581	            &mut exit,
+   582	        );
+   583	        return;
+   584	    };
+   585	    let Some(semantic_route) = semantic_route else {
+   586	        wait_or_fail(
+   587	            &mut sequence,
+   588	            "capture subject has no semantic route trace",
+   589	            &mut exit,
+   590	        );
+   591	        return;
+   592	    };
+   593	    if !sequence
+   594	        .active_scenario
+   595	        .as_ref()
+   596	        .is_some_and(|scenario| scenario.is(ScenarioId::FullRagdoll))
+   597	        && !playback.authored_pose_is_ready()
+   598	    {
+   599	        wait_or_fail(
+--- MODE-REGISTRATION.json crates/adventuresim-tactical-client/src/animation/mod.rs 95e63628f9d70b8dd6e6fede64334696c6995009 175-230 ---
+   175	    anchor: &'a PoseAnchor,
+   176	    pack_id: &'a AnimationPackId,
+   177	    semantic: SemanticPose,
+   178	    mirrored: ClipMirror,
+   179	    timeline_direction: TimelineDirection,
+   180	}
+   181	
+   182	/// Runtime mode for terrain height, slope, and pelvis conformity. This is on
+   183	/// by default; debug builds expose F8 to compare against authored FK.
+   184	#[derive(Resource, Debug, Default, Clone, Copy, PartialEq, Eq)]
+   185	pub(crate) enum TerrainIkMode {
+   186	    #[default]
+   187	    Enabled,
+   188	    Disabled,
+   189	}
+   190	
+   191	#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+   192	enum ClipLayer {
+   193	    Whole,
+   194	    Upper,
+   195	    Lower,
+   196	    /// Combat upper-body motion owns the pelvis rotation while the paired
+   197	    /// locomotion layer owns its translation.
+   198	    CombatUpper,
+   199	    CombatLower,
+   200	    /// Static equipment grip owns only the subtree below the right wrist.
+   201	    MainHand,
+   202	    /// Static equipment grip owns only the subtree below the left wrist.
+   203	    Offhand,
+   204	}
+   205	
+   206	#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+   207	enum WeaponGrip {
+   208	    Hilt,
+   209	    Polearm,
+   210	}
+   211	
+   212	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+   213	enum PoseSamplingCadence {
+   214	    Buffered,
+   215	    Direct,
+   216	}
+   217	
+   218	impl TerrainIkMode {
+   219	    pub(crate) fn is_enabled(self) -> bool {
+   220	        self == Self::Enabled
+   221	    }
+   222	
+   223	    pub(crate) fn toggle(&mut self) {
+   224	        *self = match self {
+   225	            Self::Enabled => Self::Disabled,
+   226	            Self::Disabled => Self::Enabled,
+   227	        };
+   228	    }
+   229	}
+   230	

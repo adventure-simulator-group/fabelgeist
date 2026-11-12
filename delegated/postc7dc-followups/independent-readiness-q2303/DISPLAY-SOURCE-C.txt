@@ -1,0 +1,62 @@
+### capture.rs:350-410
+350:             quickstep_fixture_vertical_state(frame.scenario_frame).1
+351:         } else if (metadata.kind() == ScenarioKind::Landing || dive_impact) && !grounded {
+352:             -4.5
+353:         } else {
+354:             0.0
+355:         };
+356:         let requested_local_velocity = Vec3::new(
+357:             frame.local_direction.x * frame.speed.metres_per_second(),
+358:             vertical_velocity,
+359:             frame.local_direction.y * frame.speed.metres_per_second(),
+360:         );
+361:         let local_velocity = requested_local_velocity;
+362:         let world_velocity = controller_yaw(orientation) * local_velocity;
+363:         sequence.simulation_tick = next_capture_simulation_tick(
+364:             sequence.simulation_tick,
+365:             sequence.index == 0 && sequence.warmup_frames == 0,
+366:         );
+367:         if sequence.warmup_frames == 0
+368:             && frame.scenario_frame == 0
+369:             && let Some((start_body, transition)) = frame.scenario.transition()
+370:         {
+371:             skeleton.transition_body(start_body);
+372:             if frame.scenario.has(ScenarioFeature::AimedImpact) {
+373:                 // Match the authoritative launch seam: velocity and authored
+374:                 // direction capture one camera frame even if the previously
+375:                 // displayed root had not finished turning toward it.
+376:                 transform.rotation =
+377:                     dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw.radians()));
+378:             }
+379:             // Matches the live server's terrain-contact dive recovery.
+380:             let duration = if frame.scenario.has(ScenarioFeature::DiveBackward) {
+381:                 32
+382:             } else if dive_impact {
+383:                 20
+384:             } else {
+385:                 84
+386:             };
+387:             skeleton.begin_posture_transition(
+388:                 transition,
+389:                 sequence.simulation_tick,
+390:                 AnimationSampleSpan::from(duration as u64),
+391:             );
+392:         }
+393:         let elapsed = capture_frame_elapsed(frame.scenario_frame);
+394:         let delta_seconds = elapsed.seconds();
+395:         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+396:         let motion = subject_motion::CaptureMotion {
+397:             orientation,
+398:             world_velocity,
+399:             contact: GroundContact::from(grounded),
+400:             elapsed,
+401:         };
+402:         let Some(position) = sequence.fixture_root_position(
+403:             &terrain,
+404:             transform.translation,
+405:             &frame,
+406:             &motion,
+407:             *terrain_ik,
+408:         ) else {
+409:             return;
+410:         };

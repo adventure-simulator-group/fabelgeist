@@ -1,0 +1,106 @@
+### capture.rs:550-610
+550:         &AuthoredBindTransform,
+551:         Option<&Name>,
+552:         &GlobalTransform,
+553:     )>,
+554:     terrain: Single<&SceneTerrain>,
+555:     mut exit: MessageWriter<AppExit>,
+556: ) {
+557:     let playback_backend = "pose_buffer";
+558:     let pose_buffer_metrics = *pose_buffer_metrics;
+559:     if !sequence.admission.is_open() || !sequence.applied || sequence.capture_in_flight {
+560:         return;
+561:     }
+562:     let Ok((
+563:         subject,
+564:         skeleton,
+565:         subject_global,
+566:         playback,
+567:         raised_footwork,
+568:         body_response,
+569:         height_state,
+570:         leg_ik,
+571:         semantic_route,
+572:     )) = subjects.single()
+573:     else {
+574:         wait_or_fail(&mut sequence, "capture subject is missing", &mut exit);
+575:         return;
+576:     };
+577:     let Some(playback) = playback else {
+578:         wait_or_fail(
+579:             &mut sequence,
+580:             "capture subject has no AnimationPlayback",
+581:             &mut exit,
+582:         );
+583:         return;
+584:     };
+585:     let Some(semantic_route) = semantic_route else {
+586:         wait_or_fail(
+587:             &mut sequence,
+588:             "capture subject has no semantic route trace",
+589:             &mut exit,
+590:         );
+591:         return;
+592:     };
+593:     if !sequence
+594:         .active_scenario
+595:         .as_ref()
+596:         .is_some_and(|scenario| scenario.is(ScenarioId::FullRagdoll))
+597:         && !playback.authored_pose_is_ready()
+598:     {
+599:         wait_or_fail(
+600:             &mut sequence,
+601:             "authored locomotion clip has not resolved",
+602:             &mut exit,
+603:         );
+604:         return;
+605:     }
+606:     sequence.waiting = 0;
+607:     sequence.settled += 1;
+608:     let required = if sequence.index == 0 {
+609:         sequence.settle_frames.max(60)
+610:     } else {
+### capture.rs:890-915
+890:                                 rotation_xyzw: rotation.to_array(),
+891:                             },
+892:                         )
+893:                     })
+894:                     .collect(),
+895:             }
+896:         })
+897:         .collect()
+898: }
+899: 
+900: pub(super) fn wait_or_fail(
+901:     sequence: &mut CaptureSequence,
+902:     reason: &str,
+903:     exit: &mut MessageWriter<AppExit>,
+904: ) {
+905:     sequence.waiting += 1;
+906:     if sequence.waiting < CAPTURE_LOAD_FRAME_LIMIT {
+907:         return;
+908:     }
+909:     let message = format!(
+910:         "animation viewer timed out after {} rendered frames: {reason}\n",
+911:         sequence.waiting
+912:     );
+913:     fail_capture(sequence, &message, exit);
+914: }
+915: 
+### viewer_mod.rs:60-75
+60: use scenarios::*;
+61: 
+62: mod capture;
+63: mod harness;
+64: mod inspection;
+65: mod report;
+66: mod scenarios;
+67: mod setup;
+68: mod view;
+69: 
+70: const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
+71: 
+72: #[derive(Resource)]
+73: struct CaptureBodyProportions(
+74:     Option<adventuresim_core::character_proportions::CharacterProportions>,
+75: );

@@ -1,0 +1,119 @@
+--- native-attempts 50-85 ---
+  50                 .map_err(str::to_string)?;
+  51             let route = filth::timed_cut_exposure(
+  52                 &routes,
+  53                 minute.elapsed_since(from),
+  54             );
+  55             let check = plan.map_or_else(
+  56                 || crate::disease::party_physiology_check_at(ctx, character_id, minute),
+  57                 |plan| {
+  58                     plan.check_at(
+  59                         character_id,
+  60                         minute,
+  61                     )
+  62                 },
+  63             );
+  64             // Any infectious deposit still present here survived or preceded
+  65             // explicit washing, so clean handling is not available for this
+  66             // dose. Bandaging/stitching still raises the physical affordance
+  67             // through the predicted cut-route state.
+  68             let affordance = adventuresim_core::disease::blood_caregiving_affordance(false, route);
+  69             let exposure = adventuresim_core::disease::residual_exposure_with_affordance(
+  70                 filth::blood_exposure(&relevant, disease_id, minute, route)
+  71                     / MINUTES_PER_DAY as f32,
+  72                 adventuresim_core::disease::TransmissionVector::Blood,
+  73                 check,
+  74                 affordance,
+  75             );
+  76             if exposure <= 0.0 {
+  77                 continue;
+  78             }
+  79             let seed = adventuresim_core::disease::outbreak_exposure_seed(
+  80                 character_id,
+  81                 &format!("blood:{}:{minute}", disease_id.stable_id()),
+  82             );
+  83             attempts.push(adventuresim_core::disease::AcquisitionAttempt::exposure(
+  84                 adventuresim_core::disease::InfectionEpisode {
+  85                     id: seed.to_u64(),
+--- native-surgery 1080-1160 ---
+1080                 .map(|(_, _, effectiveness)| *effectiveness),
+1081         );
+1082     match procedure {
+1083         SurgeryProcedure::Bandage => {
+1084             consume_one(ctx, actor_id, "bandage")?;
+1085             injury.bandaged = true;
+1086             // The risk is intentionally hidden. Low skill and an untreated
+1087             // disease reduce the check passed to the existing wound-exposure model.
+1088             crate::disease::record_committed_cut(
+1089                 ctx,
+1090                 patient_id,
+1091                 injury.cut_damage * 0.25,
+1092                 clean_check,
+1093             )?;
+1094         }
+1095         SurgeryProcedure::Stitch => {
+1096             injury.stitched = true;
+1097             injury.stitch_quality = skill;
+1098             crate::disease::record_committed_cut(
+1099                 ctx,
+1100                 patient_id,
+1101                 injury.cut_damage * 0.12,
+1102                 clean_check,
+1103             )?;
+1104         }
+1105         SurgeryProcedure::Splint => {
+1106             injury.splint_owner_id = Some(actor_id);
+1107             injury.splint_inventory_item_id = Some(equip_splint(ctx, actor_id, patient_id)?);
+1108         }
+1109         SurgeryProcedure::RemoveSplint => {
+1110             return_splint(ctx, &mut injury)?;
+1111         }
+1112         SurgeryProcedure::Extract => {
+1113             let projectile = projectile.unwrap();
+1114             let trauma = 0.015;
+1115             injury.cut_damage = (injury.cut_damage + trauma).min(1.0);
+1116             injury.infection_origin_minute.get_or_insert_with(|| {
+1117                 ctx.db
+1118                     .character_time()
+1119                     .character_id()
+1120                     .find(patient_id)
+1121                     .map_or(StrategicMinute::ZERO, |row| row.minutes)
+1122             });
+1123             injury.bandaged = false;
+1124             injury.stitched = false;
+1125             injury.stitch_quality = 0.0;
+1126             crate::condition::apply_blood_loss(ctx, patient_id, trauma * 0.15)?;
+1127             crate::disease::record_committed_cut(ctx, patient_id, trauma, clean_check)?;
+1128             ctx.db.retained_projectile().id().delete(projectile.id);
+1129         }
+1130         SurgeryProcedure::OpenBody => unreachable!("live-patient procedure was rejected"),
+1131     }
+1132     let exposure =
+1133         adventuresim_core::surgery::procedure_blood_exposure(procedure, actor_id != patient_id);
+1134     if exposure > 0 {
+1135         crate::filth::deposit_now(
+1136             ctx,
+1137             actor_id,
+1138             adventuresim_core::filth::FilthSubstance::Blood,
+1139             Some(patient_id),
+1140             exposure,
+1141         )?;
+1142     }
+1143     store_injury(ctx, injury);
+1144     refresh_limb_projection(ctx, patient_id, limb);
+1145     let patient_survived = ctx
+1146         .db
+1147         .character()
+1148         .id()
+1149         .find(patient_id)
+1150         .is_some_and(|character| character.alive);
+1151     if patient_survived {
+1152         crate::capability::refresh_character_capability(ctx, patient_id)?;
+1153     }
+1154     ctx.db
+1155         .treatment_action_receipt()
+1156         .insert(TreatmentActionReceipt {
+1157             id: receipt_id,
+1158             action_id,
+1159             actor_id,
+1160             patient_id,

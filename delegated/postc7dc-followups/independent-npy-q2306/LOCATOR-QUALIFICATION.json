@@ -1,0 +1,16 @@
+{
+  "reader": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T14:38:47.896326+00:00",
+  "events": [
+    {
+      "scope": "Before independent historical-selection registration, displayed metadata-only byte counts and SHA-256 for two historical queue stream objects at 26e360 and 56f24f, and two prepared selected-slice files. No queue-entry or historical source body was displayed, and no historical record read credit is claimed from this locator view. The metadata is reconstructed below.",
+      "display": [
+        "26e360920b7b2ec32d5c76238623eaf6d6617d7e baseline-059/queue.json: 21631815 bytes, sha256 3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+        "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e baseline-059/queue.json: 21632843 bytes, sha256 2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "HISTORY-Q2306-EXACT.json and HISTORY-Q2306-ORIGINAL-EXACT.json: each 16343 bytes, sha256 5c06973d927f6533b9cbd19b7af0e1bf175991a1cc3b65217244ecfe239867fe"
+      ]
+    }
+  ],
+  "parent_packet_qualification": "The parent report records earlier unregistered/truncated locator events in its LOCATOR-QUALIFICATION.json; those do not confer independent source or historical personal-read credit here.",
+  "truncation": "No independent source or selected-record body has been displayed unregistered or observed truncated."
+}

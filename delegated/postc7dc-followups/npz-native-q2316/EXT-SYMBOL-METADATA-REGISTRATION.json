@@ -1,0 +1,33 @@
+{
+  "schema": "726-npz-q2316-symbol-metadata-extension-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T14:32:24.153753+00:00",
+  "archives": [
+    {
+      "name": "rawzip-0.5.2.crate",
+      "sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "scope": "Rust source member names and line numbers of explicitly named symbols only."
+    },
+    {
+      "name": "flate2-1.1.10.crate",
+      "sha256": "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb",
+      "scope": "src/mem.rs, src/zio.rs and their named-symbol line numbers only."
+    }
+  ],
+  "terms": [
+    "ZipSliceVerifier",
+    "ZipVerifier",
+    "ZipArchiveEntryWayfinder",
+    "uncompressed_size_hint",
+    "compressed_size_hint",
+    "get_entry",
+    "fn read",
+    "impl Decompress",
+    "pub fn new",
+    "decompress",
+    "verify",
+    "CRC",
+    "checksum"
+  ],
+  "qualification": "Prospective metadata-only symbol navigation; exact source ranges require separate registration before display. Does not retroactively authorize the earlier unregistered locator recorded separately."
+}

@@ -1,0 +1,102 @@
+{
+  "schema": "726-blood-future-disease-extension-v1",
+  "registered_utc": "2026-11-12T14:35:55.520428+00:00",
+  "parent_navigation_sha256": "8f610432b1a24c355b78c0fba42e0fd8e172284f2bc84b464afb02788b1a3a97",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "entry": {
+    "tag": "native-disease",
+    "path": "crates/adventuresim-stdb-module/src/disease.rs",
+    "capture": "sources/native-disease.rs",
+    "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+    "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+    "bytes": 101966,
+    "eof": 2950,
+    "chain": [
+      {
+        "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+        "name": "crates",
+        "mode": "040000",
+        "type": "tree",
+        "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+      },
+      {
+        "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+        "name": "adventuresim-stdb-module",
+        "mode": "040000",
+        "type": "tree",
+        "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+      },
+      {
+        "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+        "name": "src",
+        "mode": "040000",
+        "type": "tree",
+        "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+      },
+      {
+        "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+        "name": "disease.rs",
+        "mode": "100644",
+        "type": "blob",
+        "object": "b3f5435464866afdfb3cb48e059be0251a65408d"
+      }
+    ],
+    "planned_ranges": [
+      [
+        1030,
+        1160
+      ],
+      [
+        1200,
+        1295
+      ],
+      [
+        1800,
+        1885
+      ],
+      [
+        1920,
+        1980
+      ]
+    ]
+  },
+  "tree_objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "capture": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "bytes": 1635,
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "capture": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "bytes": 2434,
+      "sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0"
+    },
+    "5c8df250bac26e66cc279349f2b2d8da25dc65ab": {
+      "capture": "trees/5c8df250bac26e66cc279349f2b2d8da25dc65ab.tree.gz",
+      "bytes": 205,
+      "sha256": "b120c38fa7d78f6885fb5b680d69144e19a7d0c0bea0d849553d5ff87c581411"
+    },
+    "a2bab2bd75fc96367f3a95785598fd29e953bd62": {
+      "capture": "trees/a2bab2bd75fc96367f3a95785598fd29e953bd62.tree.gz",
+      "bytes": 5649,
+      "sha256": "fbf98e2a89df733af9779fc2fc15d822c935ab99cf0dcd18b58568bb98cd792b"
+    },
+    "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182": {
+      "capture": "trees/d099f9a64c6e2c861f57a3cd823c38a4e4cfb182.tree.gz",
+      "bytes": 259,
+      "sha256": "65d2a14fcbbe65bc0ca222ffea1c36d219ae10c68b3a5a6c78c240e094fd0fc0"
+    },
+    "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed": {
+      "capture": "trees/a7ee465f194c257d117f6be3de4b2f4f9ffb82ed.tree.gz",
+      "bytes": 2691,
+      "sha256": "dcd452378ba0f84a5cdce52488e1c8bf400f78561e737e6ab1682f00669f06a1"
+    },
+    "ddf9a8e546df748157d77d37b7e5cc52a046305e": {
+      "capture": "trees/ddf9a8e546df748157d77d37b7e5cc52a046305e.tree.gz",
+      "bytes": 92,
+      "sha256": "c20bbd44fdd659179acad60b2622b81e712ef909702facc691630ee075671408"
+    }
+  },
+  "qualification": "Selected planner and committed-prefix call paths only; no full caller, scheduling, transaction or runtime credit."
+}

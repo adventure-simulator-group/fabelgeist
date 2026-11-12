@@ -1,0 +1,89 @@
+### lib.rs:1-29
+1: //! NumPy array storage for Burn.
+2: //!
+3: //! Reads `.npy` files and `.npz` archives (stored or deflated, zip64 included)
+4: //! and retains decoded values in bespoke collections until Burn tensor adapters.
+5: //! Pure Rust: no NumPy, no C zlib.
+6: //!
+7: //! ```no_run
+8: //! # fn main() -> anyhow::Result<()> {
+9: //! use burn::tensor::Device;
+10: //! use fabelgeist_numpy_storage::{Npz, NpzArrayName};
+11: //!
+12: //! let archive = Npz::open("weights.npz")?;
+13: //! let weights = archive.array(&NpzArrayName::new("layer0"))?.to_tensor::<2>(&Device::default())?;
+14: //! # let _ = weights;
+15: //! # Ok(())
+16: //! # }
+17: //! ```
+18: 
+19: pub use npy::{
+20:     Dtype, NpyArray, NpyByteStates, NpyDimension, NpyElementCount, NpyElementWidth,
+21:     NpyFloat32Values, NpyIntegerValues, NpyLayoutError, NpyPayloadLength, NpyRank, NpyShape,
+22:     NpyTensorLayout,
+23: };
+24: pub use npz::{Npz, NpzArrayName, NpzMember};
+25: pub use zip::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};
+26: 
+27: pub mod npy;
+28: pub mod npz;
+29: pub mod zip;
+### cargo-historical.toml:1-26
+1: [package]
+2: name = "fabelgeist-numpy-storage"
+3: version = "0.1.0"
+4: edition = "2024"
+5: repository = "https://github.com/adventure-simulator-group/fabelgeist"
+6: license = "AGPL-3.0"
+7: 
+8: [dependencies]
+9: anyhow = "1"
+10: derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from", "into"] }
+11: burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+12:     "std",
+13:     "wgpu",
+14: ] }
+15: memmap2 = "0.9"
+16: rawzip = "=0.5.2"
+17: # Pure-Rust inflate (miniz_oxide) for deflated archive members; no C toolchain.
+18: flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+19: 
+20: [workspace]
+21: 
+22: [patch.crates-io]
+23: pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+24: 
+25: [lints.clippy]
+26: all = { level = "warn", priority = -1 }
+### cargo-current.toml:1-31
+1: [package]
+2: name = "fabelgeist-numpy-storage"
+3: version = "0.1.0"
+4: edition = "2024"
+5: repository = "https://github.com/adventure-simulator-group/fabelgeist"
+6: license = "AGPL-3.0"
+7: 
+8: [dependencies]
+9: anyhow = "1"
+10: derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from", "into"] }
+11: burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+12:     "std",
+13:     "wgpu",
+14: ] }
+15: memmap2 = "0.9"
+16: rawzip = "=0.5.2"
+17: # Pure-Rust inflate (miniz_oxide) for deflated archive members; no C toolchain.
+18: flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+19: 
+20: [workspace]
+21: 
+22: [profile.dev]
+23: debug = "none"
+24: incremental = false
+25: strip = "debuginfo"
+26: 
+27: [patch.crates-io]
+28: pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+29: 
+30: [lints.clippy]
+31: all = { level = "warn", priority = -1 }

@@ -1,0 +1,153 @@
+{
+  "schema": "independent-npy-historical-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:39:10.388304+00:00",
+  "queue_streams": [
+    {
+      "role": "original",
+      "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+      "path": "baseline-059/queue.json",
+      "blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "bytes": 21632843,
+      "selector": "/entries/2306",
+      "entry_byte_start": 10308145,
+      "entry_byte_end_exclusive": 10324488,
+      "entry_sha256": "5c06973d927f6533b9cbd19b7af0e1bf175991a1cc3b65217244ecfe239867fe",
+      "entry_bytes": 16343
+    },
+    {
+      "role": "public_reconstruction",
+      "revision": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+      "path": "baseline-059/queue.json",
+      "blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5",
+      "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "bytes": 21631815,
+      "selector": "/entries/2306",
+      "entry_byte_start": 10307117,
+      "entry_byte_end_exclusive": 10323460,
+      "entry_sha256": "5c06973d927f6533b9cbd19b7af0e1bf175991a1cc3b65217244ecfe239867fe",
+      "entry_bytes": 16343
+    }
+  ],
+  "historical_captures": [
+    {
+      "retained_parent_path": "historical-originals/parallel-l11-20261029/READ-170.json",
+      "original_path": "parallel-l11-20261029/READ-170.json",
+      "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11",
+      "bytes": 14431,
+      "planned_pointers": [
+        "/revision",
+        "/rows/0",
+        "/rows/1",
+        "/rows/2",
+        "/rows/3",
+        "/population_credit",
+        "/implementation_gate_complete",
+        "/native_runtime_validation"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/parallel-l11-20261029/PLAN-191.json",
+      "original_path": "parallel-l11-20261029/PLAN-191.json",
+      "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+      "bytes": 9673,
+      "planned_pointers": [
+        "/revision",
+        "/rows/0",
+        "/rows/1",
+        "/rows/2",
+        "/rows/3"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/parallel-l11-20261029/READ-011.json",
+      "original_path": "parallel-l11-20261029/READ-011.json",
+      "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be",
+      "bytes": 18448,
+      "planned_pointers": [
+        "/revision",
+        "/rows/6",
+        "/rows/7",
+        "/rows/8",
+        "/population_credit",
+        "/implementation_gate_complete",
+        "/native_runtime_validation"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/parallel-l11-20261029/PLAN-024.json",
+      "original_path": "parallel-l11-20261029/PLAN-024.json",
+      "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+      "bytes": 1697,
+      "planned_pointers": [
+        "/rows/0",
+        "/rows/1",
+        "/rows/2"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/segovb/READ-L11-706.json",
+      "original_path": "segovb/READ-L11-706.json",
+      "sha256": "b722d2b9c654a1d1e9e9c5ec4c6aa87616b4515c32045d4393da5a838f192e9d",
+      "bytes": 17279,
+      "planned_pointers": [
+        "/source_revision",
+        "/actual_current_target",
+        "/new_target_reconciliation_complete",
+        "/accepted_unique_count_change",
+        "/finding_connections_and_scope_dispositions"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/segovb/VERIFY-L11-706.json",
+      "original_path": "segovb/VERIFY-L11-706.json",
+      "sha256": "b4adeb1e4d6b08588ab70519ce29aa75314ab276b2c8a777e01eafd761a8ed38",
+      "bytes": 1027,
+      "planned_pointers": [
+        "/receipt_sha256",
+        "/delegated_attribution_preserved",
+        "/other_lens_credit",
+        "/product_execution",
+        "/implementation_gate_complete"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/segovb/READ-L11-547.json",
+      "original_path": "segovb/READ-L11-547.json",
+      "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+      "bytes": 23147,
+      "planned_pointers": [
+        "/source_revision",
+        "/actual_current_target",
+        "/new_target_reconciliation_complete",
+        "/accepted_unique_count_change",
+        "/finding_connections_and_scope_dispositions"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/segovb/VERIFY-L11-547.json",
+      "original_path": "segovb/VERIFY-L11-547.json",
+      "sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5",
+      "bytes": 407,
+      "planned_pointers": [
+        "/receipt_sha256",
+        "/agent_attribution_preserved",
+        "/other_lens_credit",
+        "/product_execution",
+        "/gate"
+      ]
+    },
+    {
+      "retained_parent_path": "historical-originals/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "original_path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+      "bytes": 192315,
+      "planned_pointers": [
+        "/contract_updates/6"
+      ]
+    }
+  ],
+  "scope": "Prospective personal selected displays only; queue byte slice equals both independently hashed Git streams but is not a standalone original queue or checkpoint3821. Parent capture records retain original authors and e275 attribution.",
+  "qualification": "Parent historical captures were independently hashed against parent metadata but original private extraction chain is not independently repeated. Prior metadata-only locator is separately disclosed."
+}

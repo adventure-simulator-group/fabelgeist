@@ -1,0 +1,7 @@
+{
+  "event": "First scratch import stopped at an assertion before publication.",
+  "cause": "The independent blood-future agent archive actually uses top-level blood-future/, while the coordinator mistakenly expected q2297/.",
+  "effect": "Five packet/archive pairs and the sixth packet plus exact archive were copied to this scratch directory and remain here; no product source, extracted originals, publication tree or agent packets were changed.",
+  "evidence": "The run returned exit 1 with AssertionError at the archive prefix check; the invocation and output are in the conversation tool record.",
+  "correction": "A new unique scratch import will use the observed exact prefix and check every member without changing the agent archive."
+}

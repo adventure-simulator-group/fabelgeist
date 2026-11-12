@@ -1,0 +1,109 @@
+=== first-party/crates/fabelgeist-numpy-storage/src/zip.rs 31..48 ===
+  31 | struct Entry {
+  32 |     name: ArchiveMemberName,
+  33 |     compression: ZipCompression,
+  34 |     uncompressed_size: DeclaredUncompressedByteLength,
+  35 |     location: ZipArchiveEntryWayfinder,
+  36 | }
+  37 | 
+  38 | /// A ZIP archive backed by a read-only mapping or an owned byte buffer.
+  39 | pub struct ZipArchive {
+  40 |     archive: ZipSliceArchive<ArchiveData>,
+  41 |     entries: Vec<Entry>,
+  42 | }
+  43 | 
+  44 | /// A member selected from, and inseparable from, its owning archive.
+  45 | pub(crate) struct ZipMember<'archive> {
+  46 |     archive: &'archive ZipArchive,
+  47 |     entry: &'archive Entry,
+  48 | }
+=== first-party/crates/fabelgeist-numpy-storage/src/zip.rs 86..109 ===
+  86 |     fn from_data(data: ArchiveData) -> Result<Self> {
+  87 |         let archive = ZipLocator::new()
+  88 |             .max_search_space(END_DIRECTORY_SEARCH_WINDOW_BYTES)
+  89 |             .locate_in_slice(data)
+  90 |             .map_err(|(_, source)| ZipReadError::from(source))?;
+  91 |         let member_count = ArchiveMemberCount::from(archive.entries_hint());
+  92 |         let mut entries = Vec::with_capacity(member_count.initial_capacity());
+  93 |         let mut directory = archive.entries();
+  94 |         // The declaration remains our upper bound; rawzip bounds each record
+  95 |         // by the selected directory span. No partial archive is published on error.
+  96 |         for _ in member_count.native_iteration_range() {
+  97 |             let Some(header) = directory.next_entry().map_err(ZipReadError::from)? else {
+  98 |                 break;
+  99 |             };
+ 100 |             entries.push(Entry {
+ 101 |                 name: ArchiveMemberName::from(header.file_path().as_ref()),
+ 102 |                 compression: ZipCompression::from(header.compression_method()),
+ 103 |                 uncompressed_size: DeclaredUncompressedByteLength::from_bytes(
+ 104 |                     header.uncompressed_size_hint(),
+ 105 |                 ),
+ 106 |                 location: header.wayfinder(),
+ 107 |             });
+ 108 |         }
+ 109 |         Ok(Self { archive, entries })
+=== first-party/crates/fabelgeist-numpy-storage/src/npy.rs 118..130 ===
+ 118 | impl NpyArray {
+ 119 |     /// Parses a `.npy` buffer: header dictionary first, then the element payload.
+ 120 |     pub fn from_bytes(bytes: &[u8]) -> Result<Self> {
+ 121 |         let NpyHeader {
+ 122 |             dtype,
+ 123 |             shape,
+ 124 |             payload,
+ 125 |         } = NpyHeader::from_bytes(bytes)?;
+ 126 |         Ok(Self {
+ 127 |             shape,
+ 128 |             dtype,
+ 129 |             bytes: payload.to_vec(),
+ 130 |         })
+=== first-party/crates/fabelgeist-numpy-storage/src/npy/header.rs 70..87 ===
+  70 |         }
+  71 |         let descriptor = descriptor.context("missing 'descr' in .npy header")?;
+  72 |         let order = order.context("missing 'fortran_order' in .npy header")?;
+  73 |         let dimensions = dimensions.context("missing 'shape' in .npy header")?;
+  74 |         let dtype = Dtype::parse(descriptor)?;
+  75 |         if let StorageOrder::Fortran = order {
+  76 |             bail!("Fortran-ordered .npy arrays are not supported");
+  77 |         }
+  78 |         let shape = NpyShape::from_header_tuple(dimensions)?;
+  79 |         let payload = shape
+  80 |             .element_count()
+  81 |             .payload_length(dtype)?
+  82 |             .admit(payload)?;
+  83 |         Ok(Self {
+  84 |             dtype,
+  85 |             shape,
+  86 |             payload,
+  87 |         })
+=== first-party/crates/fabelgeist-numpy-storage/src/npy/metadata.rs 113..143 ===
+ 113 |     pub fn payload_length(self, dtype: Dtype) -> Result<NpyPayloadLength> {
+ 114 |         let width = dtype.storage_width();
+ 115 |         self.0
+ 116 |             .checked_mul(width.native_width())
+ 117 |             .map(NpyPayloadLength)
+ 118 |             .ok_or(NpyLayoutError::PayloadLengthOverflow {
+ 119 |                 elements: self,
+ 120 |                 width,
+ 121 |             })
+ 122 |     }
+ 123 | }
+ 124 | impl NpyElementWidth {
+ 125 |     /// Native byte width used by checked serialized-payload arithmetic.
+ 126 |     pub(super) fn native_width(self) -> usize {
+ 127 |         match self {
+ 128 |             Self::Byte => 1,
+ 129 |             Self::Word32 => 4,
+ 130 |             Self::Word64 => 8,
+ 131 |         }
+ 132 |     }
+ 133 | }
+ 134 | impl NpyPayloadLength {
+ 135 |     /// The narrow native serialization adapter, preserving trailing-file policy.
+ 136 |     pub(super) fn admit(self, payload: &[u8]) -> Result<&[u8]> {
+ 137 |         payload
+ 138 |             .get(..self.0)
+ 139 |             .ok_or(NpyLayoutError::TruncatedPayload {
+ 140 |                 expected: self,
+ 141 |                 available: Self(payload.len()),
+ 142 |             })
+ 143 |     }

@@ -1,0 +1,26 @@
+### capture.rs:611-635
+611:         // A view change needs one complete render before requesting the next
+612:         // asynchronous screenshot; otherwise two paths may receive the same
+613:         // previously rendered camera image.
+614:         sequence.settle_frames.max(2)
+615:     };
+616:     if sequence.settled < required {
+617:         return;
+618:     }
+619: 
+620:     let frame = sequence.plan[sequence.index].clone();
+621:     let view = VIEWS[sequence.view_index];
+622:     let file_name = view.screenshot_name(&frame);
+623:     let path = sequence.output.join(&file_name);
+624:     let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
+625:         return;
+626:     };
+627:     let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
+628:     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
+629:     sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
+630:     if sequence.view_index == 0 {
+631:         sequence.global_bone_frames.push(GlobalBoneFrame::capture(
+632:             &frame,
+633:             skeleton,
+634:             subject_global,
+635:             subject,

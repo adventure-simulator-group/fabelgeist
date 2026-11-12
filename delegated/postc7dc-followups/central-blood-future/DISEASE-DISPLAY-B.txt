@@ -1,0 +1,149 @@
+--- native-disease 1800-1885 ---
+1800             [
+1801                 Some(administration.administered_at),
+1802                 administration.stopped_at,
+1803                 profile_end,
+1804             ]
+1805             .into_iter()
+1806             .flatten()
+1807             .filter(|minute| *minute >= from && *minute <= to),
+1808         );
+1809     }
+1810     Ok(physiology::first_terminal_crossing(&structural, |minute| {
+1811         private_combined_at(
+1812             character_id,
+1813             episodes,
+1814             &interventions,
+1815             minute,
+1816             immunity,
+1817             &key,
+1818         )
+1819     })
+1820     .map(|(minute, meter)| (minute, terminal_failure_for_meter(meter))))
+1821 }
+1822 
+1823 /// Returns the safe prefix of an interval and a terminal mechanism, if any.
+1824 /// All boundary events at the earliest minute are considered together.
+1825 fn clip_elapsed_for_disease_planned(
+1826     ctx: &ReducerContext,
+1827     character_id: u64,
+1828     requested: u64,
+1829     allow_healing: bool,
+1830     plan: Option<&PartyDiseaseIntervalPlan>,
+1831 ) -> Result<(u64, Option<TerminalFailure>), String> {
+1832     if requested == 0 {
+1833         return Ok((0, None));
+1834     }
+1835     let owned_plan;
+1836     let plan = if let Some(plan) = plan {
+1837         plan
+1838     } else {
+1839         owned_plan = plan_party_disease_interval(ctx, &[character_id], requested, allow_healing)?;
+1840         &owned_plan
+1841     };
+1842     let now = ctx
+1843         .db
+1844         .character_time()
+1845         .character_id()
+1846         .find(character_id)
+1847         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+1848     let immunity = ctx
+1849         .db
+1850         .character_attributes()
+1851         .character_id()
+1852         .find(character_id)
+1853         .map_or(3.0, |a| a.immunity);
+1854     let mut episodes = character_episodes(ctx, character_id)?;
+1855     let interval_end = now.saturating_add_minutes(requested);
+1856     let proposed = plan.proposals_for(character_id, now, interval_end);
+1857     episodes.extend(proposed.iter().copied());
+1858     let mut events = interval::disease_events(&episodes, now, interval_end, immunity);
+1859     events.sort_by_key(|e| e.minute);
+1860     let terminal =
+1861         first_private_terminal(ctx, character_id, &episodes, now, interval_end, immunity)?;
+1862     let death_minute = terminal.map(|value| value.0);
+1863     let through = death_minute.unwrap_or(interval_end);
+1864     // The terminal minute is inclusive: infections and notices occurring at
+1865     // that boundary are committed; later effects from the requested interval
+1866     // are never persisted.
+1867     persist_acquisition_episodes(
+1868         ctx,
+1869         character_id,
+1870         proposed
+1871             .into_iter()
+1872             .filter(|episode| disease::infection_occurs_through(*episode, through)),
+1873     )?;
+1874     // Re-evaluate only the committed prefix and advance the private cursor.
+1875     // Absolute-minute seeds guarantee the same proposal as preview/full evaluation.
+1876     let _ = crate::filth::blood_exposure_attempts_through(
+1877         ctx,
+1878         character_id,
+1879         now,
+1880         through,
+1881         true,
+1882         allow_healing,
+1883         Some(plan),
+1884         blood_interval_work_budget(through.elapsed_since(now)),
+1885     )?;
+--- native-disease 1920-1980 ---
+1920         character_id,
+1921         0,
+1922         death_minute,
+1923         "critical",
+1924         "A vital humour is failing.",
+1925     )?;
+1926     Ok((
+1927         death_minute.elapsed_since(now),
+1928         terminal.map(|value| value.1),
+1929     ))
+1930 }
+1931 
+1932 pub fn clip_elapsed_for_disease(
+1933     ctx: &ReducerContext,
+1934     character_id: u64,
+1935     requested: u64,
+1936     allow_healing: bool,
+1937 ) -> Result<(u64, Option<TerminalFailure>), String> {
+1938     clip_elapsed_for_disease_planned(ctx, character_id, requested, allow_healing, None)
+1939 }
+1940 
+1941 pub fn clip_elapsed_for_disease_in_plan(
+1942     ctx: &ReducerContext,
+1943     character_id: u64,
+1944     requested: u64,
+1945     allow_healing: bool,
+1946     plan: &PartyDiseaseIntervalPlan,
+1947 ) -> Result<(u64, Option<TerminalFailure>), String> {
+1948     clip_elapsed_for_disease_planned(ctx, character_id, requested, allow_healing, Some(plan))
+1949 }
+1950 
+1951 /// Side-effect-free party preflight. Acquisition and notice delivery happen
+1952 /// only in the subsequent committed interval.
+1953 fn preview_disease_boundary_planned(
+1954     ctx: &ReducerContext,
+1955     character_id: u64,
+1956     requested: u64,
+1957     allow_healing: bool,
+1958     plan: Option<&PartyDiseaseIntervalPlan>,
+1959 ) -> Result<(u64, bool), String> {
+1960     let owned_plan;
+1961     let plan = if let Some(plan) = plan {
+1962         plan
+1963     } else {
+1964         owned_plan = plan_party_disease_interval(ctx, &[character_id], requested, allow_healing)?;
+1965         &owned_plan
+1966     };
+1967     let now = ctx
+1968         .db
+1969         .character_time()
+1970         .character_id()
+1971         .find(character_id)
+1972         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+1973     let immunity = ctx
+1974         .db
+1975         .character_attributes()
+1976         .character_id()
+1977         .find(character_id)
+1978         .map_or(3.0, |a| a.immunity);
+1979     let mut episodes = character_episodes(ctx, character_id)?;
+1980     episodes.extend(plan.proposals_for(character_id, now, now.saturating_add_minutes(requested)));

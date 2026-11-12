@@ -1,0 +1,18 @@
+{
+  "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+  "lens": 5,
+  "severity": "unassigned; conditional source-level liveness, actual asset failure unobserved",
+  "classification": "New current-source readiness liveness candidate connected to an earlier Lens12 question; no viewer was run and global aliases remain open.",
+  "historical_related_records": [
+    "baseline-059/queue.json#/entries/1214 (earlier readiness/native timeout question)",
+    "historical role 1418 in ASSESSMENT-L01-HISTORICAL-1417-1421.json"
+  ],
+  "relationship_qualification": "Conditional current liveness candidate; final checkpoint 3821 and global alias reconciliation remain unavailable.",
+  "discovery": "partial; actual asset state, timing policy and aliases open",
+  "repair": "not started",
+  "validation": "not performed",
+  "record": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+  "further_current_evidence": [
+    "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+  ]
+}

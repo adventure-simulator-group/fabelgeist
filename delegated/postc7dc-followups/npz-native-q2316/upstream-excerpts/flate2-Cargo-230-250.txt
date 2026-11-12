@@ -1,0 +1,21 @@
+[dependencies.libz-ng-sys]
+version = "1.1.16"
+optional = true
+
+[dependencies.libz-sys]
+version = "1.1.20"
+optional = true
+default-features = false
+
+[dependencies.miniz_oxide]
+version = "0.9.0"
+features = ["simd"]
+optional = true
+
+[dependencies.zlib-rs]
+version = "0.6.0"
+features = ["rust-allocator"]
+optional = true
+default-features = false
+
+[dev-dependencies.futures]

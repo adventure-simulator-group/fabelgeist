@@ -1,0 +1,82 @@
+### values.rs:86-166
+86: impl NpyIntegerValues {
+87:     pub fn element_count(&self) -> NpyElementCount {
+88:         NpyElementCount::from(self.0.len())
+89:     }
+90: 
+91:     pub fn values(&self) -> &[i64] {
+92:         &self.0
+93:     }
+94: }
+95: 
+96: impl From<&NpyArray> for NpyByteStates {
+97:     fn from(array: &NpyArray) -> Self {
+98:         Self(array.bytes.iter().map(|byte| *byte != 0).collect())
+99:     }
+100: }
+101: 
+102: impl NpyByteStates {
+103:     pub fn states(&self) -> &[bool] {
+104:         &self.0
+105:     }
+106: }
+107: 
+108: impl StoredValue {
+109:     fn floating(self) -> f32 {
+110:         match self {
+111:             Self::Float32(value) => value,
+112:             Self::Float64(value) => value as f32,
+113:             Self::Integer32(value) => value as f32,
+114:             Self::Integer64(value) => value as f32,
+115:             Self::Byte(value) => value as f32,
+116:         }
+117:     }
+118:     fn integer(self) -> i64 {
+119:         match self {
+120:             Self::Float32(value) => value as i64,
+121:             Self::Float64(value) => value as i64,
+122:             Self::Integer32(value) => value as i64,
+123:             Self::Integer64(value) => value,
+124:             Self::Byte(value) => value as i64,
+125:         }
+126:     }
+127: }
+128: 
+129: impl<'a> From<&'a NpyArray> for StoredValues<'a> {
+130:     fn from(array: &'a NpyArray) -> Self {
+131:         // The current dtype selects native fixed-width words. As in
+132:         // chunks_exact, an incomplete final word is not decoded.
+133:         match array.dtype {
+134:             Dtype::F32 => Self::Float32(array.bytes.as_chunks::<4>().0.iter()),
+135:             Dtype::F64 => Self::Float64(array.bytes.as_chunks::<8>().0.iter()),
+136:             Dtype::I32 => Self::Integer32(array.bytes.as_chunks::<4>().0.iter()),
+137:             Dtype::I64 => Self::Integer64(array.bytes.as_chunks::<8>().0.iter()),
+138:             Dtype::U8 | Dtype::Bool => Self::Byte(array.bytes.iter()),
+139:         }
+140:     }
+141: }
+142: 
+143: impl Iterator for StoredValues<'_> {
+144:     type Item = StoredValue;
+145:     fn size_hint(&self) -> (usize, Option<usize>) {
+146:         match self {
+147:             Self::Float32(words) | Self::Integer32(words) => words.size_hint(),
+148:             Self::Float64(words) | Self::Integer64(words) => words.size_hint(),
+149:             Self::Byte(bytes) => bytes.size_hint(),
+150:         }
+151:     }
+152:     fn next(&mut self) -> Option<Self::Item> {
+153:         match self {
+154:             Self::Float32(words) => words
+155:                 .next()
+156:                 .map(|word| StoredValue::Float32(f32::from_le_bytes(*word))),
+157:             Self::Float64(words) => words
+158:                 .next()
+159:                 .map(|word| StoredValue::Float64(f64::from_le_bytes(*word))),
+160:             Self::Integer32(words) => words
+161:                 .next()
+162:                 .map(|word| StoredValue::Integer32(i32::from_le_bytes(*word))),
+163:             Self::Integer64(words) => words
+164:                 .next()
+165:                 .map(|word| StoredValue::Integer64(i64::from_le_bytes(*word))),
+166:             Self::Byte(bytes) => bytes.next().copied().map(StoredValue::Byte),

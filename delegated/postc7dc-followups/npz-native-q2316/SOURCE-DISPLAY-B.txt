@@ -1,0 +1,95 @@
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.lock 1042..1050 ===
+1042 | [[package]]
+1043 | name = "crc32fast"
+1044 | version = "1.5.2"
+1045 | source = "registry+https://github.com/rust-lang/crates.io-index"
+1046 | checksum = "01a7799fd6b852db0e61728dde9a204c423b44d689dbd432522543614b490e78"
+1047 | dependencies = [
+1048 |  "cfg-if",
+1049 | ]
+1050 | 
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.lock 3272..3291 ===
+3272 | [[package]]
+3273 | name = "miniz_oxide"
+3274 | version = "0.8.9"
+3275 | source = "registry+https://github.com/rust-lang/crates.io-index"
+3276 | checksum = "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316"
+3277 | dependencies = [
+3278 |  "adler2",
+3279 |  "simd-adler32",
+3280 | ]
+3281 | 
+3282 | [[package]]
+3283 | name = "miniz_oxide"
+3284 | version = "0.9.1"
+3285 | source = "registry+https://github.com/rust-lang/crates.io-index"
+3286 | checksum = "b63fbc4a50860e98e7b2aa7804ded1db5cbc3aff9193adaff57a6931bf7c4b4c"
+3287 | dependencies = [
+3288 |  "adler2",
+3289 |  "simd-adler32",
+3290 | ]
+3291 | 
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.lock 6194..6199 ===
+6194 | [[package]]
+6195 | name = "zlib-rs"
+6196 | version = "0.6.8"
+6197 | source = "registry+https://github.com/rust-lang/crates.io-index"
+6198 | checksum = "b268e58e7c693d7c271f93ffc4ba3b380412554231c85bf61ca7af91042a4112"
+6199 | 
+=== upstream/flate2/Cargo.toml 55..110 ===
+  55 | ]
+  56 | 
+  57 | [features]
+  58 | any_c_zlib = ["any_zlib"]
+  59 | any_impl = []
+  60 | any_zlib = ["any_impl"]
+  61 | cloudflare_zlib = ["zlib"]
+  62 | default = [
+  63 |     "rust_backend",
+  64 |     "runtime_detection",
+  65 | ]
+  66 | miniz-sys = ["rust_backend"]
+  67 | miniz_oxide = [
+  68 |     "any_impl",
+  69 |     "dep:miniz_oxide",
+  70 |     "dep:crc32fast",
+  71 | ]
+  72 | runtime_detection = [
+  73 |     "zlib-rs?/std",
+  74 |     "crc32fast?/std",
+  75 | ]
+  76 | rust_backend = [
+  77 |     "miniz_oxide",
+  78 |     "any_impl",
+  79 | ]
+  80 | zlib = [
+  81 |     "any_c_zlib",
+  82 |     "libz-sys",
+  83 |     "dep:crc32fast",
+  84 | ]
+  85 | zlib-default = [
+  86 |     "any_c_zlib",
+  87 |     "libz-sys/default",
+  88 |     "dep:crc32fast",
+  89 | ]
+  90 | zlib-ng = [
+  91 |     "any_c_zlib",
+  92 |     "libz-ng-sys",
+  93 |     "dep:crc32fast",
+  94 | ]
+  95 | zlib-ng-compat = [
+  96 |     "zlib",
+  97 |     "libz-sys/zlib-ng",
+  98 |     "dep:crc32fast",
+  99 | ]
+ 100 | zlib-rs = [
+ 101 |     "any_zlib",
+ 102 |     "dep:zlib-rs",
+ 103 | ]
+ 104 | 
+ 105 | [lib]
+ 106 | name = "flate2"
+ 107 | path = "src/lib.rs"
+ 108 | 
+ 109 | [[example]]
+ 110 | name = "compress_file"

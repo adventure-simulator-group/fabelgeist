@@ -1,0 +1,136 @@
+{
+  "schema": "726-npy-q2306-current-source-registration-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T13:52:32.506080+00:00",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "commit_roots": {
+    "95e63628f9d70b8dd6e6fede64334696c6995009": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "e2755a732c84e67296b5e3441a4259a84f461b2f": "7737c903f98397669c12da05475f759aa7fcfe73"
+  },
+  "source_subtree_both": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+  "crate_tree_historical": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+  "crate_tree_current": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+  "qualification": "Before source display, copied exact earlier transition bytes and checked SHA-256, Git blob identity, and both commit-rooted tree paths. The src subtree object is identical; crate trees differ, including Cargo.toml. This does not imply whole-tree equivalence. Raw commit anchors are separately retained privately because they contain public-author email metadata; preexisting publication also carries them. Source body copied does not grant personal-read credit outside the prospective ranges. No source/product execution.",
+  "rows": [
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/lib.rs",
+      "sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+      "git_blob": "7a4709d77e4d1cd8b748281df5039256c50249ce",
+      "bytes": 960,
+      "line_count": 29,
+      "registered_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "historical_row": "R170-0",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/npy.rs",
+      "sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+      "git_blob": "4b808f9c2deb641138027271d2cd2da0222d3a2d",
+      "bytes": 7031,
+      "line_count": 229,
+      "registered_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "historical_row": "R170-1",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/npy/header.rs",
+      "sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+      "git_blob": "d1b8e1c768dbbe3f3f780eb11dce01b16514038c",
+      "bytes": 5255,
+      "line_count": 160,
+      "registered_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "historical_row": "R170-2",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+      "sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1",
+      "git_blob": "b7d8e7030ea65f7d0d7775a164408402e788970f",
+      "bytes": 2421,
+      "line_count": 70,
+      "registered_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "historical_row": "R170-3",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+      "sha256": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505",
+      "git_blob": "3ee8d45ec341d346fe9830781d0865c5d5fe2a40",
+      "bytes": 5487,
+      "line_count": 174,
+      "registered_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "historical_row": "R011-6",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+      "sha256": "e66ce25b7fac744ec37d8822741f7600771cf54697192434761c2084c5a11485",
+      "git_blob": "0173790e52e9792ce3a34728e31381319d8c7873",
+      "bytes": 3665,
+      "line_count": 110,
+      "registered_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "historical_row": "R011-7",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+      "source_file": "sources/crates/fabelgeist-numpy-storage/src/npy/values.rs",
+      "sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+      "git_blob": "aef217ff6429fe53553634897bf2f1045b430bab",
+      "bytes": 5162,
+      "line_count": 174,
+      "registered_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "historical_row": "R011-8",
+      "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+    }
+  ]
+}

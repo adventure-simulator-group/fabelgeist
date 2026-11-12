@@ -1,0 +1,28 @@
+{
+  "schema": "726-blood-future-producer-navigation-v1",
+  "registered_utc": "2026-11-12T14:35:28.045590+00:00",
+  "parent_navigation_sha256": "8f610432b1a24c355b78c0fba42e0fd8e172284f2bc84b464afb02788b1a3a97",
+  "entries": [
+    {
+      "tag": "native-disease",
+      "capture": "sources/native-disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "queries": [
+        "plan_party_disease_interval",
+        "clip_elapsed_for_disease_planned",
+        "blood_exposure_attempts_through"
+      ]
+    },
+    {
+      "tag": "native-filth",
+      "capture": "sources/native-filth.rs",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "queries": [
+        "deposit(",
+        "deposit_now(",
+        "plan_party_wash("
+      ]
+    }
+  ],
+  "qualification": "Literal source line numbers only; exact range display registration is separate."
+}

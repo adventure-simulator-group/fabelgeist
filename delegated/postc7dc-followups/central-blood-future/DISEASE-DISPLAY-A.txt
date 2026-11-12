@@ -1,0 +1,229 @@
+--- native-disease 1030-1160 ---
+1030         };
+1031         let index = segments.partition_point(|segment| segment.end < minute);
+1032         segments
+1033             .get(index)
+1034             .filter(|segment| segment.start <= minute)
+1035             .map_or(0.0, |segment| segment.check)
+1036     }
+1037 
+1038     fn proposals_for(
+1039         &self,
+1040         character_id: u64,
+1041         from: StrategicMinute,
+1042         to: StrategicMinute,
+1043     ) -> Vec<InfectionEpisode> {
+1044         self.proposals
+1045             .get(&character_id)
+1046             .into_iter()
+1047             .flatten()
+1048             .copied()
+1049             .filter(|episode| episode.contracted_at > from && episode.contracted_at <= to)
+1050             .collect()
+1051     }
+1052 
+1053     pub fn work_units(&self) -> u64 {
+1054         self.work_units
+1055     }
+1056 }
+1057 
+1058 pub fn plan_party_disease_interval(
+1059     ctx: &ReducerContext,
+1060     member_ids: &[u64],
+1061     requested: u64,
+1062     allow_healing: bool,
+1063 ) -> Result<PartyDiseaseIntervalPlan, String> {
+1064     let mut ids = member_ids.to_vec();
+1065     ids.sort_unstable();
+1066     ids.dedup();
+1067     let starts = ids
+1068         .iter()
+1069         .map(|id| {
+1070             ctx.db
+1071                 .character_time()
+1072                 .character_id()
+1073                 .find(*id)
+1074                 .map(|row| (*id, row.minutes))
+1075                 .ok_or_else(|| "Party member has no strategic clock".to_string())
+1076         })
+1077         .collect::<Result<BTreeMap<_, _>, _>>()?;
+1078     let horizons = starts
+1079         .iter()
+1080         .map(|(id, start)| (*id, start.saturating_add_minutes(requested)))
+1081         .collect::<BTreeMap<_, _>>();
+1082     let mut coverage = BTreeMap::<u64, Vec<CachedCoverage>>::new();
+1083     let mut pairs = Vec::new();
+1084     let id_set = ids.iter().copied().collect::<BTreeSet<_>>();
+1085     let spans_by_id = bounded_physiology_spans(ctx, &ids)?
+1086         .into_iter()
+1087         .map(|span| (span.id, span))
+1088         .collect::<BTreeMap<_, _>>();
+1089     let peer_ids = spans_by_id
+1090         .values()
+1091         .flat_map(|span| [span.low_id, span.high_id])
+1092         .collect::<BTreeSet<_>>();
+1093     let clocks = peer_ids
+1094         .into_iter()
+1095         .map(|id| {
+1096             (
+1097                 id,
+1098                 starts.get(&id).copied().unwrap_or_else(|| {
+1099                     ctx.db
+1100                         .character_time()
+1101                         .character_id()
+1102                         .find(id)
+1103                         .map_or(StrategicMinute::ZERO, |t| t.minutes)
+1104                 }),
+1105             )
+1106         })
+1107         .collect::<BTreeMap<_, _>>();
+1108     for span in spans_by_id.into_values() {
+1109         let Some(end) = disease::projected_presence_end(
+1110             span.ended_at,
+1111             horizons.get(&span.low_id).copied(),
+1112             horizons.get(&span.high_id).copied(),
+1113             clocks[&span.low_id],
+1114             clocks[&span.high_id],
+1115         ) else {
+1116             continue;
+1117         };
+1118         if end < span.started_at {
+1119             continue;
+1120         }
+1121         if id_set.contains(&span.low_id) {
+1122             coverage.entry(span.low_id).or_default().extend([
+1123                 CachedCoverage {
+1124                     contributor_id: span.low_id,
+1125                     start: span.started_at,
+1126                     end,
+1127                     check: f32::from(span.low_observer_band),
+1128                 },
+1129                 CachedCoverage {
+1130                     contributor_id: span.high_id,
+1131                     start: span.started_at,
+1132                     end,
+1133                     check: f32::from(span.high_observer_band),
+1134                 },
+1135             ]);
+1136         }
+1137         if id_set.contains(&span.high_id) {
+1138             coverage.entry(span.high_id).or_default().extend([
+1139                 CachedCoverage {
+1140                     contributor_id: span.low_id,
+1141                     start: span.started_at,
+1142                     end,
+1143                     check: f32::from(span.low_observer_band),
+1144                 },
+1145                 CachedCoverage {
+1146                     contributor_id: span.high_id,
+1147                     start: span.started_at,
+1148                     end,
+1149                     check: f32::from(span.high_observer_band),
+1150                 },
+1151             ]);
+1152         }
+1153         if id_set.contains(&span.low_id) || id_set.contains(&span.high_id) {
+1154             pairs.push(CachedPairPresence {
+1155                 low_id: span.low_id,
+1156                 high_id: span.high_id,
+1157                 start: span.started_at,
+1158                 end,
+1159             });
+1160         }
+--- native-disease 1200-1295 ---
+1200     };
+1201     let source_ids = pairs
+1202         .iter()
+1203         .flat_map(|pair| [pair.low_id, pair.high_id])
+1204         .chain(ids.iter().copied())
+1205         .collect::<BTreeSet<_>>();
+1206     let initial = source_ids
+1207         .iter()
+1208         .map(|id| character_episodes(ctx, *id).map(|episodes| (*id, episodes)))
+1209         .collect::<Result<BTreeMap<_, _>, _>>()?;
+1210     let immunities = ids
+1211         .iter()
+1212         .map(|id| {
+1213             (
+1214                 *id,
+1215                 ctx.db
+1216                     .character_attributes()
+1217                     .character_id()
+1218                     .find(*id)
+1219                     .map_or(3.0, |row| row.immunity),
+1220             )
+1221         })
+1222         .collect::<BTreeMap<_, _>>();
+1223     let mut scheduled = Vec::new();
+1224     let mut environmental = Vec::new();
+1225     for id in &ids {
+1226         let start = starts[id];
+1227         let end = horizons[id];
+1228         let Some(character) = ctx.db.character().id().find(*id) else {
+1229             continue;
+1230         };
+1231         if let Some(settlement_id) = character.current_settlement_id {
+1232             for source in
+1233                 exposure_sources::SettlementExposureSource::for_settlement(ctx, &settlement_id)?
+1234             {
+1235                 let exposure_sources::SettlementExposureSource {
+1236                     id: source_id,
+1237                     disease_id,
+1238                     start: source_start,
+1239                     end: source_end,
+1240                     intensity,
+1241                     scoped,
+1242                 } = source;
+1243                 let from = start.max(source_start);
+1244                 let to = end.min(source_end);
+1245                 let definition = disease::definition(disease_id);
+1246                 let windows = if scoped {
+1247                     crate::outbreak::exposure_windows(ctx, &source_id, *id, from, to)
+1248                 } else {
+1249                     vec![(source_id.clone(), from, to)]
+1250                 };
+1251                 for (window_source_id, window_from, window_to) in windows {
+1252                     if let Some(source) = disease::protected_presence_exposure_source(
+1253                         disease_id,
+1254                         *id,
+1255                         &window_source_id,
+1256                         window_from,
+1257                         window_to,
+1258                         intensity,
+1259                         definition.base_acquisition,
+1260                         definition.primary_community_vector,
+1261                     ) {
+1262                         if environmental.len()
+1263                             >= MAX_PARTY_INTERVAL_CANDIDATES.saturating_sub(scheduled.len())
+1264                         {
+1265                             return Err(
+1266                                 "Disease interval exceeds bounded acquisition candidates".into()
+1267                             );
+1268                         }
+1269                         environmental.push(source);
+1270                     }
+1271                 }
+1272             }
+1273         }
+1274         let blood_attempts = crate::filth::blood_exposure_attempts_through(
+1275             ctx,
+1276             *id,
+1277             start,
+1278             end,
+1279             false,
+1280             allow_healing,
+1281             Some(&plan),
+1282             blood_interval_work_budget(end.elapsed_since(start)),
+1283         )?;
+1284         if blood_attempts.len()
+1285             > MAX_PARTY_INTERVAL_CANDIDATES
+1286                 .saturating_sub(scheduled.len())
+1287                 .saturating_sub(environmental.len())
+1288         {
+1289             return Err("Disease interval exceeds bounded acquisition candidates".into());
+1290         }
+1291         scheduled.extend(blood_attempts);
+1292     }
+1293     let windows = interval::contact_windows(pairs, &starts, &horizons);
+1294     let from = starts.values().copied().min().unwrap_or_default();
+1295     let to = horizons.values().copied().max().unwrap_or(from);

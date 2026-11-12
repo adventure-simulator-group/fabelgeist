@@ -1,0 +1,324 @@
+{
+  "schema": "726-blood-future-source-registration-v1",
+  "registered_utc": "2026-11-12T14:32:28.831476+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "navigation_sha256": "8f610432b1a24c355b78c0fba42e0fd8e172284f2bc84b464afb02788b1a3a97",
+  "entries": [
+    {
+      "tag": "core-filth",
+      "path": "crates/adventuresim-core/src/filth.rs",
+      "capture": "sources/core-filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "git_blob": "d375d693fb5a8498ff2be7303d023d088035c8bb",
+      "bytes": 19699,
+      "eof": 631,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-core",
+          "mode": "040000",
+          "type": "tree",
+          "object": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "name": "filth.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "d375d693fb5a8498ff2be7303d023d088035c8bb"
+        }
+      ],
+      "planned_ranges": [
+        [
+          150,
+          225
+        ]
+      ]
+    },
+    {
+      "tag": "core-surgery",
+      "path": "crates/adventuresim-core/src/surgery.rs",
+      "capture": "sources/core-surgery.rs",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "git_blob": "03609a93b2c43af5ab206347aa9ae11ce221a723",
+      "bytes": 10092,
+      "eof": 294,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-core",
+          "mode": "040000",
+          "type": "tree",
+          "object": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "name": "surgery.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "03609a93b2c43af5ab206347aa9ae11ce221a723"
+        }
+      ],
+      "planned_ranges": [
+        [
+          1,
+          80
+        ]
+      ]
+    },
+    {
+      "tag": "native-corpse",
+      "path": "crates/adventuresim-stdb-module/src/corpse.rs",
+      "capture": "sources/native-corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "git_blob": "35a6f6761eb009760c87bc566bb7b277f5a50e52",
+      "bytes": 70545,
+      "eof": 2121,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-stdb-module",
+          "mode": "040000",
+          "type": "tree",
+          "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "name": "corpse.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "35a6f6761eb009760c87bc566bb7b277f5a50e52"
+        }
+      ],
+      "planned_ranges": [
+        [
+          1280,
+          1360
+        ]
+      ]
+    },
+    {
+      "tag": "native-filth",
+      "path": "crates/adventuresim-stdb-module/src/filth.rs",
+      "capture": "sources/native-filth.rs",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "git_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+      "bytes": 24935,
+      "eof": 769,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-stdb-module",
+          "mode": "040000",
+          "type": "tree",
+          "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "name": "filth.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "bc1c06067719a1dc4616de1737a938f03a4b6bd9"
+        }
+      ],
+      "planned_ranges": [
+        [
+          490,
+          555
+        ]
+      ]
+    },
+    {
+      "tag": "native-attempts",
+      "path": "crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "capture": "sources/native-attempts.rs",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "git_blob": "4b285fcc1b92e9e1df283df91aace4473f2d0e6a",
+      "bytes": 6028,
+      "eof": 157,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-stdb-module",
+          "mode": "040000",
+          "type": "tree",
+          "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "name": "filth",
+          "mode": "040000",
+          "type": "tree",
+          "object": "ddf9a8e546df748157d77d37b7e5cc52a046305e"
+        },
+        {
+          "tree": "ddf9a8e546df748157d77d37b7e5cc52a046305e",
+          "name": "blood_attempts.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "4b285fcc1b92e9e1df283df91aace4473f2d0e6a"
+        }
+      ],
+      "planned_ranges": [
+        [
+          50,
+          85
+        ]
+      ]
+    },
+    {
+      "tag": "native-surgery",
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "capture": "sources/native-surgery.rs",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "git_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+      "bytes": 50861,
+      "eof": 1435,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-stdb-module",
+          "mode": "040000",
+          "type": "tree",
+          "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "name": "surgery.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "833a18f053639bb556b66cddfb3b9af6fd5c34a6"
+        }
+      ],
+      "planned_ranges": [
+        [
+          1080,
+          1160
+        ]
+      ]
+    }
+  ],
+  "tree_objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "capture": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "bytes": 1635,
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "capture": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "bytes": 2434,
+      "sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0"
+    },
+    "5c8df250bac26e66cc279349f2b2d8da25dc65ab": {
+      "capture": "trees/5c8df250bac26e66cc279349f2b2d8da25dc65ab.tree.gz",
+      "bytes": 205,
+      "sha256": "b120c38fa7d78f6885fb5b680d69144e19a7d0c0bea0d849553d5ff87c581411"
+    },
+    "a2bab2bd75fc96367f3a95785598fd29e953bd62": {
+      "capture": "trees/a2bab2bd75fc96367f3a95785598fd29e953bd62.tree.gz",
+      "bytes": 5649,
+      "sha256": "fbf98e2a89df733af9779fc2fc15d822c935ab99cf0dcd18b58568bb98cd792b"
+    },
+    "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182": {
+      "capture": "trees/d099f9a64c6e2c861f57a3cd823c38a4e4cfb182.tree.gz",
+      "bytes": 259,
+      "sha256": "65d2a14fcbbe65bc0ca222ffea1c36d219ae10c68b3a5a6c78c240e094fd0fc0"
+    },
+    "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed": {
+      "capture": "trees/a7ee465f194c257d117f6be3de4b2f4f9ffb82ed.tree.gz",
+      "bytes": 2691,
+      "sha256": "dcd452378ba0f84a5cdce52488e1c8bf400f78561e737e6ab1682f00669f06a1"
+    },
+    "ddf9a8e546df748157d77d37b7e5cc52a046305e": {
+      "capture": "trees/ddf9a8e546df748157d77d37b7e5cc52a046305e.tree.gz",
+      "bytes": 92,
+      "sha256": "c20bbd44fdd659179acad60b2622b81e712ef909702facc691630ee075671408"
+    }
+  },
+  "qualification": "Only separately displayed registered ranges earn coordinator personal-read credit; source complements remain unread."
+}

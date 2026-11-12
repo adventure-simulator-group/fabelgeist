@@ -4,7 +4,7 @@ This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
 2026-11-10 and rechecked on 2026-11-12
-(`MAIN-RECHECK-20261112-1429.json`).
+(`MAIN-RECHECK-20261112-1510.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -12,6 +12,15 @@ lenses and the connected repair ledger remain open; its entries include
 reconnected findings, reconstructed questions and newly assessed candidates,
 not a count of independent defects. No implementation or
 product validation is authorized here.
+
+`delegated/checkpointc7dc-verification/RECOVERY-RECORD.json` records the
+same-machine recovery of the preceding published checkpoint.
+
+`ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json` connects the separately
+attributed authored-plane, readiness, NPY, NPZ and conditional blood-timing
+reviews. The packet preserves its source and privacy qualifications; full
+NPZ dependency verification also needs separately controlled originals. These
+partial connections do not close any lens or historical queue record.
 
 `RECOVERY-PHYSICAL-P16-PATCH-20261111.json` records a later independent
 reproduction of the historical P16 tracked patch at its recorded SHA-256.

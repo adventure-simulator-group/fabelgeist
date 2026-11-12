@@ -1,0 +1,37 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical bodies, a conditional pre-applied readiness candidate and later-view observation qualification.",
+  "conditional_findings": [
+    {
+      "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+      "lens": 5,
+      "severity": "unassigned; conditional source-level liveness, actual asset failure unobserved",
+      "classification": "New current-source readiness liveness candidate connected to an earlier Lens12 question; no viewer was run and global aliases remain open.",
+      "trace": "For a non-ragdoll frame, drive_sequence returns before marking the frame applied if the existing subject lacks AnimationPlayback or its authored pose is not ready. Even when playback is ready, ready_for_frame returns false for a first scenario frame whose required motion is not processed, or until two ready observations. capture_frame returns immediately when sequence.applied is false; its wait_or_fail counter therefore cannot run for these earlier waits. The scheduled rejection handler acts only after a capture admission rejection, while the armor readiness system returns immediately when no armor harness was requested. motion_is_processed checks loaded clip keys; the loader separately records failed/unavailable motions without making that predicate true.",
+      "conditional_cases": "If a capture subject remains present but AnimationPlayback never arrives, the drive exits at the missing-playback check and the later capture timeout remains unreachable. A second conditional case is the authored DownedProneCrawl first frame, which requires PRONE_CRAWL: if playback is otherwise ready but no loaded clip in any pack has that motion and all drive steps continue to succeed, ready_for_frame remains false, applied stays false, and the selected timeout path never increments. These are source-state arguments, not a reproduced missing asset or an executed viewer.",
+      "safeguards_and_limits": "Temporary loading and the deliberate two-ready-frame warmup are valid; terrain/locomotion admission failures can independently terminate, an armor harness has its own readiness/failure policy, and external closure or other errors may end the application. No actual asset, Bevy schedule, failure duration, product hang or output was observed. Verify every startup and selection path, load-failure cause, desired timeout policy and exact aliases before closing the finding.",
+      "first_failed_contract": "A requested capture waiting before frame application needs a terminal failure or bounded readiness authority when its required playback or motion cannot arrive.",
+      "canonical_owner": "CaptureSequence pre-application readiness and terminal-admission owner, connected to animation asset load outcome and existing output failure reporting.",
+      "connected_repair": "Propagate or observe explicit unavailable playback/motion states and bound the pre-application wait through the existing capture failure owner. Preserve asynchronous loading, intentional two-frame settling, FullRagdoll special behavior, terminal terrain failures and independent armor readiness.",
+      "later_acceptance": "After separate implementation and product-validation authorization, verify missing playback and unavailable required motion produce an owned failure instead of indefinite waiting, while normally delayed clips and warmup complete successfully.",
+      "discovery": "partial; actual asset state, timing policy and aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "id": "Q-L12-f48bd3d609c930a49c88",
+      "relationship": "Earlier overlay semantics question remains open; not an inferred duplicate of the final IK support observation finding.",
+      "trace": "The non-gameplay overlay colors and sizes its foot markers from locomotion_support_weights computed from the presented skeleton and animation speed. The capture report separately admits IK diagnostics and may select retained raised-footwork support.",
+      "limits": "The visual legend, intended semantic cadence versus actual solved contact and duplicate rig-role behavior need full owner/policy evidence. No overlay render or player interpretation was observed.",
+      "discovery": "partial",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "remaining": "Actual asset/loading state, repeated-view values, engine scheduling, full report policy, aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

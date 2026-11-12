@@ -1,0 +1,111 @@
+### tensor.rs:1-110
+1: //! Fixed-rank dimensions and decoded values at the Burn boundary.
+2: 
+3: use burn::tensor::{Device, ReshapeArgs, Shape, Tensor, TensorData};
+4: 
+5: use super::metadata::Result;
+6: use super::{NpyDimension, NpyElementCount, NpyFloat32Values, NpyLayoutError, NpyRank, NpyShape};
+7: 
+8: /// Fixed-rank dimensions with an admitted product in native framework order.
+9: ///
+10: /// This does not certify a match with a value collection or source tensor.
+11: /// Burn still interprets zero dimensions and validates source cardinality when
+12: /// this layout is used as a reshape argument.
+13: #[derive(Clone, Copy, Debug)]
+14: pub struct NpyTensorLayout<const D: usize> {
+15:     dimensions: [NpyDimension; D],
+16:     elements: NpyElementCount,
+17: }
+18: 
+19: impl<const D: usize> NpyTensorLayout<D> {
+20:     pub fn dimensions(self) -> [NpyDimension; D] {
+21:         self.dimensions
+22:     }
+23: 
+24:     pub fn element_count(self) -> NpyElementCount {
+25:         self.elements
+26:     }
+27: 
+28:     fn admit_native_shape(self) -> Result<Self> {
+29:         // Nonempty checked products already prove every positive prefix fits.
+30:         // Empty storage shapes admit zero first, but Burn multiplies in order.
+31:         if self.elements.is_empty() {
+32:             self.dimensions
+33:                 .iter()
+34:                 .try_fold(1usize, |prefix, dimension| {
+35:                     prefix.checked_mul(usize::from(*dimension))
+36:                 })
+37:                 .ok_or_else(|| NpyLayoutError::NativeShapeOverflow {
+38:                     dimensions: self.dimensions.to_vec(),
+39:                 })?;
+40:         }
+41:         Ok(self)
+42:     }
+43: }
+44: 
+45: impl<const D: usize> TryFrom<[NpyDimension; D]> for NpyTensorLayout<D> {
+46:     type Error = NpyLayoutError;
+47: 
+48:     fn try_from(dimensions: [NpyDimension; D]) -> std::result::Result<Self, NpyLayoutError> {
+49:         let elements = NpyElementCount::from_dimensions(&dimensions)?;
+50:         Self {
+51:             dimensions,
+52:             elements,
+53:         }
+54:         .admit_native_shape()
+55:     }
+56: }
+57: 
+58: impl<const D: usize> TryFrom<&NpyShape> for NpyTensorLayout<D> {
+59:     type Error = NpyLayoutError;
+60: 
+61:     fn try_from(shape: &NpyShape) -> std::result::Result<Self, NpyLayoutError> {
+62:         let dimensions = shape
+63:             .dimensions()
+64:             .try_into()
+65:             .map_err(|source| NpyLayoutError::Rank {
+66:                 expected: NpyRank::from(D),
+67:                 actual: shape.rank(),
+68:                 source,
+69:             })?;
+70:         Self {
+71:             dimensions,
+72:             elements: shape.element_count(),
+73:         }
+74:         .admit_native_shape()
+75:     }
+76: }
+77: 
+78: impl<const D: usize> From<NpyTensorLayout<D>> for Shape {
+79:     fn from(layout: NpyTensorLayout<D>) -> Self {
+80:         Self::new(layout.dimensions.map(usize::from))
+81:     }
+82: }
+83: 
+84: impl<const D2: usize> ReshapeArgs<D2> for NpyTensorLayout<D2> {
+85:     fn into_shape<const D: usize>(self, source: Shape) -> Shape {
+86:         // Delegate to Burn so inferred/zero dimensions and mismatch failures
+87:         // retain the framework's numerical reshape semantics.
+88:         <Shape as ReshapeArgs<D2>>::into_shape::<D>(Shape::from(self), source)
+89:     }
+90: }
+91: 
+92: impl NpyFloat32Values {
+93:     /// Uploads decoded float32 projections only after the complete fixed-rank
+94:     /// layout agrees with their cardinality. Burn owns the final native vector.
+95:     pub fn into_tensor<const D: usize>(
+96:         self,
+97:         layout: NpyTensorLayout<D>,
+98:         device: &Device,
+99:     ) -> Result<Tensor<D>> {
+100:         let expected = layout.element_count();
+101:         let actual = self.element_count();
+102:         if expected != actual {
+103:             return Err(NpyLayoutError::ValueCount { expected, actual });
+104:         }
+105:         Ok(Tensor::from_data(
+106:             TensorData::new(Vec::<f32>::from(self), layout),
+107:             device,
+108:         ))
+109:     }
+110: }

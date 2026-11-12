@@ -1,0 +1,71 @@
+{
+  "schema": "726-blood-future-calendar-registration-v1",
+  "registered_utc": "2026-11-12T14:35:02.115393+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "path": "crates/adventuresim-world-schema/src/calendar.rs",
+  "capture": "sources/calendar.rs",
+  "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+  "bytes": 25367,
+  "eof": 698,
+  "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+  "planned_ranges": [
+    [
+      82,
+      150
+    ]
+  ],
+  "chain": [
+    {
+      "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+      "name": "crates",
+      "mode": "040000",
+      "type": "tree",
+      "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+    },
+    {
+      "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+      "name": "adventuresim-world-schema",
+      "mode": "040000",
+      "type": "tree",
+      "object": "c4d058454e460b3f7de9c34e808b746ccff07eb0"
+    },
+    {
+      "tree": "c4d058454e460b3f7de9c34e808b746ccff07eb0",
+      "name": "src",
+      "mode": "040000",
+      "type": "tree",
+      "object": "7fb776454b47bc8bc1e50fe289ce543e32c5421a"
+    },
+    {
+      "tree": "7fb776454b47bc8bc1e50fe289ce543e32c5421a",
+      "name": "calendar.rs",
+      "mode": "100644",
+      "type": "blob",
+      "object": "3bb463487d89fa1040b72d7708f7e641d5e61cec"
+    }
+  ],
+  "tree_objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "capture": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "bytes": 1635,
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "capture": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "bytes": 2434,
+      "sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0"
+    },
+    "c4d058454e460b3f7de9c34e808b746ccff07eb0": {
+      "capture": "trees/c4d058454e460b3f7de9c34e808b746ccff07eb0.tree.gz",
+      "bytes": 141,
+      "sha256": "075119ac3fd2bc2d69ddc0b621aa76c5a6ea33104b0d8a5c0cdc7d869e32b244"
+    },
+    "7fb776454b47bc8bc1e50fe289ce543e32c5421a": {
+      "capture": "trees/7fb776454b47bc8bc1e50fe289ce543e32c5421a.tree.gz",
+      "bytes": 998,
+      "sha256": "78c8243e0c2fd29896d2ede2b0567d43f2199827bab204f5191d4066ce35a590"
+    }
+  },
+  "qualification": "Separate registered calendar display; earlier 13V reading remains separately recorded."
+}

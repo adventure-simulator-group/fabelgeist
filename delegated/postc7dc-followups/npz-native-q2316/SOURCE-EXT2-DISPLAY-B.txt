@@ -1,0 +1,66 @@
+=== upstream/rawzip/src/archive.rs 1136..1200 ===
+1136 |             uncompressed_size: u64::from(header.uncompressed_size),
+1137 |             file_name_len: header.file_name_len,
+1138 |             extra_field_len: header.extra_field_len,
+1139 |             file_comment_len: header.file_comment_len,
+1140 |             disk_number_start: u32::from(header.disk_number_start),
+1141 |             internal_file_attrs: header.internal_file_attrs,
+1142 |             external_file_attrs: header.external_file_attrs,
+1143 |             local_header_offset: u64::from(header.local_header_offset),
+1144 |             central_directory_offset,
+1145 |             file_name: ZipFilePath::from_bytes(file_name),
+1146 |             extra_field,
+1147 |             file_comment: ZipStr::new(file_comment),
+1148 |             is_zip64: false,
+1149 |             data_descriptor_uses_zip64_sizes,
+1150 |         };
+1151 | 
+1152 |         if !zip64_sizes
+1153 |             && result.local_header_offset != u64::from(u32::MAX)
+1154 |             && result.disk_number_start != u32::from(u16::MAX)
+1155 |         {
+1156 |             return result;
+1157 |         }
+1158 | 
+1159 |         let extra_fields = ExtraFields::new(extra_field);
+1160 |         for (field_id, field_data) in extra_fields {
+1161 |             if field_id != ExtraFieldId::ZIP64 {
+1162 |                 continue;
+1163 |             }
+1164 | 
+1165 |             let mut field = field_data;
+1166 | 
+1167 |             result.is_zip64 = true;
+1168 | 
+1169 |             if header.uncompressed_size == u32::MAX {
+1170 |                 let Some(uncompressed_size) = field.get(..8).map(le_u64) else {
+1171 |                     break;
+1172 |                 };
+1173 |                 result.uncompressed_size = uncompressed_size;
+1174 |                 field = &field[8..];
+1175 |             }
+1176 | 
+1177 |             if header.compressed_size == u32::MAX {
+1178 |                 let Some(compressed_size) = field.get(..8).map(le_u64) else {
+1179 |                     break;
+1180 |                 };
+1181 |                 result.compressed_size = compressed_size;
+1182 |                 field = &field[8..];
+1183 |             }
+1184 | 
+1185 |             if header.local_header_offset == u32::MAX {
+1186 |                 let Some(local_header_offset) = field.get(..8).map(le_u64) else {
+1187 |                     break;
+1188 |                 };
+1189 |                 result.local_header_offset = local_header_offset;
+1190 |                 field = &field[8..];
+1191 |             }
+1192 | 
+1193 |             if header.disk_number_start == u16::MAX {
+1194 |                 let Some(disk_number_start) = field.get(..4).map(le_u32) else {
+1195 |                     break;
+1196 |                 };
+1197 |                 result.disk_number_start = disk_number_start;
+1198 |             }
+1199 | 
+1200 |             break;

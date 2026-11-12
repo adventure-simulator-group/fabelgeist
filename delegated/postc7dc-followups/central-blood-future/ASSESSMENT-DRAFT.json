@@ -1,0 +1,35 @@
+{
+  "schema": "726-blood-future-deposit-source-draft-v1",
+  "author": "/root",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "classification": "Conditional source-level temporal ordering question; native reachability, policy and actual effects remain open.",
+  "first_operation": "core blood_exposure_for_vector sums every relevant deposit using infectious_fraction, without a displayed deposited_at <= now filter.",
+  "symbolic_trace": [
+    "Assume two positive foreign-blood deposits with the same supported blood-compatible disease are already supplied to replay, at minutes 0 and 10; choose the interval (0,10], no checkpoint past minute 0, and sufficient work budget.",
+    "The first deposit makes minute 1 part of a selected infectious window. Relevant deposits are selected by foreign blood and disease snapshot, not their date relative to that minute.",
+    "For the second deposit, minute 1 elapsed_since minute 10 saturates at zero; infectious_fraction therefore returns 1.0, so the second deposit contributes to the minute-1 core dose before its own recorded deposition time.",
+    "With small positive amounts and a nonzero cut route the displayed core arithmetic can retain that extra contribution without saturation; downstream prevention, acquisition outcome and native transaction behavior are not established.",
+    "The native deposit reader shown collects rows for the character without a time filter, and the shown writer accepts an at:StrategicMinute while deposit_now obtains the character clock. These facts alone do not establish a supported path in which both rows exist before replay over the earlier interval."
+  ],
+  "source_references": [
+    "crates/adventuresim-core/src/filth.rs:81-132,175-208",
+    "crates/adventuresim-world-schema/src/calendar.rs:144-150 (separately registered 13V coordinator evidence)",
+    "crates/adventuresim-stdb-module/src/filth/blood_attempts.rs:16-49,64-75,103-117",
+    "crates/adventuresim-stdb-module/src/filth.rs:207-230,287-348,445-469,521-538"
+  ],
+  "relationships": [
+    "059 q2297 is an open core-window/cursor/native caller question; this possible per-deposit temporal contribution is a distinct first operation from the final-MAX endpoint discrepancy in 13V.",
+    "059 q894 concerns checkpoint versus deterministic exposure source/seed identity, with no attached source receipt context; no automatic alias is established.",
+    "The selected wash-priority path also evaluates blood_exposure using collected deposits at the character clock. Whether a future-dated stored row is possible and whether priority is materially affected remain open."
+  ],
+  "open_questions": [
+    "Can supported native writers, clock progression, replay/checkpoint ordering or imported state admit both deposits before the earlier replay, or do stronger invariants prevent that state?",
+    "Should future-dated deposits be rejected, excluded from earlier doses, or handled under another explicit temporal policy?",
+    "What are actual disease, protection, wash and checkpoint consumers and transaction boundaries?",
+    "Does any historical or current record already own this precise first operation and repair? Bounded text search is not a complete alias inventory."
+  ],
+  "historical_scope": "The 059 queue selection is a reconstructed historical record, not the missing original checkpoint3821. Earlier registered 13V calendar and source displays retain their own revision and authorship; this packet has its own new registered selected source windows.",
+  "review_status": "Coordinator draft awaiting independent semantic review; no unique defect count or queue/lens closure.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,64 @@
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.toml 1..31 ===
+   1 | [package]
+   2 | name = "fabelgeist-numpy-storage"
+   3 | version = "0.1.0"
+   4 | edition = "2024"
+   5 | repository = "https://github.com/adventure-simulator-group/fabelgeist"
+   6 | license = "AGPL-3.0"
+   7 | 
+   8 | [dependencies]
+   9 | anyhow = "1"
+  10 | derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "error", "from", "into"] }
+  11 | burn = { git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+  12 |     "std",
+  13 |     "wgpu",
+  14 | ] }
+  15 | memmap2 = "0.9"
+  16 | rawzip = "=0.5.2"
+  17 | # Pure-Rust inflate (miniz_oxide) for deflated archive members; no C toolchain.
+  18 | flate2 = { version = "1", default-features = false, features = ["rust_backend"] }
+  19 | 
+  20 | [workspace]
+  21 | 
+  22 | [profile.dev]
+  23 | debug = "none"
+  24 | incremental = false
+  25 | strip = "debuginfo"
+  26 | 
+  27 | [patch.crates-io]
+  28 | pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+  29 | 
+  30 | [lints.clippy]
+  31 | all = { level = "warn", priority = -1 }
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.lock 2098..2109 ===
+2098 | [[package]]
+2099 | name = "fabelgeist-numpy-storage"
+2100 | version = "0.1.0"
+2101 | dependencies = [
+2102 |  "anyhow",
+2103 |  "burn",
+2104 |  "derive_more",
+2105 |  "flate2",
+2106 |  "memmap2",
+2107 |  "rawzip",
+2108 | ]
+2109 | 
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.lock 2159..2169 ===
+2159 | [[package]]
+2160 | name = "flate2"
+2161 | version = "1.1.10"
+2162 | source = "registry+https://github.com/rust-lang/crates.io-index"
+2163 | checksum = "6e634e2e0ebac1ee034020da1ca582e17ffe4e0f5e985823721e168928136dcb"
+2164 | dependencies = [
+2165 |  "crc32fast",
+2166 |  "miniz_oxide 0.9.1",
+2167 |  "zlib-rs",
+2168 | ]
+2169 | 
+=== first-party/crates/fabelgeist-numpy-storage/Cargo.lock 4304..4309 ===
+4304 | [[package]]
+4305 | name = "rawzip"
+4306 | version = "0.5.2"
+4307 | source = "registry+https://github.com/rust-lang/crates.io-index"
+4308 | checksum = "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c"
+4309 | 

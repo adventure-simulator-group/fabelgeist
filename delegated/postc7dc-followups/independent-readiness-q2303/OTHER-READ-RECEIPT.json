@@ -1,0 +1,100 @@
+{
+  "reader": "/root/verifier_scope",
+  "written_utc": "2026-11-12T14:32:24.435882+00:00",
+  "report_registration": "REPORT-REGISTRATION.json",
+  "report_displays": [
+    "REPORT-DISPLAY-A.json",
+    "REPORT-DISPLAY-B.json",
+    "REPORT-DISPLAY-C.json"
+  ],
+  "metadata_registration": "ARTIFACT-REGISTRATION.json",
+  "metadata_displays": [
+    "METADATA-DISPLAY-A.json",
+    "METADATA-DISPLAY-B.json"
+  ],
+  "historical_registration": "HISTORY-REGISTRATION.json",
+  "historical_displays": [
+    "HISTORY-STRUCTURE-DISPLAY.json",
+    "HISTORY-Q2303-DISPLAY.json",
+    "HISTORY-Q1214-DISPLAY.json",
+    "LEDGER-DISPLAY.json",
+    "PRIOR-STRUCTURE-DISPLAY.json",
+    "PRIOR-DISPLAY.json",
+    "HISTORY-CAPTURES-STRUCTURE-DISPLAY.json",
+    "HISTORY-READERS-DISPLAY.json",
+    "HISTORY-ADOPTION-DISPLAY.json"
+  ],
+  "qualification": "Each registered report and selected-record display was saved and personally displayed untruncated after its own registration; exact selected fields are recoverable from the display files. Whole queue, ledger, prior assessment and historical records were only hashed/parsed for selection, not personally credited as full reads. History-exact captures belong to the parent packet; their original private-capture chain was not independently repeated.",
+  "chronology": [
+    {
+      "registration": "REPORT-REGISTRATION.json",
+      "display": "REPORT-DISPLAY-A.json",
+      "saved_utc": "2026-11-12T14:26:35.543948+00:00"
+    },
+    {
+      "registration": "REPORT-REGISTRATION.json",
+      "display": "REPORT-DISPLAY-B.json",
+      "saved_utc": "2026-11-12T14:26:39.681566+00:00"
+    },
+    {
+      "registration": "REPORT-REGISTRATION.json",
+      "display": "REPORT-DISPLAY-C.json",
+      "saved_utc": "2026-11-12T14:26:43.961883+00:00"
+    },
+    {
+      "registration": "ARTIFACT-REGISTRATION.json",
+      "display": "METADATA-DISPLAY-A.json",
+      "saved_utc": "2026-11-12T14:27:07.105358+00:00"
+    },
+    {
+      "registration": "ARTIFACT-REGISTRATION.json",
+      "display": "METADATA-DISPLAY-B.json",
+      "saved_utc": "2026-11-12T14:27:12.144160+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "HISTORY-STRUCTURE-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:29:31.344273+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "HISTORY-Q2303-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:29:40.534936+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "HISTORY-Q1214-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:29:46.158865+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "LEDGER-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:29:53.260081+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "PRIOR-STRUCTURE-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:30:00.177896+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "PRIOR-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:30:05.489898+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "HISTORY-CAPTURES-STRUCTURE-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:30:17.325222+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "HISTORY-READERS-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:30:28.183747+00:00"
+    },
+    {
+      "registration": "HISTORY-REGISTRATION.json",
+      "display": "HISTORY-ADOPTION-DISPLAY.json",
+      "saved_utc": "2026-11-12T14:30:35.396201+00:00"
+    }
+  ]
+}

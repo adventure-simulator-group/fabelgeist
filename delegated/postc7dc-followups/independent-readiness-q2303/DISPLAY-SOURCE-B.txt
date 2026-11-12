@@ -1,0 +1,142 @@
+### capture.rs:169-244
+169: pub(super) fn freeze_capture_look(
+170:     sequence: Res<CaptureSequence>,
+171:     mut subjects: Query<&mut CharacterLook, With<CaptureSubject>>,
+172: ) {
+173:     if !sequence.admission.is_open() {
+174:         return;
+175:     }
+176:     let Some(frame) = sequence.plan.get(sequence.index) else {
+177:         return;
+178:     };
+179:     for mut look in &mut subjects {
+180:         look.yaw = frame.camera_yaw.radians();
+181:         look.pitch = frame.camera_pitch.radians();
+182:     }
+183: }
+184: 
+185: #[expect(
+186:     clippy::too_many_arguments,
+187:     clippy::type_complexity,
+188:     reason = "the Bevy capture driver independently controls timing, IK modes, animation input, subject state, and labels"
+189: )]
+190: pub(super) fn drive_sequence(
+191:     mut sequence: ResMut<CaptureSequence>,
+192:     mut procedural_clock: ResMut<ProceduralAnimationClock>,
+193:     mut terrain_ik: ResMut<TerrainIkMode>,
+194:     mut guard_input: ResMut<WeaponGuardInputState>,
+195:     animation_runtime: Res<AnimationRuntime>,
+196:     terrain: Single<&SceneTerrain>,
+197:     mut subjects: Query<
+198:         (
+199:             &mut SkeletonState,
+200:             &mut Transform,
+201:             &mut CharacterLook,
+202:             Option<&AnimationPlayback>,
+203:             Option<&mut LegIkState>,
+204:             Option<&mut ArmIkState>,
+205:             Option<&mut RaisedFootworkState>,
+206:             Option<&mut LocomotionHeightState>,
+207:             Option<&mut LocomotionBodyResponseState>,
+208:         ),
+209:         With<CaptureSubject>,
+210:     >,
+211:     mut labels: Query<&mut Text, With<CaptureLabel>>,
+212: ) {
+213:     if !sequence.can_drive_frame() {
+214:         return;
+215:     }
+216:     let frame = sequence.plan[sequence.index].clone();
+217:     let metadata = frame.scenario.clone();
+218:     let mut gait_phase = CyclePhase::ZERO;
+219:     let mut observed_playback = None;
+220:     for (
+221:         mut skeleton,
+222:         mut transform,
+223:         mut look,
+224:         playback,
+225:         ik_state,
+226:         arm_ik_state,
+227:         raised_footwork,
+228:         height_state,
+229:         body_response,
+230:     ) in &mut subjects
+231:     {
+232:         let Some(playback) = playback else {
+233:             return;
+234:         };
+235:         observed_playback = Some(playback);
+236:         if !frame.scenario.is(ScenarioId::FullRagdoll) && !playback.authored_pose_is_ready() {
+237:             return;
+238:         }
+239: 
+240:         if sequence.active_scenario.as_ref() != Some(&frame.scenario) {
+241:             sequence.active_scenario = Some(frame.scenario.clone());
+242:             sequence.scenario_distance = 0.0;
+243:             sequence.motion_ready_frames = 0;
+244:             *skeleton = SkeletonState::default();
+### animation_mod.rs:240-266
+240:     }
+241: }
+242: 
+243: impl WeaponGrip {
+244:     const ALL: [Self; 2] = [Self::Hilt, Self::Polearm];
+245: 
+246:     const fn path(self) -> AnimationAssetPath {
+247:         match self {
+248:             Self::Hilt => BIPED_GRIP_HILT_GLB,
+249:             Self::Polearm => BIPED_GRIP_POLEARM_GLB,
+250:         }
+251:     }
+252: }
+253: 
+254: impl AnimationRuntime {
+255:     pub(crate) fn requested_base(&self) -> Option<&Handle<Gltf>> {
+256:         self.base_rig.source()
+257:     }
+258: 
+259:     pub(super) fn motion_is_processed(&self, motion: &MotionId) -> bool {
+260:         self.clips.keys().any(|key| &key.motion == motion)
+261:     }
+262: }
+263: 
+264: fn animation_frames_per_second() -> AnimationFrequency {
+265:     runtime_animation_config().playback.frames_per_second
+266: }
+### playback.rs:65-100
+65:                 Some(source)
+66:             }
+67:         }
+68:     }
+69: 
+70:     pub(super) fn scene(&self) -> Option<&Handle<WorldAsset>> {
+71:         match self {
+72:             Self::Ready { scene, .. } => Some(scene),
+73:             _ => None,
+74:         }
+75:     }
+76: }
+77: 
+78: impl OrdinaryLocomotion {
+79:     pub(super) fn from_candidate(active: bool) -> Self {
+80:         if active { Self::Active } else { Self::Inactive }
+81:     }
+82: }
+83: 
+84: impl AnimationPlayback {
+85:     pub(crate) fn authored_pose_is_ready(&self) -> bool {
+86:         !self.plan.is_bind()
+87:     }
+88: 
+89:     pub(crate) fn presentation_is_settled(&self) -> bool {
+90:         self.authored_pose_is_ready()
+91:     }
+92: 
+93:     pub(super) fn from_presented_pose(
+94:         skeleton: &SkeletonState,
+95:         target: PlaybackPose,
+96:         movement_speed: NonnegativeSpeed,
+97:     ) -> Self {
+98:         let active = ordinary_locomotion_candidate(skeleton)
+99:             && movement_speed > playback_tuning().initial_locomotion_speed_metres_per_second;
+100:         Self {

@@ -1,0 +1,61 @@
+### capture.rs:411-470
+411:         transform.translation = position.metres();
+412:         subject_motion::begin_capture_action(
+413:             &mut skeleton,
+414:             &frame,
+415:             sequence.simulation_tick,
+416:             attack_start_frame,
+417:         );
+418:         if let Err(error) = subject_motion::advance_capture_facing(
+419:             &skeleton,
+420:             &mut transform,
+421:             orientation,
+422:             world_velocity,
+423:             frame.action,
+424:             elapsed,
+425:         ) {
+426:             sequence.admission =
+427:                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+428:             return;
+429:         }
+430:         if frame.scenario.is(ScenarioId::FullRagdoll) {
+431:             let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
+432:                 return;
+433:             };
+434:             *transform = projected;
+435:         }
+436:         sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
+437:         if let Err(error) = subject_motion::project_capture_motion(
+438:             &mut skeleton,
+439:             &mut transform,
+440:             &frame,
+441:             motion,
+442:             &sequence,
+443:         ) {
+444:             sequence.admission =
+445:                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+446:             return;
+447:         }
+448:         gait_phase = skeleton.gait_phase;
+449:     }
+450:     if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
+451:         return;
+452:     }
+453:     for mut label in &mut labels {
+454:         **label = format!(
+455:             "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
+456:             frame.scenario.label(),
+457:             frame.speed.metres_per_second(),
+458:             gait_phase.cycles(),
+459:             VIEWS[sequence.view_index].slug(),
+460:             frame.scenario_frame,
+461:         );
+462:     }
+463:     sequence.applied = true;
+464:     sequence.settled = 0;
+465: }
+466: 
+467: pub(super) fn draw_flat_ground_grid(sequence: Res<CaptureSequence>, mut gizmos: Gizmos) {
+468:     let Some(frame) = sequence.plan.get(sequence.index) else {
+469:         return;
+470:     };

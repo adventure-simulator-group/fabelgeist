@@ -1,0 +1,76 @@
+### npy.rs:1-75
+1: //! `.npy` array decoding.
+2: 
+3: pub use metadata::{
+4:     NpyDimension, NpyElementCount, NpyElementWidth, NpyLayoutError, NpyPayloadLength, NpyRank,
+5:     NpyShape,
+6: };
+7: 
+8: pub use values::{NpyByteStates, NpyFloat32Values, NpyIntegerValues};
+9: 
+10: use std::path::Path;
+11: 
+12: use anyhow::{Context, Result, bail};
+13: use burn::tensor::{Device, Int, Tensor, TensorData};
+14: 
+15: use header::NpyHeader;
+16: pub use tensor::NpyTensorLayout;
+17: 
+18: mod header;
+19: mod metadata;
+20: mod tensor;
+21: mod values;
+22: 
+23: /// One admitted array with immutable shape, element type, and payload metadata.
+24: ///
+25: /// ```compile_fail
+26: /// use fabelgeist_numpy_storage::NpyArray;
+27: /// fn replace_shape(array: &mut NpyArray) { array.shape = array.shape.clone(); }
+28: /// ```
+29: ///
+30: /// ```compile_fail
+31: /// use fabelgeist_numpy_storage::{Dtype, NpyArray};
+32: /// fn reinterpret_dtype(array: &mut NpyArray) { array.dtype = Dtype::U8; }
+33: /// ```
+34: pub struct NpyArray {
+35:     shape: NpyShape,
+36:     dtype: Dtype,
+37:     bytes: Vec<u8>,
+38: }
+39: 
+40: /// The NumPy element types this crate decodes.
+41: #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+42: pub enum Dtype {
+43:     F32,
+44:     F64,
+45:     I32,
+46:     I64,
+47:     U8,
+48:     Bool,
+49: }
+50: 
+51: impl Dtype {
+52:     fn parse(descr: &str) -> Result<Self> {
+53:         Ok(match descr {
+54:             "<f4" => Dtype::F32,
+55:             "=f4" | "f4" if cfg!(target_endian = "little") => Dtype::F32,
+56:             "<f8" => Dtype::F64,
+57:             "=f8" | "f8" if cfg!(target_endian = "little") => Dtype::F64,
+58:             "<i4" => Dtype::I32,
+59:             "=i4" | "i4" if cfg!(target_endian = "little") => Dtype::I32,
+60:             "<i8" => Dtype::I64,
+61:             "=i8" | "i8" if cfg!(target_endian = "little") => Dtype::I64,
+62:             "|u1" | "u1" => Dtype::U8,
+63:             "|b1" | "b1" => Dtype::Bool,
+64:             other => bail!("unsupported NumPy dtype {other:?}"),
+65:         })
+66:     }
+67: 
+68:     pub fn storage_width(self) -> NpyElementWidth {
+69:         match self {
+70:             Dtype::U8 | Dtype::Bool => NpyElementWidth::Byte,
+71:             Dtype::F32 | Dtype::I32 => NpyElementWidth::Word32,
+72:             Dtype::F64 | Dtype::I64 => NpyElementWidth::Word64,
+73:         }
+74:     }
+75: }

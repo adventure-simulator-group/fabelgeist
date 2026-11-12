@@ -1,0 +1,81 @@
+{
+  "schema": "726-npy-q2306-bounded-reconciliation-v1",
+  "author": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T13:56:46.414535+00:00",
+  "review_status": "Independent from prior historical readers, not yet independently semantically reviewed itself; coordinator decides ledger and publication.",
+  "scope": "Bounded present-source reconciliation of recovered 059 queue entry 2306. No product execution, repair, global lens completion, queue closure or unique-defect claim.",
+  "baseline_and_identity": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "historical_root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+    "current_root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "historical_crate_tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+    "current_crate_tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+    "shared_src_tree": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+    "difference": "The two crate trees differ at Cargo.toml; the shared src tree and each of seven separately hashed source blobs are identical. Different root and crate tree IDs preclude a whole-tree-equivalence claim. Dependencies and native behavior are not certified by source-file identity.",
+    "proof_qualification": "Raw commit anchors are needed for complete commit-to-root verification and are held separately; ANCHORS.json gives exact existing publication references and hashes. Source, raw Git trees and named historical records are included. No local original attributions are moved into 3821."
+  },
+  "historical_records": [
+    {
+      "identity": "059 q2306 REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+      "status": "Recovered historical record; exact byte slice of the original 059 queue matches the separately path-redacted public reconstruction slice. Neither slice is a standalone original queue file; the full original and reconstruction have distinct identities.",
+      "attribution": "Historical READ-170 identifies an own Lens11 reader for lib/npy/header/frame e275 bodies; READ-011 identifies parallel lens11_reconcile for metadata/tensor/values e275 bodies. Root adoption is separately recorded by READ-L11-706 and READ-L11-547. Their ranges, source revisions and attribution remain their own.",
+      "disposition": "Historical rejected-suspicion-source-qualified with zero body/population credit, zero accepted unique-count change, incomplete exact-scope discovery and no repair/runtime pass. It specifically leaves model-instance/scalar and native concerns open; no historical e275 work becomes a current personal read or checkpoint3821 authority."
+    },
+    {
+      "identity": "READ-L11-547 ADLER-L11-MHR-CORRECTIVE-EXTENT-ADMISSION",
+      "status": "Related historical source disposition and dependency, not automatically an alias of q2306.",
+      "description": "The e275 corrective route used checked dimension operations, NPY layout and separate cardinality safeguards; missing basis, zero axes and duplicate-write policy were retained. Native allocation, model association and parser bodies remained separate. Current corrective source is not part of this packet."
+    }
+  ],
+  "current_source_findings": [
+    {
+      "id": "NPY-FRAMING-AND-OWNED-ARRAY-Q2306",
+      "classification": "Bounded current corroboration of a historical rejected suspicion; no new header finding asserted.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs:7-40,51-67",
+        "crates/fabelgeist-numpy-storage/src/npy/header.rs:27-88,91-114,140-160",
+        "crates/fabelgeist-numpy-storage/src/npy.rs:23-38,51-75,118-138"
+      ],
+      "trace": "Frame checks a minimum prefix and magic, accepts version 1.0 with short length or 2.0/3.0 with long length, checks the length slice and bounded dictionary/payload split, and requires UTF-8 dictionary text. The dictionary parser requires exactly one descr, fortran_order and shape, rejects unknown/duplicate fields, bad separators/trailing text, unsupported dtype and Fortran order, before admitting shape and payload. NpyArray::from_bytes then retains private shape, dtype and an owned payload copy. Quoted keys/descriptors require an ASCII quote and reject backslash escapes; lexical field parsing is not itself an independently retained partially validated array.",
+      "limits": "This is Rust source and control-flow analysis only. It does not establish full NumPy-format conformance, all input-policy decisions, allocator bounds, all public constructor or deserialization routes outside the displayed files, NPZ/ZIP behavior, external callers, or native outcomes."
+    },
+    {
+      "id": "NPY-SHAPE-AND-PAYLOAD-BOUNDARY-Q2306",
+      "classification": "Explicit supported scalar and empty storage modes and typed arithmetic safeguards.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npy/header.rs:117-137",
+        "crates/fabelgeist-numpy-storage/src/npy/metadata.rs:22-27,83-99,113-122,134-153",
+        "crates/fabelgeist-numpy-storage/src/npy/tensor.rs:8-17,28-75,92-108"
+      ],
+      "trace": "A rank-zero shape has one element; a zero axis gives zero elements before multiplying other dimensions. Nonzero element products and dtype-width multiplication are checked; payload admission requires at least that many bytes and retains only the expected prefix, as the documented trailing-file policy. A native layout checks ordered prefix products for an empty shape separately, and float value upload checks layout/value cardinality before calling Burn.",
+      "limits": "Do not replace valid scalars or zero-axis storage with an unconditional nonzero rule. The Burn implementation, allocation limits and actual tensor/device behavior were not inspected or run; accepting an empty storage shape does not guarantee every native layout or device accepts it."
+    },
+    {
+      "id": "NPY-VALUES-AND-CROSS-LENS-POLICY-Q2306",
+      "classification": "Previously acknowledged open model/value policy, not a new header failure or unique-count increment.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npy/values.rs:22-38,56-99,108-140,152-166",
+        "crates/fabelgeist-numpy-storage/src/npy.rs:96-114",
+        "historical-originals/segovb/READ-L11-706.json",
+        "HISTORY-Q2306-ORIGINAL-EXACT.json"
+      ],
+      "trace": "Owned projections decode stored fixed-width values and use native casts from f64/integer to f32 and from floating values to i64. The shown conversions contain no independent finiteness, range or model-unit policy. NpyByteStates is explicitly a per-payload-byte zero/nonzero classification; that must not be silently relabeled an elementwise semantic boolean API. The historical q2306/READ-706 already leave scalar/model/native concerns for separate contracts.",
+      "limits": "No actual model producer, invalid input, user impact, Burn operation or policy was demonstrated. Whether specific producers must reject nonfinite, lossy or out-of-range values belongs to their consuming model/rig contract and its existing ledger relationships."
+    }
+  ],
+  "open_questions": [
+    "What are the actual NPZ/ZIP and model producers, and where are scalar units, finiteness, numeric precision and model-instance provenance required?",
+    "What are the supported framing/encoding and trailing-payload policies, including version-specific requirements and resource bounds?",
+    "Does the consuming native backend accept selected zero-axis layouts and enforce its own allocation limits? Source comments are not runtime verification.",
+    "Which existing P09/P11/current ledger records own value conversion, resource budgets and native-model association, and are their remedies shared?",
+    "Original checkpoint3821 final queue and ledger remain missing. No source identity, historical summary or reconstructed record is promoted into that checkpoint."
+  ],
+  "privacy_and_custody": {
+    "commit_anchors": "Raw Git commit anchors include public author/committer metadata and are kept separately; see ANCHORS.json. No claim of independent custody.",
+    "history": "Exact selected historical files and exact queue slice are retained here. The original full queue remains in the protected user extraction; the public queue is a path-redacted reconstruction.",
+    "locator_incident": "LOCATOR-QUALIFICATION.json records an unregistered truncated provenance display and other unregistered metadata views; none supplies credited historical source coverage.",
+    "scan": "A bounded scan will be retained separately after manifest creation; it cannot establish general privacy or remove prior Git history."
+  },
+  "limitations": "No product builds, tests, fixtures, parser execution, native probes, macro or shader execution, repairs, ledger edits, publication edits or cleanup."
+}

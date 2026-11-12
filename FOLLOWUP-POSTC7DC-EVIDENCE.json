@@ -1,0 +1,75 @@
+{
+  "schema": "726-postc7dc-time-bound-followup-snapshot-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "observed_counts": {
+    "lenses": 13,
+    "lenses_complete": 0,
+    "queue_records": 3713,
+    "queue_semantically_reconciled": 0,
+    "current_ledger_entries_and_relationships": 1034
+  },
+  "queue_selections": [
+    {
+      "index": 2297,
+      "contract_id": "PL13-245-BLOOD-CURSOR-WINDOW-OWNER-PENDING",
+      "current_reconciliation_at_snapshot": "partial original PL13-245-BLOOD-CURSOR-WINDOW-OWNER-PENDING connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-BLOOD-WINDOW-13V-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit; a separately assessed conditional earlier-dose relationship is recorded in ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json without an alias decision"
+    },
+    {
+      "index": 2302,
+      "contract_id": "REVIEW-L11-CAPTURE-AUTHORED-PLANE-OPTIONALITY",
+      "current_reconciliation_at_snapshot": "partial original REVIEW-L11-CAPTURE-AUTHORED-PLANE-OPTIONALITY connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2303,
+      "contract_id": "REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT",
+      "current_reconciliation_at_snapshot": "partial original REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-CAPTURE-READINESS-13W-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2306,
+      "contract_id": "REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+      "current_reconciliation_at_snapshot": "partial original REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-NPY-13X-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2307,
+      "contract_id": "REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES",
+      "current_reconciliation_at_snapshot": "partial original REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-NPZ-13Y-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2316,
+      "contract_id": "REVIEW-L11-NPZ-DECLARED-SIZE-CRC-ALLOCATION-POLICY",
+      "current_reconciliation_at_snapshot": "partial original REVIEW-L11-NPZ-DECLARED-SIZE-CRC-ALLOCATION-POLICY connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    }
+  ],
+  "blood_entry_at_snapshot": {
+    "id": "candidate-blood-future-deposit-earlier-dose-95e",
+    "lens": 4,
+    "additional_current_lenses": [
+      1,
+      3,
+      8,
+      13
+    ],
+    "lens_scope_qualification": "Conditional selected source relationship only; no independent lens closure or accepted unique-defect count.",
+    "severity": "unassigned; supported native future-dated state and actual effect unproved",
+    "classification": "A future-dated compatible blood deposit supplied to replay can contribute to an earlier active minute because age saturates to zero and the selected dose sums the full relevant collection.",
+    "historical_related_records": [
+      "baseline-059/queue.json#/entries/2297",
+      "baseline-059/queue.json#/entries/894"
+    ],
+    "current_related_records": [
+      "candidate-blood-window-final-minute-95e"
+    ],
+    "relationship_qualification": "The older window/cursor and checkpoint/seed records and the final-MAX window candidate share owners but have different first operations or insufficient alias evidence. No checkpoint3821 attribution or unique-count conclusion.",
+    "discovery": "partial; coordinator and independent delegate assessed conditional arithmetic and selected producer safeguards; supported state reachability, intended time policy, transaction behavior, other consumers and global aliases remain open",
+    "connected_repair_direction": "Establish temporal applicability and native producer/replay ownership, then coordinate any later decision across core exposure, stored deposits and checkpoint callers.",
+    "future_acceptance": "Only after separate authorization, assess supported chronology, earlier and later deposit applicability, checkpoints, transactions and the explicit policy.",
+    "repair": "not started",
+    "validation": "not performed",
+    "record": "ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json"
+  },
+  "central_report_sha256": "fb4ebef44240fc0dcf826232e26e5b3c203416f757a922e3ab93846bf1bd5627",
+  "qualification": "These are time-bound observed states, not eternal assertions about live future completion. Counts include entries and relationships, not unique defects. Historical originals, public reconstructions, delegated reads and current assessments remain separately attributed; checkpoint3821 final ledger and queue remain missing.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,93 @@
+=== upstream/miniz_oxide/src/inflate/stream.rs 231..270 ===
+ 231 |         // so we can simply write directly to the output buffer.
+ 232 |         // If there is not enough space for all of the decompressed data we will end up with a failure regardless.
+ 233 |         let status = decompress(&mut state.decomp, next_in, next_out, 0, decomp_flags);
+ 234 |         let in_bytes = status.1;
+ 235 |         let out_bytes = status.2;
+ 236 |         let status = status.0;
+ 237 | 
+ 238 |         state.last_status = status;
+ 239 | 
+ 240 |         bytes_consumed += in_bytes;
+ 241 |         bytes_written += out_bytes;
+ 242 | 
+ 243 |         let ret_status = {
+ 244 |             if status == TINFLStatus::FailedCannotMakeProgress {
+ 245 |                 Err(MZError::Buf)
+ 246 |             } else if (status as i32) < 0 {
+ 247 |                 Err(MZError::Data)
+ 248 |             } else if status != TINFLStatus::Done {
+ 249 |                 state.last_status = TINFLStatus::Failed;
+ 250 |                 Err(MZError::Buf)
+ 251 |             } else {
+ 252 |                 Ok(MZStatus::StreamEnd)
+ 253 |             }
+ 254 |         };
+ 255 |         return StreamResult {
+ 256 |             bytes_consumed,
+ 257 |             bytes_written,
+ 258 |             status: ret_status,
+ 259 |         };
+ 260 |     }
+ 261 | 
+ 262 |     if flush != MZFlush::Finish {
+ 263 |         decomp_flags |= inflate_flags::TINFL_FLAG_HAS_MORE_INPUT;
+ 264 |     }
+ 265 | 
+ 266 |     if state.dict_avail != 0 {
+ 267 |         bytes_written += push_dict_out(state, &mut next_out);
+ 268 |         return StreamResult {
+ 269 |             bytes_consumed,
+ 270 |             bytes_written,
+=== upstream/miniz_oxide/src/inflate/stream.rs 300..350 ===
+ 300 |     next_out: &mut &mut [u8],
+ 301 |     total_in: &mut usize,
+ 302 |     total_out: &mut usize,
+ 303 |     decomp_flags: u32,
+ 304 |     flush: MZFlush,
+ 305 | ) -> MZResult {
+ 306 |     let orig_in_len = next_in.len();
+ 307 |     loop {
+ 308 |         let status = decompress(
+ 309 |             &mut state.decomp,
+ 310 |             next_in,
+ 311 |             &mut state.dict,
+ 312 |             state.dict_ofs,
+ 313 |             decomp_flags,
+ 314 |         );
+ 315 | 
+ 316 |         let in_bytes = status.1;
+ 317 |         let out_bytes = status.2;
+ 318 |         let status = status.0;
+ 319 | 
+ 320 |         state.last_status = status;
+ 321 | 
+ 322 |         *next_in = &next_in[in_bytes..];
+ 323 |         *total_in += in_bytes;
+ 324 | 
+ 325 |         state.dict_avail = out_bytes;
+ 326 |         *total_out += push_dict_out(state, next_out);
+ 327 | 
+ 328 |         // Finish was requested but we didn't end on an end block.
+ 329 |         if status == TINFLStatus::FailedCannotMakeProgress {
+ 330 |             return Err(MZError::Buf);
+ 331 |         }
+ 332 |         // The stream was corrupted, and decompression failed.
+ 333 |         else if (status as i32) < 0 {
+ 334 |             return Err(MZError::Data);
+ 335 |         }
+ 336 | 
+ 337 |         // The decompressor has flushed all it's data and is waiting for more input, but
+ 338 |         // there was no more input provided.
+ 339 |         if (status == TINFLStatus::NeedsMoreInput) && orig_in_len == 0 {
+ 340 |             return Err(MZError::Buf);
+ 341 |         }
+ 342 | 
+ 343 |         if flush == MZFlush::Finish {
+ 344 |             if status == TINFLStatus::Done {
+ 345 |                 // There is not enough space in the output buffer to flush the remaining
+ 346 |                 // decompressed data in the internal buffer.
+ 347 |                 return if state.dict_avail != 0 {
+ 348 |                     Err(MZError::Buf)
+ 349 |                 } else {
+ 350 |                     Ok(MZStatus::StreamEnd)

@@ -1,0 +1,113 @@
+=== first-party/crates/fabelgeist-numpy-storage/src/npz.rs 55..86 ===
+  55 |     /// Selects the first full-name or single-suffix match in directory order.
+  56 |     pub fn get(&self, name: &NpzArrayName) -> Option<NpzMember<'_>> {
+  57 |         self.archive
+  58 |             .find(|member| name.matches(member))
+  59 |             .map(|member| NpzMember {
+  60 |                 member,
+  61 |                 query: name.clone(),
+  62 |             })
+  63 |     }
+  64 | 
+  65 |     /// Requires a member and decodes it, reporting absence as a lookup error.
+  66 |     pub fn array(&self, name: &NpzArrayName) -> Result<NpyArray> {
+  67 |         self.get(name)
+  68 |             .with_context(|| format!("archive has no member {name:?}"))?
+  69 |             .array()
+  70 |     }
+  71 | }
+  72 | 
+  73 | impl NpzMember<'_> {
+  74 |     pub fn name(&self) -> &ArchiveMemberName {
+  75 |         self.member.name()
+  76 |     }
+  77 | 
+  78 |     /// The directory's declared size, without payload verification.
+  79 |     pub fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+  80 |         self.member.uncompressed_size()
+  81 |     }
+  82 | 
+  83 |     pub fn array(&self) -> Result<NpyArray> {
+  84 |         let bytes = self.member.bytes()?;
+  85 |         NpyArray::from_bytes(&bytes).with_context(|| format!("reading array {:?}", self.query))
+  86 |     }
+=== first-party/crates/fabelgeist-numpy-storage/src/zip.rs 151..184 ===
+ 151 | impl<'archive> ZipMember<'archive> {
+ 152 |     pub(crate) fn name(&self) -> &ArchiveMemberName {
+ 153 |         &self.entry.name
+ 154 |     }
+ 155 | 
+ 156 |     pub(crate) fn uncompressed_size(&self) -> DeclaredUncompressedByteLength {
+ 157 |         self.entry.uncompressed_size
+ 158 |     }
+ 159 | 
+ 160 |     pub(crate) fn bytes(&self) -> Result<Cow<'archive, [u8]>> {
+ 161 |         let entry = self.entry;
+ 162 |         let member = self
+ 163 |             .archive
+ 164 |             .archive
+ 165 |             .get_entry(entry.location)
+ 166 |             .map_err(|source| ZipReadError::member(entry.name.clone(), source))?;
+ 167 |         let raw = member.data();
+ 168 |         match entry.compression {
+ 169 |             ZipCompression::Stored => Ok(Cow::Borrowed(raw)),
+ 170 |             ZipCompression::Deflated => {
+ 171 |                 let mut out =
+ 172 |                     Vec::with_capacity(entry.uncompressed_size.native_allocation_capacity());
+ 173 |                 DeflateDecoder::new(raw)
+ 174 |                     .read_to_end(&mut out)
+ 175 |                     .map_err(|source| ZipReadError::Inflate {
+ 176 |                         name: entry.name.clone(),
+ 177 |                         source,
+ 178 |                     })?;
+ 179 |                 Ok(Cow::Owned(out))
+ 180 |             }
+ 181 |             ZipCompression::Unsupported(code) => Err(ZipReadError::UnsupportedCompression { code }),
+ 182 |         }
+ 183 |     }
+ 184 | }
+=== first-party/crates/fabelgeist-numpy-storage/src/zip/extent.rs 1..44 ===
+   1 | //! Declared decoded ZIP sizes, distinct from verified payload lengths.
+   2 | 
+   3 | use derive_more::{Debug, Display};
+   4 | 
+   5 | /// Declared decoded byte length of a ZIP member, including any NPY header.
+   6 | ///
+   7 | /// This is archive metadata, not a verified decoded size or allocation limit.
+   8 | /// ZIP size queries and NPZ member handles return this bespoke type.
+   9 | ///
+  10 | /// ```
+  11 | /// use fabelgeist_numpy_storage::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};
+  12 | /// fn declared(archive: &ZipArchive) -> Option<DeclaredUncompressedByteLength> {
+  13 | ///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
+  14 | /// }
+  15 | /// ```
+  16 | ///
+  17 | /// Raw integer size returns are deliberately rejected:
+  18 | ///
+  19 | /// ```compile_fail
+  20 | /// use fabelgeist_numpy_storage::{ArchiveMemberName, ZipArchive};
+  21 | /// fn declared(archive: &ZipArchive) -> Option<u64> {
+  22 | ///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
+  23 | /// }
+  24 | /// ```
+  25 | #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  26 | #[debug("{_0:?}")]
+  27 | pub struct DeclaredUncompressedByteLength(u64);
+  28 | 
+  29 | impl DeclaredUncompressedByteLength {
+  30 |     /// Admits a decoded wire declaration, including zero and u64::MAX.
+  31 |     pub const fn from_bytes(bytes: u64) -> Self {
+  32 |         Self(bytes)
+  33 |     }
+  34 | 
+  35 |     /// Projects the unverified declaration at an external byte-count boundary.
+  36 |     pub const fn bytes(self) -> u64 {
+  37 |         self.0
+  38 |     }
+  39 | 
+  40 |     /// Native Vec reservation retains the inherited lossy cast and policy.
+  41 |     pub(super) fn native_allocation_capacity(self) -> usize {
+  42 |         self.0 as usize
+  43 |     }
+  44 | }

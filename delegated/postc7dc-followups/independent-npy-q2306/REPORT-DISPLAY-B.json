@@ -1,0 +1,38 @@
+{
+  "current_source_findings": [
+    {
+      "id": "NPY-FRAMING-AND-OWNED-ARRAY-Q2306",
+      "classification": "Bounded current corroboration of a historical rejected suspicion; no new header finding asserted.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs:7-40,51-67",
+        "crates/fabelgeist-numpy-storage/src/npy/header.rs:27-88,91-114,140-160",
+        "crates/fabelgeist-numpy-storage/src/npy.rs:23-38,51-75,118-138"
+      ],
+      "trace": "Frame checks a minimum prefix and magic, accepts version 1.0 with short length or 2.0/3.0 with long length, checks the length slice and bounded dictionary/payload split, and requires UTF-8 dictionary text. The dictionary parser requires exactly one descr, fortran_order and shape, rejects unknown/duplicate fields, bad separators/trailing text, unsupported dtype and Fortran order, before admitting shape and payload. NpyArray::from_bytes then retains private shape, dtype and an owned payload copy. Quoted keys/descriptors require an ASCII quote and reject backslash escapes; lexical field parsing is not itself an independently retained partially validated array.",
+      "limits": "This is Rust source and control-flow analysis only. It does not establish full NumPy-format conformance, all input-policy decisions, allocator bounds, all public constructor or deserialization routes outside the displayed files, NPZ/ZIP behavior, external callers, or native outcomes."
+    },
+    {
+      "id": "NPY-SHAPE-AND-PAYLOAD-BOUNDARY-Q2306",
+      "classification": "Explicit supported scalar and empty storage modes and typed arithmetic safeguards.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npy/header.rs:117-137",
+        "crates/fabelgeist-numpy-storage/src/npy/metadata.rs:22-27,83-99,113-122,134-153",
+        "crates/fabelgeist-numpy-storage/src/npy/tensor.rs:8-17,28-75,92-108"
+      ],
+      "trace": "A rank-zero shape has one element; a zero axis gives zero elements before multiplying other dimensions. Nonzero element products and dtype-width multiplication are checked; payload admission requires at least that many bytes and retains only the expected prefix, as the documented trailing-file policy. A native layout checks ordered prefix products for an empty shape separately, and float value upload checks layout/value cardinality before calling Burn.",
+      "limits": "Do not replace valid scalars or zero-axis storage with an unconditional nonzero rule. The Burn implementation, allocation limits and actual tensor/device behavior were not inspected or run; accepting an empty storage shape does not guarantee every native layout or device accepts it."
+    },
+    {
+      "id": "NPY-VALUES-AND-CROSS-LENS-POLICY-Q2306",
+      "classification": "Previously acknowledged open model/value policy, not a new header failure or unique-count increment.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npy/values.rs:22-38,56-99,108-140,152-166",
+        "crates/fabelgeist-numpy-storage/src/npy.rs:96-114",
+        "historical-originals/segovb/READ-L11-706.json",
+        "HISTORY-Q2306-ORIGINAL-EXACT.json"
+      ],
+      "trace": "Owned projections decode stored fixed-width values and use native casts from f64/integer to f32 and from floating values to i64. The shown conversions contain no independent finiteness, range or model-unit policy. NpyByteStates is explicitly a per-payload-byte zero/nonzero classification; that must not be silently relabeled an elementwise semantic boolean API. The historical q2306/READ-706 already leave scalar/model/native concerns for separate contracts.",
+      "limits": "No actual model producer, invalid input, user impact, Burn operation or policy was demonstrated. Whether specific producers must reject nonfinite, lossy or out-of-range values belongs to their consuming model/rig contract and its existing ledger relationships."
+    }
+  ]
+}

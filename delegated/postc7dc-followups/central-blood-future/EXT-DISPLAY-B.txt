@@ -1,0 +1,218 @@
+--- native-filth 180-350 ---
+ 180     if dirt > 0 {
+ 181         deposit(ctx, character_id, FilthSubstance::Dirt, None, dirt, at)?;
+ 182     }
+ 183     Ok(dirt)
+ 184 }
+ 185 
+ 186 fn total(ctx: &ReducerContext, character_id: u64) -> u16 {
+ 187     ctx.db
+ 188         .character_filth()
+ 189         .character_id()
+ 190         .filter(character_id)
+ 191         .map(|d| d.amount)
+ 192         .fold(0u16, u16::saturating_add)
+ 193         .min(filth::MAX_FILTH)
+ 194 }
+ 195 
+ 196 pub fn dirt_total(ctx: &ReducerContext, character_id: u64) -> u16 {
+ 197     ctx.db
+ 198         .character_filth()
+ 199         .character_id()
+ 200         .filter(character_id)
+ 201         .filter(|d| d.substance == FilthSubstance::Dirt)
+ 202         .map(|d| d.amount)
+ 203         .fold(0u16, u16::saturating_add)
+ 204         .min(filth::MAX_FILTH)
+ 205 }
+ 206 
+ 207 /// Reusable strategic boundary: callers persist only final dirt/blood outcomes.
+ 208 pub fn deposit(
+ 209     ctx: &ReducerContext,
+ 210     character_id: u64,
+ 211     substance: FilthSubstance,
+ 212     source_character_id: Option<u64>,
+ 213     amount: u16,
+ 214     at: StrategicMinute,
+ 215 ) -> Result<Option<u64>, String> {
+ 216     let amount = filth::bounded_deposit_amount(total(ctx, character_id), amount);
+ 217     if amount == 0 {
+ 218         return Ok(None);
+ 219     }
+ 220     let row = ctx.db.character_filth().insert(CharacterFilth {
+ 221         id: 0,
+ 222         character_id,
+ 223         substance,
+ 224         origin: match source_character_id {
+ 225             Some(source) if source == character_id => FilthOrigin::Own,
+ 226             Some(_) => FilthOrigin::Foreign,
+ 227             None => FilthOrigin::Unknown,
+ 228         },
+ 229         amount,
+ 230         deposited_at: at,
+ 231     });
+ 232     ctx.db.filth_provenance().insert(FilthProvenance {
+ 233         filth_id: row.id,
+ 234         source_character_id,
+ 235     });
+ 236     if substance == FilthSubstance::Blood
+ 237         && let Some(source) = source_character_id
+ 238     {
+ 239         let immunity = ctx
+ 240             .db
+ 241             .character_attributes()
+ 242             .character_id()
+ 243             .find(source)
+ 244             .map_or(3.0, |attributes| attributes.immunity);
+ 245         let mut seen = std::collections::BTreeSet::new();
+ 246         for episode in ctx.db.infection_episode().character_id().filter(source) {
+ 247             let disease_id = episode
+ 248                 .disease_id
+ 249                 .parse::<DiseaseId>()
+ 250                 .map_err(|error| error.to_string())?;
+ 251             if !adventuresim_core::disease::definition(disease_id)
+ 252                 .supports(adventuresim_core::disease::TransmissionVector::Blood)
+ 253                 || episode.contracted_at > at
+ 254                 || matches!(
+ 255                     adventuresim_core::disease::evaluate(
+ 256                         adventuresim_core::disease::InfectionEpisode {
+ 257                             id: episode.id,
+ 258                             character_id: source,
+ 259                             disease_id,
+ 260                             contracted_at: episode.contracted_at,
+ 261                             ruleset_version: episode.ruleset_version,
+ 262                             phenotype_key_version: episode.phenotype_key_version,
+ 263                         },
+ 264                         at,
+ 265                         immunity,
+ 266                     )
+ 267                     .stage,
+ 268                     adventuresim_core::disease::DiseaseStage::Resolved
+ 269                 )
+ 270                 || !seen.insert((disease_id as u8, episode.id))
+ 271             {
+ 272                 continue;
+ 273             }
+ 274             ctx.db
+ 275                 .filth_disease_snapshot()
+ 276                 .insert(FilthDiseaseSnapshot {
+ 277                     id: 0,
+ 278                     filth_id: row.id,
+ 279                     disease_id: disease_id.stable_id().into(),
+ 280                     episode_id: episode.id,
+ 281                 });
+ 282         }
+ 283     }
+ 284     Ok(Some(row.id))
+ 285 }
+ 286 
+ 287 pub fn deposit_now(
+ 288     ctx: &ReducerContext,
+ 289     character_id: u64,
+ 290     substance: FilthSubstance,
+ 291     source_character_id: Option<u64>,
+ 292     amount: u16,
+ 293 ) -> Result<Option<u64>, String> {
+ 294     let at = ctx
+ 295         .db
+ 296         .character_time()
+ 297         .character_id()
+ 298         .find(character_id)
+ 299         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+ 300     deposit(
+ 301         ctx,
+ 302         character_id,
+ 303         substance,
+ 304         source_character_id,
+ 305         amount,
+ 306         at,
+ 307     )
+ 308 }
+ 309 
+ 310 pub(crate) fn deposits(ctx: &ReducerContext, character_id: u64) -> Result<Vec<Deposit>, String> {
+ 311     ctx.db
+ 312         .character_filth()
+ 313         .character_id()
+ 314         .filter(character_id)
+ 315         .map(|row| -> Result<Deposit, String> {
+ 316             let diseases = ctx
+ 317                 .db
+ 318                 .filth_disease_snapshot()
+ 319                 .filth_id()
+ 320                 .filter(row.id)
+ 321                 .map(|s| {
+ 322                     s.disease_id
+ 323                         .parse::<DiseaseId>()
+ 324                         .map(|disease_id| DiseaseSnapshot {
+ 325                             disease_id,
+ 326                             episode_id: s.episode_id,
+ 327                         })
+ 328                 })
+ 329                 .collect::<Result<Vec<_>, _>>()
+ 330                 .map_err(|error| error.to_string())?;
+ 331             let source_character_id = ctx
+ 332                 .db
+ 333                 .filth_provenance()
+ 334                 .filth_id()
+ 335                 .find(row.id)
+ 336                 .ok_or("Filth provenance is missing")?
+ 337                 .source_character_id;
+ 338             Ok(Deposit {
+ 339                 id: row.id,
+ 340                 character_id,
+ 341                 substance: row.substance,
+ 342                 source_character_id,
+ 343                 amount: row.amount,
+ 344                 deposited_at: row.deposited_at,
+ 345                 diseases,
+ 346             })
+ 347         })
+ 348         .collect()
+ 349 }
+ 350 
+--- native-filth 445-489 ---
+ 445 fn plan_party_wash(
+ 446     ctx: &ReducerContext,
+ 447     character_ids: &[u64],
+ 448 ) -> Result<(Vec<PlannedCharacterWash>, WashSummary), String> {
+ 449     struct Subject {
+ 450         id: u64,
+ 451         dirty: Vec<Deposit>,
+ 452         cut: bool,
+ 453         assigned: Vec<WashStack>,
+ 454         remaining: u32,
+ 455     }
+ 456     let mut subjects = Vec::new();
+ 457     let mut party_id = None;
+ 458     for id in character_ids.iter().copied() {
+ 459         let character = ctx
+ 460             .db
+ 461             .character()
+ 462             .id()
+ 463             .find(id)
+ 464             .ok_or("Character not found")?;
+ 465         if !character.alive {
+ 466             continue;
+ 467         }
+ 468         party_id = party_id.or(character.party_id.clone());
+ 469         let dirty = deposits(ctx, id)?;
+ 470         if dirty.is_empty() {
+ 471             continue;
+ 472         }
+ 473         let needed = dirty.iter().map(|d| u32::from(d.amount)).sum::<u32>();
+ 474         let mut personal = ctx
+ 475             .db
+ 476             .inventory_item()
+ 477             .character_and_item_id()
+ 478             .filter((id, SOFT_SOAP_ID))
+ 479             .map(|stack| WashStack {
+ 480                 key: SoapStackId {
+ 481                     source: SoapSource::Personal,
+ 482                     id: stack.id,
+ 483                 },
+ 484                 quantity: crate::inventory_amount::personal_fraction(ctx, stack.id)
+ 485                     .unwrap_or_default()
+ 486                     .get()
+ 487                     / SOAP_FRACTION_PER_CLEANSING_POINT.get(),
+ 488             })
+ 489             .collect::<Vec<_>>();

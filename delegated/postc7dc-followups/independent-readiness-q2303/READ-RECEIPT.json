@@ -1,0 +1,325 @@
+{
+  "reader": "/root/verifier_scope",
+  "written_utc": "2026-11-12T14:31:41.115277+00:00",
+  "source_registration": "SOURCE-REGISTRATION.json",
+  "extension_registration": "SOURCE-EXTENSION-REGISTRATION.json",
+  "chunks": [
+    {
+      "display": "DISPLAY-SOURCE-A.txt",
+      "sha256": "4d52d3b43f97ef9bfc61c4089d3848388dc991ba07b5abcc59aa133810766a00",
+      "ranges": [
+        {
+          "file": "readiness.rs",
+          "start": 1,
+          "end": 32
+        },
+        {
+          "file": "admission.rs",
+          "start": 110,
+          "end": 135
+        },
+        {
+          "file": "schedule.rs",
+          "start": 1,
+          "end": 57
+        }
+      ],
+      "saved_utc": "2026-11-12T14:27:53.973068+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-B.txt",
+      "sha256": "4d69471ad55d179bf67ecdb541ccabf07a17c728cbc44ba392251a5329e25772",
+      "ranges": [
+        {
+          "file": "capture.rs",
+          "start": 169,
+          "end": 244
+        },
+        {
+          "file": "animation_mod.rs",
+          "start": 240,
+          "end": 266
+        },
+        {
+          "file": "playback.rs",
+          "start": 65,
+          "end": 100
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:01.215223+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-C.txt",
+      "sha256": "af8313fc514bd5a82689f5923af81f2f218e7bacb32e47e8f81b75df64045bd8",
+      "ranges": [
+        {
+          "file": "capture.rs",
+          "start": 350,
+          "end": 410
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:06.733354+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-D.txt",
+      "sha256": "82e5a2e01c1f496df1004b092c2e6ff8eda6091e9fc80a7ca30d9e96fbe31523",
+      "ranges": [
+        {
+          "file": "capture.rs",
+          "start": 411,
+          "end": 470
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:11.618641+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-E.txt",
+      "sha256": "bdb6a18a7861cde785c7522e378ef1ad72e36a0813b9da19527f17e7ae24f8b2",
+      "ranges": [
+        {
+          "file": "capture.rs",
+          "start": 550,
+          "end": 610
+        },
+        {
+          "file": "capture.rs",
+          "start": 890,
+          "end": 915
+        },
+        {
+          "file": "viewer_mod.rs",
+          "start": 60,
+          "end": 75
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:16.842678+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-F.txt",
+      "sha256": "85bc5ee1077eee461507552554945abb342319e211de8067d591dce04753d400",
+      "ranges": [
+        {
+          "file": "harness.rs",
+          "start": 190,
+          "end": 225
+        },
+        {
+          "file": "harness.rs",
+          "start": 255,
+          "end": 295
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:24.638845+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-G.txt",
+      "sha256": "b24d9a9ba7c06699b7b05965ade28c9a2b277847bd9a5bbee332060c929cf603",
+      "ranges": [
+        {
+          "file": "harness.rs",
+          "start": 296,
+          "end": 335
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:29.000448+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    },
+    {
+      "display": "DISPLAY-SOURCE-H.txt",
+      "sha256": "bb837f81fc8f09d94837e260694e9246019a2ece8e7c6a63f72d2058a32c50f9",
+      "ranges": [
+        {
+          "file": "capture.rs",
+          "start": 611,
+          "end": 635
+        }
+      ],
+      "saved_utc": "2026-11-12T14:28:42.078296+00:00",
+      "qualified": "Rendered in one bounded output call and seen untruncated."
+    }
+  ],
+  "source_coverage": [
+    {
+      "file": "readiness.rs",
+      "eof": 32,
+      "actual": [
+        [
+          1,
+          32
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "capture.rs",
+      "eof": 1021,
+      "actual": [
+        [
+          169,
+          244
+        ],
+        [
+          350,
+          470
+        ],
+        [
+          550,
+          635
+        ],
+        [
+          890,
+          915
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          168
+        ],
+        [
+          245,
+          349
+        ],
+        [
+          471,
+          549
+        ],
+        [
+          636,
+          889
+        ],
+        [
+          916,
+          1021
+        ]
+      ]
+    },
+    {
+      "file": "animation_mod.rs",
+      "eof": 810,
+      "actual": [
+        [
+          240,
+          266
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          239
+        ],
+        [
+          267,
+          810
+        ]
+      ]
+    },
+    {
+      "file": "playback.rs",
+      "eof": 155,
+      "actual": [
+        [
+          65,
+          100
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          64
+        ],
+        [
+          101,
+          155
+        ]
+      ]
+    },
+    {
+      "file": "admission.rs",
+      "eof": 168,
+      "actual": [
+        [
+          110,
+          135
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          109
+        ],
+        [
+          136,
+          168
+        ]
+      ]
+    },
+    {
+      "file": "schedule.rs",
+      "eof": 57,
+      "actual": [
+        [
+          1,
+          57
+        ]
+      ],
+      "unread": []
+    },
+    {
+      "file": "harness.rs",
+      "eof": 518,
+      "actual": [
+        [
+          190,
+          225
+        ],
+        [
+          255,
+          335
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          189
+        ],
+        [
+          226,
+          254
+        ],
+        [
+          336,
+          518
+        ]
+      ]
+    },
+    {
+      "file": "viewer_mod.rs",
+      "eof": 179,
+      "actual": [
+        [
+          60,
+          75
+        ]
+      ],
+      "unread": [
+        [
+          1,
+          59
+        ],
+        [
+          76,
+          179
+        ]
+      ]
+    }
+  ],
+  "total_unique_source_lines_personally_displayed": 620,
+  "scope_qualification": "No registered source display was truncated. Source body custody and hashes confer no personal read credit outside displayed ranges. Only current 95e source was personally displayed; historical source identity checks did not display e275 bodies. Test text, where incidentally in displayed source, was not executed."
+}

@@ -1,0 +1,83 @@
+=== upstream/flate2/src/deflate/read.rs 150..205 ===
+ 150 | /// #    let bytes = e.finish().unwrap();
+ 151 | /// #    println!("{}", decode_reader(bytes).unwrap());
+ 152 | /// # }
+ 153 | /// // Uncompresses a Deflate Encoded vector of bytes and returns a string or error
+ 154 | /// // Here &[u8] implements Read
+ 155 | /// fn decode_reader(bytes: Vec<u8>) -> io::Result<String> {
+ 156 | ///    let mut deflater = DeflateDecoder::new(&bytes[..]);
+ 157 | ///    let mut s = String::new();
+ 158 | ///    deflater.read_to_string(&mut s)?;
+ 159 | ///    Ok(s)
+ 160 | /// }
+ 161 | /// ```
+ 162 | #[derive(Debug)]
+ 163 | pub struct DeflateDecoder<R> {
+ 164 |     inner: bufread::DeflateDecoder<BufReader<R>>,
+ 165 | }
+ 166 | 
+ 167 | impl<R: Read> DeflateDecoder<R> {
+ 168 |     /// Creates a new decoder which will decompress data read from the given
+ 169 |     /// stream.
+ 170 |     pub fn new(r: R) -> DeflateDecoder<R> {
+ 171 |         DeflateDecoder::new_with_buf(r, vec![0; 32 * 1024])
+ 172 |     }
+ 173 | 
+ 174 |     /// Same as `new`, but the intermediate buffer for data is specified.
+ 175 |     ///
+ 176 |     /// Note that the capacity of the intermediate buffer is never increased,
+ 177 |     /// and it is recommended for it to be large.
+ 178 |     pub fn new_with_buf(r: R, buf: Vec<u8>) -> DeflateDecoder<R> {
+ 179 |         DeflateDecoder {
+ 180 |             inner: bufread::DeflateDecoder::new(BufReader::with_buf(buf, r)),
+ 181 |         }
+ 182 |     }
+ 183 | }
+ 184 | 
+ 185 | impl<R> DeflateDecoder<R> {
+ 186 |     /// Resets the state of this decoder entirely, swapping out the input
+ 187 |     /// stream for another.
+ 188 |     ///
+ 189 |     /// This will reset the internal state of this decoder and replace the
+ 190 |     /// input stream with the one provided, returning the previous input
+ 191 |     /// stream. Future data read from this decoder will be the decompressed
+ 192 |     /// version of `r`'s data.
+ 193 |     ///
+ 194 |     /// Note that there may be currently buffered data when this function is
+ 195 |     /// called, and in that case the buffered data is discarded.
+ 196 |     pub fn reset(&mut self, r: R) -> R {
+ 197 |         super::bufread::reset_decoder_data(&mut self.inner);
+ 198 |         self.inner.get_mut().reset(r)
+ 199 |     }
+ 200 | 
+ 201 |     /// Acquires a reference to the underlying stream
+ 202 |     pub fn get_ref(&self) -> &R {
+ 203 |         self.inner.get_ref().get_ref()
+ 204 |     }
+ 205 | 
+=== upstream/flate2/src/deflate/read.rs 230..254 ===
+ 230 |     pub fn total_in(&self) -> u64 {
+ 231 |         self.inner.total_in()
+ 232 |     }
+ 233 | 
+ 234 |     /// Returns the number of bytes that the decompressor has produced.
+ 235 |     pub fn total_out(&self) -> u64 {
+ 236 |         self.inner.total_out()
+ 237 |     }
+ 238 | }
+ 239 | 
+ 240 | impl<R: Read> Read for DeflateDecoder<R> {
+ 241 |     fn read(&mut self, into: &mut [u8]) -> io::Result<usize> {
+ 242 |         self.inner.read(into)
+ 243 |     }
+ 244 | }
+ 245 | 
+ 246 | impl<W: Read + Write> Write for DeflateDecoder<W> {
+ 247 |     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+ 248 |         self.get_mut().write(buf)
+ 249 |     }
+ 250 | 
+ 251 |     fn flush(&mut self) -> io::Result<()> {
+ 252 |         self.get_mut().flush()
+ 253 |     }
+ 254 | }

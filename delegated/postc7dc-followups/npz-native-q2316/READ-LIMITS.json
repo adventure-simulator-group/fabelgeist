@@ -1,0 +1,15 @@
+{
+  "schema": "726-npz-q2316-read-limits-v1",
+  "recorded_utc": "2026-11-12T14:41:57.747661+00:00",
+  "qualified_deviations": [
+    "FAILED-METADATA-ATTEMPT.json records a failed connector JSON parse which exposed a short unregistered Cargo.lock fragment.",
+    "UNREGISTERED-METADATA-EVENT.json records a line-number-only query for unregistered rawzip verifier terms; no source body was displayed by that query."
+  ],
+  "other_limits": [
+    "No tool-output truncation was observed in the registered source and historical displays.",
+    "The rawzip archive line 1200 was displayed twice under overlapping registrations and is counted once.",
+    "Selected flate2 and miniz source test lines were displayed as text only; no source, test, fixture, archive parser or product code was executed.",
+    "Metadata search returns identities only and is not a semantic alias search."
+  ],
+  "qualification": "Unregistered views provide no source or historical credit. Any unread source, native backend, runtime or broader audit scope remains open."
+}

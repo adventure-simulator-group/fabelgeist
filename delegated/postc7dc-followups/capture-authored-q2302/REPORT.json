@@ -1,0 +1,94 @@
+{
+  "schema": "726-q2302-authored-plane-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "scope": "Independent bounded source-only reconciliation of 059 q2302, disabled-IK authored-plane admission and related observation consumers, against pinned 95e63628f9d70b8dd6e6fede64334696c6995009. No queue/lens closure or unique defect count is assigned.",
+  "historical_record": {
+    "queue_pointer": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2302",
+    "contract_id": "REVIEW-L11-CAPTURE-AUTHORED-PLANE-OPTIONALITY",
+    "historic_status": "The recovered 059 record says documented-conditional-policy-question and records discovery closure within its exact named historical scope only. It explicitly leaves stronger required-bone/clearance applicability to the scenario/report owner, gives zero body/population credit and reports no runtime pass. This current review does not promote the disposition into missing checkpoint3821 or declare current/global closure.",
+    "reviewer_and_adoption": "parallel lens11_reconcile personally read e275 root_motion.rs 1–136 (PLAN-190/READ-169 /rows/2, PL11-1095) and admission.rs 1–168 (PLAN-033/READ-021 /rows/3, PL11-0275). Root READ/VERIFY-L11-705 and READ/VERIFY-L11-557 separately adopt those registered reads without claiming a root reread. Original proposal text says root adoption pending; preserve this earlier wording alongside the later adoption evidence.",
+    "per_file_identity": "Historical e275 and current 95e have identical individual root_motion.rs and admission.rs Git blobs and SHA-256 identities, each separately proven by raw tree chains. This does not establish whole-tree equality, identical dependent source, or transfer personal read credit.",
+    "custody": "Nine exact original PLAN/READ/VERIFY/proposal documents were copied from an earlier restricted historical capture and matched against the 059 queue references; exact bytes and registered selected displays are retained. The q2302 queue value is an exact selected JSON reconstruction; the full identified original 059 queue is not copied because it contains unrelated local paths."
+  },
+  "bounded_source_assessment": [
+    {
+      "id": "Q2302-DISABLED-OBSERVATION-PLANE",
+      "type": "source safeguard and conditional policy, not a new defect count",
+      "references": [
+        "animation_viewer/capture/root_motion.rs:12–47, 114–134",
+        "city_layout/grounding.rs:73–83",
+        "animation_viewer/capture.rs:620–629"
+      ],
+      "analysis": "When capture_ground is called with disabled TerrainIkMode, it subtracts the root ground offset from the subject global Y coordinate. A finite resulting SupportElevation selects CaptureGround::AuthoredPlane; nonfinite admission records Geometry rejection and returns None, without selecting terrain in that branch. collect_bones then uses the selected finite plane for each present report bone and retains computed clearance as Some. The check admits a finite datum; it does not establish the datum represents a physical measured terrain surface or that every subsequent floating-point clearance is finite.",
+      "qualification": "This supports the historical named source-level policy at the selected boundary. Applicability of the plane, missing bones, finite computed clearance and actual capture behavior require separate evidence."
+    },
+    {
+      "id": "Q2302-AUTHORED-VS-AUTHORED-PLANE",
+      "type": "semantic distinction across different decisions",
+      "references": [
+        "animation/review_scenarios.rs:45–83, 105–124",
+        "animation_viewer/scenarios/terrain_policy.rs:14–32",
+        "animation_viewer/capture.rs:321–322",
+        "animation_viewer/capture/root_motion.rs:116–126",
+        "animation/mod.rs:182–189, 218–227"
+      ],
+      "analysis": "ScenarioTerrain::Authored is a scenario classification, not CaptureGround::AuthoredPlane. The displayed per-frame policy maps Authored to enabled terrain IK; given enabled mode, capture_ground chooses CaptureGround::Terrain. Absent scenarios and out-of-window Toggle frames select disabled mode under that policy, where the separate authored-plane observation branch is used.",
+      "qualification": "This is a composition of selected source paths, not a claim that no intervening system could change the runtime resource. Earlier q2301/13U reads and this independent registered trace retain separate authorship."
+    },
+    {
+      "id": "Q2302-REQUIRED-ROOT-IS-SEPARATE",
+      "type": "relationship to 13U/q2301, not an inferred alias",
+      "references": [
+        "animation_viewer/capture/root_motion.rs:51–66, 69–94, 96–110",
+        "animation_viewer/capture/admission.rs:26–39, 146–154",
+        "scene/queries.rs:61–68, 86–88",
+        "animation_viewer/capture.rs:240–264, 390–411"
+      ],
+      "analysis": "Initial root admission asks for required terrain at origin even when a later observation mode will be disabled. In fixture_root_position quickstep requires terrain regardless of IK mode; non-quickstep enabled IK requires terrain; the disabled non-quickstep path retains current Y after admitting the horizontal point. Full-ragdoll root has its own required terrain lookup. A missing required query becomes MissingSupport and a typed Terrain rejection in the selected path; earlier driver state may already have changed.",
+      "qualification": "The prior 13U/q2301 disposition concerns the selected required-root paths, not a proof that the entire capture is terrain-independent when disabled or that every terrain producer/runtime case is valid."
+    },
+    {
+      "id": "Q2302-OPTIONAL-BONE-OBSERVATIONS",
+      "type": "relation to existing clearance and terrain-observation ledger rows, without duplicate or alias decision",
+      "references": [
+        "animation_viewer/capture/root_motion.rs:18–47",
+        "animation_viewer/report/model.rs:256–260",
+        "animation_viewer/report/metrics.rs:342–368, 1159–1182",
+        "animation_viewer/report/validation.rs:281–301"
+      ],
+      "analysis": "For CaptureGround::Terrain, invalid bone plan positions or unavailable per-bone terrain height yield None for that bone's clearance; missing bones are not inserted. BoneSample retains Option<f32>. The selected guard-step calculation maps missing endpoint clearance to a zero gain; the foot-terrain-relief reduction skips unavailable observations and returns zero if no finite extrema remain. The selected landing-foot validation instead requires a present clearance meeting its threshold, so missing handling is not uniform across consumers.",
+      "qualification": "The existing REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E and CAPTURE-GROUND-CLEARANCE-ADMISSION-95E rows already describe separately attributed conditional questions; no actual missing support, nonfinite clearance, accepted report, or unique new finding was observed. Valid disabled-plane selection neither proves those optional terrain values exist nor resolves their required/nonapplicable policy."
+    }
+  ],
+  "prior_attribution_and_relationships": [
+    {
+      "record": "ASSESSMENT-CENTRAL-CAPTURE-TERRAIN-13U-95E.json",
+      "relationship": "The coordinator links the q2301 delegated report and checked packet identities; its own review qualification says it had not independently displayed those source windows or completed a separate semantic review. This q2302 reviewer independently registered and displayed the selected current windows and does not transfer earlier read credit."
+    },
+    {
+      "record": "delegated/capture-terrain-q2301/REPORT.json and UNREGISTERED-QUERY-QUALIFICATION.json",
+      "relationship": "The earlier delegate /root/mhr_character separately traced required root and optional observations. Its first queries.rs 101–170 display preceded registration; exact time was not retained and its reconstructed transcript receives no registered-read credit. A later independently registered redisplay was recorded. The earlier mutable-ledger capture failed after a working-hash change and was separately retried, as described in that report. The present q2302 queries.rs windows were newly registered before display."
+    },
+    {
+      "record": "Committed ledger entries 882 and 883 at the revision in LEDGER-REGISTRATION.json",
+      "relationship": "882 is the existing conditional nonfinite computed ground-clearance admission question. 883 is the existing conditional optional-observation reduction question, originally attributed to hair and independently corroborated by MHR. The selected landing-height row 881 has a different local predicate. Preserve prior authors and conditions; do not infer aliases or blanket report pass/failure."
+    }
+  ],
+  "open_questions": [
+    "Which scenarios require a physical terrain observation versus a deliberate flat authored plane, including toggle transitions and the relationship between subject global coordinates and scene terrain coordinates?",
+    "Which bones and clearance observations are required, nonapplicable or unavailable for each report consumer, and how should reductions preserve those distinctions?",
+    "Can supported producer ranges or transforms yield missing or nonfinite derived clearances, and what do all other report/validation gates do with them?",
+    "What are the runtime scheduling, scene support, geometry producer and error/output behaviors? None has been executed here.",
+    "How do q2302, q2301, report-p17 and the existing terrain ledger rows relate after a broader owner and alias review, without promoting them into checkpoint3821?"
+  ],
+  "read_scope_and_errors": "READ-RECEIPTS.json enumerates prospective registrations, independent actual source displays, union and unread complements; full source bytes do not imply whole-file personal reads. The first ledger ID/pointer locator output was truncated by the tool (about 5,303 original tokens); its complete generated locator file is retained, and three selected ledger bodies were prospectively registered and then displayed in full. No source-body display was truncated in this review. Prior q2301 unregistered/failed-read chronology is preserved separately rather than silently reassigned.",
+  "limits": "Source and evidence identity only: no viewer, native terrain, fixture, product execution, build, test, runtime probe, repair, publication or protected-extraction write. A future validation or implementation is not authorized by this review.",
+  "scope_perspectives": {
+    "admission": "Finite SupportElevation and terminal geometry rejection are established only at the selected plane boundary.",
+    "enum_shape": "ScenarioTerrain and CaptureGround encode different decisions; no proposed merge or global type verdict.",
+    "producer_propagation": "The shown mode policy, driver assignment, observation selection and selected report consumers are traced as source, with runtime ordering open.",
+    "aggregate_state": "Required root terrain, optional bone observations and scenario applicability carry separate conditions.",
+    "invariant_operations": "Finite plane admission does not by itself prove a finite later subtraction or complete observation set.",
+    "remaining_lenses": "This bounded trace does not close any lens, population or global alias inventory."
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "HISTORY-REGISTRATION.json": {
+    "schema": "726-npy-q2306-history-registration-v1",
+    "agent": "/root/wrapped_scope",
+    "registered_utc": "2026-11-12T13:47:01.807400+00:00",
+    "scope": "Only historical baseline-059 queue.json JSON pointer /entries/2306; no broader personal-read credit.",
+    "source": "baseline-059/queue.json",
+    "source_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+    "source_bytes": 21631815,
+    "entry_count": 3713,
+    "entry_pointer": "/entries/2306",
+    "qualification": "Prospective registration before displaying record. The 059 copy is historical evidence, not missing checkpoint 3821 authority; exact source-byte extraction will be distinguished from reconstructed containers."
+  },
+  "QUEUE-EXTRACTION.json": {
+    "schema": "726-npy-q2306-original-extraction-v1",
+    "recorded_utc": "2026-11-12T13:55:56.677490+00:00",
+    "original": {
+      "source_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "source_bytes": 21632843,
+      "byte_start": 10308145,
+      "byte_end_exclusive": 10324488,
+      "entry_sha256": "5c06973d927f6533b9cbd19b7af0e1bf175991a1cc3b65217244ecfe239867fe",
+      "entry_bytes": 16343
+    },
+    "reconstructed_public": {
+      "source_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "source_bytes": 21631815,
+      "byte_start": 10307117,
+      "byte_end_exclusive": 10323460,
+      "entry_sha256": "5c06973d927f6533b9cbd19b7af0e1bf175991a1cc3b65217244ecfe239867fe",
+      "entry_bytes": 16343
+    },
+    "entry_pointer": "/entries/2306",
+    "qualification": "Full original 059 queue and its path-redacted public reconstruction have different file identities. This exact entry byte slice is equal in both, and has been retained without alteration. The original full queue remains separately in the protected user extraction and is not duplicated here. A byte slice is not an original standalone queue document and is not checkpoint3821."
+  },
+  "ANCHORS.json": {
+    "schema": "726-npy-q2306-git-anchor-identities-v1",
+    "commits": {
+      "e2755a732c84e67296b5e3441a4259a84f461b2f": {
+        "raw_sha256": "1c7c102cb3239b6429e14439280284d96df7cb7a445e80c0c48fba604b45b9d4",
+        "bytes": 3233,
+        "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+      },
+      "95e63628f9d70b8dd6e6fede64334696c6995009": {
+        "raw_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+        "bytes": 1078,
+        "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+      }
+    },
+    "locations_in_existing_publication": {
+      "e2755a732c84e67296b5e3441a4259a84f461b2f": "recovered/e275-investigation-model-git/e2755a732c84e67296b5e3441a4259a84f461b2f.commit.gz",
+      "95e63628f9d70b8dd6e6fede64334696c6995009": "delegated/checkpoint39-stage/bundles/2625/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit"
+    },
+    "qualification": "Exact raw commit anchors contain public author/committer email metadata; they are retained separately under restricted same-machine custody and already exist in previously published evidence at the named paths. They are not included in the privacy-scanned packet. A verifier needs either these two raw commit bytes or the existing publication. Tree bodies and source files are included in this packet; copying the packet alone without anchors cannot independently verify commit-to-root identity."
+  },
+  "LOCATOR-QUALIFICATION.json": {
+    "schema": "726-npy-q2306-locator-qualification-v1",
+    "recorded_utc": "2026-11-12T13:50:49.726652+00:00",
+    "events": [
+      {
+        "record": "delegated/privacy-baseline059-proposal/RECONSTRUCTION.json",
+        "scope": "Unregistered locator/provenance display, tool output truncated; exact shown fragments were not captured. No historical/source read credit. Exact full file privately retained separately.",
+        "source_sha256": "6f2938c55ee74e114b405c5fbf1ecc9e1bb2d46b164fe1bf90ae337a50e02a68"
+      },
+      {
+        "record": "baseline-059/selected.json and CONTINUATION.md",
+        "scope": "Unregistered selected provenance metadata displayed for navigation; no historical/source read credit."
+      },
+      {
+        "record": "main-advance-95e directory listing",
+        "scope": "Directory metadata output truncated; no source or historical record body was displayed or credited."
+      },
+      {
+        "record": "nine 059 original historical files listed in HISTORY-EXT-REGISTRATION.json",
+        "scope": "Before their detailed registration, a metadata-only inventory displayed each relative filename, whole-file hash, size, and top-level JSON key names. No record bodies were displayed or historical reading credit claimed."
+      },
+      {
+        "record": "recovered/raw-output-git-sources/MANIFEST.json and recovered/prior-current-transition-evidence/MANIFEST.json",
+        "scope": "Before the current-source registration, locator metadata displayed selected frame/source-transition row descriptors and source hashes. These are unregistered metadata views and no historical or source-body credit is claimed."
+      },
+      {
+        "record": "main-advance-95e/current-tree.tsv and previous-tree.tsv",
+        "scope": "Before source registration, locator metadata displayed selected file paths and Git blob identifiers. These do not grant source-body reading credit."
+      },
+      {
+        "record": "RECONCILIATION-059.json and BASELINE-95E-20261110.json",
+        "scope": "Unregistered top-level provenance/schema metadata displayed during navigation, without historical body credit."
+      }
+    ],
+    "qualification": "These events do not modify the registered historical displays or establish broad coverage.",
+    "updated_utc": "2026-11-12T13:59:19.304234+00:00",
+    "prior_qualification_sha256": "ae7414a9107470e52415432233e172aeb7307aede8b90815077818fa71e3f51b",
+    "prior_packet_manifest_sha256": "faf456c9372eb3333733d3b6e4e91f88c55cc3123a7363de8073049284b6dc97"
+  }
+}

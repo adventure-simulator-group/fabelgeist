@@ -1,0 +1,158 @@
+--- core-filth 150-225 ---
+ 150 pub struct TimedCutRoute {
+ 151     pub state: CutRouteState,
+ 152     /// None means the route remains active for the whole predicted interval.
+ 153     pub active_minutes: Option<u64>,
+ 154 }
+ 155 
+ 156 pub fn timed_cut_exposure(routes: &[TimedCutRoute], elapsed: u64) -> f32 {
+ 157     let (mut open, mut bandaged, mut stitched) = (0, 0, 0);
+ 158     for route in routes
+ 159         .iter()
+ 160         .filter(|route| route.active_minutes.is_none_or(|minutes| elapsed < minutes))
+ 161     {
+ 162         match route.state {
+ 163             CutRouteState::Open => open += 1,
+ 164             CutRouteState::Bandaged => bandaged += 1,
+ 165             CutRouteState::Stitched => stitched += 1,
+ 166         }
+ 167     }
+ 168     cut_exposure(open, bandaged, stitched)
+ 169 }
+ 170 
+ 171 pub fn dirt_wound_multiplier(total_dirt: u16) -> f32 {
+ 172     1.0 + 0.35 * (f32::from(total_dirt.min(MAX_FILTH)) / f32::from(MAX_FILTH))
+ 173 }
+ 174 
+ 175 pub fn blood_exposure(
+ 176     deposits: &[Deposit],
+ 177     disease_id: DiseaseId,
+ 178     now: StrategicMinute,
+ 179     cut_route: f32,
+ 180 ) -> f32 {
+ 181     blood_exposure_for_vector(
+ 182         deposits,
+ 183         disease_id,
+ 184         now,
+ 185         cut_route,
+ 186         definition(disease_id).supports(TransmissionVector::Blood),
+ 187     )
+ 188 }
+ 189 
+ 190 pub fn blood_exposure_for_vector(
+ 191     deposits: &[Deposit],
+ 192     disease_id: DiseaseId,
+ 193     now: StrategicMinute,
+ 194     cut_route: f32,
+ 195     blood_compatible: bool,
+ 196 ) -> f32 {
+ 197     if !blood_compatible {
+ 198         return 0.0;
+ 199     }
+ 200     let dose = deposits
+ 201         .iter()
+ 202         .filter(|d| d.substance == FilthSubstance::Blood && d.foreign_blood())
+ 203         .filter(|d| d.diseases.iter().any(|s| s.disease_id == disease_id))
+ 204         .map(|d| {
+ 205             f32::from(d.amount) / f32::from(MAX_FILTH) * infectious_fraction(d.deposited_at, now)
+ 206         })
+ 207         .sum::<f32>();
+ 208     (dose * (0.04 + 0.96 * cut_route.clamp(0.0, 1.0))).clamp(0.0, 1.0)
+ 209 }
+ 210 
+ 211 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+ 212 pub enum SoapSource {
+ 213     Personal,
+ 214     Party,
+ 215 }
+ 216 
+ 217 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+ 218 pub struct SoapStackId {
+ 219     pub source: SoapSource,
+ 220     pub id: u64,
+ 221 }
+ 222 
+ 223 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ 224 pub struct WashStack {
+ 225     pub key: SoapStackId,
+--- core-surgery 1-80 ---
+   1 //! Shared deterministic surgery rules used by reducers and server rendering.
+   2 
+   3 use adventuresim_world_schema::calendar::MINUTES_PER_DAY;
+   4 use serde::{Deserialize, Serialize};
+   5 
+   6 #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+   7 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+   8 #[serde(rename_all = "kebab-case")]
+   9 pub enum SurgeryProcedure {
+  10     Bandage,
+  11     Stitch,
+  12     Splint,
+  13     RemoveSplint,
+  14     Extract,
+  15     OpenBody,
+  16 }
+  17 
+  18 impl SurgeryProcedure {
+  19     pub const fn as_str(self) -> &'static str {
+  20         match self {
+  21             Self::Bandage => "bandage",
+  22             Self::Stitch => "stitch",
+  23             Self::Splint => "splint",
+  24             Self::RemoveSplint => "remove-splint",
+  25             Self::Extract => "extract",
+  26             Self::OpenBody => "open-body",
+  27         }
+  28     }
+  29 }
+  30 
+  31 impl std::fmt::Display for SurgeryProcedure {
+  32     fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+  33         formatter.write_str(self.as_str())
+  34     }
+  35 }
+  36 
+  37 pub const SELF_TREATMENT_PENALTY: f32 = 2.5;
+  38 pub const UNTREATED_CUT_DETERIORATION_PER_DAY: f32 = 0.025;
+  39 pub const UNTREATED_CUT_BLOOD_LOSS_PER_DAY: f32 = 0.08;
+  40 pub const PROJECTILE_KIT_DC_THRESHOLD: f32 = 1.0;
+  41 /// Small visible contamination transferred by a successful bloody procedure.
+  42 pub const PROCEDURE_BLOOD_EXPOSURE_FILTH: u16 = 2;
+  43 pub fn procedure_blood_exposure(procedure: SurgeryProcedure, treating_other: bool) -> u16 {
+  44     if treating_other
+  45         && matches!(
+  46             procedure,
+  47             SurgeryProcedure::Bandage
+  48                 | SurgeryProcedure::Stitch
+  49                 | SurgeryProcedure::Extract
+  50                 | SurgeryProcedure::OpenBody
+  51         )
+  52     {
+  53         PROCEDURE_BLOOD_EXPOSURE_FILTH
+  54     } else {
+  55         0
+  56     }
+  57 }
+  58 
+  59 pub fn effective_skill(skill: f32, self_treatment: bool) -> f32 {
+  60     (skill
+  61         - if self_treatment {
+  62             SELF_TREATMENT_PENALTY
+  63         } else {
+  64             0.0
+  65         })
+  66     .max(0.0)
+  67 }
+  68 
+  69 /// Every operative procedure directly checks Surgery. Knife and Tailoring
+  70 /// contribute only through Surgery's ordinary skill correlations.
+  71 pub fn procedure_skill(_procedure: SurgeryProcedure, surgery: f32, self_treatment: bool) -> f32 {
+  72     effective_skill(surgery, self_treatment)
+  73 }
+  74 
+  75 pub fn procedure_duration_minutes(procedure: SurgeryProcedure, skill: f32, dc: f32) -> u64 {
+  76     let base = match procedure {
+  77         SurgeryProcedure::Bandage => 30.0,
+  78         SurgeryProcedure::Stitch | SurgeryProcedure::OpenBody => 60.0,
+  79         SurgeryProcedure::Splint | SurgeryProcedure::RemoveSplint => 45.0,
+  80         SurgeryProcedure::Extract => 30.0 + dc.max(0.0) * 10.0,

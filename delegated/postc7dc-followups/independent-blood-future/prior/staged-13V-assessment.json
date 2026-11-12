@@ -1,0 +1,23 @@
+{
+  "schema": "726-central-blood-window-13v-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "current_source": "delegated/central-blood-q2297/ASSESSMENT-DRAFT.json",
+  "independent_review": "delegated/independent-blood-q2297/REPORT.json",
+  "finding_id": "candidate-blood-window-final-minute-95e",
+  "classification": "Conditional source-level terminal-minute discrepancy; actual native reachability, intended extreme-time policy, effect and global aliases remain open.",
+  "symbolic_case": "For an otherwise eligible positive foreign-blood deposit at StrategicMinute::MAX minus one and the interval (MAX minus one, MAX], the source computes an infectious age of one minute and a positive fraction, but saturated endpoint addition followed by subtraction yields an inclusive end of MAX minus one. The only query minute is MAX, so this deposit contributes no window.",
+  "independent_refinement": "Every computed infectious end is at most MAX minus one, so the shown one-minute active-blood gate cannot find a window for any deposit set and returns before replay and checkpoint writing. This strengthens the coordinator draft, which stated only the no-other-deposit case. For a wider interval ending at MAX, earlier windows may pass the gate and the selected persistent branch can record through MAX while the last minute remains excluded; this is conditional source control flow, not observed mutation or data loss.",
+  "source_references": [
+    "crates/adventuresim-core/src/filth.rs:11-12,81-132",
+    "crates/adventuresim-world-schema/src/calendar.rs:10,82-116,144-149,169-179",
+    "crates/adventuresim-stdb-module/src/filth/exposure_windows.rs:9-26",
+    "crates/adventuresim-stdb-module/src/filth/blood_attempts.rs:16-22,33-50,96-99,120-137",
+    "crates/adventuresim-stdb-module/src/disease.rs:1274-1283,1874-1885"
+  ],
+  "history": "The 059 q2297 connected source question remained open and explicitly named the core window and MAX iterator. Original Lens13 personal reads at 6533 and later root adoption without reread are preserved. That historical blood_attempts file individually matches the pinned 95e source, not the full tree. 059 q894 is a distinct checkpoint/seed identity question; q2210 is an itinerary clock-exhaustion question; q132 is daily-share arithmetic. They share possible time/cursor dependencies, not an established first-operation alias. No earlier record is promoted to checkpoint3821.",
+  "open": "Native clock and deposit admission, compatible disease snapshots, supported callers, transaction and checkpoint behavior, final-minute policy, wider aliases and actual impact remain unresolved. The source-only example does not show an iterator defect, observed infection, or data loss.",
+  "evidence_corrections": "The coordinator preserved the mistaken commit-as-blob lookup and corrected it after verifying object type and exact bytes. The evidence verifier initially compared two Git tree-mode spellings as strings; its earlier script, manifest and failure qualification are retained, and its successor compares their octal values. The independent reviewer separately preserves its partial navigation failure and registered displays.",
+  "connected_repair_direction": "After the audit, establish explicit terminal-time and cursor policy and coordinate the core inclusive-window owner with native checkpoint admission before choosing a correction. No implementation is authorized here."
+}

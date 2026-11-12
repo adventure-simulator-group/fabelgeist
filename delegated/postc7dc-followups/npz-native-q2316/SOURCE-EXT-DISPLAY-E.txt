@@ -1,0 +1,90 @@
+=== upstream/flate2/src/zio.rs 85..173 ===
+  85 |     ) -> Result<Status, DecompressError> {
+  86 |         self.decompress_vec(input, output, flush)
+  87 |     }
+  88 | }
+  89 | 
+  90 | pub trait Flush {
+  91 |     fn none() -> Self;
+  92 |     fn sync() -> Self;
+  93 |     fn finish() -> Self;
+  94 | }
+  95 | 
+  96 | impl Flush for FlushCompress {
+  97 |     fn none() -> Self {
+  98 |         FlushCompress::None
+  99 |     }
+ 100 | 
+ 101 |     fn sync() -> Self {
+ 102 |         FlushCompress::Sync
+ 103 |     }
+ 104 | 
+ 105 |     fn finish() -> Self {
+ 106 |         FlushCompress::Finish
+ 107 |     }
+ 108 | }
+ 109 | 
+ 110 | impl Flush for FlushDecompress {
+ 111 |     fn none() -> Self {
+ 112 |         FlushDecompress::None
+ 113 |     }
+ 114 | 
+ 115 |     fn sync() -> Self {
+ 116 |         FlushDecompress::Sync
+ 117 |     }
+ 118 | 
+ 119 |     fn finish() -> Self {
+ 120 |         FlushDecompress::Finish
+ 121 |     }
+ 122 | }
+ 123 | 
+ 124 | pub fn read<R, D>(obj: &mut R, data: &mut D, dst: &mut [u8]) -> io::Result<usize>
+ 125 | where
+ 126 |     R: BufRead,
+ 127 |     D: Ops,
+ 128 | {
+ 129 |     loop {
+ 130 |         let (read, consumed, ret, eof);
+ 131 |         {
+ 132 |             let input = obj.fill_buf()?;
+ 133 |             eof = input.is_empty();
+ 134 |             let before_out = data.total_out();
+ 135 |             let before_in = data.total_in();
+ 136 |             let flush = if eof {
+ 137 |                 D::Flush::finish()
+ 138 |             } else {
+ 139 |                 D::Flush::none()
+ 140 |             };
+ 141 |             ret = data.run(input, dst, flush);
+ 142 |             read = (data.total_out() - before_out) as usize;
+ 143 |             consumed = (data.total_in() - before_in) as usize;
+ 144 |         }
+ 145 |         obj.consume(consumed);
+ 146 | 
+ 147 |         match ret {
+ 148 |             // If we haven't read any data and we haven't hit EOF yet,
+ 149 |             // then we need to keep asking for more data because if we
+ 150 |             // return that 0 bytes of data have been read then it will
+ 151 |             // be interpreted as EOF.
+ 152 |             Ok(Status::Ok | Status::BufError) if read == 0 && !eof && !dst.is_empty() => continue,
+ 153 |             // If we haven't read any data and we have hit EOF, then the
+ 154 |             // deflate stream is incomplete.
+ 155 |             Ok(Status::Ok | Status::BufError) if read == 0 && eof && !dst.is_empty() => {
+ 156 |                 return Err(io::Error::new(
+ 157 |                     io::ErrorKind::UnexpectedEof,
+ 158 |                     "incomplete deflate stream",
+ 159 |                 ));
+ 160 |             }
+ 161 |             Ok(Status::Ok | Status::BufError | Status::StreamEnd) => return Ok(read),
+ 162 | 
+ 163 |             Err(..) => {
+ 164 |                 return Err(io::Error::new(
+ 165 |                     io::ErrorKind::InvalidInput,
+ 166 |                     "corrupt deflate stream",
+ 167 |                 ))
+ 168 |             }
+ 169 |         }
+ 170 |     }
+ 171 | }
+ 172 | 
+ 173 | impl<W: Write, D: Ops> Writer<W, D> {

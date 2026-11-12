@@ -1,0 +1,31 @@
+{
+  "schema": "726-npy-q2306-bounded-reconciliation-v1",
+  "author": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T13:56:46.414535+00:00",
+  "review_status": "Independent from prior historical readers, not yet independently semantically reviewed itself; coordinator decides ledger and publication.",
+  "scope": "Bounded present-source reconciliation of recovered 059 queue entry 2306. No product execution, repair, global lens completion, queue closure or unique-defect claim.",
+  "baseline_and_identity": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "historical_root_tree": "7737c903f98397669c12da05475f759aa7fcfe73",
+    "current_root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "historical_crate_tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+    "current_crate_tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+    "shared_src_tree": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+    "difference": "The two crate trees differ at Cargo.toml; the shared src tree and each of seven separately hashed source blobs are identical. Different root and crate tree IDs preclude a whole-tree-equivalence claim. Dependencies and native behavior are not certified by source-file identity.",
+    "proof_qualification": "Raw commit anchors are needed for complete commit-to-root verification and are held separately; ANCHORS.json gives exact existing publication references and hashes. Source, raw Git trees and named historical records are included. No local original attributions are moved into 3821."
+  },
+  "historical_records": [
+    {
+      "identity": "059 q2306 REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+      "status": "Recovered historical record; exact byte slice of the original 059 queue matches the separately path-redacted public reconstruction slice. Neither slice is a standalone original queue file; the full original and reconstruction have distinct identities.",
+      "attribution": "Historical READ-170 identifies an own Lens11 reader for lib/npy/header/frame e275 bodies; READ-011 identifies parallel lens11_reconcile for metadata/tensor/values e275 bodies. Root adoption is separately recorded by READ-L11-706 and READ-L11-547. Their ranges, source revisions and attribution remain their own.",
+      "disposition": "Historical rejected-suspicion-source-qualified with zero body/population credit, zero accepted unique-count change, incomplete exact-scope discovery and no repair/runtime pass. It specifically leaves model-instance/scalar and native concerns open; no historical e275 work becomes a current personal read or checkpoint3821 authority."
+    },
+    {
+      "identity": "READ-L11-547 ADLER-L11-MHR-CORRECTIVE-EXTENT-ADMISSION",
+      "status": "Related historical source disposition and dependency, not automatically an alias of q2306.",
+      "description": "The e275 corrective route used checked dimension operations, NPY layout and separate cardinality safeguards; missing basis, zero axes and duplicate-write policy were retained. Native allocation, model association and parser bodies remained separate. Current corrective source is not part of this packet."
+    }
+  ]
+}

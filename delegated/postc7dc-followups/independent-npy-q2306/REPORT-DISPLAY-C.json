@@ -1,0 +1,16 @@
+{
+  "open_questions": [
+    "What are the actual NPZ/ZIP and model producers, and where are scalar units, finiteness, numeric precision and model-instance provenance required?",
+    "What are the supported framing/encoding and trailing-payload policies, including version-specific requirements and resource bounds?",
+    "Does the consuming native backend accept selected zero-axis layouts and enforce its own allocation limits? Source comments are not runtime verification.",
+    "Which existing P09/P11/current ledger records own value conversion, resource budgets and native-model association, and are their remedies shared?",
+    "Original checkpoint3821 final queue and ledger remain missing. No source identity, historical summary or reconstructed record is promoted into that checkpoint."
+  ],
+  "privacy_and_custody": {
+    "commit_anchors": "Raw Git commit anchors include public author/committer metadata and are kept separately; see ANCHORS.json. No claim of independent custody.",
+    "history": "Exact selected historical files and exact queue slice are retained here. The original full queue remains in the protected user extraction; the public queue is a path-redacted reconstruction.",
+    "locator_incident": "LOCATOR-QUALIFICATION.json records an unregistered truncated provenance display and other unregistered metadata views; none supplies credited historical source coverage.",
+    "scan": "A bounded scan will be retained separately after manifest creation; it cannot establish general privacy or remove prior Git history."
+  },
+  "limitations": "No product builds, tests, fixtures, parser execution, native probes, macro or shader execution, repairs, ledger edits, publication edits or cleanup."
+}

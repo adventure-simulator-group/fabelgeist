@@ -1,0 +1,77 @@
+#!/usr/bin/env python3
+"""Verify attributed post-c7dc evidence without asserting product behavior."""
+import argparse,hashlib,json,subprocess,sys,tarfile,tempfile
+from pathlib import Path,PurePosixPath
+R=Path(__file__).resolve().parent
+P=R/'delegated/postc7dc-followups'
+def H(b):return hashlib.sha256(b).hexdigest()
+def load(p):return json.loads(p.read_bytes())
+def packet(directory,expected):
+ raw=(directory/'MANIFEST.json').read_bytes();assert H(raw)==expected
+ rows=json.loads(raw)['files']
+ if isinstance(rows,dict):rows=[{'path':k,**v} for k,v in rows.items()]
+ seen=set()
+ for row in rows:
+  p=PurePosixPath(row['path']);assert not p.is_absolute() and '..' not in p.parts and p.as_posix() not in seen
+  seen.add(p.as_posix());f=directory/p;assert f.is_file() and not f.is_symlink();b=f.read_bytes();assert (len(b),H(b))==(row['bytes'],row['sha256'])
+ assert {p.relative_to(directory).as_posix() for p in directory.rglob('*') if p.is_file()}==seen|{'MANIFEST.json'}
+ return seen|{'MANIFEST.json'}
+sets=[
+ ('capture-authored-q2302','8a117188aa41f53554f5495da7e9e2ae2a0e8aed2a53e89a8841ac7e9476d322','0520a9b98289ca174ad60a0ab4701c284d046042d0b9b239b4a208eeaf909ad4','q2302'),
+ ('independent-readiness-q2303','4f42a1207cb58fdcfb3117858269a6d769d03636ac53688910492dd3a8fc3ca5','5547686eb783ea3d78a8c0550e51d3cec8331eda06a28b30a9c69d897b5c80db','bundle'),
+ ('independent-npy-q2306','8c0fabd4ad1c46b240240cb744e6bc4cd813f86e5d78cc85e33110e7020ca6c5','ab56fffe4557ca9512b11b81506c4c2abab54c40b21b93d1afb89a90a5936e62','bundle'),
+ ('npz-native-q2316','8ff59f01da517c1ca87d641d1b120253b1dada5c46413e585efa65db80506bf2','096c582d55199d05de9f104f613df59add9d25d9e56f047636e61d9a4defb8a3','bundle'),
+ ('central-blood-future','c644be9dad23bc47524771b9cef8e8d40adb3ea740bcdb8a5eb5f8e907da07f1','d658dcdf87936d0a05cf398a826ca53c878745fee61039cdbda7639758a766f8','bundle'),
+ ('independent-blood-future','27cef5264143cbb1bb3c469f7dd550c35c961b90495ded41fd91ad17938456fe','16ee12868ad7550428abacfb79beaed71fed143d8c3f02eceb1f9438a6cca858','blood-future')]
+for name,mhash,ahash,prefix in sets:
+ d=P/name;seen=packet(d,mhash);arc=P/(name+'-archive.tar.gz');assert H(arc.read_bytes())==ahash
+ with tarfile.open(arc,'r:gz') as t:
+  members=t.getmembers();found=set()
+  for member in members:
+   p=PurePosixPath(member.name);assert member.isfile() and not p.is_absolute() and p.parts[0]==prefix and '..' not in p.parts
+   rel=PurePosixPath(*p.parts[1:]).as_posix();assert rel not in found;found.add(rel);assert t.extractfile(member).read()==(d/rel).read_bytes()
+  assert found==seen
+S=P/'agent-scans'
+for label,manifest,target in [('readiness','a3559c19c322c1db72f32f710c7b8f2ea395cf177d097bddce11f7f7762a397b',sets[1][1]),('npy','91de4193f16e74bb550828f77ea1dab52b7f3fc7ad014886c104e544a8551de0',sets[2][1])]:
+ d=S/label;packet(d,manifest);rec=load(d/'RECEIPT.json');assert rec['packet_manifest_sha256']==target
+ for k,file in [('private_digest','PRIVATE-SCAN.json'),('supplementary_pattern','PATTERN-SCAN.json')]:
+  x=rec['scans'][k];assert x['exit']==0 and x['exceptions_count']==0 and H((d/file).read_bytes())==x['result_sha256']
+ assert rec['scans']['private_digest']['forbidden_digest_total']==0 and not rec['scans']['private_digest']['other_candidate_counts'] and not rec['scans']['supplementary_pattern']['candidate_counts']
+d=S/'npz';rec=load(d/'RECEIPT.json');assert H((d/'RECEIPT.json').read_bytes())=='4bc7cf2497f92003e44dd8f04aacadc728dd9dd4e58b4b8ed1177ce6c79b343b' and rec['packet_manifest_sha256']==sets[3][1]
+assert H((d/'digest.json').read_bytes())==rec['digest_result_sha256'] and H((d/'pattern.json').read_bytes())==rec['pattern_result_sha256']
+assert rec['digest_status']['exit']==0 and rec['digest_status']['digest_matches']==0 and not rec['digest_status']['candidate_counts'] and rec['digest_status']['exceptions']==0 and rec['pattern_status']['exit']==0 and not any(rec['pattern_status']['counts'].values())
+for name,expected,ix in [('authored-receipt.json','6f58dc4e56901b8e9bf88de6c8eb78123835e79f4861bd8261722425003008cf',0),('blood-receipt.json','9cf52a051628996682e281ff40f0196dc3f96463b1e5318fa60b834ddd73c1d3',5)]:
+ raw=(S/name).read_bytes();assert H(raw)==expected;rec=json.loads(raw);assert rec['manifest_sha256']==sets[ix][1] and rec['archive_sha256']==sets[ix][2];scan=rec['privacy_scan']['result'];assert scan['forbidden_digest_total']==0 and not scan['other_candidate_counts'] and not scan['exceptions']
+C=P/'coordinator';packet(C,'cce1abe7ae7992141c0ca43196c6bfade72f9a8f4e264b7001862e35ec97f1a1')
+for row in load(C/'REPORT-REGISTRATION-PROJECTION.json')['reports']:assert H((P/row['logical_evidence_path']).read_bytes())==row['sha256']
+for row in load(C/'replays/RECORD.json')['cases']:
+ b=(C/'replays'/(row['case']+'.log')).read_bytes();assert row['exit']==0 and (len(b),H(b))==(row['bytes'],row['sha256'])
+x=load(C/'SAFE-DIGEST-SCAN.json');assert x['forbidden_digest_total']==0 and not x['other_candidate_counts'] and not x['exceptions']
+assert "issues 0" in (C/'SAFE-PATTERN-SCAN.log').read_text()
+initial=load(C/'pattern-scan.json');assert not initial['candidate_counts'] and initial['exceptions']==['unhandled-tar']*6
+assert load(C/'self-pattern-candidate-scan.json')['other_candidate_counts']=={'unix-temp':1}
+assert 'prefix' in load(C/'IMPORT-FAILURE.json')['cause']
+recdir=R/'delegated/checkpointc7dc-verification';packet(recdir,'a72709f9dc823f3d6a96a56174677d0281b8f972345feea91fb665699d2d2279')
+recovery=load(recdir/'RECOVERY-RECORD.json');log=(recdir/'evidence.log').read_bytes();assert log==(C/'c7dc-prepublication-evidence.log').read_bytes() and H(log)==recovery['transcript_sha256']=='9af9366b4d00bcbf3c3018d13ddc39fb1d5ba5e45d55a9f0a61d3f06564493f4' and recovery['recovery_driver_exit']==0 and recovery['post_replay_clean']
+rscan=R/'delegated/checkpointc7dc-verification-scan';raw=(rscan/'digest.json').read_bytes();assert H(raw)=='7b2211b70fd37e191f58a83dade12bb1909d700d45f935c19b8ff882329f985c';x=json.loads(raw);assert x['forbidden_digest_total']==0 and not x['other_candidate_counts'] and not x['exceptions'];assert H((rscan/'pattern.log').read_bytes())=='6a34b0d79409c22b8cedf63a516bf2cc1c67c22511a4134eca4417d0ed41697d'
+temp=R/'delegated/postc7dc-temp-qualification';assert H((temp/'central-update-script.txt').read_bytes())=='04837cb463f976cf85ca506e221a1562f6c8e7e7d4635c5a474cac02c0fdcd1a';assert (temp/'QUALIFICATION.json').is_file() and (temp/'ADDITIONAL-TEMP-PATHS.json').is_file() and (temp/'ADDITIONAL-NAVIGATION.json').is_file()
+snapshot_raw=(R/'FOLLOWUP-POSTC7DC-EVIDENCE.json').read_bytes();assert H(snapshot_raw)=='a9d06ee21d81ac03c3ae8c1b99146fc03e7f9211649b665f9bab1ad28ca86b63';snapshot=json.loads(snapshot_raw);counts=snapshot['observed_counts'];assert (counts['lenses'],counts['lenses_complete'],counts['queue_records'],counts['queue_semantically_reconciled'],counts['current_ledger_entries_and_relationships'])==(13,0,3713,0,1034)
+assert H((R/'ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json').read_bytes())==snapshot['central_report_sha256']
+base=load(R/'BASELINE-95E-20261110.json');progress=load(R/'CONTINUATION-PROGRESS-95E.json');ledger=base['newly_assessed_ledger']['entries'];assert progress['new_current_ledger_candidates']==len(ledger)
+found=[x for x in ledger if x.get('id')=='candidate-blood-future-deposit-earlier-dose-95e'];assert len(found)==1 and found[0]['record']=='ASSESSMENT-CENTRAL-FOLLOWUPS-13Z-95E.json'
+queue=load(R/'RECONCILIATION-059.json')['entries']
+for row in snapshot['queue_selections']:assert queue[row['index']]['contract_id']==row['contract_id'] and row['current_reconciliation_at_snapshot'].startswith('partial')
+parser=argparse.ArgumentParser();parser.add_argument('--git-repo',type=Path);parser.add_argument('--private-queue',type=Path);parser.add_argument('--archives-dir',type=Path);args=parser.parse_args()
+commands=[['capture-authored-q2302/VERIFY-EVIDENCE.py'],['independent-readiness-q2303/VERIFY-EVIDENCE.py'],['independent-npy-q2306/VERIFY-EVIDENCE.py'],['central-blood-future/verify-evidence.py'],['independent-blood-future/VERIFY-EVIDENCE.py']]
+with tempfile.TemporaryDirectory(prefix='726-postc7dc-evidence-') as td:
+ if args.git_repo:
+  repo=args.git_repo.resolve();raw=subprocess.check_output(['git','-C',str(repo),'show','c7dc76868c73991af5209e61cc664652b0a8d025:BASELINE-95E-20261110.json']);old=Path(td)/'baseline.json';old.write_bytes(raw);assert H(raw)=='ca06e2db83c5c7f27d1312ae24bab47ae6a9f461fe68fb29a0ea2173d98045e4'
+  commands[0]+=['--repo',str(repo)];commands[1]+=['--git-repo',str(repo),'--parent-stage',str(R/'delegated/capture-readiness-q2303'),'--publication',str(R)];commands[2]+=['--git-repo',str(repo),'--parent-stage',str(R/'delegated/npy-q2306'),'--publication',str(R)];commands[3]+=['--git-repo',str(repo),'--baseline-snapshot',str(old)];commands[4]+=['--repo',str(repo)]
+ for cmd in commands:subprocess.run([sys.executable,'-B',str(P/cmd[0]),*cmd[1:]],cwd=R,check=True)
+ if args.archives_dir:
+  cmd=[sys.executable,'-B',str(P/'npz-native-q2316/verify-evidence.py'),'--publication-root',str(R),'--archives-dir',str(args.archives_dir.resolve())]
+  if args.private_queue:cmd+=['--original-queue',str(args.private_queue.resolve())]
+  if args.git_repo:cmd+=['--ledger',str(old)]
+  subprocess.run(cmd,cwd=R,check=True)
+ else:print('Full q2316 native evidence verification requires separately controlled --archives-dir; original queue and time-bound ledger also have optional inputs.')
+print('Verified bounded packet identities, historical qualifications, scans, same-machine recovery and time-bound connections; no product behavior or global audit closure asserted.')

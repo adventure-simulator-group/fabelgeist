@@ -1,0 +1,79 @@
+### harness.rs:190-225
+190:             (
+191:                 subject.translation,
+192:                 REVIEW_CAMERA_DISTANCE_METRES,
+193:                 REVIEW_CAMERA_ELEVATION_METRES,
+194:             )
+195:         };
+196:         let offset = match view {
+197:             CaptureView::Gameplay => return None,
+198:             CaptureView::Side => Vec3::new(distance, elevation, 0.0),
+199:             CaptureView::Front => Vec3::new(0.0, elevation, -distance),
+200:         };
+201:         Some(Transform::from_translation(focus + orbit * offset).looking_at(focus, Vec3::Y))
+202:     }
+203: 
+204:     pub(super) fn new(harness: Option<ArmorHarness>, output: PathBuf) -> Self {
+205:         if let Some(harness) = harness {
+206:             let pieces = harness.placements().map(|(item, placement)| serde_json::json!({"item_id": item.id, "placement_id": placement.id})).collect::<Vec<_>>();
+207:             let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_runtime_wearer_fit", "identity": "deterministic_character_id_variation"});
+208:             fs::write(
+209:                 output.join("armor-fixture.json"),
+210:                 serde_json::to_vec_pretty(&manifest).expect("serialize armor fixture"),
+211:             )
+212:             .expect("write armor fixture");
+213:         }
+214:         Self {
+215:             harness,
+216:             output,
+217:             ready: harness.is_none(),
+218:             waited: 0,
+219:             failed: false,
+220:         }
+221:     }
+222: 
+223:     pub(super) fn spawn(&self, commands: &mut Commands, subject: Entity) {
+224:         let Some(harness) = self.harness else { return };
+225:         let mut previous = Vec::new();
+### harness.rs:255-295
+255:     fn fail(&mut self, reason: &str, exit: &mut MessageWriter<AppExit>) {
+256:         self.failed = true;
+257:         fs::write(self.output.join("failure.txt"), reason).expect("write armor capture failure");
+258:         error!(%reason, "Armor capture cannot use unresolved equipment");
+259:         exit.write(AppExit::error());
+260:     }
+261: }
+262: 
+263: pub(super) fn update_readiness(
+264:     mut capture: ResMut<ArmorCapture>,
+265:     armor: Query<(Entity, &ItemProperties), With<CapturedArmor>>,
+266:     visuals: EquipmentVisualStatus,
+267:     equipment: Res<crate::equipment::RuntimeEquipmentBodyCache>,
+268:     mut exit: MessageWriter<AppExit>,
+269: ) {
+270:     let Some(harness) = capture.harness else {
+271:         return;
+272:     };
+273:     if capture.failed {
+274:         return;
+275:     }
+276:     let was_ready = capture.ready;
+277:     capture.ready = armor.iter().count() == harness.placements().count();
+278:     for (entity, item) in &armor {
+279:         match visuals.state(entity, harness.visual_requirements()) {
+280:             EquipmentVisualState::Ready => {}
+281:             EquipmentVisualState::Failed => {
+282:                 fs::write(
+283:                     capture.output.join("armor-readiness-failure.json"),
+284:                     serde_json::to_vec_pretty(&serde_json::json!({
+285:                         "item_id": item.id, "parts": visuals.summary(entity),
+286:                     }))
+287:                     .expect("serialize failed armor readiness"),
+288:                 )
+289:                 .expect("write failed armor readiness");
+290:                 capture.fail(
+291:                     &format!(
+292:                         "Procedural equipment asset or primary skin weights failed for {}",
+293:                         item.id
+294:                     ),
+295:                     &mut exit,

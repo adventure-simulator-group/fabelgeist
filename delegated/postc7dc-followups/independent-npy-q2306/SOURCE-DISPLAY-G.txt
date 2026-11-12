@@ -1,0 +1,66 @@
+### npy.rs:76-140
+76: 
+77: impl NpyArray {
+78:     pub fn shape(&self) -> &NpyShape {
+79:         &self.shape
+80:     }
+81:     pub fn dtype(&self) -> Dtype {
+82:         self.dtype
+83:     }
+84:     pub fn element_count(&self) -> NpyElementCount {
+85:         self.shape.element_count()
+86:     }
+87:     pub fn is_empty(&self) -> bool {
+88:         self.element_count().is_empty()
+89:     }
+90: 
+91:     /// Element bytes, exactly as stored.
+92:     pub fn bytes(&self) -> &[u8] {
+93:         &self.bytes
+94:     }
+95: 
+96:     /// Uploads the array to a device as a float tensor.
+97:     pub fn to_tensor<const D: usize>(
+98:         &self,
+99:         device: &Device,
+100:     ) -> std::result::Result<Tensor<D>, NpyLayoutError> {
+101:         let layout = NpyTensorLayout::<D>::try_from(&self.shape)?;
+102:         NpyFloat32Values::from(self).into_tensor(layout, device)
+103:     }
+104: 
+105:     /// Uploads the array to a device as an integer tensor.
+106:     pub fn to_int_tensor<const D: usize>(
+107:         &self,
+108:         device: &Device,
+109:     ) -> std::result::Result<Tensor<D, Int>, NpyLayoutError> {
+110:         let dimensions = NpyTensorLayout::<D>::try_from(&self.shape)?;
+111:         Ok(Tensor::from_data(
+112:             TensorData::new(Vec::<i64>::from(NpyIntegerValues::from(self)), dimensions),
+113:             device,
+114:         ))
+115:     }
+116: }
+117: 
+118: impl NpyArray {
+119:     /// Parses a `.npy` buffer: header dictionary first, then the element payload.
+120:     pub fn from_bytes(bytes: &[u8]) -> Result<Self> {
+121:         let NpyHeader {
+122:             dtype,
+123:             shape,
+124:             payload,
+125:         } = NpyHeader::from_bytes(bytes)?;
+126:         Ok(Self {
+127:             shape,
+128:             dtype,
+129:             bytes: payload.to_vec(),
+130:         })
+131:     }
+132: 
+133:     /// Reads a standalone `.npy` file.
+134:     pub fn read(path: impl AsRef<Path>) -> Result<Self> {
+135:         let path = path.as_ref();
+136:         let bytes = std::fs::read(path).with_context(|| format!("reading {}", path.display()))?;
+137:         Self::from_bytes(&bytes).with_context(|| format!("parsing {}", path.display()))
+138:     }
+139: }
+140: 

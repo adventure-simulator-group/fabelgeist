@@ -1,0 +1,114 @@
+=== upstream/rawzip/src/archive.rs 1200..1260 ===
+1200 |             break;
+1201 |         }
+1202 | 
+1203 |         result
+1204 |     }
+1205 | 
+1206 |     /// Describes if the file is a directory.
+1207 |     ///
+1208 |     /// See [`ZipFilePath::is_dir`] for more information.
+1209 |     #[inline]
+1210 |     pub fn is_dir(&self) -> bool {
+1211 |         self.file_name.is_dir()
+1212 |     }
+1213 | 
+1214 |     /// Returns the general purpose bit flags for this entry.
+1215 |     ///
+1216 |     /// See [`EntryFlags`] for the individual flag accessors.
+1217 |     #[inline]
+1218 |     pub fn flags(&self) -> EntryFlags {
+1219 |         self.flags
+1220 |     }
+1221 | 
+1222 |     /// Describes where the file's data is located within the archive.
+1223 |     #[inline]
+1224 |     pub fn wayfinder(&self) -> ZipArchiveEntryWayfinder {
+1225 |         ZipArchiveEntryWayfinder {
+1226 |             uncompressed_size: self.uncompressed_size,
+1227 |             compressed_size: self.compressed_size,
+1228 |             local_header_offset: self.local_header_offset,
+1229 |             has_data_descriptor: self.flags().has_data_descriptor(),
+1230 |             crc: self.crc32,
+1231 |             data_descriptor_uses_zip64_sizes: self.data_descriptor_uses_zip64_sizes,
+1232 |         }
+1233 |     }
+1234 | 
+1235 |     /// The purported number of bytes of the uncompressed data.
+1236 |     ///
+1237 |     /// **WARNING**: this number has not yet been validated, so don't trust it
+1238 |     /// to make allocation decisions.
+1239 |     #[inline]
+1240 |     pub fn uncompressed_size_hint(&self) -> u64 {
+1241 |         self.uncompressed_size
+1242 |     }
+1243 | 
+1244 |     /// The purported number of bytes of the compressed data.
+1245 |     ///
+1246 |     /// **WARNING**: this number has not yet been validated, so don't trust it
+1247 |     /// to make allocation decisions.
+1248 |     #[inline]
+1249 |     pub fn compressed_size_hint(&self) -> u64 {
+1250 |         self.compressed_size
+1251 |     }
+1252 | 
+1253 |     /// The declared offset to the local file header within the Zip archive.
+1254 |     ///
+1255 |     /// To verify the validity of this offset, call
+1256 |     /// [`ZipSliceArchive::get_entry`].
+1257 |     ///
+1258 |     /// The minimum of all local header offsets (or `directory_offset()` when a
+1259 |     /// zip is empty), will be the length of prelude data in a zip archive (data
+1260 |     /// that is unrelated to the zip archive).
+=== upstream/rawzip/src/archive.rs 1435..1485 ===
+1435 |     /// Raw access to the entire extra field data is available when
+1436 |     /// `remaining_bytes` is called prior to any iteration.
+1437 |     #[inline]
+1438 |     pub fn extra_fields(&self) -> ExtraFields<'_> {
+1439 |         ExtraFields::new(self.extra_field)
+1440 |     }
+1441 | 
+1442 |     /// Returns the file entry's comment.
+1443 |     #[inline]
+1444 |     pub fn comment(&self) -> ZipStr<'_> {
+1445 |         self.file_comment
+1446 |     }
+1447 | }
+1448 | 
+1449 | /// Contains directions to where the Zip entry's data is located within the Zip archive.
+1450 | #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+1451 | pub struct ZipArchiveEntryWayfinder {
+1452 |     uncompressed_size: u64,
+1453 |     compressed_size: u64,
+1454 |     local_header_offset: u64,
+1455 |     crc: u32,
+1456 |     has_data_descriptor: bool,
+1457 |     data_descriptor_uses_zip64_sizes: bool,
+1458 | }
+1459 | 
+1460 | impl ZipArchiveEntryWayfinder {
+1461 |     /// Equivalent to [`ZipFileHeaderRecord::compressed_size_hint`]
+1462 |     ///
+1463 |     /// This is a convenience method to avoid having to deal with lifetime
+1464 |     /// issues on a `ZipFileHeaderRecord`
+1465 |     #[inline]
+1466 |     pub fn uncompressed_size_hint(&self) -> u64 {
+1467 |         self.uncompressed_size
+1468 |     }
+1469 | 
+1470 |     /// Equivalent to [`ZipFileHeaderRecord::compressed_size_hint`]
+1471 |     ///
+1472 |     /// This is a convenience method to avoid having to deal with lifetime
+1473 |     /// issues on a `ZipFileHeaderRecord`
+1474 |     #[inline]
+1475 |     pub fn compressed_size_hint(&self) -> u64 {
+1476 |         self.compressed_size
+1477 |     }
+1478 | }
+1479 | 
+1480 | #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+1481 | #[cfg_attr(not(feature = "std"), allow(dead_code))]
+1482 | pub(crate) struct ZipLocalFileHeaderFixed {
+1483 |     pub(crate) signature: u32,
+1484 |     pub(crate) version_needed: u16,
+1485 |     pub(crate) flags: EntryFlags,

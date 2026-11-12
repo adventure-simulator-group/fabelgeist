@@ -1,0 +1,110 @@
+=== upstream/rawzip/src/archive.rs 221..282 ===
+ 221 |     data_start_offset: u32,
+ 222 |     has_data_descriptor: bool,
+ 223 |     data_descriptor_uses_zip64_sizes: bool,
+ 224 |     descriptor: &'a [u8],
+ 225 | }
+ 226 | 
+ 227 | impl<'a> ZipSliceEntry<'a> {
+ 228 |     /// Returns the raw, compressed data of the entry as a byte slice.
+ 229 |     pub fn data(&self) -> &'a [u8] {
+ 230 |         &self.data[self.data_start_offset as usize..]
+ 231 |     }
+ 232 | 
+ 233 |     /// Returns the expected CRC and uncompressed size of the inflated data.
+ 234 |     ///
+ 235 |     /// Rawzip considers the central directory to be authoritative, so this
+ 236 |     /// returns the CRC and uncompressed size from the central directory. If you
+ 237 |     /// want to check the data descriptor instead, use
+ 238 |     /// [`ZipSliceEntry::data_descriptor`] to read it.
+ 239 |     pub fn claim_verifier(&self) -> ZipVerification {
+ 240 |         self.verifier
+ 241 |     }
+ 242 | 
+ 243 |     /// Reads the trailing [`ZipDataDescriptor`] for this entry, if present.
+ 244 |     pub fn data_descriptor(&self) -> Result<Option<ZipDataDescriptor>, Error> {
+ 245 |         if !self.has_data_descriptor {
+ 246 |             return Ok(None);
+ 247 |         }
+ 248 | 
+ 249 |         let descriptor =
+ 250 |             DataDescriptor::parse(self.descriptor, self.data_descriptor_uses_zip64_sizes)?;
+ 251 |         Ok(Some(ZipDataDescriptor {
+ 252 |             crc: descriptor.crc,
+ 253 |             compressed_size: descriptor.compressed_size,
+ 254 |             uncompressed_size: descriptor.uncompressed_size,
+ 255 |         }))
+ 256 |     }
+ 257 | 
+ 258 |     /// Returns a reader that wraps a decompressor and verify the size and CRC
+ 259 |     /// of the decompressed data once finished.
+ 260 |     #[cfg(feature = "std")]
+ 261 |     pub fn verifying_reader<D>(&self, reader: D) -> ZipSliceVerifier<D>
+ 262 |     where
+ 263 |         D: std::io::Read,
+ 264 |     {
+ 265 |         ZipSliceVerifier(ZipVerifier {
+ 266 |             reader,
+ 267 |             verifier: self.verifier,
+ 268 |             crc: Crc32::new(),
+ 269 |             size: 0,
+ 270 |         })
+ 271 |     }
+ 272 | 
+ 273 |     /// Returns the byte range of the compressed data within the archive.
+ 274 |     ///
+ 275 |     /// This range is calculated from the local file header and identifies the
+ 276 |     /// compressed data within the original archive bytes.
+ 277 |     ///
+ 278 |     /// # Security Usage
+ 279 |     ///
+ 280 |     /// This method is useful for detecting overlapping entries, which are often
+ 281 |     /// used in zip bombs. By comparing the ranges returned by this method
+ 282 |     /// across multiple entries, you can identify when entries share compressed
+=== upstream/rawzip/src/archive.rs 490..535 ===
+ 490 |         ZipLocator::new().locate_in_slice(data).map_err(|(_, e)| e)
+ 491 |     }
+ 492 | }
+ 493 | 
+ 494 | /// Holds the expected CRC32 checksum and uncompressed size for a Zip entry.
+ 495 | ///
+ 496 | /// This struct is used to verify the integrity of decompressed data.
+ 497 | #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+ 498 | pub struct ZipVerification {
+ 499 |     /// The expected CRC32 checksum of the uncompressed data.
+ 500 |     pub crc: u32,
+ 501 | 
+ 502 |     /// The expected uncompressed size of the entry.
+ 503 |     pub uncompressed_size: u64,
+ 504 | }
+ 505 | 
+ 506 | impl ZipVerification {
+ 507 |     /// Validates the size and CRC of the entry.
+ 508 |     ///
+ 509 |     /// Returns an error if either the size or the CRC does not match.
+ 510 |     pub fn valid(&self, rhs: ZipVerification) -> Result<(), Error> {
+ 511 |         if self.uncompressed_size != rhs.uncompressed_size {
+ 512 |             return Err(Error::from(ErrorKind::InvalidSize {
+ 513 |                 expected: self.uncompressed_size,
+ 514 |                 actual: rhs.uncompressed_size,
+ 515 |             }));
+ 516 |         }
+ 517 | 
+ 518 |         if self.crc != rhs.crc {
+ 519 |             return Err(Error::from(ErrorKind::InvalidChecksum {
+ 520 |                 expected: self.crc,
+ 521 |                 actual: rhs.crc,
+ 522 |             }));
+ 523 |         }
+ 524 | 
+ 525 |         Ok(())
+ 526 |     }
+ 527 | }
+ 528 | 
+ 529 | /// Local file header information from a ZIP archive entry.
+ 530 | ///
+ 531 | /// This struct provides access to data stored in the local file header of a ZIP entry,
+ 532 | /// which may differ from the information in the central directory. The local header
+ 533 | /// contains the filename and extra fields as they appear at the start of each entry's
+ 534 | /// data within the ZIP file.
+ 535 | ///

@@ -1,0 +1,86 @@
+### values.rs:1-85
+1: //! Ordered decoded NumPy numbers and byte states, retained until SDK conversion.
+2: use derive_more::Into;
+3: 
+4: use super::{Dtype, NpyArray, NpyElementCount};
+5: 
+6: /// Ordered floating projections of an array's current payload and dtype.
+7: ///
+8: /// ```compile_fail
+9: /// use fabelgeist_numpy_storage::NpyFloat32Values;
+10: /// let values: NpyFloat32Values = vec![1.0f32];
+11: /// ```
+12: ///
+13: /// ```no_run
+14: /// use fabelgeist_numpy_storage::{NpyArray, NpyFloat32Values, NpyIntegerValues};
+15: /// fn decode(array: &NpyArray) {
+16: ///     let floats = NpyFloat32Values::from(array);
+17: ///     let integers = NpyIntegerValues::from(array);
+18: ///     let native_floats = Vec::<f32>::from(floats);
+19: ///     let native_integers = Vec::<i64>::from(integers);
+20: /// }
+21: /// ```
+22: #[derive(Into)]
+23: pub struct NpyFloat32Values(Vec<f32>);
+24: 
+25: /// Ordered integer conversions of an array's current payload and dtype.
+26: ///
+27: /// ```compile_fail
+28: /// use fabelgeist_numpy_storage::{NpyFloat32Values, NpyIntegerValues};
+29: /// fn decode(values: NpyIntegerValues) {
+30: ///     let floats: NpyFloat32Values = values;
+31: /// }
+32: /// ```
+33: #[derive(Into)]
+34: pub struct NpyIntegerValues(Vec<i64>);
+35: 
+36: /// Ordered zero/nonzero classifications of every payload byte.
+37: #[derive(Into)]
+38: pub struct NpyByteStates(Vec<bool>);
+39: 
+40: enum StoredValue {
+41:     Float32(f32),
+42:     Float64(f64),
+43:     Integer32(i32),
+44:     Integer64(i64),
+45:     Byte(u8),
+46: }
+47: 
+48: enum StoredValues<'a> {
+49:     Float32(std::slice::Iter<'a, [u8; 4]>),
+50:     Float64(std::slice::Iter<'a, [u8; 8]>),
+51:     Integer32(std::slice::Iter<'a, [u8; 4]>),
+52:     Integer64(std::slice::Iter<'a, [u8; 8]>),
+53:     Byte(std::slice::Iter<'a, u8>),
+54: }
+55: 
+56: impl From<&NpyArray> for NpyFloat32Values {
+57:     fn from(array: &NpyArray) -> Self {
+58:         Self(
+59:             StoredValues::from(array)
+60:                 .map(StoredValue::floating)
+61:                 .collect(),
+62:         )
+63:     }
+64: }
+65: 
+66: impl NpyFloat32Values {
+67:     pub fn element_count(&self) -> NpyElementCount {
+68:         NpyElementCount::from(self.0.len())
+69:     }
+70: 
+71:     pub fn values(&self) -> &[f32] {
+72:         &self.0
+73:     }
+74: }
+75: 
+76: impl From<&NpyArray> for NpyIntegerValues {
+77:     fn from(array: &NpyArray) -> Self {
+78:         Self(
+79:             StoredValues::from(array)
+80:                 .map(StoredValue::integer)
+81:                 .collect(),
+82:         )
+83:     }
+84: }
+85: 

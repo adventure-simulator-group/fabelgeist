@@ -1,0 +1,18 @@
+{
+  "checkpoint": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "branch": "codex/726-audit-baseline-20261110",
+  "fetch_head_asserted_before_checkout": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "previous_checkpoint": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+  "recovery_driver_exit": 0,
+  "recovery_clean_before_and_after": true,
+  "detached_checkout_command": "successful checkout --detach; independent symbolic-ref check followed the replay",
+  "independent_post_replay_symbolic_ref_exit": 1,
+  "post_replay_head": "c7dc76868c73991af5209e61cc664652b0a8d025",
+  "post_replay_clean": true,
+  "prepublication_and_recovery_transcripts_byte_identical": true,
+  "transcript_bytes": 150131,
+  "transcript_lines": 1742,
+  "transcript_sha256": "9af9366b4d00bcbf3c3018d13ddc39fb1d5ba5e45d55a9f0a61d3f06564493f4",
+  "prepublication_transcript": "delegated/postc7dc-followups/coordinator/c7dc-prepublication-evidence.log",
+  "qualification": "The recovery checkout and original are on the same machine. The transcript does not embed checkout identity; HEAD, cleanliness and detached state were separately observed. This is not proof of independent custody, product behavior, audit completion, or the missing checkpoint3821 records."
+}

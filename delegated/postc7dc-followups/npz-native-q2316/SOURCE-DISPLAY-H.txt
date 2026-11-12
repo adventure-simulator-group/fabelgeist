@@ -1,0 +1,109 @@
+=== upstream/flate2/src/deflate/bufread.rs 150..210 ===
+ 150 | /// # fn main() {
+ 151 | /// #    let mut e = DeflateEncoder::new(Vec::new(), Compression::default());
+ 152 | /// #    e.write_all(b"Hello World").unwrap();
+ 153 | /// #    let bytes = e.finish().unwrap();
+ 154 | /// #    println!("{}", decode_reader(bytes).unwrap());
+ 155 | /// # }
+ 156 | /// // Uncompresses a Deflate Encoded vector of bytes and returns a string or error
+ 157 | /// // Here &[u8] implements Read
+ 158 | /// fn decode_reader(bytes: Vec<u8>) -> io::Result<String> {
+ 159 | ///    let mut deflater = DeflateDecoder::new(&bytes[..]);
+ 160 | ///    let mut s = String::new();
+ 161 | ///    deflater.read_to_string(&mut s)?;
+ 162 | ///    Ok(s)
+ 163 | /// }
+ 164 | /// ```
+ 165 | #[derive(Debug)]
+ 166 | pub struct DeflateDecoder<R> {
+ 167 |     obj: R,
+ 168 |     data: Decompress,
+ 169 | }
+ 170 | 
+ 171 | pub fn reset_decoder_data<R>(zlib: &mut DeflateDecoder<R>) {
+ 172 |     zlib.data.reset(false);
+ 173 | }
+ 174 | 
+ 175 | impl<R: BufRead> DeflateDecoder<R> {
+ 176 |     /// Creates a new decoder which will decompress data read from the given
+ 177 |     /// stream.
+ 178 |     pub fn new(r: R) -> DeflateDecoder<R> {
+ 179 |         DeflateDecoder {
+ 180 |             obj: r,
+ 181 |             data: Decompress::new(false),
+ 182 |         }
+ 183 |     }
+ 184 | }
+ 185 | 
+ 186 | impl<R> DeflateDecoder<R> {
+ 187 |     /// Resets the state of this decoder entirely, swapping out the input
+ 188 |     /// stream for another.
+ 189 |     ///
+ 190 |     /// This will reset the internal state of this decoder and replace the
+ 191 |     /// input stream with the one provided, returning the previous input
+ 192 |     /// stream. Future data read from this decoder will be the decompressed
+ 193 |     /// version of `r`'s data.
+ 194 |     pub fn reset(&mut self, r: R) -> R {
+ 195 |         reset_decoder_data(self);
+ 196 |         mem::replace(&mut self.obj, r)
+ 197 |     }
+ 198 | 
+ 199 |     /// Resets the state of this decoder's data
+ 200 |     ///
+ 201 |     /// This will reset the internal state of this decoder. It will continue
+ 202 |     /// reading from the same stream.
+ 203 |     pub fn reset_data(&mut self) {
+ 204 |         reset_decoder_data(self);
+ 205 |     }
+ 206 | 
+ 207 |     /// Acquires a reference to the underlying stream
+ 208 |     pub fn get_ref(&self) -> &R {
+ 209 |         &self.obj
+ 210 |     }
+=== upstream/flate2/src/deflate/bufread.rs 230..275 ===
+ 230 |     /// Note that this will likely be smaller than what the decompressor
+ 231 |     /// actually read from the underlying stream due to buffering.
+ 232 |     pub fn total_in(&self) -> u64 {
+ 233 |         self.data.total_in()
+ 234 |     }
+ 235 | 
+ 236 |     /// Returns the number of bytes that the decompressor has produced.
+ 237 |     pub fn total_out(&self) -> u64 {
+ 238 |         self.data.total_out()
+ 239 |     }
+ 240 | }
+ 241 | 
+ 242 | impl<R: BufRead> Read for DeflateDecoder<R> {
+ 243 |     fn read(&mut self, into: &mut [u8]) -> io::Result<usize> {
+ 244 |         zio::read(&mut self.obj, &mut self.data, into)
+ 245 |     }
+ 246 | }
+ 247 | 
+ 248 | impl<W: BufRead + Write> Write for DeflateDecoder<W> {
+ 249 |     fn write(&mut self, buf: &[u8]) -> io::Result<usize> {
+ 250 |         self.get_mut().write(buf)
+ 251 |     }
+ 252 | 
+ 253 |     fn flush(&mut self) -> io::Result<()> {
+ 254 |         self.get_mut().flush()
+ 255 |     }
+ 256 | }
+ 257 | 
+ 258 | #[cfg(test)]
+ 259 | mod test {
+ 260 |     use crate::bufread::DeflateDecoder;
+ 261 |     use crate::deflate::write;
+ 262 |     use crate::io::{Read, Write};
+ 263 |     use crate::Compression;
+ 264 |     use alloc::vec::Vec;
+ 265 | 
+ 266 |     // DeflateDecoder consumes one deflate archive and then returns 0 for subsequent reads, allowing any
+ 267 |     // additional data to be consumed by the caller.
+ 268 |     #[test]
+ 269 |     fn decode_extra_data() {
+ 270 |         let expected = "Hello World";
+ 271 | 
+ 272 |         let compressed = {
+ 273 |             let mut e = write::DeflateEncoder::new(Vec::new(), Compression::default());
+ 274 |             e.write_all(expected.as_ref()).unwrap();
+ 275 |             let mut b = e.finish().unwrap();

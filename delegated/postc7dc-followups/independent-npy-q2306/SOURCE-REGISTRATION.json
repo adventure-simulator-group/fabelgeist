@@ -1,0 +1,167 @@
+{
+  "schema": "independent-npy-source-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:37:06.285910+00:00",
+  "scope": "Prospective current source personal displays and separately attributed historical/current crate manifest views; hashing historical code is identity only, not e275 source-read credit.",
+  "entries": [
+    {
+      "tag": "lib",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+      "blob": "7a4709d77e4d1cd8b748281df5039256c50249ce",
+      "sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+      "bytes": 960,
+      "eof": 29,
+      "planned_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "capture": "sources/lib.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "7a4709d77e4d1cd8b748281df5039256c50249ce"
+    },
+    {
+      "tag": "npy",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+      "blob": "4b808f9c2deb641138027271d2cd2da0222d3a2d",
+      "sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+      "bytes": 7031,
+      "eof": 229,
+      "planned_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "capture": "sources/npy.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "4b808f9c2deb641138027271d2cd2da0222d3a2d"
+    },
+    {
+      "tag": "header",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+      "blob": "d1b8e1c768dbbe3f3f780eb11dce01b16514038c",
+      "sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+      "bytes": 5255,
+      "eof": 160,
+      "planned_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "capture": "sources/header.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "d1b8e1c768dbbe3f3f780eb11dce01b16514038c"
+    },
+    {
+      "tag": "frame",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+      "blob": "b7d8e7030ea65f7d0d7775a164408402e788970f",
+      "sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1",
+      "bytes": 2421,
+      "eof": 70,
+      "planned_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "capture": "sources/frame.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "b7d8e7030ea65f7d0d7775a164408402e788970f"
+    },
+    {
+      "tag": "metadata",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+      "blob": "3ee8d45ec341d346fe9830781d0865c5d5fe2a40",
+      "sha256": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505",
+      "bytes": 5487,
+      "eof": 174,
+      "planned_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "capture": "sources/metadata.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "3ee8d45ec341d346fe9830781d0865c5d5fe2a40"
+    },
+    {
+      "tag": "tensor",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+      "blob": "0173790e52e9792ce3a34728e31381319d8c7873",
+      "sha256": "e66ce25b7fac744ec37d8822741f7600771cf54697192434761c2084c5a11485",
+      "bytes": 3665,
+      "eof": 110,
+      "planned_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "capture": "sources/tensor.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "0173790e52e9792ce3a34728e31381319d8c7873"
+    },
+    {
+      "tag": "values",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+      "blob": "aef217ff6429fe53553634897bf2f1045b430bab",
+      "sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+      "bytes": 5162,
+      "eof": 174,
+      "planned_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "capture": "sources/values.rs",
+      "historical_same_blob_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_blob": "aef217ff6429fe53553634897bf2f1045b430bab"
+    },
+    {
+      "tag": "cargo-current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "blob": "6648d9bc901f68fc028428d48f500fcfbc2017e4",
+      "sha256": "c9ba9257a6b31399df799b78032131904f1cd31aabdd682eccdecaef240caa8c",
+      "bytes": 954,
+      "eof": 31,
+      "planned_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "capture": "sources/cargo-current.toml"
+    },
+    {
+      "tag": "cargo-historical",
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "blob": "b507ce91f202abdf227f674bfdd85e94e909312f",
+      "sha256": "ce2e0dc6c3223dbcb146cc2d34f40374f5f0c3903350e244d588a9afc7e9a56a",
+      "bytes": 884,
+      "eof": 26,
+      "planned_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "capture": "sources/cargo-historical.toml"
+    }
+  ],
+  "qualification": "Full body capture and Git hash bind bytes only; source windows and manifest revisions are credited separately. Equality of seven source blobs does not establish dependency, lockfile, whole-tree or runtime equality."
+}

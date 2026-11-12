@@ -1,0 +1,53 @@
+{
+  "schema": "726-q2302-final-archive-receipt-v1",
+  "created_utc": "2026-11-12T14:33:45.334681+00:00",
+  "archive_name": "q2302-evidence.tar.gz",
+  "archive_sha256": "0520a9b98289ca174ad60a0ab4701c284d046042d0b9b239b4a208eeaf909ad4",
+  "archive_bytes": 165616,
+  "manifest_sha256": "8a117188aa41f53554f5495da7e9e2ae2a0e8aed2a53e89a8841ac7e9476d322",
+  "report_sha256": "1bd1815bb4b47adf3c8cb2a20b9a86f678f9fbbf0b9d7e42aa1b923e1964c136",
+  "members_verified_byte_identical": 83,
+  "read_only_evidence_verification": {
+    "status": "passed",
+    "manifest_files": 82,
+    "source_tree_proofs": 14,
+    "historical_original_records": 9,
+    "repo_roots_queue_ledger_prior_checked": true,
+    "scope": "Evidence identity only; no product behavior, subjective reading or audit closure verified."
+  },
+  "privacy_scan": {
+    "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "receipt_sha256": "17a1f8022a2647133497274ff88d61832ea5eaf61731721efc04ff2dbb583116",
+    "scope": "Recursive gzip and tar over archive; max depth 8 and max bytes per view 83,886,080.",
+    "result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 85,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 83,
+        "cached_views": 248,
+        "text_views": 65,
+        "binary_views": 18
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "limitations": "Known restricted path-value and prefix digests plus selected path/credential patterns only; unknown values, encodings, formats, binary metadata and Git history are not generally cleared. No Git commit bodies or author metadata included."
+  },
+  "qualification": "Additive external evidence receipt; no product validation, repair, or queue/lens closure."
+}

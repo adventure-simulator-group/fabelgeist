@@ -1,0 +1,121 @@
+=== upstream/flate2/src/ffi/miniz_oxide.rs 1..120 ===
+   1 | //! Implementation for `miniz_oxide` rust backend.
+   2 | 
+   3 | use alloc::boxed::Box;
+   4 | use core::convert::TryInto;
+   5 | use core::fmt;
+   6 | 
+   7 | use ::miniz_oxide::deflate::core::CompressorOxide;
+   8 | use ::miniz_oxide::inflate::stream::InflateState;
+   9 | pub use ::miniz_oxide::*;
+  10 | 
+  11 | pub const MZ_NO_FLUSH: isize = MZFlush::None as isize;
+  12 | pub const MZ_PARTIAL_FLUSH: isize = MZFlush::Partial as isize;
+  13 | pub const MZ_SYNC_FLUSH: isize = MZFlush::Sync as isize;
+  14 | pub const MZ_FULL_FLUSH: isize = MZFlush::Full as isize;
+  15 | pub const MZ_FINISH: isize = MZFlush::Finish as isize;
+  16 | 
+  17 | use super::*;
+  18 | use crate::mem;
+  19 | 
+  20 | // miniz_oxide doesn't provide any error messages (yet?)
+  21 | #[derive(Clone, Default)]
+  22 | pub struct ErrorMessage;
+  23 | 
+  24 | impl ErrorMessage {
+  25 |     pub fn get(&self) -> Option<&str> {
+  26 |         None
+  27 |     }
+  28 | }
+  29 | 
+  30 | fn format_from_bool(zlib_header: bool) -> DataFormat {
+  31 |     if zlib_header {
+  32 |         DataFormat::Zlib
+  33 |     } else {
+  34 |         DataFormat::Raw
+  35 |     }
+  36 | }
+  37 | 
+  38 | pub struct Inflate {
+  39 |     inner: Box<InflateState>,
+  40 |     total_in: u64,
+  41 |     total_out: u64,
+  42 | }
+  43 | 
+  44 | impl fmt::Debug for Inflate {
+  45 |     fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
+  46 |         write!(
+  47 |             f,
+  48 |             "miniz_oxide inflate internal state. total_in: {}, total_out: {}",
+  49 |             self.total_in, self.total_out,
+  50 |         )
+  51 |     }
+  52 | }
+  53 | 
+  54 | impl From<FlushDecompress> for MZFlush {
+  55 |     fn from(value: FlushDecompress) -> Self {
+  56 |         match value {
+  57 |             FlushDecompress::None => Self::None,
+  58 |             FlushDecompress::Sync => Self::Sync,
+  59 |             FlushDecompress::Finish => Self::Finish,
+  60 |         }
+  61 |     }
+  62 | }
+  63 | 
+  64 | impl InflateBackend for Inflate {
+  65 |     fn make(zlib_header: bool, _window_bits: u8) -> Self {
+  66 |         let format = format_from_bool(zlib_header);
+  67 | 
+  68 |         Inflate {
+  69 |             inner: InflateState::new_boxed(format),
+  70 |             total_in: 0,
+  71 |             total_out: 0,
+  72 |         }
+  73 |     }
+  74 | 
+  75 |     fn decompress(
+  76 |         &mut self,
+  77 |         input: &[u8],
+  78 |         output: &mut [u8],
+  79 |         flush: FlushDecompress,
+  80 |     ) -> Result<Status, DecompressError> {
+  81 |         let mz_flush = flush.into();
+  82 |         let res = inflate::stream::inflate(&mut self.inner, input, output, mz_flush);
+  83 |         self.total_in += res.bytes_consumed as u64;
+  84 |         self.total_out += res.bytes_written as u64;
+  85 | 
+  86 |         match res.status {
+  87 |             Ok(status) => match status {
+  88 |                 MZStatus::Ok => Ok(Status::Ok),
+  89 |                 MZStatus::StreamEnd => Ok(Status::StreamEnd),
+  90 |                 MZStatus::NeedDict => {
+  91 |                     mem::decompress_need_dict(self.inner.decompressor().adler32().unwrap_or(0))
+  92 |                 }
+  93 |             },
+  94 |             Err(status) => match status {
+  95 |                 MZError::Buf => Ok(Status::BufError),
+  96 |                 _ => mem::decompress_failed(ErrorMessage),
+  97 |             },
+  98 |         }
+  99 |     }
+ 100 | 
+ 101 |     fn reset(&mut self, zlib_header: bool) {
+ 102 |         self.inner.reset(format_from_bool(zlib_header));
+ 103 |         self.total_in = 0;
+ 104 |         self.total_out = 0;
+ 105 |     }
+ 106 | }
+ 107 | 
+ 108 | impl Backend for Inflate {
+ 109 |     #[inline]
+ 110 |     fn total_in(&self) -> u64 {
+ 111 |         self.total_in
+ 112 |     }
+ 113 | 
+ 114 |     #[inline]
+ 115 |     fn total_out(&self) -> u64 {
+ 116 |         self.total_out
+ 117 |     }
+ 118 | }
+ 119 | 
+ 120 | pub struct Deflate {

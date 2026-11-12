@@ -1,0 +1,55 @@
+{
+  "schema": "726-npz-q2316-history-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T14:36:56.400156+00:00",
+  "registrations": {
+    "HISTORY-METADATA-REGISTRATION.json": "176a92a4afe26682b8ec8f9ce7a24020f257c4ff49ce8557d69f12fdeaf635f4",
+    "NATIVE-HISTORY-REGISTRATION.json": "8ddd2bffbd5a1d8efeec1cc0fe6c12478693454ed86dd0e4d46920652a4ec8b9"
+  },
+  "views": [
+    {
+      "file": "HISTORY-DISPLAY-A.txt",
+      "sha256": "9c8993a92b57bb882def74651b083f81783c6e20106d08dd8824db70002c7c6d",
+      "bytes": 4367,
+      "observed_mtime_utc": "2026-11-12T14:25:54.975149+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-B.txt",
+      "sha256": "3ce6da8fe7d05b5c6ab78ddd5a64371be0b8956384220ce5aa3ffe8e9d9643ac",
+      "bytes": 4112,
+      "observed_mtime_utc": "2026-11-12T14:25:57.876497+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-C.txt",
+      "sha256": "48275c882175755ad18a3b7436fc086a0242d588fbf8f3a49ba6ebbea9f99ab5",
+      "bytes": 3405,
+      "observed_mtime_utc": "2026-11-12T14:26:00.744214+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-D.txt",
+      "sha256": "5ed46bb85989c7644b95bcb47f32a548c2c900e98ae5921a7ba2c53eef307eb4",
+      "bytes": 4716,
+      "observed_mtime_utc": "2026-11-12T14:26:03.616313+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-A.json",
+      "sha256": "73f62ae8c7b3f13fab8325b85b2628a1ee6e610e59ac7fe5f7254907bdbbad3b",
+      "bytes": 4354,
+      "observed_mtime_utc": "2026-11-12T14:35:40.551203+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-B.json",
+      "sha256": "eaa4e74dff724b991dbd400e64a3fe174415c3b62f42072bf03704bf33728302",
+      "bytes": 4100,
+      "observed_mtime_utc": "2026-11-12T14:35:49.859855+00:00"
+    }
+  ],
+  "original_q2316_displayed_ranges": [
+    [
+      1,
+      293
+    ]
+  ],
+  "other_historical_views": "READ-175 row0, READ-176 row1 selected attribution fields; READ-L11-711 and READ-L11-712 selected root adoption/disposition fields; PROPOSAL-BUNDLE-L11-SOURCE-004 contract_updates[7] selected fields. All other historical copied content remains personally unread. Projections are reconstructed views; original files remain exact.",
+  "qualification": "Six historical views returned untruncated after registration. Original and path-redacted reconstructed queue slices match, but only original was displayed. Historical e275 personal attribution and 059 status are preserved without transfer."
+}

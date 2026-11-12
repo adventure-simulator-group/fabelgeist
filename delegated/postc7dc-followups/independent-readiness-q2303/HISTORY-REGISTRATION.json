@@ -1,0 +1,143 @@
+{
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:29:20.941589+00:00",
+  "scope": "Personal selected historical and separately attributed earlier ledger/prior assessment; no checkpoint3821 promotion. Whole bodies hashed for binding, not personally read in full.",
+  "queue": {
+    "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "path": "baseline-059/queue.json",
+    "blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+    "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "bytes": 21632843,
+    "selected": [
+      {
+        "selector": "/entries/2303",
+        "canonical_sha256": "5272cff4f1531219f8a7d8452e8348bda1ea94f95a52df4f3b2656c0330ed18a",
+        "selected_type": "dict",
+        "parent_reconstruction_equal": true,
+        "parent_capture": "QUEUE-2303-RECONSTRUCTED.json"
+      },
+      {
+        "selector": "/entries/1214",
+        "canonical_sha256": "8ea8765e34bf4591745c64d3bfc7bdeff63cf8fb6d131bd2544a9f0a57229bc6",
+        "selected_type": "dict",
+        "parent_reconstruction_equal": true,
+        "parent_capture": "QUEUE-1214-RECONSTRUCTED.json"
+      }
+    ]
+  },
+  "ledger": {
+    "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+    "path": "BASELINE-95E-20261110.json",
+    "blob": "249d83488eb0fb59ffbf7701c35996b04d6c85a9",
+    "sha256": "a0bbeccf980b4d67ed713b7edb2777364fcaf231cdb3c072aee314e5643dd4f6",
+    "selector": "/newly_assessed_ledger/entries/197",
+    "selected_canonical_sha256": "63627acaad507230be85a74480449555a6a47bbf558ea7fd335e9ab2b76f9647"
+  },
+  "prior_assessment": {
+    "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+    "path": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+    "sha256": "4470ef3092c69a1381dc4d3d93e83b5339352fef27fb481bccab4d13a04c1e6b",
+    "selector": "/"
+  },
+  "historical_captures": [
+    {
+      "capture": "history-exact/parallel-l11-20261029/PLAN-189.json",
+      "sha256": "66b7becb8075b37a7cae65f33e294bceedbba42d5674a51212d6c9f9aa4920d6",
+      "bytes": 1096,
+      "selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/0"
+      ]
+    },
+    {
+      "capture": "history-exact/parallel-l11-20261029/PLAN-190.json",
+      "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+      "bytes": 3350,
+      "selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/1"
+      ]
+    },
+    {
+      "capture": "history-exact/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+      "bytes": 192315,
+      "selectors": [
+        "/contract_updates/3"
+      ]
+    },
+    {
+      "capture": "history-exact/parallel-l11-20261029/READ-168.json",
+      "sha256": "53d72dcc59395bea8a29bbddbbc1e8ffe207ea597ce62eadd5a1e7c27b626b0e",
+      "bytes": 7158,
+      "selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/0",
+        "/native_runtime_validation",
+        "/authority"
+      ]
+    },
+    {
+      "capture": "history-exact/parallel-l11-20261029/READ-169.json",
+      "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85",
+      "bytes": 10728,
+      "selectors": [
+        "/kind",
+        "/lens",
+        "/revision",
+        "/rows/1",
+        "/native_runtime_validation",
+        "/authority"
+      ]
+    },
+    {
+      "capture": "history-exact/segovb/READ-L11-704.json",
+      "sha256": "6a8a57138b4eed0865dd9a0938a5ed02aecfcfd23f6c55240f67bc35cb04ae7c",
+      "bytes": 9047,
+      "selectors": [
+        "/kind",
+        "/at",
+        "/rows/0",
+        "/adopted_registration_mapping",
+        "/source_revision",
+        "/runtime_validation"
+      ]
+    },
+    {
+      "capture": "history-exact/segovb/READ-L11-705.json",
+      "sha256": "a3ba6dd475995ae008da3e50a16c5cf25d0f513d859c5aade286010f1cb0b525",
+      "bytes": 13761,
+      "selectors": [
+        "/kind",
+        "/at",
+        "/rows/1",
+        "/adopted_registration_mapping",
+        "/source_revision",
+        "/runtime_validation"
+      ]
+    },
+    {
+      "capture": "history-exact/segovb/VERIFY-L11-704.json",
+      "sha256": "184366f4c3904d36f058c8b49e0b28bc211305f8976b0bb4cd83bbfadad83860",
+      "bytes": 1027,
+      "selectors": [
+        "/"
+      ]
+    },
+    {
+      "capture": "history-exact/segovb/VERIFY-L11-705.json",
+      "sha256": "7459849d92fed125a4f12352e1963764f87f1f13f6706c02c788bf8cb127d46a",
+      "bytes": 1027,
+      "selectors": [
+        "/"
+      ]
+    }
+  ],
+  "qualification": "Parent packet reports original transport verification; independent hashes here bind to its exact captured files only. Queue and ledger originals verified from specified Git commits; no private full queue copied."
+}

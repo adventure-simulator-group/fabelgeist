@@ -1,0 +1,34 @@
+{
+  "reader": "/root/mhr_character",
+  "created_utc": "2026-11-12T14:36:46.264476+00:00",
+  "sources": [
+    {
+      "label": "prior-q2297-report",
+      "basename": "REPORT.json",
+      "origin_qualification": "previous frozen private packet; earlier delegate",
+      "sha256": "f358ddd3ee45723cf955050cfd63890b1acc1ef2fda65b50361e910850c0ff95",
+      "bytes": 8923,
+      "planned_display": "entire JSON document",
+      "capture": "prior/prior-q2297-report.json"
+    },
+    {
+      "label": "prior-q2297-manifest",
+      "basename": "MANIFEST.json",
+      "origin_qualification": "previous frozen private packet; identity only",
+      "sha256": "52bd61b391ef1e3690b19a977f9a36db9529f9b0229eb98289f28ef7763cf56e",
+      "bytes": 13426,
+      "planned_display": "identity only, not full display",
+      "capture": "prior/prior-q2297-manifest.json"
+    },
+    {
+      "label": "staged-13V-assessment",
+      "basename": "ASSESSMENT-CENTRAL-BLOOD-WINDOW-13V-95E.json",
+      "origin_qualification": "staged working publication evidence, not committed HEAD",
+      "sha256": "5d9663c883a29bf0e8084cfb604a4df7d898db1aff3802f6f39f202cf870ea68",
+      "bytes": 3514,
+      "planned_display": "entire JSON document",
+      "capture": "prior/staged-13V-assessment.json"
+    }
+  ],
+  "qualification": "13V snapshot is staged working evidence at observed SHA, not committed HEAD; compare prior independent final-minute report without transferring authorship or alias decisions."
+}
