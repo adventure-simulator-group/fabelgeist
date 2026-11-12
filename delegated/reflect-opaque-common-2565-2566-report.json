@@ -1,0 +1,255 @@
+{
+  "schema": "726-reflect-opaque-common-reconciliation-v1",
+  "created_utc": "2026-11-12T06:22:08.127978+00:00",
+  "author": "/root/rig_identity",
+  "scope": "Bounded source review of original roles 2565 and 2566 and one directly connected historical semantic-queue record, q2332; no whole-lens verdict.",
+  "source_identity": {
+    "native": "bevy_reflect_derive 0.19.1, crates.io archive SHA-256 5fc5f820ee52afeca6d3bb83f15c1bf61ea6196c840a761a21a8bc266a3b166e. Both individually committed 6533 and 95e root Cargo.lock clauses select the same package/version/source/checksum; no Cargo feature resolution or invocation follows. f82 is a Git transport of recovered package-member and historical-record bytes, not the package source revision.",
+    "role_2565": "impls/opaque.rs SHA-256 7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca, EOF131. Original rig material 1–131; this review independently displayed 1–80 and 81–131.",
+    "role_2566": "impls/common.rs SHA-256 6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96, EOF257. Original rig registration was 1–174 but qualified material 1–80,82–172; line81 and 173–174 were not original material credit. This review independently displayed 1–80,81–160,161–220,221–257; new extra lines do not enlarge historical read scopes.",
+    "support": "native remote.rs 21–212 only; project elapsed/fraction adapters 1–14 each, elapsed owner 1–60 and 90–120, fraction owner 1–50 and 75–97, client 93–150 and 168–180; exact unread complements receipted. Source archive and full support bodies are stored for integrity, not proof of reading their complements.",
+    "historic_authors": "774 rig registered and qualified role2565 full and role2566 1–80/82–172; 059 segovb READ-L11-422 independently read those same scoped ranges; 059 /root/lens12_frontier proposal870 independently read role2565 1–131 and role2566 1–174, with root adoption retaining frontier attribution. Later /root/mhr_character independently displayed both complete bodies; /root/rig_identity earlier displayed role2565 25–131 as support to separate roles2563–2564, and now independently displays both whole roles. All receipts preserve respective revisions and authors.",
+    "pinned_registry_mismatch": "774 root scope reconciliation044 pins a 13-row rig registration file SHA c75d93513422266bff64a096b243766fbd002d346f1d8c3c5b58f54af25ba06c. Recovered later f82 registration has 145 rows, SHA 24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb, and its first 13 raw rows hash 442704cfbcdb6f971a06981c68f1442451ccbd9eb7e039dfda32e5d639a772d9, not the pinned earlier bytes. The recovered qualification prefix does match 044 pin 70717aa1c0908935341afa5297937f1bf79513146453c1328076848d00e94e53. Completion112 also pins an earlier full registration SHA 698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1; no substitution is made. Prior bounded ae46/28ba search did not recover the earlier exact registration variants; that is not proof of global absence. Later original registry role rows and independent 059 receipts remain separately recoverable.",
+    "publication_comparison": "Prior checkpoint13 public archive SHA ea195844ffca72d213a129228ebda537022e3ba4a303484d9b494bf91f77078a is hash-linked and six selected members were independently compared. Original prior registration SHA 10e37fb6e294d92734b6e89ef30c963cb4b49f7b26313d566386bd0d08ef282f differs from published ec7d242750b683ca260212235d042341b2876e891165a91629d9a036806b2870 (five local path redactions); original 774-index SHA f02dabffc5827fb52ea962cd220e0d7c17a18d146c3d9e0f0bce87018ce341b8 differs from published 4f7d4912aca9d8aa58ef6ca952b9a231f4b0774c96585c2c941d0c3afb3c340a (eight local path redactions). Prior report, both receipts and prior manifest member match. Do not infer other members or apply the original manifest as a proof of published transformed bytes; original copies contain local paths and require public-safe handling.",
+    "historical_p16_lock": "059 /root/lens12_frontier separately read the dirty physical-p16 lock clause 2690–2703; its recovered exact role39 bytes are copied and proven via f82, without a new personal body display here. The original snapshot base is a120390947c89b703dc74c4255a13c035d054c50, not a clean commit for its dirty state. Later reproduced matching tracked patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 is copied with the recovery record; seven untracked source files were separately archived and matched. Patch equality does not establish the original invocation, uninterrupted custody, all filesystem metadata or checkpoint3821 state."
+  },
+  "assessments": [
+    {
+      "id": "OPAQUE-REFLECTION-CANONICAL-REMOTE-BOUNDS-RECHECK",
+      "status": "bounded corroboration of an existing attributed assessment; no new finding count",
+      "first_contract": "On the generated opaque apply branch, a matching remote type is downcast and cloned into the wrapper, and the local branch clones a matching Self; a mismatch returns ApplyError. Generated common as_any_mut returns &mut self.0 for a remote wrapper, while set delegates the boxed value to Reflect::take and then assigns the resulting whole self. The source does not itself establish Reflect::take’s uninspected implementation, actual invocation, or validity of a value that was already invalid.",
+      "project_connection": "95e adapters declare reflect_remote(AnimationElapsed) and reflect_remote(UnitInterval), both opaque; the remote generator emits a transparent wrapper containing the named Remote and exposes references to that Remote. Current owner types keep f32 backing private. AnimationElapsed::from_seconds checks finite/nonnegative, accepting zero, and UnitInterval::from_fraction checks finite and [0,1], accepting endpoints. Both owners declare Serde try_from=f32 and their TryFrom source delegates to those constructors. These declarations are not executed macro output and do not establish every owner operation or alternate ingress safe.",
+      "consumer": "Current DirectControlState derives Reflect and declares UnitInterval progress and AnimationElapsed mouse timers with the corresponding remote adapters. SprintInputState declares another elapsed adapter. These are typed field annotations, not proof that a supported caller mutates or deserializes them through reflection, that feature configuration activates those paths, or that individually valid replacements maintain cross-field relationships.",
+      "conditions": "Applies only if the relevant reflect_remote/opaque branches and features are actually selected and generated. Wrapper layout assertions, unsafe conversion internals, trait take/downcast semantics, semantic validity of pre-existing typed values, aggregates and unrelated owners are not fully audited. No supported failure or execution witness is established.",
+      "future_repair_direction": "First establish actual enabled build/feature and a real reflection, construction or deserialization ingress, with its owner and aggregate policy; preserve checked scalar owners, zero-valid elapsed, endpoint-valid fractions and intended whole-value operations.",
+      "references": [
+        {
+          "source": "native-opaque",
+          "lines": [
+            [
+              9,
+              10
+            ],
+            [
+              31,
+              51
+            ],
+            [
+              86,
+              108
+            ],
+            [
+              111,
+              123
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "native-common",
+          "lines": [
+            [
+              7,
+              30
+            ],
+            [
+              51,
+              76
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "native-remote",
+          "lines": [
+            [
+              21,
+              48
+            ],
+            [
+              50,
+              83
+            ],
+            [
+              114,
+              129
+            ],
+            [
+              150,
+              160
+            ],
+            [
+              182,
+              190
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "current-elapsed-adapter",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "current-fraction-adapter",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "current-elapsed-owner",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ],
+            [
+              100,
+              104
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "current-fraction-owner",
+          "lines": [
+            [
+              9,
+              11
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              85,
+              89
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "current-client",
+          "lines": [
+            [
+              97,
+              109
+            ],
+            [
+              125,
+              131
+            ],
+            [
+              170,
+              175
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        }
+      ],
+      "relationship": "Prior /root/mhr_character OPAQUE-REFLECTION-CANONICAL-REMOTE-BOUNDS and OPAQUE-REFLECTION-REAL-CONSUMER-SCOPE already document this mechanism and examples. 774 rig RIG-ADMISSION03-REFLECTION-001 previously described the bounded shared adapter witness and 774 segovb SEGOVB-INITIAL04-CONTRACT-615 documented separate source ranges. Fresh body reads corroborate, not duplicate or transfer credit."
+    },
+    {
+      "id": "OPAQUE-REGISTRATION-FEATURE-PRECONDITIONS-RECHECK",
+      "status": "source context and unproven feature/caller question; no new finding count",
+      "first_contract": "The native common helper’s auto_register function is compile-feature gated, skips opted-out and generic types, and its static branch additionally checks BEVY_REFLECT_AUTO_REGISTER_STATIC. If that static branch is selected and the environment is present, source creates/truncates a per-crate registration file and writes registration names with error unwrap/panic paths; inventory is a distinct feature-conditional branch. Opaque helper includes auto registration only under its feature.",
+      "condition": "No feature graph, environment, macro invocation, build, file operation or failure has been observed or executed; the lock confirms package identity only. Generic/opt-out and static/inventory distinctions must not be flattened into one mode.",
+      "references": [
+        {
+          "source": "native-opaque",
+          "lines": [
+            [
+              53,
+              61
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "native-common",
+          "lines": [
+            [
+              174,
+              198
+            ],
+            [
+              201,
+              231
+            ],
+            [
+              244,
+              255
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "lock-6533",
+          "lines": [
+            [
+              2689,
+              2693
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        },
+        {
+          "source": "lock-95e",
+          "lines": [
+            [
+              2521,
+              2525
+            ]
+          ],
+          "qualification": "independent /root/rig_identity display after prospective registration; exact unread complement in personal-read-receipt.json"
+        }
+      ],
+      "relationship": "This is a fresh corroboration of /root/mhr_character NATIVE-AUTO-REGISTRATION-FEATURE-DEPENDENCY, whose earlier common full read was separately attributed; it does not create a duplicate count or resolve q2332."
+    }
+  ],
+  "historical_queue_relationships": [
+    {
+      "index": 2332,
+      "id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "status_as_recorded_in_059": "open-source-reconciliation",
+      "source": "history/baseline-059-queue.json.gz /entries/2332; separately labeled reconstructed selected view history/reconstructed-selections.json /queue_entries/2332",
+      "relationship": "q2332 combines native SATS and Bevy reflection concerns. The present source supports a narrow, current typed-remote relationship and existing opaque whole-value safeguards while leaving actual activation, caller, access to owner methods, all other adapters and aggregate constraints open. It neither reconciles the SATS branch nor establishes or aliases a concrete bypass. Preserve the original /root/lens12_frontier scope and root adoption; do not update or project historical status into checkpoint3821."
+    }
+  ],
+  "open_questions": [
+    "Which 95e target and enabled feature configuration actually expands or registers these exact remote and opaque implementations?",
+    "Does an authorized reflective caller invoke apply, set, mutable Any or reflected Deserialize on these fields; through which source ingress and at what authority boundary?",
+    "What are the precise semantics of Reflect::take and dynamic deserialization for the actual package and caller? They are outside this fresh read; earlier witness claims keep its own author and range.",
+    "Can a supported constructor, owner method, unsafe caller or alternate codec admit an invalid canonical value or violate a DirectControlState cross-field rule before or after whole-value replacement?",
+    "Can exact earlier 774 13-row and completion112 registration bytes be recovered and matched to their independently recorded hashes? Bounded prior searches do not imply global absence."
+  ],
+  "thirteen_bounded_perspectives": {
+    "producer-propagation": "Adapters declare checked project types at reflective fields; actual producers and consumers are unproved.",
+    "existing-type-owners": "The remote target is the existing AnimationElapsed or UnitInterval owner, not an independently admitted raw float.",
+    "admission-contracts": "Checked constructor and TryFrom source supply a narrow safeguard; all active ingress routes are not exhausted.",
+    "invariant-operations": "Opaque apply is typed whole-value clone; mutable typed access and set delegate to owner methods and framework take.",
+    "aggregate-states": "Individual scalar validity does not prove DirectControlState cross-field coherence.",
+    "type-ownership": "Native wrapper adapts canonical project owners; feature-controlled generated code is not their semantic validator.",
+    "redundant-authority": "A wrapper over one typed remote is source-shown; no all-system single-authority conclusion follows.",
+    "behavior-preservation": "Finite elapsed permits zero and UnitInterval includes endpoints; keep these distinct from positive-only lengths.",
+    "enum-shapes": "No unsupported enum-shape conclusion from this helper scope.",
+    "derivability": "Requested derive and explicit checked TryFrom serve different roles; no blanket derive simplification is justified.",
+    "type-granularity": "Seconds and fractions have distinct meanings and bounds even when both use f32 backing.",
+    "magic-strings": "Feature/env names and framework diagnostics are native interface vocabulary, not proof of an application string-classifier defect.",
+    "magic-numbers": "Zero and one are bounds of admitted elapsed/fraction domains; not evidence of a standalone numeric-literal defect."
+  },
+  "limitations": "Source and evidence verification only; no macro expansion, product/build/test, fixture, GPU, runtime probe, implementation or lens clearance. Old 059/774 sources and records retain their own revision, author, exact scope and status. Reconstructed selected rows are derived views, never checkpoint3821 original records; central owns publication and final ledger identity."
+}

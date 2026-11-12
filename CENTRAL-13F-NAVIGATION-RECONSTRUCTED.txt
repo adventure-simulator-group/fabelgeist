@@ -1,0 +1,38 @@
+crates/adventuresim-weapon-model/src/validation.rs:67:                .any(|part| matches!(part.shape, crate::recipe::Shape::LoftedBlade(_))))
+crates/adventuresim-weapon-model/src/recipe/blade_profile.rs:19:impl<'a> From<&'a LoftedBladeParameters> for BladeProfile<'a> {
+crates/adventuresim-weapon-model/src/recipe/blade_profile.rs:20:    fn from(p: &'a LoftedBladeParameters) -> Self {
+crates/adventuresim-weapon-model/src/model/blade_reduction.rs:43:pub(super) fn check(
+crates/adventuresim-weapon-model/src/model/groove_body_tests.rs:28:        let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
+crates/adventuresim-weapon-model/src/model/groove_body_tests.rs:174:        let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
+crates/adventuresim-weapon-model/src/recipe/shape.rs:17:    LoftedBlade(LoftedBladeParameters),
+crates/adventuresim-weapon-model/src/model/output.rs:27:    pub(crate) fn new(solid: Solid, material: Material, label: &str, component_id: &str) -> Self {
+crates/adventuresim-weapon-model/src/model/crossbows.rs:98:    pub(super) fn new(p: &CrossbowParameters) -> Self {
+crates/adventuresim-weapon-model/src/recipe/quantities.rs:12:            pub fn new(value: f64) -> Result<Self, &'static str> {
+crates/adventuresim-weapon-model/src/recipe/blade_form.rs:74:    pub(crate) fn new(
+crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs:7:pub(super) fn check(
+crates/adventuresim-weapon-model/src/model/lofted_blade.rs:3:pub(super) fn blade(p: &LoftedBladeParameters, detail: Detail) -> Result<Solid, String> {
+crates/adventuresim-weapon-model/src/model/extents.rs:77:            Self::LoftedBlade(p) => [0.0, p.length.get()],
+crates/adventuresim-weapon-model/src/model/longsword_tests.rs:62:            let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
+crates/adventuresim-weapon-model/src/model/longsword_tests.rs:126:    let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
+crates/adventuresim-weapon-model/src/model/longsword_tests.rs:150:        let Shape::LoftedBlade(p) = &recipe.components[0].shape else {
+crates/adventuresim-weapon-model/src/model/longsword_tests.rs:165:    let Shape::LoftedBlade(loft) = &recipe.components[0].shape else {
+crates/adventuresim-weapon-model/src/model/placement/anchors.rs:95:    if let Shape::LoftedBlade(p) = &component.shape {
+crates/adventuresim-weapon-model/src/model/mounts.rs:81:pub(super) fn check(component: &Component, shaft: &Shaft) -> Result<(), String> {
+crates/adventuresim-weapon-model/src/model/shapes.rs:34:            Shape::LoftedBlade(p) => {
+crates/adventuresim-weapon-model/src/model/shapes.rs:95:            Shape::Grip(p) => self.grip(p),
+crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs:11:pub(super) fn check(shape: &Shape) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs:18:        Shape::LoftedBlade(p) => union::lofted_blade(p),
+crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs:54:        Shape::Grip(p) => furniture::grip(p),
+crates/adventuresim-weapon-model/src/model/mortised_guard.rs:13:    let (Shape::LoftedBlade(blade), Shape::MortisedGuard(guard)) =
+crates/adventuresim-weapon-model/src/recipe/validation/spear.rs:4:pub(super) fn check(p: &SpearParameters) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/shields.rs:34:pub(super) fn check(component: &Component) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs:3:pub(super) fn check(shape: &Shape) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/melee.rs:5:pub(super) fn check(shape: &Shape) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/melee.rs:7:        Shape::LoftedBlade(p) => {
+crates/adventuresim-weapon-model/src/recipe/validation/melee.rs:20:        Shape::Grip(p) => {
+crates/adventuresim-weapon-model/src/recipe/validation/profile_body.rs:4:pub(super) fn check(p: &ProfileBodyParameters) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/terminal_profile.rs:4:pub(super) fn check(p: &GuardParameters) -> Checked {
+crates/adventuresim-weapon-model/src/recipe/validation/ranged.rs:3:pub(super) fn check(shape: &Shape) -> Checked {
+crates/adventuresim-weapon-model/src/model/mod.rs:72:pub(crate) struct Construction {
+crates/adventuresim-weapon-model/src/model/mod.rs:77:impl Construction {
+crates/adventuresim-weapon-model/src/model/mod.rs:81:    pub(crate) fn new(recipe: &Recipe) -> Result<Self, String> {

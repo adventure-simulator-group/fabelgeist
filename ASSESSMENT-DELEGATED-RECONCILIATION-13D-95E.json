@@ -1,0 +1,142 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "native_source_qualification": "Recovered serde-saphyr 1.2.0 and serde_core 1.0.229 objects via f82 evidence transport; f82 is not project source revision. Current lock/archive identities and public reconstructed package qualifications are recorded separately. Feature selection and actual input path remain open.",
+  "evidence_checkpoints": [
+    "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+    "DELEGATED-EVIDENCE-CHECKPOINT-31.json"
+  ],
+  "central_display_evidence": {
+    "registration": "CENTRAL-13D-REGISTRATION.json",
+    "receipt": "CENTRAL-13D-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-13D-WINDOWS-PROOF.json"
+  },
+  "scope": "Bounded current graphics configuration and selected native scalar source review, corroborating an existing ledger relationship. This does not complete native roles, old queue records or a lens.",
+  "central_observations": [
+    {
+      "id": "ADLER-L11-GRAPHICS-CONFIG-NONFINITE-ADMISSION",
+      "classification": "Existing 059 graphics admission finding independently corroborated, without a new ledger row or duplicate count.",
+      "current_source": "TacticalGraphicsConfig parses typed f32 fields and then validates them. The root_occlusion range and maximum_push ordering checks use comparisons; the adjacent positive helper explicitly checks finiteness for other fields. The selected native deserializer delegates typed f32 to parse_yaml12_float and visit_f32; special NaN and infinity scalar branches exist, while ordinary fallback rejects nonfinite parse results.",
+      "condition": "If a relevant nonfinite scalar event reaches one of those typed fields under selected applicable code and other configuration checks pass, unordered NaN comparisons do not reject that field. The tokenizer/event path, active target feature graph, actual configuration and consumers remain unproved; no parse, renderer or product behavior was exercised.",
+      "relationship": "Same first issue as existing ADLER-L11-GRAPHICS-CONFIG-NONFINITE-ADMISSION and 059 q72. Historical q1303 and q1313 include related broader source and consumer obligations but lack an exact alias proof here."
+    }
+  ],
+  "source_references": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "lines": [
+        [
+          84,
+          99
+        ],
+        [
+          136,
+          141
+        ]
+      ]
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "lines": [
+        [
+          145,
+          170
+        ],
+        [
+          248,
+          264
+        ],
+        [
+          499,
+          527
+        ]
+      ]
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+      "lines": [
+        [
+          484,
+          501
+        ],
+        [
+          577,
+          623
+        ],
+        [
+          978,
+          989
+        ]
+      ]
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/cf724ec89b4f506fa46193c9b2c1917b43356e02a342f11c9ccf45483dc3bebb",
+      "lines": [
+        [
+          271,
+          334
+        ]
+      ]
+    },
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+      "lines": [
+        [
+          154,
+          163
+        ],
+        [
+          450,
+          456
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "lines": [
+        [
+          156,
+          170
+        ],
+        [
+          207,
+          212
+        ],
+        [
+          310,
+          323
+        ],
+        [
+          375,
+          376
+        ]
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Options::default sets reject_non_finite_typeless_float to true; its own documented guard excludes concrete f32/f64 targets, so it is not proof that this typed path rejects nonfinite values.",
+    "The positive helper explicitly requires finite positive values; retain this guard where it applies. The finite fallback for non-special decimal values also rejects nonfinite results."
+  ],
+  "related_not_aliased": [
+    "The optional serde-derived Options missing-field default candidate requires separate derive-source, feature and consumer evidence; it is not inferred from the typed graphics route.",
+    "059 q1303 and q1313 retain independent parser, field, renderer and capacity obligations."
+  ],
+  "historical_attribution": "The original 059 finding and source-receipt qualifications remain at 059; earlier /root/mhr_character and /root/hair_ops packet readers remain separate. The previously documented 774 registration prefix mismatch is not an assertion of missing original bytes being found. f82 is native object transport only; no checkpoint3821 transfer.",
+  "new_qualified_ledger_rows": [],
+  "further_evidence_for_existing_rows": [
+    "ADLER-L11-GRAPHICS-CONFIG-NONFINITE-ADMISSION"
+  ],
+  "open": [
+    "Actual tokenizer/event ingress, all supported field inputs, feature selection and downstream current consumers.",
+    "Options derived-default candidate and exact historical aliases outside this bounded scope.",
+    "All thirteen lenses and historical queue population."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

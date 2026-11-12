@@ -15,7 +15,7 @@
   "queue_records_semantically_reconciled": 0,
   "repair": "not started",
   "product_validation": "not performed",
-  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 06:21:25 UTC; main may advance. See MAIN-RECHECK-20261112-0621.json.",
+  "current_main_qualification": "GitHub connector resolved main to 95e during 2026-11-12 06:42:13\u201306:42:14 UTC; main may advance. See MAIN-RECHECK-20261112-0642.json.",
   "new_transition_lens_cells_partial": 1,
   "new_current_ledger_candidates": 1021,
   "post_transition_historical_body_reads": [
@@ -540,7 +540,9 @@
     "ASSESSMENT-PLANT-LOD-ROOT-ASSOCIATION-95E.json",
     "ASSESSMENT-VIEW-SPEC-FIXTURE-ASSOCIATION-95E.json",
     "ASSESSMENT-DELEGATED-RECONCILIATION-5-95E.json",
-    "ASSESSMENT-DELEGATED-RECONCILIATION-12G-95E.json"
+    "ASSESSMENT-DELEGATED-RECONCILIATION-12G-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-13D-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-13E-95E.json"
   ],
   "post_transition_deleted_base_reads": [
     "ASSESSMENT-L01-DELETED-272.json",
@@ -2212,7 +2214,7 @@
     "ASSESSMENT-DELEGATED-RECONCILIATION-10G-95E.json"
   ],
   "delegated_batch12_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
-  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-488DB27D.json",
+  "same_machine_recovery_verification": "RECOVERY-VERIFICATION-6AE035CD.json",
   "delegated_batch13_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json",
   "delegated_batch14_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
@@ -2268,13 +2270,18 @@
   "delegated_batch29_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-29.json",
   "delegated_batch30_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
   "delegated_batch31_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-31.json",
-  "delegated_batch12_reconciliation_qualification": "All eleven checkpoint 12 packets received bounded coordinator reconciliation through 12A–12H only. Their connected scopes, other packets, thirteen lenses and historical semantic queue remain open.",
+  "delegated_batch12_reconciliation_qualification": "All eleven checkpoint 12 packets received bounded coordinator reconciliation through 12A\u201312H only. Their connected scopes, other packets, thirteen lenses and historical semantic queue remain open.",
   "checkpoint30_prior_manifests_qualification": "QUALIFICATION-CHECKPOINT30-PRIOR-MANIFESTS.json",
   "checkpoint31_saphyr_registration_qualification": "delegated/saphyr-2573-2576-reconcile-evidence.tar.gz!history-pin-qualification.json",
   "delegated_batch32_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-32.json",
   "delegated_batch13_partial_reconciliation": [
     "ASSESSMENT-DELEGATED-RECONCILIATION-13A-95E.json",
     "ASSESSMENT-DELEGATED-RECONCILIATION-13B-95E.json",
-    "ASSESSMENT-DELEGATED-RECONCILIATION-13C-95E.json"
-  ]
+    "ASSESSMENT-DELEGATED-RECONCILIATION-13C-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-13D-95E.json",
+    "ASSESSMENT-DELEGATED-RECONCILIATION-13E-95E.json"
+  ],
+  "delegated_batch33_pending_central_reconciliation": "DELEGATED-EVIDENCE-CHECKPOINT-33.json",
+  "central_holder_13f_bounded_corroboration": "ASSESSMENT-CENTRAL-HOLDER-13F-95E.json",
+  "central_13f_unregistered_navigation_qualification": "CENTRAL-13F-NAVIGATION-QUALIFICATION.json"
 }

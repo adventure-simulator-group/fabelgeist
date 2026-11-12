@@ -1,0 +1,128 @@
+{
+  "schema": "726-central-bounded-source-corroboration-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Independent bounded source corroboration of the existing historical holder optional-ID relationship; no new ledger row.",
+  "central_display_evidence": [
+    {
+      "registration": "CENTRAL-13F-REGISTRATION.json",
+      "receipt": "CENTRAL-13F-READ-RECEIPT.json",
+      "git_path_proof": "CENTRAL-13F-WINDOWS-PROOF.json"
+    },
+    {
+      "registration": "CENTRAL-13F-SUPPORT-REGISTRATION.json",
+      "receipt": "CENTRAL-13F-SUPPORT-READ-RECEIPT.json",
+      "git_path_proof": "CENTRAL-13F-SUPPORT-WINDOWS-PROOF.json"
+    }
+  ],
+  "source_references": [
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "lines": [
+        [
+          1,
+          225
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "lines": [
+        [
+          1,
+          207
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/model/placement.rs",
+      "lines": [
+        [
+          1,
+          156
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/validation.rs",
+      "lines": [
+        [
+          1,
+          72
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/holders.rs",
+      "lines": [
+        [
+          100,
+          210
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/model/mod.rs",
+      "lines": [
+        [
+          65,
+          125
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "lines": [
+        [
+          1,
+          62
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "lines": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "lines": [
+        [
+          168,
+          188
+        ]
+      ]
+    }
+  ],
+  "observation": "Recipe components may omit explicit ID; validation checks each resolved ID and component checks, including grip dimensions. Placement clones the recipe and assigns resolved IDs on the clone. Holder construction validates the original design, invokes fallible model construction, and then obtains blade or grip IDs from original recipe components with expect.",
+  "condition": "If an accepted design with the selected original component ID absent passes every intervening validation and fallible construction stage, the selected expect has no ID. This independent trace does not establish an accepted complete example, successful construction, supported public ingress, occurrence or runtime effect.",
+  "safeguards": [
+    "Holder identity and recipe validation precede model construction.",
+    "Grip length and radius are checked positive, additional dimensional and scale checks apply, and model construction can return an error.",
+    "Placement assigns a resolved identity to the cloned components; that does not itself establish propagation back to the original holder selection."
+  ],
+  "historical_relation": "Same source boundary as 059 queue entry 287 and the previously connected SEGOVB-L12-HOLDER-ORIGINAL-OPTIONAL-ID-EXPECT row in ASSESSMENT-WEAPON-IDENTITY-95E.json. Historical attribution and the earlier independently recorded source trace remain separate; an attachment-frame or head-geometry consequence is not automatically aliased.",
+  "further_evidence_for_existing_rows": [
+    "SEGOVB-L12-HOLDER-ORIGINAL-OPTIONAL-ID-EXPECT"
+  ],
+  "new_qualified_ledger_rows": [],
+  "incidental_navigation": "CENTRAL-13F-NAVIGATION-QUALIFICATION.json",
+  "open": [
+    "An accepted complete input and successful fallible construction, supported public producers, shape and geometry paths, actual runtime behavior, connected consumers and global aliases.",
+    "All thirteen lenses, the historical semantic queue, and the missing checkpoint3821 ledger and queue."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

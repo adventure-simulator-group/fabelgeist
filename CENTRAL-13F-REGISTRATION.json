@@ -1,0 +1,78 @@
+{
+  "schema": "726-central-prospective-source-registration-v1",
+  "registered_utc": "2026-11-12T06:33:55.563029+00:00",
+  "reader": "/root",
+  "rows": [
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "git_blob": "d9855a207806ab4ec5044eaa8aedc79e3372049f",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "actual_eof": 265,
+      "planned_display_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "reason": "recipe definitions and validation dispatch"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "git_blob": "0e12e30169c5edae687bde60c0d307724e9dd12a",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "actual_eof": 207,
+      "planned_display_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "reason": "recipe component and ID validation"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/model/placement.rs",
+      "git_blob": "f803419e87c87ca2f2a6779a95f0c462037a2c7a",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "actual_eof": 156,
+      "planned_display_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "reason": "clone and placement identity propagation"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/validation.rs",
+      "git_blob": "bc1026e767a7d1fe68837fafcacb8acc91f199ea",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "actual_eof": 72,
+      "planned_display_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "reason": "holder identity guard"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/holders.rs",
+      "git_blob": "6a044bcacee1106548c8c8b4223b20701f3933d0",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "actual_eof": 261,
+      "planned_display_ranges": [
+        [
+          100,
+          210
+        ]
+      ],
+      "reason": "holder construction and original component ID use"
+    }
+  ],
+  "qualification": "Prospective pinned-current source views only; full accepted model construction and other consumers require separate traced bodies. No product, test, prior-reviewer or checkpoint3821 credit."
+}

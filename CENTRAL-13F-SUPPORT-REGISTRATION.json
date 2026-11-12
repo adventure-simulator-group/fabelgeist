@@ -1,0 +1,64 @@
+{
+  "schema": "726-central-prospective-source-registration-v1",
+  "registered_utc": "2026-11-12T06:38:02.841354+00:00",
+  "reader": "/root",
+  "rows": [
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/model/mod.rs",
+      "git_blob": "333622d456e466e816f9573a983e463bcae5bef0",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "actual_eof": 273,
+      "planned_display_ranges": [
+        [
+          65,
+          125
+        ]
+      ],
+      "reason": "construction entry and its fallible stages"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "git_blob": "d3b98c0f3b1c20563ab769255b3dcbbd510240cd",
+      "sha256": "352602b462e8dfa78bb2bb05442c2e09a381a2d9547cd630c4a8f4bbfb28ae20",
+      "actual_eof": 62,
+      "planned_display_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "reason": "shape-specific dimension validation dispatch"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "git_blob": "b9f21955b93e3be0750e0421c00fa8af12d36d90",
+      "sha256": "7b1ffa336f641cd42556a1104809cad88c913948710a3aa426b5f5f37302e616",
+      "actual_eof": 240,
+      "planned_display_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "reason": "blade and grip checks"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "git_blob": "dd71f72f4de66a539aa006de029ec2ff4d5f9dec",
+      "sha256": "5cf9bbef830041b5ac7355e8496ebcb7c9137917882d3b414a60cf059c97fe12",
+      "actual_eof": 217,
+      "planned_display_ranges": [
+        [
+          168,
+          188
+        ]
+      ],
+      "reason": "grip dimension checks"
+    }
+  ],
+  "qualification": "Prospective pinned-current support views following the separately registered initial 13F windows. Current shape checks and fallible construction only; no product execution or historical reader credit."
+}

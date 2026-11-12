@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0621.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0642.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -206,6 +206,24 @@ source-family packets pending central reconciliation. Their earlier original
 and redacted Bevy registration hashes differ, and the original mixed P16 role
 labels remain as recorded. Changed top-level originals of path-redacted public
 reconstructions remain local only.
+`ASSESSMENT-DELEGATED-RECONCILIATION-13D-95E.json` independently
+corroborates a conditional graphics admission relationship, and
+`ASSESSMENT-DELEGATED-RECONCILIATION-13E-95E.json` records bounded
+reflection and checked-length safeguards. Feature selection, supported
+inputs, consumers, the SATS branch and remaining connected scopes stay
+open; no new ledger row is counted.
+`DELEGATED-EVIDENCE-CHECKPOINT-33.json` preserves three more attributed
+packets pending central reconciliation. Earlier and later reconstructed
+registration pins differ for two 774 records; the missing original
+registration is not inferred recovered. Path-redacted public copies are
+reconstructed, and exact changed top-level originals remain local only.
+`ASSESSMENT-CENTRAL-HOLDER-13F-95E.json` independently corroborates
+an existing optional-ID relationship, conditional on preceding fallible
+construction. An unregistered workspace navigation display is preserved
+as a reconstructed observation without audit credit; the separately
+registered pinned-source reads remain distinct.
+`RECOVERY-VERIFICATION-6AE035CD.json` records the latest same-machine
+fetch, checkout, and evidence-only check, with its transcript limitations.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

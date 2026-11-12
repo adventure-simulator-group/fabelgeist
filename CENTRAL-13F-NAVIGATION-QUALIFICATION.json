@@ -1,0 +1,13 @@
+{
+  "schema": "726-unregistered-navigation-qualification-v1",
+  "recorded_utc": "2026-11-12T06:39:21.454242+00:00",
+  "reader": "/root",
+  "event": "After the initial registered 13F source displays, an rg navigation command printed matching line fragments from the mutable workspace checkout without prior registration. It was mistakenly treated as navigation only; this is disclosed as an unregistered incidental source display.",
+  "workspace_head_separately_observed": "c100638b720a7281a5fc96f6a3c5c23d5dda85da",
+  "workspace_status": "A later git status --short --untracked-files=no displayed no tracked modifications; this does not prove the whole workspace clean or individual fragment Git membership.",
+  "reconstructed_transcript": "CENTRAL-13F-NAVIGATION-RECONSTRUCTED.txt",
+  "transcript_sha256": "04a61cbd7bd3cdf77d220b957ac91a565bc93d87767414684d67e7776939ef33",
+  "transcript_lines": 38,
+  "transcript_qualification": "Reconstructed from the tool result, not an independently frozen command log. The source fragments were from the mutable workspace, not established as pinned 95e bytes. No audit, role, prior-reader or checkpoint3821 credit attaches to this navigation. The reconstruction may not preserve exact original ordering.",
+  "follow_up": "Separate pinned 95e windows were prospectively registered and displayed after this observation. Those receipts remain independent; source outside those ranges remains unread under prospective registration, not necessarily literally unseen."
+}

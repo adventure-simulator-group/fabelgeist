@@ -1,0 +1,659 @@
+{
+  "schema": "726-checkpoint14-numeric-material-followup-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T06:23:01.197383+00:00",
+  "scope": {
+    "original_roles": [
+      2583,
+      2584
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "registrations": [
+      "registration.json",
+      "drop-registration.json"
+    ],
+    "personal_read_receipts": [
+      "read-receipt.json",
+      "drop-read-receipt.json"
+    ],
+    "fresh_current_and_native_support": [
+      {
+        "tag": "numeric",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+        "source_sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+        "fresh_displayed_chunks": [
+          [
+            1,
+            49
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "material",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/src/item_catalog_validation_material.rs",
+        "source_sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+        "fresh_displayed_chunks": [
+          [
+            1,
+            17
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "schema",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+        "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+        "fresh_displayed_chunks": [
+          [
+            55,
+            85
+          ],
+          [
+            116,
+            139
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            54
+          ],
+          [
+            86,
+            115
+          ],
+          [
+            140,
+            614
+          ]
+        ]
+      },
+      {
+        "tag": "validation",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+        "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+        "fresh_displayed_chunks": [
+          [
+            249,
+            273
+          ],
+          [
+            301,
+            310
+          ],
+          [
+            510,
+            532
+          ],
+          [
+            637,
+            685
+          ],
+          [
+            686,
+            735
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            248
+          ],
+          [
+            274,
+            300
+          ],
+          [
+            311,
+            509
+          ],
+          [
+            533,
+            636
+          ],
+          [
+            736,
+            2059
+          ]
+        ]
+      },
+      {
+        "tag": "build",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/build.rs",
+        "source_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "fresh_displayed_chunks": [
+          [
+            225,
+            262
+          ],
+          [
+            270,
+            280
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            224
+          ],
+          [
+            263,
+            269
+          ],
+          [
+            281,
+            511
+          ]
+        ]
+      },
+      {
+        "tag": "loader",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/src/item_catalog.rs",
+        "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+        "fresh_displayed_chunks": [
+          [
+            20,
+            35
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            19
+          ],
+          [
+            36,
+            614
+          ]
+        ]
+      },
+      {
+        "tag": "surface",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+        "source_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+        "fresh_displayed_chunks": [
+          [
+            120,
+            130
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            119
+          ],
+          [
+            131,
+            219
+          ]
+        ]
+      },
+      {
+        "tag": "inventory",
+        "kind": "current-project",
+        "path": "crates/adventuresim-tactical-core/src/inventory.rs",
+        "source_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+        "fresh_displayed_chunks": [
+          [
+            180,
+            210
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            179
+          ],
+          [
+            211,
+            862
+          ]
+        ]
+      },
+      {
+        "tag": "projection",
+        "kind": "current-project",
+        "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+        "source_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "fresh_displayed_chunks": [
+          [
+            800,
+            830
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            799
+          ],
+          [
+            831,
+            3497
+          ]
+        ]
+      },
+      {
+        "tag": "workspace",
+        "kind": "current-project",
+        "path": "Cargo.toml",
+        "source_sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+        "fresh_displayed_chunks": [
+          [
+            132,
+            145
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            131
+          ],
+          [
+            146,
+            211
+          ]
+        ]
+      },
+      {
+        "tag": "core-cargo",
+        "kind": "current-project",
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "source_sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+        "fresh_displayed_chunks": [
+          [
+            15,
+            40
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            14
+          ],
+          [
+            41,
+            45
+          ]
+        ]
+      },
+      {
+        "tag": "weapon-cargo",
+        "kind": "current-project",
+        "path": "crates/adventuresim-weapon-model/Cargo.toml",
+        "source_sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+        "fresh_displayed_chunks": [
+          [
+            1,
+            12
+          ]
+        ],
+        "unread_complement": [
+          [
+            13,
+            19
+          ]
+        ]
+      },
+      {
+        "tag": "json-value",
+        "kind": "native-package",
+        "path": "serde_json-1.0.151/src/value/de.rs",
+        "source_sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+        "fresh_displayed_chunks": [
+          [
+            169,
+            194
+          ],
+          [
+            282,
+            314
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            168
+          ],
+          [
+            195,
+            281
+          ],
+          [
+            315,
+            1507
+          ]
+        ]
+      },
+      {
+        "tag": "json-number",
+        "kind": "native-package",
+        "path": "serde_json-1.0.151/src/number.rs",
+        "source_sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+        "fresh_displayed_chunks": [
+          [
+            535,
+            546
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            534
+          ],
+          [
+            547,
+            814
+          ]
+        ]
+      },
+      {
+        "tag": "json-de",
+        "kind": "native-package",
+        "path": "serde_json-1.0.151/src/de.rs",
+        "source_sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+        "fresh_displayed_chunks": [
+          [
+            109,
+            128
+          ],
+          [
+            319,
+            354
+          ],
+          [
+            623,
+            653
+          ],
+          [
+            1500,
+            1515
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            108
+          ],
+          [
+            129,
+            318
+          ],
+          [
+            355,
+            622
+          ],
+          [
+            654,
+            1499
+          ],
+          [
+            1516,
+            2714
+          ]
+        ]
+      },
+      {
+        "tag": "core-visitor",
+        "kind": "native-package",
+        "path": "serde_core-1.0.229/src/de/impls.rs",
+        "source_sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+        "fresh_displayed_chunks": [
+          [
+            222,
+            242
+          ],
+          [
+            450,
+            456
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            221
+          ],
+          [
+            243,
+            449
+          ],
+          [
+            457,
+            3173
+          ]
+        ]
+      },
+      {
+        "tag": "root-lock",
+        "kind": "current-project-lock",
+        "path": "Cargo.lock",
+        "source_sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+        "fresh_displayed_chunks": [
+          [
+            9397,
+            9405
+          ],
+          [
+            9417,
+            9430
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            9396
+          ],
+          [
+            9406,
+            9416
+          ],
+          [
+            9431,
+            12545
+          ]
+        ]
+      },
+      {
+        "tag": "drop",
+        "kind": "current-project-support",
+        "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+        "source_sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+        "fresh_displayed_chunks": [
+          [
+            490,
+            530
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            489
+          ],
+          [
+            531,
+            1126
+          ]
+        ]
+      }
+    ],
+    "packages": [
+      {
+        "name": "serde_json",
+        "version": "1.0.151",
+        "sha256": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+        "archive": "source/serde_json-1.0.151.crate",
+        "bytes": 156556,
+        "source": "published exact native-evidence package"
+      },
+      {
+        "name": "serde_core",
+        "version": "1.0.229",
+        "sha256": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+        "archive": "source/serde_core-1.0.229.crate",
+        "bytes": 63100,
+        "source": "published exact native-evidence package"
+      }
+    ],
+    "identity": "Original physical-p16 objects role2583 a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93 and role2584 823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a are each identical to their 95e,a120,6533 individual path. The P16 and pr-working snapshots were dirty, so per-file equality does not make either snapshot clean. f82 transports recovered bytes and is not a product revision. P16 copies archived for identity and earlier readers; no fresh historical body display claimed.",
+    "feature_qualification": "Cargo.lock checksum matches exact serde_json 1.0.151 and serde_core 1.0.229 crates. Cargo.toml declarations show a float_roundtrip request but do not prove host/target feature unification, arbitrary_precision selection, or actual parsing behavior. Lock metadata indexing and archived source bytes do not count as full personal source reads."
+  },
+  "related_history": {
+    "selected_059_queue": [
+      {
+        "index": 602,
+        "contract_id": "Q-L11-bc1410a8b8f757677a38",
+        "kind": "pending-contract-or-revisit",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/additional_pending_connected_contracts/52"
+        ],
+        "top_level_source_count": 0,
+        "granular_source_counts": [],
+        "granular_views": 0,
+        "qualification": "Pending question without recorded source-identity receipts; no identity/alias inferred."
+      },
+      {
+        "index": 604,
+        "contract_id": "Q-L11-bb720d879d7e30418b87",
+        "kind": "pending-contract-or-revisit",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/additional_pending_connected_contracts/54"
+        ],
+        "top_level_source_count": 0,
+        "granular_source_counts": [],
+        "granular_views": 0,
+        "qualification": "Pending question without recorded source-identity receipts; no identity/alias inferred."
+      },
+      {
+        "index": 1786,
+        "contract_id": "Q-L12-ab8c5a79f4708f4b057e",
+        "kind": "pending-contract-or-revisit",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/lens12/pending_connected_contracts/897"
+        ],
+        "top_level_source_count": 0,
+        "granular_source_counts": [],
+        "granular_views": 0,
+        "qualification": "Pending question without recorded source-identity receipts; no identity/alias inferred."
+      },
+      {
+        "index": 2433,
+        "contract_id": "L12-CLOSURE-CATALOG-TYPED-ADMISSION-RESULT",
+        "kind": "connected-contract",
+        "status": null,
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          5
+        ],
+        "granular_views": 1,
+        "qualification": "Original attributed granular connected views preserved in full; historical scope and later supplementary view remain distinct from fresh 95e work."
+      },
+      {
+        "index": 2435,
+        "contract_id": "L12-CLOSURE-CATALOG-PHYSICAL-SERDE-NATIVE-F32",
+        "kind": "connected-contract",
+        "status": null,
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          8,
+          3
+        ],
+        "granular_views": 2,
+        "qualification": "Original attributed granular connected views preserved in full; historical scope and later supplementary view remain distinct from fresh 95e work."
+      }
+    ],
+    "ledger_selection": "059-selection-reconstructed.json holds exact Q602/Q604/Q1786 linked journal data and /segovb_continuation/lens13/delegated_connected_contracts_pending_alias/281 PL13-175; full earlier queue and ledger preserved. PL13-175 records historical f64\u2192f32 dimensions and other distinct pending scopes, accepted unique-count change 0 and current_reconciled false.",
+    "connected_2433": "Historical L12-CLOSURE-CATALOG-TYPED-ADMISSION-RESULT retains /root/lens12_frontier P16 source reads and root adoption TEAM-021; rejects inferring malformed occupancy acceptance from local .ok() when final typed schema gate also runs. This historical conclusion is not a claim that all numeric policy or current routes are safe.",
+    "connected_2435": "Both source views preserved. TEAM-021 first left P16 CuboidDimensions predicate unread; later TEAM-022 recorded nonnegative-zero generic cuboid and finite signed-length semantics while leaving strict-positive equipment/current native feature and producer/consumer contract open. The frozen P16 physical adapter is distinct from 95e raw public f32 fields, so do not silently transfer the former into the latter.",
+    "774": "Rig RIG-ADMISSION03-REGISTER-016/017 and ADDITIONAL-003/004 record P16 numeric 1\u201349 and material 1\u201317; pr-working CONTRACT-044/045 record separately identified source and comparison. Camera CAMERA-ADM03-F005 describes historical positive dimension narrowing and generic-zero distinction; its source and counterexample retain that reviewer/revision.",
+    "rig_registration_pin": {
+      "root046_rig_registration_expected": "9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe",
+      "later_first35_sha256": "cbbfee078a21b7d56c7d4b499225de25fad99e47bfb9057defc14eb932c1d859",
+      "later_full_registration_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "registration_prefix_matches": false,
+      "root046_qualification_expected": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "later_first31_qualification_sha256": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "qualification_prefix_matches": true,
+      "bounded_search": "20 exact-filename registration files under ae46/target and 28ba extracted target checked both whole and first35; none match the pin; no global absence claim.",
+      "qualification": "Original roles, rig witness and 046 embedded rows retain independent attribution; later registration bytes are not silently substituted."
+    },
+    "rig_pin_detail": "046 embeds qualification records with prospective/actual ranges, but not the complete earlier rig registration file; original registry independently embeds the original role observations. Later first 35 rows mismatch the older pin; later first 31 qualification rows match. Earlier 20-file filename search was bounded, not global absence.",
+    "059_roles": "READ-L11-424 records /root/segovb independently reading P16 role2583 1\u201349 via SEGOVB-1494 and role2584 1\u201317 via SEGOVB-1495. READ-L12-876 attributes those full P16 ranges to /root/lens12_frontier via PAR-L12-634/635 and identity qualifications; root personal rereads empty. Other queue views retain their original /root/lens12_frontier and root-adoption receipts.",
+    "prior_delegate": "/root/hair_ops original MANIFEST SHA 01d10d487d6fc1b3b877cbe07f068a41bc666491ceacc96c3bee2a85c919dc80, prior/REPORT.json SHA afa0944f5eef178d608c4a515ace19ba3f09f727cae3a5ccaed87d18e6730550 and separately preserved receipt register exact independent P16 and current full reads. Their conditional grip/anchor overflow candidate is separately attributed, and central owns alias/count decisions.",
+    "later_recovery": "reference/RECOVERY-PHYSICAL-P16-PATCH-20261111.json and exact tracked.patch preserve later stream SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7. /root/hair_ops observed and coordinator later saved matching tracked stream; seven separately recorded untracked paths are excluded and the original invocation is unknown.",
+    "public_reconstructions": "reference/DELEGATED-CHECKPOINT-14-QUALIFICATION.json and DELEGATED-EVIDENCE-CHECKPOINT-14.json retain distinct public/redacted member identities and originals; some exact historical local receipts contain nonessential local paths. This follow-up does not promote old material to missing checkpoint3821."
+  },
+  "assessments": [
+    {
+      "title": "Actual target-f32 safeguards for selected numeric roles",
+      "classification": "Independently corroborated existing safeguards; no new issue count",
+      "source_evidence": [
+        "numeric.source:7\u201325 finite_in checks source f64 within inclusive caller bounds; :27\u201349 positive_f32_in converts first and rejects stored zero/nonfinite and source above the bound.",
+        "validation.source:515\u2013520 uses stronger helper for shield block while armor values use finite_in; surface.source:120\u2013129 applies it to coverage.",
+        "schema.source:72\u201385 exposes public EquipmentPhysical f32 dimensions, nonnegative-intended grip and signed anchor fields; validation.source:690\u2013724 applies finite positive f64 dimensions, finite nonnegative f64 grip, and finite signed f64 anchors without a target-f32 check."
+      ],
+      "condition": "Stronger helper is not a blanket guarantee over every physical field or public literal/deserializer. Zero grip and signed anchors are potentially intentional; the generic finite_in helper includes caller-supplied zero when allowed."
+    },
+    {
+      "title": "Dimension underflow and physical overflow remain conditional representation-boundary concerns",
+      "classification": "Existing CAMERA-ADM03-F005 / 059 PL13-175 / REVIEW-CATALOG-PHYSICAL-DIMENSION-NARROWING-001 relationship, plus separately attributed /root/hair_ops finite grip/anchor overflow candidate; no alias or new count decided",
+      "source_evidence": [
+        "validation.source:249\u2013273 performs final typed ItemCatalogDocument preflight and discards the success value; build.source:253\u2013262 validates parsed Value documents then :274\u2013280 serializes original documents.",
+        "json-value.source:169\u2013194,282\u2013314 and json-number.source:535\u2013546 under not arbitrary_precision pass f64 number to visitor; core-visitor.source:222\u2013242,450\u2013456 describes f64\u2192f32 cast. A finite positive f64 can round to zero as f32 and a finite f64 outside f32 range can narrow to infinity.",
+        "loader.source:27\u201331 deserializes embedded JSON with expect. json-de.source:345\u2013354,623\u2013635,1508\u20131513 shows the inspected float_roundtrip f32 conversion branch rejects an infinite parse result; non-float_roundtrip number path 319\u2013335,638\u2013653 and visitor behavior is a different conditional branch.",
+        "projection.source:812\u2013829 copies schema physical fields to tactical state, with instance overrides on y-length, grip, and y-offset. inventory.source:199\u2013208 defines a positive/finite physical validity guard; drop.source:504\u2013530 returns false if that check fails before collider creation."
+      ],
+      "conditions": "A relevant scalar must reach the described feature-specific parser/visitor path with all other input and schema checks succeeding; build/runtime Cargo feature selection and host/target resolution are not established. Runtime parse failure and retained nonfinite value are alternative conditional paths, not observed outcomes. Real authored inputs, item selection, projections, other constructors/consumers and feature variants remain open; no parser, crafted input, build or runtime occurred. The tactical guard establishes the shown selected drop safeguard only, not that every consumer invokes it.",
+      "future_direction": "After audit completion and authorization, decide a representation-aware admission boundary that preserves valid positive smallest f32 dimensions, signed offsets and permitted zero grip; trace retention and all consumers before selecting repair ownership."
+    },
+    {
+      "title": "Material string and typed enum relation",
+      "classification": "Current bounded nonfinding; earlier rig CONTRACT-045 retained",
+      "source_evidence": [
+        "material.source:1\u201317 accepts ten exact snake_case strings; schema.source:126\u2013139 lists corresponding ten serde snake_case enum variants.",
+        "validation.source:662\u2013680 requires a recognized material and a striking material for weapon kind, and disallows a supplied string striking material for non-weapons; final typed document decode at 269\u2013273 is a separate schema safeguard."
+      ],
+      "condition": "Matching lists show no current spelling mismatch in these inspected sources. Separate representations may drift in future, but that possibility alone is not an existing defect. Typed decoding and kind policies have separate roles; no full runtime material behavior inferred."
+    }
+  ],
+  "nonfindings": [
+    "The selected tactical drop path invokes is_valid before collider creation, so an invalid physical value does not establish that this path creates an invalid collider.",
+    "A generic signed offset or nonnegative grip must not be forced strictly positive merely to repair dimension semantics.",
+    "Ten current material spellings match the typed enum; current render/material policy and all other callers were not assessed."
+  ],
+  "open_questions": [
+    "Which supported actual content, alternate constructors/deserializers or mutations reach retained physical state without appropriate checked admission?",
+    "What serde_json features are selected independently for each actual host/target path, and which exact loader/projection/consumer modes are reachable?",
+    "What is the separate alias/repair relationship between positive-dimension underflow and finite signed-anchor/grip overflow?",
+    "Do any other physical fields need final-representation invariants, and which owner should enforce them while preserving zero, sign and generic cuboid semantics?",
+    "What is the full material producer and consumer policy, including enum/string synchronization beyond these windows?"
+  ],
+  "lens_perspectives": {
+    "magic_strings": "The ten serialized material names and enum values match in these sources; other spelling producers/consumers remain open.",
+    "magic_numbers": "Source versus stored floating-point representability and field-specific bounds are material to dimensions, grip, offset and coverage.",
+    "existing_type_owners": "EquipmentMaterial owns closed material distinctions; generic cuboid and signed-length semantics are not automatically strict-positive equipment semantics.",
+    "type_ownership": "The authoring/compiler and public DTO boundaries have different enforcement; identify the actual owner before repair.",
+    "type_granularity": "Strict-positive dimensions, zero-valid grip and signed offsets require distinct policies.",
+    "enum_shapes": "Weapon/nonweapon striking-material policy and optional fields remain distinct accepted states.",
+    "admission_contracts": "positive_f32_in protects selected callers while source-f64 physical checks leave conditional target-representation questions.",
+    "aggregate_states": "Item kind, material requirements, and physical field shape and signs are coordinated policies.",
+    "invariant_operations": "f64\u2192f32 narrowing can underflow or overflow, subject to exact parser and feature paths.",
+    "producer_propagation": "Value validation, typed preflight, serialized original, loader and selected projection/drop path are bounded separately; actual reachability is open.",
+    "redundant_authority": "Manual material string list and enum match today; duplicated representation alone is not a witnessed failure.",
+    "behavior_preservation": "Keep valid zeros, signed offsets, smallest positive representable dimensions, and item-kind optional modes.",
+    "derivability": "Derived deserialization checks shape and leaf decoding but does not alone establish all cross-field numeric policies."
+  },
+  "limits": "Static source and evidence integrity only. No parser, fixture, macro execution, product execution, builds, tests, probes, repairs or publication edits. No lens completion, automatic aliases, or duplicate counts."
+}
