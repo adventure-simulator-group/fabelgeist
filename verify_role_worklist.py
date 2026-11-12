@@ -94,6 +94,11 @@ def observed_sources(doc):
         else:
             yield observation
 
+advance = json.loads((root / 'MAIN-ADVANCE-95E.json').read_text())
+new_paths = {}
+for line in (root / advance['trees']['current']['path']).read_text().splitlines():
+    head, path = line.split('\t', 1)
+    new_paths[path] = head.split()[2]
 cached = {}
 for role in roles:
     status = role['status']
@@ -116,7 +121,9 @@ for role in roles:
                 source.get('path') == path
                 and source.get('git_blob') == role['current_git_blob']
                 and source.get('ranges', source.get('range')) == obs['ranges']
-                and source.get('revision') in (None, work['source_revision'])
+                and (source.get('revision') in (None, work['source_revision'])
+                     or (source.get('revision') == '95e63628f9d70b8dd6e6fede64334696c6995009'
+                         and new_paths.get(path) == role['current_git_blob']))
                 for source in observed_sources(cached[name])
             )
             if not matched:
@@ -238,6 +245,16 @@ for role in roles:
                     or receipt['older_origin_actual_display_ranges']
                     or receipt['pr_working_actual_display_ranges']):
                 raise ValueError('P16 IK actual and unread range receipt mismatch')
+        elif role['original_index'] == 2503:
+            rr = [x for x in receipt['assigned_personal_reads'] if x['role'] == 2503]
+            old = next(x for x in rr if x['source_identity'] != cc['source_revision'])
+            current = next(x for x in rr if x['source_identity'] == cc['source_revision'])
+            if (len(rr) != 2
+                    or old['contiguously_displayed_ranges'] != item['actual_personal_display_chunks']
+                    or current['contiguously_displayed_ranges'] != cc['actual_personal_display_chunks']
+                    or old['not_contiguously_displayed_ranges'] != item['historical_unread_ranges']
+                    or current['not_contiguously_displayed_ranges'] != cc['unread_ranges']):
+                raise ValueError('P16 LOD actual and unread range receipt mismatch')
         else:
             raise ValueError('unexpected partial source role')
     elif status == 'full-historical-body-trace-open':

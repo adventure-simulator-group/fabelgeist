@@ -1,0 +1,696 @@
+{
+  "schema": "726-bounded-cloth-garment-2631-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T01:33:41.220769+00:00",
+  "status": "Bounded source-only analysis; central owner decides aliases, ledger/count and publication. No product validation, global closure or checkpoint3821 promotion.",
+  "source_authority": {
+    "historical": "Pr-working snapshot recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e plus unrelated working modifications. The assigned source object individually matches 6533, which does not make the working snapshot clean.",
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009; assigned bytes equal historical file, with two separately registered and personally displayed full bodies.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not a project source revision.",
+    "p16": "Separately recorded dirty P16 base a120390947c89b703dc74c4255a13c035d054c50 and later tracked patch recovery retain their own history and source/reviewer scopes; RECOVERY-PHYSICAL-P16-PATCH-20261111.json SHA-256 30184a296be0ff10031776e078f1b639f273f77e7387534f5a4eb5d5b4aa8007 and tracked.patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, with seven untracked files separately preserved. No automatic P16 source or read credit is assigned.",
+    "checkpoint3821": "No historical evidence, reconstruction or fresh review is promoted to checkpoint3821."
+  },
+  "roles": [
+    {
+      "original_index": 2631,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/garment/mod.rs",
+      "source_sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+          "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+          "git_blob": "94db2f0bda1af6552398a438309bbc48725ec550",
+          "bytes": 16037,
+          "eof": 455,
+          "prospective_ranges": [
+            [
+              1,
+              455
+            ]
+          ],
+          "local_file": "source/2631-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+          "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+          "git_blob": "94db2f0bda1af6552398a438309bbc48725ec550",
+          "bytes": 16037,
+          "eof": 455,
+          "prospective_ranges": [
+            [
+              1,
+              455
+            ]
+          ],
+          "local_file": "source/2631-current.rs"
+        }
+      ],
+      "actual_personal_reads": [
+        {
+          "original_index": 2631,
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+          "actual_display_ranges": [
+            [
+              1,
+              95
+            ],
+            [
+              96,
+              190
+            ],
+            [
+              191,
+              285
+            ],
+            [
+              286,
+              380
+            ],
+            [
+              381,
+              455
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 455,
+          "source_file": "source/2631-historical.rs"
+        },
+        {
+          "original_index": 2631,
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+          "actual_display_ranges": [
+            [
+              1,
+              95
+            ],
+            [
+              96,
+              190
+            ],
+            [
+              191,
+              285
+            ],
+            [
+              286,
+              380
+            ],
+            [
+              381,
+              455
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 455,
+          "source_file": "source/2631-current.rs"
+        }
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "actual_ranges": [
+        [
+          200,
+          340
+        ]
+      ],
+      "eof": 715,
+      "source_file": "support/0.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          199
+        ],
+        [
+          341,
+          715
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/pose.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+      "actual_ranges": [
+        [
+          155,
+          240
+        ]
+      ],
+      "eof": 272,
+      "source_file": "support/1.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          154
+        ],
+        [
+          241,
+          272
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "actual_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "eof": 93,
+      "source_file": "support/2.rs",
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+      "actual_ranges": [
+        [
+          105,
+          225
+        ]
+      ],
+      "eof": 413,
+      "source_file": "support/3.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          104
+        ],
+        [
+          226,
+          413
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "actual_ranges": [
+        [
+          500,
+          560
+        ]
+      ],
+      "eof": 588,
+      "source_file": "support/4.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          499
+        ],
+        [
+          561,
+          588
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_ranges": [
+        [
+          195,
+          223
+        ]
+      ],
+      "eof": 271,
+      "source_file": "support/5.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          194
+        ],
+        [
+          224,
+          271
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "actual_ranges": [
+        [
+          255,
+          285
+        ]
+      ],
+      "eof": 334,
+      "source_file": "support/6.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          254
+        ],
+        [
+          286,
+          334
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "actual_ranges": [
+        [
+          35,
+          95
+        ]
+      ],
+      "eof": 715,
+      "source_file": "support/7.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          34
+        ],
+        [
+          96,
+          715
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/selection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "actual_ranges": [
+        [
+          150,
+          160
+        ]
+      ],
+      "eof": 271,
+      "source_file": "support/8.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          149
+        ],
+        [
+          161,
+          271
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+      "actual_ranges": [
+        [
+          30,
+          60
+        ]
+      ],
+      "eof": 334,
+      "source_file": "support/9.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          29
+        ],
+        [
+          61,
+          334
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/garment.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3a53a6a40c78d926e2f50031f319b7fb338014633b6c73431b891b85a308c828",
+      "actual_ranges": [
+        [
+          420,
+          445
+        ]
+      ],
+      "eof": 592,
+      "source_file": "support/10.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          419
+        ],
+        [
+          446,
+          592
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/mesh.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "actual_ranges": [
+        [
+          1,
+          32
+        ],
+        [
+          85,
+          139
+        ]
+      ],
+      "eof": 139,
+      "source_file": "support/11.rs",
+      "unread_for_this_registration": [
+        [
+          33,
+          84
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-shell/src/shell.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "actual_ranges": [
+        [
+          70,
+          100
+        ]
+      ],
+      "eof": 408,
+      "source_file": "support/12.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          69
+        ],
+        [
+          101,
+          408
+        ]
+      ]
+    }
+  ],
+  "support_qualification": "Current 95e registered support only; complements are per registration. fitted.rs 500–560 and garment.rs 420–445 were identified after display as test-source windows, not production consumer evidence. They were never executed. Full archived support bytes do not count as body reads. 6533 triangulator is metadata/Git-membership comparison only; old reviewer and ordered role2634 remain separate.",
+  "historical_records": [
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L11-430.json",
+      "file": "history-059/READ-L11-430.json",
+      "sha256": "191ee8b915ffaa4c727d6797dffa01dee1c483ff5f51e8b16d1819d99ccee57e",
+      "bytes": 9540,
+      "git_blob": "dc4e90f38283ca8f0b5a6d252e8a73cee3ebe2cc"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1547.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1547.json",
+      "sha256": "56d348a14a4c3af5247998bdb405824b73bd3fdf1fbad2cc51bc56738e3502f8",
+      "bytes": 664,
+      "git_blob": "86edd13061620c71334ec23b985856cf5b488ea4"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1550.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1550.json",
+      "sha256": "17a801ff8261675c2e2d6d02c2af2872244d4631e7d45d141849b47246254b0a",
+      "bytes": 672,
+      "git_blob": "63abbe569cdd15c92dbcf39be3d29b5a8164ce0e"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-904.json",
+      "file": "history-059/READ-L12-904.json",
+      "sha256": "efd8db80243a8eac9a702ed7bf888001e1a4883b4311f7b10165cbd28f3f6fd5",
+      "bytes": 9728,
+      "git_blob": "241e81df9b8ba607f7244c97727b068d5341abb0"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/PROPOSAL-L12-904.json",
+      "file": "history-059/PROPOSAL-L12-904.json",
+      "sha256": "1430dafd64f2b3753019d460ee1106d30d1d19837931ebfebb29c8319ddeadf1",
+      "bytes": 8067,
+      "git_blob": "d1fb4d4c7698ccedf080823428e17297365fca23"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-904-ORIGINAL2631.json",
+      "file": "history-059/QUALIFIED-REUSE-PAR-L12-904-ORIGINAL2631.json",
+      "sha256": "08410962dd5919d345dd8b2ff378ebb5ce4fa91cb807a8189d5f11a043885d17",
+      "bytes": 6340,
+      "git_blob": "119f5970e5242479a46d1bf77b39765f8f7661bb"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-226-CONNECTED-ORIGINAL2631.json",
+      "file": "history-059/REGISTRATION-PAR-L12-226-CONNECTED-ORIGINAL2631.json",
+      "sha256": "6b324643b21c622ee48cf9accccf22e92ca2cdc8be3b72fb7bc30d1baee93918",
+      "bytes": 1339,
+      "git_blob": "99d7f14eaf6de2d861c7577cfcb150782983fcad"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-746-PANEL-IDENTITY.json",
+      "file": "history-059/READ-CONNECTED-PAR-L12-746-PANEL-IDENTITY.json",
+      "sha256": "f1a66e9a5daac3494e5c6901348e6b4f54e97a7eeead7a7aac0afc04b58bbffa",
+      "bytes": 7790,
+      "git_blob": "33727a366f16036e9be4e2bfa0807ce815758009"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-CONNECTED-TEAM-003.json",
+      "file": "history-059/READ-L12-CONNECTED-TEAM-003.json",
+      "sha256": "cc28f6f148a66d2e40a6c405511591efdea1783152f9255bea8bba7464db59e5",
+      "bytes": 13030,
+      "git_blob": "cfbbbf73b2852582963384384089fdd9a649feae"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "file": "history-774/source-range-registration.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "bytes": 126879,
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "file": "history-774/additional-contracts.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "bytes": 111211,
+      "git_blob": "53bd7548648daed407f55cf9fa891c047e79dd6c"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/contract-groups.jsonl",
+      "file": "history-774/contract-groups.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "bytes": 1319065,
+      "git_blob": "ecdb74ed7aca240980d954a5a975f9152575f82e"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/findings.jsonl",
+      "file": "history-774/admission03-findings.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "bytes": 120871,
+      "git_blob": "ab07e3119387e62a2ecd36d88084d704549f1592"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/initial06-type-ownership/contracts-013.json",
+      "file": "history-774/contracts-013.json.gz",
+      "encoding": "gzip",
+      "sha256": "ca18d99490c1c6c0d964520b845f8d0b74a81f46972e6ec138fb1bcfe9f54c5b",
+      "bytes": 6117,
+      "git_blob": "28da0099879419b800a1ed68c0f5e05860c88fa1"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+      "file": "history-774/initial06-type-ownership-findings.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "782f6350073a242b22e22a346351f14376ad838cd8d6ccda513f1deb268782d5",
+      "bytes": 89244,
+      "git_blob": "d9f1f0d2dec926bb9bd21d08aa9422c35f1b4963"
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "RIG-ADMISSION03-REGISTER-086 / ADDITIONAL-086",
+      "attribution": "774 rig, historical pr-working garment/mod.rs production 1–453",
+      "relation": "Original raw panel/placement/mesh admission and named scope. Nonfinite target/placement, resource/index, seam and downstream Shell guards remain contextual; no later-lens credit."
+    },
+    {
+      "id": "RIG-INITIAL06-GROUP-013 / F003",
+      "attribution": "774 rig, historical garment/mod.rs 1–453, historical ShellMesh 1–139 and Cloth 1–93",
+      "relation": "One ownership migration gap for eight shared shell geometry vectors. Current registered garment, Cloth::new, ShellMesh field and validate, and Shell::new windows independently support the same related contract. Do not count another finding."
+    },
+    {
+      "id": "RIG-ADMISSION03-CONTRACT-629 / CONTRACT-661 and F066 / F088",
+      "attribution": "774 rig, historical Cloth 1–93, garment-fit 1–715 and separately scoped pose input",
+      "relation": "Distinguishes raw mesh and downstream Shell admission, pattern endpoint/control arity, and pose finite/range admission. These are connected but not automatically aliases of source count arithmetic."
+    },
+    {
+      "id": "READ-L11-430 / REGISTRATION-SEGOVB-1547/1550",
+      "attribution": "Original 059 segovb reviewer, historical garment 1–453 and triangulator 1–410",
+      "relation": "Already noted positive infinity, tiny-edge/huge-grid and u32 narrowing as unresolved policy; no current or role credit transfer. Fresh 95e review substantiates a more specific count-to-capacity path."
+    },
+    {
+      "id": "READ-L12-904 / PROPOSAL-L12-904 / QUALIFIED-REUSE-PAR-L12-904-ORIGINAL2631",
+      "attribution": "Original 059 /root/lens12_frontier qualified same-lens reuse, assessed 6533 lines 1–453, fresh_personal_body_reads empty in READ-L12-904, root_personal_rereads empty",
+      "relation": "Earlier personally prospective connected source read is READ-CONNECTED-PAR-L12-746-PANEL-IDENTITY row /rows/1 and registration PAR-L12-226, adopted by READ-L12-CONNECTED-TEAM-003. Original continuation did not claim a fresh body reread or new role credit there; preserve all exact scopes."
+    },
+    {
+      "id": "baseline-059 queue q614 Q-L11-311564a4d1d7c857a062 and q3438 L12-CLOSURE-GARMENT-POSE-PANEL-IDENTITY-SCOPE",
+      "attribution": "Reconstructed historical queue, not source-read evidence",
+      "relation": "q614 keeps cloth finite/point-count/solver obligations open. q3438 distinguishes positional pose consumer from panel-name string propagation. No automatic alias or queue closure."
+    },
+    {
+      "id": "ASSESSMENT-GEOMETRY-OWNERS-95E.json",
+      "sha256": "c26745e0fd5678fa5a45833ff0aca5a79d86bf6611087b024616ccf534f9ca9c",
+      "attribution": "Earlier published current 95e supporting source assessment, garment 1–160/205–255 and triangulation 90–159/161–255",
+      "relation": "Existing REVIEW-CLOTH-POSITIVE-RESOLUTION-95E considers +infinity and owner/layer policy. The new finite tiny-edge source argument may be related but exact alias remains central; no earlier current read transfer."
+    },
+    {
+      "id": "ASSESSMENT-GARMENT-FIT-95E.json",
+      "sha256": "dee9866a5c7b74847fa7baaacaf81cf4c6100642c770051931ccfee548453502",
+      "attribution": "Earlier published current 95e garment-fit assessment; see its source-specific ranges and historical receipts",
+      "relation": "Reconnected q316 panel reference propagation plus separate unresolved stitch/panel/edge/units/collision candidates; exact relationships remain open. No transfer of personal body credit."
+    }
+  ],
+  "existing_findings": [
+    {
+      "id": "RIG-INITIAL06-F003",
+      "status": "Existing 774 ownership migration finding, no duplicate count",
+      "current_evidence": "GarmentMesh 130–162 stores positions, triangles, edges, rest_lengths, bends, bend_weights, seams, masses; current Cloth::new 28–47 clones exactly these into ShellMesh, whose fields appear in shell/mesh.rs 10–18. Shell::new calls mesh.validate() at shell.rs:76–83; shell/mesh.rs:85–129 checks particle/index/constraint/finite invariants. Material, panel names and offsets have separate garment role.",
+      "future_direction": "Central ledger retains exact F003 and maps current consumers before any separately authorized change. Preserve source rest and seam derivation, material coordinates, panel metadata and validation timing; avoid a new duplicate count."
+    }
+  ],
+  "candidate_findings": [
+    {
+      "id": "local-candidate-cloth-subdivision-count-overflow",
+      "status": "Source-backed conditional elaboration of historical tiny-edge/resource and current resolution obligations; central decides alias, count and supported target/resource policy.",
+      "condition": "On the x86_64 target represented by the recorded installed Rust reference, direct public cloth::build receives a nonempty simple finite triangular panel containing a unit-length edge and target_edge=f32::MIN_POSITIVE, with an otherwise admissible areal density. This is a conceptual source argument, not an executed fixture. The nonempty build checks only target<=0 and NaN, so this finite positive value passes.",
+      "reasoning": "A unit edge divided by the minimum positive normal f32 is about 8.5e37, above u64/usize maximum on the identified x86_64 target. The f32-to-usize cast saturates to usize::MAX per the preserved local Rust reference. build stores that as the edge subdivision count at garment/mod.rs:236–246. triangulate_with_segments receives the count and resample_boundary_with_segments evaluates Vec::with_capacity(segments + 1) at triangulate/mod.rs:166–184. If integer overflow checks are enabled, the addition fails before a structured mesh error; with checks disabled, downstream work/allocation consequences depend on environment and are not asserted. No meshing, allocation, test, fixture generation or runtime probe occurred.",
+      "limits_and_reachability": "The creator drape run calls selection.validate at drape.rs:37–45; the selection requires finite resolution within 2.5–6 cm at selection.rs:155–156,207–212. That excludes this tiny resolution on that path, though it does not alone establish global panel-size or work bounds. FitSettings and cloth::build remain public raw interfaces; no actual external bad caller, build profile or product failure was observed.",
+      "future_direction": "After supported work/resource and finite/unit policies are specified, validate or checked-convert subdivision and total vertex/constraint capacities before integer increment, allocations and native narrowing. Preserve ordinary finite resolutions, explicit empty output and structured errors. This is not a recommendation to accept unbounded +infinity or silently clamp counts.",
+      "historical_alias_qualification": "READ-L11-430 explicitly left tiny edge/huge grid and u32 narrowing open; q614 retains point-count obligations. REVIEW-CLOTH-POSITIVE-RESOLUTION-95E addressed +infinity and dependency/unit policy. These are related but exact same/different repair contract is unresolved, and no separate count is assigned."
+    }
+  ],
+  "nonfindings": [
+    "Empty panel input returns default before checking target edge; this is a documented valid empty result, not an automatic invalid-state defect.",
+    "Seam endpoint references are checked before indexing counts, and chain lengths are checked at least 2 before dividing by stitches−1.",
+    "Interior bend and stretch rest geometry computed from placed positions agrees with flat geometry in exact arithmetic under a finite rigid rotation/translation; large finite coordinates and f32 precision remain separate open questions.",
+    "Actual selected creator drape entry validates its selected finite resolution range; that does not prove arbitrary external library callers or mesh-size limits.",
+    "Shell::new calls ShellMesh.validate before native particle creation; this later validation does not prove input was bounded during earlier triangulation.",
+    "GarmentMesh.panel names and offsets, material coordinates, and ShellMesh simulation geometry have related but distinct consumer purposes."
+  ],
+  "open_questions": [
+    "What supported maximum subdivision, total vertex/constraint memory and native index policy should public cloth::build and triangulate honor?",
+    "What exact aliases connect tiny-resolution, +infinity, extreme finite panel coordinates, earlier q614 and native allocation/count contracts?",
+    "What are all actual public raw mesh mutation, panel index, empty mesh, Pivots association and downstream solver contracts? No arbitrary malformed request was run.",
+    "Do finite but extreme panel placements lose unacceptable precision when rest lengths are computed from translated f32 positions? Domain magnitude and error policy remain open, not a proven runtime failure.",
+    "How do triangulator topology, concavity, constraints and solver validation behave end-to-end? Unread ranges and native/device behavior remain unassessed."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Pattern adapter samples panels, matches names to seam sides and forwards resolution/fabric density to cloth build; creator drape applies a separate bounded selection check. GarmentMesh then feeds Pivots and Cloth→ShellMesh, with separately scoped validation."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "ShellMesh already owns the eight shared geometry/constraint/mass vectors also stored by GarmentMesh; historical RIG-INITIAL06-F003 is directly reconnected, while panel/material provenance remains garment-specific."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "Nonempty build rejects nonpositive/NaN target and validates seam references but does not bound derived subdivision capacity. Empty panels return empty before that gate. ShellMesh later validates physical vectors; this does not bound the earlier meshing path."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "Current counts derive from f32 length/resolution then saturating cast to usize; triangulator computes segments+1 for capacity. Tiny positive finite resolution and ordinary finite panel edge can exceed representable count before allocation; detailed conditional source argument below."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "positions/material and per-panel offsets/names are parallel, and seam/triangle indices require consistency. build normally produces them together; raw public mesh and Pivots lack a sealed association, but no ordinary malformed caller is established."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "Panel, SeamSide and material coordinates own pattern-specific topology and original panel provenance; ShellMesh owns shared physical mesh record. Distinct geometric frames and typed density/mass are not blanket-interchangeable."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "GarmentMesh independently maintains shell-vector record copied into ShellMesh; preserve existing F003 as one ownership issue, not duplicate counts. Initial positions and material coordinates serve separate frames and cannot simply be collapsed."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Assigned source bytes match 6533 and current 95e individually. This says nothing about the cleanliness of the old working snapshot, other source paths, execution or runtime behavior."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "Seam reversed encodes orientation of two stitched sides; its semantic owner is distinct from seam identity. Empty panels intentionally yield an empty mesh; absent seam pairs and skipped panels remain separate documented policies."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "GarmentMesh and panels have standard Clone/Debug/Default where declared; no manual trait or serialization replacement is proven by assigned source."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Panel-local planar material coordinates and world positions, panel ordinals and particle indices, physical areal density, counts and continuous resolution have different owners and units. Positive-length type alone does not bound work or cardinality."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "Panel names are stored and propagated from pattern keys, but the inspected Pivots consumer uses ordinal ranges rather than name strings. Historical q316 and current panel identity/ambiguous stitch questions remain separate; do not invent a closed name namespace."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "Mesher count saturation, max(1), segment allocation and checked u32 representability require contextual resource policy. Geometric degeneracy epsilon and legitimate empty behavior are separate choices, not automatically replaced by an arbitrary newtype."
+    }
+  ],
+  "limitations": [
+    "No product code edits, repairs, builds, tests, fixture creation, browser, rendering, simulation, runtime probe, shader execution or product validation.",
+    "All arithmetic is static reasoning; evidence scripts verify bytes, Git membership, provenance and scope only.",
+    "Earlier rig and 059 reviewers read production lines 1–453; this personal full display includes lines 454–455 test-module declaration as source only, with no test execution.",
+    "Historical source, reconstruction, prior reviewer and current scope remain distinct. No whole-lens, audit, ledger or 3821 closure is implied."
+  ]
+}

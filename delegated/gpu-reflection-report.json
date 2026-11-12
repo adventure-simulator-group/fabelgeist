@@ -1,0 +1,969 @@
+{
+  "schema": "726-gpu-reflection-bounded-audit-v1",
+  "author": "/root/rig_identity",
+  "recorded_utc": "2026-11-12T01:32:46.125177+00:00",
+  "scope": {
+    "roles": [
+      2632,
+      2635,
+      2636
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Recorded pr-working head 6533e444fa37552927070cc8d8190907fd3b413e with four unrelated modifications. Each assigned historical source equals its corresponding Git-head file and f82 transport object individually. f82 is transport, not the project revision.",
+    "delta": "Definition and reflection match 6533 and 95e byte-for-byte; compute_shader changes native validation scope selection from old blocking_validation boolean to current ValidationObservation.start_scope. Original role2632 was 1\u2013135; historical 136\u2013138 was independently displayed as support only.",
+    "p16": "The separate dirty P16 snapshot is based on a120, not a commit. Later tracked-patch bytes match the recorded SHA256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; match does not prove original diff invocation or uninterrupted custody, and seven untracked files remain separate. No P16 evidence becomes checkpoint3821.",
+    "checkpoint3821": "Original 3821 ledger and queue have not been established by this packet; historical evidence is never promoted."
+  },
+  "candidate_policy_question": {
+    "id": "REVIEW-GPU-BUFFER-MAP-USAGE-COMBINATION-95E",
+    "status": "conditional newly assessed source/native API contract; uniqueness and owner policy for central reconciliation",
+    "condition": "A caller of the public builder combines a storage use with HostRead, for example by composing storage() with with_usage(HostRead), and allocates it on a device without MAPPABLE_PRIMARY_BUFFERS. No such actual application call was established.",
+    "trace": "Storage contributes STORAGE|COPY_SRC|COPY_DST; HostRead adds MAP_READ and with_usage unions them without feature-aware validation. Buffer::new rejects zero length then forwards the definition to native create_buffer and returns the wrapper if control returns. wgpu-types 29.0.4 documents that absent MAPPABLE_PRIMARY_BUFFERS, MAP_READ may be combined only with COPY_DST. The current owned-device descriptor requests only the three enumerated optional features and omits that capability. Borrowed devices may differ.",
+    "implication": "The constructed descriptor is outside that documented native usage contract under the stated condition; the builder has not rejected it before the native boundary. Exact native validation/error observation, runtime outcome, ordinary caller reachability and whether this low-level API promises local rejection rather than deliberately delegating it remain unestablished.",
+    "historical_relationship": "RIG-ADMISSION03-ADDITIONAL-087 explicitly observed arbitrary usage combinations being delegated to native validation. This refines that historical observation with the exact locked API and current owned-device requested feature set; do not count it as distinct until central reconciliation decides policy and overlap. It is separate from the existing copy-alignment, wrapper metadata, and uniform-packer contracts.",
+    "future_repair_direction": "If the owning API contract requires admitted usage sets, validate feature-dependent combinations before native allocation or explicitly retain an appropriate validated capability/device owner; alternatively document delegated native validation if that is the intended contract. Preserve storage copy capabilities and supported mapped-only cases. Future validation is deferred.",
+    "sources": [
+      {
+        "archive": "sources/2632-current-95e.rs",
+        "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          7,
+          18
+        ]
+      },
+      {
+        "archive": "sources/2632-current-95e.rs",
+        "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          67,
+          89
+        ]
+      },
+      {
+        "archive": "sources/2632-current-95e.rs",
+        "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          91,
+          110
+        ]
+      },
+      {
+        "archive": "sources/2632-current-95e.rs",
+        "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          119,
+          133
+        ]
+      },
+      {
+        "archive": "support/buffer.rs",
+        "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          22,
+          37
+        ]
+      },
+      {
+        "archive": "support/wgpu-types-buffer.rs",
+        "sha256": "d86234bd209e47644671ca80f94d830f8445999b1ab7aa59780449994b4fcea9",
+        "revision_or_package": "wgpu-types 29.0.4",
+        "lines": [
+          64,
+          75
+        ]
+      },
+      {
+        "archive": "support/wgpu-types-features.rs",
+        "sha256": "139c8d73c05a081415f1c554683fc41ae087554d38d2cf7597e8a6191384a3d5",
+        "revision_or_package": "wgpu-types 29.0.4",
+        "lines": [
+          741,
+          755
+        ]
+      },
+      {
+        "archive": "support/wgpu-context.rs",
+        "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          51,
+          65
+        ]
+      },
+      {
+        "archive": "support/wgpu-context.rs",
+        "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          169,
+          177
+        ]
+      },
+      {
+        "archive": "support/wgpu-context.rs",
+        "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "lines": [
+          242,
+          247
+        ]
+      }
+    ]
+  },
+  "connected_existing": [
+    {
+      "id": "SEGOVB-L12-GPU-REFLECTION-SPARSE-GROUP-LAYOUT-POSITION",
+      "queue_index": 370,
+      "relationship": "Exact historical compaction concern remains in unchanged reflection, connected to current pipeline and pass; no new count. Native group position policy and earlier validation remain conditional.",
+      "sources": [
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            45
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            93,
+            100
+          ]
+        },
+        {
+          "archive": "support/pass.rs",
+          "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            70,
+            80
+          ]
+        },
+        {
+          "archive": "support/pass.rs",
+          "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            456,
+            477
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "REVIEW-GPU-REFLECTION-MULTIPLE-UNIFORMS-95E",
+        "REVIEW-GPU-REFLECTION-ARRAYED-IMAGE-95E",
+        "REVIEW-GPU-REFLECTION-MULTISAMPLED-IMAGE-95E",
+        "REVIEW-GPU-REFLECTION-STORAGE-ACCESS-95E",
+        "REVIEW-GPU-REFLECTION-SAMPLER-KIND-95E"
+      ],
+      "relationship": "Existing published current source findings/questions: multiple uniforms overwrite one binding/size but append members; texture array/multisample/access and sampler kinds receive lossy assumptions. Actual supported WGSL shapes and feature policies remain open; distinct operations are not automatically aliases.",
+      "sources": [
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            75,
+            109
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            113,
+            140
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            143,
+            185
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            199,
+            207
+          ]
+        },
+        {
+          "archive": "support/shader.rs",
+          "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            33
+          ]
+        },
+        {
+          "archive": "support/pass.rs",
+          "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            84,
+            90
+          ]
+        },
+        {
+          "archive": "support/pass.rs",
+          "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            209,
+            215
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "REVIEW-GPU-SHADER-SOURCE-MODULE-COHERENCE-95E",
+        "REVIEW-GPU-PIPELINE-CACHE-INPUT-IDENTITY-95E"
+      ],
+      "relationship": "Existing current findings/questions: code and module are separately public while preparation reflects code and creation consumes module; clones share an entry-point-only cache. Conditional on independent mutation or cross-device use; no such mutation or device use observed.",
+      "sources": [
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            13
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            20
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            63,
+            75
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            87,
+            107
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            145,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "SEGOVB-L12-GPU-SHADER-NAGA-VALIDATION-CAUSE-ERASURE",
+        "SEGOVB-L12-GPU-SHADER-GLSL-WRITER-CAUSE-ERASURE",
+        "SEGOVB-L12-GPU-SHADER-MODULE-VALIDATION-CAUSE-ERASURE",
+        "SEGOVB-L12-GPU-REFLECTION-COMPUTE-ENTRY-MISSING-REASON"
+      ],
+      "queue_indices": [
+        366,
+        367,
+        368,
+        369
+      ],
+      "relationship": "Historical separate reasons and cause ownership remain separate; current scope preserves the same formatting sites but native scope selection changed. Do not deduplicate solely due to a shared typed error remedy.",
+      "sources": [
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            32
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            35,
+            43
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            63,
+            68
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            17,
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "RIG-ADMISSION03-F057",
+        "RIG-ADMISSION03-F058"
+      ],
+      "relationship": "Historical kernel identity/mutable workgroup and fast uniform writer issues. Reflection lacks member scalar/vector/matrix kind and retains offset/size only, context for F058; current fast writer body was not independently inspected here. They are related, not automatic duplicates.",
+      "sources": [
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            113,
+            132
+          ]
+        },
+        {
+          "archive": "support/shader.rs",
+          "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ids": [
+        "REVIEW-GPU-BUFFER-METADATA-AUTHORITY-95E",
+        "REVIEW-COMPUTE-COPY-ALIGNMENT-95E"
+      ],
+      "relationship": "Existing buffer wrapper identity and copy alignment matters are distinct from the map-usage question; preserve their own source/consumer/conditions and no duplicated finding."
+    }
+  ],
+  "nonfindings_and_qualifications": [
+    {
+      "observation": "new() leaves usage Unspecified and defaults to general flags at native allocation; first with_usage starts from empty flags, whereas Default/all start from general flags. Mapped-only builders remain possible and no incompatible flags are asserted for them.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            33,
+            59
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            67,
+            89
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            106,
+            110
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            119,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "ComputeShader::new double-validates on failure and unwrap_err is a production-source rule concern already preserved in the 059 connected record. No ordinary panic or changing validator behavior is proved without native semantics.",
+      "sources": [
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            19,
+            32
+          ]
+        }
+      ]
+    },
+    {
+      "observation": "On current non-wasm code, native error scope starts only in BlockingScopes; Uncaptured returns None. Old boolean and current policy are separate historical/current facts; no actual device validation observed.",
+      "sources": [
+        {
+          "archive": "sources/2635-historical-f82.rs",
+          "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+          "revision_or_package": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "lines": [
+            49,
+            55
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            49,
+            67
+          ]
+        },
+        {
+          "archive": "support/validation-observation.rs",
+          "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            25
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_attribution": [
+    {
+      "origin": "774",
+      "supplier": "rig",
+      "records": [
+        "RIG-ADMISSION03-REGISTER-087",
+        "RIG-ADMISSION03-REGISTER-090",
+        "RIG-ADMISSION03-REGISTER-091",
+        "RIG-ADMISSION03-ADDITIONAL-087",
+        "RIG-ADMISSION03-ADDITIONAL-090",
+        "RIG-ADMISSION03-ADDITIONAL-091",
+        "RIG-ADMISSION03-F057",
+        "RIG-ADMISSION03-F058"
+      ],
+      "qualification": "Original source-only admission work and ranges; 087 1\u2013135, 090 1\u201388, 091 1\u2013209. Different original F057/F058 source owners and no later-lens or 3821 transfer."
+    },
+    {
+      "origin": "059 Lens11",
+      "receipts": [
+        "historical-059/segovb/READ-L11-430.json",
+        "historical-059/segovb/READ-L11-431.json"
+      ],
+      "qualification": "Fresh historical exact ranges; neither receipt names an individual, so do not infer one."
+    },
+    {
+      "origin": "059 Lens12",
+      "receipts": [
+        "historical-059/segovb/READ-L12-905.json",
+        "historical-059/segovb/READ-L12-CONNECTED-TEAM-004.json",
+        "historical-059/parallel-l12-20261029/READ-CONNECTED-PAR-L12-749-SHADER-REFLECTION.json",
+        "historical-059/segovb/READ-L12-907.json"
+      ],
+      "qualification": "/root/lens12_frontier personally read 2632 1\u2013135 in 905, and 2635 1\u201388/2636 1\u2013209 in connected team004. At ordered 907 those latter two were same-lens qualified reuse with zero fresh rereads; root adoption zero rereads and prior credit retained."
+    },
+    {
+      "origin": "published prior current assessments",
+      "records": [
+        "ASSESSMENT-GPU-PASS-PIPELINE-95E.json",
+        "ASSESSMENT-GPU-BIND-BUFFER-95E.json",
+        "ASSESSMENT-READBACK-SORT-95E.json"
+      ],
+      "qualification": "Existing 95e support scopes and findings belong to their original authors. This packet has its own registered reads and adds no inherited credits."
+    }
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Shader source and reflected resource/member names are native compiler and binding namespaces; validation error prose has separate reason/cause contracts already recorded. No closed gameplay string vocabulary is inferred.",
+      "sources": [
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            17
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            69,
+            86
+          ]
+        },
+        {
+          "archive": "support/shader.rs",
+          "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Group/binding indexes, byte lengths and member offsets are native resource ABI values; typed BufferByteLength reaches descriptor, while member sizes remain u32 native values.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            119,
+            133
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            113,
+            127
+          ]
+        },
+        {
+          "archive": "support/shader.rs",
+          "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "BufferUse owns discrete allocation capabilities; native flags are combined and device-dependent acceptance remains separate. Reflected metadata does not alone certify the native device or parameter schema.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            18
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            67,
+            89
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            113,
+            132
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Definition uses BufferByteLength and BufferLabel at the terminal descriptor, avoiding an invented extra owner for labels or native bytes. Callers and feature constraints remain separate.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            3,
+            5
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            119,
+            133
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Separate buffer and texture bindings, types and dimensions are exposed; image class, arrayness, multisample, access and sampler distinctions may be lost under existing conditional records.",
+      "sources": [
+        {
+          "archive": "support/shader.rs",
+          "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            10,
+            33
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            96,
+            108
+          ]
+        },
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            143,
+            185
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "with_usage unions choices and may produce native-incompatible MAP_READ sets when the feature is absent. Current native boundary and source-level feature request qualify rather than prove real failure.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            67,
+            89
+          ]
+        },
+        {
+          "archive": "support/wgpu-types-buffer.rs",
+          "sha256": "d86234bd209e47644671ca80f94d830f8445999b1ab7aa59780449994b4fcea9",
+          "revision_or_package": "wgpu-types 29.0.4",
+          "lines": [
+            64,
+            75
+          ]
+        },
+        {
+          "archive": "support/wgpu-context.rs",
+          "sha256": "14ac95339951ceb8b50cc3ab9452c251bbbce6122ebd7206a3961c406ff74858",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            51,
+            65
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Multiple uniforms overwrite single binding/size while appending member/layout entries; public shader source/module and pipeline/cache can diverge conditionally. Existing current records own these questions.",
+      "sources": [
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            113,
+            140
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            10
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Buffer::new rejects zero length, then delegates other usage validity to native allocation. ComputeShader validates source before creating module, with selected validation observation; neither grants a blanket device-validity certificate.",
+      "sources": [
+        {
+          "archive": "support/buffer.rs",
+          "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            22,
+            37
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            119,
+            133
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            32
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            49,
+            67
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "UsageSelection distinguishes unspecified from explicit flags and ValidationObservation expresses blocking versus uncaptured choice. Those explicit branches do not validate combinations of separate BufferUse flags.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            21,
+            31
+          ]
+        },
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            83,
+            87
+          ]
+        },
+        {
+          "archive": "support/validation-observation.rs",
+          "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            12,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "Public source/module and entry-only shared cache permit conditionally inconsistent identities, already in the prior current GPU assessment; buffer size/usage vs native buffer is separate.",
+      "sources": [
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            6,
+            10
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            13,
+            20
+          ]
+        },
+        {
+          "archive": "support/pipeline.rs",
+          "sha256": "33fed8d0c2ea47e990b60ad9c2cc14962f130c66ed4328d134e8f7f15d9b1128",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            63,
+            75
+          ]
+        },
+        {
+          "archive": "support/buffer.rs",
+          "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            15,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "The assigned shader file changes from a boolean-controlled native scope to ValidationObservation; unchanged definition and reflection bodies do not prove unchanged context policies, compiled shader behavior, or backend execution.",
+      "sources": [
+        {
+          "archive": "sources/2635-historical-f82.rs",
+          "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+          "revision_or_package": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+          "lines": [
+            49,
+            55
+          ]
+        },
+        {
+          "archive": "sources/2635-current-95e.rs",
+          "sha256": "4bfafcd16ee5cad9f6572bef4be44770ef8ff8ad01a28d227d8c407bfa611878",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            49,
+            67
+          ]
+        },
+        {
+          "archive": "support/validation-observation.rs",
+          "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            12,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Reflection keeps actual group index in metadata but pushes layouts compactly; pass retrieves by group index and binds by enumeration. This reproduces the earlier source-level q370 relation, not a new count or runtime claim.",
+      "sources": [
+        {
+          "archive": "sources/2636-current-95e.rs",
+          "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            25,
+            45
+          ]
+        },
+        {
+          "archive": "support/pass.rs",
+          "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            70,
+            80
+          ]
+        },
+        {
+          "archive": "support/pass.rs",
+          "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            456,
+            477
+          ]
+        }
+      ]
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Small explicit enums and builders encode meaningful modes and native flags; source evidence alone does not establish a justified derive rewrite or removal.",
+      "sources": [
+        {
+          "archive": "sources/2632-current-95e.rs",
+          "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            7,
+            25
+          ]
+        },
+        {
+          "archive": "support/validation-observation.rs",
+          "sha256": "878a4144b4fecdc20291885050e30fe521a5294117046c282ef24d40c5e407d9",
+          "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "lines": [
+            11,
+            25
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Is BufferDefinition deliberately a thin native descriptor builder, or should Buffer::new return a typed error for unsupported feature-dependent usage sets? Which actual callers, borrowed devices and platforms exercise those combinations?",
+    "Which shader shapes, multiple uniform buffers, sparse groups, image arrays, multisampling, storage access and sampler classes are supported product contracts? Earlier validation may reject before a selected downstream operation.",
+    "Do real callers mutate public shader/pipeline/buffer fields, share caches across devices, or require stronger source/module/context coherence?",
+    "Which error causes or structured reasons must survive each distinct shader and pipeline boundary? Can the repeated Naga validate/unwrap be removed in a future repair without altering diagnostics?",
+    "Existing F058 concerns a separate fast writer and its exact current producer/shape policy; this packet does not read or execute that writer.",
+    "The claimed connected TEAM004 verify filename was an exploratory guess and is absent from extraction and transport manifest; no source has established that such a verification file existed. The actual root adoption and delegated read receipt are preserved.",
+    "All support unread complements are recorded; no whole GPU crate, WGSL package, native backend, full thirteen-lens, or checkpoint3821 clearance."
+  ],
+  "evidence": {
+    "registrations": [
+      "registration.json",
+      "support-registration.json",
+      "native-registration.json"
+    ],
+    "personal_receipt": "personal-read-receipt.json",
+    "historical_attribution": "historical-attribution.json",
+    "registry_reconstruction": "registry-selection-reconstructed.json",
+    "queue_reconstruction": "queue-selection-reconstructed.json",
+    "git_proofs": "git-proofs.json",
+    "external_hash_links": [
+      "evidence-links.json",
+      "published-prior-packet-links.json"
+    ]
+  },
+  "limits": "Source inspection and evidence verification only. No GPU, shader, simulation, test, fixture, runtime probe, product build or implementation was run."
+}

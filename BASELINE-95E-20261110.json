@@ -19434,7 +19434,10 @@
         "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ]
       },
       {
         "id": "CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE",
@@ -19571,9 +19574,265 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10D-95E.json"
+      },
+      {
+        "id": "CURRENT-ROOF-ABUTMENT-MASKED-IDENTITY-RELATION",
+        "lens": 4,
+        "additional_current_lenses": [
+          5,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Masked abutment station and edge bits can reuse retained sample IDs.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Continuation of historical ROOT-INITIAL04-F001, NATIVE-INITIAL05-F002 and 059 q639; no additional unique count or supported collision established.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace admitted cardinalities, consumers and audit enforcement before choosing an identity boundary.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "CURRENT-ROOF-WALL-TOWER-CHILD-OVERWRITE-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A wall-abutment pass filters tower-child links before the tower pass.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Corroborates 774 CONT07-F127 / CONTRACT-654; no duplicate count and final refit/outcome remain open.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace supported mixed assemblies and subsequent refit before deciding how to retain child associations.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "P16-COLLISION-SELECTED-IDENTITY-LOSS",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Collision compilation resolves selected IDs through a map, silently skipping absent IDs and retaining the last duplicate.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Public mutable/decoded aggregate case; ordinary generated plan and downstream failure are unproved. Related, not identical to door closure selection.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Establish accepted-plan identity and required-reference admission with door and geometry consumers.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "P16-COLLISION-BOUNDS-COHERENCE",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Collision bounds and cuboids can be independently represented although normal compilation derives bounds from footprint and cuboids.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Conditional decoded/mutated state; no faulty placement observed. Preserve footprint fallback and rounding policy.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Define the required placement, origin and bounds coherence at the accepted aggregate boundary.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "P16-COLLISION-BAR-SOURCE-IDENTITY",
+        "lens": 4,
+        "additional_current_lenses": [
+          3,
+          5,
+          7
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Window-bar source packing can alias admitted IDs whose shifted bits overlap its tag.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Source arithmetic witness is conditional on admitted/reachable IDs; distinct from roof split-eave and abutment encodings.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace generating namespace and receiver uniqueness before selecting a checked or structured identity.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "BUILDING-COLLISION-AND-GLAZING-TYPED-LEAVES",
+        "lens": 1,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Window-bar collision and leaded glazing extract and re-admit unchanged checked geometry leaves.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "774 F009/TRACE010 specifically supports unchanged glazing size; window-bar leaf readmission is a separate related producer path, not automatically that historical identity or new defect.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Assess whole-function checked owner propagation and preserve error ordering and changed-value admission.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "P16-DOOR-CLOSURE-SELECTION-CONTRACT",
+        "lens": 5,
+        "additional_current_lenses": [
+          1,
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Door compilation selects the first resolvable closure ID without independently proving selected owner or role.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Conditional aggregate case; missing earlier layers may be intentional and no ordinary wrong solid established.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Reconcile layer ordering, membership and unique identity with collision and plan admission.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "P16-WINDOW-LEAF-UNBOUNDED-WORK",
+        "lens": 4,
+        "additional_current_lenses": [
+          1,
+          3,
+          8,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Admitted extreme finite dimensions can produce saturating derived loop counts before a builder error is returned.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Source-only arithmetic for extreme input; no allocation, timing or runtime incident. Connected to mesh index limits but not the same first contract.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Determine supported geometry and work-budget ownership while preserving legitimate zero dimensions and typed errors.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "P16-DOORSPEC-CROSS-FIELD-POLICY",
+        "lens": 5,
+        "additional_current_lenses": [
+          3,
+          7,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Individually admitted DoorSpec fields do not alone establish coherent hinge, frame, pose and swing.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Existing 059 aggregate question, not an accepted defect or zero-angle claim.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace all constructors and consumers before defining the accepted relational boundary.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "CURRENT-WEAR-REGION-FRAME-OWNER-RELATION",
+        "lens": 5,
+        "additional_current_lenses": [
+          2,
+          3,
+          4,
+          13
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A raw local wear rectangle and positional frame tuple feed face geometry.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Connects 059 Q-L11-f7fb84487345e4be039d; only bounded source read, no malformed output established.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Compare existing rectangle and frame owners against actual authored cases and preserve winding/UV policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+      },
+      {
+        "id": "CURRENT-LOD-MESH-INDEX-NATIVE-BOUNDARY-RELATION",
+        "lens": 3,
+        "additional_current_lenses": [
+          4,
+          5,
+          8
+        ],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "LOD vertices and indices are independently public and index bases are narrowed to u32.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
+        ],
+        "relationship_qualification": "Connects 059 Q-L12-63ce82a40701fd194206 and tangent/index question. No oversized or invalid mesh witnessed; role2503 unread complements remain open.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Establish supported capacities, aggregate coherence and native consumer requirements.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10E-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0119.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0142.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion."
 }

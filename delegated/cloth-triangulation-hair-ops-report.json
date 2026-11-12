@@ -1,0 +1,371 @@
+{
+  "schema": "726-bounded-delegate-report-v1",
+  "author": "/root/hair_ops",
+  "recorded_utc": "2026-11-12T01:30:40.249362+00:00",
+  "scope": {
+    "original_roles": [
+      2633,
+      2634
+    ],
+    "historical_snapshot": "pr-working registered source objects, recorded head 6533e444fa37552927070cc8d8190907fd3b413e with unrelated working changes",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+    "qualification": "Each registered source individually equals the 6533 and 95e blob. 6533 was independently proven but not separately displayed. f82 is evidence transport and per-file equality does not establish a clean whole historical snapshot."
+  },
+  "assigned_personal_displays": [
+    {
+      "role": 2633,
+      "pr_working_actual_display": [
+        [
+          1,
+          1
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          1
+        ]
+      ],
+      "unread_old_and_current": []
+    },
+    {
+      "role": 2634,
+      "pr_working_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          413
+        ]
+      ],
+      "current_95e_actual_display": [
+        [
+          1,
+          150
+        ],
+        [
+          151,
+          300
+        ],
+        [
+          301,
+          413
+        ]
+      ],
+      "unread_old_and_current": []
+    }
+  ],
+  "receipt": "read-receipt.json",
+  "support": "Two prospectively registered 95e support sources, with exact displayed and unread scopes in read-receipt.json. Separate test module body is not read; no tests, geometry or product executed.",
+  "historical_attribution": [
+    {
+      "record": "774 rig REGISTER-088 / ADDITIONAL-088 and REGISTER-089 / ADDITIONAL-089",
+      "reviewer": "rig",
+      "revision": "pr-working",
+      "role2633_ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "role2634_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "qualification": "Role2633 is a re-export and conveys no shell owner body coverage. The earlier triangulator review preserved direct empty-contains, finite/count, +infinite target and mesh admission qualifications, but no assigned802 or later-lens credit; 411\u2013413 were outside its scope."
+    },
+    {
+      "record": "059 Segovb READ-L11-430 / REGISTRATION-SEGOVB-1549,1550",
+      "reviewer": "Segovb root Lens11",
+      "revision": "pr-working source bytes, recorded comparison 6533",
+      "role2633_fresh": [
+        [
+          1,
+          1
+        ]
+      ],
+      "role2634_fresh": [
+        [
+          1,
+          410
+        ]
+      ],
+      "qualification": "Original 059 q614 preserves finite, count, concave topology and solver admission as unresolved; q615 preserves canonical topology, mass and native consumers. Neither is checkpoint3821 evidence."
+    },
+    {
+      "record": "059 READ-L12-906 / REGISTRATION-PAR-L12-700,701 and PARTIAL-PAR-L12-906-001\u2013004",
+      "reviewer": "/root/lens12_frontier, root adoption with zero personal rereads",
+      "revision": "6533",
+      "role2633_fresh": [
+        [
+          1,
+          1
+        ]
+      ],
+      "role2634_fresh": [
+        [
+          1,
+          410
+        ]
+      ],
+      "qualification": "The historical delegated Lens12 reviewer personally read those scopes. Its first and second partial observations explicitly note 196\u2013410 and 391\u2013410 still unread at those earlier moments; later partials complete the registered 1\u2013410. The original excluded 411\u2013413; no other-lens or current credit transfers."
+    },
+    {
+      "record": "ASSESSMENT-DELEGATED-SOURCE-ROLES-4.json role2345 and shell-solver packet",
+      "reviewer": "/root/mhr_character",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "current_shell_topology_fresh": [
+        [
+          1,
+          427
+        ]
+      ],
+      "historical_6533_fresh": [
+        [
+          1,
+          427
+        ]
+      ],
+      "qualification": "Earlier full current and 6533 shell topology are separately attributed to that delegate; original rig 1\u2013235 and 059 scopes remain separately qualified. The present packet independently registered and read only current shell 1\u2013190 as support and makes no new role2345 credit claim."
+    },
+    {
+      "record": "ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json SHELL-BENDING-SCALE-CUTOFF",
+      "reviewer": "/root/mhr_character",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "qualification": "Prior small nondegenerate hinge/cutoff candidate is source-local, conditioned on supported scale and shell mesh policy. Our partial shell support does not re-prove the cutoff tail and does not count it again; it is connected to but not automatically identical to triangulation bounds or concave coverage."
+    }
+  ],
+  "observations_and_questions": [
+    {
+      "id": "QUESTION-CLOTH-BOUNDARY-SEGMENT-TARGET-95E",
+      "classification": "source-level documentation/policy mismatch; no product failure or global unique count asserted",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+          "lines": [
+            [
+              104,
+              119
+            ],
+            [
+              161,
+              182
+            ],
+            [
+              184,
+              210
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+          "lines": [
+            [
+              213,
+              218
+            ],
+            [
+              234,
+              248
+            ],
+            [
+              249,
+              277
+            ]
+          ]
+        }
+      ],
+      "trace": "The resampling helper says it splits each edge into segments no longer than target_edge. The public triangulate entry supplies no counts, so the helper uses round(length/target_edge) with a minimum of one. The selected garment build independently computes the same rounded initial counts and passes them to the helper, raising counts to match linked seams. For a positive target and an edge length exactly 1.25 times target with no seam-driven increase, the ratio rounds to one, and the resulting boundary segment spans the whole 1.25-times-target edge. This is integer and real-number source reasoning only.",
+      "limits": "The public entry and garment build describe target_edge as an aim or resolution knob, not expressly a strict maximum. No supported physical producer with that ratio, generated mesh, seam, solver, visual effect or runtime behavior is established. The private helper documentation and actual stated product policy must be reconciled before treating this as a geometric defect. Original q614 covers broader mesh quality, but an exact alias is unproved.",
+      "future_direction": "Establish whether target is an approximate spacing or a hard maximum, including seam matching and tolerances. If hard, update the shared subdivision admission and count policy coherently; if approximate, correct the narrow helper documentation. Preserve seam correspondence and budget behavior; no implementation or validation performed."
+    },
+    {
+      "id": "QUESTION-CLOTH-SIGNED-AREA-DOCUMENTATION-95E",
+      "classification": "source-proven documentation discrepancy; consumer impact unknown",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+          "lines": [
+            [
+              50,
+              59
+            ]
+          ]
+        }
+      ],
+      "trace": "The public signed_area documentation says twice the signed polygon area, but the implementation multiplies the shoelace sum by one half, the conventional signed area. Sign and zero are unaffected; a consumer relying on the stated magnitude would have a factor-of-two expectation mismatch.",
+      "limits": "This is source arithmetic and public documentation comparison, not an executed computation. A scoped 95e text search found the same module tests call it; matching names in other modules do not establish a call to this function. External callers and intended contract are unknown.",
+      "future_direction": "Confirm the public return contract and correct documentation or the implementation at the owner as needed, preserving any valid area consumers; no change made."
+    },
+    {
+      "id": "Q-L11-311564a4d1d7c857a062",
+      "classification": "original q614 and rig admission questions independently revisited; no duplicate unique count",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/triangulate/mod.rs",
+          "lines": [
+            [
+              61,
+              79
+            ],
+            [
+              104,
+              150
+            ],
+            [
+              161,
+              184
+            ],
+            [
+              216,
+              252
+            ],
+            [
+              273,
+              301
+            ],
+            [
+              348,
+              410
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+          "lines": [
+            [
+              218,
+              228
+            ],
+            [
+              234,
+              277
+            ]
+          ]
+        }
+      ],
+      "trace": "Triangulate rejects fewer than three points, nonpositive target and NaN, then resamples, adds interior points and filters unconstrained Delaunay triangles by centroid. A centroid inside a concave polygon alone does not prove every point of the triangle is inside; the source contains no explicit constrained-edge check here. Public contains subtracts one from outline length, but the selected triangulate route first guards length at least three.",
+      "limits": "No output triangle, input polygon, arithmetic panic, geometry, fixture or solver was run. This logic does not prove an actual Delaunay triangle crossing a supported outline. Finite/simple-outline contracts, allowable target infinity, numeric scale, resource/vertex-width limits and actual producer/solver boundaries remain open; public direct contains callers are separate."
+    },
+    {
+      "id": "Q-L11-84366f72527a3a826889",
+      "classification": "historical q615 canonical topology and native mesh dependencies, bounded support only",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/topology.rs",
+          "lines": [
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-cloth/src/garment/mod.rs",
+          "lines": [
+            [
+              1,
+              17
+            ],
+            [
+              271,
+              296
+            ],
+            [
+              306,
+              315
+            ],
+            [
+              335,
+              343
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-shell/src/topology.rs",
+          "lines": [
+            [
+              10,
+              17
+            ],
+            [
+              31,
+              38
+            ],
+            [
+              45,
+              83
+            ],
+            [
+              94,
+              125
+            ],
+            [
+              161,
+              166
+            ]
+          ]
+        }
+      ],
+      "trace": "The cloth topology role re-exports the canonical shell topology. Garment build carries triangulation output into mesh positions/triangles and derives edges and bends, omitting None bending weights; shell derives unique sorted edges, one-triangle boundaries and two-triangle bends, and indexes positions when computing vertex masses.",
+      "limits": "No geometry or solver ran and shell 191\u2013427 is outside this packet\u2019s personal support. Retain original supplier and /root/mhr_character separate full reads and existing SHELL-BENDING-SCALE-CUTOFF; no exact-alias or ordinary supported small hinge claim is inferred."
+    }
+  ],
+  "nonfindings": [
+    "A one-line topology re-export identifies the real owner; it is not by itself a duplicate implementation or deprecated compatibility fallback.",
+    "The selected triangulate path protects internal contains and interior_points from empty outlines; the distinct public direct contains API is not thereby fully admitted.",
+    "Each generated boundary chain starts with a previously created endpoint and has at least one segment by construction under representable finite/resource assumptions; no ordinary previous-chain empty unwrap is established.",
+    "The algorithm keeps input winding so seam edge numbering remains stable; reverse winding is not treated as automatically erroneous.",
+    "Equal-name or same-unit types elsewhere are not presumed identical semantic owners."
+  ],
+  "open_questions": [
+    "Is target_edge an upper bound or an approximate density target, and what seam-matching and resource behavior must follow?",
+    "What actual supported producer inputs guarantee finite simple polygon topology, safe segment/point counts and u32 index capacity?",
+    "Can a supported concave outline lead unconstrained Delaunay plus centroid filtering to an invalid crossing, and which boundary owner verifies or rejects it?",
+    "What consumers rely on exact signed-area magnitude and does its public documentation need correction?",
+    "What direct callers use public contains on empty input, and what API admission contract do they expect?",
+    "What are the current shell/native solver, scale, mass and alias obligations after triangulation?"
+  ],
+  "recovery_qualification": "These assigned sources are pr-working, not physical-p16. Later separately linked P16 tracked-patch recovery and untracked objects preserve their own identities; they do not alter source or historical authorship or transfer evidence into checkpoint3821. Original 3821 ledger and queue remain unrecovered.",
+  "evidence": {
+    "registration": "registration.json",
+    "read_receipt": "read-receipt.json",
+    "support_registration": "support-registration.json",
+    "git_proofs": "git-proofs.json",
+    "historical_manifest": "historical-manifest.json",
+    "reconstructed_059_selection": "historical/059-selected-records-reconstructed.json"
+  },
+  "constraints": "Source inspection, mathematical reasoning and evidence verification only. No product/source/publication edits, geometry execution, repairs, builds, tests, simulations, fixtures, runtime probes or product validation.",
+  "thirteen_lenses": {
+    "producer-propagation": "Selected garment builder prepares segment counts and routes panel geometry into triangulation, then into shell topology and mass; other producer and solver owners remain open.",
+    "existing-type-owners": "Cloth topology re-exports fabelgeist_shell topology; do not invent another owner or transfer canonical-body credit from the re-export.",
+    "admission-contracts": "Selected triangulate guard rejects short outlines, nonpositive and NaN target but not all nonfinite/simple/count states; public contains has its own admission policy.",
+    "invariant-operations": "Rounding produces target-sized approximate subdivisions, not the strict maximum in the helper comment; count/width arithmetic and supported budgets require policy.",
+    "aggregate-states": "PanelMesh vertices, triangles and chains must correlate; the generated path builds this relationship but public fields/default alone do not certify arbitrary mutations.",
+    "wrong-duplicate-owners": "Single shell topology owner supplies stretch/bend derivation; source identity and particular solver semantics stay separately traced.",
+    "redundant-authority": "Garment and fallback triangulation independently round segment counts; their combined contract and seam raises require a common resolution policy, but duplication alone is not a new finding.",
+    "behavior-preservation": "Keep input edge order and seam correspondence across any future refinement; preserve documented legal empty/default and nonmanifold behavior once actual policies are decided.",
+    "enum-state-shape": "Default empty mesh represents an intentional low-level outcome, whereas garment build has error returns for selected invalid target and seams. No universal enum replacement is inferred.",
+    "derivability": "PanelMesh derives Default and clone/debug; manual geometry math, loop state and numeric tolerance have algorithmic semantics and are not equivalent to trivial derives.",
+    "granularity": "Panel vertex indices, edge-chain indices, geometry coordinates and target length have distinct semantic units and owners; exact typing must follow the checked geometry boundary.",
+    "raw-strings": "The inspected triangulator exposes no runtime semantic string API; caller errors are diagnostic text, with reason taxonomy outside this bounded scope.",
+    "raw-primitives": "Target length, clearances, dimensional area thresholds, Delaunay scales and u32 index limits have different units and purposes; thresholds need actual error budgets rather than blanket constant replacement."
+  }
+}

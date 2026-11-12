@@ -1,0 +1,14 @@
+{
+  "schema": "726-recovery-verification-record-v1",
+  "published_commit": "b644224f26be0293b4466b535397145e17b0ea64",
+  "remote_branch": "codex/726-audit-baseline-20261110",
+  "method": "Coordinator fetched the published branch, checked out the exact commit in a separate recovery checkout on the same machine and ran check_published_evidence.py.",
+  "evidence_only_log": "RECOVERY-VERIFICATION-B644224F.log",
+  "log_sha256": "1073ed53bcfb997675d871a5a9a20acc60d3392e660540965af9e9d24aad9630",
+  "log_bytes": 73986,
+  "log_lines": 1012,
+  "exit_status": 0,
+  "qualification": "The log does not embed the checkout commit ID. The coordinator separately observed HEAD and the successful command; the transcript hash proves only its bytes. This is same-machine recovery verification, not independent-machine attestation, source-audit completion, implementation or product validation.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}
