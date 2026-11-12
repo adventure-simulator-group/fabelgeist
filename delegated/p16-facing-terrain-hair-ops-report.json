@@ -1,0 +1,160 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "created_utc": "2026-11-11T23:45:17.104429+00:00",
+  "author": "/root/hair_ops",
+  "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "p16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+  "snapshot_qualification": "The original P16 snapshot was dirty. Both role objects independently equal a120 clean-base and 95e blobs, and match the later live P16 file; no whole-snapshot clean claim. The previously reproduced git diff --binary HEAD stream matched recorded patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, was not retained as a patch file and is not proof of the historical command. Seven untracked files separately hash-matched in the earlier live comparison.",
+  "registrations": [
+    "registration.json",
+    "support-registration.json",
+    "support-registration-2.json",
+    "coordinates-registration.json"
+  ],
+  "read_receipt": "read-receipt.json",
+  "git_membership_evidence": "git-proofs.json",
+  "historical_manifest": "historical-manifest.json",
+  "source_roles": [
+    {
+      "index": 2579,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "recorded_snapshot": "pinned-native-dependency",
+      "p16_sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "p16_lines": 116,
+      "historical_full_personal_range": [
+        [
+          1,
+          116
+        ]
+      ],
+      "current_full_personal_range": [
+        [
+          1,
+          116
+        ]
+      ],
+      "both_bodies_separately_displayed": true,
+      "old_material": [
+        [
+          15,
+          70
+        ]
+      ],
+      "earlier_reviewer": "camera 774 admission03",
+      "qualification": "Original source_id/path identify physical-p16, while the original registry snapshot field says pinned-native-dependency; preserve the inconsistency."
+    },
+    {
+      "index": 2580,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "recorded_snapshot": "physical-p16",
+      "p16_sha256": "6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "p16_lines": 51,
+      "historical_full_personal_range": [
+        [
+          1,
+          51
+        ]
+      ],
+      "current_full_personal_range": [
+        [
+          1,
+          51
+        ]
+      ],
+      "both_bodies_separately_displayed": true,
+      "old_material": [
+        [
+          1,
+          51
+        ]
+      ],
+      "earlier_reviewer": "camera 774 admission03",
+      "qualification": "Original camera ADDITIONAL-007 records actual read 1\u201351 but explicitly awards no source coverage; do not turn it into coverage or later-lens credit."
+    }
+  ],
+  "observations": [
+    {
+      "id": "SUPPORT-TERRAIN-MANIFEST-RAW-GEOMETRY-Q133",
+      "classification": "Connected consumer of existing 059 ADLER-L11-TRAVEL-GEOMETRY-POINT-ADMISSION; not a new unique defect",
+      "source_trace": [
+        "95e world-schema/src/lib.rs:1778\u20131807 exposes public i32 TravelGeometryPoint fields and derives Deserialize; longitude() and latitude() reconstruct checked axes then expect. coordinates.rs:58\u201375,99\u2013115 bounds latitude and longitude, including longitude maximum 1,800,000,000 E7.",
+        "95e terrain/src/lib.rs:332\u2013345 decodes Manifest then calls validate_manifest before package digest equality; validate_manifest:948\u2013978 passes finite, ordered bounds to terrain_feature::validate.",
+        "95e terrain/src/terrain_feature.rs:15\u201335 validates a non-geology feature by id, count and nonduplicate adjacent geometry, then calls point.longitude()/latitude() for bounds checks; schema/src/terrain_feature.rs:8\u201327 supplies fault trace geometry."
+      ],
+      "conditional_witness": "A hypothetical mapped-fault trace with a nonempty short ID, two unequal points, the first within manifest bounds and a second longitude_e7 of 2,000,000,000 (valid i32 but not valid LongitudeE7), together with otherwise qualifying manifest fields, reaches a getter expect before the helper can return a validation error. The current published world-schema assessment independently traces pinned serde numeric map decoding and another world-validation consumer; this packet does not itself execute or re-read that native serde proof.",
+      "limits": "Conditional source reasoning only: no crafted data, manifest write, JSON decoding, loader, getter, panic, test or product ran; actual producer inputs and reachability remain unproved. It follows the same first failure as q133 even though the terrain pack is a further consumer.",
+      "historical_relationship": [
+        "059 q133, original Adler READ-L11-340, and 95e ASSESSMENT-WORLD-SCHEMA-ADMISSION-95E identify the unchecked point admission and another consumer.",
+        "774 camera CAMERA-ADM03-042 personally read the terrain feature helper and identified point definitions as an unresolved separate obligation; it did not establish the exact getter failure.",
+        "No source-read credit, reviewer identity, historical revision, accepted unique count or checkpoint3821 is transferred."
+      ],
+      "connected_future_direction": "After completed discovery and authorization, use the existing checked WGS84 axis owners at all point construction/decoding paths or perform a fallible admission before infallible getters; preserve the intended valid E7 wire and geographic bounds and return meaningful invalid-data errors. Coordinate all consumers before repair.",
+      "open_questions": [
+        "Supported manifest ingress and caller trust policy; all point construction and mutation routes; actual serializer feature graph; alias reconciliation across the independent world and terrain consumers; error ownership."
+      ]
+    },
+    {
+      "id": "SUPPORT-WEAPON-FACING-REASON-059",
+      "classification": "Existing facing error ownership questions, not a new unique finding",
+      "source_trace": [
+        "95e facing.rs:15\u201350 resolves opposed_to via resolved_id, rejects missing targets, unsupported directional shapes and cycles, and treats no opposed target as the own-direction mode.",
+        "recipe/mod.rs:136\u2013163,216\u2013222 selects explicit id, then label, then generated component index. recipe/validation.rs:150\u2013166 validates uniqueness before mapping every facing error into RecipeError::Facing.",
+        "model/placement.rs:34\u201350 applies facing to a cloned recipe; 100\u2013110 inserts resolved IDs into that clone."
+      ],
+      "historical_relationship": [
+        "774 camera CAMERA-ADM03-REG-005 and BODY-PROOF retain its actual 15\u201370 P16 material read, with no fixture or whole-family credit.",
+        "059 lens12_frontier receipt READ-L12-712 separately records pr-working/6533 full facing body and q1797; TEAM021 connected source record records the extra physical-p16 view with its own exact ranges and attribution.",
+        "059 q2427/q2428/q2429 retain distinct cycle, missing-direction and missing-target reasons, and q2432 retains the coarse typed-context question. Different reasons share a category but are not automatically aliases."
+      ],
+      "policy_question": "Whether callers require machine-readable distinct facing causes or whether one RecipeError::Facing is sufficient remains open. The String-to-enum conversion is explicit source behavior and does not by itself prove a user-visible defect.",
+      "connected_future_direction": "After discovery, select one canonical identity and structured facing error owner as appropriate to supported consumers, preserving optional id/label/generated identity, valid absent opposed_to, cycle protection and clone semantics.",
+      "open_questions": [
+        "Exact consumer error requirements and aliases, ordinary recipe producer reachability, supported identity/label policies, all relevant geometry and holder callers."
+      ]
+    },
+    {
+      "id": "OPEN-GEOLOGY-WINDOW-PROVENANCE-059-Q1663",
+      "classification": "Prior geology provenance and admission question; no demonstrated bad product data",
+      "source_trace": [
+        "world-schema/src/geologic_window.rs:8\u201330 describes polygon-contained EPSG:3034 windows; is_valid checks ID, order and maximum side lengths, but has no polygon input.",
+        "terrain/src/terrain_feature.rs:21\u201324 delegates mapped geology to window.is_valid rather than treating projected metre bounds as geographic fault coordinates; world-import terrain_feature_validation.rs:14\u201349 does the same.",
+        "world-import geology/windows.rs:12\u201329,32\u201381,90\u201399 derives normal windows from settlement anchors and source polygon containment; tactical-server-dispatcher geological_landforms.rs:256\u2013295 checks projected footprint points against a window and selects its lithology."
+      ],
+      "policy_question": "The source compiler checks polygon containment, but a deserialized window is structurally checked without reaccessing the source polygon. Whether authenticated provenance, trusted compiler output or another authority is required at the actual package boundary is unresolved; no forged window, untrusted input, bad terrain result, polygon operation or data execution occurred.",
+      "historical_relationship": "059 q1663 already names upstream containment, source-package admission, native projection and mapped-material producer. 774 CAMERA-ADM03-042 names delegated GeologicWindow validation as a remaining obligation. No unique-count or alias determination is made.",
+      "connected_future_direction": "Trace the supported producer-to-package trust boundary and what provenance consumers require, keeping projected metres distinct from WGS84 fault coordinates and preserving legitimate absence of mapped coverage.",
+      "open_questions": [
+        "Actual package provenance and update policy, polygon dataset authority, whether derived windows must be tied cryptographically or procedurally to inputs, intended behavior for valid-but-outside-window data, all native consumers."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "The facing validator bounds component count and resolved-ID uniqueness before resolving direction dependencies; generated/label identities and missing opposed_to are supported, not bugs in themselves.",
+    "A mapped geology window uses EPSG:3034 metre rectangles, while fault traces use WGS84 points; the specialized validator branch is not evidence of an automatic geographic-bounds omission.",
+    "Both source fixture blocks were read as text only. No fixture, source parser, compiled package, renderer or runtime ran."
+  ],
+  "lens_perspectives": {
+    "1_producer_propagation": "Geographic point decode \u2192 fault trace \u2192 manifest \u2192 getter traced; full producer and feature provenance graph remains open.",
+    "2_existing_type_owners": "Existing LongitudeE7/LatitudeE7 provide checked axis owners; resolved weapon IDs and projected geology have separate owners.",
+    "3_admission_contracts": "Raw point admission can reach infallible getters under stated conditional gates; identity and geological window proof policies need further reachability.",
+    "4_invariant_operations": "Checked getters use expect on unchecked values; facing safely rejects cycles and uses typed finite offset constructor; downstream arithmetic untraced.",
+    "5_aggregate_states": "Manifest feature sorting and terrain bounds are correlated; compiler polygon containment and package source provenance remain separate assumptions.",
+    "6_type_ownership": "Do not merge geographic coordinate, projected window and recipe identity owners; error reason ownership remains open.",
+    "7_redundant_authority": "Compiler containment proof versus deserialized window structural checks raise conditional authority question q1663.",
+    "8_behavior_preservation": "Both exact role objects match a120 and 95e; that file equality does not imply all P16 behavior or whole snapshot equality.",
+    "9_enum_shapes": "MappedFault/MappedGeology express distinct coordinate forms, Direction closed polarity and absence of opposed_to are valid modes.",
+    "10_derivability": "Unchecked derive on public TravelGeometryPoint bypasses the checked constructor; other derives not exhaustively assessed.",
+    "11_type_granularity": "WGS84 E7 points, projection metres, IDs and directional polarity need domain-specific distinctions; no universal primitive ban inferred.",
+    "12_magic_strings": "Resolved ID fallback and facing error Strings have existing connected q2427\u2013q2432; do not assume exact prose is a stable contract.",
+    "13_magic_numbers": "Finite axis limits are already owned by checked coordinate types, terrain feature caps by schema; no new blanket bounds inferred."
+  },
+  "historical_attribution": {
+    "774_camera": "Exact original source registrations, BODY-PROOF/additional-sources and CAMERA-ADM03-028/-042 retained under historical/. REG-007 originally prospective with source_coverage_awarded false; ADDITIONAL-007 separately records actual range 1\u201351 and also no source coverage. REG-005 actually 15\u201370; test sections excluded from earlier P16 credit.",
+    "059": "Exact Adler READ-L11-340 and L12-frontier READ-L12-712/TEAM021 original receipts retained; queue rows are explicitly reconstructed selections from exact recovered queue. No reconstructed record or history is checkpoint3821.",
+    "95e_prior": "Existing terrain and world schema assessments are hash-linked; terrain_feature 1\u201351 was prior current support only, author unspecified in that assessment, with no ordered-role credit.",
+    "registry_mismatch": "Role2579 original registry snapshot is pinned-native-dependency while source_id/path and original camera registration identify physical-p16. Kept as originally recorded; object bytes match all independently inspected sources."
+  },
+  "remaining": "Full repository thirteen-lens populations, other support unread ranges, actual consumer reachability and alias reconciliation remain incomplete.",
+  "repair": "not started",
+  "validation": "not performed; no product, build, test, fixture execution, browser, renderer or runtime probe ran."
+}

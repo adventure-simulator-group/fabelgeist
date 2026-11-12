@@ -1,0 +1,252 @@
+{
+  "schema": "726-bounded-source-audit-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T23:35:58.002667+00:00",
+  "scope": {
+    "roles": [
+      2571,
+      2572
+    ],
+    "historical_snapshot": "pinned-cargo-bevy_reflect-0.19.1 native package, not project Git",
+    "current_project_pin": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "source_objects": {
+      "2571": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "2572": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d"
+    },
+    "personal_assigned_display": {
+      "2571": [
+        [
+          470,
+          605
+        ]
+      ],
+      "2572": [
+        [
+          850,
+          930
+        ]
+      ]
+    },
+    "personal_unread": {
+      "2571": [
+        [
+          1,
+          469
+        ],
+        [
+          606,
+          652
+        ]
+      ],
+      "2572": [
+        [
+          1,
+          849
+        ],
+        [
+          931,
+          1123
+        ]
+      ]
+    },
+    "registered_support": "Current lock lines2492\u20132520; two wrapper files 1\u201314; elapsed.rs 1\u201345,90\u2013110; unit_interval.rs 1\u201345,75\u201395. Exact bytes and unread complements in receipts.",
+    "exclusions": "No whole source file, package, original lens or ordered-role closure, no product validation or runtime execution. Other original or current reviewer coverage is not transferred."
+  },
+  "historical_attribution": {
+    "rig_774": "RIG-ADMISSION03-REGISTER-010/012 original reflect material 494\u2013496,504\u2013506,534\u2013540,547\u2013549,574\u2013576; REGISTER-011 type_registry material 881\u2013911. Later recovered rig records and RIG-ADMISSION03-REFLECTION-001 witness remain supplier rig evidence, not our read.",
+    "rig_pin_qualification": "Root044 pins earlier registration SHA c75d93513422266bff64a096b243766fbd002d346f1d8c3c5b58f54af25ba06c, but recovered later file first13 SHA 442704cfbcdb6f971a06981c68f1442451ccbd9eb7e039dfda32e5d639a772d9 differs. First13 qualification SHA 70717aa1c0908935341afa5297937f1bf79513146453c1328076848d00e94e53 matches root044. Completion112 earlier registry pin 698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1 differs from later complete registration SHA 24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb. Earlier bytes not recovered in the bounded ae46/28ba search; no global absence assertion or substitution.",
+    "059_l11": "READ-L11-422 /root/segovb fresh exact original material ranges, with prospectively registered SEGOVB-1478/1479.",
+    "059_l12": "READ-L12-873 adopts /root/lens12_frontier prospective fresh reflect 489\u2013506,534\u2013560,574\u2013576; type_registry 881\u2013919; separate connected REGISTRATION-628 and receipt for reflect 584\u2013586; root personal rereads empty. Lock receipts separately read dirty P16 and 6533 clauses; P16 lock source is dirty archived bytes at f82 transport, never a120 clean commit.",
+    "prior_current_packet": "Roles 2565\u20132566 separate opaque/common package review /root/mhr_character in prior-reflect-opaque-common; its independently registered project and native reads retain original attribution and do not become new reads here.",
+    "queue": "Original Q2332 L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS remains open-source reconciliation across wider families; these facts do not close it or create an automatic alias.",
+    "credit": "Original historical roles, scopes, reviewers and revisions remain as recorded; no checkpoint3821 promotion or closure."
+  },
+  "assessments": [
+    {
+      "id": "NATIVE-ANY-EXACT-REFLECT-TYPE",
+      "kind": "bounded nonfinding, no new issue counted",
+      "contract": "PartialReflect try_downcast_ref/mut first obtain Reflect; dyn Reflect downcast_ref/mut invoke Any downcasts. Box downcast compares its as_any type ID, then downcasts into_any and take unboxes the typed result. A nonmatching type is returned as Err/None on these shown paths. The represented type of a dynamic value may differ from its stored concrete type.",
+      "condition": "A mutable reference to a checked type is not proof that all public mutation operations preserve its invariants. The boxed path unwrap assumes a coherent Reflect implementation whose as_any and into_any expose the same underlying type; custom/malicious implementations were not traced. Actual caller, dynamic types, unsafe or custom adapters and aggregate state remain open.",
+      "future_direction": "Where an actual mutation consumer is found, trace its concrete type and permitted operations; retain native type identity and explicit mismatch handling without assuming generic reflection failure or a universal guarantee.",
+      "source_refs": [
+        {
+          "source_kind": "native-package",
+          "package": "bevy_reflect",
+          "version": "0.19.1",
+          "path": "src/reflect.rs",
+          "lines": [
+            [
+              470,
+              485
+            ],
+            [
+              494,
+              506
+            ],
+            [
+              534,
+              549
+            ],
+            [
+              554,
+              565
+            ],
+            [
+              574,
+              585
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NATIVE-REFLECT-DESERIALIZE-TYPED",
+      "kind": "bounded nonfinding and open registration condition",
+      "contract": "ReflectDeserialize::deserialize erases the deserializer then dispatches through the stored function. The standard FromType<T> implementation sets that function to T::deserialize and boxes the resulting typed Reflect, preserving errors. The function field is public, so this evidence does not establish that every possible ReflectDeserialize value was constructed by FromType<T>.",
+      "condition": "For a concrete registered type whose FromType-generated function is used, its own Deserialize owns admission; whether that standard function is actually registered/called and any custom function is authorized remains unproved. No macro expansion, feature activation or runtime operation was observed.",
+      "future_direction": "Trace concrete type registration, actual decoder and custom function construction if a material ingress is reached. Keep scalar and aggregate validation separate.",
+      "source_refs": [
+        {
+          "source_kind": "native-package",
+          "package": "bevy_reflect",
+          "version": "0.19.1",
+          "path": "src/type_registry.rs",
+          "lines": [
+            [
+              876,
+              911
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REFLECT-CHECKED-FIRST-PARTY-ROUTES",
+      "kind": "bounded source connection, no new issue counted",
+      "contract": "Current ReflectedAnimationElapsed and ReflectedUnitInterval declare opaque remote wrappers, transparent Serialize/Deserialize and reflected serialization metadata. Current AnimationElapsed and UnitInterval each declare serde try_from f32; their TryFrom methods call finite/nonnegative and finite/[0,1] constructors respectively. Together with the typed FromType source, this bounds the checked-Serde route when those traits and the standard registration are used.",
+      "condition": "These are declared code paths and checked scalar admissions, not evidence of macro expansion, runtime reachability, all constructors, arbitrary ReflectDeserialize func values, cross-field coherence, or valid inputs already fabricated elsewhere. Earlier opaque generator inspection is a separate prior packet and is not a new personal read here.",
+      "future_direction": "Preserve each semantic owner and trace the actual registered wrapper and consumer before alleging a supported bypass or general safety.",
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/elapsed_reflection.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/elapsed.rs",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ],
+            [
+              100,
+              104
+            ]
+          ]
+        },
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/unit_interval.rs",
+          "lines": [
+            [
+              9,
+              11
+            ],
+            [
+              23,
+              35
+            ],
+            [
+              85,
+              89
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "bevy_reflect",
+          "version": "0.19.1",
+          "path": "src/type_registry.rs",
+          "lines": [
+            [
+              876,
+              911
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NATIVE-PACKAGE-IDENTITY",
+      "kind": "evidence provenance",
+      "contract": "The current pinned Cargo.lock identifies bevy_reflect 0.19.1 and archive SHA 9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b; the archived package and assigned source members match the historical object SHA values byte-for-byte.",
+      "condition": "A locked package version is not a project Git snapshot, enabled feature set, build, invocation or evidence that the uninspected package body was read. Historical 6533 and dirty P16 lock receipts are separately attributed to frontier.",
+      "future_direction": "Use the native package checksum and actual material source identities in connected ledger reconciliation, without inferring whole-package coverage.",
+      "source_refs": [
+        {
+          "source_kind": "current-lock",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "Cargo.lock",
+          "lines": [
+            [
+              2492,
+              2519
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Ordinary native FromType<T> reflect deserialization does not by itself bypass concrete T::deserialize.",
+    "Typed Any identity and checked scalar Serde are bounded evidence only; neither proves safety of all later operations.",
+    "No supported current application defect is established solely by these native helper sources."
+  ],
+  "open_questions": [
+    "Which actual current reflection registries construct ReflectDeserialize via FromType versus its public func field, and which decoders invoke them?",
+    "Which concrete current reflective mutation consumers can obtain and operate on these typed values?",
+    "Do unexamined constructors, operations, unsafe/custom implementations, feature activation, and aggregate state preserve their own invariants?",
+    "How should Q2332 and older witness map to independently discovered application-specific issues? Central reconciliation required."
+  ],
+  "perspectives": {
+    "producer-propagation": "Typed native conversion passes T::deserialize output or an Any-checked type through; actual project registration/consumer is open.",
+    "existing-type-owners": "AnimationElapsed and UnitInterval provide distinct seconds and fraction admission instead of a generic scalar owner.",
+    "admission": "The FromType<T> function uses T::deserialize; public func allows other construction and must be scoped by a real registration/caller.",
+    "invariant-operations": "A mutable typed downcast does not itself prove every mutating operation preserves validity.",
+    "aggregate-states": "Typed scalar admission does not prove independent fields or lifecycle invariants.",
+    "type-ownership": "Native crate provides reflection dispatch while first-party scalar types own their respective checks.",
+    "redundant-authority": "No duplicate retained semantic scalar authority is demonstrated in these bounded snippets; adapter generation remains separately reviewed.",
+    "behavior-preservation": "The shown matching, mismatch, reference and error paths are source contracts; no executed behavior or universal safety claim follows.",
+    "enum-shapes": "No application enum representation conclusion follows from these bounded native and scalar source ranges.",
+    "derivability": "These adapter and trait signatures do not establish removable first-party handwritten boilerplate.",
+    "type-granularity": "A stored concrete Any type is distinct from a dynamically represented type, and finite seconds differ from a bounded fraction.",
+    "magic-strings": "The lock registry source/checksum and Serde trait/error adapters are external protocol metadata, not demonstrated application string classifiers.",
+    "magic-numbers": "Zero, nonnegative seconds and fraction endpoints reflect separate checked contracts; arbitrary numeric owners and upstream values remain unreviewed."
+  },
+  "limitations": "Source inspection and evidence integrity verification only. No product execution, implementation, build, test, runtime probe, rendering, macro expansion or validation."
+}

@@ -1,0 +1,445 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T23:13:32.734838+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2560
+    ],
+    "historical_snapshot": "pr-working, 6533 HEAD plus unrelated dirty paths",
+    "historical_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Fresh analysis of personally displayed bodies and registered support only; thirteen perspectives are partial, no whole-lens claim, prior reader transfer, historical count modification, or checkpoint3821 promotion."
+  },
+  "source_identity": {
+    "qualification": "Original model.rs 9328 bytes, blob fd643960adbae75d12f87a7aeb898a2db3fbf3f0, SHA-256 f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408. Recovered f82 object, 6533 and 95e per-file bodies are byte-identical. Snapshot registry records 6533 HEAD and four staged/unstaged/untracked paths relative to base 3a50b708381ad00c116445c2c999a49c3943088b, with patch hash dba7a85bb2105ccdf0587c4713fdc2a33b374600457f5c05e9c5f29d087193b1; per-file equality does not establish whole-snapshot cleanliness. f82 is a transport, not the pr-working source revision.",
+    "material_scope": "Original admission discovery material 1\u2013169, excludes sibling reexports 170\u2013199 and fixtures 200+. Both 6533 and 95e full 1\u2013331 independently displayed here in windows 1\u2013120, 121\u2013220, 221\u2013331; fresh 170\u2013331 extension is not original material credit. f82 recovered body archived and byte verified, not separately displayed. Earlier /root/hair_ops current support 1\u201355 and 105\u2013135 separately preserved in prior_lighting support receipt."
+  },
+  "findings": [
+    {
+      "id": "BUILDING-CELL-NEIGHBOUR-PLAYER-BUILD-REFINEMENT",
+      "status": "Current source refinement of old SEGOVB-04-BUILDING-CELL-NEIGHBOR-ENDPOINT-CANDIDATE-001; no second unique defect count",
+      "first_contract": "Cell permits all signed i16 endpoints and Direction offsets include +1 and -1; neighbour adds in i16 without explicit exhaustion handling. The generator emits coordinates 0..width-1 with width at most i16::MAX, giving its own generated footprint a one-neighbour margin. A separate public player-build edit stores walls without that margin.",
+      "symbolic_source_trace": "From an empty PlayerBuildDocument, a horizontal DrawWall with start=(0,32768), end=(1,32768), a valid wall style and storey 0 passes square-grid/nonempty checks, stores a North wall with cell=(0,32767), and returns Ok. If the resulting document is used by setup_player_build_scene, freeform_wall_faces computes its North neighbour before classifying floor; that adds 1 to i16::MAX. Checked-overflow arithmetic fails at the addition. Editor edit-adapter records accepted documents and requests a rebuild; whether this specific point is reachable through ordinary UI input and whether a specific application configuration invokes it are not established. This is source and symbolic reasoning only.",
+      "historical_relation": "774 SEGOVB-INITIAL04-CONTRACT-614, author segovb, personally read historical pr-working model.rs 1\u2013331 and already named this endpoint candidate; it explicitly left player-build/max endpoint caller untraced. SEGOVB-INITIAL04-CONTRACT-315 had reviewed historical viewer scene 1\u2013420 but did not prove a detached arbitrary endpoint document. 059 /root/lens12_frontier role2560 at 6533 1\u2013169 noted the neighbour admission question without a runtime witness; segovb L11 independently read 1\u2013169. No finding identity or count is transferred. REVIEW-INTERIOR-FIELD-CELL-SPAN-001 concerns span subtraction/product and is related through Cell but has a different operation.",
+      "future_direction": "Decide supported signed coordinate/extreme policy at the shared Cell owner and player edit boundary; make adjacency overflow explicit or widen representation, preserve valid negative/zero coordinates and ordinary footprint directions. Reconcile first failure and actual consumer reachability before choosing a repair; later acceptance remains for authorized implementation.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model.rs",
+          "lines": [
+            [
+              12,
+              17
+            ],
+            [
+              19,
+              35
+            ],
+            [
+              110,
+              130
+            ],
+            [
+              140,
+              168
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/player_build.rs",
+          "lines": [
+            [
+              45,
+              68
+            ],
+            [
+              103,
+              140
+            ],
+            [
+              196,
+              258
+            ],
+            [
+              261,
+              265
+            ],
+            [
+              349,
+              350
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/editor.rs",
+          "lines": [
+            [
+              67,
+              97
+            ],
+            [
+              124,
+              139
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+          "lines": [
+            [
+              18,
+              25
+            ],
+            [
+              41,
+              55
+            ],
+            [
+              235,
+              266
+            ],
+            [
+              401,
+              413
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/viewer/editor_input.rs",
+          "lines": [
+            [
+              90,
+              98
+            ],
+            [
+              101,
+              127
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/viewer/editor_updates.rs",
+          "lines": [
+            [
+              1,
+              15
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+          "lines": [
+            [
+              2,
+              13
+            ],
+            [
+              180,
+              195
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CANDIDATE-PLAYER-WALL-ENDPOINT-COORDINATE-OWNER-NARROWING",
+      "status": "Fresh bounded candidate for central policy, historical alias and unique-count reconciliation",
+      "first_contract": "GridPoint owns fine lattice values, with 30 units per cell and metres conversion using CELL_SIZE_METRES/30. The wall edit accepts GridPoint endpoints but treats their i32 coordinates as whole-cell indices, and casts selected coordinates to i16 without representability checks. The editor producer itself divides snapped world metres by CELL_SIZE_METRES, confirming it supplies cell-scale counts under this nominal fine-grid owner.",
+      "symbolic_source_trace": "In an empty document, horizontal endpoints (0,0)\u2192(1,0) and (65536,0)\u2192(65537,0) are distinct i32 inputs yet the x as i16 conversion maps the respective one-cell walls to the same cell=(0,-1), North and same selector; separate documents avoid the duplicate-wall rejection. Inputs (32768,0)\u2192(32769,0) similarly retain x=-32768. If start.z=i32::MIN, subtracting 1 occurs before conversion and can fail under overflow checks. The ownership mismatch exists in the source signature and UI projection; no normal UI reachability at such distant points or execution outcome is claimed.",
+      "condition": "Whether caller-facing GridPoint endpoints are documented/intended as fine-grid positions or cell-grid boundary indices requires owner decision. Independently, support for full public i32 input versus explicit rejection remains unresolved; do not claim supported ordinary drag exhibits the extreme alias.",
+      "historical_relation": "774 RIG-INITIAL06-GROUP-382, author rig, compared model.rs 1\u2013169 and correctly distinguished canonical fine lattice GridPoint from Cell, without consumer body credit. 774 SEGOVB-INITIAL04-CONTRACT-614 observed representable neighbor endpoints but left the player-build caller untraced. This candidate concerns conversion and unit ownership before the neighbour operation; it is connected but first-failure equivalence and global aliases remain for central review. Existing REVIEW-EDITOR-LEGACY-PARTS-COMPATIBILITY-001 concerns a different legacy parts branch, not the semantic DrawWall arm.",
+      "future_direction": "Choose and encode a distinct cell-corner/whole-cell endpoint contract or explicitly convert checked fine-grid coordinates at the boundary. Reject unrepresentable offsets before mutation, preserve supported signed positions, intended geometry and typed errors; coordinate this boundary with the existing neighbour endpoint repair rather than adding a parallel authority.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model.rs",
+          "lines": [
+            [
+              12,
+              17
+            ],
+            [
+              19,
+              35
+            ],
+            [
+              110,
+              130
+            ],
+            [
+              140,
+              168
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/player_build.rs",
+          "lines": [
+            [
+              45,
+              68
+            ],
+            [
+              103,
+              140
+            ],
+            [
+              196,
+              258
+            ],
+            [
+              261,
+              265
+            ],
+            [
+              349,
+              350
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/editor.rs",
+          "lines": [
+            [
+              67,
+              97
+            ],
+            [
+              124,
+              139
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/viewer/editor_input.rs",
+          "lines": [
+            [
+              90,
+              98
+            ],
+            [
+              101,
+              127
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/viewer/editor_updates.rs",
+          "lines": [
+            [
+              1,
+              15
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+          "lines": [
+            [
+              18,
+              25
+            ],
+            [
+              41,
+              55
+            ],
+            [
+              235,
+              266
+            ],
+            [
+              401,
+              413
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-EDITOR-LEGACY-PARTS-COMPATIBILITY-001-SUPPORT",
+      "status": "Already assessed current finding, fresh bounded support only; no new unique count",
+      "first_contract": "PlayerBuildDocument explicitly retains a nonserialized compatibility-only public parts vector and obsolete edit variants despite the governing no-compatibility rule; generic Place is rejected while other parts variants mutate it.",
+      "historical_relation": "Prior exact current ASSESSMENT-L01-EDITOR-COMPAT-95E.json in publication commit 1813aa5b4492908db6b55e7fa34de3dce65684b4 owns this source-backed finding and broader actual UI/command trace. Here only personally displayed player_build 1\u2013360 and governing rule are support. The current assessment\u2019s bounded 059 search was no match and did not prove absence globally.",
+      "future_direction": "Keep prior finding and connected editor cleanup in the central ledger; remove obsolete compatibility paths only after audit completion and implementation authorization, preserving semantic assembly edits.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/player_build.rs",
+          "lines": [
+            [
+              30,
+              42
+            ],
+            [
+              45,
+              100
+            ],
+            [
+              103,
+              119
+            ],
+            [
+              298,
+              350
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "CellDiameter enforces a positive u16 via constructor and custom deserialization; grid-unit conversion rejects nonpositive, nondivisible and values beyond u16. Maximum u16 times 30 is 1,966,050, within i32. GridLength enforces strictly positive i32 and revalidates deserialization.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model.rs",
+          "lines": [
+            [
+              38,
+              108
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "RoundTower keeps anchor and diameter private, checks both x and z parity in constructor with rem_euclid, and routes custom deserialization through the constructor. This seals the inspected parity relation, not wall dimensions, chord fit, whole plan identity or roof acceptance.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+          "lines": [
+            [
+              293,
+              327
+            ],
+            [
+              329,
+              343
+            ],
+            [
+              362,
+              370
+            ],
+            [
+              372,
+              401
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Direction covers four cardinal offsets and reversals. GridPoint and Cell permit signed positions; negative and zero coordinates must not be rejected merely because lengths are positive.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model.rs",
+          "lines": [
+            [
+              19,
+              35
+            ],
+            [
+              110,
+              168
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Test module source 199\u2013331 was read as source only; it cannot establish executed validation. Roof graph and serialized room/storey member relationships belong their actual owners and cannot be closed from model.rs reexports.",
+      "references": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-building-generator/src/model.rs",
+          "lines": [
+            [
+              170,
+              199
+            ],
+            [
+              200,
+              331
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does any supported caller or ordinary UI interaction reach the endpoint requiring neighbour beyond i16, and is checked failure, exhaustion sentinel or wider key the intended architectural policy?",
+    "What are the explicitly supported player-build DrawWall endpoint units, full accepted range and resource limits for very long segments? How should conversion distinguish a cell corner from a fine lattice GridPoint?",
+    "What historic 059/774/global aliases are implicated by the semantic endpoint candidate beyond bounded searches? Central owns deduplication and future connected acceptance.",
+    "Does any other supported producer create plans wider than the generated footprint bound, for the distinct existing interior-field span question? No plan admission or runtime path has been exhaustively reviewed here."
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Editor maps world metres to whole-cell counts then names them GridPoint; semantic wall and neighbour consumers carry the resulting Cell. Inspect other public producers before assuming this is the only convention."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Cell and GridPoint already represent distinct units; compare an explicit cell-corner owner and checked conversion before introducing another primitive wrapper."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Diameter and GridLength constructor and deserialization revalidate; Cell and GridPoint deliberately admit full signed values, so operations and player wall endpoint policies must cover or explicitly reject boundary inputs."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Direct i16 neighbour addition is the existing 774 endpoint candidate; i32 subtract then unchecked narrowing in the player edit is a connected separate first operation. Full CellDiameter multiplication remains within i32."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "RoundTower anchor/diameter parity is jointly checked in construction and decoding. Wall cell/direction/room incidence and player document representability need their consuming boundary; type-correct fields alone do not certify a whole building."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Fine lattice point versus whole cell and diameter versus length have meaningful distinctions; using GridPoint for cell-scale DrawWall parameters creates a separate actual owner question, not an argument to merge all coordinate types."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "30 fine units and 1.5 metres per cell derive the fine scale in one place. The competing semantic unit of wall endpoints is a type/producer issue, not independently established duplicated source truth."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Any future change should preserve valid negative and zero coordinates, Direction opposite mapping, ordinary footprint adjacency and intentional freeform wall behavior. Inspection of test source is not executed evidence."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Direction is a four-case cardinal enum with exhaustive offsets/opposites; no payload ownership defect established from this bounded source. Player edit variants remain larger independent scope."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Custom deserialization of private positive length/diameter guards invariants; replacing it with derived deserialization would admit zero or negative values. Other derives may follow plain-record semantics."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Fine grid and whole-cell edit corner meanings are different even when both use signed integers. Preserve useful diameter divisibility and parity instead of collapsing all positions and lengths into one scalar."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Custom decoder prose and Direction snake_case grammar serve native error/serialization boundaries; no string identity defect established in the assigned scope."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "30 units/cell and 1.5 m/cell declare lattice scale, while +/-1 direction offsets have cardinal discrete meaning. Unchecked endpoint ranges and truncation need explicit policy, not mechanical wrapping of constants."
+    }
+  ],
+  "qualification": "Audit-only: source reading, hash/Git/manifest verification and symbolic reasoning. No implementation, product execution, build, test, browser, fixture simulation, runtime probe or product validation. Central owns cross-lens reconciliation, ledger and checkpoint publication."
+}

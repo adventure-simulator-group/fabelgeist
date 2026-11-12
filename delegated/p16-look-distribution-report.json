@@ -1,0 +1,460 @@
+{
+  "schema": "726-bounded-source-audit-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T23:13:45.784747+00:00",
+  "scope": {
+    "original_role": 2559,
+    "original_path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+    "original_material_ranges": [
+      [
+        157,
+        230
+      ],
+      [
+        669,
+        716
+      ]
+    ],
+    "original_exclusions": "No jump/locomotion/landing/other helper or fixture role, no whole-file credit.",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "old_snapshot": "physical-p16 dirty snapshot, base a120390947c89b703dc74c4255a13c035d054c50",
+    "full_object_bytes_do_not_imply_full_body_display": true,
+    "personally_displayed_old_and_current": [
+      [
+        1,
+        260
+      ],
+      [
+        535,
+        760
+      ]
+    ],
+    "unread_old_and_current": [
+      [
+        261,
+        534
+      ],
+      [
+        761,
+        1813
+      ]
+    ],
+    "other_sources": "11 support objects independently registered, bounded actually displayed windows and singleton navigation exposures in support-read-receipt.json."
+  },
+  "baseline_recovery": {
+    "historical_source_sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+    "current_source_sha256": "cff2ba2b0c2f60c6141f86f031ef8470e981c81a5a901febd350a24fcfdc69d3",
+    "history": "P16 dirty extracted object equals individual a120 and 6533 path bytes, and 039329518e264f19206cf5b0b98d177433f40c17 path bytes as separately recorded in the 059 L11 registration. f82 records the object and historical records as archive transport only, never a clean P16 source commit. Separate raw Git commit/tree proofs and exact bytes preserved in git-proofs.json.",
+    "patch": "Whole P16 patch recorded SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 is unrecovered. Central bounded search of 7156 patch/diff files <=100 MB in ae46 and 28ba target collections found no match, not global absence.",
+    "current_delta": "Old/current full object metadata comparison identifies 3 changed line spans; all were registered and personally displayed. Original look material 157–230/669–716 is unchanged. Old uses an eagerly collected bone GlobalTransform map; current initializes an optional map and gathers it on first eligible landing-foot use. The smoothstep production import also differs. Whole-file audit, landing semantic closure and runtime equivalence are not claimed."
+  },
+  "historical_attribution": {
+    "original_774": "CONT-CAMERA-OWNERDEF-PP-REG-001 explicitly registers physical-p16 material 157–230/669–716 under root authority; CONT-CAMERA-OWNERDEF-PP-F001 records raw semantic yaw/pitch pair propagation, with supplement 002 replacing earlier no-new-propagation wording only for this role. Nine completion-pinned hashes match; exact bytes and f82 archive Git proofs preserved. Root owner fixedpoint remains for that historical process; no automatic acceptance or checkpoint3821 credit.",
+    "admission_774": "CAMERA-ADM03-COV-0843 separately records its actual physical-p16 157–230/669–716 read, with CAMERA-ADM03-039 admission and native-invalid policy; preserved with original supplier, not transferred to current personal scope.",
+    "l11_059": "READ-L11-421 and REGISTRATION-SEGOVB-1465: /root/segovb fresh physical-p16 reads 157–230/669–716, and cites /root/adler READ-L11-185/REGISTRATION-ADLER-171 original role 1356 full 1–1813 in 6533 pr-working. The Segovb registration separately records git:039329518e264f19206cf5b0b98d177433f40c17 at this path; that per-file hash is independently proved. Same path/hash per-file bridge does not convert Adler’s different role or read into Segovb whole-file credit.",
+    "l12_059": "READ-L12-868 adopts /root/lens12_frontier fresh P16 reads of 157–230/669–716, matching proposal, registration, partial receipt and exact Windows qualification; root personal rereads empty. Historical pending-contracts/queue Q-L12-24ec01d299d573c6e7a0 remain open; no whole-lens closure.",
+    "prior_current": "prior-references.json hash-links separate /root/mhr_character animation and body-values-sampling packets and /root/hair_ops body-target packet; no attribution transfer or automatic alias."
+  },
+  "findings_and_questions": [
+    {
+      "id": "CONT-CAMERA-OWNERDEF-PP-F001",
+      "kind": "recovered historical raw-producer finding independently connected to current bounded source, no duplicate count",
+      "contract": "constrained_camera_look derives yaw and pitch from native camera and owner quaternion, divides each by checked LookDistribution, clamps each to the joint limit, then retains the semantic pair as raw Vec2 through guarded_camera_look Option and owner_look BTreeMap to the native Euler quaternion. The checked divisor remains typed; it is not an already checked angle erased by this result.",
+      "condition": "Source-level semantic propagation candidate, not a demonstrated runtime failure. Raw native CharacterLook or owner quaternion may carry policies not established by the checked divisor. In particular, the server input route below checks and normalizes a player look request but does not prove every possible local/external producer or owner rotation valid.",
+      "future_direction": "Compare existing candidate owners and explicitly model the actual derived yaw/pitch pair if its policy fits; preserve guard and posture gating, rear-hemisphere folding, divide-then-clamp order, fractional positive divisor, raw native NaN/Inf behavior and quaternion adaptation. Do not assume a finite-only Radians owner is compatible or create a duplicate owner without decision. Central owns identity and ledger.",
+      "relationships": [
+        "Exact 774 F001 and CAMERA-ADM03-039/COV-0843 historical records survive separately, earlier supplier attribution and root owner decision remain; 059 L11 and L12 original-role bounded reads are distinct and found no historical new finding in these receipts. Q-L12-24ec01d299d573c6e7a0 remains related, not proven identical."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "lines": [
+            [
+              157,
+              226
+            ],
+            [
+              669,
+              715
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "lines": [
+            [
+              29,
+              32
+            ],
+            [
+              126,
+              139
+            ],
+            [
+              170,
+              174
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "lines": [
+            [
+              14,
+              18
+            ],
+            [
+              53,
+              64
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "lines": [
+            [
+              96,
+              107
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "lines": [
+            [
+              8,
+              13
+            ],
+            [
+              80,
+              92
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CURRENT-LOOK-PLAYER-INPUT-PARTIAL-TRACE",
+      "kind": "current source nonfinding and open owner-admission question",
+      "contract": "PlayerInputRequest carries Vec2 look. Client samples CharacterLook yaw/pitch, while the inspected server input handler rejects nonfinite look, normalizes yaw by rem_euclid, clamps pitch, constructs Radians and writes both into CharacterLook. CharacterLook is replicated and is a Bevy Ahoy type reexported via core.",
+      "condition": "This establishes one accepted server input route only. Local controller updates, other writers, scheduling, non-player sources and complete owner-Transform/quaternion ingress were not inspected; no claim that all observed native quaternions/angles are finite or that a bad one reaches rendering.",
+      "future_direction": "Record actual producers and ownership boundaries before imposing narrower numerical admission. Preserve the existing finite server input check and angle normalization where it applies.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+          "lines": [
+            [
+              66,
+              82
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+          "lines": [
+            [
+              626,
+              650
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "lines": [
+            [
+              208,
+              227
+            ],
+            [
+              1086,
+              1095
+            ],
+            [
+              1173,
+              1178
+            ],
+            [
+              1373,
+              1408
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+          "lines": [
+            [
+              25,
+              45
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/lib.rs",
+          "lines": [
+            [
+              138,
+              147
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "lines": [
+            [
+              170,
+              186
+            ],
+            [
+              693,
+              715
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CURRENT-LOOK-RESTORE-AND-CAP",
+      "kind": "bounded current nonfinding",
+      "contract": "The procedural pass obtains current owner local Transform rotation, gates camera aim on raised guard and no posture transition, clamps distributed yaw/pitch to a configured nonnegative angular magnitude, retains the pre-look rotation and restores it before the apply pass in the chained PostUpdate schedule.",
+      "condition": "This trace excludes nonfinite native input, incomplete entity lifecycles and arbitrary scheduling beyond the displayed chain. Division by a positive very small divisor can yield infinity for finite nonzero angle, but subsequent finite joint-limit clamping is directly present; the separate BodyAngle-before-clamp acceleration finding is not automatically this operation.",
+      "relationships": [
+        "059 Adler READ-L11-185 made the prior look/base restoration and fixed-tick readiness qualifications; this is independent current bounded source observation, not transferred review credit."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "lines": [
+            [
+              138,
+              148
+            ],
+            [
+              157,
+              226
+            ],
+            [
+              669,
+              715
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "lines": [
+            [
+              70,
+              94
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "lines": [
+            [
+              126,
+              139
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "lines": [
+            [
+              96,
+              107
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "lines": [
+            [
+              80,
+              92
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CURRENT-FIXED-TICK-POSE-CACHE-READINESS",
+      "kind": "previously noted conditional capture-readiness question, no duplicate count",
+      "contract": "FixedTickPoseCache stores each currently queried MhrBone entity and Transform when the fixed tick changes, restores only cached entities on later renders at that tick, and clears whenever no fixed clock step is present. The bank key records tick and entity, not topology readiness or asset revision.",
+      "condition": "A repeated fixed-tick evaluation must occur while a required bone or actor appears or changes identity after initial capture and before another invalidating clock state. The actual capture readiness/clock/asset lifecycle was not traced here. Live clock unset bypasses this path by source comment and branch; no ordinary live failure asserted.",
+      "future_direction": "Relate capture readiness and asset/rig lifecycle to first complete sample before deciding whether invalidation, readiness gate or explicit pose identity is required.",
+      "relationships": [
+        "Prior Adler READ-L11-185 recorded this exact readiness qualification; related separately authored P17 capture evidence is not claimed as this packet’s personal read."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "lines": [
+            [
+              81,
+              85
+            ],
+            [
+              107,
+              135
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "lines": [
+            [
+              70,
+              94
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "CURRENT-LANDING-LAZY-GLOBAL-SNAPSHOT",
+      "kind": "bounded changed-source observation and open question",
+      "contract": "Old P16 source gathers every bone GlobalTransform before rig iteration; 95e initializes an optional map and materializes it on first eligible foot after rig and segment guards. Both use stored GlobalTransform observations for the foot target; other displayed work mutates local Transform via a separate query and the plugin chain runs before transform propagation.",
+      "condition": "Within the inspected body/query signatures the lazy change avoids collection on frames without an eligible foot; actual helper internals, external side effects, rig topology assumptions, identity validity and full landing semantics are outside this read. No equivalence or regression finding is claimed.",
+      "relationships": [
+        "This source change is outside original role 2559 material and cannot be recast as historical landing review; Adler READ-L11-185 previously recorded landingframe/partial-side conditions, not a present new failure."
+      ],
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "lines": [
+            [
+              535,
+              565
+            ],
+            [
+              566,
+              628
+            ],
+            [
+              662,
+              665
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+          "lines": [
+            [
+              70,
+              94
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "LOOK-DIVISOR-AND-BONE-COUNT-POLICY",
+      "kind": "open aggregate contract question",
+      "contract": "The configured field is named guarded_look_joint_count, but LookDistribution deliberately accepts any finite strictly positive fractional divisor. The resulting offset is applied to Head and NeckOne roles; the separate directional yaw has six per-role weights.",
+      "condition": "Whether the scalar denotes a physical count, a calibration divisor, an expected total angle, or another authored policy is not proved by the name. The runtime supports fractional values by design and quaternion composition need not be naively additive. No mismatch or defective value asserted.",
+      "future_direction": "Establish the actual intended distributor and geometry/rig contracts before changing types, counts, bounds, weights or operation order.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+          "lines": [
+            [
+              191,
+              217
+            ],
+            [
+              693,
+              715
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+          "lines": [
+            [
+              29,
+              32
+            ],
+            [
+              126,
+              139
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "lines": [
+            [
+              14,
+              18
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "lines": [
+            [
+              96,
+              107
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Finite strictly positive LookDistribution admits fractional values and does not promise a finite raw result for every native radian input; checked_nonnegative rejects NaN/Inf and zero is rejected separately.",
+    "Native look division is followed by a joint clamp before Euler conversion; do not infer the BodyAngle-before-clamp overflow path applies here.",
+    "Gate-disabled or missing owner/irrelevant bone modes use Option/continue in the shown source; no error-erasure defect demonstrated.",
+    "The individual old and current original look material ranges are text-identical; the full historical P16 and current files have different hashes and three changed line spans.",
+    "Player-input finite checks establish only one producer path, not complete CharacterLook/transform ingress.",
+    "Source-only test navigation lines are listed as singleton exposures; no test, fixture or runtime behavior was executed."
+  ],
+  "perspectives": {
+    "producer-propagation": "Historical F001 is still visible: semantic derived yaw/pitch pair crosses first-party helper, Option and retained owner map before native quaternion port; checked divisor itself is preserved.",
+    "existing-type-owners": "Compare angle-pair needs to existing scalar angle types with distinct units and finite policies; no name-only owner selection.",
+    "admission": "LookDistribution accepts finite positive fractional divisors; angle limit accepts finite nonnegative degrees. Player server path independently checks and normalizes native input; remaining source paths are open.",
+    "invariant-operations": "Keep atan2 rear fold, divide-then-clamp and final quaternion multiplication/normalization order. NaN/Inf at raw native boundary and tiny divisor are distinct from checked body-angle admission.",
+    "aggregate-states": "The apparent divisor count and the actual two recipient bone roles form a policy question; fixed tick, cached entity map and rig readiness form another, with no demonstrated live failure.",
+    "type-ownership": "The derived look pair and checked config divisor have different authority and semantics; avoid conflating them with world direction, body response angles or a generic finite scalar.",
+    "redundant-authority": "Retained look base is explicitly restored before the next look pass. FixedTickPoseCache captures a separate presentation-wide pose whose readiness and entity lifecycle still require a capture owner trace.",
+    "behavior-preservation": "Exact old/current look windows match while landing snapshots changed eager to lazy. Preserve raw native invalid behavior and original functional order; no blanket current equivalence claim.",
+    "enum-shapes": "WeaponGuardState and optional PostureTransitionState explicitly control the look mode; absent aim and missing bones are distinct options, with no proved better enum migration.",
+    "derivability": "Displayed typed scalar constructors use real finite and nonzero checks; no removable hand-written conversion or serialization proved here.",
+    "type-granularity": "Fractional divisor, degree magnitude, signed yaw/pitch and pose rotation answer different questions. Enforcing an integer joint count or finite-only angle pair would require policy evidence.",
+    "magic-strings": "Bounded look body has no semantic string dispatch; landing warning and telemetry tags are native diagnostics, not a proven bespoke identity.",
+    "magic-numbers": "Six action-yaw role weights, 0.35 multiplier, joint limit, signed rear fold and two neck/head recipients serve different roles; contextual review is required before changing weights or constants."
+  },
+  "open_questions": [
+    "Which current producer paths can supply CharacterLook and owner Transform beyond the validated player-input route, and what numerical policies are intended?",
+    "Does the historical F001 pair have a suitable existing owner with the same NaN/Inf and normalization behavior, or should its explicit policy remain open?",
+    "What exact authored meaning and supported values does guarded_look_joint_count have relative to two recipient bones and joint limits?",
+    "Can fixed-tick samples repeat across entity topology or asset changes without passing a clearing clock boundary, and what capture readiness contract applies?",
+    "What rig/helper constraints and full lifecycle prove or disprove equivalence of lazy and eager landing snapshot collection?",
+    "All old/current unread assigned complements, other support complements, queue obligations, cross-lens aliases, ledger and product validation remain open."
+  ],
+  "constraints": "Only source inspection, mathematical reasoning and evidence integrity/Git verification; no product/source edits, implementation, builds, tests, fixtures, product execution, viewers, probes, simulations or runtime/product validation."
+}

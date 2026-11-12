@@ -1,0 +1,530 @@
+{
+  "schema": "726-bounded-source-audit-report-v1",
+  "author": "/root/mhr_character",
+  "written_utc": "2026-11-11T23:39:23.658369+00:00",
+  "scope": {
+    "roles": [
+      2575,
+      2576
+    ],
+    "historical_snapshot": "native-dependency serde-saphyr-1.2.0 (not a project Git revision)",
+    "current_project_pin": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_pr_working_base": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "source_objects": {
+      "2575": "72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+      "2576": "cf724ec89b4f506fa46193c9b2c1917b43356e02a342f11c9ccf45483dc3bebb"
+    },
+    "personal_assigned_display": {
+      "2575": [
+        [
+          475,
+          525
+        ],
+        [
+          570,
+          675
+        ],
+        [
+          970,
+          1000
+        ]
+      ],
+      "2576": [
+        [
+          260,
+          350
+        ]
+      ]
+    },
+    "personal_assigned_unread": {
+      "2575": [
+        [
+          1,
+          474
+        ],
+        [
+          526,
+          569
+        ],
+        [
+          676,
+          969
+        ],
+        [
+          1001,
+          2941
+        ]
+      ],
+      "2576": [
+        [
+          1,
+          259
+        ],
+        [
+          351,
+          699
+        ]
+      ]
+    },
+    "project_support": "Current config 95e all 404 lines and 6533 config all 414 lines, personally displayed after registration in chunks; 6533 body matches original registry role1530, while broader pr-working snapshot has unrelated modifications and is not claimed clean. Current changes remove GrassShadowTiers and casts_shadows but leave the two validation predicates unchanged.",
+    "native_support": "Independently registered narrow api/options/with_deserializer/Cfg reads are source support only, not ordered role credit; receipts preserve exact spans and complements.",
+    "exclusions": "No whole native file/package coverage, no whole-lens or ordered-role closure; prior reviewers keep their own credit."
+  },
+  "historical_attribution": {
+    "774_root": "ROOT-ADM-REG-013/016/018 register deserializer original prospective scopes, qualified material 978\u2013989,484\u2013501,577\u2013623. ROOT-ADM-REG-014 registers scalar parser prospective 271\u2013351, qualified material 271\u2013334. Earlier root witness ROOT-ADM-GRAPHICS-CONFIG-022 records ROOT-ADM-F006 under original 6533/pr-working graphics scope, with source-only limits.",
+    "774_pin_qualification": "Root046 registration expected cde50f8e14f84c1785dadab0fbecc5f98ac832614cb7aa5f56fa4b57bacac0ec; recovered later first18 hash 5065c111f312b75c94325820751a4e3e3298e43981d895e3668251afd6a42e62, a mismatch. Root046 qualification expected 99a0fc9dedd24c74078df9a760b50497459368c60bbe9acc99b52a10c38e46c6; recovered first10 matches. Bounded exact filename search in ae46/target and 28ba extracted target examined 20 registration files whole and first18 without matching prior pin; no global absence inference or substitution. Root046/050 embed original row/qualification records independently.",
+    "059_l11": "READ-L11-423 /root/segovb personally read original material at registrations 1484/1485 and separately added deserializer 624\u2013660 and 661\u2013675 via 1487/1488.",
+    "059_l12": "READ-L12-874 adopts /root/lens12_frontier untruncated prospective reads of deserializer 484\u2013525,577\u2013675,978\u2013991 and scalar parser 271\u2013351; root personal rereads empty. Frontier\u2019s historical dirty-P16 and 6533 lock reads are independently retained, not personal reads here.",
+    "queue": "Original queue Q1303 and Q1313 remain pending wider graphics, parser and grass consumer contracts; there is no automatic alias or closure.",
+    "credit": "Historical records retain their original reviewer, revision and scope; neither they nor newly assessed work become checkpoint3821 credit."
+  },
+  "assessments": [
+    {
+      "id": "GRAPHICS-NAN-ADMISSION-REVISIT",
+      "kind": "current reassessment of historical ROOT-ADM-F006; central alias/count decision",
+      "contract": "TacticalGraphicsConfig::parse deserializes typed YAML then validates. For an otherwise valid document, if a scalar reaches its f32 visitor as `.nan`, the native typed parser yields NaN; comparisons of NaN with ordered finite values are false. The current root_occlusion check `<= 0 || > 1` therefore does not reject NaN despite its stated (0,1] constraint. The current maximum_push check tests only `< minimum_push`, so NaN is not rejected there even when radius and minimum_push pass their finite positive tests. The same defects occur in the 6533 config source and were recorded as ROOT-ADM-F006 by the earlier rig-independent root admission reviewer.",
+      "condition": "This is a source-based conditional input chain and IEEE comparison reasoning, not a product run, emitted YAML fixture or proof a downstream renderer consumes those values. Assumes the document is otherwise valid, the concrete f32 Serde visitor is used, the source parser produces the relevant scalar event, and normal feature/option wiring shown is selected. No claim is made for arbitrary parser customizations or all constructors.",
+      "future_direction": "In a later authorized repair consider rejecting nonfinite values at the typed configuration admission owner and preserving explicit intended bounds/order for each field; validate all construction paths and downstream consumers separately. No repair is made here.",
+      "relationships": [
+        "Same source predicates and intended constraints as 774 ROOT-ADM-F006 in root/admission03/graphics-config-admission-022.json; 6533 and 95e support reads are independent current/historical work, not a new duplicate historical issue.",
+        "059 Q-L12-239725bbd817ad113425 (queue index1303) and Q-L12-20a23a4159ced0cd2f9e (index1313) express wider pending parser/graphics/consumer reconciliation; relation is subject to central review, no automatic alias or closure."
+      ],
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+          "lines": [
+            [
+              138,
+              146
+            ],
+            [
+              156,
+              170
+            ],
+            [
+              207,
+              212
+            ],
+            [
+              302,
+              323
+            ],
+            [
+              332,
+              341
+            ],
+            [
+              375,
+              383
+            ]
+          ]
+        },
+        {
+          "source_kind": "historical-project",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+          "lines": [
+            [
+              138,
+              146
+            ],
+            [
+              156,
+              180
+            ],
+            [
+              217,
+              222
+            ],
+            [
+              312,
+              333
+            ],
+            [
+              342,
+              351
+            ],
+            [
+              385,
+              393
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/api.rs",
+          "lines": [
+            [
+              84,
+              99
+            ],
+            [
+              136,
+              141
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/options.rs",
+          "lines": [
+            [
+              250,
+              264
+            ],
+            [
+              499,
+              525
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/cfg.rs",
+          "lines": [
+            [
+              32,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/with_deserializer.rs",
+          "lines": [
+            [
+              48,
+              79
+            ],
+            [
+              120,
+              146
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/deserializer.rs",
+          "lines": [
+            [
+              484,
+              501
+            ],
+            [
+              577,
+              623
+            ],
+            [
+              978,
+              989
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/parse_scalars.rs",
+          "lines": [
+            [
+              270,
+              334
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "GRAPHICS-MAXIMUM-PUSH-INFINITY-POLICY",
+      "kind": "current condition and unresolved policy, not additional issue",
+      "contract": "The parser special spelling `.inf` yields positive infinity to a concrete f32 visitor, and the maximum_push comparison does not reject positive infinity against a finite minimum. The current positive() helper would reject nonfinite numbers but is not applied to maximum_push.",
+      "condition": "Whether the maximum is required to be finite, what bounds are meaningful, and what any consumer does with infinity remain open. Do not infer a panic, a GPU effect, or a new issue merely from this acceptance.",
+      "future_direction": "Establish an intended finite/range contract and trace the actual retained settings and grass consumers before choosing an admission representation or alias.",
+      "source_refs": [
+        {
+          "source_kind": "current-project",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+          "lines": [
+            [
+              138,
+              146
+            ],
+            [
+              156,
+              170
+            ],
+            [
+              207,
+              212
+            ],
+            [
+              302,
+              323
+            ],
+            [
+              332,
+              341
+            ],
+            [
+              375,
+              383
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/api.rs",
+          "lines": [
+            [
+              84,
+              99
+            ],
+            [
+              136,
+              141
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/options.rs",
+          "lines": [
+            [
+              250,
+              264
+            ],
+            [
+              499,
+              525
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/cfg.rs",
+          "lines": [
+            [
+              32,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/with_deserializer.rs",
+          "lines": [
+            [
+              48,
+              79
+            ],
+            [
+              120,
+              146
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/deserializer.rs",
+          "lines": [
+            [
+              484,
+              501
+            ],
+            [
+              577,
+              623
+            ],
+            [
+              978,
+              989
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/parse_scalars.rs",
+          "lines": [
+            [
+              270,
+              334
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NATIVE-TYPED-NONFINITE-DECODING",
+      "kind": "bounded library behavior; native grammar nonfinding",
+      "contract": "With the documented default Options, angle conversions are false, and the reject_non_finite_typeless_float setting explicitly concerns deserialize_any, not concrete f32/f64. The typed float functions call parse_yaml12_float then visit_f32/visit_f64. Both shown non-angle branches recognize YAML nonfinite spellings after trim and case folding; ordinary numeric fallback rejects nonfinite parse results including overflow.",
+      "condition": "The separate robotics angle-conversion branch may invoke a different helper if enabled and requested; it is not assessed. Typeless overflow behavior, full parser input normalization, scope handling and any downstream typed application policy are not fully audited. Literal normalization is library grammar, not itself a defect.",
+      "future_direction": "Review each concrete semantic type\u2019s admission contract and callers rather than treating a native typeless option as a universal finite-value guarantee.",
+      "source_refs": [
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/api.rs",
+          "lines": [
+            [
+              84,
+              99
+            ],
+            [
+              136,
+              141
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/options.rs",
+          "lines": [
+            [
+              250,
+              264
+            ],
+            [
+              499,
+              525
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/cfg.rs",
+          "lines": [
+            [
+              32,
+              46
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/with_deserializer.rs",
+          "lines": [
+            [
+              48,
+              79
+            ],
+            [
+              120,
+              146
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/de/deserializer.rs",
+          "lines": [
+            [
+              484,
+              501
+            ],
+            [
+              577,
+              623
+            ],
+            [
+              978,
+              989
+            ]
+          ]
+        },
+        {
+          "source_kind": "native-package",
+          "package": "serde-saphyr",
+          "version": "1.2.0",
+          "path": "src/parse_scalars.rs",
+          "lines": [
+            [
+              270,
+              334
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NATIVE-PACKAGE-IDENTITY",
+      "kind": "source provenance",
+      "contract": "Pinned 95e Cargo.lock names serde-saphyr 1.2.0 and archive SHA 3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823, matching preserved native archive and both assigned historical source objects. Historical dirty P16 and 6533 lock copies separately attest the same archive via frontier\u2019s earlier bounded read.",
+      "condition": "Native dependency archive identity is not project Git, enabled features, product execution, or full source read. Historical lock evidence is separately attributed and P16 lock bytes are a dirty f82 transport object.",
+      "future_direction": "Retain version, member hashes and exact support scopes when reconciling the connected ledger.",
+      "source_refs": [
+        {
+          "source_kind": "current-lock",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "Cargo.lock",
+          "lines": [
+            [
+              9371,
+              9386
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Native typed YAML nonfinite spellings are supported parser behavior and are not by themselves an application defect.",
+    "Positive() and bounded() explicitly reject nonfinite values on the fields that call them.",
+    "Width-compensation optional values are unvalidated in this file, but intended policy and consumers are not established; no extra finding is asserted."
+  ],
+  "open_questions": [
+    "What are the intended finite/range policies for maximum_push, width compensation and its limit, and other public or independently deserialized constructors?",
+    "Which actual current inputs and settings consumers receive the values and what observable behavior follows?",
+    "Which package features and other decoder/interpolation branches are enabled in actual product configurations?",
+    "How should F006 and Q1303/Q1313 be reconciled with wider current-source findings? Central owner decides without duplicate count."
+  ],
+  "perspectives": {
+    "producer-propagation": "Typed YAML through source-config parsing retains raw f32; concrete consumption and owner migrations are not established.",
+    "existing-type-owners": "A domain-specific finite/root-occlusion owner could centralize the documented bound; do not equate unrelated fraction, scale, or world-unit semantics.",
+    "admission": "NaN bypasses the shown current two ordered predicates; public derived Deserialize and public fields also leave other admission paths independently open.",
+    "invariant-operations": "IEEE unordered comparisons explain the conditional NaN result; downstream arithmetic/mutation has not been traced.",
+    "aggregate-states": "maximum_push >= minimum_push is a relationship across fields; scalar admission alone cannot establish it.",
+    "type-ownership": "Configuration owns the explicit stated bound/order until a reviewed replacement owner is identified; native YAML owns parsing grammar only.",
+    "redundant-authority": "No independent duplicate authoritative retained value is demonstrated within these source snippets; downstream settings are unreviewed.",
+    "behavior-preservation": "A later repair should preserve the intended finite bounds and valid YAML, avoid arbitrary clamping, and verify relevant consumers separately.",
+    "enum-shapes": "The source uses closed tagged anti-aliasing modes; no enum representation finding follows from the numeric decoder scope.",
+    "derivability": "Derived Deserialize is an exposed construction path here, but this bounded inspection does not establish removable boilerplate or all ingress.",
+    "type-granularity": "Nonnegative radius, [0,1] occlusion, and ordered push bounds have distinct contracts; a generic float wrapper would not express them all.",
+    "magic-strings": "YAML spellings, registry checksums and decoder error strings are native grammar/diagnostics rather than demonstrated private application classifiers.",
+    "magic-numbers": "Named interval endpoints and positivity are meaningful constraints; infinity acceptance and width-compensation limits need explicit product policy."
+  },
+  "limitations": "Source inspection and evidence integrity only. No builds, tests, runtime probes, fixtures, rendering, implementation, product execution or validation."
+}

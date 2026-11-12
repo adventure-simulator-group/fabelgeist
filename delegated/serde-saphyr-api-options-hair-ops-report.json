@@ -1,0 +1,139 @@
+{
+  "schema": "726-bounded-source-audit-v1",
+  "created_utc": "2026-11-11T23:40:49.721127+00:00",
+  "author": "/root/hair_ops",
+  "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_snapshot": "External serde-saphyr 1.2.0 crates.io package recorded in original 774 native-dependency role, not 6533 project Git. f82 is its recovered evidence transport.",
+  "source_registration": "registration.json",
+  "personal_read_receipt": "read-receipt.json",
+  "source_identity_proofs": "git-proofs.json",
+  "historical_evidence_manifest": "historical-manifest.json",
+  "source_roles": [
+    {
+      "index": 2573,
+      "name": "serde-saphyr-1.2.0/src/de/api.rs",
+      "sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "personally_read": [
+        [
+          1,
+          180
+        ]
+      ],
+      "unread": [
+        [
+          181,
+          986
+        ]
+      ],
+      "original_774_root_qualified_material": [
+        [
+          84,
+          99
+        ],
+        [
+          136,
+          141
+        ]
+      ],
+      "original_registrations": [
+        "ROOT-ADM-REG-011",
+        "ROOT-ADM-REG-015"
+      ],
+      "qualification": "Package cache, published archive members and f82 recovered objects match original registry bytes. Different representations were verified but only one byte-identical source copy was displayed."
+    },
+    {
+      "index": 2574,
+      "name": "serde-saphyr-1.2.0/src/de/options.rs",
+      "sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "personally_read": [
+        [
+          1,
+          560
+        ]
+      ],
+      "unread": [
+        [
+          561,
+          760
+        ]
+      ],
+      "original_774_root_qualified_material": [
+        [
+          248,
+          264
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "original_registrations": [
+        "ROOT-ADM-REG-012"
+      ],
+      "qualification": "One displayed copy plus equality checks; earlier material and author credit not transferred."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SUPPORT-EXISTING-GRAPHICS-NONFINITE-ADMISSION-2573-2574",
+      "classification": "Fresh source support for existing historical/current first-failure family; no new product defect count",
+      "trace": [
+        "95e presentation/config.rs:207-212 deserializes typed config via serde_saphyr::from_str and then validates; fields root_occlusion and maximum_push are f32 at 156-170.",
+        "Native api.rs:83-99,135-141 routes from_str via Options::default() into concrete T::deserialize. options.rs:250-264,498-527 makes reject_non_finite_typeless_float true by default but explicitly does not apply it to concrete f32/f64; default angle conversion false.",
+        "Supporting deserializer.rs:978-988 calls parse_yaml12_float for concrete f32/f64 and visit_f32/f64; parse_scalars.rs:291-334 maps .nan and .inf to nonfinite values in the non-angle path for either robotics compile branch; serde_core impls.rs:154-163,450-456 returns the visited f32 unchanged.",
+        "95e config.rs:310-323 uses only comparisons for root_occlusion and maximum_push; NaN makes these predicates false, whereas positive()/bounded() explicitly check finite at 375-383. Positive infinity in maximum_push remains a separate policy question."
+      ],
+      "condition": "Conditional on a scalar event of the intended spelling reaching the concrete field, all other configuration obligations succeeding and actual feature/tokenizer/ingress conditions. No YAML was parsed, no settings or renderer were executed, and source does not prove a production occurrence.",
+      "historical_relationship": "774 root ROOT-ADM-F006 already describes typed YAML graphics NaN and retains open repair/validation; 059 Adler READ-L11-217 and queue entry 72 describe its graphics predicate gap with native parser pending at their own revision; 95e ASSESSMENT-GRAPHICS-CONFIG-ADMISSION-95E independently assessed this same graphics family. These have different scope, timestamps and qualifications; central must reconcile aliases without transferring credit.",
+      "connected_future_direction": "After completion of audit and separate authorization, use the owning graphics admission boundary for the intended finite interval/order contract, preserve legitimate finite values and distinguish any explicit unbounded policy; trace all admitted routes and downstream consumers before repair and validation.",
+      "open_questions": [
+        "Actual tokenizer and resolved features; supported runtime configuration ingress; all producer and settings construction paths; semantics of positive infinity; material/interactor/shader consumer reachability."
+      ]
+    },
+    {
+      "id": "CANDIDATE-NATIVE-SAPHYR-TYPELESS-OPTION-DESERDE-DEFAULT-2574",
+      "classification": "Conditional upstream native option policy inconsistency; no established application reachability or new product defect",
+      "trace": [
+        "options.rs:156-162 conditionally derives Deserialize behind serde_derived_types; options.rs:250-264 documents typeless nonfinite rejection default true, but annotates the bool with serde(default); options.rs:498-527 Options::default actually sets it true.",
+        "Pinned serde_derive 1.0.229 attr.rs:1089-1098 interprets bare field serde(default) as Default::Default; de.rs:766-771 invokes the field type default for an absent value; struct_.rs:313-324 uses that missing-field expression for map deserialization. Rust bool default is false.",
+        "The package Cargo.toml:50-55,81-83 defines serde_derived_types as an optional feature, outside its default list. 95e Cargo.toml:130-140 and tactical-client/Cargo.toml:85-91 do not themselves request the feature."
+      ],
+      "condition": "Only if serde_derived_types is activated, a representation omits this field while all other required fields are admissible, the resulting Options is used for typeless parsing, and the documented true default is intended for derived Options deserialization. Feature unification, actual caller, missing-field end-to-end parser behavior and typeless output were not executed or proven. It does not fix or cause the concrete f32 graphics path above.",
+      "historical_relationship": "No direct mention of the specific default field was found in the bounded 059 queue search. ROOT-ADM-F006 and the graphics assessment concern concrete f32 and default Options::default, not deserialization of Options. This is a distinct conditional native boundary; no global uniqueness or alias assertion.",
+      "connected_future_direction": "If supported application or upstream policy establishes this deserialized Options route, align omitted-field behavior with the chosen explicit policy at its actual owner, without changing the default concrete-float semantics or assuming native configuration features are active.",
+      "open_questions": [
+        "Whether the optional feature is resolved in any supported target, whether any first-party or transitive consumer deserializes Options, compatibility and intended upstream option policy, exact typeless consumers and nonfinite representation, and whether nondefault options are deliberate."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "Finite fallback rejects nonfinite results for ordinary decimal overflow in parse_scalars.rs:270-288, while special YAML nonfinite spellings are deliberately handled separately; do not conflate these inputs.",
+    "Options::default retains explicit duplicate-key Error, a budget and alias replay limits; enum modes and exposed text adapters in external native APIs are not by themselves project bespoke-type defects.",
+    "95e direct literal search found no named serde_derived_types, reject_non_finite_typeless_float or the specific serde_saphyr Options/from_str_with_options spellings, but does not prove absence through aliases or a resolved transitive feature graph."
+  ],
+  "lens_perspectives": {
+    "1_producer_propagation": "Typed YAML decoder \u2192 f32 graphics fields \u2192 config validation traced only; alternative config producers and retained settings remain open.",
+    "2_existing_type_owners": "Native parser owns generic decoding; graphic range/order owners belong to application admission, not generic f32 or every parser call.",
+    "3_admission_contracts": "Exact conditional typed-float path and option omission default divergence documented; no exhaustive config admission graph.",
+    "4_invariant_operations": "NaN comparison semantics permit current guards to miss invalid interval/order; downstream clamp/renderer not personally re-read here.",
+    "5_aggregate_states": "minimum_push/maximum_push ordering relies on valid finite comparable values; other correlated fields remain unreviewed.",
+    "6_type_ownership": "Options defaults belong to native package, graphics semantics to project; upstream patch or duplication policy remains undecided.",
+    "7_redundant_authority": "Derived missing-field default vs Options::default can disagree conditionally; no product duplicate authority proven.",
+    "8_behavior_preservation": "Current pin is separately established, and native identity equals historical external package; no assumption about all changed project behavior.",
+    "9_enum_shapes": "Native duplicate-key and merge-policy enums represent legitimate library modes; no product enum migration shown.",
+    "10_derivability": "Feature-gated Options derive explicitly changes missing-field default behavior for one bool; other derive behavior and feature graph incomplete.",
+    "11_type_granularity": "Typeless and concrete float inputs intentionally have different parse contracts; do not impose one blanket finite rule.",
+    "12_magic_strings": "YAML spellings and parser errors are external format text; graphics early String error erasure is an existing related 059/current family, not separately re-proved here.",
+    "13_magic_numbers": "YAML nonfinite values and IEEE comparisons are native boundaries; finite, unbounded and supported range policies require owner decisions."
+  },
+  "historical_attribution": {
+    "774_registration_and_qualification": "Exact f82-transported original source-range-registration and source-qualifications JSONL retained under historical/, role entries match inline original registry. Supplier/root original prospective vs narrowed material ranges remain distinct.",
+    "774_finding": "ROOT-ADM-F006 is original root admission finding; ROOT-ADM-G026 adds its historical public-config/override relation. Neither has current revision credit.",
+    "059": "Original Adler READ-L11-217 preserved exactly; selected queue rows 72 and 1303 are labeled reconstructed selections of exact 059 queue. Historical records are not checkpoint 3821.",
+    "current_assessment": "Published 95e graphics and AI assessment references are hash-linked, with original attribution/qualifications unchanged. No prior personal read is transferred to this reviewer.",
+    "registry_mismatch": "No mismatch in these two specific source IDs, indices or SHA-256 values: original cumulative 774 registry, f82 source evidence, recovered catalog and local package members match; this is not a global registry integrity claim."
+  },
+  "open_scope": "Unread role2573 181\u2013986 and role2574 561\u2013760, unsampled parser paths, callers, package feature graph, and all thirteen full-repository lens populations remain incomplete. Source analysis only.",
+  "repair": "not started",
+  "validation": "not performed; no product, parser, macro, build, test, viewer, renderer, fixture or runtime probe ran."
+}

@@ -1,0 +1,558 @@
+{
+  "schema": "726-delegate-source-assessment-v1",
+  "created_utc": "2026-11-11T23:20:38.669507+00:00",
+  "author": "/root/hair_ops",
+  "scope": {
+    "original_roles": [
+      2563,
+      2564
+    ],
+    "native_package": "bevy_reflect_derive 0.19.1",
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Actual native package body and bounded support source inspection only; thirteen partial perspectives, no whole-lens completion, prior-author read transfer, runtime proof, or checkpoint3821 promotion."
+  },
+  "source_identity": {
+    "package_archive_sha256": "5fc5f820ee52afeca6d3bb83f15c1bf61ea6196c840a761a21a8bc266a3b166e",
+    "qualification": "Both 6533 and 95e Cargo.lock clauses select the exact crates.io package/version/checksum. The cached .crate archive hash, archived Cargo.toml package name/version, archive members, locally extracted registry sources, recovered original registry/catalog and f82 transport objects match. Package archive and sources are not project Git commits. Lock selection alone does not prove active Cargo features, expansion, enabled runtime system or complete dependency behavior.",
+    "actual_reads": "lib.rs separately displayed 1\u2013100,101\u2013200,201\u2013300,301\u2013400,401\u2013500,501\u2013600,601\u2013700,701\u2013800,801\u2013907. from_reflect.rs separately displayed 1\u2013100,101\u2013200,201\u2013275,276\u2013353. Both have empty unread complement. Role 2563 original rig material 60\u2013117; role 2564 original rig material 25\u201356 after narrowing from prospective25\u201359. Extra package lines are fresh scope only. Project and other native helper bodies are separately registered support and confer no ordered-role credit.",
+    "old_records": "774 original supplier rig registered roles with exact Windows CARGO_HOME locator and qualified ranges. 059 segovb L11 READ-422 personally read the same qualified ranges plus lib closing118 as a separately registered extension. 059 /root/lens12_frontier L12 proposal870 personally read lib60\u2013117 and from_reflect25\u201359, plus separate connected closing118 with no original credit; root adoption retains that author. The e275 lock-scoped L11 READ-571 reused segovb exact historic line118 and explicitly attests no new agent/root personal reread. None of those attributions transfers to this independent read."
+  },
+  "findings": [
+    {
+      "id": "NATIVE-OPAQUE-REFLECTION-OWNER-TRACE",
+      "status": "Bounded nonfinding and evidence refinement for open historical contracts; no new defect count",
+      "first_contract": "In the native source, derive dispatch selects opaque reflection and, if enabled, the opaque FromReflect generator. The ordinary generator downcasts an already typed Self and clones it; the remote generator downcasts the declared remote type, clones it, then maps to its generated wrapper. Opaque apply similarly replaces the entire downcast typed value, and mismatched types return an error without that replacement. Generated remote wrapper is repr(transparent) over the remote type and exports whole-remote references and conversions; it is not itself a validator of that remote type.",
+      "current_trace": "PositiveLength has private f32 backing, explicit finite strictly positive admission and checked manual Serde; reflect(opaque) is conditionally compiled behind its optional reflect feature. Current animation wrappers declare reflect_remote(AnimationElapsed) and reflect_remote(UnitInterval), not f32, and include opaque and transparent-Serde attributes. Those two remote owners have private f32 backing and try_from-based checked Serde. DirectControlState declares fields using these wrapper types as remote-reflection adapters. These are source-backed relationships; no macro expansion, reflection apply, serialization, feature resolution, network delivery or invalid-instance construction was executed.",
+      "conditions_and_limits": "The typed-clone route preserves whatever value was already admitted; it cannot repair an invalid value previously fabricated through some other construction or mutation route. The exact application Deserialize dispatcher and all constructors/feature activation remain open. Safe, sound construction requires the advertised remote wrapper relationship and ownership invariant; source-derived assertions above do not prove every unsafe generic or foreign wrapper case.",
+      "historical_relation": "774 SEGOVB-INITIAL04-CONTRACT-615 (segovb) already recorded native dispatch, whole-value opaque behavior, and condition on the actual remote owner. 059 q2332 L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS and q3445 L12-CLOSURE-REPORT-GEOMETRY-TYPED-ERROR-NATIVE-PORT remain open-source-reconciliation with original /root/lens12_frontier scopes. 774 RIG-ADMISSION03-F007, supplier rig, concerns different first failure: module-visible FurnitureKey fields permitting fabrication despite opaque clone; no present FurnitureKey source inspection or alias is implied. Prior current ASSESSMENT-GEOMETRY-OWNERS-95E and ASSESSMENT-ANIMATION-EVALUATION-95E explicitly left native behavior open.",
+      "future_direction": "Reconcile exact admitted project owners, active features and real native codec/reconstruction consumers before accepting or closing the connected repair ledger; preserve positive lengths, zero-valid elapsed, [0,1] fractions and valid whole-value reflection. Repair only an established owner bypass or unsupported boundary; do not remove native reflection categorically.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/lib.rs",
+          "lines": [
+            [
+              60,
+              117
+            ],
+            [
+              120,
+              127
+            ],
+            [
+              192,
+              209
+            ],
+            [
+              401,
+              405
+            ]
+          ]
+        },
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/from_reflect.rs",
+          "lines": [
+            [
+              25,
+              56
+            ]
+          ]
+        },
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/impls/opaque.rs",
+          "lines": [
+            [
+              36,
+              50
+            ],
+            [
+              86,
+              104
+            ],
+            [
+              106,
+              123
+            ]
+          ]
+        },
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/remote.rs",
+          "lines": [
+            [
+              20,
+              50
+            ],
+            [
+              75,
+              98
+            ],
+            [
+              114,
+              129
+            ],
+            [
+              150,
+              160
+            ],
+            [
+              182,
+              209
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/elapsed_reflection.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/elapsed.rs",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ],
+            [
+              100,
+              105
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/unit_interval.rs",
+          "lines": [
+            [
+              9,
+              11
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              85,
+              89
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/length.rs",
+          "lines": [
+            [
+              9,
+              15
+            ],
+            [
+              17,
+              38
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+          "lines": [
+            [
+              97,
+              110
+            ],
+            [
+              125,
+              131
+            ],
+            [
+              170,
+              175
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/Cargo.toml",
+          "lines": [
+            [
+              9,
+              16
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "REFLECT-DEFAULT-STRUCT-RECONSTRUCTION-POLICY",
+      "status": "Source-level conditional question; not a demonstrated supported product defect",
+      "first_contract": "For a struct with metadata REFLECT_DEFAULT, the generated FromReflect constructor starts from Default and only overwrites a field if extraction and conversion yield Some; missing or failing field conversion retains the default while other convertible fields may be assigned. Without this metadata, the generated construction requires each active value (or its declared field default).",
+      "current_trace": "PlayerInputRequest derives Reflect, Default, Serialize and Deserialize and explicitly annotates reflect(Default). It is registered as an unreliable client event; the server-side source includes a separate player-input validation function. The event registration alone does not establish that network decoding uses Reflect::FromReflect or that a partially reflected object reaches gameplay. No caller or execution demonstrating a changed command is known in these bounded reads.",
+      "condition": "A supported caller must invoke the generated defaultable FromReflect path with a missing or unconvertible reflected field and subsequently rely on a complete input or atomic field rejection. Exact semantics for optional/missing fields and first failure remain policy questions; serde wire admission must not be conflated with reflection construction.",
+      "historical_relation": "059 q2332 records an open native/first-party reflection-admission relationship; it does not establish this concrete PlayerInputRequest behavior or imply a new accepted unique count. Existing player input validation findings or policy may be related; central must reconcile identity and reachability.",
+      "future_direction": "Identify actual reflection callers and decide whether defaulted partial construction is intended for PlayerInputRequest before deciding whether this type needs a stricter reflected admission boundary; preserve intended missing-field semantics and normal network path.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/from_reflect.rs",
+          "lines": [
+            [
+              118,
+              144
+            ],
+            [
+              154,
+              193
+            ],
+            [
+              206,
+              218
+            ],
+            [
+              247,
+              270
+            ],
+            [
+              298,
+              330
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/message.rs",
+          "lines": [
+            [
+              66,
+              83
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-netcode/src/replication.rs",
+          "lines": [
+            [
+              75,
+              80
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+          "lines": [
+            [
+              1373,
+              1417
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "NATIVE-STATIC-AUTOREGISTRATION-REACHABILITY",
+      "status": "Native package observation only; no project defect",
+      "first_contract": "Optional load_type_registrations source returns an empty stream if the auto_register_static feature is disabled or its target directory is unavailable; with the feature enabled and directory present, it opens and parses files using unwrap/expect. Its own documentation specifies compilation ordering, feature and environment prerequisites.",
+      "condition": "A supported project build must enable this native feature and call the macro on an affected path before a compile-time failure or omission is actionable. A bounded text search found no project use of the named macro or feature, but this is not a complete build-graph proof.",
+      "future_direction": "Keep as an opt-in upstream native boundary question; do not change project code or infer a product failure without the supported activation path.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/lib.rs",
+          "lines": [
+            [
+              859,
+              907
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "nonfindings": [
+    {
+      "claim": "The disabled-auto-FromReflect branch emits no automatic reconstruction; it is an explicit supported opt-out rather than evidence of a missing implementation.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/lib.rs",
+          "lines": [
+            [
+              60,
+              117
+            ],
+            [
+              120,
+              127
+            ],
+            [
+              192,
+              209
+            ],
+            [
+              401,
+              405
+            ]
+          ]
+        },
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/registration.rs",
+          "lines": [
+            [
+              27,
+              36
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Opaque whole-value reflection does not walk or directly mutate the private scalar field in the inspected ordinary and remote generation branches. This does not attest validity of all possible pre-existing values.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/from_reflect.rs",
+          "lines": [
+            [
+              25,
+              56
+            ]
+          ]
+        },
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/impls/opaque.rs",
+          "lines": [
+            [
+              36,
+              50
+            ],
+            [
+              86,
+              104
+            ],
+            [
+              106,
+              123
+            ]
+          ]
+        },
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/remote.rs",
+          "lines": [
+            [
+              20,
+              50
+            ],
+            [
+              75,
+              98
+            ],
+            [
+              114,
+              129
+            ],
+            [
+              150,
+              160
+            ],
+            [
+              182,
+              209
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/elapsed.rs",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ],
+            [
+              100,
+              105
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-core/src/unit_interval.rs",
+          "lines": [
+            [
+              9,
+              11
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              85,
+              89
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/fabelgeist-geometry/src/length.rs",
+          "lines": [
+            [
+              9,
+              15
+            ],
+            [
+              17,
+              38
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Generic FromReflect struct and enum routes and unsafe remote field conversion are distinct from opaque routing. Source demonstrates those branches but their helper bodies, other project owners and unsafe assumptions are not exhausted.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/from_reflect.rs",
+          "lines": [
+            [
+              58,
+              105
+            ],
+            [
+              118,
+              193
+            ],
+            [
+              247,
+              330
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "claim": "Native package source has token/attribute identifiers and compiler diagnostics, not evidence of a project-owned string-identity duplication.",
+      "references": [
+        {
+          "package": "bevy_reflect_derive",
+          "version": "0.19.1",
+          "path": "src/lib.rs",
+          "lines": [
+            [
+              41,
+              54
+            ],
+            [
+              60,
+              70
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Which exact 95e build targets/features activate each inspected derive and reflection registration, and which supported caller invokes FromReflect, reflective mutation or reflected Serde for these checked owners?",
+    "Can any supported PlayerInputRequest reflected partial reconstruction reach an authoritative consumer, and should a failed field conversion retain Default or reject? Network event registration is not proof of reflection use.",
+    "Do all actual opaque remote wrappers use a remote whose own valid values retain the project contract, and can permitted mutations or custom Clone/Deserialize implementations breach it? This scope covers only two concrete wrappers and PositiveLength.",
+    "Do Bevy generated common methods, enum variant builder, package attribute parsing, Serde derive and native type-registry deserializer preserve error/type identity for all supported routes? Those bodies are not all personally read.",
+    "What are the exact 059/774/current aliases and dependencies of each separate first failure, including FurnitureKey friend visibility and report geometry? Central decides ledger identity; none is closed here."
+  ],
+  "lenses": [
+    {
+      "lens": "producer-propagation",
+      "assessment": "Typed project owners flow through opaque remote wrappers into specific reflected fields; actual runtime producers and consumers remain unproved."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Reuse AnimationElapsed, UnitInterval and PositiveLength at native reflection ports rather than substitute raw f32 solely for framework access; current wrappers target typed owners."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "PositiveLength and elapsed/fraction checked constructors and decoders are separate from the native typed-clone path. No universal package admission proof follows from one wrapper."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Opaque reflect clones/replaces whole typed values; defaultable struct reconstruction selectively preserves default fields on failure. Clone validity and external typed-value fabrication remain owner-specific."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Field-by-field default reconstruction can form a mixed default/reflected record; whether that violates any PlayerInputRequest relation and reaches supported consumers remains open."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "Native reflective metadata and remote wrapper are adapters for owning project types, not replacement semantic validators or project Git definitions."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "The wrapper retains a typed remote value rather than independently storing another f32; framework registry metadata and owner validation have distinct roles."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Maintain zero-valid elapsed, inclusive fraction bounds, strictly positive lengths, opaque whole-value semantics and explicit FromReflect opt-out; no execution attests behavior."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Native derive selects Struct, TupleStruct, Enum or Opaque branches deliberately. No isolated enum-shape repair follows from this package scope."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Generated reflection saves boilerplate when its contract matches an owner; checked Serde and opaque attributes are meaningful and cannot be removed based only on derivability."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Native framework reflection traits and typed elapsed/fraction/length domains represent distinct roles; do not erase invariant distinctions with a shared raw scalar."
+    },
+    {
+      "lens": "magic-strings",
+      "assessment": "Native macro attribute names, generated identifiers, feature names and compiler paths are framework grammar; no project classifier error established."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Numeric boundaries remain with checked project owners; native field indexing and a few structural constants are framework internals rather than standalone project magic-number defects."
+    }
+  ],
+  "qualification": "Source, evidence-integrity and mathematical reasoning only. No macro expansion, generated-code execution, compilation, build, test, fixture, product execution, runtime probe, validation or repair. Central owns reconciliation and checkpoint publication."
+}

@@ -1,0 +1,468 @@
+{
+  "schema": "726-bounded-bevy-remote-source-audit-v1",
+  "created_utc": "2026-11-11T23:28:56.726122+00:00",
+  "author": "/root/rig_identity",
+  "scope": {
+    "original_roles": [
+      2567,
+      2568
+    ],
+    "native_package": "bevy_reflect_derive 0.19.1 archive SHA256 5fc5f820ee52afeca6d3bb83f15c1bf61ea6196c840a761a21a8bc266a3b166e; not a project Git revision.",
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_lock_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "personal_read": "After prospective registration, remote.rs 1–500 and registration.rs 1–59 were displayed in bounded untruncated chunks. Exact current/native support and lock display ranges are in personal-read-receipt.json.",
+    "qualification": "Original role 2567 material was 21–212, not the full file; newly read complement is separate evidence. Original 774/059 reviewers and other-agent support remain attributed, never checkpoint 3821 credit."
+  },
+  "source_provenance": {
+    "registration": "registration.json",
+    "receipt": "personal-read-receipt.json",
+    "project_support": "project-support-registration.json",
+    "native_support": "native-support-registration.json",
+    "git_proofs": "git-proofs.json",
+    "historical_attribution": "original-attribution.json",
+    "reconstructed_registry": "registry-selection-reconstructed.json",
+    "reconstructed_queue": "queue-selection-reconstructed.json",
+    "prior_links": "published-references.json"
+  },
+  "historical_attribution": [
+    {
+      "record": "historical-774/handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl and source-qualifications-final-current.jsonl",
+      "author": "774 rig supplier",
+      "date": "2026-10-22",
+      "registered_ranges": {
+        "remote.rs": [
+          [
+            21,
+            241
+          ]
+        ],
+        "registration.rs": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      "qualified_material_ranges": {
+        "remote.rs": [
+          [
+            21,
+            212
+          ]
+        ],
+        "registration.rs": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      "uninspected_material_complement": {
+        "remote.rs": [
+          [
+            1,
+            20
+          ],
+          [
+            213,
+            500
+          ]
+        ],
+        "registration.rs": []
+      },
+      "qualification": "Adjacent 213–241 was originally registered but qualified as context only; no nonopaque field/enum reflection branch coverage or later-lens credit. f82 is evidence transport only."
+    },
+    {
+      "record": "historical-774/handoff/774/adler-original/audit/continuation/rig/admission03/reflection-witness-001.json",
+      "author": "774 rig supplier, with separately attributed native supplier wrapper declaration facts",
+      "qualification": "Opaque typed wrapper adapter source witness, not proof all remote values admitted validly. Native wrapper source facts retain supplier attribution; no product execution."
+    },
+    {
+      "record": "historical-059/segovb/READ-L11-422.json",
+      "author": "059 Segovb Lens11 reviewer",
+      "date": "2026-10-28T19:12:52.806275+00:00",
+      "fresh_personal_ranges": {
+        "remote.rs": [
+          [
+            21,
+            212
+          ]
+        ],
+        "registration.rs": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      "uninspected_complement": {
+        "remote.rs": [
+          [
+            1,
+            20
+          ],
+          [
+            213,
+            500
+          ]
+        ],
+        "registration.rs": []
+      },
+      "qualification": "Source-only opaque and typed remote contract with actual application admission/feature/caller still conditional."
+    },
+    {
+      "record": "historical-059/segovb/READ-L12-871.json and parallel-l12-20261029/PROPOSAL-L12-871.json",
+      "author": "/root/lens12_frontier; root adoption explicitly claims zero root reread",
+      "date": "2026-10-30T02:09:04.627403+00:00",
+      "fresh_personal_ranges": {
+        "remote.rs": [
+          [
+            21,
+            241
+          ]
+        ],
+        "registration.rs": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      "uninspected_complement": {
+        "remote.rs": [
+          [
+            1,
+            20
+          ],
+          [
+            242,
+            500
+          ]
+        ],
+        "registration.rs": []
+      },
+      "qualification": "remote.rs 213–241 is historical assertion documentation context, not assertion helper body coverage. No other-lens transfer."
+    },
+    {
+      "record": "prior-delegate/bevy-reflect-derive-hair-ops/{report.json,packet-manifest.json,support-read-receipt.json}",
+      "author": "/root/hair_ops",
+      "date": "2026-11-11",
+      "fresh_support_ranges": {
+        "remote.rs": [
+          [
+            1,
+            212
+          ]
+        ],
+        "registration.rs": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      "uninspected_complement": {
+        "remote.rs": [
+          [
+            213,
+            500
+          ]
+        ],
+        "registration.rs": []
+      },
+      "qualification": "Earlier distinct roles 2563–2564 with these native/project support windows. Prior agent is independently attributed; this agent reread listed bodies and selected current declarations prospectively."
+    }
+  ],
+  "observations": [
+    {
+      "id": "BEVY-REMOTE-OWNER-AND-ASSERTION-TRACE",
+      "classification": "Existing historical native adapter contract and previous /root/hair_ops source observation, independently expanded; no new unique product defect.",
+      "evidence": [
+        {
+          "file": "source/2567.rs",
+          "lines": [
+            [
+              21,
+              48
+            ],
+            [
+              50,
+              98
+            ],
+            [
+              114,
+              130
+            ],
+            [
+              139,
+              160
+            ],
+            [
+              182,
+              209
+            ]
+          ],
+          "contract": "Remote derive parses the type and generates a repr(transparent) wrapper containing the typed Remote, dispatches according to reflect shape, and offers references to that Remote."
+        },
+        {
+          "file": "source/2567.rs",
+          "lines": [
+            [
+              242,
+              288
+            ],
+            [
+              290,
+              334
+            ]
+          ],
+          "contract": "For active struct/tuple/enum fields with remote attributes, generated compile-time assertion assigns the field type to the remote wrapper associated Remote type; opaque has no such field assertions."
+        },
+        {
+          "file": "support/native-0.rs",
+          "lines": [
+            [
+              56,
+              74
+            ]
+          ],
+          "contract": "General Reflect dispatch requests assertion generation."
+        },
+        {
+          "file": "support/native-1.rs",
+          "lines": [
+            [
+              1,
+              13
+            ]
+          ],
+          "contract": "The assertion generator routes into generate_remote_assertions."
+        },
+        {
+          "file": "source/2567.rs",
+          "lines": [
+            [
+              349,
+              429
+            ]
+          ],
+          "contract": "Remote definition type checks declared struct fields or enum variants; opaque branch has no fields to compare."
+        },
+        {
+          "file": "support/project-0.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ],
+          "contract": "The current elapsed wrapper names AnimationElapsed and declares opaque reflection with transparent Serde."
+        },
+        {
+          "file": "support/project-1.rs",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ],
+          "contract": "The current fraction wrapper names UnitInterval with the same attributes."
+        },
+        {
+          "file": "support/project-2.rs",
+          "lines": [
+            [
+              9,
+              35
+            ],
+            [
+              100,
+              105
+            ]
+          ],
+          "contract": "The named elapsed owner has private f32 storage, finite nonnegative checked construction, and try_from-based Serde annotation."
+        },
+        {
+          "file": "support/project-3.rs",
+          "lines": [
+            [
+              9,
+              11
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              85,
+              89
+            ]
+          ],
+          "contract": "The named fraction owner has private f32 storage, finite inclusive [0,1] checked construction and try_from-based Serde annotation."
+        },
+        {
+          "file": "support/project-4.rs",
+          "lines": [
+            [
+              97,
+              109
+            ],
+            [
+              124,
+              131
+            ],
+            [
+              170,
+              175
+            ]
+          ],
+          "contract": "Current DirectControlState and SprintInputState reference the two named remote reflection wrappers for typed fields."
+        }
+      ],
+      "reasoning": "The generated public field and mutable remote reference expose the typed owner itself; they are not inherently a raw-f32 setter. Type-equality and definition checks do not by themselves validate values, prove the invariant of all existing remote instances, or resolve every native unsafe use. The generated assertion helper functions contain None.unwrap solely as type-check scaffolding in the inspected generator; no execution of those functions is established.",
+      "conditions_and_limits": "Project source declares the wrappers and fields, but no project build, feature activation, expansion, actual reflective apply or deserialization, all owner construction routes, custom overrides, or product runtime behavior was examined. This is not blanket soundness of generic remote wrappers or a project failure.",
+      "historical_relation": "774 RIG-ADMISSION03-REFLECTION-001 and /root/hair_ops NATIVE-OPAQUE-REFLECTION-OWNER-TRACE already establish bounded typed-wrapper behavior and retain owner validity as separate. Historical 059 q2332/q3445 remain open. 774 RIG-ADMISSION03-F007 concerns separate FurnitureKey construction and is not automatically this issue.",
+      "future_direction": "Continue auditing each actual owner’s admission, mutation, Serde and reflection use at its owning boundary. Retain opaque and typed-value distinctions; investigate any demonstrated bypass as its own first failed contract."
+    },
+    {
+      "id": "BEVY-REGISTRATION-METADATA-MODES",
+      "classification": "Bounded native source disposition; no product failure or extra count.",
+      "evidence": [
+        {
+          "file": "source/2568.rs",
+          "lines": [
+            [
+              7,
+              28
+            ],
+            [
+              30,
+              56
+            ]
+          ],
+          "contract": "Registration inserts ReflectFromPtr, conditionally registers ReflectFromReflect, optionally inserts serialization data, registers configured type-data, and emits dependency registration only if supplied."
+        },
+        {
+          "file": "support/project-0.rs",
+          "lines": [
+            [
+              7,
+              14
+            ]
+          ],
+          "contract": "Elapsed wrapper asks for opaque reflection and Serialize/Deserialize type data."
+        },
+        {
+          "file": "support/project-1.rs",
+          "lines": [
+            [
+              7,
+              14
+            ]
+          ],
+          "contract": "Fraction wrapper requests the same metadata."
+        }
+      ],
+      "reasoning": "These branches implement optional metadata modes; type registration is not evidence that a reflected value obeys project semantics. Omitting automatic FromReflect or serialization data can be intentional depending on explicit attributes and metadata. Current consumer dispatch and activation remain unproved.",
+      "historical_relation": "Original 774 rig supplier, Segovb Lens11 and /root/lens12_frontier Lens12 each inspected registration.rs 1–59; /root/hair_ops separately read it as 95e support. These author scopes and dates are preserved.",
+      "future_direction": "Reconcile any actual registration and consumer against the owning type and enabled feature before proposing a repair; preserve intentional opt-out behavior."
+    },
+    {
+      "id": "BEVY-REMOTE-PARENTHESIZED-PATH-DIAGNOSTIC-QUESTION",
+      "classification": "Conditional native generator diagnostic question discovered from source; no established accepted input, product callsite, panic execution or issue count.",
+      "evidence": [
+        {
+          "file": "source/2567.rs",
+          "lines": [
+            [
+              21,
+              30
+            ],
+            [
+              349,
+              354
+            ],
+            [
+              457,
+              476
+            ],
+            [
+              487,
+              499
+            ]
+          ],
+          "contract": "RemoteArgs parses a syn::TypePath; definition generation unconditionally unwraps its conversion to expression path; that conversion returns syn::Error for a parenthesized final path segment."
+        }
+      ],
+      "reasoning": "If a successfully parsed RemoteArgs TypePath with a parenthesized final path segment reaches definition generation, the returned error is unwrapped instead of propagated into a structured diagnostic. The pinned syn parser behavior and valid supported Rust type syntax for that condition have not been inspected; its actual reachability is therefore explicitly open.",
+      "historical_relation": "Outside the original rig and 059 material remote.rs 21–212. /root/lens12_frontier personally read docs through 241 only, not this helper. This independent new body read does not replace prior historical qualifications.",
+      "future_direction": "Determine accepted parser inputs and upstream supported remote types before retaining an issue. If reachable and supported, the native owner can preserve the structured error rather than unwrapping it; no implementation started."
+    }
+  ],
+  "nonfindings": [
+    "Public remote typed-value projection is not by itself a primitive backing-field write or proof of bypass for the two inspected private-f32 owners.",
+    "Registration selectively inserts metadata and optional dependency code; omitted automatic FromReflect is not itself a defect.",
+    "Generated assertion bodies are compile-time type-check helpers in the inspected source; their syntactic None.unwrap is not an observed runtime panic."
+  ],
+  "open_questions": [
+    "Is a parenthesized final syn TypePath accepted and meaningful for reflect_remote, and can its error-conversion unwrap be reached from supported inputs?",
+    "Which actual enabled project builds invoke these derives and reflection consumers, and do other owner construction/mutation/Serde routes preserve their contracts?",
+    "Do custom remote wrappers, custom reflection overrides, nonopaque field projections, or unsafe native callers preserve their own type and layout invariants?",
+    "Are any prior FurnitureKey or geometry contracts exact aliases after current source owners and concrete callers are reconciled?"
+  ],
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "assessment": "Native compiler attribute identifiers and diagnostic/type paths are framework grammar; no application magic-string defect established."
+    },
+    {
+      "lens": "magic-numbers",
+      "assessment": "Line-level indices are compiler field positions and generic traversal, not interchangeable application quantities; no range-owner defect established."
+    },
+    {
+      "lens": "type-ownership",
+      "assessment": "AnimationElapsed and UnitInterval own semantic bounds; native reflected wrapper and registry metadata are adapters, not substitute validation authorities."
+    },
+    {
+      "lens": "existing-type-owners",
+      "assessment": "Current wrappers target existing checked owners and typed DirectControlState fields instead of newly storing primitive f32 authority."
+    },
+    {
+      "lens": "type-granularity",
+      "assessment": "Struct, tuple, enum and opaque branches have distinct generator shapes; opaque whole-remote projection differs from active-field assertions."
+    },
+    {
+      "lens": "invariant-operations",
+      "assessment": "Mutable remote projection exposes a typed owner; whether its own public methods and other construction paths preserve validity remains independently open."
+    },
+    {
+      "lens": "aggregate-states",
+      "assessment": "Remote field assertion relates wrapper associated Remote type to field type; it does not assert cross-field or whole-value application invariants."
+    },
+    {
+      "lens": "admission-contracts",
+      "assessment": "Opaque projection can preserve already admitted values but cannot establish how each remote value was constructed or whether its later mutation is valid."
+    },
+    {
+      "lens": "enum-shapes",
+      "assessment": "Enum and struct branches are independently selected; the definition checker emits shape/type comparisons, with no assessment of all application variant-state policies."
+    },
+    {
+      "lens": "redundant-authority",
+      "assessment": "The wrapper stores the existing typed Remote and registration stores metadata, rather than duplicating a primitive state; wider registry lifecycle remains outside scope."
+    },
+    {
+      "lens": "behavior-preservation",
+      "assessment": "Any future change must respect supported opaque behavior, checked owner constructors, explicit registration opt-outs and no backwards-compatibility shims."
+    },
+    {
+      "lens": "producer-propagation",
+      "assessment": "Current field declarations connect two specific wrapper names to typed project fields; runtime use, feature selection, and other callers are not inferred."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Generated registration and remote adapters are justified when their native contracts match the owner; checked Serde/opaque attributes are not redundant merely because derives exist."
+    }
+  ],
+  "limitations": "Two pinned native package files personally read in full; all support exactly bounded. No complete Bevy package, product graph, all features, whole-lens completion, macro expansion, compilation, build, tests, execution, runtime probes, repair or product validation. Central agent owns baseline, cross-lens reconciliation, ledger and publication."
+}
