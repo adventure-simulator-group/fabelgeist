@@ -1,0 +1,553 @@
+{
+  "schema": "726-bounded-pr-working-puzzle-choices-source-audit-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T00:33:36.245389+00:00",
+  "status": "Bounded source-only role assessment; central owner decides findings, aliases, ledger, role accounting and publication. No checkpoint3821 promotion or all-lens clearance.",
+  "revisions": {
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_project_file_comparison": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "historical_source": "Original pr-working registry snapshot; exact assigned objects match 6533 and 95e per file. Original snapshot has unrelated working-tree modifications; never call whole historical tree clean.",
+    "f82": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is the recovered source and original 774 evidence transport repository, not a project revision.",
+    "physical_p16": "Historical L08 same-hash roles 2831/2832 are separate physical-p16 dirty snapshot roles, not 2595/2596; P16 base a120 and later tracked patch recovery do not change attribution or erase seven separately preserved untracked files."
+  },
+  "roles": [
+    {
+      "original_index": 2595,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "source_sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "line_count": 83,
+      "historical_fresh_read": [
+        [
+          1,
+          83
+        ]
+      ],
+      "current_fresh_read": [
+        [
+          1,
+          83
+        ]
+      ],
+      "unread": [],
+      "git_objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path": "crates/adventuresim-puzzles/src/choices/sigil.rs",
+          "git_blob": "0febe869901631fe6ddb2ef7fc99c6267d406bfd",
+          "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+          "bytes": 2350,
+          "line_count": 83,
+          "prospective_display_ranges": [
+            [
+              1,
+              83
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-puzzles/src/choices/sigil.rs",
+          "git_blob": "0febe869901631fe6ddb2ef7fc99c6267d406bfd",
+          "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+          "bytes": 2350,
+          "line_count": 83,
+          "prospective_display_ranges": [
+            [
+              1,
+              83
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "original_index": 2596,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "source_sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "line_count": 75,
+      "historical_fresh_read": [
+        [
+          1,
+          75
+        ]
+      ],
+      "current_fresh_read": [
+        [
+          1,
+          75
+        ]
+      ],
+      "unread": [],
+      "git_objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "git_path": "crates/adventuresim-puzzles/src/choices/witness_path.rs",
+          "git_blob": "0a844ce76b9b613d2f9df620d664dbaf90d3e8f9",
+          "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+          "bytes": 2192,
+          "line_count": 75,
+          "prospective_display_ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "git_path": "crates/adventuresim-puzzles/src/choices/witness_path.rs",
+          "git_blob": "0a844ce76b9b613d2f9df620d664dbaf90d3e8f9",
+          "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+          "bytes": 2192,
+          "line_count": 75,
+          "prospective_display_ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "support_reads": {
+    "crates/adventuresim-puzzles/src/choices.rs": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "actual_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "support_file": "support/0.rs",
+      "eof": 6,
+      "unread_ranges": []
+    },
+    "crates/adventuresim-puzzles/src/lib.rs": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "actual_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "support_file": "support/1.rs",
+      "eof": 19,
+      "unread_ranges": []
+    },
+    "crates/adventuresim-puzzles/src/ordered_sigils.rs": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "actual_ranges": [
+        [
+          1,
+          135
+        ],
+        [
+          170,
+          215
+        ],
+        [
+          136,
+          169
+        ]
+      ],
+      "support_file": "support/2.rs",
+      "eof": 392,
+      "unread_ranges": [
+        [
+          216,
+          392
+        ]
+      ]
+    },
+    "crates/adventuresim-puzzles/src/puzzles.rs": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "actual_ranges": [
+        [
+          115,
+          175
+        ],
+        [
+          275,
+          340
+        ],
+        [
+          370,
+          435
+        ],
+        [
+          530,
+          565
+        ]
+      ],
+      "support_file": "support/3.rs",
+      "eof": 1131,
+      "unread_ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          176,
+          274
+        ],
+        [
+          341,
+          369
+        ],
+        [
+          436,
+          529
+        ],
+        [
+          566,
+          1131
+        ]
+      ]
+    },
+    "crates/strategic-web/src/routes/challenges.rs": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "6b3399cb6920c0dd8fd0547c10679723f58ceb8ae2ff9906a92759e040fe4178",
+      "actual_ranges": [
+        [
+          130,
+          175
+        ],
+        [
+          310,
+          345
+        ],
+        [
+          228,
+          265
+        ]
+      ],
+      "support_file": "support/4.rs",
+      "eof": 481,
+      "unread_ranges": [
+        [
+          1,
+          129
+        ],
+        [
+          176,
+          227
+        ],
+        [
+          266,
+          309
+        ],
+        [
+          346,
+          481
+        ]
+      ]
+    },
+    "crates/strategic-web/src/templates/challenge.rs": {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "febe3f70bd476ace78551dba3e4492bebd3651c96b66d3515dc041e6f9bed05f",
+      "actual_ranges": [
+        [
+          220,
+          275
+        ]
+      ],
+      "support_file": "support/5.rs",
+      "eof": 483,
+      "unread_ranges": [
+        [
+          1,
+          219
+        ],
+        [
+          276,
+          483
+        ]
+      ]
+    }
+  },
+  "historical_records": [
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L11-425.json",
+      "file": "history-059/READ-L11-425.json",
+      "sha256": "c3831ccfcc019cac47cf8100ae2da3fdd52feb9d5eefa137af8cd16dc4da387a",
+      "bytes": 13323,
+      "git_blob": "f342eac91350ce7c062839e35a15fd92fe9306d1"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-882.json",
+      "file": "history-059/READ-L12-882.json",
+      "sha256": "ccebae9e3349d54e4592a3051988dc1ba3e8f4ba077d38b6bcc56eddfd95299d",
+      "bytes": 13569,
+      "git_blob": "cadb34f4f5f283129ced27f691eabdf3f6e0c5c8"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1506.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1506.json",
+      "sha256": "40d3d59a139edcf0f64d32ec175696f83d43d51433a2d8a28d7c1c4115ecca44",
+      "bytes": 786,
+      "git_blob": "2d56016d0671e45d1ee2dd9d8cb097d24e860126"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1507.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1507.json",
+      "sha256": "8d974d84458880fb6826cf0151ef229ad9a5910ff8784dee8b87fb6be44651b7",
+      "bytes": 800,
+      "git_blob": "03ca68949de64fb58179f23147241316ad841e8e"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/PROPOSAL-L12-882.json",
+      "file": "history-059/PROPOSAL-L12-882.json",
+      "sha256": "5af4793227c2b6ea461706f8cefc9d80cb6070af633aedeaf96e8079c7e58dec",
+      "bytes": 11085,
+      "git_blob": "82ff400151e56320e818ee7442e76d8065a71e97"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-660.json",
+      "file": "history-059/REGISTRATION-PAR-L12-660.json",
+      "sha256": "4c480c03175b283c336802cd1603507ac322e864db8c5f5b081b58c4b06adca0",
+      "bytes": 3624,
+      "git_blob": "2bcd89567f0bf30a586af081fc2af29e9cda694a"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-661.json",
+      "file": "history-059/REGISTRATION-PAR-L12-661.json",
+      "sha256": "7564cfc426d8c9a82e84a2e55faa0d2a182557628439125a4f8b9c13da56830f",
+      "bytes": 3673,
+      "git_blob": "0fc620941524fee6da230ceb413a83809b15b6a4"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-660-ORIGINAL2595.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-660-ORIGINAL2595.json",
+      "sha256": "64a168ea027e441623993c30bb98476c9b2607a6fc0b47e7b516c0801f76e290",
+      "bytes": 1507,
+      "git_blob": "3c8c6f130a4a0922e8dbb57702f8a814c89cfb84"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-661-ORIGINAL2596.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-661-ORIGINAL2596.json",
+      "sha256": "9ca6827101c2c1acd2a6afe4f8459f4080db08f24c985524381152ceac9cc7f1",
+      "bytes": 1535,
+      "git_blob": "507ba58d540ca494fd1753e0684393d50fe6b7f8"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "evidence/continuation-segovb/audit-resume-20261027/lens08/batch-106-final-original-puzzle-and-render-contracts.json",
+      "file": "history-059/batch-106-final-original-puzzle-and-render-contracts.json",
+      "sha256": "dbf7990d03a7077a0aefb4da60fa5a3971f9e6b26ba6c0c6cde41493f6653e2c",
+      "bytes": 16277,
+      "git_blob": "e71ce365a27e9197591e55ffbddecd97104bf392"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "evidence/continuation-segovb/audit-resume-20261027/REGISTRATION-146-final-original-scope-contracts.json",
+      "file": "history-059/REGISTRATION-146-final-original-scope-contracts.json",
+      "sha256": "3f5efd724a406fdbf9d49180a0ee28a76efbf4a08a6a58e39b15d8778423fa4f",
+      "bytes": 17508,
+      "git_blob": "a4969880f7f215335b2c48921592981e8b68c2d6"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/root/admission03/source-range-registration.jsonl",
+      "file": "history-774/source-range-registration.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "620a2b12f1a2138b2d87600fdde8c069520d97f50042e87c37dca0f305bf00cc",
+      "bytes": 46135,
+      "git_blob": "c358cde6d3126ba7a6ed95c47e182297705c460f"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/root/admission03/source-qualifications-final-current.jsonl",
+      "file": "history-774/source-qualifications-final-current.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "5a7bed60369b4263ab9e4a00762278b69fa8a3f1cb7650a0263d329f98c3189b",
+      "bytes": 27198,
+      "git_blob": "0a57485b8d61e1321f0585df97f0b66ecf0d8f88"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/root/admission03/coverage.jsonl",
+      "file": "history-774/coverage.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "6352f3261f2053e66017c757994eefb9a7db3532d1262be76d4db93173aea9f8",
+      "bytes": 253771,
+      "git_blob": "2d80cbbcbd04db9af088eb40b21cb9f793f8ee45"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/root/admission03/puzzle-admission-032.json",
+      "file": "history-774/puzzle-admission-032.json.gz",
+      "encoding": "gzip",
+      "sha256": "5ff43fc41987bee5db4b0f372ea07287af9d79bf739b4d4f38e90a129446164e",
+      "bytes": 10208,
+      "git_blob": "d6014f1f8543c2a2f5e3dcd1151aaac7d58b1292"
+    }
+  ],
+  "historical_attribution": [
+    {
+      "record": "774 ROOT-ADM-REG-020/021, ROOT-ADM-COVERAGE-162/163 and ROOT-ADM-G032 / ROOT-ADM-F008 in puzzle-admission-032",
+      "author": "Original 774 root admission reviewer",
+      "scope": "Sigil 1–83, WitnessPath 1–75, prospectively registered and actually read; exact material scope only. ROOT-ADM-F008 is prior connected aggregate authority/coordinate admission finding, not a finding that these closed enums accept unknown values. Historical coverage states admission discovery complete for the scoped routes; repair frozen and validation not established."
+    },
+    {
+      "record": "059 segovb/READ-L11-425 and REGISTRATION-SEGOVB-1506/1507",
+      "author": "Original 059 Segovb Lens11 reviewer",
+      "scope": "Own fresh Sigil 1–83 and WitnessPath 1–75; closed enums, stable ID/visible label and strict parsing distinguished. Current consumer and all other lens coverage remain separate; accepted unique count change 0."
+    },
+    {
+      "record": "059 lens12_frontier PROPOSAL-L12-882, REGISTRATION-PAR-L12-660/661, identity qualifications and root adoption READ-L12-882",
+      "author": "Original /root/lens12_frontier reviewer; root adopted with root_personal_rereads empty",
+      "scope": "Own fresh full Sigil 1–83 and WitnessPath 1–75 at 6533; preserve distinct historically repaired nested range metadata and source-specific EOF. No cross-lens credit; current reconciliation and pending contracts remain open."
+    },
+    {
+      "record": "059 audit-resume lens08 batch-106 and REGISTRATION-146",
+      "author": "Original 059 L08 reviewer as recorded",
+      "scope": "Separately original physical-p16 role2831 Sigil 1–61, role2832 WitnessPath 1–53; tests/unread complements 62–83 and 54–75 respectively, despite same SHA as 2595/2596. Never transfer roles, P16 dirty provenance, or source credit."
+    },
+    {
+      "record": "059 queue index2697 REVIEW-L3-ORDERED-CLUE-POSITION-ADMISSION and 2698–2699; frozen prior 774 ROOT-ADM-F008",
+      "author": "Original root L3 and 774 admission reviewers",
+      "scope": "Public position admission connected to fey_clue_text receiver 270–289 and normal historical GET validation; our independently read ordered_sigils.rs text+1 has separate receiver and extreme trigger. Candidate permutation and spec/minimum-clue findings are separate operations. No automatic alias or current-route reachability."
+    }
+  ],
+  "observations": [
+    {
+      "id": "SIGIL-FIXED-CARDINALITY-OWNER-CANDIDATE",
+      "classification": "Current source ownership/semantic-number candidate, no accepted count or incident assigned.",
+      "source_refs": [
+        "95e crates/adventuresim-puzzles/src/lib.rs:3-5",
+        "95e crates/adventuresim-puzzles/src/choices/sigil.rs:7-18",
+        "95e crates/adventuresim-puzzles/src/ordered_sigils.rs:83-105",
+        "95e crates/adventuresim-puzzles/src/puzzles.rs:123-128,280-287",
+        "95e crates/strategic-web/src/routes/challenges.rs:134-142,153-161"
+      ],
+      "trace": "The canonical ORDERED_SIGIL_COUNT is 5 and controls the enum ALL list and ordered puzzle/projection/submission arrays. The surrounding PuzzleSubmission and form-parser array signatures repeat literal 5 for the same ordered-sigil values. The current dimensions agree; conversion from one array to the other is compiler-coupled.",
+      "future_direction": "Central owner to assess exact prior finding aliases and whether array signatures should reuse the existing count owner while preserving five named form fields and exact behavior. Do not infer dynamic choice count support, silent data mismatch, runtime failure, or a new count from this observation alone."
+    },
+    {
+      "id": "ORDERED-CLUE-POSITION-TEXT-CONDITIONAL",
+      "classification": "Current bounded corroboration of one earlier ROOT-ADM-F008 source operation; no new unique count.",
+      "source_refs": [
+        "95e crates/adventuresim-puzzles/src/ordered_sigils.rs:6-12,56-77,83-90,148-176"
+      ],
+      "trace": "Exact and NotAt publicly carry a u8 position and derive Deserialize; text renders position + 1. A direct or decoded position 255 reaching text attempts overflowing u8 addition; result depends on overflow-check configuration. Public validated puzzle path rejects position >= ORDERED_SIGIL_COUNT, but projection/text APIs are separately callable.",
+      "limits": "The concrete first-party route, submitted/decoded malformed data, actual product exception, platform arithmetic behavior and all validate callers were not traced or executed. Historical q2697 fey_clue_text uses position 5 and array indexing, distinct operation even though admission authority is connected."
+    },
+    {
+      "id": "CHOICE-KEY-AND-ERROR-BOUNDARY",
+      "classification": "Bounded legitimate typed flow and conditional UI/error-owner question, no accepted unique defect.",
+      "source_refs": [
+        "95e crates/adventuresim-puzzles/src/choices/sigil.rs:20-39,42-60",
+        "95e crates/adventuresim-puzzles/src/choices/witness_path.rs:16-32,34-52",
+        "95e crates/strategic-web/src/templates/challenge.rs:228-271",
+        "95e crates/strategic-web/src/routes/challenges.rs:134-171,232-255"
+      ],
+      "trace": "Current template selects stable_id as option value and label as display; route parses into typed choices. WitnessPath Moon is submitted as Moon and displayed as Moon path. Both enum FromStr delegates to Serde and returns typed errors, which route maps to separate static message strings and submit discards in favor of HTTP 422.",
+      "limits": "No mismatch shown: hand-authored stable IDs currently match the visible variant names. What the client shows for an HTTP 422 and whether it must present a typed reason are not inspected. Keys and labels intentionally distinct; no normalization or legacy input is assumed. No product execution."
+    }
+  ],
+  "nonfindings": [
+    "Every enum variant is valid as a single Sigil or WitnessPath; do not infer aggregate permutation validity or conflate Sigil::Moon with WitnessPath::Moon.",
+    "Stable keys and labels are different semantics even when some strings match; WitnessPath label Moon path must not be treated as a submission alias.",
+    "Source test assertions and examples are read only, not test results. Source equality is per-file, not overall snapshot or behavior proof.",
+    "Existing fixed choice count 5 and 3 are real authored cardinalities; do not introduce arbitrary nonzero/uniqueness rules to individual enum values."
+  ],
+  "open_questions": [
+    "What historical or current exact finding already owns repeated ordered-sigil count, including connected form shape?",
+    "Which direct public OrderedSigilClue and projection constructors/decoders can reach text without validate, and what is the actual caller policy?",
+    "Does the 422 receiver show an actionable puzzle answer error, and is typed parse-cause propagation needed beyond this presentation boundary?",
+    "Do unsupported direct values or serialization-driven changes reach supported application inputs? What exact 059/774 findings and queues alias these bounded source operations?",
+    "How do remaining unread puzzle generators, validators, strategic reducers, UI caller/recipient code, native Serde implementation and all-lens scope affect these contracts?"
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Template stable IDs → form parse → enum PuzzleSubmission → ordered checker traced only in registered windows; remaining reducers/receivers open."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "Existing Sigil, WitnessPath and ORDERED_SIGIL_COUNT owners are reused in core; two array signatures repeat their count in registered support."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "Strict closed enum FromStr, typed parse errors and separate ordered puzzle validation read. Public u8 clue position is wider than validated puzzle position; supported ingress remains open."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "Public clue text uses u8 position + 1; maximum value causes source-reasoned overflow contingent on unchecked direct use and compiler settings. Existing F008 applies."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "A five-element array of valid Sigils can contain duplicates; actual ordered check rejects nonpermutation independently from enum admission."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "Choice vocabulary lives in puzzle crate; strategic web is form/presentation adapter. Ordered count owner and renderer error policy require connected resolution."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "stable_id mappings and derived Serde variant vocabulary are independently expressed but presently agree; future drift is not a current mismatch. Raw count signatures duplicate existing named cardinality owner."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Assigned old and current files are byte-identical; that alone does not establish whole-app behavior or test success. Strict case/whitespace policy is recorded by source, not run."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "Typed Sigil, WitnessPath and tagged PuzzleSubmission preserve semantic variant and payload relationships in inspected windows."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "Small unit parse error types manually implement Display and Error; earlier L08 called derive a candidate, not proof of equivalent dependency/configuration or a mandatory replacement."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Sigil and WitnessPath are distinct despite both including Moon; position, enum choice, ordered permutation and visible label remain distinct roles."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "Stable submission IDs and labels are explicit adapters; the route rewrites parse errors to static prose and drops it for HTTP 422, with UI presentation policy unresolved."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "Explicit five count already has ORDERED_SIGIL_COUNT owner, while submission/parser signatures use raw five; no current mismatch. Closed three-choice path array and zero-based positions have distinct intentional meaning."
+    }
+  ],
+  "published_evidence_links": {
+    "registry_and_original_transport": "delegated/sdk-noiz-sats-hair-evidence.tar.gz; member reference/registry.json.gz and reference/original-transport-manifest.json.gz; outer SHA256 421ed4b801935c1995a630147c88af97cebd478fb7ea05a33cda143dcc99998a",
+    "baseline_queue": "baseline-059/queue.json SHA256 2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json SHA256 30184a296be0ff10031776e078f1b639f273f77e7387534f5a4eb5d5b4aa8007",
+    "qualification": "Hash links do not transfer historical reviewer or source coverage. No large archives duplicated."
+  },
+  "constraints": "No product changes, repairs, tests, builds, runtime probes, browser, viewer, simulation or validation. Tool use limited to source/evidence inspection and evidence identity verification."
+}

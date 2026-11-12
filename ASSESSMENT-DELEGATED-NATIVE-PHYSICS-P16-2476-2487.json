@@ -1,0 +1,789 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2476,
+      "source_id": "sdk-noiz-0.5.0:src/lib.rs",
+      "snapshot": "sdk-noiz-0.5.0",
+      "snapshot_head": null,
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2476",
+      "sha256": "75fd184c107067ee24f751adf6f49829c698ba89899a3595e6a608b63c6413f6",
+      "lines": 441,
+      "new_personal_read_ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          110
+        ],
+        [
+          111,
+          220
+        ],
+        [
+          221,
+          330
+        ],
+        [
+          331,
+          441
+        ]
+      ],
+      "new_personal_read_revision": "native package noiz 0.5.0",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/sdk-noiz-sats-hair-report.json",
+      "evidence_archive": "delegated/sdk-noiz-sats-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2476.rs",
+      "current_member": null,
+      "original_registry_scope": {
+        "original_registry_audit_owner": "root",
+        "original_registry_status": null,
+        "original_material_ranges": null,
+        "original_source_or_other_lens_credit": null,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 33,
+            "read_ranges": [
+              [
+                100,
+                180
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-TERRAIN-GRID-021"
+            ],
+            "read_status": "actual_ScalableNoise_contract_body_only",
+            "resolved_path": "CARGO_REGISTRY/noiz-0.5.0/src/lib.rs"
+          }
+        ],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "status": "native package selected by pinned lockfile",
+        "package": "noiz",
+        "version": "0.5.0",
+        "archive_member": "archives/noiz-0.5.0.crate",
+        "archive_sha256": "937ac4a1ea826fc4977c4db2629fa1278e998012c24e7f9c2be32020c66d7815",
+        "source_member": "noiz-0.5.0/src/lib.rs",
+        "separate_current_body_display": false,
+        "qualification": "The exact native body was personally displayed once; the old and current lockfiles select the package checksum. This is not a separate 95e Git source read, feature-resolution proof or runtime use."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2477,
+      "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs",
+      "snapshot": "sdk-spacetimedb-sats-2.6.1",
+      "snapshot_head": null,
+      "scope_kind": "materially_reached_owner_contract",
+      "registry_pointer": "/files/2477",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "lines": 343,
+      "new_personal_read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          275
+        ],
+        [
+          276,
+          343
+        ]
+      ],
+      "new_personal_read_revision": "native package spacetimedb-sats 2.6.1",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/sdk-noiz-sats-hair-report.json",
+      "evidence_archive": "delegated/sdk-noiz-sats-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2477.rs",
+      "current_member": null,
+      "original_registry_scope": {
+        "original_registry_audit_owner": "root",
+        "original_registry_status": null,
+        "original_material_ranges": null,
+        "original_source_or_other_lens_credit": null,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 30,
+            "read_ranges": [
+              [
+                1,
+                195
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SDK-CLOCK-019"
+            ],
+            "read_status": "actual_definition_and_relevant_methods_only",
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-sats-2.6.1/src/timestamp.rs"
+          }
+        ],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "status": "native package selected by pinned lockfile",
+        "package": "spacetimedb-sats",
+        "version": "2.6.1",
+        "archive_member": "archives/spacetimedb-sats-2.6.1.crate",
+        "archive_sha256": "6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+        "source_member": "spacetimedb-sats-2.6.1/src/timestamp.rs",
+        "separate_current_body_display": false,
+        "qualification": "The exact native body was personally displayed once; the old and current lockfiles select the package checksum. This is not a separate 95e Git source read, feature-resolution proof or runtime use."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2481,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/2481",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "lines": 55,
+      "new_personal_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          55
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/physics-collider-count-report.json",
+      "evidence_archive": "delegated/physics-collider-count-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "historical_member": "sources/6533/crates/fabelgeist-physics/src/contact/count.rs",
+      "current_member": "sources/95e6/crates/fabelgeist-physics/src/contact/count.rs",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "rig",
+        "original_registry_status": null,
+        "original_material_ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-physics/src/contact/count.rs",
+        "status": "present",
+        "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+        "git_blob": "b5629d9376c26e346a90399a617e91f2d33eb205",
+        "bytes": 1836,
+        "lines": 55,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            55
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            55
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-physics-2481-2482-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_existing_owner_definition",
+      "registry_pointer": "/files/2482",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "lines": 218,
+      "new_personal_read_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          218
+        ]
+      ],
+      "new_personal_read_revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/physics-collider-count-report.json",
+      "evidence_archive": "delegated/physics-collider-count-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "historical_member": "sources/6533/crates/fabelgeist-physics/src/collider.rs",
+      "current_member": "sources/95e6/crates/fabelgeist-physics/src/collider.rs",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "rig",
+        "original_registry_status": null,
+        "original_material_ranges": [
+          [
+            1,
+            133
+          ],
+          [
+            212,
+            218
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [
+        [
+          134,
+          211
+        ]
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-physics/src/collider.rs",
+        "status": "present",
+        "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+        "git_blob": "51bb1d16a3089f5187a857fb35c6b316c1349db1",
+        "bytes": 7409,
+        "lines": 218,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            218
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            218
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-physics-2481-2482-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2483,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "snapshot": "physical-p16",
+      "snapshot_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "scope_kind": "materially_reached_producer_followup_contract",
+      "registry_pointer": "/files/2483",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "lines": 66,
+      "new_personal_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          66
+        ]
+      ],
+      "new_personal_read_revision": "physical-p16 dirty snapshot; recorded base a120390947c89b703dc74c4255a13c035d054c50",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p16-config-report.json",
+      "evidence_archive": "delegated/p16-config-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/physical-p16-2483.source",
+      "current_member": "source/current-2483.source",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "camera",
+        "original_registry_status": "navigation_only_no_body_analysis",
+        "original_material_ranges": [
+          [
+            1,
+            60
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from metadata registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+        "status": "present",
+        "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+        "git_blob": "7d549460870d2e41d86f1ef10932d2b099a58084",
+        "bytes": 3223,
+        "lines": 66,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            66
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-p16-base-2483-2487-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2484,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "snapshot": "physical-p16",
+      "snapshot_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "scope_kind": "materially_reached_producer_followup_contract",
+      "registry_pointer": "/files/2484",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "lines": 112,
+      "new_personal_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          80
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "new_personal_read_revision": "physical-p16 dirty snapshot; recorded base a120390947c89b703dc74c4255a13c035d054c50",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p16-config-report.json",
+      "evidence_archive": "delegated/p16-config-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/physical-p16-2484.source",
+      "current_member": "source/current-2484.source",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "camera",
+        "original_registry_status": "navigation_only_no_body_analysis",
+        "original_material_ranges": [
+          [
+            1,
+            50
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from metadata registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": [
+          {
+            "authority": "continuation/root/owner-delta-scope-authority-029.json",
+            "registration_observations": [
+              {
+                "registry": "continuation/camera/owner81/source-range-registration.jsonl",
+                "row_1based": 4,
+                "supplier": "camera",
+                "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+                "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+                "actual_EOF": 112,
+                "ranges": [
+                  [
+                    51,
+                    59
+                  ],
+                  [
+                    81,
+                    112
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    51,
+                    59
+                  ],
+                  [
+                    81,
+                    112
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "CONT-CAMERA-OWNER81-REGISTRATION-004",
+                  "at": "2026-10-22T05:14:12.287824+00:00",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+                  "snapshot": "physical-p16",
+                  "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+                  "actual_eof": 112,
+                  "ranges": [
+                    [
+                      51,
+                      59
+                    ],
+                    [
+                      81,
+                      112
+                    ]
+                  ],
+                  "actual_reach": "Registration002 muscle_strength24Ã¢â‚¬â€œ35 directly reads rise/stunfloor/limp typedfields and matches MuscleRelease; exact necessary fieldtail and actual NativeSerde None/After duration codec, excludingcapsules60Ã¢â‚¬â€œ80.",
+                  "why_prior_proof_insufficient": "Actual P16gain/envelope helper/field policies notpreviouslyscoped; existingPRnativeRagdoll policy comparison notautomaticP16sameness.",
+                  "exclusions": "No unrelatedcapsules/fixtures/controllers/newforeignpackages.",
+                  "status": "prospectiveprebodyregistration; producerfollowuprequired"
+                },
+                "frozen_path": "SNAPSHOTS/p16/crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+                "bytes": 4630
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                51,
+                59
+              ],
+              [
+                81,
+                112
+              ]
+            ],
+            "original_range_scope_preserved": true,
+            "limits": "Only exact prospective candidate-definition/constructor/helper/dependency roles, including all exclusions and local qualifications; source bytes/ranges/counts are not owner/producer acceptance.",
+            "producer_followup": "pending exact new-role producer qualification; no credit from current owner packet",
+            "owner_discovery": "supporting exact current owner witnesses separately reconciled in Root supplier acceptance; not inferred here"
+          }
+        ],
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+        "status": "present",
+        "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+        "git_blob": "d86dec4eb0cf74caa453290cd3575561371a01ad",
+        "bytes": 4630,
+        "lines": 112,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            80
+          ],
+          [
+            81,
+            112
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            112
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-p16-base-2483-2487-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2485,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "snapshot": "physical-p16",
+      "snapshot_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "scope_kind": "materially_reached_producer_followup_contract",
+      "registry_pointer": "/files/2485",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "lines": 48,
+      "new_personal_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          48
+        ]
+      ],
+      "new_personal_read_revision": "physical-p16 dirty snapshot; recorded base a120390947c89b703dc74c4255a13c035d054c50",
+      "new_personal_read_attribution": "/root/mhr_character",
+      "delegate_report": "delegated/p16-config-report.json",
+      "evidence_archive": "delegated/p16-config-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/physical-p16-2485.source",
+      "current_member": "source/current-2485.source",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "camera",
+        "original_registry_status": "navigation_only_no_body_analysis",
+        "original_material_ranges": [
+          [
+            1,
+            25
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from metadata registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+        "status": "present",
+        "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+        "git_blob": "3554bcdff8a61da471c8dd0dc0a4be5439dd5228",
+        "bytes": 2253,
+        "lines": 48,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            48
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            48
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-p16-base-2483-2487-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2486,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "snapshot": "physical-p16",
+      "snapshot_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "scope_kind": "materially_reached_producer_followup_contract",
+      "registry_pointer": "/files/2486",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "lines": 140,
+      "new_personal_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          70
+        ],
+        [
+          71,
+          140
+        ]
+      ],
+      "new_personal_read_revision": "physical-p16 dirty snapshot; recorded base a120390947c89b703dc74c4255a13c035d054c50",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/p16-body-target-hair-report.json",
+      "evidence_archive": "delegated/p16-body-target-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2486-p16.rs",
+      "current_member": "source/2486-current.rs",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "camera",
+        "original_registry_status": "navigation_only_no_body_analysis",
+        "original_material_ranges": [
+          [
+            84,
+            140
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from metadata registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+        "status": "present",
+        "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+        "git_blob": "beebd3799c939e0ca1da808a35b2160b6b5b7e90",
+        "bytes": 6019,
+        "lines": 140,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            140
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            140
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-p16-base-2483-2487-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    },
+    {
+      "original_index": 2487,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "snapshot": "physical-p16",
+      "snapshot_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "scope_kind": "materially_reached_producer_followup_contract",
+      "registry_pointer": "/files/2487",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "lines": 490,
+      "new_personal_read_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          200
+        ],
+        [
+          201,
+          300
+        ],
+        [
+          301,
+          400
+        ],
+        [
+          401,
+          490
+        ]
+      ],
+      "new_personal_read_revision": "physical-p16 dirty snapshot; recorded base a120390947c89b703dc74c4255a13c035d054c50",
+      "new_personal_read_attribution": "/root/hair_ops",
+      "delegate_report": "delegated/p16-body-target-hair-report.json",
+      "evidence_archive": "delegated/p16-body-target-hair-evidence.tar.gz",
+      "receipt_member": "read-receipt.json",
+      "historical_member": "source/2487-p16.rs",
+      "current_member": "source/2487-current.rs",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "camera",
+        "original_registry_status": "navigation_only_no_body_analysis",
+        "original_material_ranges": [
+          [
+            195,
+            217
+          ]
+        ],
+        "original_source_or_other_lens_credit": "none from metadata registration",
+        "owner_contract_proofs": [],
+        "owner81_scope_additions": null,
+        "qualification": "Original registration metadata and original supplier claims are preserved as recorded; prospective material ranges do not imply a historical body read."
+      },
+      "new_connected_support_ranges_outside_original_role": [],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+        "status": "present",
+        "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+        "git_blob": "7eabeba200454f0b7cd34886a92049342e7d1c44",
+        "bytes": 19821,
+        "lines": 490,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            100
+          ],
+          [
+            101,
+            200
+          ],
+          [
+            201,
+            300
+          ],
+          [
+            301,
+            400
+          ],
+          [
+            401,
+            490
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            490
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "git_path_proof": "delegated/central-p16-base-2483-2487-path-proofs.tar.gz",
+        "qualification": "Historical and current sources were separately displayed. For P16, base equality and Git membership are per-file only and do not establish a clean snapshot or separate base read. For pr-working, four unrelated modifications remain recorded."
+      },
+      "qualification": "The named delegate read actual source bytes; original supplier/revision/read attribution stays separate. P16 tracked-patch recovery and seven untracked files are later evidence, not a clean-commit or 3821 claim. Archived test text is not product execution. For role2482 the original role range excludes 134–211, which the later receipt separately accounts as connected support."
+    }
+  ],
+  "qualification": "Nine separately attributed native, pr-working and dirty physical-p16 source bodies. Original material ranges and prospective-only camera metadata remain distinct from new delegate reads; collider 134–211 is separately accounted connected support. No other lens closure, checkpoint3821 evidence or product execution.",
+  "evidence": "DELEGATED-EVIDENCE-CHECKPOINT-10.json"
+}

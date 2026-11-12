@@ -1,0 +1,664 @@
+{
+  "schema": "726-bounded-serde-tree-growth-assessment-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T00:47:15.892361+00:00",
+  "status": "source-only bounded assessment for central reconciliation; no repairs or product validation",
+  "baseline_and_identity": {
+    "current_project": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "role2601": "serde_json 1.0.151 pinned Cargo package source, not a project Git revision. Actual archive checksum is bound independently to 6533, 95e and recovered P16 dirty Cargo.lock package records; those lock records do not prove the active target feature graph.",
+    "role2602": "Recorded pr-working individual file equals clean 6533 object; the recorded whole snapshot had four unrelated modified paths and must not be called clean. Current 95e body differs.",
+    "f82": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is Git transport for original source bytes and 774 records, not a product commit, dependency revision or checkpoint3821.",
+    "p16": "P16 is a different historical dirty snapshot, based on a120390947c89b703dc74c4255a13c035d054c50. Later tracked patch fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 (524542 bytes) was recovered and matches recorded 151 modified paths plus one deleted path; seven untracked files are separate. The hash-linked dirty lock is actual dirty evidence, not the a120 base or a checkpoint3821 product state. Later recovery does not replace original caveats or establish independent historical custody.",
+    "evidence": "registry-selection-reconstructed.json and queue-selection-reconstructed.json are selected reconstructions, not original standalone records; exact original records and independent full originals are preserved/hash-linked in historical-attribution.json and evidence-links.json."
+  },
+  "scopes": {
+    "role2601": "Original eight materially reached ranges and separate support windows are recorded in personal-read-receipt.json with exact unread complements; possession/hash verification of complete package source is not a full-file personal read. Native serde, derive, and core reads are independently registered as support and only their displayed windows are credited.",
+    "role2602": "Both the historical 1–88 and current 1–91 bodies personally displayed after prospective registration. Existing other reviewers retain their own ranges and authorship.",
+    "lexical_qualification": "lexical-registration.json requested lines 1–125 before display; actual EOF is 83 and only existing 1–83 were displayed. Nonexistent 84–125 receive no credit. Preserve lexical-eof-qualification.json additively rather than silently changing the original registration.",
+    "derive_qualification": "native-support-registration.json requested derive internals 1–110, but actual EOF is 106 and only lines 1–106 existed in the untruncated display. The initial receipt incorrectly reported 1–110; preserve personal-read-receipt-initial.json and derive-eof-qualification.json. Corrected personal-read-receipt.json credits no nonexistent 107–110.",
+    "separate_navigation": "navigation-exposures.json records search-only singleton exposure, including a truncated initial output. Search is not full-body or contiguous-read credit; search showing no serde_json de.rs __deserialize_content_v1 override is mechanical evidence over bytes, not a full source read.",
+    "limits": "No product, macros, parser, shader, renderer, browser, generator, tests, fixtures, simulations, builds or runtime probes were executed. Source text of tests is present in one separately registered support read and was not executed. No whole-lens or package-wide closure claimed."
+  },
+  "findings": [
+    {
+      "id": "REVIEW-SERDE-TAGGED-FORGE-F025-REFINEMENT",
+      "classification": "conditional current source-backed first-admission candidate; historical F025 refinement, central decides ledger identity",
+      "observation": "Current BrowserCommand is internally tagged and OrbitForge stores raw f32 deltas. queue_json parses from_str, and a successfully queued and drained OrbitForge adds scaled delta_x to retained yaw. Both 6533 and 95e browser sources have the tagged raw-f32 shape, but differ in full bytes.",
+      "source_reasoning": [
+        "The pinned serde derive source generates TaggedContentVisitor via deserialize_any, buffers non-tag fields as Content through __deserialize_content_v1; serde_core default delegates to deserialize_any and a source-wide text search found no serde_json de.rs override.",
+        "Without arbitrary_precision, numeric tokens route through parse_integer to ParserNumber::F64, and ContentVisitor retains F64; the generated tagged-struct map asks for each f32 field, ContentDeserializer dispatches the F64 to the f32 visitor, whose cast does not check finite representability.",
+        "With neither arbitrary_precision nor float_roundtrip, the registered POW10 source and integer/exponent logic show that a well-formed positive 1e100 token is finite as f64 but outside f32 range and casts to positive infinity. Subject to successful command decode/queue/drain, yaw receives that value. This is source reasoning, not an executed input.",
+        "When float_roundtrip is enabled, direct do_deserialize_f32 sets single_precision and takes the f32 lexical branch; the internally tagged buffering path instead begins in deserialize_any with single_precision false. The f64 lexical result was not independently proved for a particular input because its subordinate algorithms were not fully read. Thus, if the f64 lexical branch returns a finite value outside f32 range and arbitrary_precision is disabled, later Content-to-f32 cast can still overflow. Do not claim the active target enables either feature or that float_roundtrip necessarily protects tagged fields.",
+        "With arbitrary_precision, parse_any_number has a different String-backed internal numeric representation. Its outcome in this route is not assessed here. This string is dependency-internal number encoding, not automatically an application magic-string defect."
+      ],
+      "conditions": [
+        "Well-formed tagged command reaches queue_json; its fields meet other decoding requirements; non-arbitrary_precision selected; observed source route and numeric assumptions hold; queue lock succeeds and queued command is drained. Caller capability, actual target features, inputs and runtime observations are unverified."
+      ],
+      "history_relation": "RIG-ADMISSION03-F025 (original 774 row 25, linked CONTRACT-409 and ADDITIONAL-042) preserves a nonfloat_roundtrip candidate and stated float_roundtrip target overflow rejection. The latter follows a direct f32 decoder path but does not by itself establish the tagged-buffered command route; this is a new, qualified source refinement, not a rewrite of old record. Original 059 ADLER-L11-FORGE-YAW-ACCUMULATION (q50) concerns repeated individually finite deltas; related same retained yaw, distinct immediate admission/mutation contracts, no automatic alias or count. Original 059 L12-CLOSURE-NATIVE-SERDE-JSON-NUMBER-ADAPTER (q2484) and /root/mhr_character Value-based serde packet are related native scope, not evidence of identical routes or completion.",
+      "future_repair_direction": "Central ledger may connect a checked finite representable delta at the browser command admission boundary with the independent bounded retained-angle operation; preserve intended signed motion and chosen pitch/distance policy. Defer implementation and policy to later authorized work.",
+      "source_refs": [
+        {
+          "archive": "support/current-7.source",
+          "source_path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            35,
+            55
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-7.source",
+          "source_path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            189,
+            197
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-7.source",
+          "source_path": null,
+          "identity": "95e crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            110,
+            114
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-7.source",
+          "source_path": null,
+          "identity": "95e crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            248,
+            252
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-1.rs",
+          "source_path": "src/de/enum_internally.rs",
+          "identity": "serde_derive-1.0.229",
+          "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+          "lines": [
+            49,
+            62
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            859,
+            885
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            300,
+            309
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native2-0.rs",
+          "source_path": "src/de/mod.rs",
+          "identity": "serde_core-1.0.229",
+          "sha256": "5ec8602d593915e0cf480b0ce67b02f6ab066dac34725237d2c7b4a6ef12a845",
+          "lines": [
+            1257,
+            1265
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            1389,
+            1424
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            932,
+            932
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            933,
+            954
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            109,
+            129
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            383,
+            394
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native2-1.rs",
+          "source_path": "src/de/struct_.rs",
+          "identity": "serde_derive-1.0.229",
+          "sha256": "7b26982ce59504a9bb5a18c3ab56eee2d75e70fd465774ff035d15c50452c118",
+          "lines": [
+            155,
+            156
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native2-1.rs",
+          "source_path": "src/de/struct_.rs",
+          "identity": "serde_derive-1.0.229",
+          "sha256": "7b26982ce59504a9bb5a18c3ab56eee2d75e70fd465774ff035d15c50452c118",
+          "lines": [
+            236,
+            250
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            1103,
+            1115
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            1120,
+            1150
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            1145,
+            1152
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            1690,
+            1717
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            1072,
+            1078
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-0.rs",
+          "source_path": "src/private/de.rs",
+          "identity": "serde-1.0.229",
+          "sha256": "68ee17774d3bbc693d9f19803747fa2c3afdb7046482e6d94ac6cf7db5a4fe20",
+          "lines": [
+            1222,
+            1227
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native3-core.rs",
+          "source_path": "src/de/impls.rs",
+          "identity": "serde_core-1.0.229",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+          "lines": [
+            129,
+            152
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native3-core.rs",
+          "source_path": "src/de/impls.rs",
+          "identity": "serde_core-1.0.229",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+          "lines": [
+            222,
+            242
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native3-core.rs",
+          "source_path": "src/de/impls.rs",
+          "identity": "serde_core-1.0.229",
+          "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+          "lines": [
+            450,
+            456
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": null,
+          "identity": "serde_json 1.0.151 src/de.rs",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            59,
+            65
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            345,
+            354
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            1505,
+            1515
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            462,
+            512
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            567,
+            621
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            623,
+            672
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": null,
+          "identity": "serde_json 1.0.151 src/de.rs",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            1306,
+            1318
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/native-lexical.rs",
+          "source_path": "src/lexical/parse.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "c2bfac4c70a19938ced61e991f4ec606764887cf12bac1a0978b5b5318a56aac",
+          "lines": [
+            1,
+            83
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/historical-browser.rs",
+          "source_path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "identity": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+          "lines": [
+            37,
+            56
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/historical-browser.rs",
+          "source_path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "identity": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+          "lines": [
+            181,
+            189
+          ],
+          "read_kind": "separately registered support"
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-TREE-GROWTH-2602-HISTORICAL-CURRENT",
+      "classification": "changed-source observation linked to existing tree provenance contracts, no new independent defect asserted",
+      "observation": "The old and current growth axes bodies are distinct. Current uses libm trigonometric/power operations and window multiplication, changes the radii argument to an array, and derives a TreeShootId from each shrub-shoot seed when appending a branch. The current helper provides the identifier to append_branch_curve; separately read skeleton source filters foliage identity to terminal segment.",
+      "conditions": "Current caller and geometry/identity behaviour is source-level only. Exact cross-platform numeric results, replay, visual equivalence and reachability of specific gameplay shrubs are not established; byte differences alone do not prove a regression.",
+      "history_relation": "Original 774 RIG-ADMISSION03-REGISTER-044/ADDITIONAL-044 pertains to old 6533 1–88. Current existing 059 ADLER-L11-TREE-SHOOT-IDENTITY-OWNERSHIP q77 and ADLER-L11-TREE-BAKE-PROVENANCE-GEOMETRY-KEY q80 already connect shoot/bake identity; current finding adds a source edge, not an assumed duplicate or independent count. Published tree-shoot and skeleton-wood assessments retain original reader and all historical qualifications.",
+      "future_repair_direction": "Reconcile identity provenance and units/normalization policy end-to-end only after determining supported source producers and intended cross-platform/replay behavior; central owns ledger.",
+      "source_refs": [
+        {
+          "archive": "sources/2602-historical.rs",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+          "identity": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "sha256": "6e61b607878f8e70160e9a63cb75f65b52faf8332fdfa148f7262c6321e7e76f",
+          "lines": [
+            1,
+            88
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2602-current.rs",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4",
+          "lines": [
+            1,
+            91
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "support/current-1.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38",
+          "lines": [
+            650,
+            725
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-1.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38",
+          "lines": [
+            749,
+            787
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-2.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "3bc0741a7480ca6ed70bf12689c7fa73bb1ce7ee8a442e6aaf337e7406e4454d",
+          "lines": [
+            1,
+            19
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-0.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9",
+          "lines": [
+            85,
+            120
+          ],
+          "read_kind": "separately registered support"
+        }
+      ]
+    }
+  ],
+  "nonfindings_and_limits": [
+    {
+      "claim": "The separately read current shrub caller constructs branch_points with three entries, satisfying the sample_polyline implementation’s length-at-least-two indexing assumption for that caller. No general guarantee about every caller or degenerate/nonfinite vectors follows.",
+      "refs": [
+        {
+          "archive": "support/current-1.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38",
+          "lines": [
+            650,
+            725
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "support/current-1.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "661e960ce52adbbd70eff6d9b7f9e4704273a9b2de2b0ad64b9dcea9de9ecf38",
+          "lines": [
+            749,
+            787
+          ],
+          "read_kind": "separately registered support"
+        }
+      ]
+    },
+    {
+      "claim": "Normalized gnarling fields are raw f32 and relevant clamp/normalize operations occur in the examined code, but this bounded inspection has not established an actual supported nonfinite value or zero-direction producer, a failing result, or a universal admission policy.",
+      "refs": [
+        {
+          "archive": "support/current-0.source",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b730b2dc02270ffc2b2990aceb80eb7ae0dc0a268b0c9c99974b05d87a5f0db9",
+          "lines": [
+            85,
+            120
+          ],
+          "read_kind": "separately registered support"
+        },
+        {
+          "archive": "sources/2602-current.rs",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4",
+          "lines": [
+            17,
+            39
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "sources/2602-current.rs",
+          "source_path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "b436cbf44b376a8eff01bc3e1ff7592cb839a353fa7ab1cb986943417dcb0ec4",
+          "lines": [
+            64,
+            72
+          ],
+          "read_kind": "assigned role"
+        }
+      ]
+    },
+    {
+      "claim": "No new product magic-string issue is asserted from dependency-internal arbitrary-precision numeric string. The browser command tag is a serialized schema discriminator with explicit typed variants, not proof every external producer or evolution policy is covered.",
+      "refs": [
+        {
+          "archive": "sources/2601-historical.rs",
+          "source_path": "src/de.rs",
+          "identity": "serde_json-1.0.151",
+          "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
+          "lines": [
+            937,
+            954
+          ],
+          "read_kind": "assigned role"
+        },
+        {
+          "archive": "support/current-7.source",
+          "source_path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+          "identity": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "sha256": "83c7e8a4696ea53dca63deabee935561888354229cc8b71e92be800b592f98d7",
+          "lines": [
+            35,
+            55
+          ],
+          "read_kind": "separately registered support"
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "What exact unified serde_json features apply to each supported browser target? Cargo.lock and a manifest request alone do not answer.",
+    "What browser producers and user-facing command routes can actually supply extreme values, and what should rejection, wrapping, or clamping mean for finite signed motion?",
+    "In float_roundtrip, what finite f64 outputs do the uninspected lexical fast/moderate paths produce for representative token magnitudes? What happens with arbitrary_precision enabled? These are future source/authorized validation questions, not executed cases.",
+    "Which supported tree producers admit raw nonfinite/degenerate input, and is the selected shrub path reachable with those values?",
+    "What seed ownership/collision and geometry provenance contract is intended across revisions, platforms and replay?"
+  ],
+  "historical_attribution": {
+    "774": "rig original registrations 041–043 specify separately bounded serde_json package ranges combined in original registry material; 044 records historical growth_axes 1–88. RIG-ADMISSION03-F025 is retained byte-for-byte in compressed original findings row 25, not claimed as a 3821 or 95e contemporaneous result.",
+    "059_lens11": "Segovb READ-L11-426 records fresh role2601 original material via REGISTRATION-SEGOVB-1512 and role2602 1–88 via 1513. Its distinct additional registration 1518 records serde_json 873–879 and 914–932; preserve its own extension and read receipt, not original-role material expansion.",
+    "059_lens12": "/root/lens12_frontier independent bounded original source reads were prospectively registered as REGISTRATION-PAR-L12-666 and 667 and appear in proposal/READ-L12-885 and 886 adopted by root; root adoption is not a fresh root reread and no other lens credit transfers.",
+    "peer": "/root/mhr_character serde-json-number and /root/hair_ops catalog packets retain independent source scope and authorship. evidence-links.json binds reports/manifests and prior dirty lock; selected historical records and queue rows are reconstructed and explicitly labeled."
+  },
+  "lenses": [
+    {
+      "lens": "magic-strings",
+      "bounded_perspective": "Native parser String is a cfg-controlled numeric representation; the command type tag is a declared serialization discriminator. No separate defect established."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_perspective": "Raw f32 angles/deltas and tree deformation constants appear; this scope does not prove unit or domain policy. F025 addresses representability and future ownership, not removal of all constants."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_perspective": "TreeShootId is a named seed-derived identity; browser command fields remain raw f32. Establish rightful boundary and units before selecting type owner."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_perspective": "Current shoot seed maps to existing TreeShootId; no existing project type was proven to own finite signed browser deltas."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_perspective": "A finite signed angle delta, stored angle and clamp domain have different semantics; no claim that generic UnitInterval fits."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_perspective": "Finite-value admission and repeated yaw accumulation are separate conditions; link the latter to q50, avoid duplicate counts."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_perspective": "Tree polyline length and branch/direction relations require more than each f32 field. Shown three-point caller meets length precondition; general caller policy remains open."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_perspective": "Internally tagged serde buffering establishes the conditional f64-to-f32 path; lock checksums do not prove target feature selection or real input."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_perspective": "BrowserCommand encodes orbit deltas in a tagged variant; this bounded review does not establish enum ownership outside the shown route."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_perspective": "Seed-derived shoot and geometry/bake key are related identity authorities in existing q77/q80; this helper alone cannot prove conflicts or intended equivalence."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_perspective": "Old intrinsic operations and current libm/multiplication differ in source. No numeric, visual or replay equivalence was validated."
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_perspective": "Current shrub seed -> TreeShootId -> append and terminal-segment identity are visible in separately read windows; downstream and actual supported producers remain bounded."
+    },
+    {
+      "lens": "derivability",
+      "bounded_perspective": "Serde derives serialize the command through generated tagged content; this analysis identifies behavior of relevant derive sources, not an argument to replace handwritten boilerplate or remove validation."
+    }
+  ],
+  "recoverability": {
+    "prospective_registration": "registration.json and separately numbered support registrations",
+    "actual_read_receipt": "personal-read-receipt.json",
+    "git_proofs": "git-proofs.json and git-objects/",
+    "original_059": "historical-059/ with historical-attribution.json and hash-linked original transport manifest",
+    "original_774": "historical-774/rig-findings.jsonl.gz and hash-linked source-range/contract records",
+    "qualified_numerical_support": "lexical-eof-qualification.json and derive-eof-qualification.json, with first incorrect receipt retained separately",
+    "hash_linked_existing": "evidence-links.json",
+    "scope": "Archive/source bytes do not extend personal read or transfer earlier attribution."
+  }
+}

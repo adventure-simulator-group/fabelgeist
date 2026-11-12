@@ -1,0 +1,1083 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+  "reconciliation_proposals": "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+  "source_roles": "ASSESSMENT-DELEGATED-NATIVE-PHYSICS-P16-2476-2487.json",
+  "git_path_proofs": [
+    "CENTRAL-PHYSICS-2481-2482-PATH-PROOFS.json",
+    "CENTRAL-P16-BASE-2483-2487-PATH-PROOFS.json"
+  ],
+  "delegated_observations": [
+    {
+      "bundle_id": "sdk-noiz-sats-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/sdk-noiz-sats-hair-report.json",
+      "original_finding": {
+        "id": "TERRAIN-NOIZ-PERIOD-OWNER-QUESTION",
+        "classification": "Existing 059 connected open question; bounded current context, no new project defect/count.",
+        "sources": [
+          {
+            "file": "support/00-crates__adventuresim-tactical-core__src__scene.rs",
+            "lines": [
+              [
+                23,
+                31
+              ],
+              [
+                56,
+                87
+              ],
+              [
+                119,
+                146
+              ]
+            ],
+            "contract": "Public TerrainGenerator holds raw period and grid scale; new uses period 30, generate forwards period to noiz and samples before final terrain validation."
+          },
+          {
+            "file": "source/2476.rs",
+            "lines": [
+              [
+                118,
+                158
+              ],
+              [
+                289,
+                299
+              ],
+              [
+                322,
+                339
+              ],
+              [
+                352,
+                369
+              ]
+            ],
+            "contract": "Native trait says unusual zero/infinite period/frequency not recommended, set_period takes reciprocal, concrete Noise stores raw f32 and multiplies sampling input by frequency."
+          },
+          {
+            "file": "support/extra-0-crates__adventuresim-tactical-core__src__scene__admission.rs",
+            "lines": [
+              [
+                41,
+                69
+              ],
+              [
+                71,
+                84
+              ]
+            ],
+            "contract": "Grid dimensions/physical scale are validated before sampling; generated height samples are checked finite afterward."
+          },
+          {
+            "file": "support/extra-2-crates__adventuresim-tactical-client__src__animation_viewer__setup.rs",
+            "lines": [
+              [
+                4,
+                13
+              ]
+            ],
+            "contract": "Inspected caller sets finite positive period 200.0 before generate."
+          }
+        ],
+        "reasoning": "The raw public parameter lacks the stronger application period policy before native reciprocal; e.g. zero implies an infinite reciprocal in f32 source math. This alone does not establish an invalid authored input, native algorithm outcome, panic, or production failure. The sample implementation in sibling modules was not inspected; later finite-height checks do not prove behavior before the check.",
+        "future_direction": "Determine supported noise wavelength/frequency domain and producer bounds, then represent/admit at the application owner and preserve the external native adapter. Maintain the documented seed low-word boundary; do not impose nonzero seed based on SDK.",
+        "history": "q577, q885 and q1923 are related open source-contract questions, not proven exact defect aliases; original 774 ROOT-PPS-BOUNDARY-METADATA-028 preserves project/native ownership."
+      }
+    },
+    {
+      "bundle_id": "sdk-noiz-sats-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/sdk-noiz-sats-hair-report.json",
+      "original_finding": {
+        "id": "SATS-TIMESTAMP-MINIMUM-CONVERSION-QUESTION",
+        "classification": "Earlier central historical-495 observation, independently corroborated on the exact same native package; no new count.",
+        "sources": [
+          {
+            "file": "source/2477.rs",
+            "lines": [
+              [
+                34,
+                50
+              ],
+              [
+                60,
+                68
+              ],
+              [
+                82,
+                98
+              ]
+            ],
+            "contract": "Every i64 microsecond value can be constructed. Negative timestamp conversion negates signed micros before casting, so i64::MIN cannot be represented by unary signed negation; behavior depends on overflow-check settings."
+          },
+          {
+            "file": "support/07-sats-time_duration.rs",
+            "lines": [
+              [
+                40,
+                48
+              ]
+            ],
+            "contract": "The related signed duration type uses unsigned_abs instead."
+          },
+          {
+            "file": "support/01-crates__adventuresim-stdb-module__src__time__clock.rs",
+            "lines": [
+              [
+                2,
+                30
+              ]
+            ],
+            "contract": "Inspected first-party path extracts raw micros from reducer timestamp and uses its own clock projection, not this conversion."
+          },
+          {
+            "file": "support/extra-1-crates__adventuresim-core__src__strategic_time.rs",
+            "lines": [
+              [
+                381,
+                411
+              ]
+            ],
+            "contract": "The inspected strategic clock projection uses signed saturating subtraction, clamps negative elapsed time, and has its own inverse checked subtraction."
+          }
+        ],
+        "reasoning": "Conditional native source edge, no claimed product path reaching i64::MIN, native panic execution, platform clock range, or all timestamp consumers. Preserve prior central reviewer and distinguish Unix point from signed duration and strategic minute.",
+        "history": "ASSESSMENT-L01-HISTORICAL-495 and 059 READ-L11-411/L12 tail explicitly retain the minimum edge as conditional, not an independently counted application failure."
+      }
+    },
+    {
+      "bundle_id": "sdk-noiz-sats-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/sdk-noiz-sats-hair-report.json",
+      "original_finding": {
+        "id": "SATS-CHECKED-DURATION-CONVERSION-QUESTION",
+        "classification": "Bounded source observation about external API, application reachability and policy open; no new project defect/count.",
+        "sources": [
+          {
+            "file": "source/2477.rs",
+            "lines": [
+              [
+                143,
+                172
+              ],
+              [
+                187,
+                215
+              ]
+            ],
+            "contract": "checked_add/sub with signed duration use checked i64 arithmetic; checked_add_duration/checked_sub_duration first convert std Duration to signed TimeDuration; operators unwrap checked outputs."
+          },
+          {
+            "file": "support/07-sats-time_duration.rs",
+            "lines": [
+              [
+                70,
+                79
+              ]
+            ],
+            "contract": "Conversion expects microsecond magnitude to fit i64, so oversized duration fails before checked arithmetic returns Option."
+          }
+        ],
+        "reasoning": "Native conversion can panic for a Duration with microseconds above i64::MAX even when a caller chose a checked timestamp API. No direct first-party call to these names was found in the bounded repository navigation and no application witness or runtime was established.",
+        "future_direction": "If a real caller can receive such durations, establish an application range or handle the fallible native boundary; preserve documented SDK behavior and avoid assuming every checked call is panic-free.",
+        "history": "Related to 059 q577/q1923 and original L12 connected tail; different arithmetic trigger from i64::MIN conversion, no automatic alias."
+      }
+    },
+    {
+      "bundle_id": "sdk-noiz-sats-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/sdk-noiz-sats-hair-report.json",
+      "original_finding": {
+        "id": "SATS-RANGE-DOCUMENTATION",
+        "classification": "External native documentation discrepancy, not a product defect or ledger count.",
+        "sources": [
+          {
+            "file": "source/2477.rs",
+            "lines": [
+              [
+                11,
+                14
+              ],
+              [
+                42,
+                49
+              ],
+              [
+                101,
+                106
+              ]
+            ],
+            "contract": "The field is signed i64 microseconds and constructor accepts i64; documentation says approximately 292 years."
+          }
+        ],
+        "reasoning": "The declared i64 microsecond span is approximately 292,000 years on either side of Unix epoch, not 292 years. Actual SystemTime/chrono supported range is a separate unassessed platform/native policy."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "PHYSICS-COLLIDER-BOX-UNIT-ROTATION-ADMISSION",
+        "status": "newly assessed source-representable admission gap; actual caller and design policy open",
+        "first_failed_contract": "A box explicitly described as using a unit quaternion admits an arbitrary four-float rotation and then treats its conjugate as an inverse without verifying that guarantee.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              34,
+              40
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              43,
+              61
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              114,
+              131
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              172,
+              194
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              200,
+              208
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact.rs",
+            "range": [
+              71,
+              88
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              25,
+              31
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              77,
+              98
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              179,
+              190
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+            "range": [
+              84,
+              105
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/Cargo.toml",
+            "range": [
+              8,
+              13
+            ]
+          }
+        ],
+        "condition_and_limits": "A directly representable public Box with rotation [0,0,0,0], center zero, half-extents (1,2,3), and point (100,0,0) passes the shown constructors/packing; source arithmetic maps the point to zero in local space, reports distance −1, and maps the host and shader outward direction to zero. No Collider, fixture, shader or backend was run, and no real producer of this invalid quaternion is established. A compatible general unit-rotation owner exists in the building-generator layer, but this crate has no shown dependency on it and exact frame/representation/dependency fit requires design review; do not directly add an inverted dependency.",
+        "future_connected_repair_direction": "Choose the lowest suitable shared unit-rotation owner or explicit checked box admission; reject malformed/nonfinite quaternions at the actual public construction boundary and carry the admitted rotation through packing and host/GPU use. Preserve valid xyzw world-frame semantics and legitimate identity rotation.",
+        "future_acceptance_criterion": "A successful admitted box has a finite unit rotation and host/GPU consume the same admitted orientation; malformed quaternions are rejected with context before collision upload. Actual producer coverage and runtime confirmation remain later work.",
+        "relationships": "Related to original 059 Q-L12-900430ef7d0c04be30b0 and L2-EXT-PHYSICS-HOST-NATIVE-SHAPE-OWNERS broad owner/policy questions, with no exact prior alias proven. Distinct from ADLER-L11-BOX-MEDIAL-NORMAL-PARITY, whose witness uses a valid identity quaternion."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "PHYSICS-COLLIDER-PLANE-UNIT-NORMAL-ADMISSION",
+        "status": "newly assessed representable API condition; actual caller and design policy open",
+        "first_failed_contract": "The plane signed-distance and correction paths use the supplied normal as a unit direction, but the public plane constructor does not establish that norm.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              15,
+              22
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              64,
+              70
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              135,
+              142
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              39,
+              45
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              110,
+              127
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              179,
+              190
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "range": [
+              31,
+              35
+            ]
+          }
+        ],
+        "condition_and_limits": "For an admitted-by-shown-API normal (0,2,0), offset0 and point (0,1,0), both displayed formulas produce distance2 and outward vector of length2, while the Euclidean distance to y=0 is1. GPU correction also uses the returned normal as-is. This is source-directed mathematics, not executed physics. The built-in ground constructor explicitly supplies (0,1,0); no real producer supplying nonunit normals or a universal plane normalization/rejection policy is proven. If general plane coefficients are intended, offset scaling must be handled coherently.",
+        "future_connected_repair_direction": "Admit a finite unit direction at the plane boundary or consistently normalize both normal and offset under an explicit plane-equation policy; retain zero/invalid handling and the actual world coordinate frame.",
+        "future_acceptance_criterion": "Every accepted plane yields a coherent signed Euclidean distance and unit outward direction for its documented representation; malformed directions receive an owning error. Preserve built-in ground behavior.",
+        "relationships": "Related to the old L2-EXT-PHYSICS-HOST-NATIVE-SHAPE-OWNERS broad raw direction question, not an established exact alias to quaternion admission, count, or valid-box medial-normal parity."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-NATIVE-COUNT-ADMISSION",
+        "status": "existing 059 and prior physics-contact finding; zero new unique delta",
+        "first_failed_contract": "Host collider cardinality is narrowed to u32 before capacity fit and binding without proving native representability.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact/count.rs",
+            "range": [
+              5,
+              22
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact/count.rs",
+            "range": [
+              25,
+              44
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact.rs",
+            "range": [
+              67,
+              88
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+            "range": [
+              127,
+              129
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+            "range": [
+              25,
+              31
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              154,
+              160
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              179,
+              180
+            ]
+          }
+        ],
+        "condition_and_limits": "On a 64-bit host, mathematical count 2^32+1 narrows to1 and can be classified as fitting initial16; count2^31+1 rounds upward to2^32 then narrows to0. No vector or buffer was allocated and practical memory/device limits, real producer reachability and native queue outcome remain unproved. Buffer::write has no explicit length comparison in its shown Rust body; do not claim GPU accepted an oversized write.",
+        "future_connected_repair_direction": "Admit one checked host count/capacity through allocation, packed byte extent, binding and dispatch; reject unsupported sizes before mutating retained state or issuing upload. Coordinate but do not equate this with generic shared buffer-boundary admission.",
+        "future_acceptance_criterion": "All supported host cardinalities map losslessly to native counts and byte capacities; unsupported counts fail with no state or upload effect, including boundary cases.",
+        "relationships": "Same original 059 q479 and prior /root/rig_identity physics-contact finding. Shared buffer q157 and capacity-state q480 are connected but retain separate first-failure identities."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
+        "status": "existing 059 hypothesis with prior narrowed source case; zero new unique delta",
+        "first_failed_contract": "A failed buffer replacement can leave a separately stored capacity updated before the buffer is replaced.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact.rs",
+            "range": [
+              71,
+              88
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact/count.rs",
+            "range": [
+              25,
+              44
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+            "range": [
+              22,
+              37
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+            "range": [
+              119,
+              133
+            ]
+          }
+        ],
+        "condition_and_limits": "For symbolic 64-bit count2^31+1, new capacity truncates to0; Buffer::new explicitly returns Err for zero bytes, after capacity assignment but before buffer or list replacement. The resulting capacity is an underestimate. The inspected returned-Err branch does not prove the earlier hypothetical of capacity larger than the retained live allocation; native allocation panics or device errors are not characterized. No count vector or native allocation occurred.",
+        "future_connected_repair_direction": "Compute and validate new capacity and candidate buffer before committing their correlated retained state, preserving the original list/buffer when replacement returns an error.",
+        "future_acceptance_criterion": "On every supported returned failure, capacity, buffer and published list remain coherent; successful growth establishes one consistent aggregate.",
+        "relationships": "Original 059 q480 retains its historical hypothesis; previous physics-contact packet narrowed the explicit zero-capacity failure. Related to q479, not automatically the same first failure."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "ADLER-L11-BOX-MEDIAL-NORMAL-PARITY",
+        "status": "existing 059 and prior physics-contact finding; zero new unique delta",
+        "first_failed_contract": "For an interior valid box at a medial coordinate, host and WGSL sign rules can produce different outward normal selection.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              172,
+              194
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              77,
+              98
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              179,
+              190
+            ]
+          }
+        ],
+        "condition_and_limits": "Prior packet evaluated identity rotation, distinct half extents and a center point; WGSL sign(0) and Rust signum(0) have different documented outcomes, subject to its recorded external-document version qualification. No host code, compiler or shader was run. Tie and signed-zero selection, consumer scheduling and device behavior remain open. This is not the invalid box-rotation admission case.",
+        "future_connected_repair_direction": "Decide deterministic finite medial normals and preserve the same policy in host and shader implementations, with signed-zero and ties handled deliberately.",
+        "future_acceptance_criterion": "Both paths agree on a valid finite outward direction across supported medial and adjacent points, subject to documented tie policy.",
+        "relationships": "Exact existing 059 q174 and prior physics-contact assessment. No new duplicate; normal parity differs from a nonunit orientation."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "physics-contact-capsule-nonzero-short-segment",
+        "status": "prior physics-contact conditional candidate; zero new unique delta",
+        "first_failed_contract": "A finite nonzero capsule segment can be treated as degenerate by the fixed squared-length floor and use the wrong closest endpoint.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              27,
+              33
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/collider.rs",
+            "range": [
+              153,
+              170
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/wgsl.rs",
+            "range": [
+              58,
+              74
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "range": [
+              143,
+              152
+            ]
+          }
+        ],
+        "condition_and_limits": "For a=(0,0,0), b=(0,2^-24,0), radius2^-28 and point b, squared segment length2^-48 is below1e-12, so the shown paths select t=0. The host source expression yields distance15·2^-28 instead of the geometric endpoint value −2^-28. This is mathematical reasoning with no shape, fixture or device execution. True zero-segment sphere behavior remains intentional; supported physical scale and GPU numerical contract remain unresolved.",
+        "future_connected_repair_direction": "Specify supported geometry scales and use a robust nonzero-segment closest-point calculation with an owned numerical budget while preserving true-zero degenerate sphere behavior.",
+        "future_acceptance_criterion": "Supported nonzero segments produce correct endpoint distances within the selected error budget; genuinely zero segments retain the documented sphere mode.",
+        "relationships": "Exact prior /root/rig_identity physics-contact-capsule-nonzero-short-segment candidate; no new duplicate. Historical zero-axis nonfinding remains distinct."
+      }
+    },
+    {
+      "bundle_id": "physics-collider-count",
+      "author": "/root/rig_identity",
+      "report": "delegated/physics-collider-count-report.json",
+      "original_finding": {
+        "id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
+        "status": "existing 059 diagnostic owner question; zero new unique delta",
+        "first_failed_contract": "The update count mismatch is emitted as formatted text rather than retaining held and provided counts as a typed diagnostic.",
+        "evidence": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact/count.rs",
+            "range": [
+              5,
+              16
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-physics/src/contact.rs",
+            "range": [
+              92,
+              105
+            ]
+          }
+        ],
+        "condition_and_limits": "The full host counts are compared correctly before this mismatch branch; no caller parsing text or runtime failure was demonstrated. Typed recovery needs its own policy and must not be conflated with large-count conversion or error-state consistency.",
+        "future_connected_repair_direction": "If supported callers need structured failure handling, retain both typed count values and their source context through the error boundary.",
+        "future_acceptance_criterion": "A supported mismatch can be handled or diagnosed without reparsing mutable prose, with current useful count context preserved.",
+        "relationships": "Exact 059 q435 and earlier physics-contact report; no new duplicate."
+      }
+    },
+    {
+      "bundle_id": "p16-config",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-config-report.json",
+      "original_finding": {
+        "id": "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+        "classification": "conditional current policy/cross-lens finding",
+        "sources": [
+          "current ragdoll.rs:19–32",
+          "current ragdoll/drive.rs:114–165",
+          "current presentation/plugin.rs:38–68",
+          "current combat.yaml:320–346"
+        ],
+        "trigger_and_effect": "On each qualifying positive terrain penetration, the client scales x/z velocity by terrain_horizontal_velocity_retention; system is in Update. For the same starting velocity and a fixed retention fraction, N qualifying passes yield fraction^N before other effects. Different qualifying pass counts can therefore change retained velocity over the same elapsed time. Muscles/damping are scheduled separately in FixedUpdate. This follows from source and arithmetic, not a runtime experiment; Update counts and collision sequence are not assumed equal or independently measured.",
+        "policy_condition": "The config describes retention per frame, so frame-rate dependence may be intentional. Confirm whether the desired visual grounding policy is frame-dependent or elapsed-time based and how to handle missing/ambiguous terrain; do not label a gameplay strategic/tactical authority issue.",
+        "future_direction": "If time-invariant damping is the intended contract, specify a per-time or fixed-step typed policy and convert it at the actual contact boundary while preserving authored response intentionally. Otherwise document the per-qualifying-contact schedule and its implications; central decides ledger and alias.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+            "lines": [
+              [
+                19,
+                32
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+            "lines": [
+              [
+                114,
+                165
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+            "lines": [
+              [
+                38,
+                68
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "content/tactical/combat.yaml",
+            "lines": [
+              [
+                320,
+                346
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-config",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-config-report.json",
+      "original_finding": {
+        "id": "P16-CONFIG-MUSCLE-ENVELOPE-POLICY",
+        "classification": "qualified magic-number / behavior policy candidate; prior law expressly preserved",
+        "sources": [
+          "current ragdoll.rs:35–58",
+          "current core/elapsed.rs:9–35,100–104",
+          "current animation/response_parameters.rs:34–37,177–195,206–210",
+          "current ragdoll/muscles.rs:18–36,56–65,88–100,141–150",
+          "current combat.yaml:331–340"
+        ],
+        "trigger_and_effect": "Rise and limp duration are finite nonnegative elapsed values; for either value below 0.001 seconds the respective denominator is 0.001, including zero. Consumer additionally skips all muscle kicks if computed gain <=0.0001, and skips angular kick/brake when squared magnitude <=1e-8. These cutoffs can suppress nonzero admitted values. The authored defaults displayed are 0.5 and 1.0 seconds and tone 1.0; no claim a default reaches the small-duration condition or that a runtime effect was observed.",
+        "policy_condition": "774 camera OWNERDEF-PP-QUALIFICATION-001 expressly records and preserves the max1e-3 law and finds no checked-owner loss in its scoped producer analysis. This packet does not supersede that behavior decision or assume zero means an immediate transition. Threshold purpose, units and desired effects are not documented by these displayed sources.",
+        "future_direction": "Reconcile numeric cutoffs with current authored-tuning and domain ownership policy; name/own any justified tolerance or authored decision, and preserve explicit zero/tiny-duration behavior unless a design decision changes it. Evaluate the exact tolerance for squared angular speed independently; no repair performed.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+            "lines": [
+              [
+                35,
+                58
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-core/src/elapsed.rs",
+            "lines": [
+              [
+                9,
+                35
+              ],
+              [
+                100,
+                104
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+            "lines": [
+              [
+                34,
+                37
+              ],
+              [
+                177,
+                195
+              ],
+              [
+                206,
+                210
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+            "lines": [
+              [
+                18,
+                36
+              ],
+              [
+                56,
+                65
+              ],
+              [
+                88,
+                100
+              ],
+              [
+                141,
+                150
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "content/tactical/combat.yaml",
+            "lines": [
+              [
+                331,
+                340
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-config",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-config-report.json",
+      "original_finding": {
+        "id": "P16-CONFIG-PHASE-DEADBAND-SNAP",
+        "classification": "aggregate policy open question",
+        "sources": [
+          "current playback.rs:18–25,33–46",
+          "current animation/phase_response.rs:8–16,29–36,47–52",
+          "current presentation.rs:70–75,82–96,127–169",
+          "current combat.yaml:200–207"
+        ],
+        "trigger_and_effect": "The two finite nonnegative phase limits are separately admitted; playback validation does not order them. On a changed source with initially zero phase_error_remaining and deadband >= snap error, errors above snap take the snap branch; those at or below snap are also within the deadband and contribute no measured drift. Thus that configuration has no initial nonzero measured-drift correction region for this path.",
+        "policy_condition": "This may intentionally select a snap-or-ignore policy. Zero correction, zero rate and limits above one are expressly retained valid in 059 Q-L1-960b32dd9b4be22c9112. Prior accumulator/state and different scheduling can alter subsequent behavior; no invalid configuration or product failure is asserted.",
+        "future_direction": "Confirm whether a nonempty blending interval is required or snap-or-ignore is an admitted mode; if required, express the aggregate as a checked policy at the actual configuration boundary rather than globally tightening individually valid leaf types.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+            "lines": [
+              [
+                18,
+                25
+              ],
+              [
+                33,
+                46
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/phase_response.rs",
+            "lines": [
+              [
+                8,
+                16
+              ],
+              [
+                29,
+                36
+              ],
+              [
+                47,
+                52
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+            "lines": [
+              [
+                70,
+                75
+              ],
+              [
+                82,
+                96
+              ],
+              [
+                127,
+                169
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "content/tactical/combat.yaml",
+            "lines": [
+              [
+                200,
+                207
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-config",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-config-report.json",
+      "original_finding": {
+        "id": "P16-CONFIG-GROUPED-ERROR",
+        "classification": "inherited connected question, not independently established failure",
+        "sources": [
+          "current procedural.rs:53–64",
+          "current playback.rs:33–46",
+          "current combat_config.rs:395–408,649–651"
+        ],
+        "trigger_and_effect": "The procedural validator combines zero sample gap and too-small maximum angle into one Validation string; playback combines zero gap and two speed-order violations into another. Parent propagates errors. Which structured distinction callers require is not established here.",
+        "policy_condition": "059 lens12 connected evidence already flags predicate-to-reason/native caller policy and alias as open; current strings are error diagnostics, not proof of program branching or a lost error contract.",
+        "future_direction": "Trace actual caller/error reporting before proposing a typed failure taxonomy; avoid changing payload solely because prose exists.",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+            "lines": [
+              [
+                53,
+                64
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+            "lines": [
+              [
+                33,
+                46
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+            "lines": [
+              [
+                395,
+                408
+              ],
+              [
+                649,
+                651
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-body-target-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-body-target-hair-report.json",
+      "original_finding": {
+        "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+        "classification": "Original 059 q39, current central assessment existing finding, independently corroborated at same 95e/P16 source bytes; no duplicate.",
+        "trace": [
+          {
+            "file": "source/2487-current.rs",
+            "ranges": [
+              [
+                17,
+                36
+              ],
+              [
+                49,
+                65
+              ],
+              [
+                93,
+                97
+              ]
+            ],
+            "claim": "Current world velocity/acceleration are rotated into current body basis; retained earlier observation.velocity and smoothed local acceleration are reused without a stored basis."
+          },
+          {
+            "file": "source/2486-current.rs",
+            "ranges": [
+              [
+                29,
+                55
+              ]
+            ],
+            "claim": "Deceleration scale tests a dot product of previous velocity and current filtered acceleration, and compares current/previous planar speeds."
+          },
+          {
+            "file": "support/00-crates__adventuresim-tactical-client__src__animation__procedural__sample_state.rs",
+            "ranges": [
+              [
+                34,
+                50
+              ]
+            ],
+            "claim": "Stored BodyObservation holds tick and local velocity only; no world velocity or prior orientation accompanies it."
+          }
+        ],
+        "condition_and_consequence": "For an otherwise eligible response episode with turning between observations and relevant nonzero vectors, previous and current body-local components can refer to different bases, changing the braking classification/scale. Eligibility excludes reset cases such as discontinuity, action, posture transition, airborne and raised guard. Actual supported turn rates, timing and observed visual effects remain unproved; response is presentation only. Smoothed acceleration frame semantics is a connected policy question, not a second automatic defect.",
+        "future_direction": "Preserve or reconstruct the spatial frame so compared observations share a basis; decide intended response-filter frame separately, retaining validated numeric guards and by-value state commit. Central owns the ledger and remediation.",
+        "history": "Original adler/READ-L11-186; baseline q39; ASSESSMENT-BODY-FRAME-HEIGHT-95E; no 3821 promotion."
+      }
+    },
+    {
+      "bundle_id": "p16-body-target-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-body-target-hair-report.json",
+      "original_finding": {
+        "id": "REVIEW-BODY-REFERENCE-ACCELERATION-RATIO-001",
+        "classification": "Previously recorded 95e conditional representability question in ASSESSMENT-PACK-RESPONSE-95E, separately corroborated; distinct from q39 and no duplicate.",
+        "trace": [
+          {
+            "file": "support/measurement.rs",
+            "ranges": [
+              [
+                96,
+                107
+              ]
+            ],
+            "claim": "Scalar nonnegative admission rejects nonfinite and negative."
+          },
+          {
+            "file": "support/reference-acceleration.rs",
+            "ranges": [
+              [
+                45,
+                58
+              ]
+            ],
+            "claim": "ReferenceAcceleration rejects zero then divides by retained positive f32, without additional representability bound."
+          },
+          {
+            "file": "source/2486-current.rs",
+            "ranges": [
+              [
+                106,
+                135
+              ]
+            ],
+            "claim": "Finite local acceleration component is divided by configured reference before body angle construction and clamping."
+          },
+          {
+            "file": "support/01-crates__adventuresim-tactical-client__src__animation__procedural__body_values.rs",
+            "ranges": [
+              [
+                43,
+                57
+              ]
+            ],
+            "claim": "Nonfinite multiplied angle is rejected before clamp."
+          },
+          {
+            "file": "source/2487-current.rs",
+            "ranges": [
+              [
+                139,
+                156
+              ]
+            ],
+            "claim": "On error the owner response is not updated from the copied candidate."
+          }
+        ],
+        "condition_and_consequence": "Sufficiently small positive finite reference with suitable nonzero finite acceleration can overflow the ratio or product and reject the presentation update. Shipped YAML sets forward 12 and lateral 10 m/s²; no extreme config was parsed, installed or exercised and supported tuning domain remains a policy question.",
+        "future_direction": "Decide the supported configuration/operation range and any bounded or explicitly rejected computation while preserving normal positive settings.",
+        "history": "Earlier central current assessment owns identity and its symbolic source reasoning; related 059 q1452 is unresolved quantity/context, not an automatic alias."
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "A13 native timestamp and duration observations",
+      "relationship": "The two native source operations corroborate separately attributed 059 observations; minimum negation and oversized standard-duration conversion remain distinct with zero duplicate increment."
+    },
+    {
+      "identity": "TERRAIN-NOIZ-PERIOD-OWNER-QUESTION",
+      "relationship": "Related to historical terrain/clock questions; the shown caller uses positive 200 and native sampling/reachability remain open, distinct from sampled-support error classification."
+    },
+    {
+      "identity": "Physics rotation and plane normal admission",
+      "relationship": "Potentially distinct public contracts; no supported invalid producer or product failure is shown. Existing count, buffer, parity and capsule issues keep their separate IDs."
+    },
+    {
+      "identity": "P16 body frame and reference-acceleration ratio",
+      "relationship": "Existing q39 and separately recorded ratio question are independently corroborated; actual visual effects and supported extreme tuning are not established."
+    },
+    {
+      "identity": "P16 muscle and phase policy",
+      "relationship": "The later animation packet records the same questions; preserve the historical max1e-3 behavior law and avoid duplicate issue counts."
+    },
+    {
+      "identity": "Original metadata and correction",
+      "relationship": "Camera registrations for 2483–2487 are prospective metadata without original body credit. Physics role2482 original ranges and later connected support are distinct; the additive correction is QUALIFICATION-COLLIDER-REGISTRATION-CLARIFICATION.json."
+    },
+    {
+      "identity": "Native timestamp range comment",
+      "relationship": "A bounded native documentation discrepancy, distinct from the earlier WS-v2 unit comment; no product defect or unique count asserted."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "TERRAIN-NOIZ-PERIOD-OWNER-QUESTION",
+    "A13-NATIVE-TIMESTAMP-NEGMIN-OBS007",
+    "A13-NATIVE-DURATION-CONVERSION-OBS007",
+    "PHYSICS-COLLIDER-BOX-UNIT-ROTATION-ADMISSION",
+    "PHYSICS-COLLIDER-PLANE-UNIT-NORMAL-ADMISSION",
+    "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+    "ADLER-L11-BODY-OBSERVATION-FRAME",
+    "P16-MUSCLE-ENVELOPE-AND-PHASE-LIMITS"
+  ],
+  "open": "Twelve of 27 checkpoint10 bundles are centrally reconciled after 10A–10C; 15 checkpoint10 bundles and all later source packets remain pending. All thirteen lenses and 3713 semantic queue records remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

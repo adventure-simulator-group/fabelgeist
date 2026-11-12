@@ -1,0 +1,114 @@
+{
+  "schema": "726-delegated-checkpoint-16-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-16.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 188,
+  "unique_redacted_original_sha_count": 6,
+  "redacted_public_member_occurrences": 7,
+  "entries": [
+    {
+      "original_sha256": "09960f51b8d31fa9200ff21140451380e76b4edc02f50290f19b6af2c62edd6a",
+      "original_bytes": 9013,
+      "original_git_blob": "73956788dfbff00e38d876fdab25b36475217ac5",
+      "original_transport_paths": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-666.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/serde-tree-growth-evidence.tar.gz!historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-666.json",
+          "public_sha256": "1cfd6fbe5b6486a73f3a2cadb1eafab779bacf45219febc0a5ec9475b9a2dbd1",
+          "public_bytes": 8929
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "original_bytes": 109772,
+      "original_git_blob": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+      "original_transport_paths": [
+        "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-runtime-determinism-evidence.tar.gz!historical-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+          "public_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "public_bytes": 109688
+        },
+        {
+          "public_location": "delegated/serde-tree-growth-evidence.tar.gz!historical-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+          "public_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "public_bytes": 109688
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "39425321419d4db97d6fa520f065e1cb6fbb47c7972869be03a5ab4775441c00",
+      "original_bytes": 904,
+      "original_git_blob": "ac1ac14b319442bf9c190047abeedb7816a66d42",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-SEGOVB-1518.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/serde-tree-growth-evidence.tar.gz!historical-059/segovb/REGISTRATION-SEGOVB-1518.json",
+          "public_sha256": "d7ede53a921b242319bcf29437b2d9b61662e90fea63d375026a00a7aae38b87",
+          "public_bytes": 818
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "3fe0b2b0931f9603a57fd22f54080dc736c353a9fef1c38a148a77a9bd0b0b25",
+      "original_bytes": 1027,
+      "original_git_blob": "624fadf4558304955857564cbd9a71937d9904eb",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-SEGOVB-1512.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/serde-tree-growth-evidence.tar.gz!historical-059/segovb/REGISTRATION-SEGOVB-1512.json",
+          "public_sha256": "b4265c7ca31e1b595ff633231d0b344fc0a5f0f65d35ce0f17927f8ca4d1d308",
+          "public_bytes": 941
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "62b30982ceb97e39828b5cc8503423df4e556615f5b89fb571955abf9bd6863b",
+      "original_bytes": 3437,
+      "original_git_blob": "6253b0a5d7f020c55f8f506bd3d9062b33962583",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-SEGOVB-2020.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/tree-root-plan-profile-evidence.tar.gz!history-059/REGISTRATION-SEGOVB-2020.json",
+          "public_sha256": "921dc10ea3c6e97060360440c6ee86dab17717bfb8b9b640f1ffd09a1246323a",
+          "public_bytes": 3214
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "8621a88bb0d86ecda1ca4f4a7f0fa3ba1bc20bf818a1796219cde4b686512145",
+      "original_bytes": 3421,
+      "original_git_blob": "a4d06ba8e42a3e3aebb7af8a872879e0fde4c47e",
+      "original_transport_paths": [
+        "segovb/REGISTRATION-SEGOVB-2015.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/tree-root-plan-profile-evidence.tar.gz!history-059/REGISTRATION-SEGOVB-2015.json",
+          "public_sha256": "b769df31db601a2e99be06a23f9bd8bf23c4898193453c43a2e55d12a787160a",
+          "public_bytes": 3198
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

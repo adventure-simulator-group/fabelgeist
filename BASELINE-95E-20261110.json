@@ -4893,7 +4893,10 @@
         "discovery": "partial; divisor, actual consumer, rejection path and exact hypothetical ratio connected; full configuration/sample reachability and aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-PACK-RESPONSE-95E.json"
+        "record": "ASSESSMENT-PACK-RESPONSE-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ]
       },
       {
         "id": "ADLER-L11-ATTACK-TRANSITION-ERROR-ADMISSION",
@@ -14792,7 +14795,10 @@
         "future_acceptance": "After audit and authorization, assess invalid boundaries and supported normal behavior under the selected owner policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-PHYSICS-COLLIDER-UPDATE-COUNT-REASON",
@@ -14813,7 +14819,10 @@
         "future_acceptance": "After audit and authorization, assess invalid boundaries and supported normal behavior under the selected owner policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-SHELL-CONTACT-INTERVAL-COUNT-REASON",
@@ -15053,7 +15062,10 @@
         "future_acceptance": "After audit and authorization, assess invalid boundaries and supported normal behavior under the selected owner policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-CONNECTED-PHYSICS-COLLIDER-CAPACITY-ERROR-STATE",
@@ -15075,7 +15087,10 @@
         "future_acceptance": "After audit and authorization, assess invalid boundaries and supported normal behavior under the selected owner policy.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ]
       },
       {
         "id": "Q-L12-92ea66048c4efc2e3348",
@@ -15163,7 +15178,10 @@
         "future_acceptance": "After audit and authorization, cover the exact boundary and representative accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-3-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ]
       },
       {
         "id": "REVIEW-PHYSICS-SWEPT-MESH-FINAL-SURFACE-95E",
@@ -19091,9 +19109,169 @@
         "repair": "not started",
         "validation": "not performed",
         "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10B-95E.json"
+      },
+      {
+        "id": "TERRAIN-NOIZ-PERIOD-OWNER-QUESTION",
+        "lens": 1,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Public terrain period can reach native reciprocal without an application-owned period admission.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "Related to 059 q577/q885/q1923 and P06; the inspected caller uses 200.0. Native algorithm, feature use and supported reachability remain open; no new unique historical defect asserted.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace supported period producers and native sampler requirements before selecting the period owner.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "A13-NATIVE-TIMESTAMP-NEGMIN-OBS007",
+        "lens": 4,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "The pinned native timestamp conversion negates a signed minimum that cannot be represented.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "Exact corroboration of earlier role495 and the separately attributed 059 A13 observation; no duplicate unique count, supported producer or runtime claim.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace actual time-point producers and native conversion call sites before defining an applicable boundary.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "A13-NATIVE-DURATION-CONVERSION-OBS007",
+        "lens": 4,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A checked native timestamp operation converts an oversized standard Duration with an expect before checked arithmetic.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "Exact existing 059 source-contract observation, distinct from signed-minimum negation; no duplicate count or first-party witness.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Trace actual duration inputs and checked-operation owners before choosing an error contract.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "PHYSICS-COLLIDER-BOX-UNIT-ROTATION-ADMISSION",
+        "lens": 1,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A public box accepts an arbitrary quaternion although its operations treat the conjugate as an inverse.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "Conditional public API source case. Actual caller, supported values, downstream execution and exact aliases remain open; original collider role scope and separately displayed support remain distinct.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Establish supported quaternion producers and decide whether to reject or normalize before collider use.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "PHYSICS-COLLIDER-PLANE-UNIT-NORMAL-ADMISSION",
+        "lens": 1,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "A public plane accepts a normal without establishing the unit length used by distance and correction operations.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "Distinct first contract from box rotation; actual producer reachability, normalization policy and aliases remain open.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Establish the intended plane equation and preserve any coupled normal and offset normalization.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+        "lens": 10,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Each qualifying terrain contact update multiplies horizontal velocity by the configured retention.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "The source calls the policy per frame; this is a conditional presentation-policy question, not a measured runtime result or authority-boundary claim.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Resolve whether retention is intentionally per qualifying frame or should be owned by an elapsed-time policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+        "lens": 10,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Retained body-local velocity and current body-local acceleration can use different orientation bases after a turn.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "Existing 059 q39 and prior current source assessment, separately corroborated; no duplicate unique count. Actual eligible turn timing and visual effect remain open.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Preserve a shared observation basis and decide the independent smoothing-frame policy.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+      },
+      {
+        "id": "P16-MUSCLE-ENVELOPE-AND-PHASE-LIMITS",
+        "lens": 13,
+        "additional_current_lenses": [],
+        "lens_scope_qualification": "Bounded source relationship only; no independent lens closure.",
+        "severity": "unassigned; conditional source or policy question",
+        "classification": "Small muscle envelopes and phase deadband/snap relations expose explicit policy boundaries.",
+        "historical_related_records": [
+          "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+          "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+          "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
+        ],
+        "relationship_qualification": "The same questions occur in the later P16 animation packet; do not count them twice. 774 explicitly preserves the max1e-3 law; zero/tiny behavior and other threshold purposes remain design questions.",
+        "discovery": "partial; exact alias, applicability and supported producer reachability remain open",
+        "connected_repair_direction": "Reconcile actual cutoffs and the allowed snap-or-ignore policy with existing authored tuning and preserve established behavior.",
+        "future_acceptance": "After the audit and separate authorization, assess applicable producer, operation and consumer contracts.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json"
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-0029.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-0052.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion."
 }
