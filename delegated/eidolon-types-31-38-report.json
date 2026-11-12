@@ -1,0 +1,774 @@
+{
+  "schema": "726-eidolon-types-audit-v1",
+  "author": "/root/rig_identity",
+  "created_utc": "2026-11-12T04:52:46.323666+00:00",
+  "scope": {
+    "original_roles": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38
+    ],
+    "native_identity": "bevy_eidolon 0.5.0 Git commit 1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+    "historical_project": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "current_project": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Native commit is not project revision. Historical pr-working snapshot recorded four unrelated changed paths. Prior root 6533 lock selects that Git package, while each of four enumerated tracked 95e lockfiles lacks it; no claim about arbitrary external/untracked builds, features, targets, or runtime resolution. Registered native role bodies fully displayed 31:1\u2013193, 32:1\u201312, 33:1\u201318, 34:1\u201337, 35:1\u20136, 36:1\u201348, 37:1\u201315, 38:1\u201343. All historical/native/support/shader text is distinct from earlier reviewer scope."
+  },
+  "assigned_reads": [
+    {
+      "id": "31",
+      "archive": "sources/31-native.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/components.rs",
+      "lines": [
+        [
+          1,
+          193
+        ]
+      ]
+    },
+    {
+      "id": "32",
+      "archive": "sources/32-native.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/cull/bindings.wgsl",
+      "lines": [
+        [
+          1,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "33",
+      "archive": "sources/33-native.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/cull/resources.rs",
+      "lines": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "id": "34",
+      "archive": "sources/34-native.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/cull/types.wgsl",
+      "lines": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "id": "35",
+      "archive": "sources/35-native.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/render/bindings.wgsl",
+      "lines": [
+        [
+          1,
+          6
+        ]
+      ]
+    },
+    {
+      "id": "36",
+      "archive": "sources/36-native.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/render/io_types.wgsl",
+      "lines": [
+        [
+          1,
+          48
+        ]
+      ]
+    },
+    {
+      "id": "37",
+      "archive": "sources/37-native.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/render/types.wgsl",
+      "lines": [
+        [
+          1,
+          15
+        ]
+      ]
+    },
+    {
+      "id": "38",
+      "archive": "sources/38-native.wgsl",
+      "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+      "path": "src/render/utils.wgsl",
+      "lines": [
+        [
+          1,
+          43
+        ]
+      ]
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "RIG-OWNER-EIDOLON-LITTER-055",
+      "source": "history/774/rig-owner-contracts.jsonl.gz",
+      "attribution": "original rig owner Lens2",
+      "qualification": "Original rig additional-sources rows 158\u2013165 are zero-based (physical lines 159\u2013166) and independently record full scoped source reads; raw 774 transport has two distinct full-file variants whose selected rows differ only by redacted versus absolute path. Both exact variants retained, with their own Git proofs and hashes. Contract recognizes native ABI, shader transform and dither as boundary representations, while first-party producer obligations remain separate."
+    },
+    {
+      "id": "RIG-ADMISSION03-CONTRACT-022\u2013029",
+      "source": "history/774/rig-admission-contracts.jsonl.gz",
+      "attribution": "original rig admission Lens3",
+      "qualification": "Separately recorded independent exact native role reads; contract029 notes raw zero-width or nonfinite dither arithmetic, no accepted first-party reach or native execution. Contract022 treats native Pod/default as broad input boundary."
+    },
+    {
+      "id": "NATIVE-INITIAL05-GROUP-068",
+      "source": "history/774/native-aggregate-068.json.gz",
+      "attribution": "original native aggregate Lens5",
+      "qualification": "Fresh full independent historical native source comparisons for all eight roles; ABI logical correspondence, separate draw counts and projections, but no compiled byte layout or GPU execution."
+    },
+    {
+      "id": "CAMERA-INITIAL07-CONTRACT-009",
+      "source": "history/774/camera-contracts.jsonl.gz",
+      "attribution": "original camera redundant-authority Lens7",
+      "qualification": "Fresh full independent native source reads for all eight roles; current/previous transforms and CPU/shader views have distinct roles. No transferred other-lens credit."
+    },
+    {
+      "id": "Q-L12-20a23a4159ced0cd2f9e / Q-L12-e9e53f9be5de36951195 / Q-L12-7b32c40b78bac228fc8a",
+      "source": "queue-selection-reconstructed.json",
+      "attribution": "059 historical summary",
+      "qualification": "Related grass config, native GPU/shader and capacity obligations. These are selected historical summary entries, not checkpoint3821, nor automatically aliases of current conditional observations."
+    },
+    {
+      "id": "ROOT-INITIAL04-F053",
+      "source": "history/774/root-findings.jsonl.gz",
+      "attribution": "774 root invariant operations",
+      "qualification": "Existing separate native cull-node dispatch-count source arithmetic; do not merge with dither, shader normals or allocator lifetime by name."
+    },
+    {
+      "id": "prior delegated 2790\u20132797 and 2827",
+      "source": "historical-attribution.json#/prior_reports_manifests",
+      "attribution": "2790\u20132793 and 2827 /root/rig_identity; 2794\u20132797 /root/mhr_character",
+      "qualification": "Related allocator reset, page reuse, count narrowing and cull-node qualifications preserved with authors and precise scopes; previous native prepare support attribution correction is additive. No fresh prior role credit or automatic aliases."
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-EIDOLON-ZERO-WIDTH-GRASS-FADE-1A5",
+      "classification": "Conditional historical first-party/native arithmetic bridge; existing rig admission CONTRACT-029 already recognizes native zero-width, unique count and alias unresolved.",
+      "trace": "Historical validate_tier checks the four configured grass fade endpoints finite/nonnegative and nondecreasing using <=. Batch spawn passes configured_tier_visibility_range directly to InstanceMaterialData; historical grass material selects the custom vertex shader and native pipeline source adds VISIBILITY_RANGE_DITHER. That vertex shader calls the native dither function, which selects xy before z and divides by (y\u2212x), or zw at/after z and divides by (w\u2212z). Assuming a complete otherwise accepted config with xy=(0,0), zw=(10,20), active shader definition, draw and camera distance in (0,10), the selected denominator is zero. This mathematical branch is not a constructed fixture or proof of full-config admission, actual GPU behavior, rendered artifact, target-specific float-to-int outcome or current 95e defect.",
+      "references": [
+        {
+          "id": "old-config",
+          "archive": "support/old-config.source",
+          "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+          "lines": [
+            [
+              136,
+              145
+            ],
+            [
+              312,
+              318
+            ],
+            [
+              342,
+              355
+            ]
+          ]
+        },
+        {
+          "id": "old-config-loader",
+          "archive": "support/old-config-loader.source",
+          "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/config.rs",
+          "lines": [
+            [
+              217,
+              222
+            ],
+            [
+              252,
+              255
+            ]
+          ]
+        },
+        {
+          "id": "old-grass",
+          "archive": "support/old-grass.source",
+          "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+          "lines": [
+            [
+              480,
+              521
+            ]
+          ]
+        },
+        {
+          "id": "old-batches",
+          "archive": "support/old-batches.source",
+          "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+          "lines": [
+            [
+              54,
+              79
+            ]
+          ]
+        },
+        {
+          "id": "old-grass-material",
+          "archive": "support/old-grass-material.source",
+          "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+          "lines": [
+            [
+              11,
+              14
+            ],
+            [
+              54,
+              65
+            ],
+            [
+              74,
+              86
+            ]
+          ]
+        },
+        {
+          "id": "old-grass-shader",
+          "archive": "support/old-grass-shader.source",
+          "sha256": "2d88c9d6787c5806e7c1bf6fde37f397e532773a16915e847af0ee5e12b07adc",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "assets/shaders/tactical_grass_instanced.wgsl",
+          "lines": [
+            [
+              21,
+              23
+            ],
+            [
+              224,
+              230
+            ]
+          ]
+        },
+        {
+          "id": "native-render-pipeline",
+          "archive": "support/native-render-pipeline.source",
+          "sha256": "d47a07104ac9b2333006bbacbc50b5f097b5fa7a57ba4a4d822a62fb3c64e16b",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/render/pipeline.rs",
+          "lines": [
+            [
+              169,
+              186
+            ]
+          ]
+        },
+        {
+          "id": "38",
+          "archive": "sources/38-native.wgsl",
+          "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/render/utils.wgsl",
+          "lines": [
+            [
+              24,
+              43
+            ]
+          ]
+        },
+        {
+          "id": "31",
+          "archive": "sources/31-native.rs",
+          "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/components.rs",
+          "lines": [
+            [
+              69,
+              76
+            ],
+            [
+              128,
+              146
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After the audit gate, determine whether zero-width fades are an intended hard-transition mode or invalid authoring, inspect all supported producers and native conversion behavior, and reconcile with 059 queue and rig admission before choosing either explicit branching or checked band ownership."
+    },
+    {
+      "id": "OBS-EIDOLON-NONUNIFORM-PARENT-NORMAL-1A5",
+      "classification": "Conditional historical native shader geometric question; reachability and alias open.",
+      "trace": "The generic native vertex shader multiplies a normal by final_matrix, while utils composes the arbitrary parent world_from_local with a local uniform scale/yaw/translation. A nonuniform parent such as diag(2,1,1) maps input normal (1,1,0) to (2,1,0), which is not orthogonal to the transformed tangent (2,\u22121,0); an inverse-transpose normal would preserve orthogonality. This is algebra only, with no shader execution. A supported caller selecting the generic shader with nonuniform parent and VERTEX_NORMALS is unestablished; inspected historic grass and shrub batches use default transforms and grass selects its own vertex shader.",
+      "references": [
+        {
+          "id": "38",
+          "archive": "sources/38-native.wgsl",
+          "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/render/utils.wgsl",
+          "lines": [
+            [
+              3,
+              22
+            ]
+          ]
+        },
+        {
+          "id": "render-mesh",
+          "archive": "support/render-mesh.source",
+          "sha256": "bb8dc8d197bfd558464608bb447dc4224e67c0488e695270f44e1656c9c8fa70",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/render/mesh.wgsl",
+          "lines": [
+            [
+              8,
+              29
+            ]
+          ]
+        },
+        {
+          "id": "31",
+          "archive": "sources/31-native.rs",
+          "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/components.rs",
+          "lines": [
+            [
+              88,
+              100
+            ],
+            [
+              128,
+              146
+            ]
+          ]
+        },
+        {
+          "id": "old-batches",
+          "archive": "support/old-batches.source",
+          "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+          "lines": [
+            [
+              54,
+              78
+            ]
+          ]
+        },
+        {
+          "id": "old-understory",
+          "archive": "support/old-understory.source",
+          "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+          "lines": [
+            [
+              252,
+              270
+            ]
+          ]
+        },
+        {
+          "id": "old-grass-material",
+          "archive": "support/old-grass-material.source",
+          "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+          "lines": [
+            [
+              54,
+              65
+            ]
+          ]
+        }
+      ],
+      "future_direction": "After audit gate, establish actual supported transformations and shader selections, relate to any existing normal-transform owner, then preserve proper normal frame handling only where needed; no current project alias assumed."
+    },
+    {
+      "id": "OBS-EIDOLON-MULTIVIEW-CAMERA-1A5",
+      "classification": "Historical global camera scope question, not demonstrated defect.",
+      "trace": "GlobalCullBuffer holds one buffer/bind group. The generic native prepare routine selects the first active CullComputeCamera and writes one position and six planes; generic node binds it once for its pages. Any requirement for independent multiple views, update ordering, native bind compatibility and feature activation is unproved; earlier 774 camera and 2827 packet separately trace the historical application-specific per-view grass adapter.",
+      "references": [
+        {
+          "id": "33",
+          "archive": "sources/33-native.rs",
+          "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/resources.rs",
+          "lines": [
+            [
+              7,
+              18
+            ]
+          ]
+        },
+        {
+          "id": "cull-prepare",
+          "archive": "support/cull-prepare.source",
+          "sha256": "a9e168de6c2a99f5121f16b60d26098c1aae0937c1257648805a38deb1979f7a",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/prepare.rs",
+          "lines": [
+            [
+              17,
+              57
+            ]
+          ]
+        },
+        {
+          "id": "cull-node",
+          "archive": "support/cull-node.source",
+          "sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/node.rs",
+          "lines": [
+            [
+              16,
+              22
+            ],
+            [
+              47,
+              59
+            ]
+          ]
+        }
+      ],
+      "future_direction": "Determine supported multi-view/shadow scheduling and actual per-view adapters before calling the global resource a redundant authority or failure."
+    }
+  ],
+  "bounded_nonfindings": [
+    {
+      "name": "Unused named import",
+      "trace": "cull/bindings.wgsl names LodCullData in its import list; the fully inspected cull/types.wgsl has no such declaration, and the inspected bindings body never uses that name. The 6533 lock selects naga_oil 0.22.0 (archive checksum verified), whose selected preprocessor code collects used identifiers from active source lines and ignores import declarations as body text. This source evidence weighs against assuming that the unused name itself causes a missing-import failure. Actual Bevy composition, enabled features, all code paths and execution remain unproved; no successful compilation is claimed.",
+      "references": [
+        {
+          "id": "32",
+          "archive": "sources/32-native.wgsl",
+          "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/bindings.wgsl",
+          "lines": [
+            [
+              1,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "34",
+          "archive": "sources/34-native.wgsl",
+          "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/types.wgsl",
+          "lines": [
+            [
+              1,
+              37
+            ]
+          ]
+        },
+        {
+          "id": "cull-plugin",
+          "archive": "support/cull-plugin.source",
+          "sha256": "83d85ef08d4b18e1bad58551895060bfe0144458653f3f0754b102ca68d4f153",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/plugin.rs",
+          "lines": [
+            [
+              19,
+              26
+            ]
+          ]
+        },
+        {
+          "id": "naga-imports",
+          "archive": "support/naga-imports.rs",
+          "sha256": "57271f7da2d9923a98b2e93b5044bc4ddedda5cc2bfc79a375960ac40c00f8e2",
+          "revision": "naga_oil@0.22.0 archive",
+          "path": "naga_oil-0.22.0/src/compose/parse_imports.rs",
+          "lines": [
+            [
+              8,
+              11
+            ],
+            [
+              66,
+              83
+            ],
+            [
+              135,
+              160
+            ]
+          ]
+        },
+        {
+          "id": "naga-imports-gap",
+          "archive": "support/naga-imports.rs",
+          "sha256": "57271f7da2d9923a98b2e93b5044bc4ddedda5cc2bfc79a375960ac40c00f8e2",
+          "revision": "naga_oil@0.22.0 archive",
+          "path": "naga_oil-0.22.0/src/compose/parse_imports.rs",
+          "lines": [
+            [
+              116,
+              134
+            ]
+          ]
+        },
+        {
+          "id": "naga-preprocess",
+          "archive": "support/naga-preprocess.rs",
+          "sha256": "3ea5e628acd9ef537c2db9fd53968cc8b44ae80417b61866075629a7503d2c75",
+          "revision": "naga_oil@0.22.0 archive",
+          "path": "naga_oil-0.22.0/src/compose/preprocess.rs",
+          "lines": [
+            [
+              410,
+              448
+            ],
+            [
+              473,
+              520
+            ]
+          ]
+        },
+        {
+          "id": "naga-compose",
+          "archive": "support/naga-compose.rs",
+          "sha256": "4315fdc260c3cc2d83a83db5c3039f66ff457f68e982cf1b73fda2a42e2834ed",
+          "revision": "naga_oil@0.22.0 archive",
+          "path": "naga_oil-0.22.0/src/compose/mod.rs",
+          "lines": [
+            [
+              1326,
+              1354
+            ],
+            [
+              1393,
+              1405
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Host/native ABI intent",
+      "trace": "Rust InstanceData fields and native shader instance members visibly correspond in position/scale, rotation, index, batch, seed; host and two WGSL InstanceUniforms declare the same semantic field order. Original rig/native reviewers established logical correspondence too. Actual layout, alignments, reflection, compile results and all bind capacities require separate evidence. Native source/readwrite output, indirect command, per-batch uniform and camera binding are different execution roles, not automatically redundant authority.",
+      "references": [
+        {
+          "id": "31",
+          "archive": "sources/31-native.rs",
+          "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/components.rs",
+          "lines": [
+            [
+              44,
+              54
+            ],
+            [
+              128,
+              137
+            ]
+          ]
+        },
+        {
+          "id": "32",
+          "archive": "sources/32-native.wgsl",
+          "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/bindings.wgsl",
+          "lines": [
+            [
+              3,
+              12
+            ]
+          ]
+        },
+        {
+          "id": "34",
+          "archive": "sources/34-native.wgsl",
+          "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/cull/types.wgsl",
+          "lines": [
+            [
+              3,
+              37
+            ]
+          ]
+        },
+        {
+          "id": "37",
+          "archive": "sources/37-native.wgsl",
+          "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+          "revision": "1a5aff8d4809287e5f5713fb4cf72181b2285fff",
+          "path": "src/render/types.wgsl",
+          "lines": [
+            [
+              7,
+              14
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Known producer safeguards",
+      "trace": "The inspected old shrub representation bands use nonzero widths; old grass tier_visibility_range default source uses nonzero bands. The actual old grass batch path instead uses configured tier fields, so examples or assertions from the separate default function do not prove all configured bands are nonzero.",
+      "references": [
+        {
+          "id": "old-understory",
+          "archive": "support/old-understory.source",
+          "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+          "lines": [
+            [
+              144,
+              151
+            ],
+            [
+              252,
+              270
+            ]
+          ]
+        },
+        {
+          "id": "old-grass",
+          "archive": "support/old-grass.source",
+          "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+          "lines": [
+            [
+              480,
+              521
+            ]
+          ]
+        },
+        {
+          "id": "old-batches",
+          "archive": "support/old-batches.source",
+          "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+          "lines": [
+            [
+              72,
+              76
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does the historic graphics configuration permit a complete otherwise valid zero-width band under supported deployment settings, and can a visible draw reach the dither formula? What is the intended hard-transition policy and target-specific conversion behavior?",
+    "Is nonuniform parent scaling supported for the generic native shader; do actual historical callers use that shader rather than custom shaders? Are related normal-transform findings already tracked?",
+    "Does a supported multi-camera or shadow path use the native global first-active view, a per-view adapter, or another pipeline? What are feature, scheduling and cache constraints?",
+    "Are unused imports always pruned on the selected Bevy/Naga composition path and definitions, and are there other shader sources? The package archive comparison establishes source identity only.",
+    "Complete source count/index/indirect/write extent, stale reuse, dispatch rounding and native buffer lifetime remain separately tracked in prior packets and 059 queue; exact aliases belong to central reconciliation.",
+    "Both original rig source-list variants remain distinct; preserve absolute paths privately or redact with separately recorded hashes upon publication. Later missing checkpoint3821 cannot be reconstructed from these historical roles."
+  ],
+  "thirteen_lens_dispositions": [
+    {
+      "lens": 1,
+      "name": "Unfinished producers",
+      "disposition": "Historic first-party grass config\u2192batch\u2192native uniform\u2192shader bridge is traced in bounded source; all external producers and current replacements remain open."
+    },
+    {
+      "lens": 2,
+      "name": "Existing owners",
+      "disposition": "Native instance, uniform, camera and binding formats are SDK boundary representations; first-party checked position, range and configuration owners remain distinct."
+    },
+    {
+      "lens": 3,
+      "name": "Admission",
+      "disposition": "Native public raw records can encode broad values; historical ordered finite tier validation accepts equal fade endpoints. Complete configuration and call admission remain open."
+    },
+    {
+      "lens": 4,
+      "name": "Operations",
+      "disposition": "Zero-width dither and nonuniform-parent normal mathematics are conditional historical source questions; prior F053 and allocator operations remain separate."
+    },
+    {
+      "lens": 5,
+      "name": "Aggregates",
+      "disposition": "Instance arrays, draw metadata, buffer extents and visibility range require coherent producers; exact counts/lifecycles remain in earlier packet."
+    },
+    {
+      "lens": 6,
+      "name": "Type ownership",
+      "disposition": "Packed native vertex/storage layouts and checked first-party configuration are different roles; do not create duplicate application owners inside third-party GPU ABI."
+    },
+    {
+      "lens": 7,
+      "name": "Redundant authority",
+      "disposition": "Current and previous transforms, culled and source buffers, camera and batch data have distinct purpose. Multiple views and global camera lifecycle need actual scheduler proof."
+    },
+    {
+      "lens": 8,
+      "name": "Behavior preservation",
+      "disposition": "Only historical native commit and selected project history are assessed; 95e tracked lock absence does not prove equivalent rendering, feature resolution or runtime."
+    },
+    {
+      "lens": 9,
+      "name": "Enum/state shape",
+      "disposition": "GpuCullCompute marker, invalid batch sentinel and dither feature conditions are actual native ABI/state roles; sentinel admission and alternative modes require producer proof."
+    },
+    {
+      "lens": 10,
+      "name": "Derivability",
+      "disposition": "Native SDK Pod/ShaderType/Reflect derives define format expectations; textual alignment is not byte-layout validation and no derive rewrite is recommended."
+    },
+    {
+      "lens": 11,
+      "name": "Type granularity",
+      "disposition": "Native position/scale/yaw, batch/index/seed, frustum planes and current/previous transforms differ in meaning and lifetime; preserve boundary distinction."
+    },
+    {
+      "lens": 12,
+      "name": "Raw strings",
+      "disposition": "Shader module paths and binding names form native import/linkage tokens, including an unused named item; no compilation failure follows from that spelling alone."
+    },
+    {
+      "lens": 13,
+      "name": "Raw primitives",
+      "disposition": "Dither endpoints, transform scales, sentinel and buffer indices have contextual physical/ABI roles; avoid equating data layout with application admission."
+    }
+  ],
+  "status": {
+    "discovery": "bounded, partial, no whole-lens or historical native graph clearance",
+    "repair": "not started",
+    "product_validation": "not performed",
+    "gpu_shader_build_test_fixture_probe_execution": "not run"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "726-delegated-checkpoint-28-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-28.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 5072,
+  "unique_redacted_original_sha_count": 2,
+  "redacted_public_member_occurrences": 3,
+  "entries": [
+    {
+      "original_sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+      "original_bytes": 2559596,
+      "original_git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4",
+      "original_transport_paths": [
+        "evidence/audit01-delta/predecessor/source-catalog.json",
+        "evidence/audit05/inherited/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+        "evidence/audit10/catalog.json",
+        "segovb/FROZEN774-CATALOG.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-spatial-core-41-44-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        },
+        {
+          "public_location": "delegated/programme-church-partitions-2846-2848-evidence.tar.gz!recovered/catalog-774.json",
+          "public_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "public_bytes": 1980040
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    },
+    {
+      "original_sha256": "a5c9084f4214074db2c28bd2163a937ef31cda514be46217b200d9dc402d9f6c",
+      "original_bytes": 47045,
+      "original_git_blob": "9996b24b2885782ec312e46f5de5dd2a8b13c202",
+      "original_transport_paths": [
+        "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM021-COMPLETED-SOURCE-VIEWS-v2.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/p16-core-46-48-49-52-54-evidence.tar.gz!history-059/parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM021-COMPLETED-SOURCE-VIEWS-v2.json",
+          "public_sha256": "925b4bc7cace0b72b00ac13631dfb6692c123c131c43373ccaa8f863fe6f400c",
+          "public_bytes": 46960
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

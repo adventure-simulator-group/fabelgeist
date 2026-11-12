@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0451.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0520.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -115,8 +115,8 @@ changed top-level originals remain local only.
 `ASSESSMENT-DELEGATED-RECONCILIATION-12B-95E.json` adds bounded
 reconciliation of two more checkpoint 12 packets. It preserves the earlier
 scoped split-eave rejection, the named recovered-object readers and
-conditional source relationships. Four packets and all connected scopes
-remain open. The ledger contains 1008 relationships and entries; this is
+conditional source relationships. Two packets and all connected scopes
+remain open. The ledger contains 1012 relationships and entries; this is
 not a count of unique defects.
 `RECOVERY-VERIFICATION-D832ADAE.json` records the latest same-machine
 fetch, checkout and evidence check, with its transcript limitations.
@@ -146,6 +146,23 @@ recorded receipt; the spiral support range beyond EOF is not a read.
 matching selected rows with distinct historical whole-file hashes;
 whole-file identity and the cause of mismatch remain unproved. The exact
 changed originals of reconstructed public copies remain local only.
+`ASSESSMENT-DELEGATED-RECONCILIATION-12E-95E.json` and
+`ASSESSMENT-DELEGATED-RECONCILIATION-12F-95E.json` connect the storey,
+plan-hull and prefix-sum packets. The hull refinement extends an existing
+polygon precision record; the padded-grid and native-device consequences
+remain conditional. Source and shader text was not executed.
+`RECOVERY-VERIFICATION-EDF7B38A.json` records the latest same-machine
+fetch, checkout and evidence check, with its transcript limitations.
+`DELEGATED-EVIDENCE-CHECKPOINT-28.json` preserves six attributed packets
+for 24 roles, pending central reconciliation. The Eidolon supplier lists
+have distinct redacted and path-bearing historical variants. The latter
+has a reconstructed public copy and exact original retained locally only.
+Four P16 source-context strings preserve different original encodings;
+the additive prior-read disclosure does not transfer reader credit.
+`QUALIFICATION-REGISTRATION-HASH-MISMATCHES-28.json` records seven
+matching selected rows with distinct whole-file hashes; whole-file
+identity and cause remain unproved. All public path-redacted copies are
+reconstructions with exact changed top-level originals kept locally.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes

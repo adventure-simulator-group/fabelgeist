@@ -1,0 +1,210 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+  "source_roles": "ASSESSMENT-DELEGATED-STOREY-PLAN-P16-2554-2555.json",
+  "historical_git_path_proof": "CENTRAL-P16-2554-2555-PATH-PROOFS.json",
+  "central_current_display_evidence": {
+    "registration": "CENTRAL-12E-REGISTRATION.json",
+    "receipt": "CENTRAL-12E-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-12E-CURRENT-WINDOWS-PROOF.json"
+  },
+  "delegated_observations": [
+    {
+      "bundle_id": "p16-storey-plan-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-storey-plan-hair-report.json",
+      "original_finding": {
+        "id": "REFINEMENT-PLAN-HULL-MIXED-SCALE-ORIENTATION",
+        "status": "independent corroboration and hull-specific source refinement of REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001; do not count the same first failure twice",
+        "first_contract": "ArchitecturalPlanPoint accepts all finite f32 coordinates. PlanPolygon promises finite, nondegenerate counterclockwise convex vertices and calculates its area using f64 differences after widening. PlanHull uses the same f64 difference-and-cross operation to distinguish segment and area.",
+        "symbolic_source_reasoning": "Let t=2^-100, exactly representable as a positive finite f32, and take A=(t,0), B=(2,2), C=(1,1). The exact real determinant (B−A)×(C−A) is t > 0, so A,B,C form a nondegenerate counterclockwise triangle. In binary64 subtraction, 2−t rounds to 2 and 1−t rounds to 1; the calculated translated vectors become (2,2) and (1,1), whose computed cross and signed area are zero. Source control flow therefore returns DegeneratePolygon before later checks. In the monotone-hull sorting order A,C,B, both forward and reverse crosses round to zero, so its source algorithm discards C and classifies the set as a Segment. This is symbolic IEEE-754 arithmetic, not a product invocation, generated fixture, probe or test.",
+        "consumers": "CollisionCuboid::ground_contact projects checked 3D corners/intersections to ArchitecturalPlanPoint and classifies via PlanHull. BuildingCollision::ground_floor_footprint returns Some only for an Area; compiled city seating and envelope paths map None to MissingBearing. These references establish possible downstream roles, not that any supported cuboid, building, or real plan can produce the symbolic point set.",
+        "condition": "The public ordered polygon API accepts finite input with the shown mixed exponent scale, but actual supported product coordinate bounds, geometry producer reachability, any physical misclassification and city output remain unproved. The q1646 source question about point/segment distance is a different consumer and must not be silently merged.",
+        "future_direction": "After the audit and explicit implementation authorization, resolve whether exact finite-input orientation is promised or whether narrower supported coordinates must be admitted first. Choose a robust sign/area strategy consistent with genuine zero area, distinct tiny coordinates, signed zero and rounding-aware scene projection; do not merge mathematical and rounded physical projection contracts.",
+        "historical_relation": "Current central ASSESSMENT-L01-POLYGON-PRECISION-95E.json already records REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001 with a different source-only exponent-gap ordered-polygon proof and explicitly leaves hull applicability open. This independently derived case addresses that same error and shows the hull predicate shares it; no additional accepted unique count. 774 SEGOVB-INITIAL04-CONTRACT-611 says f64 prevents range overflow and records selected tiny/large-offset behavior, not this cancellation. 059 q1575 is broader canonical polygon/rounded projection work; original aliases remain central decisions.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+            "lines": [
+              [
+                4,
+                49
+              ],
+              [
+                102,
+                160
+              ],
+              [
+                164,
+                242
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+            "lines": [
+              [
+                7,
+                68
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/collision/footprint.rs",
+            "lines": [
+              [
+                5,
+                26
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing/envelope.rs",
+            "lines": [
+              [
+                3,
+                43
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/packing/seating.rs",
+            "lines": [
+              [
+                4,
+                33
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-storey-plan-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-storey-plan-hair-report.json",
+      "original_finding": {
+        "id": "ROOM-STOREY-ORDINAL-OWNER-RELATION",
+        "status": "historic owner and error-propagation relation; no new defect",
+        "first_contract": "P16 material role2554 defines one OrdinalError carrying a Storey or Room role, original usize ordinal and TryFromIntError cause. Current StoreyIndex can represent a native usize but checks u16 when serializing; current RoomIndex narrows at from_ordinal and preserves the same Room-tagged error. These are distinct ordinal identities with a shared error, not two interchangeable indices.",
+        "condition": "A representable index is not evidence of membership in a particular building. The bounded navigation represented_storey computes a rounded level but the shown function alone does not establish membership. No actual invalid accepted plan or consumer error is demonstrated.",
+        "future_direction": "Keep index domains, original failing ordinal, role and native cause while choosing the actual membership owner and preserving the existing station-rounding/serialization behavior.",
+        "historical_relation": "Original rig RIG-OWNER81-REGISTER-009 and ADDITIONAL-DEFINITION-009 read only P16 79–90 as RoomIndex error-signature dependency. 059 Segovb READ-L11-421 and /root/lens12_frontier L12-866 independently preserve that same P16 scope. Separate pr-working role2479 6533 1–137 and /root/mhr_character current paired reads are not P16 ordered-role credit.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/storey_index.rs",
+            "lines": [
+              [
+                8,
+                60
+              ],
+              [
+                63,
+                90
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/room_index.rs",
+            "lines": [
+              [
+                1,
+                40
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+            "lines": [
+              [
+                351,
+                361
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "bundle_id": "p16-storey-plan-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-storey-plan-hair-report.json",
+      "original_finding": {
+        "id": "ARCHITECTURAL-POINT-WALL-FRAME-OWNER",
+        "status": "historical owner-propagation relationship, not an automatically new unique issue",
+        "first_contract": "ArchitecturalPlanPoint is a checked finite X/Z point with readmission during deserialization and explicit numeric algorithm adapter. WallLocalFrame retains origin, tangent, outward and optional inside/outside rooms as raw public fields; checked point identity alone does not establish a coherent normalized frame or graph membership.",
+        "condition": "Actual supported producer and serializer/consumer policy, when these fields are authoritative, and any invalid admitted graph require separate tracing. No blanket claim that raw temporary arithmetic is invalid.",
+        "future_direction": "Trace the actual source-to-frame-to-consumer boundaries and decide a coherent position/frame admission owner, preserving legitimate diagonal orientation and existing numerical kernels.",
+        "historical_relation": "774 RIG-OWNER81-REGISTER-003/ADDITIONAL-DEFINITION-003 compares this exact P16 point owner with WallLocalFrame and CityGate uses, limited to 1–49; 059 SEGOVB-L13-WALL-LOCAL-FRAME-RETENTION q407 is the explicit related retained-frame issue. Distinct from polygon precision and storey membership.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/plan_geometry.rs",
+            "lines": [
+              [
+                4,
+                49
+              ],
+              [
+                102,
+                160
+              ],
+              [
+                164,
+                242
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/walls.rs",
+            "lines": [
+              [
+                119,
+                126
+              ]
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "central_decisions": [
+    {
+      "identity": "Mixed scale orientation and hull",
+      "relationship": "The independently reasoned finite f32 example extends REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001 to the shared hull predicate, not another unique finding. Binary64 subtraction loses the tiny displacement in the stated exponent gap; source rounds both hull crosses to zero. An actual supported cuboid or plan producing those points is unproved, and the different q1646 distance question is not automatically merged."
+    },
+    {
+      "identity": "Room and storey indices",
+      "relationship": "StoreyIndex and RoomIndex have different storage/admission behavior and a shared role-tagged error. This relates to 12D SEGOVB-L13-RETAINED-ROOM-ORDINALS and its population dependency; representability alone does not prove graph membership."
+    },
+    {
+      "identity": "Wall frame aggregate",
+      "relationship": "Finite point admission does not by itself establish a normalized coherent wall frame or valid room membership. Actual producer, decoder and supported consumer policies remain open; do not assume every raw numeric intermediate is invalid."
+    },
+    {
+      "identity": "Historical reads",
+      "relationship": "Roles2554–2555 are separately attributed P16 and current full displays by the named delegate. Original P16 material was 79–90 and 1–49 respectively; all extensions are later displays and no other reviewer or base-object personal read is inferred."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "ROOM-STOREY-ORDINAL-OWNER-RELATION",
+    "ARCHITECTURAL-POINT-WALL-FRAME-OWNER"
+  ],
+  "further_evidence_for_existing_rows": [
+    "REVIEW-PLAN-POLYGON-MIXED-SCALE-AREA-001",
+    "SEGOVB-L13-RETAINED-ROOM-ORDINALS"
+  ],
+  "open": "Eight of eleven checkpoint12 bundles have bounded central reconciliation. Remaining packets, source scopes, unique aliases, all thirteen lenses and all 3713 historical semantic queue records remain open. These rows are relationships, not a unique defect count.",
+  "repair": "not started",
+  "validation": "not performed"
+}

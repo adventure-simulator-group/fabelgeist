@@ -1,0 +1,124 @@
+{
+  "schema": "726-bounded-source-evidence-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T04:49:22.644646+00:00",
+  "scope": {
+    "assigned_role": 2852,
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical": "Exact original dirty pr-working object transported by f82, individually equal same-path 6533 and 95e. Snapshot is not a clean tree; f82 is evidence transport. No 3821 restoration claimed.",
+    "personal_ranges": "read-scope-summary.json",
+    "own_assigned": "1\u201332 both historical/current. Independently registered and displayed supplemental 33\u201354 at each revision; full file union 1\u201354 is this reviewer\u2019s own read, but supplemental range has no original ordered-role expansion. All other support source complements unread."
+  },
+  "observations": [
+    {
+      "id": "WEB-LOCATION-SAME-TYPE-IDENTITY",
+      "classification": "Current source corroboration of historical Rig GROUP462 import/identity comparison; no new unique count, alias decision centrally owned",
+      "source_references": [
+        "source/2852-current.rs:3\u20138,25\u201329",
+        "support/catalog.rs:7",
+        "support/web-types.rs:8\u201314",
+        "support/web-db.rs:11,37",
+        "support/schema-location.rs:303\u2013336",
+        "support/input-mapping.rs:9\u201312,25\u201336",
+        "support/equipment.rs:32\u201359,188\u2013199",
+        "support/equipment-identity-caller.rs:220\u2013229",
+        "support/sats-channel.rs:1\u201332",
+        "support/sats-mod.rs:375\u2013380,1356\u20131361",
+        "history-774/rig/initial06-type-ownership/contracts-462.json.gz"
+      ],
+      "reasoning": "CoreEquipmentLocation names item_catalog_schema::EquipmentLocation; EquipmentLocation in web spacetimedb comes via types -> core::item_catalog -> item_catalog_schema reexport. The two names denote the same Rust type. web_equipment_location exhaustively returns each corresponding same-type variant, and equipment_binding_contains applies it to already canonical InputAddressMapping.locations before equality. This is a bounded redundant identity adapter and maintenance question, not proof of a runtime mismatch. The distinct SatsEquipmentChannel generated binding is explicitly reexported by the generated client and mapped to the core schema EquipmentChannel; do not remove that actual separate-type adapter based on the location result.",
+      "future_direction": "During an authorized shared-vocabulary repair, central owner may carry the canonical location directly through the same-type binding check and preserve the distinct generated channel boundary, all existing spellings, and user-visible behavior. No code or validation performed.",
+      "history": "Rig 774 GROUP462 fresh parent imports plus own prior equipment/type source established identity. It lists F025 as supporting broader canonical vocabulary/policy work, but original F025 first operations are material-name and singleton-policy matches and QUAL024 links broader Camera F011; none is proven an exact-operation alias. Root 250 independently read imports but explicitly left receiver mapping and reexport identity to separate scope."
+    }
+  ],
+  "relationships": [
+    {
+      "prior": "/root/rig_identity roles2409\u20132412 <LOCAL_PATH_0>",
+      "evidence": "prior/rig-trade/REPORT.json and original MANIFEST.json",
+      "relation": "Earlier replacement-set visibility, optional graph query failures, JS u64 exactness and fit catalog policy are related consumers; preserve their original condition, author and aliases, no new counts."
+    },
+    {
+      "prior": "/root/mhr_character roles2417\u20132418 <LOCAL_PATH_1>",
+      "evidence": "prior/js-trade/report.json and original BUNDLE-MANIFEST.json",
+      "relation": "Earlier independently reviewed JS equipment/trade boundary; not assigned role2852 and no read transfer."
+    }
+  ],
+  "nonfindings": [
+    "Original parent1\u201332 is imports/context; it does not itself implement equipment graph state, replacement, trade authorization or product behavior.",
+    "The closed same-type mapping shows no variant mismatch; its maintenance cost is the current observation.",
+    "SATS EquipmentChannel is a generated separate enum, and schema-to-client boundary is not redundant merely because variants have matching names.",
+    "No UI, browser, generated binding, database, test, build, fixture, or product execution occurred."
+  ],
+  "open_questions": [
+    "Should the canonical same-type map be removed as part of an accepted connected owner migration, and does prior F025/F011 include this exact first operation?",
+    "Do all generated/core channel variants remain synchronized under supported schema generation, and which native boundaries own this conversion?",
+    "How should existing q513\u2013516 graph query failure, q548 numeric identity, q1749 fit and prior replacement-set observations be reconciled without conflating operations?",
+    "All unregistered source complements and wider route/renderer/schema consumers remain open; current source equality and this bounded scope do not establish overall lens closure."
+  ],
+  "historical_attribution": {
+    "774_rig": "RIG-INITIAL06-REG-038 original1\u201332; QUAL070 material3\u20138/25\u201329, other1\u20132/9\u201324/30\u201332 context only. Rig GROUP462 personally assessed same-type provenance using prior equipment and reexport scopes. ROOT-ADM03-250 independently read raw1\u201332 and retained same qualified material, with no supplier verdict transfer. ROOT249 also preserves separate Rig062 uncredited pre-registration location_urls1\u201375 and regional surface EOF exclusions, not a premature trade read.",
+    "059": "Segovb READ-L11-463 / REG1773 fresh1\u201332; supplemental REG1774 fresh33\u201334 and REG1775 fresh35\u201336 registered independently before those reads. Own union1\u201336 at historical source only; no37\u201354 or current credit. accepted unique count change0; current_reconciled false.",
+    "registration_version": "Registry records rig source-registration whole-file SHA edd4d581342cdad822bf50d44e3ab5e81fc0458edc2961fb883718603188da7e, while later f82 file SHA 8770f5b2d71c63d66c9fb8035fd73c4dab9c7a8a1bf67063bbe55831b1c7187b; row38 exactly matches. No tested simple LF/CRLF prefix matches original hash; cause unknown and earlier full bytes not claimed recovered."
+  },
+  "qualifications": [
+    "Prior Rig and JS report/manifests retained with original authors; their existing findings and earlier source reads are not attributed to this reviewer.",
+    "Supplemental role tail33\u201354 is separate prospective support even though old/current files are byte-identical.",
+    "Initial support3 request fit.rs1\u201360 failed before any source display because actual EOF38; correct registration1\u201338 preceded its fresh read. Metadata-only navigation output was truncated and grants no body credit.",
+    "Source inspection and offline evidence integrity only: no implementation, build, tests, fixtures, generated code execution, UI/browser, or runtime probes."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "InputAddressMapping already carries canonical EquipmentLocation into binding membership; a same-type mapping is an unnecessary intermediate, while SATS channel transport is a different type boundary."
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "Trade parent imports core schema Location and web spacetimedb reexports the same canonical type through item_catalog and types. Distinct generated SATS channel requires explicit conversion."
+    },
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "Local conversions do not prove graph admission or backend authorization; current UI fit lookup and recipient policy remain independently scoped in prior trade review."
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Equipment binding membership compares same-type closed variants. Occupancy channel conversion and conflict ordering are separate operations, not evidence of a bad state."
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Parent module imports graph and presentation rows; construction and consistency of equipment graph cannot be proven by imports alone, and q513\u2013516 remain separate."
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Rig GROUP462 historically identified a canonical same-type exhaustive location adapter; independent current reexport and call-site trace confirms that narrow identity, without assuming the generated channel is identical."
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Location exhaustive identity match repeats mapping arms for existing owner, a source-maintenance question without demonstrated current mismatch. Generated SDK conversion remains intentional boundary."
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "Archived role source individually equals 6533 and 95e; previous dirty pr-working tree and selected support do not establish whole-app behavior or a tested migration."
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "Canonical EquipmentLocation and channel enum express distinct roles; display and wire labels are external representations, not new enum identities."
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "Same-type exhaustive match may be removable in a later connected change, but present matches do not establish a broad trait-generation recommendation or feature configuration."
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Locations are fine-grained topology distinct from seven-part combat body; do not collapse them merely due to word similarity or preserve copied SDK types as aliases."
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Human readable labels and wire labels in current equipment support use different casing and purpose; do not claim they should be merged or represent identical boundary semantics."
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Original role has import declarations only. Keyboard coordinates, u16 ordering, inventory IDs and fit zones serve distinct domains; prior JS exact-integer risk is a separate scoped historical/current question."
+    }
+  ],
+  "central_ownership": "Central owner decides reconciliation, unique counts and publication. No complete lens or repair/validation is claimed."
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "726-historical-source-read-v1",
+  "lens": 1,
+  "historical_source_roles": [
+    {
+      "original_index": 2558,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "snapshot": "pr-working",
+      "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "scope_kind": "materially_reached_owner81_definition_contract",
+      "registry_pointer": "/files/2558",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "lines": 408,
+      "new_personal_read_ranges": [
+        [
+          1,
+          408
+        ]
+      ],
+      "actual_personal_display_chunks": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          408
+        ]
+      ],
+      "new_personal_read_revision": "pr-working dirty snapshot; recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e",
+      "new_personal_read_attribution": "/root/rig_identity",
+      "delegate_report": "delegated/pr-prefix-sum-report.json",
+      "evidence_archive": "delegated/pr-prefix-sum-evidence.tar.gz",
+      "receipt_member": "personal-read-receipt.json",
+      "historical_member": "sources/historical-pr-working/crates/fabelgeist-compute/src/prefix_sum.rs",
+      "current_member": "sources/current-95e/crates/fabelgeist-compute/src/prefix_sum.rs",
+      "original_registry_scope": {
+        "original_registry_audit_owner": "rig",
+        "original_registry_status": null,
+        "original_material_ranges": [
+          [
+            19,
+            23
+          ],
+          [
+            44,
+            64
+          ]
+        ],
+        "original_source_or_other_lens_credit": null,
+        "qualification": "Original supplier metadata and earlier historical readers retain their own scopes; registration alone grants no body credit."
+      },
+      "new_personal_display_ranges_outside_original_material": [
+        [
+          1,
+          18
+        ],
+        [
+          24,
+          43
+        ],
+        [
+          65,
+          408
+        ]
+      ],
+      "current_comparison": {
+        "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "path": "crates/fabelgeist-compute/src/prefix_sum.rs",
+        "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+        "git_blob": "de8206991f810737256c56cc36f956de328408a0",
+        "bytes": 13294,
+        "lines": 408,
+        "actual_personal_display_chunks": [
+          [
+            1,
+            140
+          ],
+          [
+            141,
+            280
+          ],
+          [
+            281,
+            408
+          ]
+        ],
+        "personal_ranges": [
+          [
+            1,
+            408
+          ]
+        ],
+        "unread_ranges": [],
+        "byte_identical_to_historical": true,
+        "personal_read_attribution": "/root/rig_identity"
+      },
+      "qualification": "Only the named personal display is credited. Recorded dirty snapshot, individual recorded-HEAD equality and source material scope remain distinct; no original checkpoint3821 or global lens credit inferred."
+    }
+  ],
+  "qualification": "Delegate independently displayed the one recovered pr-working object and one current body; original material exclusions remain explicit. No checkpoint3821, whole-lens or product-validation credit."
+}

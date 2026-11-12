@@ -1,0 +1,918 @@
+{
+  "schema": "726-delegated-static-source-review-v1",
+  "author": "/root/mhr_character",
+  "generated_utc": "2026-11-12T04:54:45.546445+00:00",
+  "scope": "Original physical-p16 core roles 46,48,49,52,54, separate pinned 95e project bodies and bounded current support, across thirteen source perspectives. This packet does not close a lens, ledger, original queue or checkpoint.",
+  "source_only": "No product, build, test, fixture, renderer, macro, generation, simulation or runtime execution; source tests and build script read as text only. Evidence verifiers do not validate product behavior.",
+  "identity": {
+    "original_snapshot": "physical-p16",
+    "recorded_base_head": "a120390947c89b703dc74c4255a13c035d054c50",
+    "snapshot_qualification": "Dirty snapshot. Tracked patch exactly recovered by SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, excludes seven separately archived untracked files; f82adcabd9d89c4fa2dd7f99253a45297a0681ee transports original source objects, not a product revision. Per-file identity and absent patch/status entries do not make whole snapshot clean.",
+    "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "per_file_comparisons": [
+      {
+        "original_index": 46,
+        "versions": {
+          "base": {
+            "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+            "git_blob": "f198fe7cf59e2102a04d6d1215425b81d7886534",
+            "equals_archived": true,
+            "lines": 509
+          },
+          "current": {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+            "git_blob": "61fccd9b8df98aba9a0b7085fe635c88ff7d82c6",
+            "equals_archived": false,
+            "lines": 511
+          }
+        },
+        "qualification": "Original physical-p16 bytes are a dirty working snapshot. Base equality is per file only; tracked patch excludes separately archived untracked files. f82 is evidence transport."
+      },
+      {
+        "original_index": 48,
+        "versions": {
+          "base": {
+            "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+            "git_blob": "d22fdc0272b94f8d001dd46d5a39f10803199aa9",
+            "equals_archived": true,
+            "lines": 43
+          },
+          "current": {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+            "git_blob": "d22fdc0272b94f8d001dd46d5a39f10803199aa9",
+            "equals_archived": true,
+            "lines": 43
+          }
+        },
+        "qualification": "Original physical-p16 bytes are a dirty working snapshot. Base equality is per file only; tracked patch excludes separately archived untracked files. f82 is evidence transport."
+      },
+      {
+        "original_index": 49,
+        "versions": {
+          "base": {
+            "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+            "git_blob": "450fd627bf7d3e2e6b52158e6dd27623d8d74d3a",
+            "equals_archived": true,
+            "lines": 648
+          },
+          "current": {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+            "git_blob": "450fd627bf7d3e2e6b52158e6dd27623d8d74d3a",
+            "equals_archived": true,
+            "lines": 648
+          }
+        },
+        "qualification": "Original physical-p16 bytes are a dirty working snapshot. Base equality is per file only; tracked patch excludes separately archived untracked files. f82 is evidence transport."
+      },
+      {
+        "original_index": 52,
+        "versions": {
+          "base": {
+            "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+            "git_blob": "2eafd1af9104222576c904f9adae765c0e9519bb",
+            "equals_archived": true,
+            "lines": 65
+          },
+          "current": {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+            "git_blob": "2eafd1af9104222576c904f9adae765c0e9519bb",
+            "equals_archived": true,
+            "lines": 65
+          }
+        },
+        "qualification": "Original physical-p16 bytes are a dirty working snapshot. Base equality is per file only; tracked patch excludes separately archived untracked files. f82 is evidence transport."
+      },
+      {
+        "original_index": 54,
+        "versions": {
+          "base": {
+            "revision": "a120390947c89b703dc74c4255a13c035d054c50",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+            "git_blob": "e3e773d022794e0700ff42a85b4c94399f09a4ab",
+            "equals_archived": true,
+            "lines": 86
+          },
+          "current": {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "present": true,
+            "git_status": 0,
+            "git_stderr": null,
+            "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+            "git_blob": "e3e773d022794e0700ff42a85b4c94399f09a4ab",
+            "equals_archived": true,
+            "lines": 86
+          }
+        },
+        "qualification": "Original physical-p16 bytes are a dirty working snapshot. Base equality is per file only; tracked patch excludes separately archived untracked files. f82 is evidence transport."
+      }
+    ],
+    "current_build_delta": "Only added src/unit_interval.rs module at current lines 32–33; exact diff in build-source-diff.txt. The affected source-map bodies are otherwise byte-identical, with line numbers offset by two.",
+    "git_proofs": "git-proofs.json; raw commit and tree evidence in git-objects; historical object, base, 6533 and current identities separately verified."
+  },
+  "personal_read_scope": [
+    {
+      "registration": "registration.json",
+      "registration_sha256": "8fb19ada42bf805aaecbb51325a0d068054ded577c2f148aa01f413a2f8a62d3",
+      "receipt": "personal-read-receipt.json",
+      "receipt_sha256": "25a7947aff94cc478c5ddfa0c1e1c577f4e61baf1965b27b4236cfa140914135",
+      "entries": [
+        {
+          "source": "source/46-historical.rs",
+          "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+          "revision": null,
+          "displayed_chunks": [
+            [
+              1,
+              90
+            ],
+            [
+              91,
+              180
+            ],
+            [
+              181,
+              270
+            ],
+            [
+              271,
+              360
+            ],
+            [
+              361,
+              440
+            ],
+            [
+              441,
+              509
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              509
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/46-current.rs",
+          "sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              90
+            ],
+            [
+              91,
+              180
+            ],
+            [
+              181,
+              270
+            ],
+            [
+              271,
+              360
+            ],
+            [
+              361,
+              440
+            ],
+            [
+              441,
+              511
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              511
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/48-historical.rs",
+          "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+          "revision": null,
+          "displayed_chunks": [
+            [
+              1,
+              43
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              43
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/48-current.rs",
+          "sha256": "f5933a0bf3fad1149d1f10c1e16ae4883fa626338fc6aa29723816dc8ae4e317",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              43
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              43
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/49-historical.rs",
+          "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+          "revision": null,
+          "displayed_chunks": [
+            [
+              1,
+              90
+            ],
+            [
+              91,
+              180
+            ],
+            [
+              181,
+              270
+            ],
+            [
+              271,
+              360
+            ],
+            [
+              361,
+              450
+            ],
+            [
+              451,
+              540
+            ],
+            [
+              541,
+              648
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              648
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/49-current.rs",
+          "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              90
+            ],
+            [
+              91,
+              180
+            ],
+            [
+              181,
+              270
+            ],
+            [
+              271,
+              360
+            ],
+            [
+              361,
+              450
+            ],
+            [
+              451,
+              540
+            ],
+            [
+              541,
+              648
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              648
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/52-historical.rs",
+          "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+          "revision": null,
+          "displayed_chunks": [
+            [
+              1,
+              65
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              65
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/52-current.rs",
+          "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              65
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              65
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/54-historical.rs",
+          "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+          "revision": null,
+          "displayed_chunks": [
+            [
+              1,
+              86
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              86
+            ]
+          ],
+          "unread_complement": []
+        },
+        {
+          "source": "source/54-current.rs",
+          "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              86
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              86
+            ]
+          ],
+          "unread_complement": []
+        }
+      ]
+    },
+    {
+      "registration": "support-registration.json",
+      "registration_sha256": "13b41c47201e9bf48373903b23801c3096cc904998b5a0f3f28c762ae915fe77",
+      "receipt": "support-read-receipt.json",
+      "receipt_sha256": "3d29aecc47a06dab2764792543e9100c3ddf3f1602f7d1ecd8c0e72200e8cda8",
+      "entries": [
+        {
+          "source": "support/item.rs",
+          "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              130,
+              195
+            ]
+          ],
+          "displayed_union": [
+            [
+              130,
+              195
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              129
+            ],
+            [
+              196,
+              614
+            ]
+          ]
+        },
+        {
+          "source": "support/quest.rs",
+          "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              100
+            ],
+            [
+              310,
+              405
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              100
+            ],
+            [
+              310,
+              405
+            ]
+          ],
+          "unread_complement": [
+            [
+              101,
+              309
+            ],
+            [
+              406,
+              1630
+            ]
+          ]
+        },
+        {
+          "source": "support/road.rs",
+          "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              350,
+              420
+            ],
+            [
+              1020,
+              1065
+            ]
+          ],
+          "displayed_union": [
+            [
+              350,
+              420
+            ],
+            [
+              1020,
+              1065
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              349
+            ],
+            [
+              421,
+              1019
+            ],
+            [
+              1066,
+              2689
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "registration": "support2-registration.json",
+      "registration_sha256": "85c9d7ba9907f996ba05ca94b6a3b813bc08d8b3b0aed5c55035864e03c0d7cf",
+      "receipt": "support2-read-receipt.json",
+      "receipt_sha256": "885df6fbf059cb4c877abe9b97a3ab4c9bb3fc510e1dc64996a835c00dec8718",
+      "entries": [
+        {
+          "source": "support/road-more.rs",
+          "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              110
+            ],
+            [
+              950,
+              1000
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              110
+            ],
+            [
+              950,
+              1000
+            ]
+          ],
+          "unread_complement": [
+            [
+              111,
+              949
+            ],
+            [
+              1001,
+              2689
+            ]
+          ]
+        },
+        {
+          "source": "support/quest-more.rs",
+          "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              700,
+              740
+            ]
+          ],
+          "displayed_union": [
+            [
+              700,
+              740
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              699
+            ],
+            [
+              741,
+              1630
+            ]
+          ]
+        },
+        {
+          "source": "support/dialogue-provenance.rs",
+          "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              90,
+              145
+            ]
+          ],
+          "displayed_union": [
+            [
+              90,
+              145
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              89
+            ],
+            [
+              146,
+              1408
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "registration": "support3-registration.json",
+      "registration_sha256": "170df74a207180ccc66946c50bb867a167f65424efb4dbc2f6e887b6e1ad495c",
+      "receipt": "support3-read-receipt.json",
+      "receipt_sha256": "410622b50323ec84a7899c8877aacb84859c6ebef09882fe42e9f1eda331d13a",
+      "entries": [
+        {
+          "source": "support/schema.rs",
+          "sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              390,
+              420
+            ]
+          ],
+          "displayed_union": [
+            [
+              390,
+              420
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              389
+            ],
+            [
+              421,
+              614
+            ]
+          ]
+        },
+        {
+          "source": "support/validation.rs",
+          "sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              330,
+              355
+            ],
+            [
+              465,
+              490
+            ],
+            [
+              1055,
+              1080
+            ]
+          ],
+          "displayed_union": [
+            [
+              330,
+              355
+            ],
+            [
+              465,
+              490
+            ],
+            [
+              1055,
+              1080
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              329
+            ],
+            [
+              356,
+              464
+            ],
+            [
+              491,
+              1054
+            ],
+            [
+              1081,
+              2059
+            ]
+          ]
+        },
+        {
+          "source": "support/loading.rs",
+          "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              1,
+              70
+            ]
+          ],
+          "displayed_union": [
+            [
+              1,
+              70
+            ]
+          ],
+          "unread_complement": [
+            [
+              71,
+              390
+            ]
+          ]
+        },
+        {
+          "source": "support/catalog-id.rs",
+          "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              65,
+              105
+            ]
+          ],
+          "displayed_union": [
+            [
+              65,
+              105
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              64
+            ],
+            [
+              106,
+              134
+            ]
+          ]
+        },
+        {
+          "source": "support/dialogue-lib.rs",
+          "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "displayed_chunks": [
+            [
+              440,
+              470
+            ]
+          ],
+          "displayed_union": [
+            [
+              440,
+              470
+            ]
+          ],
+          "unread_complement": [
+            [
+              1,
+              439
+            ],
+            [
+              471,
+              1785
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "navigation_qualification": "Metadata-only exact symbol navigation printed filenames and line numbers before support registration, without source-body displays; registered support files contain complete bytes for reproducibility, but only receipt ranges were personally displayed and all complements are unread.",
+  "historical_relationships": [
+    {
+      "role": 46,
+      "source": "registry-selection-reconstructed.json /rows/0/row and history-reconciliation.json",
+      "earlier_774": "camera owner registry row546 (zero-based), and root ROOT-PPS-CORE-BUILD-RECEIVER-CLOSURE-045 /source_proofs/1 and camera CAM-PPS-CORE-BUILD-041 /current_sources/1 record historical range 1–509. Their read_mode explicitly relates fresh PR pieces and a ROOT044 prior piece with exact P16 equality, rather than proving one full fresh P16 personal read; retain literal text and its ambiguity.",
+      "earlier_059": "parallel-l12-20261029/PARTIAL-CONNECTED-PAR-L12-878-CATALOG-COMPILER-001.json and 002.json; root adoption segovb/READ-L12-CONNECTED-TEAM-021.json /exact_source_rows/9. /root/lens12_frontier personally read 1–135 and 220–341 under REGISTRATION-PAR-L12-645.json, while 136–219 and 342–509 were unread in that historical receipt. Their source view and initial source-map/diagnostic distinctions remain theirs."
+    },
+    {
+      "roles": [
+        48,
+        52,
+        54
+      ],
+      "source": "registry-selection-reconstructed.json /rows/1,3,4 and history-reconciliation.json",
+      "earlier_774": "Owner camera records 1–43, 1–65, 1–86 respectively; CAM-PPS-CORE-MELEE-RECEIVERS-049 and NATIVE-PS-CORE-MELEE-CONTACT-023 record fresh full paired PR/P16 actual bodies and separately retain connected melee scheduling and receiver questions. Fixture references in historical evidence are not new execution."
+    },
+    {
+      "role": 49,
+      "source": "registry-selection-reconstructed.json /rows/2/row and history-reconciliation.json",
+      "earlier_774": "CAM-PPS-FORAGE-OUTBREAK-020 and NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014 /related_current_reads/8 each support only 51–90; no whole-autopsy claim. CAM-PPS-CORPSE-012 /current_sources/2 explicitly records fresh supplemental P16 1–648; expanded-pending JSONL row45 is one-based and preserves the distinct full-body qualifier. Do not merge readers or other-lens credit."
+    },
+    {
+      "role": 49,
+      "earlier_059": "parallel-l13-20261029/READ-PL13-131.json /rows/0 and matching REGISTRATION-PL13-131.json /sources/0 record full own Lens13 original role856 pr-working 6533, source SHA equal to P16/current; segovb/READ-L13-PARALLEL-129.json records root adoption, not 3821. PL13-242 historical links preserve separately attributed corpse-policy scopes.",
+      "current": "reference/current-autopsy-assessment.json records three independently attributed current source candidates for wound propagation, blank trauma and scene claim; reference/historical-autopsy-role856.json records a separate historical Lens1 full read. Source equality does not transfer either review."
+    },
+    {
+      "qualification": "history-reconciliation.json checks 14 original owner/producer relationships; four source_context text fields contain mojibake in the original registry where f82 has en dashes. Source IDs, hashes and numeric range arrays checked there agree. Preserve both exact byte versions and do not infer cause."
+    },
+    {
+      "queue": "queue-selection-reconstructed.json includes exact selections 690,697,2101,2287–2289,2391,2434 from the full hash-verified 059 queue; reconstruction is not a separate original historical queue. Q-L1-55012137ee5a868cf978 leaves locator/authoring/validator/consumer questions open. PAR-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL addresses a different validator path; a common repair or name is not an automatic alias."
+    }
+  ],
+  "candidates": [
+    {
+      "local_id": "DELEGATE-CORE-SOURCE-LOCATION-VALUE-SEARCH",
+      "status": "conditional current and historical source-contract finding; central must reconcile aliases and count",
+      "first_failed_contract": "The build assigns locations for structurally selected encounter IDs and quest dialogue templates using textual searches for a reserialized value rather than the parsed field location. The emitted identity/path can therefore disagree with the selected token, or an otherwise parsed spelling can fail lookup.",
+      "trace": "Historical build.rs 164–173 and current 166–175 search raw encounter text from its beginning for each encoded ID; historical 360–382 and current 362–384 search quest text from a cursor for the next encoded template value. In a document whose earlier different scalar has the same encoded bytes, that earlier scalar can be selected; encounter source line and quest SourceRef line/column can identify the wrong token. If the raw token spelling differs from the serializer output and the searched encoded bytes do not occur in the searched text, the lookup panics before the subsequent validator (current 183 or 123); this is a conditional mathematical consequence, not a claim about actual authored content.",
+      "connected_consumer": "The quest path compiles document/index -> variant ID at quest_catalog.rs 343–375, exposes it at 726–727, and selected referral handling serializes the source at dialogue_provenance.rs 98–123. SourceRef retains file, line, column, path and value_json at dialogue lib.rs 455–463. Road source() reads its embedded source map at road_encounter_catalog.rs 1036–1038; downstream use not established.",
+      "boundaries": "An actual valid document, occurrence of mislocation, escaped spelling, publication, player-visible behavior and full source-map consumer set are not established; no input fixture, generation or execution. Item locator has its own keyed/cursor semantics and is not equated here. A difference between valid JSON lexeme and reserialized spelling is a condition, not an asserted committed data example.",
+      "future_repair_direction": "After audit gate, consider carrying structural source spans for the exact parsed field/token and preserving supported escaped string lexemes, with matching document/ID, path, file, line and column through the producer and selected consumer. Decide policy at catalog authoring and diagnostic owners before implementation; retain current content and external format behavior.",
+      "historical_relationship": "059 Q-L1-55012137ee5a868cf978 already records the unresolved locator contract, while the old 059 team021 build read did not include historical 136–219 or 342–509. This independent full current/historical assessment adds those spans but does not change prior authorship, establish a duplicate or authorize any count.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "reconciled_existing_observations": [
+    {
+      "ids": [
+        "REVIEW-AUTORESOLVE-CORPSE-WOUND-PROPAGATION-001",
+        "REVIEW-CORPSE-BLANK-TRAUMA-FINDING-001",
+        "REVIEW-AUTOPSY-SCENE-EVIDENCE-CLAIM-001"
+      ],
+      "source": "reference/current-autopsy-assessment.json",
+      "relation": "Independently read same current core body: 104–129 sorts and limits positive damage injuries; 224–274 and 364–395 rank selected injuries, and external scene text depends on at_scene. Prior separately attributed current assessment traced additional producers and consumers. Do not count these again or transfer their support reads."
+    }
+  ],
+  "nonfindings_and_open_questions": [
+    "AnimationPackId declares open authored identity, not an enum: From<String>, From<&str> and transparent serde do not enforce grammar at the type (48:1–43), while the selected item-weapon validator checks safe lowercase ID (item_catalog_validation.rs 1058–1074). No conclusion that all other construction routes enforce that check, or that arbitrary future authored IDs are invalid; asset policy and unresolved prior animation catalog aliases remain open.",
+    "Classification.rs 22–41 maps Close/Retreat/Hold to negative/positive/zero signed speed and distinguishes request from realized telemetry; no failure established in this bounded mapping. Its test text at 44–65 is not test execution.",
+    "Incapacitation test source asserts fatigue and other impairment give same performance (3–38), fatigue alone does not slow movement (40–58), and equipment burden is not separately subtracted from skill but contributes to incapacitation (60–86). These are assertions consistent with stated design intent, not proof of behavior or verification.",
+    "Autopsy sorts ascending sequence then truncates to 32 (104–123); if a relevant wound occurs after the retained prefix it will be excluded from this summary. Whether this is intended, whether any separately traced consumer persists the vector, and actual event count/reach are open. Do not duplicate the existing missing-enemy-wound propagation candidate.",
+    "Autopsy public snapshot BPS and damage/state fields are primitive; full producer admission, special floating values, timestamps, handling damage and clinical policies remain open. Do not infer a universal 10000 bound for handling_damage_bps from the name; 059 PL13-242-...HANDLING... explicitly left repeat/time policy open.",
+    "Autopsy scene and pathology interpretation, source visibility/access and no-cause boundary require owner coordination; this bounded read does not establish a live player, incident or unconditional claim.",
+    "The whole recorded P16 patch does not include untracked files. P16 statuses, transport identity and per-file Git object identities are separate. 3821 remains unrecovered; none of these reads are its records."
+  ],
+  "lens_perspectives": [
+    {
+      "lens": "producer-propagation",
+      "observation": "Bounded quest and encounter source-location paths plus selected referral source retention; body injury summary through consumers remains subject to existing current record."
+    },
+    {
+      "lens": "existing-type-owners",
+      "observation": "AnimationPackId is shared and open; selected item validator applies a boundary grammar. StrategicMinute and speed owners exist; do not invent closed pack enumeration."
+    },
+    {
+      "lens": "admission-contracts",
+      "observation": "Public serde/pathology and BodyInjury surfaces expose primitive fields; actual ordinary producers and validation remain open. Source-map search condition is source based."
+    },
+    {
+      "lens": "invariant-operations",
+      "observation": "Bounded autopsy sort/truncate, clamped quality and elapsed arithmetic; count/order policy and finite inputs need ownership. No forced 10000 handling cap."
+    },
+    {
+      "lens": "aggregate-states",
+      "observation": "Scene/custody flags and source location/path/value can be inconsistent unless producers maintain relationships; scene claim already separately traced."
+    },
+    {
+      "lens": "type-ownership",
+      "observation": "Pack identity is shared core item/tactical vocabulary; source coordinates and parsed structural path require connected ownership, no wholesale ownership conclusion."
+    },
+    {
+      "lens": "redundant-authority",
+      "observation": "Parsed value and reserialized text search are separately computed to identify a source token; previously traced corpse scene assertion has conditional evidence-authority concern."
+    },
+    {
+      "lens": "behavior-preservation",
+      "observation": "Current build adds only a unit_interval module import relative to selected P16 file; preserve authored identity, location and behavior through any later repair. Test text not runtime proof."
+    },
+    {
+      "lens": "enum-shapes",
+      "observation": "Melee movement and attack classification are enums; corpse flags and projectile boolean may encode intentional distinctions. No forced redesign based only on shape."
+    },
+    {
+      "lens": "derivability",
+      "observation": "Pack has manual display/debug/conversion around an open Cow; any derive substitution must preserve wire/debug/borrowing behavior; no unnecessary-boilerplate defect established."
+    },
+    {
+      "lens": "type-granularity",
+      "observation": "Open pack IDs and signed versus nonnegative speed distinguish semantic roles; supported animation-pack names do not close the vocabulary."
+    },
+    {
+      "lens": "magic-strings",
+      "observation": "Item/encounter IDs, source paths, native JSON tokens and player-facing wording serve different contracts; source-ref parser bug is not a claim that every raw string is a bespoke owner."
+    },
+    {
+      "lens": "magic-numbers",
+      "observation": "Autopsy has named time/count limits and separate anatomical positions, damage/quality thresholds and unit conversions; producers, owners and intent remain open rather than treating every literal as a defect."
+    }
+  ],
+  "verification": "Run python3 verify-evidence.py and python3 verify-manifest.py in this packet. Integrity verification is not product testing.",
+  "central_ownership": "Central reviewer owns baseline, source-role disposition, aliases, repair ledger and publication. No accepted finding count, full-lens closure, repair or product validation asserted."
+}
