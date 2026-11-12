@@ -1,0 +1,68 @@
+{
+  "schema": "726-bounded-evidence-manifest-v1",
+  "created_utc": "2026-11-12T08:55:38.277168+00:00",
+  "file_count": 12,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 941,
+      "sha256": "9633932fd946ade2ae263a3f1dec58a93e52e05fa415fe93d9ce38929a723744"
+    },
+    {
+      "path": "build-manifest.py",
+      "bytes": 740,
+      "sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181"
+    },
+    {
+      "path": "reconstruct.py",
+      "bytes": 3047,
+      "sha256": "f85a3046f7b646a0dfcc32852e65018310fcbd88a54a6aa9165c19734b471e8b"
+    },
+    {
+      "path": "reconstructed/record-1.json",
+      "bytes": 9416257,
+      "sha256": "5d956305ae876ae80d393b2688271a34de78aec60ec1108a4dda7e91945b12b3"
+    },
+    {
+      "path": "reconstructed/record-2.json",
+      "bytes": 21631803,
+      "sha256": "43e8be802f712bb44e62cff58d06a6d9a0e70d0a804c1903fa4dd03fd7d4ec8e"
+    },
+    {
+      "path": "reconstructed/record-3.json",
+      "bytes": 109695,
+      "sha256": "5ba25f76cc4bcec1bd56b9915f5b6338cc47919d8e5da321636c65bea7c6bd95"
+    },
+    {
+      "path": "reconstructed/record-4.json",
+      "bytes": 2911217,
+      "sha256": "868b3221e33e2424afcdfd5a818abfdf3963b9b947793b84b033e0b15b13a1e9"
+    },
+    {
+      "path": "reconstructed/record-5.json",
+      "bytes": 120665,
+      "sha256": "5f27e08c555831bc76de56d980f9affe1f1f19140d236d93fa76d5e6eecb2d2e"
+    },
+    {
+      "path": "reconstruction-index.json",
+      "bytes": 16093,
+      "sha256": "0fb9f5bc1fe1bce3b7b3891d6b217f4795eb139ed5e69ec6a6e20863db6815dd"
+    },
+    {
+      "path": "verify-manifest.py",
+      "bytes": 539,
+      "sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5"
+    },
+    {
+      "path": "verify-public.py",
+      "bytes": 1065,
+      "sha256": "f132943e936979e6514914e1288478fb3bf67dfd7277d8aa4f8905be884befa8"
+    },
+    {
+      "path": "verify-reconstruction.py",
+      "bytes": 1631,
+      "sha256": "5ee86f3afca029fb932a34334c324d19d9b5dac1c5e9d5cc0686441787f42b37"
+    }
+  ],
+  "qualification": "Evidence packet; excludes only root BUNDLE-MANIFEST.json, includes nested manifests."
+}

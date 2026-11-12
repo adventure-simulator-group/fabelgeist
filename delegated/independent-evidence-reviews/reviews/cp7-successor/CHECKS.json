@@ -1,0 +1,51 @@
+{
+  "result": "pass_with_explicit_privacy_and_custody_limits",
+  "original_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+  "previous_reviewed_archive_sha256": "8ef3dc97ed66a6b20c08456945780b6a01295407d2974e9cf86f68076d5a5d93",
+  "successor_archive_sha256": "5b471b148151e841596bc253c45ac0bd23edf5db174d0c251b659a3543e3426e",
+  "successor_index_sha256": "32f9312f9f1958ba9a19e82b76069046d92bfda7b1a8d39699809a6b21a1ef03",
+  "prior_review_report_sha256": "ea1315a604d3744b77f31e81fa07f60ef49d74b4c54c459acc6e69a76d4cdb12",
+  "prior_review_manifest_sha256": "e5ac543d106e57e071b0c28d04f41c02ea7e9151c1916bdcfab65b22993528e0",
+  "counts": {
+    "directories": 63,
+    "files": 123,
+    "changed_against_original": 8,
+    "gzip_members": 52,
+    "redactions": 1084
+  },
+  "entries": 186,
+  "retained_nonpath_contexts": [
+    [
+      "726-delegate-web-map/build-manifest.py",
+      213,
+      "rb'",
+      "/home/[A-Za-z0-9_.-]+/"
+    ],
+    [
+      "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root/traces.jsonl",
+      188293,
+      "garden",
+      "/home/building"
+    ],
+    [
+      "726-delegate-web-map/original-059-ledger.json.gz",
+      4460781,
+      "source",
+      "/home/window/viewport/overlay"
+    ]
+  ],
+  "previous_to_successor_changed_member_bodies": [
+    "726-delegate-web-map/build-manifest.py"
+  ],
+  "tarinfo_difference_counts": {
+    "chksum": 186,
+    "size": 8,
+    "pax_headers": 12,
+    "offset": 86,
+    "offset_data": 86
+  },
+  "pax_long_path_additions": 12,
+  "raw_header_qualification": "GNU original; POSIX ustar/PAX successor; changed raw checksums/offsets and gzip OS byte are not original-byte preservation.",
+  "privacy_qualification": "No unclassified path-pattern or configured credential-pattern match in decoded member bodies and metadata, after three precise context exceptions. Other encodings and secrets outside the configured patterns are not exhaustively covered.",
+  "historic_scope": "Same-machine exact original; no product execution, newly observed source read credit, checkpoint3821 promotion, or custody inference."
+}

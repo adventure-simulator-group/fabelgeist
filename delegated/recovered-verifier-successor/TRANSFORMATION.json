@@ -1,0 +1,90 @@
+{
+  "schema": "726-evidence-verifier-transformation-v1",
+  "original_sha256": "5fbd014581bbfc412596040ef923f680c72284115d3a5f4f7287f214212cb458",
+  "successor_sha256": "2b0be3743a7703f9ce11dfb905a079b89074a3ef3ce8031467951d110f1d5172",
+  "unique_non_overlapping_anchor_count": 9,
+  "operations": [
+    {
+      "operation": "install qualified crosswalk helper",
+      "original_line_start": 15,
+      "original_line_end": 15,
+      "successor_line_start": 15,
+      "successor_line_end": 88,
+      "original_text_sha256": "ef941882fdae32a6fc644879a40bd0d8810b60de24487a12d25b13e3c249dc24",
+      "successor_text_sha256": "cc43dcdec729fcd35a4b2e844a045789e69662df8dc325f3c49e1dc143fd228b"
+    },
+    {
+      "operation": "pin prior transition manifest",
+      "original_line_start": 5090,
+      "original_line_end": 5090,
+      "successor_line_start": 5163,
+      "successor_line_end": 5163,
+      "original_text_sha256": "62c99e24a181401d8a047d0782948609ec520b69d54b551fce228abb4c45eb94",
+      "successor_text_sha256": "e63cf4188f9e90cacf5154deefdf41613e74d7dcb1a78208288f74fe707d3c6c"
+    },
+    {
+      "operation": "qualify prior transition public bytes",
+      "original_line_start": 5097,
+      "original_line_end": 5098,
+      "successor_line_start": 5170,
+      "successor_line_end": 5170,
+      "original_text_sha256": "e602ae8ba33ded5ef81ba9a6ca399b145c66e8ead48c8ff6f422939c667930c3",
+      "successor_text_sha256": "022e6e7e94d797d01d89bd33928a99944593db3a41570889b750d4aae4500fc0"
+    },
+    {
+      "operation": "pin canonical comparison manifest",
+      "original_line_start": 5467,
+      "original_line_end": 5467,
+      "successor_line_start": 5539,
+      "successor_line_end": 5539,
+      "original_text_sha256": "9493a53b196a462d355daec15d00c53c8753d1006186520d85a0a4650c905a8f",
+      "successor_text_sha256": "acc902898b13c494d30804067465e297ec9e8ff822380c829e26ac09ea5dc2b8"
+    },
+    {
+      "operation": "qualify canonical comparison inherited-master bytes",
+      "original_line_start": 5470,
+      "original_line_end": 5472,
+      "successor_line_start": 5542,
+      "successor_line_end": 5552,
+      "original_text_sha256": "f9f033560c0a717d473123e83d6328da28ebb2dfb12e073aa555dbc8ae44502f",
+      "successor_text_sha256": "f9d5c83050ad48c163031630d9283ec5478e8b23c8ab799e7334bfb7a3010425"
+    },
+    {
+      "operation": "parse previously verified public master",
+      "original_line_start": 5476,
+      "original_line_end": 5476,
+      "successor_line_start": 5556,
+      "successor_line_end": 5556,
+      "original_text_sha256": "670218a6f54d098f30bad2b29fa5f6ca45e640645934c53374d856962fba1f93",
+      "successor_text_sha256": "4d273e584f7651dd2c49fbc666fee4ac560017693d8cee98ca9314db91e7a8d4"
+    },
+    {
+      "operation": "pin Lens 12 manifest",
+      "original_line_start": 6055,
+      "original_line_end": 6055,
+      "successor_line_start": 6135,
+      "successor_line_end": 6135,
+      "original_text_sha256": "627a0e102fdb969ae7c7f38804b364129d6109e2b8f972165b99d6b2be5e79e0",
+      "successor_text_sha256": "877eabf53bfa91969fa23f6ed6fdcd1fb6e9969112fe1b35b41615cda0ed5a4b"
+    },
+    {
+      "operation": "qualify one Lens 12 direct dependency",
+      "original_line_start": 6284,
+      "original_line_end": 6286,
+      "successor_line_start": 6364,
+      "successor_line_end": 6368,
+      "original_text_sha256": "2633d0e4542f36d41a69e4609c57c95662a23f996150779d42537ca732e4c614",
+      "successor_text_sha256": "61d9456d1aa51e4a01bd1dc4b8445ccc4db56b9f2ebb8057f3eb2186a356dab8"
+    },
+    {
+      "operation": "report original-byte verification qualification",
+      "original_line_start": 8142,
+      "original_line_end": 8142,
+      "successor_line_start": 8224,
+      "successor_line_end": 8228,
+      "original_text_sha256": "f3d4b3b04c156135aeb53140ef392cbf5800ac967ddc21136dfa88c4d4a8d27e",
+      "successor_text_sha256": "c3369be6bf999b29ddd58229b428a034c77582b9ebd76121f9a05ba0113ff180"
+    }
+  ],
+  "qualification": "Each exact original anchor occurred once; all source outside the nine anchor replacements is byte-for-byte preserved by the deterministic transform. Line ranges are inclusive text positions, and inserted text is recorded through its expanded replacement anchor."
+}

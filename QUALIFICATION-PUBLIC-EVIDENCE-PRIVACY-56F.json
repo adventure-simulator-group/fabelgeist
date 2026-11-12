@@ -1,0 +1,94 @@
+{
+  "schema": "726-public-evidence-privacy-correction-v1",
+  "previously_published_commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "status": "Current-tree redacted reconstructions; previously published Git history, remote caches and clones are not purged.",
+  "records": [
+    {
+      "path": "baseline-059/queue.json",
+      "earlier_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "earlier_bytes": 21632843,
+      "public_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "public_bytes": 21631815,
+      "redactions": 12,
+      "qualification": "Historical 059 baseline copy; path-redacted reconstruction, not the prior byte-identical representation or missing checkpoint3821."
+    },
+    {
+      "path": "baseline-059/ledger.json",
+      "earlier_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "earlier_bytes": 9417609,
+      "public_sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+      "public_bytes": 9416271,
+      "redactions": 14,
+      "qualification": "Historical 059 baseline copy; path-redacted reconstruction, not the prior byte-identical representation or missing checkpoint3821."
+    },
+    {
+      "path": "recovered/l12-final-registration-evidence/prior-direct-dependencies/0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "earlier_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "earlier_bytes": 109772,
+      "public_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+      "public_bytes": 109688,
+      "redactions": 1,
+      "qualification": "Filename retains a historical original digest as an identifier; public contents are a distinct path-redacted reconstruction."
+    },
+    {
+      "path": "recovered/l2-canonical-comparison-evidence/74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "earlier_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "earlier_bytes": 2913027,
+      "public_sha256": "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+      "public_bytes": 2911040,
+      "redactions": 28,
+      "qualification": "Filename retains a historical original digest as an identifier; public contents are a distinct path-redacted reconstruction."
+    },
+    {
+      "path": "recovered/prior-current-transition-evidence/7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "earlier_sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "earlier_bytes": 120752,
+      "public_sha256": "c21dca58dc77ed95ec680a61b91d45f49c1c86be0274ebf48409919f514d8c30",
+      "public_bytes": 120669,
+      "redactions": 1,
+      "qualification": "Filename retains a historical original digest as an identifier; public contents are a distinct path-redacted reconstruction."
+    },
+    {
+      "path": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+      "earlier_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "earlier_bytes": 590,
+      "public_sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192",
+      "public_bytes": 458,
+      "redactions": 3,
+      "qualification": "Historical path-bearing evidence replaced in current tree by a separately identified reconstruction; previously published history is unchanged."
+    },
+    {
+      "path": "recovered/transcript-other-candidates/portability-review.redacted.json",
+      "earlier_sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+      "earlier_bytes": 8746,
+      "public_sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5",
+      "public_bytes": 8723,
+      "redactions": 2,
+      "qualification": "Historical path-bearing evidence replaced in current tree by a separately identified reconstruction; previously published history is unchanged."
+    },
+    {
+      "path": "recovered/city-streaming-059/66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.gz",
+      "earlier_sha256": "7dc8d1b8d59a3f1641cbd7efbb7d56788eb776b5f4d5d3935865e82e7397c358",
+      "earlier_bytes": 920,
+      "public_sha256": "82b9471f873416d514f7c9b5aed52f1afe5901a9a53ab2f0425c5f0b7afae112",
+      "public_bytes": 891,
+      "redactions": 1,
+      "qualification": "Historical path-bearing evidence replaced in current tree by a separately identified reconstruction; previously published history is unchanged."
+    },
+    {
+      "path": "recovered/city-streaming-059/537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.gz",
+      "earlier_sha256": "007f948a973ac75bb1bb5d53fe9cd9105206b0e57b8e4ec58cf6be5f1ab29392",
+      "earlier_bytes": 928,
+      "public_sha256": "d4dfb06c8be60de5f776b06afa637a29aa4ff94a8ba441353aad96de38478b5c",
+      "public_bytes": 899,
+      "redactions": 1,
+      "qualification": "Historical path-bearing evidence replaced in current tree by a separately identified reconstruction; previously published history is unchanged."
+    }
+  ],
+  "private_recovery": "Exact earlier blobs are preserved in separate same-machine restricted evidence collections and the original user-supplied extraction remains untouched where applicable. Public checks bind distinct original and reconstructed identities; exact substitution requires the retained private originals.",
+  "baseline_qualification": "Earlier 059 ledger and queue bytes are those of the already published recovered/reconstructed 059 baseline; the final checkpoint3821 ledger and queue remain missing.",
+  "native_exception": "The exact checksum-bound serde-saphyr registry archive remains byte-identical as public upstream source evidence and contains a separately disclosed upstream account-path string; see NATIVE-SERDE-SAPHYR-PUBLIC-REGISTRY-OBSERVATION.json.",
+  "scope_limit": "The retrospective scan covers the reported tree and gzip/tar encodings only; other encodings, roots, systems and subsequent commits remain outside its claim.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

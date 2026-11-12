@@ -1,0 +1,82 @@
+{
+  "schema": "726-city-streaming-path-redaction-proposal-v1",
+  "reviewer": "rig_identity; independent evidence-only review after mhr_character identified the two locations and cloud variants",
+  "status": "proposal and separately named source/evidence checks only; no publication mutation",
+  "authority": {
+    "product_source_baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "publication_commit_individually_verified": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "qualification": "Selected committed inputs were byte-equal to their observed working files; the complete working checkout was not claimed clean or identical to 56f. Neither publication commit nor this packaging review is checkpoint 3821.",
+    "transport_gzip_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+    "transport_decoded_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+    "transport_payload_commit": "3378fe10b90d6ebe9bd90b624f55e4d78a0d1c28",
+    "transport_only": true,
+    "new_source_read_credit": 0
+  },
+  "prior_attribution": {
+    "discovery": "mhr_character identified the two committed unredacted city copies and their existing redacted cloud counterparts; this packet independently checks byte identities, transformation and dependencies.",
+    "historical_reader": "adler, Lens 11, later-material bounded same-lens native support, as recorded in READ-L11-216 and registrations 352 and 353",
+    "sources": [
+      {"registration": "adler/REGISTRATION-ADLER-352.json", "package": "bevy_render 0.19.1", "source": "src/render_asset.rs", "historical_scope": [[280, 364]], "later_material_index": 185},
+      {"registration": "adler/REGISTRATION-ADLER-353.json", "package": "bevy_render 0.19.1", "source": "src/texture/gpu_image.rs", "historical_scope": [[26, 38]], "later_material_index": 186}
+    ],
+    "frozen_lock_commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "archive_checksum_recorded": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+    "qualification": "The historical registrations assert verification of archive/member and registered source hash while also recording checksum_file_missing=true; this review did not independently repeat that native-package audit. The historical READ-L11-216 fresh reads are Adler's, not this reviewer's; they did not create original-frontier or other-lens credit."
+  },
+  "observations": [
+    "Both original city gzip representations contain a Windows account path at /provenance/cache_path; their exact compressed bytes are retained under a permission-restricted private directory and decoded bytes independently match the untouched 28ba extraction and the 059 manifest tuple.",
+    "Each already-published cloud gzip decompresses to the corresponding original after exactly one JSON-string replacement at /provenance/cache_path, with all other decoded bytes unchanged. Each replacement also reverses exactly when the retained private original is available.",
+    "The public filename in both directories is the historical decoded SHA-256; it is not the SHA-256 of a redacted decoded file, nor of either stored gzip. The public reconstructed gzip and decoded bytes have independently recorded hashes, lengths and Git blob IDs in crosswalk.json.",
+    "A bounded public-only crosswalk can check the transport tuple and reconstructed hashes but cannot prove that its substituted value was the original value. That transformation requires access to private originals; a hash link alone does not prove byte equality.",
+    "The originals were already contained in public commit 56f. A forward correction does not remove existing Git history, fetched objects or clones; this proposal does not rewrite history or control access."
+  ],
+  "strict_dependency_analysis": [
+    {"dependency": "ASSESSMENT-CITY-STREAMING-READINESS-95E.json", "locations": ["/recovered_historical_records/14", "/recovered_historical_records/15"], "effect": "Both historical assessment rows record the original as the published decoded bytes, report zero redactions and say the original gzip is exact. Their original path/SHA/length/Git blob tuples remain historical facts; their old statements cannot describe substituted public bytes as currently exact."},
+    {"dependency": "verify_city_streaming_readiness_95e.py", "locations": ["lines 16", "lines 52-55"], "effect": "The generic historical-record loop reads each preserved gzip, checks the assessment's published SHA/length, and when redacted_local_path_occurrences is zero additionally requires the original SHA and Git blob. Replacing the two gzip files while retaining the old assessment fails; leaving the originals public does not fix the exposure."},
+    {"dependency": "check_published_evidence.py", "locations": ["lines 8-22"], "effect": "The old driver dynamically runs every root verify_*.py except its fixed optional set. Publishing a successor alone causes the old city verifier to run too; a separately named qualified successor driver must explicitly exclude the old city verifier while including the successor and preserving all other checks."},
+    {"dependency": "ASSESSMENT-CLOUD-BAKE-ADMISSION-95E.json and verify_cloud_bake_admission_95e.py", "locations": ["/recovered_historical_records/11", "/recovered_historical_records/12", "verifier lines 52-56"], "effect": "These independently bind the already-redacted cloud representations and the original transport tuple. Their files need no content modification for the city-path proposal, and they are not byte-identical original copies."},
+    {"dependency": "recovered/original-transport-manifest.json.gz and separately archived historical copies", "effect": "The manifest binds each historical original path, decoded SHA, decoded length and Git blob. Preserve those tuples and original archive/manifests unchanged; they are original-to-public crosswalk evidence, not claims that the redacted public gzip equals the original."},
+    {"dependency": "historical READ-L11-216 and attack-identity manifest", "effect": "READ-L11-216 /connected_reinspection/1 and /2 and attack-identity MANIFEST entries 963 and 964 refer to the original registration identities. These are historical assertions, not live reads of the city gzip path; do not rewrite them or transfer the historical read."},
+    {"dependency": "historical recovery logs, tree objects and privacy inventory snapshots", "effect": "The bounded inventory lists historical references to the city assessment and verifier, including recovery logs and Git tree evidence, and records original gzip hashes in earlier privacy inventories. Preserve them as snapshots; neither an old log success nor an old tree object proves a corrected live path has original bytes."},
+    {"dependency": "baseline-059 queue and ledger integration", "effect": "The city verifier's semantic checks read baseline-059/queue.json and ledger.json. If the separate 059 privacy proposal is adopted too, compose this driver's exclusion of the old city verifier with the fifteen separately identified 059 direct-link successor exclusions and preserve these semantic assertions. Their source records and paths must not be reclassified as direct original/public byte matches."}
+  ],
+  "candidate": {
+    "historical_assessment_sha256": "d3d75ce6212526a047b08677495488f6fb8820ecbc9bdbef19f766a73e1a84ae",
+    "qualified_assessment": "candidate/ASSESSMENT-CITY-STREAMING-READINESS-95E-CORRECTED.json",
+    "qualified_assessment_sha256": "7eff3ca86b37c5a8b3738a2d96cf17d1916bce1168b9cf81c1cc553063329b6c",
+    "qualified_successor": "candidate/verify_city_streaming_readiness_redacted_95e.py",
+    "qualified_successor_sha256": "bb41005f8d1094fff049229861722ad3182d4025cda58d05c16c055e873be4f0",
+    "construction": "build-candidates.py checks frozen historical inputs and deterministically changes only five fields in each affected assessment row, adds one explicit reconstruction notice, stages the exact existing cloud gzip bytes under the city-relative paths, and mechanically adapts the predecessor verifier. All unaffected source and evidence assertions are retained.",
+    "crosswalk_successor": "verify-city-crosswalk.py",
+    "candidate_verification": "Full qualified city successor passed with a read-only overlay over the observed publication; bounded crosswalk passed with private gzip originals, the untouched extraction and historical commit inputs. The overlay was only the corrected assessment and two staged gzip paths. No other old verifier was executed.",
+    "integration": [
+      "Retain the exact original gzip files privately before any forward public change. Do not restore into the user's extraction.",
+      "Stage the existing cloud bytes as the two city-relative replacement gzip files and publish their original-versus-public crosswalk. They remain reconstructions even at an old filename.",
+      "Publish the separately named corrected assessment and its successor verifier; retain the exact earlier assessment bytes under a clearly historical reference, and ensure every live assessment link is either updated to the corrected assessment or explicitly qualified as historical. If an old assessment pathname is kept as an active pointer, its stale exact-gzip claim must not be presented as a live byte assertion.",
+      "Publish a new explicitly named driver that keeps the predecessor's first checks, optional local check and native checks, excludes verify_city_streaming_readiness_95e.py from its root glob, and requires verify_city_streaming_readiness_redacted_95e.py. Retain the old verifier as historical evidence. Add any separately approved 059 redaction successors and their 15 exclusions to the same new driver rather than silently running two contradictory generations.",
+      "Keep earlier manifests, historical Git proofs, receipts and recovery logs unchanged; publish new hashes and a current crosswalk rather than editing historical recorded original hashes. Preserve prior reviewer, revision, read scope and zero-credit qualifications.",
+      "After staging all coordinated evidence corrections, independently review the successor assessment, driver and privacy scan. Evidence-only verifiers must report any missing private inputs as a limit. Any historical Git/remote access remediation is a separate decision."
+    ]
+  },
+  "inventory": {
+    "details": ["loose-inventory.json", "nondelegated-inventory.json", "delegated-inventory.json"],
+    "loose_regular_noncompressed_files": 6304,
+    "nondelegated_compressed_files": 15091,
+    "delegated_tar_gz_files": 354,
+    "delegated_outer_regular_members": 34990,
+    "delegated_gzip_members_seen": 14580,
+    "delegated_nested_tar_streams_seen": 237,
+    "literal_or_exact_identity_matches": {"loose": 37, "nondelegated_compressed_representations": 24, "delegated_member_representations": 287},
+    "changed_while_read": 0,
+    "scan_errors": 0,
+    "omission": "The embedded delegated/strategic-map-evidence.tar.gz!prior-web-map-route-packet.tar.gz stops after five entries at nonzero invalid header offset 69120, with 12544008 uncompressed bytes remaining unread. The separately published 186-member reconstructed successors were independently scanned but cannot establish what is in the damaged unread original remainder.",
+    "limits": "Scans use literal identities, not general program dependency analysis; max 64 MiB per stored member/decoded member and eight nested compression levels; symlink files/directories are not followed. Non-gzip compressed formats, other dynamically assembled paths, subsequent modifications, the original damaged tail and unknown alternate content remain open. Tree and manifest reference matches alone do not imply live-path strict dependencies or independent privacy review."
+  },
+  "open_questions": [
+    "Which separately named driver will combine this city successor with the independent 059 redaction successors and any further evidence proposals?",
+    "How should already-public original Git objects, remote history and copies be handled, given that forward redaction alone cannot erase them?",
+    "Are there related representations or account paths outside the explicitly inventoried formats and damaged archive tail? The bounded scan is not a full privacy clearance."
+  ],
+  "repair": "not started",
+  "product_validation": "not performed"
+}

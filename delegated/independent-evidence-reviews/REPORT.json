@@ -1,0 +1,54 @@
+{
+  "schema": "726-independent-reviews-public-reconstruction-v1",
+  "created_utc": "2026-11-12T08:31:20.907956+00:00",
+  "author": "/root/hair_ops",
+  "scope": "Five previously frozen independent reviews are preserved as distinct records. Source originals were copied exactly to a separate local-only stage; this packet contains privacy-screened exact copies or reconstructed bytes, never private original archives. Historical reviewers, revisions, prior observations and later observations remain separate.",
+  "reviews": [
+    {
+      "review": "cp35",
+      "original_manifest_sha256": "0e3dd76f9eb9944c0538616c0894451d927f16823ea15207caf1b9f3c516bf34",
+      "original_file_count_including_manifest": 13
+    },
+    {
+      "review": "cp37",
+      "original_manifest_sha256": "c7af06ba16b834a467c443d845761a33c7beb70d8d16b7bf6107c58bd14a3ffb",
+      "original_file_count_including_manifest": 16
+    },
+    {
+      "review": "cp38",
+      "original_manifest_sha256": "14e2126f3037083134d55ed777bb831621e4f2a4d022ad07c9ad868eb28408ce",
+      "original_file_count_including_manifest": 22
+    },
+    {
+      "review": "cp7-initial",
+      "original_manifest_sha256": "e5ac543d106e57e071b0c28d04f41c02ea7e9151c1916bdcfab65b22993528e0",
+      "original_file_count_including_manifest": 10
+    },
+    {
+      "review": "cp7-successor",
+      "original_manifest_sha256": "610298eeb323e2d7d0510dcc58d872a1c8acdd8191dfd3560658d352c9db2f1d",
+      "original_file_count_including_manifest": 10
+    }
+  ],
+  "counts": {
+    "review_files": 71,
+    "privacy_reconstructed_files": 6,
+    "private_path_substitutions": 27,
+    "private_secret_substitutions": 0,
+    "distinct_redacted_values": 15,
+    "copied_reconstructed_tar_archives": 2,
+    "tar_entries_inspected": 372,
+    "nested_gzip_payloads_scanned": 104
+  },
+  "original_manifests": "Original review MANIFEST files are retained as historical byte-identical records; they describe the frozen originals. In CP38, privacy-reconstructed public files deliberately do not have those original hashes. The root publication manifest and identity mapping govern this additive packet.",
+  "dependency_qualification": "The CP37 checked-stage snapshot and other original/private external inputs are not included. A snapshot manifest hash and independent count/hash verification are recorded; a reader needs the exact separately retained external inputs and the unredacted local originals to replay historical verifiers. Redacted scripts are preserved as provenance text; they are not represented as executable or self-contained.",
+  "privacy_qualification": "All regular text and decoded gzip payloads in both 186-entry reconstructed CP7 tar archives were scanned. Genuine local paths are replaced in the public CP38 records, with consistent placeholders; static slash-prose fragments, source regex literals, relative references and canonical historical agent identifiers were not mistaken for personal paths. Contextual absolute path, Windows path, escaped-newline and credential-pattern scanning is bounded and cannot prove all sensitive information absent.",
+  "exceptions_classification_counts": {
+    "canonical_agent_id": 10911,
+    "proven_semantic_fragment": 153,
+    "source_regex_literal": 39,
+    "generic_temp_prefix": 6,
+    "relative_source_reference": 24
+  },
+  "historical_qualification": "The CP7 initial review evaluates one earlier reconstructed stage. The later successor review separately evaluates its successor; they are distinct artifacts with distinct hashes. Neither is the private original archive or the previously damaged opaque public archive. No source read, product validation or checkpoint-3821 authority is inferred."
+}

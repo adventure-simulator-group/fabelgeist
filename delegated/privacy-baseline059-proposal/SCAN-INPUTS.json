@@ -1,0 +1,38 @@
+{
+  "schema": "726-baseline059-scan-input-identities-v1",
+  "created_utc": "2026-11-12T08:49:54.361777+00:00",
+  "enumeration": "rg --files --null --hidden --no-ignore, excluding .git; no symlink following; 21706 loose paths at snapshot.",
+  "loose_scan": "rg --files-with-matches --null --text --fixed-strings --hidden --no-ignore for baseline-059, two exact original hashes, historical queue filename and ledger transport path; excludes .git and the two baseline source documents; 845 hits.",
+  "files": {
+    "all-loose-paths.bin": {
+      "uncompressed_sha256": "8c487eaf3a93f5718cb66135682e371b060ec491b14d3c956a9bc49495f70c74",
+      "uncompressed_bytes": 1736482,
+      "stored_sha256": "697b8970a0be1bb34ac575048f91c7ade7a5c5d79153825b9cfc5ea3a6f42df3",
+      "stored_bytes": 529167,
+      "path": "inventory/all-loose-paths.bin.gz"
+    },
+    "loose-hit-paths.bin": {
+      "uncompressed_sha256": "a7c6d164fb909b37f118cd8676bf16be102de28f44d4743a90269f09da2e3f88",
+      "uncompressed_bytes": 49447,
+      "stored_sha256": "8ac1da16955bc6269e3e337ab25021f9d0a72c42fae5267bc09068a5dfd55472",
+      "stored_bytes": 15555,
+      "path": "inventory/loose-hit-paths.bin.gz"
+    },
+    "inventory-loose.py": {
+      "sha256": "b729e8318eda48a08f2e9dc5c5cbe4996b4f7ab1f22e0ecf8f37d5c1c2022651",
+      "bytes": 4151,
+      "path": "inventory/inventory-loose.py"
+    },
+    "inventory-hash-links.py": {
+      "sha256": "da1028366abe03c5e0878b039cd12ab3d309e2dc454f999f4d6a9456c8a7c337",
+      "bytes": 5799,
+      "path": "inventory/inventory-hash-links.py"
+    },
+    "inventory-archives.py": {
+      "sha256": "d220fec97398bc89693c1658eb04523ffd430cd06f03825303911f9a6b9872b2",
+      "bytes": 5493,
+      "path": "inventory/inventory-archives.py"
+    }
+  },
+  "qualification": "Path lists are publication-relative. Re-running inventory scripts writes a new inventory at the supplied output path, so use a fresh scratch location; they do not edit publication. This is not product execution. Immutable captured inventories, timestamps, omissions and concurrent-change limits remain authoritative for this scan."
+}

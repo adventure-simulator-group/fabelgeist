@@ -1,0 +1,23 @@
+{
+  "schema": "726-checkpoint36-integrity-review-output-correction-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T07:51:34.458563+00:00",
+  "original_review": {
+    "report_sha256": "3814ee980f82d0042d0f4cde75d55c7851af9bd390f942e2d4d74bdc62f0149e",
+    "manifest_sha256": "c07f3e935a58ac9894969ef6b6a0891c05727c1edeeea378a2801e2943173794",
+    "verification_sha256": "708a4e2286fc36a97ae837459dffde31528c3d0e1d53581f54497034682bcf99",
+    "verifier_sha256": "fb7c2e9dba9d2d7e5695af2192b2fa647351353bb9cfafe5cea86ad9e995e230",
+    "status": "Frozen original remains unchanged."
+  },
+  "affected_field": "verification.json#/user_extraction_original_proposal_sha256",
+  "incorrect_value": "52051a9e70167654d7c8a8b0ac8b80e02eef70014347865661ee48f6cfc6ad82",
+  "correct_value": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+  "correct_original_record": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+  "correct_git_blob": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+  "explanation": "The original verifier compared the correct original 059 proposal bytes from the user extraction, private retained original and transport hash/Git blob and that assertion passed. Later it reused the variable raw when examining selected historical receipts, so its final summary emitted the last receipt hash instead. The erroneous value identifies segovb/READ-L12-891.json, not the proposal.",
+  "correction": "The new verifier changes only the summary expression to the already verified proposal field. Its independent read-only rerun passed and its output differs from the original verification JSON only at the affected field. The prior report, integrity checks, findings and attribution qualifications are otherwise unchanged.",
+  "corrected_verifier_sha256": "7e0dcba2b3360b9fb5c7e93da6822d71adcfd1254768fd076aeaba24e5b4a24e",
+  "corrected_verification_sha256": "e7eaf248c253a02018fe4d114fe23eeee670c8280f7305e284c199bb150cf2be",
+  "observed_checkpoint_index_sha256": "3005967922bb10c7d8b674b6ea044256f55fcc6908d27260c1646c049e3a0d17",
+  "limitations": "Both checks inspect evidence only. The corrected output applies to the original observed stage and does not establish an actual product behavior, complete audit, new historical reader credit, uninterrupted custody, or later corrected stage. The separately retained snapshot includes private originals and stays local."
+}

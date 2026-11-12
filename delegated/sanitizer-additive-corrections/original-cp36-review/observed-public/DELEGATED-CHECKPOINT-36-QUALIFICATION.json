@@ -1,0 +1,29 @@
+{
+  "schema": "726-delegated-checkpoint-36-redacted-059-qualification-v1",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-36.json",
+  "transport_manifest": "recovered/original-transport-manifest.json.gz",
+  "matches_qualification": "A matching content hash is counted as a 059 transport byte identity; a match alone does not prove this copy was independently cited or read. Repeated nested occurrences are not unique records.",
+  "matched_nested_member_occurrences": 161,
+  "unique_redacted_original_sha_count": 1,
+  "redacted_public_member_occurrences": 1,
+  "entries": [
+    {
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "original_bytes": 109772,
+      "original_git_blob": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+      "original_transport_paths": [
+        "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json"
+      ],
+      "public_reconstructed_copies": [
+        {
+          "public_location": "delegated/anime-helmets-2609-2610-evidence.tar.gz!history-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+          "public_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "public_bytes": 109688
+        }
+      ],
+      "qualification": "Public bytes contain local-path redactions, not the byte-identical original. Exact original independently rechecked read-only from the user-supplied extraction; transport and hash/length retain its recovery identity."
+    }
+  ],
+  "original_verification": "For each distinct redacted match, one recorded transport path was re-read in the existing user-supplied extraction and checked against SHA-256, byte length and Git blob. No writes or restoration occurred there.",
+  "checkpoint3821": "No earlier evidence is promoted into checkpoint3821."
+}

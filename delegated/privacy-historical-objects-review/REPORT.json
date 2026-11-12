@@ -1,0 +1,10 @@
+{
+  "schema": "726-expanded-privacy-review-v1",
+  "stage_manifest_sha256": "7c2260679c7118b651c5dfdb789b08eb9e7cbc1c2898903d516ab84a721ce3a2",
+  "files": 12,
+  "string_values_and_keys": 40226,
+  "qualified_agent_identifier_occurrences": 33,
+  "unclassified_candidates": 0,
+  "candidate_locations_and_kinds": [],
+  "qualification": "Decoded JSON string values and keys and plain UTF-8 text were scanned after explicit escaped-newline, escaped-slash and unicode slash normalization. Pattern scanning is bounded and cannot establish absence of every possible secret or encoded path; historical agent IDs are retained only in attribution context. No private candidate values are printed."
+}

@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""Check a few discovered token identities without printing their values."""
+import gzip,io,json,os,pathlib,pwd,re,subprocess,tarfile
+p=pathlib.Path(__file__).parent;c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';get=lambda f:subprocess.check_output(['git','show',c+':'+f]);home=os.fsencode(pwd.getpwuid(os.getuid()).pw_dir);city=json.loads(gzip.decompress(get('recovered/city-streaming-059/66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.gz')));win=city['provenance']['cache_path'].encode();prefix=re.search(rb'(?i)(?:[a-z]:[\\/]+Users[\\/]+)[A-Za-z0-9._-]+',win).group();locator=json.loads(get('recovered/transcript-other-candidates/portability-review.redacted.json'))['external_locator_constraints'][4]['locator'];temps=re.findall(r'(?<![A-Za-z0-9_/])/tmp/[^\s"\',;)}\]]+',locator);assert len(temps)==2
+archive=get('native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate')
+with tarfile.open(fileobj=io.BytesIO(archive),mode='r:*') as t: cargo=t.extractfile('serde-saphyr-1.2.0/Cargo.toml.orig').read()
+other=re.search(rb'(?<![A-Za-z0-9_/])/(?:home|Users)/[A-Za-z0-9._-]+',cargo).group();needles=[home,prefix,prefix.replace(b'\\',b'\\\\'),other]+[x.encode() for x in temps];hits=0
+for f in p.rglob('*'):
+ if f.is_file():
+  body=f.read_bytes();hits+=sum(1 for n in needles if n and n in body)
+assert hits==0
+print('PASS: packet has no literal copies of selected discovered account prefixes or historical temp tokens; bounded check only')

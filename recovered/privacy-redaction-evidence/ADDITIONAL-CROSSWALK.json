@@ -1,0 +1,76 @@
+{
+  "schema": "726-extra-qualified-redaction-crosswalk-v1",
+  "source_commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "source_commit_qualification": "Locally verified Git tree/blob binding; no live remote verification.",
+  "local_originals_manifest_sha256": "eea94abb41a568671fe070a703af57ff99350684e107568e6a58667f4e2d0951",
+  "source_draft_index_sha256": "0d2c4be329e4cb33b5e8848fe097ff4f5de333db5a883af17c25ce78001d75ab",
+  "records": [
+    {
+      "kind": "writer-output",
+      "publication_path": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+      "original_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "original_bytes": 590,
+      "original_git_blob_sha1": "b88fad9844339ee8a3957ff6b085ef1c4e466331",
+      "public_sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192",
+      "public_bytes": 458,
+      "public_git_blob_sha1": "885d8a230e13aff56996b98ff6e0228af1805a1e",
+      "redactions": [
+        {
+          "original_byte_offset": 32,
+          "original_token_bytes": 65,
+          "public_byte_offset": 32,
+          "public_token_bytes": 21,
+          "replacement": "<redacted-local-path>",
+          "json_pointer": null
+        },
+        {
+          "original_byte_offset": 185,
+          "original_token_bytes": 65,
+          "public_byte_offset": 141,
+          "public_token_bytes": 21,
+          "replacement": "<redacted-local-path>",
+          "json_pointer": null
+        },
+        {
+          "original_byte_offset": 403,
+          "original_token_bytes": 65,
+          "public_byte_offset": 315,
+          "public_token_bytes": 21,
+          "replacement": "<redacted-local-path>",
+          "json_pointer": null
+        }
+      ],
+      "qualification": "Historical writer output: success-mode JSON records remain byte-for-byte unchanged; path-bearing failure prose is reconstructed, and no missing checkpoint bytes or authority are inferred."
+    },
+    {
+      "kind": "historical-temp-locators",
+      "publication_path": "recovered/transcript-other-candidates/portability-review.redacted.json",
+      "original_sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+      "original_bytes": 8746,
+      "original_git_blob_sha1": "9358b68220c5bb96370d06df176426d22b7aa321",
+      "public_sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5",
+      "public_bytes": 8723,
+      "public_git_blob_sha1": "7c0c82cd840b768b36da6f405f014155ec6c7885",
+      "redactions": [
+        {
+          "original_byte_offset": 5744,
+          "original_token_bytes": 33,
+          "public_byte_offset": 5744,
+          "public_token_bytes": 21,
+          "replacement": "<redacted-local-path>",
+          "json_pointer": "/external_locator_constraints/4/locator"
+        },
+        {
+          "original_byte_offset": 5782,
+          "original_token_bytes": 32,
+          "public_byte_offset": 5770,
+          "public_token_bytes": 21,
+          "replacement": "<redacted-local-path>",
+          "json_pointer": "/external_locator_constraints/4/locator"
+        }
+      ],
+      "qualification": "This input was itself an earlier redacted historical candidate, not the unredacted source candidate. Its manifest records a separate original-candidate hash whose bytes are not reconstructed here."
+    }
+  ],
+  "qualification": "Reconstructed public bytes differ from historical objects, which remain separately identified. The prior portability review was already redacted; its own original candidate remains separately identified and is not restored by this crosswalk. Three historical apply/verify summaries are retained as historical reports; a missing checkpoint 3821 is not inferred or recovered."
+}

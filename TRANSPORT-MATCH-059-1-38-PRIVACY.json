@@ -1,0 +1,50 @@
+{
+  "schema": "726-public-transport-privacy-review-v1",
+  "reviewed_utc": "2026-11-12T08:19:02.348980+00:00",
+  "status": "bounded scan passed",
+  "files": [
+    {
+      "file": "TRANSPORT-MATCH-059-1-38-LEGACY-OPAQUE.json",
+      "absolute_location_matches": 0,
+      "workspace_identity_matches": 0,
+      "secret_pattern_matches": 0,
+      "interior_root_component_matches": 2
+    },
+    {
+      "file": "TRANSPORT-MATCH-059-1-38-OCCURRENCES.json.gz",
+      "absolute_location_matches": 0,
+      "workspace_identity_matches": 0,
+      "secret_pattern_matches": 0,
+      "interior_root_component_matches": 0
+    },
+    {
+      "file": "TRANSPORT-MATCH-059-1-38-README.md",
+      "absolute_location_matches": 0,
+      "workspace_identity_matches": 0,
+      "secret_pattern_matches": 0,
+      "interior_root_component_matches": 0
+    },
+    {
+      "file": "TRANSPORT-MATCH-059-1-38-VERIFICATION.json",
+      "absolute_location_matches": 0,
+      "workspace_identity_matches": 0,
+      "secret_pattern_matches": 0,
+      "interior_root_component_matches": 0
+    },
+    {
+      "file": "TRANSPORT-MATCH-059-1-38.json",
+      "absolute_location_matches": 0,
+      "workspace_identity_matches": 0,
+      "secret_pattern_matches": 0,
+      "interior_root_component_matches": 0
+    },
+    {
+      "file": "verify_transport_match_059_1_38.py",
+      "absolute_location_matches": 0,
+      "workspace_identity_matches": 0,
+      "secret_pattern_matches": 0,
+      "interior_root_component_matches": 0
+    }
+  ],
+  "qualification": "Two broad path-pattern hits occur only as interior components of relative archive member names, not as machine locations. No exact private original bytes are included. This bounded location, workspace-identity and common token-pattern scan is not a guarantee that arbitrary sensitive information is absent."
+}

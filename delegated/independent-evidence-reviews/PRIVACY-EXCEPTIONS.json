@@ -1,0 +1,487 @@
+{
+  "schema": "726-review-privacy-classification-v1",
+  "qualification": "These exact path-looking strings were reviewed as non-path text or source regex literals; absolute private paths in the six reconstructed CP38 files were removed. Offsets apply after slash normalization and gzip decoding where applicable. Canonical reviewer/agent IDs are not file paths. The contextual classifier is bounded.",
+  "semantic_fragment_fingerprints": [
+    "093cd17a820368835233a015c68f2d0c356709b2f6d6aab17ceac1be35ed5b46",
+    "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+    "34ea3e20477ad6ed84ae4e09d3bc4667e832b86102dc87699a17a1ecf3a8ac8c",
+    "442223a3efffec77eb75127908717e77d7c8392cd5cbcd3a5f3ae422513e0439",
+    "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+    "66ba586bf0729ebce598d9cbcb218105ac4f37d97ca0ab2efba020210da27e5c",
+    "8822e630a1c6d0387951ae1ec45e2f9dd9d3074b4a3bed71f815188148563385",
+    "95647523633c6bdd754a233d9148befe9b7be5ed896bdbbdc2ab767f06a8cf04",
+    "98136223eea741faad16c5ee4e57e5bdb8826b42d8cd69bf9cd7ecce65405ccd",
+    "9c90fc75658cb1017436f62b6f632acbd0bcc4a181d18575c9bfddd42c8da114",
+    "a74eb9d0c719965e40e182086cfbad8078ca7d31fe51d30f798115ee55dc9966",
+    "a8e7c2b76b94316ba78f1b54c9e989706886980173615a4100dd6cdd9e79ef0f",
+    "ac2731b7aa2a419d40e5c705d95a43ae048caa15360b55c097c58efd81348550",
+    "aee67b567841972ede4e78af0c3ee81b0f1442f86f8aa9f360483a2748da947e",
+    "b37690d59e278a50fc0a743587dabe64fc91f8832388aee7f4adb768382c39c3",
+    "b467a501d7a2dd8a277a2e5630c21442bde1a8b6a822f87e7a59d0a7ac894018",
+    "c70abac06f4bb53a0cddb0b96d2c30245ed56cab9ae4fcd9b8fb1a42748169ef",
+    "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+    "deb232a0b49af84f6239f31edeea01f9b501e4b5d94bb17786fb34d0ceb9aa9c",
+    "e4a2457a7e9abb4e241a5694af39914a62cfb52961c50d513e83f5dbace8aad0",
+    "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73"
+  ],
+  "fixed_regex_literal_fingerprints": [
+    "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+    "9bbb4cfdcc1de54f70f075c26065aedc522020e2ba3e6405118359d4512b5281",
+    "a78ea3d77aa50a434a3f2b66010e5bf6747874ca1e34706490035f5ec35761ae"
+  ],
+  "semantic_source_reconstruction_sha256": "296caf837c9637b555618861a404e24e9694023d5eacedd4aae4f6a474ce06c5",
+  "canonical_agent_id_occurrences": 3637,
+  "classified_occurrences": [
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 1359,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 2631,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 3912,
+      "matched_sha256": "aee67b567841972ede4e78af0c3ee81b0f1442f86f8aa9f360483a2748da947e",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 5029,
+      "matched_sha256": "98136223eea741faad16c5ee4e57e5bdb8826b42d8cd69bf9cd7ecce65405ccd",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 6203,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 7313,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/PROPOSAL.json",
+      "normalized_offset_0based": 8555,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/verify.py",
+      "normalized_offset_0based": 2388,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/verify.py",
+      "normalized_offset_0based": 2421,
+      "matched_sha256": "aee67b567841972ede4e78af0c3ee81b0f1442f86f8aa9f360483a2748da947e",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/verify.py",
+      "normalized_offset_0based": 2456,
+      "matched_sha256": "98136223eea741faad16c5ee4e57e5bdb8826b42d8cd69bf9cd7ecce65405ccd",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/verify.py",
+      "normalized_offset_0based": 2516,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/verify.py",
+      "normalized_offset_0based": 2534,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp35/verify.py",
+      "normalized_offset_0based": 6325,
+      "matched_sha256": "9bbb4cfdcc1de54f70f075c26065aedc522020e2ba3e6405118359d4512b5281",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp37/verify.py",
+      "normalized_offset_0based": 1269,
+      "matched_sha256": "a78ea3d77aa50a434a3f2b66010e5bf6747874ca1e34706490035f5ec35761ae",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 5851,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 6139,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 6397,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 6696,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 6941,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 7198,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 7437,
+      "matched_sha256": "33d3abd267def7a32c4cd1d46a9608a1d2b17e1bf768c6f4a1aba864f6c1361e",
+      "classification": "generic-temp-prefix-in-prose"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 7536,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 7653,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/report.json",
+      "normalized_offset_0based": 7761,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/review-results.json",
+      "normalized_offset_0based": 8252,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/review-results.json",
+      "normalized_offset_0based": 8540,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/review-results.json",
+      "normalized_offset_0based": 8798,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/review-results.json",
+      "normalized_offset_0based": 9097,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/review-results.json",
+      "normalized_offset_0based": 9342,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/review-results.json",
+      "normalized_offset_0based": 9599,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/verify-readonly.py",
+      "normalized_offset_0based": 1095,
+      "matched_sha256": "a78ea3d77aa50a434a3f2b66010e5bf6747874ca1e34706490035f5ec35761ae",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp38/verify-readonly.py",
+      "normalized_offset_0based": 6956,
+      "matched_sha256": "9bbb4cfdcc1de54f70f075c26065aedc522020e2ba3e6405118359d4512b5281",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp38/verify-readonly.py",
+      "normalized_offset_0based": 7107,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/verify-readonly.py",
+      "normalized_offset_0based": 7184,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/verify-readonly.py",
+      "normalized_offset_0based": 7274,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/write-report.py",
+      "normalized_offset_0based": 6006,
+      "matched_sha256": "33d3abd267def7a32c4cd1d46a9608a1d2b17e1bf768c6f4a1aba864f6c1361e",
+      "classification": "generic-temp-prefix-in-prose"
+    },
+    {
+      "public_member": "reviews/cp38/write-report.py",
+      "normalized_offset_0based": 6105,
+      "matched_sha256": "0c3953179d0ff1d5764152cc9fc7a161157bd511cdd2b6682ff3a8bfc6da054a",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/write-report.py",
+      "normalized_offset_0based": 6222,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp38/write-report.py",
+      "normalized_offset_0based": 6330,
+      "matched_sha256": "f573946a882f157d8add4588acf12b50d7321438307c68b2010960bed6237a73",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/CHECKS.json",
+      "normalized_offset_0based": 2300,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/CHECKS.json",
+      "normalized_offset_0based": 2422,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/REPORT.json",
+      "normalized_offset_0based": 827,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-initial/REPORT.json",
+      "normalized_offset_0based": 4709,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/REPORT.json",
+      "normalized_offset_0based": 4927,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/evidence/INDEX.json",
+      "normalized_offset_0based": 1151,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/evidence/INDEX.json",
+      "normalized_offset_0based": 1357,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/evidence/reconstructed.tar.gz!726-delegate-web-map/historical-774/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 472557,
+      "matched_sha256": "ca5aa2358d9d0e230a45f87070da923f5d9266608333e45c4cc9da51cecf8f44",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-initial/evidence/reconstructed.tar.gz!726-delegate-web-map/historical-774/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 472942,
+      "matched_sha256": "67d4823508b823d6b50e46035857117549e7e45d79533c1559b307cc04489846",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-initial/evidence/reconstructed.tar.gz!726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 439502,
+      "matched_sha256": "ca5aa2358d9d0e230a45f87070da923f5d9266608333e45c4cc9da51cecf8f44",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-initial/evidence/reconstructed.tar.gz!726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 439887,
+      "matched_sha256": "67d4823508b823d6b50e46035857117549e7e45d79533c1559b307cc04489846",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-initial/verify.py",
+      "normalized_offset_0based": 3450,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/verify.py",
+      "normalized_offset_0based": 3480,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-initial/verify.py",
+      "normalized_offset_0based": 6279,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/CHECKS.json",
+      "normalized_offset_0based": 932,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/CHECKS.json",
+      "normalized_offset_0based": 1109,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/CHECKS.json",
+      "normalized_offset_0based": 1234,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/REPORT.json",
+      "normalized_offset_0based": 849,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/REPORT.json",
+      "normalized_offset_0based": 1723,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/REPORT.json",
+      "normalized_offset_0based": 1930,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/prior-index.json",
+      "normalized_offset_0based": 1151,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/prior-index.json",
+      "normalized_offset_0based": 1357,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-archive.tar.gz!726-delegate-web-map/build-manifest.py",
+      "normalized_offset_0based": 202,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-archive.tar.gz!726-delegate-web-map/historical-774/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 472557,
+      "matched_sha256": "ca5aa2358d9d0e230a45f87070da923f5d9266608333e45c4cc9da51cecf8f44",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-archive.tar.gz!726-delegate-web-map/historical-774/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 472942,
+      "matched_sha256": "67d4823508b823d6b50e46035857117549e7e45d79533c1559b307cc04489846",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-archive.tar.gz!726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 439502,
+      "matched_sha256": "ca5aa2358d9d0e230a45f87070da923f5d9266608333e45c4cc9da51cecf8f44",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-archive.tar.gz!726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/native/traces.jsonl",
+      "normalized_offset_0based": 439887,
+      "matched_sha256": "67d4823508b823d6b50e46035857117549e7e45d79533c1559b307cc04489846",
+      "classification": "relative-source-reference"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-index.json",
+      "normalized_offset_0based": 1100,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-index.json",
+      "normalized_offset_0based": 1356,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/evidence/successor-index.json",
+      "normalized_offset_0based": 1562,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/verify.py",
+      "normalized_offset_0based": 3521,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/verify.py",
+      "normalized_offset_0based": 3662,
+      "matched_sha256": "5c5d38501cfd64ce7e8d1685ff9e232f814d13059dd7417327c582b7b385b0f0",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/verify.py",
+      "normalized_offset_0based": 3751,
+      "matched_sha256": "cf12fd41a683ab443c6f6663acc156dfe7f83421d06d38b6a10d09534232a662",
+      "classification": "prior-reviewed-nonpath-fragment"
+    },
+    {
+      "public_member": "reviews/cp7-successor/verify.py",
+      "normalized_offset_0based": 7818,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    },
+    {
+      "public_member": "reviews/cp7-successor/verify.py",
+      "normalized_offset_0based": 7968,
+      "matched_sha256": "48ea7d37800f6add91f16ea68d8adaac6f7727927f641f0185208ca6ddf4264f",
+      "classification": "fixed-source-regex-literal"
+    }
+  ],
+  "classification_counts": {
+    "canonical_agent_id": 3637,
+    "prior-reviewed-nonpath-fragment": 51,
+    "fixed-source-regex-literal": 13,
+    "generic-temp-prefix-in-prose": 2,
+    "relative-source-reference": 8
+  }
+}

@@ -1,0 +1,18 @@
+import collections,datetime,hashlib,json,os,pathlib,pwd,subprocess
+c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';out=pathlib.Path('<redacted-local-evidence-directory>');home=pwd.getpwuid(os.getuid()).pw_dir;first=json.loads((out/'firstpass-results.json').read_bytes());paths=sorted(set(x['path'] for x in first['occurrences']));records=[]
+for path in paths:
+ b=subprocess.check_output(['git','show',c+':'+path]);rec={'path':path,'sha256':hashlib.sha256(b).hexdigest(),'git_blob':hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest(),'bytes':len(b)}
+ try:obj=json.loads(b)
+ except (UnicodeDecodeError,json.JSONDecodeError):rec['format']='non-JSON; unresolved';records.append(rec);continue
+ found=[]
+ def walk(x,p):
+  if isinstance(x,dict):
+   for k,v in x.items():
+    if home in k:found.append({'pointer':'<key-containing-private-prefix>','type':'key','occurrences':k.count(home),'value_sha256':hashlib.sha256(k.encode()).hexdigest()});continue
+    walk(v,p+'/'+k.replace('~','~0').replace('/','~1'))
+  elif isinstance(x,list):
+   for i,v in enumerate(x):walk(v,p+'/'+str(i))
+  elif isinstance(x,str) and home in x:
+   found.append({'pointer':p,'type':'string','occurrences':x.count(home),'value_sha256':hashlib.sha256(x.encode()).hexdigest(),'string_starts_with_home':x.startswith(home),'contains_regex_markers':any(y in x for y in ('re.compile','regex','regexp','[A-Z','[a-z','[^','\\\\u002f'))})
+ walk(obj,'');rec.update({'format':'JSON','fields':found,'total_occurrences':sum(x['occurrences'] for x in found)});records.append(rec)
+result={'commit':c,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'records':records,'qualification':'Structural field identities and coarse value-shape indicators only; no private values saved or printed. Starts-with-home in a path-named field suggests a literal local reference, whereas regex flags are heuristics, not standalone classification.'};(out/'raw-json-classification.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'records':[{'path':r['path'],'format':r['format'],'occurrences':r.get('total_occurrences'),'literal_start_count':sum(x.get('string_starts_with_home',False) for x in r.get('fields',[])),'regex_marked_fields':sum(x.get('contains_regex_markers',False) for x in r.get('fields',[]))} for r in records],'sha256':hashlib.sha256((out/'raw-json-classification.json').read_bytes()).hexdigest()},indent=2))

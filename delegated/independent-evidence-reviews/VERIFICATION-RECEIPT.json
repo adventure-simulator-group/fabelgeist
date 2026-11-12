@@ -1,0 +1,21 @@
+{
+  "schema": "726-public-review-verification-receipt-v1",
+  "recorded_utc": "2026-11-12T08:33:15.130235+00:00",
+  "verifier": "/root/hair_ops",
+  "observed_public_manifest_sha256_before_receipt": "43ed4c79b83e3e3a8a5cd06a34399e201fadd464b481607ead05bdecda566bc4",
+  "local_only_capture_manifest_sha256": "7e1d185c9aa0d1c2e2c1a87ad5df002c08211c3802d48973702b6d4b062322f9",
+  "review_identities_sha256": "0a1e93261ea36be6c9df1dc1ead743dfbb9b27836d48fbe2005e1aa3b163a20a",
+  "privacy_classification_sha256": "7799f06003250750a43d6cb7677eb9a3488b195739d250e78b48ced0655a1cc4",
+  "checks": {
+    "public_review_files_verified": 71,
+    "frozen_original_manifests_bound": 5,
+    "exact_original_files_compared": 71,
+    "private_path_replacement_operations_replayed": 27,
+    "nested_cp7_archive_entries_verified": 372,
+    "nested_gzip_contents_verified": 104,
+    "cp37_snapshot_files_verified": 12541,
+    "cp37_snapshot_file_bytes_verified": 254910983,
+    "unclassified_path_or_secret_matches": 0
+  },
+  "qualification": "These are evidence integrity and bounded privacy checks against the observed retained inputs, not product execution or behavior validation. The exact source reviews and CP37 checked-stage are separately retained and are not included wholesale in the public packet. The first full verifier run observed the pre-receipt public manifest named above; the final manifest and packet are verified separately."
+}

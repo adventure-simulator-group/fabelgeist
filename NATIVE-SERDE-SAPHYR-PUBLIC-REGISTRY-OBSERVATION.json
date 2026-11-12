@@ -1,0 +1,34 @@
+{
+  "schema": "726-native-public-registry-observation-v1",
+  "observed_utc_window": [
+    "2026-11-12 09:04:41 UTC",
+    "2026-11-12 09:04:43 UTC"
+  ],
+  "method": "GitHub connector raw official rust-lang crates.io-index",
+  "public_registry_index": "https://raw.githubusercontent.com/rust-lang/crates.io-index/master/se/rd/serde-saphyr",
+  "name": "serde-saphyr",
+  "version": "1.2.0",
+  "published": "2026-08-30T11:49:53Z",
+  "yanked_at_observation": false,
+  "registry_checksum_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+  "stored_original_archive": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+  "stored_original_bytes": 620253,
+  "lock_observations": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "git_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+      "registry_checksum": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "Cargo.lock",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "registry_checksum": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823"
+    }
+  ],
+  "upstream_path_qualification": "The exact checksum-bound archive includes an upstream account-path string in Cargo.toml.orig line 17. It is retained byte-identical as already-public registry source evidence; the path value is not repeated here. A separately reconstructed archive has a different digest and cannot satisfy the original registry checksum. Exact originals and historical artifacts remain separately attributed.",
+  "availability_qualification": "The public index observation and local checksum agreement do not prove a successful live archive download or present download availability. No feature resolution, macro or product execution occurred."
+}

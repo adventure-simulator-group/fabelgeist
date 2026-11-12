@@ -1,0 +1,42 @@
+{
+  "schema": "726-omitted-prior-manifest-qualification-v1",
+  "qualification": "Three prior manifests physically included but omitted from the later frozen packet manifest are separately bound to previously published originals; no historical read or checkpoint3821 credit transfers.",
+  "rows": [
+    {
+      "packet": "sats-macro-caller-2561-2562",
+      "unlisted_member": "history/prior-current/MANIFEST.json",
+      "original_sha256": "ffe45cb0531f8ba8ef64faa2ebbd8a4ed7218aa6124b87001e0cd1e34e328520",
+      "bytes": 19586,
+      "earlier_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
+      "earlier_bundle": "sats-semantic-queue-2561-2562",
+      "earlier_archive": "delegated/sats-semantic-queue-2561-2562-evidence.tar.gz",
+      "earlier_archive_sha256": "eaac582f26ce6e2f45fd177226d9402fcb507d1c67d13a93fb4467d9a14361de",
+      "earlier_member": "MANIFEST.json",
+      "qualification": "Omitted from the later frozen packet manifest; exact bytes separately bound to the already-published prior packet manifest."
+    },
+    {
+      "packet": "sats-macro-caller-2561-2562",
+      "unlisted_member": "history/prior/macro/MANIFEST.json",
+      "original_sha256": "0ba2e375bc7c19ba47bad08676489bc1065e7ffd9c1fd4819c23c3aa2f24bbdf",
+      "bytes": 17821,
+      "earlier_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+      "earlier_bundle": "stdb-macro",
+      "earlier_archive": "delegated/stdb-macro-evidence.tar.gz",
+      "earlier_archive_sha256": "51dbe544c10bf07cd9f4db5fe3738ba73b0b3a6231966943f39460c1d896b814",
+      "earlier_member": "MANIFEST.json",
+      "qualification": "Omitted from the later frozen packet manifest; exact bytes separately bound to the already-published prior packet manifest."
+    },
+    {
+      "packet": "sats-macro-caller-2561-2562",
+      "unlisted_member": "history/prior/namespace/MANIFEST.json",
+      "original_sha256": "1bb1cd766967f97e9bc39615046b0c1508ea6fa82db9633728e684e28aeeeb31",
+      "bytes": 18438,
+      "earlier_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-21.json",
+      "earlier_bundle": "sats-namespace-2672-2674",
+      "earlier_archive": "delegated/sats-namespace-2672-2674-evidence.tar.gz",
+      "earlier_archive_sha256": "a83a566040266460c764ccc536c3675148604a1bc5706ccb46f0cf7478a50bff",
+      "earlier_member": "MANIFEST.json",
+      "qualification": "Omitted from the later frozen packet manifest; exact bytes separately bound to the already-published prior packet manifest."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+--- verify_delegated_links_14.py
++++ verify_delegated_links_14_059_public.py
+@@ -1,8 +1,15 @@
+ #!/usr/bin/env python3
+ """Resolve compact checkpoint 14 references with original-byte qualifications."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++_CW_DIR = _CW_Path(__file__).resolve().parents[2] / 'qualified-059-successors' / 'successors'
++_cw_sys.path.insert(0, str(_CW_DIR))
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_DIR / 'CROSSWALK-059.json')
+ import hashlib,json,tarfile
+ from pathlib import Path
+-R=Path(__file__).resolve().parent
++R=_CW.root
+ load=lambda p:json.loads((R/p).read_text())
+ sha=lambda b:hashlib.sha256(b).hexdigest()
+ cp13=load('DELEGATED-EVIDENCE-CHECKPOINT-13.json');cp=load('DELEGATED-EVIDENCE-CHECKPOINT-14.json')
+@@ -24,7 +31,7 @@
+ with tarfile.open(R/b['archive']) as t:
+  refs=json.load(t.extractfile('published-references.json'))['entries']
+  for item in refs:
+-  p=(R/item['repository_relative_path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert sha(raw)==item['sha256'] and len(raw)==item['bytes']
++  p=(R/item['repository_relative_path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(item['repository_relative_path']);assert _CW.matches(item['repository_relative_path'],raw,item['sha256'],item['bytes'])
+  assert len(refs)==11
+ b=by['p16-catalog-helpers-hair-ops'];members={x['path']:x for x in b['members']}
+ with tarfile.open(R/b['archive']) as t:
+@@ -41,3 +48,6 @@
+   assert exact.get(item['sha256'])==item['bytes']
+  assert len(history['exact_original_files'])==6 and len(history['hash_links'])==13
+ print('Verified two prior packet links, six selected identities, eleven published-file links and thirteen historical hash links; redacted copies retain original-byte qualifications.')
++
++assert _CW.crosswalk_links_checked == 2
++_CW.finish()

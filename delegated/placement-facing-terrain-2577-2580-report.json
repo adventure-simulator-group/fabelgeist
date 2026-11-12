@@ -1,0 +1,192 @@
+{
+  "schema": "726-checkpoint13-2577-2580-central-reconciliation-proposal-v1",
+  "created_utc": "2026-11-12T06:47:01.293514+00:00",
+  "author": "/root/hair_ops",
+  "scope": "Additive bounded support for already reviewed original roles 2577–2580, not new role or whole-lens credit. Fresh historical/current facing error and terrain branch windows, plus current geology producer/consumer. Existing placement and native parser context comes from separately attributed frozen reports and central working snapshots.",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "registration": {
+    "path": "registration.json",
+    "sha256": "05c76168798a3fd359a37f7916e9bae4ef712392af412d3b6af7fee911f3c1be"
+  },
+  "personal_read_receipt": {
+    "path": "read-receipt.json",
+    "sha256": "cd63c61c97e368e7800e471160b47b5d3f9da903d320e581c2cb7119a0fd1b1d"
+  },
+  "git_proofs": {
+    "path": "git-proofs.json",
+    "sha256": "32ba19a8491077002a4aba1ccd4eb17c4fd6928533976d5a5c32bc7c5cd2d0cb"
+  },
+  "historical_evidence": "historical/evidence-index.json",
+  "qualification": [
+    "Exact 059 queue and ledger originals at eb407672813424d64ec31f208193969f5a62620c are stored as gzip; selections are reconstructed and 26 referenced original receipts are copied with their 059 hashes. A 059 historical record or reconstructed selection is not checkpoint3821 and is not a new finding.",
+    "Selected P16 sources are frozen dirty physical-p16 objects, individually equal to a120 base and 95e for these five files. f82adcabd9d89c4fa2dd7f99253a45297a0681ee is the object transport, not the snapshot revision; per-file equality does not make P16 clean. The later tracked patch matches the registry hash but omits seven untracked files; original capture command and continuous custody are unproved.",
+    "Role2579 and role2578 original registry snapshot says pinned-native-dependency despite physical-p16 source ID, P16 resolved path and Camera ADM03 records. Preserve this contradiction. Role2577 is a separate registry package serde-saphyr 1.2.0, not a project Git revision; lock identity does not prove resolved features.",
+    "The 774 Root046 camera registration first-seven hash d5ff4a23194d152b2b51b84d6cd8818eb4addf2b21b601c6945a3509c02a0181 differs from the later observed first-seven fbc9f62c7beb117a87090f262404c5b15860f1e32215efc22885433ef403c434. Previous bounded 20-file search did not find the earlier bytes; no global absence is proved. Do not replace the historical pin with the later stream.",
+    "P16 role2580 and pr-working role2712 retain separate identities and named readers even though their selected source bytes match. Earlier original source registrations, actual reads, current agent reads, reconstructed records and staged coordinator snapshots remain separately attributed.",
+    "Central snapshots in central/ are exact copies compressed at capture time. Some were staged or uncommitted; they are not asserted to be published or current after capture. No earlier packet verifier was invoked and no prior evidence or source was modified."
+  ],
+  "proposals": [
+    {
+      "queue_indices": [
+        2427,
+        2428,
+        2429,
+        2432
+      ],
+      "historical_contracts": [
+        "L12-CLOSURE-WEAPON-FACING-CYCLE-REASON",
+        "L12-CLOSURE-WEAPON-FACING-DIRECTION-REASON",
+        "L12-CLOSURE-WEAPON-FACING-TARGET-REASON",
+        "L12-CLOSURE-WEAPON-FACING-ERROR-CONTEXT"
+      ],
+      "classification": "Further evidence for four separate 059 connected-contract records; propose bounded current source reconciliation, not closure or automatic aliases; accepted unique count change zero.",
+      "current_and_historical_source_refs": [
+        "P16 recovered 2579 and 95e crates/adventuresim-weapon-model/src/recipe/facing.rs:5–49",
+        "P16 recovered 437 and 95e crates/adventuresim-weapon-model/src/recipe/validation.rs:24–45,150–166",
+        "P16 recovered 434 and 95e crates/adventuresim-weapon-model/src/recipe/mod.rs:136–163,216–222",
+        "P16 recovered 432 and 95e crates/adventuresim-weapon-model/src/model/mod.rs:65–83"
+      ],
+      "observation": "directions processes only components with opposed_to, determines whether each has a supported directional shape, resolves the target against each component’s resolved ID, and detects revisiting as a cycle. The three sites return separate string causes. Recipe::validate maps all of these to one unit RecipeError::Facing, and Construction::new formats that category into a String. The displayed source establishes this boundary on both byte-identical selected P16/95e files; it does not establish that individual detailed causes are required by supported callers.",
+      "safeguards": [
+        "No opposed_to is a normal optional mode; supported shapes have explicit default orientations.",
+        "Resolved ID uses explicit id then label then component ordinal; recipe validation checks allowed syntax, reserved names and uniqueness before calling directions.",
+        "A visiting set rejects a cycle and missing targets and non-directional shapes produce errors."
+      ],
+      "limitations": "A supported external target namespace, complete admitted recipes, callers and expected diagnostic precision remain unproved; valid supported inputs, all downstream error formats, and future repair acceptance need separate assessment. No product was run.",
+      "historical_attribution": "059 TEAM-021 adoption/verification and parallel-l12 source receipt/registrations in historical/ preserve /root/lens12_frontier personal source views, P16 roles2579,434,437,432 and original scopes. 2579 original material is 15–70; this packet’s 1–14 is separate support. See exact original reconstructed queue rows for all four contracts. Earlier /root/hair_ops full P16 and 95e role2579 reads remain separately recorded in prior packets."
+    },
+    {
+      "queue_indices": [
+        1663
+      ],
+      "historical_contracts": [
+        "Q-L12-55045c36a6ef2b4f0ffd"
+      ],
+      "classification": "Further source evidence for existing mapped-geology provenance/projection question, not a new issue or an alias of geographic point admission q133.",
+      "current_and_historical_source_refs": [
+        "P16/95e crates/adventuresim-terrain/src/terrain_feature.rs:15–35",
+        "95e crates/adventuresim-world-import/src/sources/geology/windows.rs:32–100",
+        "95e crates/adventuresim-world-schema/src/geologic_window.rs:8–35",
+        "95e crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs:256–295"
+      ],
+      "observation": "MappedGeology branches to window.is_valid, whereas fault geometry uses WGS84 point getters. A selected importer produces an inward-rounded EPSG:3034 rectangle only after point and polygon-window containment calls and mapped lithology. The public derived-Serde window has a structural is_valid predicate (ID and ordered, bounded rectangle) with no polygon input. The downstream selected consumer transforms nine sample points and requires all in a single window, then reads its lithology.",
+      "safeguards": [
+        "Selected importer calls geometry_contains and contains_window, including polygon/multipolygon handling; it can return None rather than fabricate a mapped window.",
+        "Schema window bounds are widened before differences, require positive dimensions and bounded side lengths.",
+        "Selected consumer returns None if any transformation fails or no window contains every sample."
+      ],
+      "limitations": "No product/native projection, geometry predicate or input was executed. Neither forged nor unsupported inputs, parser reachability, trust/package admission, a failed margin, or continuous-footprint coverage has been proved. The current central selected-footprint symbolic bound is separate counterevidence to one geometric suspicion and is not a complete projection/containment proof.",
+      "historical_attribution": "059 q1663 remains pending. /root/mhr_character independently read current importer, window and consumer support in the frozen pr-working 2712–2714 packet and attributed original Native REG065–067 and 059 readers; our registered new views are separate. Prior root 774 F007 concerns a geographic raw-point dependency, not projected-window provenance."
+    },
+    {
+      "queue_indices": [
+        127,
+        287
+      ],
+      "historical_contracts": [
+        "ADLER-L11-ATTACHMENT-FRAME-OWNER",
+        "SEGOVB-L12-HOLDER-ORIGINAL-OPTIONAL-ID-EXPECT"
+      ],
+      "classification": "Preserve existing separate partially reconciled first-site rows; no new counts or alias from shared component identity.",
+      "source_refs_in_prior_packet": [
+        "95e placement.rs:49–50,92–141",
+        "95e placement/anchors.rs:31–65,90–94,125–134",
+        "95e holders.rs:151–188",
+        "95e validation.rs:17–24,37–71",
+        "95e recipe/validation.rs:150–166"
+      ],
+      "observation": "Prior /root/hair_ops q127 support identifies split frame point and owner/rotation lookup; q287 concerns an expect on the selected original optional ID after the clone is normalized. Captured independent central 13F trace corroborates q287 and leaves accepted complete input and fallible construction open. This packet does not re-read those prior placement, anchor or holder bodies.",
+      "safeguards": "Placement normalizes the clone and holder admission plus fallible construction precede holder selection; these do not themselves prove original optional ID propagation. The q127 symbolic rotated grip trace belongs to its separately attributed central assessment.",
+      "limitations": "Positive overlap, valid alias ownership, holder recipe eligibility, all other shape checks and successful construction are not established by this packet. q127 and q287 differ in failure boundary; a shared remedy is not alias proof."
+    },
+    {
+      "queue_indices": [
+        133
+      ],
+      "historical_contracts": [
+        "ADLER-L11-TRAVEL-GEOMETRY-POINT-ADMISSION",
+        "ROOT-ADM-F007"
+      ],
+      "classification": "Existing raw WGS84 point admission concern and connected terrain consumer; do not add another count or merge with q1663.",
+      "source_refs": [
+        "P16/95e crates/adventuresim-terrain/src/terrain_feature.rs:25–35",
+        "Prior /root/hair_ops and /root/mhr_character bounded 95e world-schema/src/lib.rs:1778–1808 and coordinates.rs:58–75,99–115"
+      ],
+      "observation": "Fresh terrain branch uses point longitude/latitude getters after several earlier disjuncts. Prior independently recorded raw public/Serde point and checked getter sources connect a potential invalid-axis point to these expectations.",
+      "safeguards": "The feature ID, count and adjacent-duplicate checks may reject earlier; selected manifest validation requires finite ordered bounds and the constructor checks geographic axes.",
+      "limitations": "An accepted malformed input or a reachable panic has not been established or executed; trust, decoding and ordering are open. Historical 774 ROOT-ADM-F007 is copied unchanged from /root/mhr_character’s verified prior manifest and retains that original authorship."
+    },
+    {
+      "queue_indices": [
+        72
+      ],
+      "historical_contracts": [
+        "ADLER-L11-GRAPHICS-CONFIG-NONFINITE-ADMISSION"
+      ],
+      "classification": "Existing graphics admission concern; role2577 native support is contextual and separately attributed, zero new count.",
+      "source_refs_in_prior_packets": [
+        "serde-saphyr 1.2.0 src/de/with_deserializer.rs:1–48,120–160",
+        "serde-saphyr 1.2.0 src/de/api.rs:75–100,135–145",
+        "95e Cargo.lock:9371–9387"
+      ],
+      "observation": "Prior packet traces native from_str default options and document-level deserializer dispatch. Captured central 13D independently reviews typed float and graphics checks. Native package identity, lock membership, parser ingress and enabled features are distinct evidence questions.",
+      "safeguards": "Prior display records explicit typed/native pathways and single-document finish; other positive numeric helper fields enforce finiteness, as independently recorded centrally.",
+      "limitations": "No native parser or graphics behavior executed. Actual tokenizer/event ingress, active feature graph, supported inputs and consumers remain open. This packet did not freshly display native package code."
+    }
+  ],
+  "prior_attribution": [
+    {
+      "agent": "/root/mhr_character",
+      "packet": "prior/prior-roles/prior/mhr-placement",
+      "scope": "Prior independently registered and separately displayed native2577 full1–222 and P16/95e placement2578 full1–156; evidence reproduced only as verified prior report/receipt members."
+    },
+    {
+      "agent": "/root/hair_ops",
+      "packet": "prior/prior-roles/prior/hair-facing-terrain",
+      "scope": "Prior independently registered separately displayed P16/95e facing2579 full1–116 and terrain2580 full1–51; not transferred to other reviewers."
+    },
+    {
+      "agent": "/root/hair_ops",
+      "packet": "prior/prior-roles",
+      "scope": "Earlier bounded checkpoint13 fresh source reads and original selection; no new ordered-role credit in this follow-up."
+    },
+    {
+      "agent": "/root/mhr_character",
+      "packet": "prior/prior-terrain",
+      "scope": "Prior pr-working roles2712–2714 and current supports, original 774/059 records and conditions; do not promote pr-working evidence into P16 or 3821."
+    },
+    {
+      "agent": "/root",
+      "packet": "central/ASSESSMENT-CENTRAL-HOLDER-13F-95E.json.gz",
+      "scope": "Independent central current holder corroboration, working snapshot captured at the evidence-index timestamp, with its own registration/receipts."
+    }
+  ],
+  "lens_perspectives": {
+    "producer_propagation": "Facing resolved IDs are compared before validation erases raw reasons; geology source-window provenance is not retained by structural validation alone.",
+    "existing_type_owners": "RecipeError is a coarse typed category, whereas the underlying facing producer uses text; the WGS84 and projected EPSG:3034 owners address different coordinate spaces.",
+    "admission_contracts": "Unique resolved IDs and shape checks guard facing; public mapped windows have structural checks, not polygon provenance checks.",
+    "invariant_operations": "Cycle detection and transformed point containment act on admitted values; proof of continuous coverage and floating-point projection remains open.",
+    "aggregate_states": "An attachment frame and its owner/pose form one relationship; polygon, window, lithology and projection form another independently meaningful relationship.",
+    "type_ownership": "Resolve whether detailed error reasons or source-provenance guarantees have an owning boundary; no owner is prescribed by the observed text alone.",
+    "redundant_authority": "Original holder identity and cloned resolved identity, and imported versus structurally revalidated geology, have distinct local responsibilities; shared data does not prove duplicate authority is defective.",
+    "behavior_preservation": "Preserve supported absent opposed_to, default directions, label/generated ID fallback, missing geology as None, and distinct coordinate systems in future work.",
+    "enum_shapes": "Facing is presently one unit category; whether its documented stable granularity is sufficient for supported consumers remains policy, not an automatic defect.",
+    "derivability": "Derived Serde on MappedGeologicWindow does not alone prove its provenance; no derive refactor is justified by this bounded review.",
+    "magic_numbers": "Structural window size, projection margin and bounded samples require their actual domain assumptions; no finite-margin counterexample is asserted.",
+    "magic_strings": "Facing internal string causes and resolved-ID fallback are concrete string protocols; whether diagnostic detail should cross the typed boundary remains open.",
+    "type_granularity": "Separate cycle, direction and target reasons are source-distinct while their coarse consumer category may be intentional; exact cross-ledger aliasing remains central."
+  },
+  "open_questions": [
+    "Which supported callers need specific facing causes and target context, and do accepted cases actually exercise each reason?",
+    "Which source/package boundaries certify geology polygon provenance, and can direct public/Serde windows enter a supported path?",
+    "For the supported projection, scene domain and all callers, do nine samples plus margin guarantee the entire continuous footprint?",
+    "What are actual graphics parser feature selection and event ingress?",
+    "Can a supported malformed geographic point reach a checked getter without an earlier rejection?",
+    "Can the holder selection’s original optional ID be absent for a fully accepted design whose fallible construction succeeds?",
+    "All remaining source families, global aliases, full thirteen-lens closure and missing checkpoint3821 remain open."
+  ],
+  "new_ledger_rows": [],
+  "accepted_unique_count_change": 0,
+  "repair": "not started",
+  "product_validation": "not performed"
+}

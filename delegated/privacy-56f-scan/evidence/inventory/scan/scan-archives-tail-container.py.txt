@@ -1,0 +1,78 @@
+import collections,datetime,gzip,hashlib,io,json,os,pathlib,pwd,re,subprocess,sys,tarfile
+C='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';P=pathlib.Path('<redacted-local-evidence-directory>');home=os.fsencode(pwd.getpwuid(os.getuid()).pw_dir);username=home.rsplit(b'/',1)[-1].lower();sha=lambda b:hashlib.sha256(b).hexdigest();LIMIT=128*1024*1024;MAXDEPTH=18;BUDGET=2**63-1
+patterns=[('user-home',re.compile(rb'(?<![A-Za-z0-9_])'+re.escape(home)+rb'(?=[/"\'\s\\\x00]|$)')),('other-home',re.compile(rb'(?<![A-Za-z0-9_/])/(?:home|Users)/[A-Za-z0-9._-]+')),('temp',re.compile(rb'(?<![A-Za-z0-9_/])/tmp/[A-Za-z0-9._-]+')),('windows-user',re.compile(rb'(?i)(?<![A-Za-z0-9])(?:[a-z]:[\\/]+Users[\\/]+)[A-Za-z0-9._-]+')),('root-home-candidate',re.compile(rb'(?<![A-Za-z0-9_/])/root/(?:\.codex|\.cache|\.local|tmp)(?:/|$)'))];markers=(home,b'/home/',b'/Users/',b'/tmp/',b'/root/',b'Users',b'\\/',b'\\u002',b'\\U002');stats=collections.Counter();memo={};out=[];exceptions=[];top_cache={}
+def safe(name):
+ b=name.encode('utf-8','surrogateescape');return '<redacted-name-sha256:'+sha(b)+'>' if username in b.lower() or any(p.search(b) for _,p in patterns) else name
+
+def search(body,view):
+ if not any(m in body for m in markers):return []
+ b=re.sub(rb'(?i)\\u002f',b'/',body.replace(b'\\/',b'/'));hits=[]
+ for typ,pat in patterns:
+  for m in pat.finditer(b):
+   if typ=='other-home' and m.group()==home:continue
+   hits.append((m.start(),typ,m))
+ hits.sort(key=lambda z:z[0]);cursor=0;line=1;rows=[]
+ for offset,typ,m in hits:
+  line+=b.count(b'\n',cursor,offset);cursor=offset;context=b[max(0,offset-70):min(len(b),m.end()+70)];flags={'regex_context':bool(re.search(rb'(?i)(?:re\.(?:compile|escape|sub|search|finditer)|regex|regexp|pattern|[\[\]{}]|\\u[0-9a-f]{4})',context)),'prose_context':bool(re.search(rb'(?i)(?:example|placeholder|redact|saniti[sz]|privacy|regex)',context))};rows.append({'type':typ,'chain':[],'content_sha256':sha(body),'view_kind':view,'normalized_offset':offset,'line':line,'matched_prefix_sha256':sha(m.group()),'context_flags':flags})
+ return rows
+
+def prepend(step,items):
+ return [dict(item,chain=[step]+item['chain']) for item in items]
+
+def inspect(body,depth,budget):
+ digest=sha(body);key=(digest,MAXDEPTH-depth)
+ if depth>MAXDEPTH:return [],[{'chain':[],'reason':'nesting depth exceeded','depth':depth}],0
+ if key in memo:
+  matches,errs,cost=memo[key]
+  if budget[0]+cost>BUDGET:return [],[{'chain':[],'reason':'per-top expanded byte budget exceeded','limit':BUDGET}],0
+  budget[0]+=cost;stats['memo_hits']+=1;return matches,errs,cost
+ before=budget[0];budget[0]+=len(body);stats['payload_views']+=1;stats['decoded_and_stored_bytes']+=len(body)
+ if budget[0]>BUDGET:return [],[{'chain':[],'reason':'per-top expanded byte budget exceeded','limit':BUDGET}],len(body)
+ matches=[];errs=[]
+ if body.startswith(b'\x1f\x8b'):
+  stats['gzip_unique_views']+=1;matches.extend(search(body,'gzip-stored-binary'))
+  try:
+   with gzip.GzipFile(fileobj=io.BytesIO(body),mode='rb') as f:v=f.read(LIMIT+1)
+   if len(v)>LIMIT:errs.append({'chain':[],'reason':'gzip uncompressed size exceeded','limit':LIMIT})
+   else:
+    step={'kind':'gzip','stored_sha256':digest,'decoded_sha256':sha(v),'decoded_bytes':len(v)};a,b,_=inspect(v,depth+1,budget);matches.extend(prepend(step,a));errs.extend(prepend(step,b))
+  except Exception as e:errs.append({'chain':[],'reason':'gzip decode','error_type':type(e).__name__})
+ elif len(body)>262 and body[257:262]==b'ustar':
+  stats['tar_unique_views']+=1
+  try:
+   with tarfile.open(fileobj=io.BytesIO(body),mode='r:') as tar:
+    for i,m in enumerate(tar):
+     stats['tar_unique_member_views']+=1;step={'kind':'tar-member','index':i,'name':safe(m.name),'type':'file' if m.isfile() else 'directory' if m.isdir() else 'other'};metadata=json.dumps({'name':m.name,'uname':m.uname,'gname':m.gname,'pax':m.pax_headers},ensure_ascii=False).encode('utf-8','surrogateescape');matches.extend(prepend(step,search(metadata,'tar-metadata')))
+     if m.isfile():
+      if m.size>LIMIT:errs.append({'chain':[step],'reason':'tar member size exceeded','bytes':m.size,'limit':LIMIT});continue
+      f=tar.extractfile(m)
+      if f is None:errs.append({'chain':[step],'reason':'tar member missing content'});continue
+      data=f.read();step.update({'stored_sha256':sha(data),'bytes':len(data)});a,b,_=inspect(data,depth+1,budget);matches.extend(prepend(step,a));errs.extend(prepend(step,b))
+     elif not m.isdir():errs.append({'chain':[step],'reason':'non-regular tar entry not followed'})
+  except Exception as e:errs.append({'chain':[],'reason':'tar decode','error_type':type(e).__name__})
+ else:matches.extend(search(body,'leaf'))
+ cost=budget[0]-before
+ if not any(x['reason']=='per-top expanded byte budget exceeded' for x in errs):memo[key]=(matches,errs,cost)
+ return matches,errs,cost
+
+entries=[x for x in subprocess.check_output(['git','ls-tree','-r','-l','-z',C]).split(b'\0') if x];proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,bufsize=0)
+def read_exact(n):
+ chunks=[]
+ while n:
+  b=proc.stdout.read(n)
+  if not b:raise EOFError('cat-file ended')
+  chunks.append(b);n-=len(b)
+ return b''.join(chunks)
+for i,entry in enumerate(entries,1):
+ if i<=2000:continue
+ meta,path=entry.split(b'\t',1);mode,typ,oid,size=meta.split();assert typ==b'blob';path=safe(path.decode('utf-8','surrogateescape'));size=int(size);key=oid.decode();stats['tracked_paths']+=1;stats['stored_bytes']+=size
+ if key not in top_cache:
+  proc.stdin.write(oid+b'\n');header=proc.stdout.readline().split();assert header[0]==oid and header[1]==b'blob';body=read_exact(int(header[2]));assert proc.stdout.read(1)==b'\n' and len(body)==size
+  digest=sha(body);matches,errs,_=inspect(body,0,[0]);top_cache[key]=(digest,matches,errs);stats['unique_tracked_blobs']+=1
+ else:digest,matches,errs=top_cache[key];stats['duplicate_top_blobs']+=1
+ root={'kind':'tracked-blob','path':path,'git_blob':key,'sha256':digest,'bytes':size};out.extend(prepend(root,matches));exceptions.extend(prepend(root,errs))
+ if i%200==0:print('nested-progress',i,'/',len(entries),'occurrences',len(out),'exceptions',len(exceptions),'memo-hits',stats['memo_hits'],file=sys.stderr,flush=True)
+ if i%500==0:
+  partial={'completed_tracked_paths':i,'tracked_total':len(entries),'stats':dict(stats),'occurrences':out,'exceptions':exceptions,'qualification':'Partial suffix starting at tracked path 2001, prefix 1–2000 retained separately.'};(P/'archives-tail-container-partial.json').write_text(json.dumps(partial,indent=2)+'\n')
+proc.stdin.close();proc.wait();assert proc.returncode==0
+result={'schema':'726-committed-recursive-path-inventory-v1','commit':C,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'stats':dict(stats),'occurrences':out,'exceptions':exceptions,'limits':{'max_decoded_gzip_bytes':LIMIT,'max_tar_member_bytes':LIMIT,'max_layers':MAXDEPTH,'per_top_expanded_bytes':'unlimited; each gzip decoded view and tar member individually capped','patterns':[p[0] for p in patterns],'unsupported':'ZIP and all other non-gzip/ustar tar encodings treated as opaque raw bytes, not expanded. Non-regular tar entries are not followed. Unknown roots/encoding schemes are not claimed clear.'},'qualification':'Tracked paths 2001–21399 only; prefix 1–2000 retained separately. Candidate pattern hits only; stored gzip byte matches can be binary coincidences. Occurrences in distinct public member paths remain distinct, while duplicate payload scanning is cached. SHA-256 is content identity, not a claim of Git blob identity for decoded data.'};(P/'archives-tail-container-results.json').write_text(json.dumps(result,indent=2)+'\n');print('nested-complete',json.dumps({'stats':dict(stats),'occurrences':len(out),'exceptions':len(exceptions),'sha256':sha((P/'archives-tail-container-results.json').read_bytes())}))

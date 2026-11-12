@@ -1,0 +1,984 @@
+{
+  "schema": "726-privacy-dependency-inventory-v1",
+  "scope": "All uncompressed files selected by a recursive text literal search in the observed publication working checkout for the three original SHA-256 values, three original Git blob identities, their containing-family names and three related previously reconstructed SHA-256 values. Direct and indirect verifier chains were inspected separately. Compressed members (except selected CP16 and eight CP13 reference members), Git history, alternate textual encodings and generic dynamically assembled references were not exhaustively searched. Search results and hashes represent this observed working state and can drift.",
+  "exclusions": [
+    ".git/**",
+    "*.tar.gz",
+    "*.gz",
+    "*.crate"
+  ],
+  "search_terms": [
+    "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+    "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+    "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+    "52ae83a8081e25901b9b9658a757465788a6b8fd",
+    "fb28c8aa9905cdd2fa22169a213997502f7a3d73",
+    "2a89c09acb57c6935680c3ef9b6969fc99214f0b",
+    "l12-final-registration-evidence",
+    "l2-canonical-comparison-evidence",
+    "prior-current-transition-evidence",
+    "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+    "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+    "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72"
+  ],
+  "search_file_count": 39,
+  "files": [
+    {
+      "path": ".gitattributes",
+      "sha256": "565b8332a5c059f32964aea0bf460be543097d710c1319bbc48607af4a3de80d",
+      "bytes": 15666,
+      "classification": "Git attribute sets transition object -text (byte preservation)",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            99
+          ]
+        },
+        {
+          "term": "l12-final-registration-evidence",
+          "lines": [
+            131,
+            132,
+            133,
+            134,
+            135,
+            136,
+            137,
+            138,
+            139
+          ]
+        },
+        {
+          "term": "l2-canonical-comparison-evidence",
+          "lines": [
+            119
+          ]
+        },
+        {
+          "term": "prior-current-transition-evidence",
+          "lines": [
+            98,
+            99,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-CHECKPOINT-16-QUALIFICATION.json",
+      "sha256": "11d64e0f93995b47eccf46eb37b027b7c8f69485f0d0f0d3f1e4495b7115eacb",
+      "bytes": 6452,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "term": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+          "lines": [
+            29
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            36,
+            41
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-CHECKPOINT-35-QUALIFICATION.json",
+      "sha256": "90cc44347175b58333ede46edec3375b4ed990b5bbb1c98e7af401c36654db19",
+      "bytes": 9026,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "term": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+          "lines": [
+            29
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-CHECKPOINT-36-QUALIFICATION.json",
+      "sha256": "ef66d796244cf37195fea22cd7334d2daabe97bcbf0dfdd902851a6ae45879e2",
+      "bytes": 1818,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            11
+          ]
+        },
+        {
+          "term": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+          "lines": [
+            13
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-EVIDENCE-CHECKPOINT-16.json",
+      "sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+      "bytes": 677619,
+      "classification": "published archive index recording original and reconstructed identities; not a claim of raw bytes within every archive",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            663,
+            668,
+            6731,
+            6736
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            665,
+            670,
+            6733,
+            6738
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-EVIDENCE-CHECKPOINT-35.json",
+      "sha256": "5e61c0a984e0c9c1cb7b651dc61f0093cefc9304844df4a67605bff27cc49605",
+      "bytes": 453669,
+      "classification": "published archive index recording original and reconstructed identities; not a claim of raw bytes within every archive",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            6528,
+            6533
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            6530,
+            6535
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-EVIDENCE-CHECKPOINT-36.json",
+      "sha256": "3005967922bb10c7d8b674b6ea044256f55fcc6908d27260c1646c049e3a0d17",
+      "bytes": 458979,
+      "classification": "published archive index recording original and reconstructed identities; not a claim of raw bytes within every archive",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            6187,
+            6192
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            6189,
+            6194
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+      "sha256": "d489ccc26cd8196d5b01f3ec3f51aad1aa9259a84f3d25efa9da2d8ca00e5f4f",
+      "bytes": 2056304,
+      "classification": "published archive index recording original and reconstructed identities; not a claim of raw bytes within every archive",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            13937,
+            13942,
+            30781,
+            30786
+          ]
+        },
+        {
+          "term": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+          "lines": [
+            13939,
+            13944,
+            30783,
+            30788
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DELEGATED-EVIDENCE-CHECKPOINT-9.json",
+      "sha256": "79296c1cf69080f682097cd022689105a17411f85d4872a66c1d7c112a0ae59f",
+      "bytes": 3684495,
+      "classification": "published archive index recording original and reconstructed identities; not a claim of raw bytes within every archive",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            1017,
+            1022
+          ]
+        },
+        {
+          "term": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+          "lines": [
+            1019,
+            1024
+          ]
+        }
+      ]
+    },
+    {
+      "path": "SOURCE-LOCATORS.json",
+      "sha256": "a444a3ed8bde1c1a617dfe6b66a660e720b36446c7c99bdb0d00e6382d7c4dd1",
+      "bytes": 49805,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "l12-final-registration-evidence",
+          "lines": [
+            357
+          ]
+        },
+        {
+          "term": "l2-canonical-comparison-evidence",
+          "lines": [
+            333
+          ]
+        },
+        {
+          "term": "prior-current-transition-evidence",
+          "lines": [
+            313
+          ]
+        }
+      ]
+    },
+    {
+      "path": "baseline-059/ledger.json",
+      "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "bytes": 9417609,
+      "classification": "historical source object: digest reference; separately observed sensitive-path exposure",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            115630,
+            115642,
+            115654,
+            115666,
+            115678,
+            115690,
+            115702,
+            115714
+          ]
+        },
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            107
+          ]
+        },
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            135415,
+            135423,
+            144476
+          ]
+        }
+      ]
+    },
+    {
+      "path": "baseline-059/queue.json",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "bytes": 21632843,
+      "classification": "historical source object: digest reference; separately observed sensitive-path exposure",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            283503,
+            283801,
+            283906,
+            284011,
+            284116,
+            284269,
+            284374,
+            284535,
+            284640,
+            284745,
+            284850,
+            284955,
+            285060,
+            405802
+          ]
+        },
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            376976
+          ]
+        }
+      ]
+    },
+    {
+      "path": "build_recovery_index.py",
+      "sha256": "af96f5b8471729873e2fb3fd1254291a8a3a657a1f4e75ab9723702f49a6a321",
+      "bytes": 7537,
+      "classification": "indirect caller of direct verifier; source inspected only, not invoked",
+      "matching_terms_and_line_numbers": []
+    },
+    {
+      "path": "check_published_evidence.py",
+      "sha256": "6b5f37e644b8c0f57eb18db64b0f60794ad995541a22db3c62fa7bc1216d60eb",
+      "bytes": 1005,
+      "classification": "indirect caller of direct verifier; source inspected only, not invoked",
+      "matching_terms_and_line_numbers": []
+    },
+    {
+      "path": "delegated/independent-evidence-reviews/reviews/cp35/evidence/DELEGATED-CHECKPOINT-35-QUALIFICATION.json",
+      "sha256": "90cc44347175b58333ede46edec3375b4ed990b5bbb1c98e7af401c36654db19",
+      "bytes": 9026,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "term": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+          "lines": [
+            29
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            36
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/independent-evidence-reviews/reviews/cp35/evidence/DELEGATED-EVIDENCE-CHECKPOINT-35.json",
+      "sha256": "5e61c0a984e0c9c1cb7b651dc61f0093cefc9304844df4a67605bff27cc49605",
+      "bytes": 453669,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            6528,
+            6533
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            6530,
+            6535
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/independent-evidence-reviews/reviews/cp35/evidence/private-originals-MANIFEST.json",
+      "sha256": "3ef1e6c138b93a38c5adb2e3bec72aec806996bb0ff1ca7630d79c7cdb9300f3",
+      "bytes": 8522,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            152
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/MANIFEST.json",
+      "sha256": "73670c086cadd3f2beed2d8be9d5bbbbc81e5d18b4bed07e8c5c894afea7b05d",
+      "bytes": 9775,
+      "classification": "literal reference to a previously reconstructed identity",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+          "lines": [
+            117,
+            118
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/PRIOR-SYSTEMIC-OCCURRENCES.json",
+      "sha256": "aeb3cc954a6727d270a0196d84036c37bcab8bcc0188bcf1eb351f262d4077f0",
+      "bytes": 470559,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            871,
+            873,
+            948,
+            950,
+            1365,
+            1367
+          ]
+        },
+        {
+          "term": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+          "lines": [
+            872,
+            874,
+            949,
+            951,
+            1366,
+            1368
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/RECONSTRUCTION.json",
+      "sha256": "296caf837c9637b555618861a404e24e9694023d5eacedd4aae4f6a474ce06c5",
+      "bytes": 315406,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            211,
+            215,
+            1344,
+            1409,
+            1763
+          ]
+        },
+        {
+          "term": "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+          "lines": [
+            217,
+            218,
+            220,
+            1346,
+            1347,
+            1411,
+            1412,
+            1765,
+            1766
+          ]
+        },
+        {
+          "term": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+          "lines": [
+            212,
+            216,
+            1345,
+            1410,
+            1764
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/original-cp36-review-correction/CORRECTION.json",
+      "sha256": "9f8c300ba2596eab924d43ba86cfd69c11e3f6ffc0864d33ea2bc9ecf1ea8ac2",
+      "bytes": 2413,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            14
+          ]
+        },
+        {
+          "term": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+          "lines": [
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/original-cp36-review-correction/verification-corrected.json",
+      "sha256": "e7eaf248c253a02018fe4d114fe23eeee670c8280f7305e284c199bb150cf2be",
+      "bytes": 10028,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            259
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/original-cp36-review/observed-public/DELEGATED-CHECKPOINT-36-QUALIFICATION.json",
+      "sha256": "ef66d796244cf37195fea22cd7334d2daabe97bcbf0dfdd902851a6ae45879e2",
+      "bytes": 1818,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            11
+          ]
+        },
+        {
+          "term": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+          "lines": [
+            13
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/original-cp36-review/observed-public/DELEGATED-EVIDENCE-CHECKPOINT-36.json",
+      "sha256": "3005967922bb10c7d8b674b6ea044256f55fcc6908d27260c1646c049e3a0d17",
+      "bytes": 458979,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            6187,
+            6192
+          ]
+        },
+        {
+          "term": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+          "lines": [
+            6189,
+            6194
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/original-cp36-review/snapshot-manifest.json",
+      "sha256": "f3cf21f22b756792f3f0ad81246ccaf8a789e49528fe37ca1e6f1d75147d0972",
+      "bytes": 8433,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "path": "delegated/sanitizer-additive-corrections/verify-reconstruction.py",
+      "sha256": "1a189dae3c92127c8769b9899440a8d100ba15ebe6acf0589c7d5ec80342a670",
+      "bytes": 12695,
+      "classification": "related verifier consumes reconstructed identity records and corrected bytes dynamically; optional private-inventory mode checks original source identities",
+      "matching_terms_and_line_numbers": []
+    },
+    {
+      "path": "recovered/l12-final-registration-evidence/MANIFEST.json",
+      "sha256": "48d91f4d15f4f4035c94668d707b5956fe65f878664406cfc697621120a537b3",
+      "bytes": 181089,
+      "classification": "direct recovered original-byte manifest binding",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            8496
+          ]
+        },
+        {
+          "term": "l12-final-registration-evidence",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/l12-final-registration-evidence/prior-read-objects/ccebae9e3349d54e4592a3051988dc1ba3e8f4ba077d38b6bcc56eddfd95299d",
+      "sha256": "ccebae9e3349d54e4592a3051988dc1ba3e8f4ba077d38b6bcc56eddfd95299d",
+      "bytes": 13569,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/l2-canonical-comparison-evidence/MANIFEST.json",
+      "sha256": "fa8daf479053b9185d5efda335d63ab303ea8b2e63649f986c865690d892d4f9",
+      "bytes": 4982,
+      "classification": "direct recovered original-byte manifest binding",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            5,
+            20,
+            21
+          ]
+        },
+        {
+          "term": "l2-canonical-comparison-evidence",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/ledger-command-outputs/OUTPUTS.jsonl",
+      "sha256": "ebe9b25038850c170643bd90d986281055df7657a5eecc80fbcdd5f73b900e30",
+      "bytes": 3548917,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            582,
+            978,
+            979
+          ]
+        },
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            2,
+            5,
+            878,
+            1030,
+            1032
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/printed-ledger-fragments/VALUES.jsonl",
+      "sha256": "5d3e6e7e39d12b4d125e9883f02c60b2ef59e20efd5a389e24aba778a0d3133f",
+      "bytes": 177431,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            100,
+            114
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/printed-reference-json/objects/4b0f086c0bd70a6688ee2fe695a315906bd0231eea9a622027c9b1c623ce5aa8",
+      "sha256": "4b0f086c0bd70a6688ee2fe695a315906bd0231eea9a622027c9b1c623ce5aa8",
+      "bytes": 11828,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            128
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/prior-current-transition-evidence/MANIFEST.json",
+      "sha256": "cae5df98ad256d51427c669c15cd84128b22d554f7f11116fc1e0b51152de51f",
+      "bytes": 41082,
+      "classification": "direct recovered original-byte manifest binding",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            3
+          ]
+        },
+        {
+          "term": "prior-current-transition-evidence",
+          "lines": [
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/queue-command-outputs/RECORDS.jsonl",
+      "sha256": "dbf256b5e8c631fd65931d3dea32b578058b46e0aa0a0705f3c206a44b3cccd4",
+      "bytes": 24249454,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            231,
+            687
+          ]
+        },
+        {
+          "term": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+          "lines": [
+            1274
+          ]
+        },
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            2,
+            54,
+            439,
+            1380,
+            1605,
+            1759,
+            1974,
+            3650
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/selected-revision-registry-sources/restore_objects.py",
+      "sha256": "7b76436cb795f0d67a68bf6ce638e4d03f0900e43fc62893d76e459834b7821b",
+      "bytes": 1830,
+      "classification": "indirect caller of direct verifier; source inspected only, not invoked",
+      "matching_terms_and_line_numbers": []
+    },
+    {
+      "path": "recovered/source-registration-outputs/RECORDS-01.jsonl",
+      "sha256": "59e30cdb220bd971d03eca5598fb483aab6a45f238f6539494ebe5e5f43fcb4c",
+      "bytes": 8558020,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            333
+          ]
+        }
+      ]
+    },
+    {
+      "path": "recovered/transcript-queue-fragments/PRINTED-VALUES.jsonl",
+      "sha256": "dbd09d880497030eaf39e137df502e398bdbb33efc9dd34f82561c57fabc993c",
+      "bytes": 3283439,
+      "classification": "literal-reference; role not inferred solely from search",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+          "lines": [
+            1481
+          ]
+        }
+      ]
+    },
+    {
+      "path": "verify_delegated_links_13.py",
+      "sha256": "cebed23ff0c4a0915c7da453d35abf718eccb22a296ce3f20cfd312041fa0381",
+      "bytes": 4079,
+      "classification": "generic checkpoint 13 index-link verifier; eight selected archive reference members were inspected and had no exact target digest/family match",
+      "matching_terms_and_line_numbers": []
+    },
+    {
+      "path": "verify_recovered.py",
+      "sha256": "5fbd014581bbfc412596040ef923f680c72284115d3a5f4f7287f214212cb458",
+      "bytes": 567589,
+      "classification": "direct verifier: original SHA and original JSON/path bindings",
+      "matching_terms_and_line_numbers": [
+        {
+          "term": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+          "lines": [
+            5093
+          ]
+        },
+        {
+          "term": "l12-final-registration-evidence",
+          "lines": [
+            6054,
+            6056
+          ]
+        },
+        {
+          "term": "l2-canonical-comparison-evidence",
+          "lines": [
+            5466,
+            5468
+          ]
+        },
+        {
+          "term": "prior-current-transition-evidence",
+          "lines": [
+            5089,
+            5092
+          ]
+        }
+      ]
+    }
+  ],
+  "direct_bindings": [
+    {
+      "file": "recovered/l12-final-registration-evidence/MANIFEST.json",
+      "pointer": "/prior_read_proof/direct_dependencies/references/67/sha256",
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "qualification": "72 recorded dependency references, 65 distinct identities; original parent and path relationship also checked by the direct verifier.",
+      "parent_sha256": "ccebae9e3349d54e4592a3051988dc1ba3e8f4ba077d38b6bcc56eddfd95299d",
+      "parent_pointer": "/validated_bundle",
+      "parent_source": "recovered/l12-final-registration-evidence/prior-read-objects/ccebae9e3349d54e4592a3051988dc1ba3e8f4ba077d38b6bcc56eddfd95299d"
+    },
+    {
+      "file": "recovered/l2-canonical-comparison-evidence/MANIFEST.json",
+      "pointers": [
+        "/inherited_master_sha256",
+        "/files/3/file",
+        "/files/3/sha256"
+      ],
+      "original_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48"
+    },
+    {
+      "file": "recovered/prior-current-transition-evidence/MANIFEST.json",
+      "pointer": "/transition_sha256",
+      "original_sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "from_revision": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+      "to_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f"
+    }
+  ],
+  "direct_verifier": {
+    "path": "verify_recovered.py",
+    "source_windows": [
+      "5089\u20135102",
+      "5466\u20135476",
+      "6222 and 6270\u20136287"
+    ],
+    "qualification": "The verifier binds original hashes, source paths or internal relationships. Replacing raw object bytes in place breaks those assumptions; an additive crosswalk must explicitly distinguish the new identity."
+  },
+  "git_attribute": {
+    "path": ".gitattributes",
+    "source_line": 99,
+    "qualification": "The third original is declared -text; this is a byte preservation attribute, not a sanitization."
+  },
+  "indirect_invokers": [
+    "check_published_evidence.py",
+    "build_recovery_index.py",
+    "recovered/selected-revision-registry-sources/restore_objects.py"
+  ],
+  "not_run": "No historical verifier, index builder, restoration script or product code was run.",
+  "indexed_original_to_public_relationships": [
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+      "pointer": "/bundles/4/members/43",
+      "member_path": "reference/older-774-ledger.json",
+      "original_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "published_sha256": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    },
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+      "pointer": "/bundles/7/members/18",
+      "member_path": "reference/older-774-ledger.json",
+      "original_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "published_sha256": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    },
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-9.json",
+      "pointer": "/bundles/0/members/43/members/18",
+      "member_path": "reference/older-774-ledger.json",
+      "original_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "published_sha256": "5b0cc4220999d9e8e7170032ea8fde73ca8b79ab3e6489938ba154afc698ac72",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    },
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-16.json",
+      "pointer": "/bundles/0/members/40",
+      "member_path": "historical-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "published_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    },
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-16.json",
+      "pointer": "/bundles/4/members/49",
+      "member_path": "historical-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "published_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    },
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-35.json",
+      "pointer": "/bundles/2/members/46",
+      "member_path": "history-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "published_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    },
+    {
+      "index": "DELEGATED-EVIDENCE-CHECKPOINT-36.json",
+      "pointer": "/bundles/2/members/45",
+      "member_path": "history-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "published_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+      "qualification": "An indexed original-to-published member relationship; does not bind this member to byte-identical raw source. Only the specifically recorded CP16 archive member was independently extracted and checked in this proposal."
+    }
+  ],
+  "indexed_original_to_public_relationships_note": "The 5b0cc prior redaction has a known non-path false positive; 25cbe3 is its later additive correction. Both remain distinct recorded identities; no historical archive is rewritten.",
+  "related_dynamic_verifiers": [
+    {
+      "path": "delegated/sanitizer-additive-corrections/verify-reconstruction.py",
+      "qualification": "Read-only script consumes RECONSTRUCTION.json and validates corrected member digests; its optional private-original mode depends on retained original archives and mappings. It was inspected but not run."
+    },
+    {
+      "path": "verify_delegated_links_13.py",
+      "qualification": "Reads checkpoint indexes and only selected checkpoint 13 reference members; exact target identities or family names were absent from the eight available selected members. It was inspected but not run; unrelated dynamic references remain out of scope."
+    }
+  ]
+}

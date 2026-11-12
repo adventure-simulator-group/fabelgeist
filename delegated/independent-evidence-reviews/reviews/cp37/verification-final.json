@@ -1,0 +1,112 @@
+{
+  "checks": "pass_except_recorded_qualification_omission",
+  "counts": {
+    "archive_files": 384,
+    "recursive_files": 468,
+    "redacted_members": 21,
+    "path_redactions": 168,
+    "stored_matches": 125,
+    "uncompressed_matches": 134,
+    "union_matches": 134,
+    "redacted_transport_occurrences": 6,
+    "git_objects": 97,
+    "git_path_proofs": 70,
+    "prior_manifest_bindings": 3
+  },
+  "redacted_transport_originals": [
+    "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+    "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac"
+  ],
+  "original_059_checks": [
+    {
+      "path": "evidence/continuation-segovb/ledger.json",
+      "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "git_blob": "ed43c113de9543d04e4d706655d66760574cebe6",
+      "bytes": 9417609,
+      "optional_extraction_compared": true
+    },
+    {
+      "path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "bytes": 21632843,
+      "optional_extraction_compared": true
+    }
+  ],
+  "roles": [
+    {
+      "role": 2611,
+      "historical_sha256": "78c793cfcebd43b9f958c3b20296c89543dcc3eb0daf9b65f3ed2d67405e0a2f",
+      "current_sha256": "78c793cfcebd43b9f958c3b20296c89543dcc3eb0daf9b65f3ed2d67405e0a2f",
+      "historical_material_ranges": [
+        [
+          1,
+          34
+        ]
+      ]
+    },
+    {
+      "role": 2612,
+      "historical_sha256": "3f85d9c18b5a393816c723c1e4e62c623a2d5d5d878ef19b9c5cc61c5fb5d519",
+      "current_sha256": "3f85d9c18b5a393816c723c1e4e62c623a2d5d5d878ef19b9c5cc61c5fb5d519",
+      "historical_material_ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "role": 2613,
+      "historical_sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+      "current_sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+      "historical_material_ranges": [
+        [
+          1,
+          149
+        ]
+      ]
+    },
+    {
+      "role": 2614,
+      "historical_sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+      "current_sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+      "historical_material_ranges": [
+        [
+          1,
+          47
+        ]
+      ]
+    },
+    {
+      "role": 2615,
+      "historical_sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "current_sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "historical_material_ranges": [
+        [
+          1,
+          188
+        ]
+      ]
+    },
+    {
+      "role": 2616,
+      "historical_sha256": "b14bc28d8943746ac65b6c2b3197e56f84a6c04e09c5e799ffab963a390a9ae9",
+      "current_sha256": "240fa5c82a23e1f8a8a49b23f4df83278ee08de0390ef893c531a62ae7bdd5fe",
+      "historical_material_ranges": [
+        [
+          1,
+          43
+        ]
+      ]
+    }
+  ],
+  "baseline_committed_sha256": "decd0b95699edfc1a59039358bc3a171511c2c0199afab8967cfd7169aca3157",
+  "baseline_working_sha256": "28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9",
+  "qualification_document_recorded": [
+    125,
+    0,
+    0
+  ],
+  "interpretation": "125 stored-hash matches; union of stored and uncompressed transport hashes 134; six redacted gzip occurrences of two originals are omitted from the staged qualification. No product execution or source read credit inferred."
+}

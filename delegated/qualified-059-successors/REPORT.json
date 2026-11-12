@@ -1,0 +1,40 @@
+{
+  "schema": "726-059-successor-verifier-stage-v1",
+  "created_utc": "2026-11-12T09:01:08.036650+00:00",
+  "author": "/root/rig_identity",
+  "status": "Fifteen evidence-only successors and qualified integration plan prepared in this stage; publication, source and old verifiers remain untouched.",
+  "crosswalk": {
+    "config": "successors/CROSSWALK-059.json",
+    "sha256": "c6d9ccf4bcfa84ad0eef68e51a5b5a49824b4a1253560b6a0ba22281c485f33d",
+    "helper": "successors/qualified_crosswalk.py",
+    "helper_sha256": "0d09f2ebfcbd887d43159408bd08d9e9705dad2a032806edf1a649654528cd27",
+    "qualification": "The helper pins the crosswalk file, checks original historical transport SHA/length/Git blob, and separately checks reconstructed public SHA/length/Git blob. Historical original and public reconstructed bytes differ. Public verification cannot prove the private redaction operation."
+  },
+  "script_preservation": {
+    "mapping": "SOURCE-MAP.json",
+    "count": 15,
+    "proof": "The deterministic generator checks every original hash and inverts each targeted edit to exactly the original bytes. The independently rebuilt scripts and source map are byte-identical. Each changed assertion remains an assertion and every other original statement is retained.",
+    "qualification": "The helper adds a qualified identity map only for the exact two historical paths; non-target reads and byte assertions remain strict."
+  },
+  "verification": {
+    "receipt": "verification/RUN-RECEIPT.json",
+    "receipt_sha256": "2009c1c04ed71369d0055a0b2d8b7dee44a4a40062e241bc6140304707d77bbc",
+    "exit_zero": 15,
+    "failed": 0,
+    "earlier_helper_v1_receipt": "verification/RUN-RECEIPT-v1.json",
+    "earlier_helper_v1": "verification/qualified-crosswalk-v1.py",
+    "qualification": "The final helper version pins its config SHA and uses a precise path-check count. The prior v1 run is retained for chronology. Evidence checks were read-only, with publication and public reconstruction as separate directories; no old verifier, full evidence driver or product ran."
+  },
+  "negative_read_only_evidence_check": "verification/NEGATIVE-ORIGINAL-REJECTION.json records that the unchanged original top-level bytes are rejected when presented as the public reconstruction.",
+  "semantic_pointers": {
+    "analysis": "SEMANTIC-POINTERS.json",
+    "records": 7,
+    "qualification": "Original private versus public reconstructed subtrees were structurally compared. Each literal pointer still resolves and only its listed 8 or 4 local-path values become privacy markers. Canonical subtree hashes in that analysis are fresh serializations; dynamic references and path usability remain open."
+  },
+  "integration_plan": "DRIVER-INTEGRATION.json",
+  "limits": [
+    "The full evidence driver and other semantic readers have not been run; no lens or historical record was closed.",
+    "No product execution, source builds, product tests, runtime probes, repair, publication edit, user-extraction modification, symlink following or Git history modification.",
+    "Original historical 059 identities remain attributed to that recovered checkpoint, never checkpoint3821."
+  ]
+}

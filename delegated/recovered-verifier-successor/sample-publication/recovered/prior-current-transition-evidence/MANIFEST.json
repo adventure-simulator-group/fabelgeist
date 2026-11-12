@@ -1,0 +1,1075 @@
+{
+  "schema": "726-prior-current-transition-evidence-v1",
+  "transition_sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+  "historical_path": "segovb/CURRENT-TARGET-TRANSITION-20261029-E2755A7.json",
+  "from_revision": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+  "to_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "path_count": 154,
+  "distinct_object_count": 148,
+  "binary_scope_rows": 73,
+  "qualification": "Original transition and target source objects match original handoff; preceding modified source objects and diff reconstructed from pinned Git. Historical scope is not later per-lens closure.",
+  "before_after_rows": [
+    {
+      "path": ".github/workflows/rust-quality.yml",
+      "status": "M",
+      "before": {
+        "sha256": "850183741ff4a1b097b93fc6285055d135558894f5ebf9324b52031cb9aadfc4",
+        "bytes": 35851
+      },
+      "after_sha256": "ff78d8a4594c84a04c7661512c53991103ce9481aa8983a6b6ecff844fa39272"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "status": "M",
+      "before": {
+        "sha256": "5d5151e13dc35afc2ae1c60b19a39ad11284439525a48d207b3ae6257244aa6a",
+        "bytes": 14169
+      },
+      "after_sha256": "b58a2c1ead66ce812466d73c00c6761b9278df272db009204358b54a9b8f60ed"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "status": "M",
+      "before": {
+        "sha256": "c1eedbdf2c145f30bb9da7cc8f8fd02fa22b7ee9d9cd821c49ac5a17c441da09",
+        "bytes": 289499
+      },
+      "after_sha256": "6d43df2de46078b0b4bb892d533d0236e0826350bafa0c85d418cf1e627225e3"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/animation_preview.rs",
+      "status": "M",
+      "before": {
+        "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+        "bytes": 23013
+      },
+      "after_sha256": "d4215e24cb600e610a8530ff4ae62c3b17cbe5fd97343a9ed4e201ee636c3d4e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "status": "M",
+      "before": {
+        "sha256": "cc994bdebe62b8e0da1531c60e9e9cbfd2f3357d798678b930f18fb56f84fa16",
+        "bytes": 9491
+      },
+      "after_sha256": "c5539cf8f28cdc163d8a05ea2689525bf78144011dc10f94fa1195ef2ee2dca2"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "status": "M",
+      "before": {
+        "sha256": "8f76594ec3871a68df2f8e98740aa629e479b1e6fc7a0ad9a63e4e7f029e30a1",
+        "bytes": 13323
+      },
+      "after_sha256": "e39e073fb460cbb76f96bd84b9893defc7bd69af854460c710d5e031a2c302e8"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_morphs/hair.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b8e8d0fa72dee3419d0297a005b1f8dc2d17aa4a85dda08268f5433d4721543f",
+        "bytes": 2234
+      },
+      "after_sha256": "c46f692b569b04811a05fe3773d533e16a5a667fe309dd3ac71514ff80700dd3"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_equipment.rs",
+      "status": "M",
+      "before": {
+        "sha256": "5bf6b375e4fd7df25eda09134cfbd116ea893e21f87a040af51a1aef467c4d12",
+        "bytes": 2837
+      },
+      "after_sha256": "afa7b9e9ca67bfd761840b948c57c4260a7dd84a412629fc700ad885bac24c8e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "status": "M",
+      "before": {
+        "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+        "bytes": 10484
+      },
+      "after_sha256": "715c6e8c127082ff44f8bee6d966f349d69b69bf8c42a7cc40a126b9d93535dd"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "status": "M",
+      "before": {
+        "sha256": "1d811e5d3fdcb27db0dac00b6e6a07580a3619c6cf63a7fefbf8efbdae179536",
+        "bytes": 12743
+      },
+      "after_sha256": "4e65cd862aff1f268f9fedc0a953073acb93c57b0578a9f8e2c8a08ed6b8acce"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/fitted_existing.rs",
+      "status": "M",
+      "before": {
+        "sha256": "01c3a1eee86a351084cb38d1986b901d5a01fed50171c213fd65eb3a1552eceb",
+        "bytes": 2180
+      },
+      "after_sha256": "62dc71a06fee0f6fc1ae9e7f095b8fe5545e4f80e7c1f3d433cc0d124f4ce05a"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/generation.rs",
+      "status": "M",
+      "before": {
+        "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+        "bytes": 3151
+      },
+      "after_sha256": "c4b9cb13067b1ffdfcb86d64c2c90bf9d1aa7a091e040c8fd7881d87d18286e9"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "status": "M",
+      "before": {
+        "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+        "bytes": 11395
+      },
+      "after_sha256": "baa0d6dc589215679602b941a4f94e99d1c375bdb20c7daa582455b4dc41cc2e"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/outfit.rs",
+      "status": "M",
+      "before": {
+        "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+        "bytes": 3358
+      },
+      "after_sha256": "346e63287ddc10e6ec0d3a781c1400f8236bf6c153668930cd70a92563ef3857"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/preview.rs",
+      "status": "M",
+      "before": {
+        "sha256": "f7fa8bef88e0b718991dab2245cce57436b6748186df1769f7fadcef64ceb698",
+        "bytes": 7439
+      },
+      "after_sha256": "26544856ef02f5084c1935c769ebb7df428e5e2383641c547e4959533b36e0c3"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/proportions.rs",
+      "status": "M",
+      "before": {
+        "sha256": "aa675179f3ddceae5646814bfc455eb8f45c96da71051a95324bd2e381ac92af",
+        "bytes": 2853
+      },
+      "after_sha256": "43710ce5f3f1a0ecdc487d413b6b62a6e051f62b6b520ab4d003be6eeb70d640"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/review_export.rs",
+      "status": "M",
+      "before": {
+        "sha256": "e9ae7ed8089bca0317e77661168325bad4467de6bdc6ab5c08696808b15205f0",
+        "bytes": 4873
+      },
+      "after_sha256": "8b5599f2c025ffb581ea32dda9ccb466436ae39df2b149ebcdca38a3912d3ee5"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "status": "M",
+      "before": {
+        "sha256": "91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+        "bytes": 3129
+      },
+      "after_sha256": "97d021c173ee4e80e59ed9c35bac82c48f02e17580fadf5171430c807defcc01"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs",
+      "status": "M",
+      "before": {
+        "sha256": "b70d923027be5cb02b9771a3f8932728114177bc62c8b3b128a21c869cfeb651",
+        "bytes": 5177
+      },
+      "after_sha256": "13bd319d2c821d4e6967507a78dae80fb5225509f7faf40180c245f4d96e2661"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/tests/skeletal_proportions.rs",
+      "status": "M",
+      "before": {
+        "sha256": "60560353f21b023e6af79358bba4dcaa7e0b095a123bd157eb0fbec1d41c5414",
+        "bytes": 6030
+      },
+      "after_sha256": "75a75051d548f799e1365c3d18475b81a745e0c4dc9154736fea4690eeac7cda"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "status": "M",
+      "before": {
+        "sha256": "9e7cc69882008ce20f35864f9df76654679d000d14b798c70232dee9190c65bb",
+        "bytes": 71688
+      },
+      "after_sha256": "423abf723a262ebe836e619d7ae78e7307715eeb0a6df531a58967134d312e74"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "status": "M",
+      "before": {
+        "sha256": "fa0524663e7887d03d177c6fe99de81edd2eeb7b5c402ab1c0037ab953e788c7",
+        "bytes": 6346
+      },
+      "after_sha256": "b927dd93f8476ed803e3d1fdc5af512987347a9aed81f4635727da7ff3544e49"
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "status": "M",
+      "before": {
+        "sha256": "5fc4c31e00f464e255fd56f5681ae6d255646f90c74ab7c3bef4fd1a6c2a865b",
+        "bytes": 31766
+      },
+      "after_sha256": "3f91b54ab8bd4fe74fac9c3cf7201814bec695dbb145b4a0f06cf2fc88f6b11c"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.lock",
+      "status": "M",
+      "before": {
+        "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+        "bytes": 170674
+      },
+      "after_sha256": "74e0c31df7a087fda809c487cdb7ce84ca5d0831e6c9274b7eed3fce2b1bb25c"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "status": "M",
+      "before": {
+        "sha256": "55bc5dad2b9cc29b536931350e93450876d6fd3ea3f9e8a105e6a32fa4b765d7",
+        "bytes": 768
+      },
+      "after_sha256": "0f68663f7ede2ed9f24e7f893f9628888351b3df478fa1c5c2394fd65b4dd4df"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/README.md",
+      "status": "M",
+      "before": {
+        "sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+        "bytes": 6833
+      },
+      "after_sha256": "2e0afe7dfd02e87b5d79ce5c81d27654a6b55ca4a0ea2b56b8ef0014c9ec380c"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/character.rs",
+      "status": "M",
+      "before": {
+        "sha256": "2d2357141ae8fa55cdb6e758723986a13dae79c775a82cdb7d4d79615e1076ed",
+        "bytes": 10240
+      },
+      "after_sha256": "582999d2d449669acea9251cf4f2c64ddcc4a876d3834bddca1efa1edba6afcc"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/character/skin.rs",
+      "status": "M",
+      "before": {
+        "sha256": "1c89d671f5f028a6d29f35ee160591ab974b84417ffab4037f886ed996940b68",
+        "bytes": 3858
+      },
+      "after_sha256": "62b86b89435aeeffe4fe8ad5f034ce5ab5736dfb15b66e4f08afc21337e41697"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/character/vertices.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "29b48faa4e75d7d03b64072a24aa8305ecf2e042011dfb2660c4e4052b0ce1b1"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives.rs",
+      "status": "M",
+      "before": {
+        "sha256": "315f5296ef9ba45169384bc17e9157b66cb1224bedfb4962a04e32821afc63c4",
+        "bytes": 6805
+      },
+      "after_sha256": "9fdc1ccc90cc6a1eb349ee3a95824ff101c00165603e21af9060850034ec843f"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives/archive.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "33931272145f9a4dbcbf5fc42dbba2be30c24a148844c8ff70758559bad317df"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives/fixtures/values.txt",
+      "status": "A",
+      "before": null,
+      "after_sha256": "239d7ca292ce5758bf356779b276088da70e4d1ef63751d405a02896172b5a6e"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives/import.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "89d8dacc991b53cba7e80189851aadf2ca22cd338ed1111301c9c708effaecf4"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives/import/error.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "65fc8347e4ccb3097980a64870537dbf68edc46c5e13df17a41610d889670462"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives/input.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7aab7cf313d2341a45df98bb77ece002b9a36afc7719eaf9db3a67bb5cf5ccee"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/correctives/value_tests.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "9e504bfca26750ad43cfba06ba97f7ddb8ff918e4f0d1b656c5aa3260444dff0"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/lib.rs",
+      "status": "M",
+      "before": {
+        "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+        "bytes": 1589
+      },
+      "after_sha256": "f760d4ca6d1b6e6c9909be505ee450addca82166bc499f403db08c897d69836d"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model.rs",
+      "status": "M",
+      "before": {
+        "sha256": "40ffb38f7e31078dc362350d86467b2a82568d14153ad3e7eef940961b828f84",
+        "bytes": 23205
+      },
+      "after_sha256": "519fa046f1efe05c4cf36c5780ae989d72643ea47ed72f8dcf203d10e00ddd60"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model/upload.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "504d879c9470db4f8b64f77e5f90d26d5f9ae6588d5f2bb5b670da18c49ef426"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model_def.rs",
+      "status": "M",
+      "before": {
+        "sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+        "bytes": 11944
+      },
+      "after_sha256": "cb01df8231eddea828b12c746f2093e89f00165903278e5c5309cb224aa77292"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "status": "M",
+      "before": {
+        "sha256": "add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+        "bytes": 8400
+      },
+      "after_sha256": "321893cb91ff943531d0a5986532776c49442ec5c5c6435b2458dbf12c0e7385"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model_def/layout/matrix.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "8f2b98396bcd4d90d74ad084c0d622cd4e6f2c4dfd036a32b748b0a93f469254"
+    },
+    {
+      "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "status": "M",
+      "before": {
+        "sha256": "d80611df9dffc2c832cb7a11f6aca369a90a3c6b53c5fe7f2afad3eb8770685f",
+        "bytes": 4049
+      },
+      "after_sha256": "3227f98e52aea4fec48ded79f5280e207a12e9f3f667bcf5eab51dc38c8bac03"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.lock",
+      "status": "M",
+      "before": {
+        "sha256": "32956d36e5397e3492b5de1e1b8fc6b13fef5cb25077cb6f49e0793f918304c4",
+        "bytes": 151648
+      },
+      "after_sha256": "33fe471032dbeeb221003b375f903a389269e9e7cfcf37d1118e2035870e3d89"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "status": "M",
+      "before": {
+        "sha256": "8ef22429cd59cffcebbdcb08b0b646a6f5b0714736087c0787ddd4d417518599",
+        "bytes": 746
+      },
+      "after_sha256": "ce2e0dc6c3223dbcb146cc2d34f40374f5f0c3903350e244d588a9afc7e9a56a"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/README.md",
+      "status": "M",
+      "before": {
+        "sha256": "4f2f1c1a0cade2d14fff450e2cab945168330a0f9819d17ae9cd7cd85d2b9290",
+        "bytes": 983
+      },
+      "after_sha256": "3c72adb3ed071b243b68d523cfc86d0ca8c2cb59c1abb428ed601d46cdc3a6a2"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/member-count.md",
+      "status": "A",
+      "before": null,
+      "after_sha256": "c9488482d37ce7259d56d5f89e858aff9c0f348ba2d6d9efa7db06e0cdf552ed"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+      "status": "M",
+      "before": {
+        "sha256": "2fff3d70f725ca22afb7d9f4af1e11a67779e920302ffbd1052d29066b789fad",
+        "bytes": 722
+      },
+      "after_sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+      "status": "M",
+      "before": {
+        "sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+        "bytes": 8700
+      },
+      "after_sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/metadata/tests.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "056fa19efdea2ca4d6747c7e4e0c686f2a89abe71ddb3273501cffec61eba535"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "e66ce25b7fac744ec37d8822741f7600771cf54697192434761c2084c5a11485"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/values/fixtures/values.txt",
+      "status": "A",
+      "before": null,
+      "after_sha256": "401b0c3d428a645f6e0bf1459c0d9416f4826d9899dc987955b3ecf07e46d4a5"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npy/values/tests.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "c9da1eb2904768590b7a47d47e037e82ea0f7ec2671f35059801a790a9f7b40b"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+      "status": "M",
+      "before": {
+        "sha256": "fd06a1fe88a6b55620cbeb9015e09f4f308114e77b5c5b051df26737dc458049",
+        "bytes": 6747
+      },
+      "after_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "status": "M",
+      "before": {
+        "sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+        "bytes": 8252
+      },
+      "after_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "1ea9cfec33fc2ed93d94faf3fe03c4a67f2048061101675bd0ef6057c80c4833"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/fixtures/compression.txt",
+      "status": "A",
+      "before": null,
+      "after_sha256": "d73cea687dcb4182b8d8bbac093f459b39af2f2d5d61849e50a84843026076b1"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/names/fixtures/lookups.txt",
+      "status": "A",
+      "before": null,
+      "after_sha256": "721137e503f66ca5bb8b11b93f22a2be54f161e7df6d4b11d594f9ae1b5abe26"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/src/zip/names/tests.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "991b70d710a07a89d39beec179344108dd3b114a0ced78b7202b3d7670d45196"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/beyond-initial-capacity.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "3b5949b3d68ecfa5c3e5c26bf7b9bbc53c1d4f6e6feaad3c2c3c2028521f8dd7"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/central-name-overrun.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "5b3e53d72d19d07a92c2a75a4c6f2ff82feab1cc04aa2c4a3ee596a392404a8f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/duplicate-count-2.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "78c4ecfe71393da1133949870693a90c21de881078c7df0500c4fe1e02b65ada"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-0.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "9e6ffd9c9d94dbc411cdff5dbcfcd9f65b965016818f73ed94c089d977240d38"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-1-local-mismatch.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "f20b3cff710f75a0694b7f7e2f7c41aae1942b498aa62cf7bd99137d33dc924e"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-1.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "5775198de438022def6175d3ba76dc5dc7f51df9f5362ec01f91785deab7bcb3"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-2.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "87a56751a1acfb95c7ad28f362c975dbad24d6d14084406082b409e44dd0ba44"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-3.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "45da40ec9c834d52414da74f7f29c38d07166631bc4cba4cb180b43f37eb02f5"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-4095.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "fa8fa5976dee0bdd05402688d3679c93fbc45170dd6c55a4d85db38c59be480b"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-4096.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "3b9451fa9dea743b7a5b96417c1a7daa9c3b596312cf515b9e534e940b1e8238"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-4097.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "041ee59cfbe4ec54200d65218d882e9ec21854227da665184070111d3b4ca077"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-65534.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "c69c0bbcf0ba5b5a83688f63e884eecb93ade198520003e94889d708f0fe57ac"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-65535.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "607857112c6985213205b4eb1e97e008911404e5dc38ac44b0317ac91bb632e2"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-disc-count-disagrees.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "8aedd90d50c1a1ce017cc4dfc8b6c28c674756d9893869858d5c773ee169afb4"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-large-central-mismatch.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "000dc986c04595aef0761668e1da588df5531b0a389cca835c21e904cfc90e05"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-large-partial-directory.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "e4b04ff866e5012d02ef49b06ffa54327e27779ee3b7d763c69fe0a9167aa349"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-zero-invalid-name.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "ffe62654bf90c9f4f7fe9c133455b5616d2b9d2aa493b2eaf176086e9e3495e7"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/ordinary-zero-then-later-end.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "c6807562b18a70e523ed9e59e6fa65e995523853f9129bd0936818395f64cd06"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/saturated-without-locator.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "22027f4d24f02ca5e569a75d15fd65a7907c017fd76fdfc9824860ff8fe31547"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zero-without-central-directory.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "a4b25cf2672be3dd0e7e1e5c0479b215d2ef8ff17bb0f2110a6bbc5bfd90db27"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-0.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "d0fd92b945ecca1c1a6e71adb9c23c48a76771a61b156989779e6daea9eabbcd"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-1.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "e9979586fca875d2851b0dc2cbc5eaaa66cf803084e0067e53ffaad1fbb6f01b"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-18446744073709551614.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7e145d9eff3a03640638529f1f8e2cd9cd85a4f9995f79b776bc183b361b0238"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-18446744073709551615.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7c9adfb82e29c2085de97f20242d89201ad200052e9c5e45485e149d96be3cae"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-2.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "ce90c795d048d8a92fa5c38d56db0b39f179389773c924eefd5964506d1db4ad"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-3.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "44dd89d6affb970989714f8c9dcb26260264c22a987533223e89c9c5cd392cfb"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-4095.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7d030256589e498929c950c20116cf8b3c9b96aab078a17d5505490690d3c2d7"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-4096.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "51e416600d1c2025f9de94b174d1c7c3cd7aecc6fd71b567cc341dc055bdefd4"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-4097.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "3c9d9c64971a8b1a96dbb167a0ee835e707c63e1192d3933a93002063fffc087"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-4294967295.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "33b931cc11b9646dd935904c61aa465e225cec2ed318fd3f6c3e91a404d0c759"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-4294967296.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7423d12b9215abc0a5af9bd0cbdd4784c96dce680b7f49e54350ce9f376d9ebd"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-4294967297.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7a36b886efb93598cb62413ecf4e339b05d46fd53851a3d94f008083fdda8392"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-65535.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "d22ae67b59e258e374d1a24e069a288360052bbd16478d7c9252f13d2fded828"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-65536.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "589360340316493c43248ca815e4f225d697b5c860b8f3611498ec72d22b0fc0"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-9223372036854775808.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "6821bef43aa886423f94857c330008865386d21bb93713c1e3670331a165403f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-disc-count-disagrees.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "91b839537347e296b3ca5b75c543a2788f7637119516136f9d2d1a41e5d7931f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-end-mismatch.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "c8d3f9adac59e04e1d3e101fc48ba1cb2b6f7a16d1ff180e6f578dc2f26b2de3"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-locator-mismatch.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "3967f6b345dc8e9a9f8a83810cdf3a7ff305bc3ffec14852da6092f78b0d62cc"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-offset-trigger-zero-count.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "095331b29f8c499f238ce3b2f45ad6775a36518120b88e9d82d3623bdcc278a1"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-offset-trigger.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "71a8e5fa1a7166122cfca65e7e102edaabf96f6b1feefada0e8e11121c1cd8ae"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-ordinary-not-triggered.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "767c780d29c127f2cbaac6d10b0ac3deaa0a4de63d91196418f3b7534db09341"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/member-count/zip64-record-outside.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "96f6e65b37e16c1815e02baec13916a22649446e4f299e9499f8a18e988d7917"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/central-name-overrun.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "5b3e53d72d19d07a92c2a75a4c6f2ff82feab1cc04aa2c4a3ee596a392404a8f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/central-second-is-local.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "491fa0cdcace07a75314321b669fb70281cdec4b47a601643f58086ff195bf1b"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/deflate-central-stored-local.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "25c2f36da87225fa12b16f4332f31188a7c827ef10e4d60f380968eabf12035f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/different-local-name-extra.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "0a66c7f8b14d1091de0b98805bc5a2ae0b055b60bda98159ac6fd23b0ba4a03e"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/duplicate-members.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "78c4ecfe71393da1133949870693a90c21de881078c7df0500c4fe1e02b65ada"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/end-window-excluded.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "acf93c8010d25ccce2c5131abe8a18b0316b66bb89a3c628ff73512eaa6bdd9a"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/end-window-inclusive.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "4dc5ab5ba28cdb672bb49ddd50dfe8024e7e95f254ddec0c5f7a98ada77b1fa4"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/end-with-comment-candidate.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "41e4e2e8f70eab8feef6c0b2bf6e9f3957e279dfc06f3c84f52bee5482497595"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/local-is-central.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "9c241044f519f85cd8f7296e96229a41ec16503b3ba9f612e8f50e9f8bafc5a4"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/nearest-end-is-empty.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "c6807562b18a70e523ed9e59e6fa65e995523853f9129bd0936818395f64cd06"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/nearest-end-selects-second.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "446a12b6c09d4bcc3dfce5048084d2f19ec8eca371e2301b20c7688c035b13d7"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/short-end-no-locator.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "22027f4d24f02ca5e569a75d15fd65a7907c017fd76fdfc9824860ff8fe31547"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/stored-central-deflate-local.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "42e27972b3bb2ca6ba05ae1ea61f9ac264d39eac19e005f92c21ee7e770173f1"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/stored-deflated.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "87a56751a1acfb95c7ad28f362c975dbad24d6d14084406082b409e44dd0ba44"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/unknown-central-3735928559.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7b0edd65308361819796b44fb25066b30c332d0877cf67e981bdea5158bbe652"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/unknown-local-3735928559.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "6fb3d8b882d49be240d2e53f68be96f3ec185dcc1875cedc62f2137e4d35606a"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-count-saturated.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "e9979586fca875d2851b0dc2cbc5eaaa66cf803084e0067e53ffaad1fbb6f01b"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-end-known-wrong.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "4273f05ba8df62deb9e7be2884b523280f62f9afe0cad251039c4f1f5f7d201c"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-end-mismatch.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7bb7f201b688dd9f3e2be4f01b1a054935fdf905cdf468c4c4ef41038f12fd98"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-entry-extra.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "a39dc458a02eef90b7a0b0b142e5f36f92df1a4b73d86d51c664697f3d56bcbd"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-locator-known-wrong.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "7914f530911f232a788fd36487925fba24f54423e9672c6322c65e746588c0f2"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-locator-mismatch.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "e63da0d073384e204c2ed2ee18e0b07e0e87cec7e8e0baafde2a870e7b84e1c5"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-not-triggered.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "d525736b9fadce398be19ca27d2ae24fb53956a1d86ddef8eee27cfc95b5866f"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-offset-saturated.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "068c2a8bc00d3bf3c78996528b46a9638efb807726fcbf8d5fc8138e288b584c"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/record-kinds/zip64-record-outside.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "23df33a77d167db4d4adfd56b5ecc9c8b9d77296e050dd7716bf3d639fb514d3"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/bad-deflate.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "185a924e2234dc143a941f004962096e93cd3ebd8e485a481fc98ad1a9a28f00"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/corrupt-local.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "1e83ab4a2a8fe02585f34a846783d98ed182d3d0ecf97ac7e4994b3013e43961"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/deflated.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "e82d01ac9ba89e54ab0ab232745227b8b570c5ae9d19b282105b4b6f04033ac0"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/no-end.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "f7c99c614794d75ae1ae4bf7e3bcb71c2848c7dcd8fc7806a77b975d0a851e18"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/past-end.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "9c8b6cf29617fdeea8293a5f7b628937da502ae0e59ad32af7c90fd3e5ef90e0"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/stored.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "4ded61d7d77fbcce1fe2242c94c991033dacd62bfc0bbdc91cc80bd4492e318d"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/fixtures/zip-errors/unsupported-method.zip",
+      "status": "A",
+      "before": null,
+      "after_sha256": "0721a6485ab4293996be0df6b35b31201f2b9b7e6071b11e148f376f77826ce8"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/member_counts.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "a94e660e6dc6c81e118d9271e7688e784d770fa572d6656fb886c3d669a232f7"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/npy_metadata.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "f3e74aa83bd778454d84ac0db2de41a1803c7fd40899caaaa8fbdaea2a766d16"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/record_kinds.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "69bcfa97928a9d376cc26bd7945bfebd8a769c48b4fe6f7b4690544d6c52deb8"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/zip_compression.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "a7868f4625d88206d37a52c6674da190af8f899cba4c3cccb72dbe0df811fa23"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/zip_errors.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "bef087f9ba1c49676479978b296644b5b1340f9470b85f16852cbba5b9b115a5"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/tests/zip_extents.rs",
+      "status": "A",
+      "before": null,
+      "after_sha256": "39c89a6146732d5b5742684b1a257cdc9613d50c607b32a90cea5fa6e02b33c4"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/zip-extents.md",
+      "status": "A",
+      "before": null,
+      "after_sha256": "fddec59dc23c3bf3ee4650daf0cd74200f5c5f740c9656a02f43e7772279fb6b"
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/zip-reader-errors.md",
+      "status": "A",
+      "before": null,
+      "after_sha256": "2250d69f5949ceedadfb81e3c0dfd9ad82c321531d704b5d85b24197e9ae703d"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/skin.rs",
+      "status": "M",
+      "before": {
+        "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+        "bytes": 7326
+      },
+      "after_sha256": "511a5e1b71d217397c492175783b8613d026c2e54af7a7c092560a31d75c2b6e"
+    },
+    {
+      "path": "crates/fabelgeist-rig/src/table.rs",
+      "status": "M",
+      "before": {
+        "sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+        "bytes": 3011
+      },
+      "after_sha256": "330da7b3558ef374c2d60b787e0d32870a6b0b6f338f2f2ebb25f5b4c18ec511"
+    },
+    {
+      "path": "rust-quality-baseline.toml",
+      "status": "M",
+      "before": {
+        "sha256": "8da5ee46241fe574e76a0b67391c30e5287f90a228995456a39b15cf00701262",
+        "bytes": 331718
+      },
+      "after_sha256": "4b5be77ae24e14888a30200538b95510c12baa05efdcddb9169fc67debf0b531"
+    },
+    {
+      "path": "rust-quality.toml",
+      "status": "M",
+      "before": {
+        "sha256": "9a3738a7916a3edb8ebf501345d9815aef9f5fe18458f6ac5231c20a7e7e5030",
+        "bytes": 40694
+      },
+      "after_sha256": "5b32c28d2e4481b30ec5869b893c1e022415b7988322ee480300abdc6d2cf3a5"
+    }
+  ],
+  "git_diff_sha256": "34bd9c73bfd6b6b356c9b5b96993248c8d557406564eec3b20eb752e35ade6f7",
+  "modified_path_count": 45,
+  "before_distinct_object_count": 45
+}

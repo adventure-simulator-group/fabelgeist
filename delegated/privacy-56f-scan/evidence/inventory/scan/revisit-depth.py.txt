@@ -1,0 +1,62 @@
+import collections,datetime,gzip,hashlib,io,json,os,pathlib,pwd,re,subprocess,tarfile
+p=pathlib.Path('<redacted-local-evidence-directory>');c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';home=os.fsencode(pwd.getpwuid(os.getuid()).pw_dir);username=home.rsplit(b'/',1)[-1].lower();sha=lambda b:hashlib.sha256(b).hexdigest();limit=128*1024*1024;cached=collections.OrderedDict();space=0
+patterns=[('user-home',re.compile(rb'(?<![A-Za-z0-9_])'+re.escape(home)+rb'(?=[/"\'\s\\\x00]|$)')),('other-home',re.compile(rb'(?<![A-Za-z0-9_/])/(?:home|Users)/[A-Za-z0-9._-]+')),('temp',re.compile(rb'(?<![A-Za-z0-9_/])/tmp/[A-Za-z0-9._-]+')),('windows-user',re.compile(rb'(?i)(?<![A-Za-z0-9])(?:[a-z]:[\\/]+Users[\\/]+)[A-Za-z0-9._-]+')),('root-home-candidate',re.compile(rb'(?<![A-Za-z0-9_/])/root/(?:\.codex|\.cache|\.local|tmp)(?:/|$)'))];occ=[];unresolved=[];stats=collections.Counter()
+def remember(key,func):
+ global space
+ if key in cached:cached.move_to_end(key);return cached[key]
+ b=func();assert len(b)<=limit
+ while cached and space+len(b)>256*1024*1024:
+  _,old=cached.popitem(last=False);space-=len(old)
+ cached[key]=b;space+=len(b);return b
+
+def read_gzip(b):
+ with gzip.GzipFile(fileobj=io.BytesIO(b)) as f:v=f.read(limit+1)
+ assert len(v)<=limit;return v
+
+def resolve(chain):
+ first=chain[0];body=remember('git:'+first['git_blob'],lambda:subprocess.check_output(['git','show',c+':'+first['path']]));assert sha(body)==first['sha256']
+ for step in chain[1:]:
+  if step['kind']=='gzip':
+   key='gzip:'+step['stored_sha256'];assert sha(body)==step['stored_sha256'];body=remember(key,lambda:read_gzip(body));assert sha(body)==step['decoded_sha256']
+  elif step['kind']=='tar-member':
+   digest=step.get('stored_sha256');assert digest
+   def getmember():
+    with tarfile.open(fileobj=io.BytesIO(body),mode='r:') as t:
+     m=t.getmembers()[step['index']];assert m.isfile();return t.extractfile(m).read()
+   body=remember('member:'+digest,getmember);assert sha(body)==digest
+  else:raise ValueError('unexpected chain step')
+ return body
+
+def safe(name):
+ b=name.encode('utf-8','surrogateescape');return '<redacted-name-sha256:'+sha(b)+'>' if username in b.lower() or any(p.search(b) for _,p in patterns) else name
+
+def walk(body,chain,depth):
+ stats['views']+=1
+ if depth>18:unresolved.append({'chain':chain,'reason':'additional depth exceeds 18'});return
+ if body.startswith(b'\x1f\x8b'):
+  try:
+   v=read_gzip(body);walk(v,chain+[{'kind':'gzip','stored_sha256':sha(body),'decoded_sha256':sha(v),'decoded_bytes':len(v)}],depth+1)
+  except Exception as e:unresolved.append({'chain':chain,'reason':'gzip error','error_type':type(e).__name__})
+  return
+ if len(body)>262 and body[257:262]==b'ustar':
+  try:
+   with tarfile.open(fileobj=io.BytesIO(body),mode='r:') as t:
+    for i,m in enumerate(t):
+     step={'kind':'tar-member','index':i,'name':safe(m.name),'type':'file' if m.isfile() else 'directory' if m.isdir() else 'other'}
+     if m.isfile():
+      if m.size>limit:unresolved.append({'chain':chain+[step],'reason':'tar size limit'});continue
+      data=t.extractfile(m).read();step.update({'stored_sha256':sha(data),'bytes':len(data)});walk(data,chain+[step],depth+1)
+     elif not m.isdir():unresolved.append({'chain':chain+[step],'reason':'non-regular tar entry'})
+  except Exception as e:unresolved.append({'chain':chain,'reason':'tar error','error_type':type(e).__name__})
+  return
+ norm=re.sub(rb'(?i)\\u002f',b'/',body.replace(b'\\/',b'/'))
+ for name,pattern in patterns:
+  for m in pattern.finditer(norm):
+   if name=='other-home' and m.group()==home:continue
+   occ.append({'type':name,'chain':chain,'content_sha256':sha(body),'normalized_offset':m.start(),'line':norm.count(b'\n',0,m.start())+1,'matched_prefix_sha256':sha(m.group())})
+
+prior=json.loads((p/'recursive-prefix-2000.json').read_bytes());errors=[e for e in prior['exceptions'] if e['reason']=='nesting depth exceeded'];assert len(errors)==65
+for error in errors:
+ try:body=resolve(error['chain']);walk(body,error['chain'],error['depth']);stats['revisited']+=1
+ except Exception as e:unresolved.append({'chain':error['chain'],'reason':'resolve error','error_type':type(e).__name__})
+result={'schema':'726-depth-revisit-v1','commit':c,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'input_exceptions':len(errors),'stats':dict(stats),'occurrences':occ,'unresolved':unresolved,'limits':'Only the 65 depth-limit chains from prefix 1–2000 were revisited, to depth18, with 128MiB per expanded member. Does not claim coverage of suffix or unsupported encodings.'};(p/'recursive-prefix-depth-revisit.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'revisited':stats['revisited'],'occurrences':len(occ),'unresolved':len(unresolved),'sha256':sha((p/'recursive-prefix-depth-revisit.json').read_bytes())}))

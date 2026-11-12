@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+"""Read-only cross-check of selected registry row and Git evidence."""
+import hashlib,json,pathlib,subprocess,sys,tomllib
+p=pathlib.Path(__file__).parent;proof=json.loads((p/'registry-identity.json').read_bytes());commit=proof['original_archive']['committed_revision'];expected=proof['official_index']['registry_checksum'];sha=lambda b:hashlib.sha256(b).hexdigest();blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();get=lambda s:subprocess.check_output(['git','show',s])
+web_bytes=(p/'official-index-web-row.json').read_bytes();local_bytes=(p/'local-index-row.json').read_bytes();assert sha(web_bytes)==proof['official_index']['row_sha256'] and sha(local_bytes)==proof['local_index']['selected_row_sha256'];web=json.loads(web_bytes);local=json.loads(local_bytes);assert local==web and (web['name'],web['vers'],web['cksum'],web['yanked'])==('serde-saphyr','1.2.0',expected,False)
+archive=get(commit+':'+proof['original_archive']['committed_path']);assert len(archive)==proof['original_archive']['bytes'] and sha(archive)==expected and blob(archive)==proof['original_archive']['git_blob']
+for k in ('historical_lock','current_pinned_lock'):
+ entry=proof[k];lock=get(entry['revision']+':'+entry['path']);assert sha(lock)==entry['sha256'] and blob(lock)==entry['git_blob'];row=[x for x in tomllib.loads(lock.decode())['package'] if x['name']=='serde-saphyr' and x['version']=='1.2.0'];assert len(row)==1 and row[0]['checksum']==expected and row[0]['source']=='registry+https://github.com/rust-lang/crates.io-index'
+if '--cache' in sys.argv:
+ idx=pathlib.Path.home()/'.cargo/registry/index/index.crates.io-1949cf8c6b5b557f/.cache/se/rd/serde-saphyr';assert sha(idx.read_bytes())==proof['local_index']['full_cache_sha256'];copies=list((pathlib.Path.home()/'.cargo/registry/cache').glob('*/serde-saphyr-1.2.0.crate'));assert any(f.read_bytes()==archive for f in copies)
+print('PASS: selected public index row, committed archive checksum, 6533 and 95e root locks'+(' and original local cache copy' if '--cache' in sys.argv else ''))

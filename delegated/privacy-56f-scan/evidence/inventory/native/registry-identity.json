@@ -1,0 +1,66 @@
+{
+  "schema": "726-serde-saphyr-upstream-identity-v1",
+  "created_utc": "2026-11-12T09:04:58.113565+00:00",
+  "package": "serde-saphyr",
+  "version": "1.2.0",
+  "official_index": {
+    "url": "https://raw.githubusercontent.com/rust-lang/crates.io-index/master/se/rd/serde-saphyr",
+    "web_tool_observation": "Public rust-lang index row accessed via cached web response, reported crawled last week; exact row copied to official-index-web-row.json. Direct crates.io API and static crate URL were inaccessible via that tool.",
+    "row_file": "official-index-web-row.json",
+    "row_sha256": "d94d809133f3e08c618170f4576521b80aeb3f783903184bcee36a5559cf9599",
+    "registry_checksum": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+    "published_utc": "2026-08-30T11:49:53Z",
+    "yanked": false
+  },
+  "local_index": {
+    "selected_row_file": "local-index-row.json",
+    "selected_row_sha256": "d94d809133f3e08c618170f4576521b80aeb3f783903184bcee36a5559cf9599",
+    "full_cache_sha256": "ec6effff18eb067455f287de061d2d87c1874cac11ba16b76bb642d8aa352745",
+    "full_cache_bytes": 123414,
+    "selected_row_parsed_equal_to_official_web_row": true
+  },
+  "historical_lock": {
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "Cargo.lock",
+    "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "git_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+    "version": "1.2.0",
+    "checksum": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823"
+  },
+  "current_pinned_lock": {
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "path": "Cargo.lock",
+    "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+    "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+    "version": "1.2.0",
+    "checksum": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+    "qualification": "Verified in publication repository containing pinned commit. An earlier attempted lookup from a different checkout lacking the commit produced an ambiguous failure and was incorrectly reported as absence; that claim was withdrawn. Lock presence does not establish active features."
+  },
+  "original_archive": {
+    "committed_path": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+    "committed_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+    "bytes": 620253,
+    "git_blob": "12ad69ed448946e412f03dbf3960a45734bd96ca",
+    "registry_checksum_matches": true,
+    "local_cache_copies": [
+      {
+        "bytes": 620253,
+        "sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+        "equals_committed_original": true
+      }
+    ]
+  },
+  "reconstructed_archive": {
+    "sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a",
+    "bytes": 618462,
+    "variant_packet_manifest_sha256": "49ea3e759aec5216a60b9401566da9dfde2c09834797e3c619c43f1b54d8e06f",
+    "registry_checksum_matches": false,
+    "qualification": "Reconstructed archive, not registry-checksummed original."
+  },
+  "limits": [
+    "The exact locally preserved archive matches the official index checksum, supporting its published registry identity subject to hash assumptions. Direct live download was not established.",
+    "Public source listing is historically indexed; no assertion that its path owner is the current user.",
+    "No Cargo resolution, dependency execution, or product verification."
+  ]
+}

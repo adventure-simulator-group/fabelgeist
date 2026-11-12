@@ -1,0 +1,1545 @@
+{
+  "schema": "726-059-legacy-opaque-archive-qualification-v1",
+  "qualification": "These inner content identities were not recursively indexed in their legacy checkpoint. They are supplemental and excluded from all corrected indexed counts. Original and public parent hashes remain separate; the public verifier cannot inspect the CP7 local original.",
+  "containers": [
+    {
+      "checkpoint": 2,
+      "public_archive": "delegated/hair-primitives-evidence.tar.gz",
+      "public_archive_sha256": "6800c1550ea47083da398f18bb7afc21e92bd5536a53a93e13287dd59e8fc2ca",
+      "member": "rayon-1.12.0.crate",
+      "original_stored_sha256": "fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d",
+      "original_stored_bytes": 183391,
+      "public_stored_sha256": "fb39b166781f92d482534ef4b4b1b2568f42613b53e5b6c160e24cfbfa30926d",
+      "public_stored_bytes": 183391,
+      "original_tar_entries": 127,
+      "public_tar_entries_visible": 127,
+      "after_last_visible_header_offset": null,
+      "after_last_visible_header_error": null,
+      "original_transport_inner_matches": []
+    },
+    {
+      "checkpoint": 5,
+      "public_archive": "delegated/crate-metadata-evidence.tar.gz",
+      "public_archive_sha256": "28caec6f316245f2ee8b11a78e98de5a02666bd30cbf724aba7894be93b7c9ea",
+      "member": "historical-059/parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2.crate",
+      "original_stored_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "original_stored_bytes": 260248,
+      "public_stored_sha256": "ac9999039f74cd73c03158cddfe4362991703c74efe5ce5c8073026f80a5e48c",
+      "public_stored_bytes": 260248,
+      "original_tar_entries": 87,
+      "public_tar_entries_visible": 87,
+      "after_last_visible_header_offset": null,
+      "after_last_visible_header_error": null,
+      "original_transport_inner_matches": [
+        {
+          "member": "rawzip-0.5.2/Cargo.toml",
+          "original_stored_sha256": "4d2919acc13d5d357dd8e33f20221a05835e868ebdeee513fa32cf073e5fc4a5",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/Cargo.toml",
+              "bytes": 2196,
+              "sha256": "4d2919acc13d5d357dd8e33f20221a05835e868ebdeee513fa32cf073e5fc4a5",
+              "git_blob": "ef0c5f22aa5766503187f361041ffc331944f5d0"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/archive/reader.rs",
+          "original_stored_sha256": "7c5206169c0fd705d1894898f269df2494edb53f264e0c83ad31c7078b68adec",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive/reader.rs",
+              "bytes": 29780,
+              "sha256": "7c5206169c0fd705d1894898f269df2494edb53f264e0c83ad31c7078b68adec",
+              "git_blob": "adcef0c04bb6d777b045299bd058ead9468442ad"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/archive.rs",
+          "original_stored_sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/archive.rs",
+              "bytes": 64320,
+              "sha256": "fc0c64b2ced501331ff9240cbe7868d7c03650c7ed4bf9d3b30ca7185f5579df",
+              "git_blob": "feab9bd99b603eca9a1ea0d7eb4507bdaadc5c7e"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/errors.rs",
+          "original_stored_sha256": "073f7132ea371edee17e2820b504c32bff7242b31e58aa6ef8ed571fc6c49a72",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/errors.rs",
+              "bytes": 6485,
+              "sha256": "073f7132ea371edee17e2820b504c32bff7242b31e58aa6ef8ed571fc6c49a72",
+              "git_blob": "c7b5d1af7f9978485ec14d4511d871ee451b1834"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/extra_fields.rs",
+          "original_stored_sha256": "062e6d801094ede25fdd9dbbb50c6119546350e71d2bafb2dd76072034eaa419",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/extra_fields.rs",
+              "bytes": 13882,
+              "sha256": "062e6d801094ede25fdd9dbbb50c6119546350e71d2bafb2dd76072034eaa419",
+              "git_blob": "9f960462e9fd62717c345ba897ac7ec53cff8672"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/headers.rs",
+          "original_stored_sha256": "e07bb8283b1e472869fd1f0550d3b7742ec7b4d8915948d69911db4a2fca5898",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/headers.rs",
+              "bytes": 5159,
+              "sha256": "e07bb8283b1e472869fd1f0550d3b7742ec7b4d8915948d69911db4a2fca5898",
+              "git_blob": "5ad7c82125943d846a2eb49dc314aaf9762863b4"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/lib.rs",
+          "original_stored_sha256": "4b6b199908aae9caafa9c3a475449d2b6701e58f03601b5177ab7803f6abb5cd",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/lib.rs",
+              "bytes": 6217,
+              "sha256": "4b6b199908aae9caafa9c3a475449d2b6701e58f03601b5177ab7803f6abb5cd",
+              "git_blob": "c20e8215be92aa317eea77d8402fc72c810e33b7"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/locator/reader.rs",
+          "original_stored_sha256": "3488358c7098c8d4fb7229accc6b2a5547eeb8dbb51101b539c4567f4ccc37be",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/locator/reader.rs",
+              "bytes": 24410,
+              "sha256": "3488358c7098c8d4fb7229accc6b2a5547eeb8dbb51101b539c4567f4ccc37be",
+              "git_blob": "1a2b3dfbb033cb8881cdfc6b2b9ce98df044f2b6"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/locator.rs",
+          "original_stored_sha256": "334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/locator.rs",
+              "bytes": 17883,
+              "sha256": "334cc9c41217a207e621e6b0177bed39871365cc97ba178fee3be804293604ed",
+              "git_blob": "7c685a4c91b2cefbf5efdab81921f1e6fb0146c7"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        },
+        {
+          "member": "rawzip-0.5.2/src/reader_at.rs",
+          "original_stored_sha256": "f9e6043d33f0b9f83e7f5e4094e9006c45e69b0a9bbdfec159d1149b61c3cce3",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l11-20261029/native-childlock-rawzip-192-20261030/rawzip-0.5.2/src/reader_at.rs",
+              "bytes": 19185,
+              "sha256": "f9e6043d33f0b9f83e7f5e4094e9006c45e69b0a9bbdfec159d1149b61c3cce3",
+              "git_blob": "c933104994c236b531ee0f62005ed218ee0b2fe4"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": true,
+          "public_byte_identical_when_accessible": true
+        }
+      ]
+    },
+    {
+      "checkpoint": 7,
+      "public_archive": "delegated/strategic-map-evidence.tar.gz",
+      "public_archive_sha256": "d433b1e8d3529add3c946fb49b4afaf17fc64627db85aeb402d260fcf6fe8806",
+      "member": "prior-web-map-route-packet.tar.gz",
+      "original_stored_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+      "original_stored_bytes": 8247789,
+      "public_stored_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+      "public_stored_bytes": 8236270,
+      "original_tar_entries": 186,
+      "public_tar_entries_visible": 5,
+      "after_last_visible_header_offset": 69120,
+      "after_last_visible_header_error": "InvalidHeaderError: bad checksum",
+      "original_transport_inner_matches": [
+        {
+          "member": "726-delegate-web-map/historical-059/adler/READ-L11-381.json",
+          "original_stored_sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/READ-L11-381.json",
+              "bytes": 11678,
+              "sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f",
+              "git_blob": "2f32b38c6e3d7ad10974b336f5d939ca02a3e62a"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1232.json",
+          "original_stored_sha256": "575df0fe889c6777342409e5fbb49c0bd4d6a72a144b631c9ade7b2c60422b95",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/REGISTRATION-ADLER-1232.json",
+              "bytes": 696,
+              "sha256": "575df0fe889c6777342409e5fbb49c0bd4d6a72a144b631c9ade7b2c60422b95",
+              "git_blob": "2559043beea5ddae7c64cf792515d4a7b40e7031"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1233.json",
+          "original_stored_sha256": "3c7bb5f44f371a32ff6ab282c4e50ef8bd20b6086abd3a75d49c5e47abe16512",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/REGISTRATION-ADLER-1233.json",
+              "bytes": 702,
+              "sha256": "3c7bb5f44f371a32ff6ab282c4e50ef8bd20b6086abd3a75d49c5e47abe16512",
+              "git_blob": "4ec8da3b19544301a01a9941b6ead0b1f560850b"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1234.json",
+          "original_stored_sha256": "cef6a536c2cf46929e3544e8b55b840772c3f07c710ea3291ba82c3063423c10",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/REGISTRATION-ADLER-1234.json",
+              "bytes": 721,
+              "sha256": "cef6a536c2cf46929e3544e8b55b840772c3f07c710ea3291ba82c3063423c10",
+              "git_blob": "fafea75920565f552834c5be66779fda67040713"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1235.json",
+          "original_stored_sha256": "a01e746171aa4da26318b4bd2d7719e71b1189291b29963fe6bd1b5419074b91",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/REGISTRATION-ADLER-1235.json",
+              "bytes": 735,
+              "sha256": "a01e746171aa4da26318b4bd2d7719e71b1189291b29963fe6bd1b5419074b91",
+              "git_blob": "d1a3b332ac5c3add097c6d82975b5fe55f6bcd26"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1236.json",
+          "original_stored_sha256": "9297053f92157ceafd6fcaf417475842af0385a1fd6563a0941f7178cb13cd34",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/REGISTRATION-ADLER-1236.json",
+              "bytes": 708,
+              "sha256": "9297053f92157ceafd6fcaf417475842af0385a1fd6563a0941f7178cb13cd34",
+              "git_blob": "956a2cf139bdc9226115224b068df416909627a9"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/STATE-L11-381.json",
+          "original_stored_sha256": "fe7253b50348cfa920df524e006e0be123d2645fa3bc7e9c16d4dfcff007b9eb",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/STATE-L11-381.json",
+              "bytes": 668,
+              "sha256": "fe7253b50348cfa920df524e006e0be123d2645fa3bc7e9c16d4dfcff007b9eb",
+              "git_blob": "2a4146b799bc760021d19408946ee8c8b2ced538"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/adler/VERIFY-L11-381.json",
+          "original_stored_sha256": "ac64ba275ddfe375cdf14a40f4a6e9f0995f55fe8dd725717fee8b4ff62c7bc1",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "adler/VERIFY-L11-381.json",
+              "bytes": 52252,
+              "sha256": "ac64ba275ddfe375cdf14a40f4a6e9f0995f55fe8dd725717fee8b4ff62c7bc1",
+              "git_blob": "16938fd7b5bb634dc2c56d053f164aafcd8cd008"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/PROPOSAL-L12-782.json",
+          "original_stored_sha256": "02a8f4502dda07394f0d6b1ae14fca008c2a0e887e9e4e03adc61a83e988e6b8",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/PROPOSAL-L12-782.json",
+              "bytes": 14681,
+              "sha256": "02a8f4502dda07394f0d6b1ae14fca008c2a0e887e9e4e03adc61a83e988e6b8",
+              "git_blob": "affc7e7cd0fe88830bdfb8738128b46aa7d9a4f9"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-348-WINDOWS-ORIGINAL2366.json",
+          "original_stored_sha256": "c81ccbdf3c0cbb990c43240a00061c5bc4ca925f99e1e3904d3c89e277b92fe8",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-348-WINDOWS-ORIGINAL2366.json",
+              "bytes": 1034,
+              "sha256": "c81ccbdf3c0cbb990c43240a00061c5bc4ca925f99e1e3904d3c89e277b92fe8",
+              "git_blob": "b7b9db3be525070854be9c8bc31fd0cf37791a92"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-349-WINDOWS-ORIGINAL2367.json",
+          "original_stored_sha256": "0cb9ea20f0b23c7e34445f190b7fa203f04e3588108b29ef6e131d6a7252cf8c",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-349-WINDOWS-ORIGINAL2367.json",
+              "bytes": 1078,
+              "sha256": "0cb9ea20f0b23c7e34445f190b7fa203f04e3588108b29ef6e131d6a7252cf8c",
+              "git_blob": "cfd4c9c52fcbbbe0c4412dc15efa750d8055b755"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-346.json",
+          "original_stored_sha256": "b0dccc4664adbdcb0df453a9c0fef1c1b8b912bf66b20143cddd2cdd111bd783",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-346.json",
+              "bytes": 808,
+              "sha256": "b0dccc4664adbdcb0df453a9c0fef1c1b8b912bf66b20143cddd2cdd111bd783",
+              "git_blob": "31b2e625f5287cb1ac55a02d9d69806d3c566130"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-347.json",
+          "original_stored_sha256": "81b26d94b02190ab845a3ff56d02cdc11fdd944540881efd4445e76df0dd3b03",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-347.json",
+              "bytes": 820,
+              "sha256": "81b26d94b02190ab845a3ff56d02cdc11fdd944540881efd4445e76df0dd3b03",
+              "git_blob": "aa46179f4fd61a3b6610711d3766d0c73de4d5b3"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-348.json",
+          "original_stored_sha256": "7a9e9e44994e758d972894c9e9f2ccce4b34126b30838970006758450dbf438a",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-348.json",
+              "bytes": 859,
+              "sha256": "7a9e9e44994e758d972894c9e9f2ccce4b34126b30838970006758450dbf438a",
+              "git_blob": "d87957e21edb0b69d6eb0f617cf2596182319978"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-349.json",
+          "original_stored_sha256": "055f6abdd64e5ddc5f6186ac11cda37314a0d50a7f245c38d780f5ec9f7853dd",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-349.json",
+              "bytes": 887,
+              "sha256": "055f6abdd64e5ddc5f6186ac11cda37314a0d50a7f245c38d780f5ec9f7853dd",
+              "git_blob": "f894632c0089f089fb3c7dc639dbb4a932162554"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-350.json",
+          "original_stored_sha256": "d19cac5d013bb931aa1f44379c5186933b062dac315de8ab2d6d1d9616fd51aa",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "parallel-l12-20261029/REGISTRATION-PAR-L12-350.json",
+              "bytes": 832,
+              "sha256": "d19cac5d013bb931aa1f44379c5186933b062dac315de8ab2d6d1d9616fd51aa",
+              "git_blob": "78cad9c0ef25fa898e4ddb99f3b55150b2c24539"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/segovb/READ-L12-782.json",
+          "original_stored_sha256": "733bb4c1240e42234d1a67ed17e984beba3ed2d5ead563c53b58770a7ef24f50",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "segovb/READ-L12-782.json",
+              "bytes": 18079,
+              "sha256": "733bb4c1240e42234d1a67ed17e984beba3ed2d5ead563c53b58770a7ef24f50",
+              "git_blob": "6d78275f62d5811cd5e9be2049179caae2fc2dfb"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/segovb/REGISTRATION-SEGOVB-L12-782.json",
+          "original_stored_sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "segovb/REGISTRATION-SEGOVB-L12-782.json",
+              "bytes": 1171,
+              "sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+              "git_blob": "b617de7746263700b9777405b13e2387e3eaaa30"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/segovb/STATE-L12-782.json",
+          "original_stored_sha256": "9a191cad7fdebbc8c2d45ef02b093943818004145dfdbb23a75cd0def8d33f04",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "segovb/STATE-L12-782.json",
+              "bytes": 2795,
+              "sha256": "9a191cad7fdebbc8c2d45ef02b093943818004145dfdbb23a75cd0def8d33f04",
+              "git_blob": "2f324a244dc9d0cf7cf8c5177851676813ebcdc5"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-059/segovb/VERIFY-L12-782.json",
+          "original_stored_sha256": "5d290fd5f84ceb84e17a03d718e0821f5eb0cf24357f144a081a81b38e71c785",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "segovb/VERIFY-L12-782.json",
+              "bytes": 667,
+              "sha256": "5d290fd5f84ceb84e17a03d718e0821f5eb0cf24357f144a081a81b38e71c785",
+              "git_blob": "e0de816cf72cca692d9c7c20cb488cd329fa1a11"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-774/audit-existing-type-owners/root/coverage.jsonl",
+          "original_stored_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "root-l2-extension-20261030/INHERITED-L2-root-coverage.jsonl",
+              "bytes": 422014,
+              "sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+              "git_blob": "56a488298dd24640e6a585c61788069ada0447d7"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-774-variant/audit-existing-type-owners/root/coverage.jsonl",
+          "original_stored_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "root-l2-extension-20261030/INHERITED-L2-root-coverage.jsonl",
+              "bytes": 422014,
+              "sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+              "git_blob": "56a488298dd24640e6a585c61788069ada0447d7"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_environment.rs",
+          "original_stored_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/1894",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            },
+            {
+              "path": "segovb/lens12-continuation/99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+          "original_stored_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/1896",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            },
+            {
+              "path": "segovb/lens12-continuation/07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+          "original_stored_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/1999",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            },
+            {
+              "path": "segovb/lens12-continuation/22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-terrain/src/road_pack.rs",
+          "original_stored_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2083",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/audit05/sources/420",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/audit11/source-objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/continuation-segovb/source-objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+          "original_stored_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2160",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "evidence/audit05/sources/2718",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "parallel-l12-20261029/source-941-runtime-world-20261030/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "segovb/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+          "original_stored_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2161",
+              "bytes": 3275,
+              "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "bytes": 3275,
+              "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "bytes": 3275,
+              "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates.rs",
+          "original_stored_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2159",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/audit05/sources/441",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/audit11/source-objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/continuation-segovb/source-objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "root-l2-extension-20261030/objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/source_package.rs",
+          "original_stored_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2171",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit05/sources/447",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit10/overlay-source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit11/source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/continuation-segovb/source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/original-059-ledger.json.gz",
+          "original_stored_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+          "original_uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+          "stored_transport_identities": [],
+          "uncompressed_transport_identities": [
+            {
+              "path": "evidence/continuation-segovb/ledger.json",
+              "bytes": 9417609,
+              "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+              "git_blob": "ed43c113de9543d04e4d706655d66760574cebe6"
+            }
+          ],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/original-059-queue.json.gz",
+          "original_stored_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+          "original_uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+          "stored_transport_identities": [],
+          "uncompressed_transport_identities": [
+            {
+              "path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+              "bytes": 21632843,
+              "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+              "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad"
+            }
+          ],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/original-registry.json.gz",
+          "original_stored_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+          "original_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+          "stored_transport_identities": [],
+          "uncompressed_transport_identities": [
+            {
+              "path": "evidence/audit05/original-scope-072.json",
+              "bytes": 18302620,
+              "sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+              "git_blob": "676b73c3d63cd01cab63ca8f6cda7da56c772b17"
+            }
+          ],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_city.rs",
+          "original_stored_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2364",
+              "bytes": 3926,
+              "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "bytes": 3926,
+              "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "bytes": 3926,
+              "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+          "original_stored_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2367",
+              "bytes": 2189,
+              "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "bytes": 2189,
+              "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "bytes": 2189,
+              "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+          "original_stored_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2366",
+              "bytes": 5028,
+              "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "bytes": 5028,
+              "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "bytes": 5028,
+              "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/roads.rs",
+          "original_stored_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2368",
+              "bytes": 1672,
+              "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "bytes": 1672,
+              "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "bytes": 1672,
+              "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment.rs",
+          "original_stored_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2365",
+              "bytes": 3274,
+              "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "bytes": 3274,
+              "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "bytes": 3274,
+              "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_city.rs",
+          "original_stored_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2364",
+              "bytes": 3926,
+              "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "bytes": 3926,
+              "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "bytes": 3926,
+              "sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+              "git_blob": "a3072dc01405eaa9e5b120a1c6d8a83122ea18e6"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+          "original_stored_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2367",
+              "bytes": 2189,
+              "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "bytes": 2189,
+              "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "bytes": 2189,
+              "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+              "git_blob": "f6df9fe650932948450d0f4c33cfa0b999fa4415"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+          "original_stored_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2366",
+              "bytes": 5028,
+              "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "bytes": 5028,
+              "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "bytes": 5028,
+              "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+              "git_blob": "3d05a0312de09f4ee9af3fff7975bbb260ce6f0d"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/roads.rs",
+          "original_stored_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2368",
+              "bytes": 1672,
+              "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "bytes": 1672,
+              "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "bytes": 1672,
+              "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+              "git_blob": "b0dfeb5cc7439bece0c1df8e4b6eda9b3c3c47d6"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment.rs",
+          "original_stored_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2365",
+              "bytes": 3274,
+              "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "bytes": 3274,
+              "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "bytes": 3274,
+              "sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+              "git_blob": "be1a691f939b4691f4830b8f4eea7c9ae0c6ca3e"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-tactical-core/src/regional_environment.rs",
+          "original_stored_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/1894",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            },
+            {
+              "path": "segovb/lens12-continuation/99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "bytes": 3284,
+              "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+              "git_blob": "2780758f346eef27a575aa786796bea1abf9c380"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+          "original_stored_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/1896",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            },
+            {
+              "path": "segovb/lens12-continuation/07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "bytes": 3597,
+              "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+              "git_blob": "f9c84ff2480af8f05a4a626bc98f9d814c8f9a52"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+          "original_stored_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/1999",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            },
+            {
+              "path": "segovb/lens12-continuation/22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "bytes": 2659,
+              "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+              "git_blob": "d8b3b22e275d1c03fc63aa9cb711123b1f6e3948"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-terrain/src/road_pack.rs",
+          "original_stored_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2083",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/audit05/sources/420",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/audit11/source-objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            },
+            {
+              "path": "evidence/continuation-segovb/source-objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "bytes": 12472,
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "git_blob": "d0c4d6a3e65fefbd650374acd530cc30649033a5"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+          "original_stored_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2160",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "evidence/audit05/sources/2718",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "parallel-l12-20261029/source-941-runtime-world-20261030/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            },
+            {
+              "path": "segovb/dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "bytes": 1838,
+              "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+              "git_blob": "d998e0b7a40ac3797222caa9452efdb663e9fcf4"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+          "original_stored_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2161",
+              "bytes": 3275,
+              "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "bytes": 3275,
+              "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "bytes": 3275,
+              "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+              "git_blob": "a3480a8d35b44ece820f1740c764c643334d52aa"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates.rs",
+          "original_stored_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2159",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/audit05/sources/441",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/audit11/source-objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "evidence/continuation-segovb/source-objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            },
+            {
+              "path": "root-l2-extension-20261030/objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "bytes": 17358,
+              "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+              "git_blob": "849913f70d004956fd8f5cac10586a132b2cc458"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        },
+        {
+          "member": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/source_package.rs",
+          "original_stored_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+          "original_uncompressed_sha256": null,
+          "stored_transport_identities": [
+            {
+              "path": "evidence/audit05/sources/2171",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit05/sources/447",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit10/overlay-source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit10/successor-source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/audit11/source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/continuation-segovb/audit-resume-20261027/lens08/source-41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            },
+            {
+              "path": "evidence/continuation-segovb/source-objects/41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "bytes": 1658,
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "git_blob": "2af94e731dce3671e07608bf2e5750d1073e0481"
+            }
+          ],
+          "uncompressed_transport_identities": [],
+          "public_accessible_at_review": false,
+          "public_byte_identical_when_accessible": null
+        }
+      ]
+    }
+  ]
+}

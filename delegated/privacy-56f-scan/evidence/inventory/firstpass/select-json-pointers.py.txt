@@ -1,0 +1,14 @@
+import datetime,hashlib,json,os,pathlib,pwd,subprocess
+c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';out=pathlib.Path('<redacted-local-evidence-directory>');home=pwd.getpwuid(os.getuid()).pw_dir;rows=[]
+for path in ['baseline-059/queue.json','baseline-059/ledger.json']:
+ b=subprocess.check_output(['git','show',c+':'+path]);obj=json.loads(b);found=[]
+ def walk(x,p):
+  if isinstance(x,dict):
+   for k,v in x.items():
+    assert home not in k
+    walk(v,p+'/'+k.replace('~','~0').replace('/','~1'))
+  elif isinstance(x,list):
+   for i,v in enumerate(x):walk(v,p+'/'+str(i))
+  elif isinstance(x,str) and home in x:found.append({'pointer':p,'occurrences':x.count(home),'value_sha256':hashlib.sha256(x.encode()).hexdigest()})
+ walk(obj,'');gitblob=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();rows.append({'path':path,'sha256':hashlib.sha256(b).hexdigest(),'git_blob':gitblob,'bytes':len(b),'fields':found,'occurrences':sum(x['occurrences'] for x in found)})
+result={'commit':c,'recorded_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'records':rows,'qualification':'JSON structural locations of exact actual account-home prefixes. Only field digests are retained; values are not printed or recorded here. This is separate from the broader compressed inventory.'};(out/'json-pointers.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'counts':{x['path']:x['occurrences'] for x in rows},'sha256':hashlib.sha256((out/'json-pointers.json').read_bytes()).hexdigest()}))

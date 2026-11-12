@@ -1,0 +1,94 @@
+{
+  "schema": "726-baseline059-reversible-privacy-proposal-v1",
+  "created_utc": "2026-11-12T08:50:28.475310+00:00",
+  "author": "/root/rig_identity",
+  "status": "Proposal and staged reconstructed files only; publication, user extraction and Git history were not changed.",
+  "original_and_reconstructed": [
+    {
+      "document": "queue",
+      "original_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "original_bytes": 21632843,
+      "original_git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "proposed_public_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "proposed_public_bytes": 21631815,
+      "proposed_public_git_blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5",
+      "path_value_replacements": 12,
+      "changed_json_pointers": 12,
+      "qualification": "Public bytes are reconstructed by replacing exactly the listed original local-path values, not original historical bytes. Original uncompressed and local deterministic-gzip identities are separate; no historical read or checkpoint3821 credit is transferred."
+    },
+    {
+      "document": "ledger",
+      "original_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "original_bytes": 9417609,
+      "original_git_blob": "ed43c113de9543d04e4d706655d66760574cebe6",
+      "proposed_public_sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+      "proposed_public_bytes": 9416271,
+      "proposed_public_git_blob": "14d29425d43070ddef914fd434f1c6ad22dfede7",
+      "path_value_replacements": 14,
+      "changed_json_pointers": 14,
+      "qualification": "Public bytes are reconstructed by replacing exactly the listed original local-path values, not original historical bytes. Original uncompressed and local deterministic-gzip identities are separate; no historical read or checkpoint3821 credit is transferred."
+    }
+  ],
+  "proof_of_reversibility": "All 26 matches were inspected as complete JSON string values beginning with an actual local home path. The public reconstruction replaces exactly those values with deterministic markers shared across both documents; all other bytes remain unchanged. Original inputs at the user-supplied extraction and fresh deterministic gzip copies in a restricted local recovery directory match the original SHA-256, byte count and Git blob. A read-only verifier can compare both ways when provided the local private recovery files. Public-only verification establishes public hashes, marker locations and preserved JSON structure, not an independent reconstruction of secret path values.",
+  "earlier_public_variant": "The queue public SHA-256 3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 matches the uncompressed reconstructed queue retained in the earlier staged independent 13K review. Equality of this public representation is not identity with the original queue.",
+  "direct_byte_dependencies": {
+    "definite_static_script_impacts": [
+      "verify_reconciliation_proposal_links_15.py",
+      "verify_delegated_links_16.py",
+      "verify_delegated_links_17.py",
+      "verify_delegated_links_18.py",
+      "verify_delegated_links_19.py",
+      "verify_delegated_links_20.py",
+      "verify_delegated_links_21.py",
+      "verify_delegated_links_22.py",
+      "verify_delegated_links_23.py",
+      "verify_delegated_links_24.py",
+      "verify_delegated_links_25.py",
+      "verify_delegated_links_26.py",
+      "verify_delegated_links_27.py",
+      "verify_delegated_links_28.py",
+      "verify_delegated_links_29.py"
+    ],
+    "conclusion": "If redacted copies replace the two top-level paths, these scripts cannot satisfy their original-byte comparisons at the affected checks. This is source-level prediction; no existing verifier was run, and other earlier failures could occur first. Scripts 18\u201319 can fall back to prior indexed member original_sha256, but none of their scanned prior 14\u201318/14\u201319 member identities has the relevant uncompressed original hash in that field.",
+    "explicit_direct_link_records": 20,
+    "direct_link_checkpoint_range": "20\u201329, two records per checkpoint",
+    "checkpoint16_19_archived_hash_links": 35,
+    "evidence": "HASH-LINK-INVENTORY.json contains each exact manifest/member, JSON pointer, expected digest and script relationship."
+  },
+  "broader_reference_inventory": {
+    "loose_paths_enumerated": 21706,
+    "loose_files_with_literal_match": 845,
+    "python_helpers_or_verifier_files_with_literal_match": 190,
+    "loose_literal_queue_path_files": 357,
+    "loose_literal_ledger_path_files": 235,
+    "literal_pointer_references_per_file": 2473,
+    "pointer_references_containing_or_contained_by_changed_fields": 7,
+    "evidence": "LOOSE-REFERENCE-INVENTORY.json, AFFECTED-POINTERS.json and SCAN-INPUTS.json; per-file hashes and exact hit lines retained. The inventory records references without assuming every lexical hit is an active strict hash check.",
+    "concurrent_drift": "No captured matching file changed when rehashed. Two new files appeared during the scan and neither matched the listed tokens; SCAN-DRIFT.json records them. Existing initially nonmatching files were not rehashed for later newly introduced matches."
+  },
+  "compressed_and_historical_references": {
+    "delegated_tar_archives_enumerated": 354,
+    "outer_regular_members_seen": 34990,
+    "gzip_members_seen": 14152,
+    "nested_tar_streams_seen": 185,
+    "matching_member_representations": 1671,
+    "bounded_omissions": 315,
+    "archive_errors": 0,
+    "omission_detail": "274 nested compression-depth limits (including 21 JSON gzip members), 39 representations of one over-cap object archive identity, and two over-cap outer tar members; see full exact member chains in DELEGATED-ARCHIVE-REFERENCE-INVENTORY.json. Some omitted objects contain further nested evidence. Non-delegated archive formats, .git internals, symlinks and unlisted alternate reference spellings were not exhaustively scanned.",
+    "prior_published_occurrence_inventory": "HISTORICAL-ARCHIVE-IDENTITIES.json filters 280 queue and 125 ledger historical uncompressed-identity occurrences from the earlier /root/mhr_character checkpoint 1\u201338 transport review. These are historical member relationships and should not be rewritten to the new public SHA. Their earlier attribution and metadata qualifications remain intact."
+  },
+  "proposed_integration": [
+    "Keep the two original historical uncompressed identities, lengths, Git blobs and 059 transport paths unchanged in all old evidence, indices, manifests and archival member records. Preserve exact originals in restricted local storage and retain the source extraction read-only; do not edit Git history.",
+    "Publish the two marked reconstructions with their separate SHA-256, byte length and Git blob, plus an additive original-to-public crosswalk and explicit pointer redaction map. Treat every historical pointer landing on these paths as a reference to a marked reconstruction, not proof that the public bytes are original.",
+    "Create separately named successor evidence verifiers and, where needed, successor direct-link manifests that verify the public SHA/length at public locations while retaining original SHA/length as historical identity. For archive links with original digests, use the explicit crosswalk to distinguish historical-link identity from available public representation; do not silently replace original hashes or claim an old exact-byte verifier passed.",
+    "Confirm semantic consumers against affected JSON pointers and any additional dynamic or external references before applying the correction. The local private verifier can prove original-to-public reconstruction; public-only checks cannot reveal or independently reconstruct the redacted local paths.",
+    "Preserve both original/private and reconstructed/public version labels in any index, checkpoint publication and future evidence export. Do not count archive copies or representations as new source reads or promote historical records into checkpoint3821."
+  ],
+  "privacy_and_open_issues": [
+    "Prior Git commits and any previously published immutable references may still expose original paths; replacing the working-tree files cannot purge Git history, caches or earlier exports. Git history was not changed.",
+    "The correction covers these two top-level documents only. Other evidence, external systems, older archive copies, image-path suffixes and unscanned archive regions require a separate privacy inventory before any global privacy claim.",
+    "Literal/pointer inventories are exhaustive only for the listed tokens and captured readable loose paths, with stated concurrent drift; dynamic construction, references using other spellings, archive omissions and external consumers remain open.",
+    "Public evidence cannot cryptographically prove the exact redaction operation without access to original path-bearing bytes or another suitable private proof; the local read-only verifier checks that relationship."
+  ],
+  "limitations": "Evidence-only source inspection, byte transformation, static reference inventory and integrity checks. No product code, build, tests, probes, repairs, old verifier executions, publication edits, extraction writes or Git history changes."
+}

@@ -1,0 +1,29 @@
+--- originals/verify_delegated_links_20.py
++++ successors/verify_delegated_links_20_059_public.py
+@@ -1,13 +1,18 @@
+ #!/usr/bin/env python3
+ """Verify checkpoint20 historical and prior-packet identities."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,io,json,tarfile
+ from pathlib import Path
+-R=Path(__file__).resolve().parent;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
++R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
+ cp=load('DELEGATED-EVIDENCE-CHECKPOINT-20.json');by={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']}
+ direct=load('DELEGATED-CHECKPOINT-20-DIRECT-LINKS.json');assert len(direct['links'])==29
+ known={}
+ for x in direct['links']:
+- p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert sha(raw)==x['sha256'] and len(raw)==x['bytes'];known[x['sha256']]=x['bytes']
++ p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(x['path']);assert _CW.matches(x['path'],raw,x['sha256'],x['bytes']);known[x['sha256']]=x['bytes']
+ prior=[];archives={}
+ def flatten(m):
+  yield m
+@@ -66,3 +71,5 @@
+   head,path=line.split('\t',1);tree[path]=head.split()[2]
+  assert x['lock_revision']=='95e63628f9d70b8dd6e6fede64334696c6995009' and tree[x['lock_path']]==blob
+ print('Verified rawzip archive member and pinned child-lock checksum without archive execution.')
++
++_CW.finish()

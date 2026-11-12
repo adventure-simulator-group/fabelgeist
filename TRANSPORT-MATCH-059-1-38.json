@@ -1,0 +1,971 @@
+{
+  "schema": "726-059-transport-identity-additive-qualification-v1",
+  "created_utc": "2026-11-12T08:17:58.218358+00:00",
+  "review_attribution": "mhr_character delegate, source/evidence integrity review; no original historical authorship or read credit transfers.",
+  "scope": "Additive qualification for previously published delegated checkpoints 1\u201335 and the checkpoint 36\u201338 stage snapshots. The records preserve the exact captured index and earlier qualification hashes. Overlaying or changing stage records must not silently rewrite the prior identities.",
+  "original_transport_manifest": {
+    "path": "recovered/original-transport-manifest.json.gz",
+    "stored_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+    "qualification": "Transport paths are relative to the original 059 evidence archive; each Git blob identifies the transport entry bytes, not a gzip wrapper introduced later."
+  },
+  "counting_rule": "Each checkpoint/public archive/nested member chain is one occurrence. Match original stored SHA and, for gzip members, original decompressed SHA to 059 transport entries; take the union per occurrence. Repeated nested copies remain locations, not independent source reads or new unique records. 1\u20139 have no comparable later global-count qualification; null means unrecorded, not zero.",
+  "summary": {
+    "stored_occurrences": 107704,
+    "new_uncompressed_only_occurrences": 1213,
+    "corrected_union_occurrences": 108917,
+    "new_reconstructed_occurrences": 451,
+    "new_unchanged_occurrences": 762,
+    "changed_uncompressed_original_identities": 5,
+    "indexed_occurrences_original_and_public_evidence": "TRANSPORT-MATCH-059-1-38-OCCURRENCES.json.gz",
+    "indexed_occurrences_gzip_sha256": "03003f6794012b0c421df2ccdb6aa30225ff2df48ce75f82e94fd0470b50a6e1",
+    "indexed_occurrences_uncompressed_sha256": "89b5ffb1e15cf184ed73f9ff14b63903189967ece3cc2498d1b9a84ef3afd7a0",
+    "legacy_unindexed_content": "TRANSPORT-MATCH-059-1-38-LEGACY-OPAQUE.json",
+    "legacy_unindexed_sha256": "3e359e9fc8bcf2c93f827e9dc60a984293a7b0531b8229e3220cc21df37ba954"
+  },
+  "checkpoint_counts": [
+    {
+      "checkpoint": 1,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT.json",
+      "evidence_index_sha256": "4b81e62753b56c51517a589832f283c82b7472c377b146c3bdf4dfd80276bb92",
+      "qualification_file": null,
+      "qualification_sha256": null,
+      "recorded_counts": null,
+      "stored_occurrences": 118,
+      "new_uncompressed_only_occurrences": 1,
+      "corrected_union_occurrences": 119,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 0,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 0,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 2,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-2.json",
+      "evidence_index_sha256": "51f14b10ffbc35be51426b138b7beab29b07c8e7aa98aaf49415ff536edd8518",
+      "qualification_file": null,
+      "qualification_sha256": null,
+      "recorded_counts": null,
+      "stored_occurrences": 101,
+      "new_uncompressed_only_occurrences": 1,
+      "corrected_union_occurrences": 102,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 0,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 0,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 3,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-3.json",
+      "evidence_index_sha256": "490f1b0b727e6fcefd931e3ad6fc97a8dca15f3d08313305d6e9cd3987e4ae3c",
+      "qualification_file": "DELEGATED-CHECKPOINT-3-QUALIFICATION.json",
+      "qualification_sha256": "08ff0ce7c359d1761991affc7aaf467e1330312665090ebdf4c511c38a9ab432",
+      "recorded_counts": {
+        "stored": null,
+        "redacted_unique": null,
+        "redacted_occurrences": null
+      },
+      "stored_occurrences": 154,
+      "new_uncompressed_only_occurrences": 6,
+      "corrected_union_occurrences": 160,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 3,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 4,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-4.json",
+      "evidence_index_sha256": "fcb6124eef9de014c5f01f0430e7742b907800ae48f25e6ba10bf00ffe65250a",
+      "qualification_file": "DELEGATED-CHECKPOINT-4-QUALIFICATION.json",
+      "qualification_sha256": "8ce7f38e4f344fc47c2ad8dc4c27a7406ab0698c104a6d733bc2efd1955ad5b6",
+      "recorded_counts": {
+        "stored": null,
+        "redacted_unique": null,
+        "redacted_occurrences": null
+      },
+      "stored_occurrences": 221,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 230,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 5,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 5,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-5.json",
+      "evidence_index_sha256": "d2a0d4af968786396fc16567373568cc6bcfdf4a87d17d7a370d2dd6787f7a26",
+      "qualification_file": "DELEGATED-CHECKPOINT-5-QUALIFICATION.json",
+      "qualification_sha256": "1967b8963eab38a58954618755314a6c6f257717eb8370bf331d0beb263f79df",
+      "recorded_counts": {
+        "stored": null,
+        "redacted_unique": null,
+        "redacted_occurrences": null
+      },
+      "stored_occurrences": 256,
+      "new_uncompressed_only_occurrences": 7,
+      "corrected_union_occurrences": 263,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 5,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 3,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 6,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-6.json",
+      "evidence_index_sha256": "1f298a5264e8a344814f6949cfe98c93b5b984685959aed426f73bb56a07a701",
+      "qualification_file": null,
+      "qualification_sha256": null,
+      "recorded_counts": null,
+      "stored_occurrences": 181,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 190,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 5,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 7,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-7.json",
+      "evidence_index_sha256": "174a072454e9d8dea2448bdd0f8fdec9fd3920fb8d9d9dbd20e4a2e649da8c27",
+      "qualification_file": null,
+      "qualification_sha256": null,
+      "recorded_counts": null,
+      "stored_occurrences": 623,
+      "new_uncompressed_only_occurrences": 25,
+      "corrected_union_occurrences": 648,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 12,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 8,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-8.json",
+      "evidence_index_sha256": "d489ccc26cd8196d5b01f3ec3f51aad1aa9259a84f3d25efa9da2d8ca00e5f4f",
+      "qualification_file": null,
+      "qualification_sha256": null,
+      "recorded_counts": null,
+      "stored_occurrences": 1034,
+      "new_uncompressed_only_occurrences": 49,
+      "corrected_union_occurrences": 1083,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 22,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 3,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 9,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-9.json",
+      "evidence_index_sha256": "79296c1cf69080f682097cd022689105a17411f85d4872a66c1d7c112a0ae59f",
+      "qualification_file": "DELEGATED-CHECKPOINT-9-QUALIFICATION.json",
+      "qualification_sha256": "47995ff4c5789e57e0b10e1a47fcfe7e4c6fe3429e07156cc23aa2fdc3e38e6b",
+      "recorded_counts": {
+        "stored": null,
+        "redacted_unique": null,
+        "redacted_occurrences": null
+      },
+      "stored_occurrences": 1283,
+      "new_uncompressed_only_occurrences": 156,
+      "corrected_union_occurrences": 1439,
+      "recorded_redacted_occurrences": null,
+      "corrected_redacted_occurrences": 52,
+      "recorded_unique_redacted_original_sha": null,
+      "corrected_unique_redacted_original_sha": 6,
+      "qualification": "Checkpoints 1\u20139 did not use the later global-count schema; null is unrecorded, not zero."
+    },
+    {
+      "checkpoint": 10,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+      "evidence_index_sha256": "8c732828739242c06763d9b267bc65e7fcef746096e9fca1cdb98ddd06fdb7b3",
+      "qualification_file": "DELEGATED-CHECKPOINT-10-QUALIFICATION.json",
+      "qualification_sha256": "c842061763e4b40a8530c2e44ce855b138dfd50ece1496075c5a8b8f474e5b4d",
+      "recorded_counts": {
+        "stored": 2288,
+        "redacted_unique": 26,
+        "redacted_occurrences": 32
+      },
+      "stored_occurrences": 2288,
+      "new_uncompressed_only_occurrences": 330,
+      "corrected_union_occurrences": 2618,
+      "recorded_redacted_occurrences": 32,
+      "corrected_redacted_occurrences": 120,
+      "recorded_unique_redacted_original_sha": 26,
+      "corrected_unique_redacted_original_sha": 29,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 11,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-11.json",
+      "evidence_index_sha256": "31cac7205c21ac03143c7c316e172781cbad384f58d6229a76b35b9a6c8ea9e2",
+      "qualification_file": "DELEGATED-CHECKPOINT-11-QUALIFICATION.json",
+      "qualification_sha256": "30cfda82b3ff6e0ee097a59b4b84e55e61344bbaf7f1a942489d15b0d0bdccd5",
+      "recorded_counts": {
+        "stored": 284,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 284,
+      "new_uncompressed_only_occurrences": 13,
+      "corrected_union_occurrences": 297,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 7,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 3,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 12,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-12.json",
+      "evidence_index_sha256": "3ed8a8ef32007d05405d873b66f503b233c5d952af779f58129f87285534b8f2",
+      "qualification_file": "DELEGATED-CHECKPOINT-12-QUALIFICATION.json",
+      "qualification_sha256": "79dd304ba71456c820d8cc5f5cd0f643ce85c4db4f9315ef7159fbb51803ccc0",
+      "recorded_counts": {
+        "stored": 396,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 396,
+      "new_uncompressed_only_occurrences": 20,
+      "corrected_union_occurrences": 416,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 12,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 3,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 13,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+      "evidence_index_sha256": "52e56909db650a22066fdbef34c5d7800eb694fdf85e495a5b6229a103d4b327",
+      "qualification_file": "DELEGATED-CHECKPOINT-13-QUALIFICATION.json",
+      "qualification_sha256": "f0d1f59f00899070bb6daaef36e36fba1dcad19197c27e25ec255ee5fd999965",
+      "recorded_counts": {
+        "stored": 322,
+        "redacted_unique": 57,
+        "redacted_occurrences": 65
+      },
+      "stored_occurrences": 322,
+      "new_uncompressed_only_occurrences": 22,
+      "corrected_union_occurrences": 344,
+      "recorded_redacted_occurrences": 65,
+      "corrected_redacted_occurrences": 73,
+      "recorded_unique_redacted_original_sha": 57,
+      "corrected_unique_redacted_original_sha": 60,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 14,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-14.json",
+      "evidence_index_sha256": "3bcf6d02cd6dde5223ce5ea88f3600bdf86644f517c58f8e0d116026f138c7fc",
+      "qualification_file": "DELEGATED-CHECKPOINT-14-QUALIFICATION.json",
+      "qualification_sha256": "7ab2a0eac25b1ee9e0f4c4cabcb2333cd51056933008c9df0fe1d03baa486ff5",
+      "recorded_counts": {
+        "stored": 74,
+        "redacted_unique": 2,
+        "redacted_occurrences": 2
+      },
+      "stored_occurrences": 74,
+      "new_uncompressed_only_occurrences": 0,
+      "corrected_union_occurrences": 74,
+      "recorded_redacted_occurrences": 2,
+      "corrected_redacted_occurrences": 2,
+      "recorded_unique_redacted_original_sha": 2,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 15,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-15.json",
+      "evidence_index_sha256": "0020521141f66bc034b75ff8b98b2b516a0bc891bdf6bc43441c6b9c9c30f4a0",
+      "qualification_file": "DELEGATED-CHECKPOINT-15-QUALIFICATION.json",
+      "qualification_sha256": "2100eeb355002c2c781af6e9fc056968ce4ec49857d2b56bb20aa3d9302ecd09",
+      "recorded_counts": {
+        "stored": 75,
+        "redacted_unique": 13,
+        "redacted_occurrences": 13
+      },
+      "stored_occurrences": 75,
+      "new_uncompressed_only_occurrences": 1,
+      "corrected_union_occurrences": 76,
+      "recorded_redacted_occurrences": 13,
+      "corrected_redacted_occurrences": 13,
+      "recorded_unique_redacted_original_sha": 13,
+      "corrected_unique_redacted_original_sha": 13,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 16,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-16.json",
+      "evidence_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+      "qualification_file": "DELEGATED-CHECKPOINT-16-QUALIFICATION.json",
+      "qualification_sha256": "11d64e0f93995b47eccf46eb37b027b7c8f69485f0d0f0d3f1e4495b7115eacb",
+      "recorded_counts": {
+        "stored": 188,
+        "redacted_unique": 6,
+        "redacted_occurrences": 7
+      },
+      "stored_occurrences": 188,
+      "new_uncompressed_only_occurrences": 1,
+      "corrected_union_occurrences": 189,
+      "recorded_redacted_occurrences": 7,
+      "corrected_redacted_occurrences": 7,
+      "recorded_unique_redacted_original_sha": 6,
+      "corrected_unique_redacted_original_sha": 6,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 17,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-17.json",
+      "evidence_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+      "qualification_file": "DELEGATED-CHECKPOINT-17-QUALIFICATION.json",
+      "qualification_sha256": "431b36d413fc5301ca345b2173c6a68d3f71e0175b9c0f983f709266c38b30ce",
+      "recorded_counts": {
+        "stored": 276,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 276,
+      "new_uncompressed_only_occurrences": 0,
+      "corrected_union_occurrences": 276,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 0,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 0,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 18,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-18.json",
+      "evidence_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+      "qualification_file": "DELEGATED-CHECKPOINT-18-QUALIFICATION.json",
+      "qualification_sha256": "1d16e403e3ff9d35e9285d40839f33a153776fbeaf0c22f2ee29029f94a93fd7",
+      "recorded_counts": {
+        "stored": 169,
+        "redacted_unique": 16,
+        "redacted_occurrences": 16
+      },
+      "stored_occurrences": 169,
+      "new_uncompressed_only_occurrences": 2,
+      "corrected_union_occurrences": 171,
+      "recorded_redacted_occurrences": 16,
+      "corrected_redacted_occurrences": 16,
+      "recorded_unique_redacted_original_sha": 16,
+      "corrected_unique_redacted_original_sha": 16,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 19,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-19.json",
+      "evidence_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+      "qualification_file": "DELEGATED-CHECKPOINT-19-QUALIFICATION.json",
+      "qualification_sha256": "0f8c4057508b2355014c039d4d11435a93f663d38bc6fa76947577b058c1735d",
+      "recorded_counts": {
+        "stored": 227,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 227,
+      "new_uncompressed_only_occurrences": 0,
+      "corrected_union_occurrences": 227,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 0,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 0,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 20,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-20.json",
+      "evidence_index_sha256": "16020e137e4c4c549f64ecda173cdad862894833f566ec725ab229cc3e0deddd",
+      "qualification_file": "DELEGATED-CHECKPOINT-20-QUALIFICATION.json",
+      "qualification_sha256": "27fdc912ff574af23d1ad04096ba1bbabed5289329b469d42a372bf83b110f27",
+      "recorded_counts": {
+        "stored": 216,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 216,
+      "new_uncompressed_only_occurrences": 2,
+      "corrected_union_occurrences": 218,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 2,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 1,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 21,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-21.json",
+      "evidence_index_sha256": "05c28d1a8fd2ea6f8e36af1c755795b7c279468ad614403df3aa9de158f517f0",
+      "qualification_file": "DELEGATED-CHECKPOINT-21-QUALIFICATION.json",
+      "qualification_sha256": "84c7d8da99fd08315ddd49880d92daff24435118c86d436203d7f17eb569d2a0",
+      "recorded_counts": {
+        "stored": 2667,
+        "redacted_unique": 10,
+        "redacted_occurrences": 10
+      },
+      "stored_occurrences": 2667,
+      "new_uncompressed_only_occurrences": 11,
+      "corrected_union_occurrences": 2678,
+      "recorded_redacted_occurrences": 10,
+      "corrected_redacted_occurrences": 16,
+      "recorded_unique_redacted_original_sha": 10,
+      "corrected_unique_redacted_original_sha": 13,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 22,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-22.json",
+      "evidence_index_sha256": "8ad80bdc94dbb147a3c5df9df416fcae3fa1e780c1c3f6e1eab3224baba62155",
+      "qualification_file": "DELEGATED-CHECKPOINT-22-QUALIFICATION.json",
+      "qualification_sha256": "b359edf9302cc4ddefc060ac677e03c084eecc30255f47db5a2b88d8b60a1d3b",
+      "recorded_counts": {
+        "stored": 10529,
+        "redacted_unique": 4,
+        "redacted_occurrences": 7
+      },
+      "stored_occurrences": 10529,
+      "new_uncompressed_only_occurrences": 134,
+      "corrected_union_occurrences": 10663,
+      "recorded_redacted_occurrences": 7,
+      "corrected_redacted_occurrences": 38,
+      "recorded_unique_redacted_original_sha": 4,
+      "corrected_unique_redacted_original_sha": 6,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 23,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-23.json",
+      "evidence_index_sha256": "df08c30d164508fc6b565a5f8f46269e8279094617d02dd4b28cbc0fa083457f",
+      "qualification_file": "DELEGATED-CHECKPOINT-23-QUALIFICATION.json",
+      "qualification_sha256": "68e71dfb7156bb40cc3fa6c9e83788d62f83f63b24ed000020654be760a4596d",
+      "recorded_counts": {
+        "stored": 12983,
+        "redacted_unique": 8,
+        "redacted_occurrences": 12
+      },
+      "stored_occurrences": 12983,
+      "new_uncompressed_only_occurrences": 91,
+      "corrected_union_occurrences": 13074,
+      "recorded_redacted_occurrences": 12,
+      "corrected_redacted_occurrences": 40,
+      "recorded_unique_redacted_original_sha": 8,
+      "corrected_unique_redacted_original_sha": 10,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 24,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-24.json",
+      "evidence_index_sha256": "e0a4e9d486634945016cb358c3cfc1cd0cd71d7187268133c9f554f9d410e984",
+      "qualification_file": "DELEGATED-CHECKPOINT-24-QUALIFICATION.json",
+      "qualification_sha256": "8297fc55c4ac19d6ce189fb0cca899728ac0200b4492f7c7b0522c8a2bfd7d15",
+      "recorded_counts": {
+        "stored": 10660,
+        "redacted_unique": 11,
+        "redacted_occurrences": 14
+      },
+      "stored_occurrences": 10660,
+      "new_uncompressed_only_occurrences": 46,
+      "corrected_union_occurrences": 10706,
+      "recorded_redacted_occurrences": 14,
+      "corrected_redacted_occurrences": 41,
+      "recorded_unique_redacted_original_sha": 11,
+      "corrected_unique_redacted_original_sha": 13,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 25,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-25.json",
+      "evidence_index_sha256": "70c3e64ce10af2dbd6560f1a1a887ad2a6284d9a29800e33395424230ca3bcf2",
+      "qualification_file": "DELEGATED-CHECKPOINT-25-QUALIFICATION.json",
+      "qualification_sha256": "78d022fb459c86a82a0ebee32ae8a934365b4935bb3d0faa510e22c1de3f9aeb",
+      "recorded_counts": {
+        "stored": 7846,
+        "redacted_unique": 15,
+        "redacted_occurrences": 20
+      },
+      "stored_occurrences": 7846,
+      "new_uncompressed_only_occurrences": 31,
+      "corrected_union_occurrences": 7877,
+      "recorded_redacted_occurrences": 20,
+      "corrected_redacted_occurrences": 39,
+      "recorded_unique_redacted_original_sha": 15,
+      "corrected_unique_redacted_original_sha": 18,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 26,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-26.json",
+      "evidence_index_sha256": "543d86fd9d34d8cc0f8a7137186fadcd71ce22732e61d81ddccf78fcf0c21f94",
+      "qualification_file": "DELEGATED-CHECKPOINT-26-QUALIFICATION.json",
+      "qualification_sha256": "08eb88e08f589f4dc0f03c379170bab5c36d5afba635fffff2c8d1b80ec37294",
+      "recorded_counts": {
+        "stored": 10262,
+        "redacted_unique": 12,
+        "redacted_occurrences": 17
+      },
+      "stored_occurrences": 10262,
+      "new_uncompressed_only_occurrences": 35,
+      "corrected_union_occurrences": 10297,
+      "recorded_redacted_occurrences": 17,
+      "corrected_redacted_occurrences": 35,
+      "recorded_unique_redacted_original_sha": 12,
+      "corrected_unique_redacted_original_sha": 14,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 27,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-27.json",
+      "evidence_index_sha256": "492e59ec328cb4073ba24879f254b957c41dc2ed9b28c3d8ca957b657418db44",
+      "qualification_file": "DELEGATED-CHECKPOINT-27-QUALIFICATION.json",
+      "qualification_sha256": "d556df759af750c4551deb777191453f0c3f76d09203f2c45dd1b2a5b5cd39cd",
+      "recorded_counts": {
+        "stored": 12774,
+        "redacted_unique": 2,
+        "redacted_occurrences": 6
+      },
+      "stored_occurrences": 12774,
+      "new_uncompressed_only_occurrences": 44,
+      "corrected_union_occurrences": 12818,
+      "recorded_redacted_occurrences": 6,
+      "corrected_redacted_occurrences": 28,
+      "recorded_unique_redacted_original_sha": 2,
+      "corrected_unique_redacted_original_sha": 4,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 28,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-28.json",
+      "evidence_index_sha256": "42ca4daa3dfdf97431d9d4b345b2ecffa337815b1cfa8cd123b8b87983f9feb5",
+      "qualification_file": "DELEGATED-CHECKPOINT-28-QUALIFICATION.json",
+      "qualification_sha256": "ae85a0d41a566bd843e92e3b1531a7e5680727f36b8d151ba701aa5bcc2da4eb",
+      "recorded_counts": {
+        "stored": 5072,
+        "redacted_unique": 2,
+        "redacted_occurrences": 3
+      },
+      "stored_occurrences": 5072,
+      "new_uncompressed_only_occurrences": 19,
+      "corrected_union_occurrences": 5091,
+      "recorded_redacted_occurrences": 3,
+      "corrected_redacted_occurrences": 13,
+      "recorded_unique_redacted_original_sha": 2,
+      "corrected_unique_redacted_original_sha": 4,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 29,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-29.json",
+      "evidence_index_sha256": "fbfc6debfea77d0ecc845ba7364676a8f306a7fe060de869ee6f4cb375ce373a",
+      "qualification_file": "DELEGATED-CHECKPOINT-29-QUALIFICATION.json",
+      "qualification_sha256": "eb303f525c93341b3483b8242fd56d5ec6a634c4e22f593f0c379162b9e51dbe",
+      "recorded_counts": {
+        "stored": 10270,
+        "redacted_unique": 18,
+        "redacted_occurrences": 21
+      },
+      "stored_occurrences": 10270,
+      "new_uncompressed_only_occurrences": 55,
+      "corrected_union_occurrences": 10325,
+      "recorded_redacted_occurrences": 21,
+      "corrected_redacted_occurrences": 43,
+      "recorded_unique_redacted_original_sha": 18,
+      "corrected_unique_redacted_original_sha": 20,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 30,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-30.json",
+      "evidence_index_sha256": "ef7463377fb34a3f134d77eae9ef3f136ab0b7ffc66f21acc0922c8e506332a3",
+      "qualification_file": "DELEGATED-CHECKPOINT-30-QUALIFICATION.json",
+      "qualification_sha256": "12613c28cf0a1a96a07cd6cbb708f0bfc0ca36f7e2991f38a0c9c69499d3bfbc",
+      "recorded_counts": {
+        "stored": 5155,
+        "redacted_unique": 15,
+        "redacted_occurrences": 16
+      },
+      "stored_occurrences": 5155,
+      "new_uncompressed_only_occurrences": 19,
+      "corrected_union_occurrences": 5174,
+      "recorded_redacted_occurrences": 16,
+      "corrected_redacted_occurrences": 24,
+      "recorded_unique_redacted_original_sha": 15,
+      "corrected_unique_redacted_original_sha": 17,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 31,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-31.json",
+      "evidence_index_sha256": "f93b965497b8012f00eb7ef13a59aa1e5ed79f120643adf757a98ad26ed5aaae",
+      "qualification_file": "DELEGATED-CHECKPOINT-31-QUALIFICATION.json",
+      "qualification_sha256": "d04aebf9afd84dfe1404c6bc63fa948a6cdbce86279c16bdb2aaffa59df54756",
+      "recorded_counts": {
+        "stored": 2567,
+        "redacted_unique": 11,
+        "redacted_occurrences": 11
+      },
+      "stored_occurrences": 2567,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 2576,
+      "recorded_redacted_occurrences": 11,
+      "corrected_redacted_occurrences": 17,
+      "recorded_unique_redacted_original_sha": 11,
+      "corrected_unique_redacted_original_sha": 13,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 32,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-32.json",
+      "evidence_index_sha256": "5157e0abc0166cade2e24dfd625838d45295b1965e104e2cd14fd35b5b9f1cad",
+      "qualification_file": "DELEGATED-CHECKPOINT-32-QUALIFICATION.json",
+      "qualification_sha256": "60062b5bb77a230e40b4e102512a630c187b60b74d679851414435015579bdea",
+      "recorded_counts": {
+        "stored": 2645,
+        "redacted_unique": 10,
+        "redacted_occurrences": 11
+      },
+      "stored_occurrences": 2645,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 2654,
+      "recorded_redacted_occurrences": 11,
+      "corrected_redacted_occurrences": 16,
+      "recorded_unique_redacted_original_sha": 10,
+      "corrected_unique_redacted_original_sha": 12,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 33,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-33.json",
+      "evidence_index_sha256": "e1ab9b6c340469e34ee72fadd0e967ee9ed5ed929220bccf4b428e8fcd9ceafc",
+      "qualification_file": "DELEGATED-CHECKPOINT-33-QUALIFICATION.json",
+      "qualification_sha256": "27b21cebbce5e92a9a23a5938ef84f85b864669f85d4f1ce65218d151f198257",
+      "recorded_counts": {
+        "stored": 2589,
+        "redacted_unique": 17,
+        "redacted_occurrences": 18
+      },
+      "stored_occurrences": 2589,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 2598,
+      "recorded_redacted_occurrences": 18,
+      "corrected_redacted_occurrences": 23,
+      "recorded_unique_redacted_original_sha": 17,
+      "corrected_unique_redacted_original_sha": 19,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 34,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-34.json",
+      "evidence_index_sha256": "397a2a4b74d6ab5e6b5c29441c6bee1392ddfb48562770f838768fb6f3f0d1dd",
+      "qualification_file": "DELEGATED-CHECKPOINT-34-QUALIFICATION.json",
+      "qualification_sha256": "55dcbc0dddf6e6d6e8da4e14ee1549d77f02d9c9512ad6124c3ef0b1d5791c75",
+      "recorded_counts": {
+        "stored": 2666,
+        "redacted_unique": 21,
+        "redacted_occurrences": 22
+      },
+      "stored_occurrences": 2666,
+      "new_uncompressed_only_occurrences": 11,
+      "corrected_union_occurrences": 2677,
+      "recorded_redacted_occurrences": 22,
+      "corrected_redacted_occurrences": 27,
+      "recorded_unique_redacted_original_sha": 21,
+      "corrected_unique_redacted_original_sha": 23,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 35,
+      "capture_status": "published",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-35.json",
+      "evidence_index_sha256": "5e61c0a984e0c9c1cb7b651dc61f0093cefc9304844df4a67605bff27cc49605",
+      "qualification_file": "DELEGATED-CHECKPOINT-35-QUALIFICATION.json",
+      "qualification_sha256": "90cc44347175b58333ede46edec3375b4ed990b5bbb1c98e7af401c36654db19",
+      "recorded_counts": {
+        "stored": 115,
+        "redacted_unique": 9,
+        "redacted_occurrences": 9
+      },
+      "stored_occurrences": 115,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 124,
+      "recorded_redacted_occurrences": 9,
+      "corrected_redacted_occurrences": 15,
+      "recorded_unique_redacted_original_sha": 9,
+      "corrected_unique_redacted_original_sha": 11,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 36,
+      "capture_status": "staged",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-36.json",
+      "evidence_index_sha256": "3005967922bb10c7d8b674b6ea044256f55fcc6908d27260c1646c049e3a0d17",
+      "qualification_file": "DELEGATED-CHECKPOINT-36-QUALIFICATION.json",
+      "qualification_sha256": "ef66d796244cf37195fea22cd7334d2daabe97bcbf0dfdd902851a6ae45879e2",
+      "recorded_counts": {
+        "stored": 161,
+        "redacted_unique": 1,
+        "redacted_occurrences": 1
+      },
+      "stored_occurrences": 161,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 170,
+      "recorded_redacted_occurrences": 1,
+      "corrected_redacted_occurrences": 7,
+      "recorded_unique_redacted_original_sha": 1,
+      "corrected_unique_redacted_original_sha": 3,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 37,
+      "capture_status": "staged",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-37.json",
+      "evidence_index_sha256": "9f5ae7584cc93ee200fd1c279272e1267cbfceb60b4ce87945e3a742f2967375",
+      "qualification_file": "DELEGATED-CHECKPOINT-37-QUALIFICATION.json",
+      "qualification_sha256": "c1386799d6d99a68124808eb434cb2ab8e818a4c6146272968c4e05dec28b0f8",
+      "recorded_counts": {
+        "stored": 125,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 125,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 134,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 6,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    },
+    {
+      "checkpoint": 38,
+      "capture_status": "staged",
+      "evidence_index": "DELEGATED-EVIDENCE-CHECKPOINT-38.json",
+      "evidence_index_sha256": "cf7550560626309555a6eda92c3e560aac88ff0273ef4fdfdae8b5bdbf3cfbce",
+      "qualification_file": "DELEGATED-CHECKPOINT-38-QUALIFICATION.json",
+      "qualification_sha256": "ec082fb61e8183035ec5f02cdd61c39bf120fcdd7cc127eff3005988eee72a0b",
+      "recorded_counts": {
+        "stored": 132,
+        "redacted_unique": 0,
+        "redacted_occurrences": 0
+      },
+      "stored_occurrences": 132,
+      "new_uncompressed_only_occurrences": 9,
+      "corrected_union_occurrences": 141,
+      "recorded_redacted_occurrences": 0,
+      "corrected_redacted_occurrences": 6,
+      "recorded_unique_redacted_original_sha": 0,
+      "corrected_unique_redacted_original_sha": 2,
+      "qualification": "Recorded qualification counted stored SHA only; corrected union counts each indexed member chain once."
+    }
+  ],
+  "new_changed_original_059_contents": [
+    {
+      "uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "original_stored_gzip_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "original_transport_identities": [
+        {
+          "path": "evidence/continuation-segovb/ledger.json",
+          "bytes": 9417609,
+          "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+          "git_blob": "ed43c113de9543d04e4d706655d66760574cebe6"
+        }
+      ],
+      "public_variants": [
+        {
+          "sha256": "03751a8690442692cce3d799f5ad08555bca22900decb69a665312e9518d7cc9",
+          "bytes": 1986599,
+          "uncompressed_sha256": "c6e57e53273462a55a7a1b81e9d22547936c2d0d9e70da9aab81a7ef0be05a6d",
+          "uncompressed_bytes": 9416145
+        }
+      ],
+      "new_reconstructed_occurrences": 125,
+      "qualification": "A prior private read-only review checked the original 059 transport bytes by SHA-256, length and Git blob, and reproduced the recorded gzip SHA in a fresh gzip representation. This public packet records identities; it does not include or re-verify the exact private original bytes."
+    },
+    {
+      "uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "original_stored_gzip_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "original_transport_identities": [
+        {
+          "path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+          "bytes": 21632843,
+          "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+          "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad"
+        }
+      ],
+      "public_variants": [
+        {
+          "sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+          "bytes": 1438706,
+          "uncompressed_sha256": "c55b133fbb7a400863ef9923cb0eef4c4648ee2a22b3b8495e7f21ffb5b54cf9",
+          "uncompressed_bytes": 21631719
+        }
+      ],
+      "new_reconstructed_occurrences": 280,
+      "qualification": "A prior private read-only review checked the original 059 transport bytes by SHA-256, length and Git blob, and reproduced the recorded gzip SHA in a fresh gzip representation. This public packet records identities; it does not include or re-verify the exact private original bytes."
+    },
+    {
+      "uncompressed_sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+      "original_stored_gzip_sha256": "113c90b10e159519a8dcb91710b0c0633a152e5a2cb9cbb78e0f91eb0907df59",
+      "original_transport_identities": [
+        {
+          "path": "evidence/audit01-delta/predecessor/source-catalog.json",
+          "bytes": 2559596,
+          "sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+          "git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4"
+        },
+        {
+          "path": "evidence/audit05/inherited/audit/reconcile-adler-20261023/recovered-sources/catalog.json",
+          "bytes": 2559596,
+          "sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+          "git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4"
+        },
+        {
+          "path": "evidence/audit10/catalog.json",
+          "bytes": 2559596,
+          "sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+          "git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4"
+        },
+        {
+          "path": "segovb/FROZEN774-CATALOG.json",
+          "bytes": 2559596,
+          "sha256": "5013894169608fa8af1efff8bacad99d0a0713168c3625fc96c672e93f032019",
+          "git_blob": "b9c0bd6710822f63bae5d0de221bd5a8f4b984e4"
+        }
+      ],
+      "public_variants": [
+        {
+          "sha256": "e213f22a583d6b49037d0b5ad47cb17da6575ab654ae455c80080b50b7d30436",
+          "bytes": 216224,
+          "uncompressed_sha256": "6c64490d04ea4bfaeda0ac474c69d15dd1b7a4340b8ae31b612b56e26129d736",
+          "uncompressed_bytes": 1980040
+        }
+      ],
+      "new_reconstructed_occurrences": 34,
+      "qualification": "A prior private read-only review checked the original 059 transport bytes by SHA-256, length and Git blob, and reproduced the recorded gzip SHA in a fresh gzip representation. This public packet records identities; it does not include or re-verify the exact private original bytes."
+    },
+    {
+      "uncompressed_sha256": "bfbcfba87ab12644946de377b9cda227f3203ac836bcf4933d3ce099d8f21b97",
+      "original_stored_gzip_sha256": "35cbf22127f3445b1365baa4ee8edbd1eaf00c8eb1f7d0c3841b03bf0f86d146",
+      "original_transport_identities": [
+        {
+          "path": "evidence/audit08/predecessor/source-inventory.json",
+          "bytes": 3284632,
+          "sha256": "bfbcfba87ab12644946de377b9cda227f3203ac836bcf4933d3ce099d8f21b97",
+          "git_blob": "22b2d93f27c22e1562105567fcaba730ca0098f8"
+        }
+      ],
+      "public_variants": [
+        {
+          "sha256": "9376173ed062c4b1186089cf7eda1f0ca161bb19ac662e11654e352e9092ba91",
+          "bytes": 212619,
+          "uncompressed_sha256": "c7b4e98e9d3d2485c2d13e4a607a391441c8a35625d6a62c8d7a607939046846",
+          "uncompressed_bytes": 2694451
+        }
+      ],
+      "new_reconstructed_occurrences": 9,
+      "qualification": "A prior private read-only review checked the original 059 transport bytes by SHA-256, length and Git blob, and reproduced the recorded gzip SHA in a fresh gzip representation. This public packet records identities; it does not include or re-verify the exact private original bytes."
+    },
+    {
+      "uncompressed_sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+      "original_stored_gzip_sha256": "939286ddf0b10d8d9572e304774bc1d41cb99a26570bfe151aac270f8c422476",
+      "original_transport_identities": [
+        {
+          "path": "evidence/audit03-delta/adopted-findings.json",
+          "bytes": 1985509,
+          "sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+          "git_blob": "77e67f01f660d4603b47fdf6bc36d4c5aec00a33"
+        },
+        {
+          "path": "evidence/audit05/inherited/adler-finding-records.json",
+          "bytes": 1985509,
+          "sha256": "473fc7ce6d08f96419a86d239410cf94fa1ba9b8cf8c93ef45ba2d7b44d6942d",
+          "git_blob": "77e67f01f660d4603b47fdf6bc36d4c5aec00a33"
+        }
+      ],
+      "public_variants": [
+        {
+          "sha256": "c2ade91783dce20aea836b8fe192a91b2d6d4db1b88bf4790a02abc536e68e77",
+          "bytes": 460786,
+          "uncompressed_sha256": "af4ecfcc8c972edd4f301551b0d38e628b8788680799102043c43e3b120a1471",
+          "uncompressed_bytes": 1985488
+        }
+      ],
+      "new_reconstructed_occurrences": 3,
+      "qualification": "A prior private read-only review checked the original 059 transport bytes by SHA-256, length and Git blob, and reproduced the recorded gzip SHA in a fresh gzip representation. This public packet records identities; it does not include or re-verify the exact private original bytes."
+    }
+  ],
+  "private_recovery_qualification": {
+    "private_review_manifest_sha256": "7cc991445fdca220aef87b9a6aa0802f1c55a06185b67ce05dc49ffb57d2456c",
+    "private_review_report_sha256": "c3d60352b871315e932cfef5dd885b215e341cdde40dbf1dcf18d2e2dbad5e05",
+    "checkpoint_private_manifest_bound_occurrences": 238,
+    "earlier_local_byte_matches": 213,
+    "earlier_selected_packet_manifest_bindings": 201,
+    "earlier_not_manifest_bound": 12,
+    "qualification": "The original private review remains separately retained locally under its manifest hash; exact private source locations and bodies are deliberately omitted here. A matching byte hash does not establish continuous custody or any named historical reader. The public verifier checks public bytes and metadata; it does not reproduce the private custody verification."
+  },
+  "checkpoint7_opaque_exception": {
+    "public_archive": "delegated/strategic-map-evidence.tar.gz",
+    "public_archive_sha256": "d433b1e8d3529add3c946fb49b4afaf17fc64627db85aeb402d260fcf6fe8806",
+    "public_member": "prior-web-map-route-packet.tar.gz",
+    "original_stored_bytes": 8247789,
+    "public_stored_bytes": 8236270,
+    "original_stored_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+    "public_stored_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+    "original_entries": 186,
+    "public_entries_visible": 5,
+    "first_invalid_next_header_offset": 69120,
+    "supplemental_059_inner_matches": 51,
+    "qualification": "At the captured checkpoint7 identity the public tar reader exposes five entries then encounters a bad header checksum. The private review verified the exact original 186-entry tar by its recorded hash; those bytes are not in this public packet. Its 48 stored and 3 gzip-to-059 inner matches are unindexed supplemental observations excluded from corrected counts. A later tar-aware reconstruction, if published, is a separate successor identity."
+  },
+  "validation": {
+    "public_actual_selected_gzip_occurrences": 1213,
+    "public_archive_count_3_to_38": 220,
+    "legacy_checkpoint1_2_archives": 6,
+    "private_raw_059_paths_verified": 9,
+    "qualification": "Evidence-only. Original 059 blob, author and revision are not inferred from a wrapper hash. No product, macro, fixture, test, build, runtime probe, repair, lens completion or checkpoint3821 credit."
+  }
+}

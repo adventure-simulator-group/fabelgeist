@@ -1,0 +1,36 @@
+{
+  "schema": "726-central-prospective-source-registration-v1",
+  "registered_utc": "2026-11-12T07:32:31.518146+00:00",
+  "reader": "/root",
+  "rows": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "git_blob": "f3b470e835eef6501a858d40ea32e0e7d7aef534",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "actual_eof": 171,
+      "planned_display_ranges": [
+        [
+          110,
+          145
+        ]
+      ],
+      "reason": "historical old breastplate validation order; f82 transport and 6533 recorded source-head Git identity are distinct"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/fabelgeist-armor/src/lib.rs",
+      "git_blob": "f3b470e835eef6501a858d40ea32e0e7d7aef534",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "actual_eof": 171,
+      "planned_display_ranges": [
+        [
+          110,
+          145
+        ]
+      ],
+      "reason": "historical old breastplate validation order; f82 transport and 6533 recorded source-head Git identity are distinct"
+    }
+  ],
+  "qualification": "Old pr-working object and recorded 6533 Git path independently registered; identical per-file bytes do not prove whole dirty workspace or original command/custody. No historical reviewer or checkpoint3821 credit."
+}

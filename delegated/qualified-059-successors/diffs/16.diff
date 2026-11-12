@@ -1,0 +1,59 @@
+--- originals/verify_delegated_links_16.py
++++ successors/verify_delegated_links_16_059_public.py
+@@ -1,8 +1,13 @@
+ #!/usr/bin/env python3
+ """Verify compact checkpoint16 references without transferring prior credit."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,json,tarfile
+ from pathlib import Path
+-R=Path(__file__).resolve().parent;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
++R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
+ cp=load('DELEGATED-EVIDENCE-CHECKPOINT-16.json');by={b['bundle_id']:b for b in cp['bundles']};prior=[]
+ def flatten(m):
+  yield m
+@@ -14,7 +19,7 @@
+ with tarfile.open(R/b['archive']) as t:
+  d=json.load(t.extractfile('evidence-links.json'))
+  for x in d['published']:
+-  p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert sha(raw)==x['sha256'] and len(raw)==x['bytes']
++  p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(x['path']);assert _CW.matches(x['path'],raw,x['sha256'],x['bytes'])
+  for x in d['prior_packet_records']:assert any(m.get('original_sha256')==x['sha256'] and m.get('original_bytes')==x['bytes'] for m in prior)
+  assert len(d['published'])==13 and len(d['prior_packet_records'])==6
+ transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']}
+@@ -35,7 +40,7 @@
+  d=json.load(t.extractfile('historical-manifest.json'))
+  for x in d['exact_original_files']:
+   m=members[x['local']];assert m['original_sha256']==x['sha256'] and m['original_bytes']==x['bytes']
+- paths=['recovered/original-registry-source-archive/objects.tar.gz','recovered/original-registry-source-archive/registry.json.gz','recovered/original-registry-source-archive/MANIFEST.json','baseline-059/queue.json','ASSESSMENT-L01-SURFACE-CUT-95E.json','ASSESSMENT-GARMENT-DESIGN-95E.json','ASSESSMENT-GEOMETRY-OWNERS-95E.json'];known={sha((R/p).read_bytes()):len((R/p).read_bytes()) for p in paths}
++ paths=['recovered/original-registry-source-archive/objects.tar.gz','recovered/original-registry-source-archive/registry.json.gz','recovered/original-registry-source-archive/MANIFEST.json','baseline-059/queue.json','ASSESSMENT-L01-SURFACE-CUT-95E.json','ASSESSMENT-GARMENT-DESIGN-95E.json','ASSESSMENT-GEOMETRY-OWNERS-95E.json'];known=_CW.known(paths)
+  for x in d['hash_links']:assert known[x['sha256']]==x['bytes']
+  assert len(d['exact_original_files'])==20 and len(d['hash_links'])==7
+ b=by['trunk-hose-lifecycle-sampling-hair-ops'];members={m['path']:m for m in b['members']}
+@@ -43,7 +48,7 @@
+  d=json.load(t.extractfile('historical-manifest.json'))
+  for x in d['exact_original_files']:
+   m=members[x['local']];assert m['original_sha256']==x['sha256'] and m['original_bytes']==x['bytes']
+- paths=['recovered/original-registry-source-archive/objects.tar.gz','recovered/original-registry-source-archive/registry.json.gz','recovered/original-registry-source-archive/MANIFEST.json','baseline-059/queue.json','delegated/garment-underlayer-hair-ops-evidence.tar.gz','delegated/garment-underlayer-hair-ops-report.json','ASSESSMENT-WORLD-EVENT-LIFECYCLE-95E.json','ASSESSMENT-L01-BASIS-WIRE-95E.json','ASSESSMENT-L01-SURFACE-CUT-95E.json','RECOVERY-PHYSICAL-P16-PATCH-20261111.json'];known={sha((R/p).read_bytes()):len((R/p).read_bytes()) for p in paths}
++ paths=['recovered/original-registry-source-archive/objects.tar.gz','recovered/original-registry-source-archive/registry.json.gz','recovered/original-registry-source-archive/MANIFEST.json','baseline-059/queue.json','delegated/garment-underlayer-hair-ops-evidence.tar.gz','delegated/garment-underlayer-hair-ops-report.json','ASSESSMENT-WORLD-EVENT-LIFECYCLE-95E.json','ASSESSMENT-L01-BASIS-WIRE-95E.json','ASSESSMENT-L01-SURFACE-CUT-95E.json','RECOVERY-PHYSICAL-P16-PATCH-20261111.json'];known=_CW.known(paths)
+  for x in d['hash_links']:assert known[x['sha256']]==x['bytes']
+  prev=by['garment-underlayer-hair-ops'];assert prev['archive_sha256']==d['prior_published_packet']['sha256'];pm={m['path']:m for m in prev['members']}
+  for x in d['prior_published_packet']['members']:
+@@ -53,7 +58,7 @@
+ with tarfile.open(R/b['archive']) as t:
+  d=json.load(t.extractfile('evidence-links.json'))
+  for x in d['published']:
+-  p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert sha(raw)==x['sha256'] and len(raw)==x['bytes']
++  p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(x['path']);assert _CW.matches(x['path'],raw,x['sha256'],x['bytes'])
+  for packet in d['prior_packets']:
+   for x in packet['records']:assert any(m.get('original_sha256')==x['sha256'] and m.get('original_bytes')==x['bytes'] for m in prior)
+  derive=json.load(t.extractfile('derive-eof-qualification.json'));lex=json.load(t.extractfile('lexical-eof-qualification.json'))
+@@ -74,3 +79,5 @@
+    old=by_path[x['transport_path']];assert old['sha256']==x['sha256'] and old['bytes']==x['bytes'] and old['git_blob']==x['git_blob']
+  assert len(d['records'])==21
+ print('Verified checkpoint16 published, prior-packet and original historical identities; retained reconstructions do not transfer author or read credit.')
++
++_CW.finish()

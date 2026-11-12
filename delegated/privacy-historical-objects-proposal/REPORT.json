@@ -1,0 +1,21 @@
+{
+  "schema": "726-privacy-proposal-report-v1",
+  "author": "/root/hair_ops",
+  "purpose": "Additive privacy-reconstruction proposal for three already-published recovered evidence objects",
+  "results": {
+    "originals": 3,
+    "redacted_json_values": 30,
+    "reused_existing_safe_variants": 2,
+    "new_safe_variants": 1,
+    "dependency_inventory_entries": 39
+  },
+  "attribution_and_revision": "Historical source and review attribution is preserved in the data; the old source revisions, transitions and current audit baseline remain distinct. The original objects and their hashes are never replaced with their sanitized identities. No missing checkpoint 3821 is inferred.",
+  "privacy": "Only complete path-valued JSON strings are replaced. The old/new byte crosswalk is exact when checked against the retained local originals. Unrelated bytes, including slash-separated ordinary prose and agent identifiers, are unchanged. Privacy scanning is bounded, not a comprehensive secret or public-history guarantee.",
+  "consequences": "A new additive public crosswalk and variant can be reviewed independently. It does not undo exposure in the raw objects, historical Git commits, public archives, remotes or clones. Remediation of existing history would require a separate decision and a plan for every original-hash dependency.",
+  "limits": "Only the observed working checkout, indexed CP16 archive member and the previously published 74f correction were checked; compressed archives and Git history were not exhaustively searched. Independently validating original-to-public mappings requires access to the locally retained originals. No product execution, repair, test, build, probe, prior verifier or publication mutation occurred.",
+  "private_original_dependency": {
+    "manifest_sha256": "f1d56bc778c28c928b1191381255d102cf7757e82e86c41afd113e3a4c5bf4e6",
+    "availability": "Retained separately in the local-only private stage; not included in the public proposal.",
+    "qualification": "The manifest binds exact original files; original-byte and transformation verification requires their private contents."
+  }
+}

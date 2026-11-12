@@ -1,0 +1,31 @@
+--- originals/verify_delegated_links_17.py
++++ successors/verify_delegated_links_17_059_public.py
+@@ -1,15 +1,20 @@
+ #!/usr/bin/env python3
+ """Verify checkpoint 17 historical records and linked evidence identities."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,json,tarfile
+ from pathlib import Path
+-R=Path(__file__).resolve().parent
++R=_CW.root
+ load=lambda p:json.loads((R/p).read_text())
+ sha=lambda b:hashlib.sha256(b).hexdigest()
+ cp=load('DELEGATED-EVIDENCE-CHECKPOINT-17.json'); by={b['bundle_id']:b for b in cp['bundles']}
+ transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()))
+ by_path={x['path']:x for x in transport['entries']}
+ paths=['recovered/original-registry-source-archive/objects.tar.gz','recovered/original-registry-source-archive/registry.json.gz','recovered/original-registry-source-archive/MANIFEST.json','recovered/original-transport-manifest.json.gz','baseline-059/queue.json','baseline-059/ledger.json','RECOVERY-PHYSICAL-P16-PATCH-20261111.json','recovered/physical-p16-patch-recovery/tracked.patch','delegated/garment-underlayer-hair-ops-evidence.tar.gz','delegated/garment-underlayer-hair-ops-report.json','ASSESSMENT-HELMET-FOOTWEAR-95E.json','delegated/rig-quality-export-hair-evidence.tar.gz','delegated/rig-quality-export-hair-report.json']
+-known={sha((R/p).read_bytes()):len((R/p).read_bytes()) for p in paths}
++known=_CW.known(paths)
+ prior=next(b for b in load('DELEGATED-EVIDENCE-CHECKPOINT-14.json')['bundles'] if b['bundle_id']=='p16-catalog-occupancy-surface')
+ prior_members=prior['members']
+ with tarfile.open(R/by['screen-armor']['archive']) as t:
+@@ -74,3 +79,5 @@
+   for x in d['hash_links']:assert known[x['sha256']]==x['bytes']
+   assert 'reconstructed' in d['reconstructed_queue_selection']
+ print('Verified seven further packets and the separately preserved mutable-baseline advance and recovery qualifications.')
++
++_CW.finish()

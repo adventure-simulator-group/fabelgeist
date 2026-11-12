@@ -1,0 +1,653 @@
+{
+  "schema": "726-checkpoint17-pierced-sampling-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T07:04:47.358890+00:00",
+  "scope": {
+    "roles": [
+      2615,
+      2616
+    ],
+    "historical": "Exact pr-working archive objects, recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications",
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not product revision",
+    "identity": "2615 archived object equals its 6533 and 95e Git blobs. 2616 archived object equals 6533 but differs from 95e by the newly added documented triangle budget constant, as byte-level reconstructed diff records. Per-file comparisons do not establish clean historical snapshot.",
+    "personal_scope": "Read both historical and current 2615 lines 1–188; sampling historical 1–45 and current 1–49, with exact unread complements. Additional current support is bounded in read-receipt.json; full saved bytes are not full personal reads. Prior /root/hair_ops independently read both complete bodies, separately attributed."
+  },
+  "independent_source_reads": [
+    {
+      "tag": "pr-working-2615",
+      "kind": "historical-pr-working",
+      "role": 2615,
+      "archive": "source/pr-working-2615.rs",
+      "sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "EOF": 188,
+      "displayed_chunks": [
+        [
+          1,
+          95
+        ],
+        [
+          96,
+          188
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "current-2615",
+      "kind": "current-assigned",
+      "role": 2615,
+      "archive": "source/current-2615.rs",
+      "sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "EOF": 188,
+      "displayed_chunks": [
+        [
+          1,
+          95
+        ],
+        [
+          96,
+          188
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "pr-working-2616",
+      "kind": "historical-pr-working",
+      "role": 2616,
+      "archive": "source/pr-working-2616.rs",
+      "sha256": "b14bc28d8943746ac65b6c2b3197e56f84a6c04e09c5e799ffab963a390a9ae9",
+      "EOF": 71,
+      "displayed_chunks": [
+        [
+          1,
+          45
+        ]
+      ],
+      "unread_complement": [
+        [
+          46,
+          71
+        ]
+      ]
+    },
+    {
+      "tag": "current-2616",
+      "kind": "current-assigned",
+      "role": 2616,
+      "archive": "source/current-2616.rs",
+      "sha256": "240fa5c82a23e1f8a8a49b23f4df83278ee08de0390ef893c531a62ae7bdd5fe",
+      "EOF": 75,
+      "displayed_chunks": [
+        [
+          1,
+          49
+        ]
+      ],
+      "unread_complement": [
+        [
+          50,
+          75
+        ]
+      ]
+    },
+    {
+      "tag": "visor-domain",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/visor-domain.source",
+      "sha256": "4d6aabdb67ba6172143f720626c348f6a1f2d90f8ac9b954038259ecadbc9984",
+      "EOF": 144,
+      "displayed_chunks": [
+        [
+          20,
+          40
+        ],
+        [
+          60,
+          80
+        ],
+        [
+          115,
+          144
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          19
+        ],
+        [
+          41,
+          59
+        ],
+        [
+          81,
+          114
+        ]
+      ]
+    },
+    {
+      "tag": "visor-breaths",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/visor-breaths.source",
+      "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+      "EOF": 149,
+      "displayed_chunks": [
+        [
+          68,
+          149
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          67
+        ]
+      ]
+    },
+    {
+      "tag": "burgonet",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/burgonet.source",
+      "sha256": "acc1803b298a54b442b1bbab582c258c9b9c816641ee7c874a6cc4a92c9272e2",
+      "EOF": 342,
+      "displayed_chunks": [
+        [
+          200,
+          270
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          199
+        ],
+        [
+          271,
+          342
+        ]
+      ]
+    },
+    {
+      "tag": "cloth-budget",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/cloth-budget.source",
+      "sha256": "19f1c1abd1ed60c7ad6d963acb3d00775b354d729780721cc206a78ba3a282e4",
+      "EOF": 35,
+      "displayed_chunks": [
+        [
+          1,
+          35
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "gown-plan",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/gown-plan.source",
+      "sha256": "1e2f555e81fd47d17dbe9267e640ab49850438188f288d22ee48bf4ffaa959ab",
+      "EOF": 198,
+      "displayed_chunks": [
+        [
+          160,
+          177
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          159
+        ],
+        [
+          178,
+          198
+        ]
+      ]
+    },
+    {
+      "tag": "device-plan",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/device-plan.source",
+      "sha256": "af1dddb6f83be8606c98cb0087f9abe8f738c5545275d5b776737751ecffd82e",
+      "EOF": 120,
+      "displayed_chunks": [
+        [
+          42,
+          64
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          41
+        ],
+        [
+          65,
+          120
+        ]
+      ]
+    },
+    {
+      "tag": "close-design",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/close-design.source",
+      "sha256": "211f8be0723cd611db99dd61c32fcdda1e2343de03f3280416524a0bb0458b6d",
+      "EOF": 125,
+      "displayed_chunks": [
+        [
+          86,
+          110
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          85
+        ],
+        [
+          111,
+          125
+        ]
+      ]
+    },
+    {
+      "tag": "close-gpu",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/close-gpu.source",
+      "sha256": "b8cd23b2c71e940d6fbafc9bcb366e7d9ee32d07f9769dac4de5c25fe5f80cac",
+      "EOF": 387,
+      "displayed_chunks": [
+        [
+          139,
+          147
+        ],
+        [
+          340,
+          350
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          138
+        ],
+        [
+          148,
+          339
+        ],
+        [
+          351,
+          387
+        ]
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-PIERCED-DOMAIN-BOUNDED-GUARDS",
+      "classification": "Source guard and open native boundary, no new finding count.",
+      "source_refs": [
+        {
+          "source_tag": "current-2615",
+          "lines": [
+            [
+              14,
+              62
+            ],
+            [
+              65,
+              98
+            ],
+            [
+              137,
+              188
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "visor-domain",
+          "lines": [
+            [
+              20,
+              40
+            ],
+            [
+              117,
+              144
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "visor-breaths",
+          "lines": [
+            [
+              68,
+              103
+            ],
+            [
+              105,
+              148
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "burgonet",
+          "lines": [
+            [
+              246,
+              269
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "close-design",
+          "lines": [
+            [
+              86,
+              110
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "close-gpu",
+          "lines": [
+            [
+              139,
+              147
+            ],
+            [
+              344,
+              347
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "PiercedDomain checks hole vertices for inside/3 mm web, checks pairs by point containment/edge distance and proper crossings, samples boundaries/interior, maps Spade constrained triangulation failure to InvalidSurface, discards tiny area faces and filters by center before storing reversed u32 triangle indices. Selected close-helmet layout validates before its visor domain; the selected buffe chart passes a rectangle and breath openings.",
+      "limits": "No general independently established finite, simple, nonempty outer/holes, whole-segment containment against nonconvex outer, coincident-edge or u32-capacity contract follows from vertex checks. Selected source windows constrain some producers, not all producers, all native Spade behavior or GPU receivers. No invalid generated topology or runtime failure asserted. 774 ADDITIONAL-062 and q609 preserve native/geometry obligations; q1813 and q3141 are related questions, not automatic aliases.",
+      "future_direction": "Trace each supported chart producer, its finite/simple and containment guarantees, triangulator inputs and error receiver before deciding canonical admission; preserve intentional no-hole and valid geometry semantics."
+    },
+    {
+      "id": "OBS-ARMOR-SAMPLING-ZERO-AND-LOD",
+      "classification": "Selected source guard confirmed, no new finding count.",
+      "source_refs": [
+        {
+          "source_tag": "current-2616",
+          "lines": [
+            [
+              10,
+              46
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "current-2615",
+          "lines": [
+            [
+              4,
+              7
+            ],
+            [
+              65,
+              86
+            ],
+            [
+              101,
+              131
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "visor-domain",
+          "lines": [
+            [
+              66,
+              72
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "ArmorDetail::segments uses divisors 1/12/16/24 and caps at source, so zero source produces zero even with positive minimum. The selected boundary sampler uses steps.max(1). rounded_slot has source=4, minimum=1 and therefore nonzero corner_steps for each closed detail variant. Visor interior uses segments(20,3), between 3 and 20, so 20/segments is positive. These are source and mathematical arguments, not executed sampling.",
+      "limits": "A positive step does not prove finite, nondegenerate or simple input geometry; zero semantics elsewhere and full producer/native inventory remain open. 774 ADDITIONAL-063 and 059 READ-L11-427 separately record these guards."
+    },
+    {
+      "id": "REVIEW-BUFFE-BREATH-COURSE-CONTEXT-95E",
+      "classification": "Existing central ledger entry 472; prior conditional candidate reconnected, no duplicate count.",
+      "source_refs": [
+        {
+          "source_tag": "burgonet",
+          "lines": [
+            [
+              246,
+              269
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "visor-breaths",
+          "lines": [
+            [
+              105,
+              143
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "current-2615",
+          "lines": [
+            [
+              20,
+              25
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "The buffe outer chart uses the passed course height, but its openings receive the full-chart height. PiercedDomain can reject outside or under-web vertices. Earlier ASSESSMENT-HELMET-FOOTWEAR-95E independently traced a conditional valid-design shortened-course case and selected UI; this follow-up did not independently inspect its upstream course-height computation or recreate its complete example.",
+      "limits": "No produced design, geometry or UI execution; actual design occurrence, full policy, all callers and aliases remain open. q3141 is a related separate topology contract, not an alias."
+    },
+    {
+      "id": "QUESTION-EQUIPMENT-TRIANGLE-BUDGET-SCOPE-95E",
+      "classification": "Prior /root/hair_ops policy/source question, independently corroborated only in selected windows; no accepted finding or count.",
+      "source_refs": [
+        {
+          "source_tag": "current-2616",
+          "lines": [
+            [
+              6,
+              8
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "cloth-budget",
+          "lines": [
+            [
+              1,
+              35
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "gown-plan",
+          "lines": [
+            [
+              160,
+              177
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "device-plan",
+          "lines": [
+            [
+              42,
+              64
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "The new 95e constant documents a normal 10,000 triangle per-model runtime budget, including hidden construction. The selected gown finish checks piece.base after optional lining and join; checker uses part.indices.len()/3 and accepts only a count below the constant. Other named branches do not invoke that checker at the displayed dispatch location.",
+      "limits": "This does not prove absence of other checks, an actual over-budget article, a whole-assembled-model inconsistency, or supported user reachability. Resolve per-article versus assembled model, threshold semantics, index validity and other route-specific safeguards. No mesh or fixture ran.",
+      "future_direction": "Clarify the canonical model boundary and inclusive/exclusive policy, then trace all supported article assembly and reporting before deciding enforcement."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "reviewer": "774 rig admission03",
+      "record": "REGISTER-062 / ADDITIONAL-062",
+      "scope": "2615 1–188; original pr-working object. No other lens or native SDK credit."
+    },
+    {
+      "reviewer": "774 rig admission03",
+      "record": "REGISTER-063 / ADDITIONAL-063",
+      "scope": "2616 1–43 only, excludes fluting method body and tests. Registration reason mentions attached Serde but ADDITIONAL-063 states no Serde; the displayed enum derives no Serde. Preserve the source record discrepancy, not silently normalize it."
+    },
+    {
+      "reviewer": "059 /root/segovb Lens11",
+      "record": "READ-L11-427; registrations 1527, 1528, 1531",
+      "scope": "2615 1–188; 2616 1–43 with separately registered 44–45 (blank plus signature only), no fluting body or tests credit."
+    },
+    {
+      "reviewer": "059 /root/lens12_frontier; root adoption no rereads",
+      "record": "READ-L12-893/894; PAR-L12-681/682",
+      "scope": "2615 1–188 and 2616 1–43 fresh independent delegated reads at old object, separately adopted, no other-lens transfer."
+    },
+    {
+      "reviewer": "/root/hair_ops",
+      "record": "Checkpoint17 armor-pierced-sampling-hair-ops original manifest and report under prior/",
+      "scope": "Earlier independently registered full old and current bodies: 2615 1–95,96–188; 2616 old 1–71/current 1–75; earlier support and current candidate remain attributed to that reviewer."
+    },
+    {
+      "reviewer": "Prior published helmet-footwear assessment, author not named in its document",
+      "record": "ASSESSMENT-HELMET-FOOTWEAR-95E.json",
+      "scope": "Current 2615 support 1–180 and independent REVIEW-BUFFE-BREATH-COURSE-CONTEXT-95E; does not grant historical role or this reviewer read credit."
+    }
+  ],
+  "historical_relations": {
+    "selected_059_queue": [
+      {
+        "index": 609,
+        "id": "Q-L11-a94f4f41d4bca9f7f31d",
+        "relationship": "Pending actual generator/domain/native/detail boundary, no attached exact identity receipt."
+      },
+      {
+        "index": 1813,
+        "id": "Q-L12-2d53cc9b2539b21bc0f2",
+        "relationship": "Pending helmet predicates/native/consumer trace, no attached exact identity receipt."
+      },
+      {
+        "index": 3141,
+        "id": "REVIEW-L3-HELMET-CARRIER-TOPOLOGY-ADMISSION",
+        "relationship": "Separately attributed historical root L3 ring/column question, current ledger entry 471; not the buffe placement failure."
+      }
+    ],
+    "reconstruction": "059-selection-reconstructed.json is an exact selection from preserved earlier reconstructed queue and journal, not an original receipt or checkpoint3821 record.",
+    "pin_qualification": "root046 captured first35 registrations before rows62/63 and its recorded rig SHA differs from later f82 first35; root050 captured139/selected138 and its recorded SHA differs from later first139. Its qualification pin prefix matches. Registry embeds both later rows independently; discrepancy cause unproved."
+  },
+  "ledger_proposal": {
+    "existing": "reference/BASELINE-95E-20261110.json entries 471 and 472 and reference/ASSESSMENT-HELMET-FOOTWEAR-95E.json",
+    "proposal": "Keep 472 as the prior buffe breath/top-course question with the author/scope and partial source confirmation stated; keep 471 topology context distinct. Attach bounded guards and native/open geometry obligations to q609 and q1813 without treating them as one alias. Retain /root/hair_ops triangle-budget policy question uncounted pending boundary, actual supported consumers and alias search. A text scan is not a global alias inventory. Central decides ledger changes."
+  },
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Selected close-visor and buffe producers reach domain; not every caller or native receiver is examined."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "ArmorDetail and ArmorLod own quality modes; 3 mm web and native coordinates have separate contracts."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "Hole vertex/web and pair guards exist; full polygon/segment/native preconditions remain open."
+    },
+    {
+      "lens": 4,
+      "name": "operations",
+      "assessment": "Selected sampling divisors and steps are nonzero; zero-length edges and index narrowing require producer bounds."
+    },
+    {
+      "lens": 5,
+      "name": "aggregates",
+      "assessment": "Course chart height and breath placements have an existing conditional mismatch; preserve its distinct attribution."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "PiercedDomain, native triangulator, detail owner and model-budget boundary have distinct responsibilities; policy remains open."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Buffe passed course height and full-chart height have different purposes; whether relationship is valid depends on selected construction."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Preserve supported no-hole, bake and runtime detail behavior in any future work; no repair or product validation done."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "Runtime LOD versus BakeSource is represented by a closed variant; no empty-mode blanket prohibition."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Displayed ArmorLod derives basic traits but no Serde derive; 774 registration reason and additional contract differ on Serde. No boilerplate conclusion inferred."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Source, minimum and resulting segment count are related but zero source remains zero; callers must choose appropriate granularity."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "LOD invalid input returns a static string; native CDT errors coarsen to InvalidSurface, but exact native failure and receiver policy remain open."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "5 mm sampling, 1 mm grid clearance, 3 mm web and 10,000 budget express distinct units and duties; no automatic type or owner alias."
+    }
+  ],
+  "open_questions": [
+    "Do supported producers guarantee finite, simple, nonempty boundaries, complete hole-edge containment and index capacity before the native triangulator?",
+    "What native failure causes and error-consumer requirements apply to the InvalidSurface conversion?",
+    "Can supported breath/course settings reach the prior conditional rejection, and what policy preserves single-face and no-hole modes?",
+    "Does the 10,000 policy apply per article or assembled model, and which supported paths enforce or guarantee it?",
+    "What explains the historical registration-prefix mismatches? No cause inferred.",
+    "What other callers, historical aliases and lenses remain unread?"
+  ],
+  "publication_qualification": "public-prior-members.json binds original and published hashes: prior report, registration and receipt unchanged; historical-manifest public copy is reconstructed with local path redactions. No promotion into 3821.",
+  "constraints": "Source and evidence verification only. No product, geometry, triangulation, fixtures, tests, builds, probes, shader execution or repairs. No implementation, validation, unique count or whole-lens closure."
+}

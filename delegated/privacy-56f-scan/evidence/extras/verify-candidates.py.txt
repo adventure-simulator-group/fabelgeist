@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"""Read-only evidence verification, not a product or package execution."""
+import gzip,hashlib,io,json,pathlib,re,subprocess,sys,tarfile
+p=pathlib.Path(__file__).parent; index=json.loads((p/'reconstruction-index.json').read_bytes());commit=index['commit']
+sha=lambda b:hashlib.sha256(b).hexdigest()
+blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+win=re.compile(rb'(?i)(?<![A-Za-z0-9])[a-z]:[\\/]+Users[\\/]+[^\r\n]+')
+tmp=re.compile(r'(?<![A-Za-z0-9_/])/tmp/[^\s"\',;)}\]]+')
+home=re.compile(rb'(?<![A-Za-z0-9_/])/(?:home|Users)/[^/\s"\'\x00]+/')
+get=lambda path:subprocess.check_output(['git','show',commit+':'+path])
+def inventory(data):
+ out={}
+ with tarfile.open(fileobj=io.BytesIO(data),mode='r:*') as tar:
+  for m in tar:
+   assert m.name not in out
+   b=tar.extractfile(m).read() if m.isfile() else None
+   out[m.name]=({'type':m.type.hex(),'mode':m.mode,'uid':m.uid,'gid':m.gid,'uname':m.uname,'gname':m.gname,'mtime':m.mtime,'pax':m.pax_headers},b)
+ return out
+for r in index['records']:
+ new=(p/r['candidate']).read_bytes(); k=r['kind'];expected=r.get('candidate_sha256',r.get('candidate_stored_sha256'))
+ assert sha(new)==expected and blob(new)==r['candidate_git_blob']
+ if k=='writer-output':assert not win.search(new) and new.count(b'<redacted-local-path>')==3
+ elif k=='historical-temp-locators':
+  d=json.loads(new);v=d['external_locator_constraints'][4]['locator'];assert not tmp.search(v) and v.count('<redacted-local-path>')==2
+ elif k=='historical-registration':
+  decoded=gzip.decompress(new);assert sha(decoded)==r['candidate_decoded_sha256'];d=json.loads(decoded);assert not win.search(d['provenance']['cache_path'].encode())
+ elif k=='native-archive-reconstruction':
+  a=inventory(new);assert len(a)==r['member_count'];m=a[r['changed_member']][1];assert sha(m)==r['candidate_member_sha256'] and not home.search(m)
+ else:raise AssertionError('unknown candidate kind')
+ if '--originals' not in sys.argv:continue
+ orig=get(r['original_path']);assert sha(orig)==r.get('original_sha256',r.get('original_stored_sha256')) and blob(orig)==r['original_git_blob']
+ if k=='writer-output':
+  assert len(win.findall(orig))==3 and win.sub(b'<redacted-local-path>',orig)==new
+ elif k=='historical-temp-locators':
+  d=json.loads(orig);v=d['external_locator_constraints'][4]['locator'];assert len(tmp.findall(v))==2
+  original=json.dumps(v,ensure_ascii=True).encode();updated=json.dumps(tmp.sub('<redacted-local-path>',v),ensure_ascii=True).encode();assert orig.count(original)==1 and orig.replace(original,updated)==new
+ elif k=='historical-registration':
+  assert sha(gzip.decompress(orig))==r['original_decoded_sha256'] and get(r['existing_redacted_path'])==new
+  old=json.loads(gzip.decompress(orig));curr=json.loads(gzip.decompress(new));assert old['provenance']['cache_path']!=curr['provenance']['cache_path'];old['provenance']['cache_path']=curr['provenance']['cache_path'];assert old==curr
+ elif k=='native-archive-reconstruction':
+  with tarfile.open(fileobj=io.BytesIO(get(r['existing_container'])),mode='r:*') as t: assert t.extractfile(r['existing_member']).read()==new
+  old=inventory(orig);curr=inventory(new);assert set(old)==set(curr) and all(old[n][0]==curr[n][0] for n in old)
+  changed=[n for n in old if old[n][1]!=curr[n][1]];assert changed==[r['changed_member']] and sha(old[changed[0]][1])==r['original_member_sha256']
+print('PASS: 5 candidate identities and bounded path checks'+(' plus exact original Git/semantic comparisons' if '--originals' in sys.argv else '')+'; no publication writes')

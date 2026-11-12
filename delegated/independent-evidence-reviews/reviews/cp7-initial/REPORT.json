@@ -1,0 +1,80 @@
+{
+  "schema": "726-independent-checkpoint7-tar-integrity-review-v1",
+  "reviewer": "/root/rig_identity",
+  "created_utc": "2026-11-12T08:20:08.173993+00:00",
+  "scope": "Independent evidence integrity review of the captured additive CP7 tar-aware reconstruction, the original CP7 index and damaged public member, and the locally retained exact original. No product behavior or source read coverage assessed.",
+  "status": "186-entry content reconstruction verified, with one additional regex-source false positive and a raw metadata encoding qualification.",
+  "finding": {
+    "id": "CP7-TAR-NONPATH-REGEX-REDACTION-001",
+    "member": "726-delegate-web-map/build-manifest.py",
+    "original_line_one_based": 7,
+    "original_uncompressed_offset_zero_based": 213,
+    "original_safe_text": "'absolute_home_path':re.compile(rb'/home/[A-Za-z0-9_.-]+/'),",
+    "reconstructed_text": "'absolute_home_path':re.compile(rb'<LOCAL_PATH_1>'),",
+    "original_stored_sha256": "0e6ed7195b1f83c2bee88cd0b3a69337856db7bb9753b4a213c814cd1f43b8bf",
+    "reconstructed_stored_sha256": "5b04ab6ea37eb44f50be736354e25fd6f973df0956395490435ee4813fd10bae",
+    "condition": "The matcher treats a regex source literal describing possible home paths as if it were a private local path; that literal is not itself a personal path. It is one of the 1,085 declared replacements and is additional to the two correctly retained slash-prose phrases.",
+    "consequence": "The reconstruction preserves the exact transformation and is readable, but its content is not semantically complete for this script; the count cannot be described as 1,085 confirmed genuine path occurrences.",
+    "proposal": "Add a separately hash-bound, context-qualified disclosure or a further additive reconstruction that restores this exact safe regex literal while retaining actual local-path redactions. Preserve both prior public versions and the exact private original. Restrict any path-scanner exception to this exact member and context; do not disable other privacy checks."
+  },
+  "logical_archive_metadata": {
+    "verified": "All 186 entries match in order, decoded name, type, mode, UID/GID, user/group names, mtime, link name, device numbers and sparse metadata. There are 123 files and 63 directories. Index hash/length fields and the exact original-to-public bytes pass for every file.",
+    "encoding_difference": "Original tar records use GNU ustar headers; reconstructed records use POSIX ustar/PAX headers. Twelve long-name entries gain a PAX path field equal to the original decoded path. All 186 raw header checksums, 86 offsets and eight file sizes differ. Original and reconstructed gzip OS bytes are 3 and 255 respectively, while both mtime fields are zero. The metadata preservation claim is logical, not a claim of byte-identical tar/gzip headers.",
+    "pax_path_additions": [
+      "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-348-WINDOWS-ORIGINAL2366.json",
+      "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-349-WINDOWS-ORIGINAL2367.json",
+      "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/regional_connection.rs",
+      "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window.rs"
+    ]
+  },
+  "payload_transformations": {
+    "changed_file_count": 8,
+    "gzip_member_count": 52,
+    "declared_replacements": 1085,
+    "additional_false_positive_regex_literals": 1,
+    "other_pattern_matches": 1084,
+    "retained_prose": [
+      {
+        "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root/traces.jsonl",
+        "preceding_prose": "garden",
+        "restored_slash_text": "/home/building",
+        "original_uncompressed_offset": 188293
+      },
+      {
+        "path": "726-delegate-web-map/original-059-ledger.json.gz",
+        "preceding_prose": "source",
+        "restored_slash_text": "/home/window/viewport/overlay",
+        "original_uncompressed_offset": 4460781
+      }
+    ],
+    "check": "For every file, independent read-only reproduction of the indexed substitution algorithm yielded the exact public uncompressed bytes and exact stored bytes, including deterministic recompression of changed gzip members. Both original/public SHA-256 values and lengths matched the index. Only the two listed safe prose matches appear in the public regex scan. The 1,084 other matches are not individually certified as privacy-safe or semantically appropriate."
+  },
+  "embedded_original_manifest": {
+    "files_checked": 122,
+    "result": "Every listed file matches the exact original tar member length and SHA-256. The manifest excludes itself and is unchanged in the reconstruction; it is an original-byte manifest, not a regenerated public-byte manifest. Eight public members differ as explicitly indexed."
+  },
+  "previous_public_damage": {
+    "original_checkpoint_index_sha256": "174a072454e9d8dea2448bdd0f8fdec9fd3920fb8d9d9dbd20e4a2e649da8c27",
+    "original_outer_bundle_author": "/root/mhr_character",
+    "nested_packet_registered_reader": "/root/rig_identity for original roles 2364–2368; preserved as separately attributed prior read evidence",
+    "original_stored_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+    "damaged_stored_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+    "reconstruction_stored_sha256": "8ef3dc97ed66a6b20c08456945780b6a01295407d2974e9cf86f68076d5a5d93",
+    "proof": "The CP7 strategic-map index binds the retained original and damaged public member. Applying the old opaque-stream replacement to the exact original uncompressed tar reproduces the damaged bytes exactly after 1,060 replacements. Normal tar iteration returns only five members; independently parsing its next header at uncompressed byte offset 69120 reports bad checksum. This does not implicate the untouched private original."
+  },
+  "privacy_and_recovery_limits": [
+    "The local exact original and changed original members contain private path values and remain local. The reviewed reconstructed archive contains the two specifically context-allowed prose strings and otherwise passed the specified path/credential regex scans, including member metadata and one gzip decompression layer. This is not a comprehensive privacy assessment of arbitrary encodings or sensitive information.",
+    "The retained original is a same-machine copy tied by SHA-256 and length to the original CP7 index; it does not establish independent custody or the original archive creation invocation.",
+    "Earlier 059 and 774 records retain their own revisions, suppliers and read scopes. This reconstruction, receipt inspection and hash verification do not create checkpoint3821 evidence, historical rereads, source reachability or lens clearance.",
+    "No source or publication file was changed and no product, test, build, macro, fixture, browser, runtime probe, simulation or existing verifier was executed."
+  ],
+  "verification": "Run the included read-only verify.py with CP7_ORIGINAL and CP7_OUTER set to the original private archive and the original published strategic-map outer archive. CHECKS.json is the recorded result. The prior published CP7 index, public reconstruction index and reconstructed tar are retained as evidence copies in this packet."
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "726-extra-qualified-verifier-transform-v1",
+  "predecessor_sha256": "2b0be3743a7703f9ce11dfb905a079b89074a3ef3ce8031467951d110f1d5172",
+  "successor_sha256": "d88a6859727ff6cdf78b16d8b5f1870c13a03398edc8a41b20cc904648a1043e",
+  "unique_non_overlapping_anchor_count": 8,
+  "operations": [
+    {
+      "operation": "add separate two-record helper",
+      "predecessor_line_start": 88,
+      "predecessor_line_end": 88,
+      "successor_line_start": 88,
+      "successor_line_end": 155,
+      "predecessor_text_sha256": "5431af89aad8ab53df458d9acb68e323934531f069fc106fa61a75c28f39a400",
+      "successor_text_sha256": "b69910fc8ee34184877da4769801e97ef4982ea447be97f71e8e1e2dddbc83a8"
+    },
+    {
+      "operation": "pin prior-redacted portability manifest",
+      "predecessor_line_start": 173,
+      "predecessor_line_end": 173,
+      "successor_line_start": 240,
+      "successor_line_end": 240,
+      "predecessor_text_sha256": "40d07ebd6df979b08dc1e6b09e2a0973326cf7c17ee214ba80b69d77406f7845",
+      "successor_text_sha256": "e0d711ac86b852a2bae58bd415f91c09aedb40f04f052154d9f8ca3e87c08687"
+    },
+    {
+      "operation": "qualify reconstructed portability public bytes",
+      "predecessor_line_start": 174,
+      "predecessor_line_end": 175,
+      "successor_line_start": 241,
+      "successor_line_end": 243,
+      "predecessor_text_sha256": "a82704983d90a593adb607d731680ba932fe072447fb2a01c6ff73a6687b56c1",
+      "successor_text_sha256": "80d52d4662c92b42b8cf3037ee7e5953ed540247d6dd73214213a65ef6ec6a2d"
+    },
+    {
+      "operation": "pin historical writer manifest",
+      "predecessor_line_start": 1778,
+      "predecessor_line_end": 1778,
+      "successor_line_start": 1846,
+      "successor_line_end": 1846,
+      "predecessor_text_sha256": "447d9383d3b808701b42d0062d577e488a2e3a53d60307d0841052a8555c1388",
+      "successor_text_sha256": "db4047e8beb9bd2e7691af6f3b6109077afdf12681452ad9b0d5f9e873699f14"
+    },
+    {
+      "operation": "qualify writer output while retaining final bundle check",
+      "predecessor_line_start": 1864,
+      "predecessor_line_end": 1866,
+      "successor_line_start": 1932,
+      "successor_line_end": 1936,
+      "predecessor_text_sha256": "1ae79b5c156ac31f505427770ebd15844b3810dc0e012fa43923d4bbc75b4f74",
+      "successor_text_sha256": "7bc24c1f426893e71afbc6761a4890367f6a6b458ec2addf76f2c3179d2ad198"
+    },
+    {
+      "operation": "pin late-current manifest",
+      "predecessor_line_start": 5075,
+      "predecessor_line_end": 5075,
+      "successor_line_start": 5145,
+      "successor_line_end": 5145,
+      "predecessor_text_sha256": "1ccf5fed6ea4e4a681ffe392775a2d14c6fb3251d5b963928963173594fb49cb",
+      "successor_text_sha256": "ed88624dd802a3843813f5fabb2ad17b35a40dd29e58328471ed4852a2ff1efa"
+    },
+    {
+      "operation": "qualify late writer output while retaining writer hash",
+      "predecessor_line_start": 5080,
+      "predecessor_line_end": 5081,
+      "successor_line_start": 5150,
+      "successor_line_end": 5152,
+      "predecessor_text_sha256": "37f161b100458c6752af006789efd3271584ee367f4b3f99e0e58287ae1606e8",
+      "successor_text_sha256": "ede7156992ebbcb6f585748d8cd24e24fb53c2c1b4d90b248f331600559bf103"
+    },
+    {
+      "operation": "report additional original-byte qualification",
+      "predecessor_line_start": 8228,
+      "predecessor_line_end": 8228,
+      "successor_line_start": 8299,
+      "successor_line_end": 8303,
+      "predecessor_text_sha256": "f3d4b3b04c156135aeb53140ef392cbf5800ac967ddc21136dfa88c4d4a8d27e",
+      "successor_text_sha256": "dd91ae6b650bb8ac7642783ea1fe9bdef6e68bf4cc4d595a16def009de470ff8"
+    }
+  ],
+  "qualification": "Each predecessor anchor occurs exactly once and is non-overlapping. The transform preserves all predecessor bytes outside those eight replacements; the prior three-object helper and unrelated assertions remain in place."
+}

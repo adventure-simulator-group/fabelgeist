@@ -1,0 +1,56 @@
+{
+  "schema": "726-059-early-link-qualified-successors-v1",
+  "discovery": "The full privacy-aware driver stopped at checkpoint 11 because the earlier exact-byte link inventory overlooked checkpoint 11\u201315 direct 059 queue and ledger references. Separate invocations of the unchanged 12\u201315 verifiers stopped at their first such byte comparisons. This supplements, rather than rewrites, the earlier inventory of 15 affected scripts.",
+  "historical_scripts_preserved": true,
+  "qualified_direct_link_count": 22,
+  "rows": [
+    {
+      "original": "verify_delegated_links_11.py",
+      "original_sha256": "528482f929fffc47b8043ad4cc39bbcd65b74e2a35195b56a6dbe1bd906a645a",
+      "successor": "successors/verify_delegated_links_11_059_public.py",
+      "successor_sha256": "b1a690f1e0954eefc30ea301226327532d3e11ff103ddc9a5330701088af3321",
+      "diff": "diffs/11.diff",
+      "diff_sha256": "e7ed233576b22e5b62b009355e7fab897366f43b87b254746fa7d7da91777057",
+      "qualified_link_count": 6
+    },
+    {
+      "original": "verify_delegated_links_12.py",
+      "original_sha256": "89a18891a7f59caffdabc81348713a1b5b95f835b6cb3c913f68dbcbe8436572",
+      "successor": "successors/verify_delegated_links_12_059_public.py",
+      "successor_sha256": "530d6cf9ad1de58648b996e44085c6e178bfd728c43b77460e5b0db472dd5eb4",
+      "diff": "diffs/12.diff",
+      "diff_sha256": "eeebeb4a6ffd37bb782ca9cb9d87276127b18ffd0ff8cbf2ca23c45ba78ba415",
+      "qualified_link_count": 6
+    },
+    {
+      "original": "verify_delegated_links_13.py",
+      "original_sha256": "cebed23ff0c4a0915c7da453d35abf718eccb22a296ce3f20cfd312041fa0381",
+      "successor": "successors/verify_delegated_links_13_059_public.py",
+      "successor_sha256": "173149503b681d6fe31cc70476ab15ac2fa88587c4725536d6e2e4b5b0f986f4",
+      "diff": "diffs/13.diff",
+      "diff_sha256": "3f7464bee5de0b10c9e316acb8569d7eb78d78046ca769ad27d5eb4fc3ad7525",
+      "qualified_link_count": 6
+    },
+    {
+      "original": "verify_delegated_links_14.py",
+      "original_sha256": "bc822cf84202d9d4a610cdb025349c3256489d8f5a0d73531e135a0635b9a3e8",
+      "successor": "successors/verify_delegated_links_14_059_public.py",
+      "successor_sha256": "73369a10ceb215cc2d47d32dd2df6717c95b2d459b2f8cb78ef3633c63312afd",
+      "diff": "diffs/14.diff",
+      "diff_sha256": "b9483af50e2e66ee10fd90532d95256f3ef5eaaafaff25becd6c3e012d64fbc3",
+      "qualified_link_count": 2
+    },
+    {
+      "original": "verify_delegated_links_15.py",
+      "original_sha256": "39560ec7a1a819454de74d2a5595fa7f8588e06f8917892568277669049ca72a",
+      "successor": "successors/verify_delegated_links_15_059_public.py",
+      "successor_sha256": "208924d55caa39adad2a9a0cb55650bcb16680c73e83c38ba7cba4d74d08f411",
+      "diff": "diffs/15.diff",
+      "diff_sha256": "6c4fa95a5d05fc96a40957dd823faa159e97075380e827186483f783bd6e551a",
+      "qualified_link_count": 2
+    }
+  ],
+  "qualification": "The public crosswalk binds original historical 059 transport identities and separate reconstructed public bytes. These checks do not compare the private original bytes with the redactions, erase old Git history, prove checkpoint3821 recovery or transfer reader credit.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

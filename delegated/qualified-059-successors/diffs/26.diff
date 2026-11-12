@@ -1,0 +1,26 @@
+--- originals/verify_delegated_links_26.py
++++ successors/verify_delegated_links_26_059_public.py
+@@ -1,10 +1,15 @@
+ #!/usr/bin/env python3
+ """Verify historical links and native identities without product execution."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,io,json,tarfile,tomllib
+ from pathlib import Path
+-R=Path(__file__).resolve().parent;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();cp=load('DELEGATED-EVIDENCE-CHECKPOINT-26.json');bundles={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']};by_sha={x['sha256']:x for x in transport['entries']};direct=load('DELEGATED-CHECKPOINT-26-DIRECT-LINKS.json');assert len(direct['links'])==39
++R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();cp=load('DELEGATED-EVIDENCE-CHECKPOINT-26.json');bundles={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']};by_sha={x['sha256']:x for x in transport['entries']};direct=load('DELEGATED-CHECKPOINT-26-DIRECT-LINKS.json');assert len(direct['links'])==39
+ for x in direct['links']:
+- p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert (sha(raw),len(raw))==(x['sha256'],x['bytes'])
++ p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(x['path']);assert _CW.matches(x['path'],raw,x['sha256'],x['bytes'])
+ def saved(m,x):assert (m['original_sha256'],m['original_bytes'])==(x['sha256'],x['bytes']) or (m['original_uncompressed_sha256'],m['original_uncompressed_bytes'])==(x['sha256'],x['bytes'])
+ checks=0
+ for name,b in bundles.items():
+@@ -81,3 +86,5 @@
+   raw=t.extractfile('rig/'+fn).read();reg=json.loads(raw);ref=next(x for x in receipt['registrations'] if x['path']==fn);assert sha(raw)==ref['sha256'] and ref['at_utc']<receipt['at_utc'];a=next(x for x in reg['entries'] if x['id']==ident);v=entries[ident];assert a['revision']==native_rev and a['git_path']=='src/render/prepare/mod.rs' and a['prospective_personal_read_ranges']==want;body=t.extractfile('rig/'+a['archive']).read();assert sha(body)==a['sha256']==v['sha256']=='7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092' and blob(body)==a['git_blob']=='073b691cfb1f6f64c2a62f7726a044cae08897c8';planned={i for lo,hi in want for i in range(lo,hi+1)};actual={i for lo,hi in v['actual_display_chunks'] for i in range(lo,hi+1)};assert planned==actual;sets.append(actual)
+  assert not sets[0]&sets[1] and sets[0]|sets[1]==set(range(1,341));assert t.extractfile('rig/support/native-prepare.source').read()==t.extractfile('rig/support/native-inputs.source').read()==t.extractfile('own/support/prepare.rs').read();assert '106–226 unread' in t.extractfile('own/report.json').read().decode() and 'No single receipt' in c['correction']
+ print('Verified serde_json archive and old/current locks, historical-only Eidolon Git lock identity, and additive separately registered support-read correction; no feature, execution or reader transfer inferred.')
++
++_CW.finish()

@@ -1,0 +1,67 @@
+{
+  "result": "verified_with_one_additional_false_positive_and_tar_encoding_qualification",
+  "counts": {
+    "entries": 186,
+    "files": 123,
+    "directories": 63,
+    "changed_files": 8,
+    "gzip_file_members": 52,
+    "redactions": 1085,
+    "retained_prose_occurrences": 2,
+    "redacted_nonpath_regex_occurrences": 1,
+    "other_path_pattern_matches": 1084,
+    "opaque_prior_replacements": 1060,
+    "damaged_public_tar_readable_entries": 5,
+    "embedded_original_manifest_entries": 122
+  },
+  "tarinfo_difference_counts": {
+    "chksum": 186,
+    "size": 8,
+    "pax_headers": 12,
+    "offset": 86,
+    "offset_data": 86
+  },
+  "pax_path_addition_members": [
+    "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-348-WINDOWS-ORIGINAL2366.json",
+    "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-349-WINDOWS-ORIGINAL2367.json",
+    "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_environment.rs",
+    "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+    "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+    "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+    "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+    "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/regional_connection.rs",
+    "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+    "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+    "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+    "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window.rs"
+  ],
+  "original_gzip_os_byte": 3,
+  "reconstructed_gzip_os_byte": 255,
+  "retained_prose": [
+    [
+      "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root/traces.jsonl",
+      188293,
+      26,
+      "/home/building"
+    ],
+    [
+      "726-delegate-web-map/original-059-ledger.json.gz",
+      4460781,
+      62919,
+      "/home/window/viewport/overlay"
+    ]
+  ],
+  "additional_redacted_regex_source": [
+    [
+      "726-delegate-web-map/build-manifest.py",
+      213,
+      7,
+      "<LOCAL_PATH_1>",
+      "0e6ed7195b1f83c2bee88cd0b3a69337856db7bb9753b4a213c814cd1f43b8bf",
+      "5b04ab6ea37eb44f50be736354e25fd6f973df0956395490435ee4813fd10bae"
+    ]
+  ],
+  "damaged_next_header_offset": 69120,
+  "damaged_next_header_error": "bad checksum",
+  "qualification": "Evidence bytes only; retained original copy does not establish independent custody, source-reading, checkpoint3821, or product behavior."
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "726-checkpoint35-independent-integrity-review-v1",
+  "reviewer": "/root/rig_identity",
+  "created_utc": "2026-11-12T08:16:44.506491+00:00",
+  "scope": "Independent, bounded source-evidence packaging review of the captured checkpoint35 index, qualification, three archives and locally retained exact originals. Not a product review or lens clearance.",
+  "status": "Two additive corrections proposed; original checkpoint and its public reconstructions remain unchanged.",
+  "finding_1": {
+    "id": "CP35-SEMANTIC-PROSE-REDACTION-001",
+    "summary": "The broad local-path matcher replaced seven slash-delimited prose fragments across six archive-member occurrences. The fragments are not local filesystem paths in their original context.",
+    "occurrences": "Three identical historical 059 ledger copies, two distinct passages within the 774 camera contract file, one 774 rig contract passage, and one bundled skill passage. Exact member, original and public hashes, uncompressed offsets, original line, token and safe text are in PROPOSAL.json.",
+    "qualifications": "The original and existing public bytes remain separately hash identified. 166 additional substitutions are pathlike by prefix and are not thereby cleared as harmless. Restore only the seven exact member-specific, context-confirmed fragments in an additive sidecar; retain personal path redactions. An exact allowlist is needed because the broad scanner would flag these ordinary phrases again."
+  },
+  "finding_2": {
+    "id": "CP35-059-COMPRESSED-IDENTITY-OMISSION-001",
+    "summary": "The staged 059 qualification matches stored member hashes only and omits six redacted gzip copies whose uncompressed original bytes match the 059 transport manifest.",
+    "correction": "Stored matching remains 115 occurrences. Matching stored OR uncompressed SHA-256, with occurrence deduplication, yields 124 occurrences and 15 redacted member occurrences representing 11 original records; the staged 9 redacted occurrences representing 9 originals remain part of the corrected totals. The nine additional matches consist of six redacted copies of two records and three unchanged compressed registry copies.",
+    "identities": "PROPOSAL.json records all six locations and distinct original and public stored/uncompressed hashes; the new original records are the historical 059 ledger and closure queue."
+  },
+  "checked_evidence": {
+    "index_sha256": "5e61c0a984e0c9c1cb7b651dc61f0093cefc9304844df4a67605bff27cc49605",
+    "qualification_sha256": "90cc44347175b58333ede46edec3375b4ed990b5bbb1c98e7af401c36654db19",
+    "private_manifest_sha256": "3ef1e6c138b93a38c5adb2e3bec72aec806996bb0ff1ca7630d79c7cdb9300f3",
+    "checks": "398 top-level and 500 recursive archive members, archive hashes, published member stored and uncompressed hashes, all 37 private originals, all 173 exact replacement transformations, two selected 774 raw Git blob and commit/tree path chains, and author/report identity. The nine previously qualified 059 records and the two newly disclosed originals were checked against the user-supplied extraction by exact bytes or SHA-256, length and Git blob. CHECKS-V3.json records counts; verify.py repeats these checks read-only.",
+    "attribution": "The index preserves /root/rig_identity, /root/hair_ops and /root/mhr_character as the three packet authors. The relevant 059 ledger passage is a segovb record scoped at e2755a732c84e67296b5e3441a4259a84f461b2f. The 774 camera and rig records retain their supplier and record IDs, and f82 remains a transport commit only. The staged role selection itself qualifies that roles 2577–2578 are discussed as earlier records but their historical source bodies are not included."
+  },
+  "coordination": "Independent scans agreed with the separate global compressed-match inventory by /root/mhr_character and the frozen slash-prose inventory by /root/hair_ops. A preliminary five-location mapping was corrected to six after independent reconciliation; no reviewer credit transfers.",
+  "limitations": [
+    "The compact packet links to the staged archives, transport manifest and private originals; those bytes are not duplicated here. The original retained copies contain personal paths and remain local.",
+    "Known-path and credential regular expressions are not a comprehensive privacy audit. The sidecar intentionally includes the seven context-confirmed ordinary prose fragments and must use a precise exception if checked by the older broad scanner.",
+    "Receipt and historical identity checks do not prove personal source reading, current reachability, any lens completion, a duplicate finding count, or checkpoint3821 credit.",
+    "No product, macro, shader, fixture, build, test, runtime probe, repair or old mutating verifier was run; no stage, publication, original, or user extraction was modified."
+  ]
+}

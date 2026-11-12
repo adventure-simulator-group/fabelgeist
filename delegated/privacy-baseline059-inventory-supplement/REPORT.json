@@ -1,0 +1,55 @@
+{
+  "schema": "726-baseline059-inventory-completion-supplement-v1",
+  "created_utc": "2026-11-12T08:55:43.017128+00:00",
+  "author": "/root/rig_identity",
+  "previous_proposal_manifest_sha256": "c50805f017b3d985b976d4670d9114dfff1b9db1f2a2a07558af8c53220aaa23",
+  "scope": "Additive deeper reference scan and concrete successor-verifier integration plan; the previous frozen proposal remains unchanged.",
+  "superseding_coverage": {
+    "delegated_tar_archives": 354,
+    "outer_regular_members": 34990,
+    "gzip_members_seen": 14580,
+    "nested_tar_streams_seen": 237,
+    "matching_representations": 1739,
+    "new_matching_representations": 68,
+    "cap_or_depth_omissions": 0,
+    "parser_tail_exceptions": [
+      {
+        "archive": "delegated/strategic-map-evidence.tar.gz",
+        "member_chain": "prior-web-map-route-packet.tar.gz",
+        "reason": "tar parser stopped before nonzero header; remaining entries unread",
+        "parser_offset": 69120,
+        "remaining_uncompressed_bytes": 12544008
+      }
+    ],
+    "errors": [],
+    "shallow_and_deep_outer_archive_hashes_identical": true,
+    "qualification": "The old shallow report recorded 315 capped omissions. This deeper pass uses 64 MiB and eight compression layers and resolves those cap/depth omissions; a tar-aware end-header check exposes the separately described damaged CP7 nested archive. Scans are bounded to enumerated formats, tokens, snapshot and parser behavior."
+  },
+  "nondelegated_compressed": {
+    "enumerated_gz_tgz_crate_files": 15091,
+    "matching_representations": 35,
+    "bounded_omissions": [],
+    "errors": [],
+    "symlinks_observed": 0,
+    "qualification": "All enumerated non-delegated .gz, .tgz and .crate paths outside .git were scanned, including nested tar contents under the same limits. Unsupported/magic-only formats, .git history, concurrent later changes and alternate reference spellings remain open."
+  },
+  "cp7_exception": {
+    "index_path": "delegated/cp7-tar-reconstruction/INDEX.json",
+    "index_sha256": "32f9312f9f1958ba9a19e82b76069046d92bfda7b1a8d39699809a6b21a1ef03",
+    "damaged_nested_path": "delegated/strategic-map-evidence.tar.gz!prior-web-map-route-packet.tar.gz",
+    "damaged_public_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+    "damaged_entries_visible": 5,
+    "bad_header_parser_offset": 69120,
+    "successor_path": "delegated/cp7-tar-reconstruction/prior-web-map-route-reconstructed.tar.gz",
+    "successor_sha256": "5b471b148151e841596bc253c45ac0bd23edf5db174d0c251b659a3543e3426e",
+    "successor_entries": 186,
+    "qualification": "The damaged stream silently ends at five valid entries; the next header has a bad checksum and remaining original entries are unread in that copy. The separately published tar-aware successor contains 186 entries and was separately included in the deep scan; it is a reconstructed public copy, not byte-identical to the damaged or original archive."
+  },
+  "additional_archived_verifiers": {
+    "new_python_member_occurrences": 10,
+    "distinct_member_digests": 5,
+    "qualification": "These separately retained historical scripts reference their own archived original gzip inputs, not the current top-level baseline paths. They must not be counted as additional known top-level byte-check failures, executed as part of this work, or rewritten as though public redactions were original. Exact paths and hashes are in NEW-DEEP-MATCHES.json."
+  },
+  "integration": "INTEGRATION-PLAN.json records the exact 15 affected current scripts, 20 direct-link rows, 35 archived link rows, seven overlapping semantic references, transport identity checks and the qualified original-to-public status model.",
+  "limitations": "Source and evidence inspection only; no repairs, product or fixture execution, builds, tests, runtime probes, original verifier execution, publication edits, extraction writes or Git history modification."
+}

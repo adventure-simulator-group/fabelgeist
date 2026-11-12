@@ -1,0 +1,63 @@
+{
+  "schema": "726-bounded-evidence-manifest-v1",
+  "created_utc": "2026-11-12T09:03:14.329866+00:00",
+  "file_count": 11,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1317,
+      "sha256": "2160ef1420b32202b76876ff3c1e5b1413f961bced0bf97544098b19af993d8a"
+    },
+    {
+      "path": "build-manifest.py",
+      "bytes": 740,
+      "sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181"
+    },
+    {
+      "path": "candidates/city-537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.redacted.json.gz",
+      "bytes": 899,
+      "sha256": "d4dfb06c8be60de5f776b06afa637a29aa4ff94a8ba441353aad96de38478b5c"
+    },
+    {
+      "path": "candidates/city-66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.redacted.json.gz",
+      "bytes": 891,
+      "sha256": "82b9471f873416d514f7c9b5aed52f1afe5901a9a53ab2f0425c5f0b7afae112"
+    },
+    {
+      "path": "candidates/portability-review-redacted.json",
+      "bytes": 8723,
+      "sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5"
+    },
+    {
+      "path": "candidates/serde-saphyr-redacted.tar.gz",
+      "bytes": 618462,
+      "sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a"
+    },
+    {
+      "path": "candidates/writer-output-redacted.txt",
+      "bytes": 458,
+      "sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192"
+    },
+    {
+      "path": "prepare-extra.py",
+      "bytes": 5524,
+      "sha256": "8cdc5b539e76d12767d6b56a7e39bb49b02a4bbec51f187b02ab0b79506e7597"
+    },
+    {
+      "path": "reconstruction-index.json",
+      "bytes": 5528,
+      "sha256": "0d2c4be329e4cb33b5e8848fe097ff4f5de333db5a883af17c25ce78001d75ab"
+    },
+    {
+      "path": "verify-candidates.py",
+      "bytes": 3577,
+      "sha256": "fa715bdead77b463575efb3b4c6ba851806fddc123964d040cf9778cac204d22"
+    },
+    {
+      "path": "verify-manifest.py",
+      "bytes": 539,
+      "sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5"
+    }
+  ],
+  "qualification": "Evidence packet; excludes only root BUNDLE-MANIFEST.json, includes nested manifests."
+}

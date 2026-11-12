@@ -1,0 +1,329 @@
+{
+  "schema": "726-checkpoint38-independent-readonly-review-results-v1",
+  "checked_utc": "2026-11-12T07:54:54.235634+00:00",
+  "status": "pass_with_qualifications",
+  "inputs": {
+    "<PRIVATE_PATH_0003>": "cf7550560626309555a6eda92c3e560aac88ff0273ef4fdfdae8b5bdbf3cfbce",
+    "<PRIVATE_PATH_0004>": "27ba55a9c7b935f5b67f6fe84fd091d17de2b71a8aaf2446c69e8e316f1aaf36",
+    "<PRIVATE_PATH_0005>": "ec082fb61e8183035ec5f02cdd61c39bf120fcdd7cc127eff3005988eee72a0b",
+    "<PRIVATE_PATH_0006>": "52568e4821f7373142b78bf9257d4523bad5c5390d36e2a04464dee57aa1dbcf",
+    "<PRIVATE_PATH_0007>": "52f6b942c80d9b0e6854bd253403331fe0e098dd37c7baaba298243058d4cb28",
+    "<PRIVATE_PATH_0008>": "4a300a6856a238b2ecdfd3d26535b2441b5e3a7c736623b3be90005e02c11276",
+    "<PRIVATE_PATH_0009>": "9c3939e2bae0ecd8da66904c9de881314256425ee5287688e8e16cfc1374c24c",
+    "<PRIVATE_PATH_0010>": "32860b0b097f1e98f2f61e1007eec5dcc8e01749775937f73ccf6710ca4133ff"
+  },
+  "bundle_checks": [
+    {
+      "bundle": "extremity-joint-2617-2618",
+      "agent": "/root/rig_identity",
+      "archive": "delegated/extremity-joint-2617-2618-evidence.tar.gz",
+      "archive_sha256": "de90bda285a7c62c0b88933ac558a0f3a9fe54ffab96af8f8b6b643371415e42",
+      "top_members": 119,
+      "changed_top_members": 6,
+      "prior_manifest_extra": [
+        "history/prior-role/MANIFEST.json"
+      ],
+      "original_manifest_sha256": "e69f76fdf6a6136a790cb5bd63a51f35e843a9c90663294ada207b54d314c825"
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "agent": "/root/hair_ops",
+      "archive": "delegated/besagew-radial-2619-2620-evidence.tar.gz",
+      "archive_sha256": "4e17ea938dece411337ea47fbfe96ffcee53c3d8163c4554d2c2e8fec1e1d295",
+      "top_members": 131,
+      "changed_top_members": 7,
+      "prior_manifest_extra": [],
+      "original_manifest_sha256": "dd452ff092f8e4688d1280754138e262efbe7fa5a8d45377c3995b929f2c24e1"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "agent": "/root/mhr_character",
+      "archive": "delegated/joint-pauldron-2621-2622-evidence.tar.gz",
+      "archive_sha256": "ff64d88c5483d1392d3894aecd16816a9bf99cb558957339db0c3646f50bba17",
+      "top_members": 143,
+      "changed_top_members": 9,
+      "prior_manifest_extra": [],
+      "original_manifest_sha256": "e53622844dc0cbefd3dd638f079b4bed5c8ef40df03da5b21ab89de12c65c377"
+    }
+  ],
+  "counts": {
+    "top_members": 393,
+    "recursive_nodes": 475,
+    "changed_top": 22,
+    "redactions": 150
+  },
+  "redaction_categories": {
+    "local_user_absolute": 129,
+    "temporary_absolute": 15,
+    "prose_false_positives": 6
+  },
+  "git_path_proofs": 81,
+  "original_transport_sha_matches": 132,
+  "redacted_059_transport_matches": 0,
+  "prior_manifest_binding": {
+    "bytes": 14404,
+    "sha256": "19d64c867700fe086d9c6a9acd2cbbd77a4741bd590e505c9d459f109340cc08",
+    "prior_archive_sha256": "ea066e19b44cfdbcb19d29e11e98e397a59b1b21a441ec4976f0c23d77e88184"
+  },
+  "committed_vs_working_baseline": {
+    "committed_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "committed_sha256": "28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9",
+    "observed_working_sha256": "fc828ecf7e09c2b563c46ec6b8ef5c67267baeb5455f1ea62d3739b2e2ded6ad",
+    "equal": false,
+    "selected_ledger_id": "REVIEW-METAL-SEED-DRAW-OVERLAP-95E",
+    "selected_ledger_equal": true
+  },
+  "earlier_unregistered_locator": "joint_cup.rs line 142: prior unregistered print gets no read credit; subsequent registered display is a reread",
+  "roles": [
+    {
+      "role": 2617,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/extremities.rs",
+      "snapshot": "pr-working",
+      "sha256": "c1cf0b909a27cc5e1351eeb6624cde6dcf6b72d4d03a76c6d4e042e54d0f82c7",
+      "material_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "bytes": 2437,
+      "reconciliation_reviewer": "/root/rig_identity",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-064"
+      ]
+    },
+    {
+      "role": 2618,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/joint_cup_design.rs",
+      "snapshot": "pr-working",
+      "sha256": "d17b22a1167a4cce7caa2b0c4fc225bf17e0ec1574caa262354fe4b95dde56b9",
+      "material_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "bytes": 4546,
+      "reconciliation_reviewer": "/root/rig_identity",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-066"
+      ]
+    },
+    {
+      "role": 2619,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/besagew.rs",
+      "snapshot": "pr-working",
+      "sha256": "c3d0aae65c57d8a1406448595b81bbfa2c44b45caa68ff39a849da5189bca7db",
+      "material_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "bytes": 1496,
+      "reconciliation_reviewer": "/root/hair_ops",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-067"
+      ]
+    },
+    {
+      "role": 2620,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/radial_fluting.rs",
+      "snapshot": "pr-working",
+      "sha256": "54b0aee7ee7d1790d7538a1ecfaacd1d17d20de9dd6bd49124546eb087f854b7",
+      "material_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "bytes": 1559,
+      "reconciliation_reviewer": "/root/hair_ops",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-068"
+      ]
+    },
+    {
+      "role": 2621,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/joint_extension.rs",
+      "snapshot": "pr-working",
+      "sha256": "998bb87a75985df4a4018b59e368d6422593f3d390e85572ad6ac914fd1396fb",
+      "material_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "bytes": 1716,
+      "reconciliation_reviewer": "/root/mhr_character",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-069"
+      ]
+    },
+    {
+      "role": 2622,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pauldron.rs",
+      "snapshot": "pr-working",
+      "sha256": "5badf1272e5eb85a11a05f6a16f1826a3ae4aaa23f1ab42408fbd48fad2d92ec",
+      "material_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "bytes": 5700,
+      "reconciliation_reviewer": "/root/mhr_character",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-070"
+      ]
+    }
+  ],
+  "reader_receipts": [
+    {
+      "bundle": "extremity-joint-2617-2618",
+      "reconciliation_reviewer": "/root/rig_identity",
+      "receipt": "personal-read-receipt.json",
+      "sha256": "e5a94e441ccf2d95d8675f13a3629a631470bf901ebbe7e4c6132d777040aca7",
+      "registration_sha256": "a51cb05b455e57793631ac534059edee54efb0789b2b12cb345afa5211300b75",
+      "qualification": "Both historical and current displays verified as separate registrations/receipts, retaining original historical supplier."
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "reconciliation_reviewer": "/root/hair_ops",
+      "receipt": "read-receipt.json",
+      "sha256": "76e625ab4812c78f919250159fde5767760df43048f9d8b7f5ac1bc60b098727",
+      "registration_sha256": "11438448063b5ac70a381494a31ff84725f625e23c386a2caad77932b50bfba4",
+      "qualification": "Both historical and current displays verified as separate registrations/receipts, retaining original historical supplier."
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "reconciliation_reviewer": "/root/mhr_character",
+      "receipt": "read-receipt.json",
+      "sha256": "4317f32f92d7ff5b09ff3aeaa7827fad729c6f73bbc1902de61c03aeb44ed608",
+      "registration_sha256": "846a024696e8d878bb758c8e2b3a34cd32651ad132e05a269a9493c1cab9bcd6",
+      "qualification": "Both historical and current displays verified as separate registrations/receipts, retaining original historical supplier."
+    }
+  ],
+  "false_positive_redactions": [
+    {
+      "bundle": "extremity-joint-2617-2618",
+      "member": "history/baseline-059-ledger.json.gz",
+      "matching_substring": "/home/window/viewport/overlay",
+      "occurrences": 1,
+      "context": "059 ledger source/home/window/viewport/overlay prose"
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "member": "prior/visor-buffe/history-774/contract-groups.jsonl.gz",
+      "matching_substring": "/home/noerrors",
+      "occurrences": 1,
+      "context": "774 contract-groups row 767 source/home/noerrors prose"
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "member": "recovered/original-059-ledger.json.gz",
+      "matching_substring": "/home/window/viewport/overlay",
+      "occurrences": 1,
+      "context": "059 ledger source/home/window/viewport/overlay prose"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "member": "history-774/continuation/rig/admission03/contract-groups.jsonl.gz",
+      "matching_substring": "/home/noerrors",
+      "occurrences": 1,
+      "context": "774 contract-groups row 767 source/home/noerrors prose"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "member": "reference/ledger.json.gz",
+      "matching_substring": "/home/window/viewport/overlay",
+      "occurrences": 1,
+      "context": "059 ledger source/home/window/viewport/overlay prose"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "member": "skills/bespoke-audit.md",
+      "matching_substring": "/users/dependencies",
+      "occurrences": 1,
+      "context": "bespoke audit skill definitions/users/dependencies prose"
+    }
+  ],
+  "direct_links": [
+    {
+      "path": "ASSESSMENT-HELMET-FOOTWEAR-95E.json",
+      "sha256": "582d6fa1ad76cc7f85b59e025ba2b0d442632247f912fd2e926d07aae33523f6",
+      "bytes": 87101,
+      "stage_exists": false,
+      "stage_resolves_inside": true
+    },
+    {
+      "path": "ASSESSMENT-LIMB-METAL-95E.json",
+      "sha256": "c1392b32f32d93076ed51e1374cba8b7066526b70edeb973ce95e4d98b214c51",
+      "bytes": 85977,
+      "stage_exists": false,
+      "stage_resolves_inside": true
+    },
+    {
+      "path": "DELEGATED-CHECKPOINT-17-QUALIFICATION.json",
+      "sha256": "431b36d413fc5301ca345b2173c6a68d3f71e0175b9c0f983f709266c38b30ce",
+      "bytes": 902,
+      "stage_exists": false,
+      "stage_resolves_inside": true
+    },
+    {
+      "path": "DELEGATED-EVIDENCE-CHECKPOINT-17.json",
+      "sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+      "bytes": 779297,
+      "stage_exists": true,
+      "stage_resolves_inside": false
+    },
+    {
+      "path": "delegated/armor-extremities-joint-hair-ops-evidence.tar.gz",
+      "sha256": "ea066e19b44cfdbcb19d29e11e98e397a59b1b21a441ec4976f0c23d77e88184",
+      "bytes": 299606,
+      "stage_exists": true,
+      "stage_resolves_inside": false
+    },
+    {
+      "path": "recovered/original-registry-source-archive/registry.json.gz",
+      "sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "bytes": 1205722,
+      "stage_exists": true,
+      "stage_resolves_inside": false
+    },
+    {
+      "path": "recovered/original-transport-manifest.json.gz",
+      "sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+      "bytes": 2757737,
+      "stage_exists": true,
+      "stage_resolves_inside": false
+    },
+    {
+      "path": "recovered/physical-p16-patch-recovery/tracked.patch",
+      "sha256": "fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7",
+      "bytes": 524542,
+      "stage_exists": true,
+      "stage_resolves_inside": false
+    }
+  ],
+  "progress_difference": {
+    "stage_only": [
+      "delegated_batch38_pending_central_reconciliation"
+    ],
+    "live_only": [
+      "independent_review_13i",
+      "independent_review_35"
+    ],
+    "common_different": [
+      "current_main_qualification",
+      "same_machine_recovery_verification"
+    ]
+  },
+  "limits": "Read-only byte, metadata, Git membership, regex and provenance analysis only; no source-read credit from parsing, no product execution or validation, no whole privacy guarantee. Stage direct-link containment applies after overlay; live inputs and stage snapshots may subsequently change."
+}

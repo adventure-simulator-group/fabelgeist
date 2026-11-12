@@ -1,0 +1,40 @@
+{
+  "schema": "726-checkpoint36-additive-historical-qualification-v1",
+  "reviewer": "/root/hair_ops",
+  "scope": "Clarifies two separately recorded historical source scopes for role 2606 and compressed-member reconstruction; original reports, author attribution and public bytes are unchanged.",
+  "historical_source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+  "historical_role": 2606,
+  "historical_receipts": [
+    {
+      "receipt_member": "delegated/screen-armor-2605-2606-evidence.tar.gz!history/059/segovb/READ-L11-426.json",
+      "receipt_public_sha256": "7b3f3f9e6f6ec85331a6ca7e21dc1044baead01defee0cc668fd9dc357f87688",
+      "registration": "REGISTRATION-SEGOVB-1517",
+      "registration_original_sha256": "3d119a8ae967cb03781c39baa5a74bf2d572d361073d2e0b50ab6d8849719afc",
+      "recorded_historical_reader": "Segovb",
+      "recorded_ranges": [
+        [
+          86,
+          171
+        ]
+      ],
+      "historical_source_sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd"
+    },
+    {
+      "receipt_member": "delegated/screen-armor-2605-2606-evidence.tar.gz!history/059/segovb/READ-L11-427.json",
+      "receipt_public_sha256": "610e111774b825139cc1b37d693fbe3ea175a05e523a45f7957dae3dffb3feb0",
+      "registration": "REGISTRATION-SEGOVB-1529",
+      "registration_original_sha256": "4773380d58fecb4f24ba2d6c0b5fa2de2c0a5f6592220e38a303fac6020e19c6",
+      "recorded_historical_reader": "Segovb",
+      "recorded_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "historical_source_sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd"
+    }
+  ],
+  "reader_qualification": "The selected 059 receipts attribute lines 86\u2013171 and a separately registered lines 1\u201385 to Segovb. The later /root/rig_identity review did not freshly read 1\u201385; none of these records transfers reader credit or proves uninterrupted historical workspace custody. Referenced registrations are identified by their recorded hashes; inclusion of a receipt does not itself reproduce or establish an original registration body.",
+  "public_compression_qualification": "Frozen descriptions of compressed queue/ledger originals refer to their original private packet context. The later public compressed members are path-redacted reconstructions. Stored gzip bytes and uncompressed Git blob identity are distinct representations; consult the additive cross-checkpoint transport correction for counts, original hashes and public hashes. The same distinction applies to the listed 774 contract-groups copy.",
+  "checkpoint3821": "The final checkpoint 3821 ledger and queue remain missing; earlier evidence is not promoted."
+}

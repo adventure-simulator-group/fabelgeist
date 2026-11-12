@@ -1,0 +1,77 @@
+{
+  "schema": "726-privacy-integration-plan-v1",
+  "status": "Proposal only: no publication or verifier changes made.",
+  "selected_publication_strategy": "Keep the three existing original-hash-named paths and unchanged historical manifests. After separate central review, replace only the public file content at those three paths with the matching verified privacy-reconstructed bytes and publish this additive, immutable crosswalk. The pathname remains the historical original identity, while the content has a separately verified public identity. Do not imply that the historical filename hashes the newly stored bytes.",
+  "path_mapping": [
+    {
+      "historical_publication_path": "recovered/l12-final-registration-evidence/prior-direct-dependencies/0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "original_recorded_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "original_recorded_bytes": 109772,
+      "original_recorded_git_blob_sha1": "52ae83a8081e25901b9b9658a757465788a6b8fd",
+      "proposed_public_content_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+      "proposed_public_content_bytes": 109688,
+      "public_content_source_in_proposal": "variants/67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9.json",
+      "identity_rule": "Retain the basename as a historical original-object identifier. It is not the SHA-256 of the redacted bytes stored at that pathname."
+    },
+    {
+      "historical_publication_path": "recovered/l2-canonical-comparison-evidence/74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "original_recorded_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "original_recorded_bytes": 2913027,
+      "original_recorded_git_blob_sha1": "fb28c8aa9905cdd2fa22169a213997502f7a3d73",
+      "proposed_public_content_sha256": "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+      "proposed_public_content_bytes": 2911040,
+      "public_content_source_in_proposal": "variants/25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3.json",
+      "identity_rule": "Retain the basename as a historical original-object identifier. It is not the SHA-256 of the redacted bytes stored at that pathname."
+    },
+    {
+      "historical_publication_path": "recovered/prior-current-transition-evidence/7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "original_recorded_sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "original_recorded_bytes": 120752,
+      "original_recorded_git_blob_sha1": "2a89c09acb57c6935680c3ef9b6969fc99214f0b",
+      "proposed_public_content_sha256": "c21dca58dc77ed95ec680a61b91d45f49c1c86be0274ebf48409919f514d8c30",
+      "proposed_public_content_bytes": 120669,
+      "public_content_source_in_proposal": "variants/c21dca58dc77ed95ec680a61b91d45f49c1c86be0274ebf48409919f514d8c30.json",
+      "identity_rule": "Retain the basename as a historical original-object identifier. It is not the SHA-256 of the redacted bytes stored at that pathname."
+    }
+  ],
+  "required_documentation": [
+    "Label the files and crosswalk explicitly as reconstructed privacy-redacted evidence, not original objects.",
+    "Keep exact original hashes, byte lengths, source/reviewer attribution, old manifests and recorded historical references unchanged.",
+    "Record that retained local-only exact originals are needed to independently verify original identity and the complete byte transformation. The public-only result verifies reconstructed bytes and documented relationships, not the withheld original bytes.",
+    "Record that this strategy does not remove prior Git blobs, historical commits, earlier archives, remote copies or clones, and does not fix the two observed additional baseline-059 raw objects.",
+    "Do not infer missing checkpoint 3821 or add reader credit."
+  ],
+  "crosswalk_invariants": [
+    "Use an explicit allowlist keyed jointly by the exact original relative path and expected historical original SHA-256. Require one entry per affected path and reject duplicates or unknown paths.",
+    "Require recorded original identity and lengths to agree with unchanged historical manifest fields; compute and check the public bytes against the separately recorded public SHA-256 and byte length.",
+    "Verify the expected JSON-pointer markers and public token offsets; preserve all unaffected structural and semantic checks. Never assert the sanitized bytes hash to the original digest.",
+    "If exact local originals are supplied in a separate, private mode, independently hash and size-check them, verify their recorded Git object identity, and apply only the enumerated original-to-public token substitutions to prove exact reconstructed bytes. Do not print private path values.",
+    "Label public-only and private-original verification results separately; fail closed on a mismatch instead of silently substituting or weakening the check. No historical verifier should be invoked as part of integration preparation."
+  ],
+  "verifier_source_identity": {
+    "path": "verify_recovered.py",
+    "observed_sha256": "5fbd014581bbfc412596040ef923f680c72284115d3a5f4f7287f214212cb458",
+    "observed_bytes": 567589,
+    "qualification": "Source inspected in the observed working checkout; line numbers are tied to this exact hash and may drift."
+  },
+  "required_verifier_changes": [
+    {
+      "source_lines": "5089\u20135102",
+      "historical_object": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "assertion": "The manifest schema, hardcoded original digest, prior/new revision relationship and 154 row comparison continue to assert historical values. Replace only the assertion SHA-256(stored public bytes) equals prior_sha with an explicit path-plus-original-id crosswalk check and SHA-256(stored public bytes) equals the recorded redacted public digest. Parse the redacted body and retain all unmodified revision, row and subsequent object assertions. Report original bytes as not locally verified in public-only mode."
+    },
+    {
+      "source_lines": "5466\u20135476 and 5757\u20135767",
+      "historical_object": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "assertion": "In the loop over comparison files, for the one explicitly mapped inherited-master path, bind the unchanged item filename and historical item SHA to the crosswalk and hash its stored public bytes against the public SHA. Keep original-hash checks for every other item. Load the same crosswalk-verified master bytes at the inherited-master read. Preserve the recorded inherited reference, 173 findings, M40 and no-global-alias checks; do not assert the public bytes have the original SHA."
+    },
+    {
+      "source_lines": "6270\u20136287",
+      "historical_object": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "assertion": "Retain the parent receipt byte-hash check, parent pointer/path/hash relationship, 72 reference count, and 65 distinct historical original object identities. For the one explicitly mapped dependency file, qualify its expected original hash using the crosswalk and compare stored bytes to the public SHA; all other dependency objects continue their existing strict original-byte hash check. Count the original recorded digest in l12_direct_hashes, not the reconstructed digest, and report original-content verification as withheld in public-only mode."
+    }
+  ],
+  "additional_dependencies": "The observed check_published_evidence.py and build_recovery_index.py invoke verify_recovered.py; the latter and a selected restore script have write effects and were not run. The prior sanitizer MANIFEST and verify-reconstruction.py dynamically bind the separately published 25cbe3 reconstruction; their historic assertions remain unchanged. Review all 39 entries and any downstream dynamic consumers before applying a change; compressed archives and history were not exhaustively inventoried.",
+  "privacy_scope": "These three proposed replacements address the current bytes at the three specified paths only. They are not a remote or history cleanup, and they do not address unrelated private data. Existing published history, copies and the two other observed raw 059 objects remain sensitive.",
+  "restrictions": "No source implementation, product build, test, probe, product execution, publication mutation, old-verifier execution, or checkpoint-3821 inference was performed."
+}

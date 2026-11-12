@@ -1,0 +1,74 @@
+{
+  "schema": "726-historical-identity-qualifications-v1",
+  "qualification": "These are selected identity and attribution fields of preserved historical JSON, not newly inferred checkpoint authority. The original values are preserved verbatim in the reconstructed variants, except the explicitly mapped path tokens. Historical source read claims remain attributed to their original author; the new proposal adds no source-audit credit.",
+  "objects": [
+    {
+      "original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "historical_schema": "726-proposal-bundle-v1",
+      "created_at": "2026-10-30T03:45:53.392654+00:00",
+      "lens": 12,
+      "historical_frontier_before": {
+        "original": 2592,
+        "batch": 881
+      },
+      "historical_frontier_after": {
+        "original": 2607,
+        "batch": 889
+      },
+      "historical_read_agent": "/root/lens12_frontier",
+      "agent_identity_locations": [
+        "/exact_source_read_rows/0/read_attribution",
+        "/exact_source_read_rows/1/read_attribution",
+        "/exact_source_read_rows/2/read_attribution",
+        "/exact_source_read_rows/3/read_attribution",
+        "/exact_source_read_rows/4/read_attribution",
+        "/exact_source_read_rows/5/read_attribution",
+        "/exact_source_read_rows/6/read_attribution",
+        "/exact_source_read_rows/7/read_attribution",
+        "/exact_source_read_rows/8/read_attribution",
+        "/exact_source_read_rows/9/read_attribution",
+        "/exact_source_read_rows/10/read_attribution",
+        "/exact_source_read_rows/11/read_attribution",
+        "/exact_source_read_rows/12/read_attribution",
+        "/exact_source_read_rows/13/read_attribution",
+        "/exact_source_read_rows/14/read_attribution",
+        "/contract_updates/0/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/1/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/2/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/3/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/4/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/4/exact_source_identities_and_assessed_ranges/1/attribution",
+        "/contract_updates/5/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/6/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/7/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/8/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/9/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/10/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/11/exact_source_identities_and_assessed_ranges/0/attribution",
+        "/contract_updates/12/exact_source_identities_and_assessed_ranges/0/attribution"
+      ],
+      "recovery_checkpoint_root_authority_updated": false,
+      "qualification": "The root authority was recorded as not updated; this proposal bundle does not select or replace the central baseline."
+    },
+    {
+      "original_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "historical_revision": "13fc9dcc71ab879de364117e5462310673e43210",
+      "historical_tree": "a12b210638996e5e2aafe99c47c6bf793f935a90",
+      "historical_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "historical_pr_head": "6223320d09f4691b6de54382d9709b233274d435",
+      "historical_mode": "review-only",
+      "qualification": "This older record is not a current audit snapshot or checkpoint 3821."
+    },
+    {
+      "original_sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+      "historical_kind": "Verified current-main reconciliation target transition; metadata inventory grants zero body coverage",
+      "historical_recorded_at": "2026-10-29T19:04:53.920930+00:00",
+      "prior_target": "7a9d92ad7357779e9280146c521bd8588b86fcdb",
+      "new_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "historical_path_count": 154,
+      "historical_distinct_object_count": 148,
+      "all_lenses_reconciliation_complete": false,
+      "qualification": "Historical transition metadata alone grants zero body coverage and does not establish an absent checkpoint."
+    }
+  ]
+}

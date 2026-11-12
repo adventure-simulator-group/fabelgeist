@@ -1,0 +1,108 @@
+{
+  "id": "CONT07-CONTRACT-560",
+  "at": "2026-10-23T23:46:04.859801+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2420,
+      "source_id": "pr-working:crates/strategic-web/static/portrait-navigation.js",
+      "sha256": "13f4ed6879eaf8ddf932abef7e3d0d76543326721b3628c5a163448049a54bc3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/portrait-navigation.js",
+      "actual_EOF": 44,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2421,
+      "source_id": "pr-working:crates/strategic-web/static/regional-map-view.js",
+      "sha256": "e8737be5402b69bc2b9b1f730e9f9df371a27dad5a0670bf328d513303abaf6b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/regional-map-view.js",
+      "actual_EOF": 161,
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2422,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-condition.js",
+      "sha256": "a79949b29f56a6d20af7f42d71ccda2dd39d9220aaf08f965499e9343067d42f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-condition.js",
+      "actual_EOF": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2423,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-cache.js",
+      "sha256": "5ce851ecb4b60148f94dac775fbe3b697124460e9fc73e35f3bd4641118f2162",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-generation-cache.js",
+      "actual_EOF": 193,
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2424,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-pool.js",
+      "sha256": "1bdaad393a5c686960d03da626981eb3c163448b14f9572c0f93d857d4f1936d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-generation-pool.js",
+      "actual_EOF": 150,
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2425,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-worker.js",
+      "sha256": "bceffb50a5faa6c054506fb4b2f52c1c85fb8793f9fc277db152e663c9662d0b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-generation-worker.js",
+      "actual_EOF": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Portraitnavigation44 sync derives active/aria selectionfromcurrent URL onmount andlive-region/portrait events, notsemanticdisplaylabel. Pathclassification profile/stats normalizesroutingboundary; actualportraitroleleader defect F116 separate.",
+    "Regionalmapview161 source/origin scope ownsrequestcontrollers; JSONpayload change remounts overlay revision, acknowledged source/home/window/viewport/revision gates markerdisplay. Renderedlinks order uses freshserverpriority andprojectedMap place keys, no independentlyrebuilt prioritytableinJS. Pending failures/deletedrequestticket proofs remain priorF078 cluster rather than blanketmapstale.",
+    "Strategiccondition69 generationcounter prevents older refresh overridinglatercurrentcapturedwheels; canonicalconditionstatusandcomponentrecord projected. Wheel cutoff caps360 andfatigueblack retained; tooltipcurrenttotal vssumcomponents requireactualstrategicproducerproof, notassumeencumbrance absentfromstrategicschemaequalscombatbug.",
+    "Generatedcache193 currentcontent identity key CACHE_FORMAT+module revision+exactserializedjob; recordrevision/compressedchecksum/encodedsize/decodedsize are integrity andformatvalidation, notsemanticproductidentity. Decodebounded, invalidcachedrecordremoved, failedstorageoptional miss intentional. storedKeys inventorymaycauseharmlessfalsemiss fromotherdocuments byexplicitpolicy, notstalesemanticreuse.",
+    "Generationpool150 validates serializedjob resolution cannotchange requestedaddress andeveryworkerresponse dispatchmatches exactpoolordinal; dispatchidentity distinctproductidentity. receive receivesjobpairedwithactualdispatchresult, compilerworker29 returnsonlythatgeneration, initialization module samepool. No workerGPU/sharedrendererauthority.",
+    "Native dependency Uint8Array istransferred; caller suppliesownedbuffercontract, no runtimeuseaftertransfer claim. Cachewrite consumesbufferafterauthoritative receiptbyexplicitAPIcontract; mutation/receipt/nativeproductvalidation remains callergraph nextfrontier. No sourceexecution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2426,
+    "start_line": 1
+  }
+}

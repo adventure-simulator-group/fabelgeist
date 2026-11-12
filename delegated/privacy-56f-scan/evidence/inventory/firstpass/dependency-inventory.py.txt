@@ -1,0 +1,32 @@
+import collections,datetime,hashlib,json,os,pathlib,pwd,subprocess
+c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';out=pathlib.Path('<redacted-local-evidence-directory>');home=pwd.getpwuid(os.getuid()).pw_dir;username=home.rsplit('/',1)[-1].lower();vals={'queue':'2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08','ledger':'3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac','l12_direct_object':'0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0','l2_master_object':'74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48','prior_transition_object':'7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5'};sha=lambda b:hashlib.sha256(b).hexdigest()
+def grep(value):
+ r=subprocess.run(['git','grep','-Il','-e',value,c],capture_output=True,text=True);assert r.returncode in (0,1);return [x.split(':',1)[1] for x in r.stdout.splitlines()]
+def safekey(k):return '<redacted-key-sha256:'+sha(k.encode())+'>' if username in k.lower() or '/tmp/' in k else k.replace('~','~0').replace('/','~1')
+all_paths=set()
+for v in vals.values():all_paths.update(grep(v))
+all_paths.update(grep('baseline-059/queue.json'));all_paths.update(grep('baseline-059/ledger.json'));rows=[]
+for path in sorted(all_paths):
+ raw=subprocess.check_output(['git','show',c+':'+path]);s=raw.decode('utf-8','replace');lines=s.splitlines();matches={k:[i for i,l in enumerate(lines,1) if v in l] for k,v in vals.items() if v in s};qpath={k:[i for i,l in enumerate(lines,1) if v in l] for k,v in [('queue','baseline-059/queue.json'),('ledger','baseline-059/ledger.json')] if v in s};pointers=[]
+ try:obj=json.loads(raw)
+ except (UnicodeDecodeError,json.JSONDecodeError):obj=None
+ def walk(x,p):
+  if isinstance(x,dict):
+   for k,v in x.items():walk(v,p+'/'+safekey(k))
+  elif isinstance(x,list):
+   for i,v in enumerate(x):walk(v,p+'/'+str(i))
+  elif isinstance(x,str):
+   for k,v in vals.items():
+    if v in x:pointers.append({'record':k,'pointer':p,'exact_hash_value':x==v})
+ if obj is not None:walk(obj,'')
+ isverify=path.endswith('.py') and os.path.basename(path).startswith('verify');rows.append({'path':path,'file_sha256':sha(raw),'git_blob':hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest(),'digest_mention_lines':matches,'record_path_mention_lines':qpath,'json_pointers':pointers,'category':'verifier-candidate' if isverify else 'indexed-evidence-or-reference','qualification':'Static literal inventory only: a path or digest mention alone does not prove byte-level enforcement.'})
+direct=[]
+for n in range(20,35):
+ name=f'DELEGATED-CHECKPOINT-{n}-DIRECT-LINKS.json';r=subprocess.run(['git','show',c+':'+name],capture_output=True)
+ if r.returncode:continue
+ d=json.loads(r.stdout)
+ for i,x in enumerate(d['links']):
+  for k in ('queue','ledger'):
+   if x.get('sha256')==vals[k]:direct.append({'checkpoint':n,'record':k,'index_pointer':f'/links/{i}','index':name,'verifier':f'verify_delegated_links_{n}.py','binding':'Static verifier source reads named path and asserts SHA-256 and byte length.'})
+findings=[{'verifier':'verify_recovered.py','lines':[5090,5098],'record':'prior_transition_object','binding':'Hardcoded original digest and SHA-256 of named bytes.'},{'verifier':'verify_recovered.py','lines':[5466,5476],'record':'l2_master_object','binding':'Hashes every canonical-comparison manifest member and loads the original inherited-master digest.'},{'verifier':'verify_recovered.py','lines':[6270,6285],'record':'l12_direct_object','binding':'Resolves direct dependency object by original recorded hash and verifies bytes.'},{'verifier':'verify_delegated_links_16.py','lines':[13,18],'records':['queue','ledger'],'binding':'Reads and hashes published paths at /published/2 and /published/3 in p16-runtime-determinism evidence-links.json.'},{'verifier':'verify_delegated_links_17.py','lines':[11,18],'records':['queue','ledger'],'binding':'Known exact byte hashes include 059 records, matched by screen-armor evidence-links /links/2 and /links/3.'},{'verifier':'verify_delegated_links_18.py','lines':[7,8,17,27],'records':['queue','ledger'],'binding':'Known exact byte hashes or prior original indexed member hashes must satisfy three bundle historical-manifest links.'},{'verifier':'verify_delegated_links_19.py','lines':[7,8,17,27],'records':['queue','ledger'],'binding':'Known exact byte hashes or prior original indexed member hashes must satisfy three bundle historical-manifest links.'}]
+result={'schema':'726-static-byte-dependency-inventory-v1','commit':c,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'record_original_sha256':vals,'tracked_reference_files':rows,'direct_checkpoint_link_assertions':direct,'independently_inspected_verifier_bindings':findings,'limits':'Literal search of committed nonbinary tracked files and targeted verifier-source inspection; dynamically constructed paths, non-JSON references and compressed members require separate scan. Path references alone are not proof exact bytes are required. Verifiers were read as source and not executed.'};(out/'dependency-inventory.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'tracked_reference_files':len(rows),'verifier_candidates':sum(x['category']=='verifier-candidate' for x in rows),'direct_cp20_34_assertions':len(direct),'sha256':sha((out/'dependency-inventory.json').read_bytes())}))

@@ -6,7 +6,7 @@
   "pr_head": "6223320d09f4691b6de54382d9709b233274d435",
   "working_diff_sha256": "1cf05b602961edb05e9afa6947b217ab02be38f7389eb40380049c5c12688fe2",
   "mode": "review-only",
-  "source_root": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/source",
+  "source_root": "<LOCAL_PATH_0>",
   "unrelated_changes": "excluded; preserved",
   "findings": [
     {
@@ -1232,7 +1232,7 @@
       ],
       "dependency_evidence": {
         "lock": "Cargo.lock:bevy_math0.19.1 depends glam0.32.1 (not the other installed0.33.6)",
-        "file": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/glam-0.32.1/src/f32/vec2.rs",
+        "file": "<LOCAL_PATH_1>",
         "sha256": "8ee0ec795ff706b0ee737e06378aac90b04d970b7f5c9f997f11c3123f5aedf6",
         "read_ranges": [
           [
@@ -1665,7 +1665,7 @@
       ],
       "provisional_owner_evidence": [
         {
-          "file": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/fabelgeist-mesh/src/count.rs",
+          "file": "<LOCAL_PATH_2>",
           "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
           "read_ranges": [
             [
@@ -1676,7 +1676,7 @@
           "scope": "Current #780 working source definitions only; final integration/validation still pending. Not this audit's pinned merged tree."
         },
         {
-          "file": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/fabelgeist-compute/src/mesh_query/quantities.rs",
+          "file": "<LOCAL_PATH_3>",
           "sha256": "9527dace22a827c16ef4d1c8ad1fab21f692f58a7ea7ac89347f63cc4de793d2",
           "read_ranges": [
             [
@@ -2480,7 +2480,7 @@
       "base_comparison": "Base3a50 has identical tangent f64 predicates and typed[f32;3] field. This is retained admission debt, not newly introduced774 production behavior.",
       "external_source_evidence": [
         {
-          "file": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_core-1.0.229/src/de/impls.rs",
+          "file": "<LOCAL_PATH_4>",
           "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
           "read_ranges": [
             [
@@ -2495,7 +2495,7 @@
           "scope": "Pinned package versions from frozen Cargo.lock; local external source inspection, not execution, feature resolution, project validation or audit clearance."
         },
         {
-          "file": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/de.rs",
+          "file": "<LOCAL_PATH_5>",
           "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
           "read_ranges": [
             [
@@ -2506,7 +2506,7 @@
           "scope": "Pinned package versions from frozen Cargo.lock; local external source inspection, not execution, feature resolution, project validation or audit clearance."
         },
         {
-          "file": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/number.rs",
+          "file": "<LOCAL_PATH_6>",
           "sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
           "read_ranges": [
             [
@@ -2521,7 +2521,7 @@
           "scope": "Pinned package versions from frozen Cargo.lock; local external source inspection, not execution, feature resolution, project validation or audit clearance."
         },
         {
-          "file": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/de.rs",
+          "file": "<LOCAL_PATH_7>",
           "sha256": "4998d7e252eb513be85b298e287048b4fb283882e9ba7df905f572f07200f3f3",
           "read_ranges": [
             [
@@ -12383,7 +12383,7 @@
         "crates/fabelgeist-rig/src/table.rs"
       ],
       "coverage_note": "Adopted2560/59,312delta,246overlays,38merged and snapshot0\u201361 retain own01 evidence WITH_FINDINGS and graph qualifications. Later62\u201380 need bounded own01 delta only.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-producer-propagation/SKILL.md",
+      "skill": "<LOCAL_PATH_9>",
       "clearance": "not established",
       "file_reviews": {
         "crates/adventuresim-core/src/lib.rs": {
@@ -32249,7 +32249,7 @@
         "crates/adventuresim-tactical-client/src/camera/collision.rs"
       ],
       "coverage_note": "Completedbaseline/source snapshots WITH_FINDINGS retained; material0\u201361 accounted. Later62\u2013172 bounded own-lens reconciliation pending. No baseline replay or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-existing-type-owners/SKILL.md",
+      "skill": "<LOCAL_PATH_10>",
       "clearance": "not established",
       "baseline_discovery": {
         "status": "complete WITH_FINDINGS for inherited2560/59scope",
@@ -32347,7 +32347,7 @@
         "crates/fabelgeist-rig/src/skin.rs"
       ],
       "coverage_note": "Completedbaseline/source snapshots WITH_FINDINGS retained; material0\u201399 accounted. Later100\u2013172 bounded own-lens reconciliation pending. No baseline replay or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-admission-contracts/SKILL.md",
+      "skill": "<LOCAL_PATH_11>",
       "clearance": "not established",
       "baseline_discovery": {
         "status": "complete WITH_FINDINGS; adopted as usable evidence",
@@ -33181,7 +33181,7 @@
         "crates/adventuresim-tactical-client/src/camera/collision.rs"
       ],
       "coverage_note": "Live source discovery continues; exact counts/ranges/qualifications only in current_discovery_record. No transferred lens coverage or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-invariant-operations/SKILL.md",
+      "skill": "<LOCAL_PATH_12>",
       "clearance": "not established",
       "current_discovery_record": "reconcile-adler-20261023/audit-continuation/operations/checkpoint.json",
       "authoritative_continuation": "reconcile-adler-20261023/audit-continuation/operations/checkpoint.json"
@@ -33989,7 +33989,7 @@
         "crates/fabelgeist-mhr/src/character/skeleton.rs"
       ],
       "coverage_note": "1584/2853 exact original roles compared; first1114. Original1472 +own001\u2013027 evidence WITH findings; overlays/new material/merged qualifications separate.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-aggregate-states/SKILL.md",
+      "skill": "<LOCAL_PATH_13>",
       "clearance": "not established",
       "baseline_discovery": {
         "status": "Adler1472 incomplete original05 roles adopted WITH findings/qualifications, not replayed",
@@ -34056,7 +34056,7 @@
         "crates/fabelgeist-rig/src/lib.rs"
       ],
       "coverage_note": "Completedbaseline/source snapshots WITH_FINDINGS retained; material0\u201399 accounted. Later100\u2013172 bounded own-lens reconciliation pending. No baseline replay or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-type-ownership/SKILL.md",
+      "skill": "<LOCAL_PATH_14>",
       "clearance": "not established",
       "baseline_discovery": {
         "status": "complete WITH_FINDINGS; adopted as usable evidence",
@@ -34891,7 +34891,7 @@
         "crates/adventuresim-tactical-core/src/combat_config/defaults.rs"
       ],
       "coverage_note": "Completedbaseline/source snapshots WITH_FINDINGS retained; material0\u201399 accounted. Later100\u2013172 bounded own-lens reconciliation pending. No baseline replay or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-redundant-authority/SKILL.md",
+      "skill": "<LOCAL_PATH_15>",
       "clearance": "not established",
       "current_continuation": {
         "owner": "root after completed investigator handoff",
@@ -35709,7 +35709,7 @@
         "crates/adventuresim-tactical-core/src/inventory/chronology.rs"
       ],
       "coverage_note": "Live source discovery continues; exact counts/ranges/qualifications only in current_discovery_record. No transferred lens coverage or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+      "skill": "<LOCAL_PATH_16>",
       "clearance": "not established",
       "current_discovery_record": "reconcile-adler-20261023/audit-continuation/behavior-preservation/progress.json",
       "authoritative_continuation": "reconcile-adler-20261023/audit-continuation/behavior-preservation/progress.json"
@@ -36508,7 +36508,7 @@
         "crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs"
       ],
       "coverage_note": "Live source discovery continues; exact counts/ranges/qualifications only in current_discovery_record. No transferred lens coverage or clearance.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-enum-shapes/SKILL.md",
+      "skill": "<LOCAL_PATH_17>",
       "clearance": "not established",
       "current_discovery_record": "reconcile-adler-20261023/audit-continuation/enum-shapes/STATE.json",
       "authoritative_continuation": "reconcile-adler-20261023/audit-continuation/enum-shapes/STATE.json",
@@ -37320,7 +37320,7 @@
         "crates/fabelgeist-rig/src/table.rs"
       ],
       "coverage_note": "These are inspected contract slices, not exhaustive file or lens clearance. Remaining_files retains the complete unresolved changed-path inventory; unchanged call-graph expansion is also incomplete.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-derivability/SKILL.md",
+      "skill": "<LOCAL_PATH_18>",
       "clearance": "not established",
       "authoritative_continuation": "reconcile-adler-20261023/audit-continuation/derivability/checkpoint.json"
     },
@@ -38118,7 +38118,7 @@
         "crates/fabelgeist-math/src/units.rs"
       ],
       "coverage_note": "These are inspected contract slices, not exhaustive file or lens clearance. Remaining_files retains the complete unresolved changed-path inventory; unchanged call-graph expansion is also incomplete.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-type-granularity/SKILL.md",
+      "skill": "<LOCAL_PATH_19>",
       "clearance": "not established",
       "authoritative_continuation": "reconcile-adler-20261023/audit-continuation/type-granularity/STATE.json",
       "continuation_frontier": {
@@ -38924,7 +38924,7 @@
         "crates/fabelgeist-fbx/src/object_name.rs"
       ],
       "coverage_note": "These are inspected contract slices, not exhaustive file or lens clearance. Remaining_files retains the complete unresolved changed-path inventory; unchanged call-graph expansion is also incomplete.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-magic-strings/SKILL.md",
+      "skill": "<LOCAL_PATH_20>",
       "clearance": "not established"
     },
     "magic-numbers": {
@@ -39721,7 +39721,7 @@
         "crates/adventuresim-tactical-core/src/animation/sample_tick.rs"
       ],
       "coverage_note": "These are inspected contract slices, not exhaustive file or lens clearance. Remaining_files retains the complete unresolved changed-path inventory; unchanged call-graph expansion is also incomplete.",
-      "skill": "/home/brunosegovia/.codex/skills/audit-magic-numbers/SKILL.md",
+      "skill": "<LOCAL_PATH_21>",
       "clearance": "not established"
     }
   },
@@ -39977,7 +39977,7 @@
     "successor826": {
       "checkpoint": "c798fa504db9bc6fd82695887e285751846dbdfc",
       "base": "990430b77a9f63548ffcb642074185f61ddb3322",
-      "artifact_root": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-c798fa504",
+      "artifact_root": "<LOCAL_PATH_22>",
       "patch_sha256": "e37fd16ba64f49de14818a74961958eee83a38ccab9d9c453e0566d93411e55b",
       "evidence": "coordination/826-successor-c798fa504-manifest.json",
       "status": "Historical c798 export superseded by3ff23fc9a source-owned repaired checkpoint; retain prior evidence without treating it as current API or clearance.",
@@ -39991,9 +39991,9 @@
       "scope": "69production/docs files reported, tests/fixtures/workflow/newdoctest and retained hair hunks excluded. Do not import unchanged tests blindly; only adapt existing assertions if implementation later authorized.",
       "latest_reported_review_status": "Superseded:3ff23fc9a owned F05/F23 full13wave and three independent reports received. Combined D780/D774/F19/M06 integration and hosted gates remain incomplete.",
       "reported_review_files": [
-        "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/ready-local-code-review.md",
-        "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/ready-local-rule-review.md",
-        "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/ready-local-comment-review.md"
+        "<LOCAL_PATH_23>",
+        "<LOCAL_PATH_24>",
+        "<LOCAL_PATH_25>"
       ],
       "new_receipt": "coordination/826-incoming-packing-regression-receipt.json"
     },
@@ -40090,7 +40090,7 @@
     ],
     "provisional_receiver_slices": [
       {
-        "file": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/crates/fabelgeist-compute/src/kernel/mod.rs",
+        "file": "<LOCAL_PATH_26>",
         "sha256": "7f4f6a94badc05a943431c2e9c8fccea6e2c110d3b21915bbe58734da093657e",
         "read_ranges": [
           [
@@ -40271,8 +40271,8 @@
   },
   "reconciliation": {
     "status": "Record crosswalks preserved; active sourceaudit continuation only. Planningdraft superseded.",
-    "root": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023",
-    "archive": "/home/brunosegovia/Downloads/774-audit-for-segovb-20261023.zip",
+    "root": "<LOCAL_PATH_27>",
+    "archive": "<LOCAL_PATH_28>",
     "local_finding_snapshot": "Historical124 snapshot preserved; currentroot findings authoritative in ledger.json, aliasesqualifications separate, no additiveglobaluniquedefectcount.",
     "adler_records": 1002,
     "record_count_limit": "Finding/support/alias/qualification rows, NOT unique global defects.",

@@ -1,0 +1,42 @@
+--- verify_delegated_links_13.py
++++ verify_delegated_links_13_059_public.py
+@@ -1,12 +1,19 @@
+ #!/usr/bin/env python3
+ """Resolve this checkpoint's source packet links without transferring read credit."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++_CW_DIR = _CW_Path(__file__).resolve().parents[2] / 'qualified-059-successors' / 'successors'
++_cw_sys.path.insert(0, str(_CW_DIR))
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_DIR / 'CROSSWALK-059.json')
+ import glob
+ import hashlib
+ import json
+ import tarfile
+ from pathlib import Path
+ 
+-root = Path(__file__).resolve().parent
++root = _CW.root
+ load = lambda n: json.loads((root / n).read_text())
+ sha = lambda b: hashlib.sha256(b).hexdigest()
+ checkpoints = []
+@@ -38,8 +45,9 @@
+                     continue
+                 p = (root / entry.get('repository_relative_path', entry.get('path'))).resolve()
+                 assert p.is_relative_to(root.resolve()) and p.is_file()
+-                raw = p.read_bytes()
+-                assert len(raw) == entry['bytes'] and sha(raw) == entry['sha256']
++                link_path = entry.get('repository_relative_path', entry.get('path'))
++                raw = _CW.read(link_path)
++                assert _CW.matches(link_path, raw, entry['sha256'], entry['bytes'])
+                 counts['published_file_links'] += 1
+         if 'prior-references.json' in names:
+             d = json.load(t.extractfile('prior-references.json'))
+@@ -74,3 +82,6 @@
+                   'prior_member_links': 8, 'published_file_links': 21}, counts
+ print('Verified qualified cross-packet and previously published file links:', counts,
+       '; original hashes do not imply unredacted published bytes or read credit.')
++
++assert _CW.crosswalk_links_checked == 6
++_CW.finish()

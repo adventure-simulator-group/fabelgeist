@@ -1,0 +1,26 @@
+{
+  "schema": "726-cp7-successor-independent-review-registration-v1",
+  "author": "/root/rig_identity",
+  "registered_utc": "2026-11-12T08:24:23.611987+00:00",
+  "purpose": "Evidence-only archive metadata, exact private/public transformation, prior review and bounded privacy integrity checks; no product or code execution.",
+  "frozen_inputs": [
+    {
+      "source": "successor index",
+      "path": "evidence/successor-index.json",
+      "sha256": "32f9312f9f1958ba9a19e82b76069046d92bfda7b1a8d39699809a6b21a1ef03"
+    },
+    {
+      "source": "successor archive",
+      "path": "evidence/successor-archive.tar.gz",
+      "sha256": "5b471b148151e841596bc253c45ac0bd23edf5db174d0c251b659a3543e3426e"
+    },
+    {
+      "source": "previous reconstruction index",
+      "path": "evidence/prior-index.json",
+      "sha256": "5b3a8e01241c0d00d5f8a0220f0964062de6323edda4cf0131924b93630922c0"
+    }
+  ],
+  "external_original_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+  "external_prior_archive_sha256": "8ef3dc97ed66a6b20c08456945780b6a01295407d2974e9cf86f68076d5a5d93",
+  "qualification": "Exact private original remains external and local. Its single-machine custody qualification remains."
+}

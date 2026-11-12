@@ -1,0 +1,346 @@
+{
+  "schema": "726-bounded-weapon-assets-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T06:45:35.370949+00:00",
+  "scope": {
+    "roles": [
+      2591,
+      2592
+    ],
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "registration": "registration.json",
+    "personal_read_receipt": "read-receipt.json",
+    "source_entries": [
+      {
+        "tag": "p16-2591",
+        "kind": "historical-physical-p16",
+        "role": 2591,
+        "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+        "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+        "personal_chunks": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            131
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "current-2591",
+        "kind": "current-assigned",
+        "role": 2591,
+        "path": "crates/adventuresim-weapon-model/src/catalog.rs",
+        "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+        "personal_chunks": [
+          [
+            1,
+            70
+          ],
+          [
+            71,
+            131
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "p16-2592",
+        "kind": "historical-physical-p16",
+        "role": 2592,
+        "path": "crates/adventuresim-core/src/equipment_assets.rs",
+        "sha256": "87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+        "personal_chunks": [
+          [
+            1,
+            55
+          ],
+          [
+            56,
+            106
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "current-2592",
+        "kind": "current-assigned",
+        "role": 2592,
+        "path": "crates/adventuresim-core/src/equipment_assets.rs",
+        "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+        "personal_chunks": [
+          [
+            1,
+            55
+          ],
+          [
+            56,
+            107
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "selection",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+        "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+        "personal_chunks": [
+          [
+            1,
+            85
+          ],
+          [
+            86,
+            170
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "catalog-loader",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-core/src/item_catalog.rs",
+        "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+        "personal_chunks": [
+          [
+            27,
+            50
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            26
+          ],
+          [
+            51,
+            614
+          ]
+        ]
+      },
+      {
+        "tag": "tactical-equipment",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+        "sha256": "c94849ea996b6eea5f164b6e04f642241eb448a2869f33235c277cb978da2b1b",
+        "personal_chunks": [
+          [
+            50,
+            105
+          ],
+          [
+            130,
+            210
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            49
+          ],
+          [
+            106,
+            129
+          ],
+          [
+            211,
+            1341
+          ]
+        ]
+      },
+      {
+        "tag": "icons",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-tactical-client/src/equipment/icons.rs",
+        "sha256": "bb358ac1acb5e8729df5d9a3c67a6b58b3e4fd211d910812b0c957fff003a69e",
+        "personal_chunks": [
+          [
+            185,
+            215
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            184
+          ],
+          [
+            216,
+            297
+          ]
+        ]
+      },
+      {
+        "tag": "recipe",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-weapon-model/src/design/recipe.rs",
+        "sha256": "cf98c39d3507e4f13116cf175ca4555950d82e4cafdebefd7600e7856bbdc3a4",
+        "personal_chunks": [
+          [
+            1,
+            16
+          ]
+        ],
+        "unread_complement": []
+      },
+      {
+        "tag": "derive",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-weapon-model/src/derive.rs",
+        "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+        "personal_chunks": [
+          [
+            1,
+            30
+          ]
+        ],
+        "unread_complement": [
+          [
+            31,
+            47
+          ]
+        ]
+      },
+      {
+        "tag": "weapon-model",
+        "kind": "current-support",
+        "role": null,
+        "path": "crates/adventuresim-weapon-model/src/model/mod.rs",
+        "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+        "personal_chunks": [
+          [
+            65,
+            100
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            64
+          ],
+          [
+            101,
+            273
+          ]
+        ]
+      }
+    ],
+    "identities": "P16 role2591 0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2 equals same individual a120, 6533 and 95e file. P16 role2592 87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6 equals its a120 file; current 0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365 equals 6533 individual file and differs from P16. Each P16 and current body independently displayed in full; base/pr Git identities are comparisons only. Neither historical working snapshot is asserted clean.",
+    "comparison": "reconstructed-p16-current-2592.diff is this packet\u2019s new comparison derived from both displayed exact bodies, not an original historical artifact. git-proofs.json includes clean a120 tree absence of selection.rs; it cannot prove absence in the dirty P16 working snapshot.",
+    "staging_qualification": "staging-qualification.json records a failed initial staging attempt due to recipe.rs ending at 16 rather than requested 30. It stopped before any prospective registration or source-body output; corrected registration was written before all actual displays."
+  },
+  "historical_relations": {
+    "selected_059_queue": [
+      {
+        "index": 1255,
+        "id": "Q-L12-711f5cf7b910a344b89a",
+        "kind": "pending-contract-or-revisit",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/lens12/pending_connected_contracts/365"
+        ],
+        "top_level_source_count": 0,
+        "granular_source_counts": [],
+        "qualification": "Pending default-design owner question; queue carries no body/source receipt."
+      },
+      {
+        "index": 2482,
+        "id": "L12-CLOSURE-RUNTIME-EQUIPMENT-PRESENTATION-IDENTITY",
+        "kind": "connected-contract",
+        "status": "open-source-reconciliation",
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          2
+        ],
+        "qualification": "Open runtime equipment presentation identity with original attributed P16 role2592 and 2593 views; no full current consumer closure or alias inferred."
+      }
+    ],
+    "059_records": "READ-L11-425 records /root/segovb fresh P16 2591 [1\u20133,74\u201387] under SEGOVB-1502 and 2592 [1\u2013106] under SEGOVB-1503. READ-L12-880 attributes /root/lens12_frontier P16 2591 [1\u20133,70\u201387] to PAR-L12-653; READ-L12-881 attributes P16 2592 [1\u2013106] to PAR-L12-657. Root personal rereads empty. These scopes and associated original registration, proposal and qualification records remain separate from this new review.",
+    "774_rig": "RIG-ADMISSION03-REGISTER-024 prospectively registered role2591 [1\u20133,70\u201387], effective [1\u20133,74\u201387]; ADDITIONAL-011 records the old P16 loader. REGISTER-026 prospectively requested role2592 [1\u2013107], effective [1\u2013106] at actual EOF; ADDITIONAL-026 records that old decoder. RIG CONTRACT-055/056 are separately attributed pr-working asset/selection assessments and must not be promoted to a P16 read.",
+    "774_camera": "CAMERA-ADM03-REG012-physical-p16 and CAMERA-ADM03-057 preserve camera\u2019s P16 catalog [1\u20132,74\u201387] and data-content exclusion, separately from rig and this reader. registry role2740 records source_id/path pr-working but snapshot pinned-native-dependency for the same catalog hash; original contradictory labels remain unchanged and are not normalized by byte equality.",
+    "rig_registration_pin": {
+      "root046_rig_registration_expected": "9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe",
+      "later_first35_sha256": "cbbfee078a21b7d56c7d4b499225de25fad99e47bfb9057defc14eb932c1d859",
+      "later_full_registration_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "registration_prefix_matches": false,
+      "root046_qualification_expected": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "later_first31_qualification_sha256": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "qualification_prefix_matches": true,
+      "bounded_search": "20 exact-filename registration files under ae46/target and 28ba extracted target checked both whole and first35; none match the pin; no global absence claim.",
+      "qualification": "Original roles, rig witness and 046 embedded rows retain independent attribution; later registration bytes are not silently substituted."
+    },
+    "camera_registration_pin": {
+      "root046_camera_first7_pin": "d5ff4a23194d152b2b51b84d6cd8818eb4addf2b21b601c6945a3509c02a0181",
+      "later_f82_first7_sha256": "fbc9f62c7beb117a87090f262404c5b15860f1e32215efc22885433ef403c434",
+      "later_f82_full_sha256": "40c201734306821755cd9c898e40a1c0cf48de3257b1a9744fb3616d917127cd",
+      "later_f82_first12_sha256": "c5e14074095dedb584f0c2ac53b5656f4d7e4147313a24fec11eac6375e2dd9e",
+      "qualification": "Root046 captured only seven camera rows before CAMERA-ADM03-REG012 dated 07:29; this mismatch does not establish absence, alteration or earlier membership for the later row12. Both source revision and original chronology remain explicit."
+    },
+    "pin_note": "Root046 embedded qualification records and prospective/actual ranges, not the entire earlier registration files. The rig first35 and camera first7 later recovered prefixes do not match their respective earlier pins. Camera REG012 row12 is dated after root046 captured seven rows, so that mismatch does not establish its absence, alteration or earlier membership. Bounded prior filename search is not global absence.",
+    "prior_delegate": "/root/hair_ops original manifest 333133377e70b4aec2f95f8476e9bf65762c175b79881dece2ba20f50584d605, prior/REPORT.json SHA 0011abac7fdf286403b0062e5fe00dfd5a52211a66d968dd93d9f10e681aefb3 and prior/read-receipt.json preserve its independent full P16/95e body reads and support windows. Source equality or reuse does not transfer authorship or credit.",
+    "later_recovery": "The later independently reproduced tracked P16 patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 was observed by /root/hair_ops and separately saved by central. It omits seven separately checked untracked paths and does not establish the original command or uninterrupted custody.",
+    "publication": "Checkpoint15 archive and member redaction metadata are retained; exact original 059 receipts and previous selected records may contain local paths. Historic evidence and this assessment are not checkpoint3821."
+  },
+  "assessments": [
+    {
+      "title": "Weapon default lookup and separate derivation admission",
+      "classification": "Conditional connected owner/ingress question; existing 774 rig ADDITIONAL-011, camera CAMERA-ADM03-057 and Q1255; no new defect count",
+      "evidence": [
+        "P16/current catalog role2591 :74\u201387 decodes embedded gameplay data in OnceLock with expect, and returns the first exact matching catalog_id as an optional cloned WeaponDesign; it does not validate recipe semantics at that function.",
+        "Current recipe.rs:11\u201316 exposes the decoded design, item_catalog.rs:36\u201348 expects a melee default and successful derive_properties, derive.rs:3\u20136 invokes identity validation and Construction::new, and model/mod.rs:81\u201383 calls recipe.validate."
+      ],
+      "conditions": "The panic possibilities depend on malformed embedded data, a missing required melee key or an invalid design reaching the selected caller. No embedded catalog, dataset, fixture, parser, macro or product was executed or inspected; all other callers and current producer obligations remain open. An absent key or no recommended holder is a supported Option result at the local API, not itself a finding.",
+      "future_direction": "Trace the actual source producer, default-design key obligations and caller failure handling before assigning an admission owner or asserting a defect."
+    },
+    {
+      "title": "Asset selection preserves admitted item/placement relation",
+      "classification": "Bounded current and historical source relationship; Q2482 and prior rig contracts remain broader",
+      "evidence": [
+        "P16 equipment_assets.rs:45\u2013101 resolves item and that item\u2019s placement, rejects duplicate pointer pairs, sorts item/placement IDs and supports optional placement lookup.",
+        "95e equipment_assets.rs:47\u2013101 uses CatalogItem::find, item.placement, duplicate-selection rejection and sorted entries, with separate exact file_for and default_file_for. selection.rs:35\u201375 and :112\u2013153 makes a selection from an actual supplied-slice item and its placement, and equality uses their references.",
+        "Current tactical equipment.rs:71\u201380 builds a LazyLock from embedded manifest and panics on decoding/membership error; :169\u2013176 resolves item and optional placement text against global item_catalog::catalog before lookup. icons.rs:185\u2013215 skips a missing/non-.glb file when building an icon path."
+      ],
+      "conditions": "Both versions shown select a first lexical placement for the omitted-placement default, scoped to admitted entries. CatalogItem::find returns the first duplicate and proves membership only in the given slice; it does not independently prove global uniqueness, source authenticity or eligibility. Manifest parsing retains file/selection after parsing but does not check semantic schema-version, release, coverage or filename policy in this function. Actual manifest values, upstream IDs, native loaders, caches, sockets and consumer execution remain open. No dataset or product was inspected/executed.",
+      "future_direction": "Trace the manifest producer, actual runtime identity path and consumer file requirements; only assign further validation after identifying the owning policy and actual reachable contract."
+    }
+  ],
+  "nonfindings": [
+    "The explicit no-placement/default lookup and first lexical selection are supported by the displayed bodies; do not automatically treat omission as invalid.",
+    "Typed selection enforces an item/placement relationship for records admitted through the shown slice, without asserting duplicate IDs cannot occur in the slice.",
+    "An unchecked metadata or filename policy is an open boundary question, not evidence of a malformed real asset, security defect, or panic that actually occurred."
+  ],
+  "open_questions": [
+    "Do all actual committed gameplay recipes provide semantically valid defaults for every required melee ID, and what other producers and callers apply validation?",
+    "What authoritative manifest producer guarantees format, path, version, metadata ranges and placement membership, and what do native asset consumers require?",
+    "How are runtime item IDs, topology, socket references, caches and asset choices retained across the uninspected consumer graph?",
+    "How do role2740\u2019s inconsistent snapshot/source labels and older camera/rig scopes map to central identities without normalizing evidence or duplicating counts?",
+    "What do the uninspected source, actual feature/build paths and native loader behavior add?"
+  ],
+  "lens_perspectives": {
+    "magic_strings": "Catalog, placement and file names have distinct boundary semantics; path and actual data policies remain open.",
+    "magic_numbers": "Manifest counters, coverage and schema fields are typed but not semantically checked by this decoder; policy unproved.",
+    "existing_type_owners": "Current CatalogItem and CatalogPlacement carry slice-local membership and relationship; raw runtime IDs need wider trace.",
+    "type_ownership": "The caller supplies the catalog slice; global authority and all consumer ownership require further evidence.",
+    "type_granularity": "Exact selection and optional default are separate functions; source does not make all missing placements errors.",
+    "enum_shapes": "Optional default/recommended holder paths are explicit supported outcomes; no enum redesign is proved.",
+    "admission_contracts": "Serde, item membership and duplicate guards are distinct from semantic recipe, metadata and path policies.",
+    "aggregate_states": "CatalogPlacement associates an item and its own placement; other manifest metadata is not bound by this relation.",
+    "invariant_operations": "Reference equality and retained ordinal are constructed from an immutable snapshot in the shown path; broader mutation paths remain unreviewed.",
+    "producer_propagation": "Current tactical boundary maps raw IDs to global catalog in selected call; upstream and native loaders remain open.",
+    "redundant_authority": "Constant IDs, gameplay data and manifest keys are separate sources requiring content trace, not demonstrated conflicting truth.",
+    "behavior_preservation": "Both shown default lookups use first lexical placement; preserve legitimate None and non-holder modes.",
+    "derivability": "Existing serde and equality code serve visible roles; no removable boilerplate established."
+  },
+  "limits": "Source and evidence integrity only; no parser, macro, product, fixture, build, test, probe, repair, cleanup or publication editing. No lens completion, automatic aliases, duplicate counts or checkpoint3821 restoration."
+}

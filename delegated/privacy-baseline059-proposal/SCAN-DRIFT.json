@@ -1,0 +1,25 @@
+{
+  "schema": "726-scan-working-tree-drift-v1",
+  "observed_utc": "2026-11-12T08:50:00.721367+00:00",
+  "new_file_paths": [
+    "./INDEPENDENT-13K-PRIVATE-CHECK.json",
+    "./INDEPENDENT-13K-PRIVATE-CHECK.log"
+  ],
+  "removed_file_paths": [],
+  "reread_matching_file_digest_changes": [],
+  "qualification": "This checks path enumeration drift and captured matching-file digests, not all preexisting nonmatching files for new content or future changes.",
+  "new_file_scan": [
+    {
+      "path": "INDEPENDENT-13K-PRIVATE-CHECK.json",
+      "sha256": "8287a67048082ba5f749e413dcc2f9de42f1f78dc59bc8ede5eb3730a84fdf98",
+      "bytes": 490,
+      "matches": {}
+    },
+    {
+      "path": "INDEPENDENT-13K-PRIVATE-CHECK.log",
+      "sha256": "6f815879759f4ebc862cebe46cdb5074ba951b620c5330c45679403b70a11daa",
+      "bytes": 505,
+      "matches": {}
+    }
+  ]
+}

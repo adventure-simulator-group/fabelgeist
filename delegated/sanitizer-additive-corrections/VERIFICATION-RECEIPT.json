@@ -1,0 +1,21 @@
+{
+  "schema": "726-reconstruction-verification-receipt-v1",
+  "recorded_utc": "2026-11-12T08:18:22.429033+00:00",
+  "author": "/root/hair_ops",
+  "frozen_inputs": {
+    "prior_full_run_manifest_sha256": "5799846fda8f301918ed3930880c69b87a1fd6694922c0e26544edfdb7923e7a",
+    "report_sha256": "d2743827cfa5643bf3d5d0652bd094436b8d731885839bbfe841d2711adecccc",
+    "reconstruction_sha256": "296caf837c9637b555618861a404e24e9694023d5eacedd4aae4f6a474ce06c5"
+  },
+  "observed_full_verification": {
+    "indexed_checkpoints": 38,
+    "outer_archive_hashes": 180,
+    "old_public_member_locations": 310,
+    "distinct_original_and_public_pairs": 27,
+    "corrected_byte_level_recipes": 26,
+    "retained_original_top_member_objects": 83,
+    "result": "passed",
+    "privacy": "Bounded contextual scan, including escaped-newline path and common secret patterns, returned no unclassified candidates; no private path values were printed."
+  },
+  "qualification": "The first complete run used the named prior packet manifest before this receipt and an additive nested-review-manifest verifier improvement were added. The full verifier is rerun on the final manifest; neither run mutates source evidence, executes product code, or validates product behavior."
+}

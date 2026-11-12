@@ -1,0 +1,15 @@
+import hashlib,json,os,pathlib,pwd,subprocess,sys
+p=pathlib.Path(__file__).parent;repo=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else pathlib.Path.cwd();index=json.loads((p/'reconstruction-index.json').read_bytes());home=pwd.getpwuid(os.getuid()).pw_dir;sha=lambda b:hashlib.sha256(b).hexdigest();marker=index['redaction_marker'];count=0
+for x in index['records']:
+ raw=subprocess.check_output(['git','-C',str(repo),'show',index['commit']+':'+x['original_path']]);assert sha(raw)==x['original_sha256'] and len(raw)==x['original_bytes'] and hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==x['original_git_blob'];obj=json.loads(raw);values={}
+ for f in x['redacted_fields']:
+  v=obj
+  for part in f['pointer'].strip('/').split('/'):
+   part=part.replace('~1','/').replace('~0','~');v=v[int(part)] if isinstance(v,list) else v[part]
+  assert v.startswith(home) and sha(v.encode())==f['original_value_sha256'];values[v]=values.get(v,0)+1;count+=1
+ edited=raw
+ for value,n in values.items():
+  old=json.dumps(value,ensure_ascii=True).encode();assert edited.count(old)==n;edited=edited.replace(old,json.dumps(marker).encode())
+ b=(p/x['public_candidate']).read_bytes();assert b==edited and sha(b)==x['public_candidate_sha256'] and len(b)==x['public_candidate_bytes'] and hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()==x['public_candidate_git_blob'];assert home.encode() not in b
+assert count==56 and len(index['records'])==5
+print('PASS: five original Git objects and 56 exact string replacements; all other bytes retained. Source evidence integrity only; no publication or product execution.')

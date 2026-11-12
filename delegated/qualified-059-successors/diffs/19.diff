@@ -1,0 +1,27 @@
+--- originals/verify_delegated_links_19.py
++++ successors/verify_delegated_links_19_059_public.py
+@@ -1,11 +1,16 @@
+ #!/usr/bin/env python3
+ """Verify checkpoint19 historical and prior-packet identities."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,io,json,tarfile
+ from pathlib import Path
+-R=Path(__file__).resolve().parent;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
++R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
+ cp=load('DELEGATED-EVIDENCE-CHECKPOINT-19.json');by={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']}
+ paths=['recovered/original-registry-source-archive/objects.tar.gz','recovered/original-registry-source-archive/registry.json.gz','recovered/original-registry-source-archive/MANIFEST.json','recovered/original-transport-manifest.json.gz','baseline-059/queue.json','baseline-059/ledger.json','RECOVERY-PHYSICAL-P16-PATCH-20261111.json','recovered/physical-p16-patch-recovery/tracked.patch','delegated/garment-underlayer-hair-ops-evidence.tar.gz','delegated/hair-operations-report.json','delegated/hair-operations-evidence.tar.gz','ASSESSMENT-HAIR-GUIDES-95E.json','ASSESSMENT-HAIRDO-GROOM-95E.json','ASSESSMENT-L01-HAIR-ADMISSION-95E.json','ASSESSMENT-LOOK-RANDOM-CONTRACTS-95E.json','ASSESSMENT-HAIR-GPU-GROW-95E.json','ASSESSMENT-HAIR-GPU-MODULE-95E.json','ASSESSMENT-GPU-BIND-BUFFER-95E.json','delegated/hair-primitives-report.json','delegated/hair-primitives-evidence.tar.gz','ASSESSMENT-BVH-CLOTH-95E.json','ASSESSMENT-DELEGATED-RECONCILIATION-4-95E.json','delegated/shell-solver-report.json','delegated/shell-contact-report.json','delegated/cloth-garment-report.json','delegated/xpbd-dynamics-report.json','delegated/xpbd-dynamics-evidence.tar.gz','delegated/xpbd-solver-report.json','delegated/xpbd-solver-evidence.tar.gz']
+-known={sha((R/p).read_bytes()):len((R/p).read_bytes()) for p in paths}
++known=_CW.known(paths)
+ prior=[];archives={}
+ def flatten(m):
+  yield m
+@@ -50,3 +55,5 @@
+     for x in a['byte_identical_members']:
+      body=prev.extractfile(x['member']).read();assert sha(body)==x['sha256'] and len(body)==x['bytes']
+ print('Verified eight checkpoint19 historical, 059 and selected prior-packet identities; no historical reread or checkpoint3821 credit inferred.')
++
++_CW.finish()

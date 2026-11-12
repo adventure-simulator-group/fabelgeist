@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"""Verify point-in-time reconciliation links without adopting proposals."""
+import sys as _cw_sys
+_cw_sys.dont_write_bytecode = True
+from pathlib import Path as _CW_Path
+from qualified_crosswalk import configure as _cw_configure
+_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+import gzip,hashlib,json
+from pathlib import Path
+R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
+frozen=load('FROZEN-PROPOSAL-DEPENDENCIES-15.json');saved={}
+for row in frozen['rows']:
+ compressed=(R/row['preserved_gzip']).read_bytes();assert sha(compressed)==row['gzip_sha256'] and len(compressed)==row['gzip_bytes'];raw=gzip.decompress(compressed);assert sha(raw)==row['original_sha256'] and len(raw)==row['original_bytes'];saved[row['prior_path']]=raw
+cp10=load('DELEGATED-EVIDENCE-CHECKPOINT-10.json');cp15=load('DELEGATED-EVIDENCE-CHECKPOINT-15.json');b10={b['bundle_id']:b for b in cp10['bundles']};b15={b['bundle_id']:b for b in cp15['bundles']}
+physics=load('delegated/reconcile-physics-collider-count-report.json')
+for ref in physics['links']['publication']:
+ p=(R/ref['path']).resolve();assert p.is_relative_to(R.resolve());raw=saved.get(ref['path'])
+ if raw is None:raw=_CW.read(ref['path'])
+ assert _CW.matches(ref['path'],raw,ref['sha256'],ref['bytes'])
+for ref in physics['links']['local_packet']:
+ assert any(m['original_sha256']==ref['sha256'] and m['original_bytes']==ref['bytes'] for m in b10['physics-collider-count']['members'])
+correction=load('QUALIFICATION-COLLIDER-REGISTRATION-CLARIFICATION.json');b=b15['reconcile-physics-collider-count'];member=next(m for m in b['members'] if m['path']=='RECONCILIATION.json');assert correction['record_sha256']==member['original_sha256'];assert correction['original_correction_sha256']=='a0a8a1971947d810e1faa231d8abbb607bb2cf5bfd51446539655f760c1b1f2f';assert 'not a separate new delegate registration' in correction['clarification']
+sdk=load('delegated/reconcile-sdk-noiz-sats-report.json');a=sdk['authority']
+for key in ('archive','report','checkpoint','ledger','queue','earlier_assessment'):
+ raw=_CW.read(a[key+'_path']);assert _CW.matches(a[key+'_path'],raw,a[key+'_sha256'])
+b=b15['reconcile-sdk-noiz-sats'];members={m['path']:m for m in b['members']}
+for x in sdk['historical_records']:
+ m=members[x['local_file']];assert m['original_sha256']==x['sha256'] and m['original_bytes']==x['bytes']
+p16=load('delegated/reconcile-p16-config-body-report.json');sources=p16['sources']
+known={'checkpoint10':'DELEGATED-EVIDENCE-CHECKPOINT-10.json','registry_archive':'recovered/original-registry-source-archive/registry.json.gz','source_archive':'recovered/original-registry-source-archive/objects.tar.gz','baseline_ledger':'BASELINE-95E-20261110.json','baseline_queue':'baseline-059/queue.json','reconciliation':'RECONCILIATION-059.json'}
+for key,path in known.items():
+ raw=saved.get(path)
+ if raw is None:raw=_CW.read(path)
+ assert _CW.matches(path,raw,sources[key]['sha256'],sources[key]['bytes'])
+transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));originals={x['sha256']:x['bytes'] for x in transport['entries']}
+for x in sources['earlier_059_receipts']:assert originals[x['sha256']]==x['bytes']
+paths=['ASSESSMENT-BODY-FRAME-HEIGHT-95E.json','ASSESSMENT-PACK-RESPONSE-95E.json','ASSESSMENT-COMBAT-CONFIG-ERROR-95E.json','ASSESSMENT-MUSCLE-RESOLVER-CONNECTIONS-95E.json','delegated/p16-animation-report.json','RECOVERY-PHYSICAL-P16-PATCH-20261111.json'];known_sha={sha((R/p).read_bytes()):len((R/p).read_bytes()) for p in paths}
+for x in sources['current_prior_assessments']:assert known_sha[x['sha256']]==x['bytes']
+for x in p16['exact_local_assigned_registrations']:
+ m=next(m for m in b10[x['bundle']]['members'] if m['path']==x['member']);assert m['original_sha256']==x['original']['sha256']==x['receipt_original_registration_sha256'];assert m['published_sha256']==x['public_member_sha256'] and m['changed']
+assert len(sdk['historical_records'])==6 and len(sources['earlier_059_receipts'])==7
+print('Verified frozen proposal dependencies, exact 059 identities and registration redaction mappings; proposals remain separately attributed and unadopted.')
+
+_CW.finish()

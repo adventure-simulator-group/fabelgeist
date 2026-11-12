@@ -1,0 +1,20 @@
+{
+  "schema": "726-privacy-safe-sanitizer-correction-proposal-v1",
+  "author": "/root/hair_ops",
+  "created_utc": "2026-11-12T08:05:37.283687+00:00",
+  "status": "Proposal only; no stage, historical publication, source or product mutation.",
+  "problem": "A case-insensitive local-path matcher consumes slash-delimited semantic text embedded in ordinary audit prose. Public evidence reconstructions therefore contain placeholders where original non-path text appeared; unchanged frozen summaries can appear to say those reconstructed bytes are original.",
+  "evidence": "OCCURRENCES.json enumerates only the 390 demonstrated substitutions, indexed by original and public member hashes, member chains and original content offsets. They occur in repeated copies of 27 original member byte identities; they are not 390 separate historical findings. The earlier CP36 review correction is copied byte-for-byte as a separate original record in original-cp36-review-correction/ and is not rewritten.",
+  "proposed_future_actions": [
+    "Preserve original checkpoint bytes, historical authors, revision and read scopes; publish any corrected reconstructions and qualifications additively, with links to both original and formerly public hashes.",
+    "Using exact retained original bytes, restore only identified non-path text while maintaining every real local-path redaction, then recompute affected nested-member, archive, index and qualification hashes. Never assert that a reconstructed public copy is the byte-identical original.",
+    "Revise sanitizer recognition to distinguish an actual absolute path boundary from a slash in semantic prose. Treat escaped JSON newlines as logical boundaries so genuine absolute paths remain protected; scope Windows case-insensitivity to Windows path syntax and retain explicit macOS and Linux roots.",
+    "Before any future publication, independently review all affected nested archives and confirm that original source/receipt attributions and prior-manifest bindings still hold. This is a future evidence-publication verification direction, not a product test or repair authorization."
+  ],
+  "safeguards": [
+    "The eleven escaped-newline examples are genuine private-path captures and must stay redacted. Their values are not present in this proposal.",
+    "Context-aware recognition must cover absolute paths embedded after ordinary text separators as well as genuine escaped newlines; preserving prose must not expose credentials, local paths or private data.",
+    "The 27 original byte identities, 310 repeated member locations and 390 substitutions do not justify changing historical queue counts, role credit, source revisions or audit findings."
+  ],
+  "known_limits": "Scope and limitations are recorded in OCCURRENCES.json. This proposal does not claim independent remote verification, global privacy completeness, actual runtime behavior or the recovery of missing checkpoint3821. All indexed archives were hashed, but 147,850 unchanged indexed leaf members and unindexed embedded content were not compared to earlier pre-reconstruction originals."
+}

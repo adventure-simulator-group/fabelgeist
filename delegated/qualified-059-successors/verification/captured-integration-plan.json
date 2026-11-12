@@ -1,0 +1,1119 @@
+{
+  "schema": "726-baseline059-evidence-verifier-successor-plan-v1",
+  "created_utc": "2026-11-12T08:55:25.592658+00:00",
+  "author": "/root/rig_identity",
+  "status": "Concrete integration plan only; no publication files or existing evidence verifiers modified or executed.",
+  "historical_transport_proof": {
+    "path": "recovered/original-transport-manifest.json.gz",
+    "stored_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+    "uncompressed_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+    "records": [
+      {
+        "path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+        "bytes": 21632843,
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+        "public_path": "baseline-059/queue.json",
+        "public_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+        "public_bytes": 21631815,
+        "public_git_blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5"
+      },
+      {
+        "path": "evidence/continuation-segovb/ledger.json",
+        "bytes": 9417609,
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "git_blob": "ed43c113de9543d04e4d706655d66760574cebe6",
+        "public_path": "baseline-059/ledger.json",
+        "public_sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+        "public_bytes": 9416271,
+        "public_git_blob": "14d29425d43070ddef914fd434f1c6ad22dfede7"
+      }
+    ],
+    "qualification": "Original transport records bind historical uncompressed bytes, lengths and Git blobs. They do not claim the reconstructed public blobs are original."
+  },
+  "fifteen_affected_checks": [
+    {
+      "checkpoint": 15,
+      "script": "verify_reconciliation_proposal_links_15.py",
+      "script_sha256": "ec37277db5231d8d197df6e079b37dd3bd434da2683d8cede1fbbde602ccdfe4",
+      "script_bytes": 4029,
+      "relevant_source_lines": [
+        20,
+        25
+      ],
+      "strict_dependencies": "SDK report direct historical queue/ledger plus other separately retained links"
+    },
+    {
+      "checkpoint": 16,
+      "script": "verify_delegated_links_16.py",
+      "script_sha256": "9eccfeb57829631b0bd10926926c9b8cb384f94311dbc98c9db9ac5da52f5b6c",
+      "script_bytes": 6085,
+      "relevant_source_lines": [
+        17,
+        38,
+        46,
+        56
+      ],
+      "strict_dependencies": "archived hash-link tuples plus explicitly loaded top-level original bytes"
+    },
+    {
+      "checkpoint": 17,
+      "script": "verify_delegated_links_17.py",
+      "script_sha256": "bfa44a92965db78e9f2accacf35fb9e5ba3165390325cf100b514a8e33dc4e1b",
+      "script_bytes": 6730,
+      "relevant_source_lines": [
+        11
+      ],
+      "strict_dependencies": "archived hash-link tuples plus explicitly loaded top-level original bytes"
+    },
+    {
+      "checkpoint": 18,
+      "script": "verify_delegated_links_18.py",
+      "script_sha256": "e6a7ef0b819a8e2fdf5e6cc17e66203352ec36f0f8b220fefb97351add3586ab",
+      "script_bytes": 7369,
+      "relevant_source_lines": [
+        7
+      ],
+      "strict_dependencies": "archived hash-link tuples plus explicitly loaded top-level original bytes"
+    },
+    {
+      "checkpoint": 19,
+      "script": "verify_delegated_links_19.py",
+      "script_sha256": "e9f55cf041c3b1fa05b87597c749f1494a30047bb3947a8cafd00f161922ffad",
+      "script_bytes": 5218,
+      "relevant_source_lines": [
+        7
+      ],
+      "strict_dependencies": "archived hash-link tuples plus explicitly loaded top-level original bytes"
+    },
+    {
+      "checkpoint": 20,
+      "script": "verify_delegated_links_20.py",
+      "script_sha256": "7cd373fde60f9b345adac2e86907420a0a60af82974fdaaece88432467ae5ec9",
+      "script_bytes": 5613,
+      "relevant_source_lines": [
+        7,
+        9,
+        10
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 21,
+      "script": "verify_delegated_links_21.py",
+      "script_sha256": "5e0ee08b17c74f9c94fdb5a2f2acfedb7cc1855afc79b7275564c1769bf4a448",
+      "script_bytes": 6771,
+      "relevant_source_lines": [
+        5,
+        6,
+        58
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 22,
+      "script": "verify_delegated_links_22.py",
+      "script_sha256": "a1bd80628487f287c46c3848a24fd92620d61afe57cf3573bed3b939c3830030",
+      "script_bytes": 6007,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 23,
+      "script": "verify_delegated_links_23.py",
+      "script_sha256": "516b50b19db831adc0b36a1601acc25acc67ff0f5cab9752a0d5a0e1b3ee1aea",
+      "script_bytes": 8372,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 24,
+      "script": "verify_delegated_links_24.py",
+      "script_sha256": "d12d9f9222b777f7d8b5c15c6f9e4c4dd376c845001e637567fabcf5a3688610",
+      "script_bytes": 6375,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 25,
+      "script": "verify_delegated_links_25.py",
+      "script_sha256": "e50695383abd368d06eee51529732eed14d1397c189dd1b684ab4a022c3bc5e1",
+      "script_bytes": 8347,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 26,
+      "script": "verify_delegated_links_26.py",
+      "script_sha256": "385b1f46371bf3f9c51cfb280d0e04e7c59e138090f8fda35c6625b4277ddee3",
+      "script_bytes": 9044,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 27,
+      "script": "verify_delegated_links_27.py",
+      "script_sha256": "f9c1bc51396179a5dd4139bf589c4378d72c54853e02e2182310d597ab1f11b0",
+      "script_bytes": 6957,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 28,
+      "script": "verify_delegated_links_28.py",
+      "script_sha256": "51e1d9d5bdc6e380331bc1d138f0aca0b71683d6544316b260db98e19058bde9",
+      "script_bytes": 7515,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    },
+    {
+      "checkpoint": 29,
+      "script": "verify_delegated_links_29.py",
+      "script_sha256": "3c8c62025ed67a4d12fc2d19251a7da0edcc57d4484e6518ceb8aa00d437f004",
+      "script_bytes": 4275,
+      "relevant_source_lines": [
+        5,
+        6
+      ],
+      "strict_dependencies": "unchanged checkpoint direct-links manifest asserts original SHA/length of both top-level paths"
+    }
+  ],
+  "existing_manifest_bindings": {
+    "explicit_checkpoint20_29_direct_link_records": [
+      {
+        "manifest": "DELEGATED-CHECKPOINT-20-DIRECT-LINKS.json",
+        "manifest_sha256": "63d882c3cf8e0826fa408287c546386ca98d0b0a4bb23bde2535428ac31d1514",
+        "pointer": "/links/6",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_20.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-20-DIRECT-LINKS.json",
+        "manifest_sha256": "63d882c3cf8e0826fa408287c546386ca98d0b0a4bb23bde2535428ac31d1514",
+        "pointer": "/links/7",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_20.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-21-DIRECT-LINKS.json",
+        "manifest_sha256": "675ef8c439c0fb04b5b918209ad4e0455a77b05590d9de503174a27eb35173f0",
+        "pointer": "/links/6",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_21.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-21-DIRECT-LINKS.json",
+        "manifest_sha256": "675ef8c439c0fb04b5b918209ad4e0455a77b05590d9de503174a27eb35173f0",
+        "pointer": "/links/7",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_21.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-22-DIRECT-LINKS.json",
+        "manifest_sha256": "afca8ef601e6481e0541c8442d94ddb132a69adaa0ddc9e0d03a40d114264f9c",
+        "pointer": "/links/18",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_22.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-22-DIRECT-LINKS.json",
+        "manifest_sha256": "afca8ef601e6481e0541c8442d94ddb132a69adaa0ddc9e0d03a40d114264f9c",
+        "pointer": "/links/19",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_22.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-23-DIRECT-LINKS.json",
+        "manifest_sha256": "5bfb376231800f843f2698e1d21f8a3ece7e5d2941a211f5dc27ab49fa3261b7",
+        "pointer": "/links/15",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_23.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-23-DIRECT-LINKS.json",
+        "manifest_sha256": "5bfb376231800f843f2698e1d21f8a3ece7e5d2941a211f5dc27ab49fa3261b7",
+        "pointer": "/links/16",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_23.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-24-DIRECT-LINKS.json",
+        "manifest_sha256": "5eca8a6c5723318fa6aa15f9002e1cf52462bc74221fcd900592e7865046c05b",
+        "pointer": "/links/23",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_24.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-24-DIRECT-LINKS.json",
+        "manifest_sha256": "5eca8a6c5723318fa6aa15f9002e1cf52462bc74221fcd900592e7865046c05b",
+        "pointer": "/links/24",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_24.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-25-DIRECT-LINKS.json",
+        "manifest_sha256": "a6ab2bc54e81a2df1083ffdcd52195e49aaf2384e034f3b06dc1d07ae73bc080",
+        "pointer": "/links/21",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_25.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-25-DIRECT-LINKS.json",
+        "manifest_sha256": "a6ab2bc54e81a2df1083ffdcd52195e49aaf2384e034f3b06dc1d07ae73bc080",
+        "pointer": "/links/22",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_25.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-26-DIRECT-LINKS.json",
+        "manifest_sha256": "1619e567e6b5cb508aa3dbacb16286d7bd536879f8f0a85c50e8616043bf8baf",
+        "pointer": "/links/30",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_26.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-26-DIRECT-LINKS.json",
+        "manifest_sha256": "1619e567e6b5cb508aa3dbacb16286d7bd536879f8f0a85c50e8616043bf8baf",
+        "pointer": "/links/31",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_26.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-27-DIRECT-LINKS.json",
+        "manifest_sha256": "c4a667faef832bb5683653bc37fe28fdca380da56417b402068816d09cf7ec01",
+        "pointer": "/links/18",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_27.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-27-DIRECT-LINKS.json",
+        "manifest_sha256": "c4a667faef832bb5683653bc37fe28fdca380da56417b402068816d09cf7ec01",
+        "pointer": "/links/19",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_27.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-28-DIRECT-LINKS.json",
+        "manifest_sha256": "cd7303eaa6bf1712a8197049b502082dba40956176ea2362efe745ed2779a3f3",
+        "pointer": "/links/7",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_28.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-28-DIRECT-LINKS.json",
+        "manifest_sha256": "cd7303eaa6bf1712a8197049b502082dba40956176ea2362efe745ed2779a3f3",
+        "pointer": "/links/8",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_28.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-29-DIRECT-LINKS.json",
+        "manifest_sha256": "260386c56a896e1cf6cb0a889ed020a018d5a09eafb045c50a8da1cf4ff173d5",
+        "pointer": "/links/16",
+        "path": "baseline-059/ledger.json",
+        "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "bytes": 9417609,
+        "document": "ledger",
+        "linked_script": "verify_delegated_links_29.py"
+      },
+      {
+        "manifest": "DELEGATED-CHECKPOINT-29-DIRECT-LINKS.json",
+        "manifest_sha256": "260386c56a896e1cf6cb0a889ed020a018d5a09eafb045c50a8da1cf4ff173d5",
+        "pointer": "/links/17",
+        "path": "baseline-059/queue.json",
+        "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "bytes": 21632843,
+        "document": "queue",
+        "linked_script": "verify_delegated_links_29.py"
+      }
+    ],
+    "checkpoint16_19_archive_hash_link_records": [
+      {
+        "checkpoint": 16,
+        "checkpoint_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "p16-runtime-determinism",
+        "archive": "delegated/p16-runtime-determinism-evidence.tar.gz",
+        "archive_sha256": "547538e6babff458ceb5198fcf9e578ff02fd86f1be56f4402a56ef015efc098",
+        "member": "evidence-links.json",
+        "member_published_sha256": "160fd9074cc8395f933cc80b5b382dd706666b88aa900549c973307a637ceecf",
+        "pointer": "/published/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "baseline-059/queue.json",
+        "consumer": "verify_delegated_links_16.py"
+      },
+      {
+        "checkpoint": 16,
+        "checkpoint_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "p16-runtime-determinism",
+        "archive": "delegated/p16-runtime-determinism-evidence.tar.gz",
+        "archive_sha256": "547538e6babff458ceb5198fcf9e578ff02fd86f1be56f4402a56ef015efc098",
+        "member": "evidence-links.json",
+        "member_published_sha256": "160fd9074cc8395f933cc80b5b382dd706666b88aa900549c973307a637ceecf",
+        "pointer": "/published/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "baseline-059/ledger.json",
+        "consumer": "verify_delegated_links_16.py"
+      },
+      {
+        "checkpoint": 16,
+        "checkpoint_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "garment-underlayer-hair-ops",
+        "archive": "delegated/garment-underlayer-hair-ops-evidence.tar.gz",
+        "archive_sha256": "796e8fc265fab11564acd4b46f96d5711fe793d78d1ceade78c5ffca6b3e2b1f",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "abc6c8c3f79d2b89e162becb4474e2eb84e0ab16986e9a78eecd6f18c59912fc",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_23>",
+        "consumer": "verify_delegated_links_16.py"
+      },
+      {
+        "checkpoint": 16,
+        "checkpoint_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "trunk-hose-lifecycle-sampling-hair-ops",
+        "archive": "delegated/trunk-hose-lifecycle-sampling-hair-ops-evidence.tar.gz",
+        "archive_sha256": "aa4a7d147dbe3d3ac68a1102e4071f6bc90279f1283d0d0ede9ef20c8f7144aa",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "d387cdb0df625ab9a113a54fa546361d45db1e08e6664b4e77a1392637cb4290",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_12>",
+        "consumer": "verify_delegated_links_16.py"
+      },
+      {
+        "checkpoint": 16,
+        "checkpoint_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "serde-tree-growth",
+        "archive": "delegated/serde-tree-growth-evidence.tar.gz",
+        "archive_sha256": "37d86c75acdc413f2a36e6f2291d6cf2a21ca498baa6b5d867d9e7d770617d23",
+        "member": "evidence-links.json",
+        "member_published_sha256": "5668d97c4577f280f57d7b98924a5cd68e5115289c99c500eb8500326c6185c3",
+        "pointer": "/published/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "baseline-059/queue.json",
+        "consumer": "verify_delegated_links_16.py"
+      },
+      {
+        "checkpoint": 16,
+        "checkpoint_index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "serde-tree-growth",
+        "archive": "delegated/serde-tree-growth-evidence.tar.gz",
+        "archive_sha256": "37d86c75acdc413f2a36e6f2291d6cf2a21ca498baa6b5d867d9e7d770617d23",
+        "member": "evidence-links.json",
+        "member_published_sha256": "5668d97c4577f280f57d7b98924a5cd68e5115289c99c500eb8500326c6185c3",
+        "pointer": "/published/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "baseline-059/ledger.json",
+        "consumer": "verify_delegated_links_16.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "screen-armor",
+        "archive": "delegated/screen-armor-evidence.tar.gz",
+        "archive_sha256": "c6b0f7010d7ec6bc6388546d9e89a3bae6501780bfad8f4939c457d1f7fd50bb",
+        "member": "evidence-links.json",
+        "member_published_sha256": "8f017816ee779dcc210e133058a4f801cf6fd6aea45a010ff92cc38ae45119ef",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "screen-armor",
+        "archive": "delegated/screen-armor-evidence.tar.gz",
+        "archive_sha256": "c6b0f7010d7ec6bc6388546d9e89a3bae6501780bfad8f4939c457d1f7fd50bb",
+        "member": "evidence-links.json",
+        "member_published_sha256": "8f017816ee779dcc210e133058a4f801cf6fd6aea45a010ff92cc38ae45119ef",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "armor-anime-helmets-hair-ops",
+        "archive": "delegated/armor-anime-helmets-hair-ops-evidence.tar.gz",
+        "archive_sha256": "dbd53f5fb437b9e572e9a0cf466e9ea6e20e0cc4025718145ae7b8b9317607b7",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "749e1140f9b2cff062ee26b87431e3e1da7f49daf1f4f3dda267bb83cc7d8054",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_23>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "helmet-crown-buffe",
+        "archive": "delegated/helmet-crown-buffe-evidence.tar.gz",
+        "archive_sha256": "fb86ab3e5bb014052896e2aebb102df3c0b9173d413742aaf8cb08cf6dfbf77e",
+        "member": "evidence-links.json",
+        "member_published_sha256": "a5258b55234982c222a1ee3f0ecb8027cc04a092bf581741ab8cc2faf091b620",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "helmet-crown-buffe",
+        "archive": "delegated/helmet-crown-buffe-evidence.tar.gz",
+        "archive_sha256": "fb86ab3e5bb014052896e2aebb102df3c0b9173d413742aaf8cb08cf6dfbf77e",
+        "member": "evidence-links.json",
+        "member_published_sha256": "a5258b55234982c222a1ee3f0ecb8027cc04a092bf581741ab8cc2faf091b620",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "armor-pierced-sampling-hair-ops",
+        "archive": "delegated/armor-pierced-sampling-hair-ops-evidence.tar.gz",
+        "archive_sha256": "bcc5032eae4a1fd58d5d045ab7deb19315b1211b5b6e3e1ff5ca0aa17f7600f3",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "3181fdb174a06c8465cb89c2eb7ced7b361981c550282821714ab70138627e09",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_17>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "armor-extremities-joint-hair-ops",
+        "archive": "delegated/armor-extremities-joint-hair-ops-evidence.tar.gz",
+        "archive_sha256": "ea066e19b44cfdbcb19d29e11e98e397a59b1b21a441ec4976f0c23d77e88184",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "ba354e20424c3023c2df052a8eba2923aa049d7f834a2d2fa402475b4cd83412",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_19>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "besagew-radial",
+        "archive": "delegated/besagew-radial-evidence.tar.gz",
+        "archive_sha256": "308046cba4122609e03f39a0641c55a74e8dc845867c6bc5f673d98d61432fca",
+        "member": "evidence-links.json",
+        "member_published_sha256": "834bd586f369d7309f5b8e9acd5775749b2041000d60ec55cbbcee6e19ab6dec",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 17,
+        "checkpoint_index_sha256": "b38275c997b7e4ec63ed30a479b0778645bf3ffa88a0205e5db8b3cfda3f9b2a",
+        "bundle_id": "besagew-radial",
+        "archive": "delegated/besagew-radial-evidence.tar.gz",
+        "archive_sha256": "308046cba4122609e03f39a0641c55a74e8dc845867c6bc5f673d98d61432fca",
+        "member": "evidence-links.json",
+        "member_published_sha256": "834bd586f369d7309f5b8e9acd5775749b2041000d60ec55cbbcee6e19ab6dec",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_17.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "wrapped-tassets-hair-ops",
+        "archive": "delegated/wrapped-tassets-hair-ops-evidence.tar.gz",
+        "archive_sha256": "cad38e0cb01ea77003e89de40423aafdcb1584d7c1d8dcc155757e9eacd4a270",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "d9f2bcfa375a235df646fc6328232a89299882a62296f1381578cf9c77772de7",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_17>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "wrapped-tassets-hair-ops",
+        "archive": "delegated/wrapped-tassets-hair-ops-evidence.tar.gz",
+        "archive_sha256": "cad38e0cb01ea77003e89de40423aafdcb1584d7c1d8dcc155757e9eacd4a270",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "d9f2bcfa375a235df646fc6328232a89299882a62296f1381578cf9c77772de7",
+        "pointer": "/hash_links/4",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_18>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "num-enum-derive",
+        "archive": "delegated/num-enum-derive-evidence.tar.gz",
+        "archive_sha256": "d950333afec410db16143f054d4a3a17bdf9e0673eafa9ed52f5b17ead4a9951",
+        "member": "evidence-links.json",
+        "member_published_sha256": "174bb18b452dd745acda26b3c1b7e3aea6a8800c153c8b8e0d0f74e81cc71ea7",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "num-enum-derive",
+        "archive": "delegated/num-enum-derive-evidence.tar.gz",
+        "archive_sha256": "d950333afec410db16143f054d4a3a17bdf9e0673eafa9ed52f5b17ead4a9951",
+        "member": "evidence-links.json",
+        "member_published_sha256": "174bb18b452dd745acda26b3c1b7e3aea6a8800c153c8b8e0d0f74e81cc71ea7",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "garment-pattern-hair-ops",
+        "archive": "delegated/garment-pattern-hair-ops-evidence.tar.gz",
+        "archive_sha256": "7ee94591adabdd016b181aa095e4bb40a880c6e3646e4c02ff61db7d632a320b",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "e3fb72314f9d2e2d7bad36c94bf893e993b2d6ea18c0b4e2a62cd96591b669b9",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_19>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "garment-pattern-hair-ops",
+        "archive": "delegated/garment-pattern-hair-ops-evidence.tar.gz",
+        "archive_sha256": "7ee94591adabdd016b181aa095e4bb40a880c6e3646e4c02ff61db7d632a320b",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "e3fb72314f9d2e2d7bad36c94bf893e993b2d6ea18c0b4e2a62cd96591b669b9",
+        "pointer": "/hash_links/4",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_20>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "gpu-reflection",
+        "archive": "delegated/gpu-reflection-evidence.tar.gz",
+        "archive_sha256": "b9609aed246489680db840971d8b8d49557b161bb003b749fd44b0136b350840",
+        "member": "evidence-links.json",
+        "member_published_sha256": "486cd07dc7355c62326edd48c694e5ea5654c24f3c534763adec58f0840887d0",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "gpu-reflection",
+        "archive": "delegated/gpu-reflection-evidence.tar.gz",
+        "archive_sha256": "b9609aed246489680db840971d8b8d49557b161bb003b749fd44b0136b350840",
+        "member": "evidence-links.json",
+        "member_published_sha256": "486cd07dc7355c62326edd48c694e5ea5654c24f3c534763adec58f0840887d0",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "cloth-triangulation-hair-ops",
+        "archive": "delegated/cloth-triangulation-hair-ops-evidence.tar.gz",
+        "archive_sha256": "070ca0b9facc95e4188074c3fe717089b5abab4742a98d517e118a4e3de99337",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "465fe028e9599577e3d2489f85f481bc3ca3dbfee7bffcb3a2992891dcd9c191",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_16>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 18,
+        "checkpoint_index_sha256": "3bbee28884bba62cfa505df7895f25e407bee64ca2c5df2124545d7d397b3414",
+        "bundle_id": "cloth-triangulation-hair-ops",
+        "archive": "delegated/cloth-triangulation-hair-ops-evidence.tar.gz",
+        "archive_sha256": "070ca0b9facc95e4188074c3fe717089b5abab4742a98d517e118a4e3de99337",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "465fe028e9599577e3d2489f85f481bc3ca3dbfee7bffcb3a2992891dcd9c191",
+        "pointer": "/hash_links/4",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_17>",
+        "consumer": "verify_delegated_links_18.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "hair-head-haircut-hair-ops",
+        "archive": "delegated/hair-head-haircut-hair-ops-evidence.tar.gz",
+        "archive_sha256": "6e2414437139965c38622df8a8f71e5c9a784ad8aaeee3810f5ee0d1cecdb4a4",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "cc3fb8e93b532e51f47a038de9b792f37723e0703b85780b7d548128be82344d",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_19>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "hair-head-haircut-hair-ops",
+        "archive": "delegated/hair-head-haircut-hair-ops-evidence.tar.gz",
+        "archive_sha256": "6e2414437139965c38622df8a8f71e5c9a784ad8aaeee3810f5ee0d1cecdb4a4",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "cc3fb8e93b532e51f47a038de9b792f37723e0703b85780b7d548128be82344d",
+        "pointer": "/hash_links/4",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_20>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "hair-grow-input-profile",
+        "archive": "delegated/hair-grow-input-profile-evidence.tar.gz",
+        "archive_sha256": "2957a3d7d95723cbe7b0aa49dbbfaf99a1cbc8728ea28f33a02eeb89650031dd",
+        "member": "evidence-links.json",
+        "member_published_sha256": "b3e89d7aefde2e901e0b47e52b759e3fbe0e097001f68f97ae542b836f4062a2",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "hair-grow-input-profile",
+        "archive": "delegated/hair-grow-input-profile-evidence.tar.gz",
+        "archive_sha256": "2957a3d7d95723cbe7b0aa49dbbfaf99a1cbc8728ea28f33a02eeb89650031dd",
+        "member": "evidence-links.json",
+        "member_published_sha256": "b3e89d7aefde2e901e0b47e52b759e3fbe0e097001f68f97ae542b836f4062a2",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "hair-surface-grid-hair-ops",
+        "archive": "delegated/hair-surface-grid-hair-ops-evidence.tar.gz",
+        "archive_sha256": "3b31968c4fba38d03c59bebded1378b1cac6c4ba509806b39668c18889464202",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "4c8444215e9175c734474ae7bfba0b8524e94a5fd3a25666d7ca028516ef0dda",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_22>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "hair-surface-grid-hair-ops",
+        "archive": "delegated/hair-surface-grid-hair-ops-evidence.tar.gz",
+        "archive_sha256": "3b31968c4fba38d03c59bebded1378b1cac6c4ba509806b39668c18889464202",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "4c8444215e9175c734474ae7bfba0b8524e94a5fd3a25666d7ca028516ef0dda",
+        "pointer": "/hash_links/4",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_23>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "shell-mesh-material",
+        "archive": "delegated/shell-mesh-material-evidence.tar.gz",
+        "archive_sha256": "cd3d8e33e04e4cd3b39ae6debb16951ae23d18ab87b78bb22ee56e2ee1e7e4dc",
+        "member": "evidence-links.json",
+        "member_published_sha256": "188c7c1fb3109ee50b2db46f8520d07c2c79c28063917ccb1ebfb08dd706d25d",
+        "pointer": "/links/2",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_2>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "shell-mesh-material",
+        "archive": "delegated/shell-mesh-material-evidence.tar.gz",
+        "archive_sha256": "cd3d8e33e04e4cd3b39ae6debb16951ae23d18ab87b78bb22ee56e2ee1e7e4dc",
+        "member": "evidence-links.json",
+        "member_published_sha256": "188c7c1fb3109ee50b2db46f8520d07c2c79c28063917ccb1ebfb08dd706d25d",
+        "pointer": "/links/3",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_3>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "xpbd-incidence-address-hair-ops",
+        "archive": "delegated/xpbd-incidence-address-hair-ops-evidence.tar.gz",
+        "archive_sha256": "e4435e70e08505d6aa3c6283d505bcefc76a40069404643dac69784fe1dcf9f7",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "182a9e00d302dca9d7f873dea16fd978034790898a178adc9d694620798af857",
+        "pointer": "/hash_links/3",
+        "document": "queue",
+        "expected_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+        "expected_bytes": 21632843,
+        "recorded_path": "<LOCAL_PATH_15>",
+        "consumer": "verify_delegated_links_19.py"
+      },
+      {
+        "checkpoint": 19,
+        "checkpoint_index_sha256": "012df221f17211e027cd1d9f15f9424ae0d3186f44dd9aa4e0ac0b12229076c9",
+        "bundle_id": "xpbd-incidence-address-hair-ops",
+        "archive": "delegated/xpbd-incidence-address-hair-ops-evidence.tar.gz",
+        "archive_sha256": "e4435e70e08505d6aa3c6283d505bcefc76a40069404643dac69784fe1dcf9f7",
+        "member": "historical-manifest.json",
+        "member_published_sha256": "182a9e00d302dca9d7f873dea16fd978034790898a178adc9d694620798af857",
+        "pointer": "/hash_links/4",
+        "document": "ledger",
+        "expected_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+        "expected_bytes": 9417609,
+        "recorded_path": "<LOCAL_PATH_16>",
+        "consumer": "verify_delegated_links_19.py"
+      }
+    ],
+    "fallback_scope": [
+      {
+        "prior_checkpoint_range": [
+          14,
+          18
+        ],
+        "stored_original_sha_match_count": 0,
+        "matches": [],
+        "qualification": "The scripts 18/19 fallback compares member original_sha256, not original_uncompressed_sha256; compressed members with matching decompressed originals do not satisfy that fallback."
+      },
+      {
+        "prior_checkpoint_range": [
+          14,
+          19
+        ],
+        "stored_original_sha_match_count": 0,
+        "matches": [],
+        "qualification": "The scripts 18/19 fallback compares member original_sha256, not original_uncompressed_sha256; compressed members with matching decompressed originals do not satisfy that fallback."
+      }
+    ]
+  },
+  "seven_semantic_pointer_references": [
+    {
+      "referencing_file": "ASSESSMENT-SAMPLED-SUPPORT-95E.json",
+      "referencing_file_sha256": "8f82fc618c57a657a205446be02f8fe4ca20a1398cb657db4a5db8a10c5518c6",
+      "document": "queue",
+      "referenced_pointer": "/entries/5",
+      "reference_lines": [
+        464
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/archive"
+      ]
+    },
+    {
+      "referencing_file": "BASELINE-95E-20261110.json",
+      "referencing_file_sha256": "e4311336fef6630664a1984225ee4547d12daa7d1c586402a112ad1e8d670573",
+      "document": "ledger",
+      "referenced_pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+      "reference_lines": [
+        3191
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/1/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/2/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/3/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/4/path"
+      ]
+    },
+    {
+      "referencing_file": "BASELINE-95E-20261110.json",
+      "referencing_file_sha256": "e4311336fef6630664a1984225ee4547d12daa7d1c586402a112ad1e8d670573",
+      "document": "queue",
+      "referenced_pointer": "/entries/5",
+      "reference_lines": [
+        5291
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/archive"
+      ]
+    },
+    {
+      "referencing_file": "delegated/independent-evidence-reviews/reviews/cp38/reference/committed-baseline-at-56f.json",
+      "referencing_file_sha256": "28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9",
+      "document": "ledger",
+      "referenced_pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+      "reference_lines": [
+        3191
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/1/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/2/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/3/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/4/path"
+      ]
+    },
+    {
+      "referencing_file": "delegated/independent-evidence-reviews/reviews/cp38/reference/committed-baseline-at-56f.json",
+      "referencing_file_sha256": "28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9",
+      "document": "queue",
+      "referenced_pointer": "/entries/5",
+      "reference_lines": [
+        5291
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/archive"
+      ]
+    },
+    {
+      "referencing_file": "delegated/independent-evidence-reviews/reviews/cp38/reference/working-baseline-observed.json",
+      "referencing_file_sha256": "fc828ecf7e09c2b563c46ec6b8ef5c67267baeb5455f1ea62d3739b2e2ded6ad",
+      "document": "ledger",
+      "referenced_pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS",
+      "reference_lines": [
+        3191
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/1/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/2/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/3/path",
+        "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/4/path"
+      ]
+    },
+    {
+      "referencing_file": "delegated/independent-evidence-reviews/reviews/cp38/reference/working-baseline-observed.json",
+      "referencing_file_sha256": "fc828ecf7e09c2b563c46ec6b8ef5c67267baeb5455f1ea62d3739b2e2ded6ad",
+      "document": "queue",
+      "referenced_pointer": "/entries/5",
+      "reference_lines": [
+        5291
+      ],
+      "redacted_descendant_or_ancestor_pointers": [
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/archive",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/path",
+        "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/archive"
+      ]
+    }
+  ],
+  "proposed_verification_pipeline": [
+    {
+      "step": 1,
+      "purpose": "Freeze historical input",
+      "requirement": "Leave every previously published checkpoint index, direct-link manifest, archived evidence link, original SHA-256/length/Git blob, historical pointer and original verifier unchanged. Hash-bind each original verifier script and the exact historical metadata consumed in the successor report."
+    },
+    {
+      "step": 2,
+      "purpose": "Check both identities independently",
+      "requirement": "For each exact queue and ledger tuple, verify the historical transport-manifest entry path, uncompressed original SHA-256, byte length and Git blob against the recorded 059 identity. Separately hash the reconstructed public file at its designated public path, checking public SHA-256, length and Git blob against the additive crosswalk. Never require or imply equality between original and public hashes."
+    },
+    {
+      "step": 3,
+      "purpose": "Verify exact transformation when private originals are available",
+      "requirement": "Use a read-only private check to verify the original uncompressed bytes and their transport Git blob; replace precisely the 12/14 path-valued strings with their recorded markers, compare all resulting public bytes, and reverse the mapping back to the exact originals. Without those original bytes report public hashes and historical manifest identity only; do not assert an independently verified byte-to-byte transformation."
+    },
+    {
+      "step": 4,
+      "purpose": "Provide versioned successor checks for the 15 affected verifiers",
+      "requirement": "Create separately named public-aware successor verifiers, maintaining every unrelated original assertion and original link count. For a historical link targeting one of the two 059 identities, first check the original link tuple against the unchanged historical metadata, then check the public path against its new identity through the explicit crosswalk. Emit status qualified_original_to_public_crosswalk, never direct_original_public_byte_match or old_verifier_passed. All non-059 references remain strict byte matches. Checkpoint 15 reads SDK and related historical reports; checkpoints 16\u201319 include archived redacted-path hash tuples and the documented fallback logic; checkpoints 20\u201329 contain the explicit direct-link records shown here."
+    },
+    {
+      "step": 5,
+      "purpose": "Constrain ambiguous archived links",
+      "requirement": "Where an archived link path is a redacted placeholder, bind it only by the exact original hash and length plus its named checkpoint/member, inspected verifier code and matching transport record. Do not generalize the crosswalk to unrelated files, similarly named paths or hash-only guesses; unresolved ambiguities stay unresolved."
+    },
+    {
+      "step": 6,
+      "purpose": "Check semantic references without rewriting old records",
+      "requirement": "Keep the seven captured literal pointers and original referent identity. Verify that each pointer still resolves in the public JSON and label any changed descendant path values redacted. Compare against exact originals locally when available; report that source-path strings have changed. Review all other dynamic and external semantic readers independently; unchanged field layout is not proof all consumers behave identically."
+    },
+    {
+      "step": 7,
+      "purpose": "Publish new evidence separately",
+      "requirement": "Publish public representation identities, transformation qualification, independent scanner scope and successor-check results additively. Preserve the original/private recovery packet locally. Identify any remaining original-path exposure in old Git objects and exports; changing current files does not remove historical or external copies."
+    }
+  ],
+  "important_scope_qualifications": [
+    "Seven semantic pointer references are literal matches in the captured loose-file inventory, not an exhaustive dynamic call graph. Their seven records contain exact source files, hashes, line numbers and affected descendants.",
+    "The 15 existing scripts are expected to fail at their relevant original-byte checks if both current paths are replaced; this is static analysis, not an executed result. Previous runs may fail earlier for unrelated reasons.",
+    "Checkpoint 7 contains one damaged historical nested tar whose parser stops after five of 186 entries; the separately published tar-aware successor was scanned and retains a distinct representation identity.",
+    "No product execution, builds, tests, repair, publication edit, original verifier execution, user-extraction write or Git history modification."
+  ]
+}

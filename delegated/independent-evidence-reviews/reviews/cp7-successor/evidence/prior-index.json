@@ -1,0 +1,1882 @@
+{
+  "schema": "726-cp7-tar-aware-additive-reconstruction-v1",
+  "original_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-7.json",
+  "original_member": "delegated/strategic-map-evidence.tar.gz!prior-web-map-route-packet.tar.gz",
+  "source_original_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+  "source_original_bytes": 8247789,
+  "previous_public_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+  "previous_public_limitation": "Earlier publication redacted decompressed tar bytes as an opaque stream. Its tar parser reaches only five of 186 original entries before a bad header; do not treat that reconstructed stream as the exact source archive.",
+  "additive_public_archive": "prior-web-map-route-reconstructed.tar.gz",
+  "public_sha256": "8ef3dc97ed66a6b20c08456945780b6a01295407d2974e9cf86f68076d5a5d93",
+  "public_bytes": 8233825,
+  "entry_count": 186,
+  "path_redactions": 1085,
+  "prose_restorations": [
+    {
+      "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root/traces.jsonl",
+      "preceding_prose": "garden",
+      "restored_slash_text": "/home/building",
+      "original_uncompressed_offset": 188293
+    },
+    {
+      "path": "726-delegate-web-map/original-059-ledger.json.gz",
+      "preceding_prose": "source",
+      "restored_slash_text": "/home/window/viewport/overlay",
+      "original_uncompressed_offset": 4460781
+    }
+  ],
+  "entries": [
+    {
+      "path": "726-delegate-web-map",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/MANIFEST.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "16f401a37973d7a9822c68bd7f250fabbcc012b33ee366503ba505988367c740",
+      "original_bytes": 23965,
+      "original_uncompressed_sha256": "16f401a37973d7a9822c68bd7f250fabbcc012b33ee366503ba505988367c740",
+      "public_sha256": "16f401a37973d7a9822c68bd7f250fabbcc012b33ee366503ba505988367c740",
+      "public_bytes": 23965,
+      "public_uncompressed_sha256": "16f401a37973d7a9822c68bd7f250fabbcc012b33ee366503ba505988367c740",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/PATH-AND-CREDENTIAL-SCAN.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "a317e596df365849021a3e9e7d14b7de4f69cd39cc4c9a0a4a8be3327df53de8",
+      "original_bytes": 4223,
+      "original_uncompressed_sha256": "a317e596df365849021a3e9e7d14b7de4f69cd39cc4c9a0a4a8be3327df53de8",
+      "public_sha256": "a317e596df365849021a3e9e7d14b7de4f69cd39cc4c9a0a4a8be3327df53de8",
+      "public_bytes": 4223,
+      "public_uncompressed_sha256": "a317e596df365849021a3e9e7d14b7de4f69cd39cc4c9a0a4a8be3327df53de8",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/REPORT.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "e08cf4f71040125488a4b999d84efe07f8889bb75751b0d9a97fffda0422c7d1",
+      "original_bytes": 34779,
+      "original_uncompressed_sha256": "e08cf4f71040125488a4b999d84efe07f8889bb75751b0d9a97fffda0422c7d1",
+      "public_sha256": "e08cf4f71040125488a4b999d84efe07f8889bb75751b0d9a97fffda0422c7d1",
+      "public_bytes": 34779,
+      "public_uncompressed_sha256": "e08cf4f71040125488a4b999d84efe07f8889bb75751b0d9a97fffda0422c7d1",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/build-git-proof.py",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "3a4071c51aecce11e7f900d86da7ae27b0a0eb75741d2c225d50ba4ada6d4cef",
+      "original_bytes": 2808,
+      "original_uncompressed_sha256": "3a4071c51aecce11e7f900d86da7ae27b0a0eb75741d2c225d50ba4ada6d4cef",
+      "public_sha256": "51408d7169fc5fb73ea21eabf0a2523ff35d1d57379fad3e0033a54402aa96a8",
+      "public_bytes": 2797,
+      "public_uncompressed_sha256": "51408d7169fc5fb73ea21eabf0a2523ff35d1d57379fad3e0033a54402aa96a8",
+      "redacted_path_occurrences": 1,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/build-manifest.py",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "0e6ed7195b1f83c2bee88cd0b3a69337856db7bb9753b4a213c814cd1f43b8bf",
+      "original_bytes": 2502,
+      "original_uncompressed_sha256": "0e6ed7195b1f83c2bee88cd0b3a69337856db7bb9753b4a213c814cd1f43b8bf",
+      "public_sha256": "5b04ab6ea37eb44f50be736354e25fd6f973df0956395490435ee4813fd10bae",
+      "public_bytes": 2483,
+      "public_uncompressed_sha256": "5b04ab6ea37eb44f50be736354e25fd6f973df0956395490435ee4813fd10bae",
+      "redacted_path_occurrences": 2,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/collect-evidence.py",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "c15e99f1c49c2c4b1fa3e2badf6289eee2945b400217d96a4cc70822207131f6",
+      "original_bytes": 6046,
+      "original_uncompressed_sha256": "c15e99f1c49c2c4b1fa3e2badf6289eee2945b400217d96a4cc70822207131f6",
+      "public_sha256": "a3c1c4ea0e8a602a22deddf19fbd31acf80b8ebb82c90a6b98207d503174ef14",
+      "public_bytes": 5820,
+      "public_uncompressed_sha256": "a3c1c4ea0e8a602a22deddf19fbd31acf80b8ebb82c90a6b98207d503174ef14",
+      "redacted_path_occurrences": 4,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/git-objects",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73",
+      "original_bytes": 1570,
+      "original_uncompressed_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+      "public_sha256": "6657527326ce0aa65e612f07d570054c11e2fc7d38229c314cdb88e1410b2f73",
+      "public_bytes": 1570,
+      "public_uncompressed_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/13497774b15e98e05f7c6287586b4cab9d1e828e.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "31a30d8ccd5d79b4f1b6777c4fec8cdce07d4a50e7a687d73dffa397cc2e3d84",
+      "original_bytes": 1002,
+      "original_uncompressed_sha256": "86882b1a7b0529807a46280124d2a275f0558537cb185ef25b4a187a13f460f0",
+      "public_sha256": "31a30d8ccd5d79b4f1b6777c4fec8cdce07d4a50e7a687d73dffa397cc2e3d84",
+      "public_bytes": 1002,
+      "public_uncompressed_sha256": "86882b1a7b0529807a46280124d2a275f0558537cb185ef25b4a187a13f460f0",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/14fdada7a01595714078adff293827a2ec3d0cbc.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "198edf76fc2816184f12ac0fa696ac1daa9d67e72af629331d89347be124bfa8",
+      "original_bytes": 1098,
+      "original_uncompressed_sha256": "c7e5da2e7c1ecc6207ae513932349938fdf2b6bdd9f80420278a2e1ca3f6cbc3",
+      "public_sha256": "198edf76fc2816184f12ac0fa696ac1daa9d67e72af629331d89347be124bfa8",
+      "public_bytes": 1098,
+      "public_uncompressed_sha256": "c7e5da2e7c1ecc6207ae513932349938fdf2b6bdd9f80420278a2e1ca3f6cbc3",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/1e1d632ba7e8e4190dce2a680dcba8f892b7f35b.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "ccfc3cf8c50757faacf500912806b4852e1a111cf2dde7eaa8e7b2e7610a3689",
+      "original_bytes": 680,
+      "original_uncompressed_sha256": "264d2deb2a38c934ce3419dbd46f9f438bac2d370fa1fb3ecae3844ae2f6581d",
+      "public_sha256": "ccfc3cf8c50757faacf500912806b4852e1a111cf2dde7eaa8e7b2e7610a3689",
+      "public_bytes": 680,
+      "public_uncompressed_sha256": "264d2deb2a38c934ce3419dbd46f9f438bac2d370fa1fb3ecae3844ae2f6581d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c",
+      "original_bytes": 1342,
+      "original_uncompressed_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+      "public_sha256": "1de6b2bcae963bb1a1109c9d24cc36fd2d0aca692d1fbffba9a5a5336a0b872c",
+      "public_bytes": 1342,
+      "public_uncompressed_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/2430d7032ac8a360de64029ae63b9071bcb5b1c2.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "3e7146b1a788079213f7239b4077b2a57699230f953d58edd65f0916bc7ac645",
+      "original_bytes": 526,
+      "original_uncompressed_sha256": "68919f910f903c34ce53b9f71835084d35f42a0d73f54808dbee5a641257ca0a",
+      "public_sha256": "3e7146b1a788079213f7239b4077b2a57699230f953d58edd65f0916bc7ac645",
+      "public_bytes": 526,
+      "public_uncompressed_sha256": "68919f910f903c34ce53b9f71835084d35f42a0d73f54808dbee5a641257ca0a",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/391837de6ea3f5b9bdb674f5bfaaa05057a76bb1.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "347f645f7a7ca0ef2736518d190238fe709bdf709751064c027756ee3ffdb2bd",
+      "original_bytes": 876,
+      "original_uncompressed_sha256": "26f715f98e2d14133edf0a1ffe2f6d97d0b05d0303a0fdc9904ef7b4e1991a3a",
+      "public_sha256": "347f645f7a7ca0ef2736518d190238fe709bdf709751064c027756ee3ffdb2bd",
+      "public_bytes": 876,
+      "public_uncompressed_sha256": "26f715f98e2d14133edf0a1ffe2f6d97d0b05d0303a0fdc9904ef7b4e1991a3a",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/39f2719586aaf4ff2d793b51529834b2bba85953.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "461327bdb0eba39ef34e089c817363e99b977fd2134b06b454684c85a5e99537",
+      "original_bytes": 1312,
+      "original_uncompressed_sha256": "1e8c193618aca59e826f495a2cab2d26a097f61acfff3783e967fd85052d5fee",
+      "public_sha256": "461327bdb0eba39ef34e089c817363e99b977fd2134b06b454684c85a5e99537",
+      "public_bytes": 1312,
+      "public_uncompressed_sha256": "1e8c193618aca59e826f495a2cab2d26a097f61acfff3783e967fd85052d5fee",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/3a2b6d01672fbc0d98280b96c7a8c52e757e0aba.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8",
+      "original_bytes": 274,
+      "original_uncompressed_sha256": "2537ebedad69449870784cd86ec2a5f61995de8b534e3b5833caf5018f98ca0f",
+      "public_sha256": "18023a78d6db3fdfdf707944a57a2da188d98949335fde0cf55af4f37a2468e8",
+      "public_bytes": 274,
+      "public_uncompressed_sha256": "2537ebedad69449870784cd86ec2a5f61995de8b534e3b5833caf5018f98ca0f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/3e0cc157fe735a33f248b1db4fb124a1d5505eb0.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "58644e406580ee385e63a971ad166bf04ca7c791ffbfc421ba403abb6e233b93",
+      "original_bytes": 875,
+      "original_uncompressed_sha256": "9b2379f0d8c918b827dce8c5cb4200a976d7f049dd6937b496051114dec41acc",
+      "public_sha256": "58644e406580ee385e63a971ad166bf04ca7c791ffbfc421ba403abb6e233b93",
+      "public_bytes": 875,
+      "public_uncompressed_sha256": "9b2379f0d8c918b827dce8c5cb4200a976d7f049dd6937b496051114dec41acc",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/3f1a9c69e9c02f5050c0f8995d5d793fa03eea17.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "040eae8510548a2207cc14b717754735bea570864a50dcbd3930dbb5398ed5df",
+      "original_bytes": 159,
+      "original_uncompressed_sha256": "f9bfd78a6dde4fd8426be7e623dc3ee17fc311e22396a0e7fdb53e6c8efc9a68",
+      "public_sha256": "040eae8510548a2207cc14b717754735bea570864a50dcbd3930dbb5398ed5df",
+      "public_bytes": 159,
+      "public_uncompressed_sha256": "f9bfd78a6dde4fd8426be7e623dc3ee17fc311e22396a0e7fdb53e6c8efc9a68",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/3fe0cfb87459b703c06dc04308d3982a6f95f7ff.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "b4bf2d92db21aaf32706a39b265366780c7708b8707df08f7c4e36aa036be0ba",
+      "original_bytes": 267,
+      "original_uncompressed_sha256": "91ad7122201c90041debf325810ec643817e87b9ee2bd1d758b6902c8216ea51",
+      "public_sha256": "b4bf2d92db21aaf32706a39b265366780c7708b8707df08f7c4e36aa036be0ba",
+      "public_bytes": 267,
+      "public_uncompressed_sha256": "91ad7122201c90041debf325810ec643817e87b9ee2bd1d758b6902c8216ea51",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/4600136a2483a4cb86c1f24ad935526bc0f3d53b.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2",
+      "original_bytes": 230,
+      "original_uncompressed_sha256": "888d2f827fbf811c6d28626063f83919aa0653b1f2391937ed2ed5d073a84fed",
+      "public_sha256": "47df05c11527d4b0c99dea155767d4520027500b772fffeee4b8efde2eafafd2",
+      "public_bytes": 230,
+      "public_uncompressed_sha256": "888d2f827fbf811c6d28626063f83919aa0653b1f2391937ed2ed5d073a84fed",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/4a30293e65ebffee50af11180d8c08cdd150cba0.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "468f0d4a640226196a6d7045d8418ace412c277d38238a4971b5a79a33fb81a6",
+      "original_bytes": 160,
+      "original_uncompressed_sha256": "99564056f5dcdac1d9a569293cc326682c94d95444368650c39253c0853241e1",
+      "public_sha256": "468f0d4a640226196a6d7045d8418ace412c277d38238a4971b5a79a33fb81a6",
+      "public_bytes": 160,
+      "public_uncompressed_sha256": "99564056f5dcdac1d9a569293cc326682c94d95444368650c39253c0853241e1",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/4a84121e246cd1d5f176fff3f1fdd9aeaed51909.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "223525080e4a1d51a12e8b63c400bb751359e6a15bef18c7ba1be8ab7a9e27f1",
+      "original_bytes": 102,
+      "original_uncompressed_sha256": "f5abf219c4e924c7111b7c5c9bc77b2f82eca48d43ba802f0d52968212dddc37",
+      "public_sha256": "223525080e4a1d51a12e8b63c400bb751359e6a15bef18c7ba1be8ab7a9e27f1",
+      "public_bytes": 102,
+      "public_uncompressed_sha256": "f5abf219c4e924c7111b7c5c9bc77b2f82eca48d43ba802f0d52968212dddc37",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/4dae0b5ff5e7384140ce20e075a24fee0f06be57.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "f6715849c17eff0a5cf39fd794edcc54a26fa3a088e9ff28f333ec3324463bc9",
+      "original_bytes": 222,
+      "original_uncompressed_sha256": "192b28dcc4f183042e23a19ad1944a4c1b069f615bb49c619ab429391ffa9f17",
+      "public_sha256": "f6715849c17eff0a5cf39fd794edcc54a26fa3a088e9ff28f333ec3324463bc9",
+      "public_bytes": 222,
+      "public_uncompressed_sha256": "192b28dcc4f183042e23a19ad1944a4c1b069f615bb49c619ab429391ffa9f17",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/4ece1f8c1a44610c7c2fc212103d6b8c82aa37bf.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "4594cdc831e3614f6f3cad6cfec9f1766dc2088c70130916206d704b6d2f28c1",
+      "original_bytes": 323,
+      "original_uncompressed_sha256": "797e281fdcffc8084a219ae56f31505abad2410958c7ac10ed999d2b25470f22",
+      "public_sha256": "4594cdc831e3614f6f3cad6cfec9f1766dc2088c70130916206d704b6d2f28c1",
+      "public_bytes": 323,
+      "public_uncompressed_sha256": "797e281fdcffc8084a219ae56f31505abad2410958c7ac10ed999d2b25470f22",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/500ca728b94674afda6b91f8f01b4ed084825a28.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64",
+      "original_bytes": 1375,
+      "original_uncompressed_sha256": "402652e824220cc3d8bf45a5eb4a04e04f7de1b22b29f0f023ec0ffcbf0be90d",
+      "public_sha256": "55823aca2a939e795510fab5415c957828f2add7fe4c973ae33791ccf2bebb64",
+      "public_bytes": 1375,
+      "public_uncompressed_sha256": "402652e824220cc3d8bf45a5eb4a04e04f7de1b22b29f0f023ec0ffcbf0be90d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/590a869b37dfc3bfa46e01d542a641eeb63dcd38.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "86d0e556ccc2f6c0db171cf4f4e70cd8e93790252d801131f389d9a1baaeaf77",
+      "original_bytes": 128,
+      "original_uncompressed_sha256": "88b77edaf8741bb2034fb748142eeb6762298fdf42d10bcedcd21ca229e3767f",
+      "public_sha256": "86d0e556ccc2f6c0db171cf4f4e70cd8e93790252d801131f389d9a1baaeaf77",
+      "public_bytes": 128,
+      "public_uncompressed_sha256": "88b77edaf8741bb2034fb748142eeb6762298fdf42d10bcedcd21ca229e3767f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/619da1a7927fa7089d6cc58e96c70aefc51de4e7.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "40af731c7bb452347e60ec2157120d9b34ff2df4af6cbe6b0b47fdaa8a6025a5",
+      "original_bytes": 305,
+      "original_uncompressed_sha256": "d795f5baf12dbb51adf1f553424bf7485015ad70b2d1ad32aa250c8937c9df88",
+      "public_sha256": "40af731c7bb452347e60ec2157120d9b34ff2df4af6cbe6b0b47fdaa8a6025a5",
+      "public_bytes": 305,
+      "public_uncompressed_sha256": "d795f5baf12dbb51adf1f553424bf7485015ad70b2d1ad32aa250c8937c9df88",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/6533e444fa37552927070cc8d8190907fd3b413e.commit.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "92af1af418d15ea254e78f6fe27bcacf00d1571de2c5405cbc102194e3f6b120",
+      "original_bytes": 202,
+      "original_uncompressed_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+      "public_sha256": "92af1af418d15ea254e78f6fe27bcacf00d1571de2c5405cbc102194e3f6b120",
+      "public_bytes": 202,
+      "public_uncompressed_sha256": "1401c1fb8861352928c99539f7938fbde0350793a019a598bc1d8aa514c65b4f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/6aaf16db886e39fed4af5def8689c44b8389b339.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "3efde05d173798a553f4e596f204c5c71e3ed2540d71e9c0c2bb0c291e8ccca1",
+      "original_bytes": 544,
+      "original_uncompressed_sha256": "2eb6ba84f9cebcd6702468830a2a65d979e0d2c6e180336e7a220d3d04d1d177",
+      "public_sha256": "3efde05d173798a553f4e596f204c5c71e3ed2540d71e9c0c2bb0c291e8ccca1",
+      "public_bytes": 544,
+      "public_uncompressed_sha256": "2eb6ba84f9cebcd6702468830a2a65d979e0d2c6e180336e7a220d3d04d1d177",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/70cda9939284355c2264b601322aacba9399e65e.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14",
+      "original_bytes": 651,
+      "original_uncompressed_sha256": "18fdca2da204876544183c88e442ff0630a7efe5afc983d96bc00fd22371993c",
+      "public_sha256": "c5964797379f4c42ed2e5e21f7a9d8895e540af460f3980838f00cb7f5ec9c14",
+      "public_bytes": 651,
+      "public_uncompressed_sha256": "18fdca2da204876544183c88e442ff0630a7efe5afc983d96bc00fd22371993c",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/7120d6b21f66767cd6432346b0cba91227cca00f.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "be8a8b64e8bafb07f770d4ed43f0c3b063bf0129b2ccac439dfb3553748faea8",
+      "original_bytes": 120,
+      "original_uncompressed_sha256": "81987d999680dd40f47889e3869981b338c3dc7ceaa55c75a750c34d45ce6279",
+      "public_sha256": "be8a8b64e8bafb07f770d4ed43f0c3b063bf0129b2ccac439dfb3553748faea8",
+      "public_bytes": 120,
+      "public_uncompressed_sha256": "81987d999680dd40f47889e3869981b338c3dc7ceaa55c75a750c34d45ce6279",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/74e923708e7f8c27bde91287fbd8f4a43d8431c4.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "76aaa2adee15c9341ddd14ed5bac43eead34aa8a60ec4ecd1c43fad1231dbc4c",
+      "original_bytes": 1313,
+      "original_uncompressed_sha256": "406439524f734afef638141f9bdef14b5d2dad474859d9441659ec6ccaa8c07d",
+      "public_sha256": "76aaa2adee15c9341ddd14ed5bac43eead34aa8a60ec4ecd1c43fad1231dbc4c",
+      "public_bytes": 1313,
+      "public_uncompressed_sha256": "406439524f734afef638141f9bdef14b5d2dad474859d9441659ec6ccaa8c07d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/7fb776454b47bc8bc1e50fe289ce543e32c5421a.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "1fdef0a549c60ba3e48f391c4a894149bac5fbb19d158725da6221c0c85083c4",
+      "original_bytes": 799,
+      "original_uncompressed_sha256": "78c8243e0c2fd29896d2ede2b0567d43f2199827bab204f5191d4066ce35a590",
+      "public_sha256": "1fdef0a549c60ba3e48f391c4a894149bac5fbb19d158725da6221c0c85083c4",
+      "public_bytes": 799,
+      "public_uncompressed_sha256": "78c8243e0c2fd29896d2ede2b0567d43f2199827bab204f5191d4066ce35a590",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/844a1b6bdb983fe0fedd42da2da58cf6373469f1.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "35983116b0d1c17cec303aa1a53ad760e87aae49d5a579a99a06b21b0c495d95",
+      "original_bytes": 1001,
+      "original_uncompressed_sha256": "ad537d85631eef51e348b494951653ea5945a63a35281983d89c59d90e6b4af7",
+      "public_sha256": "35983116b0d1c17cec303aa1a53ad760e87aae49d5a579a99a06b21b0c495d95",
+      "public_bytes": 1001,
+      "public_uncompressed_sha256": "ad537d85631eef51e348b494951653ea5945a63a35281983d89c59d90e6b4af7",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/849ec1e8faca2236c7021893cda7a3f7cb5c72e8.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "6502aead335f2e1f71e5fdca379ce119beb4f698af42777e0c24363803536470",
+      "original_bytes": 1344,
+      "original_uncompressed_sha256": "65d86a5e371470dbe1b2f8917c3bbab6ab713b868c56af839ffb9019149162a3",
+      "public_sha256": "6502aead335f2e1f71e5fdca379ce119beb4f698af42777e0c24363803536470",
+      "public_bytes": 1344,
+      "public_uncompressed_sha256": "65d86a5e371470dbe1b2f8917c3bbab6ab713b868c56af839ffb9019149162a3",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/91a77f1fdceefea3dd01dfde76fd19949c588083.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7",
+      "original_bytes": 49,
+      "original_uncompressed_sha256": "6446b39d664738f70ad891eced0025ec382b0ad4437915ffcbf0a5e33ca0637a",
+      "public_sha256": "8e7aa7ecd6e25d07a874aec321080a66fd4e963a59313508df1756c8f5d4f2c7",
+      "public_bytes": 49,
+      "public_uncompressed_sha256": "6446b39d664738f70ad891eced0025ec382b0ad4437915ffcbf0a5e33ca0637a",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "ae58b80082dea7773337a56a996c6bd431ebb1f351d8f93128f886d0c07651aa",
+      "original_bytes": 856,
+      "original_uncompressed_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+      "public_sha256": "ae58b80082dea7773337a56a996c6bd431ebb1f351d8f93128f886d0c07651aa",
+      "public_bytes": 856,
+      "public_uncompressed_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/9b5210e742f842038189d09539c9c55437477bb8.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "43b0d2a14e9a23f18c9f5c4d6c590965b6445f8b5fd9b2edcb7a2f510db7efef",
+      "original_bytes": 66,
+      "original_uncompressed_sha256": "4f26ba9dfb074e571f5901275dc8d489697b95621ad362e8f1cac7d1f93abe06",
+      "public_sha256": "43b0d2a14e9a23f18c9f5c4d6c590965b6445f8b5fd9b2edcb7a2f510db7efef",
+      "public_bytes": 66,
+      "public_uncompressed_sha256": "4f26ba9dfb074e571f5901275dc8d489697b95621ad362e8f1cac7d1f93abe06",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/a0b19a36c827dd0182aecfcb2431b74e93aac609.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "40d69701f4d15d2b5727ea73c4df91762bfc8cbb109cd7dec862a719e2411927",
+      "original_bytes": 323,
+      "original_uncompressed_sha256": "e04b3a1137440e178f41b566f0aafa9c1b3788fc9bfa16458e66a9ff321b662b",
+      "public_sha256": "40d69701f4d15d2b5727ea73c4df91762bfc8cbb109cd7dec862a719e2411927",
+      "public_bytes": 323,
+      "public_uncompressed_sha256": "e04b3a1137440e178f41b566f0aafa9c1b3788fc9bfa16458e66a9ff321b662b",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/a115d05f403ea5edbb02128dc773d2e3dcb51c2d.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "077300b1353b89a71e7599b9677b1a37641d0fc510e3fac2c85a17ff729325b0",
+      "original_bytes": 1569,
+      "original_uncompressed_sha256": "b92252c39dc8fadc6f2a1cdcd26dd15976e5a6e72a1b92842c0a564c9dea0024",
+      "public_sha256": "077300b1353b89a71e7599b9677b1a37641d0fc510e3fac2c85a17ff729325b0",
+      "public_bytes": 1569,
+      "public_uncompressed_sha256": "b92252c39dc8fadc6f2a1cdcd26dd15976e5a6e72a1b92842c0a564c9dea0024",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/ab7156f6d023931ad3d64952611ae14d1bdcab5a.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "f7c167196a2857c67fa47f206a4966b6fec52800311e8971042bd4a7531b42a9",
+      "original_bytes": 3844,
+      "original_uncompressed_sha256": "44d8136c2441e912c404c413dacc971c0b96c9ab7c12587ed194bd880ebaf22f",
+      "public_sha256": "f7c167196a2857c67fa47f206a4966b6fec52800311e8971042bd4a7531b42a9",
+      "public_bytes": 3844,
+      "public_uncompressed_sha256": "44d8136c2441e912c404c413dacc971c0b96c9ab7c12587ed194bd880ebaf22f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/aedb49fc4e9e88985437e252701f2395007d8f6b.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "df89a9b9254ab62eb803b4871b9692769ce52dec8a4517a30051c1159bd68c05",
+      "original_bytes": 876,
+      "original_uncompressed_sha256": "785782afa8ba6657106aa68672e04c6a97521c143ed906f81f8688a5093d1e98",
+      "public_sha256": "df89a9b9254ab62eb803b4871b9692769ce52dec8a4517a30051c1159bd68c05",
+      "public_bytes": 876,
+      "public_uncompressed_sha256": "785782afa8ba6657106aa68672e04c6a97521c143ed906f81f8688a5093d1e98",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/b04d6555b119d926678d54ac6463ab755aaa76e3.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "ee07c8ee0972113dcf0de450ad20c41d79d8a644dae2e8f66819c6fecaccdbc6",
+      "original_bytes": 395,
+      "original_uncompressed_sha256": "c353de7f0a2fbc206839b29a744435590fbc8ba9b4176297083b8533936b8eef",
+      "public_sha256": "ee07c8ee0972113dcf0de450ad20c41d79d8a644dae2e8f66819c6fecaccdbc6",
+      "public_bytes": 395,
+      "public_uncompressed_sha256": "c353de7f0a2fbc206839b29a744435590fbc8ba9b4176297083b8533936b8eef",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/b087a0a59829382ef4d7ed831f89cd05940eaf4c.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "d71c8048b8b2fbe778a6be44e5ee909f52fd3a5f0feb61f8bad2b4542ccb545c",
+      "original_bytes": 158,
+      "original_uncompressed_sha256": "d137b41381bb2d86606e966384fb4df063ad5d759daa9a0191acbb32d3939d3d",
+      "public_sha256": "d71c8048b8b2fbe778a6be44e5ee909f52fd3a5f0feb61f8bad2b4542ccb545c",
+      "public_bytes": 158,
+      "public_uncompressed_sha256": "d137b41381bb2d86606e966384fb4df063ad5d759daa9a0191acbb32d3939d3d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/b0c457b47a331c3f069c91f61e52287a19d92951.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "87a0d48a60686da4b72e0648419ed92bd0ef195762c1f0dc033e10a6e30cc7a3",
+      "original_bytes": 680,
+      "original_uncompressed_sha256": "d88096ffa9296fa9c326d8d3c412504af68a27b5bbc161c4bceb4f9ca45476ff",
+      "public_sha256": "87a0d48a60686da4b72e0648419ed92bd0ef195762c1f0dc033e10a6e30cc7a3",
+      "public_bytes": 680,
+      "public_uncompressed_sha256": "d88096ffa9296fa9c326d8d3c412504af68a27b5bbc161c4bceb4f9ca45476ff",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/b345eda25c3900bf7189c387158b5f62eda8cf19.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "13fa0036980aeb9088eaf3d93891ce4de7dd50e3175b69e102d0772bc4346dca",
+      "original_bytes": 401,
+      "original_uncompressed_sha256": "f38bb66ed92bcd4e5e1073e2a13018295267d552e259fcb9893fb9125c7c0a4d",
+      "public_sha256": "13fa0036980aeb9088eaf3d93891ce4de7dd50e3175b69e102d0772bc4346dca",
+      "public_bytes": 401,
+      "public_uncompressed_sha256": "f38bb66ed92bcd4e5e1073e2a13018295267d552e259fcb9893fb9125c7c0a4d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/bdd069e5d3e0c3333d2473e585303787a96e3c57.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "f529dc6602465825fc951a85e03a2edd221f3acf92188867a38f63e97e4a0373",
+      "original_bytes": 10072,
+      "original_uncompressed_sha256": "960d60934b4fb964f147588aa8e6af98f5959a72a8e8a0d924081ac897a1cac3",
+      "public_sha256": "f529dc6602465825fc951a85e03a2edd221f3acf92188867a38f63e97e4a0373",
+      "public_bytes": 10072,
+      "public_uncompressed_sha256": "960d60934b4fb964f147588aa8e6af98f5959a72a8e8a0d924081ac897a1cac3",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/c4d058454e460b3f7de9c34e808b746ccff07eb0.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "76182ebde68449c537f53eb908ad4b0c6dd86ccf1420c8e273e302debfc6c481",
+      "original_bytes": 155,
+      "original_uncompressed_sha256": "075119ac3fd2bc2d69ddc0b621aa76c5a6ea33104b0d8a5c0cdc7d869e32b244",
+      "public_sha256": "76182ebde68449c537f53eb908ad4b0c6dd86ccf1420c8e273e302debfc6c481",
+      "public_bytes": 155,
+      "public_uncompressed_sha256": "075119ac3fd2bc2d69ddc0b621aa76c5a6ea33104b0d8a5c0cdc7d869e32b244",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/cb5fc1867680485bb50e0350ad129e94b630a8fe.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "6159adaf3fe65760082ac7043cf0a480aa1955c8b7bd5d6ed9285e09d5e70c94",
+      "original_bytes": 267,
+      "original_uncompressed_sha256": "1a4224f6675e57bfc82158ad22749c9d5162d5758914fef666d0f0d854c3ccc5",
+      "public_sha256": "6159adaf3fe65760082ac7043cf0a480aa1955c8b7bd5d6ed9285e09d5e70c94",
+      "public_bytes": 267,
+      "public_uncompressed_sha256": "1a4224f6675e57bfc82158ad22749c9d5162d5758914fef666d0f0d854c3ccc5",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/cbc01ad03df137182465ccca37252c9a5be2f310.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "f3c2fddd3c8bd802aeb671dfd3f5dea1c3ed43d71d7a318b82461e99ac74e2a4",
+      "original_bytes": 305,
+      "original_uncompressed_sha256": "29e9140f865e1e0c91c8d73908362500073ed5f44420ddb63265274a162a3290",
+      "public_sha256": "f3c2fddd3c8bd802aeb671dfd3f5dea1c3ed43d71d7a318b82461e99ac74e2a4",
+      "public_bytes": 305,
+      "public_uncompressed_sha256": "29e9140f865e1e0c91c8d73908362500073ed5f44420ddb63265274a162a3290",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/e31898e591c6ae7284a63ba871ae3821963f4f3a.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "0f828be368a1331527eea163bd73449d7e2774fda7de334169a7b32a58bf25bb",
+      "original_bytes": 185,
+      "original_uncompressed_sha256": "80fb7532f89fd36781ae0749a18f8afa92d68141664597967642f56bc4cbb285",
+      "public_sha256": "0f828be368a1331527eea163bd73449d7e2774fda7de334169a7b32a58bf25bb",
+      "public_bytes": 185,
+      "public_uncompressed_sha256": "80fb7532f89fd36781ae0749a18f8afa92d68141664597967642f56bc4cbb285",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/e4d47f7f252598ca10955b542385c8dbcc50f02f.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "47255c55560a291a23f3ebfbe73f44e7dc364c9a1ec4d6c0de1386f956b27c00",
+      "original_bytes": 1353,
+      "original_uncompressed_sha256": "ade3b0e4e8e69a0e0913963066680d2e201e1beb2c901d18cebf8c5f2d96a8ee",
+      "public_sha256": "47255c55560a291a23f3ebfbe73f44e7dc364c9a1ec4d6c0de1386f956b27c00",
+      "public_bytes": 1353,
+      "public_uncompressed_sha256": "ade3b0e4e8e69a0e0913963066680d2e201e1beb2c901d18cebf8c5f2d96a8ee",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/e6c53981ecc9e6f4a62f68f331deb251e13d271a.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "3b06fdf17fdb5f130363e79a377d50a43fed20497f64d672e17d74e557900ade",
+      "original_bytes": 544,
+      "original_uncompressed_sha256": "83bb30947404d52c620fb2dc19754377e50cf91e2fab943b4800bd8eeefe0c7d",
+      "public_sha256": "3b06fdf17fdb5f130363e79a377d50a43fed20497f64d672e17d74e557900ade",
+      "public_bytes": 544,
+      "public_uncompressed_sha256": "83bb30947404d52c620fb2dc19754377e50cf91e2fab943b4800bd8eeefe0c7d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/f82adcabd9d89c4fa2dd7f99253a45297a0681ee.commit.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "a8523ddb9764b93a37c52c0a0b188a43cfbfe55c6d7c54257af75f8ae3ea9927",
+      "original_bytes": 354,
+      "original_uncompressed_sha256": "5d6c9edbf5f66b805778c133c87f147e79e828fe3bf681dbc52c269b27999281",
+      "public_sha256": "a8523ddb9764b93a37c52c0a0b188a43cfbfe55c6d7c54257af75f8ae3ea9927",
+      "public_bytes": 354,
+      "public_uncompressed_sha256": "5d6c9edbf5f66b805778c133c87f147e79e828fe3bf681dbc52c269b27999281",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-objects/fd82a1f6e41aa70561b116843c2222d6221a69e4.tree.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "bb932365b05ef257c987cc83ff34ec3574852909d334ba3ca5e821682616ddc1",
+      "original_bytes": 5206,
+      "original_uncompressed_sha256": "0f71f9193639996e0897e3f4102eef3ba8669b76d3fb30807599ccb11411f992",
+      "public_sha256": "bb932365b05ef257c987cc83ff34ec3574852909d334ba3ca5e821682616ddc1",
+      "public_bytes": 5206,
+      "public_uncompressed_sha256": "0f71f9193639996e0897e3f4102eef3ba8669b76d3fb30807599ccb11411f992",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/git-proofs.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "5c3e8203fb2105f61bcb5165285760e48f5f14edb4bd2635e96fc8856d45c551",
+      "original_bytes": 71259,
+      "original_uncompressed_sha256": "5c3e8203fb2105f61bcb5165285760e48f5f14edb4bd2635e96fc8856d45c551",
+      "public_sha256": "5c3e8203fb2105f61bcb5165285760e48f5f14edb4bd2635e96fc8856d45c551",
+      "public_bytes": 71259,
+      "public_uncompressed_sha256": "5c3e8203fb2105f61bcb5165285760e48f5f14edb4bd2635e96fc8856d45c551",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/READ-L11-381.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f",
+      "original_bytes": 11678,
+      "original_uncompressed_sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f",
+      "public_sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f",
+      "public_bytes": 11678,
+      "public_uncompressed_sha256": "8f3931743680a1a8f5ef0959e85a16b1945a78c32d218b9cf783afdba654c88f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1232.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "575df0fe889c6777342409e5fbb49c0bd4d6a72a144b631c9ade7b2c60422b95",
+      "original_bytes": 696,
+      "original_uncompressed_sha256": "575df0fe889c6777342409e5fbb49c0bd4d6a72a144b631c9ade7b2c60422b95",
+      "public_sha256": "575df0fe889c6777342409e5fbb49c0bd4d6a72a144b631c9ade7b2c60422b95",
+      "public_bytes": 696,
+      "public_uncompressed_sha256": "575df0fe889c6777342409e5fbb49c0bd4d6a72a144b631c9ade7b2c60422b95",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1233.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "3c7bb5f44f371a32ff6ab282c4e50ef8bd20b6086abd3a75d49c5e47abe16512",
+      "original_bytes": 702,
+      "original_uncompressed_sha256": "3c7bb5f44f371a32ff6ab282c4e50ef8bd20b6086abd3a75d49c5e47abe16512",
+      "public_sha256": "3c7bb5f44f371a32ff6ab282c4e50ef8bd20b6086abd3a75d49c5e47abe16512",
+      "public_bytes": 702,
+      "public_uncompressed_sha256": "3c7bb5f44f371a32ff6ab282c4e50ef8bd20b6086abd3a75d49c5e47abe16512",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1234.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "cef6a536c2cf46929e3544e8b55b840772c3f07c710ea3291ba82c3063423c10",
+      "original_bytes": 721,
+      "original_uncompressed_sha256": "cef6a536c2cf46929e3544e8b55b840772c3f07c710ea3291ba82c3063423c10",
+      "public_sha256": "cef6a536c2cf46929e3544e8b55b840772c3f07c710ea3291ba82c3063423c10",
+      "public_bytes": 721,
+      "public_uncompressed_sha256": "cef6a536c2cf46929e3544e8b55b840772c3f07c710ea3291ba82c3063423c10",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1235.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "a01e746171aa4da26318b4bd2d7719e71b1189291b29963fe6bd1b5419074b91",
+      "original_bytes": 735,
+      "original_uncompressed_sha256": "a01e746171aa4da26318b4bd2d7719e71b1189291b29963fe6bd1b5419074b91",
+      "public_sha256": "a01e746171aa4da26318b4bd2d7719e71b1189291b29963fe6bd1b5419074b91",
+      "public_bytes": 735,
+      "public_uncompressed_sha256": "a01e746171aa4da26318b4bd2d7719e71b1189291b29963fe6bd1b5419074b91",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/REGISTRATION-ADLER-1236.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "9297053f92157ceafd6fcaf417475842af0385a1fd6563a0941f7178cb13cd34",
+      "original_bytes": 708,
+      "original_uncompressed_sha256": "9297053f92157ceafd6fcaf417475842af0385a1fd6563a0941f7178cb13cd34",
+      "public_sha256": "9297053f92157ceafd6fcaf417475842af0385a1fd6563a0941f7178cb13cd34",
+      "public_bytes": 708,
+      "public_uncompressed_sha256": "9297053f92157ceafd6fcaf417475842af0385a1fd6563a0941f7178cb13cd34",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/STATE-L11-381.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "fe7253b50348cfa920df524e006e0be123d2645fa3bc7e9c16d4dfcff007b9eb",
+      "original_bytes": 668,
+      "original_uncompressed_sha256": "fe7253b50348cfa920df524e006e0be123d2645fa3bc7e9c16d4dfcff007b9eb",
+      "public_sha256": "fe7253b50348cfa920df524e006e0be123d2645fa3bc7e9c16d4dfcff007b9eb",
+      "public_bytes": 668,
+      "public_uncompressed_sha256": "fe7253b50348cfa920df524e006e0be123d2645fa3bc7e9c16d4dfcff007b9eb",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/adler/VERIFY-L11-381.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "ac64ba275ddfe375cdf14a40f4a6e9f0995f55fe8dd725717fee8b4ff62c7bc1",
+      "original_bytes": 52252,
+      "original_uncompressed_sha256": "ac64ba275ddfe375cdf14a40f4a6e9f0995f55fe8dd725717fee8b4ff62c7bc1",
+      "public_sha256": "ac64ba275ddfe375cdf14a40f4a6e9f0995f55fe8dd725717fee8b4ff62c7bc1",
+      "public_bytes": 52252,
+      "public_uncompressed_sha256": "ac64ba275ddfe375cdf14a40f4a6e9f0995f55fe8dd725717fee8b4ff62c7bc1",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/PROPOSAL-L12-782.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "02a8f4502dda07394f0d6b1ae14fca008c2a0e887e9e4e03adc61a83e988e6b8",
+      "original_bytes": 14681,
+      "original_uncompressed_sha256": "02a8f4502dda07394f0d6b1ae14fca008c2a0e887e9e4e03adc61a83e988e6b8",
+      "public_sha256": "02a8f4502dda07394f0d6b1ae14fca008c2a0e887e9e4e03adc61a83e988e6b8",
+      "public_bytes": 14681,
+      "public_uncompressed_sha256": "02a8f4502dda07394f0d6b1ae14fca008c2a0e887e9e4e03adc61a83e988e6b8",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-348-WINDOWS-ORIGINAL2366.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "c81ccbdf3c0cbb990c43240a00061c5bc4ca925f99e1e3904d3c89e277b92fe8",
+      "original_bytes": 1034,
+      "original_uncompressed_sha256": "c81ccbdf3c0cbb990c43240a00061c5bc4ca925f99e1e3904d3c89e277b92fe8",
+      "public_sha256": "c81ccbdf3c0cbb990c43240a00061c5bc4ca925f99e1e3904d3c89e277b92fe8",
+      "public_bytes": 1034,
+      "public_uncompressed_sha256": "c81ccbdf3c0cbb990c43240a00061c5bc4ca925f99e1e3904d3c89e277b92fe8",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/QUALIFICATION-PAR-L12-349-WINDOWS-ORIGINAL2367.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "0cb9ea20f0b23c7e34445f190b7fa203f04e3588108b29ef6e131d6a7252cf8c",
+      "original_bytes": 1078,
+      "original_uncompressed_sha256": "0cb9ea20f0b23c7e34445f190b7fa203f04e3588108b29ef6e131d6a7252cf8c",
+      "public_sha256": "0cb9ea20f0b23c7e34445f190b7fa203f04e3588108b29ef6e131d6a7252cf8c",
+      "public_bytes": 1078,
+      "public_uncompressed_sha256": "0cb9ea20f0b23c7e34445f190b7fa203f04e3588108b29ef6e131d6a7252cf8c",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-346.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "b0dccc4664adbdcb0df453a9c0fef1c1b8b912bf66b20143cddd2cdd111bd783",
+      "original_bytes": 808,
+      "original_uncompressed_sha256": "b0dccc4664adbdcb0df453a9c0fef1c1b8b912bf66b20143cddd2cdd111bd783",
+      "public_sha256": "b0dccc4664adbdcb0df453a9c0fef1c1b8b912bf66b20143cddd2cdd111bd783",
+      "public_bytes": 808,
+      "public_uncompressed_sha256": "b0dccc4664adbdcb0df453a9c0fef1c1b8b912bf66b20143cddd2cdd111bd783",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-347.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "81b26d94b02190ab845a3ff56d02cdc11fdd944540881efd4445e76df0dd3b03",
+      "original_bytes": 820,
+      "original_uncompressed_sha256": "81b26d94b02190ab845a3ff56d02cdc11fdd944540881efd4445e76df0dd3b03",
+      "public_sha256": "81b26d94b02190ab845a3ff56d02cdc11fdd944540881efd4445e76df0dd3b03",
+      "public_bytes": 820,
+      "public_uncompressed_sha256": "81b26d94b02190ab845a3ff56d02cdc11fdd944540881efd4445e76df0dd3b03",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-348.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "7a9e9e44994e758d972894c9e9f2ccce4b34126b30838970006758450dbf438a",
+      "original_bytes": 859,
+      "original_uncompressed_sha256": "7a9e9e44994e758d972894c9e9f2ccce4b34126b30838970006758450dbf438a",
+      "public_sha256": "7a9e9e44994e758d972894c9e9f2ccce4b34126b30838970006758450dbf438a",
+      "public_bytes": 859,
+      "public_uncompressed_sha256": "7a9e9e44994e758d972894c9e9f2ccce4b34126b30838970006758450dbf438a",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-349.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "055f6abdd64e5ddc5f6186ac11cda37314a0d50a7f245c38d780f5ec9f7853dd",
+      "original_bytes": 887,
+      "original_uncompressed_sha256": "055f6abdd64e5ddc5f6186ac11cda37314a0d50a7f245c38d780f5ec9f7853dd",
+      "public_sha256": "055f6abdd64e5ddc5f6186ac11cda37314a0d50a7f245c38d780f5ec9f7853dd",
+      "public_bytes": 887,
+      "public_uncompressed_sha256": "055f6abdd64e5ddc5f6186ac11cda37314a0d50a7f245c38d780f5ec9f7853dd",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/parallel-l12-20261029/REGISTRATION-PAR-L12-350.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "d19cac5d013bb931aa1f44379c5186933b062dac315de8ab2d6d1d9616fd51aa",
+      "original_bytes": 832,
+      "original_uncompressed_sha256": "d19cac5d013bb931aa1f44379c5186933b062dac315de8ab2d6d1d9616fd51aa",
+      "public_sha256": "d19cac5d013bb931aa1f44379c5186933b062dac315de8ab2d6d1d9616fd51aa",
+      "public_bytes": 832,
+      "public_uncompressed_sha256": "d19cac5d013bb931aa1f44379c5186933b062dac315de8ab2d6d1d9616fd51aa",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/segovb",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/segovb/READ-L12-782.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "733bb4c1240e42234d1a67ed17e984beba3ed2d5ead563c53b58770a7ef24f50",
+      "original_bytes": 18079,
+      "original_uncompressed_sha256": "733bb4c1240e42234d1a67ed17e984beba3ed2d5ead563c53b58770a7ef24f50",
+      "public_sha256": "733bb4c1240e42234d1a67ed17e984beba3ed2d5ead563c53b58770a7ef24f50",
+      "public_bytes": 18079,
+      "public_uncompressed_sha256": "733bb4c1240e42234d1a67ed17e984beba3ed2d5ead563c53b58770a7ef24f50",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/segovb/REGISTRATION-SEGOVB-L12-782.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+      "original_bytes": 1171,
+      "original_uncompressed_sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+      "public_sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+      "public_bytes": 1171,
+      "public_uncompressed_sha256": "b0b2f89e34044762557285dfdc4bc6d8035bd18d59475d4b09057ab0e9006ba2",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/segovb/STATE-L12-782.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "9a191cad7fdebbc8c2d45ef02b093943818004145dfdbb23a75cd0def8d33f04",
+      "original_bytes": 2795,
+      "original_uncompressed_sha256": "9a191cad7fdebbc8c2d45ef02b093943818004145dfdbb23a75cd0def8d33f04",
+      "public_sha256": "9a191cad7fdebbc8c2d45ef02b093943818004145dfdbb23a75cd0def8d33f04",
+      "public_bytes": 2795,
+      "public_uncompressed_sha256": "9a191cad7fdebbc8c2d45ef02b093943818004145dfdbb23a75cd0def8d33f04",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-059/segovb/VERIFY-L12-782.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "5d290fd5f84ceb84e17a03d718e0821f5eb0cf24357f144a081a81b38e71c785",
+      "original_bytes": 667,
+      "original_uncompressed_sha256": "5d290fd5f84ceb84e17a03d718e0821f5eb0cf24357f144a081a81b38e71c785",
+      "public_sha256": "5d290fd5f84ceb84e17a03d718e0821f5eb0cf24357f144a081a81b38e71c785",
+      "public_bytes": 667,
+      "public_uncompressed_sha256": "5d290fd5f84ceb84e17a03d718e0821f5eb0cf24357f144a081a81b38e71c785",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-774",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/audit-existing-type-owners",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/audit-existing-type-owners/root",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/audit-existing-type-owners/root/coverage.jsonl",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "original_bytes": 422014,
+      "original_uncompressed_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "public_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "public_bytes": 422014,
+      "public_uncompressed_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/continuation",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/continuation/rig",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/continuation/rig/source-scope-reconciliation-044.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+      "original_bytes": 1354778,
+      "original_uncompressed_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+      "public_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+      "public_bytes": 1354778,
+      "public_uncompressed_sha256": "1221f858b25f889ab7918895b1f4a3329fb4cb0614b8664531ffd821e7202a31",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/producer-supplement-after-owner",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/producer-supplement-after-owner/native",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/producer-supplement-after-owner/native/traces.jsonl",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "original_bytes": 631913,
+      "original_uncompressed_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "public_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "public_bytes": 631913,
+      "public_uncompressed_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/producer-supplement-after-owner/root",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774/producer-supplement-after-owner/root/traces.jsonl",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "original_bytes": 581215,
+      "original_uncompressed_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "public_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "public_bytes": 581215,
+      "public_uncompressed_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/audit-existing-type-owners",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/audit-existing-type-owners/root",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/audit-existing-type-owners/root/coverage.jsonl",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "original_bytes": 422014,
+      "original_uncompressed_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "public_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "public_bytes": 422014,
+      "public_uncompressed_sha256": "b5642f11a1c798d02289b455536eaeb5dd8f1ccce421ae8480bf07cf2ac202eb",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/native",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/native/traces.jsonl",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "c1993227660bf63d573dfadccfc365e5068e5ec142877ad88acc25d1815314e9",
+      "original_bytes": 681473,
+      "original_uncompressed_sha256": "c1993227660bf63d573dfadccfc365e5068e5ec142877ad88acc25d1815314e9",
+      "public_sha256": "d0cd3d180da1b664c8ef3d95432c3925cd9061c29f87703da3ea9b13056bcd5e",
+      "public_bytes": 590035,
+      "public_uncompressed_sha256": "d0cd3d180da1b664c8ef3d95432c3925cd9061c29f87703da3ea9b13056bcd5e",
+      "redacted_path_occurrences": 554,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root/traces.jsonl",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "892807a4887799cdc4a91f4746d27c57343eea9d56f88c2f64746bebcd80cc88",
+      "original_bytes": 623536,
+      "original_uncompressed_sha256": "892807a4887799cdc4a91f4746d27c57343eea9d56f88c2f64746bebcd80cc88",
+      "public_sha256": "5b678754aa74ff46aa2f1d0247987fc6481ec52d5c7ee871e84e3335cb166cb7",
+      "public_bytes": 548737,
+      "public_uncompressed_sha256": "5b678754aa74ff46aa2f1d0247987fc6481ec52d5c7ee871e84e3335cb166cb7",
+      "redacted_path_occurrences": 497,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "original_bytes": 3284,
+      "original_uncompressed_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "public_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "public_bytes": 3284,
+      "public_uncompressed_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "original_bytes": 3597,
+      "original_uncompressed_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "public_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "public_bytes": 3597,
+      "public_uncompressed_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-server-dispatcher",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-server-dispatcher/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "original_bytes": 2659,
+      "original_uncompressed_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "public_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "public_bytes": 2659,
+      "public_uncompressed_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-terrain",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-terrain/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-terrain/src/road_pack.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "original_bytes": 12472,
+      "original_uncompressed_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "public_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "public_bytes": 12472,
+      "public_uncompressed_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "original_bytes": 1838,
+      "original_uncompressed_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "public_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "public_bytes": 1838,
+      "public_uncompressed_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "original_bytes": 3275,
+      "original_uncompressed_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "public_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "public_bytes": 3275,
+      "public_uncompressed_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/coordinates.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "original_bytes": 17358,
+      "original_uncompressed_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "public_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "public_bytes": 17358,
+      "public_uncompressed_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/regional_connection.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "original_bytes": 1551,
+      "original_uncompressed_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "public_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "public_bytes": 1551,
+      "public_uncompressed_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/adventuresim-world-schema/src/source_package.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "original_bytes": 1658,
+      "original_uncompressed_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "public_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "public_bytes": 1658,
+      "public_uncompressed_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/strategic-web",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/strategic-web/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/strategic-web/src/routes",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533/crates/strategic-web/src/routes/scene_preparation.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "original_bytes": 3703,
+      "original_uncompressed_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "public_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "public_bytes": 3703,
+      "public_uncompressed_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/historical-support-6533-registration.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "4040e75ece901fb0cc46a05786a911ac5bda97a9e52748c381f8e738e3ac8d76",
+      "original_bytes": 5094,
+      "original_uncompressed_sha256": "4040e75ece901fb0cc46a05786a911ac5bda97a9e52748c381f8e738e3ac8d76",
+      "public_sha256": "4040e75ece901fb0cc46a05786a911ac5bda97a9e52748c381f8e738e3ac8d76",
+      "public_bytes": 5094,
+      "public_uncompressed_sha256": "4040e75ece901fb0cc46a05786a911ac5bda97a9e52748c381f8e738e3ac8d76",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/history-manifest.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "ac8c789c4d36c0764711cf50cb717f453bc440d93475fe6d91e2d3805ef7895d",
+      "original_bytes": 14124,
+      "original_uncompressed_sha256": "ac8c789c4d36c0764711cf50cb717f453bc440d93475fe6d91e2d3805ef7895d",
+      "public_sha256": "ac8c789c4d36c0764711cf50cb717f453bc440d93475fe6d91e2d3805ef7895d",
+      "public_bytes": 14124,
+      "public_uncompressed_sha256": "ac8c789c4d36c0764711cf50cb717f453bc440d93475fe6d91e2d3805ef7895d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/make-report.py",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "e09b456de499340e789776c6ba0da08fd75fea584f5d1e4fa1ed7a268dc3f35a",
+      "original_bytes": 19111,
+      "original_uncompressed_sha256": "e09b456de499340e789776c6ba0da08fd75fea584f5d1e4fa1ed7a268dc3f35a",
+      "public_sha256": "40e3d580620ee00ffe4637d241a144e40b4fef57dbbf82b4b30859acbda127c1",
+      "public_bytes": 19100,
+      "public_uncompressed_sha256": "40e3d580620ee00ffe4637d241a144e40b4fef57dbbf82b4b30859acbda127c1",
+      "redacted_path_occurrences": 1,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/original-059-ledger.json.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "original_bytes": 1986838,
+      "original_uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "public_sha256": "d4b1680ab4196ba815882f274ee848c307f2dcaac9f33eead7e42e6a6b78321e",
+      "public_bytes": 1986599,
+      "public_uncompressed_sha256": "8f1c1387e3dff0fef3bb278dad7c0bcfd796000fdb8a56d911a8e6c3c5aae299",
+      "redacted_path_occurrences": 14,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/original-059-queue.json.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "original_bytes": 1438797,
+      "original_uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "public_sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+      "public_bytes": 1438706,
+      "public_uncompressed_sha256": "c55b133fbb7a400863ef9923cb0eef4c4648ee2a22b3b8495e7f21ffb5b54cf9",
+      "redacted_path_occurrences": 12,
+      "changed": true
+    },
+    {
+      "path": "726-delegate-web-map/original-registry.json.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "original_bytes": 1205722,
+      "original_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+      "public_sha256": "a90f280f820e17643933b87aee4587c0ba47f8feec35bd9db61611653bc14063",
+      "public_bytes": 1205722,
+      "public_uncompressed_sha256": "d1c798df997434ae8e89e433237f798de5c87a38d634f3a7d2f1b0f8af9b1f0f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/original-transport-manifest.json.gz",
+      "kind": "file",
+      "encoding": "gzip",
+      "original_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+      "original_bytes": 2757737,
+      "original_uncompressed_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+      "public_sha256": "7e45ce9d858f93e0c5e5d50f360f79ed8941e28049f305053f1fd2bdda364834",
+      "public_bytes": 2757737,
+      "public_uncompressed_sha256": "c3e04095a9e4cb3e2da6ee2a4f561c811ebeca445a50461ddb63b2d426ed6858",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/registration.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "11e718371e42acce0383f0781bab304efb455ca826bc231c7a55be1b04ca7032",
+      "original_bytes": 4747,
+      "original_uncompressed_sha256": "11e718371e42acce0383f0781bab304efb455ca826bc231c7a55be1b04ca7032",
+      "public_sha256": "11e718371e42acce0383f0781bab304efb455ca826bc231c7a55be1b04ca7032",
+      "public_bytes": 4747,
+      "public_uncompressed_sha256": "11e718371e42acce0383f0781bab304efb455ca826bc231c7a55be1b04ca7032",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/registry-selection-reconstructed.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "26dd9b36fdd6b9b94c09ee4c8025bf86c2c48e2bd3a1f2ed000635b32e01cd98",
+      "original_bytes": 31194,
+      "original_uncompressed_sha256": "26dd9b36fdd6b9b94c09ee4c8025bf86c2c48e2bd3a1f2ed000635b32e01cd98",
+      "public_sha256": "26dd9b36fdd6b9b94c09ee4c8025bf86c2c48e2bd3a1f2ed000635b32e01cd98",
+      "public_bytes": 31194,
+      "public_uncompressed_sha256": "26dd9b36fdd6b9b94c09ee4c8025bf86c2c48e2bd3a1f2ed000635b32e01cd98",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_city.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "original_bytes": 3926,
+      "original_uncompressed_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "public_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "public_bytes": 3926,
+      "public_uncompressed_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "original_bytes": 2189,
+      "original_uncompressed_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "public_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "public_bytes": 2189,
+      "public_uncompressed_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "original_bytes": 5028,
+      "original_uncompressed_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "public_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "public_bytes": 5028,
+      "public_uncompressed_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment/roads.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "original_bytes": 1672,
+      "original_uncompressed_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "public_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "public_bytes": 1672,
+      "public_uncompressed_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/6533/crates/strategic-web/src/routes/map_environment.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "original_bytes": 3274,
+      "original_uncompressed_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "public_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "public_bytes": 3274,
+      "public_uncompressed_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_city.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "original_bytes": 3926,
+      "original_uncompressed_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "public_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "public_bytes": 3926,
+      "public_uncompressed_sha256": "0591bb0d7a55e0b190ce5aeb1c59894a0fc12e19348e7258c711b2e489f77a1d",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "original_bytes": 2189,
+      "original_uncompressed_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "public_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "public_bytes": 2189,
+      "public_uncompressed_sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "original_bytes": 5028,
+      "original_uncompressed_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "public_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "public_bytes": 5028,
+      "public_uncompressed_sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment/roads.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "original_bytes": 1672,
+      "original_uncompressed_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "public_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "public_bytes": 1672,
+      "public_uncompressed_sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/sources/95e6/crates/strategic-web/src/routes/map_environment.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "original_bytes": 3274,
+      "original_uncompressed_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "public_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "public_bytes": 3274,
+      "public_uncompressed_sha256": "92036a3fac97bd1c30ae2666334f059cde24a38c2e97e10d86398f2f8d38987e",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-core",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-core/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "original_bytes": 3284,
+      "original_uncompressed_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "public_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "public_bytes": 3284,
+      "public_uncompressed_sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "original_bytes": 3597,
+      "original_uncompressed_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "public_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "public_bytes": 3597,
+      "public_uncompressed_sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-server-dispatcher",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-server-dispatcher/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "original_bytes": 2659,
+      "original_uncompressed_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "public_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "public_bytes": 2659,
+      "public_uncompressed_sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-terrain",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-terrain/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-terrain/src/road_pack.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "original_bytes": 12472,
+      "original_uncompressed_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "public_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "public_bytes": 12472,
+      "public_uncompressed_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "original_bytes": 1838,
+      "original_uncompressed_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "public_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "public_bytes": 1838,
+      "public_uncompressed_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "original_bytes": 3275,
+      "original_uncompressed_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "public_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "public_bytes": 3275,
+      "public_uncompressed_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/coordinates.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "original_bytes": 17358,
+      "original_uncompressed_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "public_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "public_bytes": 17358,
+      "public_uncompressed_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/regional_connection.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "original_bytes": 1551,
+      "original_uncompressed_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "public_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "public_bytes": 1551,
+      "public_uncompressed_sha256": "a84314de9ab9f0068a70c3d18dbd18a5a66fef2426d695c5a5f0efce67f0b5af",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/adventuresim-world-schema/src/source_package.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "original_bytes": 1658,
+      "original_uncompressed_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "public_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "public_bytes": 1658,
+      "public_uncompressed_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/strategic-web",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/strategic-web/src",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/strategic-web/src/routes",
+      "kind": "directory"
+    },
+    {
+      "path": "726-delegate-web-map/support/crates/strategic-web/src/routes/scene_preparation.rs",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "original_bytes": 3703,
+      "original_uncompressed_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "public_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "public_bytes": 3703,
+      "public_uncompressed_sha256": "2026085b97d3c1ec02293a284c90bef4592dcc203e9e621207da39309adee8ec",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/support-registration.json",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "2a73fae840f9645c718b494e93670c6ba9925321a437a1235607a0553c188f02",
+      "original_bytes": 4155,
+      "original_uncompressed_sha256": "2a73fae840f9645c718b494e93670c6ba9925321a437a1235607a0553c188f02",
+      "public_sha256": "2a73fae840f9645c718b494e93670c6ba9925321a437a1235607a0553c188f02",
+      "public_bytes": 4155,
+      "public_uncompressed_sha256": "2a73fae840f9645c718b494e93670c6ba9925321a437a1235607a0553c188f02",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    },
+    {
+      "path": "726-delegate-web-map/verify-evidence.py",
+      "kind": "file",
+      "encoding": "identity",
+      "original_sha256": "3ee793a0dff64f23d0fac362a0e65d326f0cf8854ce7088f47b2b7764f263515",
+      "original_bytes": 4674,
+      "original_uncompressed_sha256": "3ee793a0dff64f23d0fac362a0e65d326f0cf8854ce7088f47b2b7764f263515",
+      "public_sha256": "3ee793a0dff64f23d0fac362a0e65d326f0cf8854ce7088f47b2b7764f263515",
+      "public_bytes": 4674,
+      "public_uncompressed_sha256": "3ee793a0dff64f23d0fac362a0e65d326f0cf8854ce7088f47b2b7764f263515",
+      "redacted_path_occurrences": 0,
+      "changed": false
+    }
+  ],
+  "qualification": "Additive tar-aware reconstruction from the exact locally retained original. Real local paths remain redacted; two identified non-path slash phrases are retained. Original and public per-member hashes are distinct where changed. Embedded original manifests retain their historical original-byte references and are not regenerated. The original archive, exact changed member bytes and private path values are retained locally; public reconstruction is not byte-identical and does not prove historic reads, current cleanliness, checkpoint3821 recovery, uninterrupted custody or product behavior."
+}

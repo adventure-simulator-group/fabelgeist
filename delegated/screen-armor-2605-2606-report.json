@@ -1,0 +1,365 @@
+{
+  "schema": "726-screen-armor-checkpoint17-reconciliation-v1",
+  "created_utc": "2026-11-12T06:59:04.180052+00:00",
+  "author": "/root/rig_identity",
+  "scope": "Bounded reconciliation of original roles 2605 weapon icon screen and 2606 armor root against 95e, exact historical evidence and connected ledger records. No product execution, repair or lens clearance.",
+  "source_identity_and_read_scope": {
+    "role2605": "pr-working screen.rs SHA 206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe, original rig material 1–50. Individually identical to 6533 and 95e committed file; all three identities remain separate. Fresh old and current 1–50 independently displayed.",
+    "role2606": "pr-working armor lib.rs SHA 80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd; original rig material 86–171. Same individual 6533 blob, but historical pr-working snapshot had unrelated working modifications. Fresh old material 86–171 displayed; old 1–85 unread in this review. Current 95e full lib SHA d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264, fresh 1–239 displayed. Old lines90–171 byte-match current158–239; full files differ, schema remains 1 and generator version is 20 versus 33. No whole snapshot equivalence follows.",
+    "supports": "Historical and current anime_design 1–56 separately displayed as support, not role2609 credit. Current design 1–30, breastplate_design 1–128, icon.rs 25–70/120–180, render.rs 1–45/120–155, loader 1–45, device entry 80–125 and warmup 1–70 are separately registered current support. Exact uninspected complements are recorded in the two receipts; source and test headers are text only.",
+    "original_reader_attribution": "774 rig registered role2605 1–50 (REGISTER-048, ADDITIONAL-048) and role2606 86–171 (REGISTER-049, ADDITIONAL-049), separately supporting anime1–56 (REGISTER-052/ADDITIONAL-052) and F049. 059 Segovb READ-L11-426 reused /root/adler READ-L11-328 for role2605 with zero fresh read, and personally read role2606 86–171. 059 /root/lens12_frontier personally read role2605 1–50 in connected 706 and reused it once at ordered 887 without a fresh reread; ordered 888 freshly read role2606 86–171. Root adoption does not transfer these source reads or add a missing timestamp.",
+    "peer_reads": "Prior checkpoint17 /root/rig_identity screen-armor report and receipts record a separate independent old/current read. /root/hair_ops 2609 anime/helmets report and P16 2724–2725 report independently retained their author, precise displays and revision; P16 2724 armor object has the same SHA as 2606 but is its own dirty snapshot role, not retroactive PR read credit.",
+    "p16_recovery": "P16 base a120390947c89b703dc74c4255a13c035d054c50 is not the dirty snapshot commit. Later independently reproduced tracked patch matches SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; the original invocation, uninterrupted custody and all filesystem metadata remain unproved; seven untracked files were separately archived/matched and are not in tracked patch. Matching records are not checkpoint3821.",
+    "rig_registration_qualification": "A previously pinned earlier 13-row rig registration SHA c75d93513422266bff64a096b243766fbd002d346f1d8c3c5b58f54af25ba06c differs from the first 13 rows of the later 145-row recovered registration SHA 442704cfbcdb6f971a06981c68f1442451ccbd9eb7e039dfda32e5d639a772d9; its qualification prefix matches 70717aa1c0908935341afa5297937f1bf79513146453c1328076848d00e94e53. Completion112 separately pins 698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1 rather than the later full-file SHA 24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb. Earlier exact variants were not found in bounded ae46/28ba searches; no global absence inferred. These earlier 13-row pins are not represented as the later rows 048/049 themselves.",
+    "checkpoint17": "Captured checkpoint17 and its qualification at publication commit c15289d7b23f6253e01fb02de79551a89ff10c47 state that screen-armor delegated evidence is preserved pending central review and role credit. Selected prior packet report, registrations, receipt, attribution and manifest match the public archive byte-for-byte; no whole archive equivalence or 3821 credit follows. Original evidence may include local paths."
+  },
+  "findings_and_safeguards": [
+    {
+      "id": "SEGOVB-L11-ANIME-GAUGE-VALIDATION-ORDER",
+      "classification": "Existing 774 F049 / 059 q641 conditional candidate, freshly corroborated at 95e; no new count or automatic alias disposition",
+      "first_contract": "Breastplate validation first validates profile, then for Anime invokes anime.validate(raw wall_thickness), and only afterward enforces wall thickness 1–20 mm. Millimeters is a public u16 wrapper and BreastplateDesign and AnimeDesign have public fields and declared Deserialize. Anime scalar predicates precede lap_lift < gauge.0 * 2. With earlier predicates passing and gauge >=32768, u16 doubling overflows before the outer gauge check.",
+      "guard_and_condition": "The profile and Anime scalar guards run first; Solid does not enter the Anime branch. With overflow checks enabled, a reachable overflow can panic instead of returning the typed validation result; with checks disabled wrapping can lead to different first errors. Gauge 1–20 makes doubling numerically safe, but the separate lap relation can still reject a combination. No actual malformed input, macro, loader, device, geometry or runtime was executed; supported caller, configured overflow checking and eventual presentation remain unresolved. No invalid mesh acceptance is claimed.",
+      "concrete_source_paths": "The current JSON loader parses then calls validate_breastplate, and DeviceBreastplate::record validates before device construction. These are source call edges, not proof that an actual caller supplied a malformed document or that every ingress is protected. Default profile values satisfy its visible predicates and default Anime fields satisfy preceding scalar predicates; this supports the conditional source reasoning only.",
+      "historical_relation": "774 rig F049 recorded the same gauge-first-failure family with old 6533 pr-working range; 059 q641 and ledger /segovb_continuation/conditional_connected_contracts/4 retain Segovb source candidate and READ-L11-427, with separately attributed P16 READ-L11-445. Prior /root/rig_identity REVIEW-ANIME-GAUGE-ORDER-CURRENT and /root/hair_ops P16 and role2609 reports independently trace the same conditional relation. Central decides final ledger identity and repair dependency; none of the historical sources becomes 3821.",
+      "future_direction": "Establish supported raw authoring ingress and required structured error boundary; later repair should preserve correct admitted gauge/lap relations and legitimate construction modes while preventing unchecked pre-admission arithmetic. No implementation begun.",
+      "references": [
+        {
+          "source": "armor-old",
+          "lines": [
+            [
+              116,
+              143
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "armor-current",
+          "lines": [
+            [
+              184,
+              211
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "anime-old",
+          "lines": [
+            [
+              27,
+              35
+            ],
+            [
+              40,
+              55
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "anime-current",
+          "lines": [
+            [
+              27,
+              35
+            ],
+            [
+              40,
+              55
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "design-current",
+          "lines": [
+            [
+              15,
+              16
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "breastplate-current",
+          "lines": [
+            [
+              6,
+              38
+            ],
+            [
+              84,
+              120
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "loader",
+          "lines": [
+            [
+              8,
+              24
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "device",
+          "lines": [
+            [
+              99,
+              115
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "CANDIDATE-ARMOR-WARMUP-ALTERNATE-GAUGE-95E",
+      "classification": "Previously attributed /root/hair_ops conditional current producer/aggregate question, independently bounded, no new count",
+      "evidence": "Warmup clones a supplied breastplate and switches Solid to default Anime without changing the wall gauge. Default Anime lap_lift is 7 mm and Anime validator requires at least twice the gauge. A separately valid Solid wall gauge in 4–20 mm is permitted by the outer wall predicate, but the new default Anime/gauge pairing fails that relation.",
+      "condition": "The shown warmup must reach the alternate stage after prior work succeeds, and generate must take the corresponding validated breastplate route; this packet does not trace that entire dispatch or establish a supported real caller, UI result or runtime failure. Prior /root/hair_ops report includes its independently attributed further dispatch evidence. This condition starts with an in-range gauge and is not the same first failure as raw-u16 overflow; do not automatically alias or count either as a new defect.",
+      "references": [
+        {
+          "source": "warmup",
+          "lines": [
+            [
+              15,
+              24
+            ],
+            [
+              41,
+              61
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "anime-current",
+          "lines": [
+            [
+              27,
+              35
+            ],
+            [
+              43,
+              52
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "armor-current",
+          "lines": [
+            [
+              184,
+              187
+            ],
+            [
+              195,
+              211
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "breastplate-current",
+          "lines": [
+            [
+              40,
+              60
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-ARMOR-CODEC-ERROR-CONTEXT",
+      "classification": "Existing q2483 codec policy question and safeguards, no independent defect count",
+      "evidence": "Bracer encode validates before postcard; decode performs postcard then validates; design_hash uses encoded validated bytes. Breastplate hash validates before postcard. These entry points map postcard errors to DesignError::Encoding. parametric_design_hash accepts and hashes bytes without validating the encoded content.",
+      "condition": "Raw authoring Deserialize and raw-byte hashing are not themselves admission certificates, but no caller is shown relying on raw hash as validation. Required native error detail, supported public callers and exact ledger identity remain open; a coarse typed error alone is not proven incorrect.",
+      "references": [
+        {
+          "source": "armor-old",
+          "lines": [
+            [
+              90,
+              113
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "armor-current",
+          "lines": [
+            [
+              158,
+              181
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "L12-CLOSURE-BREASTPLATE-CATALOG-IDENTITY-OWNER",
+      "classification": "Existing q2689 owner/policy question, not an established invalid identity",
+      "evidence": "Current BreastplateDesign has a public catalog_id String, and validator rejects trimmed-empty values. That check does not by itself establish canonical catalog membership or a supported invalid consumer.",
+      "condition": "Trace actual producer, persistence and consumer namespace before prescribing an owner or claiming a failure; do not conflate with gauge or codec first contracts.",
+      "references": [
+        {
+          "source": "breastplate-current",
+          "lines": [
+            [
+              6,
+              10
+            ],
+            [
+              40,
+              44
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "armor-current",
+          "lines": [
+            [
+              184,
+              194
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "REVIEW-ICON-BOUNDS-SEMANTICS",
+      "classification": "Existing screen-role safeguard and policy question, not a demonstrated rendering defect",
+      "evidence": "The screen helper divides/remainders by size for nonzero alpha and records normalized occupied pixel indices. The shown rasterize_icon invokes render then passes its coverage buffer and size to occupied_bounds. The visible render path rejects sizes outside 16–512 and supersampling outside 1–8; resolve loops exactly size by size pushing one coverage element per output pixel. Empty coverage leaves nonfinite empty bounds and produces None.",
+      "condition": "These are source relationships conditional on the selected render returning successfully; unrelated rendering correctness and input validation were not assessed. The maximum bound represents the last occupied pixel index divided by size; whether downstream contract needs that index, pixel-center, or outer pixel edge is a separate unresolved policy. No renderer or image is run.",
+      "historical_relation": "774 ADDITIONAL-048 and 059 Adler connected 328 record original historical helper; q1791 tracks broader frame/owner/native evidence, not a proven off-by-one. q123 is a separate prior mesh EOF qualification and q124 concerns PNG error ownership; no alias is assumed.",
+      "references": [
+        {
+          "source": "screen-old",
+          "lines": [
+            [
+              39,
+              50
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "screen-current",
+          "lines": [
+            [
+              39,
+              50
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "icon-current",
+          "lines": [
+            [
+              30,
+              60
+            ],
+            [
+              135,
+              140
+            ],
+            [
+              156,
+              173
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        },
+        {
+          "source": "render-current",
+          "lines": [
+            [
+              11,
+              20
+            ],
+            [
+              129,
+              155
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective bounded display, see primary or supplement receipt"
+        }
+      ]
+    }
+  ],
+  "historical_queue_and_ledger": [
+    {
+      "index": 641,
+      "id": "Q-L11-5804bd738c3307701b02",
+      "status_as_recorded": "open-evidence-or-disposition",
+      "ledger_pointer": "history/baseline-059-ledger.json.gz /segovb_continuation/conditional_connected_contracts/4",
+      "relation": "Existing SEGOVB-L11-ANIME-GAUGE-VALIDATION-ORDER candidate, historical status and source conditions retained. New 95e loader/device source edges narrow remaining evidence but do not prove execution, supported malformed inputs or resolve all aliases."
+    },
+    {
+      "index": 1791,
+      "id": "Q-L12-193e15950f2d17b11208",
+      "status_as_recorded": "open-evidence-or-disposition",
+      "relation": "Broader icon/model producer and native output question; role2605 earlier qualified reuse once with zero new reread. Source guard here is limited to current coverage dimensions and cannot close the broader obligation."
+    },
+    {
+      "index": 2483,
+      "id": "L12-CLOSURE-ARMOR-CODEC-ERROR-CONTEXT",
+      "status_as_recorded": "open-source-reconciliation",
+      "relation": "Coarse postcard error context is an open policy/consumer boundary, separate from Anime arithmetic and raw hash validity."
+    },
+    {
+      "index": 2689,
+      "id": "L12-CLOSURE-BREASTPLATE-CATALOG-IDENTITY-OWNER",
+      "status_as_recorded": "open-source-reconciliation",
+      "relation": "Catalog producer/consumer identity question; trimmed-nonempty current validation alone does not prove namespace admission failure."
+    },
+    {
+      "index": 123,
+      "id": "ADLER-L11-WEAPON-MESH-EOF-PROVENANCE",
+      "status_as_recorded": "open-reconciliation",
+      "relation": "Related earlier different mesh source role 2104 ended at actual EOF145 despite original 1–150 registration; nonexistent 146–150 are not source coverage. It is not a screen-source or armor bug."
+    },
+    {
+      "index": 124,
+      "id": "ADLER-L11-ICON-PNG-ERROR-OWNERSHIP",
+      "status_as_recorded": "open-reconciliation",
+      "relation": "Different PNG native cause-ownership question; no PNG codec source independently assessed here and no alias to occupied-bounds policy."
+    }
+  ],
+  "open_questions": [
+    "Can a supported authoring input reach the existing JSON loader or public device record with a structurally decoded Anime gauge >=32768, and what overflow-check behavior applies in the actual supported target?",
+    "Is a non-embedded valid Solid design with gauge 4–20 supported by warmup, can all preceding work succeed, and should alternate preparation preserve gauge or use a representative configuration?",
+    "What exact error context do postcard callers need, and does any caller mistake raw hash bytes for validated recipe provenance?",
+    "Which actual consumer interprets normalized icon max bounds as occupied pixel indices or pixel outer edges, and what convention is intended?",
+    "Which canonical catalog producer, namespace and consumer determine the accepted breastplate identity?",
+    "How should central reconcile exact ledger IDs and historical statuses, including same source bytes across separate PR/P16 identities, without duplicate counts or 3821 promotion?"
+  ],
+  "thirteen_bounded_perspectives": {
+    "admission-contracts": "Outer and nested validator order admits a raw u16 arithmetic boundary before the parent bound.",
+    "aggregate-states": "Anime lap/gauge coupling is distinct from individually valid thickness and warmup alternate state.",
+    "invariant-operations": "Gauge multiplication can overflow before admission; valid 1–20 thickness cannot overflow this multiplication.",
+    "existing-type-owners": "Millimeters and validated design gates already exist, with potential owner/gate policy unresolved.",
+    "type-ownership": "Validation, postcard errors and catalog namespace have distinct owning boundaries.",
+    "type-granularity": "Raw authoring Millimeters, admitted wall gauge and lap separation are related but not identical contracts.",
+    "enum-shapes": "Solid and Anime represent meaningful construction alternatives; only Anime enters the gauge relation.",
+    "producer-propagation": "Loader and device gates are visible source edges; actual caller and runtime remain unproved.",
+    "redundant-authority": "Validated design hashes and raw-byte hash serve different roles; no duplicate authority inferred without callers.",
+    "magic-numbers": "Wall 1–20, laps, pixel size and alpha threshold are scoped domain/raster constraints with distinct roles.",
+    "magic-strings": "Catalog id, error text and PNG codec context are separate semantic/diagnostic questions.",
+    "derivability": "Derived Deserialize admits authoring data but does not replace parent and cross-field validation.",
+    "behavior-preservation": "Keep valid Solid and Anime, bounded gauge/lap semantics, existing pixel-bound convention until policy is decided, and structured error intent."
+  },
+  "limitations": "Static source inspection, mathematical reasoning and evidence verification only. No rendering, GPU, product, fixtures, builds, tests, runtime probes, implementation or lens closure. Original 059/774 records, normalized printed projections, captured checkpoint17 and fresh 95e assessments retain their own authors, revisions, dates, statuses and read partitions. Central owns publication and repair-ledger reconciliation."
+}

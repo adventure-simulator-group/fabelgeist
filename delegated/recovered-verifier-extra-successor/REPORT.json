@@ -1,0 +1,42 @@
+{
+  "schema": "726-extra-evidence-verifier-successor-report-v1",
+  "author": "/root/hair_ops",
+  "recorded_at_utc": "2026-11-12T09:06:06.441138+00:00",
+  "status": "Additive successor proposal; no publication or prior packet changes.",
+  "pinned_historical_git_commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "commit_scope": "Local Git tree and blob verification only; no live remote check.",
+  "predecessor_successor": {
+    "sha256": "2b0be3743a7703f9ce11dfb905a079b89074a3ef3ce8031467951d110f1d5172",
+    "prior_packet_manifest_sha256": "633ecf794f0a11bc837a32e0b2e120abcb8d2b14bb98543414de135b8fd9b3fa"
+  },
+  "additional_successor": {
+    "path": "verify_recovered_public_redacted_plus2.py",
+    "sha256": "d88a6859727ff6cdf78b16d8b5f1870c13a03398edc8a41b20cc904648a1043e"
+  },
+  "additional_crosswalk_sha256": "617070c5ebd6d57ea79cdf4a69f1adc9cbece96feb144dccba99f40e234e2dc1",
+  "private_original_manifest_sha256": "eea94abb41a568671fe070a703af57ff99350684e107568e6a58667f4e2d0951",
+  "reconstructions": [
+    {
+      "kind": "writer-output",
+      "original_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "public_sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192",
+      "redactions": 3,
+      "qualification": "Historical writer output: success-mode JSON records remain byte-for-byte unchanged; path-bearing failure prose is reconstructed, and no missing checkpoint bytes or authority are inferred."
+    },
+    {
+      "kind": "historical-temp-locators",
+      "original_sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+      "public_sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5",
+      "redactions": 2,
+      "qualification": "This input was itself an earlier redacted historical candidate, not the unredacted source candidate. Its manifest records a separate original-candidate hash whose bytes are not reconstructed here."
+    }
+  ],
+  "verifier_change": "Eight unique anchored replacements pin the three historical manifest hashes and replace the writer transcript hash checks in two locations and the portability hash check in one location with explicit public-byte and historical-identity crosswalk checks. The prior three-object crosswalk helper, all unrelated assertion bytes and the separate writer-source hash, final-bundle hash and reported-mode checks are retained.",
+  "historical_qualification": "The portability input was already a redacted historical record and cites a separate unredacted candidate that is not recovered here. The writer mode reports are recovered historical summaries; they do not establish missing checkpoint 3821 as present or authoritative. No reviewer attribution or body credit is transferred.",
+  "boundaries": "The exact private inputs are retained separately. The sample contains only two reconstructed records, three historical manifests, and the two crosswalks. No full tree snapshot, historical verifier execution, product code, repair, build, test or runtime probe was performed. Prior history, remote copies, and the other three draft reconstruction candidates are outside this two-record scope. Full integration remains unexecuted.",
+  "historical_review_attribution": {
+    "author": "/root/handoff_portability_review",
+    "basis": "Unchanged /author field in the preexisting redacted portability record.",
+    "qualification": "The original candidate remains separately identified by the historic manifest; latest-state authority was recorded as unverified."
+  }
+}

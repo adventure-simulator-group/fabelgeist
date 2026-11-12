@@ -1,0 +1,68 @@
+{
+  "schema": "726-additive-public-sanitizer-reconstruction-v1",
+  "created_utc": "2026-11-12T08:14:44.900873+00:00",
+  "author": "/root/hair_ops",
+  "scope": "Only identified non-path substitutions are restored as new public leaf bytes. No historical archive, stage, baseline, ledger or checkpoint is edited. Existing historic authors and revision identities remain unchanged; this reconstruction confers no source reading credit or checkpoint 3821 authority.",
+  "input_inventory_sha256": "aeb3cc954a6727d270a0196d84036c37bcab8bcc0188bcf1eb351f262d4077f0",
+  "input_inventory_manifest_sha256": "032b048eb1e9f6413c1dff12ddbf10684a58759cbbeb84c067264ffce881b4e3",
+  "source_verification": {
+    "indexed_checkpoints": 38,
+    "outer_archives_verified": 180,
+    "old_public_locations_verified": 310,
+    "distinct_original_and_public_pairs": 27,
+    "original_top_member_objects_verified": 83,
+    "method": "Verified index hashes, archive hashes, leaf original and public byte hashes and available lengths. Original top source bytes were loaded from an exact-hash retained local mapping and checked without publishing private paths or contents."
+  },
+  "outcomes": {
+    "distinct_affected_identities": 27,
+    "corrected_identities": 26,
+    "withheld_identities": 1,
+    "affected_public_locations": 310,
+    "corrected_public_locations": 309,
+    "withheld_public_locations": 1,
+    "identified_occurrences": 390,
+    "corrected_occurrence_locations": 389,
+    "withheld_occurrence_locations": 1,
+    "restored_unique_capture_occurrences": 38,
+    "retained_private_capture_occurrences_across_corrected_identities": 1045,
+    "retained_private_distinct_values_sum_across_identities": 973,
+    "corrected_raw_bytes_identical_to_original_and_scanned_safe": 13,
+    "corrected_decoded_bytes_identical_to_original_and_scanned_safe": 19,
+    "preserved_confirmed_account_or_temp_capture_occurrences": 1043,
+    "preserved_additional_windows_shaped_capture_occurrences_conservative": 2
+  },
+  "privacy": {
+    "method": "Each entire restored span was matched by exact original offset, length, original line and recorded placeholder; a known non-path semantic prefix plus a strictly limited punctuation/slash suffix was checked, with account/temp roots and secret patterns excluded. Nonselected placeholder bytes are untouched. Exact protected original path captures were absent from both the old public and corrected decoded content. Corrected text was contextually scanned for absolute local roots, Windows user roots, escaped newline/tab path boundaries, escaped slashes and Unicode slash escapes, local account roots, and common high-confidence token/private-key patterns. Canonical agent IDs in historical attribution are recognized as agent identities, not filesystem paths. Detection is bounded and cannot prove absence of all possible sensitive information.",
+    "unclassified_local_path_or_secret_matches": 0,
+    "classified_benign_agent_and_prose_matches": {
+      "canonical_agent_identity": 237
+    },
+    "private_paths_or_private_originals_published": false,
+    "safe_original_equality_qualification": "Thirteen corrected objects have exact raw bytes of their original, and six additional gzip objects have decoded bytes equal to their original. Those bytes were contextually screened before inclusion; they are safe-original cases, not releases of retained private paths. Seven other objects retain path-looking placeholders; five have confirmed account/temp captures and two retain a Windows-shaped capture conservatively.",
+    "verification_limits": "The absolute-root and secret scan is contextual and bounded; it does not prove all conceivable private material or credential formats absent. True personal paths and credential values are not printed."
+  },
+  "qualifications": [
+    "Historical originals, reconstructed public artifacts, source reviews, and any later correction remain separate records. The preserved prior checkpoint 36 review and its correction are separate exact-byte packets; its incorrect original verifier-summary field is not silently rewritten.",
+    "The earlier systematic scan compared changed indexed leaf streams; CP7 opaque gzip tar descendants were not individually compared. Its original has 186 entries and the old public tar reader stops after five without error; this packet does not reconstruct that tar.",
+    "The inventory recognizes particular non-path patterns only, not every possible false positive; unchanged indexed leaves and other unindexed descendants remain outside its comparison.",
+    "Checkpoint 36\u201338 references are to their observed staged pre-correction identities, not an assertion that they were published or still have those hashes.",
+    "This verifies evidence handling only, not product behavior, validation, or thirteen-lens completion."
+  ],
+  "withheld": [
+    {
+      "number": 6,
+      "source_original_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+      "old_public_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+      "encoding": "gzip",
+      "status": "withheld-opaque-tar",
+      "original_uncompressed_sha256": "517465b895f9d497d03c6cd34bd958dd47fdc95edb2e9ea69f643f106b668d65",
+      "old_public_uncompressed_sha256": "1d71db63124b6443ccb537a32dafa4477190d7aa15b6ad263243fb79243b2e19",
+      "original_tar_entries_seen": 186,
+      "old_public_tar_entries_seen": 5,
+      "known_original_occurrence_offsets": [
+        4663173
+      ],
+      "qualification": "The gzip payload is a tar container despite the recorded gzip leaf encoding. The old public tar reader stops after five entries without raising; original contains 186. Its unindexed descendants were not leaf-compared. An ordinary byte-span replacement is withheld because it would not repair the tar structure; a separate tar-aware reconstruction is needed."
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "schema": "726-baseline059-privacy-reconstruction-v1",
+  "created_utc": "2026-11-12T08:45:40.123157+00:00",
+  "author": "/root/rig_identity",
+  "records": [
+    {
+      "name": "queue",
+      "historical_transport_path": "workflow-20261030/CLOSURE-QUEUE-100.json",
+      "original_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "original_bytes": 21632843,
+      "original_git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "public_path": "baseline-059/queue.json",
+      "public_sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "public_bytes": 21631815,
+      "public_git_blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5",
+      "redacted_occurrences": 12,
+      "unique_original_paths": 8,
+      "changed_json_pointers": [
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/path",
+          "path_sha256": "cb2f70792973a14de2962d59c0c438a30e127a36db88a3c60e14836fc1e4a69a",
+          "marker": "<LOCAL_SOURCE_PATH_03>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/1/archive",
+          "path_sha256": "743de7a1bef9a2126652d428d01e178390534cf5cd970484c833468496c77c83",
+          "marker": "<LOCAL_SOURCE_PATH_01>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/path",
+          "path_sha256": "787c251bd503274b6c0759460272bf42533f14cb9805ee063b86bbd4407baea8",
+          "marker": "<LOCAL_SOURCE_PATH_04>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/2/archive",
+          "path_sha256": "743de7a1bef9a2126652d428d01e178390534cf5cd970484c833468496c77c83",
+          "marker": "<LOCAL_SOURCE_PATH_01>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/path",
+          "path_sha256": "64030c098a5abd5a69c33ccebebcba73fe58647c1ba09e12b562e554ff561a6d",
+          "marker": "<LOCAL_SOURCE_PATH_06>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/3/archive",
+          "path_sha256": "f54699f8da1aab57441ad750546c3681e81cd29703fa8d99290d0f6c6d303479",
+          "marker": "<LOCAL_SOURCE_PATH_02>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/path",
+          "path_sha256": "ef4b3dbc4eddc2ae39d09dee37de2e0c6bc43378a0772866771af9def98e5e3e",
+          "marker": "<LOCAL_SOURCE_PATH_05>"
+        },
+        {
+          "pointer": "/entries/5/current_own_lens_qualifications/0/exact_source_rows/5/archive",
+          "path_sha256": "f54699f8da1aab57441ad750546c3681e81cd29703fa8d99290d0f6c6d303479",
+          "marker": "<LOCAL_SOURCE_PATH_02>"
+        },
+        {
+          "pointer": "/entries/53/current_own_lens_qualifications/2/exact_source_rows/1/path",
+          "path_sha256": "961b2c9e5569840d05bb948bcb4ee10ed5e03f2668e3e6c2da3a15f17c58a03e",
+          "marker": "<LOCAL_SOURCE_PATH_07>"
+        },
+        {
+          "pointer": "/entries/53/current_own_lens_qualifications/2/exact_source_rows/2/path",
+          "path_sha256": "961b2c9e5569840d05bb948bcb4ee10ed5e03f2668e3e6c2da3a15f17c58a03e",
+          "marker": "<LOCAL_SOURCE_PATH_07>"
+        },
+        {
+          "pointer": "/entries/53/current_own_lens_qualifications/2/exact_source_rows/3/path",
+          "path_sha256": "20eabf3f1f73b663d096d505e799f018089a27ec44081e0cef2488ae89625c45",
+          "marker": "<LOCAL_SOURCE_PATH_08>"
+        },
+        {
+          "pointer": "/entries/53/current_own_lens_qualifications/2/exact_source_rows/4/path",
+          "path_sha256": "20eabf3f1f73b663d096d505e799f018089a27ec44081e0cef2488ae89625c45",
+          "marker": "<LOCAL_SOURCE_PATH_08>"
+        }
+      ],
+      "local_original_gzip_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "local_original_gzip_bytes": 1438797,
+      "qualification": "Public bytes are reconstructed by replacing exactly the listed original local-path values, not original historical bytes. Original uncompressed and local deterministic-gzip identities are separate; no historical read or checkpoint3821 credit is transferred."
+    },
+    {
+      "name": "ledger",
+      "historical_transport_path": "evidence/continuation-segovb/ledger.json",
+      "original_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "original_bytes": 9417609,
+      "original_git_blob": "ed43c113de9543d04e4d706655d66760574cebe6",
+      "public_path": "baseline-059/ledger.json",
+      "public_sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+      "public_bytes": 9416271,
+      "public_git_blob": "14d29425d43070ddef914fd434f1c6ad22dfede7",
+      "redacted_occurrences": 14,
+      "unique_original_paths": 10,
+      "changed_json_pointers": [
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/1/path",
+          "path_sha256": "cb2f70792973a14de2962d59c0c438a30e127a36db88a3c60e14836fc1e4a69a",
+          "marker": "<LOCAL_SOURCE_PATH_03>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/1/archive",
+          "path_sha256": "743de7a1bef9a2126652d428d01e178390534cf5cd970484c833468496c77c83",
+          "marker": "<LOCAL_SOURCE_PATH_01>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/2/path",
+          "path_sha256": "787c251bd503274b6c0759460272bf42533f14cb9805ee063b86bbd4407baea8",
+          "marker": "<LOCAL_SOURCE_PATH_04>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/2/archive",
+          "path_sha256": "743de7a1bef9a2126652d428d01e178390534cf5cd970484c833468496c77c83",
+          "marker": "<LOCAL_SOURCE_PATH_01>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/3/path",
+          "path_sha256": "64030c098a5abd5a69c33ccebebcba73fe58647c1ba09e12b562e554ff561a6d",
+          "marker": "<LOCAL_SOURCE_PATH_06>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/3/archive",
+          "path_sha256": "f54699f8da1aab57441ad750546c3681e81cd29703fa8d99290d0f6c6d303479",
+          "marker": "<LOCAL_SOURCE_PATH_02>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/5/path",
+          "path_sha256": "ef4b3dbc4eddc2ae39d09dee37de2e0c6bc43378a0772866771af9def98e5e3e",
+          "marker": "<LOCAL_SOURCE_PATH_05>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/CONT08-SAMPLED-SUPPORT-FAILURE-CLASSIFICATION/lens1_current_source_qualifications/0/exact_source_rows/5/archive",
+          "path_sha256": "f54699f8da1aab57441ad750546c3681e81cd29703fa8d99290d0f6c6d303479",
+          "marker": "<LOCAL_SOURCE_PATH_02>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/1/path",
+          "path_sha256": "961b2c9e5569840d05bb948bcb4ee10ed5e03f2668e3e6c2da3a15f17c58a03e",
+          "marker": "<LOCAL_SOURCE_PATH_07>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/2/path",
+          "path_sha256": "961b2c9e5569840d05bb948bcb4ee10ed5e03f2668e3e6c2da3a15f17c58a03e",
+          "marker": "<LOCAL_SOURCE_PATH_07>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/3/path",
+          "path_sha256": "20eabf3f1f73b663d096d505e799f018089a27ec44081e0cef2488ae89625c45",
+          "marker": "<LOCAL_SOURCE_PATH_08>"
+        },
+        {
+          "pointer": "/discovery_findings_and_dependencies/ADLER-L11-CAMERA-PROFILE-INVARIANTS/lens1_current_source_qualifications/2/exact_source_rows/4/path",
+          "path_sha256": "20eabf3f1f73b663d096d505e799f018089a27ec44081e0cef2488ae89625c45",
+          "marker": "<LOCAL_SOURCE_PATH_08>"
+        },
+        {
+          "pointer": "/segovb_continuation/lens12/connected_body_receipts/89/evidence/personal_visual_assessment/image_path",
+          "path_sha256": "0f31c5cc565c5f95a9b959a0823b636304b514437b8d6aa0fd2a69ec3691b47a",
+          "marker": "<LOCAL_SOURCE_PATH_09>"
+        },
+        {
+          "pointer": "/segovb_continuation/lens12/connected_body_receipts/90/evidence/personal_visual_assessment/image_path",
+          "path_sha256": "c6a42ecc917288cebe419901714ad1543e2e3ad347c383c3d3117d18424a8f50",
+          "marker": "<LOCAL_SOURCE_PATH_10>"
+        }
+      ],
+      "local_original_gzip_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "local_original_gzip_bytes": 1986838,
+      "qualification": "Public bytes are reconstructed by replacing exactly the listed original local-path values, not original historical bytes. Original uncompressed and local deterministic-gzip identities are separate; no historical read or checkpoint3821 credit is transferred."
+    }
+  ],
+  "private_recovery_qualification": "Original identities can be recovered locally through the separately retained private originals and user extraction; no private local path is published here.",
+  "marker_mapping": [
+    {
+      "marker": "<LOCAL_SOURCE_PATH_01>",
+      "original_path_sha256": "743de7a1bef9a2126652d428d01e178390534cf5cd970484c833468496c77c83",
+      "queue_occurrences": 2,
+      "ledger_occurrences": 2
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_02>",
+      "original_path_sha256": "f54699f8da1aab57441ad750546c3681e81cd29703fa8d99290d0f6c6d303479",
+      "queue_occurrences": 2,
+      "ledger_occurrences": 2
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_03>",
+      "original_path_sha256": "cb2f70792973a14de2962d59c0c438a30e127a36db88a3c60e14836fc1e4a69a",
+      "queue_occurrences": 1,
+      "ledger_occurrences": 1
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_04>",
+      "original_path_sha256": "787c251bd503274b6c0759460272bf42533f14cb9805ee063b86bbd4407baea8",
+      "queue_occurrences": 1,
+      "ledger_occurrences": 1
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_05>",
+      "original_path_sha256": "ef4b3dbc4eddc2ae39d09dee37de2e0c6bc43378a0772866771af9def98e5e3e",
+      "queue_occurrences": 1,
+      "ledger_occurrences": 1
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_06>",
+      "original_path_sha256": "64030c098a5abd5a69c33ccebebcba73fe58647c1ba09e12b562e554ff561a6d",
+      "queue_occurrences": 1,
+      "ledger_occurrences": 1
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_07>",
+      "original_path_sha256": "961b2c9e5569840d05bb948bcb4ee10ed5e03f2668e3e6c2da3a15f17c58a03e",
+      "queue_occurrences": 2,
+      "ledger_occurrences": 2
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_08>",
+      "original_path_sha256": "20eabf3f1f73b663d096d505e799f018089a27ec44081e0cef2488ae89625c45",
+      "queue_occurrences": 2,
+      "ledger_occurrences": 2
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_09>",
+      "original_path_sha256": "0f31c5cc565c5f95a9b959a0823b636304b514437b8d6aa0fd2a69ec3691b47a",
+      "queue_occurrences": 0,
+      "ledger_occurrences": 1
+    },
+    {
+      "marker": "<LOCAL_SOURCE_PATH_10>",
+      "original_path_sha256": "c6a42ecc917288cebe419901714ad1543e2e3ad347c383c3d3117d18424a8f50",
+      "queue_occurrences": 0,
+      "ledger_occurrences": 1
+    }
+  ],
+  "publication_qualification": "Original and reconstructed public identities differ. No publication, extraction or Git history was changed; retained original commit objects may expose earlier paths until separately addressed."
+}

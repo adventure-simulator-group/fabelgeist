@@ -1,0 +1,113 @@
+{
+  "schema": "726-independent-review-manifest-v1",
+  "created_utc": "2026-11-12T07:55:29.527253+00:00",
+  "file_count": 21,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1520,
+      "sha256": "5004d5b7a4249b62b0cc9d2375ced6fb024ad1c42f75167eda2c4a835efe4cc5"
+    },
+    {
+      "path": "build-manifest.py",
+      "bytes": 798,
+      "sha256": "992afeaec5041b347adf3cd80f4c2da6ad01b9e7f495f1299e7fd5e3e9b478ef"
+    },
+    {
+      "path": "capture-review-reference.py",
+      "bytes": 2495,
+      "sha256": "25a75ce0a1895f0fc0b0c8d2f8fd5020db36bce1f84dbd8e6487f75d56de7756"
+    },
+    {
+      "path": "reference/checkpoint38-direct-links.json",
+      "bytes": 1751,
+      "sha256": "27ba55a9c7b935f5b67f6fe84fd091d17de2b71a8aaf2446c69e8e316f1aaf36"
+    },
+    {
+      "path": "reference/checkpoint38-index.json",
+      "bytes": 426652,
+      "sha256": "cf7550560626309555a6eda92c3e560aac88ff0273ef4fdfdae8b5bdbf3cfbce"
+    },
+    {
+      "path": "reference/checkpoint38-prior-manifest-qualification.json",
+      "bytes": 1018,
+      "sha256": "52568e4821f7373142b78bf9257d4523bad5c5390d36e2a04464dee57aa1dbcf"
+    },
+    {
+      "path": "reference/checkpoint38-qualification.json",
+      "bytes": 902,
+      "sha256": "ec082fb61e8183035ec5f02cdd61c39bf120fcdd7cc127eff3005988eee72a0b"
+    },
+    {
+      "path": "reference/committed-baseline-at-56f.json",
+      "bytes": 1376732,
+      "sha256": "28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9"
+    },
+    {
+      "path": "reference/observed-coverage.json",
+      "bytes": 2050109,
+      "sha256": "32860b0b097f1e98f2f61e1007eec5dcc8e01749775937f73ccf6710ca4133ff"
+    },
+    {
+      "path": "reference/observed-live-progress.json",
+      "bytes": 111592,
+      "sha256": "4a300a6856a238b2ecdfd3d26535b2441b5e3a7c736623b3be90005e02c11276"
+    },
+    {
+      "path": "reference/prior-checkpoint17-manifest.json",
+      "bytes": 14404,
+      "sha256": "19d64c867700fe086d9c6a9acd2cbbd77a4741bd590e505c9d459f109340cc08"
+    },
+    {
+      "path": "reference/prior-published-comparison.json",
+      "bytes": 1621,
+      "sha256": "add13c76dca8a1e2a42dc012977efe25c51dea886dbdf4d0620ef744527c1b42"
+    },
+    {
+      "path": "reference/private-originals-manifest.json",
+      "bytes": 4843,
+      "sha256": "9c3939e2bae0ecd8da66904c9de881314256425ee5287688e8e16cfc1374c24c"
+    },
+    {
+      "path": "reference/staged-progress.json",
+      "bytes": 111527,
+      "sha256": "52f6b942c80d9b0e6854bd253403331fe0e098dd37c7baaba298243058d4cb28"
+    },
+    {
+      "path": "reference/working-baseline-observed.json",
+      "bytes": 1379798,
+      "sha256": "fc828ecf7e09c2b563c46ec6b8ef5c67267baeb5455f1ea62d3739b2e2ded6ad"
+    },
+    {
+      "path": "reference-index.json",
+      "bytes": 3815,
+      "sha256": "37cce8c5615c065c69cb5e8d257b3de9244858aa51c9cb0e965e9c61d12eb968"
+    },
+    {
+      "path": "report.json",
+      "bytes": 14589,
+      "sha256": "1dfb5f6da673577d2f3c292f8f0ce1336c0b4a39c6d514c29f41aed91e263a8f"
+    },
+    {
+      "path": "review-results.json",
+      "bytes": 12927,
+      "sha256": "c5eedb749e949b2aa846cb8e0178c5cd44d8befb168c711967abb7f9fab7aa7f"
+    },
+    {
+      "path": "verify-manifest.py",
+      "bytes": 1631,
+      "sha256": "b3ea132b655cdf4bd5a7b3895c0ae7a905731aa6be6dc1c7f23d4243673668c4"
+    },
+    {
+      "path": "verify-readonly.py",
+      "bytes": 19127,
+      "sha256": "42a58dccdd69931bffa4bdb69f9d69629dde162cf9eb91a8cf1b19dbf13d0f71"
+    },
+    {
+      "path": "write-report.py",
+      "bytes": 8732,
+      "sha256": "9aab4f4111b249d60fd8d57f49401e8c67f33254ba8dfe55866e03c262b6c820"
+    }
+  ],
+  "qualification": "Excludes only root manifest; all captured reference bytes and review scripts included. Full staged archives and private originals are external hash-linked dependencies."
+}

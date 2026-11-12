@@ -1,0 +1,26 @@
+--- originals/verify_delegated_links_28.py
++++ successors/verify_delegated_links_28_059_public.py
+@@ -1,10 +1,15 @@
+ #!/usr/bin/env python3
+ """Verify historical links and native identities without product execution."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,io,json,tarfile,tomllib
+ from pathlib import Path
+-R=Path(__file__).resolve().parent;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();cp=load('DELEGATED-EVIDENCE-CHECKPOINT-28.json');bundles={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']};by_sha={x['sha256']:x for x in transport['entries']};direct=load('DELEGATED-CHECKPOINT-28-DIRECT-LINKS.json');assert len(direct['links'])==15
++R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();cp=load('DELEGATED-EVIDENCE-CHECKPOINT-28.json');bundles={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']};by_sha={x['sha256']:x for x in transport['entries']};direct=load('DELEGATED-CHECKPOINT-28-DIRECT-LINKS.json');assert len(direct['links'])==15
+ for x in direct['links']:
+- p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert (sha(raw),len(raw))==(x['sha256'],x['bytes'])
++ p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(x['path']);assert _CW.matches(x['path'],raw,x['sha256'],x['bytes'])
+ def saved(m,x):assert (m['original_sha256'],m['original_bytes'])==(x['sha256'],x['bytes']) or (m['original_uncompressed_sha256'],m['original_uncompressed_bytes'])==(x['sha256'],x['bytes'])
+ checks=0
+ for name,b in bundles.items():
+@@ -74,3 +79,5 @@
+  for x in c['entries']:
+   m=members[x['receipt']];assert not m['changed'] and sha(t.extractfile(x['receipt']).read())==m['original_sha256']==x['receipt_sha256'] and x['reader']=='/root/hair_ops' and 'no historical or ordered-role credit' in x['qualification']
+ print('Verified selected zero-based native supplier rows and reconstructed path variant, four distinct source-context encodings, and the additive prior-read disclosure; no source identity or reader transfer inferred.')
++
++_CW.finish()

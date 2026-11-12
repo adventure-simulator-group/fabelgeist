@@ -1,0 +1,17 @@
+import hashlib,json,os,pathlib,pwd,subprocess,sys
+p=pathlib.Path(__file__).parent;repo=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else pathlib.Path.cwd();c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';sha=lambda b:hashlib.sha256(b).hexdigest();home=pwd.getpwuid(os.getuid()).pw_dir
+f=json.loads((p/'firstpass-results.json').read_bytes());r=json.loads((p/'report.json').read_bytes());d=json.loads((p/'raw-json-classification.json').read_bytes());assert f['commit']==r['commit']==d['commit']==c and f['tracked_paths']==21399 and f['unique_blobs']==14096 and f['direct_gzip_paths']==15416 and not f['exceptions'] and len(f['occurrences'])==56 and all(x['view']=='raw-blob' for x in f['occurrences'])
+assert subprocess.check_output(['git','-C',str(repo),'rev-parse',c+'^{commit}']).strip().decode()==c
+by={x['path']:x for x in d['records']};assert len(by)==len(r['records'])==5
+for item in r['records']:
+ b=subprocess.check_output(['git','-C',str(repo),'show',c+':'+item['path']]);blob=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest();assert sha(b)==item['sha256'] and blob==item['git_blob'];obj=json.loads(b);rec=by[item['path']];assert rec['sha256']==sha(b) and rec['total_occurrences']==item['occurrences']
+ for x in rec['fields']:
+  val=obj
+  for part in x['pointer'].strip('/').split('/'):
+   part=part.replace('~1','/').replace('~0','~');val=val[int(part)] if isinstance(val,list) else val[part]
+  assert isinstance(val,str) and val.startswith(home) and val.count(home)==x['occurrences'] and sha(val.encode())==x['value_sha256'] and not x['contains_regex_markers']
+ assert sum(z['occurrences'] for z in rec['fields'])==item['occurrences']
+inv=json.loads((p/'dependency-inventory.json').read_bytes());assert inv['commit']==c and len(inv['direct_checkpoint_link_assertions'])==20
+for x in inv['direct_checkpoint_link_assertions']:
+ index=json.loads(subprocess.check_output(['git','-C',str(repo),'show',c+':'+x['index']]));row=index['links'][int(x['index_pointer'].split('/')[-1])];assert row['sha256']==inv['record_original_sha256'][x['record']] and row['path']==f"baseline-059/{x['record']}.json"
+print('PASS: report bindings, five exact original blobs and 56 withheld-field identities, 20 direct-index assertions; full-tree scan is not replayed by this lightweight verifier')

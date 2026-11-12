@@ -1,0 +1,55 @@
+{
+  "schema": "726-privacy-56f-public-transport-review-v1",
+  "author": "/root/mhr_character",
+  "commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "purpose": "Privacy-safe transport of the separately frozen 56f inventory, additional reconstruction review, and first-pass candidate packet. This is evidence, not product validation or publication of a repair.",
+  "historical_distinctions": [
+    "The committed 059 queue and ledger in this review were reconstructed baseline records. Their presence does not prove recovery or establish authorship of a checkpoint 3821 original.",
+    "Occurrences are counted per distinct committed path or nested member chain. Examples and regex literals are separated from concrete paths. A third-party upstream package path is attributed to its source, not the current user.",
+    "Git blob IDs apply to committed stored bytes; SHA-256 identities for stored gzip, decoded content, tar members, public reconstructions, and transport gzip are distinct.",
+    "The original private committed blobs and original frozen packet scripts are held in a separate local-only capture. The public transport intentionally cannot recreate redacted private script strings; original source hashes are preserved as commitments.",
+    "Relative repository paths in this record identify committed evidence locations. The slash-prefixed author field is an agent identity, not a filesystem path."
+  ],
+  "scan_result": {
+    "tracked_paths": 21399,
+    "prefix_paths": 2000,
+    "suffix_paths": 19399,
+    "candidate_occurrences": 126,
+    "concrete_path_occurrences": 64,
+    "concrete_top_level_files": 10,
+    "source_examples_and_regex_occurrences": 62,
+    "prefix_budget_exclusions": 38,
+    "prefix_budget_revisit_unresolved": 0,
+    "suffix_unresolved": 0,
+    "qualifications": [
+      "The original prefix's 38 aggregate-budget exceptions were individually revisited under a 128 MiB per decoded gzip view or tar member and maximum 18 layers; the final suffix used the same per-container limits without the earlier aggregate budget.",
+      "An earlier narrower-depth attempt had 65 separately revisited exclusions and is superseded by the final prefix and revisit; the later independent suffix overlaps and is not added to occurrence totals.",
+      "The scan does not recursively interpret ZIP, non-ustar tar or other compression formats and does not claim coverage of unknown filesystem roots, unconventional encodings, or arbitrary secrets.",
+      "The public verifier rechecks the transported records, selected reconstructions and stated identities; it does not rerun the full committed-tree scan or independently prove the historical scan has no unrecorded exceptions."
+    ]
+  },
+  "reconstruction": {
+    "transport_map": "transport-map.json",
+    "source_files": 69,
+    "local_scratch_string_redactions": 11,
+    "source_script_policy": "All captured Python scripts are transported as non-executable .py.txt source text. Eleven genuine local scratch-directory tokens in scripts were replaced by explicit markers; each original and public script hash is recorded in the map. No nested archive was modified by this transformation.",
+    "initial_json_candidates": "Five separately reconstructed JSON candidates are preserved losslessly inside gzip transport; their decoded original candidate byte hashes are recorded separately from compressed transport hashes. They replace 56 discovered user-home values; they are candidate representations rather than original checkpoint bytes.",
+    "additional_candidates": "Five candidates address eight further concrete paths: writer output (3), historical temp locators (2), two existing cloud registration representations (1 each), and one reconstructed third-party package archive member (1). Their original and candidate identities and historical attribution remain separate in the captured indices.",
+    "archive_policy": "The already reconstructed serde-saphyr archive and the two preexisting redacted registration gzip files are copied byte for byte, not decompressed and text-replaced during transport. Original private archive bytes are preserved separately in local-only custody."
+  },
+  "registry_identity": {
+    "package": "serde-saphyr 1.2.0",
+    "official_index": "https://raw.githubusercontent.com/rust-lang/crates.io-index/master/se/rd/serde-saphyr",
+    "original_package_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+    "reconstructed_package_sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a",
+    "qualification": "The public Rust registry index row, the 6533 and 95e committed root locks, the committed original package and a local cached package agreed on the original checksum. The cached web index response was accessible; a live static crate download was not. The reconstructed archive is not the registry-checksummed original."
+  },
+  "corrections_and_chronology": [
+    "The first exact current-account-home pass found 56 occurrences in five raw JSON records and no additional direct gzip occurrence for that exact account prefix; it did not clear other account names, temp paths, or nested archives. The later recursive investigation found eight further concrete path occurrences of other classes.",
+    "A lookup from a separate checkout lacking the 95e commit was incorrectly reported as proof the pinned root lock was absent. That claim was withdrawn. In the repository containing the commit, 95e Cargo.lock is Git blob 8cee024c538ebc473ef64c709eaba8c585fa4c55, SHA-256 cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73, and records the original package checksum.",
+    "A preliminary city registration comparison guessed the wrong JSON pointer and failed its assertion. The verified path is /provenance/cache_path; each existing cloud representation differs from its respective decoded historical original only in that value.",
+    "An earlier message transcribed the portability-review record hash incorrectly and was immediately corrected. The verified original committed record SHA-256 is 21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84; no unstored erroneous digest is reconstructed here."
+  ],
+  "custody_and_history": "Public replacement candidates have not been applied by this transport. A future commit changing the tree would not remove the already published 56f commit or establish remote erasure. No history rewrite, publication mutation, product source edit, build, test, runtime probe or execution occurred.",
+  "attribution": "Preserve original reviewer names, revision identities, source paths, and recorded read scopes in the transported reports. This review does not transfer source-read credit or close any audit lens."
+}

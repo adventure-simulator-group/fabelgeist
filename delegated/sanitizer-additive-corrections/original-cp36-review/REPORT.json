@@ -1,0 +1,309 @@
+{
+  "schema": "726-checkpoint36-independent-integrity-review-v1",
+  "reviewer": "/root/hair_ops",
+  "created_utc": "2026-11-12T07:50:46.995853+00:00",
+  "scope": "Evidence integrity and recovery qualification review of one observed pre-correction staged checkpoint36. No source conclusion re-audit or reader credit. Reviewer authored the underlying 2607–2608 packet, so this is not an independent peer verdict on that packet’s substantive analysis.",
+  "observed_identities": {
+    "checkpoint_index_sha256": "3005967922bb10c7d8b674b6ea044256f55fcc6908d27260c1646c049e3a0d17",
+    "private_manifest_sha256": "1711654c1529065eebd69a2536afc9cc3997cc3d796eeef43e63dbdd55dc187d",
+    "bundles": [
+      {
+        "bundle": "screen-armor-2605-2606",
+        "agent": "/root/rig_identity",
+        "archive_sha256": "3fce11f93dc279b373072c02c7e71c2d1eabdae810e0f0657016d17a8164e187",
+        "top_members": 133,
+        "changed_top_members": 5,
+        "redactions": 39,
+        "extra_prior_manifests": [
+          "history/prior-armor-anime/MANIFEST.json",
+          "history/prior-p16-armor/MANIFEST.json",
+          "history/prior-screen-armor/MANIFEST.json"
+        ]
+      },
+      {
+        "bundle": "armor-design-fluting-2607-2608",
+        "agent": "/root/hair_ops",
+        "archive_sha256": "8f589bfcd8388e448b6b989fc5821ba1367950abbd40dd95e412fdedceb3e4ec",
+        "top_members": 109,
+        "changed_top_members": 7,
+        "redactions": 91,
+        "extra_prior_manifests": []
+      },
+      {
+        "bundle": "anime-helmets-2609-2610",
+        "agent": "/root/mhr_character",
+        "archive_sha256": "394b67e3b13394b7b77e57ef4137bb989f411a8bbd9a9b4bce96232157108f18",
+        "top_members": 172,
+        "changed_top_members": 10,
+        "redactions": 83,
+        "extra_prior_manifests": []
+      }
+    ],
+    "observed_public_metadata": "observed-public/",
+    "local_snapshot_manifest": "snapshot-manifest.json",
+    "qualification": "The local snapshot preserves the exact stage including private originals under restricted local custody and links to earlier publication dependencies. It must not be published as a whole. Public review files contain hashes and qualifications, not copied private original contents."
+  },
+  "findings": [
+    {
+      "id": "CP36-REDACTION-FALSE-POSITIVE",
+      "status_at_observation": "present in observed pre-correction bytes",
+      "type": "reconstruction alters non-path prose",
+      "location": "delegated/anime-helmets-2609-2610-evidence.tar.gz!skills/bespoke-audit.md",
+      "original_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "published_sha256": "8255b26bd281caf6ca109aeb13e4877d92f276898e5dcb72b3e8976d61fa66b3",
+      "evidence": "Ordinary phrase definitions/users/dependencies was changed to definitions<LOCAL_PATH_0> because the case-insensitive /Users/ pattern matched /users/dependencies. The exact original is retained privately and matched to the original member hash; the false-positive public copy loses meaning.",
+      "recommended_action": "Restore the exact original skill member publicly after confirming real local paths remain protected, use context-aware matching that does not classify this prose as a path, and regenerate archive, index, private manifest and qualifications together. Preserve this review as evidence of the observed earlier version."
+    },
+    {
+      "id": "CP36-QUEUE-LEDGER-PUBLIC-QUALIFICATION",
+      "status_at_observation": "public member-level redaction is recorded, but explicit report-level clarification is advised",
+      "type": "recovery statement can be misread in reconstructed packet",
+      "location": "delegated/armor-design-fluting-2607-2608-report.json, identity_and_recovery_qualifications; archive members listed in changed_member_identities",
+      "evidence": "The unchanged frozen report states that original 059 queue and ledger are preserved as compressed byte-identical Git objects. That accurately describes its private original packet, but the observed public archive members are redacted reconstructions with different compressed and uncompressed digests. The top-level index marks changed members, and private originals match original hashes; a reader should not mistake the public bytes for the originals. The same explicit distinction is useful for two other public copies of the queue/ledger and the changed 774 contract-groups member.",
+      "recommended_action": "Add a clear separate qualification naming each public reconstructed member and original/public SHA-256, and link any independently preserved originals by their actual provenance. Preserve the frozen report unchanged."
+    },
+    {
+      "id": "CP36-ROLE2606-059-SUPPORT-EXTENSION",
+      "status_at_observation": "additional historical attribution worth recording",
+      "type": "partial historical summary",
+      "location": "screen-armor-2605-2606 report original_reader_attribution; exact 059 segovb/READ-L11-427 and REGISTRATION-SEGOVB-1529",
+      "evidence": "READ-L11-426 records historical role2606 material 86–171. The later retained READ-L11-427 separately records Segovb’s fresh support read 1–85. The report correctly says the new /root/rig_identity review left old 1–85 unread, but its historical summary mentions only the first scope.",
+      "recommended_action": "Add the later 1–85 historical support attribution without expanding the original rig material 86–171 or granting it to the new reviewer."
+    }
+  ],
+  "integrity_results": {
+    "top_level_members": 414,
+    "all_indexed_members_including_nested": 510,
+    "changed_top_level_originals": 22,
+    "changed_member_substitutions_checked": 213,
+    "confirmed_non_path_substitutions": 1,
+    "git_commit_tree_blob_proofs": 74,
+    "prior_frozen_manifest_omissions_verified": 3,
+    "registration_receipt_rows": {
+      "screen-armor-2605-2606": 13,
+      "armor-design-fluting-2607-2608": 10,
+      "anime-helmets-2609-2610": 18
+    },
+    "selected_original_059_receipts_matched_user_extraction": 12,
+    "original_registry_role_objects": [
+      {
+        "role": 2605,
+        "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/screen.rs",
+        "registry_sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+        "material_ranges": [
+          [
+            1,
+            50
+          ]
+        ],
+        "actual_eof": 50,
+        "historical_6533_matches_object": true,
+        "current_sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+        "current_matches_historical": true,
+        "author": "/root/rig_identity"
+      },
+      {
+        "role": 2606,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+        "registry_sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+        "material_ranges": [
+          [
+            86,
+            171
+          ]
+        ],
+        "actual_eof": 171,
+        "historical_6533_matches_object": true,
+        "current_sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+        "current_matches_historical": false,
+        "author": "/root/rig_identity"
+      },
+      {
+        "role": 2607,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+        "registry_sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+        "material_ranges": [
+          [
+            1,
+            129
+          ]
+        ],
+        "actual_eof": 206,
+        "historical_6533_matches_object": true,
+        "current_sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+        "current_matches_historical": true,
+        "author": "/root/hair_ops"
+      },
+      {
+        "role": 2608,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+        "registry_sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+        "material_ranges": [
+          [
+            1,
+            100
+          ],
+          [
+            102,
+            131
+          ],
+          [
+            147,
+            150
+          ]
+        ],
+        "actual_eof": 150,
+        "historical_6533_matches_object": true,
+        "current_sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+        "current_matches_historical": true,
+        "author": "/root/hair_ops"
+      },
+      {
+        "role": 2609,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+        "registry_sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+        "material_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "actual_eof": 56,
+        "historical_6533_matches_object": true,
+        "current_sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+        "current_matches_historical": true,
+        "author": "/root/mhr_character"
+      },
+      {
+        "role": 2610,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+        "registry_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+        "material_ranges": [
+          [
+            1,
+            221
+          ],
+          [
+            249,
+            275
+          ],
+          [
+            295,
+            380
+          ],
+          [
+            385,
+            385
+          ],
+          [
+            392,
+            414
+          ]
+        ],
+        "actual_eof": 414,
+        "historical_6533_matches_object": true,
+        "current_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+        "current_matches_historical": true,
+        "author": "/root/mhr_character"
+      }
+    ],
+    "original_059_transport_content_matches": 161,
+    "original_059_redacted_unique_records": 1,
+    "full_output": "verification.json"
+  },
+  "changed_member_identities": [
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive": "delegated/screen-armor-2605-2606-evidence.tar.gz",
+      "member": "history/baseline-059-ledger.json.gz",
+      "original_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "published_sha256": "03751a8690442692cce3d799f5ad08555bca22900decb69a665312e9518d7cc9",
+      "original_uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "published_uncompressed_sha256": "c6e57e53273462a55a7a1b81e9d22547936c2d0d9e70da9aab81a7ef0be05a6d",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive": "delegated/screen-armor-2605-2606-evidence.tar.gz",
+      "member": "history/baseline-059-queue.json.gz",
+      "original_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "published_sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+      "original_uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "published_uncompressed_sha256": "c55b133fbb7a400863ef9923cb0eef4c4648ee2a22b3b8495e7f21ffb5b54cf9",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "armor-design-fluting-2607-2608",
+      "archive": "delegated/armor-design-fluting-2607-2608-evidence.tar.gz",
+      "member": "recovered/original-059-ledger.json.gz",
+      "original_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "published_sha256": "03751a8690442692cce3d799f5ad08555bca22900decb69a665312e9518d7cc9",
+      "original_uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "published_uncompressed_sha256": "c6e57e53273462a55a7a1b81e9d22547936c2d0d9e70da9aab81a7ef0be05a6d",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "armor-design-fluting-2607-2608",
+      "archive": "delegated/armor-design-fluting-2607-2608-evidence.tar.gz",
+      "member": "recovered/original-059-queue.json.gz",
+      "original_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "published_sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+      "original_uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "published_uncompressed_sha256": "c55b133fbb7a400863ef9923cb0eef4c4648ee2a22b3b8495e7f21ffb5b54cf9",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive": "delegated/anime-helmets-2609-2610-evidence.tar.gz",
+      "member": "history-774/continuation/rig/admission03/contract-groups.jsonl.gz",
+      "original_sha256": "74e999ab23b22542e620955a6921fa63d49deaab7ec7e03a1a1dc13eeb03b9a1",
+      "published_sha256": "634ae638cff8d8d4418f286ba26772dc54519df707f91209ca81b366c15e6e41",
+      "original_uncompressed_sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "published_uncompressed_sha256": "29c69051fc0971a1a4fdd62b536d3d1bea018ea4f033a063614429c68e7c8c51",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive": "delegated/anime-helmets-2609-2610-evidence.tar.gz",
+      "member": "reference/ledger.json.gz",
+      "original_sha256": "841089f9223fa1278d0c310a7e71a02fe2273ef7dea1821defdd1dc0054f7806",
+      "published_sha256": "03751a8690442692cce3d799f5ad08555bca22900decb69a665312e9518d7cc9",
+      "original_uncompressed_sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "published_uncompressed_sha256": "c6e57e53273462a55a7a1b81e9d22547936c2d0d9e70da9aab81a7ef0be05a6d",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive": "delegated/anime-helmets-2609-2610-evidence.tar.gz",
+      "member": "reference/queue.json.gz",
+      "original_sha256": "2ca7323e0bdbd33bc8b813452486091b040e175917ef077c057c1f267f879348",
+      "published_sha256": "31929ace728298abc2524ae42beafd9fff6cebac00150be4e707a58aedd46a23",
+      "original_uncompressed_sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "published_uncompressed_sha256": "c55b133fbb7a400863ef9923cb0eef4c4648ee2a22b3b8495e7f21ffb5b54cf9",
+      "classification": "local-path reconstructed public copy; original separately retained"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive": "delegated/anime-helmets-2609-2610-evidence.tar.gz",
+      "member": "skills/bespoke-audit.md",
+      "original_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "published_sha256": "8255b26bd281caf6ca109aeb13e4877d92f276898e5dcb72b3e8976d61fa66b3",
+      "original_uncompressed_sha256": "af8b6781939422e2381f35f44b15ce6d3d7accb608af79482aaa692e93039182",
+      "published_uncompressed_sha256": "8255b26bd281caf6ca109aeb13e4877d92f276898e5dcb72b3e8976d61fa66b3",
+      "classification": "false-positive prose redaction"
+    }
+  ],
+  "retained_qualifications": [
+    "Historical roles2605–2610 are pr-working, recorded base 6533 with unrelated working modifications; file equality is not whole-snapshot cleanliness. Role2606 current full file differs from old; old lines90–171 match current158–239, while its original material is 86–171.",
+    "Original 774 rig role2610 registration included incidental line391, which QUALIFICATION-016 excluded; effective original material begins again at 392. Later independent full reads retain their own author and revision.",
+    "The earlier 044/046/050 rig registration pins differ from the respective later prefixes while selected qualification prefixes match; no earlier exact variant is inferred recovered and bounded search is not global absence. P16 dirty state, later recovered tracked patch, seven separately preserved untracked files and unproved original invocation/custody remain distinct.",
+    "059 role2605 Lens11 reused Adler’s prior read; 059 Lens12 ordered reuse/adoption and separate /root/lens12_frontier reads do not become fresh root reads. The 2607–2608 fresh packet covers only its receipt windows and cannot gain full role credit from archived bytes.",
+    "Exact recovered 059/774 records, redacted reconstructions, historical summaries and current assessments retain their own revisions, reader attributions and scopes. None is promoted into missing checkpoint3821."
+  ],
+  "limitations": [
+    "Review is tied to the observed hashes and does not assess any later corrected stage.",
+    "The retained snapshot references earlier publication dependencies through symlinks; reproducing all checks requires the separately supplied earlier publication and original 059 extraction. The verifier reports their absence or identity change rather than recreating them.",
+    "Byte and registration checks authenticate recorded content and internal consistency, not that source windows were personally viewed, provenance before capture was uninterrupted, remote publication is complete, or any product behavior occurred.",
+    "The privacy scan uses finite patterns and cannot prove absence of every kind of sensitive data. No product code, builds, tests, runtime probes, repairs, staged verifier with writes, or publication mutation occurred."
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "726-additional-path-reconstruction-proposal-v1",
+  "commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "created_utc": "2026-11-12T09:01:47.234616+00:00",
+  "records": [
+    {
+      "kind": "writer-output",
+      "original_path": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+      "original_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "original_git_blob": "b88fad9844339ee8a3957ff6b085ef1c4e466331",
+      "candidate": "candidates/writer-output-redacted.txt",
+      "candidate_sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192",
+      "candidate_git_blob": "885d8a230e13aff56996b98ff6e0228af1805a1e",
+      "redaction_occurrences": 3,
+      "qualification": "Three local paths in actual historical failure prose replaced; message prefixes and line breaks retained."
+    },
+    {
+      "kind": "historical-temp-locators",
+      "original_path": "recovered/transcript-other-candidates/portability-review.redacted.json",
+      "original_sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+      "original_git_blob": "9358b68220c5bb96370d06df176426d22b7aa321",
+      "candidate": "candidates/portability-review-redacted.json",
+      "candidate_sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5",
+      "candidate_git_blob": "7c0c82cd840b768b36da6f405f014155ec6c7885",
+      "redaction_occurrences": 2,
+      "pointer": "/external_locator_constraints/4/locator",
+      "qualification": "Only two path tokens inside a single locator are replaced; connector text and all other bytes retained."
+    },
+    {
+      "kind": "historical-registration",
+      "original_path": "recovered/city-streaming-059/66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.gz",
+      "original_stored_sha256": "7dc8d1b8d59a3f1641cbd7efbb7d56788eb776b5f4d5d3935865e82e7397c358",
+      "original_decoded_sha256": "66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63",
+      "original_git_blob": "99a458b3ee9a30cf2b493479b55ae6528895ce74",
+      "existing_redacted_path": "recovered/cloud-059/66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.gz",
+      "candidate": "candidates/city-66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.redacted.json.gz",
+      "candidate_stored_sha256": "82b9471f873416d514f7c9b5aed52f1afe5901a9a53ab2f0425c5f0b7afae112",
+      "candidate_decoded_sha256": "db3da4b2f0b6dc3d16aa448c5089b9b60ae62fd8400cb1eb72b956b6951c89c8",
+      "candidate_git_blob": "f3fff9f90d84ed8b4c7461e94cc5d4790ba8c93f",
+      "redaction_occurrences": 1,
+      "pointer": "/provenance/cache_path",
+      "qualification": "Existing cloud-059 reconstruction differs in one JSON value; preserve stored and uncompressed identities and original historical reviewer attribution."
+    },
+    {
+      "kind": "historical-registration",
+      "original_path": "recovered/city-streaming-059/537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.gz",
+      "original_stored_sha256": "007f948a973ac75bb1bb5d53fe9cd9105206b0e57b8e4ec58cf6be5f1ab29392",
+      "original_decoded_sha256": "537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a",
+      "original_git_blob": "a2b20159848f6f0bd262eec3844c682d085006ab",
+      "existing_redacted_path": "recovered/cloud-059/537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.gz",
+      "candidate": "candidates/city-537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.redacted.json.gz",
+      "candidate_stored_sha256": "d4dfb06c8be60de5f776b06afa637a29aa4ff94a8ba441353aad96de38478b5c",
+      "candidate_decoded_sha256": "96f7f274a6b9d50a196a528eb1be9cad5d5d3ddfdc2aa870a898ddeb4401b415",
+      "candidate_git_blob": "c69aafc738fc59db0aa40f8d37311635a5fa2d3a",
+      "redaction_occurrences": 1,
+      "pointer": "/provenance/cache_path",
+      "qualification": "Existing cloud-059 reconstruction differs in one JSON value; preserve stored and uncompressed identities and original historical reviewer attribution."
+    },
+    {
+      "kind": "native-archive-reconstruction",
+      "original_path": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+      "original_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+      "original_git_blob": "12ad69ed448946e412f03dbf3960a45734bd96ca",
+      "candidate": "candidates/serde-saphyr-redacted.tar.gz",
+      "candidate_sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a",
+      "candidate_git_blob": "f1b00828c12d1e6e66296404bd32cfd591b1d4e0",
+      "existing_container": "delegated/native-p16-2577-2580-reconcile-evidence.tar.gz",
+      "existing_member": "native/serde-saphyr-1.2.0.crate",
+      "member_count": 585,
+      "changed_member": "serde-saphyr-1.2.0/Cargo.toml.orig",
+      "original_member_sha256": "0f8b5e791e3c399b98814bbd124477a7ef9c84df5a2dfd4402bf494dda444dc3",
+      "candidate_member_sha256": "d54f4c6eb0f69f44bb9fc99b01de0a238333b4db582a2d8992c91557160c3154",
+      "metadata_changes": 0,
+      "redaction_occurrences": 1,
+      "qualification": "Reconstructed evidence archive, not original crates.io checksum or exact package bytes; official original remains separately identified."
+    }
+  ],
+  "qualification": "Review candidates only, no publication. All substitutions and existing reconstructed copies preserve historic identity separately. Path-token review is bounded; no general secret, account-root or archive safety guarantee."
+}

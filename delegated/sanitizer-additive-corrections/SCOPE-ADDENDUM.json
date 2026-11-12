@@ -1,0 +1,17 @@
+{
+  "schema": "726-systemic-scope-addendum-v1",
+  "author": "/root/hair_ops",
+  "prior_occurrences_sha256": "aeb3cc954a6727d270a0196d84036c37bcab8bcc0188bcf1eb351f262d4077f0",
+  "prior_proposal_sha256": "a8552be3b611c1499f3e5c9750590b7909a64b6b252f9b692b903d07587b92c9",
+  "scope_qualification": "The prior systematic comparison covered changed indexed member streams. In checkpoint 7, the indexed member prior-web-map-route-packet.tar.gz was encoded as an opaque gzip leaf rather than a nested tar archive. Its unindexed descendants were not compared by the prior leaf scan; 147850 unchanged indexed leaves were also outside that comparison.",
+  "checkpoint": 7,
+  "archive": "delegated/strategic-map-evidence.tar.gz",
+  "member_chain": ["prior-web-map-route-packet.tar.gz"],
+  "original_member_sha256": "e4e4b906817641c33fe3d436ff1db32bf27879fc2dcd4bdc1a69f0487e9cf21c",
+  "old_public_member_sha256": "a8643aa972dd8e2bdfe301f279939155c8745eba49063be818d1db4f1773cefa",
+  "original_tar_entries_iterated": 186,
+  "old_public_tar_entries_iterated": 5,
+  "old_public_reader_termination": "The independently used tar reader returned normally after five entries; it did not raise an exception. The difference demonstrates that the old public traversal does not recover the original 186 entries.",
+  "disposition": "Withheld here from ordinary gzip-leaf reconstruction; separate tar-aware reconstruction is needed. No claim is made about the unexamined descendants.",
+  "prior_detection_attribution": "/root/mhr_character independently identified the opaque tar issue before this verification; the counts above were independently checked by /root/hair_ops."
+}

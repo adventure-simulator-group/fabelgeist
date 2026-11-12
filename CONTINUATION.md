@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0702.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0923.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -237,11 +237,76 @@ proofs remain separate. Public path-redacted copies are reconstructions;
 exact changed top-level originals remain local only.
 `ASSESSMENT-CENTRAL-FACING-13H-95E.json` reconnects four distinct
 historical facing-reason and context questions through one conditional
-policy relationship. The current ledger has 1,022 entries and relationships,
+policy relationship. At that checkpoint the ledger had 1,022 entries and relationships,
 not a count of unique defects. The historical source and snapshot labels
 remain as recorded, including their contradiction.
 `RECOVERY-VERIFICATION-C15289D7.json` records the latest same-machine
 fetch, checkout, and evidence-only check, with its transcript limitations.
+`ASSESSMENT-CENTRAL-ANIME-13I-95E.json` connects a pending historical
+gauge-order candidate and a distinct conditional warmup relationship.
+Actual inputs, earlier device stages and runtime consequences remain open.
+The working ledger has 1,024 entries and relationships, not a count of
+unique defects.
+`DELEGATED-EVIDENCE-CHECKPOINT-35.json` preserves three attributed
+packets pending central reconciliation. The placement packet discusses
+roles 2577–2578 through prior evidence but does not include their source
+bodies, so only its 2579–2580 source identities are counted here. Three
+prior manifests omitted from a later frozen member list are separately
+bound to published originals. Recorded 774 prefix-pin mismatches and
+later-row chronology remain distinct. Public path-redacted copies are
+reconstructions; changed top-level originals remain local only.
+`RECOVERY-VERIFICATION-56F24F64.json` records the latest same-machine
+fetch, checkout, and evidence-only check, with its transcript limitations.
+`INDEPENDENT-REVIEW-13I-RIG-IDENTITY.json` preserves an independent
+review of the earlier Anime draft. The coordinator incorporated its
+attribution, validation-order, candidate-ID, and repair-policy refinements;
+the corrected wording was not itself peer reviewed. Public redactions
+are reconstructed and changed originals remain local only.
+`INDEPENDENT-REVIEW-35-MHR-CHARACTER.json` preserves the independent
+packet and privacy review, including the stale staging-progress snapshot
+and the coordinator’s explicit overlay/merge qualification.
+`ASSESSMENT-CENTRAL-BUFFE-13J-95E.json` independently corroborates
+an existing conditional breath/course chart relationship and retains the
+pre-triangulation rejection safeguard. Its symbolic dimensions do not
+establish an actual configuration or geometry execution.
+`INDEPENDENT-REVIEW-13J-HAIR-OPS.json` preserves the earlier buffe
+draft review, its corrected no-courses safeguard, and separately
+registered follow-up trace gaps. Public redactions are reconstructed;
+exact changed originals remain local only.
+`DELEGATED-EVIDENCE-CHECKPOINT-36.json` through `-38.json` preserve
+nine further attributed source packets pending central reconciliation.
+Their reconstructions and separately retained originals remain distinguished.
+`delegated/cp7-tar-reconstruction/INDEX.json` records an additive tar-aware
+recovery of an earlier nested archive whose prior public stream was damaged.
+`TRANSPORT-MATCH-059-1-38.json` corrects earlier stored-byte-only
+transport counts to include separately identified decompressed matches.
+`delegated/sanitizer-additive-corrections/REPORT.json` recovers identified
+non-path text from reconstructed evidence while retaining actual path
+redactions. Earlier archive bytes and qualifications remain available.
+`ASSESSMENT-CENTRAL-GARMENT-TUBE-13K-95E.json` reconnects an earlier
+conditional tube-entry policy question and records selected caller guards;
+no supported direct caller or product behavior has been established.
+`delegated/independent-evidence-reviews/REPORT.json` preserves five
+independent integrity reviews, separately identifying redacted copies,
+reviewed versions and externally retained private dependencies.
+`delegated/independent-review-13k-rig/` preserves the earlier draft
+review and corrected alias, read-scope and registration-name qualifications.
+`QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine
+current-tree path-redacted reconstructions from the prior public bytes.
+Prior Git history and copies can still contain paths. Exact earlier blobs are
+retained locally; the checksum-bound public upstream crate remains unchanged.
+`delegated/privacy-56f-scan/REPORT.json` preserves the bounded scan, draft
+candidates and corrections; its candidates are distinct from the selected
+current-tree representations. The public verifier cannot prove the retained
+private originals or clear unscanned encodings and earlier history.
+`PRIVACY-56F-LOCAL-CAPTURE-VERIFICATION.json` records a separate same-machine
+check of the local capture and original Git objects.
+Use `check_published_evidence_privacy.py` for this representation: it selects
+qualified successor evidence checks and keeps the older original-byte checks.
+`delegated/qualified-059-early-links/INVENTORY.json` supplements the earlier
+15-script inventory: five older checks have 22 further links to the historical
+059 queue and ledger. Their separately named successors use the qualified
+crosswalk; the unchanged original checks still expect earlier bytes.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
 `QUALIFICATION-CHECKPOINT10-REGISTRATION-REDACTIONS.json` distinguishes
@@ -1440,10 +1505,12 @@ bounded current source observations from historical proposals and name the
 remaining work. An observation or matching source hash does not by itself
 close a source scope, lens, finding, alias or repair.
 
-`baseline-059/` contains the recovered checkpoint 059 ledger, queue, selector
-and selected-state bytes at their original checkpoint. The reconstructed
-snapshot 440 and the comparison in `SELECTED-STATE-COMPARISON.json` remain
-separate from the final selector, whose bytes are missing. The recovery
+`baseline-059/` contains historical checkpoint 059 evidence. Its public
+ledger and queue are path-redacted reconstructions of the earlier published
+059 representations, whose identities are recorded separately; they are not
+original checkpoint 3821 records. The reconstructed snapshot 440 and the
+comparison in `SELECTED-STATE-COMPARISON.json` remain separate from the final
+selector, whose bytes are missing. The recovery
 package's `README.md`, `AUDIT-RESUME.md`, manifests and individual evidence
 qualifications continue to control their respective historical records.
 `LOCAL-BASE-REUSE.json` records the read-only manifest verification and bounded
@@ -1452,12 +1519,14 @@ search of older collections; an unsuccessful search is not proof of absence.
 For the recoverable evidence on this branch, verify from its root:
 
 ```sh
-python3 check_published_evidence.py
+python3 check_published_evidence_privacy.py
 ```
 
-The driver runs all published `verify_*.py` evidence checks and native archive
-checks. It excludes `verify_local_checkpoint_059.py`, which requires a separate
-read-only evidence-root argument as described below.
+The current driver uses qualified successors for reconstructed public bytes
+and runs the other published evidence and native archive checks. Original
+byte-exact verifiers are retained as historical records, not claimed to pass on
+redacted copies. `verify_local_checkpoint_059.py` requires a separate read-only
+evidence-root argument as described below.
 
 These commands verify evidence bytes, not product behavior. The original
 36,487-file transport is available at its separately pinned historical

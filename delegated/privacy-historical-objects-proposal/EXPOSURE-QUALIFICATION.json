@@ -1,0 +1,35 @@
+{
+  "schema": "726-exposure-qualification-v1",
+  "additional_observed_objects": [
+    {
+      "path": "baseline-059/ledger.json",
+      "sha256": "3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac",
+      "bytes": 9417609,
+      "exact_home_prefix_occurrences": 14,
+      "git_blob_sha1_of_working_bytes": "ed43c113de9543d04e4d706655d66760574cebe6",
+      "status": "Observed additional exposure, outside this proposal; not captured or redacted here."
+    },
+    {
+      "path": "baseline-059/queue.json",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "bytes": 21632843,
+      "exact_home_prefix_occurrences": 12,
+      "git_blob_sha1_of_working_bytes": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "status": "Observed additional exposure, outside this proposal; not captured or redacted here."
+    }
+  ],
+  "qualification": "These counts are observations for two directly discovered files, not a complete privacy scan of publication history, all public archives, clones or remotes. Existing Git history and copies remain unchanged and may retain the original sensitive bytes. This proposal does not remove, revoke or rewrite anything.",
+  "exact_literal_search": {
+    "scope": "Recursive text search in the observed publication working checkout for the exact current user-home prefix, excluding .git and compressed gzip, tar.gz and crate files. Not a search for encoded forms, all private information, prior commits or remote copies.",
+    "matched_uncompressed_files": 5,
+    "matching_target_originals": [
+      "recovered/l12-final-registration-evidence/prior-direct-dependencies/0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+      "recovered/l2-canonical-comparison-evidence/74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+      "recovered/prior-current-transition-evidence/7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5"
+    ],
+    "other_matching_files": [
+      "baseline-059/ledger.json",
+      "baseline-059/queue.json"
+    ]
+  }
+}

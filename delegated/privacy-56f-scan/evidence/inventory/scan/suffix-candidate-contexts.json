@@ -1,0 +1,1502 @@
+{
+  "commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "examined_count": 65,
+  "exceptions": [],
+  "rows": [
+    {
+      "type": "other-home",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/clap_builder-4.6.6/clap_builder-4.6.6.crate",
+          "git_blob": "af04476527b81573a21e03d7424deaa6f464b542",
+          "sha256": "7b48fea5a88e9ae728a2dcbedbfc0e730f7d60da42e1cb049a83c9fb8b789889",
+          "bytes": 171756
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "7b48fea5a88e9ae728a2dcbedbfc0e730f7d60da42e1cb049a83c9fb8b789889",
+          "decoded_sha256": "d4adc2b25d2b8dbc6248776e5ff81a56782a571b0f9c04f0cc4cf594435f211d",
+          "decoded_bytes": 1031680
+        },
+        {
+          "kind": "tar-member",
+          "index": 9,
+          "name": "clap_builder-4.6.6/src/builder/arg.rs",
+          "type": "file",
+          "stored_sha256": "b3b3cdb47feee4388ad24a6ed5edb86a743e8a27d615c5ef1ee284433c18d160",
+          "bytes": 172861
+        }
+      ],
+      "content_sha256": "b3b3cdb47feee4388ad24a6ed5edb86a743e8a27d615c5ef1ee284433c18d160",
+      "line": 1733,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    ///         \"prog\", \"find\", \"-type\", \"f\", \"-name\", \"special\", \";\", \"<LOCAL-PATH-REDACTED>\"",
+      "redacted_context_sha256": "27084cf07d18f47fb01194abf76c9671afd18e31732db928a69c790f0d62a4cf"
+    },
+    {
+      "type": "other-home",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/clap_builder-4.6.6/clap_builder-4.6.6.crate",
+          "git_blob": "af04476527b81573a21e03d7424deaa6f464b542",
+          "sha256": "7b48fea5a88e9ae728a2dcbedbfc0e730f7d60da42e1cb049a83c9fb8b789889",
+          "bytes": 171756
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "7b48fea5a88e9ae728a2dcbedbfc0e730f7d60da42e1cb049a83c9fb8b789889",
+          "decoded_sha256": "d4adc2b25d2b8dbc6248776e5ff81a56782a571b0f9c04f0cc4cf594435f211d",
+          "decoded_bytes": 1031680
+        },
+        {
+          "kind": "tar-member",
+          "index": 9,
+          "name": "clap_builder-4.6.6/src/builder/arg.rs",
+          "type": "file",
+          "stored_sha256": "b3b3cdb47feee4388ad24a6ed5edb86a743e8a27d615c5ef1ee284433c18d160",
+          "bytes": 172861
+        }
+      ],
+      "content_sha256": "b3b3cdb47feee4388ad24a6ed5edb86a743e8a27d615c5ef1ee284433c18d160",
+      "line": 1737,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// assert_eq!(m.get_one::<String>(\"location\").unwrap(), \"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "9f23a7840e0085a70ddd762412903c4016f4113527228f96b265c3f72ea2f17b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/fs.rs.gz",
+          "git_blob": "fe7784f55119da71a4b3da0c04a9e9b0d89b2d1d",
+          "sha256": "baa96fb3dbfd5e6970f70dbd7cc6a11c338b445d96238d178ccc563d56d0fddc",
+          "bytes": 24459
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "baa96fb3dbfd5e6970f70dbd7cc6a11c338b445d96238d178ccc563d56d0fddc",
+          "decoded_sha256": "7d8e4c97fcd69e3dd74acf9d2cf58c634623f9103b3c2e370be08f74793224da",
+          "decoded_bytes": 122725
+        }
+      ],
+      "content_sha256": "7d8e4c97fcd69e3dd74acf9d2cf58c634623f9103b3c2e370be08f74793224da",
+      "line": 3409,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let path = \"<LOCAL-PATH-REDACTED>\";",
+      "redacted_context_sha256": "8aa4f0a96344ade19eb3dee51ca6646676a49f63765d80f4f00a4e15b96b44f6"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 48,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "//! let path = Path::new(\"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "df58063e6b48a6a3d8a86369f4dda3cf47145a50fd16c428b0364762d22d238f"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 51,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "//! assert_eq!(parent, Some(Path::new(\"<LOCAL-PATH-REDACTED>\")));",
+      "redacted_context_sha256": "0de99a8f1553619944c17bdaf0fb8eecaad75265ed9f96f4d1f068ee37f780f6"
+    },
+    {
+      "type": "windows-user",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 146,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "/// assert_eq!(Disk(b'C'), get_path_prefix(r\"<LOCAL-PATH-REDACTED>\"));",
+      "redacted_context_sha256": "537108f8661b5912d5dc4998fc95c92bd04282b65fabe4410b1051f7beb2da90"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 516,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "/// let path = Path::new(\"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "5fcdd8d33787c3f39cff9ab617a11cbb83cf6f890541a92f2285de1c986983c0"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 567,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let path = Path::new(\".<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "dcd7231863c017bcfa8f5d583d1c9de7c1f9fd4ef2404225668ffc20ada5cf11"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 610,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "/// let path = Path::new(\"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "5fcdd8d33787c3f39cff9ab617a11cbb83cf6f890541a92f2285de1c986983c0"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 720,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let mut components = Path::new(\"<LOCAL-PATH-REDACTED>\").components();",
+      "redacted_context_sha256": "f2c4bf35eea6ff79f02c8920959454379a179d2d4bbe1986531aca803078ec87"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 868,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let mut iter = Path::new(\"<LOCAL-PATH-REDACTED>\").iter();",
+      "redacted_context_sha256": "31f627325201b3923b843336d9a7932f608ccffb68d003129679035bf8f37803"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 1323,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// assert_eq!(path, PathBuf::from(\"<LOCAL-PATH-REDACTED>\"));",
+      "redacted_context_sha256": "3d1408fcacc6d02169ff8a8da26d1eee5832b99dfcd560df611d4d43ef62356f"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 2047,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// assert_eq!(path, PathBuf::from(\"<LOCAL-PATH-REDACTED>\"));",
+      "redacted_context_sha256": "3d1408fcacc6d02169ff8a8da26d1eee5832b99dfcd560df611d4d43ef62356f"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 2070,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// assert_eq!(path, PathBuf::from(\"<LOCAL-PATH-REDACTED>\"));",
+      "redacted_context_sha256": "3d1408fcacc6d02169ff8a8da26d1eee5832b99dfcd560df611d4d43ef62356f"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3096,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let path = Path::new(\"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "733bff4ad2ac2299e069f8dd0f7c2ebd127794353c5c56a5323206d6efb2310d"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3097,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// assert_eq!(path.with_file_name(\"bar\"), PathBuf::from(\"<LOCAL-PATH-REDACTED>\"));",
+      "redacted_context_sha256": "6b9d8473fd443f0e177ffa70a7d55ae0928b18cd971872bb3e9292cb73827850"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3098,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// assert_eq!(path.with_file_name(\"bar.txt\"), PathBuf::from(\"<LOCAL-PATH-REDACTED>\"));",
+      "redacted_context_sha256": "7b9d1f81bc0faa756aaa8790671547a8a75a20e90903c1fe0fdb6ca88e4af2be"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3234,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let mut components = Path::new(\"<LOCAL-PATH-REDACTED>\").components();",
+      "redacted_context_sha256": "f2c4bf35eea6ff79f02c8920959454379a179d2d4bbe1986531aca803078ec87"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3271,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let mut it = Path::new(\"<LOCAL-PATH-REDACTED>\").iter();",
+      "redacted_context_sha256": "03f03f9182a1c55d62c66da6e79f4e45369843be798640f9a86f0656ff0dd519"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3296,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let path = Path::new(\"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "733bff4ad2ac2299e069f8dd0f7c2ebd127794353c5c56a5323206d6efb2310d"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-2026-07-13/library/std/src/path.rs.gz",
+          "git_blob": "d8377d68672f5014c049124e21d14be1d9b44d5b",
+          "sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "bytes": 27985
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "608be6024c7e862751dc16d4471b1c6421a32d360a782e2e11a03f19e9ee2de9",
+          "decoded_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+          "decoded_bytes": 139056
+        }
+      ],
+      "content_sha256": "ca86470ed4960d6afc3b1126a6519a1db327deaaadabc6fc7976be1a38ba2c4d",
+      "line": 3727,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "/// let path = Path::new(\"<LOCAL-PATH-REDACTED>\");",
+      "redacted_context_sha256": "5fcdd8d33787c3f39cff9ab617a11cbb83cf6f890541a92f2285de1c986983c0"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/rust-nightly-20260713/fs.rs.gz",
+          "git_blob": "fe7784f55119da71a4b3da0c04a9e9b0d89b2d1d",
+          "sha256": "baa96fb3dbfd5e6970f70dbd7cc6a11c338b445d96238d178ccc563d56d0fddc",
+          "bytes": 24459
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "baa96fb3dbfd5e6970f70dbd7cc6a11c338b445d96238d178ccc563d56d0fddc",
+          "decoded_sha256": "7d8e4c97fcd69e3dd74acf9d2cf58c634623f9103b3c2e370be08f74793224da",
+          "decoded_bytes": 122725
+        }
+      ],
+      "content_sha256": "7d8e4c97fcd69e3dd74acf9d2cf58c634623f9103b3c2e370be08f74793224da",
+      "line": 3409,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let path = \"<LOCAL-PATH-REDACTED>\";",
+      "redacted_context_sha256": "8aa4f0a96344ade19eb3dee51ca6646676a49f63765d80f4f00a4e15b96b44f6"
+    },
+    {
+      "type": "other-home",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+          "git_blob": "12ad69ed448946e412f03dbf3960a45734bd96ca",
+          "sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+          "bytes": 620253
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+          "decoded_sha256": "067f279f47bdd3301b296553615e1100fd61f0cbe8a8a8f2f16b76485131d6f0",
+          "decoded_bytes": 3393024
+        },
+        {
+          "kind": "tar-member",
+          "index": 7,
+          "name": "serde-saphyr-1.2.0/Cargo.toml.orig",
+          "type": "file",
+          "stored_sha256": "0f8b5e791e3c399b98814bbd124477a7ef9c84df5a2dfd4402bf494dda444dc3",
+          "bytes": 6987
+        }
+      ],
+      "content_sha256": "0f8b5e791e3c399b98814bbd124477a7ef9c84df5a2dfd4402bf494dda444dc3",
+      "line": 17,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "#granit-parser = { path = \"<LOCAL-PATH-REDACTED>\", optional = true }",
+      "redacted_context_sha256": "d349c31775d3ba9c40a7046a8f4aac530495aaac381b24672906c97a3212c8dc"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/serde-saphyr-1.2.0/serde-saphyr-1.2.0.crate",
+          "git_blob": "12ad69ed448946e412f03dbf3960a45734bd96ca",
+          "sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+          "bytes": 620253
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823",
+          "decoded_sha256": "067f279f47bdd3301b296553615e1100fd61f0cbe8a8a8f2f16b76485131d6f0",
+          "decoded_bytes": 3393024
+        },
+        {
+          "kind": "tar-member",
+          "index": 33,
+          "name": "serde-saphyr-1.2.0/examples/spaced_yaml.rs",
+          "type": "file",
+          "stored_sha256": "6c91dc768a7e3d16dc5e5c9a8b483a79b84e8dd28099d1f4f7305ee9b377022f",
+          "bytes": 3157
+        }
+      ],
+      "content_sha256": "6c91dc768a7e3d16dc5e5c9a8b483a79b84e8dd28099d1f4f7305ee9b377022f",
+      "line": 110,
+      "context_flags": {
+        "regex_context": false,
+        "prose_context": false
+      },
+      "redacted_context": "  file: <LOCAL-PATH-REDACTED>",
+      "redacted_context_sha256": "080079a2efefaf3464bd58553b56b72e18093981160389563f2108057bb59bea"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "native-evidence/url-2.5.8/member-04.gz",
+          "git_blob": "4e14fc25a0fcb434074e6d631dd80a8524731244",
+          "sha256": "01c8d1bbecbbc1841c12da4220a53f56d7b8b33777680b5188e564d7667a58d3",
+          "bytes": 20913
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "01c8d1bbecbbc1841c12da4220a53f56d7b8b33777680b5188e564d7667a58d3",
+          "decoded_sha256": "51f47a93654528f3b8cb92c94fc26ad25775860d84197fff0c3124a687f8c5e3",
+          "decoded_bytes": 107800
+        }
+      ],
+      "content_sha256": "51f47a93654528f3b8cb92c94fc26ad25775860d84197fff0c3124a687f8c5e3",
+      "line": 2527,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    /// let url = Url::from_file_path(\"<LOCAL-PATH-REDACTED>\")?;",
+      "redacted_context_sha256": "364b256887fbd5c4f52d6d2a8624fc944a25d2fb10cfb7ea603e1a9080b0351b"
+    },
+    {
+      "type": "windows-user",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/city-streaming-059/537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.gz",
+          "git_blob": "a2b20159848f6f0bd262eec3844c682d085006ab",
+          "sha256": "007f948a973ac75bb1bb5d53fe9cd9105206b0e57b8e4ec58cf6be5f1ab29392",
+          "bytes": 928
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "007f948a973ac75bb1bb5d53fe9cd9105206b0e57b8e4ec58cf6be5f1ab29392",
+          "decoded_sha256": "537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a",
+          "decoded_bytes": 1831
+        }
+      ],
+      "content_sha256": "537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a",
+      "line": 38,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    \"cache_path\": \"<LOCAL-PATH-REDACTED>\",\r",
+      "redacted_context_sha256": "a78193bee21bc9c594fbb5ccb8c2951fff502bc07f6c4a38b54f823f3b101611"
+    },
+    {
+      "type": "windows-user",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/city-streaming-059/66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.gz",
+          "git_blob": "99a458b3ee9a30cf2b493479b55ae6528895ce74",
+          "sha256": "7dc8d1b8d59a3f1641cbd7efbb7d56788eb776b5f4d5d3935865e82e7397c358",
+          "bytes": 920
+        },
+        {
+          "kind": "gzip",
+          "stored_sha256": "7dc8d1b8d59a3f1641cbd7efbb7d56788eb776b5f4d5d3935865e82e7397c358",
+          "decoded_sha256": "66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63",
+          "decoded_bytes": 1822
+        }
+      ],
+      "content_sha256": "66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63",
+      "line": 38,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "    \"cache_path\": \"<LOCAL-PATH-REDACTED>\",\r",
+      "redacted_context_sha256": "a78193bee21bc9c594fbb5ccb8c2951fff502bc07f6c4a38b54f823f3b101611"
+    },
+    {
+      "type": "windows-user",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+          "git_blob": "b88fad9844339ee8a3957ff6b085ef1c4e466331",
+          "sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+          "bytes": 590
+        }
+      ],
+      "content_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "line": 1,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "Failed to find real location of <LOCAL-PATH-REDACTED>",
+      "redacted_context_sha256": "0a8265a1f6e3ffe28ba59e4b8ded91aefad338063ad355d28d472dd000b4c802"
+    },
+    {
+      "type": "windows-user",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+          "git_blob": "b88fad9844339ee8a3957ff6b085ef1c4e466331",
+          "sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+          "bytes": 590
+        }
+      ],
+      "content_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "line": 3,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "Failed to find real location of <LOCAL-PATH-REDACTED>",
+      "redacted_context_sha256": "0a8265a1f6e3ffe28ba59e4b8ded91aefad338063ad355d28d472dd000b4c802"
+    },
+    {
+      "type": "windows-user",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/final-writer-static-trace/OUTPUT-419499.txt",
+          "git_blob": "b88fad9844339ee8a3957ff6b085ef1c4e466331",
+          "sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+          "bytes": 590
+        }
+      ],
+      "content_sha256": "57acc4af7fb1ed29ab96640a6f584028be9898dc9ff790add5ae5f2cca6af0ad",
+      "line": 5,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "Failed to find real location of <LOCAL-PATH-REDACTED>",
+      "redacted_context_sha256": "0a8265a1f6e3ffe28ba59e4b8ded91aefad338063ad355d28d472dd000b4c802"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/transcript-other-candidates/portability-review.redacted.json",
+          "git_blob": "9358b68220c5bb96370d06df176426d22b7aa321",
+          "sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+          "bytes": 8746
+        }
+      ],
+      "content_sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+      "line": 53,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "      \"locator\": \"<LOCAL-PATH-REDACTED> and <LOCAL-PATH-REDACTED>\",",
+      "redacted_context_sha256": "7110178f74db0f33c83d79a73e9b7a592a8a04b52b1634d746b8f60f25cc8f20"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "recovered/transcript-other-candidates/portability-review.redacted.json",
+          "git_blob": "9358b68220c5bb96370d06df176426d22b7aa321",
+          "sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+          "bytes": 8746
+        }
+      ],
+      "content_sha256": "21c676a13fb8e24af1bbbcdf4f19ffd911fc33e19d65b4f939b6c5da6bcf3e84",
+      "line": 53,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "      \"locator\": \"<LOCAL-PATH-REDACTED> and <LOCAL-PATH-REDACTED>\",",
+      "redacted_context_sha256": "7110178f74db0f33c83d79a73e9b7a592a8a04b52b1634d746b8f60f25cc8f20"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_10.py",
+          "git_blob": "594d16fe7642675dda34d22374790b55534ba90d",
+          "sha256": "1f850d17aeeec8f6c74830cf221b4b307ed82ed7c924b0e54a8880fc7604e44c",
+          "bytes": 6937
+        }
+      ],
+      "content_sha256": "1f850d17aeeec8f6c74830cf221b4b307ed82ed7c924b0e54a8880fc7604e44c",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_11.py",
+          "git_blob": "3d075fad713cfa3c725d027320cb37b4420bb82d",
+          "sha256": "e5f4b174a386acbe183465276fea33af1ac64460f4a924f25e5bdd945295e1ac",
+          "bytes": 6256
+        }
+      ],
+      "content_sha256": "e5f4b174a386acbe183465276fea33af1ac64460f4a924f25e5bdd945295e1ac",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_12.py",
+          "git_blob": "505cd2f72ea08e690a48cc6d36d9ef7b4d215a36",
+          "sha256": "5d24c0ebb8ce3c724ae670d476397ac58dae52aaf316b1ccb5c22786ebaea0bc",
+          "bytes": 6255
+        }
+      ],
+      "content_sha256": "5d24c0ebb8ce3c724ae670d476397ac58dae52aaf316b1ccb5c22786ebaea0bc",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_13.py",
+          "git_blob": "282efd72b15be450691859d0b79ed52262313222",
+          "sha256": "17b026ad791a51ca04d7aee683c14e251ccc4d61975bb68983ef2938b57efe06",
+          "bytes": 6779
+        }
+      ],
+      "content_sha256": "17b026ad791a51ca04d7aee683c14e251ccc4d61975bb68983ef2938b57efe06",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_14.py",
+          "git_blob": "119956dc94c7c95ed15e9fbb950233bb0a5061d3",
+          "sha256": "29df27b0de8166a2681fbf6ed3b5d5807c59c7e491fce158fc842e08c23a44bd",
+          "bytes": 6187
+        }
+      ],
+      "content_sha256": "29df27b0de8166a2681fbf6ed3b5d5807c59c7e491fce158fc842e08c23a44bd",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_15.py",
+          "git_blob": "2e4482b552baadb9b2ef2ba7612d82528a942648",
+          "sha256": "2e8ce29fc6d5e26c7c0917aacb0be77a03ef7658eb376e5ef56a49958acbb456",
+          "bytes": 6252
+        }
+      ],
+      "content_sha256": "2e8ce29fc6d5e26c7c0917aacb0be77a03ef7658eb376e5ef56a49958acbb456",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_16.py",
+          "git_blob": "b61d6ed85fd26e485ad92021ed6825028b4ab408",
+          "sha256": "11e9320fa90ffc0c72b3dceccf4ef5554615156fcf9e23c5c8bb41d9abae33c1",
+          "bytes": 6314
+        }
+      ],
+      "content_sha256": "11e9320fa90ffc0c72b3dceccf4ef5554615156fcf9e23c5c8bb41d9abae33c1",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_17.py",
+          "git_blob": "af2d62d51dffc8fd4e55b43303f71d696a97c122",
+          "sha256": "0287391e1c01bf6ffa27e1f3843a09e2257e4ff021036bee5d7ec91304c5ae69",
+          "bytes": 6089
+        }
+      ],
+      "content_sha256": "0287391e1c01bf6ffa27e1f3843a09e2257e4ff021036bee5d7ec91304c5ae69",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_18.py",
+          "git_blob": "451a1b8cff9065c54e80251a738ee963ac43914b",
+          "sha256": "ec302a82f284a69a9f263746d65d4480464b3e90c6defd7f49235a74056f99da",
+          "bytes": 6225
+        }
+      ],
+      "content_sha256": "ec302a82f284a69a9f263746d65d4480464b3e90c6defd7f49235a74056f99da",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_19.py",
+          "git_blob": "88e55c788298c9092ba55612a37c65c466bbf2c0",
+          "sha256": "59dbe6e0d6098c485c57160360b3c1d4087a3f1208fc39e6a4bb35fd19fabcad",
+          "bytes": 6100
+        }
+      ],
+      "content_sha256": "59dbe6e0d6098c485c57160360b3c1d4087a3f1208fc39e6a4bb35fd19fabcad",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_20.py",
+          "git_blob": "4811d449d1617ebf81b88e79c1957432abf11d61",
+          "sha256": "b945597aa01a5cdcc8d2da2a1e8d11b208e846b0e9a168b1ed71aa27c3f3acbb",
+          "bytes": 6112
+        }
+      ],
+      "content_sha256": "b945597aa01a5cdcc8d2da2a1e8d11b208e846b0e9a168b1ed71aa27c3f3acbb",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_21.py",
+          "git_blob": "adf41337a02d9281a468f930c79e554e9da50ad2",
+          "sha256": "b1e9a423a4428424f53bd6043bd794f4902b0d3de9f186cfa4cd8b7bb45edcda",
+          "bytes": 6508
+        }
+      ],
+      "content_sha256": "b1e9a423a4428424f53bd6043bd794f4902b0d3de9f186cfa4cd8b7bb45edcda",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_22.py",
+          "git_blob": "ee4ef3d69be5329b8900779e645ea2219d5fb0a0",
+          "sha256": "c3d44625192bec7856b46bb6dfca7d9359af5d947b2cb2a49b084b598ade66ab",
+          "bytes": 6779
+        }
+      ],
+      "content_sha256": "c3d44625192bec7856b46bb6dfca7d9359af5d947b2cb2a49b084b598ade66ab",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_23.py",
+          "git_blob": "d4b3cb1c39f013961688f0ccc64fbea5a972dfee",
+          "sha256": "5e239b30641d387ddd682137332f242c6767887bbe2292e32d19bfcd00ddcbfb",
+          "bytes": 6289
+        }
+      ],
+      "content_sha256": "5e239b30641d387ddd682137332f242c6767887bbe2292e32d19bfcd00ddcbfb",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_24.py",
+          "git_blob": "1e3a10a36dad8079de99d0d926798cc55251ed0b",
+          "sha256": "442700741f50d6fc9024872efa577324736b364b321d427192de657f3ddd61a7",
+          "bytes": 6624
+        }
+      ],
+      "content_sha256": "442700741f50d6fc9024872efa577324736b364b321d427192de657f3ddd61a7",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_25.py",
+          "git_blob": "5c6b3f8b93a2167e07a4bb69101f53e07e2915b1",
+          "sha256": "01f375f92425081cf4156586facc71e25155d640c85ed5d9fe74dddf40de272d",
+          "bytes": 6344
+        }
+      ],
+      "content_sha256": "01f375f92425081cf4156586facc71e25155d640c85ed5d9fe74dddf40de272d",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_26.py",
+          "git_blob": "0272f3de084e9ee20d3daff5e5507ef3c85c41ae",
+          "sha256": "d776bc70311a9e3b1b72e4c0cc69649d927bb91b265ddeeac3a1383e38c89139",
+          "bytes": 6589
+        }
+      ],
+      "content_sha256": "d776bc70311a9e3b1b72e4c0cc69649d927bb91b265ddeeac3a1383e38c89139",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_27.py",
+          "git_blob": "881d83b2716b461e6b6bb068246f6a29c1cad110",
+          "sha256": "94c3e6ebd9854cad0b8e75739575708dc03cf09112479d8282c0daa7b2e2a686",
+          "bytes": 6435
+        }
+      ],
+      "content_sha256": "94c3e6ebd9854cad0b8e75739575708dc03cf09112479d8282c0daa7b2e2a686",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_28.py",
+          "git_blob": "d559db8c05304af4763aacfe237fb712eb1e2ebc",
+          "sha256": "a321abaa06037df59da8ad046ed154f1b87ee19f2abf6e192c0f0ab7a30ea0a4",
+          "bytes": 6355
+        }
+      ],
+      "content_sha256": "a321abaa06037df59da8ad046ed154f1b87ee19f2abf6e192c0f0ab7a30ea0a4",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_29.py",
+          "git_blob": "d73cb445e2a7bd4c73ef087f98e13132295e031b",
+          "sha256": "d2f11a3335952d16b3952d7aa257bcc7586fb6ec02b470ba1ff9f949ad492a6b",
+          "bytes": 6474
+        }
+      ],
+      "content_sha256": "d2f11a3335952d16b3952d7aa257bcc7586fb6ec02b470ba1ff9f949ad492a6b",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_3.py",
+          "git_blob": "f46882d0fba367b24501002e96602ac89636004d",
+          "sha256": "7c55d2708f0af04a4cb89d3dab5717ad43103d92322f8110ddc09b010ba39ab3",
+          "bytes": 11033
+        }
+      ],
+      "content_sha256": "7c55d2708f0af04a4cb89d3dab5717ad43103d92322f8110ddc09b010ba39ab3",
+      "line": 32,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local = re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+', re.I)",
+      "redacted_context_sha256": "e9740cbea56256e8341ab6f94778ff00fd670ef0feb5631d6f643be54d519bbb"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_30.py",
+          "git_blob": "2e142efa2e1f55a61ee6fe6dc8336e37e1ee8246",
+          "sha256": "8d9cda5f7f55c017713a8e72eb4bcfb8dc10e5ad772a130989f66d49169732e1",
+          "bytes": 7079
+        }
+      ],
+      "content_sha256": "8d9cda5f7f55c017713a8e72eb4bcfb8dc10e5ad772a130989f66d49169732e1",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_31.py",
+          "git_blob": "47b549a339476372e88bc85dfb683ccf57c1b6ac",
+          "sha256": "1c7696d658f77d3d64d0ad6876771d69cadd99f310d63ba3e4ef89e63415052e",
+          "bytes": 6270
+        }
+      ],
+      "content_sha256": "1c7696d658f77d3d64d0ad6876771d69cadd99f310d63ba3e4ef89e63415052e",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_32.py",
+          "git_blob": "7edb9b4242ba3fdbaf7f276b01a45cf742e84c3c",
+          "sha256": "fa6d9810718756b6b4585fa338dc175fe0cc1edb55c359b8216ced46cc7b4d83",
+          "bytes": 6398
+        }
+      ],
+      "content_sha256": "fa6d9810718756b6b4585fa338dc175fe0cc1edb55c359b8216ced46cc7b4d83",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_33.py",
+          "git_blob": "3566d9d73bba04d3d08e9297e16b28da220fabc4",
+          "sha256": "1677a4c5d3c3f4e899ebb8ff519dc82463dc850dc90874d88394ef444beef5a0",
+          "bytes": 6314
+        }
+      ],
+      "content_sha256": "1677a4c5d3c3f4e899ebb8ff519dc82463dc850dc90874d88394ef444beef5a0",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_34.py",
+          "git_blob": "4a35e4f14455240733cab26dc166038f54499144",
+          "sha256": "268511f2fa35c1b6f485cf9cf4ee56836502b7f3e3ef6cefb7cd55936ef10043",
+          "bytes": 6474
+        }
+      ],
+      "content_sha256": "268511f2fa35c1b6f485cf9cf4ee56836502b7f3e3ef6cefb7cd55936ef10043",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_4.py",
+          "git_blob": "e823d2286db2e13a8f987b42d8ca9fcfd13ff659",
+          "sha256": "956106863ecdbaabb12144e5ec6ddad6d1ec380004889b386f23b1289ce43eab",
+          "bytes": 9239
+        }
+      ],
+      "content_sha256": "956106863ecdbaabb12144e5ec6ddad6d1ec380004889b386f23b1289ce43eab",
+      "line": 14,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I)",
+      "redacted_context_sha256": "6ce103b210eb352644cecdb18a0ed7f2d5785d56b5697f32d233b85d146c995d"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_5.py",
+          "git_blob": "d02e5ae5fb9674f180f3376a317f703800f7bd17",
+          "sha256": "e0e3ec840e88ba0bc6b5f2064b326149969decf58cf8bd0b4adef1826b22ab9b",
+          "bytes": 10630
+        }
+      ],
+      "content_sha256": "e0e3ec840e88ba0bc6b5f2064b326149969decf58cf8bd0b4adef1826b22ab9b",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_6.py",
+          "git_blob": "77260ce5566cdc18ea4137b7ca4c80faa3eb6152",
+          "sha256": "3c46a98acd489222baae6a5e465fcd29342461c9cc37c9a873b7536896daad38",
+          "bytes": 7877
+        }
+      ],
+      "content_sha256": "3c46a98acd489222baae6a5e465fcd29342461c9cc37c9a873b7536896daad38",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_7.py",
+          "git_blob": "9623d8b7d43744a06e30bdf65407cedcefe11847",
+          "sha256": "05bfb5d9e0b6a23e6e22ed0f835e5fe04d9591de96cb2e35806c4f3c47431628",
+          "bytes": 13509
+        }
+      ],
+      "content_sha256": "05bfb5d9e0b6a23e6e22ed0f835e5fe04d9591de96cb2e35806c4f3c47431628",
+      "line": 35,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local = re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+', re.I)",
+      "redacted_context_sha256": "e9740cbea56256e8341ab6f94778ff00fd670ef0feb5631d6f643be54d519bbb"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_8.py",
+          "git_blob": "d2d917d4b0391d23ceeeba240249ec85f3a47ab6",
+          "sha256": "c246c76a1e86b5b357cdd9e3a60073788b56b86db4ca05a6aa89d37a31829bda",
+          "bytes": 12621
+        }
+      ],
+      "content_sha256": "c246c76a1e86b5b357cdd9e3a60073788b56b86db4ca05a6aa89d37a31829bda",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I)",
+      "redacted_context_sha256": "6ce103b210eb352644cecdb18a0ed7f2d5785d56b5697f32d233b85d146c995d"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_delegated_bundles_9.py",
+          "git_blob": "566da5a8e7cab39e565c06277c0d65fe043910b5",
+          "sha256": "8acf4b422559f6b8f5164d63873d57e1e8e299b88b8d00d9c8ccc5db0b67a7cd",
+          "bytes": 15964
+        }
+      ],
+      "content_sha256": "8acf4b422559f6b8f5164d63873d57e1e8e299b88b8d00d9c8ccc5db0b67a7cd",
+      "line": 12,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I);secret=re.compile(rb'gh[pousr]_[A-Za-z0-9_]{25,}|github_pat_[A-Za-z0-9_]{30,}|xox[baprs]-[A-Za-z0-9-]{20,}|-----BEGIN (?:RSA |OP",
+      "redacted_context_sha256": "1b340131405ef2d5f4e19a2a7de896017f2915caac063b8567aee48c3904cc8b"
+    },
+    {
+      "type": "temp",
+      "chain": [
+        {
+          "kind": "tracked-blob",
+          "path": "verify_p16_label_qualification.py",
+          "git_blob": "b1ec670a0e92663c4c161f701cd96bf8b1b6a063",
+          "sha256": "037f281f9ed85684f3368bea40a47750c885b98e2ce843a7d988b00b34ead32b",
+          "bytes": 6458
+        }
+      ],
+      "content_sha256": "037f281f9ed85684f3368bea40a47750c885b98e2ce843a7d988b00b34ead32b",
+      "line": 10,
+      "context_flags": {
+        "regex_context": true,
+        "prose_context": false
+      },
+      "redacted_context": "local=re.compile(rb'/(?:home|Users)/[^\"\\'\\s]+|[A-Za-z]:\\\\+Users\\\\+[^\"\\'\\s]+|<LOCAL-PATH-REDACTED>\"\\'\\s]+',re.I)",
+      "redacted_context_sha256": "6ce103b210eb352644cecdb18a0ed7f2d5785d56b5697f32d233b85d146c995d"
+    }
+  ],
+  "qualification": "Contexts have all matched local path tokens and current username removed before storage; generic examples and regex literals may still trigger broad pattern candidates. Redacted context is interpretation aid, not original exact bytes."
+}

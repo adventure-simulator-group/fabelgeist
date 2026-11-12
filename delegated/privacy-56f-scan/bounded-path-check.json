@@ -1,0 +1,20 @@
+{
+  "schema": "726-public-transport-bounded-path-check-v1",
+  "view_count": 668,
+  "private_token_hits": 0,
+  "exceptions": 0,
+  "broad_candidate_count": 1,
+  "broad_candidates": [
+    {
+      "type": "temp",
+      "chain": [
+        "evidence/extras/candidates/serde-saphyr-redacted.tar.gz",
+        "gzip",
+        "serde-saphyr-1.2.0/examples/spaced_yaml.rs"
+      ],
+      "line": 110,
+      "matched_prefix_sha256": "db4c46a22b434c6e097882d837d5c3f8ebbfe39a232a781c17ede21dbce7b064"
+    }
+  ],
+  "qualification": "Checks selected exact account prefixes and historical temp tokens, and the specified path patterns; gzip/ustar only, depth 18 and 128 MiB per decoded view/member. No path values printed; generic patterns and examples require contextual classification. Not general privacy clearance."
+}

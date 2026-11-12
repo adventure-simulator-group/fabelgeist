@@ -1,0 +1,262 @@
+{
+  "observed_checkpoint_index_sha256": "3005967922bb10c7d8b674b6ea044256f55fcc6908d27260c1646c049e3a0d17",
+  "private_manifest_sha256": "1711654c1529065eebd69a2536afc9cc3997cc3d796eeef43e63dbdd55dc187d",
+  "bundles": [
+    {
+      "bundle": "screen-armor-2605-2606",
+      "agent": "/root/rig_identity",
+      "archive_sha256": "3fce11f93dc279b373072c02c7e71c2d1eabdae810e0f0657016d17a8164e187",
+      "top_members": 133,
+      "changed_top_members": 5,
+      "redactions": 39,
+      "extra_prior_manifests": [
+        "history/prior-armor-anime/MANIFEST.json",
+        "history/prior-p16-armor/MANIFEST.json",
+        "history/prior-screen-armor/MANIFEST.json"
+      ]
+    },
+    {
+      "bundle": "armor-design-fluting-2607-2608",
+      "agent": "/root/hair_ops",
+      "archive_sha256": "8f589bfcd8388e448b6b989fc5821ba1367950abbd40dd95e412fdedceb3e4ec",
+      "top_members": 109,
+      "changed_top_members": 7,
+      "redactions": 91,
+      "extra_prior_manifests": []
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "agent": "/root/mhr_character",
+      "archive_sha256": "394b67e3b13394b7b77e57ef4137bb989f411a8bbd9a9b4bce96232157108f18",
+      "top_members": 172,
+      "changed_top_members": 10,
+      "redactions": 83,
+      "extra_prior_manifests": []
+    }
+  ],
+  "nested_member_count_including_top": 510,
+  "verified_original_and_public_redaction_occurrences": 213,
+  "known_false_positive_redactions": [
+    {
+      "location": "anime-helmets-2609-2610/skills/bespoke-audit.md",
+      "original_fragment": "definitions/users/dependencies",
+      "published_fragment": "definitions<LOCAL_PATH_0>",
+      "reason": "ordinary prose matched case-insensitive /Users/ local-path pattern"
+    }
+  ],
+  "public_known_pattern_privacy_hits": [],
+  "old_frozen_manifest_omissions_bound_to_prior": 3,
+  "git_path_proofs_verified": 74,
+  "redacted_paths_git_verified_with_private_originals": [
+    "armor-design-fluting-2607-2608/recovered/original-059-queue.json.gz",
+    "armor-design-fluting-2607-2608/recovered/original-059-ledger.json.gz",
+    "anime-helmets-2609-2610/history-774/continuation/rig/admission03/contract-groups.jsonl.gz"
+  ],
+  "role_identities": [
+    {
+      "role": 2605,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/screen.rs",
+      "registry_sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+      "material_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_eof": 50,
+      "historical_6533_matches_object": true,
+      "current_sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+      "current_matches_historical": true,
+      "author": "/root/rig_identity"
+    },
+    {
+      "role": 2606,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+      "registry_sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "material_ranges": [
+        [
+          86,
+          171
+        ]
+      ],
+      "actual_eof": 171,
+      "historical_6533_matches_object": true,
+      "current_sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "current_matches_historical": false,
+      "author": "/root/rig_identity"
+    },
+    {
+      "role": 2607,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "registry_sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "material_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_eof": 206,
+      "historical_6533_matches_object": true,
+      "current_sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "current_matches_historical": true,
+      "author": "/root/hair_ops"
+    },
+    {
+      "role": 2608,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "registry_sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "material_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          102,
+          131
+        ],
+        [
+          147,
+          150
+        ]
+      ],
+      "actual_eof": 150,
+      "historical_6533_matches_object": true,
+      "current_sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "current_matches_historical": true,
+      "author": "/root/hair_ops"
+    },
+    {
+      "role": 2609,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+      "registry_sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "material_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_eof": 56,
+      "historical_6533_matches_object": true,
+      "current_sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "current_matches_historical": true,
+      "author": "/root/mhr_character"
+    },
+    {
+      "role": 2610,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+      "registry_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "material_ranges": [
+        [
+          1,
+          221
+        ],
+        [
+          249,
+          275
+        ],
+        [
+          295,
+          380
+        ],
+        [
+          385,
+          385
+        ],
+        [
+          392,
+          414
+        ]
+      ],
+      "actual_eof": 414,
+      "historical_6533_matches_object": true,
+      "current_sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "current_matches_historical": true,
+      "author": "/root/mhr_character"
+    }
+  ],
+  "receipt_rows_checked": {
+    "screen-armor-2605-2606": 13,
+    "armor-design-fluting-2607-2608": 10,
+    "anime-helmets-2609-2610": 18
+  },
+  "selected_historical_059_read_receipts_compared": [
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive_member": "history/059/adler/READ-L11-328.json",
+      "original_transport_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea"
+    },
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive_member": "history/059/segovb/READ-L11-426.json",
+      "original_transport_path": "segovb/READ-L11-426.json",
+      "sha256": "7b3f3f9e6f6ec85331a6ca7e21dc1044baead01defee0cc668fd9dc357f87688"
+    },
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive_member": "history/059/segovb/READ-L11-427.json",
+      "original_transport_path": "segovb/READ-L11-427.json",
+      "sha256": "610e111774b825139cc1b37d693fbe3ea175a05e523a45f7957dae3dffb3feb0"
+    },
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive_member": "history/059/segovb/READ-L12-887.json",
+      "original_transport_path": "segovb/READ-L12-887.json",
+      "sha256": "fbac55ed552de6a0a849eda7d2428e9cf8e2f564f0d3a847dbe966cc9848c84f"
+    },
+    {
+      "bundle": "screen-armor-2605-2606",
+      "archive_member": "history/059/segovb/READ-L12-888.json",
+      "original_transport_path": "segovb/READ-L12-888.json",
+      "sha256": "d99aa600b4ca6a63d0ca0091ec4b52f2e773ff9b346daa391dd10024ad4ab074"
+    },
+    {
+      "bundle": "armor-design-fluting-2607-2608",
+      "archive_member": "prior/design-fluting/history-059/READ-L11-427.json",
+      "original_transport_path": "segovb/READ-L11-427.json",
+      "sha256": "610e111774b825139cc1b37d693fbe3ea175a05e523a45f7957dae3dffb3feb0"
+    },
+    {
+      "bundle": "armor-design-fluting-2607-2608",
+      "archive_member": "prior/design-fluting/history-059/READ-L12-889.json",
+      "original_transport_path": "segovb/READ-L12-889.json",
+      "sha256": "31afa1b5ff5f50c26712e38b88bd5ed5a0c6724ec61c01d5cc44f6440583ce61"
+    },
+    {
+      "bundle": "armor-design-fluting-2607-2608",
+      "archive_member": "prior/design-fluting/history-059/READ-L12-890.json",
+      "original_transport_path": "segovb/READ-L12-890.json",
+      "sha256": "7b3508ce1169a47aa5a5a322c9b585e72ce15d20e9d2f1a3151021fa4b3b3beb"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive_member": "history-059/parallel-l12-20261029/PROPOSAL-L12-891.json",
+      "original_transport_path": "parallel-l12-20261029/PROPOSAL-L12-891.json",
+      "sha256": "c8acc4df7d5e8f2b1d1fa0b9f3d9c0961df4700a7433be6473822fca5d96258d"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive_member": "history-059/parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM022-COMPLETED-VIEWS-v2.json",
+      "original_transport_path": "parallel-l12-20261029/READ-CONNECTED-PAR-L12-TEAM022-COMPLETED-VIEWS-v2.json",
+      "sha256": "fee41a12a72c367d50af4acdf3fdc33d6f403e5dde03130a57d23dea113c39a2"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive_member": "history-059/segovb/READ-L11-427.json",
+      "original_transport_path": "segovb/READ-L11-427.json",
+      "sha256": "610e111774b825139cc1b37d693fbe3ea175a05e523a45f7957dae3dffb3feb0"
+    },
+    {
+      "bundle": "anime-helmets-2609-2610",
+      "archive_member": "history-059/segovb/READ-L12-891.json",
+      "original_transport_path": "segovb/READ-L12-891.json",
+      "sha256": "52051a9e70167654d7c8a8b0ac8b80e02eef70014347865661ee48f6cfc6ad82"
+    }
+  ],
+  "rig_registration_rows_checked": 8,
+  "transport_hash_matches": 161,
+  "transport_redacted_unique_originals": 1,
+  "user_extraction_original_proposal_sha256": "52051a9e70167654d7c8a8b0ac8b80e02eef70014347865661ee48f6cfc6ad82",
+  "history_pin_result": "Distinct 044/046/050 earlier registration pins do not match the respective later prefixes; selected qualification prefixes match and 2610 line 391 is excluded from original effective rig material. No global absence, source display or checkpoint3821 credit inferred.",
+  "limitations": "Privacy scan is pattern-limited; extracted exact originals are local-only. The snapshot uses symlinks to prior publication dependencies. Read receipts are assertions, not independent observation; product behavior and exhaustive audit are outside this evidence review."
+}

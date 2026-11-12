@@ -1,0 +1,851 @@
+{
+  "schema": "726-privacy-56f-public-transport-map-v1",
+  "created_utc": "2026-11-12T09:17:31.800995+00:00",
+  "commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "source_packet_manifests_sha256": {
+    "inventory": "27da1ee918b3a1e10cc204b632e6f03ad81ff434706ecfc297430f684e3f3c67",
+    "extras": "49ea3e759aec5216a60b9401566da9dfde2c09834797e3c619c43f1b54d8e06f",
+    "json-candidates": "69a714390a54c9ac2c9fd47adef1fa4ac4dbaa2ba8011088aa069abc6b0282b3"
+  },
+  "files": [
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "BUNDLE-MANIFEST.json",
+      "source_original_bytes": 7286,
+      "source_original_sha256": "27da1ee918b3a1e10cc204b632e6f03ad81ff434706ecfc297430f684e3f3c67",
+      "public_transport_path": "evidence/inventory/BUNDLE-MANIFEST.json",
+      "public_stored_bytes": 7286,
+      "public_stored_sha256": "27da1ee918b3a1e10cc204b632e6f03ad81ff434706ecfc297430f684e3f3c67",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "README.md",
+      "source_original_bytes": 2888,
+      "source_original_sha256": "5c163dd1f4d233dd91b918bfc569a7bda5efc726c998a786c836790e50e51748",
+      "public_transport_path": "evidence/inventory/README.md",
+      "public_stored_bytes": 2888,
+      "public_stored_sha256": "5c163dd1f4d233dd91b918bfc569a7bda5efc726c998a786c836790e50e51748",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "assemble-report.py",
+      "source_original_bytes": 11631,
+      "source_original_sha256": "c3ce913bb4cbada20717b078218cf74f12d60745e21f5ad7cdc50df86cc803f8",
+      "public_transport_path": "evidence/inventory/assemble-report.py.txt",
+      "public_stored_bytes": 11631,
+      "public_stored_sha256": "c3ce913bb4cbada20717b078218cf74f12d60745e21f5ad7cdc50df86cc803f8",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "build-manifest.py",
+      "source_original_bytes": 740,
+      "source_original_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "public_transport_path": "evidence/inventory/build-manifest.py.txt",
+      "public_stored_bytes": 740,
+      "public_stored_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "extra-reconstruction-index.json",
+      "source_original_bytes": 5528,
+      "source_original_sha256": "0d2c4be329e4cb33b5e8848fe097ff4f5de333db5a883af17c25ce78001d75ab",
+      "public_transport_path": "evidence/inventory/extra-reconstruction-index.json",
+      "public_stored_bytes": 5528,
+      "public_stored_sha256": "0d2c4be329e4cb33b5e8848fe097ff4f5de333db5a883af17c25ce78001d75ab",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/BUNDLE-MANIFEST.json",
+      "source_original_bytes": 2111,
+      "source_original_sha256": "2e2433064430430838332a9ad3965c747730d8d55e37fd019847a79170092a60",
+      "public_transport_path": "evidence/inventory/firstpass/BUNDLE-MANIFEST.json",
+      "public_stored_bytes": 2111,
+      "public_stored_sha256": "2e2433064430430838332a9ad3965c747730d8d55e37fd019847a79170092a60",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/build-manifest.py",
+      "source_original_bytes": 740,
+      "source_original_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "public_transport_path": "evidence/inventory/firstpass/build-manifest.py.txt",
+      "public_stored_bytes": 740,
+      "public_stored_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/classify-raw-json.py",
+      "source_original_bytes": 2415,
+      "source_original_sha256": "193be70401f74a914701b371f005ab167c7be3c26a59b00a68c96aa4a6a72cd7",
+      "public_transport_path": "evidence/inventory/firstpass/classify-raw-json.py.txt",
+      "public_stored_bytes": 2413,
+      "public_stored_sha256": "150eba5e6904eb19ea31523b61f3e67d033b43a946cd5c8eba9e86d1e701b35d",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/dependency-inventory.json",
+      "source_original_bytes": 405884,
+      "source_original_sha256": "1efba74feca78490c741ddb83575d229dad4f4644c01a5c9d74f9a93498deec1",
+      "public_transport_path": "evidence/inventory/firstpass/dependency-inventory.json",
+      "public_stored_bytes": 405884,
+      "public_stored_sha256": "1efba74feca78490c741ddb83575d229dad4f4644c01a5c9d74f9a93498deec1",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/dependency-inventory.py",
+      "source_original_bytes": 5375,
+      "source_original_sha256": "2247e84448f40e28f5937c5cb6e37756bdd8b78efc8f7790c4bc9c3aeb5e4c8b",
+      "public_transport_path": "evidence/inventory/firstpass/dependency-inventory.py.txt",
+      "public_stored_bytes": 5373,
+      "public_stored_sha256": "d364166e1294865c1e0ee899cc05141066020afb7d5b01c2f95dc5965b0c8262",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/firstpass-results.json",
+      "source_original_bytes": 25358,
+      "source_original_sha256": "7f57babb69b84a076c12212c9e5d74c437466f59fb182e285108a5e6b219a5c8",
+      "public_transport_path": "evidence/inventory/firstpass/firstpass-results.json",
+      "public_stored_bytes": 25358,
+      "public_stored_sha256": "7f57babb69b84a076c12212c9e5d74c437466f59fb182e285108a5e6b219a5c8",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/json-pointers.json",
+      "source_original_bytes": 7999,
+      "source_original_sha256": "830b51aa89e227673f7185273303e6e0556c9910e20e947eba11304bd36863a1",
+      "public_transport_path": "evidence/inventory/firstpass/json-pointers.json",
+      "public_stored_bytes": 7999,
+      "public_stored_sha256": "830b51aa89e227673f7185273303e6e0556c9910e20e947eba11304bd36863a1",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/raw-json-classification.json",
+      "source_original_bytes": 21824,
+      "source_original_sha256": "597b32146384eb6faccb64fae7103c8779dd668821c07c044a23ef5168401e7c",
+      "public_transport_path": "evidence/inventory/firstpass/raw-json-classification.json",
+      "public_stored_bytes": 21824,
+      "public_stored_sha256": "597b32146384eb6faccb64fae7103c8779dd668821c07c044a23ef5168401e7c",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/report.json",
+      "source_original_bytes": 4093,
+      "source_original_sha256": "b1684fc5e3b5303af22caf34c4ba25c781f1e684696ea82c4a83cfebe99a8a2e",
+      "public_transport_path": "evidence/inventory/firstpass/report.json",
+      "public_stored_bytes": 4093,
+      "public_stored_sha256": "b1684fc5e3b5303af22caf34c4ba25c781f1e684696ea82c4a83cfebe99a8a2e",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/scan-firstpass.py",
+      "source_original_bytes": 3849,
+      "source_original_sha256": "e8e395607b2d0a2734d788d87a2f3a8ae13cdf86d31e02614929fa379fcc1950",
+      "public_transport_path": "evidence/inventory/firstpass/scan-firstpass.py.txt",
+      "public_stored_bytes": 3847,
+      "public_stored_sha256": "c6037c5eef3d2f99cd4a777c4eeeaf7e64c8554bc2d9acac3ae6044b1e5cac12",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/select-json-pointers.py",
+      "source_original_bytes": 1518,
+      "source_original_sha256": "f79ddb15064df76b8543675d94c34ab40fc4d66be35fe5838bfe6b606c8c27d3",
+      "public_transport_path": "evidence/inventory/firstpass/select-json-pointers.py.txt",
+      "public_stored_bytes": 1516,
+      "public_stored_sha256": "0619529baa7a5441f66c26cab796c97b4da2f040e2089be540e0aee518262bdb",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/verify-firstpass.py",
+      "source_original_bytes": 2293,
+      "source_original_sha256": "c69fbeca60da51cb1f3b8f8f86464a5afe5d6394415fbd927bb0913ccde4f402",
+      "public_transport_path": "evidence/inventory/firstpass/verify-firstpass.py.txt",
+      "public_stored_bytes": 2293,
+      "public_stored_sha256": "c69fbeca60da51cb1f3b8f8f86464a5afe5d6394415fbd927bb0913ccde4f402",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass/verify-manifest.py",
+      "source_original_bytes": 539,
+      "source_original_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "public_transport_path": "evidence/inventory/firstpass/verify-manifest.py.txt",
+      "public_stored_bytes": 539,
+      "public_stored_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "firstpass-reconstruction-index.json",
+      "source_original_bytes": 16093,
+      "source_original_sha256": "0fb9f5bc1fe1bce3b7b3891d6b217f4795eb139ed5e69ec6a6e20863db6815dd",
+      "public_transport_path": "evidence/inventory/firstpass-reconstruction-index.json",
+      "public_stored_bytes": 16093,
+      "public_stored_sha256": "0fb9f5bc1fe1bce3b7b3891d6b217f4795eb139ed5e69ec6a6e20863db6815dd",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "native/local-index-row.json",
+      "source_original_bytes": 4696,
+      "source_original_sha256": "d94d809133f3e08c618170f4576521b80aeb3f783903184bcee36a5559cf9599",
+      "public_transport_path": "evidence/inventory/native/local-index-row.json",
+      "public_stored_bytes": 4696,
+      "public_stored_sha256": "d94d809133f3e08c618170f4576521b80aeb3f783903184bcee36a5559cf9599",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "native/official-index-web-row.json",
+      "source_original_bytes": 4696,
+      "source_original_sha256": "d94d809133f3e08c618170f4576521b80aeb3f783903184bcee36a5559cf9599",
+      "public_transport_path": "evidence/inventory/native/official-index-web-row.json",
+      "public_stored_bytes": 4696,
+      "public_stored_sha256": "d94d809133f3e08c618170f4576521b80aeb3f783903184bcee36a5559cf9599",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "native/registry-identity.json",
+      "source_original_bytes": 3556,
+      "source_original_sha256": "287aa3d242f44ab449b6086ac7c8bbe703ae90510d03fcd9f1c69aa80470a2e0",
+      "public_transport_path": "evidence/inventory/native/registry-identity.json",
+      "public_stored_bytes": 3556,
+      "public_stored_sha256": "287aa3d242f44ab449b6086ac7c8bbe703ae90510d03fcd9f1c69aa80470a2e0",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "native/verify-registry.py",
+      "source_original_bytes": 2076,
+      "source_original_sha256": "32ccf13bfb717198717c52b228f99601937b6b32801ebed1f9864d71af7da091",
+      "public_transport_path": "evidence/inventory/native/verify-registry.py.txt",
+      "public_stored_bytes": 2076,
+      "public_stored_sha256": "32ccf13bfb717198717c52b228f99601937b6b32801ebed1f9864d71af7da091",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "occurrences-classified.json",
+      "source_original_bytes": 133872,
+      "source_original_sha256": "648172b01bed1f08760f8e94e2c32fc6a2643fff4a031f4f011e9397dee6e8e9",
+      "public_transport_path": "evidence/inventory/occurrences-classified.json",
+      "public_stored_bytes": 133872,
+      "public_stored_sha256": "648172b01bed1f08760f8e94e2c32fc6a2643fff4a031f4f011e9397dee6e8e9",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "report.json",
+      "source_original_bytes": 15776,
+      "source_original_sha256": "6826ad8dbb08f2a71910cf3ecf972f1e256944ce427fbd9e7d2212a8ca217d8e",
+      "public_transport_path": "evidence/inventory/report.json",
+      "public_stored_bytes": 15776,
+      "public_stored_sha256": "6826ad8dbb08f2a71910cf3ecf972f1e256944ce427fbd9e7d2212a8ca217d8e",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/archives-prefix-2000.json",
+      "source_original_bytes": 56621,
+      "source_original_sha256": "6c708802ac0ad8d47a8e0e9dd29e719b8645c6e541bb1d95d9a2c17782479dff",
+      "public_transport_path": "evidence/inventory/scan/archives-prefix-2000.json",
+      "public_stored_bytes": 56621,
+      "public_stored_sha256": "6c708802ac0ad8d47a8e0e9dd29e719b8645c6e541bb1d95d9a2c17782479dff",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/archives-prefix-budget-revisit.json",
+      "source_original_bytes": 494,
+      "source_original_sha256": "071ac6cc5d36bba018f6ab104d66772acfe33d70b5e37f546086f13b8f739e4f",
+      "public_transport_path": "evidence/inventory/scan/archives-prefix-budget-revisit.json",
+      "public_stored_bytes": 494,
+      "public_stored_sha256": "071ac6cc5d36bba018f6ab104d66772acfe33d70b5e37f546086f13b8f739e4f",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/archives-suffix-2501-results.json",
+      "source_original_bytes": 81267,
+      "source_original_sha256": "1e1ee6977893b11efe82f1abed9ee15a447cf34893148da96bec0c4f6fde0bd5",
+      "public_transport_path": "evidence/inventory/scan/archives-suffix-2501-results.json",
+      "public_stored_bytes": 81267,
+      "public_stored_sha256": "1e1ee6977893b11efe82f1abed9ee15a447cf34893148da96bec0c4f6fde0bd5",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/archives-tail-container-results.json",
+      "source_original_bytes": 90476,
+      "source_original_sha256": "33f5f57690524f95bce8dbf7f2fd8ba19bfd455c7b1b4fc4f761f5ae422f0706",
+      "public_transport_path": "evidence/inventory/scan/archives-tail-container-results.json",
+      "public_stored_bytes": 90476,
+      "public_stored_sha256": "33f5f57690524f95bce8dbf7f2fd8ba19bfd455c7b1b4fc4f761f5ae422f0706",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/classify-targeted.py",
+      "source_original_bytes": 2930,
+      "source_original_sha256": "39b9b2339963f93e3f603e7362c98e9bd45bc2bbd8b2883fea3bcc16ceb041c2",
+      "public_transport_path": "evidence/inventory/scan/classify-targeted.py.txt",
+      "public_stored_bytes": 2928,
+      "public_stored_sha256": "67cb45141d1d7b8626f6c364fef2447cd8152c256e52e4c02b53a0da4cad47ff",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/dependency-inventory.json",
+      "source_original_bytes": 405884,
+      "source_original_sha256": "1efba74feca78490c741ddb83575d229dad4f4644c01a5c9d74f9a93498deec1",
+      "public_transport_path": "evidence/inventory/scan/dependency-inventory.json",
+      "public_stored_bytes": 405884,
+      "public_stored_sha256": "1efba74feca78490c741ddb83575d229dad4f4644c01a5c9d74f9a93498deec1",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/examine-suffix-candidates.py",
+      "source_original_bytes": 2915,
+      "source_original_sha256": "fdeef182bd21571e60687560bfc2457eb031796831c128987009f4fb1f60aa05",
+      "public_transport_path": "evidence/inventory/scan/examine-suffix-candidates.py.txt",
+      "public_stored_bytes": 2913,
+      "public_stored_sha256": "125bb7c449864bf9a047d8cc386fe2d0b8cfbd05c17a7900fcc6fe356b2bf080",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/json-pointers.json",
+      "source_original_bytes": 7999,
+      "source_original_sha256": "830b51aa89e227673f7185273303e6e0556c9910e20e947eba11304bd36863a1",
+      "public_transport_path": "evidence/inventory/scan/json-pointers.json",
+      "public_stored_bytes": 7999,
+      "public_stored_sha256": "830b51aa89e227673f7185273303e6e0556c9910e20e947eba11304bd36863a1",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/raw-json-classification.json",
+      "source_original_bytes": 21824,
+      "source_original_sha256": "597b32146384eb6faccb64fae7103c8779dd668821c07c044a23ef5168401e7c",
+      "public_transport_path": "evidence/inventory/scan/raw-json-classification.json",
+      "public_stored_bytes": 21824,
+      "public_stored_sha256": "597b32146384eb6faccb64fae7103c8779dd668821c07c044a23ef5168401e7c",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/recursive-prefix-depth-revisit.json",
+      "source_original_bytes": 462,
+      "source_original_sha256": "dec1ffa76e071950af2adc96d18452456996b73d7b2593cef52bec6f93a0bde9",
+      "public_transport_path": "evidence/inventory/scan/recursive-prefix-depth-revisit.json",
+      "public_stored_bytes": 462,
+      "public_stored_sha256": "dec1ffa76e071950af2adc96d18452456996b73d7b2593cef52bec6f93a0bde9",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/revisit-budget.py",
+      "source_original_bytes": 5185,
+      "source_original_sha256": "75ba67342ef12f7c87bd35917a891a8df7f273464a06e5d37535b5fb0b03ea0e",
+      "public_transport_path": "evidence/inventory/scan/revisit-budget.py.txt",
+      "public_stored_bytes": 5183,
+      "public_stored_sha256": "4ef8624eeb3d22c2dce9415de6d1537749e92f48adb97fe3989b647c48ac1214",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/revisit-depth.py",
+      "source_original_bytes": 4817,
+      "source_original_sha256": "9e0a74982490741340aab77c203d3e505b69d0a919f4d97af1f75c2bea3198ed",
+      "public_transport_path": "evidence/inventory/scan/revisit-depth.py.txt",
+      "public_stored_bytes": 4815,
+      "public_stored_sha256": "7b3a84d129c00a1be9d8af4d88d67c26a7dba86065e6fd15244120e271d99484",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/scan-archives-tail-container.py",
+      "source_original_bytes": 7862,
+      "source_original_sha256": "5e9aaa2f1a6763394ef6d5b46dc0b68b94afc50ee2f7ccdfbf8dce8a3e90971f",
+      "public_transport_path": "evidence/inventory/scan/scan-archives-tail-container.py.txt",
+      "public_stored_bytes": 7860,
+      "public_stored_sha256": "605f65fb47ec1412b806c1156363ab8d3118f12fd7c58ddb84001a2f0ad7b4aa",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/scan-archives.py",
+      "source_original_bytes": 7639,
+      "source_original_sha256": "38087dfbebe097d843356de313be3f9efe845601e038dbb10c662c3a04aeb265",
+      "public_transport_path": "evidence/inventory/scan/scan-archives.py.txt",
+      "public_stored_bytes": 7637,
+      "public_stored_sha256": "0ef9d53729ca41239ff7878f229e7f7ea0624bec3491ee9eb634ae084aa63e08",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "75c332c7e14b7662e5c1eb0d7a3ecef6d516d1d99d66d1a4e09f1f660c9b696a"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/suffix-candidate-contexts.json",
+      "source_original_bytes": 64102,
+      "source_original_sha256": "b1a9943e55fc8ec92018330406529c83905b5fc085b3ec624290fd196ef9f9a1",
+      "public_transport_path": "evidence/inventory/scan/suffix-candidate-contexts.json",
+      "public_stored_bytes": 64102,
+      "public_stored_sha256": "b1a9943e55fc8ec92018330406529c83905b5fc085b3ec624290fd196ef9f9a1",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "scan/targeted-context-classification.json",
+      "source_original_bytes": 9891,
+      "source_original_sha256": "d7968c505273133397ede44fb0ac745f2092de934bebe5ff53246769ebf59ba1",
+      "public_transport_path": "evidence/inventory/scan/targeted-context-classification.json",
+      "public_stored_bytes": 9891,
+      "public_stored_sha256": "d7968c505273133397ede44fb0ac745f2092de934bebe5ff53246769ebf59ba1",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "verify-evidence.py",
+      "source_original_bytes": 5524,
+      "source_original_sha256": "63e77629fc4abc21ce6df5d13b590688712403b4c8f921603f71aae58e368367",
+      "public_transport_path": "evidence/inventory/verify-evidence.py.txt",
+      "public_stored_bytes": 5524,
+      "public_stored_sha256": "63e77629fc4abc21ce6df5d13b590688712403b4c8f921603f71aae58e368367",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "verify-manifest.py",
+      "source_original_bytes": 539,
+      "source_original_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "public_transport_path": "evidence/inventory/verify-manifest.py.txt",
+      "public_stored_bytes": 539,
+      "public_stored_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "transformations": []
+    },
+    {
+      "source_packet": "inventory",
+      "source_logical_path": "verify-private-tokens.py",
+      "source_original_bytes": 1482,
+      "source_original_sha256": "c862309184f9b83bcd62d3dce097a02c2044e0ff824405eb8b44fcbf48adfdae",
+      "public_transport_path": "evidence/inventory/verify-private-tokens.py.txt",
+      "public_stored_bytes": 1482,
+      "public_stored_sha256": "c862309184f9b83bcd62d3dce097a02c2044e0ff824405eb8b44fcbf48adfdae",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "BUNDLE-MANIFEST.json",
+      "source_original_bytes": 2148,
+      "source_original_sha256": "49ea3e759aec5216a60b9401566da9dfde2c09834797e3c619c43f1b54d8e06f",
+      "public_transport_path": "evidence/extras/BUNDLE-MANIFEST.json",
+      "public_stored_bytes": 2148,
+      "public_stored_sha256": "49ea3e759aec5216a60b9401566da9dfde2c09834797e3c619c43f1b54d8e06f",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "README.md",
+      "source_original_bytes": 1317,
+      "source_original_sha256": "2160ef1420b32202b76876ff3c1e5b1413f961bced0bf97544098b19af993d8a",
+      "public_transport_path": "evidence/extras/README.md",
+      "public_stored_bytes": 1317,
+      "public_stored_sha256": "2160ef1420b32202b76876ff3c1e5b1413f961bced0bf97544098b19af993d8a",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "build-manifest.py",
+      "source_original_bytes": 740,
+      "source_original_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "public_transport_path": "evidence/extras/build-manifest.py.txt",
+      "public_stored_bytes": 740,
+      "public_stored_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "candidates/city-537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.redacted.json.gz",
+      "source_original_bytes": 899,
+      "source_original_sha256": "d4dfb06c8be60de5f776b06afa637a29aa4ff94a8ba441353aad96de38478b5c",
+      "public_transport_path": "evidence/extras/candidates/city-537934fe1102efa623885d1bb2db72868f72f6c3193c8fdc20f28f2981cac49a.redacted.json.gz",
+      "public_stored_bytes": 899,
+      "public_stored_sha256": "d4dfb06c8be60de5f776b06afa637a29aa4ff94a8ba441353aad96de38478b5c",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "candidates/city-66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.redacted.json.gz",
+      "source_original_bytes": 891,
+      "source_original_sha256": "82b9471f873416d514f7c9b5aed52f1afe5901a9a53ab2f0425c5f0b7afae112",
+      "public_transport_path": "evidence/extras/candidates/city-66f8a7c9ae457dfa40e9e89a0c8de7fce95b97d222de2e211fc48b6b16f53f63.redacted.json.gz",
+      "public_stored_bytes": 891,
+      "public_stored_sha256": "82b9471f873416d514f7c9b5aed52f1afe5901a9a53ab2f0425c5f0b7afae112",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "candidates/portability-review-redacted.json",
+      "source_original_bytes": 8723,
+      "source_original_sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5",
+      "public_transport_path": "evidence/extras/candidates/portability-review-redacted.json",
+      "public_stored_bytes": 8723,
+      "public_stored_sha256": "37cd6bdad0a3c4f5779f5161a7292bc88f7cc701678ee279f98112c11766acf5",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "candidates/serde-saphyr-redacted.tar.gz",
+      "source_original_bytes": 618462,
+      "source_original_sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a",
+      "public_transport_path": "evidence/extras/candidates/serde-saphyr-redacted.tar.gz",
+      "public_stored_bytes": 618462,
+      "public_stored_sha256": "79c59c039419ec677602b8fa34d04ab906c0f29bdd7692109ef9b0745690f63a",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "candidates/writer-output-redacted.txt",
+      "source_original_bytes": 458,
+      "source_original_sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192",
+      "public_transport_path": "evidence/extras/candidates/writer-output-redacted.txt",
+      "public_stored_bytes": 458,
+      "public_stored_sha256": "8564fa7a5b482ca1b774590be271608f572e8020abc7fa9d3d609821b690e192",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "prepare-extra.py",
+      "source_original_bytes": 5524,
+      "source_original_sha256": "8cdc5b539e76d12767d6b56a7e39bb49b02a4bbec51f187b02ab0b79506e7597",
+      "public_transport_path": "evidence/extras/prepare-extra.py.txt",
+      "public_stored_bytes": 5524,
+      "public_stored_sha256": "8cdc5b539e76d12767d6b56a7e39bb49b02a4bbec51f187b02ab0b79506e7597",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "reconstruction-index.json",
+      "source_original_bytes": 5528,
+      "source_original_sha256": "0d2c4be329e4cb33b5e8848fe097ff4f5de333db5a883af17c25ce78001d75ab",
+      "public_transport_path": "evidence/extras/reconstruction-index.json",
+      "public_stored_bytes": 5528,
+      "public_stored_sha256": "0d2c4be329e4cb33b5e8848fe097ff4f5de333db5a883af17c25ce78001d75ab",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "verify-candidates.py",
+      "source_original_bytes": 3577,
+      "source_original_sha256": "fa715bdead77b463575efb3b4c6ba851806fddc123964d040cf9778cac204d22",
+      "public_transport_path": "evidence/extras/verify-candidates.py.txt",
+      "public_stored_bytes": 3577,
+      "public_stored_sha256": "fa715bdead77b463575efb3b4c6ba851806fddc123964d040cf9778cac204d22",
+      "transformations": []
+    },
+    {
+      "source_packet": "extras",
+      "source_logical_path": "verify-manifest.py",
+      "source_original_bytes": 539,
+      "source_original_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "public_transport_path": "evidence/extras/verify-manifest.py.txt",
+      "public_stored_bytes": 539,
+      "public_stored_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "BUNDLE-MANIFEST.json",
+      "source_original_bytes": 2138,
+      "source_original_sha256": "69a714390a54c9ac2c9fd47adef1fa4ac4dbaa2ba8011088aa069abc6b0282b3",
+      "public_transport_path": "evidence/json-candidates/BUNDLE-MANIFEST.json",
+      "public_stored_bytes": 2138,
+      "public_stored_sha256": "69a714390a54c9ac2c9fd47adef1fa4ac4dbaa2ba8011088aa069abc6b0282b3",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "README.md",
+      "source_original_bytes": 941,
+      "source_original_sha256": "9633932fd946ade2ae263a3f1dec58a93e52e05fa415fe93d9ce38929a723744",
+      "public_transport_path": "evidence/json-candidates/README.md",
+      "public_stored_bytes": 941,
+      "public_stored_sha256": "9633932fd946ade2ae263a3f1dec58a93e52e05fa415fe93d9ce38929a723744",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "build-manifest.py",
+      "source_original_bytes": 740,
+      "source_original_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "public_transport_path": "evidence/json-candidates/build-manifest.py.txt",
+      "public_stored_bytes": 740,
+      "public_stored_sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstruct.py",
+      "source_original_bytes": 3047,
+      "source_original_sha256": "f85a3046f7b646a0dfcc32852e65018310fcbd88a54a6aa9165c19734b471e8b",
+      "public_transport_path": "evidence/json-candidates/reconstruct.py.txt",
+      "public_stored_bytes": 3045,
+      "public_stored_sha256": "565ac2ee6047f83fe8de10c5c7c79eba5e4afacb72c8d77259a7aadf83b38c51",
+      "transformations": [
+        {
+          "kind": "replace-local-scratch-token",
+          "occurrences": 1,
+          "original_value_sha256": [
+            "e722c102809030b7e81b65b24cc73cd45a31c1f7d3d70d684bd9e050b7049ba5"
+          ],
+          "public_marker": "<redacted-local-evidence-directory>",
+          "qualification": "Source text is a reconstructed representation; original script bytes remain in local-only capture."
+        }
+      ]
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstructed/record-1.json",
+      "source_original_bytes": 9416257,
+      "source_original_sha256": "5d956305ae876ae80d393b2688271a34de78aec60ec1108a4dda7e91945b12b3",
+      "public_transport_path": "evidence/json-candidates/reconstructed/record-1.json.gz",
+      "public_stored_bytes": 2006098,
+      "public_stored_sha256": "812a3c72c5c0637587926fda87c3069b041217307c83be663e6999e1ede3ab28",
+      "transformations": [
+        {
+          "kind": "gzip-transport",
+          "decoded_bytes": 9416257,
+          "decoded_sha256": "5d956305ae876ae80d393b2688271a34de78aec60ec1108a4dda7e91945b12b3",
+          "qualification": "Decoded payload is the already reconstructed JSON candidate, not the sensitive original committed object."
+        }
+      ]
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstructed/record-2.json",
+      "source_original_bytes": 21631803,
+      "source_original_sha256": "43e8be802f712bb44e62cff58d06a6d9a0e70d0a804c1903fa4dd03fd7d4ec8e",
+      "public_transport_path": "evidence/json-candidates/reconstructed/record-2.json.gz",
+      "public_stored_bytes": 1494049,
+      "public_stored_sha256": "14d35404c86da8caf50adf4e13499a1532141ce521d37e0a813a143f77bce714",
+      "transformations": [
+        {
+          "kind": "gzip-transport",
+          "decoded_bytes": 21631803,
+          "decoded_sha256": "43e8be802f712bb44e62cff58d06a6d9a0e70d0a804c1903fa4dd03fd7d4ec8e",
+          "qualification": "Decoded payload is the already reconstructed JSON candidate, not the sensitive original committed object."
+        }
+      ]
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstructed/record-3.json",
+      "source_original_bytes": 109695,
+      "source_original_sha256": "5ba25f76cc4bcec1bd56b9915f5b6338cc47919d8e5da321636c65bea7c6bd95",
+      "public_transport_path": "evidence/json-candidates/reconstructed/record-3.json.gz",
+      "public_stored_bytes": 19026,
+      "public_stored_sha256": "9366eddecf017c6c2b2a83cc549675a831c9fc9b0b2330969f43cc64ba898c56",
+      "transformations": [
+        {
+          "kind": "gzip-transport",
+          "decoded_bytes": 109695,
+          "decoded_sha256": "5ba25f76cc4bcec1bd56b9915f5b6338cc47919d8e5da321636c65bea7c6bd95",
+          "qualification": "Decoded payload is the already reconstructed JSON candidate, not the sensitive original committed object."
+        }
+      ]
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstructed/record-4.json",
+      "source_original_bytes": 2911217,
+      "source_original_sha256": "868b3221e33e2424afcdfd5a818abfdf3963b9b947793b84b033e0b15b13a1e9",
+      "public_transport_path": "evidence/json-candidates/reconstructed/record-4.json.gz",
+      "public_stored_bytes": 633665,
+      "public_stored_sha256": "464e21c9d6bcc1abcb7965f13c5d1ca6c4a68c4aeee367bd654cf85e6a716645",
+      "transformations": [
+        {
+          "kind": "gzip-transport",
+          "decoded_bytes": 2911217,
+          "decoded_sha256": "868b3221e33e2424afcdfd5a818abfdf3963b9b947793b84b033e0b15b13a1e9",
+          "qualification": "Decoded payload is the already reconstructed JSON candidate, not the sensitive original committed object."
+        }
+      ]
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstructed/record-5.json",
+      "source_original_bytes": 120665,
+      "source_original_sha256": "5f27e08c555831bc76de56d980f9affe1f1f19140d236d93fa76d5e6eecb2d2e",
+      "public_transport_path": "evidence/json-candidates/reconstructed/record-5.json.gz",
+      "public_stored_bytes": 15107,
+      "public_stored_sha256": "fcac75781fedc8bb5d881a9a00022b4c6da55622959b9b5451a9991a7360269d",
+      "transformations": [
+        {
+          "kind": "gzip-transport",
+          "decoded_bytes": 120665,
+          "decoded_sha256": "5f27e08c555831bc76de56d980f9affe1f1f19140d236d93fa76d5e6eecb2d2e",
+          "qualification": "Decoded payload is the already reconstructed JSON candidate, not the sensitive original committed object."
+        }
+      ]
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "reconstruction-index.json",
+      "source_original_bytes": 16093,
+      "source_original_sha256": "0fb9f5bc1fe1bce3b7b3891d6b217f4795eb139ed5e69ec6a6e20863db6815dd",
+      "public_transport_path": "evidence/json-candidates/reconstruction-index.json",
+      "public_stored_bytes": 16093,
+      "public_stored_sha256": "0fb9f5bc1fe1bce3b7b3891d6b217f4795eb139ed5e69ec6a6e20863db6815dd",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "verify-manifest.py",
+      "source_original_bytes": 539,
+      "source_original_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "public_transport_path": "evidence/json-candidates/verify-manifest.py.txt",
+      "public_stored_bytes": 539,
+      "public_stored_sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "verify-public.py",
+      "source_original_bytes": 1065,
+      "source_original_sha256": "f132943e936979e6514914e1288478fb3bf67dfd7277d8aa4f8905be884befa8",
+      "public_transport_path": "evidence/json-candidates/verify-public.py.txt",
+      "public_stored_bytes": 1065,
+      "public_stored_sha256": "f132943e936979e6514914e1288478fb3bf67dfd7277d8aa4f8905be884befa8",
+      "transformations": []
+    },
+    {
+      "source_packet": "json-candidates",
+      "source_logical_path": "verify-reconstruction.py",
+      "source_original_bytes": 1631,
+      "source_original_sha256": "5ee86f3afca029fb932a34334c324d19d9b5dac1c5e9d5cc0686441787f42b37",
+      "public_transport_path": "evidence/json-candidates/verify-reconstruction.py.txt",
+      "public_stored_bytes": 1631,
+      "public_stored_sha256": "5ee86f3afca029fb932a34334c324d19d9b5dac1c5e9d5cc0686441787f42b37",
+      "transformations": []
+    }
+  ],
+  "file_count": 69,
+  "local_scratch_token_redactions": 11,
+  "gzip_transport_count": 5,
+  "qualification": "Each source SHA-256 identifies the exact locally frozen packet file; each public SHA-256 identifies the bytes in this transport. Changed scripts are source-text reconstructions, original manifest files remain original historical claims and are not current public-byte validators. Gzip candidates are decoded public representations, never original private source objects. Relative Git evidence paths are not local filesystem locations."
+}

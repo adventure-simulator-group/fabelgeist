@@ -1,0 +1,38 @@
+import datetime,gzip,hashlib,io,json,os,pathlib,pwd,re,subprocess,sys
+c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';out=pathlib.Path('<redacted-local-evidence-directory>');home=os.fsencode(pwd.getpwuid(os.getuid()).pw_dir);username=home.rsplit(b'/',1)[-1].lower();sha=lambda x:hashlib.sha256(x).hexdigest();limit=128*1024*1024
+# All unescaped or JSON-escaped slash variants, without writing the account value.
+parts=home.split(b'/')[1:];pat=re.compile(b''.join([rb'(?:/|\\/|\\u002[fF])'+re.escape(part) for part in parts])+rb'(?=[/"\'\s\\\x00]|$)');entries=[e for e in subprocess.check_output(['git','ls-tree','-r','-l','-z',c]).split(b'\0') if e];proc=subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,bufsize=0);cache={};hits=[];exceptions=[];stored=0;gz=0
+
+def safe(path):
+ b=path.encode('utf-8','surrogateescape');return '<redacted-path-sha256:'+sha(b)+'>' if username in b.lower() else path
+
+def read_exact(n):
+ chunks=[]
+ while n:
+  x=proc.stdout.read(n)
+  if not x:raise EOFError('cat-file ended')
+  chunks.append(x);n-=len(x)
+ return b''.join(chunks)
+
+def hits_for(data,view):
+ return [{'view':view,'offset':m.start(),'line':data.count(b'\n',0,m.start())+1,'matched_sha256':sha(m.group())} for m in pat.finditer(data)]
+for i,entry in enumerate(entries,1):
+ meta,path=entry.split(b'\t',1);mode,typ,oid,size=meta.split();path=safe(path.decode('utf-8','surrogateescape'));size=int(size);key=oid.decode();stored+=size
+ if key not in cache:
+  proc.stdin.write(oid+b'\n');h=proc.stdout.readline().split();assert h[0]==oid and h[1]==b'blob';data=read_exact(int(h[2]));assert proc.stdout.read(1)==b'\n' and len(data)==size
+  events=hits_for(data,'raw-blob');errs=[];checksum=sha(data);isgzip=data.startswith(b'\x1f\x8b')
+  if isgzip:
+   try:
+    with gzip.GzipFile(fileobj=io.BytesIO(data)) as f:decoded=f.read(limit+1)
+    if len(decoded)>limit:errs.append({'reason':'direct gzip expansion exceeded limit','limit':limit})
+    else:
+     events+=hits_for(decoded,'direct-gzip-decoded')
+   except Exception as e:errs.append({'reason':'direct gzip expansion error','error_type':type(e).__name__})
+  cache[key]=(checksum,events,errs,isgzip)
+ checksum,events,errs,isgzip=cache[key];gz+=int(isgzip)
+ for e in events:hits.append(dict(e,path=path,git_blob=key,blob_sha256=checksum,blob_bytes=size))
+ for e in errs:exceptions.append(dict(e,path=path,git_blob=key,blob_sha256=checksum))
+ if i%1000==0:
+  interim={'completed_tracked_paths':i,'tracked_total':len(entries),'unique_blobs':len(cache),'direct_gzip_paths':gz,'stored_bytes':stored,'occurrences':hits,'exceptions':exceptions,'qualification':'Partial prefix; tar contents not member-attributed. No nested gzip expansion.'};(out/'firstpass-partial.json').write_text(json.dumps(interim,indent=2)+'\n');print('first-pass',i,'/',len(entries),'occurrences',len(hits),'exceptions',len(exceptions),file=sys.stderr,flush=True)
+proc.stdin.close();proc.wait();assert proc.returncode==0
+result={'schema':'726-top-level-home-privacy-inventory-v1','commit':c,'recorded_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'tracked_paths':len(entries),'unique_blobs':len(cache),'direct_gzip_paths':gz,'stored_bytes':stored,'occurrences':hits,'exceptions':exceptions,'limits':'Exact actual account-home prefix, raw tracked blob bytes and one direct gzip decoded layer only; matching tar byte streams are not yet member-attributed. No other roots, nested compression, unknown encodings or runtime behavior covered. A path digest does not replace privacy review.'};(out/'firstpass-results.json').write_text(json.dumps(result,indent=2)+'\n');print('first-pass-complete',json.dumps({'tracked_paths':len(entries),'unique_blobs':len(cache),'gzip_paths':gz,'occurrences':len(hits),'exceptions':len(exceptions),'sha256':sha((out/'firstpass-results.json').read_bytes())}))

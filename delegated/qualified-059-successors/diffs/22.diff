@@ -1,0 +1,26 @@
+--- originals/verify_delegated_links_22.py
++++ successors/verify_delegated_links_22_059_public.py
+@@ -1,10 +1,15 @@
+ #!/usr/bin/env python3
+ """Verify historical links and native identities without product execution."""
++import sys as _cw_sys
++_cw_sys.dont_write_bytecode = True
++from pathlib import Path as _CW_Path
++from qualified_crosswalk import configure as _cw_configure
++_CW = _cw_configure(_CW_Path(__file__).parent / 'CROSSWALK-059.json')
+ import gzip,hashlib,io,json,tarfile,tomllib
+ from pathlib import Path
+-R=Path(__file__).resolve().parent;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();cp=load('DELEGATED-EVIDENCE-CHECKPOINT-22.json');bundles={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']};by_sha={x['sha256']:x for x in transport['entries']};direct=load('DELEGATED-CHECKPOINT-22-DIRECT-LINKS.json');assert len(direct['links'])==32
++R=_CW.root;load=lambda p:json.loads((R/p).read_text());sha=lambda b:hashlib.sha256(b).hexdigest();cp=load('DELEGATED-EVIDENCE-CHECKPOINT-22.json');bundles={b['bundle_id']:b for b in cp['bundles']};transport=json.loads(gzip.decompress((R/'recovered/original-transport-manifest.json.gz').read_bytes()));by_path={x['path']:x for x in transport['entries']};by_sha={x['sha256']:x for x in transport['entries']};direct=load('DELEGATED-CHECKPOINT-22-DIRECT-LINKS.json');assert len(direct['links'])==32
+ for x in direct['links']:
+- p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=p.read_bytes();assert (sha(raw),len(raw))==(x['sha256'],x['bytes'])
++ p=(R/x['path']).resolve();assert p.is_relative_to(R.resolve()) and p.is_file();raw=_CW.read(x['path']);assert _CW.matches(x['path'],raw,x['sha256'],x['bytes'])
+ def saved(m,x):assert (m['original_sha256'],m['original_bytes'])==(x['sha256'],x['bytes']) or (m['original_uncompressed_sha256'],m['original_uncompressed_bytes'])==(x['sha256'],x['bytes'])
+ checks=0
+ for name,b in bundles.items():
+@@ -54,3 +59,5 @@
+    n=x.get('package','glam');data=t.extractfile(x['archive']).read();assert (sha(data),len(data))==(x['sha256'],x['bytes']);
+    with tarfile.open(fileobj=io.BytesIO(archives[n]),mode='r:gz') as a:assert a.extractfile(x['member']).read()==data
+  print('Verified',checks,'historical/previous-source links; four native lock identities and selected members, including a reconstructed public bevy archive. No product execution, feature resolution or read credit inferred.')
++
++_CW.finish()

@@ -1,0 +1,21 @@
+{
+  "schema": "726-qualified-evidence-verifier-successor-v1",
+  "author": "/root/hair_ops",
+  "recorded_at_utc": "2026-11-12T08:59:31.015664+00:00",
+  "status": "Proposed separately named evidence verifier; no publication or product source changes.",
+  "original_verifier": {
+    "path": "ORIGINAL-verify_recovered.py",
+    "sha256": "5fbd014581bbfc412596040ef923f680c72284115d3a5f4f7287f214212cb458",
+    "bytes": 567589
+  },
+  "successor": {
+    "path": "verify_recovered_public_redacted.py",
+    "sha256": "2b0be3743a7703f9ce11dfb905a079b89074a3ef3ce8031467951d110f1d5172",
+    "bytes": 573519
+  },
+  "deterministic_transformation": "build_successor.py requires the exact original SHA-256 and nine uniquely occurring source anchors. The bounded verifier rederives the successor byte-for-byte and parses its Python syntax. Only the three named object byte assertions, associated manifest reads, canonical master loading, a qualification helper and explicit output qualification are changed. All unrelated source bytes and assertions remain in place.",
+  "sample_scope": "Seven bounded evidence inputs: three public reconstructed objects under their original-identity filenames, three untouched historical manifests, and the exact frozen crosswalk. No complete repository tree is copied.",
+  "historical_and_privacy_qualification": "Original manifest identity, historical reader/revision context and original hash-labelled filenames remain historical references. New public bytes are separately hashed reconstructed evidence. A public-only run cannot verify withheld original bytes or infer checkpoint 3821. Existing Git history, archives, remotes and clones remain exposed.",
+  "integration_limit": "The successor has not been executed end to end and the aggregate runner has not been changed. The runner currently invokes the original and also discovers verify_*.py; integration must choose the successor without also running the preserved original. Additional dynamic dependencies, compressed archives, historical Git objects, and other 059 raw-object exposures remain outside this bounded scope.",
+  "safety": "No publication or earlier packet modification; no product execution, implementation, build, test or runtime probe; no full verifier execution or full-tree snapshot. Only evidence reconstruction and bounded verification."
+}

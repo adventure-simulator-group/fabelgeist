@@ -1,0 +1,56 @@
+{
+  "schema": "726-cp7-successor-independent-review-v1",
+  "reviewer": "/root/rig_identity",
+  "created_utc": "2026-11-12T08:25:27.244234+00:00",
+  "scope": "Independent read-only comparison of captured corrected CP7 successor, original private archive, preserved reviewed-earlier-stage archive, previous frozen review, and historical original CP7 index. Evidence-only; no source or product execution.",
+  "result": "Pass within the explicitly bounded privacy, metadata, and historical custody qualifications.",
+  "correction": {
+    "previous_finding": "CP7-TAR-NONPATH-REGEX-REDACTION-001 in the earlier frozen report",
+    "original_member": "726-delegate-web-map/build-manifest.py",
+    "original_line_one_based": 7,
+    "original_uncompressed_offset_zero_based": 213,
+    "original_and_successor_safe_text": "'absolute_home_path':re.compile(rb'/home/[A-Za-z0-9_.-]+/'),",
+    "previous_public_token": "<LOCAL_PATH_1>",
+    "old_member_sha256": "5b04ab6ea37eb44f50be736354e25fd6f973df0956395490435ee4813fd10bae",
+    "successor_member_sha256": "2565e6245646d7d909b5e7326536320e735b18c415a1655a9ccfe666ed058e3a",
+    "qualification": "Only this member body differs between the previous reviewed variant and the successor; the successor body equals the previous body with exactly its one placeholder replaced by this known-safe regex literal. The original private script is not executed. One other path-pattern match in this file remains redacted."
+  },
+  "other_retained_nonpath_contexts": [
+    {
+      "member": "726-delegate-web-map/historical-774-variant/producer-supplement-after-owner/root/traces.jsonl",
+      "original_offset_zero_based": 188293,
+      "preceding_prose": "garden",
+      "restored_slash_text": "/home/building"
+    },
+    {
+      "member": "726-delegate-web-map/original-059-ledger.json.gz",
+      "original_offset_zero_based": 4460781,
+      "preceding_prose": "source",
+      "restored_slash_text": "/home/window/viewport/overlay"
+    }
+  ],
+  "checks": {
+    "entries": 186,
+    "regular_files": 123,
+    "directories": 63,
+    "gzip_members": 52,
+    "changed_files_compared_with_original": 8,
+    "redacted_path_pattern_captures": 1084,
+    "exact_retained_nonpath_captures": 3,
+    "prior_review_comparison": "Prior archived index and tar exactly match both the earlier staged copies and the prior frozen review; its manifest-covered files were rehashed without executing its verifier. Exactly one successor member body and one index entry changed.",
+    "transform": "For every member, the original and successor hashes and lengths and the successor index were verified. The original source bytes transformed with only the three member- and offset-specific exceptions reproduced each successor body and compressed stored bytes exactly.",
+    "embedded_original_manifest": "All 122 original file identities match the retained original; embedded manifest remains an original-byte record, not a regenerated successor manifest.",
+    "privacy": "No unclassified match of the configured home/tmp path or credential patterns was found in member metadata and decoded member bodies after the three exact contexts. This checks one gzip member layer and is not an exhaustive privacy review or proof that all 1,084 captures are semantically private."
+  },
+  "metadata_qualification": {
+    "logical": "All 186 decoded names, types, modes, UID/GID, owner/group names, mtime, link names, device numbers and sparse metadata match the exact original.",
+    "raw": "Original GNU ustar headers were reconstructed as POSIX ustar/PAX. Twelve long names gained equivalent PAX path records; all 186 header checksums, 86 offsets and eight sizes differ. Original versus successor outer gzip OS byte is 3 versus 255. The successor index explicitly qualifies these encoding differences; the archive is not byte-identical."
+  },
+  "historical_qualification": "Original private archive is a same-machine copy bound to the earlier CP7 index; it does not establish independent custody or the historical archive creation invocation. Earlier 059/774 records, original reviewers, snapshots and unread scopes remain separate. This review grants no checkpoint3821, source-reading, product behavior or lens-clearance credit.",
+  "limitations": [
+    "The compact packet includes the successor archive and indices; the exact private original, prior frozen review and earlier staged archive remain separately hash-bound external inputs for the full verifier. Private originals can contain personal paths and remain local.",
+    "Path and credential pattern scans are bounded to the configured recognizers and decoded member contents and metadata. The three known safe contexts require narrowly specified allowlisting under the original broad matcher; no global privacy bypass is proposed.",
+    "No publication, stage, prior review or original was changed; no product code, old verifier, tests, builds, fixtures, macros, simulations or probes were executed."
+  ],
+  "verification": "Run the read-only verify.py with CP7_ORIGINAL, CP7_PRIOR_REVIEW and CP7_EARLIER_STAGE set to the corresponding retained local paths. CHECKS.json is the recorded evidence-check result."
+}

@@ -1,0 +1,22 @@
+import collections,gzip,hashlib,io,json,os,pathlib,pwd,re,subprocess,tarfile
+p=pathlib.Path('<redacted-local-evidence-directory>');d=json.loads((p/'archives-suffix-2501-results.json').read_bytes());c=d['commit'];username=os.fsencode(pwd.getpwuid(os.getuid()).pw_name);sha=lambda b:hashlib.sha256(b).hexdigest();cache={};rows=[];ex=[]
+def readchain(chain):
+ root=chain[0];key=root['git_blob'];
+ if key not in cache:cache[key]=subprocess.check_output(['git','show',c+':'+root['path']]);assert sha(cache[key])==root['sha256']
+ body=cache[key]
+ for step in chain[1:]:
+  if step['kind']=='gzip':body=gzip.decompress(body);assert sha(body)==step['decoded_sha256']
+  elif step['kind']=='tar-member':
+   with tarfile.open(fileobj=io.BytesIO(body),mode='r:') as t:
+    m=t.getmembers()[step['index']];body=t.extractfile(m).read();assert sha(body)==step['stored_sha256']
+ return body
+unix=re.compile(rb'(?<![A-Za-z0-9_/])/(?:home|Users|tmp)/[^\s"\'\x00,;)}\]]+',re.I);win=re.compile(rb'(?i)(?<![A-Za-z0-9])[a-z]:[\\/]+Users[\\/]+[^\s"\'\x00,;)}\]]+');rootp=re.compile(rb'(?<![A-Za-z0-9_/])/root/(?:\.codex|\.cache|\.local|tmp)[^\s"\'\x00,;)}\]]*',re.I)
+for x in d['occurrences']:
+ if x['type']=='user-home':continue
+ try:
+  body=readchain(x['chain']);assert sha(body)==x['content_sha256'];norm=re.sub(rb'(?i)\\u002f',b'/',body.replace(b'\\/',b'/'));offset=x['normalized_offset'];line=norm[norm.rfind(b'\n',0,offset)+1:norm.find(b'\n',offset) if norm.find(b'\n',offset)>=0 else len(norm)];line=unix.sub(b'<LOCAL-PATH-REDACTED>',line);line=win.sub(b'<LOCAL-PATH-REDACTED>',line);line=rootp.sub(b'<LOCAL-PATH-REDACTED>',line);line=re.sub(re.escape(username),b'<ACCOUNT-REDACTED>',line,flags=re.I);assert not unix.search(line) and not win.search(line) and not rootp.search(line) and username.lower() not in line.lower();snippet=line[:240].decode('utf-8','replace');rows.append({'type':x['type'],'chain':x['chain'],'content_sha256':x['content_sha256'],'line':x['line'],'context_flags':x['context_flags'],'redacted_context':snippet,'redacted_context_sha256':sha(line)})
+ except Exception as e:ex.append({'chain':x['chain'],'line':x['line'],'error_type':type(e).__name__})
+result={'commit':c,'examined_count':len(rows),'exceptions':ex,'rows':rows,'qualification':'Contexts have all matched local path tokens and current username removed before storage; generic examples and regex literals may still trigger broad pattern candidates. Redacted context is interpretation aid, not original exact bytes.'};(p/'suffix-candidate-contexts.json').write_text(json.dumps(result,indent=2)+'\n');group=collections.defaultdict(list)
+for x in rows:group[(x['type'],x['redacted_context_sha256'])].append(x)
+print('examined',len(rows),'exceptions',len(ex),'unique_redacted_contexts',len(group))
+for (typ,_),g in group.items():print('GROUP',typ,'count',len(g),'root',g[0]['chain'][0]['path'],'line',g[0]['line'],'context',g[0]['redacted_context'])

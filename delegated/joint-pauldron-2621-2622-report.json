@@ -1,0 +1,626 @@
+{
+  "schema": "726-checkpoint17-joint-pauldron-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T07:21:49.326992+00:00",
+  "scope": {
+    "roles": [
+      2621,
+      2622
+    ],
+    "historical": "Exact registered pr-working objects, recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e with unrelated modifications",
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not product source revision",
+    "identity": "Each recovered source body equals its 6533 and 95e Git blobs; equality of these two files does not establish a clean historical snapshot.",
+    "personal_scope": "This new registration and receipt record separately displayed historical and current roles 2621 1–51 and 2622 1–75,76–141; support windows and unread complements are exact. Earlier checkpoint17 same-author source reads remain separate."
+  },
+  "independent_source_reads": [
+    {
+      "tag": "pr-working-2621",
+      "kind": "historical-pr-working",
+      "role": 2621,
+      "archive": "source/pr-working-2621.rs",
+      "sha256": "998bb87a75985df4a4018b59e368d6422593f3d390e85572ad6ac914fd1396fb",
+      "EOF": 51,
+      "displayed_chunks": [
+        [
+          1,
+          51
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "current-2621",
+      "kind": "current-assigned",
+      "role": 2621,
+      "archive": "source/current-2621.rs",
+      "sha256": "998bb87a75985df4a4018b59e368d6422593f3d390e85572ad6ac914fd1396fb",
+      "EOF": 51,
+      "displayed_chunks": [
+        [
+          1,
+          51
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "pr-working-2622",
+      "kind": "historical-pr-working",
+      "role": 2622,
+      "archive": "source/pr-working-2622.rs",
+      "sha256": "5badf1272e5eb85a11a05f6a16f1826a3ae4aaa23f1ab42408fbd48fad2d92ec",
+      "EOF": 141,
+      "displayed_chunks": [
+        [
+          1,
+          75
+        ],
+        [
+          76,
+          141
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "current-2622",
+      "kind": "current-assigned",
+      "role": 2622,
+      "archive": "source/current-2622.rs",
+      "sha256": "5badf1272e5eb85a11a05f6a16f1826a3ae4aaa23f1ab42408fbd48fad2d92ec",
+      "EOF": 141,
+      "displayed_chunks": [
+        [
+          1,
+          75
+        ],
+        [
+          76,
+          141
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "joint-design",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/joint-design.source",
+      "sha256": "d17b22a1167a4cce7caa2b0c4fc225bf17e0ec1574caa262354fe4b95dde56b9",
+      "EOF": 128,
+      "displayed_chunks": [
+        [
+          65,
+          128
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "tag": "limb-design",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/limb-design.source",
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "EOF": 376,
+      "displayed_chunks": [
+        [
+          235,
+          305
+        ],
+        [
+          306,
+          376
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          234
+        ]
+      ]
+    },
+    {
+      "tag": "joint-gpu",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/joint-gpu.source",
+      "sha256": "412277a3c18b8e02e997ff34764650af39c0d0229d3fa6f3de23b4edaa9e5718",
+      "EOF": 268,
+      "displayed_chunks": [
+        [
+          100,
+          150
+        ],
+        [
+          190,
+          268
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          99
+        ],
+        [
+          151,
+          189
+        ]
+      ]
+    },
+    {
+      "tag": "pauldron-gpu",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/pauldron-gpu.source",
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "EOF": 244,
+      "displayed_chunks": [
+        [
+          55,
+          125
+        ],
+        [
+          126,
+          196
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          54
+        ],
+        [
+          197,
+          244
+        ]
+      ]
+    },
+    {
+      "tag": "limb-build",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/limb-build.source",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "EOF": 46,
+      "displayed_chunks": [
+        [
+          1,
+          46
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "device-pauldron",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/device-pauldron.source",
+      "sha256": "1658ee585c660bba599df7864f5d6e8fad945fa6050ff005d5245a2822da4d27",
+      "EOF": 201,
+      "displayed_chunks": [
+        [
+          1,
+          30
+        ],
+        [
+          85,
+          135
+        ]
+      ],
+      "unread_complement": [
+        [
+          31,
+          84
+        ],
+        [
+          136,
+          201
+        ]
+      ]
+    },
+    {
+      "tag": "limb-gpu",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/limb-gpu.source",
+      "sha256": "e5efa7b1f098c5fd6844c77f4e7f14cd6b1bf626f09208a349deb98166db78aa",
+      "EOF": 478,
+      "displayed_chunks": [
+        [
+          455,
+          478
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          454
+        ]
+      ]
+    },
+    {
+      "tag": "units",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/units.source",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "EOF": 183,
+      "displayed_chunks": [
+        [
+          15,
+          40
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          14
+        ],
+        [
+          41,
+          183
+        ]
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "RIG-ADMISSION03-F052",
+      "classification": "Existing 774 source-backed conceptual unvalidated plate-design/correlation finding; connected to central ledger 477, no new accepted count or automatic global alias.",
+      "source_refs": [
+        {
+          "source_tag": "current-2622",
+          "lines": [
+            [
+              9,
+              26
+            ],
+            [
+              120,
+              140
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "pauldron-gpu",
+          "lines": [
+            [
+              65,
+              72
+            ],
+            [
+              107,
+              125
+            ],
+            [
+              136,
+              144
+            ],
+            [
+              163,
+              196
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "units",
+          "lines": [
+            [
+              29,
+              36
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "limb-build",
+          "lines": [
+            [
+              9,
+              17
+            ],
+            [
+              24,
+              42
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "device-pauldron",
+          "lines": [
+            [
+              20,
+              29
+            ],
+            [
+              99,
+              110
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "The carrier record validates its borrowed design through LimbArmorDesign; public record_plates accepts another &PauldronDesign and does not perform the same local validation or carry an explicit association in the examined method. Shape admission limits lower lames to 3–7. If an unvalidated lower_lames=255 design reaches the separate method and prior fallible chart operations succeed, iteration i=65 forms 1000*66 in u16 before the division; that exceeds u16 max. Checked arithmetic can fail at this expression; unchecked profile behavior differs. This is symbolic source reasoning, no design, arithmetic operation, GPU or invalid mesh executed.",
+      "safeguards": "The two inspected selected caller functions pass the same borrowed design to carrier record and record_plates, so this does not establish an ordinary bad caller. Bounds of permitted public callers, arbitrary carrier construction and all device behavior are open.",
+      "history": "774 rig F052 and CONTRACT-605 record the same public second-design first operation and 255 witness at historical pr-working gpu/pauldron.rs 1–244, distinct from this role’s historical source. Current central ledger 477 adds its own previously attributed valid A/B and invalid-input source examples; exact global alias disposition belongs centrally. q1817/1818 are pending history; shared area alone does not establish alias.",
+      "future_direction": "Choose actual validated design and carrier correlation ownership or enforce the intended admission at the public boundary. Preserve intentional relative scales and asynchronous pending status; no repair performed."
+    },
+    {
+      "id": "REVIEW-PAULDRON-RECORD-CARRIER-STATUS-95E",
+      "classification": "Existing central ledger 478, distinct status-handoff source question; selected caller safeguards independently corroborated, no duplicate count.",
+      "source_refs": [
+        {
+          "source_tag": "limb-build",
+          "lines": [
+            [
+              9,
+              17
+            ],
+            [
+              24,
+              42
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "device-pauldron",
+          "lines": [
+            [
+              20,
+              29
+            ],
+            [
+              99,
+              110
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "pauldron-gpu",
+          "lines": [
+            [
+              73,
+              78
+            ],
+            [
+              101,
+              104
+            ],
+            [
+              107,
+              112
+            ],
+            [
+              192,
+              196
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "The limb record shortcut chains the carrier to record_plates and returns only the part. The ordinary generator separately reads carrier.status after submission; the fitted creator records a copy/atomic handoff into the part status. The earlier ASSESSMENT-PAULDRON-PART-95E traces a conditional invalid-frame/status example and later possible checks; this follow-up did not independently read its shader/frame proof.",
+      "limits": "No status, device, readback, shader, result or frame ran; no successful invalid mesh is claimed. Separate from F052 association/overflow and q140 staged readback identity; complete native lifecycle and all callers remain open."
+    },
+    {
+      "id": "OBS-JOINT-EXTENSION-ADMISSION-GUARDS",
+      "classification": "Guard and supported mode confirmation, no new finding.",
+      "source_refs": [
+        {
+          "source_tag": "current-2621",
+          "lines": [
+            [
+              5,
+              16
+            ],
+            [
+              31,
+              50
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "joint-design",
+          "lines": [
+            [
+              113,
+              127
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "limb-design",
+          "lines": [
+            [
+              282,
+              287
+            ],
+            [
+              313,
+              326
+            ],
+            [
+              369,
+              375
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "joint-gpu",
+          "lines": [
+            [
+              211,
+              239
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "limb-gpu",
+          "lines": [
+            [
+              466,
+              478
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "units",
+          "lines": [
+            [
+              29,
+              36
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "trace": "JointExtension validates length 40–180, count 1–4, share 350–850, taper 700–1100, wrap 900–1550 and hem relation. Terminal computation uses f32 derived from bounded raw u16 values and remains finite; single-lame intentionally uses full length. Parent rejects RaisedCop plus extension; limb shape validates before dispatch. For admitted counts 2–4 the chart division by lames−1 has a positive denominator, and 1 has its own branch.",
+      "limits": "No simulation, geometry, shader, visual or runtime acceptance. Parent check and finite arithmetic do not establish all chart geometry, gauge/fluting, frame, or downstream native invariants."
+    }
+  ],
+  "historical_attribution": [
+    {
+      "reviewer": "774 rig admission03",
+      "record": "REGISTER-069/070; ADDITIONAL-069/070",
+      "scope": "Original pr-working extension 1–51 and pauldron 1–141, direct admission only. CONTRACT-596 describes prior joint-cup 1–268 and F052/CONTRACT-605 prior gpu/pauldron 1–244; no later-lens credit."
+    },
+    {
+      "reviewer": "059 /root/segovb Lens11",
+      "record": "READ-L11-428, REGISTRATION-SEGOVB-1536/1537",
+      "scope": "Fresh historical extension 1–51 and pauldron 1–141; not current/3821 credit."
+    },
+    {
+      "reviewer": "059 /root/lens12_frontier, root adoption without personal reread",
+      "record": "READ-L12-896, PAR-L12-687/688 and exact role qualifications",
+      "scope": "Fresh independently registered historical extension 1–51 and pauldron 1–141, no cross-lens transfer. Earlier READ-L12-732 and PAR-L12-152 cover historical gpu/pauldron separately."
+    },
+    {
+      "reviewer": "Not recorded in q140 source view",
+      "record": "queue q140 / adler/READ-L11-348.json",
+      "scope": "Recorded pr-working GPU pauldron 1–244 among staged-readback sources; q140 source record itself leaves revision and attribution null. Later 95e source comparisons do not fill the original fields retroactively."
+    },
+    {
+      "reviewer": "/root/mhr_character earlier checkpoint17 packet",
+      "record": "prior/report.json and prior registrations/read receipts",
+      "scope": "Same author previously displayed both assigned historical/current bodies fully and bounded support. That earlier support-registration-03 documents a pre-registration locator display of joint_cup.rs line142 with no credit, followed by a registered support read; this new registered display 100–150 is a later reread, not first exposure or a separate reviewer. Earlier line215 was already within prior registration."
+    }
+  ],
+  "historical_relations": {
+    "selected_059_queue": [
+      {
+        "index": 140,
+        "id": "ADLER-L11-STAGED-READBACK-IDENTITY",
+        "relationship": "Separately retained staging/readback identity concern; no automatic alias to association or carrier status."
+      },
+      {
+        "index": 1817,
+        "id": "Q-L12-432ab4d4adb1eb1e44d3",
+        "relationship": "Pending pauldron carrier/design and native scope; no attached direct identity receipt."
+      },
+      {
+        "index": 1818,
+        "id": "Q-L12-ae99db0adb61f27b6ebb",
+        "relationship": "Pending shape and native owner sources; no attached direct identity receipt."
+      }
+    ],
+    "reconstruction": "059-selection-reconstructed.json copies exact values and journal entries from earlier reconstructed 059 queue/ledger; not original receipt or checkpoint3821.",
+    "pin_qualification": "root046 captured first35 registrations before rows69/70, with its recorded SHA differing from later f82 first35. root050 captured139/selected138; its recorded rig SHA differs from later first139. Qualification prefix pins match. Original registry embeds these later role rows independently; cause of mismatches unproved."
+  },
+  "ledger_proposal": {
+    "existing": "reference/BASELINE-95E-20261110.json entries 477 and 478; reference/ASSESSMENT-PAULDRON-PART-95E.json",
+    "proposal": "Connect 774 F052/CONTRACT-605 as same concrete unvalidated plate-design association and multiplication concern to existing 477, preserving independent historical and current authorship, and reserve exact aliases/counting for central decision. Keep status 478 distinct. Keep q140 staged readback separate; attach bounded producer/validator evidence to pending q1817/1818 without claiming closure. Selected caller safeguards are not proof all public paths are safe."
+  },
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Joint parent validates extension before chart dispatch; two selected pauldron callers pass the same design through both carrier stages."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "Millimeters, Permille and PlateGauge own unit representations, while raw u8 counts still need contextual range checks."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "Parent limb validation covers shape, fluting and gauge on selected entry; public record_plates admits a separate design at its local boundary."
+    },
+    {
+      "lens": 4,
+      "name": "operations",
+      "assessment": "One-lame chart uses a separate branch and admitted 2–4 denominator is positive; unchecked raw pauldron count is existing F052 concern."
+    },
+    {
+      "lens": 5,
+      "name": "aggregates",
+      "assessment": "Hem rounding depends on computed terminal length; carrier and supplied plate design require a coherent relationship."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Admission and carrier/design correlation owner needs explicit policy; raw design and pending device state differ."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "Two separately supplied design values can lack correspondence; selected ordinary callers reuse one borrowed design."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Status handoff is a separate existing source contract; preserve selected legitimate single-lame and optional extension modes."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "RaisedCop plus extension is rejected by the parent while Wrapped and absent extension remain represented modes."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Assigned structures use derived serde and common traits; no source support for blanket boilerplate change."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Relative permille can exceed one and is not universally a probability; retain separate angles, physical sizes and counts."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Assigned bodies use typed errors; supporting shader/resource names have separate requirements not assessed by text inclusion."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Shape-specific lame/gauge/range and derived follow-ratio values have distinct units, callers and bounds; no automatic alias."
+    }
+  ],
+  "open_questions": [
+    "What public caller contract admits or rejects separate plate design and what binds it to carrier creation?",
+    "Can external callers or independently formed carriers reach unvalidated counts and downstream operations after all prior fallible stages?",
+    "Which native carrier status producers and final receivers must preserve failure, and could later checks independently reject it?",
+    "What exact fluting, gauge, frame, shader, topology and geometry invariants hold across all callers?",
+    "What accounts for root046/root050 historical registration-prefix mismatches? No cause inferred.",
+    "What other historical aliases and lenses remain open beyond these bounded sources?"
+  ],
+  "publication_qualification": "public-prior-members.json verifies report, registration, receipt and historical-index original/public member hashes; selected members are unchanged. Other member redactions remain in checkpoint17 metadata. Historical and current evidence are not promoted into checkpoint3821.",
+  "constraints": "Source inspection, mathematical reasoning and evidence verification only. No product, shader, GPU, fixture, tests, builds, probes, repairs or visual validation; no unique count, ledger edit or whole-lens closure."
+}

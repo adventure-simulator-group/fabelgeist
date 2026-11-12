@@ -1,0 +1,21 @@
+import datetime,hashlib,json,os,pathlib,pwd,re,subprocess
+p=pathlib.Path(__file__).parent;repo=pathlib.Path.cwd();c='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e';home=pwd.getpwuid(os.getuid()).pw_dir;username=home.rsplit('/',1)[-1].encode();report=json.loads(pathlib.Path('<redacted-local-evidence-directory>/report.json').read_bytes());placeholder='<redacted-local-path>';sha=lambda b:hashlib.sha256(b).hexdigest();descs=[]
+for n,r in enumerate(report['records']):
+ raw=subprocess.check_output(['git','show',c+':'+r['path']]);assert sha(raw)==r['sha256'];obj=json.loads(raw);paths=[];counts={}
+ def walk(v,path):
+  if isinstance(v,dict):
+   for k,w in v.items():walk(w,path+'/'+k.replace('~','~0').replace('/','~1'))
+  elif isinstance(v,list):
+   for i,w in enumerate(v):walk(w,path+'/'+str(i))
+  elif isinstance(v,str) and home in v:
+   assert v.startswith(home) and v.count(home)==1;paths.append({'pointer':path,'original_value_sha256':sha(v.encode())});counts[v]=counts.get(v,0)+1
+ walk(obj,'');assert len(paths)==r['occurrences'];edited=raw
+ for value,count in counts.items():
+  encoded=json.dumps(value,ensure_ascii=True).encode();assert edited.count(encoded)==count;edited=edited.replace(encoded,json.dumps(placeholder).encode())
+ def redact(v):
+  if isinstance(v,dict):return {k:redact(w) for k,w in v.items()}
+  if isinstance(v,list):return [redact(w) for w in v]
+  return placeholder if isinstance(v,str) and home in v else v
+ assert json.loads(edited)==redact(obj) and home.encode() not in edited and username.lower() not in edited.lower()
+ dst=f'reconstructed/record-{n+1}.json';(p/dst).write_bytes(edited);descs.append({'original_path':r['path'],'original_sha256':r['sha256'],'original_git_blob':r['git_blob'],'original_bytes':len(raw),'public_candidate':dst,'public_candidate_sha256':sha(edited),'public_candidate_git_blob':hashlib.sha1(b'blob '+str(len(edited)).encode()+b'\0'+edited).hexdigest(),'public_candidate_bytes':len(edited),'redacted_fields':paths,'field_count':len(paths)})
+result={'schema':'726-redacted-json-reconstruction-proposal-v1','commit':c,'created_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'records':descs,'redaction_marker':placeholder,'qualification':'Prospective privacy reconstruction, not yet published; only entire local account-home path string values were replaced. Every other JSON value and every original byte outside matched encoded string literals was preserved. No current or historical Git blob identity transfer. Generic local-account/temp scanning and human review remain necessary before calling any public output private-safe.'};(p/'reconstruction-index.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'record_count':len(descs),'redacted_fields':sum(x['field_count'] for x in descs),'records':[{'original_path':x['original_path'],'reconstructed_sha256':x['public_candidate_sha256'],'reconstructed_bytes':x['public_candidate_bytes'],'count':x['field_count']} for x in descs],'index_sha256':sha((p/'reconstruction-index.json').read_bytes())},indent=2))

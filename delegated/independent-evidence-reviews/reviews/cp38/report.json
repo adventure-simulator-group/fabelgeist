@@ -1,0 +1,248 @@
+{
+  "schema": "726-checkpoint38-independent-review-report-v1",
+  "reviewer": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T07:55:16.364821+00:00",
+  "reviewed_snapshot": {
+    "stage": "<PRIVATE_PATH_0011>",
+    "index_sha256": "cf7550560626309555a6eda92c3e560aac88ff0273ef4fdfdae8b5bdbf3cfbce",
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "scope": "Read-only review of staging, package integrity, provenance and recovery qualifications. No audit role or lens completion, source-read credit, or product validation asserted."
+  },
+  "verdict": "Integrity passes for the inspected staged snapshot with material public-reconstruction and staging qualifications; the six false-positive prose replacements require explicit preservation and consideration before publication.",
+  "checks": [
+    {
+      "what": "Archive and member integrity",
+      "result": "Three archive bytes match checkpoint index; all 393 top-level and 475 recursive indexed members, content encodings, decompressed hashes, lengths and source-manifest memberships checked. All 22 changed top-level originals match both private originals manifest and frozen delegate packet originals; unchanged members match frozen originals. All 150 substitutions reproduce the public plaintext exactly under the observed per-member redaction map. 81 raw Git object/path chains, including the six role objects, verified with exact original bytes."
+    },
+    {
+      "what": "Original 059 transport matches",
+      "result": "132 nested member occurrences match original transport content SHA, byte length and Git blob; none of those exact transport-matched occurrences is redacted. This is a byte-identity count, not unique record or read credit. Reconstructed 059 queue/ledger copies are separate: some public copies have replacements despite not matching the transport original-identity index."
+    },
+    {
+      "what": "Private redaction originals and public variants",
+      "result": "The stage retains exact changed top-level originals under private-originals/checkpoint38, indexed by the captured original manifest; reconstructable local paths/metadata remain private. The public archives preserve original and public hashes but are reconstructions. Redacted scripts are not established to be executable as published; do not substitute redacted bytes for original evidence. Nested 059 original transport matches and reconstructed baseline copies are separate categories."
+    },
+    {
+      "what": "Historical source identities and readers",
+      "result": "Registry roles 2617\u20132622 and coverage are pr-working. Each archived historical body individually matches recovered f82 transport, Git commit 6533 and pinned 95e. The recorded pr-working snapshot had unrelated modifications, so file equality does not make the entire snapshot clean. Original registry supplier rig remains distinct from new packet authors /root/rig_identity, /root/hair_ops and /root/mhr_character. Their prospective registrations and old/current read receipts were compared for assigned role windows; no personal source read is claimed by this packaging review."
+    },
+    {
+      "what": "Prior manifest bound separately",
+      "result": "extremity-joint history/prior-role/MANIFEST.json is omitted from that later packet\u2019s frozen own manifest. It is separately bound exactly to the previously published checkpoint 17 manifest: SHA-256 19d64c867700fe086d9c6a9acd2cbbd77a4741bd590e505c9d459f109340cc08, 14404 bytes; earlier archive SHA-256 ea066e19b44cfdbcb19d29e11e98e397a59b1b21a441ec4976f0c23d77e88184. Five selected prior members were compared; only historical-manifest.json is a different redacted public version. This does not make all prior members identical."
+    },
+    {
+      "what": "Committed versus observed baseline",
+      "result": "The checkpoint 17 prior context distinguishes commit 56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e baseline SHA-256 28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9 from separately observed working baseline SHA-256 fc828ecf7e09c2b563c46ec6b8ef5c67267baeb5455f1ea62d3739b2e2ded6ad. They differ; the selected REVIEW-METAL-SEED-DRAW-OVERLAP-95E entry is equal. The committed file is Git-tree-proved at the publication commit, not a claim that the observed working snapshot was committed or is current."
+    },
+    {
+      "what": "Earlier unregistered locator",
+      "result": "For prior /root/mhr_character checkpoint17 support, joint_cup.rs line142 was printed by a locator before prospective registration and gets no credited read; subsequent registered display is a reread, not first exposure. The newer report and embedded prior support-registration-03 preserve that nuance."
+    },
+    {
+      "what": "Direct-link targets and overlay",
+      "result": "All eight direct-link byte hashes match the live publication at inspection. The stage is not a standalone full overlay: three target paths are absent and five resolve via symlink outside the stage, so a verifier requiring stage-root containment cannot pass against the staging directory as-is. Do not represent this check as having been run successfully there; verify the final real overlay separately."
+    },
+    {
+      "what": "Staged progress",
+      "result": "At this review snapshot stage has only the checkpoint38 pending key beyond the live file; live has independent_review_13i and independent_review_35 absent from stage, and same_machine_recovery_verification and current_main_qualification differ. Merge the specific checkpoint38 key into the live progress file rather than copying the staged progress wholesale; recheck at publication as live state can change."
+    }
+  ],
+  "false_positive_redactions": [
+    {
+      "bundle": "extremity-joint-2617-2618",
+      "member": "history/baseline-059-ledger.json.gz",
+      "matching_substring": "/home/window/viewport/overlay",
+      "occurrences": 1,
+      "context": "059 ledger source/home/window/viewport/overlay prose"
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "member": "prior/visor-buffe/history-774/contract-groups.jsonl.gz",
+      "matching_substring": "/home/noerrors",
+      "occurrences": 1,
+      "context": "774 contract-groups row 767 source/home/noerrors prose"
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "member": "recovered/original-059-ledger.json.gz",
+      "matching_substring": "/home/window/viewport/overlay",
+      "occurrences": 1,
+      "context": "059 ledger source/home/window/viewport/overlay prose"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "member": "history-774/continuation/rig/admission03/contract-groups.jsonl.gz",
+      "matching_substring": "/home/noerrors",
+      "occurrences": 1,
+      "context": "774 contract-groups row 767 source/home/noerrors prose"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "member": "reference/ledger.json.gz",
+      "matching_substring": "/home/window/viewport/overlay",
+      "occurrences": 1,
+      "context": "059 ledger source/home/window/viewport/overlay prose"
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "member": "skills/bespoke-audit.md",
+      "matching_substring": "/users/dependencies",
+      "occurrences": 1,
+      "context": "bespoke audit skill definitions/users/dependencies prose"
+    }
+  ],
+  "false_positive_qualification": "The 150 matched substrings comprised 129 local-user absolute paths, 15 /tmp/726 absolute paths and six false-positive prose occurrences. Two copies of 774 row 767 redact /home/noerrors inside engine/presentation/city/source/home/noerrors; three copies of reconstructed 059 ledger redact /home/window/viewport/overlay inside source/home/window/viewport/overlay; one copied skill sentence redacts /users/dependencies inside definitions/users/dependencies. Exact originals remain separately retained. Prefer adjusting the sanitizer to preserve these prose strings if the publication workflow permits; if retained, explicitly document semantic loss and treat public texts as reconstructed. This regex scan does not prove absence of all private data or semantic changes outside inspected substitutions.",
+  "source_roles": [
+    {
+      "role": 2617,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/extremities.rs",
+      "snapshot": "pr-working",
+      "sha256": "c1cf0b909a27cc5e1351eeb6624cde6dcf6b72d4d03a76c6d4e042e54d0f82c7",
+      "material_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "bytes": 2437,
+      "reconciliation_reviewer": "/root/rig_identity",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-064"
+      ]
+    },
+    {
+      "role": 2618,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/joint_cup_design.rs",
+      "snapshot": "pr-working",
+      "sha256": "d17b22a1167a4cce7caa2b0c4fc225bf17e0ec1574caa262354fe4b95dde56b9",
+      "material_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "bytes": 4546,
+      "reconciliation_reviewer": "/root/rig_identity",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-066"
+      ]
+    },
+    {
+      "role": 2619,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/besagew.rs",
+      "snapshot": "pr-working",
+      "sha256": "c3d0aae65c57d8a1406448595b81bbfa2c44b45caa68ff39a849da5189bca7db",
+      "material_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "bytes": 1496,
+      "reconciliation_reviewer": "/root/hair_ops",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-067"
+      ]
+    },
+    {
+      "role": 2620,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/radial_fluting.rs",
+      "snapshot": "pr-working",
+      "sha256": "54b0aee7ee7d1790d7538a1ecfaacd1d17d20de9dd6bd49124546eb087f854b7",
+      "material_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "bytes": 1559,
+      "reconciliation_reviewer": "/root/hair_ops",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-068"
+      ]
+    },
+    {
+      "role": 2621,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/joint_extension.rs",
+      "snapshot": "pr-working",
+      "sha256": "998bb87a75985df4a4018b59e368d6422593f3d390e85572ad6ac914fd1396fb",
+      "material_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "bytes": 1716,
+      "reconciliation_reviewer": "/root/mhr_character",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-069"
+      ]
+    },
+    {
+      "role": 2622,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pauldron.rs",
+      "snapshot": "pr-working",
+      "sha256": "5badf1272e5eb85a11a05f6a16f1826a3ae4aaa23f1ab42408fbd48fad2d92ec",
+      "material_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "bytes": 5700,
+      "reconciliation_reviewer": "/root/mhr_character",
+      "original_registry_audit_owner": "rig",
+      "original_registration_ids": [
+        "RIG-ADMISSION03-REGISTER-070"
+      ]
+    }
+  ],
+  "delegate_receipts": [
+    {
+      "bundle": "extremity-joint-2617-2618",
+      "reconciliation_reviewer": "/root/rig_identity",
+      "receipt": "personal-read-receipt.json",
+      "sha256": "e5a94e441ccf2d95d8675f13a3629a631470bf901ebbe7e4c6132d777040aca7",
+      "registration_sha256": "a51cb05b455e57793631ac534059edee54efb0789b2b12cb345afa5211300b75",
+      "qualification": "Both historical and current displays verified as separate registrations/receipts, retaining original historical supplier."
+    },
+    {
+      "bundle": "besagew-radial-2619-2620",
+      "reconciliation_reviewer": "/root/hair_ops",
+      "receipt": "read-receipt.json",
+      "sha256": "76e625ab4812c78f919250159fde5767760df43048f9d8b7f5ac1bc60b098727",
+      "registration_sha256": "11438448063b5ac70a381494a31ff84725f625e23c386a2caad77932b50bfba4",
+      "qualification": "Both historical and current displays verified as separate registrations/receipts, retaining original historical supplier."
+    },
+    {
+      "bundle": "joint-pauldron-2621-2622",
+      "reconciliation_reviewer": "/root/mhr_character",
+      "receipt": "read-receipt.json",
+      "sha256": "4317f32f92d7ff5b09ff3aeaa7827fad729c6f73bbc1902de61c03aeb44ed608",
+      "registration_sha256": "846a024696e8d878bb758c8e2b3a34cd32651ad132e05a269a9493c1cab9bcd6",
+      "qualification": "Both historical and current displays verified as separate registrations/receipts, retaining original historical supplier."
+    }
+  ],
+  "sources": {
+    "verification_results": "review-results.json",
+    "copied_reference_index": "reference-index.json",
+    "originals_manifest": "reference/private-originals-manifest.json",
+    "full_archives": "Paths and SHA-256s in review-results.json bundle_checks and checkpoint index; retained in stage, not duplicated here.",
+    "full_private_originals": "Exact changed member bytes remain in the separately retained staged private-originals collection; manifest and hashes copied here. This review packet alone does not contain all private original bytes.",
+    "readonly_verifier": "verify-readonly.py checks the observed stage and live dependencies, prints results only and writes no file; captured state may change or disappear.",
+    "offline_manifest_verifier": "verify-manifest.py checks frozen review packet bytes only; it does not re-read the stage."
+  },
+  "limits": [
+    "Inspection was byte/source-evidence review only; no product builds, tests, macros, fixtures, runtime probes, repairs or execution.",
+    "No source read credit transfers from hash checks, Git trees, archived source bytes, original supplier scope, or earlier delegates.",
+    "No alias decision, unique count or whole-lens clearance is asserted. No earlier evidence is promoted to checkpoint3821.",
+    "Later P16 tracked-patch recovery does not establish original invocation, untracked seven files or uninterrupted custody; it is background and does not convert these pr-working roles to P16.",
+    "Regex and narrow secret-pattern scans are bounded and cannot guarantee privacy of arbitrary content. Captured working/progress files and live targets can change after review.",
+    "Full archive bodies and changed private originals remain hash-linked dependencies outside this compact packet; preserve them when checkpoint is published."
+  ]
+}

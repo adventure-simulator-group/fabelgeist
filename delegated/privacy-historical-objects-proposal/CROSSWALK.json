@@ -1,0 +1,362 @@
+{
+  "schema": "726-privacy-proposal-crosswalk-v1",
+  "qualification": "Original source and historical evidence identities stay authoritative. Reconstructed bytes have new hashes. A public variant does not reproduce original private bytes or prove them without retained original input. Redaction labels need not imply path equality. Local HEAD and cached remote ref are observations, not a live remote check. No inference of missing checkpoint 3821.",
+  "observed_git": {
+    "local_head": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "locally_cached_remote_ref": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+    "remote_live_checked": false
+  },
+  "redaction_count": 30,
+  "objects": [
+    {
+      "original": {
+        "publication_path": "recovered/l12-final-registration-evidence/prior-direct-dependencies/0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+        "sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+        "bytes": 109772,
+        "git_blob_sha1": "52ae83a8081e25901b9b9658a757465788a6b8fd"
+      },
+      "variant": {
+        "path": "variants/67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9.json",
+        "sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+        "bytes": 109688,
+        "git_blob_sha1": "fc19c3ca432bc3accd4ef4f9cd2695ea4f958696",
+        "status": "privacy-reconstructed, not original bytes"
+      },
+      "redactions": [
+        {
+          "json_pointer": "/exact_source_read_rows/9/revision_or_transport_qualification/native_archive_provenance/cached_archive",
+          "original_byte_offset": 27627,
+          "original_token_bytes": 100,
+          "public_byte_offset": 27627,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_0>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        }
+      ],
+      "byte_reconstruction": "Independently verified that replacing only the listed original string-token spans with the public spans yields exact published-variant bytes.",
+      "provenance": {
+        "kind": "reused existing checkpoint 16 published redacted member",
+        "index": "DELEGATED-EVIDENCE-CHECKPOINT-16.json",
+        "index_sha256": "7381ef67b31a9ccc330164d54700be9a4994f3f997a7e312d6c44ccc80a72885",
+        "bundle_id": "p16-runtime-determinism",
+        "archive": "delegated/p16-runtime-determinism-evidence.tar.gz",
+        "archive_sha256": "547538e6babff458ceb5198fcf9e578ff02fd86f1be56f4402a56ef015efc098",
+        "archive_bytes": 314112,
+        "member": "historical-059/parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-881-888.json",
+        "member_original_sha256": "0b6bdc7320050b3c799e6cb87f9ecfceb97a8d72d84e04c7aacae8b55b2d1ce0",
+        "member_published_sha256": "67106f070825d632c93c91a29d495ecb4157d735179ee278f55dc6700e7e1ee9",
+        "credited_packet_reviewer": "/root/rig_identity"
+      }
+    },
+    {
+      "original": {
+        "publication_path": "recovered/l2-canonical-comparison-evidence/74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+        "sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+        "bytes": 2913027,
+        "git_blob_sha1": "fb28c8aa9905cdd2fa22169a213997502f7a3d73"
+      },
+      "variant": {
+        "path": "variants/25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3.json",
+        "sha256": "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+        "bytes": 2911040,
+        "git_blob_sha1": "d01adc8e9c36294431312e08cf88a1d0f0c3077c",
+        "status": "privacy-reconstructed, not original bytes"
+      },
+      "redactions": [
+        {
+          "json_pointer": "/source_root",
+          "original_byte_offset": 384,
+          "original_token_bytes": 110,
+          "public_byte_offset": 384,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_0>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/18/dependency_evidence/file",
+          "original_byte_offset": 94112,
+          "original_token_bytes": 101,
+          "public_byte_offset": 94018,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_1>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/24/provisional_owner_evidence/0/file",
+          "original_byte_offset": 128996,
+          "original_token_bytes": 106,
+          "public_byte_offset": 128817,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_2>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/24/provisional_owner_evidence/1/file",
+          "original_byte_offset": 129481,
+          "original_token_bytes": 125,
+          "public_byte_offset": 129212,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_3>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/33/external_source_evidence/0/file",
+          "original_byte_offset": 200276,
+          "original_token_bytes": 108,
+          "public_byte_offset": 199898,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_4>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/33/external_source_evidence/1/file",
+          "original_byte_offset": 200861,
+          "original_token_bytes": 108,
+          "public_byte_offset": 200391,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_5>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/33/external_source_evidence/2/file",
+          "original_byte_offset": 201380,
+          "original_token_bytes": 106,
+          "public_byte_offset": 200818,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_6>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/findings/33/external_source_evidence/3/file",
+          "original_byte_offset": 201963,
+          "original_token_bytes": 102,
+          "public_byte_offset": 201311,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_7>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/producer-propagation/skill",
+          "original_byte_offset": 1057446,
+          "original_token_bytes": 70,
+          "public_byte_offset": 1056708,
+          "public_token_bytes": 16,
+          "replacement": "<LOCAL_PATH_9>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/existing-type-owners/skill",
+          "original_byte_offset": 2311245,
+          "original_token_bytes": 70,
+          "public_byte_offset": 2310453,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_10>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/admission-contracts/skill",
+          "original_byte_offset": 2317184,
+          "original_token_bytes": 69,
+          "public_byte_offset": 2316339,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_11>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/invariant-operations/skill",
+          "original_byte_offset": 2379177,
+          "original_token_bytes": 70,
+          "public_byte_offset": 2378280,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_12>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/aggregate-states/skill",
+          "original_byte_offset": 2439268,
+          "original_token_bytes": 66,
+          "public_byte_offset": 2438318,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_13>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/type-ownership/skill",
+          "original_byte_offset": 2443007,
+          "original_token_bytes": 64,
+          "public_byte_offset": 2442008,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_14>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/redundant-authority/skill",
+          "original_byte_offset": 2505014,
+          "original_token_bytes": 69,
+          "public_byte_offset": 2503968,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_15>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/behavior-preservation/skill",
+          "original_byte_offset": 2565961,
+          "original_token_bytes": 71,
+          "public_byte_offset": 2564863,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_16>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/enum-shapes/skill",
+          "original_byte_offset": 2625668,
+          "original_token_bytes": 61,
+          "public_byte_offset": 2624516,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_17>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/derivability/skill",
+          "original_byte_offset": 2685738,
+          "original_token_bytes": 62,
+          "public_byte_offset": 2684542,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_18>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/type-granularity/skill",
+          "original_byte_offset": 2745488,
+          "original_token_bytes": 66,
+          "public_byte_offset": 2744247,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_19>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/magic-strings/skill",
+          "original_byte_offset": 2805304,
+          "original_token_bytes": 63,
+          "public_byte_offset": 2804014,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_20>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/lenses/magic-numbers/skill",
+          "original_byte_offset": 2864641,
+          "original_token_bytes": 63,
+          "public_byte_offset": 2863305,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_21>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/coordination/successor826/artifact_root",
+          "original_byte_offset": 2882001,
+          "original_token_bytes": 99,
+          "public_byte_offset": 2880619,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_22>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/coordination/successor826/reported_review_files/0",
+          "original_byte_offset": 2883443,
+          "original_token_bytes": 108,
+          "public_byte_offset": 2881979,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_23>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/coordination/successor826/reported_review_files/1",
+          "original_byte_offset": 2883561,
+          "original_token_bytes": 108,
+          "public_byte_offset": 2882006,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_24>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/coordination/successor826/reported_review_files/2",
+          "original_byte_offset": 2883679,
+          "original_token_bytes": 111,
+          "public_byte_offset": 2882033,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_25>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/coordination/provisional_receiver_slices/0/file",
+          "original_byte_offset": 2892842,
+          "original_token_bytes": 106,
+          "public_byte_offset": 2891102,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_26>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/reconciliation/root",
+          "original_byte_offset": 2909297,
+          "original_token_bytes": 128,
+          "public_byte_offset": 2907468,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_27>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        },
+        {
+          "json_pointer": "/reconciliation/archive",
+          "original_byte_offset": 2909442,
+          "original_token_bytes": 64,
+          "public_byte_offset": 2907502,
+          "public_token_bytes": 17,
+          "replacement": "<LOCAL_PATH_28>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        }
+      ],
+      "byte_reconstruction": "Independently verified that replacing only the listed original string-token spans with the public spans yields exact published-variant bytes.",
+      "provenance": {
+        "kind": "reused prior systemic correction of path-redacted source",
+        "prior_public_path": "delegated/sanitizer-additive-corrections/reconstructed/25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3.bin",
+        "prior_original_sha256": "74f8fe4d07b187636dc8568ba5f129f02157d43d67b6d67c618c7259a808be48",
+        "prior_public_sha256": "25cbe3dcc967db682e2db78a4371d8ed8605976df5f2d3f150db509b2a5b7ea3",
+        "previous_false_positive_corrected": "The non-path identity/home/conversation phrase is preserved.",
+        "prior_correction_author": "/root/hair_ops",
+        "prior_reconstruction_record_sha256": "296caf837c9637b555618861a404e24e9694023d5eacedd4aae4f6a474ce06c5"
+      }
+    },
+    {
+      "original": {
+        "publication_path": "recovered/prior-current-transition-evidence/7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+        "sha256": "7ab4700aa59883fb73e3c7ef55ea2c05ed5e13661ee8a5b82dae1732d76188a5",
+        "bytes": 120752,
+        "git_blob_sha1": "2a89c09acb57c6935680c3ef9b6969fc99214f0b"
+      },
+      "variant": {
+        "path": "variants/c21dca58dc77ed95ec680a61b91d45f49c1c86be0274ebf48409919f514d8c30.json",
+        "sha256": "c21dca58dc77ed95ec680a61b91d45f49c1c86be0274ebf48409919f514d8c30",
+        "bytes": 120669,
+        "git_blob_sha1": "59196f8aa12766b3f66305910f9b127cadfa3930",
+        "status": "privacy-reconstructed, not original bytes"
+      },
+      "redactions": [
+        {
+          "json_pointer": "/external_evidence_locator/preservation",
+          "original_byte_offset": 120233,
+          "original_token_bytes": 110,
+          "public_byte_offset": 120233,
+          "public_token_bytes": 27,
+          "replacement": "<PRIVATE_LOCAL_PATH_0001>",
+          "scope": "Complete JSON string token, including quotation marks; zero-based byte offsets."
+        }
+      ],
+      "byte_reconstruction": "Independently verified that replacing only the listed original string-token spans with the public spans yields exact published-variant bytes.",
+      "provenance": {
+        "kind": "new reconstruction for this proposal",
+        "reason": "One complete local absolute path string was replaced; this is not the original source object."
+      }
+    }
+  ]
+}

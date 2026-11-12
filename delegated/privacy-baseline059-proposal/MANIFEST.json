@@ -1,0 +1,80 @@
+{
+  "schema": "726-baseline059-public-stage-manifest-v1",
+  "created_utc": "2026-11-12T08:51:02.505660+00:00",
+  "author": "/root/rig_identity",
+  "files": {
+    "AFFECTED-POINTERS.json": {
+      "sha256": "fde56eb1b395298bfb7c6ad7291a3e49460e96b2f0dfc0da4a4bd6781681abbc",
+      "bytes": 7593
+    },
+    "DELEGATED-ARCHIVE-REFERENCE-INVENTORY.json": {
+      "sha256": "797264f1165542864c8aa313ef1f67d6669afd4454bd0dbbd9994ebee766370a",
+      "bytes": 1754259
+    },
+    "HASH-LINK-INVENTORY.json": {
+      "sha256": "de1e6523c0f97d9377e682597acf7b6ac87f52c09b13b288f7338a1db50266f6",
+      "bytes": 38372
+    },
+    "HISTORICAL-ARCHIVE-IDENTITIES.json": {
+      "sha256": "5ebf8883f70acb3e183f80deb1e2790bd6204e3a57ae9d6a57e9e9cd7cbd5c77",
+      "bytes": 534782
+    },
+    "LOOSE-REFERENCE-INVENTORY.json": {
+      "sha256": "3ee721c295aa9ffd20f5861a176aa42e79b7af20be1efae506e4da8570c3c65e",
+      "bytes": 1145337
+    },
+    "README.md": {
+      "sha256": "6d696e0e28acc1b5c1daf32db37c4644e7bdca916e616dd2128c04344a5a90b2",
+      "bytes": 1968
+    },
+    "RECONSTRUCTION.json": {
+      "sha256": "6f2938c55ee74e114b405c5fbf1ecc9e1bb2d46b164fe1bf90ae337a50e02a68",
+      "bytes": 12475
+    },
+    "REPORT.json": {
+      "sha256": "dfb6062300027714039aaaa24b816e8be338f7ab869ad02445b4f542b424a458",
+      "bytes": 9361
+    },
+    "SCAN-DRIFT.json": {
+      "sha256": "61426d41d9456d4455ca57ef101e59cae4ce0c96e8e831389eb20816c2b988f4",
+      "bytes": 857
+    },
+    "SCAN-INPUTS.json": {
+      "sha256": "bd6e53d9cd0fdeecb3a3aa83fe5cc96d129b225998553a49891b32249ca2ac8a",
+      "bytes": 2114
+    },
+    "baseline-059/ledger.json": {
+      "sha256": "f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180",
+      "bytes": 9416271
+    },
+    "baseline-059/queue.json": {
+      "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "bytes": 21631815
+    },
+    "inventory/all-loose-paths.bin.gz": {
+      "sha256": "697b8970a0be1bb34ac575048f91c7ade7a5c5d79153825b9cfc5ea3a6f42df3",
+      "bytes": 529167
+    },
+    "inventory/inventory-archives.py": {
+      "sha256": "d220fec97398bc89693c1658eb04523ffd430cd06f03825303911f9a6b9872b2",
+      "bytes": 5493
+    },
+    "inventory/inventory-hash-links.py": {
+      "sha256": "da1028366abe03c5e0878b039cd12ab3d309e2dc454f999f4d6a9456c8a7c337",
+      "bytes": 5799
+    },
+    "inventory/inventory-loose.py": {
+      "sha256": "b729e8318eda48a08f2e9dc5c5cbe4996b4f7ab1f22e0ecf8f37d5c1c2022651",
+      "bytes": 4151
+    },
+    "inventory/loose-hit-paths.bin.gz": {
+      "sha256": "8ac1da16955bc6269e3e337ab25021f9d0a72c42fae5267bc09068a5dfd55472",
+      "bytes": 15555
+    },
+    "verify.py": {
+      "sha256": "59d4fe09cad38ed26365ebd04091ff2c202d191b4b7a334da3bb9586acfaa1e4",
+      "bytes": 6220
+    }
+  },
+  "qualification": "Exact public-stage bytes only. This manifest excludes itself; use its externally reported SHA-256. Historical original bytes and sensitive mapping remain separately in restricted local storage."
+}

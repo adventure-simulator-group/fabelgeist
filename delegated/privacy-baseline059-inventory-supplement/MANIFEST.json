@@ -1,0 +1,76 @@
+{
+  "schema": "726-baseline059-inventory-supplement-manifest-v1",
+  "created_utc": "2026-11-12T08:56:09.333021+00:00",
+  "author": "/root/rig_identity",
+  "files": {
+    "DEEP-INVENTORY.json": {
+      "sha256": "4a81308dab3da73258d1d2b22698825ac91c9c7b847f9258d7a1f157b5e76733",
+      "bytes": 1665440
+    },
+    "INTEGRATION-PLAN.json": {
+      "sha256": "dae0a666c420f7c589b06f145f41c41420d66355c350ecf4a60ac84da8f1b306",
+      "bytes": 57411
+    },
+    "NEW-DEEP-MATCHES.json": {
+      "sha256": "ac9f1c25f9fbea9b8956ed645ce9fe21d1b98e75b04f567c4b6e5b5ad7f19472",
+      "bytes": 53195
+    },
+    "NONDELEGATED-INVENTORY.json": {
+      "sha256": "29b04b79593405d19170debd276dd369607617c71b3132585083482e4f651cf8",
+      "bytes": 3969937
+    },
+    "NONDELEGATED-TAILCHECK.json": {
+      "sha256": "268370bd9391f545b36ac6f0425da7324e2cab4c9d33f4b8837a8753fb23a95e",
+      "bytes": 3969937
+    },
+    "README.md": {
+      "sha256": "83cff96afc9dd7fe0b44fe2177570bf7d1d9d75a2af59bc9c901598b19b805e0",
+      "bytes": 1546
+    },
+    "REFERENCE-AFFECTED-POINTERS.json": {
+      "sha256": "fde56eb1b395298bfb7c6ad7291a3e49460e96b2f0dfc0da4a4bd6781681abbc",
+      "bytes": 7593
+    },
+    "REFERENCE-HASH-LINK-INVENTORY.json": {
+      "sha256": "de1e6523c0f97d9377e682597acf7b6ac87f52c09b13b288f7338a1db50266f6",
+      "bytes": 38372
+    },
+    "REFERENCE-RECONSTRUCTION.json": {
+      "sha256": "6f2938c55ee74e114b405c5fbf1ecc9e1bb2d46b164fe1bf90ae337a50e02a68",
+      "bytes": 12475
+    },
+    "REFERENCE-SHALLOW-INVENTORY.json.gz": {
+      "sha256": "8e9f06f0168a29d315a136dad96b520dc9037db78ead9c0a0c0feb63895de27b",
+      "bytes": 142885
+    },
+    "REPORT.json": {
+      "sha256": "4462fb121ef64241687e9d45f757da87162af92d4bc1eec102ce2115d001d7fb",
+      "bytes": 3941
+    },
+    "TAILCHECK-INVENTORY.json": {
+      "sha256": "2c70f649d906fc6403a0fd91c23e13e5091ed376a3ef781b722fbc2e55e871d7",
+      "bytes": 1665737
+    },
+    "inventory-archives-deep.py": {
+      "sha256": "02e0fae5b4b2a87ed63291a022c13b7dd9d7191bfa53d117372be35e5ed6e354",
+      "bytes": 5493
+    },
+    "inventory-archives-tailcheck.py": {
+      "sha256": "4831fa46f7a5aafa09dd24b2ebdef71d55930aa3e691db97cd5b7dcca31e5a8f",
+      "bytes": 6015
+    },
+    "inventory-nondelegated-tailcheck.py": {
+      "sha256": "05ec26e333041860a3cf89a2ee2ccabe8d9d1110f9140068ff1c77d581a462a1",
+      "bytes": 5420
+    },
+    "inventory-nondelegated.py": {
+      "sha256": "a738c6aa10787e45a2cb24772e5aac6e11be4225044c1317b5f2964524350835",
+      "bytes": 5139
+    },
+    "verify.py": {
+      "sha256": "114b5d360a01495184c38e95dcf339864933c353e33ec4808563dac34b760427",
+      "bytes": 5052
+    }
+  },
+  "qualification": "Exact supplement bytes. The manifest excludes itself and is bound by the separately reported SHA-256; the original privacy proposal remains unchanged."
+}

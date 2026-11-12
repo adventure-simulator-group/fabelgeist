@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""Read-only occurrence and Git source verification, not an exhaustive rescan."""
+import collections,gzip,hashlib,io,json,os,pathlib,pwd,re,subprocess,tarfile
+p=pathlib.Path(__file__).parent; load=lambda q:json.loads((p/q).read_bytes()); sha=lambda b:hashlib.sha256(b).hexdigest();blob=lambda b:hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest(); commit='56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e'
+a=load('scan/archives-prefix-2000.json');b=load('scan/archives-tail-container-results.json');z=load('scan/archives-prefix-budget-revisit.json');r=load('report.json');o=load('occurrences-classified.json');old=load('firstpass/report.json');raw=a['occurrences']+b['occurrences'];assert len(raw)==len(o['occurrences'])==126
+assert a['completed_tracked_paths']==2000 and a['tracked_total']==21399 and b['stats']['tracked_paths']==19399
+assert len(a['exceptions'])==z['input_exceptions']==z['stats']['revisited']==38 and all(x['reason']=='per-top expanded byte budget exceeded' for x in a['exceptions']) and not z['occurrences'] and not z['unresolved'] and not b['exceptions']
+counts=collections.Counter(x['classification'] for x in o['occurrences']);assert counts=={'concrete-current-account':56,'concrete-historical-account':5,'concrete-third-party-account':1,'concrete-historical-temp':2,'verifier-regex-literal':33,'upstream-source-example':29} and dict(counts)==o['counts']==r['result']['categories']
+assert [(x['scan_scope'],{k:v for k,v in x.items() if k not in ('classification','classification_basis','scan_scope')}) for x in o['occurrences']]==[('prefix-1-2000',x) for x in a['occurrences']]+[('tail-2001-21399',x) for x in b['occurrences']]
+assert old['counts']['home_occurrences']==56 and old['counts']['tracked_paths']==21399
+entries=subprocess.check_output(['git','ls-tree','-r','-l','-z',commit]).split(b'\0');assert len([x for x in entries if x])==21399
+assert subprocess.check_output(['git','rev-parse',commit+'^{tree}']).decode().strip()==r['tree']
+patterns={'user-home':re.compile(rb'(?<![A-Za-z0-9_])/(?:home|Users)/[A-Za-z0-9._-]+(?=[/"\'\s\\\x00]|$)'),'other-home':re.compile(rb'(?<![A-Za-z0-9_/])/(?:home|Users)/[A-Za-z0-9._-]+'),'temp':re.compile(rb'(?<![A-Za-z0-9_/])/tmp/[A-Za-z0-9._-]+'),'windows-user':re.compile(rb'(?i)(?<![A-Za-z0-9])(?:[a-z]:[\\/]+Users[\\/]+)[A-Za-z0-9._-]+'),'root-home-candidate':re.compile(rb'(?<![A-Za-z0-9_/])/root/(?:\.codex|\.cache|\.local|tmp)(?:/|$)')}
+cache={};seen=set()
+def body_for(chain):
+ root=chain[0];key=('blob',root['git_blob'])
+ if key not in cache:
+  body=subprocess.check_output(['git','cat-file','blob',root['git_blob']]);assert sha(body)==root['sha256'] and blob(body)==root['git_blob'] and len(body)==root['bytes'];entry=subprocess.check_output(['git','ls-tree',commit,'--',root['path']]);assert root['git_blob'].encode() in entry;cache[key]=body
+ body=cache[key]
+ for step in chain[1:]:
+  if step['kind']=='gzip':
+   assert sha(body)==step['stored_sha256'];key=('gzip',step['stored_sha256']);
+   if key not in cache:cache[key]=gzip.decompress(body)
+   body=cache[key];assert sha(body)==step['decoded_sha256'] and len(body)==step['decoded_bytes']
+  elif step['kind']=='tar-member':
+   key=('tar',sha(body),step['index']);
+   if key not in cache:
+    with tarfile.open(fileobj=io.BytesIO(body),mode='r:') as t:
+     m=t.getmembers()[step['index']];assert m.isfile() and m.name==step['name'];cache[key]=t.extractfile(m).read()
+   body=cache[key];assert sha(body)==step['stored_sha256'] and len(body)==step['bytes']
+  else:raise AssertionError('unexpected chain type')
+ return body
+for x in o['occurrences']:
+ assert x['view_kind']=='leaf'; key=(json.dumps(x['chain'],sort_keys=True),x['type'],x['normalized_offset']);assert key not in seen;seen.add(key)
+ body=body_for(x['chain']);assert sha(body)==x['content_sha256'];norm=re.sub(rb'(?i)\\u002f',b'/',body.replace(b'\\/',b'/'));m=patterns[x['type']].match(norm,x['normalized_offset']);assert m and sha(m.group())==x['matched_prefix_sha256'];assert norm.count(b'\n',0,x['normalized_offset'])+1==x['line']
+concrete=[x for x in o['occurrences'] if x['classification'].startswith('concrete-')];group=collections.Counter(x['chain'][0]['path'] for x in concrete);assert len(group)==10 and sum(group.values())==64
+assert {x['path']:x['occurrences'] for x in r['result']['affected']}==dict(group)
+for x in r['result']['affected']:
+ y=next(t['chain'][0] for t in concrete if t['chain'][0]['path']==x['path']);assert (x['stored_sha256'],x['git_blob'],x['stored_bytes'])==(y['sha256'],y['git_blob'],y['bytes'])
+raw_index=load('firstpass-reconstruction-index.json');extra=load('extra-reconstruction-index.json');assert sha((p/'firstpass-reconstruction-index.json').read_bytes())==r['custody_and_reconstruction']['raw_json_candidates']['index_sha256'] and sha((p/'extra-reconstruction-index.json').read_bytes())==r['custody_and_reconstruction']['additional_candidates']['index_sha256']
+assert {x['original_path'] for x in raw_index['records']+extra['records']}==set(group)
+for x in raw_index['records']+extra['records']:
+ original=x.get('original_sha256',x.get('original_stored_sha256')); assert original==next(q['stored_sha256'] for q in r['result']['affected'] if q['path']==x['original_path'])
+assert sha((p/'firstpass/BUNDLE-MANIFEST.json').read_bytes())==r['scan_provenance']['initial_firstpass_manifest_sha256']
+print('PASS: committed tree count, 126 occurrence chains/prefix hashes and categories, 38 recorded budget revisits, ten candidate identity links; no exhaustive rescan')

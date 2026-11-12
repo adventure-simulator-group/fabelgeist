@@ -1,0 +1,541 @@
+{
+  "schema": "726-extremity-joint-checkpoint17-reconciliation-v1",
+  "created_utc": "2026-11-12T07:22:55.714576+00:00",
+  "author": "/root/rig_identity",
+  "scope": {
+    "roles": [
+      2617,
+      2618
+    ],
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_snapshot": "Original pr-working source snapshot recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e and four unrelated modified paths. Each assigned historical source object matches that commit and 95e individually; this does not prove a clean historical tree.",
+    "role2617": "gpu/extremities.rs SHA c1cf0b909a27cc5e1351eeb6624cde6dcf6b72d4d03a76c6d4e042e54d0f82c7, original historical range 1–78; old/current each independently displayed 1–78.",
+    "role2618": "joint_cup_design.rs SHA d17b22a1167a4cce7caa2b0c4fc225bf17e0ec1574caa262354fe4b95dde56b9, original historical range 1–128; old/current each independently displayed 1–128 in bounded chunks.",
+    "support": "All current supporting scopes were independently registered before their numbered displays; see each registration and actual receipt for precise per-registration windows/unread complements. WGSL is source text only. Support provides no other ordered-role credit.",
+    "proofs": "git-proofs.json preserves per-file old/current object membership and f82 original-source/record transport. f82 is transport, not original project revision. Archived bytes and parsing do not imply a personal read."
+  },
+  "observations": [
+    {
+      "id": "OBS-EXTREMITY-FRAME-LOOKUP-95E",
+      "classification": "Existing q610 frame/recipe boundary, independently traced; no new count or defect established.",
+      "first_contract": "The public extremity entry validates the LimbArmorDesign, builds a recipe for mitten/sabaton/boot, and accepts a caller-supplied frame slice. Per-chart and per-coordinate shell lookup checks frame index with get().ok_or(InvalidSurface), so a reached missing index returns a typed error rather than indexing that frame slice unchecked. These checks do not validate frame-buffer size, alignment, finiteness, side, semantic fit or future native execution.",
+      "conditional_partial_recording": "A selected unfluted mitten places a cuff chart referencing frame0 in the recipe before its thumb chart referencing frame1; chart layout makes the cuff 13 rows × 40 columns = 520 items. PartRecipe records shells in insertion order. If a public caller provides only frame0, all earlier validation, construction, uploads and frame0 chart recording succeed, and the kernel uses a valid nonzero workgroup size, control reaches the later missing frame1 error after dispatch_items was called for the cuff. On the explicitly conditional fast-kernel branch, KernelBatch::dispatch records a compute pass into the caller-owned encoder before it increments dispatch count. The shown loop has no local rollback before returning the later error, and the caller still owns its mutable batch; the batch API exposes submit. A slow kernel separately calls ComputePass::record, whose body was not inspected here. No actual caller, invalid input, command, GPU, shader, batch submission or runtime behavior was executed. Whether a supported caller can supply one frame, whether it would reuse/submit after Err, and whether any resulting side effect matters are unresolved. The host build path shown owns a local batch and returns on record error before its explicit submit, but that does not prove all caller behavior.",
+      "safeguards": "The inspected DeviceWearer mitten path supplies both hand and thumb frame buffers; its sabaton/boot paths each supply one foot frame. The selected footwear toe/boot shells name frame0. Parent validation admits mitten finger lames 2–6 and sabaton lames 3–8, excluding a zero selected count when validation succeeds. This does not establish buffer contents or all APIs.",
+      "historical_relation": "059 q610 points to /segovb_continuation/additional_pending_connected_contracts/60 and remains open-evidence-or-disposition. 774 rig ADDITIONAL-064 established direct footwear validation but described the mitten as context only, not an old frame certificate. Prior /root/hair_ops checkpoint17 report independently identified late frame lookup, with a separately attributed full current support read. This packet adds bounded 95e batch-source and arithmetic reasoning; no independent accepted defect or alias is claimed.",
+      "future_direction": "Determine the caller-facing error/ownership contract for partially recorded work, actual supported frame producers and native content checks; only after audit and authorization decide whether preflight, batch isolation or another canonical boundary is necessary.",
+      "references": [
+        {
+          "source": "extremity-now",
+          "ranges": [
+            [
+              21,
+              27
+            ],
+            [
+              30,
+              52
+            ],
+            [
+              54,
+              78
+            ]
+          ]
+        },
+        {
+          "source": "limb-owner",
+          "ranges": [
+            [
+              282,
+              285
+            ],
+            [
+              345,
+              375
+            ]
+          ]
+        },
+        {
+          "source": "recipe-order",
+          "ranges": [
+            [
+              18,
+              25
+            ],
+            [
+              47,
+              56
+            ]
+          ]
+        },
+        {
+          "source": "recipe",
+          "ranges": [
+            [
+              106,
+              146
+            ]
+          ]
+        },
+        {
+          "source": "recipe-supp",
+          "ranges": [
+            [
+              149,
+              162
+            ]
+          ]
+        },
+        {
+          "source": "chart",
+          "ranges": [
+            [
+              259,
+              264
+            ],
+            [
+              338,
+              343
+            ]
+          ]
+        },
+        {
+          "source": "chart-supp",
+          "ranges": [
+            [
+              346,
+              351
+            ]
+          ]
+        },
+        {
+          "source": "coord",
+          "ranges": [
+            [
+              156,
+              181
+            ]
+          ]
+        },
+        {
+          "source": "kernel",
+          "ranges": [
+            [
+              210,
+              223
+            ],
+            [
+              249,
+              290
+            ],
+            [
+              307,
+              315
+            ],
+            [
+              342,
+              360
+            ]
+          ]
+        },
+        {
+          "source": "kernel-groups",
+          "ranges": [
+            [
+              132,
+              135
+            ]
+          ]
+        },
+        {
+          "source": "mitten",
+          "ranges": [
+            [
+              100,
+              123
+            ],
+            [
+              147,
+              167
+            ]
+          ]
+        },
+        {
+          "source": "chart-columns",
+          "ranges": [
+            [
+              34,
+              35
+            ],
+            [
+              93,
+              121
+            ]
+          ]
+        },
+        {
+          "source": "chart-layout",
+          "ranges": [
+            [
+              186,
+              213
+            ]
+          ]
+        },
+        {
+          "source": "device",
+          "ranges": [
+            [
+              28,
+              53
+            ],
+            [
+              57,
+              69
+            ],
+            [
+              90,
+              102
+            ]
+          ]
+        },
+        {
+          "source": "footwear",
+          "ranges": [
+            [
+              161,
+              182
+            ],
+            [
+              236,
+              245
+            ],
+            [
+              278,
+              287
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OBS-JOINT-CUP-CONSTRUCTION-ADMISSION-95E",
+      "classification": "Selected guard and aggregate confirmation; no new unique defect.",
+      "first_contract": "JointCupDesign validates medial/lateral wrap and the optional extension, rejecting any valid extension for RaisedCop. The parent separately validates the construction-specific wing, dome, length, fluting and gauge; the selected limb shape calls that parent before joint generation. JointExtension admits one through four lames and the inspected generator handles one explicitly before dividing by lames minus one for a multi-lame extension.",
+      "safeguards": "The inspected editor clears an extension when switching to RaisedCop and caps wing according to the chosen construction. An absent extension remains a meaningful supported mode. These are source-level gates, not proof of every constructor, finite fitting frame, geometry or UI behavior.",
+      "relationship": "774 rig ADDITIONAL-066 and the earlier unnamed ASSESSMENT-LIMB-METAL-95E current support 100–127 and extension observation retain their own author and scope; /root/hair_ops independently read both role revisions. 059 q1814 and q1815 ask broader historical/native questions and remain connected, not automatically aliases. Current row REVIEW-METAL-SEED-DRAW-OVERLAP-95E shares q1815 as broad background but concerns random draws, a distinct contract.",
+      "future_direction": "Retain valid single- and multi-lame cases and explicit construction invariants when assessing callers and native consumers; no implementation or validation performed.",
+      "references": [
+        {
+          "source": "joint-old",
+          "ranges": [
+            [
+              6,
+              21
+            ],
+            [
+              31,
+              56
+            ],
+            [
+              64,
+              68
+            ],
+            [
+              113,
+              128
+            ]
+          ]
+        },
+        {
+          "source": "joint-now",
+          "ranges": [
+            [
+              6,
+              21
+            ],
+            [
+              31,
+              56
+            ],
+            [
+              64,
+              68
+            ],
+            [
+              113,
+              128
+            ]
+          ]
+        },
+        {
+          "source": "limb-owner",
+          "ranges": [
+            [
+              282,
+              285
+            ],
+            [
+              313,
+              326
+            ],
+            [
+              369,
+              375
+            ]
+          ]
+        },
+        {
+          "source": "joint-extension",
+          "ranges": [
+            [
+              31,
+              50
+            ]
+          ]
+        },
+        {
+          "source": "limb-generator",
+          "ranges": [
+            [
+              466,
+              478
+            ]
+          ]
+        },
+        {
+          "source": "joint-generator",
+          "ranges": [
+            [
+              211,
+              239
+            ]
+          ]
+        },
+        {
+          "source": "editor",
+          "ranges": [
+            [
+              103,
+              141
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "OBS-JOINT-WRAP-SELECTED-MODE-95E",
+      "classification": "Prior /root/hair_ops source-backed ownership/persistence question; no asserted defect or unique count.",
+      "first_contract": "JointCupDesign stores and validates both wrap values across constructions. The selected shader source reads them in raised_point; wrapped_point instead computes its angle from fixed constants and wing. The editor exposes these controls only for RaisedCop, but the shown mode switch leaves their values intact.",
+      "conditions_and_limits": "Retaining dormant values may be an intentional editable preset when returning to raised mode. The displayed shader is text only and other consumers, persisted identity, real UI interactions, rendered geometry and product intent are not established. This is distinct from extension admission and q610 frame integrity; no automatic alias.",
+      "future_direction": "Clarify mode switching and stored-state expectations before deciding whether a mode-specific owner or explicit preset is appropriate.",
+      "references": [
+        {
+          "source": "joint-now",
+          "ranges": [
+            [
+              6,
+              21
+            ],
+            [
+              31,
+              56
+            ],
+            [
+              113,
+              127
+            ]
+          ]
+        },
+        {
+          "source": "joint-generator",
+          "ranges": [
+            [
+              36,
+              64
+            ],
+            [
+              70,
+              98
+            ],
+            [
+              113,
+              125
+            ],
+            [
+              241,
+              260
+            ]
+          ]
+        },
+        {
+          "source": "editor",
+          "ranges": [
+            [
+              103,
+              141
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L12-CLOSURE-EXTREMITY-SHADER-SOURCE-BOUNDARY",
+      "classification": "059 q2691 remains open-source-reconciliation; earlier scoped negative disposition is bounded context, not whole-lens clearance.",
+      "first_contract": "The selected chart_kernel concatenates two source snippets and passes the source string to ChartKernel::new. Selected footwear and mitten paths pass program text, providing a native shader-program role rather than by itself establishing a missing application semantic identifier.",
+      "conditions_and_limits": "Historical q2691 is not globally closed; native compiler errors, feature and other caller relationships remain open. No shader compiled or executed and no all-string inventory is claimed.",
+      "relationship": "059 /root/lens12_frontier connected TEAM-023 and source role 2617 at 6533 are retained with their own authorship, scopes and adoption limits; /root/hair_ops and the unnamed current helmet-footwear assessment independently traced current support.",
+      "references": [
+        {
+          "source": "extremity-old",
+          "ranges": [
+            [
+              21,
+              27
+            ]
+          ]
+        },
+        {
+          "source": "extremity-now",
+          "ranges": [
+            [
+              21,
+              27
+            ]
+          ]
+        },
+        {
+          "source": "chart",
+          "ranges": [
+            [
+              250,
+              255
+            ]
+          ]
+        },
+        {
+          "source": "footwear",
+          "ranges": [
+            [
+              161,
+              166
+            ],
+            [
+              184,
+              189
+            ]
+          ]
+        },
+        {
+          "source": "mitten",
+          "ranges": [
+            [
+              100,
+              118
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "historical_relationships": [
+    {
+      "record": "774 rig REGISTER-064/ADDITIONAL-064 and REGISTER-066/ADDITIONAL-066",
+      "scope": "Fresh old pr-working 6533 per-file extremities 1–78 and joint cup 1–128. Original 064 is bounded footwear sender, mitten context only; no frame/native or other-lens proof. 066 is joint construction admission only. Exact original records transported by f82."
+    },
+    {
+      "record": "059 Segovb READ-L11-428 / REGISTRATION-SEGOVB-1532/1533",
+      "scope": "Fresh historical pr-working full role reads at 6533, separately attributed; no current or checkpoint3821 credit."
+    },
+    {
+      "record": "059 /root/lens12_frontier READ-L12-894/895, PAR-L12-683/684, partials and qualifications",
+      "scope": "Separately registered and attributed historical role windows; root adoption is not a root reread or later-lens credit."
+    },
+    {
+      "record": "059 q610, q1814, q1815, q2691",
+      "scope": "Exact old queue rows and corresponding three historical ledger pointers are reconstructed mechanically from preserved originals; q610 remains frame/native evidence pending, q1814/1815 retain broader joint/metal frontier and q2691 remains open-source-reconciliation despite a scoped semantic-ID nonfinding. Not automatically aliases."
+    },
+    {
+      "record": "Prior /root/hair_ops checkpoint17 packet",
+      "scope": "Old/current full roles and thirteen bounded current support scopes remain independently attributed. Its receipt records that an initially truncated device-extremities display was individually redisplayed in full before credit. Prior original REPORT, MANIFEST, registration and receipt match selected published archive members; historical-manifest differs due to public reconstruction/redaction and both exact hashes are retained."
+    },
+    {
+      "record": "95e ASSESSMENT-HELMET-FOOTWEAR-95E and ASSESSMENT-LIMB-METAL-95E",
+      "scope": "Prior documents do not identify the named reviewer. They separately record current extremities 1–78 and joint-cup 100–127 as support, not original ordered role credit. Current seed/draw ledger row is related to q1815 as broad metal context only and is not a joint/frame alias."
+    }
+  ],
+  "authority_and_recovery": {
+    "publication_capture": {
+      "captured_utc": "2026-11-12T07:21:06.958460+00:00",
+      "commit": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+      "baseline_committed_sha256": "28138b4548101716246fee073984868472996f0e350d3f3526d237d61c6a67f9",
+      "working_baseline_observed_sha256": "fc828ecf7e09c2b563c46ec6b8ef5c67267baeb5455f1ea62d3739b2e2ded6ad",
+      "qualification": "Working copy separately captured while central work proceeded, not claimed committed or authoritative over the pinned working revision."
+    },
+    "selected_baseline_equality": "At capture, committed and working baseline bytes differ; the selected current REVIEW-METAL-SEED-DRAW-OVERLAP-95E entry is identical in both. The uncommitted working file is recorded as an observation, not represented as a committed copy. Both retain 95e working revision and discovery incomplete.",
+    "checkpoint3821": "Recovered earlier source and records, historical summaries, mechanically reconstructed selections and newly assessed current work keep their own revision and attribution; original checkpoint3821 remains unrecovered here.",
+    "p16": "Separate dirty P16 snapshot based at a120390947c89b703dc74c4255a13c035d054c50; a later matching tracked patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 is retained, excludes seven separately archived untracked files, and does not prove original invocation, uninterrupted custody, or all metadata. No P16 body-read credit is claimed for these pr-working roles.",
+    "rig_registration": "Earlier 13-row rig registration pin c75d93513422266bff64a096b243766fbd002d346f1d8c3c5b58f54af25ba06c differs from first 13 rows of later 145-row recovered registration SHA 442704cfbcdb6f971a06981c68f1442451ccbd9eb7e039dfda32e5d639a772d9; qualification prefix matches. Completion112 full registration pin 698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1 differs from recovered full 24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb. Earlier exact bytes not recovered in prior bounded searches; no global absence. The 13-row pin predates and does not itself invalidate later registrations 064/066."
+  },
+  "open_questions": [
+    "Can an actual supported public caller provide a frame list that omits a later required frame, and should an Err invalidate or isolate the caller-owned batch?",
+    "Do actual frame producers guarantee size, alignment, finiteness, side and semantic fit for all selected dispatches?",
+    "How does a caller handle earlier encoded commands after a later validation/lookup error, and what visible side effect, if any, could follow submission?",
+    "What cross-mode joint wrap values should survive editing and persistence, and where should that policy live?",
+    "What uninspected native kernel/compiler, shape, geometry, and historical all-caller/all-alias obligations remain for q610/q1814/q1815/q2691?"
+  ],
+  "bounded_lens_perspectives": [
+    {
+      "lens": "producer propagation",
+      "assessment": "Selected validated design → ordered recipe → frame-specific chart → mutable caller batch is visible; external producers and receiver/error handling remain open."
+    },
+    {
+      "lens": "existing owners",
+      "assessment": "LimbArmorDesign, JointCupConstruction, extension and gauge own selected invariants; an existing authoritative frame owner is not yet established."
+    },
+    {
+      "lens": "admission contracts",
+      "assessment": "Selected entry points validate before dispatch, but raw/public DTO and frame buffers need separate caller/native proof."
+    },
+    {
+      "lens": "invariant operations",
+      "assessment": "Frame lookup is checked; one-lame branch avoids dividing by zero on validated extension, and earlier recorded work can precede a later Err."
+    },
+    {
+      "lens": "aggregate states",
+      "assessment": "Raised cop rejects an extension and parent constrains construction-dependent wing; no all-geometry validity follows."
+    },
+    {
+      "lens": "type ownership",
+      "assessment": "Construction and extension ownership is visible; canonical frame validation and batch-failure ownership remain open."
+    },
+    {
+      "lens": "redundant authority",
+      "assessment": "Different joint modes retain shared wrap fields; policy could be deliberate presets, not proven conflicting authorities."
+    },
+    {
+      "lens": "behavior preservation",
+      "assessment": "Both assigned role bytes match historical 6533 and 95e; complete product, tree, renderer and runtime behavior may differ."
+    },
+    {
+      "lens": "enum shapes",
+      "assessment": "Wrapped and RaisedCop are explicit variants; optional extension and dormant wraps require intent before representation changes."
+    },
+    {
+      "lens": "derivability",
+      "assessment": "Selected joint data derives serde and ordinary traits; no semantic equivalence established for replacing validation logic."
+    },
+    {
+      "lens": "type granularity",
+      "assessment": "Mode-specific wing maxima and permille shape scales exceeding 1000 have declared meanings; do not force normalized-ratio assumptions."
+    },
+    {
+      "lens": "magic strings",
+      "assessment": "Selected strings are shader source passed to a native compiler boundary; no general semantic-identifier conclusion follows."
+    },
+    {
+      "lens": "magic numbers",
+      "assessment": "Selected frame indices, count bounds, chart size and lame arithmetic are understood only for these paths; no universal primitive replacement shown."
+    }
+  ],
+  "limitations": "Source inspection, mathematical reasoning and evidence-integrity checks only. No product/macro/shader/fixture/UI execution, builds, tests, probes, repairs, old verifier mutations, cleanup, or publication/source edits. No unique count, global alias decision or whole-lens clearance."
+}

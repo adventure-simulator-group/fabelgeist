@@ -1,0 +1,1530 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2184–2188 full current bodies, historical scoped and independent reviews, selected design validation/producer and pierced-plate domain sources.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-2184-2188.json",
+  "git_membership_evidence": "HELMET-FOOTWEAR-HISTORICAL-GIT-PROOFS.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/fabelgeist-armor/src/limb_armor.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9f03dc271915ee2cc5859a086c053ab23fc2ad0",
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "bytes": 12448,
+      "lines": 376,
+      "ranges": [
+        [
+          200,
+          245
+        ],
+        [
+          310,
+          375
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/extremities.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5fa8b9088e465b8370b9409995a924667af6f512",
+      "sha256": "c1cf0b909a27cc5e1351eeb6624cde6dcf6b72d4d03a76c6d4e042e54d0f82c7",
+      "bytes": 2437,
+      "lines": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/helmet_crown.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "556f84cd79d6428607b784b0224100c84bd6ba8c",
+      "sha256": "78c793cfcebd43b9f958c3b20296c89543dcc3eb0daf9b65f3ed2d67405e0a2f",
+      "bytes": 1061,
+      "lines": 34,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/helmets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "183f347093c6830650b4bfc6ef55d1f320646555",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "bytes": 14392,
+      "lines": 414,
+      "ranges": [
+        [
+          270,
+          405
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/helmets_buffe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "08f52abc5bb2a01fe4ba920fa452d38159cbee80",
+      "sha256": "3f85d9c18b5a393816c723c1e4e62c623a2d5d5d878ef19b9c5cc61c5fb5d519",
+      "bytes": 2100,
+      "lines": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f20d74cfd1ea4fae7fcf3a78b936971f49079b7b",
+      "sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+      "bytes": 1659,
+      "lines": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/visor_breaths.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "cd14a5cdef2f1aebb46c6fe955e82ae950d066b5",
+      "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+      "bytes": 5392,
+      "lines": 149,
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/pierced_plate_domain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "9911942717bc055a02f461aaa92b6af8640f6d87",
+      "sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "bytes": 6779,
+      "lines": 188,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/buffe_controls.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "257d31c4edfb764e1832569ed355d158eb17df98",
+      "sha256": "7adc6cc676c002d460425c25ab5d1b298d2a7f496a08f352a9e2b0b41f95f467",
+      "bytes": 3941,
+      "lines": 88,
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/visor_breath_controls.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "14461b8d2fe927602f29238b27a8db0838c0b7b8",
+      "sha256": "15d21602365257606f35077371065f62ed9d7581fd4e5480059fc4871e3cc91d",
+      "bytes": 1600,
+      "lines": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/plate_fluting.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "38a7b51d5aa3f7a0cc7062dbd1b1ba7a5e8b6008",
+      "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "bytes": 6026,
+      "lines": 150,
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e1733558dc146764823218ded3c2b3192398cf62",
+      "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+      "bytes": 4618,
+      "lines": 171,
+      "ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/helmet-footwear-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated current support ranges personally inspected; complete bytes preserved. Future original roles and other reviewers or lenses receive no credit."
+    }
+  ],
+  "prior_current_evidence": [
+    "ASSESSMENT-ARMOR-BODY-COORD-95E.json",
+    "ASSESSMENT-ARMOR-CONSTRUCTION-95E.json"
+  ],
+  "observations": [
+    {
+      "contract": "Helmet topology and original scope",
+      "trace": "Helmet recipe calls HelmetDesign::validate before generating parts. Crown and cheek fluting are separately checked through PlateFluting::validate, which admits flute counts2..64 and a positive bounded spread, width and fade. columns(40) always seeds distinct left and right pattern edges; the bounded flute sample spacing is far above the 1e-5 merge tolerance. The dome constructs48 rim entries independently of fluting and at least23 latitude rows, and its ring construction uses the same columns for every row. The examined dome, brim, nape, peak, guard, buffe-grid, barbute, sallet and visor callers construct matching nonempty ring lengths before CoordSurface::connect.",
+      "remaining": "Source and bounded arithmetic only; no columns, topology, helmet, shader or test ran. Arbitrary direct helper inputs and all other geometry/native contracts remain open. Original scoped Lens12 producer/delegate evidence cannot be expanded to the full body; historical Lens2/Lens3 and Adler independently read full scope."
+    },
+    {
+      "contract": "Footwear and buffe count guards",
+      "trace": "The selected extremity entry validates LimbArmorDesign before dispatching to boot/sabaton. Boot shaft height is restricted to40..350mm, excluding zero for the shaft-height denominator on this path; sabaton lame_count is3..8. Helmet recipe validates before burgonet; BuffeDesign calls BuffeCourses::validate, whose plate_count is2..3, excluding the empty course vector and the course-array overrun for the selected pipeline.",
+      "remaining": "No device, denominator, frame, shape, renderer or test ran. Frame contents and all other divisors or callers are not thereby proven valid."
+    },
+    {
+      "contract": "Breath placement versus a shortened buffe top course",
+      "trace": "BuffeDesign validates its breath pattern and its course settings separately. For a hypothetical otherwise-valid burgonet using BuffeCourses::default() (three plates, upper boundary700 permille, overlap5mm) and VisorBreaths::buffe() with height changed to820 permille, each local validator accepts its selected controls: the four 3mm slots in a54mm span meet the 3mm horizontal web, the two side patterns are separated, and the height lies in50..950. The top course chart height is 100*(1-0.700)+5 ≈35mm, allowing for f32 rounding. Openings are instead positioned using a100mm chart, so their centers lie at82mm, with vertical half-length6mm for the zero-inclination buffe preset. PiercedDomain checks every hole point is inside the approximately35mm outer chart with a3mm web and returns VisorOpeningSpacing before triangulation if not. The selected editor source offers both overlapping faceplates and a breath-height control spanning50..950.",
+      "remaining": "This is a concrete source-derived conditional combination, not a constructed design, UI interaction, geometry, triangulation or runtime observation. Other outer helmet conditions are assumed valid; exact intended control policy and all native consumers remain open. The later geometry boundary rejects the combination rather than silently publishing it."
+    },
+    {
+      "contract": "Packed helmet tags and shader source",
+      "trace": "CoordSurface stores a VertexKind discriminant as a native float coordinate; the same shared_codes declaration emits the WGSL u32 constants. Fixed small enum tags and chart shader program text have native ABI/source roles rather than by themselves proving a generic semantic-string or primitive-ID defect. The selected extremity chart kernel explicitly assembles shader program text from its design and shape functions.",
+      "remaining": "Historical Lens2 q2404 and Lens12 q2691 are qualified negative dispositions for selected scopes, not independent current-lens clearance or a claim that every packing bound is correct. Full shader and native compilation remain untested."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "REVIEW-L3-HELMET-CARRIER-TOPOLOGY-ADMISSION",
+      "queue": 3141,
+      "qualification": "Original independent root Lens3 open topology question reconnected; selected valid paths traced while other callers and native geometry remain open."
+    }
+  ],
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-BUFFE-BREATH-COURSE-CONTEXT-95E",
+      "qualification": "New conditional design relationship question; later domain rejects out-of-course openings and no product or UI ran."
+    }
+  ],
+  "historical_negative_dispositions": [
+    {
+      "queue": 2404,
+      "qualification": "Original Lens2 exact-owner suspicion not established; selected current native tags inspected, full independent scope remains open."
+    },
+    {
+      "queue": 2691,
+      "qualification": "Original Lens12 native shader-source suspicion not established; selected current source boundary inspected, full independent scope remains open."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "adler/READ-L11-325.json",
+      "sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "bytes": 14487,
+      "git_blob": "0727226370cf6e317b0b0b399143af1d60dab423",
+      "preserved_bytes": "recovered/helmet-footwear-059/013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b.gz",
+      "published_sha256": "013b2ef2e352784a33624b740adb3ebe67083a852d4c1db3c697e622db174f3b",
+      "published_bytes": 14487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-326.json",
+      "sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "bytes": 17595,
+      "git_blob": "37209f8639a30afb09ce02f25762823a60f84b12",
+      "preserved_bytes": "recovered/helmet-footwear-059/33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506.gz",
+      "published_sha256": "33f423944e30fa2a2b7fc90c5f7cbcf9f897417255f8c981797d9db5a85ae506",
+      "published_bytes": 17595,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-327.json",
+      "sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "bytes": 21125,
+      "git_blob": "b1ff53cd461863a08e8170f7451b9abbb6e081ef",
+      "preserved_bytes": "recovered/helmet-footwear-059/af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea.gz",
+      "published_sha256": "af4e6174dad2bad8d73fc92026bfedf23d00198a598c4d41963493a329cc2bea",
+      "published_bytes": 21125,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-328.json",
+      "sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "bytes": 27452,
+      "git_blob": "e267554248f8329c0f4ec09a8026cdc70c705e26",
+      "preserved_bytes": "recovered/helmet-footwear-059/6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea.gz",
+      "published_sha256": "6082b21f60749194a7624cd63cd71889370fe956fd19acdf7c59ad62cc2fbeea",
+      "published_bytes": 27452,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-329.json",
+      "sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "bytes": 22456,
+      "git_blob": "fa8502f3db92aa4c3078db978f1662cede4baf11",
+      "preserved_bytes": "recovered/helmet-footwear-059/96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b.gz",
+      "published_sha256": "96435d21ad085e10d2bdbc88546e33a8178568ae4f19f336881e92328a737c9b",
+      "published_bytes": 22456,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-330.json",
+      "sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "bytes": 11067,
+      "git_blob": "92e69019423222de343906ffbdf10758743816d3",
+      "preserved_bytes": "recovered/helmet-footwear-059/149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9.gz",
+      "published_sha256": "149028da4521757581794bf8577a9a015bd7030f00c8c0fa351c9f1c3ed604c9",
+      "published_bytes": 11067,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-331.json",
+      "sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "bytes": 18061,
+      "git_blob": "3d3dfaa6da80c4dd1f87de4cebc7d2d4ca6af48d",
+      "preserved_bytes": "recovered/helmet-footwear-059/04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938.gz",
+      "published_sha256": "04949d7ef33a8bad3b57301cba959878bb05911c851b453237b9f7ba06ef2938",
+      "published_bytes": 18061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-332.json",
+      "sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "bytes": 19279,
+      "git_blob": "7cd7cbdfc96edad375a8557ca4cfc842ac016484",
+      "preserved_bytes": "recovered/helmet-footwear-059/a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17.gz",
+      "published_sha256": "a2942c160b5546001a9d22f86f20bad9bc76ae84b18e1aed05dd6e31ce48ce17",
+      "published_bytes": 19279,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-333.json",
+      "sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "bytes": 11860,
+      "git_blob": "cd4ba47186f20cd9ec174beae4bf3ca1c9c80bbc",
+      "preserved_bytes": "recovered/helmet-footwear-059/7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2.gz",
+      "published_sha256": "7719d05a7605a4af7fe01978edd0fc9921382a4d8231ddcef27ddcd695b417b2",
+      "published_bytes": 11860,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-334.json",
+      "sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "bytes": 15252,
+      "git_blob": "6b3497c6889858a09aa3da87f2bcff57ca8cb22d",
+      "preserved_bytes": "recovered/helmet-footwear-059/8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb.gz",
+      "published_sha256": "8cf83e31315f0acc9ffe7280ed7f9d4616ec7355e919f7e8a8420ec32c0cfdcb",
+      "published_bytes": 15252,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-335.json",
+      "sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "bytes": 23129,
+      "git_blob": "177099df66cc6ca9051b8c72421afd1680f8e950",
+      "preserved_bytes": "recovered/helmet-footwear-059/c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9.gz",
+      "published_sha256": "c99c88d7c82f1c70c621cb3193f1ba4ed0a86b5fc2541b8e7989b328119e4af9",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-336.json",
+      "sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "bytes": 11573,
+      "git_blob": "633c5904872e62cbfa3ad647c18f209cb61a4da7",
+      "preserved_bytes": "recovered/helmet-footwear-059/7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85.gz",
+      "published_sha256": "7129b3efe6e0d7c307cd32ffa4eec6e09ab99ad00383437986f70d6b3a94af85",
+      "published_bytes": 11573,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-337.json",
+      "sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "bytes": 14118,
+      "git_blob": "01662cefc50ccf57c6550d14bde65ac9a7267e14",
+      "preserved_bytes": "recovered/helmet-footwear-059/c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1.gz",
+      "published_sha256": "c025fca54695d1c80db55dedd69a042ceb3befb5779c0db26a229f224b0576d1",
+      "published_bytes": 14118,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-338.json",
+      "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "bytes": 14866,
+      "git_blob": "e2cb145ed01f79ca3573e725d230e15701b9c56c",
+      "preserved_bytes": "recovered/helmet-footwear-059/b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c.gz",
+      "published_sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c",
+      "published_bytes": 14866,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-339.json",
+      "sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "bytes": 6833,
+      "git_blob": "f30dff7da2604497d37978130eb835b365fc4f33",
+      "preserved_bytes": "recovered/helmet-footwear-059/aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763.gz",
+      "published_sha256": "aa62072636a689b7b935b74dd02ee506a51dc7820336932aa148467d4d55b763",
+      "published_bytes": 6833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-340.json",
+      "sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "bytes": 8777,
+      "git_blob": "52ef60a72862f9c7260c4bd4312d6031771d395b",
+      "preserved_bytes": "recovered/helmet-footwear-059/ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916.gz",
+      "published_sha256": "ef09a5f829cb7a1cbefc03ef0f345a2ad535dbedd4e3f9a916b0f4fcc8fd8916",
+      "published_bytes": 8777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-341.json",
+      "sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "bytes": 19496,
+      "git_blob": "16c3ce74bf3d77eac3003c6b461bcdc72a99a6c6",
+      "preserved_bytes": "recovered/helmet-footwear-059/dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba.gz",
+      "published_sha256": "dd4c6ac3c2937284e99aec1daca3c0fadcd27fe1e546f30513842f9bedd3fdba",
+      "published_bytes": 19496,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-342.json",
+      "sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "bytes": 6922,
+      "git_blob": "8f7d49f37cd084d0544e74223bdfb3f38fedcb52",
+      "preserved_bytes": "recovered/helmet-footwear-059/8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c.gz",
+      "published_sha256": "8dec39a7f93142facae0912454ab6829d6fabcd685e250362025d3cae3a47f6c",
+      "published_bytes": 6922,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-343.json",
+      "sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "bytes": 15835,
+      "git_blob": "d00c3a915d6cfcd5c8863bbc98964c6a3d6df510",
+      "preserved_bytes": "recovered/helmet-footwear-059/51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903.gz",
+      "published_sha256": "51746dab003209e5540f5f4ba79ea193ca0680791cd060142bfc4326e0597903",
+      "published_bytes": 15835,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original same-lens context",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-344.json",
+      "sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "bytes": 15189,
+      "git_blob": "bd313a98e130ebc0cf6415fab33ab87d75e292b2",
+      "preserved_bytes": "recovered/helmet-footwear-059/06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702.gz",
+      "published_sha256": "06277a8162c76e19b86d48deaf31a10caf5801007fd3b11928f0070836b75702",
+      "published_bytes": 15189,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Adler historical receipt",
+        "Original same-lens context"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/READ-L11-345.json",
+      "sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50",
+      "bytes": 10780,
+      "git_blob": "59e5b8248ad0dde6081963cac3ecac64e056b965",
+      "preserved_bytes": "recovered/helmet-footwear-059/d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50.gz",
+      "published_sha256": "d5efb3f25e0273ad0db91f2094d4de78fdce4d0ca7a8ccebae8385c6ce751d50",
+      "published_bytes": 10780,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original independent Adler historical receipt"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1038.json",
+      "sha256": "9e71381de45ecaf1b1aad78705a2177ef643dba5529d062ef095050545ff0d7e",
+      "bytes": 758,
+      "git_blob": "d955880054f07c5ae8ca5ee20259a84d2dbde35d",
+      "preserved_bytes": "recovered/helmet-footwear-059/9e71381de45ecaf1b1aad78705a2177ef643dba5529d062ef095050545ff0d7e.gz",
+      "published_sha256": "9e71381de45ecaf1b1aad78705a2177ef643dba5529d062ef095050545ff0d7e",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1039.json",
+      "sha256": "a56c51319135d34e4c343bb6e6dce27aa1abe756dc2e2aec23437b5c87731739",
+      "bytes": 748,
+      "git_blob": "2184103eef8444f12c9060917f56948131b57d6c",
+      "preserved_bytes": "recovered/helmet-footwear-059/a56c51319135d34e4c343bb6e6dce27aa1abe756dc2e2aec23437b5c87731739.gz",
+      "published_sha256": "a56c51319135d34e4c343bb6e6dce27aa1abe756dc2e2aec23437b5c87731739",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1040.json",
+      "sha256": "83df2fd9bea9005beaf285d50cefe53ca4ebca995c12de2c7c83f9ca8c33ecb4",
+      "bytes": 748,
+      "git_blob": "c30a4173f4f792a681166c1c7b7d7e9c20cd5504",
+      "preserved_bytes": "recovered/helmet-footwear-059/83df2fd9bea9005beaf285d50cefe53ca4ebca995c12de2c7c83f9ca8c33ecb4.gz",
+      "published_sha256": "83df2fd9bea9005beaf285d50cefe53ca4ebca995c12de2c7c83f9ca8c33ecb4",
+      "published_bytes": 748,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1041.json",
+      "sha256": "5c8e512df23b05237c754dd759c011de24394cf536d60c667eb16c4f9a70222d",
+      "bytes": 751,
+      "git_blob": "eaae9cb0d87885f9658074105b4f2a1334909f37",
+      "preserved_bytes": "recovered/helmet-footwear-059/5c8e512df23b05237c754dd759c011de24394cf536d60c667eb16c4f9a70222d.gz",
+      "published_sha256": "5c8e512df23b05237c754dd759c011de24394cf536d60c667eb16c4f9a70222d",
+      "published_bytes": 751,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1042.json",
+      "sha256": "765f953eb7471845250c7044d6a8ed71cccf6a7a4bdd623c24622904420a9ec2",
+      "bytes": 758,
+      "git_blob": "1c0d3c771873d258d983348422551b41885215a6",
+      "preserved_bytes": "recovered/helmet-footwear-059/765f953eb7471845250c7044d6a8ed71cccf6a7a4bdd623c24622904420a9ec2.gz",
+      "published_sha256": "765f953eb7471845250c7044d6a8ed71cccf6a7a4bdd623c24622904420a9ec2",
+      "published_bytes": 758,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1043.json",
+      "sha256": "0540661ee5aa77c8b09e6faac3fd70882bdb8fee7f93b1c40efb9804c8deb162",
+      "bytes": 790,
+      "git_blob": "4b86266004696eaf5432c7f495ce48240791c2fa",
+      "preserved_bytes": "recovered/helmet-footwear-059/0540661ee5aa77c8b09e6faac3fd70882bdb8fee7f93b1c40efb9804c8deb162.gz",
+      "published_sha256": "0540661ee5aa77c8b09e6faac3fd70882bdb8fee7f93b1c40efb9804c8deb162",
+      "published_bytes": 790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1044.json",
+      "sha256": "0f17d357b00353153d63c04c369181aab5e08ec6b72bab6ad4f28a0802f8ec97",
+      "bytes": 793,
+      "git_blob": "93e1d3eddca1e00403b07e31beaa20b71956661d",
+      "preserved_bytes": "recovered/helmet-footwear-059/0f17d357b00353153d63c04c369181aab5e08ec6b72bab6ad4f28a0802f8ec97.gz",
+      "published_sha256": "0f17d357b00353153d63c04c369181aab5e08ec6b72bab6ad4f28a0802f8ec97",
+      "published_bytes": 793,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1045.json",
+      "sha256": "6f08ffd99faeb7c01dc5eb7f201ce2c2dcad1960aac3870719df8cee3ffef581",
+      "bytes": 833,
+      "git_blob": "cb34be88e1968311f2d043846f21618dc0e7d8ba",
+      "preserved_bytes": "recovered/helmet-footwear-059/6f08ffd99faeb7c01dc5eb7f201ce2c2dcad1960aac3870719df8cee3ffef581.gz",
+      "published_sha256": "6f08ffd99faeb7c01dc5eb7f201ce2c2dcad1960aac3870719df8cee3ffef581",
+      "published_bytes": 833,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original scoped2188 registration prior to separately registered full remainder"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/REGISTRATION-ADLER-1052.json",
+      "sha256": "aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04",
+      "bytes": 1045,
+      "git_blob": "b85d9d73e7d0b141b35804bfac6fae700f2783c5",
+      "preserved_bytes": "recovered/helmet-footwear-059/aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04.gz",
+      "published_sha256": "aadcb07fbd1b7fb0f5a765456e30a02738035d82706f45dc00a4966dd5348b04",
+      "published_bytes": 1045,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler prospective registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-344.json",
+      "sha256": "1fbeae2cde229616ea20c1b7d4fda13cf9abef913a2f2279bd3e378e5027bf98",
+      "bytes": 657,
+      "git_blob": "8cdbc19f9e6a83b3bd350ac04a27528677e1df7e",
+      "preserved_bytes": "recovered/helmet-footwear-059/1fbeae2cde229616ea20c1b7d4fda13cf9abef913a2f2279bd3e378e5027bf98.gz",
+      "published_sha256": "1fbeae2cde229616ea20c1b7d4fda13cf9abef913a2f2279bd3e378e5027bf98",
+      "published_bytes": 657,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/STATE-L11-345.json",
+      "sha256": "f4b2a637e8a1e2124379ef0cddd2a912fb1edfe1641b08a27710514312775d53",
+      "bytes": 635,
+      "git_blob": "44c0cee7a66b13518b4067074cbb33d1d57f866d",
+      "preserved_bytes": "recovered/helmet-footwear-059/f4b2a637e8a1e2124379ef0cddd2a912fb1edfe1641b08a27710514312775d53.gz",
+      "published_sha256": "f4b2a637e8a1e2124379ef0cddd2a912fb1edfe1641b08a27710514312775d53",
+      "published_bytes": 635,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens11 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-344.json",
+      "sha256": "93d0cb7e0f3a8d64b739751e5265de8eab15faf7036d13f868285c423ef53b05",
+      "bytes": 35030,
+      "git_blob": "f426898ccf4f4d6c0f77cfc483ecbdd39e6f572d",
+      "preserved_bytes": "recovered/helmet-footwear-059/93d0cb7e0f3a8d64b739751e5265de8eab15faf7036d13f868285c423ef53b05.gz",
+      "published_sha256": "93d0cb7e0f3a8d64b739751e5265de8eab15faf7036d13f868285c423ef53b05",
+      "published_bytes": 35030,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "adler/VERIFY-L11-345.json",
+      "sha256": "405eed004cccc606dbecdc1317a54e8bb10e1f081ebf7263a17fbfffd2214136",
+      "bytes": 31023,
+      "git_blob": "6f085585a95ce3e3599b42f8d4d5056cf4d18d89",
+      "preserved_bytes": "recovered/helmet-footwear-059/405eed004cccc606dbecdc1317a54e8bb10e1f081ebf7263a17fbfffd2214136.gz",
+      "published_sha256": "405eed004cccc606dbecdc1317a54e8bb10e1f081ebf7263a17fbfffd2214136",
+      "published_bytes": 31023,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Adler verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PARTIAL-PAR-L12-894-001.json",
+      "sha256": "a86f4da19ae9bed4952d6acecd364728fda4bd3a225fc011dfd40bb04c1ae308",
+      "bytes": 3682,
+      "git_blob": "740238308d64be5a55c703e54eb105d94d095056",
+      "preserved_bytes": "recovered/helmet-footwear-059/a86f4da19ae9bed4952d6acecd364728fda4bd3a225fc011dfd40bb04c1ae308.gz",
+      "published_sha256": "a86f4da19ae9bed4952d6acecd364728fda4bd3a225fc011dfd40bb04c1ae308",
+      "published_bytes": 3682,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-BUNDLE-PAR-L12-889-897.json",
+      "sha256": "8deffa0ffb6f92c932881bedf4d214d03c98e2ec9cb8d1d4bbe91f0c6dcc5041",
+      "bytes": 109320,
+      "git_blob": "d6e9af884dad2030d1853a163308ca426325c3e3",
+      "preserved_bytes": "recovered/helmet-footwear-059/8deffa0ffb6f92c932881bedf4d214d03c98e2ec9cb8d1d4bbe91f0c6dcc5041.gz",
+      "published_sha256": "8deffa0ffb6f92c932881bedf4d214d03c98e2ec9cb8d1d4bbe91f0c6dcc5041",
+      "published_bytes": 109320,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-727.json",
+      "sha256": "7e2af8807fa35d180bdd704421dd13834aaf70ba1c5851a658fab5f07059ccd6",
+      "bytes": 11714,
+      "git_blob": "d0c7feff257506ba60e9711ed08cfd714fb8f750",
+      "preserved_bytes": "recovered/helmet-footwear-059/7e2af8807fa35d180bdd704421dd13834aaf70ba1c5851a658fab5f07059ccd6.gz",
+      "published_sha256": "7e2af8807fa35d180bdd704421dd13834aaf70ba1c5851a658fab5f07059ccd6",
+      "published_bytes": 11714,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-728.json",
+      "sha256": "c77984c2686eddbe77968e47fb8c1401f69f40ce00b89f279e565931d1e516f2",
+      "bytes": 8173,
+      "git_blob": "4ce542778e6893a54a5717a0eabfd3e2e88536a3",
+      "preserved_bytes": "recovered/helmet-footwear-059/c77984c2686eddbe77968e47fb8c1401f69f40ce00b89f279e565931d1e516f2.gz",
+      "published_sha256": "c77984c2686eddbe77968e47fb8c1401f69f40ce00b89f279e565931d1e516f2",
+      "published_bytes": 8173,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-729.json",
+      "sha256": "898ef3c14e8d90e250e96f88864e5a3a5e31e75dcc076011b6b8ab993a4ede1c",
+      "bytes": 5088,
+      "git_blob": "1426e7ab3905895cdc2751c11afa84649c8546f9",
+      "preserved_bytes": "recovered/helmet-footwear-059/898ef3c14e8d90e250e96f88864e5a3a5e31e75dcc076011b6b8ab993a4ede1c.gz",
+      "published_sha256": "898ef3c14e8d90e250e96f88864e5a3a5e31e75dcc076011b6b8ab993a4ede1c",
+      "published_bytes": 5088,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated proposal"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/PROPOSAL-L12-894.json",
+      "sha256": "3ab0561c3dfae1fd151d9eba7d362ec185df92af96943ade7c3fc7d6e353f66e",
+      "bytes": 16790,
+      "git_blob": "64c4b82ab1401f6cb3a2432446addcca975f4ebf",
+      "preserved_bytes": "recovered/helmet-footwear-059/3ab0561c3dfae1fd151d9eba7d362ec185df92af96943ade7c3fc7d6e353f66e.gz",
+      "published_sha256": "3ab0561c3dfae1fd151d9eba7d362ec185df92af96943ade7c3fc7d6e353f66e",
+      "published_bytes": 16790,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-ORIGINAL2188-WINDOWS.json",
+      "sha256": "e1c06cfdc7502185d0ead9d508a35f451d255037065c045f7c8bd94675e79ee9",
+      "bytes": 760,
+      "git_blob": "195302212b22f4ec882a66e03a75a276f71734d5",
+      "preserved_bytes": "recovered/helmet-footwear-059/e1c06cfdc7502185d0ead9d508a35f451d255037065c045f7c8bd94675e79ee9.gz",
+      "published_sha256": "e1c06cfdc7502185d0ead9d508a35f451d255037065c045f7c8bd94675e79ee9",
+      "published_bytes": 760,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original exact scoped Windows locator qualification, zero body-read credit"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/QUALIFIED-REUSE-PAR-L12-894-CHART-NATIVE-SOURCE-BOUNDARY.json",
+      "sha256": "40446b106a95353b3ba668d4c64595de84df29cc1f85c3fd85f28f1247a5c6e6",
+      "bytes": 14530,
+      "git_blob": "0be631efe59b23f9ce1d5de297b1b68c19bc6e38",
+      "preserved_bytes": "recovered/helmet-footwear-059/40446b106a95353b3ba668d4c64595de84df29cc1f85c3fd85f28f1247a5c6e6.gz",
+      "published_sha256": "40446b106a95353b3ba668d4c64595de84df29cc1f85c3fd85f28f1247a5c6e6",
+      "published_bytes": 14530,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-131.json",
+      "sha256": "65240587630a5005fcf46fb2d20b3182e8b436f831a4b8441177d24418f8938d",
+      "bytes": 769,
+      "git_blob": "d64fe6c2d48fe66cd66dd82471176540f2cce1bc",
+      "preserved_bytes": "recovered/helmet-footwear-059/65240587630a5005fcf46fb2d20b3182e8b436f831a4b8441177d24418f8938d.gz",
+      "published_sha256": "65240587630a5005fcf46fb2d20b3182e8b436f831a4b8441177d24418f8938d",
+      "published_bytes": 769,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-132.json",
+      "sha256": "e93b64fcf74641dbb082a800bffb048c7a9ed5932ab2f5d81d14621f2b2e57fd",
+      "bytes": 749,
+      "git_blob": "9f661b80b53287f9859d008c55081f2982aee6fd",
+      "preserved_bytes": "recovered/helmet-footwear-059/e93b64fcf74641dbb082a800bffb048c7a9ed5932ab2f5d81d14621f2b2e57fd.gz",
+      "published_sha256": "e93b64fcf74641dbb082a800bffb048c7a9ed5932ab2f5d81d14621f2b2e57fd",
+      "published_bytes": 749,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-133.json",
+      "sha256": "bd1eeac33c84437ccaf88d967e7590573fc2bf38f5c69e79ffad36299cb4933d",
+      "bytes": 749,
+      "git_blob": "209170b684735d47f16edb5ea38ecd83c445d6e1",
+      "preserved_bytes": "recovered/helmet-footwear-059/bd1eeac33c84437ccaf88d967e7590573fc2bf38f5c69e79ffad36299cb4933d.gz",
+      "published_sha256": "bd1eeac33c84437ccaf88d967e7590573fc2bf38f5c69e79ffad36299cb4933d",
+      "published_bytes": 749,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-134.json",
+      "sha256": "9aab4d75698c04a456f4a4ab49a692e0c824e1629fe2dd7719caa1b22db9b542",
+      "bytes": 755,
+      "git_blob": "a18465f3ae5cb5f6def8f46f49b8efd60a99481e",
+      "preserved_bytes": "recovered/helmet-footwear-059/9aab4d75698c04a456f4a4ab49a692e0c824e1629fe2dd7719caa1b22db9b542.gz",
+      "published_sha256": "9aab4d75698c04a456f4a4ab49a692e0c824e1629fe2dd7719caa1b22db9b542",
+      "published_bytes": 755,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-138.json",
+      "sha256": "4614c4e4827fa5963e2e4cd134eab0dd5e27593bd162a9a4f015c9261bfc21fd",
+      "bytes": 777,
+      "git_blob": "df8762194a887831dacc884ee5ea4537a39c4320",
+      "preserved_bytes": "recovered/helmet-footwear-059/4614c4e4827fa5963e2e4cd134eab0dd5e27593bd162a9a4f015c9261bfc21fd.gz",
+      "published_sha256": "4614c4e4827fa5963e2e4cd134eab0dd5e27593bd162a9a4f015c9261bfc21fd",
+      "published_bytes": 777,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-139.json",
+      "sha256": "f7239584d151fc0cf276b96a449de7eef0be9785a2fbc752d7e4d5a9827e83f5",
+      "bytes": 765,
+      "git_blob": "597936d9edc5bf5cc3396e4911e49cf4550a4d44",
+      "preserved_bytes": "recovered/helmet-footwear-059/f7239584d151fc0cf276b96a449de7eef0be9785a2fbc752d7e4d5a9827e83f5.gz",
+      "published_sha256": "f7239584d151fc0cf276b96a449de7eef0be9785a2fbc752d7e4d5a9827e83f5",
+      "published_bytes": 765,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-140.json",
+      "sha256": "4186407d611e3652333a60c8d9f0087a0e9093d59dc5626129cfdd529132a6d8",
+      "bytes": 771,
+      "git_blob": "fea4953292b3454d3020b7d40339b0bf7567d2e7",
+      "preserved_bytes": "recovered/helmet-footwear-059/4186407d611e3652333a60c8d9f0087a0e9093d59dc5626129cfdd529132a6d8.gz",
+      "published_sha256": "4186407d611e3652333a60c8d9f0087a0e9093d59dc5626129cfdd529132a6d8",
+      "published_bytes": 771,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-141.json",
+      "sha256": "3b647c18c5fc682b522f1caef60066a83996567c18faaba5bda6ad2525cffe48",
+      "bytes": 1061,
+      "git_blob": "848e31646cf4c1b1363f9f2c083501367b00e253",
+      "preserved_bytes": "recovered/helmet-footwear-059/3b647c18c5fc682b522f1caef60066a83996567c18faaba5bda6ad2525cffe48.gz",
+      "published_sha256": "3b647c18c5fc682b522f1caef60066a83996567c18faaba5bda6ad2525cffe48",
+      "published_bytes": 1061,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-142-CONNECTED-HELMET-SURFACE-GAPS.json",
+      "sha256": "b10a88e1cd90e4a12b87e403b6eb1bf376fb5cd866f4076e58e0ccf7cc0892ca",
+      "bytes": 1602,
+      "git_blob": "4ed4ca8f43c751ead7c01cc21792d55ac30eed38",
+      "preserved_bytes": "recovered/helmet-footwear-059/b10a88e1cd90e4a12b87e403b6eb1bf376fb5cd866f4076e58e0ccf7cc0892ca.gz",
+      "published_sha256": "b10a88e1cd90e4a12b87e403b6eb1bf376fb5cd866f4076e58e0ccf7cc0892ca",
+      "published_bytes": 1602,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original delegated registration"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-682.json",
+      "sha256": "1d66abbdd27543c315bf4560b422f912f2f5466ac9bd5d31ce611e5cde4df882",
+      "bytes": 3579,
+      "git_blob": "1971d9d38bfb6448024baf85bea48fbcfe59cd3f",
+      "preserved_bytes": "recovered/helmet-footwear-059/1d66abbdd27543c315bf4560b422f912f2f5466ac9bd5d31ce611e5cde4df882.gz",
+      "published_sha256": "1d66abbdd27543c315bf4560b422f912f2f5466ac9bd5d31ce611e5cde4df882",
+      "published_bytes": 3579,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-683.json",
+      "sha256": "d62b16d81bac38ce6b25f5ce6daaeac1337426e98c3ad3da08ef69eb910befff",
+      "bytes": 3677,
+      "git_blob": "c2d2269547329760f8474945f5f73fd8c846f468",
+      "preserved_bytes": "recovered/helmet-footwear-059/d62b16d81bac38ce6b25f5ce6daaeac1337426e98c3ad3da08ef69eb910befff.gz",
+      "published_sha256": "d62b16d81bac38ce6b25f5ce6daaeac1337426e98c3ad3da08ef69eb910befff",
+      "published_bytes": 3677,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/PROPOSAL-BUNDLE-ROOT-L2-EXT-034-044.json",
+      "sha256": "13a8a805130b089cceb5a1ae8afc60cb647d5f3189b9a394c1a8160682a2a7fa",
+      "bytes": 23129,
+      "git_blob": "c45eec5b9e2e20eab203a2326d2be03098a758fd",
+      "preserved_bytes": "recovered/helmet-footwear-059/13a8a805130b089cceb5a1ae8afc60cb647d5f3189b9a394c1a8160682a2a7fa.gz",
+      "published_sha256": "13a8a805130b089cceb5a1ae8afc60cb647d5f3189b9a394c1a8160682a2a7fa",
+      "published_bytes": 23129,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-005.json",
+      "sha256": "d2a10b18226d4589c55d74f935aced4b2a02ba823188efbe721e77e44bd1aa45",
+      "bytes": 11114,
+      "git_blob": "470ceafbb9d2126331f9c3718d74d2dbdeef113f",
+      "preserved_bytes": "recovered/helmet-footwear-059/d2a10b18226d4589c55d74f935aced4b2a02ba823188efbe721e77e44bd1aa45.gz",
+      "published_sha256": "d2a10b18226d4589c55d74f935aced4b2a02ba823188efbe721e77e44bd1aa45",
+      "published_bytes": 11114,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/READ-ROOT-L2-CURRENT-009.json",
+      "sha256": "8d0211ebe9b9d119321efe63ccee1e0aa7de63ce089841b0f656418f6bc9758f",
+      "bytes": 27730,
+      "git_blob": "ca2868df9d50ca051f86d4fe014eba64cbe1c865",
+      "preserved_bytes": "recovered/helmet-footwear-059/8d0211ebe9b9d119321efe63ccee1e0aa7de63ce089841b0f656418f6bc9758f.gz",
+      "published_sha256": "8d0211ebe9b9d119321efe63ccee1e0aa7de63ce089841b0f656418f6bc9758f",
+      "published_bytes": 27730,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/READ-ROOT-L2-EXT-034-044.json",
+      "sha256": "4fed2c38883249b24797792793112a4a74ac77cb617a40c07d25b62fd02f3016",
+      "bytes": 24408,
+      "git_blob": "575a6980755480df8698e0ee471bb73aea573b4d",
+      "preserved_bytes": "recovered/helmet-footwear-059/4fed2c38883249b24797792793112a4a74ac77cb617a40c07d25b62fd02f3016.gz",
+      "published_sha256": "4fed2c38883249b24797792793112a4a74ac77cb617a40c07d25b62fd02f3016",
+      "published_bytes": 24408,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-034-041.json",
+      "sha256": "225bd390e94bc9f3f67a6f03d162a149ffa26001d01515f203e81f9a1f2301a1",
+      "bytes": 9181,
+      "git_blob": "6c7f3f02e5fede131b987b43bebe4ab21a232b4e",
+      "preserved_bytes": "recovered/helmet-footwear-059/225bd390e94bc9f3f67a6f03d162a149ffa26001d01515f203e81f9a1f2301a1.gz",
+      "published_sha256": "225bd390e94bc9f3f67a6f03d162a149ffa26001d01515f203e81f9a1f2301a1",
+      "published_bytes": 9181,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l2-extension-20261030/REGISTRATION-ROOT-L2-EXT-042-044.json",
+      "sha256": "74bbf624166d0f1041167968b0577b4f943671752a92a4bdbabc6422f569fcc2",
+      "bytes": 3042,
+      "git_blob": "0a4284920472358856053f2f2e69e13b9342a2a0",
+      "preserved_bytes": "recovered/helmet-footwear-059/74bbf624166d0f1041167968b0577b4f943671752a92a4bdbabc6422f569fcc2.gz",
+      "published_sha256": "74bbf624166d0f1041167968b0577b4f943671752a92a4bdbabc6422f569fcc2",
+      "published_bytes": 3042,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l3-extension-20261030/CONTRACT-PROPOSALS-ROOT-L3-EXT-035-045.json",
+      "sha256": "4c3bcc8aa5fe6cf115b61f959dbfdc4ff99a4885b43973d6d431e0f5c0b656d1",
+      "bytes": 44414,
+      "git_blob": "7d5732df422abecf834e08fd2b2707077807a3b4",
+      "preserved_bytes": "recovered/helmet-footwear-059/4c3bcc8aa5fe6cf115b61f959dbfdc4ff99a4885b43973d6d431e0f5c0b656d1.gz",
+      "published_sha256": "4c3bcc8aa5fe6cf115b61f959dbfdc4ff99a4885b43973d6d431e0f5c0b656d1",
+      "published_bytes": 44414,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3141 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l3-extension-20261030/CURRENT-PROPOSAL-BUNDLE-ROOT-L3-003-006-v2.json",
+      "sha256": "72514d848d00aebdb98babc7b6cff6d2e8f34333dc674607be26e17b441fb136",
+      "bytes": 95855,
+      "git_blob": "03f48e13548e436a57a38eb47ba281ce8d480a14",
+      "preserved_bytes": "recovered/helmet-footwear-059/72514d848d00aebdb98babc7b6cff6d2e8f34333dc674607be26e17b441fb136.gz",
+      "published_sha256": "72514d848d00aebdb98babc7b6cff6d2e8f34333dc674607be26e17b441fb136",
+      "published_bytes": 95855,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3141 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l3-extension-20261030/READ-ROOT-L3-CURRENT-005.json",
+      "sha256": "0243b780d725d732b5daa508005afd5d72eb332d739318c298cb623e27d81718",
+      "bytes": 40115,
+      "git_blob": "cdf9b91cd0d962871a3cfbc8d6edc3a4d17feff6",
+      "preserved_bytes": "recovered/helmet-footwear-059/0243b780d725d732b5daa508005afd5d72eb332d739318c298cb623e27d81718.gz",
+      "published_sha256": "0243b780d725d732b5daa508005afd5d72eb332d739318c298cb623e27d81718",
+      "published_bytes": 40115,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3141 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l3-extension-20261030/READ-ROOT-L3-EXT-035-042.json",
+      "sha256": "d6bf096ec493750140a1b5f9a652816c18b12ed7f6b930f8c218b0af584287aa",
+      "bytes": 30493,
+      "git_blob": "8b53775cd2a7503c83a8536f66ecff788b9507dd",
+      "preserved_bytes": "recovered/helmet-footwear-059/d6bf096ec493750140a1b5f9a652816c18b12ed7f6b930f8c218b0af584287aa.gz",
+      "published_sha256": "d6bf096ec493750140a1b5f9a652816c18b12ed7f6b930f8c218b0af584287aa",
+      "published_bytes": 30493,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3141 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "root-l3-extension-20261030/REGISTRATION-ROOT-L3-EXT-035-042.json",
+      "sha256": "fa83283643edce95e0cdcb8bd6dfdbe56e783afe70457f652cdb6484d14dc17a",
+      "bytes": 19920,
+      "git_blob": "6b07e63264a0968f6d7dab214d1630805e7c637d",
+      "preserved_bytes": "recovered/helmet-footwear-059/fa83283643edce95e0cdcb8bd6dfdbe56e783afe70457f652cdb6484d14dc17a.gz",
+      "published_sha256": "fa83283643edce95e0cdcb8bd6dfdbe56e783afe70457f652cdb6484d14dc17a",
+      "published_bytes": 19920,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue3141 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-727.json",
+      "sha256": "124f151cb598b275e88eba620d7e22780d49366cc8a248aa712d80489dd37a7a",
+      "bytes": 13557,
+      "git_blob": "f47eabf8c8e992aa3c2fccba31a3cff2967c8986",
+      "preserved_bytes": "recovered/helmet-footwear-059/124f151cb598b275e88eba620d7e22780d49366cc8a248aa712d80489dd37a7a.gz",
+      "published_sha256": "124f151cb598b275e88eba620d7e22780d49366cc8a248aa712d80489dd37a7a",
+      "published_bytes": 13557,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-728.json",
+      "sha256": "d1577c42ad2c553daf178122b195386299802064d267d56a9468ca76eb58f186",
+      "bytes": 9631,
+      "git_blob": "6925b11ac69daa124dc6dcf3fd0a1753a266c0ed",
+      "preserved_bytes": "recovered/helmet-footwear-059/d1577c42ad2c553daf178122b195386299802064d267d56a9468ca76eb58f186.gz",
+      "published_sha256": "d1577c42ad2c553daf178122b195386299802064d267d56a9468ca76eb58f186",
+      "published_bytes": 9631,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-729.json",
+      "sha256": "2231a8bb7716254b167b14b70b936e2ab6fa1dde5f15976e0fd144dc0b57a6c2",
+      "bytes": 6199,
+      "git_blob": "911ffe474457c4ff3e3b3fb87c1fa1a93bac2c27",
+      "preserved_bytes": "recovered/helmet-footwear-059/2231a8bb7716254b167b14b70b936e2ab6fa1dde5f15976e0fd144dc0b57a6c2.gz",
+      "published_sha256": "2231a8bb7716254b167b14b70b936e2ab6fa1dde5f15976e0fd144dc0b57a6c2",
+      "published_bytes": 6199,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original root adoption of delegated Lens12 evidence; zero root rereads"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/READ-L12-CONNECTED-TEAM-023.json",
+      "sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+      "bytes": 47262,
+      "git_blob": "ffbf808b9dea20d110b72d508719a4601cf16c25",
+      "preserved_bytes": "recovered/helmet-footwear-059/bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232.gz",
+      "published_sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+      "published_bytes": 47262,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound",
+        "Original059 queue2691 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-727.json",
+      "sha256": "fe53eefbb5105f35de6969295adee4c4448e6fcf7be2fc9acb91ef7229ea83cc",
+      "bytes": 2410,
+      "git_blob": "2739bbca4540c4fafd2d32f38f82772b0513b0f5",
+      "preserved_bytes": "recovered/helmet-footwear-059/fe53eefbb5105f35de6969295adee4c4448e6fcf7be2fc9acb91ef7229ea83cc.gz",
+      "published_sha256": "fe53eefbb5105f35de6969295adee4c4448e6fcf7be2fc9acb91ef7229ea83cc",
+      "published_bytes": 2410,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-728.json",
+      "sha256": "079ee643bc4fc9331c6e62fb4d7c8931906bf5eadcda6ad4f97f516a3915255c",
+      "bytes": 2025,
+      "git_blob": "402215d8e45826a5084b1d8e317294f3fba25a5a",
+      "preserved_bytes": "recovered/helmet-footwear-059/079ee643bc4fc9331c6e62fb4d7c8931906bf5eadcda6ad4f97f516a3915255c.gz",
+      "published_sha256": "079ee643bc4fc9331c6e62fb4d7c8931906bf5eadcda6ad4f97f516a3915255c",
+      "published_bytes": 2025,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/STATE-L12-729.json",
+      "sha256": "553789a4f4c1f702024c7d45d448af3bab724586170a99014ee0fdadbf5a716c",
+      "bytes": 1670,
+      "git_blob": "770e0851b4f5f29d0229a992c0e94cea0d662d1a",
+      "preserved_bytes": "recovered/helmet-footwear-059/553789a4f4c1f702024c7d45d448af3bab724586170a99014ee0fdadbf5a716c.gz",
+      "published_sha256": "553789a4f4c1f702024c7d45d448af3bab724586170a99014ee0fdadbf5a716c",
+      "published_bytes": 1670,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original Lens12 state"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-727.json",
+      "sha256": "aa3c4b5607b6713c20466173eadd022960617c4066ff7c1a1df4e9daaa365a57",
+      "bytes": 667,
+      "git_blob": "652ae65226186130cbd90267021220dd08b73f1f",
+      "preserved_bytes": "recovered/helmet-footwear-059/aa3c4b5607b6713c20466173eadd022960617c4066ff7c1a1df4e9daaa365a57.gz",
+      "published_sha256": "aa3c4b5607b6713c20466173eadd022960617c4066ff7c1a1df4e9daaa365a57",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-728.json",
+      "sha256": "73a6d4cb0d5745ea58f843bb68cf316f4d92c969ff3723c8345f68c9108c6693",
+      "bytes": 667,
+      "git_blob": "97b908b377ee943ebee977dc27a088f3d243f0cb",
+      "preserved_bytes": "recovered/helmet-footwear-059/73a6d4cb0d5745ea58f843bb68cf316f4d92c969ff3723c8345f68c9108c6693.gz",
+      "published_sha256": "73a6d4cb0d5745ea58f843bb68cf316f4d92c969ff3723c8345f68c9108c6693",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-729.json",
+      "sha256": "037bcf1fcbf606727bdb5ec8619440f9604c6321ed069053a4f2e5ef357bacaf",
+      "bytes": 667,
+      "git_blob": "30613be79aa479a1e909494daa0a642345104150",
+      "preserved_bytes": "recovered/helmet-footwear-059/037bcf1fcbf606727bdb5ec8619440f9604c6321ed069053a4f2e5ef357bacaf.gz",
+      "published_sha256": "037bcf1fcbf606727bdb5ec8619440f9604c6321ed069053a4f2e5ef357bacaf",
+      "published_bytes": 667,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original adoption verification"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    },
+    {
+      "original_path": "segovb/VERIFY-L2-EXT-CURRENT-009.json",
+      "sha256": "cf39c230c5b6830dc54da2543b20f8a68416f0abcc4bae62cfa5bffbbc252375",
+      "bytes": 25487,
+      "git_blob": "0f5806a37ccc2456f1ee4df6cb2f2b787fd2b58a",
+      "preserved_bytes": "recovered/helmet-footwear-059/cf39c230c5b6830dc54da2543b20f8a68416f0abcc4bae62cfa5bffbbc252375.gz",
+      "published_sha256": "cf39c230c5b6830dc54da2543b20f8a68416f0abcc4bae62cfa5bffbbc252375",
+      "published_bytes": 25487,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "Original059 queue2404 directly referenced transport evidence; source paths are separately Git bound"
+      ],
+      "qualification": "Original authors, revision, scope and status retained; no checkpoint3821 claim."
+    }
+  ],
+  "historical_attribution_qualification": "Original2188 supplier and Lens12 delegate729 read only scoped ranges; its exact Windows locator has zero body credit. Adler345 and original root Lens2/Lens3 independently read full historical source; newly registered current read does not rewrite any prior scope.",
+  "remaining": "Continue original2189 and all thirteen lenses, real input/caller policies, geometry and exact aliases. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

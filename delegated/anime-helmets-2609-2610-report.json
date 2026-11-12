@@ -1,0 +1,850 @@
+{
+  "schema": "726-bounded-checkpoint17-anime-helmet-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T06:59:45.928710+00:00",
+  "scope": {
+    "original_roles": [
+      2609,
+      2610
+    ],
+    "historical_source": "Exact pr-working registry objects, recorded HEAD 6533e444fa37552927070cc8d8190907fd3b413e with unrelated working modifications",
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee is evidence transport, not product source revision",
+    "identity": "The 2609 and 2610 archived bodies respectively equal the 6533 and 95e per-file Git blobs, proved by registered SHA and commit/tree objects; no clean whole pr-working assertion.",
+    "personal_reads": "registration.json and read-receipt.json record separately displayed old/current bodies, support windows, unread complements and initially truncated display corrected by a repeat.",
+    "publication": "Fresh additive proposal only; central owns ledger, aliases and publication. No 3821 promotion."
+  },
+  "independent_source_reads": [
+    {
+      "tag": "pr-working-2609",
+      "kind": "historical-pr-working",
+      "role": 2609,
+      "archive": "source/pr-working-2609.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "EOF": 56,
+      "displayed_chunks": [
+        [
+          1,
+          56
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "current-2609",
+      "kind": "current-assigned",
+      "role": 2609,
+      "archive": "source/current-2609.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "EOF": 56,
+      "displayed_chunks": [
+        [
+          1,
+          56
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "pr-working-2610",
+      "kind": "historical-pr-working",
+      "role": 2610,
+      "archive": "source/pr-working-2610.rs",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "EOF": 414,
+      "displayed_chunks": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          414
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "current-2610",
+      "kind": "current-assigned",
+      "role": 2610,
+      "archive": "source/current-2610.rs",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "EOF": 414,
+      "displayed_chunks": [
+        [
+          1,
+          140
+        ],
+        [
+          141,
+          280
+        ],
+        [
+          281,
+          414
+        ]
+      ],
+      "unread_complement": []
+    },
+    {
+      "tag": "design",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/design.source",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "EOF": 183,
+      "displayed_chunks": [
+        [
+          1,
+          22
+        ]
+      ],
+      "unread_complement": [
+        [
+          23,
+          183
+        ]
+      ]
+    },
+    {
+      "tag": "breastplate-design",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/breastplate-design.source",
+      "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "EOF": 206,
+      "displayed_chunks": [
+        [
+          1,
+          60
+        ],
+        [
+          84,
+          121
+        ]
+      ],
+      "unread_complement": [
+        [
+          61,
+          83
+        ],
+        [
+          122,
+          206
+        ]
+      ]
+    },
+    {
+      "tag": "armor-lib",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/armor-lib.source",
+      "sha256": "d4b6a4af8b3137b359c2d08f8ef03445e100edc2d1280ca74ec816212af31264",
+      "EOF": 239,
+      "displayed_chunks": [
+        [
+          145,
+          215
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          144
+        ],
+        [
+          216,
+          239
+        ]
+      ]
+    },
+    {
+      "tag": "warmup",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/warmup.source",
+      "sha256": "3129853d5e471b55c8d757b9904276bd5eb90404d662099db7012cd9961dcfb2",
+      "EOF": 85,
+      "displayed_chunks": [
+        [
+          15,
+          70
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          14
+        ],
+        [
+          71,
+          85
+        ]
+      ]
+    },
+    {
+      "tag": "armor-recipes",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/armor-recipes.source",
+      "sha256": "8b2449df30f3da7cfaa1478203f428c4ac9517ff007e97396c7cfc916c11099a",
+      "EOF": 285,
+      "displayed_chunks": [
+        [
+          20,
+          35
+        ],
+        [
+          70,
+          100
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          19
+        ],
+        [
+          36,
+          69
+        ],
+        [
+          101,
+          285
+        ]
+      ]
+    },
+    {
+      "tag": "runtime-equipment",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/runtime-equipment.source",
+      "sha256": "017eab8f2758a277d6638fde30e9cbcad9ea025d1eff17e92ade4d3bf0bbe960",
+      "EOF": 341,
+      "displayed_chunks": [
+        [
+          120,
+          160
+        ],
+        [
+          232,
+          250
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          119
+        ],
+        [
+          161,
+          231
+        ],
+        [
+          251,
+          341
+        ]
+      ]
+    },
+    {
+      "tag": "device-torso",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/device-torso.source",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "EOF": 342,
+      "displayed_chunks": [
+        [
+          160,
+          175
+        ],
+        [
+          225,
+          255
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          159
+        ],
+        [
+          176,
+          224
+        ],
+        [
+          256,
+          342
+        ]
+      ]
+    },
+    {
+      "tag": "breastplate-gpu",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/breastplate-gpu.source",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "EOF": 332,
+      "displayed_chunks": [
+        [
+          95,
+          115
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          94
+        ],
+        [
+          116,
+          332
+        ]
+      ]
+    },
+    {
+      "tag": "helmet-gpu",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/helmet-gpu.source",
+      "sha256": "2175f071cee54f96e323396940b9b68a31b5eac18a6a9e70b63d4afcf7dd7d8e",
+      "EOF": 54,
+      "displayed_chunks": [
+        [
+          20,
+          54
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "tag": "helmet-parts",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/helmet-parts.source",
+      "sha256": "0e8b328ee3be07d2cfafe53aaa8fa103c5e8828fdd50dbb0fae6d7f365a90e16",
+      "EOF": 339,
+      "displayed_chunks": [
+        [
+          110,
+          140
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          109
+        ],
+        [
+          141,
+          339
+        ]
+      ]
+    },
+    {
+      "tag": "garment-selection",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/garment-selection.source",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "EOF": 271,
+      "displayed_chunks": [
+        [
+          207,
+          223
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          206
+        ],
+        [
+          224,
+          271
+        ]
+      ]
+    },
+    {
+      "tag": "anime-controls",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/anime-controls.source",
+      "sha256": "de4dfe5c36542052adbba23bc1b5cd7f1eb8e555e02b7862a7880288af5123b2",
+      "EOF": 56,
+      "displayed_chunks": [
+        [
+          1,
+          35
+        ]
+      ],
+      "unread_complement": [
+        [
+          36,
+          56
+        ]
+      ]
+    },
+    {
+      "tag": "design-input",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/design-input.source",
+      "sha256": "9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "EOF": 119,
+      "displayed_chunks": [
+        [
+          1,
+          25
+        ]
+      ],
+      "unread_complement": [
+        [
+          26,
+          119
+        ]
+      ]
+    },
+    {
+      "tag": "embedded-breastplate-asset",
+      "kind": "current-support",
+      "role": null,
+      "archive": "source/embedded-breastplate-asset.source",
+      "sha256": "2b07b42d2ca238672a5ab331a82f3ca9a3f24b221f2d634be307f24c17fe6b88",
+      "EOF": 37,
+      "displayed_chunks": [
+        [
+          1,
+          14
+        ],
+        [
+          35,
+          37
+        ]
+      ],
+      "unread_complement": [
+        [
+          15,
+          34
+        ]
+      ]
+    }
+  ],
+  "findings_and_reconciliation": [
+    {
+      "id": "SEGOVB-L11-ANIME-GAUGE-VALIDATION-ORDER",
+      "classification": "Existing q641 / 774 rig F049 historical first-failure, independently corroborated against 95e; no proposed new unique count.",
+      "source_refs": [
+        {
+          "source_tag": "design",
+          "lines": [
+            [
+              15,
+              16
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "breastplate-design",
+          "lines": [
+            [
+              6,
+              38
+            ],
+            [
+              84,
+              121
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "current-2609",
+          "lines": [
+            [
+              12,
+              55
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "armor-lib",
+          "lines": [
+            [
+              184,
+              187
+            ],
+            [
+              195,
+              209
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "design-input",
+          "lines": [
+            [
+              8,
+              24
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "breastplate-gpu",
+          "lines": [
+            [
+              99,
+              110
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "reasoning": "Millimeters exposes a u16 and BreastplateDesign has public serde fields. Outer validation first calls profile validation and Anime validation before enforcing the wall thickness 1–20 mm range. Anime evaluates gauge.0 * 2 after its earlier scalar checks. If those earlier predicates pass and raw gauge is at least 32768, u16 doubling overflows with overflow checking; with checks disabled it wraps and can produce a different first rejection, including eventual outer rejection. This is static source and arithmetic reasoning; the supported external policy, actual occurrence, error receiver and all alias paths are not proved.",
+      "historical_relations": [
+        "059 queue entry 641 names the same concern and READ-L11-427 with accepted count change 0; 774 RIG-ADMISSION03-F049 and ADDITIONAL-052 describe the same source-order failure. Queue entry 608 remains a related pending revisit, without attached identity receipt; do not decide whether it is an alias from this packet alone.",
+        "READ-L11-445 and SEGO initial09 P16 support independently connect separately attributed dirty P16 objects to the earlier concern; they are not this pr-working object revision and do not imply the recovered patch was the original invocation."
+      ],
+      "future_repair_direction": "Decide canonical admission/error ownership before arithmetic requiring an admitted gauge; preserve valid gauge/lift semantics and deliberate first-error policy. No implementation or acceptance test is run."
+    },
+    {
+      "id": "CANDIDATE-ARMOR-WARMUP-ALTERNATE-GAUGE-95E",
+      "classification": "Previous /root/hair_ops current-source candidate, independently corroborated; separate first-failure from malformed raw gauge, no automatic alias or new accepted count.",
+      "source_refs": [
+        {
+          "source_tag": "breastplate-design",
+          "lines": [
+            [
+              26,
+              38
+            ],
+            [
+              40,
+              60
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "current-2609",
+          "lines": [
+            [
+              27,
+              35
+            ],
+            [
+              43,
+              52
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "warmup",
+          "lines": [
+            [
+              20,
+              24
+            ],
+            [
+              26,
+              39
+            ],
+            [
+              41,
+              61
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "armor-recipes",
+          "lines": [
+            [
+              76,
+              95
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "runtime-equipment",
+          "lines": [
+            [
+              123,
+              160
+            ],
+            [
+              232,
+              250
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "device-torso",
+          "lines": [
+            [
+              165,
+              170
+            ],
+            [
+              230,
+              247
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "breastplate-gpu",
+          "lines": [
+            [
+              99,
+              110
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "reasoning": "Warmup retains the supplied breastplate gauge while changing a Solid construction to default Anime. Default Anime lift is 7 mm, so valid Solid wall thickness 4–20 mm does not satisfy Anime lift >= 2*gauge. The selected cuirass route is delegated through a dedicated breastplate generator and DeviceBreastplate validation. The result is conditional on a supported caller providing such a Solid design and all prior catalog, body, device, and generation stages reaching the alternate validation. The selected embedded asset is Solid with wall thickness 2 mm and is not a witness of this condition; no runtime or loaded data is observed.",
+      "safeguards": "The inspected Anime editor caps gauge at 6 mm and raises lift to max(4, 2*gauge), preventing this mismatch through that selected editor path. This guard does not cover every caller or establish that warmup invokes it.",
+      "future_repair_direction": "Choose how an alternate warmup recipe obtains a gauge/lift combination compatible with supported construction while preserving intended original design semantics; resolve actual supported caller/preceding stage reachability first."
+    },
+    {
+      "id": "SEGOVB-L12-GARMENT-COIF-DESIGN-ERROR-ERASURE",
+      "classification": "Existing q2478 related source contract; current selected producer-to-formatter support, not a new count or complete caller trace.",
+      "source_refs": [
+        {
+          "source_tag": "current-2610",
+          "lines": [
+            [
+              322,
+              330
+            ],
+            [
+              381,
+              398
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "garment-selection",
+          "lines": [
+            [
+              207,
+              223
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "reasoning": "MailCoif shared fit and shape yield typed ParametricParameters on final rejection; GarmentSelection formats that error as Debug text in anyhow. Other malformed cases and the ultimate error receiver are outside these windows. Preserve 059 two granular views and original authors; no inferred relationship to ordinary helmet topology."
+    },
+    {
+      "id": "REVIEW-L3-HELMET-CARRIER-TOPOLOGY-ADMISSION",
+      "classification": "Existing q3141 and current ledger entry 471, related topology owner; source safeguards are a separately authored previous bounded assessment, not a new finding here.",
+      "source_refs": [
+        {
+          "source_tag": "current-2610",
+          "lines": [
+            [
+              322,
+              330
+            ],
+            [
+              352,
+              358
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "helmet-gpu",
+          "lines": [
+            [
+              24,
+              30
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        },
+        {
+          "source_tag": "helmet-parts",
+          "lines": [
+            [
+              115,
+              138
+            ]
+          ],
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009"
+        }
+      ],
+      "reasoning": "Current recipe invokes HelmetDesign validation before dispatch; the inspected parts dispatcher handles selected families and rejects CloseHelmet/MailCoif for separate paths. Original q3141 asked about ring/column preconditions. The separately attributed current ASSESSMENT-HELMET-FOOTWEAR-95E reports selected matching nonempty producers and remaining generic helper/native questions; this packet did not independently read those helpers. Current ledger entry 472 buffe breath/course conditionality is related geometry context, not an automatic alias."
+    }
+  ],
+  "safeguards_and_nonfindings": [
+    {
+      "name": "Shared helmet fit and shape",
+      "detail": "HelmetDesign is a closed enum with family payloads; catalog(kind) constructs selected defaults. Crown validation precedes fit calculation; valid_fit is evaluated before the shape match but rejected only in the final conjunction. Family child validation (e.g., buffe/fluting/close-helmet) can run before invalid fit is returned. ArmingCap has a true shape branch but still faces shared fit. current-2610 250–320,322–398."
+    },
+    {
+      "name": "Selected editor and embedded asset",
+      "detail": "Anime editor guards its selected transition as above; authored asset text says Solid 2 mm, and current design-input uses embedded asset when no external path supplied. Source-only observation, not a claim of all ingress safety or fixture execution."
+    },
+    {
+      "name": "Recipe and dedicated dispatch",
+      "detail": "ParametricDesign validates helmet designs and generic GPU helmet recipe calls validate before parts; parts rejects CloseHelmet and MailCoif for separately routed generation. Does not establish the separate routes or renderer operation."
+    }
+  ],
+  "historical_read_attribution": [
+    {
+      "reader": "774 rig admission03",
+      "revision": "pr-working registered object at recorded HEAD 6533; whole snapshot modified",
+      "role_2609": "REGISTER-052: 1–56; ADDITIONAL-052 / F049",
+      "role_2610": "REGISTER-055 prospectively 1–221,249–275,295–380,385,391–414; QUALIFICATION-016 excludes incidental 391 and effective material 1–221,249–275,295–380,385,392–414; ADDITIONAL-055 expressly excludes Close/Mail body."
+    },
+    {
+      "reader": "059 /root/segovb Lens11",
+      "record": "READ-L11-427, registrations 1521,1522 and 1530",
+      "scope": "2609 1–56; 2610 effective original windows plus independently registered 222–248,276–294,381–384,386–391. Separate from rig scope; accepted unique count change 0."
+    },
+    {
+      "reader": "059 /root/lens12_frontier; root adoption without rereads",
+      "record": "READ-L12-891, reg 676, reg 671, TEAM022 completed views and qualified reuse",
+      "scope": "2609 fresh 1–56. Role 2610 earlier independent connected display 1–195,196–390,391–414; ordered 891 uses qualified same-lens reuse with empty fresh reads, not a second read."
+    },
+    {
+      "reader": "/root/hair_ops",
+      "record": "checkpoint17 delegated armor-anime-helmets-hair-ops packet; exact original manifest/report and all prior support registrations preserved in prior/",
+      "scope": "Separately read both assigned historical/current bodies 2609 1–56 and 2610 1–140,141–280,281–414; independently proposed warmup candidate. The current helmet-footwear assessment recorded a separate current support read 270–405; no ordered-role credit transfer."
+    }
+  ],
+  "historical_relations": {
+    "selected_059_queue": [
+      {
+        "index": 608,
+        "id": "Q-L11-ef75e28dee8114c22ff4",
+        "relationship": "Related pending gauge revisit; no receipt identity attached."
+      },
+      {
+        "index": 641,
+        "id": "Q-L11-5804bd738c3307701b02",
+        "relationship": "Names existing gauge-order contract; receipt linked in record, not direct identity receipt context."
+      },
+      {
+        "index": 1813,
+        "id": "Q-L12-2d53cc9b2539b21bc0f2",
+        "relationship": "Pending helmet/shape/consumer trace; no direct identity receipt."
+      },
+      {
+        "index": 2478,
+        "id": "SEGOVB-L12-GARMENT-COIF-DESIGN-ERROR-ERASURE",
+        "relationship": "Two granular historical owner/source views; current formatter independently inspected in bounded scope."
+      },
+      {
+        "index": 3141,
+        "id": "REVIEW-L3-HELMET-CARRIER-TOPOLOGY-ADMISSION",
+        "relationship": "Original separate L3 topology question; current ledger entry 471 and separately attributed selected safeguard evidence."
+      }
+    ],
+    "reconstruction": "059-selection-reconstructed.json copies five exact values and journal entries from preserved earlier reconstructed queue/ledger; no new reader or checkpoint 3821 claim.",
+    "pin_qualification": "Root046 pinned rig first35 but its hash differs from later f82 first35; rows52/55 were registered after root046. Root050 captured139 and selected138, but recorded c85da55f... differs from later first139 3f8aa35b...; root050 first45 qualification pin matches and embeds qualification016. The registry separately embeds exact row and effective scope. Do not infer the cause of mismatched full-prefix bytes or silently normalize."
+  },
+  "ledger_proposal": {
+    "existing_source": "reference/BASELINE-95E-20261110.json, newly_assessed_ledger entry 471 and 472; reference/ASSESSMENT-HELMET-FOOTWEAR-95E.json",
+    "advice": "Preserve q641/F049 as one existing first-failure relationship pending central exact alias accounting. Keep warmup alternate candidate distinct pending supported reachability and full alias inventory. Reconnect q2478 to the current formatter with its prior identities, leave consumer/error observation open. Keep q3141 and current 471 as topology question with earlier selected-producer safeguards and other helper/native obligations; 472 remains separate source-derived buffe placement question. Targeted text scan of this ledger is not exhaustive alias proof. No ledger modified."
+  },
+  "lens_perspectives": [
+    {
+      "lens": 1,
+      "name": "producer propagation",
+      "assessment": "Warmup changes construction while retaining gauge; user and device caller chains are bounded and reachability remains conditional."
+    },
+    {
+      "lens": 2,
+      "name": "existing owners",
+      "assessment": "Millimeters and HelmetDesign already own units/family payloads; sufficient admitted-gauge owner remains undecided."
+    },
+    {
+      "lens": 3,
+      "name": "admission",
+      "assessment": "Outer profile, Anime relation and final gauge checks have distinct order; helmet recipe and editor guard selected paths only."
+    },
+    {
+      "lens": 4,
+      "name": "operations",
+      "assessment": "u16 multiplication can overflow before the outer gauge gate; arithmetic is reasoned, never executed."
+    },
+    {
+      "lens": 5,
+      "name": "aggregates",
+      "assessment": "Anime lap lift and gauge must be compatible; alternate construction exposes a separate valid-Solid transition condition."
+    },
+    {
+      "lens": 6,
+      "name": "type ownership",
+      "assessment": "Canonical responsibility between raw validation, admitted gauge and warmup producer remains a repair decision."
+    },
+    {
+      "lens": 7,
+      "name": "redundant authority",
+      "assessment": "HelmetKind selects defaults and HelmetDesign carries the chosen payload in inspected code; no separate retained kind authority proved."
+    },
+    {
+      "lens": 8,
+      "name": "behavior preservation",
+      "assessment": "Any future admission change must preserve supported gauge/lift and intentional family/default behavior; none performed."
+    },
+    {
+      "lens": 9,
+      "name": "enum shapes",
+      "assessment": "Solid/Anime and HelmetDesign variants own specific payloads; ArmingCap intentionally has only fit and still faces fit gate."
+    },
+    {
+      "lens": 10,
+      "name": "derivability",
+      "assessment": "Serde derives exist; no bounded evidence justifies changing serialization or boilerplate."
+    },
+    {
+      "lens": 11,
+      "name": "type granularity",
+      "assessment": "Raw millimeter representation spans unrelated values; assess admitted gauge scope instead of globally tightening every Millimeters use."
+    },
+    {
+      "lens": 12,
+      "name": "raw strings",
+      "assessment": "Garment coif formatter replaces typed cause by Debug text on selected path; actual receiver remains open and historical q2478 attribution preserved."
+    },
+    {
+      "lens": 13,
+      "name": "raw primitives",
+      "assessment": "Raw u16 gauge and literal range/relation controls are evidenced in inspected views; distinct limits and enum meanings do not imply an alias or global inventory."
+    }
+  ],
+  "open_questions": [
+    "Which supported caller may pass a valid Solid 4–20 mm design through all earlier warmup stages, and what should alternate warmup preserve?",
+    "What is the full current user/file/serde and native error receiver graph and supported malformed input policy for the gauge candidate?",
+    "Do q608 and q641 resolve to the same exact obligation after full source/alias review?",
+    "Do separate close-helmet, coif, shape validators and generic topology helpers impose additional conditions? What are their actual producers and consumers?",
+    "Can the coif typed cause be retained at its selected error boundary, and where is it received?",
+    "What accounts for the 046 and 050 historical rig registration file hash mismatches? They remain unresolved; no alteration is inferred.",
+    "Which additional sources and independent lenses remain unread? Full-body archive bytes outside the recorded support windows do not constitute personal reads."
+  ],
+  "public_prior_qualification": "public-prior-members.json preserves verified original versus publication member identities. Prior REPORT, registration and read receipt are unchanged; historical-manifest.json has a redacted public reconstruction with different SHA-256. Do not substitute reconstructed public bytes for original historical bytes.",
+  "constraints": "Static source inspection, mathematical reasoning and evidence verification only. No product, fixture, tests, builds, GPU, rendering, simulation, probe or repair; no product validation. Neither role, whole lens nor connected ledger is declared complete."
+}

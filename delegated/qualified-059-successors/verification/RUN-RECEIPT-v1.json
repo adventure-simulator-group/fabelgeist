@@ -1,0 +1,173 @@
+{
+  "schema": "726-059-successor-evidence-verification-v1",
+  "recorded_utc": "2026-11-12T08:59:04.929540+00:00",
+  "author": "/root/rig_identity",
+  "results": [
+    {
+      "checkpoint": 15,
+      "successor": "verify_reconciliation_proposal_links_15_059_public.py",
+      "successor_sha256": "4aa02f52d3ccb87506d71632e0d4a0e0679c45267f4997e64dfe9c4132882cca",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified frozen proposal dependencies, exact 059 identities and registration redaction mappings; proposals remain separately attributed and unadopted.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=4 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "18a8becb0fef17e872d22432f3624520ed466e46ca9ec7bd7d71a8aa1b99b96d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=4 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 16,
+      "successor": "verify_delegated_links_16_059_public.py",
+      "successor_sha256": "8efe8866e4125893b2627c011878ae40541b95e2c16dcfe75b57e609f7891a66",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified checkpoint16 published, prior-packet and original historical identities; retained reconstructions do not transfer author or read credit.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=6 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "969c250746805aa269b2ba8a9a2ebc4b9fac6c9cc28855a8733d8f3fdd5a08e5",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=6 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 17,
+      "successor": "verify_delegated_links_17_059_public.py",
+      "successor_sha256": "e18b1d63b97906fa2e293bdd58efa6127cf86e37beb1abdea62fc5c076ca202c",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified checkpoint 17 original 059/774 identities and published evidence links; reconstructions grant no historical read or checkpoint3821 credit.\nVerified seven further packets and the separately preserved mutable-baseline advance and recovery qualifications.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "a45cc365ebcdcfa5936650b3f2df25fa6d0ecfbefb5fa036199392420a0d0f07",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 18,
+      "successor": "verify_delegated_links_18_059_public.py",
+      "successor_sha256": "21e50fcb89e2cdb5a23d8efc3a8899de632fb5fc9b0952cf5c2ca4f013ccc1b6",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified six checkpoint18 historical links, reconstructed 774 row qualifications, and exact native package plus three lock selections; no macro or product execution.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "509f02fd3a777d30a031de93ce6927bd19c72f4bf873468a7b45a0377fb8a393",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 19,
+      "successor": "verify_delegated_links_19_059_public.py",
+      "successor_sha256": "5f4f5242ae343d8c6cf5e0b40e7389ef2c47603fc26c8b586242ec2585e188b0",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified eight checkpoint19 historical, 059 and selected prior-packet identities; no historical reread or checkpoint3821 credit inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "633ef40054749b3aa299357398694e7cd6b47872e006dd9aa29353c202732212",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 20,
+      "successor": "verify_delegated_links_20_059_public.py",
+      "successor_sha256": "f12831a1b97c5fd7931679e27b71873a2d157d90497b8d68d7e9142d3f95eb74",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified nine checkpoint20 historical, 059 and selected prior-packet identities; no historical reread or checkpoint3821 credit inferred.\nVerified rawzip archive member and pinned child-lock checksum without archive execution.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "8f5b22dcf06d5bed39d5fa5692f9d00a70da2ec68a3a975b1f34942b0bdb1ad8",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 21,
+      "successor": "verify_delegated_links_21_059_public.py",
+      "successor_sha256": "743100a1e06fe40d0d2a068b44e447b5c8b0198fd47456851fd891ea08235f25",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 184 historical and prior-link records; three exact native crate archives match their lock checksums and selected members. Earlier macro packet is publicly reconstructed. No read credit, feature resolution, expansion or product execution inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "b783f2a7c1dfc32d93a5da820d35b8d91633161dca44509b99648390b4175e55",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 22,
+      "successor": "verify_delegated_links_22_059_public.py",
+      "successor_sha256": "4418e687a68c77f13a5d83734458df67d176fba158f1450900fe25a9850576fd",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 431 historical/previous-source links; four native lock identities and selected members, including a reconstructed public bevy archive. No product execution, feature resolution or read credit inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "6e9fedac68526fb6865cf27556489589897f95b8546f81dcf836b831ca832f7e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 23,
+      "successor": "verify_delegated_links_23_059_public.py",
+      "successor_sha256": "a69328979bb4c2c39da887454641a450adeb52377699f518b383ea3aa70c1b50",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 373 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nVerified strum, four grounding packages, bevy_render and selected source members against the pinned lock; one public bevy archive is reconstructed. No feature, execution, or additional reader credit inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "52cb81b4d6882505b8ef7ecabf17bcbecc61d8d5ca8dd42d2ea805d47b235775",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 24,
+      "successor": "verify_delegated_links_24_059_public.py",
+      "successor_sha256": "008f435d99022551e6a02f52264a256d610e4d8f6854efaf6e42df2ce68826cc",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 496 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nVerified exact rand and SpacetimeDB archives, pinned lock identities and selected members; original snapshot/source-label discrepancies remain unnormalized. No feature resolution, execution or reading credit inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "cd861d15d433669d2e3e6c6430c41d3133ba76179f4c87ed2bd71d6f7f30540e",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 25,
+      "successor": "verify_delegated_links_25_059_public.py",
+      "successor_sha256": "de5c8e9a54e9f67214f70d9e66437bc357a244cb7b4c4f5ac6d401696abf8523",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 284 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nVerified rand, wgpu and wgpu-types archive/lock identities and selected members; the additive ROOT-INITIAL04-F007 link and workspace-output incident retain their stated limitations. No dependency execution, feature or reader transfer inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "5fb4b52a227384dd8062d76adfbdb570b1a74fa56b01772c057a0760b3859926",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 26,
+      "successor": "verify_delegated_links_26_059_public.py",
+      "successor_sha256": "30ad93f2ea8daae0f33d84ebb90dcb429fb9dc41e4604a77a5f0d955ae6ea3fb",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 267 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nVerified serde_json archive and old/current locks, historical-only Eidolon Git lock identity, and additive separately registered support-read correction; no feature, execution or reader transfer inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "fb9e8b834fc3c105c0e8a557dad52d50780f19a8a546ffc3d31405c48d0f1c75",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 27,
+      "successor": "verify_delegated_links_27_059_public.py",
+      "successor_sha256": "74152a1a2efbfb792e9cac1f2a4e267f2082224c983bc1854e24d373f0371626",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 441 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nVerified old native lock inventory and additive correction, separate bestiary completion receipt and the spiral support EOF overrun; no extra read or product credit inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "e97d7af937135d5009101d36c57b91af0dd022372ff5b7a08b60912c5ae91d48",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 28,
+      "successor": "verify_delegated_links_28_059_public.py",
+      "successor_sha256": "1d7b65d798e74592a5df0d16d701f6785d5d2f0ada59d726b920304faedd7814",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 160 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nVerified selected zero-based native supplier rows and reconstructed path variant, four distinct source-context encodings, and the additive prior-read disclosure; no source identity or reader transfer inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "7d0664b257579697ce007c2a281401a9e8b25336d4f60c81691055aaeacd2bc4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    },
+    {
+      "checkpoint": 29,
+      "successor": "verify_delegated_links_29_059_public.py",
+      "successor_sha256": "239061a6c2012304b7ef59300a9ca713129f3b009747c4cdaa0697c74e5fdd23",
+      "exit_code": 0,
+      "stdout": "QUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/queue.json original_sha256=2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08 public_sha256=3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173 not_direct_original_public_byte_match\nQUALIFIED_ORIGINAL_TO_PUBLIC_CROSSWALK baseline-059/ledger.json original_sha256=3933e8654ea22a7273e3218d5bc329d052968f20c1512a803de9b002038a6aac public_sha256=f9501199085284117ef88969fae443654af353429c657fd6bd1efb916582b180 not_direct_original_public_byte_match\nVerified 296 historical and previous-source links; no source-read or checkpoint3821 credit inferred.\nQUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check\n",
+      "stderr": "",
+      "stdout_sha256": "e8c65fa0e0e51fe975697107d65a5d4592b910205701222bbbc5219d77db1553",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "qualified_summary": "QUALIFIED_059_CROSSWALK_RESULT qualified_links_checked=2 original_sha_and_public_sha_are_distinct original_byte_transformation_not_proved_by_public_check"
+    }
+  ],
+  "qualification": "Successor evidence scripts were executed read-only against the existing publication tree with the two reconstructed public bytes supplied separately; no old verifier or product code ran. The result checks public crosswalks and unaffected evidence assertions; it does not prove original/private path transformation without the separate private verification."
+}

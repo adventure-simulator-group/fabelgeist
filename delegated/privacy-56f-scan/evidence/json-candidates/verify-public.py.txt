@@ -1,0 +1,11 @@
+import hashlib,json,pathlib,re
+p=pathlib.Path(__file__).parent;idx=json.loads((p/'reconstruction-index.json').read_bytes());sha=lambda b:hashlib.sha256(b).hexdigest();pat=re.compile(rb'(?<![A-Za-z0-9_/])/(?:home|Users|tmp)/[A-Za-z0-9._-]+|(?i:(?<![A-Za-z0-9])[a-z]:[\\/]+Users[\\/]+[A-Za-z0-9._-]+)|(?<![A-Za-z0-9_/])/root/(?:\.codex|\.cache|\.local|tmp)(?:/|$)');count=0
+for x in idx['records']:
+ b=(p/x['public_candidate']).read_bytes();assert sha(b)==x['public_candidate_sha256'] and len(b)==x['public_candidate_bytes'];v=json.loads(b);norm=re.sub(rb'(?i)\\u002f',b'/',b.replace(b'\\/',b'/'));assert not pat.search(norm)
+ for y in x['redacted_fields']:
+  z=v
+  for part in y['pointer'].strip('/').split('/'):
+   part=part.replace('~1','/').replace('~0','~');z=z[int(part)] if isinstance(z,list) else z[part]
+  assert z==idx['redaction_marker'];count+=1
+assert count==56
+print('PASS: five reconstructed JSON identities, 56 markers and bounded account/temp path patterns. No original bytes or product code required; this is not a general privacy or secret scan.')

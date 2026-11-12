@@ -16,7 +16,7 @@ def body(archive,path):
 v=body('delegated/central-13f-windows-proof.tar.gz','crates/adventuresim-weapon-model/src/recipe/validation.rs');c=body('delegated/central-13f-support-windows-proof.tar.gz','crates/adventuresim-weapon-model/src/model/mod.rs');assert 'facing::directions(self).map_err(|_| RecipeError::Facing)' in v[165] and 'recipe.validate().map_err(|error| error.to_string())' in c[81]
 ids=['L12-CLOSURE-WEAPON-FACING-CYCLE-REASON','L12-CLOSURE-WEAPON-FACING-DIRECTION-REASON','L12-CLOSURE-WEAPON-FACING-TARGET-REASON','L12-CLOSURE-WEAPON-FACING-ERROR-CONTEXT'];q=load('RECONCILIATION-059.json')['entries'];old=load('baseline-059/queue.json')['entries']
 for i,id in zip((2427,2428,2429,2432),ids):assert q[i]['contract_id']==old[i]['contract_id']==id and 'ASSESSMENT-CENTRAL-FACING-13H-95E.json' in q[i]['current_reconciliation']
-rows=load('BASELINE-95E-20261110.json')['newly_assessed_ledger']['entries'];assert len(rows)==load('CONTINUATION-PROGRESS-95E.json')['new_current_ledger_candidates']==1022
+rows=load('BASELINE-95E-20261110.json')['newly_assessed_ledger']['entries'];assert len(rows)==load('CONTINUATION-PROGRESS-95E.json')['new_current_ledger_candidates'] and len(rows)>=1022
 assert len([x for x in rows if x['id']=='REVIEW-WEAPON-FACING-ERROR-CONTEXT-001'])==1
 r=load('COVERAGE-L01-ROLES.json')['roles'][2579];assert r['status']=='unassessed' and r['snapshot']=='pinned-native-dependency' and r['source_id'].startswith('physical-p16:')
 assert a['repair']=='not started' and a['validation']=='not performed' and load('CONTINUATION-PROGRESS-95E.json')['queue_records_semantically_reconciled']==0

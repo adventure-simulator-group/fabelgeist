@@ -1,0 +1,68 @@
+{
+  "schema": "726-bounded-evidence-manifest-v1",
+  "created_utc": "2026-11-12T08:53:34.110187+00:00",
+  "file_count": 12,
+  "files": [
+    {
+      "path": "build-manifest.py",
+      "bytes": 740,
+      "sha256": "592495eb2bf9d08307d3560d67ab8fc1172a299a620c9b64d03ad24dc52b5181"
+    },
+    {
+      "path": "classify-raw-json.py",
+      "bytes": 2415,
+      "sha256": "193be70401f74a914701b371f005ab167c7be3c26a59b00a68c96aa4a6a72cd7"
+    },
+    {
+      "path": "dependency-inventory.json",
+      "bytes": 405884,
+      "sha256": "1efba74feca78490c741ddb83575d229dad4f4644c01a5c9d74f9a93498deec1"
+    },
+    {
+      "path": "dependency-inventory.py",
+      "bytes": 5375,
+      "sha256": "2247e84448f40e28f5937c5cb6e37756bdd8b78efc8f7790c4bc9c3aeb5e4c8b"
+    },
+    {
+      "path": "firstpass-results.json",
+      "bytes": 25358,
+      "sha256": "7f57babb69b84a076c12212c9e5d74c437466f59fb182e285108a5e6b219a5c8"
+    },
+    {
+      "path": "json-pointers.json",
+      "bytes": 7999,
+      "sha256": "830b51aa89e227673f7185273303e6e0556c9910e20e947eba11304bd36863a1"
+    },
+    {
+      "path": "raw-json-classification.json",
+      "bytes": 21824,
+      "sha256": "597b32146384eb6faccb64fae7103c8779dd668821c07c044a23ef5168401e7c"
+    },
+    {
+      "path": "report.json",
+      "bytes": 4093,
+      "sha256": "b1684fc5e3b5303af22caf34c4ba25c781f1e684696ea82c4a83cfebe99a8a2e"
+    },
+    {
+      "path": "scan-firstpass.py",
+      "bytes": 3849,
+      "sha256": "e8e395607b2d0a2734d788d87a2f3a8ae13cdf86d31e02614929fa379fcc1950"
+    },
+    {
+      "path": "select-json-pointers.py",
+      "bytes": 1518,
+      "sha256": "f79ddb15064df76b8543675d94c34ab40fc4d66be35fe5838bfe6b606c8c27d3"
+    },
+    {
+      "path": "verify-firstpass.py",
+      "bytes": 2293,
+      "sha256": "c69fbeca60da51cb1f3b8f8f86464a5afe5d6394415fbd927bb0913ccde4f402"
+    },
+    {
+      "path": "verify-manifest.py",
+      "bytes": 539,
+      "sha256": "a8e5202b73db2f5ec4f04dccc23cb90384ffe63936fea52cc986a27f152494e5"
+    }
+  ],
+  "qualification": "Evidence packet; excludes only root BUNDLE-MANIFEST.json, includes nested manifests."
+}

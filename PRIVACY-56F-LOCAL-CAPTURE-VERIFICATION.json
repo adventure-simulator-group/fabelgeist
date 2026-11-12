@@ -1,0 +1,9 @@
+{
+  "schema": "726-privacy-56f-local-capture-verification-v1",
+  "date_utc": "2026-11-12",
+  "public_manifest_sha256": "f9d81b3c76cb1c87a709a7438567c0b367ad2ce2dae4a88e1183c8112395fffe",
+  "local_manifest_sha256": "8f60e05a17f1dc1e7d6d39ee7ba7aa4f4318388fe701bc626a5e5c5761cfa180",
+  "observation": "The separate local capture verifier passed for 69 exact frozen packet files and ten committed Git blobs, comparing blob contents with the local Git object store. The public transport verifier independently checked its 69 mappings and recorded transformations.",
+  "qualification": "Same-machine observation, not independent-machine custody; the local verifier and private originals are not published. It does not establish erasure from Git history, caches or clones and does not cover unscanned encodings or roots.",
+  "product_validation": "not performed"
+}
