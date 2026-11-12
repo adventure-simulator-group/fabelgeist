@@ -228,6 +228,16 @@ for role in roles:
                     or next(x for x in rr if x['revision'] == item['snapshot_head'])['actual_display_union'] != item['new_personal_read_ranges']
                     or next(x for x in rr if x['revision'] == cc['source_revision'])['actual_display_union'] != cc['personal_ranges']):
                 raise ValueError('quality configuration actual receipt mismatch')
+        elif role['original_index'] == 2490:
+            if (receipt['original_index'] != 2490
+                    or receipt['p16_actual_display_ranges'] != item['actual_personal_display_chunks']
+                    or receipt['current_actual_display_ranges'] != cc['actual_personal_display_chunks']
+                    or receipt['p16_unread_ranges'] != item['historical_unread_ranges']
+                    or receipt['current_unread_ranges'] != cc['unread_ranges']
+                    or receipt['base_actual_display_ranges']
+                    or receipt['older_origin_actual_display_ranges']
+                    or receipt['pr_working_actual_display_ranges']):
+                raise ValueError('P16 IK actual and unread range receipt mismatch')
         else:
             raise ValueError('unexpected partial source role')
     elif status == 'full-historical-body-trace-open':

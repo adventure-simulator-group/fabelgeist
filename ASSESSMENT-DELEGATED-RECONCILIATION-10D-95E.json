@@ -1,0 +1,969 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "evidence_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-10.json",
+  "source_roles": "ASSESSMENT-DELEGATED-ANIMATION-ROOF-2488-2495.json",
+  "git_path_proofs": [
+    "CENTRAL-ANIMATION-ROOF-2488-2495-PATH-PROOFS.json"
+  ],
+  "delegated_observations": [
+    {
+      "bundle_id": "p16-animation",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-animation-report.json",
+      "original_finding": {
+        "id": "P16-PRESENTATION-REJECTED-TICK",
+        "classification": "conditionally demonstrated source-level failure boundary; producer reachability and rejection policy open",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+            "lines": [
+              [
+                227,
+                261
+              ],
+              [
+                280,
+                321
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+            "lines": [
+              [
+                25,
+                45
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+            "lines": [
+              [
+                58,
+                84
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/state.rs",
+            "lines": [
+              [
+                1134,
+                1145
+              ],
+              [
+                1291,
+                1301
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "Cargo.lock",
+            "lines": [
+              [
+                2291,
+                2302
+              ],
+              [
+                5419,
+                5423
+              ]
+            ]
+          }
+        ],
+        "external_source_ref": {
+          "path": "glam-0.32.1/src/f32/vec2.rs",
+          "archive": "source/glam-vec2.source",
+          "sha256_ref": "external-support-registration.json",
+          "lines": [
+            [
+              184,
+              189
+            ],
+            [
+              459,
+              465
+            ]
+          ]
+        },
+        "mechanism": "In fixed-step Update, presentation_tick is recorded before advance. On error, caller only logs; state and source_tick final commit occur after fallible operations. An upright non-quickstep state selecting a finite huge local velocity, such as f32::MAX on x, passes with_local_velocity finite-only admission; locked glam length computes sqrt(x*x+y*y), overflow makes animation_speed return Err and cadence propagates it. If still the same fixed tick when a subsequent attempt happens, recorded presentation_tick selects ZERO rather than that fixed step delta. Earlier phase fields may also change before a later error, depending on path; this example proves tick consumption, not each intermediate cache deviation.",
+        "qualification": "A source-level conditional example, not an observed runtime incident or proof that normal server/network producers emit that magnitude. Finite vector admission and norm overflow are distinct from corrupt input, and the actual frame schedule, rejection handling, resulting rendered pose and ordinary producer reachability remain open. Prior e275 L1 record noted the broader transaction candidate pending admitted witness; do not treat one attack helper’s local candidate commit as whole-function atomicity.",
+        "future_direction": "Decide rejection/retry semantics and if required prepare tick, all phase caches, next state and source identity together before commit, preserving deliberate zero-tick deduplication and no change to gameplay authority."
+      }
+    },
+    {
+      "bundle_id": "p16-animation",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-animation-report.json",
+      "original_finding": {
+        "id": "P16-RAGDOLL-DAMPING-RELATIVE-OVERSHOOT",
+        "classification": "conditional source arithmetic and design-policy question",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+            "lines": [
+              [
+                111,
+                152
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+            "lines": [
+              [
+                61,
+                78
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+            "lines": [
+              [
+                19,
+                23
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+            "lines": [
+              [
+                64,
+                68
+              ]
+            ]
+          }
+        ],
+        "mechanism": "For available distinct bodies with non-pelvis parent, let d=child_spin−parent_spin and unclipped brake=f*d where f is the step fraction. Source performs child−=brake and parent+=0.5*brake, so relative spin is (1−1.5*f)*d in exact arithmetic, before floating-point rounding and other effects. For 2/3<f<=1, the sign reverses. The rate is finite nonnegative and unbounded, the step fraction caps at 1, the configured maximum brake can be nonbinding, and the squared brake must exceed the 1e-8 skip threshold for the update to run.",
+        "qualification": "This is about the relative velocity update, not proof of angular momentum conservation failure: bodies may have unequal inertia and native physics/constraints and subsequent steps matter. A reversal could be a deliberate response; no assertion that default fixed timestep routinely reaches the condition. Prior queue1193 already asks for actual kick/damping split and numeric policy.",
+        "future_direction": "Define whether relative spin must decay without changing direction, then choose an explicit coupled distribution or capped fraction if needed while accounting for pelvis and unequal physical inertia; keep intentional behavior unless policy supports change."
+      }
+    },
+    {
+      "bundle_id": "p16-animation",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-animation-report.json",
+      "original_finding": {
+        "id": "P16-QUICKSTEP-ACTION-IDENTITY",
+        "classification": "reassessment of historical explicit finding, no new unique count",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+            "lines": [
+              [
+                23,
+                39
+              ],
+              [
+                324,
+                386
+              ]
+            ]
+          }
+        ],
+        "mechanism": "Quickstep retained state is Option<UnitInterval>; the update tests only prior/authoritative is_quickstep and uses prior phase, without matching action start or direction. If one quickstep is immediately followed by a distinct quickstep with no visible intervening idle sample, the new one can inherit the old phase.",
+        "qualification": "Same source SHA and first contract as 059 ADLER-L11-QUICKSTEP-PHASE-ACTION-IDENTITY, corroborated by root e275 L1 047; actual ordinary dodge admission, cooldown, interrupts, coalescing and required display policy remain unproven.",
+        "future_direction": "Carry action-instance identity with the retained visual phase and define interruption/tail precedence; maintain continuity for the same action. Central owns exact alias decision."
+      }
+    },
+    {
+      "bundle_id": "p16-animation",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-animation-report.json",
+      "original_finding": {
+        "id": "P16-PRESENTATION-ELAPSED-CAP",
+        "classification": "magic-number and deliberate time-loss policy question",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+            "lines": [
+              [
+                227,
+                253
+              ],
+              [
+                280,
+                286
+              ]
+            ]
+          }
+        ],
+        "mechanism": "The parent caps every supplied presentation interval to 0.1 seconds before prediction. Any accepted fixed or frame interval larger than 0.1 loses its excess in this call; fixed-step tick is still marked consumed before the call. The source names no owning config for this numeric limit.",
+        "qualification": "Whether this is intentional anti-spike behavior or an unwanted lost-time outcome is undecided; no large elapsed interval, visual regression or runtime behavior observed. Tactical-client animation guide requires authored tuning in canonical YAML, but a mathematical or structural reason for this bound has not been established.",
+        "future_direction": "Establish cap source, units, spike and retry policy; own a justified tuning value at the appropriate canonical boundary if it is a domain tuning choice."
+      }
+    },
+    {
+      "bundle_id": "p16-animation",
+      "author": "/root/mhr_character",
+      "report": "delegated/p16-animation-report.json",
+      "original_finding": {
+        "id": "P16-MUSCLE-ENVELOPE-AND-PHASE-LIMITS",
+        "classification": "previous packet linked questions, no new count",
+        "source_refs": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+            "lines": [
+              [
+                18,
+                36
+              ],
+              [
+                56,
+                65
+              ],
+              [
+                89,
+                100
+              ],
+              [
+                141,
+                150
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+            "lines": [
+              [
+                127,
+                169
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+            "lines": [
+              [
+                18,
+                25
+              ],
+              [
+                33,
+                46
+              ]
+            ]
+          }
+        ],
+        "mechanism": "Muscle rise/limp denominators floor at 1ms, and tiny nonzero gain or squared kick/brake may be skipped. Phase deadband >= snap gives no initial nonzero measured drift region for a changed source and initially zero accumulator.",
+        "qualification": "These are exact same source/policy questions from prior <LOCAL_PATH_0> report; 774 camera expressly preserved 1ms law, and 059 preserves zero phase rates/limits above one. No policy override or independent new unique finding."
+      }
+    },
+    {
+      "bundle_id": "p16-ik-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-ik-hair-report.json",
+      "original_finding": {
+        "id": "REVIEW-IK-FOOT-TARGET-SPEED-ADMISSION-95E",
+        "classification": "Provisional newly connected 95e conditional source contract; original 059 q1177 and Segovb L12 391 already identified signed-step-to-speed failure as an open policy. Not a new historical discovery or automatic global unique count; central must reconcile.",
+        "first_failed_contract": "Every accepted configured step/frequency relationship used to prepare the global IK foot-target speeds should yield a finite nonnegative speed, or be rejected at the owning configuration boundary before publication.",
+        "trace": [
+          {
+            "file": "support/05-crates__adventuresim-tactical-core__src__combat_config.rs",
+            "ranges": [
+              [
+                121,
+                148
+              ],
+              [
+                672,
+                697
+              ]
+            ],
+            "claim": "Four step fields are SignedLength; validated IK block checks frequency and other invariants but contains no checks for those four fields or their products."
+          },
+          {
+            "file": "support/admission-0-crates__fabelgeist-geometry__src__measurement.rs",
+            "ranges": [
+              [
+                11,
+                21
+              ],
+              [
+                35,
+                45
+              ],
+              [
+                77,
+                80
+              ]
+            ],
+            "claim": "SignedLength construction/deserialization admits finite negative or positive metres."
+          },
+          {
+            "file": "support/admission-2-crates__adventuresim-tactical-core__src__animation__sample_rate.rs",
+            "ranges": [
+              [
+                18,
+                42
+              ]
+            ],
+            "claim": "AnimationFrequency admits finite positive hertz."
+          },
+          {
+            "file": "support/09-crates__adventuresim-tactical-client__src__animation__procedural__ik__target_speed.rs",
+            "ranges": [
+              [
+                15,
+                28
+              ]
+            ],
+            "claim": "All four configured steps are multiplied by frequency and admitted as NonnegativeSpeed before the bundle returns."
+          },
+          {
+            "file": "support/admission-1-crates__adventuresim-core__src__linear_speed.rs",
+            "ranges": [
+              [
+                40,
+                50
+              ]
+            ],
+            "claim": "Speed admission rejects negative and nonfinite results but accepts zero."
+          },
+          {
+            "file": "source/2490-current.rs",
+            "ranges": [
+              [
+                105,
+                127
+              ]
+            ],
+            "claim": "A failure in configured target speeds logs and returns from the system before the owner/rig loop."
+          },
+          {
+            "file": "support/06-crates__adventuresim-tactical-core__src__combat_config__runtime.rs",
+            "ranges": [
+              [
+                11,
+                20
+              ],
+              [
+                59,
+                80
+              ]
+            ],
+            "claim": "Runtime snapshot installation validates and dedicated accessor projects inverse-kinematics config."
+          }
+        ],
+        "conditions_and_limits": "An otherwise valid candidate with a finite negative nonzero step and a suitable positive frequency can reach a negative product; sufficiently large finite positive step/frequency can overflow. The shipped values are positive and continuity frequency is 64 Hz (support/08 YAML 275–296). No extreme configuration was parsed, installed or run, no player or visual failure observed, and supported negative/extreme tuning policy remains unresolved. The error rejects the whole IK system before any rig is iterated, rather than corrupting an already-published target. Product execution, native renderer, actual feature scheduling and other configuration ingress paths were not assessed.",
+        "future_repair_direction": "If such inputs are unsupported, validate the semantic step sign and representable step×frequency relationship at the existing configuration owner; otherwise define an intentional bounded/rejection policy. Preserve valid zero, shipped positive settings, and actual authored behavior. Central owns canonical alias, ledger and implementation.",
+        "historical_relationship": "059 q1177 and original Segovb L12 391 already recorded negative-step possibility and left actual allowed tuning/current follower scope open; Adler L11 194 recorded checked conversion. New work connects those original observations to 95e admission and global caller, without transferring earlier authorship."
+      }
+    },
+    {
+      "bundle_id": "p16-ik-hair",
+      "author": "/root/hair_ops",
+      "report": "delegated/p16-ik-hair-report.json",
+      "original_finding": {
+        "id": "CULL-VISIBILITY-IK-RESUMPTION-QUESTION",
+        "classification": "Current behavioral comparison and unresolved lifecycle/policy question, not an asserted defect.",
+        "trace": [
+          {
+            "file": "source/2490-current.rs",
+            "ranges": [
+              [
+                105,
+                125
+              ]
+            ],
+            "claim": "95e excludes PoseCulled rigs; P16 query has no such exclusion."
+          },
+          {
+            "file": "support/00-crates__adventuresim-tactical-client__src__animation__pose_buffer__pose_cull.rs",
+            "ranges": [
+              [
+                1,
+                37
+              ]
+            ],
+            "claim": "Cull marker is inserted/removed as rig visibility freezes/resumes."
+          },
+          {
+            "file": "support/01-crates__adventuresim-tactical-client__src__animation__pose_buffer.rs",
+            "ranges": [
+              [
+                460,
+                485
+              ],
+              [
+                596,
+                603
+              ]
+            ],
+            "claim": "Pose update returns for culled rig and pose-buffer apply skips frozen visibility."
+          },
+          {
+            "file": "support/observation.rs",
+            "ranges": [
+              [
+                104,
+                124
+              ],
+              [
+                126,
+                176
+              ]
+            ],
+            "claim": "Separately scheduled propagated observation query is not filtered by PoseCulled and can update endpoint/owner-frame memory when terrain, owner, state, rig and finite observations are available."
+          },
+          {
+            "file": "support/02-crates__adventuresim-tactical-client__src__animation__presentation__plugin.rs",
+            "ranges": [
+              [
+                38,
+                63
+              ],
+              [
+                70,
+                94
+              ],
+              [
+                105,
+                114
+              ]
+            ],
+            "claim": "Source declares chained update and later post-update IK/propagation observer ordering; engine deferred-command timing is not independently verified."
+          }
+        ],
+        "conditions_and_limits": "No blanket claim that all IK state or owner_frame freezes during culling: the independent observer can update it. Its early exits and finite/availability guards, the uninspected coordinator remainder, current scheduling, visibility transitions, last-visible contact policy, and actual user-visible consequences remain open. No culling, reentry or animation was executed.",
+        "history": "Prior ASSESSMENT-L01-HISTORICAL-1370-1374 recorded the query change and explicitly left lifecycle open; baseline q804/q807 preserve culling as a supported mode. ASSESSMENT-POSE-LEG-BOUNDS-95E is a separate previously recorded conditional zero-leg solver case, not this lifecycle question."
+      }
+    },
+    {
+      "bundle_id": "p16-roof-geometry",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-roof-geometry-report.json",
+      "original_finding": {
+        "id": "CURRENT-ROOF-CHECKED-POSITION-RETAINED-RAW-RELATION",
+        "status": "direct current observation, exact historical relationship; not a proposed additional unique defect",
+        "historical_alias_candidate": "774 NATIVE-ROOF-PPS-F001 names ROOT-PP-001 as dedup support; central decides canonical ledger identity",
+        "condition": "Every successful roof polygon bound check in this path",
+        "observation": "roof_polygon_bounds validates each point as Position<Architectural> and discards the returned point, producing only bounds; resolve_one_roof retains original Vec3 polygon and derives raw edges. Retained public RoofFace::polygon is independently mutable from its plane. Both source files are byte-identical to the original 6533 finding.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+            "lines": [
+              [
+                14,
+                32
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+            "lines": [
+              [
+                332,
+                401
+              ],
+              [
+                403,
+                426
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+            "lines": [
+              [
+                168,
+                187
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "lines": [
+              [
+                31,
+                57
+              ]
+            ]
+          }
+        ],
+        "future_direction": "Reconcile with the established canonical architectural position/polygon/plane owner and carry checked values across application retention where the contract requires, while keeping genuine native numerical operations and serialization boundaries explicit. Preserve scaled plane, floating-point order, accepted/rejected inputs and topology; no implementation is authorized here.",
+        "qualification": "This is evidence of an unfinished producer propagation contract, not proof that every raw Vec3 in a numerical kernel is a defect or that any runtime behavior was validated."
+      }
+    },
+    {
+      "bundle_id": "p16-roof-geometry",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-roof-geometry-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE",
+        "status": "new conditional source-level finding; supported generation reachability and final publication unresolved",
+        "condition": "For non-apse HalfHip/Z, hz <= 0.45*hx (or HalfHip/X, hx <= 0.45*hz), with distinct surrounding vertices and normal control flow reaching edge construction. hx/hz include eaves; these are mathematical conditions, not a run or fixture.",
+        "observation": "Clamping ridge_half to zero makes the two consecutive ridge vertices equal in each long-side polygon. The edge builder retains the resulting zero-length edge and may merge the matching edge of the opposite face as a shared ridge; the edge-treatment branch floors its geometric plan length to 0.05 m when constructing its intermediate solid. No claim is made that this intermediate solid survives later treatment.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+            "lines": [
+              [
+                121,
+                162
+              ],
+              [
+                165,
+                188
+              ],
+              [
+                271,
+                273
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+            "lines": [
+              [
+                403,
+                433
+              ],
+              [
+                495,
+                520
+              ],
+              [
+                529,
+                549
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/audit/roofs.rs",
+            "lines": [
+              [
+                1130,
+                1135
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/civilian_roofs.rs",
+            "lines": [
+              [
+                3,
+                37
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+            "lines": [
+              [
+                198,
+                204
+              ],
+              [
+                261,
+                286
+              ],
+              [
+                301,
+                310
+              ]
+            ]
+          }
+        ],
+        "qualification": "Civilian HallHouse and RenaissanceTownHall choose HalfHip with fixed Z/X axes; observed curated dimensions 9x13 and 14x10 do not force this collapse. BuildingProgram fields are public, but the inspected source does not establish a supported footprint reaching the condition past all generation gates. audit/roofs flags surviving edges <=0.02 m; generate_document invokes audit whereas generate calls generate_unchecked. Do not assert accepted output, public impact, absence of later cleanup, or runtime evidence.",
+        "future_direction": "Trace admitted footprint/aspect-ratio and full generated-plan lifecycle; if this configuration is supported, make degenerate ridge topology explicit and avoid emitting a zero edge or fabricated treatment while preserving desired half-hip form. If rejected by a contractual bound, record that bound."
+      }
+    },
+    {
+      "bundle_id": "p16-roof-geometry",
+      "author": "/root/rig_identity",
+      "report": "delegated/p16-roof-geometry-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-ROOF-LOCAL-TOLERANCE-DIMENSION-POLICY",
+        "status": "source-level rule observation; defect impact and canonical owner unresolved",
+        "observation": "Roof kernels repeat inline thresholds while applying the same 0.0001 value both to x/z coordinate comparisons and to oriented 2-D cross-product side comparisons. These quantities have different dimensional meaning; the fixed side threshold also corresponds to a distance margin that depends on edge length. Other inline squared-distance and cross-product tolerances have no named calculation owner in these assigned bodies.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+            "lines": [
+              [
+                271,
+                273
+              ],
+              [
+                275,
+                305
+              ],
+              [
+                328,
+                351
+              ],
+              [
+                363,
+                391
+              ],
+              [
+                405,
+                413
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/AGENTS.md",
+            "lines": [
+              [
+                72,
+                79
+              ],
+              [
+                143,
+                153
+              ]
+            ]
+          }
+        ],
+        "qualification": "The project rules require owned, unit-aware and conditioned tolerances; review actual calculation error budgets and all recipients before selecting a policy. There is no asserted witnessed player-visible failure, no claim that thresholds must share one constant, and no automatic alias with broader geometry findings.",
+        "future_direction": "Have the owning numerical kernels state separate distance, squared-distance and oriented-area tolerances with the intended scale/error budget and preserve deliberate clipping behavior. Assess historical and other geometry work for semantic identity before ledger deduplication."
+      }
+    },
+    {
+      "bundle_id": "roof-assemblies-cutting",
+      "author": "/root/rig_identity",
+      "report": "delegated/roof-assemblies-cutting-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-ROOF-CUT-END-CLEARANCE-NEGATIVE-EXTENT",
+        "status": "new conditional source-level arithmetic finding; supported reachability and correct policy unresolved",
+        "condition": "A cut passes the overlap and first end-keep condition, prior position admission succeeds, and old_max - cut_max is strictly between 0.05 and 0.08 metres, with representable arithmetic not rounded onto the endpoints. The symmetric branch has cut_min - old_min in the same interval.",
+        "observation": "The branch accepts a remaining span over 0.05 m but moves the retained start 0.08 m from the cut boundary. The computed retained length `to - from` is negative, and the checked CuboidDimensions constructor rejects the X extent; the error is returned as CollisionError. The analogous end has the same mismatch. The centre is changed before size admission, but the inspected owned-plan route consumes self and returns an error, so no retained partially mutated plan is established.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+            "ranges": [
+              [
+                323,
+                329
+              ],
+              [
+                342,
+                381
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+            "ranges": [
+              [
+                19,
+                55
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+            "ranges": [
+              [
+                4,
+                9
+              ],
+              [
+                45,
+                67
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "Related to READ-L11-414 conditional roof cut mutation and policy discussion but no exact 5–8 cm arithmetic case found in the inspected 059 contract. Do not automatically alias or count until central ledger reconciliation.",
+        "future_direction": "Determine whether this geometry is a supported cut and whether a too-short remnant should be removed, rejected explicitly, or handled as a different topology; align branch gate with required clearance while preserving error and owned-plan behavior. No change authorized."
+      }
+    },
+    {
+      "bundle_id": "roof-assemblies-cutting",
+      "author": "/root/rig_identity",
+      "report": "delegated/roof-assemblies-cutting-report.json",
+      "original_finding": {
+        "id": "CANDIDATE-ROOF-SPLIT-EAVE-SERIAL-BIT-OVERLAP",
+        "status": "new conditional identity-domain observation; supported cardinality and collision impact unresolved",
+        "condition": "Two split-eave operations on the same parent reach serials that differ only in bit 7 (with identical other bits and slot), and their generated identities coexist in the relevant native lookup scope.",
+        "observation": "IDs OR fixed 0x0E00 with serial << 2, so fixed bit 9 masks serial bit 7 (similarly bits 10–11 mask serial bits 8–9). For equal parent and slot those differing serials encode the same ID. The implementation obtains serial from parent edge count after removing the old edge.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+            "ranges": [
+              [
+                10,
+                16
+              ],
+              [
+                32,
+                42
+              ],
+              [
+                61,
+                78
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+            "ranges": [
+              [
+                284,
+                301
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "Related conceptually to 059 L12-CLOSURE-ROOF-SPLIT-EAVE-CHILD-ID-DOMAIN, but that contract concerns a different 0x6800 child-ID packing operation. No automatic alias or duplicate count.",
+        "future_direction": "Establish admissible number of split operations and actual uniqueness/lookup scope, then assign disjoint serial bits or use the canonical ID allocator if the reachable domain requires it."
+      }
+    },
+    {
+      "bundle_id": "roof-assemblies-cutting",
+      "author": "/root/rig_identity",
+      "report": "delegated/roof-assemblies-cutting-report.json",
+      "original_finding": {
+        "id": "ROOF-DORMER-PARENT-SOURCE-CONDITION",
+        "status": "new current source evidence for existing 059 conditional contract, not a separate defect",
+        "observation": "For church_program None and no Gable demonstrator, CourtyardCastle with a Rectangle footprint falls through derive_roofs to an empty vector but produces two dormers. With no earlier failure, roof_dormers::append is called before tower roof assembly and indexes assemblies[0]. Generic footprint_cells itself accepts rectangular dimensions in its checked range.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_derivation.rs",
+            "ranges": [
+              [
+                1,
+                15
+              ],
+              [
+                28,
+                39
+              ],
+              [
+                94,
+                103
+              ],
+              [
+                191,
+                205
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+            "ranges": [
+              [
+                12,
+                37
+              ],
+              [
+                127,
+                130
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+            "ranges": [
+              [
+                5,
+                23
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+            "ranges": [
+              [
+                2,
+                15
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+            "ranges": [
+              [
+                9,
+                38
+              ]
+            ]
+          }
+        ],
+        "qualification": "Program validation, allocation and specialist/geometry stages may reject or fail first; no actual supported program or runtime panic was established. This refines L12-CLOSURE-ROOF-DORMER-PARENT-ADMISSION and must not be counted as a new unique issue.",
+        "future_direction": "Trace the accepted BuildingProgram/footprint combinations and earlier error boundaries, then explicitly establish parent admission or return the owning typed error if this shape is admitted."
+      }
+    },
+    {
+      "bundle_id": "roof-assemblies-cutting",
+      "author": "/root/rig_identity",
+      "report": "delegated/roof-assemblies-cutting-report.json",
+      "original_finding": {
+        "id": "ROOF-CUT-GLOBAL-SOLID-RETENTION-RELATION",
+        "status": "current confirmation of 059 conditional question; impact unresolved",
+        "observation": "The loop selects only roof owner and roof edge/gutter solids, but the subsequent retain applies x > 0.001 to every solid in the entire ResolvedGeometry collection, regardless of owner or role. CuboidDimensions admits nonnegative including zero; existence of unrelated admitted thin solids at this call and interface cleanup have not been proved.",
+        "references": [
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+            "ranges": [
+              [
+                310,
+                329
+              ],
+              [
+                394,
+                409
+              ]
+            ]
+          },
+          {
+            "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+            "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+            "ranges": [
+              [
+                9,
+                17
+              ],
+              [
+                40,
+                55
+              ]
+            ]
+          }
+        ],
+        "historical_relation": "059 READ-L11-414 conditional roof-cut geometry mutation and linked-interface scope; preserve original question and attribution. No unqualified data-loss claim.",
+        "future_direction": "Trace actual other-owner producers and native publication; if thin solids are legitimate, scope removal to intended targets and reconcile dependent support interfaces."
+      }
+    }
+  ],
+  "central_personal_current_windows": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "ranges": [
+        [
+          220,
+          325
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "ranges": [
+        [
+          105,
+          155
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "ranges": [
+        [
+          95,
+          130
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "ranges": [
+        [
+          300,
+          468
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "ranges": [
+        [
+          105,
+          180
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          320,
+          370
+        ]
+      ]
+    }
+  ],
+  "central_personal_read_qualification": "Coordinator displayed only these pinned-current windows in addition to delegate reads. Gaps and related support remain under the delegate receipts, not a central personal full-body claim.",
+  "central_decisions": [
+    {
+      "identity": "Presentation tick, quickstep and muscle envelopes",
+      "relationship": "The rejected-tick source condition is distinct from prior action identity and muscle threshold policy; the latter two connect existing records and do not increment historical unique count."
+    },
+    {
+      "identity": "IK configuration and culling",
+      "relationship": "Foot-speed admission reconnects q1177; culling is a separate unresolved lifecycle question. Role2490 remains partially unread in both snapshots."
+    },
+    {
+      "identity": "Roof architecture and cut graph",
+      "relationship": "Retained raw points connect NATIVE-ROOF-PPS-F001; half-hip, tolerance, cut extent, serial, parent and global retain are conditional relationships with reach and policy open. The inspected owned-plan error path does not establish a retained failed plan."
+    },
+    {
+      "identity": "Historical read boundaries and recovery",
+      "relationship": "P16 roles2488–2490 camera metadata registrations gave no body credit. Roles2491/2492 original material exclusions remain distinct from new personal support. Earlier patch-missing statements were accurate at freeze and are superseded only by the later matching tracked-patch recovery, without claiming historic command or complete clean snapshot."
+    }
+  ],
+  "new_qualified_ledger_rows": [
+    "P16-PRESENTATION-REJECTED-TICK",
+    "P16-RAGDOLL-DAMPING-RELATIVE-OVERSHOOT",
+    "P16-QUICKSTEP-ACTION-IDENTITY",
+    "P16-PRESENTATION-ELAPSED-CAP",
+    "REVIEW-IK-FOOT-TARGET-SPEED-ADMISSION-95E",
+    "CULL-VISIBILITY-IK-RESUMPTION-QUESTION",
+    "CURRENT-ROOF-CHECKED-POSITION-RETAINED-RAW-RELATION",
+    "CANDIDATE-ROOF-HALF-HIP-COLLAPSED-RIDGE",
+    "CANDIDATE-ROOF-LOCAL-TOLERANCE-DIMENSION-POLICY",
+    "CANDIDATE-ROOF-CUT-END-CLEARANCE-NEGATIVE-EXTENT",
+    "CANDIDATE-ROOF-SPLIT-EAVE-SERIAL-BIT-OVERLAP",
+    "ROOF-DORMER-PARENT-SOURCE-CONDITION",
+    "ROOF-CUT-GLOBAL-SOLID-RETENTION-RELATION"
+  ],
+  "open": "Sixteen of 27 checkpoint10 bundles have central review after 10A–10D; 11 checkpoint10 bundles and later delegated packets remain pending. Role2490 unread complements, all thirteen lenses and 3713 semantic queue records remain open.",
+  "repair": "not started",
+  "validation": "not performed"
+}

@@ -1,0 +1,663 @@
+{
+  "schema": "726-bounded-visor-buffe-2613-2614-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T01:05:26.896942+00:00",
+  "status": "Bounded source-only assessment. Central owner decides ledger, alias, count and publication. No checkpoint3821 promotion, whole-lens closure, product validation or execution.",
+  "source_authority": {
+    "historical": "Original pr-working snapshot recorded 6533e444fa37552927070cc8d8190907fd3b413e plus unrelated modifications. Each assigned recovered object separately matches 6533; do not describe snapshot as clean.",
+    "current": "95e63628f9d70b8dd6e6fede64334696c6995009; each assigned role independently matches historical bytes, with separate displays.",
+    "transport": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee carries recovered objects and 774 records; it is not the source revision.",
+    "p16": "This bounded registry hash lookup identified only pr-working entries 2613/2614 for these assigned bytes; it does not establish absence of a same-path P16 object with different bytes. Separate dirty P16 recorded base a120390947c89b703dc74c4255a13c035d054c50 retains its own scope and authors. Later tracked patch recovery RECOVERY-PHYSICAL-P16-PATCH-20261111.json SHA-256 30184a296be0ff10031776e078f1b639f273f77e7387534f5a4eb5d5b4aa8007 identifies tracked.patch SHA-256 fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7, while seven untracked files were separately preserved. No P16 review is inferred from these reads.",
+    "checkpoint3821": "No old receipt or observation is promoted to checkpoint3821."
+  },
+  "roles": [
+    {
+      "original_index": 2613,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/visor_breaths.rs",
+      "source_sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-armor/src/visor_breaths.rs",
+          "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+          "git_blob": "cd14a5cdef2f1aebb46c6fe955e82ae950d066b5",
+          "bytes": 5392,
+          "eof": 149,
+          "prospective_ranges": [
+            [
+              1,
+              149
+            ]
+          ],
+          "local_file": "source/2613-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-armor/src/visor_breaths.rs",
+          "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+          "git_blob": "cd14a5cdef2f1aebb46c6fe955e82ae950d066b5",
+          "bytes": 5392,
+          "eof": 149,
+          "prospective_ranges": [
+            [
+              1,
+              149
+            ]
+          ],
+          "local_file": "source/2613-current.rs"
+        }
+      ],
+      "actual_personal_reads": [
+        {
+          "original_index": 2613,
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+          "actual_display_ranges": [
+            [
+              1,
+              100
+            ],
+            [
+              101,
+              149
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 149,
+          "source_file": "source/2613-historical.rs"
+        },
+        {
+          "original_index": 2613,
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+          "actual_display_ranges": [
+            [
+              1,
+              100
+            ],
+            [
+              101,
+              149
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 149,
+          "source_file": "source/2613-current.rs"
+        }
+      ]
+    },
+    {
+      "original_index": 2614,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+      "source_sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+      "objects": [
+        {
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "git_path": "crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+          "sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+          "git_blob": "f20d74cfd1ea4fae7fcf3a78b936971f49079b7b",
+          "bytes": 1659,
+          "eof": 47,
+          "prospective_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "local_file": "source/2614-historical.rs"
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "git_path": "crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+          "sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+          "git_blob": "f20d74cfd1ea4fae7fcf3a78b936971f49079b7b",
+          "bytes": 1659,
+          "eof": 47,
+          "prospective_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "local_file": "source/2614-current.rs"
+        }
+      ],
+      "actual_personal_reads": [
+        {
+          "original_index": 2614,
+          "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+          "label": "historical",
+          "sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+          "actual_display_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 47,
+          "source_file": "source/2614-historical.rs"
+        },
+        {
+          "original_index": 2614,
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "label": "current",
+          "sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+          "actual_display_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "unread_ranges": [],
+          "eof": 47,
+          "source_file": "source/2614-current.rs"
+        }
+      ]
+    }
+  ],
+  "support_reads": [
+    {
+      "path": "crates/fabelgeist-armor/src/helmets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "actual_ranges": [
+        [
+          322,
+          398
+        ]
+      ],
+      "eof": 414,
+      "source_file": "support/0.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          321
+        ],
+        [
+          399,
+          414
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/helmets_buffe.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "3f85d9c18b5a393816c723c1e4e62c623a2d5d5d878ef19b9c5cc61c5fb5d519",
+      "actual_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "eof": 64,
+      "source_file": "support/1.rs",
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/burgonet.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "acc1803b298a54b442b1bbab582c258c9b9c816641ee7c874a6cc4a92c9272e2",
+      "actual_ranges": [
+        [
+          110,
+          225
+        ],
+        [
+          240,
+          282
+        ]
+      ],
+      "eof": 342,
+      "source_file": "support/2.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          109
+        ],
+        [
+          226,
+          239
+        ],
+        [
+          283,
+          342
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/pierced_plate_domain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "actual_ranges": [
+        [
+          1,
+          62
+        ],
+        [
+          100,
+          140
+        ]
+      ],
+      "eof": 188,
+      "source_file": "support/3.rs",
+      "unread_for_this_registration": [
+        [
+          63,
+          99
+        ],
+        [
+          141,
+          188
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/visor_breath_controls.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "15d21602365257606f35077371065f62ed9d7581fd4e5480059fc4871e3cc91d",
+      "actual_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "eof": 48,
+      "source_file": "support/4.rs",
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/buffe_controls.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "7adc6cc676c002d460425c25ab5d1b298d2a7f496a08f352a9e2b0b41f95f467",
+      "actual_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "eof": 88,
+      "source_file": "support/5.rs",
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "2175f071cee54f96e323396940b9b68a31b5eac18a6a9e70b63d4afcf7dd7d8e",
+      "actual_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "eof": 54,
+      "source_file": "support/6.rs",
+      "unread_for_this_registration": []
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/parts.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "0e8b328ee3be07d2cfafe53aaa8fa103c5e8828fdd50dbb0fae6d7f365a90e16",
+      "actual_ranges": [
+        [
+          100,
+          155
+        ]
+      ],
+      "eof": 339,
+      "source_file": "support/7.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          99
+        ],
+        [
+          156,
+          339
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/helmets.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "actual_ranges": [
+        [
+          119,
+          165
+        ]
+      ],
+      "eof": 414,
+      "source_file": "support/8.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          118
+        ],
+        [
+          166,
+          414
+        ]
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/pierced_plate_domain.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "actual_ranges": [
+        [
+          141,
+          188
+        ]
+      ],
+      "eof": 188,
+      "source_file": "support/9.rs",
+      "unread_for_this_registration": [
+        [
+          1,
+          140
+        ]
+      ]
+    }
+  ],
+  "support_qualification": "Current 95e only, separate prospective registrations. Ranges and per-registration unread complements are explicit; same-hash archived copies do not confer read credit. Navigation qualifications in support-registration files, including pre-registration grep lines, remain in force.",
+  "historical_records": [
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L11-427.json",
+      "file": "history-059/READ-L11-427.json",
+      "sha256": "610e111774b825139cc1b37d693fbe3ea175a05e523a45f7957dae3dffb3feb0",
+      "bytes": 14104,
+      "git_blob": "d54998177b4c541eff7ecbc0a3ebe0a474661940"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1525.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1525.json",
+      "sha256": "f2616c39195ef974de929aec5d7f822d37b3c8da43da60c7f521f839f09e960b",
+      "bytes": 689,
+      "git_blob": "b0687bfa77d6c937898d31cc2408385866103718"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/REGISTRATION-SEGOVB-1526.json",
+      "file": "history-059/REGISTRATION-SEGOVB-1526.json",
+      "sha256": "26c57cbb1a43a7776a395f6b1740f52938a23dc5543eac39b2188add4332eca8",
+      "bytes": 703,
+      "git_blob": "d539720de255a6d1dba43c3e366689e26f3b8cbb"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-892.json",
+      "file": "history-059/READ-L12-892.json",
+      "sha256": "ddb2728b14272c26532b0c3c5e78b12b52ca719660052ede9eed940386f6fa6d",
+      "bytes": 19383,
+      "git_blob": "d375f0b65b60da0ae8925d67b4892cf789d7e109"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "segovb/READ-L12-728.json",
+      "file": "history-059/READ-L12-728.json",
+      "sha256": "d1577c42ad2c553daf178122b195386299802064d267d56a9468ca76eb58f186",
+      "bytes": 9631,
+      "git_blob": "6925b11ac69daa124dc6dcf3fd0a1753a266c0ed"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/PROPOSAL-L12-892.json",
+      "file": "history-059/PROPOSAL-L12-892.json",
+      "sha256": "a47f0a0d6215fa98034c7df62e010d895bf1f6dcc12c5e9fd0b1b246d8c76b26",
+      "bytes": 16597,
+      "git_blob": "fd4b64201c1f435c38970b79a7222770f972ec17"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-679.json",
+      "file": "history-059/REGISTRATION-PAR-L12-679.json",
+      "sha256": "161b0ee24dd0afa8ebb8dc1c2e1d34e97312fbc16ad0508d96abf0da9a60372d",
+      "bytes": 3633,
+      "git_blob": "5da53c353d9c7682085c6eb40999bf4e87a9e4e2"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-680.json",
+      "file": "history-059/REGISTRATION-PAR-L12-680.json",
+      "sha256": "57c1655d39f7ef9f627eb77e67f8fef0051fd5b29d98eec9965a945b604acd13",
+      "bytes": 3662,
+      "git_blob": "63eb51b60988fa5b9233ac3a0940cbd96473eaea"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-679-ORIGINAL2613.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-679-ORIGINAL2613.json",
+      "sha256": "a9e2d5ca7229daf2fe59a3a656eed9cc629412e73cf99ffb8d50fa68d1629c6b",
+      "bytes": 1489,
+      "git_blob": "ac3d38510e2f59765c4e71c5204887a0dcf60319"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/QUALIFICATION-PAR-L12-680-ORIGINAL2614.json",
+      "file": "history-059/QUALIFICATION-PAR-L12-680-ORIGINAL2614.json",
+      "sha256": "01bc1d5220d1c57758ac5592d41049c934ee315aaaee14736dd7d5e2bda8b84d",
+      "bytes": 1520,
+      "git_blob": "f5c492a8443e3b1a0558aef3d0f2229990c1ff6d"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/PROPOSAL-L12-728.json",
+      "file": "history-059/PROPOSAL-L12-728.json",
+      "sha256": "c77984c2686eddbe77968e47fb8c1401f69f40ce00b89f279e565931d1e516f2",
+      "bytes": 8173,
+      "git_blob": "4ce542778e6893a54a5717a0eabfd3e2e88536a3"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-138.json",
+      "file": "history-059/REGISTRATION-PAR-L12-138.json",
+      "sha256": "4614c4e4827fa5963e2e4cd134eab0dd5e27593bd162a9a4f015c9261bfc21fd",
+      "bytes": 777,
+      "git_blob": "df8762194a887831dacc884ee5ea4537a39c4320"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-139.json",
+      "file": "history-059/REGISTRATION-PAR-L12-139.json",
+      "sha256": "f7239584d151fc0cf276b96a449de7eef0be9785a2fbc752d7e4d5a9827e83f5",
+      "bytes": 765,
+      "git_blob": "597936d9edc5bf5cc3396e4911e49cf4550a4d44"
+    },
+    {
+      "kind": "original-059",
+      "transport_path": "parallel-l12-20261029/REGISTRATION-PAR-L12-140.json",
+      "file": "history-059/REGISTRATION-PAR-L12-140.json",
+      "sha256": "4186407d611e3652333a60c8d9f0087a0e9093d59dc5626129cfdd529132a6d8",
+      "bytes": 771,
+      "git_blob": "fea4953292b3454d3020b7d40339b0bf7567d2e7"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/source-range-registration.jsonl",
+      "file": "history-774/source-range-registration.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "bytes": 126879,
+      "git_blob": "7666160672c27040c65e39e4d526726e6a4f1719"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/additional-contracts.jsonl",
+      "file": "history-774/additional-contracts.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "bytes": 111211,
+      "git_blob": "53bd7548648daed407f55cf9fa891c047e79dd6c"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/admission03/contract-groups.jsonl",
+      "file": "history-774/contract-groups.jsonl.gz",
+      "encoding": "gzip",
+      "sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "bytes": 1319065,
+      "git_blob": "ecdb74ed7aca240980d954a5a975f9152575f82e"
+    },
+    {
+      "kind": "historical-774",
+      "transport_revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "transport_path": "handoff/774/adler-original/audit/continuation/rig/initial06-type-ownership/contracts-022.json",
+      "file": "history-774/contracts-022.json.gz",
+      "encoding": "gzip",
+      "sha256": "9e22d460d14e983925b38e9fb76ed100368998b6134164ee8b1d581cd8215336",
+      "bytes": 4734,
+      "git_blob": "dc7cf88c850d205333680cc4ff565325edf8368d"
+    }
+  ],
+  "historical_relationships": [
+    {
+      "id": "RIG-ADMISSION03-REGISTER-058/059 and ADDITIONAL-058/059",
+      "attribution": "774 rig reviewer; original pr-working snapshot",
+      "source_ranges": "visor breaths 1–149, courses 1–47",
+      "relation": "Original admissions, spacing, count and overflow reasoning; no later-lens credit. Registry preserves exact dates, original object hashes, and exclusions."
+    },
+    {
+      "id": "RIG-ADMISSION03-CONTRACT-591",
+      "attribution": "774 rig, historical pr-working Burgonet 1–342; original queue_index 564 in this historical record",
+      "relation": "Records validated recipe, chart and domain fallibility, and bounded course count/index. Relates to the same chain but does not specifically assess a valid 950‰ breath in a 35 mm course; do not assume alias or distinct count."
+    },
+    {
+      "id": "RIG-INITIAL06-GROUP-022 helmet-piercing-source-to-native-domain",
+      "attribution": "774 rig, historical Burgonet 1–342, VisorBreaths 1–149 and PiercedDomain 1–188",
+      "relation": "Feature geometry owns inner/outer/web constraints, degree/radian and source/native distinctions. Does not decide whether design validation promises geometry success."
+    },
+    {
+      "id": "READ-L11-427 and REGISTRATION-SEGOVB-1525/1526",
+      "attribution": "Original 059 segovb reviewer, historical 6533/pr-working; fresh 2613 1–149 and 2614 1–47",
+      "relation": "Records disabled count, protected arithmetic and frame/open admission questions. No 95e or checkpoint3821 personal read transfer."
+    },
+    {
+      "id": "READ-L12-892 and PROPOSAL-L12-892 with registrations PAR-L12-679/680 and source qualifications",
+      "attribution": "Original 059 /root/lens12_frontier; root adoption expressly root_personal_rereads empty; 6533 fresh 2613 1–149 and 2614 1–47",
+      "relation": "Historical scoped string and admission analysis, no new findings and no other-lens transfer; later source comparison remains independent."
+    },
+    {
+      "id": "READ-L12-728 with PROPOSAL-L12-728 and registrations PAR-L12-138/139/140",
+      "attribution": "Original 059 /root/lens12_frontier, 6533 full Burgonet 1–342, recipe 1–54, parts 1–339; root adoption with no personal root rereads",
+      "relation": "Connects validation and dispatch with conditional chart/native questions; 95e support reads are newly registered and only bounded; no transfer."
+    }
+  ],
+  "candidate_findings": [
+    {
+      "id": "local-candidate-buffe-course-breath-extent",
+      "status": "Source-supported conditional cross-field contract question; central disposition/alias/count and product policy remain open.",
+      "condition": "Otherwise valid enclosing Burgonet with BuffeDesign default values, Some(default three-course BuffeCourses), Some(VisorBreaths::buffe() with height=950), nonzero count and successful recipe kernel construction. The individual course and breath predicates accept these fields. Editor code passes 50..=950 to a number control and constructs default courses and breaths independently; control implementation, UI behavior and persistence were not exercised.",
+      "mathematical_reasoning": "Default upper boundary 700 per mille and overlap 5 mm give top-course height 100*(1 - 0.700)+5 ≈35 mm. Breath height 950 per mille produces center 95 mm in the 100 mm full-face chart; width 3 mm, length 12 mm, inclination 0 leave vertices around y=89–101 mm, outside 0–35 mm. Slot spacing passes: required span 4*3+3*3=21 <=54, opposite-side gap 2*36-54=18 >=3, one row. PiercedDomain tests hole vertices against the outer rectangle and returns typed VisorOpeningSpacing before triangulation. This is source arithmetic, not a simulated fixture or runtime observation.",
+      "impact": "A design whose separate child predicates pass may later fail geometry admission. Whether this is a defect depends on the intended contract and whether the caller exposes the typed error; no accepted malformed mesh, product outage, actual interaction, or silent failure is claimed.",
+      "future_direction": "Resolve whether the height is relative to the full face or top course and whether this state should be prevented at the owning design/editor boundary or represented as an explicit fallible geometry outcome. Retain valid zero-disabled patterns and the domain web/clearance check; do not presuppose UI or visual behavior.",
+      "references": {
+        "pattern": "95e:crates/fabelgeist-armor/src/visor_breaths.rs:53-103,105-149",
+        "courses": "95e:crates/fabelgeist-armor/src/helmets_buffe_courses.rs:4-47",
+        "parent": "95e:crates/fabelgeist-armor/src/helmets_buffe.rs:24-62 and helmets.rs:322-398",
+        "editor": "95e:crates/adventuresim-character-creator/src/visor_breath_controls.rs:1-48 and buffe_controls.rs:1-88",
+        "call": "95e:crates/fabelgeist-armor/src/gpu/helmet/mod.rs:24-30, parts.rs:115-129, burgonet.rs:110-160,248-269",
+        "domain": "95e:crates/fabelgeist-armor/src/pierced_plate_domain.rs:20-26,101-125,144-153"
+      },
+      "historical_alias_qualification": "Related to historical rig CONTRACT-591 and INITIAL06-GROUP-022; neither bounded record explicitly proves this numerical combination. Search was bounded and cannot establish global novelty; central decides aliases and count."
+    }
+  ],
+  "nonfindings": [
+    "For zero count other scalar controls are still validated, then spacing returns early and no openings are produced; it is a supported disabled setting, not itself an invalid state.",
+    "Validated count one uses a dedicated offset branch; zero rows cannot enter the row body. On validated courses, +180 follows lower range guard, so no overflow follows from that operation.",
+    "Upper seam remains range-checked for a two-course descriptor; alone this is not evidence that two-course mode is invalid.",
+    "Left/Right signs depend on the carrier coordinate convention; no anatomical reversal is established by sign alone.",
+    "Geometry rejects hole vertices outside the top course or within the 3 mm web before CDT; this observation does not claim a malformed mesh is built."
+  ],
+  "open_questions": [
+    "Is design.validate intended to guarantee all deterministic geometric combinations, or is fallible geometry-level admission an accepted contract?",
+    "If this state is considered unsupported, is its typed error visible and actionable to the author, and where should course/slot relationship be owned?",
+    "What exact chart-frame convention and all supported carriers govern Left/Right?",
+    "What are the producer persistence, other geometry callers, device kernel failures, native triangulator guarantees, and actual UI interaction? These were not assessed.",
+    "Is the candidate already covered by another recovered queue/ledger contract outside the bounded searches? Central reconciliation decides."
+  ],
+  "lenses": [
+    {
+      "number": 1,
+      "name": "producer-propagation",
+      "assessment": "Current editor independently mutates optional courses and breaths; HelmetDesign validates then recipe dispatches through Burgonet to pierced domain. UI persistence/error presentation and other callers remain untraced."
+    },
+    {
+      "number": 2,
+      "name": "existing-type-owners",
+      "assessment": "Millimeters, Permille, SlotInclination and VentSides retain distinct units/closed alternatives. Public wrappers and raw fields do not by themselves ensure contextual slot-within-course constraints."
+    },
+    {
+      "number": 3,
+      "name": "admission-contracts",
+      "assessment": "VisorBreaths and BuffeCourses each enforce their own scalar/spacing relations. Parent calls them independently; sampled out-of-course combination is rejected later at the geometry domain. Whether parent admission must reject it remains open."
+    },
+    {
+      "number": 4,
+      "name": "invariant-operations",
+      "assessment": "The validated count-zero and count-one branches avoid count subtraction/division hazards; rows-zero yields no loop. Lower boundary is range-checked before +180 due to short-circuit. No arbitrary caller safety claimed."
+    },
+    {
+      "number": 5,
+      "name": "aggregate-states",
+      "assessment": "Breath extent depends on top course extent, overlap and pattern geometry; separately valid breath and course values can nevertheless yield out-of-course holes. The concrete conditional source-math witness is documented as candidate only."
+    },
+    {
+      "number": 6,
+      "name": "type-ownership",
+      "assessment": "VisorBreaths owns pattern and its unit/side distinctions; BuffeCourses owns seam/overlap, while pierced geometry checks the actual domain. Placement of a cross-field policy requires design decision, not automatic new generic type."
+    },
+    {
+      "number": 7,
+      "name": "redundant-authority",
+      "assessment": "Authored fraction and actual mm domain are different representations of placement; 100 mm face chart and shortened course height are related by geometry, not proven independent competing facts. Their compatibility requires explicit policy."
+    },
+    {
+      "number": 8,
+      "name": "behavior-preservation",
+      "assessment": "Two assigned historical source objects are byte-identical to 6533 and 95e individually; surrounding application changes, runtime behavior and full snapshot cleanliness are not established."
+    },
+    {
+      "number": 9,
+      "name": "enum-shapes",
+      "assessment": "Both/Left/Right preserve closed side alternatives and Option courses/breaths are supported modes. Zero count deliberately produces no openings; do not require arbitrary nonempty geometry."
+    },
+    {
+      "number": 10,
+      "name": "derivability",
+      "assessment": "Assigned structures use ordinary derive and Serde. No manual trait replacement or serialization behavior change is established from these bounded files."
+    },
+    {
+      "number": 11,
+      "name": "type-granularity",
+      "assessment": "Degree SlotInclination differs from signed continuous radians; chart millimetres and Permille placement differ from count and course index. A single generic fraction or angle is not proven adequate."
+    },
+    {
+      "number": 12,
+      "name": "magic-strings",
+      "assessment": "No material business string-valued field or API in assigned sources. Error variants and enum choices are typed; broader UI labels or unrelated source families remain outside scope."
+    },
+    {
+      "number": 13,
+      "name": "magic-numbers",
+      "assessment": "Range limits, 3 mm web and 100 mm chart are concrete numeric contracts; top course physical height and chart height need joint interpretation. No arbitrary blanket wrapper or visual correctness claim follows."
+    }
+  ],
+  "limitations": [
+    "No source edits, implementation, product build, test, fixture generation, browser, rendering, simulation, runtime probe or product validation.",
+    "Evidence verification scripts only hash, decompress and check Git object membership.",
+    "All historical reviewer scopes and revision/snapshot distinctions remain separate; assigned current files being equal does not prove current caller behavior on other paths.",
+    "All thirteen perspectives are scoped to these roles and listed support; no whole-lens, entire audit, queue or ledger closure is implied."
+  ]
+}

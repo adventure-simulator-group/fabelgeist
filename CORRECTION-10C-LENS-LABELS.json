@@ -1,0 +1,43 @@
+{
+  "schema": "726-lens-label-correction-v1",
+  "prior_published_commit": "58b86a9bebea0986c156224f00e143399e6c2ea3",
+  "prior_assessment": "ASSESSMENT-DELEGATED-RECONCILIATION-10C-95E.json",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "basis": "BASELINE-95E-20261110.json lens_names: 5 aggregates, 7 redundant authority, 8 behavior preservation, 10 derivability, 13 raw primitives. Prior labels assigned both rows to 10 in error. The original commit and evidence remain recoverable; this additive correction changes current classification only, not source findings, historical attribution, unique counts or lens coverage.",
+  "corrections": [
+    {
+      "id": "P16-CONFIG-RAGDOLL-STEP-RETENTION",
+      "prior_published_lens": 10,
+      "prior_published_additional_current_lenses": [],
+      "corrected_current_lens": 8,
+      "corrected_additional_current_lenses": [
+        4,
+        13
+      ]
+    },
+    {
+      "id": "ADLER-L11-BODY-OBSERVATION-FRAME",
+      "prior_published_lens": 10,
+      "prior_published_additional_current_lenses": [],
+      "corrected_current_lens": 5,
+      "corrected_additional_current_lenses": [
+        7,
+        8
+      ]
+    }
+  ],
+  "no_execution": "No product validation or repair.",
+  "prior_evidence": {
+    "commit_object": "recovered/lens-label-correction/commit.object",
+    "root_tree_object": "recovered/lens-label-correction/tree.object",
+    "root_tree_git_sha1": "6b43d7efe18edc192d9c47bec85b4750638e9160",
+    "path": "BASELINE-95E-20261110.json",
+    "mode": "100644",
+    "blob_git_sha1": "7bdaafb4f247bf65369e36090cc534cd952d7755",
+    "source_gzip": "recovered/lens-label-correction/prior-baseline.json.gz",
+    "compressed_sha256": "e049022a2fdb8ab3322a2c94e2849744e739b24195c0383f1945086a48bd7f7b",
+    "uncompressed_sha256": "bffc010c9ce2d56dc68825cb66accdd84f00c645e4638b78ade7591265c914e3",
+    "uncompressed_bytes": 1180933,
+    "qualification": "Exact prior baseline bytes recovered from the published commit. Commit/tree/blob identities prove path membership; this prior publication is not checkpoint3821."
+  }
+}
