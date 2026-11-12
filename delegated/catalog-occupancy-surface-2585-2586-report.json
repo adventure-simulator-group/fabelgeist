@@ -1,0 +1,99 @@
+{
+  "schema": "726-p16-catalog-2585-2586-followup-v1",
+  "created_utc": "2026-11-12T06:39:02.558345+00:00",
+  "author": "/root/hair_ops",
+  "scope": "Original P16 roles2585/2586 production material, separate 95e production views, related validator/owner support and original 059 q2433. No test-source tails, whole lens, product runtime or final checkpoint claim.",
+  "pinned_current": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "registration": "registration.json",
+  "additional_registration": "diagnostics-registration.json",
+  "receipt": "read-receipt.json",
+  "git_proofs": "git-proofs.json",
+  "history": "historical/evidence-index.json",
+  "identity_qualification": [
+    "Original P16 role2585 SHA-256 9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51 and role2586 1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b match f82 transported original objects and individual a120 base files; both absent from recorded P16 modification status, but the entire P16 snapshot is dirty. Current role2585 SHA 8cd31fc81b31e43b70677a2fe4cd2826f9afabb27f172c1681a74f9951d542d5 differs; role2586 matches individually. Current role2587 main validator differs outside sampled windows.",
+    "Later reproduced tracked P16 patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 matches the recorded 524542-byte hash, but excludes seven untracked files; original generation command, uninterrupted custody and full filesystem metadata remain unproved. f82 is evidence transport, not a project revision.",
+    "774 rig earlier completion112 expected source registration SHA 698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1 differs from later recovered complete registration SHA 24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb. Prior bounded older-collection search did not recover earlier bytes; later row stream and earlier pin are preserved, not substituted. Root044 first13 mismatch is separate and does not itself cover roles018/019."
+  ],
+  "historical_attribution": [
+    "774 rig REG-018/019 registered and qualified P16 production 1–144 and 1–159 respectively, excluding P16 test tails. Their PR-working CONTRACT-046/047 full bodies and P16 production bodies have separate source roles; no cross-revision credit. 774 later source registrations, qualifications and helper/reconciliation records are archived and Git-bound with the original pin qualification.",
+    "059 /root/segovb READ-L11-424 recorded fresh P16 1–144 and 1–159; /root/lens12_frontier independently read those same P16 bounds in PROPOSAL-L12-877 with separately retained registrations and root adoption, while TEAM021 records separate connected typed schema evidence. Exact original q2433 and original receipts are retained; reconstructed selection is explicitly labelled.",
+    "Prior /root/rig_identity packet separately displayed full P16/95e role2585 (185/183 lines) and role2586 (219/219), including test source text only. Its report, registration and receipt remain unchanged with its author and exact scopes. This packet’s personal reads cover production only, not those tails or the prior reader’s supports.",
+    "Prior published ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json is preserved separately as a current assessment, not original 059 and not another new finding. No reconstructed record or historic review is checkpoint3821."
+  ],
+  "observations": [
+    {
+      "id": "CATALOG-BASE-CLOTHING-POLICY-EVOLUTION",
+      "classification": "Corroborates /root/rig_identity source comparison; no new unique defect count",
+      "refs": [
+        "physical-p16 item_catalog_validation_occupancy.rs 114–127",
+        "95e item_catalog_validation_occupancy.rs 114–125",
+        "95e item_catalog_schema.rs 147–180,189–199; item_catalog_fit.rs 35–45"
+      ],
+      "detail": "P16 raw singleton list includes base_clothing and rejects nonzero order. Current validator consults typed EquipmentChannel::singleton_per_location, which excludes BaseClothing; its documentation says ordinary garments use distinct authored orders and conflict logic considers matching order and fit zone. A mechanical full-file diff finds only this replacement (P16 118–121 versus 95e 118–119); the archived test tails were not personally displayed. This is a source and policy difference, not proof of an unintended regression or actual loaded catalog occurrence.",
+      "safeguards": "Current typed conflict logic distinguishes same location, channel, singleton/order and fit-zone; omission reserves a whole location. P16 and 95e preserve their separate behavior and revision evidence.",
+      "open": "Supported authored multi-garment cases, strategic/tactical consumers and intended channel compatibility need cross-owner review."
+    },
+    {
+      "id": "L12-CLOSURE-CATALOG-TYPED-ADMISSION-RESULT",
+      "historical_queue_index": 2433,
+      "classification": "Existing 059 rejected whole-document malformed-occupancy inference, independently corroborated on sampled P16 and 95e paths; no duplicate count",
+      "refs": [
+        "P16/95e item_catalog_validation_occupancy.rs 80–113,128–140",
+        "P16/95e item_catalog_validation.rs 20–26,95–104,249–274,301–310"
+      ],
+      "detail": "Local occupancy conversion uses .ok(), so a failed typed element can skip the fit/conflict branch. In the selected validate_documents_with_sources route, a non-object root or missing items array adds diagnostics; for a document with an items array the complete ItemCatalogDocument conversion runs and any error is pushed. The positive cap of 128 truncates but does not empty a nonempty diagnostics list, and a nonempty list returns Err. Thus local .ok() alone does not establish that typed-malformed occupancy is accepted by this whole-document route.",
+      "safeguards": "Typed per-element construction, fit-zone check on successful typed conversion, whole-document typed parse, and positive diagnostic cap are distinct shown checks. No parser or validator was executed.",
+      "open": "Direct typed DTO construction or deserialization, other admission entry points and real downstream consumers are outside this path and cannot be declared safe or reachable."
+    },
+    {
+      "id": "CATALOG-SURFACE-VALIDATION-BOUNDARY",
+      "classification": "Existing 774 rig surface contract, separately corroborated P16 and 95e; conditional open admission/policy question, no new count",
+      "refs": [
+        "P16/95e item_catalog_validation_surface.rs 8–53,61–129,132–158",
+        "95e item_catalog_surface.rs 5–26; item_catalog_validation_numeric.rs 27–49",
+        "P16/95e item_catalog_validation.rs 813–864"
+      ],
+      "detail": "The helper requires nonempty spans for armor/clothing, material when spans exist, caps segments, checks nonempty known region chains and directed adjacency, optionally compares to protected body parts, parses SurfaceAnchor and requires coverage positive after f32 narrowing with input at most 1. Public EquipmentSurfaceSpan retains Vec regions and f32 coverage; the type declaration itself does not encode every multi-field policy. No alternate path bypass into a product consumer is established.",
+      "safeguards": "Caller supplies protected parts and whether material is present; positive_f32_in checks finite, nonzero after narrowing and source maximum. The empty protection set skips surface/protection intersection, which must be assessed in its intended non-armor policy context.",
+      "open": "All alternative construction/deserialization/consumption routes, valid directed chains, body-part mappings, and non-armor/empty protection semantics require owner decisions. Material presence alone is not proof material is semantically valid."
+    },
+    {
+      "id": "MIXED-EQUIPMENT-PLACEMENT-RELATION",
+      "classification": "Previously published 95e topology assessment related to current/old source; no new defect count or assumed alias",
+      "refs": [
+        "P16/95e item_catalog_validation.rs 789–812",
+        "prior/ASSESSMENT-EQUIPMENT-TOPOLOGY-95E.json"
+      ],
+      "detail": "The sampled validator rejects occupancy and parents only when both are empty, then validates both collections separately. The prior current assessment discusses a strategic/tactical mixed-placement authority question and an authored-catalog census; its source reads, population, lack of runtime occurrence and attribution remain its own. No inference that mixed placement is invalid, supported or actually consumed follows from this check alone.",
+      "open": "Actual catalog ingress, intended mixed-placement rules and the consumer/authority boundary remain open."
+    }
+  ],
+  "nonfindings": [
+    "Parent and layer-precedence values are individually typed-decoded and errors added for invalid records; actual whole placement relationships require more than their field shape.",
+    "Surface original and current files are byte-identical but snapshots and personally displayed copies remain distinct.",
+    "Tests, fixture construction, parser execution and product validation were not performed."
+  ],
+  "lens_perspectives": {
+    "producer_propagation": "Validated local occupancy and surfaces are handed to the selected whole-document path; other producers/consumers remain open.",
+    "existing_type_owners": "EquipmentChannel, fit zone, SurfaceAnchor and anatomical region are existing typed owners; raw DTO aggregate semantics remain separate.",
+    "admission_contracts": "Selected typed whole-document parse and post-narrowing coverage guards are meaningful; direct DTO entry is unproved.",
+    "invariant_operations": "conflicts_with combines same location/channel/order and fit-zone; adjacency is directional and requires policy.",
+    "aggregate_states": "Protected regions, material, span, occupancy and parent relation cross fields and cannot be settled by individual types alone.",
+    "type_ownership": "Current channel owner governs singleton; P16 raw list is a historical rule, not current authority.",
+    "redundant_authority": "Separate surface region strings and enum mapping can drift but no mismatch is established; no blanket duplicate finding.",
+    "behavior_preservation": "Base-clothing allowed order differs across P16/current; retain legitimate current layers and whole-location fit policy in later review.",
+    "enum_shapes": "Anchor and channel enums have explicit cases; no new missing variant proof.",
+    "derivability": "DTO serde-derived shape alone does not enforce semantic relations; no removable boilerplate finding shown.",
+    "type_granularity": "Whole-location occupancy, individual fit zones and singleton/channel order have distinct meanings.",
+    "magic_strings": "Location/channel vocabularies and diagnostic strings serve different roles; historical whitelist is scoped to its old revision.",
+    "magic_numbers": "Coverage uses strict post-f32 positivity and maximum1; singleton order0 and max segment count are concrete policy rather than general numeric defects."
+  },
+  "open_questions": [
+    "Which supported current/P16 clients bypass whole-document validation when constructing or decoding public typed values?",
+    "What are intended occupancy/layer, singleton and mixed physical-parent policies, and which strategic/tactical consumers rely on them?",
+    "Do the directed anatomical adjacency, body-part/protection mapping and optional non-armor surfaces reflect intended product semantics?",
+    "Reconcile historic 774 pin mismatch, exact prior/current aliases and all remaining thirteen-lens scopes; no full closure claimed."
+  ],
+  "future_direction": "After audit and separate authorization, reconcile the source policy differences, actual ingress, semantic owner and consumers before deciding any repair. Preserve valid layered garments, zero/whole-location semantics and intended anatomical cases.",
+  "validation": "Evidence-only verification, source inspection and comparison; no product parser, fixture, test, build, runtime probe, repair, cleanup or publication edit."
+}

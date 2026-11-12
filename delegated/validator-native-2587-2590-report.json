@@ -1,0 +1,743 @@
+{
+  "schema": "726-bounded-validator-native-followup-v1",
+  "author": "/root/mhr_character",
+  "created_utc": "2026-11-12T06:39:58.755341+00:00",
+  "scope": {
+    "roles": [
+      2587,
+      2588,
+      2589,
+      2590
+    ],
+    "current_project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "registrations": [
+      "registration.json",
+      "navigation-registration.json",
+      "parse-navigation-registration.json",
+      "parse-registration.json"
+    ],
+    "personal_read_receipt": "read-receipt.json",
+    "fresh_independent_sources": [
+      {
+        "tag": "p16-validator",
+        "kind": "historical-physical-p16",
+        "role": 2587,
+        "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+        "source_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+        "fresh_displayed_union": [
+          [
+            58,
+            87
+          ],
+          [
+            107,
+            130
+          ],
+          [
+            249,
+            273
+          ],
+          [
+            301,
+            310
+          ],
+          [
+            323,
+            327
+          ],
+          [
+            362,
+            371
+          ],
+          [
+            526,
+            543
+          ],
+          [
+            690,
+            724
+          ],
+          [
+            1195,
+            1220
+          ],
+          [
+            1265,
+            1290
+          ],
+          [
+            1345,
+            1365
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            57
+          ],
+          [
+            88,
+            106
+          ],
+          [
+            131,
+            248
+          ],
+          [
+            274,
+            300
+          ],
+          [
+            311,
+            322
+          ],
+          [
+            328,
+            361
+          ],
+          [
+            372,
+            525
+          ],
+          [
+            544,
+            689
+          ],
+          [
+            725,
+            1194
+          ],
+          [
+            1221,
+            1264
+          ],
+          [
+            1291,
+            1344
+          ],
+          [
+            1366,
+            2053
+          ]
+        ]
+      },
+      {
+        "tag": "current-validator",
+        "kind": "current-project",
+        "role": 2587,
+        "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+        "source_sha256": "97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704",
+        "fresh_displayed_union": [
+          [
+            24,
+            24
+          ],
+          [
+            58,
+            87
+          ],
+          [
+            107,
+            130
+          ],
+          [
+            133,
+            160
+          ],
+          [
+            249,
+            273
+          ],
+          [
+            301,
+            310
+          ],
+          [
+            323,
+            327
+          ],
+          [
+            362,
+            371
+          ],
+          [
+            526,
+            543
+          ],
+          [
+            690,
+            724
+          ],
+          [
+            1148,
+            1148
+          ],
+          [
+            1195,
+            1220
+          ],
+          [
+            1265,
+            1290
+          ],
+          [
+            1345,
+            1365
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            23
+          ],
+          [
+            25,
+            57
+          ],
+          [
+            88,
+            106
+          ],
+          [
+            131,
+            132
+          ],
+          [
+            161,
+            248
+          ],
+          [
+            274,
+            300
+          ],
+          [
+            311,
+            322
+          ],
+          [
+            328,
+            361
+          ],
+          [
+            372,
+            525
+          ],
+          [
+            544,
+            689
+          ],
+          [
+            725,
+            1147
+          ],
+          [
+            1149,
+            1194
+          ],
+          [
+            1221,
+            1264
+          ],
+          [
+            1291,
+            1344
+          ],
+          [
+            1366,
+            2059
+          ]
+        ]
+      },
+      {
+        "tag": "schema",
+        "kind": "current-project",
+        "role": null,
+        "path": "crates/adventuresim-core/src/item_catalog_schema.rs",
+        "source_sha256": "a1ba2a3e9b71049c5836b9d6fce7fded17b53e3ed0b2993e8b69343ecde3d60c",
+        "fresh_displayed_union": [
+          [
+            22,
+            45
+          ],
+          [
+            72,
+            85
+          ],
+          [
+            480,
+            510
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            21
+          ],
+          [
+            46,
+            71
+          ],
+          [
+            86,
+            479
+          ],
+          [
+            511,
+            614
+          ]
+        ]
+      },
+      {
+        "tag": "build",
+        "kind": "current-project",
+        "role": null,
+        "path": "crates/adventuresim-core/build.rs",
+        "source_sha256": "58cfca52333fe7faa7e685d953532cf8aa58b171efc63443ee929b1a32f94dc6",
+        "fresh_displayed_union": [
+          [
+            239,
+            262
+          ],
+          [
+            274,
+            280
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            238
+          ],
+          [
+            263,
+            273
+          ],
+          [
+            281,
+            511
+          ]
+        ]
+      },
+      {
+        "tag": "loader",
+        "kind": "current-project",
+        "role": null,
+        "path": "crates/adventuresim-core/src/item_catalog.rs",
+        "source_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+        "fresh_displayed_union": [
+          [
+            27,
+            35
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            26
+          ],
+          [
+            36,
+            614
+          ]
+        ]
+      },
+      {
+        "tag": "workspace",
+        "kind": "current-project",
+        "role": null,
+        "path": "Cargo.toml",
+        "source_sha256": "8bc328dea59124a85bd4c7fcb522e3c55f962657f510ddee685050b7d8a8e512",
+        "fresh_displayed_union": [
+          [
+            132,
+            145
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            131
+          ],
+          [
+            146,
+            211
+          ]
+        ]
+      },
+      {
+        "tag": "core-cargo",
+        "kind": "current-project",
+        "role": null,
+        "path": "crates/adventuresim-core/Cargo.toml",
+        "source_sha256": "e5e9c6ed987838be5b7fef72e25ba3e6b6e848bc84105c42f396fcdfd7d65f53",
+        "fresh_displayed_union": [
+          [
+            15,
+            40
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            14
+          ],
+          [
+            41,
+            45
+          ]
+        ]
+      },
+      {
+        "tag": "weapon-cargo",
+        "kind": "current-project",
+        "role": null,
+        "path": "crates/adventuresim-weapon-model/Cargo.toml",
+        "source_sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+        "fresh_displayed_union": [
+          [
+            1,
+            12
+          ]
+        ],
+        "unread_complement": [
+          [
+            13,
+            19
+          ]
+        ]
+      },
+      {
+        "tag": "core-visitor",
+        "kind": "pinned-cargo-native",
+        "role": 2588,
+        "path": "serde_core-1.0.229/src/de/impls.rs",
+        "source_sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+        "fresh_displayed_union": [
+          [
+            129,
+            152
+          ],
+          [
+            222,
+            242
+          ],
+          [
+            449,
+            457
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            128
+          ],
+          [
+            153,
+            221
+          ],
+          [
+            243,
+            448
+          ],
+          [
+            458,
+            3173
+          ]
+        ]
+      },
+      {
+        "tag": "json-value",
+        "kind": "pinned-cargo-native",
+        "role": 2589,
+        "path": "serde_json-1.0.151/src/value/de.rs",
+        "source_sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+        "fresh_displayed_union": [
+          [
+            160,
+            205
+          ],
+          [
+            282,
+            325
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            159
+          ],
+          [
+            206,
+            281
+          ],
+          [
+            326,
+            1507
+          ]
+        ]
+      },
+      {
+        "tag": "json-number",
+        "kind": "pinned-cargo-native",
+        "role": 2590,
+        "path": "serde_json-1.0.151/src/number.rs",
+        "source_sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+        "fresh_displayed_union": [
+          [
+            525,
+            625
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            524
+          ],
+          [
+            626,
+            814
+          ]
+        ]
+      },
+      {
+        "tag": "p16-lock",
+        "kind": "historical-p16-lock",
+        "role": null,
+        "path": "Cargo.lock",
+        "source_sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "fresh_displayed_union": [
+          [
+            9794,
+            9802
+          ],
+          [
+            9814,
+            9827
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            9793
+          ],
+          [
+            9803,
+            9813
+          ],
+          [
+            9828,
+            13103
+          ]
+        ]
+      },
+      {
+        "tag": "current-lock",
+        "kind": "current-project-lock",
+        "role": null,
+        "path": "Cargo.lock",
+        "source_sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+        "fresh_displayed_union": [
+          [
+            9397,
+            9405
+          ],
+          [
+            9417,
+            9430
+          ]
+        ],
+        "unread_complement": [
+          [
+            1,
+            9396
+          ],
+          [
+            9406,
+            9416
+          ],
+          [
+            9431,
+            12545
+          ]
+        ]
+      }
+    ],
+    "identity": "Role2587 is dirty physical-p16 object df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945; it matches individual a120 and 6533 path bytes. Its current 95e body has different full SHA 97ca5ce5afa73cc6a880b15d578fc5f3b0d2915d14b4e6bcb1442689f3e4a704; raw line bytes 1\u20131492 mechanically match. Test tails and most production lines remain unread by this follow-up. Equality does not establish clean P16/pr-working snapshots or semantic equality beyond the scoped source. f82 is historical transport, not a product revision.",
+    "native_identity": "Roles2588\u20132590 retain original source_id and snapshot pinned-cargo. No snapshot list row named pinned-cargo exists in the registry, so it is not silently normalized. Exact serde_core 1.0.229 and serde_json 1.0.151 archives/members and P16/95e lock stanzas are independently checksum verified; package version is not project Git or feature selection.",
+    "native_packages": [
+      {
+        "name": "serde_json",
+        "version": "1.0.151",
+        "sha256": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+        "archive": "source/serde_json-1.0.151.crate",
+        "bytes": 156556
+      },
+      {
+        "name": "serde_core",
+        "version": "1.0.229",
+        "sha256": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+        "archive": "source/serde_core-1.0.229.crate",
+        "bytes": 63100
+      }
+    ],
+    "reading_limit": "Receipt records exact independently displayed P16/current windows, pinned native windows, the current parse support range and navigation singleton hits with all unread complements. Full archived body or metadata index is not a full-body personal read."
+  },
+  "historical_relations": {
+    "selected_059_queue": [
+      {
+        "index": 602,
+        "contract_id": "Q-L11-bc1410a8b8f757677a38",
+        "kind": "pending-contract-or-revisit",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/additional_pending_connected_contracts/52"
+        ],
+        "top_level_source_count": 0,
+        "granular_source_counts": [],
+        "qualification": "Pending question with no direct source identity receipts."
+      },
+      {
+        "index": 604,
+        "contract_id": "Q-L11-bb720d879d7e30418b87",
+        "kind": "pending-contract-or-revisit",
+        "status": "open-evidence-or-disposition",
+        "journal_revisits": [
+          "/segovb_continuation/additional_pending_connected_contracts/54"
+        ],
+        "top_level_source_count": 0,
+        "granular_source_counts": [],
+        "qualification": "Pending question with no direct source identity receipts."
+      },
+      {
+        "index": 2391,
+        "contract_id": "PAR-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL",
+        "kind": "connected-contract",
+        "status": "open-source-reconciliation",
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          2
+        ],
+        "qualification": "Original granular evidence and specific proposal/adoption relations are retained in 059-selection-reconstructed.json; no closure or automatic alias follows."
+      },
+      {
+        "index": 2433,
+        "contract_id": "L12-CLOSURE-CATALOG-TYPED-ADMISSION-RESULT",
+        "kind": "connected-contract",
+        "status": null,
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          5
+        ],
+        "qualification": "Original granular evidence and specific proposal/adoption relations are retained in 059-selection-reconstructed.json; no closure or automatic alias follows."
+      },
+      {
+        "index": 2434,
+        "contract_id": "SEGOVB-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL",
+        "kind": "connected-contract",
+        "status": null,
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          3
+        ],
+        "qualification": "Original granular evidence and specific proposal/adoption relations are retained in 059-selection-reconstructed.json; no closure or automatic alias follows."
+      },
+      {
+        "index": 2435,
+        "contract_id": "L12-CLOSURE-CATALOG-PHYSICAL-SERDE-NATIVE-F32",
+        "kind": "connected-contract",
+        "status": null,
+        "journal_revisits": [],
+        "top_level_source_count": 0,
+        "granular_source_counts": [
+          8,
+          3
+        ],
+        "qualification": "Original granular evidence and specific proposal/adoption relations are retained in 059-selection-reconstructed.json; no closure or automatic alias follows."
+      }
+    ],
+    "ledger": "059-selection-reconstructed.json preserves whole selected queue entries and linked journals, including PL13-175 historical dimension question; complete earlier queue/ledger are compressed under reference.",
+    "diagnostic_link": "059 entry2391 PAR-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL is a proposal. Entry2434 SEGOVB-L12-CATALOG-DIAGNOSTIC-PATH-TEXT-PROTOCOL explicitly contains an adopted view naming that proposal, with TEAM-021 source/receipt attribution and unresolved current source-map/alias questions. Exact association is recorded, but a central ledger identity/closure is not inferred.",
+    "numeric_link": "059 Q602/Q604 are broad pending f64\u2192f32 and absent-capability questions without direct source identities. Entry2433 retains the typed-result backstop. Entry2435 retains two historical views: TEAM-021 initially left the P16 cuboid predicate unread; TEAM-022 later qualified zero-valid generic cuboid and finite signed-length behavior, with strict-positive equipment/current feature routes still open. P16 physical schema/adapter is distinct from raw current f32 fields.",
+    "774": "Original rig REGISTER-020 covers 2587 production 1\u20131492, qualifying Camera PR proof, P16 comparison/critical reads and excluded P16 test tails. REGISTER-021 registered serde_core [81\u2013153,222\u2013243,449\u2013457] and qualified [129\u2013152,222\u2013242,450\u2013456]; REGISTER-022 registered serde_json Value [169\u2013194,310\u2013314] and qualified [169\u2013193,313]; REGISTER-023 Number [582\u2013619] qualified [582\u2013600,602\u2013618]; REGISTER-025 Number [535\u2013580] retained. Original camera CAMERA-ADM03-F004 and F005, historical scopes and original authors retained via f82.",
+    "rig_registration_pin": {
+      "root046_rig_registration_expected": "9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe",
+      "later_first35_sha256": "cbbfee078a21b7d56c7d4b499225de25fad99e47bfb9057defc14eb932c1d859",
+      "later_full_registration_sha256": "24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb",
+      "registration_prefix_matches": false,
+      "root046_qualification_expected": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "later_first31_qualification_sha256": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "qualification_prefix_matches": true,
+      "bounded_search": "20 exact-filename registration files under ae46/target and 28ba extracted target checked both whole and first35; none match the pin; no global absence claim.",
+      "qualification": "Original roles, rig witness and 046 embedded rows retain independent attribution; later registration bytes are not silently substituted."
+    },
+    "pin_note": "Root046 embeds original qualification records and their prospective/actual ranges, not the complete earlier rig registration file; registry independently embeds role observations. Later first35 registration rows do not match the older pin, whereas first31 qualifications match. The earlier 20-file search was bounded, not a global absence claim.",
+    "059_roles": "Segovb READ-L11-424 via SEGOVB-1498 personally records P16 2587 1\u20131492; READ-L11-425 via 1499/1500/1501 records respectively 2588 [129\u2013152,222\u2013242,450\u2013456], 2589 [169\u2013193,313], 2590 [535\u2013580,582\u2013600,602\u2013618]. /root/lens12_frontier READ-L12-878/879/880 via registrations 638/650/651/652 personally read 2587 1\u20131492; 2588 [81\u2013153,222\u2013243,449\u2013457]; 2589 [169\u2013194,310\u2013314]; 2590 [535\u2013580,582\u2013619]. Root adoption has no root personal reread.",
+    "prior_delegates": "/root/rig_identity original manifest 285b056edaefbb9e72100b9d729030b32aa0f602bd49099c42ac5280c2c1112f: role2587 P16 personal 1\u2013120,601\u2013960 and current 1\u20131492; role2588 native 81\u2013153,222\u2013243,449\u2013457. /root/mhr_character original manifest 260836a10fef67e1af7d0197e5cdbd6ccf4debf49b12592fe576e7d43c06694e: 2589 personally 160\u2013205,300\u2013325 and 2590 525\u2013625. /root/hair_ops numeric/material observation is separately preserved via prior-numeric packet and its own authorship. Previous source support and this new work are not transferred between readers.",
+    "later_p16": "Later matching tracked patch SHA fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7 was observed by /root/hair_ops and separately saved by coordinator. It omits seven independently accounted untracked paths and does not prove the original historical patch command. reference/RECOVERY-PHYSICAL-P16-PATCH-20261111.json preserves its chronology.",
+    "redactions": "Checkpoint15 publication metadata records exact-vs-redacted members; original user-extracted 059 files here are verified against the original transport manifest and may contain local paths. Earlier records and this assessment are not checkpoint3821."
+  },
+  "assessments": [
+    {
+      "title": "Conditional omitted required capabilities",
+      "classification": "Fresh current and P16 bounded corroboration of historical CAMERA-ADM03-F004 and earlier /root/rig_identity assessment; central decides identity without a new count",
+      "evidence": [
+        "current-validator.source:537\u2013543 invokes validate_capabilities only when the enclosing field exists. Navigation registration identifies function at 1148; bounded branches 1210\u20131214,1278\u20131283,1354\u20131359 require durability for selected repairable kinds, food metadata for food and container capacity metadata for container, conditional on entering the helper.",
+        "schema.source:22\u201340 defaults ItemDefinition.capabilities, and :488\u2013495 derives Default with optional members. current-validator.source:249\u2013273 performs typed document preflight. P16 validator exact displayed corresponding windows are byte-identical, but P16 schema and other gates retain independent historical scope."
+      ],
+      "condition": "An otherwise admissible item of one of the kinds must omit the whole capabilities field; all other validation, producer/consumer paths and actual source data remain unproved. No malformed source or fixture has been created or parsed. This does not imply that legitimately optional capabilities for other kinds are errors.",
+      "future_direction": "Trace all constructors, relevant semantic gates and consumer requirements before choosing a canonical required-kind admission boundary; preserve optional modes."
+    },
+    {
+      "title": "Diagnostic locator depends on exact textual spelling",
+      "classification": "Independently supported conditional diagnostic precision question, already described by 059 2391/2434 and /root/rig_identity",
+      "evidence": [
+        "current-validator.source:58\u201380 calls source_coordinates when the original source is available; 107\u2013130 finds the literal quoted id with a fixed colon-space, falls back to offset zero when absent, then searches for the field from that position.",
+        "current-validator.source:133\u2013135 routes the shown parse_document through serde_json::from_str; build.source:239\u2013262 passes original source text into the validation path. P16 corresponding personally displayed windows are byte-identical to current for these lines."
+      ],
+      "condition": "If an otherwise supported JSON-formatted input uses another legal id spacing, has an applicable diagnostic and an earlier field of the same name before the intended item, the displayed coordinate can point earlier; this is source reasoning, no input parsed or user impact established. Further StrictValue behavior and arbitrary YAML are outside the shown support.",
+      "future_direction": "Clarify whether precise diagnostic coordinates are a required contract and trace source-map/location owners before choosing a repair."
+    },
+    {
+      "title": "Conditional native Value/Number to f32 boundary",
+      "classification": "Existing historical F005 / PL13-175 / 95e dimension assessment and /root/hair_ops overflow candidate; native source support, not another product defect count",
+      "evidence": [
+        "json-value.source:169\u2013193 and 303\u2013314 dispatch owned Value numeric f32 to Number.deserialize_any when arbitrary_precision is disabled, or Number.deserialize_f32 when enabled.",
+        "json-number.source:535\u2013546 shows Float\u2192visit_f64 in the non-arbitrary branch; :582\u2013618 calls target parse/visitor in the arbitrary branch. core-visitor.source:129\u2013152,222\u2013242,450\u2013456 casts visit_f64 to f32, with sign handling in std.",
+        "current-validator.source:690\u2013724 tests f64 dimensions/offsets; schema.source:72\u201385 stores f32 fields. :249\u2013273 checks typed result and discards success; build.source:253\u2013262 and :274\u2013280 validates then serializes original Value; loader.source:27\u201331 uses a separate from_str path."
+      ],
+      "condition": "Under the indicated non-arbitrary Value path and otherwise admitted input, narrowing can turn finite positive f64 dimensions into f32 zero or finite signed/nonnegative physical values into infinity. Resolved feature graph, exact accepted input, direct streaming decoder behavior, stored runtime results and consumer reachability remain open. Arbitrary-precision target parse is a distinct conditional route; no parser, macros, product or fixtures ran.",
+      "future_direction": "Examine the exact destination representation and every admitted producer/consumer; preserve zero-valid generic geometry, permitted zero grip and signed offsets when deciding whether and where to enforce physical field invariants."
+    }
+  ],
+  "nonfindings": [
+    "Typed whole ItemCatalogDocument preflight is a separate backstop against malformed shape on the shown compiler path; it does not alone establish all semantic numeric or kind invariants.",
+    "Historical generic cuboid zero permissibility does not itself imply an invalid equipment dimension was admitted; its role-specific policy is separate.",
+    "The current diagnostic uses original source only when supplied; no malformed input, parsing failure or coordinate error was executed or observed."
+  ],
+  "open_questions": [
+    "Can actual admitted content omit the required-kind capabilities aggregate, and do additional gates or consumers impose or require the same relation?",
+    "Which current input formats and source-map positions are contractually supported, and can an actual diagnostic encounter the exact locator mismatch?",
+    "Which host/target features select arbitrary_precision or float_roundtrip, and which actual native decoding and product consumer paths are reached?",
+    "What is the repair and exact alias relationship among historical diagnostic proposals, capability omission, dimension underflow and separately attributed overflow?",
+    "What do unread portions of 2587 and the native sources or other catalog producers/consumers add to these contracts?"
+  ],
+  "lens_perspectives": {
+    "magic_strings": "Diagnostic path and exact id text are internal lookup inputs; producer grammar and source-coordinate owner remain open.",
+    "magic_numbers": "f64\u2192f32 destination representation, signed zero, finiteness and field-specific bounds differ.",
+    "existing_type_owners": "ItemDefinition/Capabilities and native Serde visitors are existing owners; a validated equipment dimension must preserve its specific positive rule.",
+    "type_ownership": "Determine the correct owner for capability-kind admission and source positions before selecting a repair.",
+    "type_granularity": "Do not conflate zero-valid generic cuboid or signed offsets with positive equipment dimensions.",
+    "enum_shapes": "Absent aggregate and missing required payload can be distinct states; actual product policy still needs tracing.",
+    "admission_contracts": "The manual optional gate, derived default and typed preflight have distinct responsibilities; native feature-specific conversion is conditional.",
+    "aggregate_states": "Required kind to capability payload and dimension array relationships require checks beyond independent valid leaf types.",
+    "invariant_operations": "Floating narrowing can alter finiteness/positivity; string coordinate search can choose a different occurrence.",
+    "producer_propagation": "Value validation, typed preflight, original emission and independent loader are bounded; actual ingress and consumers are not complete.",
+    "redundant_authority": "Human diagnostic paths and source text act as separate coordinate sources; exact source-map authority remains open.",
+    "behavior_preservation": "Preserve legitimate absent optional capabilities, valid JSON formatting and generic zero/signed numeric meanings.",
+    "derivability": "Derived defaults and serde shape checks do not automatically enforce required kind/capability relations."
+  },
+  "limits": "Only evidence verification and static source inspection; no parsing, macro execution, product, builds, tests, fixtures, probes or repairs. No lens completion, implicit aliases, duplicate counts, or checkpoint3821 restoration."
+}

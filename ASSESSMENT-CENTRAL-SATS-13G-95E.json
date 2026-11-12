@@ -1,0 +1,122 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "native_source_qualification": "Pinned spacetimedb-bindings-macro 2.6.1 source member is transported by f82, which is not a project revision. Its archive, source member and current lock checksum are checked separately; active macro expansion or selected decoder is not established.",
+  "scope": "Bounded SATS product-construction and selected direct unit-fraction caller; connected first issues already exist.",
+  "central_display_evidence": [
+    {
+      "registration": "CENTRAL-13G-REGISTRATION.json",
+      "receipt": "CENTRAL-13G-READ-RECEIPT.json",
+      "git_path_proof": "CENTRAL-13G-WINDOWS-PROOF.json"
+    },
+    {
+      "registration": "CENTRAL-13G-SUPPORT-REGISTRATION.json",
+      "receipt": "CENTRAL-13G-SUPPORT-READ-RECEIPT.json",
+      "git_path_proof": "CENTRAL-13G-SUPPORT-WINDOWS-PROOF.json"
+    }
+  ],
+  "source_references": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "lines": [
+        [
+          391,
+          470
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+      "lines": [
+        [
+          1,
+          40
+        ],
+        [
+          90,
+          125
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "lines": [
+        [
+          150,
+          180
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "lines": [
+        [
+          495,
+          530
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-world-schema/Cargo.toml",
+      "lines": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-stdb-module/Cargo.toml",
+      "lines": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+      "lines": [
+        [
+          41,
+          89
+        ]
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "id": "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION",
+      "current_source": "Both unit-basis owners have private raw fields and checked constructors. The selected native macro source describes generated sequence and named product visitors constructing a type from decoded fields, with sequence-length, duplicate and missing-field checks, without showing a call to the checked owner constructor in those visitors. The current type declares SpacetimeType under the optional feature; the module manifest declares that feature.",
+      "condition": "If this generic visitor is generated for the owner, used by a supported native decode, and no subsequent whole-value check intervenes, field decoding may admit a value outside the owner constructor bound. The selected expansion, active feature resolution, actual native input and consumer remain unproved. The previously recorded Serde-derived admission is related but a different decoder path."
+    },
+    {
+      "id": "SELECTED-ENCUMBRANCE-CALLER-SAFEGUARD",
+      "current_source": "The selected equipment helper maps NaN and nonpositive values to zero, positive infinity to the largest finite f32, handles zero capacity and clamps the ratio-derived multiplier. The encounter caller clamps again and passes that result through from_unit_f32, which checks finite unit range and delegates to the bounded constructor.",
+      "qualification": "Source arithmetic supports finite unit-range input for this selected caller, including infinite division clamped down; this is not a native decoder or an assertion about other callers, supported game states or runtime behavior."
+    }
+  ],
+  "historical_attribution": "059 q131 and q2332 remain open original records; their earlier Serde and reflection branches, 774 camera witness and delegated roles 2561\u20132562 keep original revision, reader, qualification and status. The later reviewer corroboration is separate and not required to credit these coordinator displays. No checkpoint3821 transfer.",
+  "further_evidence_for_existing_rows": [
+    "ADLER-L11-BASIS-POINTS-WIRE-ADMISSION"
+  ],
+  "new_qualified_ledger_rows": [],
+  "related_not_aliased": [
+    "REVIEW-BASIS-POINTS-SERDE-ADMISSION-001 shares an owner and contract family but is a separately traced serialization path.",
+    "059 q2332 is a broader native SATS and reflection obligation; the selected macro and PositiveLength branches do not close it.",
+    "059 q3443 namespace scope is not assessed by these windows."
+  ],
+  "open": [
+    "Actual generated code and feature graph, supported native ingress, field and whole-value validators, further callers and downstream behavior.",
+    "Full producer/consumer and alias coverage, all thirteen lenses, historical semantic queue and missing final checkpoint3821 ledger and queue."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

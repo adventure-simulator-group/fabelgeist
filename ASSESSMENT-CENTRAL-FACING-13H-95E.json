@@ -1,0 +1,57 @@
+{
+  "schema": "726-delegated-central-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Distinct historical and current facing-reason source windows and already registered 13F validation/construction windows; one connected policy relationship retains four separate historical questions.",
+  "central_display_evidence": {
+    "registration": "CENTRAL-13H-REGISTRATION.json",
+    "receipt": "CENTRAL-13H-READ-RECEIPT.json",
+    "git_path_proof": "CENTRAL-13H-WINDOWS-PROOF.json",
+    "separate_current_validation_receipt": "CENTRAL-13F-READ-RECEIPT.json",
+    "separate_current_construction_receipt": "CENTRAL-13F-SUPPORT-READ-RECEIPT.json"
+  },
+  "source_references": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "lines": [
+        [
+          1,
+          70
+        ]
+      ]
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "lines": [
+        [
+          1,
+          70
+        ]
+      ]
+    }
+  ],
+  "observation": "Facing resolution has separately worded cycle, nondirectional-component and missing-target errors; it follows resolved component IDs and defaults directional shapes. Recipe validation maps any of these errors to the unit RecipeError::Facing before Construction::new formats the error. A component without opposed_to is not visited by directions.",
+  "classification": "Conditional diagnostic-context policy question: whether and at which boundary callers require these different causes and component/target identity. The three source branches are distinct; a single connected relationship does not assert aliases or count them as one or several proven defects.",
+  "safeguards": [
+    "Valid non-opposed components do not enter the dependency walk; directional shapes have explicit defaults.",
+    "Cycles and missing targets are detected; the selected construction route propagates a validation error rather than silently admitting it."
+  ],
+  "historical_attribution": "Original 059 q2427, q2428, q2429 and q2432 are separately retained proposals from connected TEAM-021 and its delegated reader, with their original zero body/population credit and no automatic alias. The recovered physical-p16 object arrived via f82 and matches the selected 95e blob byte-for-byte, but the original role 2579 recorded source_id physical-p16 with snapshot pinned-native-dependency; the label contradiction, dirty snapshot and incomplete custody remain. No checkpoint3821 transfer.",
+  "new_qualified_ledger_rows": [
+    "REVIEW-WEAPON-FACING-ERROR-CONTEXT-001"
+  ],
+  "related_historical_queue_indices": [
+    2427,
+    2428,
+    2429,
+    2432
+  ],
+  "open": [
+    "Supported authoring inputs and callers, required diagnostic context and policy, other error boundaries and any repair grouping.",
+    "Other checkpoint13 packets and their connected scopes, all thirteen lenses and the 3,713 historical queue records.",
+    "Original final checkpoint3821 ledger and queue remain missing."
+  ],
+  "repair": "not started",
+  "validation": "not performed"
+}

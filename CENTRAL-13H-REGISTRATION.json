@@ -1,0 +1,36 @@
+{
+  "schema": "726-central-prospective-source-registration-v1",
+  "registered_utc": "2026-11-12T06:57:29.173140+00:00",
+  "reader": "/root",
+  "rows": [
+    {
+      "revision": "f82adcabd9d89c4fa2dd7f99253a45297a0681ee",
+      "path": "handoff/774/audit/reconcile-adler-20261023/recovered-sources/objects/1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "git_blob": "634a2ae511c5d1a8766f4b24346007bf383364cb",
+      "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "actual_eof": 116,
+      "planned_display_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "reason": "historical P16 facing source transported by f82"
+    },
+    {
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "git_blob": "634a2ae511c5d1a8766f4b24346007bf383364cb",
+      "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "actual_eof": 116,
+      "planned_display_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "reason": "current facing source"
+    }
+  ],
+  "qualification": "Separate old dirty P16 object and pinned-current source views. Equal source bytes do not establish a clean historical worktree, shared reader, completed original role or checkpoint3821 credit."
+}

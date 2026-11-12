@@ -1,0 +1,374 @@
+{
+  "schema": "726-reflect-metadata-reconciliation-v1",
+  "created_utc": "2026-11-12T06:38:59.571828+00:00",
+  "author": "/root/rig_identity",
+  "scope": "Bounded source-family review of original native roles 2567–2570 and directly related historical q2332; no lens clearance or product execution.",
+  "identities_and_reads": {
+    "native_packages": "bevy_reflect_derive 0.19.1 SHA-256 5fc5f820ee52afeca6d3bb83f15c1bf61ea6196c840a761a21a8bc266a3b166e; support bevy_reflect 0.19.1 SHA 9b76c3d056da3e299b84652ccf914c487b786857225d8ffbc8fc9509441a9e6b and bevy_macro_utils 0.19.1 SHA 7164fe229422295bba15f1885048f34f4660db069aacb895208f996b0c7784fb. Both 6533 and 95e root lock clauses match package/version/checksum; native source is package identity, not project Git. f82 is recovered evidence transport only. The macro-utils parser is independently pinned to its archive and lock but is not an original transported f82 role. Lock clauses do not prove activated Cargo features or macro expansion.",
+    "original_774_material": {
+      "2567": "remote.rs SHA 0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811, original prospective 21–241 narrowed by rig to material 21–212.",
+      "2568": "registration.rs SHA c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa, original material 1–59.",
+      "2569": "derive_data.rs SHA 113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd, original prospective 184–327 and 489–500 narrowed by rig to 184–322 and 489–498.",
+      "2570": "container_attributes.rs SHA a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778, from rig registrations 009 and 013 material 219–225,228–246,395–399,621–637,660–662; original prospective 219–246,390–400,621–663."
+    },
+    "current_personal_read": "This review freshly displayed remote 21–241,349–354,457–500; registration 1–59; derive_data 184–341 and 489–500; container 53–84,180–400,525–546,621–663. Container 271–289 was an independently timestamped later supplement; earlier receipt is an as-of record and remains unchanged. 95e wrappers, scalar owners and quantity declaration plus package support and lock clauses are explicitly registered; exact windows and all unread complements are in receipts. Archived bytes do not grant read credit.",
+    "prior_attribution": "774 supplier rig has the qualified material above and reflection-witness-001; 059 segovb READ-L11-422 independently read those original material ranges, with separately registered container 247–268 extension. 059 /root/lens12_frontier proposal871 personally read remote21–241/registration1–59, proposal872 personally read derive_data184–327/489–500 and container219–246/390–400/621–663; adopted 059 root records retain frontier attribution without root reread. Earlier /root/rig_identity reports bevy-remote and bevy-derive-meta were separate independent current reviews: their exact source ranges, author and report/manifest hashes remain preserved in the prior packet copies. This fresh read neither transfers historical credit nor makes later extra ranges original rig material.",
+    "recovery_limit": "774 root reconciliation044 pins earlier 13-row rig registration SHA c75d93513422266bff64a096b243766fbd002d346f1d8c3c5b58f54af25ba06c; later f82 registration file SHA 24fb01a82c91de97fd9895740404dc79a73877fcd79a846c832c45cbf2495bdb has 145 rows, and its first 13 raw rows SHA 442704cfbcdb6f971a06981c68f1442451ccbd9eb7e039dfda32e5d639a772d9 does not match that earlier pin. Qualification prefix matches 70717aa1c0908935341afa5297937f1bf79513146453c1328076848d00e94e53. Completion112 separately pins earlier registry SHA 698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1, not the later file. Prior bounded searches of ae46 and 28ba did not recover those exact earlier variants; that is not a global absence claim. Exact later original registry rows and independently recorded 059 receipts are preserved without substitution.",
+    "p16": "059 frontier separately read the historical dirty physical-p16 Cargo.lock selection; role39 archived lock source and f82 object are preserved without new personal read. Its recorded base a120390947c89b703dc74c4255a13c035d054c50 is not the dirty snapshot commit. A later independently reproduced tracked patch matches fc9002ab1135a438f68eede9217f67d22ef737d2c6938509e6e6660f2fc5b7f7; original invocation, uninterrupted custody and all filesystem metadata remain unproved. Seven untracked files were separately archived and matched, not included in that patch.",
+    "prior_publication": "Prior published bevy-remote and bevy-derive-meta archives are preserved alongside selected exact local original records. Both prior REPORT, personal receipt, original-attribution and MANIFEST members match; each public registration differs only in its archive/origin local-path redaction. Compare exact original/published hashes in history/published-comparisons.json; do not imply the unchanged original manifest verifies redacted member bytes. Original retained records contain local paths; public publication requires safe handling while retaining both identities."
+  },
+  "assessments": [
+    {
+      "id": "BEVY-OPAQUE-CONTAINER-DISPATCH-TRACE",
+      "classification": "Existing bounded nonfinding and source relationship, independently corroborated; no new count",
+      "evidence": "Container parsing recognizes the opaque keyword and sets a flag; ReflectDerive::from_input returns Opaque before collecting struct/enum fields when the flag is selected. Opaque metadata requests type registration without field serialization/dependency data. Remote generator sets the declared Remote on metadata, emits a repr-transparent wrapper containing that Remote and exposes references to it. Registration emits ReflectFromPtr, optionally FromReflect and configured data.",
+      "current_connection": "The 95e elapsed/fraction adapter source declares opaque reflect_remote of AnimationElapsed or UnitInterval and requests Serialize/Deserialize metadata. Their owner sources have private f32 fields, finite nonnegative or [0,1] checked constructors, and Serde try_from=f32 annotations backed by TryFrom source. Opaque selection, typed wrapper and constructor definitions do not prove an active feature, generated code, supported caller, all ingress paths or aggregate coherence.",
+      "safeguard_and_limits": "In bevy_reflect 0.19.1, standard ReflectDeserialize::FromType<T> delegates to T::deserialize and boxes the result; the function field is public and custom construction is possible, so no universal dispatcher or callsite conclusion follows. Source itself does not prove that a supplied Remote is valid or that all mutable owner operations are safe.",
+      "relationship": "Same source-family mechanism already recorded in 774 RIG-ADMISSION03-REFLECTION-001 and previous /root/rig_identity BEVY-REMOTE-OWNER-AND-ASSERTION-TRACE, BEVY-REGISTRATION-METADATA-MODES and BEVY-OPAQUE-CONTAINER-DISPATCH-TRACE; prior /root/mhr_character NATIVE-REFLECT-DESERIALIZE-TYPED retains distinct package/read attribution. q2332 remains open.",
+      "references": [
+        {
+          "source": "native-container",
+          "lines": [
+            [
+              219,
+              225
+            ],
+            [
+              228,
+              246
+            ],
+            [
+              395,
+              399
+            ],
+            [
+              660,
+              662
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "native-derive-data",
+          "lines": [
+            [
+              184,
+              202
+            ],
+            [
+              269,
+              322
+            ],
+            [
+              489,
+              498
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "native-remote",
+          "lines": [
+            [
+              21,
+              48
+            ],
+            [
+              75,
+              82
+            ],
+            [
+              114,
+              129
+            ],
+            [
+              150,
+              160
+            ],
+            [
+              182,
+              190
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "native-registration",
+          "lines": [
+            [
+              7,
+              25
+            ],
+            [
+              30,
+              56
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "native-type-registry",
+          "lines": [
+            [
+              876,
+              911
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-elapsed-adapter",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-fraction-adapter",
+          "lines": [
+            [
+              1,
+              14
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-elapsed",
+          "lines": [
+            [
+              9,
+              12
+            ],
+            [
+              24,
+              35
+            ],
+            [
+              100,
+              105
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-fraction",
+          "lines": [
+            [
+              9,
+              11
+            ],
+            [
+              23,
+              34
+            ],
+            [
+              85,
+              89
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "BEVY-REFLECT-SPECIAL-TRAIT-DUPLICATE-ORDER",
+      "classification": "Existing conditional native-source candidate, independently corroborated; no established current product failure or additional accepted count",
+      "evidence": "The comma-list parser repeatedly consumes items. For Clone, Debug, PartialEq, PartialOrd and Hash, a custom function merges into current TraitImpl with conflict rejection, while the ordinary form directly overwrites it. For Hash the downstream get_hash_impl source produces different tokens for a custom callback and an ordinary implementation. A custom-then-ordinary duplicate can therefore replace the earlier selection in parser state, whereas the reverse order reaches the conflict branch. This is source reasoning, not macro execution.",
+      "condition": "Requires an actually accepted enabled derive with duplicate entries in that order; semantic impact additionally requires generated code to compile and relevant reflected trait behavior to be used. Displayed 95e elapsed/fraction declarations and TacticalItemQuantity contain no such duplicate special-trait entries. This narrow inspection is not a whole-project absence search. Upstream duplicate-policy and a real first-party caller remain open.",
+      "relationship": "Earlier /root/rig_identity bevy-derive-meta REPORT first recorded this exact ID and additionally traced native method-injection support; no new finding or claim of an old 774 discovery. The relevant parser body outside original rig material was not historically credited.",
+      "references": [
+        {
+          "source": "native-parse",
+          "lines": [
+            [
+              6,
+              36
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "native-container",
+          "lines": [
+            [
+              53,
+              84
+            ],
+            [
+              197,
+              209
+            ],
+            [
+              227,
+              263
+            ],
+            [
+              290,
+              305
+            ],
+            [
+              315,
+              325
+            ],
+            [
+              335,
+              345
+            ],
+            [
+              350,
+              366
+            ],
+            [
+              371,
+              388
+            ],
+            [
+              525,
+              546
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-elapsed-adapter",
+          "lines": [
+            [
+              7,
+              14
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-fraction-adapter",
+          "lines": [
+            [
+              7,
+              14
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-quantity",
+          "lines": [
+            [
+              5,
+              9
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "BEVY-SET-REMOTE-OPAQUE-PANIC-DOC-MISMATCH",
+      "classification": "Existing native documentation inconsistency, source-only; no count of product failure",
+      "evidence": "derive_data.rs documents that set_remote panics on Opaque, while its displayed match explicitly assigns the remote metadata for Opaque. Remote generation calls set_remote after parsing; a conditional current example declares opaque remote attributes.",
+      "condition": "No macro expansion was observed; later steps and possible other error paths are outside this statement. The prior /root/rig_identity report already documented this exact mismatch; source beyond old rig material is not transferred to the historical reviewer.",
+      "references": [
+        {
+          "source": "native-derive-data",
+          "lines": [
+            [
+              287,
+              292
+            ],
+            [
+              324,
+              341
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "native-remote",
+          "lines": [
+            [
+              21,
+              45
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        },
+        {
+          "source": "current-elapsed-adapter",
+          "lines": [
+            [
+              7,
+              14
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        }
+      ]
+    },
+    {
+      "id": "BEVY-REMOTE-PARENTHESIZED-PATH-DIAGNOSTIC-QUESTION",
+      "classification": "Existing conditional native source question; no established supported input, panic or product count",
+      "evidence": "RemoteArgs parses a syn TypePath. The definition helper unwraps its as_expr_path conversion, while that conversion returns a syn error for a parenthesized last path segment.",
+      "condition": "The pinned syn parser and supported Rust remote-type acceptance are not freshly traced; whether such an input reaches this branch is unresolved. It is not an observed panic. Earlier /root/rig_identity bevy-remote REPORT recorded this question, with different historical role scope.",
+      "references": [
+        {
+          "source": "native-remote",
+          "lines": [
+            [
+              21,
+              30
+            ],
+            [
+              349,
+              354
+            ],
+            [
+              457,
+              476
+            ],
+            [
+              487,
+              499
+            ]
+          ],
+          "qualification": "fresh /root/rig_identity prospective display; see personal or supplement receipt"
+        }
+      ]
+    }
+  ],
+  "historical_queue": [
+    {
+      "index": 2332,
+      "id": "L12-CLOSURE-NATIVE-SATS-REFLECTION-ADAPTER-OWNERS",
+      "historical_status": "open-source-reconciliation",
+      "record": "history/baseline-059-queue.json.gz /entries/2332; reconstructed selection /queue_entries/2332",
+      "relation": "This record spans SATS and Bevy native facilities. The fresh opaque/remote/registration source addresses only the Bevy branch for specific declared owners; it does not determine actual enabled features or real ingress, independently resolve SATS, or establish a generic bypass. Prior candidate IDs above are source observations or questions with separately qualified first contracts; no automatic alias, closure or checkpoint3821 update is asserted."
+    }
+  ],
+  "open_questions": [
+    "Which pinned-current targets and feature combinations actually expand and register each selected 95e wrapper?",
+    "Does a supported reflective decoder use standard FromType<T> type data, a custom public ReflectDeserialize.func, or an unrelated path, and which actual inputs and owner invariants apply?",
+    "Does any real enabled derive provide duplicate special-trait specifications, and what is the intended upstream conflict policy?",
+    "Does an accepted syn TypePath with parenthesized last segment reach remote definition generation on a supported type?",
+    "Are invalid typed instances producible through other constructors, mutable owner methods, custom traits, unsafe callers or a field aggregate?",
+    "Can the separately pinned earlier 774 registration variants be recovered exactly, and what are the definitive ledger alias relationships?"
+  ],
+  "thirteen_bounded_perspectives": {
+    "producer-propagation": "The native metadata points at concrete typed remote adapters, but actual producers/consumers are unproved.",
+    "existing-type-owners": "Remote adapters identify existing elapsed and fraction owners, preserving their different scalar roles.",
+    "admission-contracts": "Standard typed deserialization delegates to T when selected; custom functions and all other ingress remain independent.",
+    "invariant-operations": "Opaque selection stops field collection, but ownership and valid pre-existing value cannot be inferred from metadata.",
+    "aggregate-states": "Individual scalar validity says nothing about cross-field relationships.",
+    "type-ownership": "Framework registration describes adapters; project owners retain semantic admission.",
+    "redundant-authority": "Opaque wrappers carry the declared remote value; no whole-system authority conclusion follows.",
+    "behavior-preservation": "Preserve legitimate elapsed zero and fraction endpoints along with conditional auto-FromReflect behavior.",
+    "enum-shapes": "The parser distinguishes opaque, structs and enums; uninspected structured branches and actual consumers remain open.",
+    "derivability": "Generated metadata and checked Serde/TryFrom have separate purposes; neither alone proves whole admission.",
+    "type-granularity": "Elapsed, unit fraction and item quantity remain distinct owners; no blanket primitive substitution follows.",
+    "magic-strings": "Native attribute keywords and diagnostics form compiler grammar; no project string-classifier finding established.",
+    "magic-numbers": "Zero and one are semantic bounds, not unsupported numeric-literal findings in this scope."
+  },
+  "limitations": "Source inspection and evidence-integrity only. No macro expansion, product execution, fixtures, builds, tests, runtime probes, repair or lens clearance. Original 059/774 evidence retains its own reader, revision and status; reconstructed selections are not standalone original or checkpoint3821 records. Central coordinates publication and ledger reconciliation."
+}

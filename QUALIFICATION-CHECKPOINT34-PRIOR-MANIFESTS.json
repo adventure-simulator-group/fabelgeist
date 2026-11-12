@@ -1,0 +1,30 @@
+{
+  "schema": "726-omitted-prior-manifest-qualification-v1",
+  "qualification": "These two prior manifests were physically included in the later packet but omitted from its frozen packet manifest. Their original bytes were separately checked against earlier published archives; no historical review or checkpoint3821 attribution transfers.",
+  "rows": [
+    {
+      "packet": "reflect-metadata-2567-2570",
+      "unlisted_member": "history/prior-bevy-remote/MANIFEST.json",
+      "original_sha256": "a656804a10b0c7211715b81b76acad75a334638565ced3a47cd14500d304aad6",
+      "bytes": 15235,
+      "earlier_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+      "earlier_bundle": "bevy-remote",
+      "earlier_archive": "delegated/bevy-remote-evidence.tar.gz",
+      "earlier_archive_sha256": "d5280af47f1ba5ab25c0b871b313382caa9ebf8799111943b7d69ac56ca0cb37",
+      "earlier_member": "MANIFEST.json",
+      "qualification": "Omitted from the later frozen packet manifest; its exact bytes are separately bound to the already-published prior packet manifest."
+    },
+    {
+      "packet": "reflect-metadata-2567-2570",
+      "unlisted_member": "history/prior-bevy-derive-meta/MANIFEST.json",
+      "original_sha256": "9cebd34f36a4a0b41f89d4123b4fbbc4e4badd77c69480733bfbca0b32f1d3f6",
+      "bytes": 17737,
+      "earlier_checkpoint": "DELEGATED-EVIDENCE-CHECKPOINT-13.json",
+      "earlier_bundle": "bevy-derive-meta",
+      "earlier_archive": "delegated/bevy-derive-meta-evidence.tar.gz",
+      "earlier_archive_sha256": "9b48125ffc4502e3a8f1f1764abbae6a61e06ee24f431a6a2c8b92e6a4cb8737",
+      "earlier_member": "MANIFEST.json",
+      "qualification": "Omitted from the later frozen packet manifest; its exact bytes are separately bound to the already-published prior packet manifest."
+    }
+  ]
+}

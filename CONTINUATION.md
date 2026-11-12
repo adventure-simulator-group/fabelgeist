@@ -3,7 +3,7 @@
 This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
-2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0642.json`).
+2026-11-10 and rechecked on 2026-11-12 (`MAIN-RECHECK-20261112-0702.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -198,7 +198,7 @@ fetch, checkout, and evidence-only check, with its transcript limitations.
 coordinator source reviews of building admission, endpoint arithmetic, look
 propagation, and fixed-tick cache readiness. Their supported inputs, connected
 consumers, aliases, and remaining checkpoint 13 packet scopes are open.
-The working ledger now contains 1,021 entries and relationships, including
+At that checkpoint the working ledger contained 1,021 entries and relationships, including
 reconnected historical records and conditional questions; it is not a count
 of unique defects.
 `DELEGATED-EVIDENCE-CHECKPOINT-32.json` preserves three further attributed
@@ -223,6 +223,24 @@ construction. An unregistered workspace navigation display is preserved
 as a reconstructed observation without audit credit; the separately
 registered pinned-source reads remain distinct.
 `RECOVERY-VERIFICATION-6AE035CD.json` records the latest same-machine
+fetch, checkout, and evidence-only check, with its transcript limitations.
+`ASSESSMENT-CENTRAL-SATS-13G-95E.json` adds a bounded native
+SATS source relationship and the selected current encumbrance caller’s
+finite unit-fraction safeguard. Active expansion, supported native input,
+and other callers remain open; no new ledger row is counted.
+`DELEGATED-EVIDENCE-CHECKPOINT-34.json` preserves three more attributed
+packets pending central reconciliation. Two included prior manifests
+were absent from the later frozen member list and are separately bound
+to their earlier published bytes. The literal `pinned-cargo` label has no
+matching snapshot-list entry in the recovered registry; package and lock
+proofs remain separate. Public path-redacted copies are reconstructions;
+exact changed top-level originals remain local only.
+`ASSESSMENT-CENTRAL-FACING-13H-95E.json` reconnects four distinct
+historical facing-reason and context questions through one conditional
+policy relationship. The current ledger has 1,022 entries and relationships,
+not a count of unique defects. The historical source and snapshot labels
+remain as recorded, including their contradiction.
+`RECOVERY-VERIFICATION-C15289D7.json` records the latest same-machine
 fetch, checkout, and evidence-only check, with its transcript limitations.
 `DELEGATED-EVIDENCE-CHECKPOINT-16.json` preserves six further source
 packets, with their original and reconstructed byte identities distinguished.
