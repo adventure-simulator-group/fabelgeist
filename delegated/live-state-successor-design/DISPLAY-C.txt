@@ -1,0 +1,114 @@
+verify_role_worklist.py:0001: """Verify source-role identities and bounded evidence links, not audit closure."""
+verify_role_worklist.py:0002: import collections
+verify_role_worklist.py:0003: import gzip
+verify_role_worklist.py:0004: import hashlib
+verify_role_worklist.py:0005: import json
+verify_role_worklist.py:0006: import tarfile
+verify_role_worklist.py:0007: from pathlib import Path
+verify_role_worklist.py:0008: 
+verify_role_worklist.py:0009: root = Path(__file__).resolve().parent
+verify_role_worklist.py:0010: work = json.loads((root / 'COVERAGE-L01-ROLES.json').read_text())
+verify_role_worklist.py:0011: reg_raw = gzip.decompress((root / work['registry']).read_bytes())
+verify_role_worklist.py:0012: if hashlib.sha256(reg_raw).hexdigest() != work['registry_sha256']:
+verify_role_worklist.py:0013:     raise ValueError('registry hash mismatch')
+verify_role_worklist.py:0014: registry = json.loads(reg_raw)['files']
+verify_role_worklist.py:0015: tree_bytes = (root / work['current_tree_inventory']).read_bytes()
+verify_role_worklist.py:0016: if hashlib.sha256(tree_bytes).hexdigest() != work['current_tree_sha256']:
+verify_role_worklist.py:0017:     raise ValueError('tree inventory hash mismatch')
+verify_role_worklist.py:0018: paths = {}
+verify_role_worklist.py:0019: tree = {}
+verify_role_worklist.py:0020: for line in tree_bytes.decode().splitlines():
+verify_role_worklist.py:0048: if git_tree(tree) != work['current_tree_git_sha1']:
+verify_role_worklist.py:0049:     raise ValueError('Git tree reconstruction mismatch')
+verify_role_worklist.py:0050: archive = root / 'recovered/original-registry-source-archive/objects.tar.gz'
+verify_role_worklist.py:0051: manifest = json.loads((archive.parent / 'MANIFEST.json').read_text())
+verify_role_worklist.py:0052: if hashlib.sha256(archive.read_bytes()).hexdigest() != manifest['objects_archive_sha256']:
+verify_role_worklist.py:0053:     raise ValueError('original source archive mismatch')
+verify_role_worklist.py:0054: object_shas = {item['original']: item['sha256'] for item in manifest['sources']}
+verify_role_worklist.py:0055: roles = work['roles']
+verify_role_worklist.py:0056: if len(roles) != len(registry) or len({x['source_id'] for x in roles}) != len(roles):
+verify_role_worklist.py:0057:     raise ValueError('role population mismatch')
+verify_role_worklist.py:0058: needed = set()
+verify_role_worklist.py:0059: for i, (role, original) in enumerate(zip(roles, registry)):
+verify_role_worklist.py:0060:     if role['original_index'] != i or role['registry_pointer'] != '/files/' + str(i):
+verify_role_worklist.py:0061:         raise ValueError('role index mismatch')
+verify_role_worklist.py:0062:     for role_key, original_key in [('source_id', 'source_id'), ('snapshot', 'snapshot'), ('scope_kind', 'scope_kind'), ('historical_sha256', 'sha256')]:
+verify_role_worklist.py:0063:         if role[role_key] != original.get(original_key):
+verify_role_worklist.py:0064:             raise ValueError('role identity mismatch: ' + str(i))
+verify_role_worklist.py:0065:     if role['historical_object_available'] != (i in object_shas):
+verify_role_worklist.py:0066:         raise ValueError('object-availability mismatch')
+verify_role_worklist.py:0067:     if role['status'] not in ('unassessed', 'bounded-current-trace-only', 'lock-metadata-partial', 'source-metadata-partial', 'assessed-nonapplicable', 'full-historical-body-trace-open', 'deleted-base-trace-open'):
+verify_role_worklist.py:0068:         raise ValueError('invalid role status')
+verify_role_worklist.py:0069:     if role['status'] not in ('unassessed', 'deleted-base-trace-open'):
+verify_role_worklist.py:0070:         if i not in object_shas or object_shas[i] != role['historical_sha256']:
+verify_role_worklist.py:0071:             raise ValueError('missing or incorrect historical object')
+verify_role_worklist.py:0072:         needed.add(role['historical_sha256'])
+verify_role_worklist.py:0073: 
+verify_role_worklist.py:0074: objects = {}
+verify_role_worklist.py:0075: with tarfile.open(archive, 'r:gz') as tar:
+verify_role_worklist.py:0097: advance = json.loads((root / 'MAIN-ADVANCE-95E.json').read_text())
+verify_role_worklist.py:0098: new_paths = {}
+verify_role_worklist.py:0099: for line in (root / advance['trees']['current']['path']).read_text().splitlines():
+verify_role_worklist.py:0100:     head, path = line.split('\t', 1)
+verify_role_worklist.py:0101:     new_paths[path] = head.split()[2]
+verify_role_worklist.py:0102: cached = {}
+verify_role_worklist.py:0103: for role in roles:
+verify_role_worklist.py:0104:     status = role['status']
+verify_role_worklist.py:0105:     if status == 'bounded-current-trace-only' or (
+verify_role_worklist.py:0106:             status == 'full-historical-body-trace-open' and role.get('current_observations')):
+verify_role_worklist.py:0107:         path = role['current_path']
+verify_role_worklist.py:0108:         if role['source_id'].split(':', 1)[-1] != path or paths.get(path) != role['current_git_blob']:
+verify_role_worklist.py:0109:             raise ValueError('current role path mismatch')
+verify_role_worklist.py:0110:         if git_blob(objects[role['historical_sha256']]) != role['current_git_blob']:
+verify_role_worklist.py:0111:             raise ValueError('historical/current byte identity mismatch')
+verify_role_worklist.py:0112:         if not role['current_observations']:
+verify_role_worklist.py:0113:             raise ValueError('missing bounded evidence link')
+verify_role_worklist.py:0114:         for obs in role['current_observations']:
+verify_role_worklist.py:0115:             name = obs['assessment']
+verify_role_worklist.py:0116:             if Path(name).name != name:
+verify_role_worklist.py:0117:                 raise ValueError('unsafe assessment name')
+verify_role_worklist.py:0118:             if name not in cached:
+verify_role_worklist.py:0119:                 cached[name] = json.loads((root / name).read_text())
+verify_role_worklist.py:0120:             matched = any(
+verify_role_worklist.py:0121:                 source.get('path') == path
+verify_role_worklist.py:0122:                 and source.get('git_blob') == role['current_git_blob']
+verify_role_worklist.py:0123:                 and source.get('ranges', source.get('range')) == obs['ranges']
+verify_role_worklist.py:0124:                 and (source.get('revision') in (None, work['source_revision'])
+verify_role_worklist.py:0125:                      or (source.get('revision') == '95e63628f9d70b8dd6e6fede64334696c6995009'
+verify_role_worklist.py:0126:                          and new_paths.get(path) == role['current_git_blob']))
+verify_role_worklist.py:0127:                 for source in observed_sources(cached[name])
+verify_role_worklist.py:0128:             )
+verify_role_worklist.py:0129:             if not matched:
+verify_role_worklist.py:0130:                 raise ValueError('unmatched bounded evidence link')
+verify_role_worklist.py:0131:     if status == 'lock-metadata-partial':
+verify_selected_states.py:0001: """Verify historical selected-state evidence; no product validation."""
+verify_selected_states.py:0002: import hashlib
+verify_selected_states.py:0003: import json
+verify_selected_states.py:0004: from pathlib import Path
+verify_selected_states.py:0005: 
+verify_selected_states.py:0006: root = Path(__file__).resolve().parent
+verify_selected_states.py:0007: comparison = json.loads((root / 'SELECTED-STATE-COMPARISON.json').read_text())
+verify_selected_states.py:0008: selector_bytes = (root / 'baseline-059/selected.json').read_bytes()
+verify_selected_states.py:0009: if hashlib.sha256(selector_bytes).hexdigest() != '5796e1d5a28a33c537a006cce8dd429ebf957450c6ace458a566c137f1cf4a82':
+verify_selected_states.py:0010:     raise ValueError('checkpoint selector mismatch')
+verify_selected_states.py:0011: selector = json.loads(selector_bytes)
+verify_selected_states.py:0012: snapshot_bytes = (root / comparison['snapshot_440_file']).read_bytes()
+verify_selected_states.py:0013: if hashlib.sha256(snapshot_bytes).hexdigest() != comparison['snapshot_440_sha256']:
+verify_selected_states.py:0014:     raise ValueError('snapshot mismatch')
+verify_selected_states.py:0015: snapshot = json.loads(snapshot_bytes)
+verify_selected_states.py:0016: old = {item['lens']: item['selected_state'] for item in selector['lenses']}
+verify_selected_states.py:0017: new = {item['lens']: item['selected_state'] for item in snapshot['lenses']}
+verify_selected_states.py:0018: if set(old) != set(range(1, 14)) or set(new) != set(old):
+verify_selected_states.py:0019:     raise ValueError('lens inventory mismatch')
+verify_selected_states.py:0020: if len(comparison['rows']) != 13 or {row['lens'] for row in comparison['rows']} != set(old):
+verify_selected_states.py:0021:     raise ValueError('comparison inventory mismatch')
+verify_selected_states.py:0022: for row in comparison['rows']:
+verify_selected_states.py:0023:     lens = row['lens']
+verify_selected_states.py:0024:     if row['checkpoint_059'] != old[lens] or row['snapshot_440'] != new[lens]:
+verify_selected_states.py:0025:         raise ValueError('selector mismatch')
+verify_selected_states.py:0026:     data = (root / row['checkpoint_059_file']).read_bytes()
+verify_selected_states.py:0027:     if len(data) != old[lens]['bytes'] or hashlib.sha256(data).hexdigest() != old[lens]['sha256']:
+verify_selected_states.py:0028:         raise ValueError('state mismatch')
+verify_selected_states.py:0029:     if row['snapshot_440_same_as_059'] != (old[lens]['sha256'] == new[lens]['sha256']):
+verify_selected_states.py:0030:         raise ValueError('comparison mismatch')
+verify_selected_states.py:0031: print('verified 13 historical states and 13 selector comparisons')

@@ -1,0 +1,1638 @@
+--- SOURCE-REGISTRATION.json crates/adventuresim-core/src/filth.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-230 ---
+     1	//! Framework-neutral strategic filth, exposure, and automatic washing rules.
+     2	
+     3	use crate::disease::{DiseaseId, TransmissionVector, definition};
+     4	use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+     5	use serde::{Deserialize, Serialize};
+     6	
+     7	/// The character sheet meter is deliberately bounded and deposits are clipped.
+     8	pub const MAX_FILTH: u16 = 100;
+     9	/// One whole unit of soft soap removes this much filth. Unused capacity is lost.
+    10	pub const SOAP_CLEANSING_CAPACITY: u16 = 25;
+    11	/// Blood remains visible, but its disease exposure falls linearly to zero after two days.
+    12	pub const BLOOD_INFECTIOUS_MINUTES: u64 = 2 * MINUTES_PER_DAY;
+    13	pub const TRAVEL_DIRT_PER_DAY: f32 = 8.0;
+    14	pub const COMBAT_DIRT: u16 = 10;
+    15	
+    16	#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+    17	#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+    18	pub enum FilthSubstance {
+    19	    Dirt,
+    20	    Blood,
+    21	}
+    22	
+    23	#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+    24	#[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+    25	pub enum FilthOrigin {
+    26	    Own,
+    27	    Foreign,
+    28	    Unknown,
+    29	}
+    30	
+    31	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    32	pub struct DiseaseSnapshot {
+    33	    pub disease_id: DiseaseId,
+    34	    pub episode_id: u64,
+    35	}
+    36	
+    37	#[derive(Clone, Debug, PartialEq, Eq)]
+    38	pub struct Deposit {
+    39	    pub id: u64,
+    40	    pub character_id: u64,
+    41	    pub substance: FilthSubstance,
+    42	    pub source_character_id: Option<u64>,
+    43	    pub amount: u16,
+    44	    pub deposited_at: StrategicMinute,
+    45	    pub diseases: Vec<DiseaseSnapshot>,
+    46	}
+    47	
+    48	impl Deposit {
+    49	    pub fn foreign_blood(&self) -> bool {
+    50	        self.substance == FilthSubstance::Blood
+    51	            && self.source_character_id != Some(self.character_id)
+    52	    }
+    53	
+    54	    pub fn compatible_diseased_blood(&self) -> bool {
+    55	        self.substance == FilthSubstance::Blood
+    56	            && self
+    57	                .diseases
+    58	                .iter()
+    59	                .any(|d| definition(d.disease_id).supports(TransmissionVector::Blood))
+    60	    }
+    61	}
+    62	
+    63	pub fn bounded_deposit_amount(existing: u16, requested: u16) -> u16 {
+    64	    requested.min(MAX_FILTH.saturating_sub(existing.min(MAX_FILTH)))
+    65	}
+    66	
+    67	pub fn travel_dirt(minutes: u64) -> u16 {
+    68	    ((minutes as f32 / MINUTES_PER_DAY as f32) * TRAVEL_DIRT_PER_DAY).round() as u16
+    69	}
+    70	
+    71	/// Carries exact travel-dirt progress between movement chunks. The remainder is
+    72	/// measured in dirt-minutes over a denominator of 1,440.
+    73	pub fn travel_dirt_accrual(remainder_numerator: u16, minutes: u64) -> (u16, u16) {
+    74	    let numerator =
+    75	        u128::from(remainder_numerator).saturating_add(u128::from(minutes).saturating_mul(8));
+    76	    let minutes_per_day = u128::from(MINUTES_PER_DAY);
+    77	    let dirt = u16::try_from(numerator / minutes_per_day).unwrap_or(u16::MAX);
+    78	    (dirt, (numerator % minutes_per_day) as u16)
+    79	}
+    80	
+    81	pub fn infectious_fraction(deposited_at: StrategicMinute, now: StrategicMinute) -> f32 {
+    82	    let age = now.elapsed_since(deposited_at);
+    83	    if age >= BLOOD_INFECTIOUS_MINUTES {
+    84	        0.0
+    85	    } else {
+    86	        1.0 - age as f32 / BLOOD_INFECTIOUS_MINUTES as f32
+    87	    }
+    88	}
+    89	
+    90	/// Inclusive absolute-minute windows in which compatible foreign blood can
+    91	/// transmit. `from` is the already-committed cursor and is therefore excluded.
+    92	pub fn blood_infectious_windows(
+    93	    deposits: &[Deposit],
+    94	    disease_id: DiseaseId,
+    95	    from: StrategicMinute,
+    96	    to: StrategicMinute,
+    97	) -> Vec<(StrategicMinute, StrategicMinute)> {
+    98	    if to <= from {
+    99	        return Vec::new();
+   100	    }
+   101	    let first_uncommitted = from.saturating_add_minutes(1);
+   102	    let mut windows = deposits
+   103	        .iter()
+   104	        .filter(|deposit| deposit.foreign_blood() && deposit.amount > 0)
+   105	        .filter(|deposit| {
+   106	            deposit
+   107	                .diseases
+   108	                .iter()
+   109	                .any(|snapshot| snapshot.disease_id == disease_id)
+   110	        })
+   111	        .filter_map(|deposit| {
+   112	            let infectious_end = deposit
+   113	                .deposited_at
+   114	                .saturating_add_minutes(BLOOD_INFECTIOUS_MINUTES)
+   115	                .saturating_sub_minutes(1);
+   116	            let start = first_uncommitted.max(deposit.deposited_at);
+   117	            let end = to.min(infectious_end);
+   118	            (start <= end).then_some((start, end))
+   119	        })
+   120	        .collect::<Vec<_>>();
+   121	    windows.sort_unstable();
+   122	    let mut merged: Vec<(StrategicMinute, StrategicMinute)> = Vec::new();
+   123	    for (start, end) in windows {
+   124	        if let Some(last) = merged.last_mut()
+   125	            && start <= last.1.saturating_add_minutes(1)
+   126	        {
+   127	            last.1 = last.1.max(end);
+   128	        } else {
+   129	            merged.push((start, end));
+   130	        }
+   131	    }
+   132	    merged
+   133	}
+   134	
+   135	/// Combines cut routes with diminishing returns. Open cuts are most vulnerable;
+   136	/// bandaging helps substantially and stitching helps further.
+   137	pub fn cut_exposure(open: u32, bandaged: u32, stitched: u32) -> f32 {
+   138	    let raw = open as f32 + bandaged as f32 * 0.40 + stitched as f32 * 0.18;
+   139	    1.0 - (-raw).exp()
+   140	}
+   141	
+   142	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+   143	pub enum CutRouteState {
+   144	    Open,
+   145	    Bandaged,
+   146	    Stitched,
+   147	}
+   148	
+   149	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+   150	pub struct TimedCutRoute {
+   151	    pub state: CutRouteState,
+   152	    /// None means the route remains active for the whole predicted interval.
+   153	    pub active_minutes: Option<u64>,
+   154	}
+   155	
+   156	pub fn timed_cut_exposure(routes: &[TimedCutRoute], elapsed: u64) -> f32 {
+   157	    let (mut open, mut bandaged, mut stitched) = (0, 0, 0);
+   158	    for route in routes
+   159	        .iter()
+   160	        .filter(|route| route.active_minutes.is_none_or(|minutes| elapsed < minutes))
+   161	    {
+   162	        match route.state {
+   163	            CutRouteState::Open => open += 1,
+   164	            CutRouteState::Bandaged => bandaged += 1,
+   165	            CutRouteState::Stitched => stitched += 1,
+   166	        }
+   167	    }
+   168	    cut_exposure(open, bandaged, stitched)
+   169	}
+   170	
+   171	pub fn dirt_wound_multiplier(total_dirt: u16) -> f32 {
+   172	    1.0 + 0.35 * (f32::from(total_dirt.min(MAX_FILTH)) / f32::from(MAX_FILTH))
+   173	}
+   174	
+   175	pub fn blood_exposure(
+   176	    deposits: &[Deposit],
+   177	    disease_id: DiseaseId,
+   178	    now: StrategicMinute,
+   179	    cut_route: f32,
+   180	) -> f32 {
+   181	    blood_exposure_for_vector(
+   182	        deposits,
+   183	        disease_id,
+   184	        now,
+   185	        cut_route,
+   186	        definition(disease_id).supports(TransmissionVector::Blood),
+   187	    )
+   188	}
+   189	
+   190	pub fn blood_exposure_for_vector(
+   191	    deposits: &[Deposit],
+   192	    disease_id: DiseaseId,
+   193	    now: StrategicMinute,
+   194	    cut_route: f32,
+   195	    blood_compatible: bool,
+   196	) -> f32 {
+   197	    if !blood_compatible {
+   198	        return 0.0;
+   199	    }
+   200	    let dose = deposits
+   201	        .iter()
+   202	        .filter(|d| d.substance == FilthSubstance::Blood && d.foreign_blood())
+   203	        .filter(|d| d.diseases.iter().any(|s| s.disease_id == disease_id))
+   204	        .map(|d| {
+   205	            f32::from(d.amount) / f32::from(MAX_FILTH) * infectious_fraction(d.deposited_at, now)
+   206	        })
+   207	        .sum::<f32>();
+   208	    (dose * (0.04 + 0.96 * cut_route.clamp(0.0, 1.0))).clamp(0.0, 1.0)
+   209	}
+   210	
+   211	#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+   212	pub enum SoapSource {
+   213	    Personal,
+   214	    Party,
+   215	}
+   216	
+   217	#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
+   218	pub struct SoapStackId {
+   219	    pub source: SoapSource,
+   220	    pub id: u64,
+   221	}
+   222	
+   223	#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+   224	pub struct WashStack {
+   225	    pub key: SoapStackId,
+   226	    pub quantity: u32,
+   227	}
+   228	
+   229	#[derive(Clone, Debug, PartialEq, Eq)]
+   230	pub struct WashPlan {
+--- SOURCE-REGISTRATION.json crates/adventuresim-core/src/strategic_time.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-65 ---
+     1	//! Pure calculations used by the strategic clock, training, and recovery systems.
+     2	
+     3	use crate::{
+     4	    provisioning::STRATEGIC_TRAVEL_KCAL_PER_DAY,
+     5	    strategic_schedule::{DailySchedule, settlement_leisure_outcome},
+     6	};
+     7	#[cfg(test)]
+     8	use adventuresim_world_schema::calendar::WORLD_START_DAY_OF_YEAR;
+     9	use adventuresim_world_schema::calendar::{
+    10	    MINUTES_PER_DAY, MINUTES_PER_YEAR, StrategicMinute, WORLD_START_MINUTE,
+    11	};
+    12	
+    13	pub const HOURS_PER_DAY: u16 = 24;
+    14	pub const MINUTES_PER_HOUR: u16 = 60;
+    15	/// Longest settlement rest request accepted by the shared strategic contract.
+    16	pub const MAX_SETTLEMENT_REST_MINUTES: u64 = MINUTES_PER_YEAR;
+    17	const REAL_MICROSECONDS_PER_STRATEGIC_YEAR: u128 = 7 * 24 * 60 * 60 * 1_000_000;
+    18	const DAYLIGHT_START_MINUTE: u16 = 6 * 60;
+    19	const DAYLIGHT_END_MINUTE: u16 = 20 * 60;
+    20	pub const DEFAULT_WALKING_MINUTES_PER_DAY: u16 = 8 * 60;
+    21	/// Default journey-local departure time, at 08:00.
+    22	pub const DEFAULT_JOURNEY_START_MINUTE_OF_DAY: u16 = 8 * 60;
+    23	/// Default journey-local departure time for a night itinerary, at 20:00.
+    24	pub const DEFAULT_NIGHT_JOURNEY_START_MINUTE_OF_DAY: u16 = 20 * 60;
+    25	pub const MIN_WALKING_MINUTES_PER_DAY: u16 = 1;
+    26	pub const MAX_WALKING_MINUTES_PER_DAY: u16 = 24 * 60;
+    27	/// Baseline overland pace used when converting route distance into travel time.
+    28	pub const OVERLAND_WALKING_SPEED_KM_PER_HOUR: u64 = 5;
+    29	pub const LUNAR_CYCLE_MINUTES: u64 = 42_524;
+    30	pub const MAX_ITINERARY_SEGMENTS: usize = 512;
+    31	/// Natural recovery while taking full settlement downtime.
+    32	pub const HEALTH_RECOVERED_PER_DAY: f32 = 0.05;
+    33	
+    34	/// A normalized position within the shared strategic day.
+    35	#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+    36	pub struct StrategicMinuteOfDay(u16);
+    37	
+    38	impl StrategicMinuteOfDay {
+    39	    /// Construct a validated position within one strategic day.
+    40	    pub const fn new(minute_of_day: u16) -> Option<Self> {
+    41	        if (minute_of_day as u64) < MINUTES_PER_DAY {
+    42	            Some(Self(minute_of_day))
+    43	        } else {
+    44	            None
+    45	        }
+    46	    }
+    47	
+    48	    /// Construct a validated position from a clock hour and minute.
+    49	    pub const fn from_hour_minute(hour: u16, minute: u16) -> Option<Self> {
+    50	        if hour < HOURS_PER_DAY && minute < MINUTES_PER_HOUR {
+    51	            Some(Self(hour * MINUTES_PER_HOUR + minute))
+    52	        } else {
+    53	            None
+    54	        }
+    55	    }
+    56	
+    57	    /// Normalize an absolute strategic minute to its position within the day.
+    58	    pub const fn from_absolute(absolute_minute: StrategicMinute) -> Self {
+    59	        Self(absolute_minute.minute_of_day())
+    60	    }
+    61	
+    62	    pub const fn get(self) -> u16 {
+    63	        self.0
+    64	    }
+    65	
+--- SOURCE-REGISTRATION.json crates/adventuresim-core/src/strategic_time.rs 95e63628f9d70b8dd6e6fede64334696c6995009 210-265 ---
+   210	    walking_minutes: u16,
+   211	    travel_at_night: bool,
+   212	) -> Option<u64> {
+   213	    let (start, end) =
+   214	        scheduled_walking_window_at_or_after(absolute_minute, walking_minutes, travel_at_night)?;
+   215	    let next_start = if absolute_minute < start {
+   216	        start
+   217	    } else {
+   218	        scheduled_walking_window_at_or_after(end, walking_minutes, travel_at_night)?.0
+   219	    };
+   220	    Some(next_start.elapsed_since(absolute_minute))
+   221	}
+   222	
+   223	fn scheduled_walking_window_at_or_after(
+   224	    absolute_minute: StrategicMinute,
+   225	    walking_minutes: u16,
+   226	    travel_at_night: bool,
+   227	) -> Option<(StrategicMinute, StrategicMinute)> {
+   228	    let (day_start, day_end) = daylight_walking_window(walking_minutes)?;
+   229	    let day = absolute_minute.day_start();
+   230	    if !travel_at_night {
+   231	        let start = day.saturating_add_minutes(u64::from(day_start));
+   232	        let end = day.saturating_add_minutes(u64::from(day_end));
+   233	        return if absolute_minute < end {
+   234	            Some((start, end))
+   235	        } else {
+   236	            Some((start.saturating_add_days(1), end.saturating_add_days(1)))
+   237	        };
+   238	    }
+   239	
+   240	    let before_midnight = u64::from(walking_minutes / 2);
+   241	    let after_midnight = u64::from(walking_minutes) - before_midnight;
+   242	    let current_midnight = day;
+   243	    let current_start = current_midnight.saturating_sub_minutes(before_midnight);
+   244	    let current_end = current_midnight.saturating_add_minutes(after_midnight);
+   245	    if absolute_minute < current_end {
+   246	        return Some((current_start, current_end));
+   247	    }
+   248	    let next_midnight = current_midnight.saturating_add_days(1);
+   249	    Some((
+   250	        next_midnight.saturating_sub_minutes(before_midnight),
+   251	        next_midnight.saturating_add_minutes(after_midnight),
+   252	    ))
+   253	}
+   254	
+   255	pub fn forecast_itinerary(
+   256	    start_minute: StrategicMinute,
+   257	    movement_minutes: u64,
+   258	    walking_minutes_per_day: u16,
+   259	    travel_at_night: bool,
+   260	    members: &[ItineraryMember],
+   261	) -> Option<ItineraryForecast> {
+   262	    daylight_walking_window(walking_minutes_per_day)?;
+   263	    if members.is_empty() {
+   264	        return None;
+   265	    }
+--- SOURCE-REGISTRATION.json crates/adventuresim-world-schema/src/calendar.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-35 ---
+     1	//! Shared non-leap strategic calendar and its absolute minute coordinate.
+     2	//!
+     3	//! Calendar calculations and stored absolute instants use [`CalendarYear`] and
+     4	//! [`StrategicMinute`]. Transport adapters convert to raw integers only where
+     5	//! their protocols require it.
+     6	
+     7	use serde::{Deserialize, Serialize};
+     8	use std::fmt;
+     9	
+    10	pub const MINUTES_PER_DAY: u64 = 24 * 60;
+    11	pub const DAYS_PER_WEEK: u64 = 7;
+    12	const SUNDAY_INDEX: u64 = 6;
+    13	pub const DAYS_PER_YEAR: u64 = 365;
+    14	pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
+    15	/// Calendar year containing strategic minute zero.
+    16	pub const WORLD_START_YEAR: CalendarYear = CalendarYear { year: 1544 };
+    17	/// August 20 at 00:00 in the shared non-leap strategic calendar.
+    18	pub const WORLD_START_DAY_OF_YEAR: u64 = 231;
+    19	pub const WORLD_START_MINUTE: StrategicMinute = StrategicMinute {
+    20	    minutes: WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY,
+    21	};
+    22	
+    23	/// Whether a zero-based day index falls on Sunday.
+    24	pub const fn is_sunday_day_index(day_index: u64) -> bool {
+    25	    day_index % DAYS_PER_WEEK == SUNDAY_INDEX
+    26	}
+    27	
+    28	/// A positive calendar year. There is no year zero in this calendar.
+    29	#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+    30	#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+    31	#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+    32	#[serde(try_from = "i32", into = "i32")]
+    33	pub struct CalendarYear {
+    34	    year: i32,
+    35	}
+--- SOURCE-REGISTRATION.json crates/adventuresim-world-schema/src/calendar.rs 95e63628f9d70b8dd6e6fede64334696c6995009 412-575 ---
+   412	        assert_eq!(StrategicMinute::ZERO.calendar_year(), WORLD_START_YEAR);
+   413	        assert_eq!(
+   414	            StrategicMinute::new(MINUTES_PER_YEAR - 1).calendar_year(),
+   415	            WORLD_START_YEAR
+   416	        );
+   417	        assert_eq!(
+   418	            StrategicMinute::new(MINUTES_PER_YEAR).calendar_year().get(),
+   419	            1545
+   420	        );
+   421	        assert_eq!(WORLD_START_MINUTE.get(), 231 * MINUTES_PER_DAY);
+   422	        assert_eq!(
+   423	            StrategicMinute::new(u64::MAX).calendar_year().get(),
+   424	            i32::MAX
+   425	        );
+   426	        assert_eq!(
+   427	            WORLD_START_MINUTE
+   428	                .saturating_add_minutes(MINUTES_PER_YEAR)
+   429	                .calendar_year()
+   430	                .get(),
+   431	            1545
+   432	        );
+   433	        assert_eq!(StrategicMinute::ZERO.elapsed_since(WORLD_START_MINUTE), 0);
+   434	        assert_eq!(
+   435	            StrategicMinute::new(5).checked_elapsed_since(StrategicMinute::new(3)),
+   436	            Some(2)
+   437	        );
+   438	        assert_eq!(
+   439	            StrategicMinute::new(3).checked_elapsed_since(StrategicMinute::new(5)),
+   440	            None
+   441	        );
+   442	        assert_eq!(
+   443	            StrategicMinute::ZERO.days_until_ceil(StrategicMinute::ZERO),
+   444	            0
+   445	        );
+   446	        assert_eq!(
+   447	            StrategicMinute::ZERO.days_until_ceil(StrategicMinute::new(1)),
+   448	            1
+   449	        );
+   450	        assert_eq!(
+   451	            StrategicMinute::new(2).days_until_ceil(StrategicMinute::new(1)),
+   452	            0
+   453	        );
+   454	        assert_eq!(
+   455	            StrategicMinute::new(4).midpoint(StrategicMinute::new(7)),
+   456	            StrategicMinute::new(5)
+   457	        );
+   458	        assert_eq!(StrategicMinute::ZERO.day_of_year(), 1);
+   459	        assert_eq!(StrategicMinute::new(1_500).day_hour_minute(), (2, 1, 0));
+   460	        assert_eq!(
+   461	            StrategicMinute::new(1_430).wrapping_day_offset(20),
+   462	            StrategicMinute::new(10)
+   463	        );
+   464	        assert_eq!(
+   465	            StrategicMinute::new(3 * MINUTES_PER_DAY + 900).with_wrapped_time_of_day(1_430, 20),
+   466	            StrategicMinute::new(3 * MINUTES_PER_DAY + 10)
+   467	        );
+   468	        assert_eq!(
+   469	            StrategicMinute::new(3 * MINUTES_PER_DAY).with_wrapped_time_of_day(1_430, u64::MAX),
+   470	            StrategicMinute::new(3 * MINUTES_PER_DAY + 725)
+   471	        );
+   472	        assert_eq!(
+   473	            StrategicMinute::new(359).floor_to_interval_minutes(360),
+   474	            Some(StrategicMinute::ZERO)
+   475	        );
+   476	        assert_eq!(StrategicMinute::ZERO.floor_to_interval_minutes(0), None);
+   477	        assert_eq!(
+   478	            StrategicMinute::new(1_500).offset_within_interval_minutes(MINUTES_PER_DAY),
+   479	            Some(60)
+   480	        );
+   481	        assert_eq!(
+   482	            StrategicMinute::new(1_380).minutes_until_time_of_day(60),
+   483	            Some(120)
+   484	        );
+   485	        assert_eq!(
+   486	            StrategicMinute::new(60).minutes_until_time_of_day(60),
+   487	            Some(0)
+   488	        );
+   489	        assert_eq!(StrategicMinute::ZERO.minutes_until_time_of_day(1_441), None);
+   490	        assert!(StrategicMinute::new(1_380).contains_daily_window(1_200, 120));
+   491	        assert!(StrategicMinute::new(60).contains_daily_window(1_200, 120));
+   492	        assert!(!StrategicMinute::new(600).contains_daily_window(1_200, 120));
+   493	        assert!(!StrategicMinute::new(60).contains_daily_window(1_441, 120));
+   494	        assert_eq!(
+   495	            StrategicMinute::new(1_380).remaining_daily_window_minutes(1_200, 120),
+   496	            Some(180)
+   497	        );
+   498	        assert_eq!(
+   499	            StrategicMinute::new(60).remaining_daily_window_minutes(1_200, 120),
+   500	            Some(60)
+   501	        );
+   502	        assert_eq!(
+   503	            StrategicMinute::new(600).remaining_daily_window_minutes(1_200, 120),
+   504	            None
+   505	        );
+   506	        assert_eq!(
+   507	            StrategicMinute::new(1_500).offset_within_interval_minutes(0),
+   508	            None
+   509	        );
+   510	        assert_eq!(
+   511	            StrategicMinute::new(1_500).cumulative_daily_share_minutes(720),
+   512	            750
+   513	        );
+   514	        assert_eq!(
+   515	            StrategicMinute::checked_day_start_for_index(2),
+   516	            Some(StrategicMinute::new(2 * MINUTES_PER_DAY))
+   517	        );
+   518	        assert_eq!(StrategicMinute::checked_day_start_for_index(u64::MAX), None);
+   519	        assert_eq!(
+   520	            StrategicMinute::checked_period_start_for_index(2, 360),
+   521	            Some(StrategicMinute::new(720))
+   522	        );
+   523	        assert_eq!(StrategicMinute::checked_period_start_for_index(2, 0), None);
+   524	        assert_eq!(
+   525	            StrategicMinute::checked_period_start_for_index(u64::MAX, 360),
+   526	            None
+   527	        );
+   528	        assert_eq!(
+   529	            StrategicMinute::new(MINUTES_PER_YEAR - 1).day_of_year(),
+   530	            365
+   531	        );
+   532	        assert_eq!(WORLD_START_MINUTE.day_of_year(), 232);
+   533	        assert!(!is_sunday_day_index(0));
+   534	        assert!(is_sunday_day_index(6));
+   535	        assert!(is_sunday_day_index(13));
+   536	        assert_eq!(
+   537	            StrategicMinute::ZERO
+   538	                .saturating_add_years(16)
+   539	                .whole_years_since(StrategicMinute::ZERO),
+   540	            16
+   541	        );
+   542	        assert_eq!(
+   543	            StrategicMinute::new(u64::MAX).saturating_add_minutes(1),
+   544	            StrategicMinute::new(u64::MAX)
+   545	        );
+   546	        assert_eq!(
+   547	            StrategicMinute::ZERO.saturating_add_days(2),
+   548	            StrategicMinute::new(2 * MINUTES_PER_DAY)
+   549	        );
+   550	        assert_eq!(
+   551	            StrategicMinute::new(u64::MAX - 1).saturating_add_days(1),
+   552	            StrategicMinute::MAX
+   553	        );
+   554	        assert_eq!(
+   555	            StrategicMinute::ZERO.checked_add_days(1),
+   556	            Some(StrategicMinute::new(MINUTES_PER_DAY))
+   557	        );
+   558	        assert_eq!(StrategicMinute::MAX.checked_add_days(1), None);
+   559	        assert_eq!(StrategicMinute::ZERO.checked_add_days(u64::MAX), None);
+   560	        assert_eq!(
+   561	            StrategicMinute::new(3 * MINUTES_PER_DAY).saturating_sub_days(2),
+   562	            StrategicMinute::new(MINUTES_PER_DAY)
+   563	        );
+   564	        assert_eq!(
+   565	            StrategicMinute::ZERO.saturating_sub_days(1),
+   566	            StrategicMinute::ZERO
+   567	        );
+   568	        assert_eq!(StrategicMinute::new(u64::MAX).checked_add_minutes(1), None);
+   569	        assert_eq!(
+   570	            StrategicMinute::new(4)
+   571	                .iter_after_through(StrategicMinute::new(6))
+   572	                .collect::<Vec<_>>(),
+   573	            vec![StrategicMinute::new(5), StrategicMinute::new(6)]
+   574	        );
+   575	        assert_eq!(
+--- SOURCE-REGISTRATION.json crates/adventuresim-stdb-module/src/filth/blood_attempts.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-157 ---
+     1	/// Blood exposure replay over a bounded absolute interval.
+     2	#[expect(
+     3	    clippy::too_many_arguments,
+     4	    reason = "exposure replay keeps each bounded cursor and authority input explicit"
+     5	)]
+     6	pub fn blood_exposure_attempts_through(
+     7	    ctx: &ReducerContext,
+     8	    character_id: u64,
+     9	    from: StrategicMinute,
+    10	    to: StrategicMinute,
+    11	    persist_checkpoint: bool,
+    12	    allow_healing: bool,
+    13	    plan: Option<&crate::disease::PartyDiseaseIntervalPlan>,
+    14	    max_work: u64,
+    15	) -> Result<Vec<adventuresim_core::disease::AcquisitionAttempt>, String> {
+    16	    if to <= from {
+    17	        return Ok(Vec::new());
+    18	    }
+    19	    let all_deposits = deposits(ctx, character_id)?;
+    20	    if !exposure_windows::has_active_compatible_foreign_blood(&all_deposits, from, to) {
+    21	        return Ok(Vec::new());
+    22	    }
+    23	    let routes = predicted_wound_routes(ctx, character_id, allow_healing)?;
+    24	    let mut attempts = Vec::new();
+    25	    let mut work = 0;
+    26	    for disease_id in adventuresim_core::disease::STARTER_DISEASES
+    27	        .iter()
+    28	        .filter(|definition| {
+    29	            definition.supports(adventuresim_core::disease::TransmissionVector::Blood)
+    30	        })
+    31	        .map(|definition| definition.id)
+    32	    {
+    33	        let key = format!("{character_id}:{}", disease_id.stable_id());
+    34	        let checkpoint = ctx.db.blood_exposure_checkpoint().id().find(&key);
+    35	        let start = from.saturating_add_minutes(1).max(
+    36	            checkpoint.as_ref().map_or(StrategicMinute::ZERO, |row| row.evaluated_through.saturating_add_minutes(1)),
+    37	        );
+    38	        let relevant = relevant_blood_deposits(&all_deposits, disease_id);
+    39	        let windows = exposure_windows::blood_infectious_windows(
+    40	            &relevant,
+    41	            disease_id,
+    42	            start.saturating_sub_minutes(1),
+    43	            to,
+    44	        );
+    45	        for minute in windows
+    46	            .into_iter()
+    47	            .flat_map(|(window_start, window_end)| window_start.iter_through(window_end))
+    48	        {
+    49	            adventuresim_core::disease::add_bounded_work(&mut work, 1, max_work)
+    50	                .map_err(str::to_string)?;
+    51	            let route = filth::timed_cut_exposure(
+    52	                &routes,
+    53	                minute.elapsed_since(from),
+    54	            );
+    55	            let check = plan.map_or_else(
+    56	                || crate::disease::party_physiology_check_at(ctx, character_id, minute),
+    57	                |plan| {
+    58	                    plan.check_at(
+    59	                        character_id,
+    60	                        minute,
+    61	                    )
+    62	                },
+    63	            );
+    64	            // Any infectious deposit still present here survived or preceded
+    65	            // explicit washing, so clean handling is not available for this
+    66	            // dose. Bandaging/stitching still raises the physical affordance
+    67	            // through the predicted cut-route state.
+    68	            let affordance = adventuresim_core::disease::blood_caregiving_affordance(false, route);
+    69	            let exposure = adventuresim_core::disease::residual_exposure_with_affordance(
+    70	                filth::blood_exposure(&relevant, disease_id, minute, route)
+    71	                    / MINUTES_PER_DAY as f32,
+    72	                adventuresim_core::disease::TransmissionVector::Blood,
+    73	                check,
+    74	                affordance,
+    75	            );
+    76	            if exposure <= 0.0 {
+    77	                continue;
+    78	            }
+    79	            let seed = adventuresim_core::disease::outbreak_exposure_seed(
+    80	                character_id,
+    81	                &format!("blood:{}:{minute}", disease_id.stable_id()),
+    82	            );
+    83	            attempts.push(adventuresim_core::disease::AcquisitionAttempt::exposure(
+    84	                adventuresim_core::disease::InfectionEpisode {
+    85	                    id: seed.to_u64(),
+    86	                    character_id,
+    87	                    disease_id,
+    88	                    contracted_at: minute,
+    89	                    ruleset_version: adventuresim_core::physiology::PHYSIOLOGY_RULESET_VERSION,
+    90	                    phenotype_key_version: adventuresim_core::physiology::PHENOTYPE_KEY_VERSION,
+    91	                },
+    92	                adventuresim_core::disease::definition(disease_id).base_acquisition,
+    93	                exposure,
+    94	            ));
+    95	        }
+    96	        if persist_checkpoint {
+    97	            persist_blood_checkpoint(ctx, key, character_id, disease_id, to, checkpoint.is_some());
+    98	        }
+    99	    }
+   100	    Ok(attempts)
+   101	}
+   102	
+   103	fn relevant_blood_deposits(
+   104	    all_deposits: &[Deposit],
+   105	    disease_id: adventuresim_core::disease::DiseaseId,
+   106	) -> Vec<Deposit> {
+   107	    all_deposits
+   108	        .iter()
+   109	        .filter(|deposit| {
+   110	            deposit.foreign_blood()
+   111	                && deposit
+   112	                    .diseases
+   113	                    .iter()
+   114	                    .any(|snapshot| snapshot.disease_id == disease_id)
+   115	        })
+   116	        .cloned()
+   117	        .collect()
+   118	}
+   119	
+   120	fn persist_blood_checkpoint(
+   121	    ctx: &ReducerContext,
+   122	    key: String,
+   123	    character_id: u64,
+   124	    disease_id: adventuresim_core::disease::DiseaseId,
+   125	    to: StrategicMinute,
+   126	    existed: bool,
+   127	) {
+   128	    let row = BloodExposureCheckpoint {
+   129	        id: key,
+   130	        character_id,
+   131	        disease_id: disease_id.stable_id().into(),
+   132	        evaluated_through: to,
+   133	    };
+   134	    if existed {
+   135	        ctx.db.blood_exposure_checkpoint().id().update(row);
+   136	    } else {
+   137	        ctx.db.blood_exposure_checkpoint().insert(row);
+   138	    }
+   139	}
+   140	
+   141	#[cfg(test)]
+   142	mod source_tests {
+   143	    #[test]
+   144	    fn blood_route_receives_partial_physician_protection_after_physical_controls() {
+   145	        let source = crate::production_source(include_str!("blood_attempts.rs"));
+   146	        let exposure = source
+   147	            .split("pub fn blood_exposure_attempts_through")
+   148	            .nth(1)
+   149	            .expect("blood exposure source");
+   150	        let prevention = exposure.find("residual_exposure").unwrap();
+   151	        let physical = exposure.find("filth::blood_exposure").unwrap();
+   152	        assert!(prevention < physical);
+   153	        assert!(exposure.contains("TransmissionVector::Blood"));
+   154	        assert!(exposure.contains("timed_cut_exposure"));
+   155	        assert!(exposure.contains("blood_caregiving_affordance(false, route)"));
+   156	    }
+   157	}
+--- SOURCE-REGISTRATION.json crates/adventuresim-stdb-module/src/filth/exposure_windows.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-27 ---
+     1	//! Database cursor conversion for strategic blood-exposure windows.
+     2	
+     3	use adventuresim_core::{
+     4	    disease::{DiseaseId, STARTER_DISEASES, TransmissionVector},
+     5	    filth::{self, Deposit},
+     6	};
+     7	use adventuresim_world_schema::calendar::StrategicMinute;
+     8	
+     9	pub(super) fn blood_infectious_windows(
+    10	    deposits: &[Deposit],
+    11	    disease_id: DiseaseId,
+    12	    from: StrategicMinute,
+    13	    to: StrategicMinute,
+    14	) -> Vec<(StrategicMinute, StrategicMinute)> {
+    15	    filth::blood_infectious_windows(deposits, disease_id, from, to)
+    16	}
+    17	
+    18	pub(super) fn has_active_compatible_foreign_blood(
+    19	    deposits: &[Deposit],
+    20	    from: StrategicMinute,
+    21	    to: StrategicMinute,
+    22	) -> bool {
+    23	    STARTER_DISEASES
+    24	        .iter()
+    25	        .filter(|definition| definition.supports(TransmissionVector::Blood))
+    26	        .any(|definition| !blood_infectious_windows(deposits, definition.id, from, to).is_empty())
+    27	}
+--- CALENDAR-EXTENSION-REGISTRATION.json crates/adventuresim-world-schema/src/calendar.rs 95e63628f9d70b8dd6e6fede64334696c6995009 80-205 ---
+    80	}
+    81	
+    82	/// Absolute minutes since the strategic calendar's zero minute.
+    83	#[derive(
+    84	    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
+    85	)]
+    86	#[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+    87	#[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+    88	#[serde(transparent)]
+    89	pub struct StrategicMinute {
+    90	    minutes: u64,
+    91	}
+    92	
+    93	impl fmt::Display for StrategicMinute {
+    94	    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+    95	        self.minutes.fmt(formatter)
+    96	    }
+    97	}
+    98	
+    99	impl StrategicMinute {
+   100	    pub const ZERO: Self = Self::new(0);
+   101	    pub const MAX: Self = Self::new(u64::MAX);
+   102	
+   103	    pub const fn new(minutes: u64) -> Self {
+   104	        Self { minutes }
+   105	    }
+   106	
+   107	    pub const fn get(self) -> u64 {
+   108	        self.minutes
+   109	    }
+   110	
+   111	    pub const fn is_after(self, other: Self) -> bool {
+   112	        self.minutes > other.minutes
+   113	    }
+   114	
+   115	    pub const fn saturating_add_minutes(self, elapsed_minutes: u64) -> Self {
+   116	        Self::new(self.minutes.saturating_add(elapsed_minutes))
+   117	    }
+   118	
+   119	    /// Advance by whole calendar days, saturating at the last absolute minute.
+   120	    pub const fn saturating_add_days(self, days: u64) -> Self {
+   121	        self.saturating_add_minutes(days.saturating_mul(MINUTES_PER_DAY))
+   122	    }
+   123	
+   124	    /// Advance by whole calendar days only if the resulting minute fits.
+   125	    pub const fn checked_add_days(self, days: u64) -> Option<Self> {
+   126	        match days.checked_mul(MINUTES_PER_DAY) {
+   127	            Some(minutes) => self.checked_add_minutes(minutes),
+   128	            None => None,
+   129	        }
+   130	    }
+   131	
+   132	    /// Retreat by whole calendar days, saturating at the epoch.
+   133	    pub const fn saturating_sub_days(self, days: u64) -> Self {
+   134	        self.saturating_sub_minutes(days.saturating_mul(MINUTES_PER_DAY))
+   135	    }
+   136	
+   137	    pub const fn checked_add_minutes(self, elapsed_minutes: u64) -> Option<Self> {
+   138	        match self.minutes.checked_add(elapsed_minutes) {
+   139	            Some(minutes) => Some(Self::new(minutes)),
+   140	            None => None,
+   141	        }
+   142	    }
+   143	
+   144	    pub const fn saturating_sub_minutes(self, elapsed_minutes: u64) -> Self {
+   145	        Self::new(self.minutes.saturating_sub(elapsed_minutes))
+   146	    }
+   147	
+   148	    pub const fn elapsed_since(self, earlier: Self) -> u64 {
+   149	        self.minutes.saturating_sub(earlier.minutes)
+   150	    }
+   151	
+   152	    pub const fn checked_elapsed_since(self, earlier: Self) -> Option<u64> {
+   153	        self.minutes.checked_sub(earlier.minutes)
+   154	    }
+   155	
+   156	    /// Whole or partial calendar days until a later absolute minute.
+   157	    pub const fn days_until_ceil(self, later: Self) -> u64 {
+   158	        later.elapsed_since(self).div_ceil(MINUTES_PER_DAY)
+   159	    }
+   160	
+   161	    /// Midpoint between ordered absolute minutes, rounded toward `self`.
+   162	    pub const fn midpoint(self, later: Self) -> Self {
+   163	        Self::new(
+   164	            self.minutes
+   165	                .saturating_add(later.minutes.saturating_sub(self.minutes) / 2),
+   166	        )
+   167	    }
+   168	
+   169	    /// Inclusive absolute minutes after this instant through `end`.
+   170	    pub fn iter_after_through(self, end: Self) -> impl Iterator<Item = Self> {
+   171	        (self.minutes.saturating_add(1)..=end.minutes)
+   172	            .filter(move |_| self < end)
+   173	            .map(Self::new)
+   174	    }
+   175	
+   176	    /// Inclusive absolute minutes from this instant through `end`.
+   177	    pub fn iter_through(self, end: Self) -> impl Iterator<Item = Self> {
+   178	        (self.minutes..=end.minutes).map(Self::new)
+   179	    }
+   180	
+   181	    pub const fn saturating_add_years(self, years: u16) -> Self {
+   182	        self.saturating_add_minutes((years as u64).saturating_mul(MINUTES_PER_YEAR))
+   183	    }
+   184	
+   185	    pub const fn whole_years_since(self, earlier: Self) -> u64 {
+   186	        self.elapsed_since(earlier) / MINUTES_PER_YEAR
+   187	    }
+   188	
+   189	    /// Age in complete years from the signed birth coordinate used by storage.
+   190	    pub fn age_years_since_signed_birth(self, birth_minute: i64) -> u16 {
+   191	        let years =
+   192	            self.elapsed_minutes_since_signed_birth(birth_minute) / (MINUTES_PER_YEAR as u128);
+   193	        years.min(u16::MAX as u128) as u16
+   194	    }
+   195	
+   196	    /// Signed birth coordinate for an age at this instant, capped to storage.
+   197	    pub fn signed_birth_minute_for_age(self, age_years: u16) -> i64 {
+   198	        let birth = i128::from(self.minutes)
+   199	            .saturating_sub(i128::from(age_years) * i128::from(MINUTES_PER_YEAR));
+   200	        birth.clamp(i128::from(i64::MIN), i128::from(i64::MAX)) as i64
+   201	    }
+   202	
+   203	    pub fn elapsed_minutes_since_signed_birth(self, birth_minute: i64) -> u128 {
+   204	        (i128::from(self.minutes) - i128::from(birth_minute)).max(0) as u128
+   205	    }
+--- CALENDAR-EXTENSION-REGISTRATION.json crates/adventuresim-world-schema/src/calendar.rs 95e63628f9d70b8dd6e6fede64334696c6995009 280-365 ---
+   280	        Self::new(day_index.saturating_mul(MINUTES_PER_DAY))
+   281	    }
+   282	
+   283	    pub const fn checked_day_start_for_index(day_index: u64) -> Option<Self> {
+   284	        match day_index.checked_mul(MINUTES_PER_DAY) {
+   285	            Some(minutes) => Some(Self::new(minutes)),
+   286	            None => None,
+   287	        }
+   288	    }
+   289	
+   290	    /// Absolute start of a fixed-width period, if the width and result fit.
+   291	    pub const fn checked_period_start_for_index(
+   292	        period_index: u64,
+   293	        period_minutes: u64,
+   294	    ) -> Option<Self> {
+   295	        if period_minutes == 0 {
+   296	            return None;
+   297	        }
+   298	        match period_index.checked_mul(period_minutes) {
+   299	            Some(minutes) => Some(Self::new(minutes)),
+   300	            None => None,
+   301	        }
+   302	    }
+   303	
+   304	    /// Advance the time of day while keeping this minute's calendar day.
+   305	    pub const fn wrapping_day_offset(self, elapsed_minutes: u64) -> Self {
+   306	        let minute_of_day =
+   307	            (self.minute_of_day() as u64 + elapsed_minutes % MINUTES_PER_DAY) % MINUTES_PER_DAY;
+   308	        self.day_start().saturating_add_minutes(minute_of_day)
+   309	    }
+   310	
+   311	    /// Place a local clock reading on this minute's calendar day, wrapping
+   312	    /// elapsed journey time within that day.
+   313	    pub const fn with_wrapped_time_of_day(
+   314	        self,
+   315	        starting_minute_of_day: u16,
+   316	        elapsed_minutes: u64,
+   317	    ) -> Self {
+   318	        let minute_of_day = (starting_minute_of_day as u64 % MINUTES_PER_DAY
+   319	            + elapsed_minutes % MINUTES_PER_DAY)
+   320	            % MINUTES_PER_DAY;
+   321	        self.day_start().saturating_add_minutes(minute_of_day)
+   322	    }
+   323	
+   324	    pub const fn minute_of_day(self) -> u16 {
+   325	        (self.minutes % MINUTES_PER_DAY) as u16
+   326	    }
+   327	
+   328	    /// Minutes until a clock position later in the current or next day.
+   329	    pub const fn minutes_until_time_of_day(self, target: u16) -> Option<u16> {
+   330	        if target as u64 > MINUTES_PER_DAY {
+   331	            return None;
+   332	        }
+   333	        let current = self.minute_of_day() as u64;
+   334	        Some(((target as u64 + MINUTES_PER_DAY - current) % MINUTES_PER_DAY) as u16)
+   335	    }
+   336	
+   337	    /// Whether this instant lies in a half-open daily presence window.
+   338	    pub const fn contains_daily_window(self, start: u16, end: u16) -> bool {
+   339	        if start as u64 > MINUTES_PER_DAY || end as u64 > MINUTES_PER_DAY || start == end {
+   340	            return false;
+   341	        }
+   342	        let minute = self.minute_of_day();
+   343	        if start < end {
+   344	            start <= minute && minute < end
+   345	        } else {
+   346	            minute >= start || minute < end
+   347	        }
+   348	    }
+   349	
+   350	    /// Remaining elapsed minutes in a daily window, including overnight.
+   351	    pub const fn remaining_daily_window_minutes(self, start: u16, end: u16) -> Option<u64> {
+   352	        if !self.contains_daily_window(start, end) {
+   353	            return None;
+   354	        }
+   355	        let minute = self.minute_of_day() as u64;
+   356	        let end = end as u64;
+   357	        if (start as u64) < end {
+   358	            Some(end - minute)
+   359	        } else if minute >= start as u64 {
+   360	            Some(MINUTES_PER_DAY - minute + end)
+   361	        } else {
+   362	            Some(end - minute)
+   363	        }
+   364	    }
+   365	
+--- CALLER-REGISTRATION.json crates/adventuresim-stdb-module/src/disease.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1230-1310 ---
+  1230	        };
+  1231	        if let Some(settlement_id) = character.current_settlement_id {
+  1232	            for source in
+  1233	                exposure_sources::SettlementExposureSource::for_settlement(ctx, &settlement_id)?
+  1234	            {
+  1235	                let exposure_sources::SettlementExposureSource {
+  1236	                    id: source_id,
+  1237	                    disease_id,
+  1238	                    start: source_start,
+  1239	                    end: source_end,
+  1240	                    intensity,
+  1241	                    scoped,
+  1242	                } = source;
+  1243	                let from = start.max(source_start);
+  1244	                let to = end.min(source_end);
+  1245	                let definition = disease::definition(disease_id);
+  1246	                let windows = if scoped {
+  1247	                    crate::outbreak::exposure_windows(ctx, &source_id, *id, from, to)
+  1248	                } else {
+  1249	                    vec![(source_id.clone(), from, to)]
+  1250	                };
+  1251	                for (window_source_id, window_from, window_to) in windows {
+  1252	                    if let Some(source) = disease::protected_presence_exposure_source(
+  1253	                        disease_id,
+  1254	                        *id,
+  1255	                        &window_source_id,
+  1256	                        window_from,
+  1257	                        window_to,
+  1258	                        intensity,
+  1259	                        definition.base_acquisition,
+  1260	                        definition.primary_community_vector,
+  1261	                    ) {
+  1262	                        if environmental.len()
+  1263	                            >= MAX_PARTY_INTERVAL_CANDIDATES.saturating_sub(scheduled.len())
+  1264	                        {
+  1265	                            return Err(
+  1266	                                "Disease interval exceeds bounded acquisition candidates".into()
+  1267	                            );
+  1268	                        }
+  1269	                        environmental.push(source);
+  1270	                    }
+  1271	                }
+  1272	            }
+  1273	        }
+  1274	        let blood_attempts = crate::filth::blood_exposure_attempts_through(
+  1275	            ctx,
+  1276	            *id,
+  1277	            start,
+  1278	            end,
+  1279	            false,
+  1280	            allow_healing,
+  1281	            Some(&plan),
+  1282	            blood_interval_work_budget(end.elapsed_since(start)),
+  1283	        )?;
+  1284	        if blood_attempts.len()
+  1285	            > MAX_PARTY_INTERVAL_CANDIDATES
+  1286	                .saturating_sub(scheduled.len())
+  1287	                .saturating_sub(environmental.len())
+  1288	        {
+  1289	            return Err("Disease interval exceeds bounded acquisition candidates".into());
+  1290	        }
+  1291	        scheduled.extend(blood_attempts);
+  1292	    }
+  1293	    let windows = interval::contact_windows(pairs, &starts, &horizons);
+  1294	    let from = starts.values().copied().min().unwrap_or_default();
+  1295	    let to = horizons.values().copied().max().unwrap_or(from);
+  1296	    let resolved = disease::resolve_acquisition_timeline(
+  1297	        &id_set,
+  1298	        &initial,
+  1299	        scheduled,
+  1300	        &environmental,
+  1301	        &windows,
+  1302	        &immunities,
+  1303	        from,
+  1304	        to,
+  1305	        plan.work_units,
+  1306	        MAX_PARTY_INTERVAL_WORK,
+  1307	        |character_id, minute| plan.check_at(character_id, minute),
+  1308	    )
+  1309	    .map_err(str::to_string)?;
+  1310	    plan.proposals = resolved.proposals;
+--- CALLER-REGISTRATION.json crates/adventuresim-stdb-module/src/disease.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1835-1910 ---
+  1835	    let owned_plan;
+  1836	    let plan = if let Some(plan) = plan {
+  1837	        plan
+  1838	    } else {
+  1839	        owned_plan = plan_party_disease_interval(ctx, &[character_id], requested, allow_healing)?;
+  1840	        &owned_plan
+  1841	    };
+  1842	    let now = ctx
+  1843	        .db
+  1844	        .character_time()
+  1845	        .character_id()
+  1846	        .find(character_id)
+  1847	        .map_or(StrategicMinute::ZERO, |t| t.minutes);
+  1848	    let immunity = ctx
+  1849	        .db
+  1850	        .character_attributes()
+  1851	        .character_id()
+  1852	        .find(character_id)
+  1853	        .map_or(3.0, |a| a.immunity);
+  1854	    let mut episodes = character_episodes(ctx, character_id)?;
+  1855	    let interval_end = now.saturating_add_minutes(requested);
+  1856	    let proposed = plan.proposals_for(character_id, now, interval_end);
+  1857	    episodes.extend(proposed.iter().copied());
+  1858	    let mut events = interval::disease_events(&episodes, now, interval_end, immunity);
+  1859	    events.sort_by_key(|e| e.minute);
+  1860	    let terminal =
+  1861	        first_private_terminal(ctx, character_id, &episodes, now, interval_end, immunity)?;
+  1862	    let death_minute = terminal.map(|value| value.0);
+  1863	    let through = death_minute.unwrap_or(interval_end);
+  1864	    // The terminal minute is inclusive: infections and notices occurring at
+  1865	    // that boundary are committed; later effects from the requested interval
+  1866	    // are never persisted.
+  1867	    persist_acquisition_episodes(
+  1868	        ctx,
+  1869	        character_id,
+  1870	        proposed
+  1871	            .into_iter()
+  1872	            .filter(|episode| disease::infection_occurs_through(*episode, through)),
+  1873	    )?;
+  1874	    // Re-evaluate only the committed prefix and advance the private cursor.
+  1875	    // Absolute-minute seeds guarantee the same proposal as preview/full evaluation.
+  1876	    let _ = crate::filth::blood_exposure_attempts_through(
+  1877	        ctx,
+  1878	        character_id,
+  1879	        now,
+  1880	        through,
+  1881	        true,
+  1882	        allow_healing,
+  1883	        Some(plan),
+  1884	        blood_interval_work_budget(through.elapsed_since(now)),
+  1885	    )?;
+  1886	    for event in events.iter().filter(|event| event.minute <= through) {
+  1887	        match event.kind {
+  1888	            DiseaseEventKind::SymptomOnset => notice(
+  1889	                ctx,
+  1890	                character_id,
+  1891	                event.infection_id,
+  1892	                event.minute,
+  1893	                "symptom-onset",
+  1894	                "New symptoms have appeared.",
+  1895	            )?,
+  1896	            DiseaseEventKind::Peak => {}
+  1897	            DiseaseEventKind::Critical(_) => notice(
+  1898	                ctx,
+  1899	                character_id,
+  1900	                event.infection_id,
+  1901	                event.minute,
+  1902	                "critical",
+  1903	                "A vital humour is failing.",
+  1904	            )?,
+  1905	            DiseaseEventKind::Resolution => notice(
+  1906	                ctx,
+  1907	                character_id,
+  1908	                event.infection_id,
+  1909	                event.minute,
+  1910	                "resolution",
+--- CALLER-REGISTRATION.json crates/adventuresim-stdb-module/src/disease.rs 95e63628f9d70b8dd6e6fede64334696c6995009 2705-2750 ---
+  2705	    Ok(())
+  2706	}
+  2707	
+  2708	#[cfg(test)]
+  2709	mod herbalist_purchase_source_tests {
+  2710	    #[test]
+  2711	    fn purchase_adds_requested_quantity_once_through_kind_aware_helper() {
+  2712	        let source = crate::production_source(include_str!("disease.rs"));
+  2713	        let purchase = source
+  2714	            .split("pub fn purchase_from_herbalist")
+  2715	            .nth(1)
+  2716	            .unwrap();
+  2717	        let body = purchase.split("#[cfg(test)]").next().unwrap();
+  2718	        assert!(body.contains("add_inventory_item_checked(ctx, patient_id, item_id, *quantity)"));
+  2719	        assert!(!body.contains("for _ in 0..*quantity"));
+  2720	    }
+  2721	
+  2722	    #[test]
+  2723	    fn interval_authority_assembles_community_contact_and_blood_exposure() {
+  2724	        let source = crate::production_source(include_str!("disease.rs"));
+  2725	        let plan = source
+  2726	            .split("pub fn plan_party_disease_interval")
+  2727	            .nth(1)
+  2728	            .unwrap()
+  2729	            .split("fn party_contact_episodes_through")
+  2730	            .next()
+  2731	            .unwrap();
+  2732	        assert!(plan.contains("SettlementExposureSource::for_settlement"));
+  2733	        let sources = include_str!("disease/exposure_sources.rs");
+  2734	        assert!(sources.contains("settlement_outbreak"));
+  2735	        assert!(sources.contains("local_problem_authority"));
+  2736	        assert!(plan.contains("blood_exposure_attempts_through"));
+  2737	        assert!(plan.contains("resolve_acquisition_timeline"));
+  2738	        let clip = source
+  2739	            .split("fn clip_elapsed_for_disease_planned")
+  2740	            .nth(1)
+  2741	            .unwrap()
+  2742	            .split("pub fn clip_elapsed_for_disease")
+  2743	            .next()
+  2744	            .unwrap();
+  2745	        assert!(clip.contains("infection_occurs_through"));
+  2746	    }
+  2747	
+  2748	    #[test]
+  2749	    fn interval_plan_prefetches_private_presence_through_both_indexes() {
+  2750	        let source = crate::production_source(include_str!("disease.rs"));
+--- CALLER-REGISTRATION.json crates/adventuresim-stdb-module/src/disease.rs 95e63628f9d70b8dd6e6fede64334696c6995009 2900-2940 ---
+  2900	                    source.contains(&format!(r#""id":"{}""#, hook.evidence_id)),
+  2901	                    "{}",
+  2902	                    hook.evidence_id
+  2903	                );
+  2904	                if let Some(site) = hook.required_site {
+  2905	                    assert!(source.contains(&format!(r#""id":"{site}""#)), "{site}");
+  2906	                }
+  2907	            }
+  2908	        }
+  2909	    }
+  2910	
+  2911	    #[test]
+  2912	    fn disease_terminal_preview_is_side_effect_free() {
+  2913	        let source = crate::production_source(include_str!("disease.rs"));
+  2914	        let preview = source
+  2915	            .split("fn preview_disease_boundary_planned")
+  2916	            .nth(1)
+  2917	            .and_then(|tail| {
+  2918	                tail.split("pub fn preview_disease_terminal_boundary")
+  2919	                    .next()
+  2920	            })
+  2921	            .expect("disease terminal preview");
+  2922	        for forbidden in [
+  2923	            "persist_acquisition_episodes",
+  2924	            "persist_",
+  2925	            "blood_exposure_attempts_through",
+  2926	            "cursor",
+  2927	            "notice(",
+  2928	            ".insert(",
+  2929	            ".update(",
+  2930	            ".delete(",
+  2931	        ] {
+  2932	            assert!(!preview.contains(forbidden), "preview contains {forbidden}");
+  2933	        }
+  2934	    }
+  2935	
+  2936	    #[test]
+  2937	    fn medicinal_interventions_use_nonemergency_treatment_decisions() {
+  2938	        let source = crate::production_source(include_str!("disease.rs"));
+  2939	        let relationship = source
+  2940	            .split("pub(crate) fn require_intervention_relationship")
+--- CALLER-EXTENSION-REGISTRATION.json crates/adventuresim-stdb-module/src/disease.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1100-1230 ---
+  1100	                        .character_time()
+  1101	                        .character_id()
+  1102	                        .find(id)
+  1103	                        .map_or(StrategicMinute::ZERO, |t| t.minutes)
+  1104	                }),
+  1105	            )
+  1106	        })
+  1107	        .collect::<BTreeMap<_, _>>();
+  1108	    for span in spans_by_id.into_values() {
+  1109	        let Some(end) = disease::projected_presence_end(
+  1110	            span.ended_at,
+  1111	            horizons.get(&span.low_id).copied(),
+  1112	            horizons.get(&span.high_id).copied(),
+  1113	            clocks[&span.low_id],
+  1114	            clocks[&span.high_id],
+  1115	        ) else {
+  1116	            continue;
+  1117	        };
+  1118	        if end < span.started_at {
+  1119	            continue;
+  1120	        }
+  1121	        if id_set.contains(&span.low_id) {
+  1122	            coverage.entry(span.low_id).or_default().extend([
+  1123	                CachedCoverage {
+  1124	                    contributor_id: span.low_id,
+  1125	                    start: span.started_at,
+  1126	                    end,
+  1127	                    check: f32::from(span.low_observer_band),
+  1128	                },
+  1129	                CachedCoverage {
+  1130	                    contributor_id: span.high_id,
+  1131	                    start: span.started_at,
+  1132	                    end,
+  1133	                    check: f32::from(span.high_observer_band),
+  1134	                },
+  1135	            ]);
+  1136	        }
+  1137	        if id_set.contains(&span.high_id) {
+  1138	            coverage.entry(span.high_id).or_default().extend([
+  1139	                CachedCoverage {
+  1140	                    contributor_id: span.low_id,
+  1141	                    start: span.started_at,
+  1142	                    end,
+  1143	                    check: f32::from(span.low_observer_band),
+  1144	                },
+  1145	                CachedCoverage {
+  1146	                    contributor_id: span.high_id,
+  1147	                    start: span.started_at,
+  1148	                    end,
+  1149	                    check: f32::from(span.high_observer_band),
+  1150	                },
+  1151	            ]);
+  1152	        }
+  1153	        if id_set.contains(&span.low_id) || id_set.contains(&span.high_id) {
+  1154	            pairs.push(CachedPairPresence {
+  1155	                low_id: span.low_id,
+  1156	                high_id: span.high_id,
+  1157	                start: span.started_at,
+  1158	                end,
+  1159	            });
+  1160	        }
+  1161	    }
+  1162	    let span_count = coverage.values().map(Vec::len).sum::<usize>() + pairs.len();
+  1163	    if span_count > MAX_PARTY_INTERVAL_SPANS {
+  1164	        return Err("Party disease interval has too many relevant presence spans".into());
+  1165	    }
+  1166	    let coverage = coverage
+  1167	        .into_iter()
+  1168	        .map(|(character_id, spans)| {
+  1169	            let mut boundaries = spans
+  1170	                .iter()
+  1171	                .flat_map(|span| [span.start, span.end.saturating_add_minutes(1)])
+  1172	                .collect::<Vec<_>>();
+  1173	            boundaries.sort_unstable();
+  1174	            boundaries.dedup();
+  1175	            let segments = boundaries
+  1176	                .windows(2)
+  1177	                .filter_map(|window| {
+  1178	                    let start = window[0];
+  1179	                    let end = window[1].saturating_sub_minutes(1);
+  1180	                    let check = disease::historical_physiology_check_at(
+  1181	                        spans
+  1182	                            .iter()
+  1183	                            .map(|span| (span.contributor_id, span.start, span.end, span.check)),
+  1184	                        start,
+  1185	                    );
+  1186	                    (check > 0.0).then_some(CachedCheckSegment { start, end, check })
+  1187	                })
+  1188	                .collect::<Vec<_>>();
+  1189	            (character_id, segments)
+  1190	        })
+  1191	        .collect();
+  1192	    let base_work = ids.len() as u64;
+  1193	    if base_work > MAX_PARTY_INTERVAL_WORK {
+  1194	        return Err("Party disease interval exceeds bounded exposure work".into());
+  1195	    }
+  1196	    let mut plan = PartyDiseaseIntervalPlan {
+  1197	        coverage,
+  1198	        work_units: base_work,
+  1199	        ..Default::default()
+  1200	    };
+  1201	    let source_ids = pairs
+  1202	        .iter()
+  1203	        .flat_map(|pair| [pair.low_id, pair.high_id])
+  1204	        .chain(ids.iter().copied())
+  1205	        .collect::<BTreeSet<_>>();
+  1206	    let initial = source_ids
+  1207	        .iter()
+  1208	        .map(|id| character_episodes(ctx, *id).map(|episodes| (*id, episodes)))
+  1209	        .collect::<Result<BTreeMap<_, _>, _>>()?;
+  1210	    let immunities = ids
+  1211	        .iter()
+  1212	        .map(|id| {
+  1213	            (
+  1214	                *id,
+  1215	                ctx.db
+  1216	                    .character_attributes()
+  1217	                    .character_id()
+  1218	                    .find(*id)
+  1219	                    .map_or(3.0, |row| row.immunity),
+  1220	            )
+  1221	        })
+  1222	        .collect::<BTreeMap<_, _>>();
+  1223	    let mut scheduled = Vec::new();
+  1224	    let mut environmental = Vec::new();
+  1225	    for id in &ids {
+  1226	        let start = starts[id];
+  1227	        let end = horizons[id];
+  1228	        let Some(character) = ctx.db.character().id().find(*id) else {
+  1229	            continue;
+  1230	        };
+--- CALLER-EXTENSION-REGISTRATION.json crates/adventuresim-stdb-module/src/disease.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1790-1845 ---
+  1790	        let profile_end = physiology::intervention_profile(
+  1791	            &administration.preparation_id,
+  1792	            administration.profile_version,
+  1793	        )
+  1794	        .map(|profile| {
+  1795	            administration
+  1796	                .administered_at
+  1797	                .saturating_add_minutes(profile.duration_minutes)
+  1798	        });
+  1799	        structural.extend(
+  1800	            [
+  1801	                Some(administration.administered_at),
+  1802	                administration.stopped_at,
+  1803	                profile_end,
+  1804	            ]
+  1805	            .into_iter()
+  1806	            .flatten()
+  1807	            .filter(|minute| *minute >= from && *minute <= to),
+  1808	        );
+  1809	    }
+  1810	    Ok(physiology::first_terminal_crossing(&structural, |minute| {
+  1811	        private_combined_at(
+  1812	            character_id,
+  1813	            episodes,
+  1814	            &interventions,
+  1815	            minute,
+  1816	            immunity,
+  1817	            &key,
+  1818	        )
+  1819	    })
+  1820	    .map(|(minute, meter)| (minute, terminal_failure_for_meter(meter))))
+  1821	}
+  1822	
+  1823	/// Returns the safe prefix of an interval and a terminal mechanism, if any.
+  1824	/// All boundary events at the earliest minute are considered together.
+  1825	fn clip_elapsed_for_disease_planned(
+  1826	    ctx: &ReducerContext,
+  1827	    character_id: u64,
+  1828	    requested: u64,
+  1829	    allow_healing: bool,
+  1830	    plan: Option<&PartyDiseaseIntervalPlan>,
+  1831	) -> Result<(u64, Option<TerminalFailure>), String> {
+  1832	    if requested == 0 {
+  1833	        return Ok((0, None));
+  1834	    }
+  1835	    let owned_plan;
+  1836	    let plan = if let Some(plan) = plan {
+  1837	        plan
+  1838	    } else {
+  1839	        owned_plan = plan_party_disease_interval(ctx, &[character_id], requested, allow_healing)?;
+  1840	        &owned_plan
+  1841	    };
+  1842	    let now = ctx
+  1843	        .db
+  1844	        .character_time()
+  1845	        .character_id()
+--- DEPOSIT-REGISTRATION.json crates/adventuresim-stdb-module/src/filth.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-45 ---
+     1	//! Durable strategic filth and automatic washing.
+     2	
+     3	mod exposure_windows;
+     4	
+     5	use adventuresim_core::disease::DiseaseId;
+     6	use adventuresim_core::filth::{
+     7	    self, Deposit, DiseaseSnapshot, FilthOrigin, FilthSubstance, SoapSource, SoapStackId, WashStack,
+     8	};
+     9	use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+    10	use spacetimedb::{ReducerContext, Table, table};
+    11	
+    12	use crate::character::character;
+    13	use crate::{
+    14	    character_attributes, character_time, infection_episode, inventory_item, limb_injury,
+    15	    party_inventory_item, retained_projectile,
+    16	};
+    17	
+    18	use adventuresim_core::item_references::SOFT_SOAP_ID;
+    19	
+    20	/// Sanitized visible deposit. Disease identity is never copied into this table.
+    21	#[derive(Clone, Debug)]
+    22	#[table(accessor = character_filth, public)]
+    23	pub struct CharacterFilth {
+    24	    #[primary_key]
+    25	    #[auto_inc]
+    26	    pub id: u64,
+    27	    #[index(btree)]
+    28	    pub character_id: u64,
+    29	    pub substance: FilthSubstance,
+    30	    pub origin: FilthOrigin,
+    31	    pub amount: u16,
+    32	    pub deposited_at: StrategicMinute,
+    33	}
+    34	
+    35	/// Exact source identity is private; public subscribers receive only origin.
+    36	#[derive(Clone, Debug)]
+    37	#[table(accessor = filth_provenance)]
+    38	pub struct FilthProvenance {
+    39	    #[primary_key]
+    40	    pub filth_id: u64,
+    41	    pub source_character_id: Option<u64>,
+    42	}
+    43	
+    44	/// Private snapshot of source infection provenance at the instant of deposition.
+    45	#[derive(Clone, Debug)]
+--- DEPOSIT-REGISTRATION.json crates/adventuresim-stdb-module/src/filth.rs 95e63628f9d70b8dd6e6fede64334696c6995009 190-235 ---
+   190	        .filter(character_id)
+   191	        .map(|d| d.amount)
+   192	        .fold(0u16, u16::saturating_add)
+   193	        .min(filth::MAX_FILTH)
+   194	}
+   195	
+   196	pub fn dirt_total(ctx: &ReducerContext, character_id: u64) -> u16 {
+   197	    ctx.db
+   198	        .character_filth()
+   199	        .character_id()
+   200	        .filter(character_id)
+   201	        .filter(|d| d.substance == FilthSubstance::Dirt)
+   202	        .map(|d| d.amount)
+   203	        .fold(0u16, u16::saturating_add)
+   204	        .min(filth::MAX_FILTH)
+   205	}
+   206	
+   207	/// Reusable strategic boundary: callers persist only final dirt/blood outcomes.
+   208	pub fn deposit(
+   209	    ctx: &ReducerContext,
+   210	    character_id: u64,
+   211	    substance: FilthSubstance,
+   212	    source_character_id: Option<u64>,
+   213	    amount: u16,
+   214	    at: StrategicMinute,
+   215	) -> Result<Option<u64>, String> {
+   216	    let amount = filth::bounded_deposit_amount(total(ctx, character_id), amount);
+   217	    if amount == 0 {
+   218	        return Ok(None);
+   219	    }
+   220	    let row = ctx.db.character_filth().insert(CharacterFilth {
+   221	        id: 0,
+   222	        character_id,
+   223	        substance,
+   224	        origin: match source_character_id {
+   225	            Some(source) if source == character_id => FilthOrigin::Own,
+   226	            Some(_) => FilthOrigin::Foreign,
+   227	            None => FilthOrigin::Unknown,
+   228	        },
+   229	        amount,
+   230	        deposited_at: at,
+   231	    });
+   232	    ctx.db.filth_provenance().insert(FilthProvenance {
+   233	        filth_id: row.id,
+   234	        source_character_id,
+   235	    });
+--- DEPOSIT-REGISTRATION.json crates/adventuresim-stdb-module/src/filth.rs 95e63628f9d70b8dd6e6fede64334696c6995009 280-355 ---
+   280	                    episode_id: episode.id,
+   281	                });
+   282	        }
+   283	    }
+   284	    Ok(Some(row.id))
+   285	}
+   286	
+   287	pub fn deposit_now(
+   288	    ctx: &ReducerContext,
+   289	    character_id: u64,
+   290	    substance: FilthSubstance,
+   291	    source_character_id: Option<u64>,
+   292	    amount: u16,
+   293	) -> Result<Option<u64>, String> {
+   294	    let at = ctx
+   295	        .db
+   296	        .character_time()
+   297	        .character_id()
+   298	        .find(character_id)
+   299	        .map_or(StrategicMinute::ZERO, |t| t.minutes);
+   300	    deposit(
+   301	        ctx,
+   302	        character_id,
+   303	        substance,
+   304	        source_character_id,
+   305	        amount,
+   306	        at,
+   307	    )
+   308	}
+   309	
+   310	pub(crate) fn deposits(ctx: &ReducerContext, character_id: u64) -> Result<Vec<Deposit>, String> {
+   311	    ctx.db
+   312	        .character_filth()
+   313	        .character_id()
+   314	        .filter(character_id)
+   315	        .map(|row| -> Result<Deposit, String> {
+   316	            let diseases = ctx
+   317	                .db
+   318	                .filth_disease_snapshot()
+   319	                .filth_id()
+   320	                .filter(row.id)
+   321	                .map(|s| {
+   322	                    s.disease_id
+   323	                        .parse::<DiseaseId>()
+   324	                        .map(|disease_id| DiseaseSnapshot {
+   325	                            disease_id,
+   326	                            episode_id: s.episode_id,
+   327	                        })
+   328	                })
+   329	                .collect::<Result<Vec<_>, _>>()
+   330	                .map_err(|error| error.to_string())?;
+   331	            let source_character_id = ctx
+   332	                .db
+   333	                .filth_provenance()
+   334	                .filth_id()
+   335	                .find(row.id)
+   336	                .ok_or("Filth provenance is missing")?
+   337	                .source_character_id;
+   338	            Ok(Deposit {
+   339	                id: row.id,
+   340	                character_id,
+   341	                substance: row.substance,
+   342	                source_character_id,
+   343	                amount: row.amount,
+   344	                deposited_at: row.deposited_at,
+   345	                diseases,
+   346	            })
+   347	        })
+   348	        .collect()
+   349	}
+   350	
+   351	fn has_cut(ctx: &ReducerContext, character_id: u64) -> bool {
+   352	    ctx.db
+   353	        .limb_injury()
+   354	        .character_id()
+   355	        .filter(character_id)
+--- DEPOSIT-EXTENSION-REGISTRATION.json crates/adventuresim-stdb-module/src/filth.rs 95e63628f9d70b8dd6e6fede64334696c6995009 236-283 ---
+   236	    if substance == FilthSubstance::Blood
+   237	        && let Some(source) = source_character_id
+   238	    {
+   239	        let immunity = ctx
+   240	            .db
+   241	            .character_attributes()
+   242	            .character_id()
+   243	            .find(source)
+   244	            .map_or(3.0, |attributes| attributes.immunity);
+   245	        let mut seen = std::collections::BTreeSet::new();
+   246	        for episode in ctx.db.infection_episode().character_id().filter(source) {
+   247	            let disease_id = episode
+   248	                .disease_id
+   249	                .parse::<DiseaseId>()
+   250	                .map_err(|error| error.to_string())?;
+   251	            if !adventuresim_core::disease::definition(disease_id)
+   252	                .supports(adventuresim_core::disease::TransmissionVector::Blood)
+   253	                || episode.contracted_at > at
+   254	                || matches!(
+   255	                    adventuresim_core::disease::evaluate(
+   256	                        adventuresim_core::disease::InfectionEpisode {
+   257	                            id: episode.id,
+   258	                            character_id: source,
+   259	                            disease_id,
+   260	                            contracted_at: episode.contracted_at,
+   261	                            ruleset_version: episode.ruleset_version,
+   262	                            phenotype_key_version: episode.phenotype_key_version,
+   263	                        },
+   264	                        at,
+   265	                        immunity,
+   266	                    )
+   267	                    .stage,
+   268	                    adventuresim_core::disease::DiseaseStage::Resolved
+   269	                )
+   270	                || !seen.insert((disease_id as u8, episode.id))
+   271	            {
+   272	                continue;
+   273	            }
+   274	            ctx.db
+   275	                .filth_disease_snapshot()
+   276	                .insert(FilthDiseaseSnapshot {
+   277	                    id: 0,
+   278	                    filth_id: row.id,
+   279	                    disease_id: disease_id.stable_id().into(),
+   280	                    episode_id: episode.id,
+   281	                });
+   282	        }
+   283	    }
+--- MODULE-REGISTRATION.json crates/adventuresim-stdb-module/src/filth.rs 95e63628f9d70b8dd6e6fede64334696c6995009 125-150 ---
+   125	                    ((injury.cut_damage / per_day) * MINUTES_PER_DAY as f32)
+   126	                        .ceil()
+   127	                        .max(1.0) as u64,
+   128	                )
+   129	            } else {
+   130	                None
+   131	            };
+   132	            filth::TimedCutRoute {
+   133	                state,
+   134	                active_minutes,
+   135	            }
+   136	        })
+   137	        .collect())
+   138	}
+   139	
+   140	include!("filth/blood_attempts.rs");
+   141	
+   142	pub fn next_travel_dirt_boundary(ctx: &ReducerContext, character_id: u64) -> u64 {
+   143	    let remainder = ctx
+   144	        .db
+   145	        .travel_filth_progress()
+   146	        .character_id()
+   147	        .find(character_id)
+   148	        .map_or(0, |row| u64::from(row.remainder_numerator));
+   149	    (MINUTES_PER_DAY - remainder).div_ceil(8).max(1)
+   150	}

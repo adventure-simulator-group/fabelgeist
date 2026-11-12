@@ -1,0 +1,43 @@
+{
+  "schema": "726-post26e-import-receipt-v1",
+  "packets": [
+    {
+      "tag": "clock",
+      "manifest_sha256": "7c1fc9fcb2638bfb4b374cc6bfb7b1d6e4a5ba83219d2f68894e9988a1acfcf6",
+      "member_count": 31,
+      "archive_origin": "coordinator reconstructed normalized metadata; members byte-identical to agent packet",
+      "archive_sha256": "250c85cb742b9d7812b215e183803e55cb080ed12e3d77229a6833eda7a9f25e",
+      "archive_prefix": "bundle"
+    },
+    {
+      "tag": "clock-scan",
+      "manifest_sha256": "ccffaf46832f06039aba31db58ad9fe48800d50a22945cdfca59351d85d8b241",
+      "member_count": 8
+    },
+    {
+      "tag": "readiness",
+      "manifest_sha256": "bddc8ad1907350215db9ca4057a4c117d5bb0009db4a723c8a68f7d70901de33",
+      "member_count": 68,
+      "archive_origin": "agent exact archive",
+      "archive_sha256": "9f456dce7756e321865baac3fca9d688559f1d11a5bf4397f49b7c74c540fa2b",
+      "archive_prefix": "q2303"
+    },
+    {
+      "tag": "npy",
+      "manifest_sha256": "4e1b8e46c37b0a1f496c818dadd60ded51faf59b212ca73132545f3a6b3bbc7c",
+      "member_count": 65,
+      "archive_origin": "coordinator reconstructed normalized metadata; members byte-identical to agent packet",
+      "archive_sha256": "cae31741c9eda230ccf994cd3e02d72be5810aff5fe07e9ddfb7ccadae61aa1c",
+      "archive_prefix": "bundle"
+    },
+    {
+      "tag": "npz",
+      "manifest_sha256": "4495b62f3f35765d2e75b0a09401f778e81ece90c6a45f47c8a345e7ef8454ce",
+      "member_count": 70,
+      "archive_origin": "coordinator reconstructed normalized metadata; members byte-identical to agent packet",
+      "archive_sha256": "b01c8b9035cf5af00322e9dd364b184f0e99456c7e9b4ecc06d7420823b9ff32",
+      "archive_prefix": "bundle"
+    }
+  ],
+  "qualification": "Exact bytes checked on the same machine; normalized archive metadata is a coordinator reconstruction. Earlier failed prefix assumption is preserved separately. These checks do not prove general privacy or independent custody."
+}

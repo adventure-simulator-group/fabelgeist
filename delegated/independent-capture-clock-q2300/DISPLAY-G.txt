@@ -1,0 +1,93 @@
+capture:0401:         };
+capture:0402:         let Some(position) = sequence.fixture_root_position(
+capture:0403:             &terrain,
+capture:0404:             transform.translation,
+capture:0405:             &frame,
+capture:0406:             &motion,
+capture:0407:             *terrain_ik,
+capture:0408:         ) else {
+capture:0409:             return;
+capture:0410:         };
+capture:0411:         transform.translation = position.metres();
+capture:0412:         subject_motion::begin_capture_action(
+capture:0413:             &mut skeleton,
+capture:0414:             &frame,
+capture:0415:             sequence.simulation_tick,
+capture:0416:             attack_start_frame,
+capture:0417:         );
+capture:0418:         if let Err(error) = subject_motion::advance_capture_facing(
+capture:0419:             &skeleton,
+capture:0420:             &mut transform,
+capture:0421:             orientation,
+capture:0422:             world_velocity,
+capture:0423:             frame.action,
+capture:0424:             elapsed,
+capture:0425:         ) {
+capture:0426:             sequence.admission =
+capture:0427:                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+capture:0428:             return;
+capture:0429:         }
+capture:0430:         if frame.scenario.is(ScenarioId::FullRagdoll) {
+capture:0431:             let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
+capture:0432:                 return;
+capture:0433:             };
+capture:0434:             *transform = projected;
+capture:0435:         }
+capture:0436:         sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
+procedural_clock:0001: //! Presentation clock shared by procedural owners and deterministic tools.
+procedural_clock:0002: 
+procedural_clock:0003: use adventuresim_tactical_core::animation::AnimationElapsed;
+procedural_clock:0004: pub(in crate::animation) use adventuresim_tactical_core::animation::AnimationSampleTick;
+procedural_clock:0005: use bevy::prelude::*;
+procedural_clock:0006: 
+procedural_clock:0007: #[derive(Debug, Clone, Copy)]
+procedural_clock:0008: pub(crate) struct FixedAnimationStep {
+procedural_clock:0009:     pub(crate) tick: AnimationSampleTick,
+procedural_clock:0010:     pub(crate) delta_seconds: AnimationElapsed,
+procedural_clock:0011: }
+procedural_clock:0012: 
+procedural_clock:0013: /// Optional deterministic clock for tools that render the same simulation
+procedural_clock:0014: /// tick more than once. Gameplay leaves the override unset and advances from
+procedural_clock:0015: /// Bevy's render delta.
+procedural_clock:0016: #[derive(Resource, Debug, Clone, Copy, Default)]
+procedural_clock:0017: pub(crate) struct ProceduralAnimationClock {
+procedural_clock:0018:     pub(crate) fixed_tick: Option<FixedAnimationStep>,
+procedural_clock:0019: }
+procedural_clock:0020: 
+procedural_clock:0021: impl ProceduralAnimationClock {
+procedural_clock:0022:     pub(crate) fn set_fixed_step(
+procedural_clock:0023:         &mut self,
+procedural_clock:0024:         tick: AnimationSampleTick,
+procedural_clock:0025:         delta_seconds: AnimationElapsed,
+procedural_clock:0026:     ) {
+procedural_clock:0027:         self.fixed_tick = Some(FixedAnimationStep {
+procedural_clock:0028:             tick,
+procedural_clock:0029:             delta_seconds,
+procedural_clock:0030:         });
+procedural_clock:0031:     }
+procedural_clock:0032: 
+procedural_clock:0033:     pub(crate) fn fixed_step(&self) -> Option<FixedAnimationStep> {
+procedural_clock:0034:         self.fixed_tick
+procedural_clock:0035:     }
+procedural_clock:0036: }
+schedule:0010: };
+schedule:0011: use crate::camera::TacticalCameraSet;
+schedule:0012: use bevy::prelude::*;
+schedule:0013: 
+schedule:0014: pub(in crate::animation_viewer) struct CapturePlugin;
+schedule:0015: 
+schedule:0016: impl Plugin for CapturePlugin {
+schedule:0017:     fn build(&self, app: &mut App) {
+schedule:0018:         app.add_systems(Startup, setup_viewer)
+schedule:0019:             .add_systems(
+schedule:0020:                 PreUpdate,
+schedule:0021:                 (
+schedule:0022:                     drive_sequence.run_if(admission_is_open),
+schedule:0023:                     freeze_capture_look,
+schedule:0024:                 )
+schedule:0025:                     .chain(),
+schedule:0026:             )
+schedule:0027:             .add_systems(
+schedule:0028:                 PostUpdate,
+schedule:0029:                 position_capture_camera
+schedule:0030:                     .after(TacticalCameraSet::Offset)

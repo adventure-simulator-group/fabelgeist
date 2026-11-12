@@ -1,0 +1,12 @@
+{
+  "schema": "726-post26e-optional-followup-check-v1",
+  "verifier": "verify_post26e_followups.py",
+  "verifier_sha256": "80f3c335bb9aa03613949c3bacfc6baaf50f722c1d51e16488b3b2b755f434a0",
+  "transcript": "VERIFICATION.log",
+  "transcript_bytes": 2509,
+  "transcript_sha256": "81132d271a4f06378b4c8d891d97d79ef69e7f80f04edd35217e3191eb588d3e",
+  "exit": 0,
+  "procedure": "The coordinator ran the evidence-only successor with local Git and the original protected 059 queue supplied read-only. The command checked the selected 26e ledger/queue records, original queue slices and additional commit bindings; source semantic correctness and product behavior are separate.",
+  "qualification": "The transcript does not embed the checkout or protected queue identity; these were observed separately on the same machine. It is not independent custody, complete privacy or a product validation. The bounded scan covers this transcript only.",
+  "product_validation": "not performed"
+}

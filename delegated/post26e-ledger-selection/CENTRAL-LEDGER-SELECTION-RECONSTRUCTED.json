@@ -1,0 +1,74 @@
+{
+  "entries": [
+    {
+      "index": 200,
+      "value": {
+        "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+        "lens": 7,
+        "severity": "unassigned; conditional sample-rate timestamp divergence in source, no report or visual result",
+        "classification": "New current-source capture timestamp and sample-rate authority candidate; global alias reconciliation remains open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+          "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json",
+          "baseline-059/queue.json#/entries/1245 (earlier non-64-Hz UI/playback question, original revision)"
+        ],
+        "relationship_qualification": "Newly traced conditional current scenario timestamp case connected to an earlier fixed-64-Hz presentation question; exact alias, final checkpoint 3821 and global reconciliation remain unavailable.",
+        "discovery": "partial; full scenario inventory, report presentation policy and global aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+          "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-13T-95E.json"
+        ]
+      }
+    },
+    {
+      "index": 197,
+      "value": {
+        "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+        "lens": 5,
+        "severity": "unassigned; conditional source-level liveness, actual asset failure unobserved",
+        "classification": "New current-source readiness liveness candidate connected to an earlier Lens12 question; no viewer was run and global aliases remain open.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/1214 (earlier readiness/native timeout question)",
+          "historical role 1418 in ASSESSMENT-L01-HISTORICAL-1417-1421.json"
+        ],
+        "relationship_qualification": "Conditional current liveness candidate; final checkpoint 3821 and global alias reconciliation remain unavailable.",
+        "discovery": "partial; actual asset state, timing policy and aliases open",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CAPTURE-READINESS-COMPARISON-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        ]
+      }
+    },
+    {
+      "index": 446,
+      "value": {
+        "id": "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          4,
+          8,
+          13
+        ],
+        "severity": "unassigned; extreme-horizon arithmetic",
+        "classification": "Original cumulative daily-share finding reconnected to restorative leisure and injury recovery; premature multiplication saturation can erase a representable interval at an extreme minute.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/132",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC"
+        ],
+        "relationship_qualification": "Original Adler338 accepted finding, current example and consumer newly traced; no historical count change or3821 attribution. Actual horizon remains open.",
+        "discovery": "partial; symbolic full-day share and selected recovery path traced; actual clock admission, other consumers and aliases remain open",
+        "connected_repair_direction": "Preserve full-precision cumulative allocation before explicit final overflow policy, coordinated with strategic time and duration owners.",
+        "future_acceptance": "After authorization, cover zero, full and half-day shares, chunk telescoping, representable extreme intermediates and final overflow policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CALENDAR-ECONOMY-95E.json"
+      }
+    }
+  ]
+}

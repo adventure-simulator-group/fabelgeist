@@ -1,0 +1,85 @@
+=== crates/fabelgeist-numpy-storage/src/npy/metadata.rs 91..174 ===
+  91 |                 elements = elements.checked_mul(dimension.0).ok_or_else(|| {
+  92 |                     NpyLayoutError::ElementCountOverflow {
+  93 |                         dimensions: dimensions.to_vec(),
+  94 |                     }
+  95 |                 })?;
+  96 |             }
+  97 |         }
+  98 |         Ok(Self(elements))
+  99 |     }
+ 100 | 
+ 101 |     /// Admits a native collection cardinality at its source boundary.
+ 102 |     pub const fn new(elements: usize) -> Self {
+ 103 |         Self(elements)
+ 104 |     }
+ 105 | 
+ 106 |     pub fn checked_mul(self, other: Self) -> Option<Self> {
+ 107 |         self.0.checked_mul(other.0).map(Self)
+ 108 |     }
+ 109 | 
+ 110 |     pub fn is_empty(self) -> bool {
+ 111 |         self.0 == 0
+ 112 |     }
+ 113 |     pub fn payload_length(self, dtype: Dtype) -> Result<NpyPayloadLength> {
+ 114 |         let width = dtype.storage_width();
+ 115 |         self.0
+ 116 |             .checked_mul(width.native_width())
+ 117 |             .map(NpyPayloadLength)
+ 118 |             .ok_or(NpyLayoutError::PayloadLengthOverflow {
+ 119 |                 elements: self,
+ 120 |                 width,
+ 121 |             })
+ 122 |     }
+ 123 | }
+ 124 | impl NpyElementWidth {
+ 125 |     /// Native byte width used by checked serialized-payload arithmetic.
+ 126 |     pub(super) fn native_width(self) -> usize {
+ 127 |         match self {
+ 128 |             Self::Byte => 1,
+ 129 |             Self::Word32 => 4,
+ 130 |             Self::Word64 => 8,
+ 131 |         }
+ 132 |     }
+ 133 | }
+ 134 | impl NpyPayloadLength {
+ 135 |     /// The narrow native serialization adapter, preserving trailing-file policy.
+ 136 |     pub(super) fn admit(self, payload: &[u8]) -> Result<&[u8]> {
+ 137 |         payload
+ 138 |             .get(..self.0)
+ 139 |             .ok_or(NpyLayoutError::TruncatedPayload {
+ 140 |                 expected: self,
+ 141 |                 available: Self(payload.len()),
+ 142 |             })
+ 143 |     }
+ 144 | }
+ 145 | impl TryFrom<Vec<NpyDimension>> for NpyShape {
+ 146 |     type Error = NpyLayoutError;
+ 147 |     fn try_from(dimensions: Vec<NpyDimension>) -> std::result::Result<Self, NpyLayoutError> {
+ 148 |         let elements = NpyElementCount::from_dimensions(&dimensions)?;
+ 149 |         Ok(Self {
+ 150 |             dimensions,
+ 151 |             elements,
+ 152 |         })
+ 153 |     }
+ 154 | }
+ 155 | impl NpyShape {
+ 156 |     pub fn dimensions(&self) -> &[NpyDimension] {
+ 157 |         &self.dimensions
+ 158 |     }
+ 159 |     pub fn rank(&self) -> NpyRank {
+ 160 |         NpyRank::from(self.dimensions.len())
+ 161 |     }
+ 162 |     pub fn element_count(&self) -> NpyElementCount {
+ 163 |         self.elements
+ 164 |     }
+ 165 | }
+ 166 | impl std::fmt::Debug for NpyShape {
+ 167 |     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+ 168 |         f.debug_list()
+ 169 |             .entries(self.dimensions.iter().copied().map(usize::from))
+ 170 |             .finish()
+ 171 |     }
+ 172 | }
+ 173 | #[cfg(test)]
+ 174 | mod tests;

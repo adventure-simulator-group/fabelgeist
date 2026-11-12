@@ -1,0 +1,69 @@
+{
+  "schema": "726-npz-q2307-history-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T14:05:35.966259+00:00",
+  "registrations": {
+    "HISTORY-REGISTRATION.json": "928219cd52399672c49652fc8a3aa0b11e02ef84e7169fd2525812d8e0b7443d",
+    "METADATA-HISTORY-REGISTRATION.json": "1ce401070aecee16f4101543e408f4ea9e08c2638769b835dbba051a097ecf0d",
+    "RELATED-HISTORY-REGISTRATION.json": "5f1013d8ae1c27d48867f2e75b90db23813492f1c97773fd8b10eec0f40646a2"
+  },
+  "views": [
+    {
+      "file": "HISTORY-DISPLAY-A.txt",
+      "sha256": "57e21b0f5e20e6df34de3a49472d2d447b10bdbcdcb5fe39db63c21f4ee57b38",
+      "bytes": 5030,
+      "observed_mtime_utc": "2026-11-12T14:00:37.647700+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-B.txt",
+      "sha256": "56e8eefcfb695d8423c8fa1b284c6d87abd7a8dd4fe230f546eb1c97addce054",
+      "bytes": 4467,
+      "observed_mtime_utc": "2026-11-12T14:00:42.057905+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-C.txt",
+      "sha256": "09f4d6ebcc0ee2bd8e0006c333b9417094d6764cb4316a997569b4a18bb964eb",
+      "bytes": 4747,
+      "observed_mtime_utc": "2026-11-12T14:00:45.590328+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-D.txt",
+      "sha256": "902ee5509c071ea2020f60b6f4d8d3e66c71b866a1a158df46b1fe940b824992",
+      "bytes": 7875,
+      "observed_mtime_utc": "2026-11-12T14:00:48.425172+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-A.json",
+      "sha256": "7e40b1d042c8da86d52191e7b3e985c4750a851d13e3114ad9a6512fd01babee",
+      "bytes": 4827,
+      "observed_mtime_utc": "2026-11-12T14:04:11.702667+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-B.json",
+      "sha256": "50d22ab48d755e002f27e8ec98faea05609fa670a96ec34f01e0d379f6ce3bf8",
+      "bytes": 5057,
+      "observed_mtime_utc": "2026-11-12T14:04:17.686475+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-C.json",
+      "sha256": "7b2876f4f1840a0760082976e951fe09730e43cca701332f0f5ff4f1bb185ecf",
+      "bytes": 8120,
+      "observed_mtime_utc": "2026-11-12T14:04:25.749486+00:00"
+    },
+    {
+      "file": "RELATED-HISTORY-DISPLAY.json",
+      "sha256": "3066346006174823a0255325e27b1f5e5122e1df3981eea9c5772197d443af8d",
+      "bytes": 6982,
+      "observed_mtime_utc": "2026-11-12T14:02:39.483877+00:00"
+    }
+  ],
+  "original_q2307_displayed_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "reconstructed_q2307_displayed_ranges": [],
+  "other_views": "READ-171 rows0-7 and displayed metadata; READ-707 source revision, target, reconciliation status, accepted count and dispositions; proposal contract_updates[7] selected fields; the nine RELATED-HISTORY-DISPLAY projections show only their explicitly registered fields. Other historical bodies remain unread personally. JSON projection displays are reconstructed; their corresponding original 059 files or exact entry slices are retained.",
+  "qualification": "All eight views were displayed without tool truncation after corresponding registrations. Original and reconstructed q2307 slices are byte equal, but only original was displayed. No original-file or current source read credit transfers from byte identity."
+}

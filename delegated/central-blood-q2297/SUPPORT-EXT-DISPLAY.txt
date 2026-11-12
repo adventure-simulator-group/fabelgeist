@@ -1,0 +1,64 @@
+   1 //! Framework-neutral strategic filth, exposure, and automatic washing rules.
+   2 
+   3 use crate::disease::{DiseaseId, TransmissionVector, definition};
+   4 use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+   5 use serde::{Deserialize, Serialize};
+   6 
+   7 /// The character sheet meter is deliberately bounded and deposits are clipped.
+   8 pub const MAX_FILTH: u16 = 100;
+   9 /// One whole unit of soft soap removes this much filth. Unused capacity is lost.
+  10 pub const SOAP_CLEANSING_CAPACITY: u16 = 25;
+  11 /// Blood remains visible, but its disease exposure falls linearly to zero after two days.
+  12 pub const BLOOD_INFECTIOUS_MINUTES: u64 = 2 * MINUTES_PER_DAY;
+  13 pub const TRAVEL_DIRT_PER_DAY: f32 = 8.0;
+  14 pub const COMBAT_DIRT: u16 = 10;
+  15 
+  16 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  17 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+  18 pub enum FilthSubstance {
+  19     Dirt,
+  20     Blood,
+  21 }
+  22 
+  23 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+  24 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb::SpacetimeType))]
+  25 pub enum FilthOrigin {
+  26     Own,
+  27     Foreign,
+  28     Unknown,
+  29 }
+  30 
+  31 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  32 pub struct DiseaseSnapshot {
+  33     pub disease_id: DiseaseId,
+  34     pub episode_id: u64,
+  35 }
+  36 
+  37 #[derive(Clone, Debug, PartialEq, Eq)]
+  38 pub struct Deposit {
+  39     pub id: u64,
+  40     pub character_id: u64,
+  41     pub substance: FilthSubstance,
+  42     pub source_character_id: Option<u64>,
+  43     pub amount: u16,
+  44     pub deposited_at: StrategicMinute,
+  45     pub diseases: Vec<DiseaseSnapshot>,
+  46 }
+  47 
+  48 impl Deposit {
+  49     pub fn foreign_blood(&self) -> bool {
+  50         self.substance == FilthSubstance::Blood
+  51             && self.source_character_id != Some(self.character_id)
+  52     }
+  53 
+  54     pub fn compatible_diseased_blood(&self) -> bool {
+  55         self.substance == FilthSubstance::Blood
+  56             && self
+  57                 .diseases
+  58                 .iter()
+  59                 .any(|d| definition(d.disease_id).supports(TransmissionVector::Blood))
+  60     }
+  61 }
+  62 
+  63 pub fn bounded_deposit_amount(existing: u16, requested: u16) -> u16 {
+  64     requested.min(MAX_FILTH.saturating_sub(existing.min(MAX_FILTH)))

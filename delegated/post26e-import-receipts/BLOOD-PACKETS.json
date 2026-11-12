@@ -1,0 +1,22 @@
+{
+  "schema": "726-post26e-blood-import-receipt-v1",
+  "packets": [
+    {
+      "tag": "coordinator",
+      "manifest_sha256": "4e860fbe18d34632f2096ba9e0812d8e904aac21b462455f02f0b7a6c6c9bd2c",
+      "file_count": 76,
+      "archive_sha256": "eb94b5c90ef95f19f8750edcdaf9bd3fd07957f2e5594f3cffd0d54253bc1068",
+      "archive_prefix": "bundle",
+      "archive_origin": "coordinator reconstructed normalized archive metadata"
+    },
+    {
+      "tag": "independent",
+      "manifest_sha256": "52bd61b391ef1e3690b19a977f9a36db9529f9b0229eb98289f28ef7763cf56e",
+      "file_count": 79,
+      "archive_sha256": "04dc189fc797fc94cb4ed0010ef78f0138f9ce637e1576deaa57f9a6b79bf00d",
+      "archive_prefix": "q2297",
+      "archive_origin": "agent exact archive"
+    }
+  ],
+  "qualification": "Exact files and archives compared on same machine; no independent custody, semantic closure or full privacy asserted."
+}

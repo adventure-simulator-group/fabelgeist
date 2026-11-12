@@ -1,0 +1,68 @@
+{
+  "schema": "726-bounded-q2303-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "scope": "Source-only reconciliation of 059 queue entry 2303 and its directly related pre-application wait records against pinned 95e; this is not independent closure of a queue, lens, or parent contract.",
+  "revisions": {
+    "current_committed_source": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_review_source": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "historical_queue_transport": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2303",
+    "related_historical_queue": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/1214",
+    "ledger_record_revision": "See LEDGER-REGISTRATION.json; this committed publication ledger is not the product-source revision or a mutable working-tree snapshot."
+  },
+  "historical_attribution_and_identity": {
+    "record": "REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT",
+    "historical_disposition": "The recovered 059 record says rejected-suspicion-source-qualified and says audit discovery was closed only in its exact named scope. Preserve that historical status as recorded; it is not a current global clearance or runtime pass.",
+    "parallel_reviewer": "The recovered records attribute fresh, personal, untruncated e275 reads to parallel lens11_reconcile: capture/readiness.rs 1–32 (PLAN-190 /rows/1 and READ-169 /rows/1), capture.rs 169–526, 799–822, 900–1021 (PLAN-189 /rows/0 and READ-168 /rows/0).",
+    "root_adoption": "The proposal and queue's quoted attribution retain 'root adoption pending'; separate root READ-L11-704 and READ-L11-705 and their VERIFY files record adoption of PL11-1092 and PL11-1094 respectively without a new root body reread. Both stages and their different wording are preserved, not flattened.",
+    "object_comparison": "For these two named files only, e275 and 95e have identical Git blob and SHA-256 identities; GIT-TREE-PROOFS.json records separate tree chains. This does not establish a clean or identical entire tree, identical surrounding dependencies, historical personal read credit at 95e, or checkpoint3821 evidence.",
+    "exact_recovery": "Nine exact PLAN/READ/VERIFY/proposal files, checked against the q2303 SHA-256 values, are in history-exact/. The two selected queue entries are reconstructed JSON values with full original queue SHA and Git identity recorded; the 21.6 MB original queue stream is deliberately not copied because it includes unrelated local paths. The prior assessment is an exact committed source record in prior/.",
+    "limitations": "No 3821 queue or ledger is inferred or reconstructed. No original e275 body has been personally redisplayed as a historical read by this reviewer; identical bytes retained as the separately registered 95e read provide per-file object comparison only."
+  },
+  "source_assessment": [
+    {
+      "id": "Q2303-NARROW-GATE",
+      "type": "qualified source safeguard; not a new defect or closure",
+      "source": ["capture/readiness.rs:6–30", "capture.rs:213–238, 450–464", "capture/admission.rs:119–130", "capture/capture_schedule.rs:16–25"],
+      "analysis": "For an open, driveable sequence that reaches ready_for_frame, a positive warmup counter is decremented and returns false before applied is set. On scenario_frame zero only, when required_motion returns Some, missing processed motion or a false presentation predicate resets motion_ready_frames and returns false; two successful readiness calls are required before true. The shown drive sets applied only after ready_for_frame returns true. A missing subject playback and a non-FullRagdoll unready authored pose separately return before this point.",
+      "qualification": "The required-motion/two-success branch is conditional, not universal to every frame; two successful calls are not independently proven to represent two rendered or visually settled frames. We did not run scheduling, the viewer, a fixture, or a capture."
+    },
+    {
+      "id": "Q2303-PREDICATE-AND-PROGRESSION-LIMITS",
+      "type": "semantic qualification of the same scoped source claim; alias and policy open",
+      "source": ["animation/mod.rs:254–261", "animation/playback_state.rs:84–91", "capture.rs:219–237, 363–449", "capture/readiness.rs:16–30"],
+      "analysis": "motion_is_processed tests for any loaded clip key matching a MotionId, while presentation_is_settled currently delegates to authored_pose_is_ready, whose test is that the plan is not bind. These source predicates alone do not establish that the observed playback is the required clip on the intended rig, or establish visual settling. Before testing the readiness result, the shown driver can update simulation tick, skeleton/transform and motion state; the applied gate therefore does not mean that no state change occurs before acceptance.",
+      "qualification": "Required-motion selection, legitimate multiple packs/rigs, visual-settling policy, allowed pre-application updates, subject cardinality and scheduler behavior require owner evidence. The original q2303 claim of no early application must not be silently broadened into a stronger motion-identity or visual outcome claim."
+    },
+    {
+      "id": "REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001",
+      "type": "existing separately attributed current conditional candidate, not a new duplicate",
+      "source": ["capture.rs:232–237, 450–451, 559–604, 900–913", "capture/capture_schedule.rs:39–50", "harness.rs:204–220, 263–329", "animation_viewer/mod.rs:70"],
+      "analysis": "If an otherwise driveable selected frame persistently returns before applied because playback or a required motion never becomes ready, capture_frame's !applied return precedes its wait_or_fail counter. With no armor harness, ArmorCapture starts ready and update_readiness returns; with a configured harness, its separate 1,200-frame timeout increments only when equipment is not ready and is not preparing, and an explicit equipment failure follows its own error path. These facts do not show that all independent process or external watchdogs are absent.",
+      "prior_record": "The exact committed prior assessment in prior/ and the separately selected ledger row already own this conditional candidate. Original 059 q1214 is an open, less-resolved readiness/native-failure question, not a newly discovered duplicate. No inference of actual missing assets, an unbounded whole-program wait, defect count, or absent external watchdog is warranted."
+    }
+  ],
+  "scope_perspectives": {
+    "admission_contracts": "Selected driveable/admission and harness gates are shown; supported input and subject multiplicity remain open.",
+    "aggregate_states": "The relationship between required motion ID, selected playback plan and rig is not established by the two predicates alone.",
+    "behavior_preservation": "No implementation or runtime comparison occurred; intended loading and warmup semantics remain policy questions.",
+    "derivability": "No bounded evidence establishes a derivability change or whole-project finding.",
+    "enum_shapes": "The FullRagdoll exemption is visible; completeness of scenario variant handling is outside scope.",
+    "existing_type_owners": "The selected methods and sequence are traced; repository-wide type reuse was not examined.",
+    "invariant_operations": "Warmup decrement and two-success counter gate the selected path; actual scheduling and potential pre-gate state updates remain distinct.",
+    "magic_numbers": "The equipment timeout limit is 1,200 frames and the readiness threshold is two calls; design justification is not established.",
+    "magic_strings": "No repository-wide string audit was performed.",
+    "producer_propagation": "Processed clip IDs and playback readiness reach the driver, but exact selected-playback identity is unresolved.",
+    "redundant_authority": "Equipment, frame readiness and capture wait counters are separate authorities; their interaction with any external watchdog remains open.",
+    "type_granularity": "Counter calls, scheduled frames and rendered/presented outcomes cannot be treated as the same fact from the selected source alone.",
+    "type_ownership": "CaptureSequence, animation runtime and armor harness are scoped owners in this trace; no global ownership decision is made."
+  },
+  "open_questions": [
+    "Do supported callers guarantee that the ready playback belongs to the required motion and intended rig; is a non-bind plan sufficient for the intended meaning of presentation settled?",
+    "Should readiness calls correspond to actual presentation/render observations, and are pre-applied tick, transform and motion updates intentional?",
+    "What external startup or process watchdogs, asset-failure propagation, loading policies, and scheduling paths bound a persistent pre-applied wait?",
+    "What are the valid subject-cardinality and optional-motion policies, and which of the related q1214/current ledger relationships are genuine aliases?",
+    "How does independently unavailable checkpoint3821 affect recovery, and what remains before any queue or lens disposition can be adopted by the coordinator?"
+  ],
+  "read_scope_and_errors": "READ-RECEIPTS.json records registered actual display chunks, their union and every unread complement. Full body storage and Git hashing do not establish full read credit. The earlier unregistered ledger rg/sed preview is explicitly retained in LEDGER-REGISTRATION.json and not counted; the registered committed record was subsequently redisplayed. Navigation produced names or token line numbers only. The history selected displays and prior assessment are separately receipted. No known truncated source display or other failed read is asserted; any tests visible in source were only read as text.",
+  "limits": "Static source and evidence identity checks only. No product/fixture/shader execution, viewer/capture, builds, tests, runtime probes, implementation, publication mutation or protected extraction mutation. No authorization for future runtime work is implied."
+}

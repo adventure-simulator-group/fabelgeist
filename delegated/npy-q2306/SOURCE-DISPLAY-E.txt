@@ -1,0 +1,91 @@
+=== crates/fabelgeist-numpy-storage/src/npy/metadata.rs 1..90 ===
+   1 | //! Array axes, checked element counts, payload length, and fixed-rank SDK layout.
+   2 | use derive_more::{Display, Error, From, Into};
+   3 | 
+   4 | use super::Dtype;
+   5 | 
+   6 | pub type Result<T> = std::result::Result<T, NpyLayoutError>;
+   7 | 
+   8 | #[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From, Into)]
+   9 | pub struct NpyDimension(usize);
+  10 | 
+  11 | #[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From)]
+  12 | pub struct NpyRank(usize);
+  13 | 
+  14 | #[derive(Clone, Copy, Debug, Display, PartialEq, Eq, From, Into)]
+  15 | pub struct NpyElementCount(usize);
+  16 | 
+  17 | /// Byte length of the serialized array's element payload, separate from its
+  18 | /// logical element count. Native slices are admitted only at format decoding.
+  19 | #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  20 | pub struct NpyPayloadLength(usize);
+  21 | 
+  22 | /// Immutable dimensions and their admitted product. A rank-zero scalar contains
+  23 | /// one element; any zero axis makes an array empty before other products overflow.
+  24 | #[derive(Clone, PartialEq, Eq)]
+  25 | pub struct NpyShape {
+  26 |     dimensions: Vec<NpyDimension>,
+  27 |     elements: NpyElementCount,
+  28 | }
+  29 | #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  30 | pub enum NpyElementWidth {
+  31 |     Byte,
+  32 |     Word32,
+  33 |     Word64,
+  34 | }
+  35 | 
+  36 | #[derive(Debug, Display, Error)]
+  37 | pub enum NpyLayoutError {
+  38 |     #[display("NumPy element count overflows the storage layout")]
+  39 |     ElementCountOverflow { dimensions: Vec<NpyDimension> },
+  40 |     #[display("NumPy dimensions overflow the tensor framework shape arithmetic")]
+  41 |     NativeShapeOverflow { dimensions: Vec<NpyDimension> },
+  42 |     #[display("NumPy payload length overflows the storage layout")]
+  43 |     PayloadLengthOverflow {
+  44 |         elements: NpyElementCount,
+  45 |         width: NpyElementWidth,
+  46 |     },
+  47 |     #[display("truncated .npy payload")]
+  48 |     TruncatedPayload {
+  49 |         expected: NpyPayloadLength,
+  50 |         available: NpyPayloadLength,
+  51 |     },
+  52 |     #[display("array has {actual} dimensions, expected {expected}")]
+  53 |     Rank {
+  54 |         expected: NpyRank,
+  55 |         actual: NpyRank,
+  56 |         source: std::array::TryFromSliceError,
+  57 |     },
+  58 |     #[display("tensor layout requires {expected} values, received {actual}")]
+  59 |     ValueCount {
+  60 |         expected: NpyElementCount,
+  61 |         actual: NpyElementCount,
+  62 |     },
+  63 | }
+  64 | impl NpyDimension {
+  65 |     /// Admits a native array extent, including zero, at a decoder or literal.
+  66 |     pub const fn new(dimension: usize) -> Self {
+  67 |         Self(dimension)
+  68 |     }
+  69 | 
+  70 |     pub fn checked_add(self, other: Self) -> Option<Self> {
+  71 |         self.0.checked_add(other.0).map(Self)
+  72 |     }
+  73 | 
+  74 |     pub fn checked_sub(self, other: Self) -> Option<Self> {
+  75 |         self.0.checked_sub(other.0).map(Self)
+  76 |     }
+  77 | 
+  78 |     pub fn checked_mul(self, other: Self) -> Option<Self> {
+  79 |         self.0.checked_mul(other.0).map(Self)
+  80 |     }
+  81 | }
+  82 | 
+  83 | impl NpyElementCount {
+  84 |     /// Admits the literal element product once, with zero axes taking priority.
+  85 |     pub(super) fn from_dimensions(dimensions: &[NpyDimension]) -> Result<Self> {
+  86 |         let mut elements = 1usize;
+  87 |         if dimensions.contains(&NpyDimension(0)) {
+  88 |             elements = 0;
+  89 |         } else {
+  90 |             for dimension in dimensions {

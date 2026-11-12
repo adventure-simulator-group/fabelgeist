@@ -1,0 +1,71 @@
+{
+  "scenario_assessment": {
+    "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "scope": "Five historical scenario bodies and two conditional current configuration/time candidates, plus bounded selection and terrain-policy connections.",
+    "selected_finding": {
+      "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+      "classification": "New current-source capture timestamp and sample-rate authority candidate; global alias reconciliation remains open.",
+      "trace": "The selected YAML sample_hz is a checked positive AnimationSampleRate and is installed into the runtime snapshot. capture_fixed_clock and capture_frame_elapsed derive the logical fixed interval from that rate. Most scenario constructors record scenario_frame divided by the active rate, but turning_scenario, dynamics_turn_scenario and guard_plant_turn_scenario set time_seconds from frame / 64.0. capture_frame copies this authored value into FrameSample; jitter_frames copies it again, and jitter dt divides observed changes by adjacent timestamp differences. Other report metrics use those same times for durations or facing tracking.",
+      "symbolic_case": "With a supported alternate sample_hz = 32.0 and all other canonical settings retained, the selected turn scenario has 65 frames numbered 0 through 64. Its source records frame 64 at 1.0 seconds, while the 64 logical sample intervals from frame 0 to 64 at the active interval 1/32 seconds sum to 2.0 seconds, excluding warmup and wall-clock waiting. Adjacent recorded deltas are 1/64 rather than 1/32. For the same finite measured position change, the selected derivative division would use a denominator half as large; actual bones, incidents and report acceptance have not been produced. At canonical 64 Hz these particular timestamp intervals agree.",
+      "connected_presentation": "The manifest records the active sample_hz, while the HTML playback timer and descriptive text explicitly use 64 Hz. At non-64 rates this is a separate presentation consumer of the same rate question; its policy and exact alias are not assumed settled by the timestamp finding. Earlier 059 queue entry 1245 independently identified the non-64-Hz UI/playback question at its original historical revision; it did not establish this 95e timestamp chain or close the alias question.",
+      "first_failed_contract": "A captured sample timestamp used for elapsed-time metrics must represent the logical interval actually advanced by the selected capture clock, or be explicitly named as normalized scenario progress.",
+      "canonical_owner": "Selected AnimationSampleRate and its derived scenario sample-time/clock boundary, with report playback as a connected consumer.",
+      "discovery": "partial; full scenario inventory, report presentation policy and global aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    "remaining": "Actual selected YAML use, native fixture/physics/report outcomes, complete scenario and config owners, exact aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing."
+  },
+  "p16_report": {
+    "author": "/root/mhr_character",
+    "scope": {
+      "original_roles": [
+        2510,
+        2557
+      ],
+      "source_family": "P16 body-response quantities and animation sampling-rate owner",
+      "authoritative_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "recorded_dirty_base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "qualification": "Original P16 is a dirty frozen delta, f82 is object archive transport, and the complete dirty patch is not recovered. These two individual objects independently equal their a120 and 95e path bytes; this does not identify the whole snapshot as clean.",
+      "original_role_ranges": {
+        "2510": [
+          [
+            1,
+            85
+          ],
+          [
+            124,
+            147
+          ]
+        ],
+        "2557": [
+          [
+            1,
+            43
+          ]
+        ]
+      },
+      "expanded_qualification": "Both roles were personally displayed in full at old/current separately after registration. Lines beyond original ordered scopes are newly assessed source, not retrospective original review credit. Native 774 separately registered sample_rate 1–86 with its own admission qualification."
+    },
+    "selected_findings": [
+      {
+        "id": "P16-POSE-BAKE-UNBOUNDED-GRID-WORK",
+        "kind": "conditional current source work-bound candidate",
+        "first_contract": "AnimationSampleRate admits a finite positive hertz value when its f32 reciprocal is a positive finite duration. PoseBufferConfig separately admits a positive minimum bake duration and its displayed validation does not bound their product. bake_clip checks that duration/interval is finite and fits usize, then samples every frame into three vectors for every joint; representability is not a practical work or memory bound.",
+        "condition": "For example, a validated configuration can contain pose sample_hz 1e9 and a minimum grid duration of 1 second, giving on the order of one billion samples per channel per joint while remaining below the usize representability check on ordinary 32-/64-bit targets. A successfully loaded finite-duration clip with at least one joint must reach baking, and platform/resource behavior is not observed. No configuration, fixture, product or runtime probe was executed.",
+        "relationships": [
+          "Related to 059 Q-L1-aad423b852c6981cae42 on baked-grid admission and broader sample-rate/current producer obligations, but a resource budget is a separate condition from nonfinite/usize overflow; root determines exact repair identity. No alias inferred solely from another unbounded geometric-work issue."
+        ]
+      },
+      {
+        "id": "P16-SAMPLE-RATE-SPAN-CONVERSION",
+        "kind": "open supported-domain and error-propagation question",
+        "first_contract": "AnimationSampleSpan stores a u64 and duration conversion deliberately casts the sample count to f32 before division by hertz, then re-admits elapsed time. Distinct large counts can therefore round to the same f32, and sufficiently large spans at sufficiently low valid sample rates can yield a nonfinite duration and return an error. The displayed AttackFacing caller propagates that error.",
+        "condition": "The actual supported range of active deadline spans, sample rates and failure policy is not established; this source behavior alone does not demonstrate a product failure. Zero spans remain valid and reciprocal construction is checked.",
+        "relationships": [
+          "059 Adler READ-L11-260 already preserved count-before-division and left large-span/low-rate caller behavior open; this bounded current consumer connection does not promote that historical read or close the queue."
+        ]
+      }
+    ]
+  }
+}

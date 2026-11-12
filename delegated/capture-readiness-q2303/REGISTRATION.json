@@ -1,0 +1,61 @@
+{
+  "schema": "726-q2303-source-registration-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:47:21.590410+00:00",
+  "scope": "Independent pinned current capture readiness, warmup, driver and scheduling source windows.",
+  "entries": [
+    {
+      "tag": "readiness",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "git_blob": "eec1d6b4523b72869aa7cca4aae4fbb21a5cb78c",
+      "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "bytes": 954,
+      "eof": 32,
+      "capture": "sources/readiness.rs",
+      "planned_ranges": [
+        [
+          1,
+          32
+        ]
+      ]
+    },
+    {
+      "tag": "capture",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "eof": 1021,
+      "capture": "sources/capture.rs",
+      "planned_ranges": [
+        [
+          1,
+          168
+        ],
+        [
+          169,
+          526
+        ]
+      ]
+    },
+    {
+      "tag": "schedule",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "eof": 57,
+      "capture": "sources/schedule.rs",
+      "planned_ranges": [
+        [
+          1,
+          57
+        ]
+      ]
+    }
+  ],
+  "qualification": "Prospectively registered personal displays. Full source captures prove Git identity only; original historic and prior reviewers retain attribution. No product execution."
+}

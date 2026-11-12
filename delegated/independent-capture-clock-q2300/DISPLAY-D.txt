@@ -1,0 +1,107 @@
+main:0068: fn main() {
+main:0069:     let args = Args::parse();
+main:0070:     let combat_config_path = if args.combat_config.is_absolute() {
+main:0071:         args.combat_config.clone()
+main:0072:     } else {
+main:0073:         std::env::current_dir()
+main:0074:             .expect("animation viewer needs a working directory")
+main:0075:             .join(&args.combat_config)
+main:0076:     };
+main:0077:     let combat_config_text = std::fs::read_to_string(&combat_config_path).unwrap_or_else(|error| {
+main:0078:         panic!(
+main:0079:             "could not read animation tuning {}: {error}",
+main:0080:             combat_config_path.display()
+main:0081:         )
+main:0082:     });
+main:0083:     let combat_config: adventuresim_tactical_core::combat_config::TacticalCombatConfig =
+main:0084:         serde_saphyr::from_str(&combat_config_text).unwrap_or_else(|error| {
+main:0085:             panic!(
+main:0086:                 "{} is not valid tactical combat YAML: {error}",
+main:0087:                 combat_config_path.display()
+main:0088:             )
+main:0089:         });
+main:0090:     let fixed_clock =
+main:0091:         match animation_viewer::capture_fixed_clock(combat_config.animation.locomotion.sample_hz) {
+main:0092:             Ok(clock) => clock,
+main:0093:             Err(error) => {
+main:0094:                 eprintln!("animation viewer could not construct its fixed clock: {error}");
+main:0095:                 std::process::exit(1);
+main:0096:             }
+main:0097:         };
+main:0098:     combat_config
+main:0099:         .install_runtime_snapshot()
+main:0100:         .unwrap_or_else(|error| panic!("{}: {error}", combat_config_path.display()));
+main:0101:     let asset_root = if args.asset_root.is_absolute() {
+main:0102:         args.asset_root
+main:0103:     } else {
+main:0104:         std::env::current_dir()
+main:0105:             .expect("animation viewer needs a working directory")
+viewer:0089: pub(crate) fn run(options: CaptureOptions, fixed_clock: Time<Fixed>) -> AppExit {
+viewer:0090:     let CaptureOptions {
+viewer:0091:         output,
+viewer:0092:         asset_root,
+viewer:0093:         settle_frames,
+viewer:0094:         scenario,
+viewer:0095:         combat_config,
+viewer:0096:         body_proportions,
+viewer:0097:         armor_harness,
+viewer:0098:         hidden,
+viewer:0099:         inspection,
+viewer:0100:     } = options;
+viewer:0121:     App::new()
+viewer:0122:         .insert_resource(combat_config)
+viewer:0123:         .insert_resource(inspection)
+viewer:0124:         .insert_resource(CaptureBodyProportions(body_proportions))
+viewer:0125:         .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
+viewer:0126:         .insert_resource(harness::equipment_cache(armor_harness))
+viewer:0127:         .register_asset_source(
+viewer:0128:             crate::animation::WORKSPACE_ASSET_SOURCE,
+viewer:0129:             workspace_asset_source,
+viewer:0130:         )
+viewer:0131:         // The live debug client registers the same default through
+viewer:0132:         // `DebugPlugin`. The fixture does not install that input/network
+viewer:0133:         // plugin, so mirror its presentation default explicitly.
+viewer:0134:         .register_required_components_with::<Collider, _>(DebugRender::none)
+viewer:0135:         .add_plugins(
+viewer:0136:             DefaultPlugins
+viewer:0137:                 .set(AssetPlugin {
+viewer:0138:                     file_path: asset_root.to_string_lossy().into_owned(),
+viewer:0139:                     ..default()
+viewer:0140:                 })
+viewer:0141:                 .set(WindowPlugin {
+viewer:0142:                     primary_window: Some(Window {
+viewer:0143:                         title: "Fabelgeist Animation Review Capture".into(),
+viewer:0144:                         resolution: (960, 720).into(),
+viewer:0145:                         present_mode: PresentMode::AutoVsync,
+viewer:0146:                         visible: !hidden,
+viewer:0147:                         ..default()
+viewer:0148:                     }),
+viewer:0149:                     ..default()
+viewer:0150:                 }),
+viewer:0151:         )
+viewer:0152:         .add_plugins((
+viewer:0153:             AdventureSimulatorCorePlugins
+viewer:0154:                 .build()
+viewer:0155:                 .set(AdventureSimulatorPhysicsPlugin {
+viewer:0156:                     enable_simulation: false,
+viewer:0157:                     enable_presentation_simulation: true,
+viewer:0158:                 }),
+viewer:0159:             EnhancedInputPlugin,
+viewer:0160:         ))
+viewer:0161:         .add_plugins((
+viewer:0162:             PlayerPlugin,
+viewer:0163:             crate::equipment::EquipmentVisualPlugin,
+viewer:0164:             TacticalAnimationPlugin,
+viewer:0165:             TacticalCameraPlugin,
+viewer:0166:             TacticalPresentationPlugin::default(),
+viewer:0167:         ))
+viewer:0168:         .insert_resource(LocalCharacterId(default_character_id))
+viewer:0169:         .insert_resource(CameraMode { third_person: true })
+viewer:0170:         .insert_resource(WeaponGuardInputState::default())
+viewer:0171:         .insert_resource(fixed_clock)
+viewer:0172:         // Individual scenarios select terrain conformity explicitly so the
+viewer:0173:         // viewer can retain FK-only controls after the live default changed.
+viewer:0174:         .insert_resource(initial_terrain_ik)
+viewer:0175:         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
+viewer:0176:         .insert_resource(capture)
+viewer:0177:         .add_plugins(CapturePlugin)

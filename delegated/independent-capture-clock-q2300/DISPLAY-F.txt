@@ -1,0 +1,78 @@
+capture:0184: 
+capture:0185: #[expect(
+capture:0186:     clippy::too_many_arguments,
+capture:0187:     clippy::type_complexity,
+capture:0188:     reason = "the Bevy capture driver independently controls timing, IK modes, animation input, subject state, and labels"
+capture:0189: )]
+capture:0190: pub(super) fn drive_sequence(
+capture:0191:     mut sequence: ResMut<CaptureSequence>,
+capture:0192:     mut procedural_clock: ResMut<ProceduralAnimationClock>,
+capture:0193:     mut terrain_ik: ResMut<TerrainIkMode>,
+capture:0194:     mut guard_input: ResMut<WeaponGuardInputState>,
+capture:0195:     animation_runtime: Res<AnimationRuntime>,
+capture:0196:     terrain: Single<&SceneTerrain>,
+capture:0197:     mut subjects: Query<
+capture:0198:         (
+capture:0199:             &mut SkeletonState,
+capture:0200:             &mut Transform,
+capture:0201:             &mut CharacterLook,
+capture:0202:             Option<&AnimationPlayback>,
+capture:0203:             Option<&mut LegIkState>,
+capture:0204:             Option<&mut ArmIkState>,
+capture:0205:             Option<&mut RaisedFootworkState>,
+capture:0206:             Option<&mut LocomotionHeightState>,
+capture:0207:             Option<&mut LocomotionBodyResponseState>,
+capture:0208:         ),
+capture:0209:         With<CaptureSubject>,
+capture:0210:     >,
+capture:0211:     mut labels: Query<&mut Text, With<CaptureLabel>>,
+capture:0212: ) {
+capture:0213:     if !sequence.can_drive_frame() {
+capture:0214:         return;
+capture:0215:     }
+capture:0216:     let frame = sequence.plan[sequence.index].clone();
+capture:0217:     let metadata = frame.scenario.clone();
+capture:0218:     let mut gait_phase = CyclePhase::ZERO;
+capture:0219:     let mut observed_playback = None;
+capture:0220:     for (
+capture:0360:         );
+capture:0361:         let local_velocity = requested_local_velocity;
+capture:0362:         let world_velocity = controller_yaw(orientation) * local_velocity;
+capture:0363:         sequence.simulation_tick = next_capture_simulation_tick(
+capture:0364:             sequence.simulation_tick,
+capture:0365:             sequence.index == 0 && sequence.warmup_frames == 0,
+capture:0366:         );
+capture:0367:         if sequence.warmup_frames == 0
+capture:0368:             && frame.scenario_frame == 0
+capture:0369:             && let Some((start_body, transition)) = frame.scenario.transition()
+capture:0370:         {
+capture:0371:             skeleton.transition_body(start_body);
+capture:0372:             if frame.scenario.has(ScenarioFeature::AimedImpact) {
+capture:0373:                 // Match the authoritative launch seam: velocity and authored
+capture:0374:                 // direction capture one camera frame even if the previously
+capture:0375:                 // displayed root had not finished turning toward it.
+capture:0376:                 transform.rotation =
+capture:0377:                     dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw.radians()));
+capture:0378:             }
+capture:0379:             // Matches the live server's terrain-contact dive recovery.
+capture:0380:             let duration = if frame.scenario.has(ScenarioFeature::DiveBackward) {
+capture:0381:                 32
+capture:0382:             } else if dive_impact {
+capture:0383:                 20
+capture:0384:             } else {
+capture:0385:                 84
+capture:0386:             };
+capture:0387:             skeleton.begin_posture_transition(
+capture:0388:                 transition,
+capture:0389:                 sequence.simulation_tick,
+capture:0390:                 AnimationSampleSpan::from(duration as u64),
+capture:0391:             );
+capture:0392:         }
+capture:0393:         let elapsed = capture_frame_elapsed(frame.scenario_frame);
+capture:0394:         let delta_seconds = elapsed.seconds();
+capture:0395:         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+capture:0396:         let motion = subject_motion::CaptureMotion {
+capture:0397:             orientation,
+capture:0398:             world_velocity,
+capture:0399:             contact: GroundContact::from(grounded),
+capture:0400:             elapsed,

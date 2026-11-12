@@ -1,0 +1,30 @@
+{
+  "schema": "726-npz-q2307-final-scan-receipt-v1",
+  "completed_utc": "2026-11-12T14:08:19.584638+00:00",
+  "packet_manifest_sha256": "4495b62f3f35765d2e75b0a09401f778e81ece90c6a45f47c8a345e7ef8454ce",
+  "digest_result_sha256": "54137d45f9f9774ea86f8455921482d2877ac568f4090d37c25cc6700e2ec128",
+  "pattern_result_sha256": "f118c4da78722a947fa7e14bbb179334613748c5cea58a91137bc5e5cd8c1767",
+  "digest_scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+  "pattern_scanner_sha256": "1fde152aab28c284144b8158b7c0dc849a52dfb9cf64adc7b291cd982a1fe7ad",
+  "digest_status": {
+    "exit": 0,
+    "top_files": 70,
+    "views": 70,
+    "digest_matches": 0,
+    "candidate_counts": {},
+    "exceptions": 0
+  },
+  "pattern_status": {
+    "exit": 0,
+    "files": 70,
+    "views": 70,
+    "counts": {
+      "local_home": 0,
+      "temporary_path": 0,
+      "windows_user": 0,
+      "email": 0,
+      "credential": 0
+    }
+  },
+  "qualification": "Full packet including manifest scanned as it then existed, excluding separately held original full queue and raw commit anchors, which contain personal-path or public-author metadata. Corpus of 40 derived path digests and selected patterns are bounded; missing formats, symlinks, histories, and other sensitive values remain unproved. No product code executed."
+}

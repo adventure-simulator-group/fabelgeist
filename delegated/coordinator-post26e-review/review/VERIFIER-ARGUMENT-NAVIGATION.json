@@ -1,0 +1,39 @@
+{
+  "registration_sha256": "d15ad1a1511531af9f585231960f04c8c087e0365efafaf2ff171abaa5b16068",
+  "results": [
+    {
+      "tag": "clock",
+      "argument_names": [
+        [
+          "--publication"
+        ],
+        [
+          "--git-repo"
+        ]
+      ]
+    },
+    {
+      "tag": "readiness",
+      "argument_names": [
+        [
+          "--repo"
+        ]
+      ]
+    },
+    {
+      "tag": "npy",
+      "argument_names": [
+        [
+          "--anchors-dir"
+        ],
+        [
+          "--publication-root"
+        ],
+        [
+          "--original-queue"
+        ]
+      ]
+    }
+  ],
+  "qualification": "Static AST extraction of declared argument names only; no product or evidence verifier executed by this extraction."
+}

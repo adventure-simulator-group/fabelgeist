@@ -1,0 +1,32 @@
+{
+  "schema": "726-live-state-privacy-qualification-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:05:13.036690+00:00",
+  "entries": [
+    {
+      "path": "PATH-DIGEST-CORRECTION-PROPOSAL-STATUS.json",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "feb094465239dc6bcad4535f707839790da48436af78c674e33a93f9096d795c",
+      "bytes": 2228,
+      "eof": 14,
+      "scope": "selected proposal status, source references, optional live/old identity-binding limits"
+    },
+    {
+      "path": "verify_path_digest_correction_proposal.py",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "6133818cb34821ac9b2b4f27002f3b91f3ca7b8fd02bc6de0bafce6a903154d8",
+      "bytes": 2194,
+      "eof": 40,
+      "scope": "selected proposal status, source references, optional live/old identity-binding limits"
+    },
+    {
+      "path": "verify_adapter_coordinator_review.py",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "9ac2366cda77fcedfc3c928fb32b38fa6e0802ae428e3329bb422d206abf6863",
+      "bytes": 2217,
+      "eof": 42,
+      "scope": "selected proposal status, source references, optional live/old identity-binding limits"
+    }
+  ],
+  "qualification": "Prospectively registered selected privacy-evidence status and verifier behavior. No old path-digest bytes or private values will be copied."
+}

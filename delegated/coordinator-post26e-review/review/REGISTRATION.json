@@ -1,0 +1,48 @@
+{
+  "schema": "726-post26e-report-and-verifier-navigation-registration-v1",
+  "registered_utc": "2026-11-12T14:07:01.615729+00:00",
+  "reports": [
+    {
+      "tag": "clock-review",
+      "sha256": "e35d778b258d14b4dfc4a406f796d3e6b2cf4708c04593242373de67862435e1",
+      "bytes": 6221,
+      "planned_selection": "complete report bytes",
+      "qualification": "Registered reread after earlier unregistered or truncated report navigation, where applicable."
+    },
+    {
+      "tag": "readiness-report",
+      "sha256": "cfa3ef439a8fce3675d738bee54e26571fab4e9c89ce2d34170cbb56f9929771",
+      "bytes": 10146,
+      "planned_selection": "complete report bytes",
+      "qualification": "Registered reread after earlier unregistered or truncated report navigation, where applicable."
+    },
+    {
+      "tag": "npy-report",
+      "sha256": "d905d3fafd3d0a7b86324b966cddf35472b79363f0b0ea485f8bec7bdea702bb",
+      "bytes": 8862,
+      "planned_selection": "complete report bytes",
+      "qualification": "Registered reread after earlier unregistered or truncated report navigation, where applicable."
+    }
+  ],
+  "verifier_argument_navigation": [
+    {
+      "tag": "clock",
+      "sha256": "75f65de0cf520632cfd22ecff615d8ec03149c1da123031d91414bf7445ec711",
+      "bytes": 11967,
+      "planned_selection": "static argument names via Python AST, no source body display"
+    },
+    {
+      "tag": "readiness",
+      "sha256": "0752ae716ff7eafc5b3efc911c84446e9584624e911b5878c433f3b7491b7fdc",
+      "bytes": 6717,
+      "planned_selection": "static argument names via Python AST, no source body display"
+    },
+    {
+      "tag": "npy",
+      "sha256": "8cd278215e930f93686abb0ee7040fb9dc2cca3a4cbacf3981c7c80c6ffe5ed2",
+      "bytes": 8464,
+      "planned_selection": "static argument names via Python AST, no source body display"
+    }
+  ],
+  "qualification": "Reports and evidence-verifier metadata only; this does not grant source or historical personal-read credit."
+}

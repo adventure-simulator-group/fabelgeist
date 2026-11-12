@@ -1,0 +1,90 @@
+core_elapsed:0001: //! Finite elapsed seconds shared by simulation, authority and presentation.
+core_elapsed:0002: 
+core_elapsed:0003: use serde::{Deserialize, Serialize};
+core_elapsed:0004: use std::fmt;
+core_elapsed:0005: use std::time::Duration;
+core_elapsed:0006: 
+core_elapsed:0007: pub type ElapsedResult<T> = Result<T, ElapsedError>;
+core_elapsed:0008: 
+core_elapsed:0009: /// Elapsed seconds, including zero for an observation that does not advance.
+core_elapsed:0010: #[derive(Clone, Copy, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
+core_elapsed:0011: #[serde(try_from = "f32", into = "f32")]
+core_elapsed:0012: pub struct AnimationElapsed(f32);
+core_elapsed:0013: 
+core_elapsed:0014: #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+core_elapsed:0015: pub enum ElapsedError {
+core_elapsed:0016:     NonFinite,
+core_elapsed:0017:     Negative,
+core_elapsed:0018:     Overflow,
+core_elapsed:0019:     NativeRange,
+core_elapsed:0020:     NonFiniteContactOffset,
+core_elapsed:0021:     ContactOffsetOverflow,
+core_elapsed:0022: }
+core_elapsed:0023: 
+core_elapsed:0024: impl AnimationElapsed {
+core_elapsed:0025:     pub const ZERO: Self = Self(0.0);
+core_elapsed:0026:     pub const SECOND: Self = Self(1.0);
+core_elapsed:0027: 
+core_elapsed:0028:     pub const fn from_seconds(seconds: f32) -> ElapsedResult<Self> {
+core_elapsed:0029:         if !seconds.is_finite() {
+core_elapsed:0030:             return Err(ElapsedError::NonFinite);
+core_elapsed:0031:         }
+core_elapsed:0032:         if seconds < 0.0 {
+core_elapsed:0033:             return Err(ElapsedError::Negative);
+core_elapsed:0034:         }
+core_elapsed:0035:         Ok(Self(seconds))
+core_elapsed:0036:     }
+core_elapsed:0037: 
+core_elapsed:0038:     pub fn seconds(self) -> f32 {
+core_elapsed:0039:         self.0
+core_elapsed:0040:     }
+core_elapsed:0041: 
+core_elapsed:0042:     pub fn is_zero(self) -> bool {
+core_elapsed:0043:         self.0 == 0.0
+core_elapsed:0044:     }
+core_elapsed:0045: 
+core_elapsed:0046:     pub fn min(self, other: Self) -> Self {
+core_elapsed:0047:         if self.0 < other.0 { self } else { other }
+core_elapsed:0048:     }
+core_elapsed:0049: 
+core_elapsed:0050:     pub fn max(self, other: Self) -> Self {
+core_elapsed:0051:         if self.0 > other.0 { self } else { other }
+core_elapsed:0052:     }
+core_elapsed:0053: 
+core_elapsed:0054:     /// Bound an elapsed observation by a configured or authored seconds limit.
+core_elapsed:0055:     pub fn capped_by_seconds(self, maximum: f32) -> ElapsedResult<Self> {
+core_elapsed:0056:         Ok(self.min(Self::from_seconds(maximum)?))
+core_elapsed:0057:     }
+core_elapsed:0058: 
+core_elapsed:0059:     /// Remaining duration, floored at zero after the same seconds subtraction.
+core_elapsed:0060:     pub fn saturating_sub(self, other: Self) -> Self {
+core_elapsed:0061:         Self((self.0 - other.0).max(0.0))
+core_elapsed:0062:     }
+core_elapsed:0063: 
+core_elapsed:0064:     /// Separation of two finite, nonnegative elapsed observations. Their
+core_elapsed:0065:     /// difference cannot exceed the larger operand, so it remains finite.
+core_elapsed:0066:     pub fn abs_diff(self, other: Self) -> Self {
+core_elapsed:0067:         Self((self.0 - other.0).abs())
+core_elapsed:0068:     }
+core_elapsed:0069: 
+core_elapsed:0070:     pub fn checked_scale(self, factor: f32) -> ElapsedResult<Self> {
+core_elapsed:0071:         let seconds = self.0 * factor;
+core_elapsed:0072:         if !seconds.is_finite() {
+core_elapsed:0073:             return Err(ElapsedError::Overflow);
+core_elapsed:0074:         }
+core_elapsed:0075:         Self::from_seconds(seconds)
+core_elapsed:0076:     }
+core_elapsed:0077: 
+core_elapsed:0078:     /// Refine seconds at the native timer/authority boundary without a cap.
+core_elapsed:0079:     pub fn native_duration(self) -> ElapsedResult<Duration> {
+core_elapsed:0080:         Duration::try_from_secs_f32(self.0).map_err(|_| ElapsedError::NativeRange)
+core_elapsed:0081:     }
+core_elapsed:0082: 
+core_elapsed:0083:     pub fn checked_add(self, other: Self) -> ElapsedResult<Self> {
+core_elapsed:0084:         let seconds = self.0 + other.0;
+core_elapsed:0085:         if !seconds.is_finite() {
+core_elapsed:0086:             return Err(ElapsedError::Overflow);
+core_elapsed:0087:         }
+core_elapsed:0088:         Ok(Self(seconds))
+core_elapsed:0089:     }
+core_elapsed:0090: }

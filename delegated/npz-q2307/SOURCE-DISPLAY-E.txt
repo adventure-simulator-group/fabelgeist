@@ -1,0 +1,102 @@
+=== crates/fabelgeist-numpy-storage/src/zip/extent.rs 1..44 ===
+   1 | //! Declared decoded ZIP sizes, distinct from verified payload lengths.
+   2 | 
+   3 | use derive_more::{Debug, Display};
+   4 | 
+   5 | /// Declared decoded byte length of a ZIP member, including any NPY header.
+   6 | ///
+   7 | /// This is archive metadata, not a verified decoded size or allocation limit.
+   8 | /// ZIP size queries and NPZ member handles return this bespoke type.
+   9 | ///
+  10 | /// ```
+  11 | /// use fabelgeist_numpy_storage::{ArchiveMemberName, DeclaredUncompressedByteLength, ZipArchive};
+  12 | /// fn declared(archive: &ZipArchive) -> Option<DeclaredUncompressedByteLength> {
+  13 | ///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
+  14 | /// }
+  15 | /// ```
+  16 | ///
+  17 | /// Raw integer size returns are deliberately rejected:
+  18 | ///
+  19 | /// ```compile_fail
+  20 | /// use fabelgeist_numpy_storage::{ArchiveMemberName, ZipArchive};
+  21 | /// fn declared(archive: &ZipArchive) -> Option<u64> {
+  22 | ///     archive.uncompressed_size(&ArchiveMemberName::from("weights.npy"))
+  23 | /// }
+  24 | /// ```
+  25 | #[derive(Clone, Copy, Debug, Display, PartialEq, Eq)]
+  26 | #[debug("{_0:?}")]
+  27 | pub struct DeclaredUncompressedByteLength(u64);
+  28 | 
+  29 | impl DeclaredUncompressedByteLength {
+  30 |     /// Admits a decoded wire declaration, including zero and u64::MAX.
+  31 |     pub const fn from_bytes(bytes: u64) -> Self {
+  32 |         Self(bytes)
+  33 |     }
+  34 | 
+  35 |     /// Projects the unverified declaration at an external byte-count boundary.
+  36 |     pub const fn bytes(self) -> u64 {
+  37 |         self.0
+  38 |     }
+  39 | 
+  40 |     /// Native Vec reservation retains the inherited lossy cast and policy.
+  41 |     pub(super) fn native_allocation_capacity(self) -> usize {
+  42 |         self.0 as usize
+  43 |     }
+  44 | }
+=== crates/fabelgeist-numpy-storage/src/zip/member_count.rs 1..28 ===
+   1 | //! Application count bound and capped native directory reservation.
+   2 | 
+   3 | use std::ops::Range;
+   4 | 
+   5 | use derive_more::From;
+   6 | 
+   7 | /// The count selected by rawzip, retained without native-width narrowing.
+   8 | #[derive(Debug, Clone, Copy, From, PartialEq, Eq)]
+   9 | #[from(u16, u64)]
+  10 | pub(super) struct ArchiveMemberCount(u64);
+  11 | 
+  12 | impl ArchiveMemberCount {
+  13 |     // The inherited allocation cap is not a directory cardinality limit.
+  14 |     const INITIAL_CAPACITY_LIMIT: Self = Self(4096);
+  15 | 
+  16 |     /// Projects only the capped count into native `Vec` allocation capacity.
+  17 |     pub(super) fn initial_capacity(self) -> usize {
+  18 |         self.0.min(Self::INITIAL_CAPACITY_LIMIT.0) as usize
+  19 |     }
+  20 | 
+  21 |     /// Projects into the original native u64 range; callers ignore its ordinal.
+  22 |     ///
+  23 |     /// The count is never narrowed to usize for directory iteration.
+  24 |     pub(super) fn native_iteration_range(self) -> Range<u64> {
+  25 |         0..self.0
+  26 |     }
+  27 | }
+  28 | 
+=== crates/fabelgeist-numpy-storage/src/zip/compression.rs 1..27 ===
+   1 | //! Method codes are admitted once from central-directory wire metadata.
+   2 | 
+   3 | use derive_more::{Display, Into};
+   4 | 
+   5 | /// An unsupported two-byte ZIP wire method, retained for its diagnostic.
+   6 | #[derive(Clone, Copy, Debug, Display, Into, PartialEq, Eq)]
+   7 | pub struct ZipCompressionCode(u16);
+   8 | 
+   9 | /// The archive reader's supported methods and a retained foreign method code.
+  10 | /// Unknown methods remain queryable metadata; member decoding rejects them only
+  11 | /// after checking the local header and payload bounds.
+  12 | #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+  13 | pub(super) enum ZipCompression {
+  14 |     Stored,
+  15 |     Deflated,
+  16 |     Unsupported(ZipCompressionCode),
+  17 | }
+  18 | 
+  19 | impl From<rawzip::CompressionMethod> for ZipCompression {
+  20 |     fn from(method: rawzip::CompressionMethod) -> Self {
+  21 |         match method {
+  22 |             rawzip::CompressionMethod::STORE => Self::Stored,
+  23 |             rawzip::CompressionMethod::DEFLATE => Self::Deflated,
+  24 |             method => Self::Unsupported(ZipCompressionCode(method.as_u16())),
+  25 |         }
+  26 |     }
+  27 | }

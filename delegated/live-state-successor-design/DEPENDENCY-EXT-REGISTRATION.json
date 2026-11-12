@@ -1,0 +1,56 @@
+{
+  "schema": "726-live-state-dependency-source-extension-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T14:06:32.728267+00:00",
+  "entries": [
+    {
+      "path": "verify_checkpoint_privacy_prescan.py",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "b372804bcc8ac22a32e33ee04f03c9e3a514774fe74f2a864ec8bf5639fed882",
+      "eof": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ]
+    },
+    {
+      "path": "delegated/privacy-baseline059-proposal/verify.py",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "59d4fe09cad38ed26365ebd04091ff2c202d191b4b7a334da3bb9586acfaa1e4",
+      "eof": 69,
+      "ranges": [
+        [
+          36,
+          45
+        ]
+      ]
+    },
+    {
+      "path": "delegated/independent-privacy-d7b14/verify.py",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "ad56d84367c9e49890f246448e62d7aa49023d0ff738594a76c043143b8bec5b",
+      "eof": 64,
+      "ranges": [
+        [
+          7,
+          16
+        ]
+      ]
+    },
+    {
+      "path": "verify_main_advance_evidence.py",
+      "revision": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+      "sha256": "05b78ffb25a05bf852aaa793d00f66726186f60aac4982bd047ab49fef0243c9",
+      "eof": 158,
+      "ranges": [
+        [
+          101,
+          158
+        ]
+      ]
+    }
+  ],
+  "qualification": "Prospectively registered selected verifier source windows; no comprehensive dataflow or archive inspection."
+}

@@ -1,0 +1,379 @@
+{
+  "schema": "726-q2300-independent-prospective-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T13:49:10.917773+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_queue_publication_revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+  "prior_ledger_publication_revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+  "entries": [
+    {
+      "tag": "clock",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "git_blob": "c4129961a79ae0cf487825039993e83f2ff73026",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "bytes": 2020,
+      "eof": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/clock.rs"
+    },
+    {
+      "tag": "rate",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "git_blob": "69c5ba2736064f8b1155cc01260f3947883972a7",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "bytes": 2982,
+      "eof": 86,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/rate.rs"
+    },
+    {
+      "tag": "main",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "bytes": 4516,
+      "eof": 132,
+      "ranges": [
+        [
+          68,
+          105
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/main.rs"
+    },
+    {
+      "tag": "viewer",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "bytes": 6843,
+      "eof": 179,
+      "ranges": [
+        [
+          89,
+          100
+        ],
+        [
+          121,
+          177
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/viewer.rs"
+    },
+    {
+      "tag": "locomotion_config",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "eof": 65,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/locomotion_config.rs"
+    },
+    {
+      "tag": "runtime",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "eof": 98,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/runtime.rs"
+    },
+    {
+      "tag": "locomotion",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "eof": 260,
+      "ranges": [
+        [
+          84,
+          100
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/locomotion.rs"
+    },
+    {
+      "tag": "core_elapsed",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "git_blob": "189312858c17b73924b6c47ef45190d7b1c89ee1",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "bytes": 4147,
+      "eof": 131,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/core_elapsed.rs"
+    },
+    {
+      "tag": "measurement",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "eof": 107,
+      "ranges": [
+        [
+          40,
+          65
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/measurement.rs"
+    },
+    {
+      "tag": "capture",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "eof": 1021,
+      "ranges": [
+        [
+          184,
+          220
+        ],
+        [
+          360,
+          436
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/capture.rs"
+    },
+    {
+      "tag": "procedural_clock",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+      "git_blob": "cc2c4ff825895cf8296e25a32eccf73b17177d32",
+      "sha256": "f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+      "bytes": 1127,
+      "eof": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/procedural_clock.rs"
+    },
+    {
+      "tag": "subject_motion",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "git_blob": "63ba64759d702ad1e73e0dc7fe8852b856301293",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "bytes": 4647,
+      "eof": 126,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/subject_motion.rs"
+    },
+    {
+      "tag": "schedule",
+      "kind": "project-source",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "eof": 57,
+      "ranges": [
+        [
+          10,
+          30
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/schedule.rs"
+    },
+    {
+      "tag": "bevy_fixed",
+      "kind": "native-package-source",
+      "package": "bevy_time",
+      "version": "0.19.1",
+      "archive": "delegated/capture-clock-q2300/native/bevy_time-0.19.1.crate",
+      "archive_sha256": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e",
+      "member": "bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "bytes": 13890,
+      "eof": 367,
+      "ranges": [
+        [
+          75,
+          90
+        ],
+        [
+          118,
+          135
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/native/bevy-time-fixed.rs"
+    },
+    {
+      "tag": "lock",
+      "kind": "project-lock-selection",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "Cargo.lock",
+      "git_blob": "8cee024c538ebc473ef64c709eaba8c585fa4c55",
+      "sha256": "cb227fddbf85f10ea6d3bf929827ea395f240eae2d948a2c4c590ae526ba1f73",
+      "bytes": 293260,
+      "selector": "package[name=bevy_time,version=0.19.1]",
+      "external_capture": "delegated/capture-clock-q2300/native/Cargo.lock.gz"
+    },
+    {
+      "tag": "historical-q",
+      "kind": "historical-record-selection",
+      "revision": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e",
+      "path": "baseline-059/queue.json",
+      "git_blob": "feb81709d07d37ec6c51a2f915ef53aec78d75ad",
+      "sha256": "2e1f4430edb375adff24b6b46d434ac58bf5fd18c0d9dda4cf92fe215e5cfe08",
+      "bytes": 21632843,
+      "selectors": [
+        "/entries/2300 excluding source-path-bearing fields"
+      ]
+    },
+    {
+      "tag": "ledger-8608",
+      "kind": "historical-record-selection",
+      "revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "path": "BASELINE-95E-20261110.json",
+      "git_blob": "8047dfb3fccb148cd3a58dc31587118442034330",
+      "sha256": "f5c5e33859c58b67b444d2f61c070abf815da358ed78e4d55e21336e3f130ea7",
+      "bytes": 1392806,
+      "selectors": [
+        "/newly_assessed_ledger/entries[id=REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001]",
+        "/newly_assessed_ledger/entries[id=REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001]"
+      ]
+    },
+    {
+      "tag": "history:parallel-l11-20261029/READ-169.json",
+      "kind": "recovered-history-selection",
+      "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85",
+      "bytes": 10728,
+      "external_capture": "delegated/capture-clock-q2300/history-exact/parallel-l11-20261029/READ-169.json",
+      "selectors": [
+        "selected non-path identity, revision, named disposition, attribution and source-range fields only"
+      ]
+    },
+    {
+      "tag": "history:parallel-l11-20261029/READ-168.json",
+      "kind": "recovered-history-selection",
+      "sha256": "53d72dcc59395bea8a29bbddbbc1e8ffe207ea597ce62eadd5a1e7c27b626b0e",
+      "bytes": 7158,
+      "external_capture": "delegated/capture-clock-q2300/history-exact/parallel-l11-20261029/READ-168.json",
+      "selectors": [
+        "selected non-path identity, revision, named disposition, attribution and source-range fields only"
+      ]
+    },
+    {
+      "tag": "history:segovb/READ-L11-705.json",
+      "kind": "recovered-history-selection",
+      "sha256": "a3ba6dd475995ae008da3e50a16c5cf25d0f513d859c5aade286010f1cb0b525",
+      "bytes": 13761,
+      "external_capture": "delegated/capture-clock-q2300/history-exact/segovb/READ-L11-705.json",
+      "selectors": [
+        "selected non-path identity, revision, named disposition, attribution and source-range fields only"
+      ]
+    },
+    {
+      "tag": "history:segovb/READ-L11-704.json",
+      "kind": "recovered-history-selection",
+      "sha256": "6a8a57138b4eed0865dd9a0938a5ed02aecfcfd23f6c55240f67bc35cb04ae7c",
+      "bytes": 9047,
+      "external_capture": "delegated/capture-clock-q2300/history-exact/segovb/READ-L11-704.json",
+      "selectors": [
+        "selected non-path identity, revision, named disposition, attribution and source-range fields only"
+      ]
+    },
+    {
+      "tag": "history:parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "kind": "recovered-history-selection",
+      "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+      "bytes": 192315,
+      "external_capture": "delegated/capture-clock-q2300/history-exact/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "selectors": [
+        "selected non-path identity, revision, named disposition, attribution and source-range fields only"
+      ]
+    },
+    {
+      "tag": "parent-report",
+      "kind": "previous-report-selection",
+      "sha256": "93c0d9e15f4f6f5653a0903fe2558b25de163ba2e8af8a05ace654c32d2e0410",
+      "bytes": 9734,
+      "external_capture": "delegated/capture-clock-q2300/REPORT.json",
+      "selectors": [
+        "selected source-scope, findings, attribution and relationship fields"
+      ]
+    },
+    {
+      "tag": "prior-clock",
+      "kind": "previous-report-selection",
+      "sha256": "02a3681afc5c94ea4c710c241a03b6ebeacaafd6af3c8c317c0b85355ce36cce",
+      "bytes": 40179,
+      "external_capture": "delegated/capture-clock-q2300/prior/scenario-clock-assessment.json",
+      "selectors": [
+        "selected source-scope, findings, attribution and relationship fields"
+      ]
+    },
+    {
+      "tag": "prior-p16",
+      "kind": "previous-report-selection",
+      "sha256": "d4d6d25cfb5c99e9c4bdceab0034f484bb5abd1e17353982b79fe170b0da3403",
+      "bytes": 25943,
+      "external_capture": "delegated/capture-clock-q2300/prior/p16-body-values-sample-rate-report.json",
+      "selectors": [
+        "selected source-scope, findings, attribution and relationship fields"
+      ]
+    }
+  ],
+  "qualification": "Only subsequently displayed registered project/native windows and selected historical fields count as this reviewer’s personal reads. External full source captures and whole-file identity checks are not additional read credit. No raw Git commit object or original full historical queue is copied; historical revisions and attribution remain distinct."
+}

@@ -1,0 +1,123 @@
+verify_central_particles_13o_95e.py:0001: #!/usr/bin/env python3
+verify_central_particles_13o_95e.py:0002: """Verify bounded particle evidence and its historical ledger connection."""
+verify_central_particles_13o_95e.py:0003: import hashlib
+verify_central_particles_13o_95e.py:0004: import json
+verify_central_particles_13o_95e.py:0005: import subprocess
+verify_central_particles_13o_95e.py:0006: import sys
+verify_central_particles_13o_95e.py:0007: from pathlib import Path, PurePosixPath
+verify_central_particles_13o_95e.py:0008: 
+verify_central_particles_13o_95e.py:0009: root = Path(__file__).resolve().parent
+verify_central_particles_13o_95e.py:0010: stage = root / "delegated/central-13o-particles"
+verify_central_particles_13o_95e.py:0011: sha = lambda data: hashlib.sha256(data).hexdigest()
+verify_central_particles_13o_95e.py:0012: manifest = (stage / "MANIFEST.json").read_bytes()
+verify_central_particles_13o_95e.py:0013: assert sha(manifest) == "8d9839d9ba3f9c08f02312d0ee09b3dc6ab8b7daa87982ad3bb0c46ee1210b2f"
+verify_central_particles_13o_95e.py:0014: scan_dir = root / "delegated/central-13o-scan"
+verify_central_particles_13o_95e.py:0015: scan_receipt_bytes = (scan_dir / "RECEIPT.json").read_bytes()
+verify_central_particles_13o_95e.py:0016: assert sha(scan_receipt_bytes) == "122e16d054d850ad6323a08ed1a046181f4cfb44527bdd22ba7600baf3a391fe"
+verify_central_particles_13o_95e.py:0017: scan_receipt = json.loads(scan_receipt_bytes)
+verify_central_particles_13o_95e.py:0018: scan_bytes = (scan_dir / "SCAN-RESULT.json").read_bytes()
+verify_central_particles_13o_95e.py:0019: assert scan_receipt["stage_manifest_sha256"] == sha(manifest)
+verify_central_particles_13o_95e.py:0020: assert scan_receipt["scan_result_sha256"] == sha(scan_bytes)
+verify_central_particles_13o_95e.py:0021: scan = json.loads(scan_bytes)
+verify_central_particles_13o_95e.py:0022: assert scan["forbidden_digest_total"] == 0 and not scan["other_candidate_counts"] and not scan["exceptions"]
+verify_central_particles_13o_95e.py:0023: rows = json.loads(manifest)["files"]
+verify_central_particles_13o_95e.py:0024: assert len(rows) == 28
+verify_central_particles_13o_95e.py:0025: assert {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()} == {"MANIFEST.json"} | {r["path"] for r in rows}
+verify_central_particles_13o_95e.py:0026: for row in rows:
+verify_central_particles_13o_95e.py:0027:     path = PurePosixPath(row["path"])
+verify_central_particles_13o_95e.py:0028:     assert not path.is_absolute() and ".." not in path.parts
+verify_central_particles_13o_95e.py:0029:     data = (stage / path).read_bytes()
+verify_central_particles_13o_95e.py:0030:     assert (len(data), sha(data)) == (row["bytes"], row["sha256"])
+verify_central_particles_13o_95e.py:0031: subprocess.run([sys.executable, "-B", str(stage / "verify-evidence.py"), "--publication", str(root)], cwd=root, check=True)
+verify_central_particles_13o_95e.py:0032: data = (root / "ASSESSMENT-CENTRAL-PARTICLES-13O-95E.json").read_bytes()
+verify_central_particles_13o_95e.py:0033: assert sha(data) == "40d5fe149df72e0b65a34a5f8370505c275f442db6161cf514d7d738dd9293d8"
+verify_central_particles_13o_95e.py:0034: draft = json.loads((stage / "ASSESSMENT-DRAFT.json").read_bytes())
+verify_central_particles_13o_95e.py:0035: final = json.loads(data)
+verify_central_particles_13o_95e.py:0036: assert {k: v for k, v in final.items() if k not in {"central_display_evidence", "review_qualification"}} == {
+verify_central_particles_13o_95e.py:0037:     k: v for k, v in draft.items() if k not in {"central_display_evidence", "review_qualification"}
+verify_central_particles_13o_95e.py:0038: }
+verify_central_particles_13o_95e.py:0039: assert final["central_display_evidence"] == {k: "delegated/central-13o-particles/" + v for k, v in draft["central_display_evidence"].items()}
+verify_central_particles_13o_95e.py:0040: ledger = json.loads((root / "BASELINE-95E-20261110.json").read_bytes())["newly_assessed_ledger"]["entries"]
+verify_central_particles_13o_95e.py:0041: found = [x for x in ledger if x["id"] == "RIG-ADMISSION03-F082"]
+verify_central_particles_13o_95e.py:0042: assert len(found) == 1 and found[0] == json.loads((stage / "LEDGER-PROPOSAL.json").read_bytes())
+verify_central_particles_13o_95e.py:0043: assert found[0]["repair"] == "not started" and found[0]["validation"] == "not performed"
+verify_central_particles_13o_95e.py:0044: queue = json.loads((root / "RECONCILIATION-059.json").read_bytes())["entries"]
+verify_central_particles_13o_95e.py:0045: assert queue[1856]["current_reconciliation"].startswith("partial ")
+verify_central_particles_13o_95e.py:0046: assert queue[1859]["current_reconciliation"].startswith("partial ")
+verify_central_particles_13o_95e.py:0047: progress = json.loads((root / "CONTINUATION-PROGRESS-95E.json").read_bytes())
+verify_central_particles_13o_95e.py:0048: assert progress["new_current_ledger_candidates"] == len(ledger)
+verify_central_particles_13o_95e.py:0049: assert progress["lenses_complete"] == progress["queue_records_semantically_reconciled"] == 0
+verify_central_particles_13o_95e.py:0050: print("Verified the recovered F082 ledger connection, separate related queue nonclosures and draft/final qualification.")
+verify_central_particles_13o_95e.py:0051: print("No independent semantic review, native behavior or product execution is established.")
+verify_central_cloth_13l_95e.py:0001: #!/usr/bin/env python3
+verify_central_cloth_13l_95e.py:0002: """Verify the bounded cloth ledger connection and retained review identity."""
+verify_central_cloth_13l_95e.py:0003: import hashlib,json,tarfile
+verify_central_cloth_13l_95e.py:0004: from pathlib import Path
+verify_central_cloth_13l_95e.py:0005: r=Path(__file__).resolve().parent;load=lambda n:json.loads((r/n).read_text());sha=lambda b:hashlib.sha256(b).hexdigest()
+verify_central_cloth_13l_95e.py:0006: a=(r/'ASSESSMENT-CENTRAL-CLOTH-13L-95E.json').read_bytes();assert sha(a)=='4897ae53b9c67c18017d8d361688cb3a1b2c05f5d5386c2c7f709b0e9d239479'
+verify_central_cloth_13l_95e.py:0007: with tarfile.open(r/'delegated/followup-40-41-qualified/archives/central-13l.tar.gz','r:gz') as t:
+verify_central_cloth_13l_95e.py:0008:  assert t.extractfile('ASSESSMENT.json').read()==a
+verify_central_cloth_13l_95e.py:0009:  assert sha(t.extractfile('ASSESSMENT-REVIEWED-REVISION.json').read())=='7370c34c6e851d8ba8de247eb70aaf8412fa95cd9bb97547b5c5f709bb182052'
+verify_central_cloth_13l_95e.py:0010: d=json.loads(a);assert d['proposed_ledger_identity']=='local-candidate-cloth-subdivision-count-overflow' and d['repair']=='not started' and d['product_validation']=='not performed'
+verify_central_cloth_13l_95e.py:0011: ledger=load('BASELINE-95E-20261110.json')['newly_assessed_ledger']['entries'];rows=[x for x in ledger if x['id']==d['proposed_ledger_identity']];assert len(rows)==1 and rows[0]['record']=='ASSESSMENT-CENTRAL-CLOTH-13L-95E.json' and rows[0]['repair']=='not started' and rows[0]['validation']=='not performed'
+verify_central_cloth_13l_95e.py:0012: q=load('RECONCILIATION-059.json')['entries'][614];old=load('baseline-059/queue.json')['entries'][614];assert q['contract_id']==old['contract_id']=='Q-L11-311564a4d1d7c857a062' and q['current_reconciliation'].startswith('partial ') and '13L' in q['current_reconciliation'] and 'remain open' in q['current_reconciliation']
+verify_central_cloth_13l_95e.py:0013: p=load('CONTINUATION-PROGRESS-95E.json');assert p['new_current_ledger_candidates']==len(ledger) and p['lenses_complete']==0 and p['queue_records_semantically_reconciled']==0
+verify_central_cloth_13l_95e.py:0014: print('Verified the conditional cloth ledger connection, q614 nonclosure and distinct reviewed/final assessment identities; no product ran.')
+verify_action_state_95e.py:0039: rev = '95e63628f9d70b8dd6e6fede64334696c6995009'
+verify_action_state_95e.py:0040: oldrev = '6533e444fa37552927070cc8d8190907fd3b413e'
+verify_action_state_95e.py:0041: name = 'ASSESSMENT-ACTION-STATE-95E.json'
+verify_action_state_95e.py:0042: hist = 'ASSESSMENT-L01-HISTORICAL-1781-1786.json'
+verify_action_state_95e.py:0043: a, h, w = load(name), load(hist), load('COVERAGE-L01-ROLES.json')
+verify_action_state_95e.py:0044: proof = load('ACTION-STATE-HISTORICAL-GIT-PROOFS.json')
+verify_action_state_95e.py:0045: shared = load(proof['shared_commit_and_tree_objects'])
+verify_action_state_95e.py:0046: nodes = dict(shared['tree_objects'])
+verify_action_state_95e.py:0047: for path in proof['additional_shared_tree_objects']:
+verify_action_state_95e.py:0048:     nodes.update(load(path)['additional_tree_objects'])
+verify_action_state_95e.py:0049: nodes.update(proof['additional_tree_objects'])
+verify_action_state_95e.py:0050: commit = contents(shared['revisions'][oldrev]['commit']['preserved_bytes'])
+verify_action_state_95e.py:0051: assert proof['revision'] == oldrev and oid('commit', commit) == oldrev
+verify_action_state_95e.py:0052: assert commit.splitlines()[0] == b'tree ' + proof['root_tree'].encode()
+verify_action_state_95e.py:0053: advance = load('MAIN-ADVANCE-95E.json')
+verify_action_state_95e.py:0054: tree = {}
+verify_action_state_95e.py:0055: for line in (root / advance['trees']['current']['path']).read_text().splitlines():
+verify_action_state_95e.py:0056:     header, path = line.split('\t', 1)
+verify_action_state_95e.py:0057:     tree[path] = header.split()[2]
+verify_action_state_95e.py:0058: assert a['source_revision'] == rev and a['repair'] == 'not started' and a['validation'] == 'not performed'
+verify_action_state_95e.py:0059: lengths = {1781:(2069,2067),1782:(89,89),1783:(353,353),1784:(153,153),1785:(123,123),1786:(158,160)}
+verify_action_state_95e.py:0060: assert [item['original_index'] for item in h['historical_source_roles']] == list(lengths)
+verify_action_state_95e.py:0061: current = {}
+verify_action_state_95e.py:0062: with tarfile.open(root / 'recovered/original-registry-source-archive/objects.tar.gz', 'r:gz') as archive:
+verify_action_state_95e.py:0063:     for item in h['historical_source_roles']:
+verify_action_state_95e.py:0064:         i = item['original_index']
+verify_action_state_95e.py:0065:         n, m = lengths[i]
+verify_action_state_95e.py:0066:         row = w['roles'][i]
+verify_action_state_95e.py:0067:         old = archive.extractfile(item['sha256']).read()
+verify_action_state_95e.py:0068:         c = item['current_comparison']
+verify_action_state_95e.py:0069:         body = contents(c['preserved_bytes'])
+verify_action_state_95e.py:0070:         assert item['prior_role_status'] == 'unassessed' and item['new_personal_read_ranges'] == [[1,n]]
+verify_action_state_95e.py:0071:         assert len(old.splitlines()) == n and sha(old) == row['historical_sha256']
+verify_action_state_95e.py:0072:         assert row['status'] == 'full-historical-body-trace-open' and row['historical_assessment'] == hist
+verify_action_state_95e.py:0073:         same = i in (1782,1783,1784,1785)
+verify_action_state_95e.py:0074:         assert (old == body) == c['byte_identical'] == same
+verify_action_state_95e.py:0075:         assert c['current_personal_ranges'] == ([[1,m]] if i in (1781,1782,1786) else [])
+verify_action_state_95e.py:0076:         assert c['current_content_read_via_identical_historical_ranges'] == ([[1,n]] if same else [])
+verify_action_state_95e.py:0077:         assert sha(body) == c['sha256'] and len(body) == c['bytes'] and len(body.splitlines()) == m
+verify_action_state_95e.py:0078:         assert oid('blob', body) == c['git_blob'] == tree[c['path']]
+verify_action_state_95e.py:0079:         chain(c['path'], proof['paths'][c['path']], old, proof['root_tree'], nodes)
+verify_action_state_95e.py:0080:         if not same:
+verify_action_state_95e.py:0155: original = load('baseline-059/queue.json')['entries'][63]
+verify_action_state_95e.py:0156: assert original['contract_id'] == 'ADLER-L11-ATTACK-TRANSITION-ERROR-ADMISSION'
+verify_action_state_95e.py:0157: assert original['exact_source_identities_and_assessed_ranges'][2]['revision_as_recorded'] is None
+verify_action_state_95e.py:0158: q = load('RECONCILIATION-059.json')['entries']
+verify_action_state_95e.py:0159: for i in (63,1457,1458,1459,1460,1461,1462,1463):
+verify_action_state_95e.py:0160:     assert q[i]['current_reconciliation'].startswith('partial ') and name in q[i]['current_reconciliation']
+verify_action_state_95e.py:0161: finding = a['existing_finding_connections'][0]
+verify_action_state_95e.py:0162: assert finding['id'] == original['contract_id'] and finding['accepted_historical_unique_count_change'] == 0
+verify_action_state_95e.py:0163: assert finding['repair'] == 'not started' and finding['validation'] == 'not performed'
+verify_action_state_95e.py:0164: ledger = load('BASELINE-95E-20261110.json')['newly_assessed_ledger']['entries']
+verify_action_state_95e.py:0165: assert sum(item['id'] == finding['id'] and item['record'] == name for item in ledger) == 1
+verify_action_state_95e.py:0166: progress = load('CONTINUATION-PROGRESS-95E.json')
+verify_action_state_95e.py:0167: assert progress['new_current_ledger_candidates'] == len(ledger) and progress['lenses_complete'] == 0
+verify_action_state_95e.py:0168: assert progress['queue_records_semantically_reconciled'] == 0
+verify_action_state_95e.py:0169: assert load(load('BASELINE-95E-20261110.json')['latest_main_recheck'])['observed_revision'] == rev
+verify_action_state_95e.py:0170: print('Verified six historical roles, original Adler/Segovb records and conditional source arithmetic; no product execution.')

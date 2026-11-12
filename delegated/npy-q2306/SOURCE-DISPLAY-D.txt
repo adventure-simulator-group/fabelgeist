@@ -1,0 +1,81 @@
+=== crates/fabelgeist-numpy-storage/src/npy/header.rs 81..160 ===
+  81 |             .payload_length(dtype)?
+  82 |             .admit(payload)?;
+  83 |         Ok(Self {
+  84 |             dtype,
+  85 |             shape,
+  86 |             payload,
+  87 |         })
+  88 |     }
+  89 | }
+  90 | 
+  91 | impl HeaderField {
+  92 |     fn parse(key: &str) -> Result<Self> {
+  93 |         match key {
+  94 |             "descr" => Ok(Self::Descriptor),
+  95 |             "fortran_order" => Ok(Self::Order),
+  96 |             "shape" => Ok(Self::Shape),
+  97 |             _ => bail!("unsupported .npy header field {key:?}"),
+  98 |         }
+  99 |     }
+ 100 | }
+ 101 | 
+ 102 | impl StorageOrder {
+ 103 |     fn parse(cursor: &mut &str) -> Result<Self> {
+ 104 |         let text = cursor.trim_start();
+ 105 |         if let Some(rest) = text.strip_prefix("True") {
+ 106 |             *cursor = rest;
+ 107 |             Ok(Self::Fortran)
+ 108 |         } else if let Some(rest) = text.strip_prefix("False") {
+ 109 |             *cursor = rest;
+ 110 |             Ok(Self::RowMajor)
+ 111 |         } else {
+ 112 |             bail!("bad 'fortran_order' in .npy header")
+ 113 |         }
+ 114 |     }
+ 115 | }
+ 116 | 
+ 117 | impl NpyShape {
+ 118 |     fn from_header_tuple(text: &str) -> Result<Self> {
+ 119 |         let text = text.trim();
+ 120 |         let dimensions = if text.is_empty() {
+ 121 |             Vec::new()
+ 122 |         } else {
+ 123 |             ensure!(text.contains(','), "bad .npy shape: expected a tuple");
+ 124 |             text.strip_suffix(',')
+ 125 |                 .unwrap_or(text)
+ 126 |                 .split(',')
+ 127 |                 .map(|token| {
+ 128 |                     token
+ 129 |                         .trim()
+ 130 |                         .parse::<usize>()
+ 131 |                         .map(NpyDimension::from)
+ 132 |                         .context("bad .npy shape")
+ 133 |                 })
+ 134 |                 .collect::<Result<_>>()?
+ 135 |         };
+ 136 |         Ok(Self::try_from(dimensions)?)
+ 137 |     }
+ 138 | }
+ 139 | 
+ 140 | fn take(cursor: &mut &str, token: &str) -> Result<()> {
+ 141 |     *cursor = cursor
+ 142 |         .trim_start()
+ 143 |         .strip_prefix(token)
+ 144 |         .with_context(|| format!("bad .npy header: expected {token:?}"))?;
+ 145 |     Ok(())
+ 146 | }
+ 147 | 
+ 148 | fn quoted<'a>(cursor: &mut &'a str) -> Result<&'a str> {
+ 149 |     let text = cursor.trim_start();
+ 150 |     let quote = text.chars().next().context("truncated .npy string")?;
+ 151 |     ensure!(matches!(quote, '\'' | '"'), "expected a .npy string");
+ 152 |     let end = text[1..].find(quote).context("unterminated .npy string")?;
+ 153 |     let value = &text[1..end + 1];
+ 154 |     ensure!(
+ 155 |         !value.contains('\\'),
+ 156 |         "escaped .npy strings are not supported"
+ 157 |     );
+ 158 |     *cursor = &text[end + 2..];
+ 159 |     Ok(value)
+ 160 | }

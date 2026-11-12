@@ -1,0 +1,62 @@
+--- ANCHORS.json ---
+{
+  "schema": "726-npy-q2306-git-anchor-identities-v1",
+  "commits": {
+    "e2755a732c84e67296b5e3441a4259a84f461b2f": {
+      "raw_sha256": "1c7c102cb3239b6429e14439280284d96df7cb7a445e80c0c48fba604b45b9d4",
+      "bytes": 3233,
+      "root_tree": "7737c903f98397669c12da05475f759aa7fcfe73"
+    },
+    "95e63628f9d70b8dd6e6fede64334696c6995009": {
+      "raw_sha256": "f29236dacb84042fe48dcbbb28d5fdff3f2b564f6815e37d72121b2cd9ff6722",
+      "bytes": 1078,
+      "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f"
+    }
+  },
+  "locations_in_existing_publication": {
+    "e2755a732c84e67296b5e3441a4259a84f461b2f": "recovered/e275-investigation-model-git/e2755a732c84e67296b5e3441a4259a84f461b2f.commit.gz",
+    "95e63628f9d70b8dd6e6fede64334696c6995009": "delegated/checkpoint39-stage/bundles/2625/git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit"
+  },
+  "qualification": "Exact raw commit anchors contain public author/committer email metadata; they are retained separately under restricted same-machine custody and already exist in previously published evidence at the named paths. They are not included in the privacy-scanned packet. A verifier needs either these two raw commit bytes or the existing publication. Tree bodies and source files are included in this packet; copying the packet alone without anchors cannot independently verify commit-to-root identity."
+}
+
+--- README.md ---
+# Bounded NPY q2306 reconciliation
+
+`REPORT.json` contains the current source trace, attribution, open questions,
+and recovery qualifications. The current baseline is the pinned 95e revision;
+the source-owning historical observations remain attributed to e275 and 059.
+The original final checkpoint 3821 queue and ledger remain unavailable.
+
+`SOURCE-REGISTRATION.json` precedes the nine numbered source displays. The
+history registrations precede the credited original/reconstructed queue and
+historical projection displays; `LOCATOR-QUALIFICATION.json` identifies
+unregistered provenance metadata and a truncated locator display. Copies of
+original historical files are exact, while JSON projection displays are
+reconstructions. `QUEUE-EXTRACTION.json` separates the exact entry byte slice
+from its different full original and public reconstructed queue containers.
+
+`git-trees/` contains canonical raw tree objects, `connector-trees/` retains
+normalized connector responses, and `sources/` contains the exact selected
+source files. `ANCHORS.json` records the separately retained Git commit anchors
+and the paths to their copies in the earlier publication. Commit anchors
+contain author/committer email metadata and are omitted from this packet.
+Thus an offline verifier must supply the two raw commit files separately, or
+point to an existing publication containing the recorded anchors:
+
+```text
+python3 verify-evidence.py --anchors-dir PATH_TO_RAW_COMMIT_FILES
+python3 verify-evidence.py --publication-root PATH_TO_PUBLICATION
+```
+
+To additionally verify the original full 059 queue hash and entry slice,
+append `--original-queue PATH_TO_ORIGINAL_059_QUEUE`. That file remains in the
+protected source extraction and contains paths outside this bounded slice, so
+it is not included. Without it the verifier reports this explicit limitation.
+These are evidence-only checks; they do not establish product behavior.
+
+The manifest lists packet files, excluding itself. Bounded privacy scan receipts
+are separately retained by the coordinator after manifest creation. They do not
+cover Git history or prove general privacy. Exact raw anchor files and the
+original queue remain separately controlled, with no claim of independent
+machine custody.

@@ -1,0 +1,91 @@
+verify_adapter_coordinator_review.py:0014: assert sha(manifest) == "3136d59c6f0920b4fe97be4890f863bc683e33b30f03f60e9a3663636a7af9d5"
+verify_adapter_coordinator_review.py:0015: rows = json.loads(manifest)["files"]
+verify_adapter_coordinator_review.py:0016: assert {p.name for p in packet.iterdir() if p.is_file()} == {"MANIFEST.json"} | {r["path"] for r in rows}
+verify_adapter_coordinator_review.py:0017: for row in rows:
+verify_adapter_coordinator_review.py:0018:     path = PurePosixPath(row["path"])
+verify_central_collider_13q_95e.py:0006: manifest=(stage/'MANIFEST.json').read_bytes();assert H(manifest)=='68bee8b7849de748d8bb765ff027e60aecf7d2a629de49a183a927be9cebecc6'
+verify_central_collider_13q_95e.py:0007: rows=json.loads(manifest)['files'];assert len(rows)==22
+verify_central_collider_13q_95e.py:0008: assert {p.relative_to(stage).as_posix() for p in stage.rglob('*') if p.is_file()}=={'MANIFEST.json'}|{r['path'] for r in rows}
+verify_central_collider_13q_95e.py:0009: for row in rows:
+verify_central_collider_13q_95e.py:0010:  p=PurePosixPath(row['path']);assert not p.is_absolute() and '..' not in p.parts
+verify_central_incidence_13p_95e.py:0006: manifest=(stage/'MANIFEST.json').read_bytes();assert H(manifest)=='da9dc87d795c6142db14c330f5e4fd2a26b27b9b73570f0653d1378ba5801ece'
+verify_central_incidence_13p_95e.py:0007: rows=json.loads(manifest)['files'];assert len(rows)==35
+verify_central_incidence_13p_95e.py:0008: assert {p.relative_to(stage).as_posix() for p in stage.rglob('*') if p.is_file()}=={'MANIFEST.json'}|{r['path'] for r in rows}
+verify_central_incidence_13p_95e.py:0009: for row in rows:
+verify_central_incidence_13p_95e.py:0010:  p=PurePosixPath(row['path']);assert not p.is_absolute() and '..' not in p.parts
+verify_central_particles_13o_95e.py:0023: rows = json.loads(manifest)["files"]
+verify_central_particles_13o_95e.py:0024: assert len(rows) == 28
+verify_central_particles_13o_95e.py:0025: assert {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()} == {"MANIFEST.json"} | {r["path"] for r in rows}
+verify_central_particles_13o_95e.py:0026: for row in rows:
+verify_central_particles_13o_95e.py:0027:     path = PurePosixPath(row["path"])
+verify_checkpoint64f_recovery.py:0013: assert sha(manifest) == "21192611370b6a9d98981ec80ec3a7760b09347721de76f1e7fdabf166c6fd1b"
+verify_checkpoint64f_recovery.py:0014: rows = json.loads(manifest)["files"]
+verify_checkpoint64f_recovery.py:0015: assert {p.name for p in packet.iterdir() if p.is_file()} == {"MANIFEST.json"} | {x["path"] for x in rows}
+verify_checkpoint64f_recovery.py:0016: for row in rows:
+verify_checkpoint64f_recovery.py:0017:     path = PurePosixPath(row["path"])
+verify_checkpoint8608_recovery.py:0005: root=Path(__file__).resolve().parent;packet=root/'delegated/checkpoint8608-verification';sha=lambda b:hashlib.sha256(b).hexdigest()
+verify_checkpoint8608_recovery.py:0006: manifest=(packet/'MANIFEST.json').read_bytes();assert sha(manifest)=='2376273e389339b0da6204494dd76c0452d794038a6bc32cf4467eaa2329c826';rows=json.loads(manifest)['files']
+verify_checkpoint8608_recovery.py:0007: assert {p.name for p in packet.iterdir() if p.is_file()}=={'MANIFEST.json'}|{x['path'] for x in rows}
+verify_checkpoint8608_recovery.py:0008: for row in rows:
+verify_checkpoint8608_recovery.py:0009:  path=PurePosixPath(row['path']);assert not path.is_absolute() and '..' not in path.parts;data=(packet/path).read_bytes();assert (len(data),sha(data))==(row['bytes'],row['sha256'])
+verify_checkpointc629_recovery.py:0009: assert sha(manifest)=='fafde15180d8ab0feddc030565a3e89549ffef0159791bc0c6105977bfd975ce'
+verify_checkpointc629_recovery.py:0010: rows=json.loads(manifest)['files']
+verify_checkpointc629_recovery.py:0011: assert {p.name for p in packet.iterdir() if p.is_file()}=={'MANIFEST.json'}|{x['path'] for x in rows}
+verify_checkpointc629_recovery.py:0012: for row in rows:
+verify_checkpointc629_recovery.py:0013:  path=PurePosixPath(row['path'])
+verify_delegated_links_13.py:0011: sha = lambda b: hashlib.sha256(b).hexdigest()
+verify_delegated_links_13.py:0012: checkpoints = []
+verify_delegated_links_13.py:0013: for p in sorted(root.glob('DELEGATED-EVIDENCE-CHECKPOINT*.json')):
+verify_delegated_links_13.py:0014:     d = json.loads(p.read_text())
+verify_delegated_links_13.py:0015:     if isinstance(d.get('bundles'), list):
+verify_evidence_verifier_evolution.py:0005: root=Path(__file__).resolve().parent;stage=root/'delegated/evidence-verifier-evolution';H=lambda b:hashlib.sha256(b).hexdigest()
+verify_evidence_verifier_evolution.py:0006: m=(stage/'MANIFEST.json').read_bytes();assert H(m)=='a190cfe1a540960f70e08fd776ba17644c981383cac44dd1d84d918ad59953da';rows=json.loads(m)['files']
+verify_evidence_verifier_evolution.py:0007: assert {p.name for p in stage.iterdir() if p.is_file()}=={'MANIFEST.json'}|{r['path'] for r in rows}
+verify_evidence_verifier_evolution.py:0008: for row in rows:
+verify_evidence_verifier_evolution.py:0009:  p=PurePosixPath(row['path']);assert not p.is_absolute() and '..' not in p.parts;b=(stage/p).read_bytes();assert (len(b),H(b))==(row['bytes'],row['sha256'])
+verify_followup_43_xpbd.py:0015: assert digest((stage / "MANIFEST.json").read_bytes()) == q["public_manifest_sha256"]
+verify_followup_43_xpbd.py:0016: assert digest(archive.read_bytes()) == q["public_archive_sha256"]
+verify_followup_43_xpbd.py:0017: files = {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()}
+verify_followup_43_xpbd.py:0018: with tarfile.open(archive, "r:gz") as tar:
+verify_followup_43_xpbd.py:0019:     members = tar.getmembers()
+verify_followup_44_physics.py:0017: assert sha((root / q["archive_index"]).read_bytes()) == q["archive_index_sha256"]
+verify_followup_44_physics.py:0018: assert sha(archive.read_bytes()) == q["archive_sha256"]
+verify_followup_44_physics.py:0019: files = {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()}
+verify_followup_44_physics.py:0020: with tarfile.open(archive, "r:gz") as tar:
+verify_followup_44_physics.py:0021:     members = tar.getmembers()
+verify_followup_additive_reviews.py:0026:     if isinstance(records, dict):
+verify_followup_additive_reviews.py:0027:         records = [dict(values, path=path) for path, values in records.items()]
+verify_followup_additive_reviews.py:0028:     actual = {p.relative_to(folder).as_posix() for p in folder.rglob("*") if p.is_file()}
+verify_followup_additive_reviews.py:0029:     assert actual == {"MANIFEST.json"} | {row["path"] for row in records}
+verify_followup_additive_reviews.py:0030:     for row in records:
+verify_followup_additive_reviews.py:0038: archive = root / q["public_archive"]
+verify_followup_additive_reviews.py:0039: assert sha(archive.read_bytes()) == q["public_archive_sha256"]
+verify_followup_additive_reviews.py:0040: files = {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()}
+verify_followup_additive_reviews.py:0041: with tarfile.open(archive, "r:gz") as tar:
+verify_followup_additive_reviews.py:0042:     members = tar.getmembers()
+verify_followup_review_packets.py:0026:         assert hashlib.sha256(payload).hexdigest() == row["sha256"]
+verify_followup_review_packets.py:0027:         expected_files.add(relative.as_posix())
+verify_followup_review_packets.py:0028:     actual_files = {p.relative_to(folder).as_posix() for p in folder.rglob("*") if p.is_file()}
+verify_followup_review_packets.py:0029:     assert actual_files == expected_files
+verify_followup_review_packets.py:0030:     print(f"Verified {name}: {len(records)} independently recorded files")
+verify_followups_private_retention.py:0012:   base=args.private_root/c['name'];raw=(base/'MANIFEST.json').read_bytes();assert H(raw)==c['manifest_sha256'];m=json.loads(raw);rows=m['files'];assert len(rows)==c['files'] and sum(x['bytes'] for x in rows)==c['bytes']
+verify_followups_private_retention.py:0013:   assert not base.is_symlink() and stat.S_IMODE(base.stat().st_mode)&0o077==0
+verify_followups_private_retention.py:0014:   expected={x['group']+'/'+x['path'] for x in rows};actual={f.relative_to(base).as_posix() for f in base.rglob('*') if f.is_file() and f!=base/'MANIFEST.json'};assert actual==expected
+verify_followups_private_retention.py:0015:   for f in base.rglob('*'):assert not f.is_symlink() and stat.S_IMODE(f.stat().st_mode)&0o077==0
+verify_followups_private_retention.py:0016:   for x in rows:
+verify_followups_private_retention.py:0017:    b=(base/x['group']/x['path']).read_bytes();assert (H(b),len(b))==(x['sha256'],x['bytes'])
+verify_independent_incidence_13p.py:0012:   p=PurePosixPath(member.name);assert member.isfile() and not p.is_absolute() and p.parts[0]=='bundle' and '..' not in p.parts
+verify_independent_incidence_13p.py:0013:   rel=PurePosixPath(*p.parts[1:]);assert rel.as_posix() not in seen;seen.add(rel.as_posix());assert t.extractfile(member).read()==(packet/rel).read_bytes()
+verify_independent_incidence_13p.py:0014:  assert seen=={x.relative_to(packet).as_posix() for x in packet.rglob('*') if x.is_file()}
+verify_independent_incidence_13p.py:0015: subprocess.run([sys.executable,'-B',str(packet/'verify-evidence.py')],cwd=root,check=True)
+verify_independent_incidence_13p.py:0016: scan=root/'delegated/independent-review-13p-scan';rb=(scan/'RECEIPT.json').read_bytes();assert H(rb)=='6d5f008d58e1e942f79181f3d4199e2806bd2081d7231970ec39c3fa6306facf';rec=json.loads(rb);assert rec['archive_sha256']==H(archive.read_bytes())
+verify_independent_particles_13o.py:0012:   p=PurePosixPath(member.name);assert member.isfile() and not p.is_absolute() and p.parts[0]=='bundle' and '..' not in p.parts
+verify_independent_particles_13o.py:0013:   rel=PurePosixPath(*p.parts[1:]);assert rel.as_posix() not in seen;seen.add(rel.as_posix());assert t.extractfile(member).read()==(packet/rel).read_bytes()
+verify_independent_particles_13o.py:0014:  assert seen=={x.relative_to(packet).as_posix() for x in packet.rglob('*') if x.is_file()}
+verify_independent_particles_13o.py:0015: subprocess.run([sys.executable,'-B',str(packet/'verify-evidence.py')],cwd=root,check=True)
+verify_independent_particles_13o.py:0016: scan=root/'delegated/independent-review-13o-scan';rb=(scan/'RECEIPT.json').read_bytes();assert H(rb)=='5e47ed5be1d4228fc33da88c6c98ca41af3f90863dc513097963d36236c00c24';rec=json.loads(rb);assert rec['archive_sha256']==H(archive.read_bytes())
+verify_path_digest_correction_proposal.py:0016: assert sha((stage / "MANIFEST.json").read_bytes()) == q["proposal_manifest_sha256"]
+verify_path_digest_correction_proposal.py:0017: assert sha(archive.read_bytes()) == q["proposal_archive_sha256"]
+verify_path_digest_correction_proposal.py:0018: files = {p.relative_to(stage).as_posix() for p in stage.rglob("*") if p.is_file()}
+verify_path_digest_correction_proposal.py:0019: with tarfile.open(archive, "r:gz") as tar:
+verify_path_digest_correction_proposal.py:0020:     members = tar.getmembers()

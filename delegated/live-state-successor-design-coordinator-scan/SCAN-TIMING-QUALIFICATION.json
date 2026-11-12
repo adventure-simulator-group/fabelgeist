@@ -1,0 +1,5 @@
+{
+  "schema": "726-design-coordinator-scan-timing-v1",
+  "chronology": "The coordinator-review directory was scanned after its report registration, display, receipt, verifier navigation and local evidence replay, but before its MANIFEST.json was generated. The scan therefore does not cover that later manifest. The agent packet, its archive and agent scan packet were separately scanned as recorded.",
+  "qualification": "The staged checkpoint scan must cover the later manifest and all other staged files; no scan establishes general privacy or clears earlier Git history."
+}

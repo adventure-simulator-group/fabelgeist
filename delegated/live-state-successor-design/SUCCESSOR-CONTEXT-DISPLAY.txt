@@ -1,0 +1,73 @@
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0015: 
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0016: root = _CW.root
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0017: load = lambda n: json.loads((root / n).read_text())
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0018: sha = lambda b: hashlib.sha256(b).hexdigest()
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0019: checkpoints = []
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0020: for p in sorted(root.glob('DELEGATED-EVIDENCE-CHECKPOINT*.json')):
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0021:     d = json.loads(p.read_text())
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0022:     if isinstance(d.get('bundles'), list):
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0023:         checkpoints.append(d)
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0024: manifest_to_bundle = {}
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0025: for cp in checkpoints:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0026:     for b in cp['bundles']:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0027:         for m in b['members']:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0028:             if m['path'] in ('MANIFEST.json', 'BUNDLE-MANIFEST.json', 'packet-manifest.json', 'manifest.json'):
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0029:                 manifest_to_bundle[m['original_sha256']] = b
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0030: current = load('DELEGATED-EVIDENCE-CHECKPOINT-13.json')
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0031: counts = {'prior_packet_links': 0, 'copied_original_identities': 0,
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0032:           'prior_member_links': 0, 'published_file_links': 0}
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0033: for b in current['bundles']:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0034:     members = {m['path']: m for m in b['members']}
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0035:     with tarfile.open(root / b['archive'], 'r:gz') as t:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0036:         names = set(t.getnames())
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0037:         if 'published-references.json' in names:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0038:             d = json.load(t.extractfile('published-references.json'))
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0039:             for entry in d['entries']:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0040:                 if 'preserved_bytes' in entry:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0041:                     m = members[entry['preserved_bytes']]
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0042:                     assert m['original_sha256'] == entry['sha256']
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0043:                     assert m['original_bytes'] == entry['bytes']
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0044:                     counts['copied_original_identities'] += 1
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0045:                     continue
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0046:                 p = (root / entry.get('repository_relative_path', entry.get('path'))).resolve()
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0047:                 assert p.is_relative_to(root.resolve()) and p.is_file()
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0048:                 link_path = entry.get('repository_relative_path', entry.get('path'))
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0049:                 raw = _CW.read(link_path)
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0050:                 assert _CW.matches(link_path, raw, entry['sha256'], entry['bytes'])
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0051:                 counts['published_file_links'] += 1
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0052:         if 'prior-references.json' in names:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0053:             d = json.load(t.extractfile('prior-references.json'))
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0054:             if 'manifest_sha256' in d:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0055:                 h = d['manifest_sha256']
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0056:                 assert h in manifest_to_bundle
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0057:                 assert members[d['manifest_copy']]['original_sha256'] == h
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0058:                 prior = {m['path']: m for m in manifest_to_bundle[h]['members']}
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0059:                 for ref in d['references']:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0060:                     m = prior[ref['prior_manifest_path']]
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0061:                     assert m['original_sha256'] == ref['sha256'] and m['original_bytes'] == ref['bytes']
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0062:                     counts['prior_member_links'] += 1
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0063:                 counts['prior_packet_links'] += 1
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0064:             else:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0065:                 for ref in d['references']:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0066:                     h = ref['manifest_sha256']
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0067:                     assert h in manifest_to_bundle
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0068:                     manifest = ref.get('copied_manifest', ref.get('manifest'))
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0069:                     report = ref.get('copied_report', ref.get('report'))
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0070:                     assert members[manifest]['original_sha256'] == h
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0071:                     assert members[report]['original_sha256'] == ref['report_sha256']
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0072:                     counts['prior_packet_links'] += 1
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0073:                     counts['copied_original_identities'] += 2
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0074:         if 'later-hair-ops-reference.json' in names:
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0075:             d = json.load(t.extractfile('later-hair-ops-reference.json'))
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0076:             recovery = load('RECOVERY-PHYSICAL-P16-PATCH-20261111.json')
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0077:             expected = {recovery['later_agent_inventory']['original_sha256'],
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0078:                         recovery['live_comparison']['original_report_sha256']}
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0079:             assert {f['sha256'] for f in d['files']} == expected
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0080:             counts['copied_original_identities'] += len(expected)
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0081: assert counts == {'prior_packet_links': 7, 'copied_original_identities': 25,
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0082:                   'prior_member_links': 8, 'published_file_links': 21}, counts
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0083: print('Verified qualified cross-packet and previously published file links:', counts,
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0084:       '; original hashes do not imply unredacted published bytes or read credit.')
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0085: 
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0086: assert _CW.crosswalk_links_checked == 6
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0087: _CW.finish()

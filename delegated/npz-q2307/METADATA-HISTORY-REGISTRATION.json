@@ -1,0 +1,143 @@
+{
+  "schema": "726-npz-q2307-metadata-and-historical-registration-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T14:01:28.628014+00:00",
+  "historical_records": [
+    {
+      "path": "parallel-l11-20261029/READ-171.json",
+      "copy": "historical-originals/parallel-l11-20261029/READ-171.json",
+      "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad",
+      "bytes": 16613,
+      "registered_pointers": [
+        "/revision",
+        "/rows/0",
+        "/rows/1",
+        "/rows/2",
+        "/rows/3",
+        "/rows/4",
+        "/rows/5",
+        "/rows/6",
+        "/rows/7",
+        "/population_credit",
+        "/implementation_gate_complete",
+        "/native_runtime_validation"
+      ]
+    },
+    {
+      "path": "parallel-l11-20261029/PLAN-191.json",
+      "copy": "historical-originals/parallel-l11-20261029/PLAN-191.json",
+      "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+      "bytes": 9673,
+      "registered_pointers": [
+        "/revision",
+        "/rows/4",
+        "/rows/5",
+        "/rows/6",
+        "/rows/7",
+        "/rows/8",
+        "/rows/9",
+        "/rows/10",
+        "/rows/11"
+      ]
+    },
+    {
+      "path": "segovb/READ-L11-707.json",
+      "copy": "historical-originals/segovb/READ-L11-707.json",
+      "sha256": "2d4d14ccbe1f4551707c122f3961a81534955f37ec0e48e2428bfec7d4525c4d",
+      "bytes": 20872,
+      "registered_pointers": [
+        "/source_revision",
+        "/actual_current_target",
+        "/new_target_reconciliation_complete",
+        "/accepted_unique_count_change",
+        "/finding_connections_and_scope_dispositions"
+      ]
+    },
+    {
+      "path": "segovb/VERIFY-L11-707.json",
+      "copy": "historical-originals/segovb/VERIFY-L11-707.json",
+      "sha256": "4048c851f1c607badfe2d1dd470d9fac862ee8991f2d517256ca84a4751496b9",
+      "bytes": 1027,
+      "registered_pointers": [
+        "/receipt_sha256",
+        "/delegated_attribution_preserved",
+        "/other_lens_credit",
+        "/product_execution",
+        "/implementation_gate_complete"
+      ]
+    },
+    {
+      "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "copy": "historical-originals/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+      "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+      "bytes": 192315,
+      "registered_pointers": [
+        "/contract_updates/7"
+      ]
+    }
+  ],
+  "current_source_paths": [
+    {
+      "historical_row": "R171-0",
+      "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+      "historical_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c"
+    },
+    {
+      "historical_row": "R171-1",
+      "path": "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+      "historical_sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f"
+    },
+    {
+      "historical_row": "R171-2",
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "historical_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57"
+    },
+    {
+      "historical_row": "R171-3",
+      "path": "crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+      "historical_sha256": "1ea9cfec33fc2ed93d94faf3fe03c4a67f2048061101675bd0ef6057c80c4833"
+    },
+    {
+      "historical_row": "R171-4",
+      "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "historical_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260"
+    },
+    {
+      "historical_row": "R171-5",
+      "path": "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+      "historical_sha256": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649"
+    },
+    {
+      "historical_row": "R171-6",
+      "path": "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+      "historical_sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867"
+    },
+    {
+      "historical_row": "R171-7",
+      "path": "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+      "historical_sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb"
+    }
+  ],
+  "tree_metadata_scope": "For each named current source, GitHub tree API and previously preserved raw Git trees may be queried for revision, filename, mode, object ID, tree path and byte/line counts only before source body registration. No source text is displayed by these metadata operations.",
+  "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "ledger_metadata_searches": [
+    {
+      "path": "BASELINE-95E-20261110.json",
+      "sha256": "ff1cc80686e8a8087d6d49f03be8f53477d181ba763fb3bb460e9cec52a025eb",
+      "metadata_query": "List only index/identity metadata for NPZ/ZIP/declaration/selected-member relationships; register exact records before displaying their bodies."
+    },
+    {
+      "path": "RECONCILIATION-059.json",
+      "sha256": "3f7cca4a7eae3975718faafbb7e791388c285cf2d054345ff69ef5ab734b2d16",
+      "metadata_query": "List only index/identity metadata for NPZ/ZIP/declaration/selected-member relationships; register exact records before displaying their bodies."
+    },
+    {
+      "path": "baseline-059/queue.json",
+      "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "metadata_query": "List only index/identity metadata for NPZ/ZIP/declaration/selected-member relationships; register exact records before displaying their bodies."
+    }
+  ],
+  "additional_history_pointer": "baseline-059 queue /entries/2306 for adjacent NPY framing, original and redacted queue identities from HISTORY-REGISTRATION.json",
+  "qualification": "Exact historical source and selected metadata are registered before display. Queue and old history remain historical, not checkpoint3821, and historical reader credit is not transferred."
+}

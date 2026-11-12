@@ -1,0 +1,393 @@
+{
+  "schema": "726-q2300-independent-review-receipt-v1",
+  "reader": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T13:54:36.724183+00:00",
+  "registration_sha256": "450d8af67193b158fa7865c4c3af1a1edf688ff668c49ae8899a1efb7ca44882",
+  "extension_registration_sha256": "bf2b4ef067c53c6b30b50c30068ee255f5bea1529da44c24b18dcf2be3ac9227",
+  "historical_equality_registration_sha256": "61019c289fa33e709cfc7111802801958bfcb3b785ab549a0e57cb1130cb05b2",
+  "displays": {
+    "DISPLAY-A.txt": {
+      "sha256": "6f291f69957055d20ed22e8146db73bb43f3a8da4a060efa7fe74654d99b7e5a",
+      "bytes": 4361
+    },
+    "DISPLAY-B.txt": {
+      "sha256": "16cea18e57766649067c83ddb8f60ca580cffd926be88b86df2faa578071c65f",
+      "bytes": 5512
+    },
+    "DISPLAY-C.txt": {
+      "sha256": "72e29248a0d2708b35cd6a1ea9d2851b54c6bd9df156f79d07624db67c83c7da",
+      "bytes": 4393
+    },
+    "DISPLAY-D.txt": {
+      "sha256": "48d4764a2c93867bbcd6dc41cf7c5f4df819bb0611b1a4aff11a58752ec1a89b",
+      "bytes": 5634
+    },
+    "DISPLAY-E.txt": {
+      "sha256": "e49ecd1d2cbd1d320687c67395464a139ebbae15529335ce1f0eae7aa07a096c",
+      "bytes": 4931
+    },
+    "DISPLAY-F.txt": {
+      "sha256": "3c7b0c8c345f5748157d611fe3a50f0d721e5ce9d26abee3dc70a4150f6b8232",
+      "bytes": 4176
+    },
+    "DISPLAY-G.txt": {
+      "sha256": "d9f0eb4013092212caae13a55247b6343550c5dc5ba1b051fa96ebb0fb40b6d1",
+      "bytes": 4570
+    },
+    "DISPLAY-H.txt": {
+      "sha256": "d6f8c49aa5b36513966753e44a9fa6fe833c9adba798a47026815df440b8cdee",
+      "bytes": 3007
+    },
+    "DISPLAY-I.txt": {
+      "sha256": "6513d2a07f3196c4a5c7d6c4e7cd20e79f9936d58a719be4055ba8f4c29865c2",
+      "bytes": 3865
+    },
+    "HISTORY-A.txt": {
+      "sha256": "092a023192394b5c4195fb75bef8a61aebd2d597e9e5829e5c0e6f7b1c90c037",
+      "bytes": 3371
+    },
+    "HISTORY-B.txt": {
+      "sha256": "f73569066807d0d491ff29923b154f49ce1e7879aa484deb5e3e846986bf16ab",
+      "bytes": 9684
+    },
+    "HISTORY-B2.txt": {
+      "sha256": "85a5d807a82fe69184d95138ffbdd8847f32428eefe9118fc4798ff47dac90c6",
+      "bytes": 2882
+    },
+    "HISTORY-C.txt": {
+      "sha256": "f8a6a5f4d7dc32247d692076502798cc2b186b4d6977b846ff5961aeb9c0267d",
+      "bytes": 1894
+    },
+    "HISTORY-D.txt": {
+      "sha256": "74a9f9ed3b38746a95cf1b3f412ebe83528f7fd940d0b4c24115dcc8e10b62bd",
+      "bytes": 6936
+    },
+    "HISTORY-E.txt": {
+      "sha256": "059a0987bcdde6df4b8d15c56acaa61deb3d9a2d65bc58a113d321c690b10f15",
+      "bytes": 325
+    },
+    "HISTORY-F.txt": {
+      "sha256": "757527d02dff48cb6213d6fe8d27dd7c86c1fb4027ed8f00800931fa336397bc",
+      "bytes": 972
+    },
+    "PARENT-READ-A.txt": {
+      "sha256": "51865b883e914ae712c4251ab7801134b9afe122f80a41889eb4321d74085d4b",
+      "bytes": 5121
+    },
+    "PARENT-READ-B.txt": {
+      "sha256": "15f469f84183c59851b2405421dc7ff872a6eb1e3eba80b0a8bb0b156250756f",
+      "bytes": 4255
+    }
+  },
+  "source_read_scopes": [
+    {
+      "tag": "clock",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 58
+    },
+    {
+      "tag": "rate",
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 86
+    },
+    {
+      "tag": "main",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          68,
+          105
+        ],
+        [
+          106,
+          132
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          67
+        ]
+      ],
+      "eof": 132
+    },
+    {
+      "tag": "viewer",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          89,
+          100
+        ],
+        [
+          121,
+          177
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          88
+        ],
+        [
+          101,
+          120
+        ],
+        [
+          178,
+          179
+        ]
+      ],
+      "eof": 179
+    },
+    {
+      "tag": "locomotion_config",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "unread_complement": [
+        [
+          16,
+          65
+        ]
+      ],
+      "eof": 65
+    },
+    {
+      "tag": "runtime",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "unread_complement": [
+        [
+          65,
+          98
+        ]
+      ],
+      "eof": 98
+    },
+    {
+      "tag": "locomotion",
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          84,
+          100
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          83
+        ],
+        [
+          101,
+          260
+        ]
+      ],
+      "eof": 260
+    },
+    {
+      "tag": "core_elapsed",
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "unread_complement": [
+        [
+          91,
+          131
+        ]
+      ],
+      "eof": 131
+    },
+    {
+      "tag": "measurement",
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          40,
+          65
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          39
+        ],
+        [
+          66,
+          107
+        ]
+      ],
+      "eof": 107
+    },
+    {
+      "tag": "capture",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          184,
+          220
+        ],
+        [
+          360,
+          436
+        ],
+        [
+          437,
+          490
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          183
+        ],
+        [
+          221,
+          359
+        ],
+        [
+          491,
+          1021
+        ]
+      ],
+      "eof": 1021
+    },
+    {
+      "tag": "procedural_clock",
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "unread_complement": [],
+      "eof": 36
+    },
+    {
+      "tag": "subject_motion",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "unread_complement": [
+        [
+          56,
+          126
+        ]
+      ],
+      "eof": 126
+    },
+    {
+      "tag": "schedule",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          10,
+          30
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          9
+        ],
+        [
+          31,
+          57
+        ]
+      ],
+      "eof": 57
+    },
+    {
+      "tag": "bevy_fixed",
+      "path": "bevy_time-0.19.1/src/fixed.rs",
+      "revision": "bevy_time 0.19.1",
+      "displayed_ranges": [
+        [
+          75,
+          90
+        ],
+        [
+          118,
+          135
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          74
+        ],
+        [
+          91,
+          117
+        ],
+        [
+          136,
+          367
+        ]
+      ],
+      "eof": 367
+    }
+  ],
+  "historical_read_scopes": [
+    "HISTORY-A: selected 059 q2300 fields and selected source attribution metadata at historical queue transport revision 56f.",
+    "HISTORY-B2: selected fields from four historical delegated/root records; first rows only.",
+    "HISTORY-C: selected fields of two ledger records as of publication commit 8608.",
+    "HISTORY-D: selected prior scenario timestamp and P16 sample-rate report fields.",
+    "HISTORY-E: Cargo.lock structural bevy_time 0.19.1 package selection; no whole-lock personal read.",
+    "HISTORY-F: per-file e275 and 95e identity comparison only; no historic source body reread.",
+    "PARENT-READ-A and PARENT-READ-B: selected fields from the prepared report, re-displayed after registration."
+  ],
+  "chronology_qualifications": [
+    "Before creating REGISTRATION.json, this reviewer displayed the prepared REPORT.json in full to orient the task. That first exposure was not prospectively registered and its original tool display was not separately saved; the report identity at that exact earlier moment was not separately captured. The later registered selected-field re-display is retained but does not erase or retroactively register the first exposure.",
+    "The first saved historical four-record display HISTORY-B.txt was truncated in the tool output; it is retained as the exact saved file but is not credited as wholly displayed. HISTORY-B2.txt was subsequently fully displayed with a narrower selection. Two earlier key-only metadata listings were also truncated and grant no source or record-body credit.",
+    "The clock source registration includes lines 45–58 containing test text; only source text was read, and no test was run.",
+    "A registered individual e275/95e source byte equality check gives no fresh e275 personal source-read credit or whole-tree equivalence."
+  ],
+  "qualification": "Source displays preserve this reader attribution independently of earlier parallel lens11_reconcile and /root/mhr_character reads. Hashing complete external files is not personal read credit. No product, native code, build, test, fixture, macro, shader or runtime probe ran."
+}

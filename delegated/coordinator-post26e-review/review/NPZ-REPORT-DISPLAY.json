@@ -1,0 +1,104 @@
+{
+  "schema": "726-npz-q2307-bounded-reconciliation-v1",
+  "author": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T14:06:30.319044+00:00",
+  "review_status": "Independently assessed from previously registered sources; no independent semantic review of this report yet. Coordinator owns cross-lens and ledger decisions.",
+  "scope": "Bounded present-source reconciliation of original 059 queue entry 2307 and directly connected member/declaration roles. No product execution, repair, global lens/queue clearance or unique-defect-count claim.",
+  "baseline_and_identity": {
+    "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "historical_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+    "shared_src_tree": "c17733266a6817b5313f94bd38edb5a45a35caa5",
+    "historical_crate_tree": "3b7fce3fdaafcf64a6895274b0a1d9e17ee7ea8c",
+    "current_crate_tree": "9185ddb4a75b1d9dabb04373b61580aae20cba68",
+    "qualification": "Eight selected source blobs match individually under both commit-rooted Git paths and the entire src subtree has the same tree ID; the crate trees differ at Cargo.toml and the commit roots differ. Do not infer whole-tree equivalence or identical native dependencies/behavior. Exact commit anchors are separately held because their original metadata contains public author/committer emails; ANCHORS.json describes verification dependencies."
+  },
+  "historical_and_ledger_relationships": [
+    {
+      "identity": "059 q2307 REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES",
+      "attribution": "The original 059 READ-171 records an own Lens11 agent source read at e275; READ-L11-707 separately records root adoption. Prospective ranges and those readers remain their own; this task establishes a separate 95e read.",
+      "disposition": "Historical documented-conditional-policy-question; no new member-association failure was asserted and no body/population credit added. Exact named discovery remained incomplete, as did global closure and implementation/runtime gates.",
+      "recovery": "Original queue entry byte slice matches the path-redacted public reconstruction slice exactly, while full queue containers have different identities. Neither slice is an original standalone queue nor the missing final checkpoint3821 ledger or queue."
+    },
+    {
+      "identity": "059 q2313 REVIEW-L11-NPZ-SELECTED-MEMBER-ARCHIVE-ASSOCIATION",
+      "relationship": "Historical separate e275 rejected-suspicion disposition for archive-bound selected entry and no second metadata/payload lookup. The independently inspected current first-party trace corroborates the relationship; this does not prove every caller, native parser, or global alias."
+    },
+    {
+      "identity": "059 q2312 REVIEW-L11-NPZ-DECLARED-MEMBER-COUNT-UPPERBOUND",
+      "relationship": "Historical separate e275 conditional policy on whether declared versus actual cardinality must agree. Current first-party code retains a u64 count for iteration, caps only initial vector reservation, and may stop when iterator ends; exact native iterator behavior is outside this read."
+    },
+    {
+      "identity": "059 q2316 REVIEW-L11-NPZ-DECLARED-SIZE-CRC-ALLOCATION-POLICY",
+      "relationship": "Historical separate e275 policy on decoded size, CRC and resource budget. Current first-party source again uses the unverified declaration as a Deflate reservation hint and shows no explicit decoded-length or CRC check on the displayed member path. The native implementation, actual accepted archives, operational resource limits and policy remain open; no new unique defect asserted."
+    },
+    {
+      "identity": "059 q2315 REVIEW-L11-NPZ-NATIVE-OPERATION-CAUSE-OWNERSHIP",
+      "relationship": "Historical separate e275 cause-ownership disposition. Current Error::source retains the native causes of the shown variants, with MissingEndRecord explicitly projected to its own category. Runtime formatting and actual consumer handling are not demonstrated."
+    },
+    {
+      "identity": "059 q2306 and q2309–q2311, q2314",
+      "relationship": "q2306 is the related NPY decoding/admission boundary; q2309–q2311 and q2314 are earlier e275 lock, end-record, ZIP64 and native local/central framing records. Their historical exact-scope dispositions do not transfer to current dependency versions, this task, or other lenses.",
+      "qualification": "A time-bound metadata-only search of 1,032 newly assessed entries for a small NPZ/rawzip/ZIP set found no match; it is not a global semantic duplicate or alias search. METADATA-SEARCH.json records terms and baseline hash."
+    }
+  ],
+  "current_source_observations": [
+    {
+      "id": "NPZ-SELECTED-MEMBER-IDENTITY-Q2307",
+      "classification": "Bounded corroboration; no new failure claimed.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/npz.rs:17-29,45-86",
+        "crates/fabelgeist-numpy-storage/src/npz/name.rs:7-14,40-60",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:31-48,112-147,151-166",
+        "crates/fabelgeist-numpy-storage/src/zip/names.rs:5-18"
+      ],
+      "trace": "Npz.get performs one directory-order predicate search and constructs NpzMember with a ZipMember containing private references to the same archive and selected entry plus the original query. Its declared size and array decoding both use this retained member, so this first-party trace shows no later second lookup that could choose another entry. Full-name or one trailing .npy removal matches; the first match wins even if a later filename is exact. Full parsed member names and query keys are distinct, and parsed names use documented lossy UTF-8 admission.",
+      "limits": "This is a source-level handle/lifetime and lookup trace. No archive, fixture, UI, parser or runtime was executed; actual archive producers, duplicate-name policy suitability, path/security expectations and rawzip outcomes remain open."
+    },
+    {
+      "id": "NPZ-DECLARATION-AND-ALLOCATION-Q2307",
+      "classification": "Connected historical policy question, conditional on a selected Deflate entry; no independent defect count.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/zip/extent.rs:1-8,25-43",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:86-109,151-181",
+        "crates/fabelgeist-numpy-storage/src/zip/member_count.rs:7-25",
+        "crates/fabelgeist-numpy-storage/src/npz.rs:73-85"
+      ],
+      "trace": "DeclaredUncompressedByteLength is explicitly a directory declaration including any NPY header, not a verified length or allocation limit, and admits all u64 values. For a selected Deflated entry that reaches decoding, the declaration is cast to usize and passed to Vec::with_capacity before read_to_end; no explicit decoded-length or CRC comparison appears in this displayed first-party path. ArchiveMemberCount retains the u64 iteration bound, while 4096 caps only initial entry-vector reservation.",
+      "limits": "No actual archive has been shown to reach the condition, and rawzip framing, decompressor behavior, platform allocation and resource policy were not inspected or run. Do not claim a particular panic, exploit, allocation outcome, bad asset, or that the initial capacity cap bounds total directory count."
+    },
+    {
+      "id": "NPZ-ERROR-CAUSES-Q2307",
+      "classification": "Bounded source-level cause mapping; related to historical q2315.",
+      "sources": [
+        "crates/fabelgeist-numpy-storage/src/zip/error.rs:28-69,71-142",
+        "crates/fabelgeist-numpy-storage/src/zip.rs:64-79,160-181"
+      ],
+      "trace": "Native open/map and Deflate variants retain IO errors, and Archive/CorruptMember/MemberPastEnd retain rawzip errors through Error::source. MissingEndRecord is deliberately projected into a separate category, and unsupported method retains its code. The displayed archive implementation preserves a path only as error provenance, not as validated identity.",
+      "limits": "The source shows the error representation and source() implementation; no error, native operation, formatting, or consumer presentation was executed."
+    }
+  ],
+  "open_questions": [
+    "Which actual selected model assets and producers can supply archive names, member counts, declared sizes or compressed data, and what trust/resource boundaries apply?",
+    "Must asset admission verify decoded byte count or ZIP CRC, or impose reservation and decompression budgets? Which existing ledger owner should settle each policy?",
+    "What are the current pinned dependency versions and their exact local/central directory, end-record, ZIP64, method and decompression contracts? The e275 historical native records do not prove the current Cargo dependency graph.",
+    "Should a directory count smaller than physically available records, duplicate/ambiguous names, lossy byte-name collisions, or first-match ordering receive application-specific policy?",
+    "How do q2306 NPY payload admission, q2312 declared count, q2313 selected member, q2315 cause ownership and q2316 integrity/resource policy connect to actual MHR or other consumers without automatic aliases?",
+    "The original final checkpoint3821 ledger and queue remain missing; no earlier record or newly assessed source result is promoted into that checkpoint."
+  ],
+  "evidence_and_custody": {
+    "registrations": [
+      "HISTORY-REGISTRATION.json",
+      "METADATA-HISTORY-REGISTRATION.json",
+      "RELATED-HISTORY-REGISTRATION.json",
+      "SOURCE-REGISTRATION.json"
+    ],
+    "source_receipt": "SOURCE-READ-RECEIPT.json",
+    "historical_receipt": "HISTORY-READ-RECEIPT.json",
+    "related_records": "related-original/ plus RELATED-EXTRACTION.json and RELATED-HISTORY-DISPLAY.json",
+    "queue_entry": "QUEUE-EXTRACTION.json and exact original/reconstruction slices",
+    "git_proofs": "git-trees/ raw canonical tree objects and sources/ bytes; externally supplied exact Git commit anchors described in ANCHORS.json are required for commit-root verification.",
+    "privacy": "The original full queue and Git commit anchors are separately retained; a bounded final packet scan is recorded separately. No claim of complete privacy or independent-machine custody.",
+    "read_limits": "READ-LIMITS.json records the bounded metadata search and whether failed, truncated or unregistered displays occurred."
+  },
+  "limitations": "No product builds, tests, fixtures, archive parsing, decompression, macro/shader execution, runtime probes, repairs, publication or ledger edits, or cleanup."
+}

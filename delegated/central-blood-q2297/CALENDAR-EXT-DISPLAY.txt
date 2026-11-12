@@ -1,0 +1,79 @@
+   1 //! Shared non-leap strategic calendar and its absolute minute coordinate.
+   2 //!
+   3 //! Calendar calculations and stored absolute instants use [`CalendarYear`] and
+   4 //! [`StrategicMinute`]. Transport adapters convert to raw integers only where
+   5 //! their protocols require it.
+   6 
+   7 use serde::{Deserialize, Serialize};
+   8 use std::fmt;
+   9 
+  10 pub const MINUTES_PER_DAY: u64 = 24 * 60;
+  11 pub const DAYS_PER_WEEK: u64 = 7;
+  12 const SUNDAY_INDEX: u64 = 6;
+  13 pub const DAYS_PER_YEAR: u64 = 365;
+  14 pub const MINUTES_PER_YEAR: u64 = DAYS_PER_YEAR * MINUTES_PER_DAY;
+  15 /// Calendar year containing strategic minute zero.
+  16 pub const WORLD_START_YEAR: CalendarYear = CalendarYear { year: 1544 };
+  17 /// August 20 at 00:00 in the shared non-leap strategic calendar.
+  18 pub const WORLD_START_DAY_OF_YEAR: u64 = 231;
+  19 pub const WORLD_START_MINUTE: StrategicMinute = StrategicMinute {
+  20     minutes: WORLD_START_DAY_OF_YEAR * MINUTES_PER_DAY,
+  21 };
+  22 
+  23 /// Whether a zero-based day index falls on Sunday.
+  24 pub const fn is_sunday_day_index(day_index: u64) -> bool {
+  25     day_index % DAYS_PER_WEEK == SUNDAY_INDEX
+  26 }
+  27 
+  28 /// A positive calendar year. There is no year zero in this calendar.
+  29 #[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize)]
+  30 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+  31 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+  32 #[serde(try_from = "i32", into = "i32")]
+  33 pub struct CalendarYear {
+  34     year: i32,
+  35 }
+  36 
+  37 impl fmt::Display for CalendarYear {
+  38     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  39         self.year.fmt(formatter)
+  40     }
+  41 }
+  42 
+  43 impl CalendarYear {
+  44     pub const fn new(year: i32) -> Option<Self> {
+  45         if year > 0 { Some(Self { year }) } else { None }
+  46     }
+  47 
+  48     pub const fn get(self) -> i32 {
+  49         self.year
+  50     }
+  51 
+  52     /// Find the birth year implied by a whole-year age at this date.
+  53     pub const fn birth_year_for_age(self, age_years: u16) -> Option<Self> {
+  54         self.checked_sub_years(age_years)
+  55     }
+  56 
+  57     pub const fn checked_sub_years(self, years: u16) -> Option<Self> {
+  58         Self::new(self.year - years as i32)
+  59     }
+  60 
+  61     /// Position of this year between two ordered calendar years.
+  62     pub fn interpolation_fraction_between(self, first: Self, last: Self) -> Option<f64> {
+  63         (first < last && first <= self && self <= last)
+  64             .then(|| f64::from(self.year - first.year) / f64::from(last.year - first.year))
+  65     }
+  66 }
+  67 
+  68 impl TryFrom<i32> for CalendarYear {
+  69     type Error = &'static str;
+  70 
+  71     fn try_from(value: i32) -> Result<Self, Self::Error> {
+  72         Self::new(value).ok_or("calendar year must be positive")
+  73     }
+  74 }
+  75 
+  76 impl From<CalendarYear> for i32 {
+  77     fn from(value: CalendarYear) -> Self {
+  78         value.get()
+  79     }

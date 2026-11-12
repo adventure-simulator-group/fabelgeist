@@ -1,0 +1,5 @@
+{
+  "schema": "726-post26e-progress-pointer-correction-v1",
+  "chronology": "The coordinator initially replaced the prior same-machine recovery pointer while adding checkpoint26e. Before publication this was corrected: the earlier 64f pointer is restored unchanged and the a9b pointer is retained under a new just-prior field. The intermediate working file was not preserved separately.",
+  "qualification": "All recovery packets remain separately recorded; no recovery event or transcript is reattributed."
+}

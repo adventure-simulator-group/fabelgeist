@@ -1,0 +1,8 @@
+{
+  "schema": "726-post26e-initial-verifier-evolution-v1",
+  "earlier_verifier": "verify.py",
+  "earlier_verifier_sha256": "0c7935e3159e72896e0ff8a5ec57c5cb426d7b92c5c4e4371104fb869b799a94",
+  "chronology": "The first unpublished followup verifier passed both portable and optional Git/private-queue checks. It compared live counters and partial labels to the then-current exact values. Before publication the coordinator retained that exact version and replaced those permanent live-state assertions with a time-bound snapshot and continuing identity/link consistency checks. Initial tool outputs were not saved separately.",
+  "qualification": "No previously published historical verifier was changed or weakened. The time-bound snapshot preserves the earlier observed zero counters and partial statuses, and all closure and historical-replay questions remain open.",
+  "successor_first_output": "The first successor verification completed successfully, but its tool display was truncated and was not saved separately. A later full evidence-driver transcript is needed for the complete output."
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "726-central-blood-window-q2297-draft-v1",
+  "author": "/root",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_queue": "baseline-059/queue.json#/entries/2297",
+  "classification": "Conditional extreme-horizon source discrepancy; supported reachability, intended policy, impact and complete alias inventory remain open.",
+  "first_operation": "adventuresim_core::filth::blood_infectious_windows computes an inclusive end by saturating a future endpoint before subtracting one.",
+  "symbolic_trace": [
+    "At 95e a StrategicMinute admits u64 values, MAX is u64::MAX, and infectious duration is 2 * 1440 minutes.",
+    "Assume an otherwise eligible positive compatible foreign-blood deposit at MAX-1 and query from MAX-1 through MAX. The exclusive lower boundary gives first_uncommitted MAX.",
+    "The deposited_at plus 2880 saturates to MAX and subsequent subtraction yields MAX-1; start is MAX and end is MAX-1, so that deposit contributes no window.",
+    "The separately displayed infectious_fraction at MAX computes age one and a positive fraction. Thus the source equations differ at that boundary, assuming that query and deposit are admitted and the chosen semantics require the last representable minute to be included.",
+    "If no other compatible foreign-blood windows are active, the selected native gate returns an empty attempt vector before prediction or checkpoint handling. If others exist, this particular deposit still contributes no final-minute window. Selected nonpersistent preview and persistent prefix callsites do not prove such a state or route is reachable."
+  ],
+  "source_references": [
+    "crates/adventuresim-core/src/filth.rs:11-12,37-52,81-132",
+    "crates/adventuresim-world-schema/src/calendar.rs:10,82-116,144-149,169-179",
+    "crates/adventuresim-stdb-module/src/filth/exposure_windows.rs:9-26",
+    "crates/adventuresim-stdb-module/src/filth/blood_attempts.rs:16-22,33-50,96-99",
+    "crates/adventuresim-stdb-module/src/disease.rs:1274-1283,1874-1885"
+  ],
+  "scope_and_open_questions": [
+    "Inspect admissible native clock and deposit producers, transaction rollback and all relevant callers before asserting a supported witness or downstream gameplay effect.",
+    "Determine intended semantics at the terminal representable minute, exact possible overlapping deposits, checkpoint advancement and whether saturation is an explicit policy.",
+    "The displayed core sorts and merges inclusive windows; the body does not prove all upstream producer invariants. The standard inclusive iterator is not executed or claimed broken.",
+    "No runtime, product tests, native binding, macro, simulator or repair ran."
+  ],
+  "relationships": [
+    {
+      "record": "baseline-059/queue.json#/entries/2297",
+      "relationship": "Original Lens13 open connected question named core window ordering, MAX iterator and native checkpoint callers. Its frozen pr-working blood_attempts source at commit 6533 matches the 95e source bytes; this newly assessed core boundary is not retroactive checkpoint3821 or historical read credit."
+    },
+    {
+      "record": "baseline-059/queue.json#/entries/2210",
+      "relationship": "Historical itinerary clock exhaustion is a different first operation and shares only the unresolved extreme clock-domain admission dependency; do not merge without proof."
+    },
+    {
+      "record": "baseline-059/queue.json#/entries/132 and current ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC",
+      "relationship": "Cumulative daily-share multiplication is a different first operation; extreme strategic-minute admission may be coordinated but no alias or same repair is presumed."
+    }
+  ],
+  "history_and_chronology": "The recovered 059 registration, reader and adoption retain the original Lens13 agent attribution and root no-reread adoption. Historical exact source file matches its 6533 commit path and 95e blob; no whole-tree equivalence. The coordinator initially mistook the commit for a blob and incorrectly reported it absent, then corrected that assertion after checking object type and recovering the extracted bytes. A metadata key inventory output was truncated and has no full-read credit. The separately disclosed earlier unregistered queue-prefix navigation has no personal source credit.",
+  "review_status": "Coordinator draft awaiting independent semantic review; do not count as an established unique defect or close q2297.",
+  "repair_direction": "After the audit, establish explicit terminal-time and cursor semantics across the core window owner and native admission before choosing a connected correction.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

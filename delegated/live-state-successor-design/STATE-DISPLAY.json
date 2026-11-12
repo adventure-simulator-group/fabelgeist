@@ -1,0 +1,81 @@
+{
+  "evolution_qualification": {
+    "schema": "726-evidence-verifier-evolution-qualification-v1",
+    "observed_checkpoint_commit": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+    "inventory": "delegated/evidence-verifier-evolution/SOURCE-INVENTORY.json",
+    "inventory_manifest_sha256": "a190cfe1a540960f70e08fd776ba17644c981383cac44dd1d84d918ad59953da",
+    "scope": "Static inspection of 694 root verify_*.py files, exact Git-blob matched to the recorded evidence commit. Four one-line regular expressions identify selected progress and partial-state assertion patterns; they do not establish all equivalent patterns, executable paths or the number of unique affected scripts.",
+    "heuristic_counts": {
+      "lenses_zero": 249,
+      "queue_zero": 312,
+      "partial_status": 256,
+      "candidate_count": 241
+    },
+    "concrete_example": "verify_delegated_reconciliation_4_95e.py asserts that the live q1859 current_reconciliation starts with partial and that live lenses_complete and queue_records_semantically_reconciled equal zero. Those facts describe the observed checkpoint, but treating them as permanent live-state invariants would reject a later justified closure.",
+    "candidate_count_qualification": "The candidate-count pattern compares a live count to the live ledger length and is not by itself evidence of a frozen zero-state constraint.",
+    "consequence": "Before recording any actual completed lens or semantically reconciled queue row that conflicts with a historical check, establish a reviewed evidence-verification method that preserves the earlier assertion against its exact time-bound state while separately validating the new live state. Do not remove or silently weaken historical assertions. No such adaptation is implemented or independently approved here.",
+    "limits": "No audit lens or queue row is closed by this inspection; no original historical record is overwritten. The reported checkpoint was published and its same-machine recovery check was still ongoing when this inventory was made.",
+    "product_validation": "not performed"
+  },
+  "baseline": {
+    "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "status": "discovery incomplete; implementation and product validation prohibited",
+    "authority_rule": "This is the incomplete working continuation at 95e, not recovered checkpoint 3821. Recovered bytes, reconstructions, historical summaries and newly assessed work retain their separate provenance. All prior assessment, role, queue, ledger and source-delta obligations remain open until independently reconciled at this revision.",
+    "lens_names": [
+      "producer propagation",
+      "existing owners",
+      "admission",
+      "operations",
+      "aggregates",
+      "type ownership",
+      "redundant authority",
+      "behavior preservation",
+      "enum shapes",
+      "derivability",
+      "type granularity",
+      "raw strings",
+      "raw primitives"
+    ],
+    "lens_status": [
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete"
+    ],
+    "historical_queue_records_indexed": 3713,
+    "historical_queue_records_semantically_reconciled": 0,
+    "recovery_qualification": "Checkpoint 059 bytes are recovered and hash-verified for that checkpoint. Final original checkpoint 3821 ledger and queue remain missing; reconstructed records and historical summaries are not promoted to final authority. A bounded older-collection search found no requested hash matches, without proving absence.",
+    "latest_main_recheck": "MAIN-RECHECK-20261112-1315.json"
+  },
+  "ledger_count": 1031,
+  "progress": {
+    "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "lens_count": 13,
+    "lenses_complete": 0,
+    "queue_records_indexed": 3713,
+    "queue_records_semantically_reconciled": 0,
+    "new_current_ledger_candidates": 1031,
+    "repair": "not started",
+    "product_validation": "not performed"
+  },
+  "queue_count": 3713,
+  "role_count": 2853,
+  "role_status_counts": {
+    "unassessed": 330,
+    "lock-metadata-partial": 4,
+    "bounded-current-trace-only": 22,
+    "assessed-nonapplicable": 3,
+    "full-historical-body-trace-open": 2480,
+    "deleted-base-trace-open": 7,
+    "source-metadata-partial": 7
+  }
+}

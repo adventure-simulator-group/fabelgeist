@@ -1,0 +1,7 @@
+{
+  "schema": "726-path-digest-correction-proposal-status-v1",
+  "status": "Unapplied. Fifteen earlier published files remain unchanged in this checkpoint. The proposal reconstructs 795 identified digest fields; 522 match the separately recorded corpus and 273 more were selected by field semantics. The two counts have distinct evidentiary bases.",
+  "verification": "The public-only reconstruction check passes and binds the historical whole-file identities, successor bytes, markers and pointers. Restricted replay and safety scans are separately attributed and same-machine. Public checking alone cannot reproduce private substitutions or establish complete privacy.",
+  "external_check_observation": "The coordinator invoked the proposal verifier with the optional current publication checkout. Its captured CONTINUATION-PROGRESS-95E.json dependency was 115330 bytes with SHA-256 e567eeb18cc0df520bb3affebf97c1b160c81575a878ac08dbdd73255e4f4c00; the later observed working file was 116611 bytes with SHA-256 354c35937e2b99690cfbc4afa9de501d5e47408194235b65c0458229473a1471. The optional check failed at that first mismatch, after earlier checks, because the working progress was edited after the capture. This is not an assertion of current bytes or a successful full external comparison.",
+  "remaining": "Independently review and integrate separately named verifier adaptations that preserve all unaffected legacy assertions before overlaying the proposed files. Earlier Git history and the separately recorded unread archive members remain outside this proposal."
+}

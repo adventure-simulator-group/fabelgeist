@@ -1,0 +1,40 @@
+{
+  "created_utc": "2026-11-12T13:52:06.003281+00:00",
+  "purpose": "Bounded harness-readiness and timeout navigation after filename-only navigation",
+  "sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "git_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "96b6408758b0c8b82f49c210bb4acc352526519b3ba8a525b3500f045279af24",
+      "lines": 518,
+      "planned_action": "line-numbered token locator only, not body read",
+      "search_terms": [
+        "fn update_readiness",
+        "fn ready(",
+        "timeout",
+        "Duration",
+        "Instant",
+        "elapsed",
+        "AssetServer",
+        "LoadState"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "git_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+      "lines": 285,
+      "planned_action": "line-numbered token locator only, not body read",
+      "search_terms": [
+        "fn update_readiness",
+        "fn ready(",
+        "timeout",
+        "Duration",
+        "Instant",
+        "elapsed",
+        "AssetServer",
+        "LoadState"
+      ]
+    }
+  ]
+}

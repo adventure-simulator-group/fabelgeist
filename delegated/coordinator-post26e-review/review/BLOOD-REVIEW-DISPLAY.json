@@ -1,0 +1,52 @@
+{
+  "schema": "726-q2297-final-minute-boundary-v1",
+  "author": "/root/mhr_character",
+  "scope": "Bounded source and recovered-history reconciliation of 059 queue entry 2297 against pinned product revision 95e63628f9d70b8dd6e6fede64334696c6995009. Mathematical reasoning and evidence verification only; no repair, test, simulation, product execution, or claim of lens/queue closure.",
+  "historical_record": {
+    "queue_pointer": "56f24f6457f6cec8ffcdc46f03f5ff26a8abb50e:baseline-059/queue.json#/entries/2297",
+    "contract_id": "PL13-245-BLOOD-CURSOR-WINDOW-OWNER-PENDING",
+    "status": "open-connected-source-current-alias-qualification; audit_discovery_closed=false; repair_or_runtime_passed=false; body_or_population_credit=0",
+    "reviewer": "The 059 record, original registration and read receipt attribute original role 1099, blood_attempts.rs lines 1–157, to the delegated Lens13 reviewer's own untruncated personal source read at the recorded pr-working object associated with Git 6533e444fa37552927070cc8d8190907fd3b413e. Root's separate READ-L13-PARALLEL-243 records delegated adoption with root_personal_rereads empty, not a fresh root source read.",
+    "source_identity": "The exact archived pr-working blood_attempts.rs bytes, the 6533 Git object for this file and the pinned 95e Git object for this file have SHA-256 c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e; separate tree membership proofs are included. This per-file equality does not establish a clean pr-working snapshot, whole-tree equality, or equality of other core/calendar bodies at these revisions.",
+    "historical_custody": "The four exact original registration/read/adoption/proposal records and the original source object were copied read-only from the user-provided historical extraction and matched against q2297 identities. Their exact bytes are in history-exact/. The selected queue JSON is a reconstruction verified against the identified original 059 queue, whose full bytes are not recopied due unrelated local paths. Original attribution, status, and proposal-versus-adoption chronology are retained; nothing is promoted to missing checkpoint3821."
+  },
+  "current_source": {
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "identity_and_read_scope": "SOURCE-REGISTRATION.json and the extension registrations precede all displays. READ-RECEIPTS.json records actual chunks, union and unread complement. Full source captures and raw Git trees prove bytes and per-file membership only; they do not imply whole-file personal reads or runtime outcomes. Calendar 412–575 and portions of blood_attempts.rs and disease.rs are test-source text that was read but never run."
+  },
+  "analysis": {
+    "conditional_example": {
+      "premises": "Let M = StrategicMinute::MAX = u64::MAX. Assume an existing positive-amount foreign blood deposit at M−1 whose disease snapshot is a supported blood-compatible disease. Take from=M−1 and to=M. Source defines duration as two days = 2,880 minutes.",
+      "age_and_fraction": "calendar.rs:99–116, 144–150 defines M and saturating arithmetic; filth.rs:81–87 computes elapsed age M−(M−1)=1 and the positive fraction 1−1/2,880.",
+      "window": "filth.rs:90–118 documents the excluded from cursor and computes first_uncommitted=M. Its end is (M−1).saturating_add_minutes(2,880).saturating_sub_minutes(1) = M−1, so start=M and end=M−1 and the start<=end guard drops the window. Thus the source excludes M even though the independent infectious fraction is positive.",
+      "kind": "Representable public-API/source-level counterexample subject to the stated premises; actual stored deposit, supported timestamp reachability, desired maximum-time policy, disease outcome and runtime behavior were not observed."
+    },
+    "stronger_gate_refinement": "For (M−1,M], no deposit can yield any window: every calculated inclusive infectious end is at most M−1 after the final subtraction. Native exposure_windows.rs:18–26 therefore observes no qualifying window for any starter blood-compatible disease, regardless of whether other deposits exist. blood_attempts.rs:16–22 returns before wound routes, disease loop, replay, or checkpoint write. This strengthens the coordinator draft's no-other-deposit premise; it does not demonstrate actual product reachability or absence of all other disease paths.",
+    "wider_interval_qualification": "For an interval ending at M that starts earlier, a separate deposit/minute may make the gate true before M; if execution then reaches the per-disease persistence branch with persist_checkpoint true and no intervening error, blood_attempts.rs:33–47, 96–98 and 120–137 can write evaluated_through=M even though these windows still never include M. This is conditional source control flow, not observed checkpoint mutation or demonstrated data loss. The one-minute query above instead exits before persistence.",
+    "native_trace_and_safeguards": "The source-only native producer caps each deposit to remaining filth capacity and rejects a resulting zero amount, stores at:StrategicMinute, and snapshots supported unresolved source episodes (filth.rs:208–230, 236–283). The native reader reconstructs deposit data and requires provenance (310–348). filth.rs:140 includes blood_attempts.rs; exposure_windows.rs:9–26 delegates to the core window. disease.rs:1274–1283 calls replay for planning with persist=false; disease.rs:1823–1856, 1874–1885 selects the committed prefix and calls it with persist=true. These identify source paths and conditions, not a demonstrated database state, producer-to-clock reach, completed disease attempt, or actual commit.",
+    "calendar_iterator_limit": "calendar.rs:169–179 defines inclusive iterators. The shown one-minute native gate exits before iteration, so this example does not establish an iterator error, infinite loop, collision, or failure in the seed contract."
+  },
+  "historical_and_ledger_relationships": [
+    {
+      "record": "059 /entries/2297",
+      "relationship": "The boundary is a newly assessed conditional source fact relevant to the still-open q2297 core window and native caller question. It does not by itself close that historical question or establish a new globally unique defect."
+    },
+    {
+      "record": "059 /entries/894, Q-L12-52dd2479b35850a6031d",
+      "relationship": "Related original-role 1099 checkpoint versus deterministic blood-exposure source/seed/codec question. It remains separately open, has no attached source receipt context in that queue entry and says no collision is invented. Shared blood/cursor scope is not an identity proof or automatic alias."
+    },
+    {
+      "record": "Committed BASELINE-95E-20261110.json at the revision in LEDGER-REGISTRATION.json",
+      "relationship": "A bounded case-insensitive scalar search for blood found only ADLER-L11-BLOOD-SURFACE-DISTANCE-FRAME, whose selected row concerns a separate visual surface frame; it is not this exposure window. This does not search all prior packets, draft artifacts, synonyms, other revisions, or prove global novelty."
+    }
+  ],
+  "open_questions": [
+    "Can the authoritative strategic clock, validated native writers, compatible active infection snapshots and selected disease interval actually reach a positive foreign deposit and query at these extreme minutes?",
+    "Does intended policy include the last representable minute when a positive age-based dose exists, or intentionally exclude it or cap/reject earlier?",
+    "What are the full checkpoint, cursor, failure and transaction semantics for wider intervals at the boundary, including all callers and independent disease routes?",
+    "How do q2297, q894 and any other historical/current record relate after a broader alias review, and can their remaining source scopes be reconciled without transferring reader credit?"
+  ],
+  "read_and_error_qualifications": "Initial filename navigation over a broad temporary-directory scope returned exit 2 because several unrelated system-private directories were inaccessible. It was not treated as an absence proof: the four q2297 named historical paths were then checked directly and hash matched. The first calendar window happened to include test-source text and did not contain the production StrategicMinute implementation; a new prospective registration preceded the later production display. No tests were run and no initially registered source display was truncated.",
+  "limits": "All observations are bounded static source inspection and evidence integrity checks. No database, product, macro, fixture, simulation, test, build, rendering or runtime probe was executed; no source/publication/protected extraction was modified. Neither historical queue nor ledger was changed and no duplicate count or closure is asserted."
+}

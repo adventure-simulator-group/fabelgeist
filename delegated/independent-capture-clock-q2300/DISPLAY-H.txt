@@ -1,0 +1,55 @@
+subject_motion:0001: //! Capture controller admission and ordered post-projection state updates.
+subject_motion:0002: 
+subject_motion:0003: use super::*;
+subject_motion:0004: use adventuresim_tactical_core::animation::AnimationValueResult;
+subject_motion:0005: 
+subject_motion:0006: pub(super) struct CaptureMotion {
+subject_motion:0007:     pub(super) orientation: Quat,
+subject_motion:0008:     pub(super) world_velocity: Vec3,
+subject_motion:0009:     pub(super) contact: GroundContact,
+subject_motion:0010:     pub(super) elapsed: AnimationElapsed,
+subject_motion:0011: }
+subject_motion:0012: 
+subject_motion:0013: /// Root facing follows the fixture action only outside authored posture ownership.
+subject_motion:0014: pub(super) fn advance_capture_facing(
+subject_motion:0015:     skeleton: &SkeletonState,
+subject_motion:0016:     transform: &mut Transform,
+subject_motion:0017:     orientation: Quat,
+subject_motion:0018:     world_velocity: Vec3,
+subject_motion:0019:     action: SkeletonAction,
+subject_motion:0020:     elapsed: AnimationElapsed,
+subject_motion:0021: ) -> AnimationValueResult<()> {
+subject_motion:0022:     if !skeleton.is_posture_transitioning() {
+subject_motion:0023:         transform.rotation = advance_body_facing(
+subject_motion:0024:             transform.rotation,
+subject_motion:0025:             orientation,
+subject_motion:0026:             world_velocity,
+subject_motion:0027:             action,
+subject_motion:0028:             skeleton.weapon_guard(),
+subject_motion:0029:             elapsed,
+subject_motion:0030:         )?;
+subject_motion:0031:     }
+subject_motion:0032:     Ok(())
+subject_motion:0033: }
+subject_motion:0034: 
+subject_motion:0035: pub(super) fn project_capture_motion(
+subject_motion:0036:     skeleton: &mut SkeletonState,
+subject_motion:0037:     transform: &mut Transform,
+subject_motion:0038:     frame: &PlannedFrame,
+subject_motion:0039:     motion: CaptureMotion,
+subject_motion:0040:     sequence: &CaptureSequence,
+subject_motion:0041: ) -> AnimationValueResult<()> {
+subject_motion:0042:     let jump_charging = frame.scenario.is(ScenarioId::JumpChargeAnticipation)
+subject_motion:0043:         && (4..48).contains(&frame.scenario_frame);
+subject_motion:0044:     let tick = sequence.simulation_tick;
+subject_motion:0045:     let input = SkeletonLocomotionInput::from_controller(
+subject_motion:0046:         motion.orientation,
+subject_motion:0047:         motion.world_velocity,
+subject_motion:0048:         motion.contact,
+subject_motion:0049:         motion.elapsed,
+subject_motion:0050:         tick,
+subject_motion:0051:     )?;
+subject_motion:0052:     project_skeleton_locomotion_with_body_rotation(skeleton, input, transform.rotation, None)?;
+subject_motion:0053:     skeleton.set_jump_anticipation(JumpAnticipation::from(jump_charging));
+subject_motion:0054:     if sequence.warmup_frames == 0 && frame.scenario.transition().is_some() {
+subject_motion:0055:         let previous_transition = skeleton.posture_transition();

@@ -1,0 +1,109 @@
+--- native-disease 2705-2760 ---
+2705     Ok(())
+2706 }
+2707 
+2708 #[cfg(test)]
+2709 mod herbalist_purchase_source_tests {
+2710     #[test]
+2711     fn purchase_adds_requested_quantity_once_through_kind_aware_helper() {
+2712         let source = crate::production_source(include_str!("disease.rs"));
+2713         let purchase = source
+2714             .split("pub fn purchase_from_herbalist")
+2715             .nth(1)
+2716             .unwrap();
+2717         let body = purchase.split("#[cfg(test)]").next().unwrap();
+2718         assert!(body.contains("add_inventory_item_checked(ctx, patient_id, item_id, *quantity)"));
+2719         assert!(!body.contains("for _ in 0..*quantity"));
+2720     }
+2721 
+2722     #[test]
+2723     fn interval_authority_assembles_community_contact_and_blood_exposure() {
+2724         let source = crate::production_source(include_str!("disease.rs"));
+2725         let plan = source
+2726             .split("pub fn plan_party_disease_interval")
+2727             .nth(1)
+2728             .unwrap()
+2729             .split("fn party_contact_episodes_through")
+2730             .next()
+2731             .unwrap();
+2732         assert!(plan.contains("SettlementExposureSource::for_settlement"));
+2733         let sources = include_str!("disease/exposure_sources.rs");
+2734         assert!(sources.contains("settlement_outbreak"));
+2735         assert!(sources.contains("local_problem_authority"));
+2736         assert!(plan.contains("blood_exposure_attempts_through"));
+2737         assert!(plan.contains("resolve_acquisition_timeline"));
+2738         let clip = source
+2739             .split("fn clip_elapsed_for_disease_planned")
+2740             .nth(1)
+2741             .unwrap()
+2742             .split("pub fn clip_elapsed_for_disease")
+2743             .next()
+2744             .unwrap();
+2745         assert!(clip.contains("infection_occurs_through"));
+2746     }
+2747 
+2748     #[test]
+2749     fn interval_plan_prefetches_private_presence_through_both_indexes() {
+2750         let source = crate::production_source(include_str!("disease.rs"));
+2751         let helper = source
+2752             .split("fn bounded_physiology_spans")
+2753             .nth(1)
+2754             .unwrap()
+2755             .split("pub(crate) fn party_physiology_check_at")
+2756             .next()
+2757             .unwrap();
+2758         assert!(helper.contains("presence_low_id()"));
+2759         assert!(helper.contains("presence_high_id()"));
+2760         assert!(helper.contains("insert_unique_bounded"));
+--- native-disease 2900-2950 ---
+2900                     source.contains(&format!(r#""id":"{}""#, hook.evidence_id)),
+2901                     "{}",
+2902                     hook.evidence_id
+2903                 );
+2904                 if let Some(site) = hook.required_site {
+2905                     assert!(source.contains(&format!(r#""id":"{site}""#)), "{site}");
+2906                 }
+2907             }
+2908         }
+2909     }
+2910 
+2911     #[test]
+2912     fn disease_terminal_preview_is_side_effect_free() {
+2913         let source = crate::production_source(include_str!("disease.rs"));
+2914         let preview = source
+2915             .split("fn preview_disease_boundary_planned")
+2916             .nth(1)
+2917             .and_then(|tail| {
+2918                 tail.split("pub fn preview_disease_terminal_boundary")
+2919                     .next()
+2920             })
+2921             .expect("disease terminal preview");
+2922         for forbidden in [
+2923             "persist_acquisition_episodes",
+2924             "persist_",
+2925             "blood_exposure_attempts_through",
+2926             "cursor",
+2927             "notice(",
+2928             ".insert(",
+2929             ".update(",
+2930             ".delete(",
+2931         ] {
+2932             assert!(!preview.contains(forbidden), "preview contains {forbidden}");
+2933         }
+2934     }
+2935 
+2936     #[test]
+2937     fn medicinal_interventions_use_nonemergency_treatment_decisions() {
+2938         let source = crate::production_source(include_str!("disease.rs"));
+2939         let relationship = source
+2940             .split("pub(crate) fn require_intervention_relationship")
+2941             .nth(1)
+2942             .and_then(|tail| tail.split("fn commit_terminal_at_boundary").next())
+2943             .expect("intervention relationship");
+2944         assert!(relationship.contains("contextual_nonemergency_treatment_decision"));
+2945         assert!(relationship.contains("ContextualActionDecision::Refused"));
+2946         assert!(relationship.contains("ContextualActionDecision::Unavailable"));
+2947         assert!(!relationship.contains("incapacitat"));
+2948         assert!(!relationship.contains("party_id =="));
+2949     }
+2950 }

@@ -1,0 +1,99 @@
+verify_checkpoint_privacy_prescan.py:0001: #!/usr/bin/env python3
+verify_checkpoint_privacy_prescan.py:0002: """Check a point-in-time evidence scan receipt, not privacy of all history."""
+verify_checkpoint_privacy_prescan.py:0003: import argparse
+verify_checkpoint_privacy_prescan.py:0004: import hashlib
+verify_checkpoint_privacy_prescan.py:0005: import json
+verify_checkpoint_privacy_prescan.py:0006: from pathlib import Path, PurePosixPath
+verify_checkpoint_privacy_prescan.py:0007: 
+verify_checkpoint_privacy_prescan.py:0008: root = Path(__file__).resolve().parent
+verify_checkpoint_privacy_prescan.py:0009: folder = root / "delegated/checkpoint-privacy-prescan"
+verify_checkpoint_privacy_prescan.py:0010: report = json.loads((folder / "REPORT.json").read_bytes())
+verify_checkpoint_privacy_prescan.py:0011: sha = lambda data: hashlib.sha256(data).hexdigest()
+verify_checkpoint_privacy_prescan.py:0012: digest = (folder / "DIGEST-RESULT.json").read_bytes()
+verify_checkpoint_privacy_prescan.py:0013: pattern = (folder / "PATTERN-RESULT.txt").read_bytes()
+verify_checkpoint_privacy_prescan.py:0014: manifest = (folder / "INPUT-MANIFEST.json").read_bytes()
+verify_checkpoint_privacy_prescan.py:0015: assert sha(digest) == report["digest_result_sha256"]
+verify_checkpoint_privacy_prescan.py:0016: assert sha(pattern) == report["pattern_result_sha256"]
+verify_checkpoint_privacy_prescan.py:0017: assert sha(manifest) == report["input_manifest_sha256"]
+verify_checkpoint_privacy_prescan.py:0018: rows = json.loads(manifest)["files"]
+verify_checkpoint_privacy_prescan.py:0019: assert len(rows) == report["input_files"] == 578
+verify_checkpoint_privacy_prescan.py:0020: assert len({row["path"] for row in rows}) == len(rows)
+verify_checkpoint_privacy_prescan.py:0021: for row in rows:
+verify_checkpoint_privacy_prescan.py:0022:     path = PurePosixPath(row["path"])
+verify_checkpoint_privacy_prescan.py:0023:     assert not path.is_absolute() and ".." not in path.parts
+verify_checkpoint_privacy_prescan.py:0024:     assert len(row["sha256"]) == 64 and row["bytes"] >= 0
+verify_checkpoint_privacy_prescan.py:0025: scan = json.loads(digest)
+verify_checkpoint_privacy_prescan.py:0026: assert scan["forbidden_digest_total"] == 0 and not scan["exceptions"]
+verify_checkpoint_privacy_prescan.py:0027: assert scan["other_candidate_counts"] == {"email": 48}
+verify_checkpoint_privacy_prescan.py:0028: assert sum(item["count"] for item in scan["other_candidate_locations"]) == 48
+verify_checkpoint_privacy_prescan.py:0029: assert all(item["kind"] == "email" and ".commit" in item["location"]
+verify_checkpoint_privacy_prescan.py:0030:            for item in scan["other_candidate_locations"])
+verify_checkpoint_privacy_prescan.py:0031: assert b"issues 0" in pattern
+verify_checkpoint_privacy_prescan.py:0032: parser = argparse.ArgumentParser()
+verify_checkpoint_privacy_prescan.py:0033: parser.add_argument("--private-root", type=Path)
+verify_checkpoint_privacy_prescan.py:0034: args = parser.parse_args()
+verify_checkpoint_privacy_prescan.py:0035: if args.private_root:
+verify_checkpoint_privacy_prescan.py:0036:     path = args.private_root / "checkpoint-prescan-20261112/pattern-scanner.py"
+verify_checkpoint_privacy_prescan.py:0037:     assert sha(path.read_bytes()) == report["pattern_scanner_sha256"]
+verify_checkpoint_privacy_prescan.py:0038:     print("Retained same-machine pattern scanner identity checked.")
+verify_checkpoint_privacy_prescan.py:0039: else:
+verify_checkpoint_privacy_prescan.py:0040:     print("The separately retained pattern scanner was not supplied.")
+verify_checkpoint_privacy_prescan.py:0041: print("Prior staged-input scan receipt checked; later files, old Git history and unknown representations remain outside its scope.")
+verify_main_advance_evidence.py:0101:         changes.append({'path': path, 'previous': before, 'current': after})
+verify_main_advance_evidence.py:0102: if changes != record['tree_changes'] or len(changes) != 1 or changes[0]['path'] != 'world-runtime-release.lock.json':
+verify_main_advance_evidence.py:0103:     raise ValueError('main-advance source delta mismatch')
+verify_main_advance_evidence.py:0104: unchanged = sum(trees['previous'].get(p) == trees['current'].get(p)
+verify_main_advance_evidence.py:0105:                 for p in set(trees['previous']) | set(trees['current']))
+verify_main_advance_evidence.py:0106: if unchanged != record['unchanged_tree_entries']:
+verify_main_advance_evidence.py:0107:     raise ValueError('unchanged entry count mismatch')
+verify_main_advance_evidence.py:0108: 
+verify_main_advance_evidence.py:0109: before, after = locks['previous'], locks['current']
+verify_main_advance_evidence.py:0110: a = {x['path']: x for x in before['files']}
+verify_main_advance_evidence.py:0111: b = {x['path']: x for x in after['files']}
+verify_main_advance_evidence.py:0112: if len(a) != len(before['files']) or len(b) != len(after['files']):
+verify_main_advance_evidence.py:0113:     raise ValueError('duplicate lock member')
+verify_main_advance_evidence.py:0114: summary = {
+verify_main_advance_evidence.py:0115:     'old_schema': before['schema'], 'new_schema': after['schema'],
+verify_main_advance_evidence.py:0116:     'old_release': before['release'], 'new_release': after['release'],
+verify_main_advance_evidence.py:0117:     'old_archive_sha256': before['archive_sha256'], 'new_archive_sha256': after['archive_sha256'],
+verify_main_advance_evidence.py:0118:     'old_archive_size': before['archive_size'], 'new_archive_size': after['archive_size'],
+verify_main_advance_evidence.py:0119:     'added_paths': sorted(b.keys() - a.keys()), 'removed_paths': sorted(a.keys() - b.keys()),
+verify_main_advance_evidence.py:0120:     'changed_existing_paths': sorted(p for p in a.keys() & b.keys() if a[p] != b[p]),
+verify_main_advance_evidence.py:0121:     'unchanged_existing_paths': sorted(p for p in a.keys() & b.keys() if a[p] == b[p]),
+verify_main_advance_evidence.py:0122: }
+verify_main_advance_evidence.py:0123: if summary != record['lockfile_mechanical_summary']:
+verify_main_advance_evidence.py:0124:     raise ValueError('lock comparison mismatch')
+verify_main_advance_evidence.py:0125: 
+verify_main_advance_evidence.py:0126: snapshots = {}
+verify_main_advance_evidence.py:0127: for label, item in record['predecessor_snapshots'].items():
+verify_main_advance_evidence.py:0128:     raw = gzip.decompress(checked(item))
+verify_main_advance_evidence.py:0129:     if len(raw) != item['uncompressed_bytes'] or hashlib.sha256(raw).hexdigest() != item['uncompressed_sha256']:
+verify_main_advance_evidence.py:0130:         raise ValueError('frozen predecessor mismatch: ' + label)
+verify_main_advance_evidence.py:0131:     snapshots[label] = json.loads(raw)
+verify_main_advance_evidence.py:0132: predecessor = snapshots['predecessor-baseline']
+verify_main_advance_evidence.py:0133: old_progress = snapshots['predecessor-progress']
+verify_main_advance_evidence.py:0134: old_roles = snapshots['predecessor-role-worklist']
+verify_main_advance_evidence.py:0135: if any(doc['source_revision'] != old for doc in (predecessor, old_progress, old_roles)):
+verify_main_advance_evidence.py:0136:     raise ValueError('frozen revision mismatch')
+verify_main_advance_evidence.py:0137: for item in predecessor['source_delta']:
+verify_main_advance_evidence.py:0138:     path = item['path']
+verify_main_advance_evidence.py:0139:     if trees['previous'].get(path) != trees['current'].get(path):
+verify_main_advance_evidence.py:0140:         raise ValueError('predecessor delta also changed: ' + path)
+verify_main_advance_evidence.py:0141: if (baseline['predecessor_delta_paths'] != len(predecessor['source_delta']) or
+verify_main_advance_evidence.py:0142:         progress['predecessor_delta_paths'] != len(predecessor['source_delta']) or
+verify_main_advance_evidence.py:0143:         baseline['predecessor_ledger']['entries'] != len(predecessor['repair_ledger']['entries']) or
+verify_main_advance_evidence.py:0144:         progress['predecessor_ledger_entries'] != len(predecessor['repair_ledger']['entries'])):
+verify_main_advance_evidence.py:0145:     raise ValueError('predecessor obligation count mismatch')
+verify_main_advance_evidence.py:0146: if (len(baseline['lens_names']) != 13 or baseline['lens_status'] != ['incomplete'] * 13 or
+verify_main_advance_evidence.py:0147:         progress['lenses_complete'] != 0 or progress['new_transition_lens_cells_assessed'] != 0):
+verify_main_advance_evidence.py:0148:     raise ValueError('unsupported completion credit')
+verify_main_advance_evidence.py:0149: additional = baseline['additional_source_delta']
+verify_main_advance_evidence.py:0150: if (len(additional) != 1 or additional[0]['path'] != changes[0]['path'] or
+verify_main_advance_evidence.py:0151:         not additional[0]['lens_status'][0].startswith('partial bounded') or
+verify_main_advance_evidence.py:0152:         additional[0]['lens_status'][1:] != ['unassessed'] * 12 or
+verify_main_advance_evidence.py:0153:         progress['new_transition_lens_cells_partial'] != 1):
+verify_main_advance_evidence.py:0154:     raise ValueError('new transition coverage is not correctly qualified')
+verify_main_advance_evidence.py:0155: if (baseline['historical_queue_records_indexed'] != old_progress['historical_queue_records_indexed'] or
+verify_main_advance_evidence.py:0156:         baseline['historical_queue_records_semantically_reconciled'] != old_progress['current_queue_records_semantically_reconciled']):
+verify_main_advance_evidence.py:0157:     raise ValueError('historical queue count mismatch')
+verify_main_advance_evidence.py:0158: print('verified main commit ancestry, both trees and lock blobs, frozen predecessor, and open coverage')

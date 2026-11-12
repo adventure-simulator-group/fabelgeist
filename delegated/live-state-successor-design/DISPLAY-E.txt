@@ -1,0 +1,100 @@
+verify_main_advance_evidence.py:0001: """Verify an observed main advance and its frozen predecessor offline.
+verify_main_advance_evidence.py:0002: 
+verify_main_advance_evidence.py:0003: This checks Git object identities and lockfile JSON only. It does not execute
+verify_main_advance_evidence.py:0004: product code, fetch the release, verify its archive, or credit a lens.
+verify_main_advance_evidence.py:0005: """
+verify_main_advance_evidence.py:0006: import gzip
+verify_main_advance_evidence.py:0007: import hashlib
+verify_main_advance_evidence.py:0008: import json
+verify_main_advance_evidence.py:0009: from pathlib import Path
+verify_main_advance_evidence.py:0010: 
+verify_main_advance_evidence.py:0011: root = Path(__file__).resolve().parent
+verify_main_advance_evidence.py:0012: record = json.loads((root / 'MAIN-ADVANCE-95E.json').read_text())
+verify_main_advance_evidence.py:0013: baseline = json.loads((root / 'BASELINE-95E-20261110.json').read_text())
+verify_main_advance_evidence.py:0014: progress = json.loads((root / 'CONTINUATION-PROGRESS-95E.json').read_text())
+verify_main_advance_evidence.py:0015: old = 'c100638b720a7281a5fc96f6a3c5c23d5dda85da'
+verify_main_advance_evidence.py:0016: new = '95e63628f9d70b8dd6e6fede64334696c6995009'
+verify_main_advance_evidence.py:0017: assert record['previous_revision'] == old and record['current_revision'] == new
+verify_main_advance_evidence.py:0018: assert baseline['source_revision'] == progress['source_revision'] == new
+verify_main_advance_evidence.py:0019: assert baseline['previous_source_revision'] == progress['predecessor_revision'] == old
+verify_main_advance_evidence.py:0020: assert baseline['transition_evidence'] == 'MAIN-ADVANCE-95E.json'
+verify_main_advance_evidence.py:0021: 
+verify_main_advance_evidence.py:0022: 
+verify_main_advance_evidence.py:0023: def checked(item):
+verify_main_advance_evidence.py:0024:     path = (root / item['path']).resolve()
+verify_main_advance_evidence.py:0025:     if not path.is_relative_to(root):
+verify_main_advance_evidence.py:0026:         raise ValueError('evidence path escapes branch')
+verify_main_advance_evidence.py:0027:     raw = path.read_bytes()
+verify_main_advance_evidence.py:0028:     if len(raw) != item['bytes'] or hashlib.sha256(raw).hexdigest() != item['sha256']:
+verify_main_advance_evidence.py:0029:         raise ValueError('evidence file mismatch: ' + item['path'])
+verify_main_advance_evidence.py:0030:     return raw
+verify_main_advance_evidence.py:0031: 
+verify_main_advance_evidence.py:0032: 
+verify_main_advance_evidence.py:0033: def object_sha(kind, content):
+verify_main_advance_evidence.py:0034:     return hashlib.sha1(kind.encode() + b' ' + str(len(content)).encode() + b'\0' + content).hexdigest()
+verify_main_advance_evidence.py:0035: 
+verify_main_advance_evidence.py:0036: 
+verify_main_advance_evidence.py:0037: def tree_entries(raw, expected):
+verify_main_advance_evidence.py:0038:     nested = {}
+verify_main_advance_evidence.py:0039:     entries = {}
+verify_main_advance_evidence.py:0040:     for line in raw.decode().splitlines():
+verify_main_advance_evidence.py:0041:         header, name = line.split('\t', 1)
+verify_main_advance_evidence.py:0042:         mode, kind, oid = header.split()
+verify_main_advance_evidence.py:0043:         parts = name.split('/')
+verify_main_advance_evidence.py:0044:         if name.startswith('"') or kind not in ('blob', 'commit') or name in entries or any(p in ('', '.', '..') for p in parts):
+verify_main_advance_evidence.py:0045:             raise ValueError('invalid tree entry')
+verify_main_advance_evidence.py:0046:         entries[name] = [mode, kind, oid]
+verify_main_advance_evidence.py:0047:         node = nested
+verify_main_advance_evidence.py:0048:         for part in parts[:-1]:
+verify_main_advance_evidence.py:0049:             node = node.setdefault(part, {})
+verify_main_advance_evidence.py:0050:             if not isinstance(node, dict):
+verify_main_advance_evidence.py:0051:                 raise ValueError('tree collision')
+verify_main_advance_evidence.py:0052:         if parts[-1] in node:
+verify_main_advance_evidence.py:0053:             raise ValueError('duplicate tree node')
+verify_main_advance_evidence.py:0054:         node[parts[-1]] = (mode, oid)
+verify_main_advance_evidence.py:0055:     def digest(node):
+verify_main_advance_evidence.py:0056:         content = bytearray()
+verify_main_advance_evidence.py:0057:         def order(item):
+verify_main_advance_evidence.py:0058:             name, value = item
+verify_main_advance_evidence.py:0059:             return name.encode() + (b'/' if isinstance(value, dict) else b'\0')
+verify_main_advance_evidence.py:0060:         for name, value in sorted(node.items(), key=order):
+verify_main_advance_evidence.py:0061:             mode, oid = ('40000', digest(value)) if isinstance(value, dict) else value
+verify_main_advance_evidence.py:0062:             content.extend(mode.encode() + b' ' + name.encode() + b'\0' + bytes.fromhex(oid))
+verify_main_advance_evidence.py:0063:         return object_sha('tree', content)
+verify_main_advance_evidence.py:0064:     if digest(nested) != expected:
+verify_main_advance_evidence.py:0065:         raise ValueError('tree object mismatch')
+verify_main_advance_evidence.py:0066:     return entries
+verify_main_advance_evidence.py:0067: 
+verify_main_advance_evidence.py:0068: 
+verify_main_advance_evidence.py:0069: trees = {}
+verify_main_advance_evidence.py:0070: locks = {}
+verify_main_advance_evidence.py:0071: for label, revision in [('previous', old), ('current', new)]:
+verify_main_advance_evidence.py:0072:     commit_item = record['commits'][label]
+verify_main_advance_evidence.py:0073:     tree_item = record['trees'][label]
+verify_main_advance_evidence.py:0074:     if commit_item['content_encoding'] != 'gzip':
+verify_main_advance_evidence.py:0075:         raise ValueError('unknown commit encoding')
+verify_main_advance_evidence.py:0076:     commit = gzip.decompress(checked(commit_item))
+verify_main_advance_evidence.py:0077:     if (len(commit) != commit_item['uncompressed_bytes'] or
+verify_main_advance_evidence.py:0078:             hashlib.sha256(commit).hexdigest() != commit_item['uncompressed_sha256']):
+verify_main_advance_evidence.py:0079:         raise ValueError('commit bytes mismatch')
+verify_main_advance_evidence.py:0080:     if commit_item['git_commit'] != revision or object_sha('commit', commit) != revision:
+verify_main_advance_evidence.py:0081:         raise ValueError('commit identity mismatch')
+verify_main_advance_evidence.py:0082:     headers = commit.split(b'\n\n', 1)[0].splitlines()
+verify_main_advance_evidence.py:0083:     if b'tree ' + tree_item['git_tree'].encode() not in headers:
+verify_main_advance_evidence.py:0084:         raise ValueError('commit tree binding mismatch')
+verify_main_advance_evidence.py:0085:     if label == 'current' and [h for h in headers if h.startswith(b'parent ')] != [b'parent ' + old.encode()]:
+verify_main_advance_evidence.py:0086:         raise ValueError('not a direct child')
+verify_main_advance_evidence.py:0087:     tree_raw = checked(tree_item)
+verify_main_advance_evidence.py:0088:     trees[label] = tree_entries(tree_raw, tree_item['git_tree'])
+verify_main_advance_evidence.py:0089:     lock_item = record['lockfiles'][label]
+verify_main_advance_evidence.py:0090:     lock_raw = checked(lock_item)
+verify_main_advance_evidence.py:0091:     if (object_sha('blob', lock_raw) != lock_item['git_blob'] or
+verify_main_advance_evidence.py:0092:             trees[label].get('world-runtime-release.lock.json') != ['100644', 'blob', lock_item['git_blob']]):
+verify_main_advance_evidence.py:0093:         raise ValueError('lockfile blob mismatch')
+verify_main_advance_evidence.py:0094:     locks[label] = json.loads(lock_raw)
+verify_main_advance_evidence.py:0095: if checked(record['trees']['previous']) != (root / 'CURRENT-TREE.tsv').read_bytes():
+verify_main_advance_evidence.py:0096:     raise ValueError('predecessor tree differs from published inventory')
+verify_main_advance_evidence.py:0097: changes = []
+verify_main_advance_evidence.py:0098: for path in sorted(set(trees['previous']) | set(trees['current'])):
+verify_main_advance_evidence.py:0099:     before, after = trees['previous'].get(path), trees['current'].get(path)
+verify_main_advance_evidence.py:0100:     if before != after:

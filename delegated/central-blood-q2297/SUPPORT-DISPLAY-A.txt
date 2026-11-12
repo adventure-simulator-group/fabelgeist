@@ -1,0 +1,110 @@
+--- core-filth 65-145 ---
+  65 }
+  66 
+  67 pub fn travel_dirt(minutes: u64) -> u16 {
+  68     ((minutes as f32 / MINUTES_PER_DAY as f32) * TRAVEL_DIRT_PER_DAY).round() as u16
+  69 }
+  70 
+  71 /// Carries exact travel-dirt progress between movement chunks. The remainder is
+  72 /// measured in dirt-minutes over a denominator of 1,440.
+  73 pub fn travel_dirt_accrual(remainder_numerator: u16, minutes: u64) -> (u16, u16) {
+  74     let numerator =
+  75         u128::from(remainder_numerator).saturating_add(u128::from(minutes).saturating_mul(8));
+  76     let minutes_per_day = u128::from(MINUTES_PER_DAY);
+  77     let dirt = u16::try_from(numerator / minutes_per_day).unwrap_or(u16::MAX);
+  78     (dirt, (numerator % minutes_per_day) as u16)
+  79 }
+  80 
+  81 pub fn infectious_fraction(deposited_at: StrategicMinute, now: StrategicMinute) -> f32 {
+  82     let age = now.elapsed_since(deposited_at);
+  83     if age >= BLOOD_INFECTIOUS_MINUTES {
+  84         0.0
+  85     } else {
+  86         1.0 - age as f32 / BLOOD_INFECTIOUS_MINUTES as f32
+  87     }
+  88 }
+  89 
+  90 /// Inclusive absolute-minute windows in which compatible foreign blood can
+  91 /// transmit. `from` is the already-committed cursor and is therefore excluded.
+  92 pub fn blood_infectious_windows(
+  93     deposits: &[Deposit],
+  94     disease_id: DiseaseId,
+  95     from: StrategicMinute,
+  96     to: StrategicMinute,
+  97 ) -> Vec<(StrategicMinute, StrategicMinute)> {
+  98     if to <= from {
+  99         return Vec::new();
+ 100     }
+ 101     let first_uncommitted = from.saturating_add_minutes(1);
+ 102     let mut windows = deposits
+ 103         .iter()
+ 104         .filter(|deposit| deposit.foreign_blood() && deposit.amount > 0)
+ 105         .filter(|deposit| {
+ 106             deposit
+ 107                 .diseases
+ 108                 .iter()
+ 109                 .any(|snapshot| snapshot.disease_id == disease_id)
+ 110         })
+ 111         .filter_map(|deposit| {
+ 112             let infectious_end = deposit
+ 113                 .deposited_at
+ 114                 .saturating_add_minutes(BLOOD_INFECTIOUS_MINUTES)
+ 115                 .saturating_sub_minutes(1);
+ 116             let start = first_uncommitted.max(deposit.deposited_at);
+ 117             let end = to.min(infectious_end);
+ 118             (start <= end).then_some((start, end))
+ 119         })
+ 120         .collect::<Vec<_>>();
+ 121     windows.sort_unstable();
+ 122     let mut merged: Vec<(StrategicMinute, StrategicMinute)> = Vec::new();
+ 123     for (start, end) in windows {
+ 124         if let Some(last) = merged.last_mut()
+ 125             && start <= last.1.saturating_add_minutes(1)
+ 126         {
+ 127             last.1 = last.1.max(end);
+ 128         } else {
+ 129             merged.push((start, end));
+ 130         }
+ 131     }
+ 132     merged
+ 133 }
+ 134 
+ 135 /// Combines cut routes with diminishing returns. Open cuts are most vulnerable;
+ 136 /// bandaging helps substantially and stitching helps further.
+ 137 pub fn cut_exposure(open: u32, bandaged: u32, stitched: u32) -> f32 {
+ 138     let raw = open as f32 + bandaged as f32 * 0.40 + stitched as f32 * 0.18;
+ 139     1.0 - (-raw).exp()
+ 140 }
+ 141 
+ 142 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ 143 pub enum CutRouteState {
+ 144     Open,
+ 145     Bandaged,
+--- windows 1-27 ---
+   1 //! Database cursor conversion for strategic blood-exposure windows.
+   2 
+   3 use adventuresim_core::{
+   4     disease::{DiseaseId, STARTER_DISEASES, TransmissionVector},
+   5     filth::{self, Deposit},
+   6 };
+   7 use adventuresim_world_schema::calendar::StrategicMinute;
+   8 
+   9 pub(super) fn blood_infectious_windows(
+  10     deposits: &[Deposit],
+  11     disease_id: DiseaseId,
+  12     from: StrategicMinute,
+  13     to: StrategicMinute,
+  14 ) -> Vec<(StrategicMinute, StrategicMinute)> {
+  15     filth::blood_infectious_windows(deposits, disease_id, from, to)
+  16 }
+  17 
+  18 pub(super) fn has_active_compatible_foreign_blood(
+  19     deposits: &[Deposit],
+  20     from: StrategicMinute,
+  21     to: StrategicMinute,
+  22 ) -> bool {
+  23     STARTER_DISEASES
+  24         .iter()
+  25         .filter(|definition| definition.supports(TransmissionVector::Blood))
+  26         .any(|definition| !blood_infectious_windows(deposits, definition.id, from, to).is_empty())
+  27 }

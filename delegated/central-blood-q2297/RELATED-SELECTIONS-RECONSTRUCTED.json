@@ -1,0 +1,331 @@
+{
+  "selections": [
+    {
+      "source": "baseline-059/queue.json",
+      "pointer": "/entries/132",
+      "value": {
+        "contract_id": "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC",
+        "kind": "retained-finding-or-question",
+        "lens": 11,
+        "lens_resolution_required": false,
+        "status": "open-reconciliation",
+        "canonical_owner": "StrategicMinute cumulative allocation arithmetic, using sufficient intermediate width and an explicit final overflow policy.",
+        "first_failed_contract_or_unresolved_question": "A cumulative fixed daily share must divide the full product before limiting the final allocation, when the mathematically correct output fits.",
+        "exact_source_identities_and_assessed_ranges": [
+          {
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+            "source_sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+            "revision_as_recorded": null,
+            "git_path_as_recorded": null,
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                330
+              ]
+            ],
+            "attribution_as_recorded": null,
+            "proof_pointer": "/sources/0",
+            "receipt": {
+              "path": "adler/READ-L11-338.json",
+              "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+            },
+            "lens_context": 11,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+            "source_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+            "revision_as_recorded": null,
+            "git_path_as_recorded": null,
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                698
+              ]
+            ],
+            "attribution_as_recorded": null,
+            "proof_pointer": "/sources/1",
+            "receipt": {
+              "path": "adler/READ-L11-338.json",
+              "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+            },
+            "lens_context": 11,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates.rs",
+            "source_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+            "revision_as_recorded": null,
+            "git_path_as_recorded": null,
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                512
+              ]
+            ],
+            "attribution_as_recorded": null,
+            "proof_pointer": "/sources/2",
+            "receipt": {
+              "path": "adler/READ-L11-338.json",
+              "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+            },
+            "lens_context": 11,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+            "source_sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+            "revision_as_recorded": null,
+            "git_path_as_recorded": null,
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                49
+              ]
+            ],
+            "attribution_as_recorded": null,
+            "proof_pointer": "/sources/3",
+            "receipt": {
+              "path": "adler/READ-L11-338.json",
+              "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+            },
+            "lens_context": 11,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+            "source_sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+            "revision_as_recorded": null,
+            "git_path_as_recorded": null,
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                83
+              ]
+            ],
+            "attribution_as_recorded": null,
+            "proof_pointer": "/sources/4",
+            "receipt": {
+              "path": "adler/READ-L11-338.json",
+              "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+            },
+            "lens_context": 11,
+            "scope_credit_from_queue": 0
+          },
+          {
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+            "source_sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+            "revision_as_recorded": null,
+            "git_path_as_recorded": null,
+            "assessed_ranges_as_recorded": [
+              [
+                1,
+                358
+              ]
+            ],
+            "attribution_as_recorded": null,
+            "proof_pointer": "/sources/5",
+            "receipt": {
+              "path": "adler/READ-L11-338.json",
+              "sha256": "b5fcb5eea418357091f1fb2fef34ad277b96533e22e6612d6ab6d05b30c3306c"
+            },
+            "lens_context": 11,
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "declared_source_identity_navigation": [
+          {
+            "source_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+            "original_registry_identity_candidates": [
+              {
+                "original_role": 440,
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+                "snapshot": "physical-p16",
+                "registry_pointer": "/files/440"
+              },
+              {
+                "original_role": 2158,
+                "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+                "snapshot": "pr-working",
+                "registry_pointer": "/files/2158"
+              }
+            ],
+            "source_key_and_ranges_as_recorded": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc:82-105,265-268",
+            "scope_credit_from_queue": 0
+          }
+        ],
+        "historical_receipt": "../../adler/READ-L11-338.json",
+        "ledger_pointer": "/discovery_findings_and_dependencies/ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC",
+        "remaining_evidence": [
+          "Actualcumulative_daily_share_minutes consumers andtime/share admissiblehorizon",
+          "Currentimplementation andall20time/duration canonicalfamily dedup",
+          "Nativeauthoritativearithmeticacceptance afterexhaustiveauditgate"
+        ],
+        "dependencies": [
+          "Actualcumulative_daily_share_minutes consumers andtime/share admissiblehorizon",
+          "Currentimplementation andall20time/duration canonicalfamily dedup",
+          "Nativeauthoritativearithmeticacceptance afterexhaustiveauditgate"
+        ],
+        "closure_condition": [
+          "Complete source/current/alias qualification and record the exact producer\u2192API\u2192retained state\u2192consumer\u2192native trace, first contract, owner/functions, connected repair dependencies and concrete later acceptance. A fully documented finding, policy question, conditional case or rejected suspicion may close audit discovery; repair implementation and runtime validation are not audit closure requirements."
+        ],
+        "later_repair_acceptance_requirements": [
+          "Zero/whole/halfday shares maintainexpectedfloorallocation",
+          "Largeadmittedminute and720share yieldsrepresentablehalfminuteallocation",
+          "Finaloverflowpolicy explicit whenfullresultdoesnotfit",
+          "Normalstrategic schedules preserveexistingsemantics"
+        ],
+        "existing_alias_applications_as_recorded": [],
+        "body_or_population_credit": 0,
+        "runtime_validation": "Not run",
+        "implementation_gate_complete": false
+      }
+    },
+    {
+      "source": "baseline-059/queue.json",
+      "pointer": "/entries/2210",
+      "value": {
+        "contract_id": "PL13-212-ITINERARY-CLOCK-EXHAUSTION-NATIVE-PENDING",
+        "kind": "connected-contract",
+        "lens": 13,
+        "body_or_population_credit": 0,
+        "implementation_gate_complete": false,
+        "metadata_proposals": [
+          {
+            "path": "parallel-l13-20261029/CLOSURE-QUEUE-PROPOSAL-PL13-001-v2.json",
+            "sha256": "1bfefeb827083ec7f56ec2b12cc165b08f06c171400c00f85dde85fee879bb84",
+            "row_pointer": "/contract_updates/0"
+          }
+        ],
+        "granular_contract_views": [
+          {
+            "proposal": {
+              "path": "parallel-l13-20261029/CLOSURE-QUEUE-PROPOSAL-PL13-001-v2.json",
+              "sha256": "1bfefeb827083ec7f56ec2b12cc165b08f06c171400c00f85dde85fee879bb84",
+              "row_pointer": "/contract_updates/0"
+            },
+            "lens": 13,
+            "canonical_owner": "forecast_itinerary owns progress at StrategicMinute exhaustion; native clock-domain question remains",
+            "first_failed_contract_or_unresolved_question": "At StrategicMinuteMAX a duration-zero leg can saturating-add1 without advancing time or segment count; native reachability not established.",
+            "exact_source_identities_and_assessed_ranges": [
+              {
+                "original": 1017,
+                "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+                "revision_or_explicit_transport_qualification": "pr-working exact frozen object; Git6533e444fa37552927070cc8d8190907fd3b413e",
+                "source_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+                "actual_EOF": 860,
+                "assessed_ranges": [
+                  [
+                    1,
+                    860
+                  ]
+                ],
+                "read_ref": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-212.json",
+                  "sha256": "8cec162e3d70a5e0ebc27c119bd956f96e7f85e3b33fc2a4227aed43ccf9d552"
+                },
+                "read_pointer": "/rows/0",
+                "read_attribution": "Lens13 agent personal assessment recorded in existing immutable receipt; metadata reuse now, no reread",
+                "registration_ref_and_sha256": {
+                  "path": "target/726-audit-adler-20261027/parallel-l13-20261029/REGISTRATION-PL13-212.json",
+                  "sha256": "ba056f684e6f625189463d004ea8c103623548df16dc509ab01deedede4345be"
+                },
+                "registration_pointer": "/sources/0",
+                "body_output_truncation_status": true,
+                "partial_union_as_recorded": [
+                  {
+                    "original": 1017,
+                    "read": {
+                      "path": "target/726-audit-adler-20261027/parallel-l13-20261029/READ-PL13-212-PARTIAL-001.json",
+                      "sha256": "ca7a0b4f27a763d829eceb102950f21487e38967019301f56837a2f3ccd20f49"
+                    },
+                    "previous_personal_ranges": [
+                      [
+                        1,
+                        460
+                      ]
+                    ],
+                    "new_personal_ranges": [
+                      [
+                        461,
+                        860
+                      ]
+                    ],
+                    "union": [
+                      [
+                        1,
+                        860
+                      ]
+                    ],
+                    "reread_claimed": false
+                  }
+                ],
+                "qualification_refs_as_recorded": [
+                  "Initial1017display1..460 unregisteredduefailed1018rawWindowsmetadataGitcheck getszero. Actualregisteredreread1..230/231..460 afterREG212, thenfresh461..690/691..860 and1018full113, no inventedprospectivechronology. Exactqualification retained; rawregistryunchanged."
+                ],
+                "new_body_or_population_credit": 0
+              }
+            ],
+            "remaining_evidence": [
+              "Actual callers and admitted clock/itinerary limits, ClockExhausted policy, current source and exact aliases."
+            ],
+            "dependencies": [
+              "Native StrategicMinute admission"
+            ],
+            "closure_condition": [
+              "Qualify the specific remaining producer, API, retained state, consumer and native contracts against exact own-lens evidence; reconcile current source and exact first-operation aliases.",
+              "Record finding, policy question, conditional case or rejected suspicion with supported scope and explicit limitations; no repair implementation or runtime validation is required for audit-discovery closure."
+            ],
+            "proposed_disposition": "open-source-reconciliation",
+            "existing_contract_revisit_identity_proof": {
+              "same_local_receipt_contract_id": "PL13-212-ITINERARY-CLOCK-EXHAUSTION-NATIVE-PENDING",
+              "split_child_of": null,
+              "alias_to_other_findings": "Not inferred; exact operation and first contract comparison pending."
+            },
+            "source_body_credit": 0,
+            "current_reconciled": false,
+            "audit_discovery_closed": false,
+            "repair_or_runtime_passed": false,
+            "truncation_field_qualification": "Raw body_output_truncation_status:true copied untruncated_body_outputs:true; effective body_output_was_truncated:false only where independently bound by original receipt. No new body attestation."
+          }
+        ],
+        "canonical_owner": "forecast_itinerary owns progress at StrategicMinute exhaustion; native clock-domain question remains",
+        "first_failed_contract_or_unresolved_question": "At StrategicMinuteMAX a duration-zero leg can saturating-add1 without advancing time or segment count; native reachability not established.",
+        "remaining_evidence": [
+          "Resolve the attached granular contract view without dropping historical unread obligations; source/current/alias qualification and documented disposition are required before audit closure."
+        ],
+        "dependencies": [
+          "Native StrategicMinute admission"
+        ],
+        "status": "open-granular-reconciliation"
+      }
+    },
+    {
+      "source": "BASELINE-95E-20261110.json",
+      "pointer": "/newly_assessed_ledger/entries/446",
+      "value": {
+        "id": "ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC",
+        "lens": 11,
+        "additional_current_lenses": [
+          1,
+          4,
+          8,
+          13
+        ],
+        "severity": "unassigned; extreme-horizon arithmetic",
+        "classification": "Original cumulative daily-share finding reconnected to restorative leisure and injury recovery; premature multiplication saturation can erase a representable interval at an extreme minute.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/132",
+          "baseline-059/ledger.json#/discovery_findings_and_dependencies/ADLER-L11-CALENDAR-DAILY-SHARE-ARITHMETIC"
+        ],
+        "relationship_qualification": "Original Adler338 accepted finding, current example and consumer newly traced; no historical count change or3821 attribution. Actual horizon remains open.",
+        "discovery": "partial; symbolic full-day share and selected recovery path traced; actual clock admission, other consumers and aliases remain open",
+        "connected_repair_direction": "Preserve full-precision cumulative allocation before explicit final overflow policy, coordinated with strategic time and duration owners.",
+        "future_acceptance": "After authorization, cover zero, full and half-day shares, chunk telescoping, representable extreme intermediates and final overflow policy.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CALENDAR-ECONOMY-95E.json"
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "726-live-state-input-manifest-navigation-result-v1",
+  "registration_sha256": "898f4df04928c982526d2056255d3edf0254f53381f5f0a7f8dabcbcd623bf4e",
+  "matches": {
+    "checkpoint-privacy-prescan": [
+      "verify_checkpoint_privacy_prescan.py"
+    ],
+    "loose-inventory.json": [],
+    "LOOSE-REFERENCE-INVENTORY.json": [
+      "delegated/privacy-baseline059-proposal/verify.py"
+    ],
+    "CHANGED-BLOBS.json": [
+      "delegated/independent-privacy-d7b14/verify.py"
+    ],
+    "BASELINE-20261110.json": [
+      "verify_armor_evidence.py",
+      "verify_browser_disease_evidence.py",
+      "verify_capture_weapon_evidence.py",
+      "verify_combat_admission_evidence.py",
+      "verify_combat_rate_evidence.py",
+      "verify_contact_tree_evidence.py",
+      "verify_delegated_reconciliation_8_95e.py",
+      "verify_delta_sources.py",
+      "verify_filth_food_evidence.py",
+      "verify_forage_identity_evidence.py",
+      "verify_hud_evidence.py",
+      "verify_inventory_fraction_evidence.py",
+      "verify_inventory_lookup_95e_trace.py",
+      "verify_iteration_evidence.py",
+      "verify_melee_movement_evidence.py",
+      "verify_physics_conception_evidence.py",
+      "verify_physiology_crossing_evidence.py",
+      "verify_precision_counts_evidence.py",
+      "verify_recruit_loading_evidence.py",
+      "verify_roster_residence_evidence.py",
+      "verify_strategic_calendar_evidence.py",
+      "verify_tactical_entry_evidence.py",
+      "verify_threat_camera_evidence.py",
+      "verify_threat_granularity_trace.py",
+      "verify_weight_sigil_evidence.py",
+      "verify_wheel_evidence.py",
+      "verify_workflow_encounter_evidence.py"
+    ],
+    "INPUT-MANIFEST.json": [
+      "verify_checkpoint_privacy_prescan.py"
+    ]
+  },
+  "qualification": "Literal Python filename navigation only; no automatic proof of live input binding."
+}

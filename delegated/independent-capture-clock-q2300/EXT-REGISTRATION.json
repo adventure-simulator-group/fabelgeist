@@ -1,0 +1,38 @@
+{
+  "schema": "726-q2300-independent-source-extension-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T13:50:30.479587+00:00",
+  "entries": [
+    {
+      "tag": "main",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "eof": 132,
+      "ranges": [
+        [
+          106,
+          132
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/main.rs"
+    },
+    {
+      "tag": "capture",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "eof": 1021,
+      "ranges": [
+        [
+          437,
+          490
+        ]
+      ],
+      "external_capture": "delegated/capture-clock-q2300/sources/capture.rs"
+    }
+  ],
+  "qualification": "Prospective source-only follow-up to check fixed-clock handoff and selected motion callsite. No product execution."
+}

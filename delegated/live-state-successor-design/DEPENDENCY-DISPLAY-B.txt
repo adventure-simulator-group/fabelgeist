@@ -1,0 +1,20 @@
+delegated/privacy-baseline059-proposal/verify.py:0036:         b=(P/records[name]['public_path']).read_bytes();assert b.count(x['marker'].encode())==x[name+'_occurrences']
+delegated/privacy-baseline059-proposal/verify.py:0037: assert len(idx['marker_mapping'])==10
+delegated/privacy-baseline059-proposal/verify.py:0038: assert docs['queue']['entries'][1818]['contract_id']=='Q-L12-ae99db0adb61f27b6ebb' and docs['queue']['entries'][1818]['status']=='open-evidence-or-disposition'
+delegated/privacy-baseline059-proposal/verify.py:0039: loose=json.loads((P/'LOOSE-REFERENCE-INVENTORY.json').read_bytes());ar=json.loads((P/'DELEGATED-ARCHIVE-REFERENCE-INVENTORY.json').read_bytes());links=json.loads((P/'HASH-LINK-INVENTORY.json').read_bytes());hist=json.loads((P/'HISTORICAL-ARCHIVE-IDENTITIES.json').read_bytes());overlap=json.loads((P/'AFFECTED-POINTERS.json').read_bytes())
+delegated/privacy-baseline059-proposal/verify.py:0040: assert loose['enumerated_regular_files']==21706 and len(loose['files'])==loose['matching_files_successfully_reread']==845 and not loose['changed_or_unread']
+delegated/privacy-baseline059-proposal/verify.py:0041: assert ar['archive_count_enumerated']==len(ar['archive_records'])==354 and ar['outer_regular_member_count']==34990 and len(ar['bounded_unscanned'])==315 and not ar['errors']
+delegated/privacy-baseline059-proposal/verify.py:0042: assert len(links['direct_link_manifest_records'])==20 and len(links['archived_hash_link_records_checkpoint16_19'])==35
+delegated/privacy-baseline059-proposal/verify.py:0043: assert sum(x['document']=='queue' for x in hist['records'])==280 and sum(x['document']=='ledger' for x in hist['records'])==125 and len(overlap['records'])==7
+delegated/privacy-baseline059-proposal/verify.py:0044: scan=json.loads((P/'SCAN-INPUTS.json').read_bytes())
+delegated/privacy-baseline059-proposal/verify.py:0045: for name in ('all-loose-paths.bin','loose-hit-paths.bin'):
+delegated/independent-privacy-d7b14/verify.py:0007: m=j('MANIFEST.json');actual={x.relative_to(p).as_posix() for x in p.rglob('*') if x.is_file() and x.relative_to(p).as_posix()!='MANIFEST.json'};assert actual=={x['path'] for x in m['files']} and len(m['files'])==m['file_count']
+delegated/independent-privacy-d7b14/verify.py:0008: for x in m['files']:
+delegated/independent-privacy-d7b14/verify.py:0009:  f=p/x['path'];assert not f.is_symlink();b=f.read_bytes();assert (len(b),sha(b))==(x['bytes'],x['sha256'])
+delegated/independent-privacy-d7b14/verify.py:0010: r=j('REPORT.json');inventory=j('CHANGED-BLOBS.json');objects=j('GIT-COMMIT-OBJECTS.json');locations=json.loads(gzip.decompress((p/'CANDIDATE-LOCATIONS.json.gz').read_bytes()));rows=inventory['entries']
+delegated/independent-privacy-d7b14/verify.py:0011: old=r['object_scope']['parent'];new=r['object_scope']['commit'];assert inventory['old_revision']==old and inventory['new_revision']==new and len(rows)==616 and len({x['path'] for x in rows})==616
+delegated/independent-privacy-d7b14/verify.py:0012: assert collections.Counter(x['status'] for x in rows)=={'A':600,'M':16} and sum(x['stored_bytes'] for x in rows)==266552743
+delegated/independent-privacy-d7b14/verify.py:0013: assert locations['count']==len(locations['entries'])==37660 and locations['group_count']==len({x['group'] for x in locations['entries']})==50
+delegated/independent-privacy-d7b14/verify.py:0014: assert collections.Counter(x['kind'] for x in locations['entries'])=={'unix_path':37500,'email':160}
+delegated/independent-privacy-d7b14/verify.py:0015: assert not r['scan']['exceptions'] and len(objects['occurrences'])==77 and sum(x['occurrences'] for x in objects['distinct_objects'].values())==77
+delegated/independent-privacy-d7b14/verify.py:0016: assert len({x['tracked_archive'] for x in objects['occurrences']})==27

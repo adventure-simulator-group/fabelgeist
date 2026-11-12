@@ -1,0 +1,100 @@
+=== HISTORY-Q2306-EXACT.json 201..299 ===
+ 201 |           "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+ 202 |           "contract_relevant_ranges": [
+ 203 |             [
+ 204 |               1,
+ 205 |               110
+ 206 |             ]
+ 207 |           ],
+ 208 |           "body_receipt": {
+ 209 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+ 210 |             "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+ 211 |           },
+ 212 |           "registration_ref_and_sha256": {
+ 213 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-024.json",
+ 214 |             "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+ 215 |             "json_pointer": "/rows/1"
+ 216 |           },
+ 217 |           "root_adoption": {
+ 218 |             "path": "segovb/READ-L11-547.json",
+ 219 |             "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+ 220 |             "verification": "segovb/VERIFY-L11-547.json",
+ 221 |             "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+ 222 |           },
+ 223 |           "body_credit_from_queue": 0
+ 224 |         },
+ 225 |         {
+ 226 |           "source_row_key": "R011-8",
+ 227 |           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/values.rs",
+ 228 |           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+ 229 |           "source_sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+ 230 |           "assessed_ranges": [
+ 231 |             [
+ 232 |               1,
+ 233 |               174
+ 234 |             ]
+ 235 |           ],
+ 236 |           "receipt_pointer": "/rows/8",
+ 237 |           "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+ 238 |           "contract_relevant_ranges": [
+ 239 |             [
+ 240 |               1,
+ 241 |               174
+ 242 |             ]
+ 243 |           ],
+ 244 |           "body_receipt": {
+ 245 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+ 246 |             "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+ 247 |           },
+ 248 |           "registration_ref_and_sha256": {
+ 249 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-024.json",
+ 250 |             "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+ 251 |             "json_pointer": "/rows/2"
+ 252 |           },
+ 253 |           "root_adoption": {
+ 254 |             "path": "segovb/READ-L11-547.json",
+ 255 |             "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+ 256 |             "verification": "segovb/VERIFY-L11-547.json",
+ 257 |             "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+ 258 |           },
+ 259 |           "body_credit_from_queue": 0
+ 260 |         }
+ 261 |       ],
+ 262 |       "producer_api_retained_state_consumer_native_trace": [
+ 263 |         "NpyArray34..38 privateimmutable shape/dtype/payloadbytes; from_bytes120..130 destructuresadmittedNpyHeader thenowns payload.to_vec. read134..138 preservesstdIO/parsecauses viaanyhowContext, unlikeStringformattererasure. NativeconstantsMAGIC/version/length widths exactformatports; no universalapplicationquantitywrappingfixedmagic.",
+ 264 |         "Headerframe::from_bytes19..40 checksminimum10/magic21..23, supports1.0/u16 or2.0/3.0/u32 length25..28, checkedget/split_at_checked32..35 beforeUTF8/from_dictionary36..39. Versionnativepackingboilerplate belongsoneenumHeaderVersion; no functionbodycountfromdeletedvendoringorhandoff alone.",
+ 265 |         "from_dictionary28..88 collectslexicaldescriptor/order/dimensions31..35 untilexactrequiredpresence71..73, rejectingduplicates46..60, unknownHeaderField97, malformedseparator68/trailingtext39. Thenactualdtype74 andFortran75 rejection BEFORE shape product78/payload80..82. This is temporarylexicalparserstate, notunrelatedretainedOptionfields needinganotheraggregateowner.",
+ 266 |         "StorageOrderlexicalTrue/False105..110 requireseparatorslater68, so falseprefixgarbagecannotbeacceptedwithoutnextseparator. quoted148..160 firstensuresASCIIquote151 before slicing, rejectsescapes155; supportedscalarfieldpolicy neednotadmitarbitraryPythonliteral/dictfeatures. from_header_tuple118..137 handlesrank0emptyshape, requirescommafortuple123, parseusize\u2192NpyDimension131 thenNpyShape::try_from136; actualproduct/zeroextentpolicy own011metadata body qualifiedseparately.",
+ 267 |         "Dtype51..75 distinctF32/F64/I32/I64/U8/Bool withlittleendiannativeformats; rawnativeencodeddescrstrings terminalformatports, notapplicationAPIsemanticselectors. Headerdtype/order rejection doesnotpreservescalarunits/finiteness: numericalvalueconversion/rawmodelparameterpolicy remains actualown011/P11contract.",
+ 268 |         "to_tensor97..103 admitsNpyTensorLayout fromshape101 before NpyFloat32Values::into_tensor102; integerupload106..115 numericVec/TensorData nativeendpoint112. Actualtensor/value child own011 qualifiedseparatecurrentproof; nativeBurnandmodel-instanceassociation notcertifiedbythiswrapper. Existingtests141..229 includingdtype/order/truncatedpayloadscalars source-readonly, notexecuted."
+ 269 |       ],
+ 270 |       "remaining_evidence": [
+ 271 |         "ActualnativeBurn/modelinstance/scalarunits policy remains separatequalifiedP09/P11contract, no broaderallfinitearrayproof."
+ 272 |       ],
+ 273 |       "dependencies": [
+ 274 |         "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+ 275 |         "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+ 276 |       ],
+ 277 |       "closure_condition": [
+ 278 |         "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+ 279 |         "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+ 280 |       ],
+ 281 |       "disposition": "rejected-suspicion-source-qualified",
+ 282 |       "policy_decisions_remaining": [],
+ 283 |       "later_repair_acceptance_requirements": [
+ 284 |         "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+ 285 |         "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+ 286 |       ],
+ 287 |       "named_disposition_recorded": true,
+ 288 |       "audit_discovery_closed_within_exact_named_scope": false,
+ 289 |       "all_lenses_or_coarse_parent_closed": false,
+ 290 |       "global_exact_alias_inventory_complete": false,
+ 291 |       "repair_runtime_passed": false,
+ 292 |       "proposal": {
+ 293 |         "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+ 294 |         "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+ 295 |         "row_pointer": "/contract_updates/6"
+ 296 |       },
+ 297 |       "body_or_population_credit": 0,
+ 298 |       "implementation_gate_complete": false
+ 299 |     }

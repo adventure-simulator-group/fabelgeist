@@ -1,0 +1,83 @@
+{
+  "schema": "726-blood-q2297-historical-source-correction-v1",
+  "recorded_utc": "2026-11-12T13:57:16.719768+00:00",
+  "prior_record": "HISTORY-REGISTRATION.json",
+  "correction": "The prior status not present in this object store was wrong: 6533e444fa37552927070cc8d8190907fd3b413e is a commit, not the source blob. An attempted cat-file blob lookup failed with stderr suppressed. A later extraction attempt asserted incorrectly that this commit ID was the blob ID and failed before writing the historical source capture or registration. Both attempts are retained as chronology, not proof of absence.",
+  "verified_commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "commit_type": "commit",
+  "root_tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+  "source_path": "crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+  "source_blob": "4b285fcc1b92e9e1df283df91aace4473f2d0e6a",
+  "source_sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+  "historical_relative_path": "parallel-l13-20261029/objects/c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+  "capture": "source/blood-attempts-pr-working.rs",
+  "bytes": 6028,
+  "eof": 157,
+  "git_path_matches_extraction": true,
+  "current_pinned_source_byte_equality": true,
+  "chain": [
+    {
+      "tree": "849ec1e8faca2236c7021893cda7a3f7cb5c72e8",
+      "name": "crates",
+      "mode": "040000",
+      "type": "tree",
+      "object": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d"
+    },
+    {
+      "tree": "a115d05f403ea5edbb02128dc773d2e3dcb51c2d",
+      "name": "adventuresim-stdb-module",
+      "mode": "040000",
+      "type": "tree",
+      "object": "5f4bad04db2e8639d101944bca6fa591e6bee502"
+    },
+    {
+      "tree": "5f4bad04db2e8639d101944bca6fa591e6bee502",
+      "name": "src",
+      "mode": "040000",
+      "type": "tree",
+      "object": "f8ade91d6a9e66d361398296d6199b67f0e6c162"
+    },
+    {
+      "tree": "f8ade91d6a9e66d361398296d6199b67f0e6c162",
+      "name": "filth",
+      "mode": "040000",
+      "type": "tree",
+      "object": "ddf9a8e546df748157d77d37b7e5cc52a046305e"
+    },
+    {
+      "tree": "ddf9a8e546df748157d77d37b7e5cc52a046305e",
+      "name": "blood_attempts.rs",
+      "mode": "100644",
+      "type": "blob",
+      "object": "4b285fcc1b92e9e1df283df91aace4473f2d0e6a"
+    }
+  ],
+  "tree_objects": {
+    "849ec1e8faca2236c7021893cda7a3f7cb5c72e8": {
+      "path": "trees/849ec1e8faca2236c7021893cda7a3f7cb5c72e8.tree.gz",
+      "sha256": "65d86a5e371470dbe1b2f8917c3bbab6ab713b868c56af839ffb9019149162a3",
+      "bytes": 1635
+    },
+    "a115d05f403ea5edbb02128dc773d2e3dcb51c2d": {
+      "path": "trees/a115d05f403ea5edbb02128dc773d2e3dcb51c2d.tree.gz",
+      "sha256": "b92252c39dc8fadc6f2a1cdcd26dd15976e5a6e72a1b92842c0a564c9dea0024",
+      "bytes": 2434
+    },
+    "5f4bad04db2e8639d101944bca6fa591e6bee502": {
+      "path": "trees/5f4bad04db2e8639d101944bca6fa591e6bee502.tree.gz",
+      "sha256": "91a4aed10dfeffc7dde2aba1c670ff6a5e649afb36b172a6c3e0036521beb763",
+      "bytes": 259
+    },
+    "f8ade91d6a9e66d361398296d6199b67f0e6c162": {
+      "path": "trees/f8ade91d6a9e66d361398296d6199b67f0e6c162.tree.gz",
+      "sha256": "3de261386364da96954fa4d237505586964984eb2caa4d2f7a3a9b9c596415dc",
+      "bytes": 2645
+    },
+    "ddf9a8e546df748157d77d37b7e5cc52a046305e": {
+      "path": "trees/ddf9a8e546df748157d77d37b7e5cc52a046305e.tree.gz",
+      "sha256": "c20bbd44fdd659179acad60b2622b81e712ef909702facc691630ee075671408",
+      "bytes": 92
+    }
+  },
+  "qualification": "Identical source file bytes do not establish whole-tree equivalence or transfer the historical Lens13 reviewer\u2019s personal read. Commit-to-tree binding is a separately observed Git-store check; no raw commit metadata is republished. No historical personal reread by the coordinator is claimed."
+}

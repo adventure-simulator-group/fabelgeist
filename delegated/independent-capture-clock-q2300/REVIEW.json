@@ -1,0 +1,81 @@
+{
+  "schema": "726-q2300-independent-semantic-review-v1",
+  "reviewer": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T13:54:36.724448+00:00",
+  "current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "reviewed_report": {
+    "path": "delegated/capture-clock-q2300/REPORT.json",
+    "sha256": "93c0d9e15f4f6f5653a0903fe2558b25de163ba2e8af8a05ace654c32d2e0410",
+    "bytes": 9734
+  },
+  "result": "corroborated with bounded source references and limitations; one related source-level presentation question and citation improvement",
+  "observations": [
+    {
+      "topic": "native fixed-clock admission",
+      "conclusion": "The selected adapter computes an f64 reciprocal, maps Duration conversion Err to an error and separately rejects zero before the lock-identified Bevy constructor calls the displayed nonzero setter assertion. This supports only the named zero-interval admission rejection, not universal successful construction, native code execution, exact rounding, every failure or a closed current queue.",
+      "references": [
+        "frame_clock.rs:10–24",
+        "animation_viewer_main.rs:90–100",
+        "bevy_time-0.19.1/src/fixed.rs:78–86,118–135"
+      ]
+    },
+    {
+      "topic": "rate admission and state",
+      "conclusion": "The displayed frequency conversion requires finite positive f32; sample-rate conversion also derives and re-admits a positive finite f32 interval. Serde attributes state intended conversion but macro expansion and actual parsing were not run. Startup reads the rate from configuration, constructs the clock, validates/installs that same configuration snapshot and passes the clock into the viewer resource; a later runtime snapshot change is permitted by the shown setter but no actual caller during capture or divergent outcome is established.",
+      "references": [
+        "sample_rate.rs:9–15,31–42,66–79",
+        "elapsed.rs:24–35",
+        "measurement.rs:51–59",
+        "animation_viewer_main.rs:90–100,112–127",
+        "runtime.rs:11–20,24–56",
+        "animation_viewer/mod.rs:89–100,121–177"
+      ]
+    },
+    {
+      "topic": "capture elapsed and selected consumer",
+      "conclusion": "Source branches to zero elapsed for scenario frame zero and otherwise reads the runtime sample interval. The driver stores the elapsed value in a fixed-step clock and CaptureMotion, projects seconds for the selected distance multiplication, and passes the motion to project_capture_motion, which forwards elapsed to the locomotion input. The selected driver is registered in PreUpdate; this does not prove schedule behavior, equal clock intervals, timestamps, renderer output or native outcomes. The prepared report should cite capture.rs 437–446 for the actual projection call and animation_viewer_main.rs 112–127 for the fixed-clock handoff, in addition to its existing windows.",
+      "references": [
+        "frame_clock.rs:37–42",
+        "capture.rs:393–400,436–446",
+        "subject_motion.rs:35–52",
+        "capture_schedule.rs:16–25",
+        "animation_viewer_main.rs:112–127"
+      ]
+    },
+    {
+      "topic": "related conditional presentation question",
+      "conclusion": "The displayed capture label formats the literal text “64 Hz frame” independently of the chosen sample rate. If a non-64 rate is valid and the label path reaches a displayed label, that text may misdescribe the active rate; no actual configuration, rendered display or presentation policy was established. The existing scenario timestamp/rate ledger entry already relates earlier 059 q1245 non-64-Hz UI/playback work. This is a related observation to reconcile centrally, not an asserted exact alias or additional unique defect.",
+      "references": [
+        "capture.rs:450–461",
+        "BASELINE-95E-20261110.json at 8608 entries 199–200",
+        "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json"
+      ]
+    },
+    {
+      "topic": "historical disposition and attribution",
+      "conclusion": "Recovered 059 q2300 records a rejected-suspicion source-qualified disposition and audit-discovery closure only within its named e275 scope, with no product validation, global alias/lens closure or body credit from the queue. Original e275 clock and capture file bytes match the selected 95e files individually; no whole-tree equality is implied. Selected parallel lens11_reconcile reads and segovb adoption are separate historical records and attribution; the adoption does not transfer personal read credit. The 059 queue is not the missing 3821 queue.",
+      "references": [
+        "baseline-059/queue.json#/entries/2300 at 56f",
+        "READ-168 and READ-169",
+        "READ-L11-704 and READ-L11-705",
+        "HISTORY-F.txt"
+      ]
+    },
+    {
+      "topic": "related separate repairs",
+      "conclusion": "The existing configuration and scenario timestamp/rate candidates, and prior P16 pose-bake work-bound question, have their own first contracts; native nonzero interval admission does not resolve them. Their exact alias relationships and wider producer, time/presentation, configuration, native feature and supported-caller coverage remain open.",
+      "references": [
+        "BASELINE-95E-20261110.json at 8608 entries 199–200",
+        "scenario-clock-assessment.json",
+        "p16-body-values-sample-rate-report.json"
+      ]
+    }
+  ],
+  "open": [
+    "Supported capture configurations, actual alternate-rate callers, display and report policy, time/clock parity and effects.",
+    "Whether later validated runtime snapshot replacement occurs during capture, and interaction with cached/retained clock authority.",
+    "Full producer, other source/native windows, compiler/feature selection, historical aliases and all-lens reconciliation.",
+    "Original checkpoint3821 queue and ledger remain missing."
+  ],
+  "limits": "No repairs, code execution, product builds or tests, native code, fixtures, macros, shaders, runtime probes, rendering or product validation. Captured source and historical evidence remain attributed to their original revision and reader. The unregistered first parent-report exposure and truncated historical display are retained in READ-RECEIPT.json."
+}

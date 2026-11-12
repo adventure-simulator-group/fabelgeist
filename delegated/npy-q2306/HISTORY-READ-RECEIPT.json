@@ -1,0 +1,83 @@
+{
+  "schema": "726-npy-q2306-history-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T13:55:56.678289+00:00",
+  "registrations": {
+    "HISTORY-REGISTRATION.json": "869f4c3378a6bd9fbb01a9310c13406f28a936594f5f07de82ce7cb97eae7bd6",
+    "HISTORY-EXT-REGISTRATION.json": "b76ab2428f06c431f3e2d1abe2136a640fdae35886cf489c7b0a089bb392c113"
+  },
+  "views": [
+    {
+      "file": "HISTORY-DISPLAY-A.txt",
+      "sha256": "3f1c9f12a197f78adb4b498115990f4ca8b296ed1300eca1c5664e92af27380b",
+      "bytes": 5539,
+      "observed_mtime_utc": "2026-11-12T13:47:15.181268+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-B.txt",
+      "sha256": "df9431e307b074c9e0e58fe42047deccc50005648d8a7aed3bb84fdb871ae587",
+      "bytes": 5504,
+      "observed_mtime_utc": "2026-11-12T13:47:19.930412+00:00"
+    },
+    {
+      "file": "HISTORY-DISPLAY-C.txt",
+      "sha256": "8723d2b4872d9b16886c1785ea3bc5a6fc43f77280356cf8ff511ac3ed4eca27",
+      "bytes": 7518,
+      "observed_mtime_utc": "2026-11-12T13:47:24.671441+00:00"
+    },
+    {
+      "file": "HISTORY-ORIGINAL-DISPLAY.txt",
+      "sha256": "ec340dc4334b065a25cc47146d185d3454a9835436184761aa8c4180925e9f5d",
+      "bytes": 5718,
+      "observed_mtime_utc": "2026-11-12T13:50:59.451054+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-A.json",
+      "sha256": "dbbe27c37867fc3b46f87e579a1ff09355457087f4dac40f82f3d25009aca937",
+      "bytes": 5112,
+      "observed_mtime_utc": "2026-11-12T13:53:43.562361+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-B.json",
+      "sha256": "7ae5ab3e9693a43dbe4b9a4ec6d380980b935768b3d21fa090e46802b67bd2ad",
+      "bytes": 3116,
+      "observed_mtime_utc": "2026-11-12T13:53:50.723822+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-C.json",
+      "sha256": "f0895f1a04d37f613b485f98943e9d22c051196f201d151db8812c379ed1575b",
+      "bytes": 2025,
+      "observed_mtime_utc": "2026-11-12T13:54:02.768079+00:00"
+    },
+    {
+      "file": "HISTORY-PROJECTION-D.json",
+      "sha256": "b9b427f93bf172053a71c85c95a6023da3f90ebc0aadf3cd7b4941b45352cad8",
+      "bytes": 11770,
+      "observed_mtime_utc": "2026-11-12T13:54:11.244555+00:00"
+    }
+  ],
+  "original_queue_displayed_entry_ranges": [
+    [
+      1,
+      21
+    ],
+    [
+      262,
+      299
+    ]
+  ],
+  "original_queue_unread_entry_ranges": [
+    [
+      22,
+      261
+    ]
+  ],
+  "reconstructed_queue_displayed_entry_ranges": [
+    [
+      1,
+      299
+    ]
+  ],
+  "other_registered_original_views": "HISTORY-PROJECTION-A/B: READ-170 rows0-3 and READ-011 rows6-8 plus listed metadata. HISTORY-PROJECTION-C: READ-706 and READ-547 listed summary fields. HISTORY-PROJECTION-D: first disposition of each and selected fields of proposal contract_updates[6]. All other copied historical content remains unread personally. The projection documents are reconstructed displays, not exact original file bytes.",
+  "qualification": "All eight displays were observed without truncation after their corresponding registrations. Original and public queue slice bytes match but historical credits are not transferred. Unregistered or truncated locator events are separately documented in LOCATOR-QUALIFICATION.json."
+}

@@ -1,0 +1,1392 @@
+--- REGISTRATION.json readiness 95e63628f9d70b8dd6e6fede64334696c6995009 1-32 ---
+     1	//! Capture warmup and authored-motion readiness, without advancing the frame early.
+     2	
+     3	use super::*;
+     4	
+     5	impl CaptureSequence {
+     6	    pub(super) fn ready_for_frame(
+     7	        &mut self,
+     8	        frame: &PlannedFrame,
+     9	        animation_runtime: &AnimationRuntime,
+    10	        playback: Option<&AnimationPlayback>,
+    11	    ) -> bool {
+    12	        if self.warmup_frames > 0 {
+    13	            self.warmup_frames -= 1;
+    14	            return false;
+    15	        }
+    16	        if frame.scenario_frame == 0
+    17	            && let Some(motion) = frame.scenario.required_motion()
+    18	        {
+    19	            if !animation_runtime.motion_is_processed(motion)
+    20	                || !playback.is_some_and(AnimationPlayback::presentation_is_settled)
+    21	            {
+    22	                self.motion_ready_frames = 0;
+    23	                return false;
+    24	            }
+    25	            self.motion_ready_frames += 1;
+    26	            if self.motion_ready_frames < 2 {
+    27	                return false;
+    28	            }
+    29	        }
+    30	        true
+    31	    }
+    32	}
+--- REGISTRATION.json capture 95e63628f9d70b8dd6e6fede64334696c6995009 1-168 ---
+     1	//! ECS fixture driving, sampling, and three-view capture.
+     2	
+     3	use super::*;
+     4	pub(super) use admission::reject_capture;
+     5	use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
+     6	use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+     7	pub(super) use capture_schedule::CapturePlugin;
+     8	use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
+     9	use repeated_evaluation::RepeatedEvaluationSnapshot;
+    10	
+    11	mod admission;
+    12	mod capture_schedule;
+    13	pub(super) mod frame_clock;
+    14	mod global_bones;
+    15	mod overlay;
+    16	mod readiness;
+    17	mod repeated_evaluation;
+    18	mod root_motion;
+    19	mod subject_motion;
+    20	
+    21	pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
+    22	pub(super) const FULL_PLANT_SUPPORT_WEIGHT: f32 = 0.99;
+    23	
+    24	#[derive(Component)]
+    25	pub(super) struct CaptureSubject;
+    26	
+    27	#[derive(Component)]
+    28	pub(super) struct CaptureLabel;
+    29	
+    30	#[derive(Resource)]
+    31	pub(super) struct CaptureSequence {
+    32	    output: PathBuf,
+    33	    settle_frames: u32,
+    34	    plan: Vec<PlannedFrame>,
+    35	    index: usize,
+    36	    view_index: usize,
+    37	    applied: bool,
+    38	    admission: CaptureAdmission,
+    39	    settled: u32,
+    40	    waiting: u32,
+    41	    capture_in_flight: bool,
+    42	    view_fingerprints: Vec<u64>,
+    43	    duplicate_view_frames: Vec<String>,
+    44	    samples: Vec<FrameSample>,
+    45	    global_bone_frames: Vec<GlobalBoneFrame>,
+    46	    presentation_events: Vec<PresentationEventSample>,
+    47	    repeated_evaluation_baseline: Option<RepeatedEvaluationSnapshot>,
+    48	    repeated_evaluation_valid: bool,
+    49	    active_scenario: Option<ScenarioMetadata<'static>>,
+    50	    warmup_frames: u32,
+    51	    motion_ready_frames: u32,
+    52	    simulation_tick: AnimationSampleTick,
+    53	    scenario_distance: f32,
+    54	}
+    55	
+    56	pub(super) struct CompletedCapture {
+    57	    pub(super) output: PathBuf,
+    58	    pub(super) plan: Vec<PlannedFrame>,
+    59	    pub(super) frames: Vec<FrameSample>,
+    60	    pub(super) global_bone_frames: Vec<GlobalBoneFrame>,
+    61	    pub(super) presentation_events: Vec<PresentationEventSample>,
+    62	    pub(super) duplicate_view_frames: Vec<String>,
+    63	    pub(super) repeated_evaluation_valid: bool,
+    64	    pub(super) playback_backend: &'static str,
+    65	    pub(super) pose_buffer_metrics: PoseBufferMetrics,
+    66	}
+    67	
+    68	impl CaptureSequence {
+    69	    pub(super) fn new(
+    70	        output: PathBuf,
+    71	        settle_frames: u32,
+    72	        scenario: Option<ScenarioMetadata<'_>>,
+    73	    ) -> AnimationValueResult<Self> {
+    74	        let selected = scenario.map(ScenarioMetadata::into_owned);
+    75	        let plan = match selected {
+    76	            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalk20) => {
+    77	                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)?
+    78	            }
+    79	            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridRun55) => {
+    80	                steady_scenario(scenario, authored_drive_speed(5.5), 3.0)?
+    81	            }
+    82	            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkNoIk) => {
+    83	                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)?
+    84	            }
+    85	            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridSprintNoIk) => {
+    86	                steady_scenario(scenario, canonical_john_sprint_speed(), 3.0)?
+    87	            }
+    88	            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkStop) => {
+    89	                flat_grid_walk_stop_scenario()
+    90	            }
+    91	            Some(scenario) if scenario.identity() == Some(ScenarioId::FullRagdoll) => {
+    92	                full_ragdoll_scenario()
+    93	            }
+    94	            selected => capture_plan()?
+    95	                .into_iter()
+    96	                .filter(|frame| {
+    97	                    selected
+    98	                        .as_ref()
+    99	                        .is_none_or(|scenario| &frame.scenario == scenario)
+   100	                })
+   101	                .collect(),
+   102	        };
+   103	        assert!(
+   104	            !plan.is_empty(),
+   105	            "requested animation capture scenario is unknown"
+   106	        );
+   107	        Ok(Self {
+   108	            output,
+   109	            settle_frames: settle_frames.max(1),
+   110	            plan,
+   111	            index: 0,
+   112	            view_index: 0,
+   113	            applied: false,
+   114	            admission: CaptureAdmission::Open,
+   115	            settled: 0,
+   116	            waiting: 0,
+   117	            capture_in_flight: false,
+   118	            view_fingerprints: Vec::with_capacity(VIEWS.len()),
+   119	            duplicate_view_frames: Vec::new(),
+   120	            samples: Vec::new(),
+   121	            global_bone_frames: Vec::new(),
+   122	            presentation_events: Vec::new(),
+   123	            repeated_evaluation_baseline: None,
+   124	            repeated_evaluation_valid: true,
+   125	            active_scenario: None,
+   126	            warmup_frames: 0,
+   127	            motion_ready_frames: 0,
+   128	            simulation_tick: AnimationSampleTick::ZERO,
+   129	            scenario_distance: 0.0,
+   130	        })
+   131	    }
+   132	
+   133	    pub(super) fn view(&self) -> CaptureView {
+   134	        VIEWS[self.view_index.min(VIEWS.len() - 1)]
+   135	    }
+   136	
+   137	    pub(super) fn applied_frame(&self) -> Option<&PlannedFrame> {
+   138	        self.applied.then(|| self.plan.get(self.index)).flatten()
+   139	    }
+   140	
+   141	    pub(super) fn uses_flat_grid(&self) -> bool {
+   142	        self.plan
+   143	            .iter()
+   144	            .all(|frame| frame.scenario.has(ScenarioFeature::FlatGrid))
+   145	    }
+   146	
+   147	    fn complete(
+   148	        &mut self,
+   149	        playback_backend: &'static str,
+   150	        pose_buffer_metrics: PoseBufferMetrics,
+   151	    ) -> CompletedCapture {
+   152	        CompletedCapture {
+   153	            output: std::mem::take(&mut self.output),
+   154	            plan: std::mem::take(&mut self.plan),
+   155	            frames: std::mem::take(&mut self.samples),
+   156	            global_bone_frames: std::mem::take(&mut self.global_bone_frames),
+   157	            presentation_events: std::mem::take(&mut self.presentation_events),
+   158	            duplicate_view_frames: std::mem::take(&mut self.duplicate_view_frames),
+   159	            repeated_evaluation_valid: self.repeated_evaluation_valid,
+   160	            playback_backend,
+   161	            pose_buffer_metrics,
+   162	        }
+   163	    }
+   164	}
+   165	
+   166	/// Screenshot completion advances capture views asynchronously. Reassert the
+   167	/// planned look on every render of a logical sample so all three views enter
+   168	/// procedural PostUpdate with identical presentation input.
+--- REGISTRATION.json capture 95e63628f9d70b8dd6e6fede64334696c6995009 169-350 ---
+   169	pub(super) fn freeze_capture_look(
+   170	    sequence: Res<CaptureSequence>,
+   171	    mut subjects: Query<&mut CharacterLook, With<CaptureSubject>>,
+   172	) {
+   173	    if !sequence.admission.is_open() {
+   174	        return;
+   175	    }
+   176	    let Some(frame) = sequence.plan.get(sequence.index) else {
+   177	        return;
+   178	    };
+   179	    for mut look in &mut subjects {
+   180	        look.yaw = frame.camera_yaw.radians();
+   181	        look.pitch = frame.camera_pitch.radians();
+   182	    }
+   183	}
+   184	
+   185	#[expect(
+   186	    clippy::too_many_arguments,
+   187	    clippy::type_complexity,
+   188	    reason = "the Bevy capture driver independently controls timing, IK modes, animation input, subject state, and labels"
+   189	)]
+   190	pub(super) fn drive_sequence(
+   191	    mut sequence: ResMut<CaptureSequence>,
+   192	    mut procedural_clock: ResMut<ProceduralAnimationClock>,
+   193	    mut terrain_ik: ResMut<TerrainIkMode>,
+   194	    mut guard_input: ResMut<WeaponGuardInputState>,
+   195	    animation_runtime: Res<AnimationRuntime>,
+   196	    terrain: Single<&SceneTerrain>,
+   197	    mut subjects: Query<
+   198	        (
+   199	            &mut SkeletonState,
+   200	            &mut Transform,
+   201	            &mut CharacterLook,
+   202	            Option<&AnimationPlayback>,
+   203	            Option<&mut LegIkState>,
+   204	            Option<&mut ArmIkState>,
+   205	            Option<&mut RaisedFootworkState>,
+   206	            Option<&mut LocomotionHeightState>,
+   207	            Option<&mut LocomotionBodyResponseState>,
+   208	        ),
+   209	        With<CaptureSubject>,
+   210	    >,
+   211	    mut labels: Query<&mut Text, With<CaptureLabel>>,
+   212	) {
+   213	    if !sequence.can_drive_frame() {
+   214	        return;
+   215	    }
+   216	    let frame = sequence.plan[sequence.index].clone();
+   217	    let metadata = frame.scenario.clone();
+   218	    let mut gait_phase = CyclePhase::ZERO;
+   219	    let mut observed_playback = None;
+   220	    for (
+   221	        mut skeleton,
+   222	        mut transform,
+   223	        mut look,
+   224	        playback,
+   225	        ik_state,
+   226	        arm_ik_state,
+   227	        raised_footwork,
+   228	        height_state,
+   229	        body_response,
+   230	    ) in &mut subjects
+   231	    {
+   232	        let Some(playback) = playback else {
+   233	            return;
+   234	        };
+   235	        observed_playback = Some(playback);
+   236	        if !frame.scenario.is(ScenarioId::FullRagdoll) && !playback.authored_pose_is_ready() {
+   237	            return;
+   238	        }
+   239	
+   240	        if sequence.active_scenario.as_ref() != Some(&frame.scenario) {
+   241	            sequence.active_scenario = Some(frame.scenario.clone());
+   242	            sequence.scenario_distance = 0.0;
+   243	            sequence.motion_ready_frames = 0;
+   244	            *skeleton = SkeletonState::default();
+   245	            *guard_input = WeaponGuardInputState::default();
+   246	            if let Some(mut ik_state) = ik_state {
+   247	                *ik_state = LegIkState::default();
+   248	            }
+   249	            if let Some(mut arm_ik_state) = arm_ik_state {
+   250	                *arm_ik_state = ArmIkState::default();
+   251	            }
+   252	            if let Some(mut raised_footwork) = raised_footwork {
+   253	                *raised_footwork = RaisedFootworkState::default();
+   254	            }
+   255	            if let Some(mut height_state) = height_state {
+   256	                *height_state = LocomotionHeightState::default();
+   257	            }
+   258	            if let Some(mut body_response) = body_response {
+   259	                *body_response = LocomotionBodyResponseState::default();
+   260	            }
+   261	            let Some(initial) = sequence.initial_root(&terrain, *transform) else {
+   262	                return;
+   263	            };
+   264	            *transform = initial;
+   265	            if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
+   266	                // Prime the static combat stance and its terrain-conformed IK
+   267	                // before judging the later six-frame movement tap. A live
+   268	                // character has already held this stance; capturing component
+   269	                // allocation and pelvis acquisition would test viewer spawn,
+   270	                // not the authored-to-procedural stop transition.
+   271	                sequence.warmup_frames = 8;
+   272	            }
+   273	            if let Some((start_body, _)) = frame.scenario.transition() {
+   274	                skeleton.transition_body(start_body);
+   275	                // Prime the authored endpoint before beginning the transition.
+   276	                // Live characters have already evaluated their prone/supine or
+   277	                // upright base; a fresh viewer subject otherwise crossfades
+   278	                // from its default standing pose during the first samples.
+   279	                sequence.warmup_frames = 8;
+   280	            }
+   281	        }
+   282	
+   283	        if let Some(body) = frame.scenario.body() {
+   284	            skeleton.transition_body(body);
+   285	            let preload_locomotion = frame.scenario_frame == 0
+   286	                && frame.scenario.required_motion().is_some_and(|motion| {
+   287	                    *motion == crate::animation::MotionId::PRONE_CRAWL
+   288	                        || *motion == crate::animation::MotionId::SUPINE_SCAMPER
+   289	                })
+   290	                && !frame
+   291	                    .scenario
+   292	                    .required_motion()
+   293	                    .is_some_and(|motion| animation_runtime.motion_is_processed(motion));
+   294	            skeleton.set_downed_motion(
+   295	                if !frame.scenario.is(ScenarioId::DownedProneLookAt)
+   296	                    && (preload_locomotion
+   297	                        || (frame.scenario_frame >= 4
+   298	                            && frame.speed <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)))
+   299	                {
+   300	                    DownedMotion::Turning
+   301	                } else {
+   302	                    DownedMotion::Resting
+   303	                },
+   304	            );
+   305	        }
+   306	
+   307	        let orientation = Quat::from_euler(
+   308	            EulerRot::YXZ,
+   309	            frame.camera_yaw.radians(),
+   310	            frame.camera_pitch.radians(),
+   311	            0.0,
+   312	        );
+   313	        look.yaw = frame.camera_yaw.radians();
+   314	        look.pitch = frame.camera_pitch.radians();
+   315	        let attack_start_frame = frame.scenario.has(ScenarioFeature::AttackLive).then_some(8);
+   316	        if frame.action != SkeletonAction::Attack
+   317	            || attack_start_frame == Some(frame.scenario_frame)
+   318	        {
+   319	            skeleton.lead_foot = frame.lead_foot;
+   320	        }
+   321	        *terrain_ik = terrain_ik_mode_for_frame(&frame);
+   322	        guard_input.desired = frame.weapon_guard;
+   323	        set_weapon_guard(&mut skeleton, guard_input.desired);
+   324	        if frame.scenario.is(ScenarioId::DownedProneLookAt) {
+   325	            let target = downed_camera_roll_target(transform.rotation, orientation);
+   326	            let step = if frame.scenario_frame == 0 {
+   327	                Ok(DownedFacingStep::ZERO)
+   328	            } else {
+   329	                DownedFacingStep::from_half_turns(1.0 / 84.0)
+   330	            };
+   331	            if let Err(error) = step.and_then(|step| {
+   332	                skeleton.advance_downed_facing(target, DownedFacingAim::Held, step)
+   333	            }) {
+   334	                sequence.admission =
+   335	                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+   336	                return;
+   337	            }
+   338	        }
+   339	        let dive_impact = frame.scenario.has(ScenarioFeature::Impact);
+   340	        let quickstep = is_quickstep_scenario(&frame.scenario);
+   341	        let grounded = if quickstep {
+   342	            frame.scenario_frame < quickstep_release_frame()
+   343	                || frame.scenario_frame >= quickstep_landing_frame()
+   344	        } else if dive_impact {
+   345	            frame.scenario_frame == 0 || frame.scenario_frame >= 17
+   346	        } else {
+   347	            metadata.kind() != ScenarioKind::Landing || frame.scenario_frame >= 32
+   348	        };
+   349	        let vertical_velocity = if quickstep && frame.scenario_frame < quickstep_landing_frame() {
+   350	            quickstep_fixture_vertical_state(frame.scenario_frame).1
+--- REGISTRATION.json capture 95e63628f9d70b8dd6e6fede64334696c6995009 351-526 ---
+   351	        } else if (metadata.kind() == ScenarioKind::Landing || dive_impact) && !grounded {
+   352	            -4.5
+   353	        } else {
+   354	            0.0
+   355	        };
+   356	        let requested_local_velocity = Vec3::new(
+   357	            frame.local_direction.x * frame.speed.metres_per_second(),
+   358	            vertical_velocity,
+   359	            frame.local_direction.y * frame.speed.metres_per_second(),
+   360	        );
+   361	        let local_velocity = requested_local_velocity;
+   362	        let world_velocity = controller_yaw(orientation) * local_velocity;
+   363	        sequence.simulation_tick = next_capture_simulation_tick(
+   364	            sequence.simulation_tick,
+   365	            sequence.index == 0 && sequence.warmup_frames == 0,
+   366	        );
+   367	        if sequence.warmup_frames == 0
+   368	            && frame.scenario_frame == 0
+   369	            && let Some((start_body, transition)) = frame.scenario.transition()
+   370	        {
+   371	            skeleton.transition_body(start_body);
+   372	            if frame.scenario.has(ScenarioFeature::AimedImpact) {
+   373	                // Match the authoritative launch seam: velocity and authored
+   374	                // direction capture one camera frame even if the previously
+   375	                // displayed root had not finished turning toward it.
+   376	                transform.rotation =
+   377	                    dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw.radians()));
+   378	            }
+   379	            // Matches the live server's terrain-contact dive recovery.
+   380	            let duration = if frame.scenario.has(ScenarioFeature::DiveBackward) {
+   381	                32
+   382	            } else if dive_impact {
+   383	                20
+   384	            } else {
+   385	                84
+   386	            };
+   387	            skeleton.begin_posture_transition(
+   388	                transition,
+   389	                sequence.simulation_tick,
+   390	                AnimationSampleSpan::from(duration as u64),
+   391	            );
+   392	        }
+   393	        let elapsed = capture_frame_elapsed(frame.scenario_frame);
+   394	        let delta_seconds = elapsed.seconds();
+   395	        procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+   396	        let motion = subject_motion::CaptureMotion {
+   397	            orientation,
+   398	            world_velocity,
+   399	            contact: GroundContact::from(grounded),
+   400	            elapsed,
+   401	        };
+   402	        let Some(position) = sequence.fixture_root_position(
+   403	            &terrain,
+   404	            transform.translation,
+   405	            &frame,
+   406	            &motion,
+   407	            *terrain_ik,
+   408	        ) else {
+   409	            return;
+   410	        };
+   411	        transform.translation = position.metres();
+   412	        subject_motion::begin_capture_action(
+   413	            &mut skeleton,
+   414	            &frame,
+   415	            sequence.simulation_tick,
+   416	            attack_start_frame,
+   417	        );
+   418	        if let Err(error) = subject_motion::advance_capture_facing(
+   419	            &skeleton,
+   420	            &mut transform,
+   421	            orientation,
+   422	            world_velocity,
+   423	            frame.action,
+   424	            elapsed,
+   425	        ) {
+   426	            sequence.admission =
+   427	                CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+   428	            return;
+   429	        }
+   430	        if frame.scenario.is(ScenarioId::FullRagdoll) {
+   431	            let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
+   432	                return;
+   433	            };
+   434	            *transform = projected;
+   435	        }
+   436	        sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
+   437	        if let Err(error) = subject_motion::project_capture_motion(
+   438	            &mut skeleton,
+   439	            &mut transform,
+   440	            &frame,
+   441	            motion,
+   442	            &sequence,
+   443	        ) {
+   444	            sequence.admission =
+   445	                CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+   446	            return;
+   447	        }
+   448	        gait_phase = skeleton.gait_phase;
+   449	    }
+   450	    if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
+   451	        return;
+   452	    }
+   453	    for mut label in &mut labels {
+   454	        **label = format!(
+   455	            "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
+   456	            frame.scenario.label(),
+   457	            frame.speed.metres_per_second(),
+   458	            gait_phase.cycles(),
+   459	            VIEWS[sequence.view_index].slug(),
+   460	            frame.scenario_frame,
+   461	        );
+   462	    }
+   463	    sequence.applied = true;
+   464	    sequence.settled = 0;
+   465	}
+   466	
+   467	pub(super) fn draw_flat_ground_grid(sequence: Res<CaptureSequence>, mut gizmos: Gizmos) {
+   468	    let Some(frame) = sequence.plan.get(sequence.index) else {
+   469	        return;
+   470	    };
+   471	    if !frame.scenario.has(ScenarioFeature::FlatGrid) {
+   472	        return;
+   473	    }
+   474	
+   475	    const HALF_EXTENT_METRES: i32 = 20;
+   476	    const SUBDIVISIONS_PER_METRE: i32 = 4;
+   477	    let half_steps = HALF_EXTENT_METRES * SUBDIVISIONS_PER_METRE;
+   478	    let height = 0.012;
+   479	    for step in -half_steps..=half_steps {
+   480	        let coordinate = step as f32 / SUBDIVISIONS_PER_METRE as f32;
+   481	        let whole_metre = step % SUBDIVISIONS_PER_METRE == 0;
+   482	        let color = if step == 0 {
+   483	            Color::srgba(1.0, 0.45, 0.12, 0.95)
+   484	        } else if whole_metre {
+   485	            Color::srgba(0.82, 0.86, 0.92, 0.80)
+   486	        } else {
+   487	            Color::srgba(0.42, 0.47, 0.55, 0.48)
+   488	        };
+   489	        gizmos.line(
+   490	            Vec3::new(coordinate, height, -HALF_EXTENT_METRES as f32),
+   491	            Vec3::new(coordinate, height, HALF_EXTENT_METRES as f32),
+   492	            color,
+   493	        );
+   494	        gizmos.line(
+   495	            Vec3::new(-HALF_EXTENT_METRES as f32, height, coordinate),
+   496	            Vec3::new(HALF_EXTENT_METRES as f32, height, coordinate),
+   497	            color,
+   498	        );
+   499	    }
+   500	}
+   501	
+   502	pub(super) fn collect_locomotion_presentation_events(
+   503	    mut events: MessageReader<LocomotionPresentationEvent>,
+   504	    mut sequence: ResMut<CaptureSequence>,
+   505	) {
+   506	    if !sequence.admission.is_open() || sequence.index >= sequence.plan.len() {
+   507	        return;
+   508	    }
+   509	    let scenario = sequence.plan[sequence.index].scenario.clone();
+   510	    let scenario_frame = sequence.plan[sequence.index].scenario_frame;
+   511	    sequence
+   512	        .presentation_events
+   513	        .extend(events.read().map(move |event| PresentationEventSample {
+   514	            scenario: scenario.clone(),
+   515	            scenario_frame,
+   516	            owner: capture_entity_id(event.owner),
+   517	            sample_tick: event.sample_tick,
+   518	            payload: event.payload,
+   519	        }));
+   520	}
+   521	
+   522	#[expect(
+   523	    clippy::too_many_arguments,
+   524	    clippy::type_complexity,
+   525	    reason = "the Bevy capture system records each independent animation state and diagnostic source"
+   526	)]
+--- REGISTRATION.json schedule 95e63628f9d70b8dd6e6fede64334696c6995009 1-57 ---
+     1	//! Capture-phase registration and its ordered readiness/terminal-consumption policy.
+     2	
+     3	use super::overlay::draw_skeleton_overlay;
+     4	use super::{
+     5	    CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
+     6	    drive_sequence, freeze_capture_look, reject_capture,
+     7	};
+     8	use crate::animation_viewer::{
+     9	    harness, inspection, setup::setup_viewer, view::position_capture_camera,
+    10	};
+    11	use crate::camera::TacticalCameraSet;
+    12	use bevy::prelude::*;
+    13	
+    14	pub(in crate::animation_viewer) struct CapturePlugin;
+    15	
+    16	impl Plugin for CapturePlugin {
+    17	    fn build(&self, app: &mut App) {
+    18	        app.add_systems(Startup, setup_viewer)
+    19	            .add_systems(
+    20	                PreUpdate,
+    21	                (
+    22	                    drive_sequence.run_if(admission_is_open),
+    23	                    freeze_capture_look,
+    24	                )
+    25	                    .chain(),
+    26	            )
+    27	            .add_systems(
+    28	                PostUpdate,
+    29	                position_capture_camera
+    30	                    .after(TacticalCameraSet::Offset)
+    31	                    .before(TransformSystems::Propagate),
+    32	            )
+    33	            .add_systems(
+    34	                PostUpdate,
+    35	                (draw_flat_ground_grid, draw_skeleton_overlay)
+    36	                    .chain()
+    37	                    .after(TransformSystems::Propagate),
+    38	            )
+    39	            .add_systems(
+    40	                Last,
+    41	                (
+    42	                    inspection::inspect_materials,
+    43	                    harness::update_readiness,
+    44	                    collect_locomotion_presentation_events,
+    45	                    reject_capture,
+    46	                    capture_frame
+    47	                        .run_if(harness::ready)
+    48	                        .run_if(admission_is_open),
+    49	                )
+    50	                    .chain(),
+    51	            );
+    52	    }
+    53	}
+    54	
+    55	fn admission_is_open(sequence: Res<CaptureSequence>) -> bool {
+    56	    sequence.admission.is_open()
+    57	}
+--- CONSUMER-REGISTRATION.json capture 95e63628f9d70b8dd6e6fede64334696c6995009 527-620 ---
+   527	pub(super) fn capture_frame(
+   528	    mut commands: Commands,
+   529	    mut sequence: ResMut<CaptureSequence>,
+   530	    pose_buffer_metrics: Res<PoseBufferMetrics>,
+   531	    bouncy_bones_telemetry: Res<BouncyBonesTelemetry>,
+   532	    terrain_ik: Res<TerrainIkMode>,
+   533	    subjects: Query<
+   534	        (
+   535	            Entity,
+   536	            &PresentedSkeleton,
+   537	            &GlobalTransform,
+   538	            Option<&AnimationPlayback>,
+   539	            Option<&RaisedFootworkState>,
+   540	            Option<&LocomotionBodyResponseState>,
+   541	            Option<&LocomotionHeightState>,
+   542	            Option<&LegIkState>,
+   543	            Option<&SemanticRouteTrace>,
+   544	        ),
+   545	        With<CaptureSubject>,
+   546	    >,
+   547	    bones: Query<(&HumanoidBone, &GlobalTransform)>,
+   548	    animation_bones: Query<(
+   549	        &AnimationTargetId,
+   550	        &AuthoredBindTransform,
+   551	        Option<&Name>,
+   552	        &GlobalTransform,
+   553	    )>,
+   554	    terrain: Single<&SceneTerrain>,
+   555	    mut exit: MessageWriter<AppExit>,
+   556	) {
+   557	    let playback_backend = "pose_buffer";
+   558	    let pose_buffer_metrics = *pose_buffer_metrics;
+   559	    if !sequence.admission.is_open() || !sequence.applied || sequence.capture_in_flight {
+   560	        return;
+   561	    }
+   562	    let Ok((
+   563	        subject,
+   564	        skeleton,
+   565	        subject_global,
+   566	        playback,
+   567	        raised_footwork,
+   568	        body_response,
+   569	        height_state,
+   570	        leg_ik,
+   571	        semantic_route,
+   572	    )) = subjects.single()
+   573	    else {
+   574	        wait_or_fail(&mut sequence, "capture subject is missing", &mut exit);
+   575	        return;
+   576	    };
+   577	    let Some(playback) = playback else {
+   578	        wait_or_fail(
+   579	            &mut sequence,
+   580	            "capture subject has no AnimationPlayback",
+   581	            &mut exit,
+   582	        );
+   583	        return;
+   584	    };
+   585	    let Some(semantic_route) = semantic_route else {
+   586	        wait_or_fail(
+   587	            &mut sequence,
+   588	            "capture subject has no semantic route trace",
+   589	            &mut exit,
+   590	        );
+   591	        return;
+   592	    };
+   593	    if !sequence
+   594	        .active_scenario
+   595	        .as_ref()
+   596	        .is_some_and(|scenario| scenario.is(ScenarioId::FullRagdoll))
+   597	        && !playback.authored_pose_is_ready()
+   598	    {
+   599	        wait_or_fail(
+   600	            &mut sequence,
+   601	            "authored locomotion clip has not resolved",
+   602	            &mut exit,
+   603	        );
+   604	        return;
+   605	    }
+   606	    sequence.waiting = 0;
+   607	    sequence.settled += 1;
+   608	    let required = if sequence.index == 0 {
+   609	        sequence.settle_frames.max(60)
+   610	    } else {
+   611	        // A view change needs one complete render before requesting the next
+   612	        // asynchronous screenshot; otherwise two paths may receive the same
+   613	        // previously rendered camera image.
+   614	        sequence.settle_frames.max(2)
+   615	    };
+   616	    if sequence.settled < required {
+   617	        return;
+   618	    }
+   619	
+   620	    let frame = sequence.plan[sequence.index].clone();
+--- CONSUMER-REGISTRATION.json capture 95e63628f9d70b8dd6e6fede64334696c6995009 750-798 ---
+   750	                .degrees(),
+   751	            semantic_route_requested_path: semantic_route.requested_path,
+   752	            semantic_route_selected_path: semantic_route.path,
+   753	            semantic_route_runtime_evaluated: true,
+   754	            screenshots: VIEWS
+   755	                .into_iter()
+   756	                .map(|view| (view.slug().to_owned(), view.screenshot_name(&frame)))
+   757	                .collect(),
+   758	            bones: evaluation_bones,
+   759	        });
+   760	    }
+   761	    sequence.capture_in_flight = true;
+   762	    let frame_key = format!("{}:{}", frame.scenario.label(), frame.scenario_frame);
+   763	    commands.spawn(Screenshot::primary_window()).observe(
+   764	        move |captured: On<ScreenshotCaptured>,
+   765	              mut sequence: ResMut<CaptureSequence>,
+   766	              mut exit: MessageWriter<AppExit>| {
+   767	            sequence
+   768	                .view_fingerprints
+   769	                .push(visual_fingerprint(&captured.image));
+   770	            save_to_disk(&path)(captured);
+   771	            sequence.capture_in_flight = false;
+   772	            sequence.view_index += 1;
+   773	            sequence.settled = 0;
+   774	            if sequence.view_index < VIEWS.len() {
+   775	                return;
+   776	            }
+   777	            if sequence
+   778	                .view_fingerprints
+   779	                .iter()
+   780	                .copied()
+   781	                .collect::<BTreeSet<_>>()
+   782	                .len()
+   783	                != VIEWS.len()
+   784	            {
+   785	                sequence.duplicate_view_frames.push(frame_key.clone());
+   786	            }
+   787	            sequence.view_fingerprints.clear();
+   788	            sequence.view_index = 0;
+   789	            sequence.index += 1;
+   790	            sequence.applied = false;
+   791	            if sequence.index == sequence.plan.len() {
+   792	                let completed = sequence.complete(playback_backend, pose_buffer_metrics);
+   793	                exit.write(write_completed_capture(completed));
+   794	            }
+   795	        },
+   796	    );
+   797	}
+   798	
+--- CONSUMER-REGISTRATION.json capture 95e63628f9d70b8dd6e6fede64334696c6995009 900-914 ---
+   900	pub(super) fn wait_or_fail(
+   901	    sequence: &mut CaptureSequence,
+   902	    reason: &str,
+   903	    exit: &mut MessageWriter<AppExit>,
+   904	) {
+   905	    sequence.waiting += 1;
+   906	    if sequence.waiting < CAPTURE_LOAD_FRAME_LIMIT {
+   907	        return;
+   908	    }
+   909	    let message = format!(
+   910	        "animation viewer timed out after {} rendered frames: {reason}\n",
+   911	        sequence.waiting
+   912	    );
+   913	    fail_capture(sequence, &message, exit);
+   914	}
+--- SUPPORT-REGISTRATION.json animation_mod 95e63628f9d70b8dd6e6fede64334696c6995009 90-160 ---
+    90	pub(crate) mod skeletal_proportions;
+    91	mod weighted;
+    92	
+    93	pub(crate) const WORKSPACE_ASSET_SOURCE: &str = "workspace";
+    94	
+    95	const BIPED_BASE_GLB: AnimationAssetPath =
+    96	    AnimationAssetPath::from_static("animations/biped/unarmed/base.glb");
+    97	
+    98	const BIPED_GRIP_HILT_GLB: AnimationAssetPath =
+    99	    AnimationAssetPath::from_static("animations/biped/grip_hilt.glb");
+   100	
+   101	const BIPED_GRIP_POLEARM_GLB: AnimationAssetPath =
+   102	    AnimationAssetPath::from_static("animations/biped/grip_polearm.glb");
+   103	
+   104	#[derive(Debug, Clone)]
+   105	struct LoadedClip {
+   106	    handle: Handle<AnimationClip>,
+   107	    duration_seconds: ClipDuration,
+   108	    layer: ClipLayer,
+   109	}
+   110	
+   111	#[derive(Resource, Default)]
+   112	pub(crate) struct AnimationRuntime {
+   113	    base_rig: BaseRigLoad,
+   114	    requested_motions: BTreeMap<MotionKey, MotionLoad>,
+   115	    unavailable_motions: BTreeSet<MotionKey>,
+   116	    clips: BTreeMap<MotionKey, LoadedClip>,
+   117	    requested_grips: BTreeMap<WeaponGrip, Handle<Gltf>>,
+   118	    processed_grips: BTreeSet<WeaponGrip>,
+   119	    unavailable_grips: BTreeSet<WeaponGrip>,
+   120	    grips: BTreeMap<WeaponGrip, LoadedClip>,
+   121	    library: AnimationPackLibrary,
+   122	    canonical_targets: HashSet<AnimationTargetId>,
+   123	}
+   124	
+   125	#[derive(Component, Debug)]
+   126	pub(super) struct AnimationPlayback {
+   127	    plan: PlaybackContributions,
+   128	    whole_body_mirror: UnitInterval,
+   129	    foot_ik_weights: FootIkInfluence,
+   130	    weapon_guard: WeaponGuardState,
+   131	    ordinary_locomotion: OrdinaryLocomotion,
+   132	    cadence: PoseSamplingCadence,
+   133	}
+   134	
+   135	#[derive(Debug, Clone)]
+   136	struct ExtrapolatedSpan {
+   137	    start: LoadedClip,
+   138	    start_time_seconds: ClipTime,
+   139	    end: LoadedClip,
+   140	    end_time_seconds: ClipTime,
+   141	    coordinate: AttackPoseCoordinate,
+   142	    weight: BlendWeight,
+   143	    mirrored_weight: BlendWeight,
+   144	}
+   145	
+   146	#[derive(Debug, Clone)]
+   147	struct PlaybackPose {
+   148	    plan: PlaybackContributions,
+   149	    whole_body_mirror: UnitInterval,
+   150	    foot_ik_weights: FootIkInfluence,
+   151	    cadence: PoseSamplingCadence,
+   152	}
+   153	
+   154	#[derive(Component)]
+   155	pub struct FallbackAnimationRig(pub Entity);
+   156	
+   157	#[derive(Component)]
+   158	pub(super) struct AnimationRigScene(pub Entity);
+   159	
+   160	#[derive(Component)]
+--- SUPPORT-REGISTRATION.json animation_mod 95e63628f9d70b8dd6e6fede64334696c6995009 240-280 ---
+   240	    }
+   241	}
+   242	
+   243	impl WeaponGrip {
+   244	    const ALL: [Self; 2] = [Self::Hilt, Self::Polearm];
+   245	
+   246	    const fn path(self) -> AnimationAssetPath {
+   247	        match self {
+   248	            Self::Hilt => BIPED_GRIP_HILT_GLB,
+   249	            Self::Polearm => BIPED_GRIP_POLEARM_GLB,
+   250	        }
+   251	    }
+   252	}
+   253	
+   254	impl AnimationRuntime {
+   255	    pub(crate) fn requested_base(&self) -> Option<&Handle<Gltf>> {
+   256	        self.base_rig.source()
+   257	    }
+   258	
+   259	    pub(super) fn motion_is_processed(&self, motion: &MotionId) -> bool {
+   260	        self.clips.keys().any(|key| &key.motion == motion)
+   261	    }
+   262	}
+   263	
+   264	fn animation_frames_per_second() -> AnimationFrequency {
+   265	    runtime_animation_config().playback.frames_per_second
+   266	}
+   267	
+   268	// Player transforms sit at the center of the 1.9 m server collider, while
+   269	// authored rigs use a floor-level origin. Keep visual feet on the collider's
+   270	// lower face so the first-person camera lands at the authored head.
+   271	fn player_visual_y_offset() -> adventuresim_building_generator::spatial_geometry::SignedLength {
+   272	    runtime_animation_config()
+   273	        .playback
+   274	        .player_visual_y_offset_metres
+   275	}
+   276	
+   277	#[expect(
+   278	    clippy::type_complexity,
+   279	    reason = "the Bevy query couples each presented skeleton with its route, inventory, and playback state"
+   280	)]
+--- SUPPORT-REGISTRATION.json playback 95e63628f9d70b8dd6e6fede64334696c6995009 1-155 ---
+     1	//! Carried playback choices, separate from local selection predicates.
+     2	
+     3	use super::{
+     4	    AnimationPlayback, FootIkInfluence, PlaybackContributions, PlaybackPose, PoseSamplingCadence,
+     5	    apply_playback_pose, ordinary_locomotion_candidate, playback_tuning,
+     6	};
+     7	use adventuresim_core::linear_speed::NonnegativeSpeed;
+     8	use adventuresim_tactical_core::animation::{
+     9	    BlendWeight, SkeletonState, UnitInterval, WeaponGuardState,
+    10	};
+    11	use bevy::gltf::Gltf;
+    12	use bevy::prelude::*;
+    13	
+    14	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    15	pub(super) enum TimelineDirection {
+    16	    Forward,
+    17	    Reversed,
+    18	}
+    19	
+    20	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    21	pub(super) enum OrdinaryLocomotion {
+    22	    Inactive,
+    23	    Active,
+    24	}
+    25	
+    26	#[derive(Debug, Clone, Default)]
+    27	pub(super) enum BaseRigLoad {
+    28	    #[default]
+    29	    Unrequested,
+    30	    Loading {
+    31	        source: Handle<Gltf>,
+    32	    },
+    33	    Ready {
+    34	        source: Handle<Gltf>,
+    35	        scene: Handle<WorldAsset>,
+    36	    },
+    37	    Failed {
+    38	        source: Handle<Gltf>,
+    39	    },
+    40	}
+    41	
+    42	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    43	pub(in crate::animation) enum PoseOwnership {
+    44	    Authored,
+    45	    Physics,
+    46	}
+    47	
+    48	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    49	pub(super) enum PoseVisibility {
+    50	    Visible,
+    51	    Frozen,
+    52	}
+    53	
+    54	#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+    55	pub(super) enum InertialState {
+    56	    Settled,
+    57	    Blending,
+    58	}
+    59	
+    60	impl BaseRigLoad {
+    61	    pub(super) fn source(&self) -> Option<&Handle<Gltf>> {
+    62	        match self {
+    63	            Self::Unrequested => None,
+    64	            Self::Loading { source } | Self::Ready { source, .. } | Self::Failed { source } => {
+    65	                Some(source)
+    66	            }
+    67	        }
+    68	    }
+    69	
+    70	    pub(super) fn scene(&self) -> Option<&Handle<WorldAsset>> {
+    71	        match self {
+    72	            Self::Ready { scene, .. } => Some(scene),
+    73	            _ => None,
+    74	        }
+    75	    }
+    76	}
+    77	
+    78	impl OrdinaryLocomotion {
+    79	    pub(super) fn from_candidate(active: bool) -> Self {
+    80	        if active { Self::Active } else { Self::Inactive }
+    81	    }
+    82	}
+    83	
+    84	impl AnimationPlayback {
+    85	    pub(crate) fn authored_pose_is_ready(&self) -> bool {
+    86	        !self.plan.is_bind()
+    87	    }
+    88	
+    89	    pub(crate) fn presentation_is_settled(&self) -> bool {
+    90	        self.authored_pose_is_ready()
+    91	    }
+    92	
+    93	    pub(super) fn from_presented_pose(
+    94	        skeleton: &SkeletonState,
+    95	        target: PlaybackPose,
+    96	        movement_speed: NonnegativeSpeed,
+    97	    ) -> Self {
+    98	        let active = ordinary_locomotion_candidate(skeleton)
+    99	            && movement_speed > playback_tuning().initial_locomotion_speed_metres_per_second;
+   100	        Self {
+   101	            plan: target.plan,
+   102	            whole_body_mirror: target.whole_body_mirror,
+   103	            foot_ik_weights: target.foot_ik_weights,
+   104	            weapon_guard: skeleton.weapon_guard(),
+   105	            ordinary_locomotion: OrdinaryLocomotion::from_candidate(active),
+   106	            cadence: target.cadence,
+   107	        }
+   108	    }
+   109	
+   110	    pub(super) fn apply_presented_pose(
+   111	        &mut self,
+   112	        skeleton: &SkeletonState,
+   113	        target: PlaybackPose,
+   114	        movement_speed: NonnegativeSpeed,
+   115	    ) {
+   116	        // Hysteresis prevents sub-threshold velocity noise from repeatedly
+   117	        // restarting the idle/locomotion presentation transition.
+   118	        let threshold = if self.ordinary_locomotion == OrdinaryLocomotion::Active {
+   119	            playback_tuning().locomotion_deactivation_speed_metres_per_second
+   120	        } else {
+   121	            playback_tuning().locomotion_activation_speed_metres_per_second
+   122	        };
+   123	        let active = ordinary_locomotion_candidate(skeleton) && movement_speed > threshold;
+   124	        self.weapon_guard = skeleton.weapon_guard();
+   125	        self.ordinary_locomotion = OrdinaryLocomotion::from_candidate(active);
+   126	        apply_playback_pose(self, target);
+   127	    }
+   128	
+   129	    pub(super) fn sampling_cadence(&self) -> PoseSamplingCadence {
+   130	        if self.cadence == PoseSamplingCadence::Buffered
+   131	            && self.plan.extrapolated().is_empty()
+   132	            && self.plan.continuations().is_empty()
+   133	        {
+   134	            PoseSamplingCadence::Buffered
+   135	        } else {
+   136	            // Every action segment follows the authoritative action phase.
+   137	            // Switching only its simple spans back to the 30 Hz clip grid
+   138	            // aliases fast weapon motion and creates a cadence discontinuity.
+   139	            PoseSamplingCadence::Direct
+   140	        }
+   141	    }
+   142	}
+   143	
+   144	impl Default for AnimationPlayback {
+   145	    fn default() -> Self {
+   146	        Self {
+   147	            plan: PlaybackContributions::default(),
+   148	            whole_body_mirror: UnitInterval::ZERO,
+   149	            foot_ik_weights: FootIkInfluence::NONE,
+   150	            weapon_guard: WeaponGuardState::Lowered,
+   151	            ordinary_locomotion: OrdinaryLocomotion::Inactive,
+   152	            cadence: PoseSamplingCadence::Buffered,
+   153	        }
+   154	    }
+   155	}
+--- SUPPORT-REGISTRATION.json admission 95e63628f9d70b8dd6e6fede64334696c6995009 118-130 ---
+   118	    /// Driving is permitted only before admission terminates and between captures.
+   119	    pub(super) fn can_drive_frame(&self) -> bool {
+   120	        self.admission.is_open()
+   121	            && !self.applied
+   122	            && !self.capture_in_flight
+   123	            && self.index < self.plan.len()
+   124	    }
+   125	}
+   126	
+   127	impl CaptureAdmission {
+   128	    pub(super) fn is_open(&self) -> bool {
+   129	        matches!(self, Self::Open)
+   130	    }
+--- HARNESS-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/harness.rs 95e63628f9d70b8dd6e6fede64334696c6995009 1-100 ---
+     1	//! Installed catalog equipment fixtures for the gameplay animation renderer.
+     2	use super::*;
+     3	use adventuresim_core::item_catalog::{self, EquipmentPlacement, ItemDefinition};
+     4	use clap::ValueEnum;
+     5	mod material;
+     6	mod museum;
+     7	mod readiness;
+     8	mod skinning;
+     9	mod topology;
+    10	use readiness::{EquipmentVisualRequirements, EquipmentVisualState, EquipmentVisualStatus};
+    11	
+    12	#[derive(Clone, Copy, Debug, ValueEnum, Serialize)]
+    13	#[serde(rename_all = "snake_case")]
+    14	pub(crate) enum ArmorHarness {
+    15	    Plate,
+    16	    PlateTassets,
+    17	    PlateUnderlayers,
+    18	    Underlayers,
+    19	    Mail,
+    20	    Padded,
+    21	    Puffed,
+    22	    GermanDress,
+    23	    GermanDressUpper,
+    24	    Anime,
+    25	    Pauldron,
+    26	    WearerFit,
+    27	    CloseHelmet,
+    28	    MuseumHenry,
+    29	    MuseumNuremberg,
+    30	}
+    31	
+    32	impl ArmorHarness {
+    33	    fn item_ids(self) -> impl Iterator<Item = &'static str> {
+    34	        let items: &'static [&'static str] = match self {
+    35	            Self::CloseHelmet => &["close_helmet"],
+    36	            Self::WearerFit => &["gorget", "cuirass", "vambrace"],
+    37	            Self::Puffed => &["puffed_sleeve", "puffed_hose"],
+    38	            Self::GermanDress | Self::GermanDressUpper => &["wool_gown"],
+    39	            Self::Anime => &["breastplate"],
+    40	            Self::Pauldron => &["cuirass", "pauldron"],
+    41	            Self::MuseumHenry => museum::HENRY_ITEMS,
+    42	            Self::MuseumNuremberg => museum::NUREMBERG_ITEMS,
+    43	            Self::Plate | Self::PlateTassets | Self::PlateUnderlayers => &[
+    44	                "morion",
+    45	                "gorget",
+    46	                "cuirass",
+    47	                "pauldron",
+    48	                "rerebrace",
+    49	                "couter",
+    50	                "vambrace",
+    51	                "mitten_gauntlet",
+    52	                "cuisse",
+    53	                "poleyn",
+    54	                "greave",
+    55	                "sabaton",
+    56	            ],
+    57	            Self::Mail => &[
+    58	                "mail_coif",
+    59	                "mail_shirt",
+    60	                "mail_sleeve",
+    61	                "mail_skirt",
+    62	                "mail_chausses",
+    63	                "leather_boot",
+    64	            ],
+    65	            Self::Padded => &[
+    66	                "arming_cap",
+    67	                "arming_doublet",
+    68	                "padded_chausses",
+    69	                "leather_boot",
+    70	            ],
+    71	            Self::Underlayers => &[],
+    72	        };
+    73	        // These waist defenses occupy the same rigid-armor catalog slot.
+    74	        let waist = match self {
+    75	            Self::Plate | Self::PlateUnderlayers => Some("fauld"),
+    76	            Self::PlateTassets => Some("tassets"),
+    77	            _ => None,
+    78	        };
+    79	        let underlayers: &[&str] = if matches!(self, Self::Underlayers | Self::PlateUnderlayers) {
+    80	            &[
+    81	                "arming_doublet",
+    82	                "padded_chausses",
+    83	                "mail_voiders",
+    84	                "mail_brayette",
+    85	                "mail_knee_voider",
+    86	            ]
+    87	        } else {
+    88	            &[]
+    89	        };
+    90	        items
+    91	            .iter()
+    92	            .copied()
+    93	            .chain(waist)
+    94	            .chain(underlayers.iter().copied())
+    95	            .chain(matches!(self, Self::Underlayers).then_some("mail_standard"))
+    96	    }
+    97	
+    98	    fn visual_requirements(self) -> EquipmentVisualRequirements {
+    99	        EquipmentVisualRequirements {
+   100	            names: &[],
+--- HARNESS-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/harness.rs 95e63628f9d70b8dd6e6fede64334696c6995009 230-345 ---
+   230	                .spawn((
+   231	                    CapturedArmor,
+   232	                    Name::new(format!("Armor review {}/{}", item.id, placement.id)),
+   233	                    ItemOf(subject),
+   234	                    ItemProperties {
+   235	                        id: item.id.clone(),
+   236	                        weight: item.weight_kg,
+   237	                    },
+   238	                    EquipmentTopology {
+   239	                        placement_id: Some(placement.id.clone()),
+   240	                        occupancies,
+   241	                    },
+   242	                    TacticalEquipmentPhysical {
+   243	                        dimensions_m: Vec3::from_array(physical.dimensions_m),
+   244	                        grip_to_tip_m: physical.grip_to_tip_m,
+   245	                        striking_head_length_m: 0.0,
+   246	                        anchor_offset_m: Vec3::from_array(physical.anchor_offset_m),
+   247	                    },
+   248	                    Transform::default(),
+   249	                ))
+   250	                .id();
+   251	            previous.push((item, entity, placement));
+   252	        }
+   253	    }
+   254	
+   255	    fn fail(&mut self, reason: &str, exit: &mut MessageWriter<AppExit>) {
+   256	        self.failed = true;
+   257	        fs::write(self.output.join("failure.txt"), reason).expect("write armor capture failure");
+   258	        error!(%reason, "Armor capture cannot use unresolved equipment");
+   259	        exit.write(AppExit::error());
+   260	    }
+   261	}
+   262	
+   263	pub(super) fn update_readiness(
+   264	    mut capture: ResMut<ArmorCapture>,
+   265	    armor: Query<(Entity, &ItemProperties), With<CapturedArmor>>,
+   266	    visuals: EquipmentVisualStatus,
+   267	    equipment: Res<crate::equipment::RuntimeEquipmentBodyCache>,
+   268	    mut exit: MessageWriter<AppExit>,
+   269	) {
+   270	    let Some(harness) = capture.harness else {
+   271	        return;
+   272	    };
+   273	    if capture.failed {
+   274	        return;
+   275	    }
+   276	    let was_ready = capture.ready;
+   277	    capture.ready = armor.iter().count() == harness.placements().count();
+   278	    for (entity, item) in &armor {
+   279	        match visuals.state(entity, harness.visual_requirements()) {
+   280	            EquipmentVisualState::Ready => {}
+   281	            EquipmentVisualState::Failed => {
+   282	                fs::write(
+   283	                    capture.output.join("armor-readiness-failure.json"),
+   284	                    serde_json::to_vec_pretty(&serde_json::json!({
+   285	                        "item_id": item.id, "parts": visuals.summary(entity),
+   286	                    }))
+   287	                    .expect("serialize failed armor readiness"),
+   288	                )
+   289	                .expect("write failed armor readiness");
+   290	                capture.fail(
+   291	                    &format!(
+   292	                        "Procedural equipment asset or primary skin weights failed for {}",
+   293	                        item.id
+   294	                    ),
+   295	                    &mut exit,
+   296	                );
+   297	                return;
+   298	            }
+   299	            EquipmentVisualState::Missing | EquipmentVisualState::Loading => capture.ready = false,
+   300	        }
+   301	    }
+   302	    if capture.ready && !was_ready {
+   303	        let parts = armor
+   304	            .iter()
+   305	            .map(|(entity, item)| {
+   306	                serde_json::json!({
+   307	                    "item_id": item.id, "parts": visuals.summary(entity),
+   308	                })
+   309	            })
+   310	            .collect::<Vec<_>>();
+   311	        fs::write(
+   312	            capture.output.join("armor-readiness.json"),
+   313	            serde_json::to_vec_pretty(&parts).expect("serialize armor readiness"),
+   314	        )
+   315	        .expect("write armor readiness");
+   316	    }
+   317	    // A requested fit includes first-use device compilation. Count unresolved
+   318	    // presentation frames after that asynchronous task completes.
+   319	    if !capture.ready && !equipment.is_preparing() {
+   320	        capture.waited += 1;
+   321	        if capture.waited >= CAPTURE_LOAD_FRAME_LIMIT {
+   322	            capture.fail("Timed out waiting for every armor mesh, material, morph, and wearer skin to resolve", &mut exit);
+   323	        }
+   324	    }
+   325	}
+   326	
+   327	pub(super) fn ready(capture: Res<ArmorCapture>) -> bool {
+   328	    capture.ready && !capture.failed
+   329	}
+   330	
+   331	#[cfg(test)]
+   332	mod tests {
+   333	    use super::*;
+   334	    use adventuresim_core::equipment::{EquipmentGraph, EquipmentGraphPlacement};
+   335	    use bevy::ecs::system::RunSystemOnce;
+   336	
+   337	    #[test]
+   338	    fn voiders_attach_to_doublet_while_retaining_the_wearer_for_skin_binding() {
+   339	        for harness in [ArmorHarness::Underlayers, ArmorHarness::PlateUnderlayers] {
+   340	            let mut world = World::new();
+   341	            let wearer = world.spawn_empty().id();
+   342	            let capture = ArmorCapture {
+   343	                harness: Some(harness),
+   344	                output: PathBuf::new(),
+   345	                ready: false,
+--- HARNESS-INIT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/harness.rs 95e63628f9d70b8dd6e6fede64334696c6995009 145-225 ---
+   145	
+   146	#[derive(Component)]
+   147	pub(super) struct CapturedArmor;
+   148	
+   149	#[derive(Resource)]
+   150	pub(super) struct ArmorCapture {
+   151	    harness: Option<ArmorHarness>,
+   152	    output: PathBuf,
+   153	    ready: bool,
+   154	    waited: u32,
+   155	    failed: bool,
+   156	}
+   157	
+   158	impl ArmorCapture {
+   159	    /// Keep the complete articulated harness legible in the two inspection views.
+   160	    pub(super) fn review_camera(
+   161	        &self,
+   162	        view: CaptureView,
+   163	        subject: &Transform,
+   164	        head: Option<Vec3>,
+   165	        orbit: Quat,
+   166	    ) -> Option<Transform> {
+   167	        let harness = self.harness?;
+   168	        const REVIEW_CAMERA_DISTANCE_METRES: f32 = 2.4;
+   169	        const REVIEW_CAMERA_ELEVATION_METRES: f32 = 0.2;
+   170	        const HELMET_REVIEW_DISTANCE_METRES: f32 = 0.72;
+   171	        const HELMET_FOCUS_ABOVE_HEAD_METRES: f32 = 0.07;
+   172	        const TORSO_FOCUS_BELOW_HEAD_METRES: f32 = 0.30;
+   173	        const TORSO_REVIEW_DISTANCE_METRES: f32 = 1.15;
+   174	        let (focus, distance, elevation) = if matches!(harness, ArmorHarness::CloseHelmet) {
+   175	            (
+   176	                head? + Vec3::Y * HELMET_FOCUS_ABOVE_HEAD_METRES,
+   177	                HELMET_REVIEW_DISTANCE_METRES,
+   178	                0.0,
+   179	            )
+   180	        } else if matches!(
+   181	            harness,
+   182	            ArmorHarness::Anime | ArmorHarness::Pauldron | ArmorHarness::GermanDressUpper
+   183	        ) {
+   184	            (
+   185	                head? - Vec3::Y * TORSO_FOCUS_BELOW_HEAD_METRES,
+   186	                TORSO_REVIEW_DISTANCE_METRES,
+   187	                0.0,
+   188	            )
+   189	        } else {
+   190	            (
+   191	                subject.translation,
+   192	                REVIEW_CAMERA_DISTANCE_METRES,
+   193	                REVIEW_CAMERA_ELEVATION_METRES,
+   194	            )
+   195	        };
+   196	        let offset = match view {
+   197	            CaptureView::Gameplay => return None,
+   198	            CaptureView::Side => Vec3::new(distance, elevation, 0.0),
+   199	            CaptureView::Front => Vec3::new(0.0, elevation, -distance),
+   200	        };
+   201	        Some(Transform::from_translation(focus + orbit * offset).looking_at(focus, Vec3::Y))
+   202	    }
+   203	
+   204	    pub(super) fn new(harness: Option<ArmorHarness>, output: PathBuf) -> Self {
+   205	        if let Some(harness) = harness {
+   206	            let pieces = harness.placements().map(|(item, placement)| serde_json::json!({"item_id": item.id, "placement_id": placement.id})).collect::<Vec<_>>();
+   207	            let manifest = serde_json::json!({"harness": harness, "pieces": pieces, "renderer": "gameplay_equipment_runtime_wearer_fit", "identity": "deterministic_character_id_variation"});
+   208	            fs::write(
+   209	                output.join("armor-fixture.json"),
+   210	                serde_json::to_vec_pretty(&manifest).expect("serialize armor fixture"),
+   211	            )
+   212	            .expect("write armor fixture");
+   213	        }
+   214	        Self {
+   215	            harness,
+   216	            output,
+   217	            ready: harness.is_none(),
+   218	            waited: 0,
+   219	            failed: false,
+   220	        }
+   221	    }
+   222	
+   223	    pub(super) fn spawn(&self, commands: &mut Commands, subject: Entity) {
+   224	        let Some(harness) = self.harness else { return };
+   225	        let mut previous = Vec::new();
+--- GLOBAL-TIMEOUT-REGISTRATION.json crates/adventuresim-tactical-client/src/animation_viewer/mod.rs 95e63628f9d70b8dd6e6fede64334696c6995009 55-80 ---
+    55	use report::*;
+    56	use scenarios::terrain_policy::{
+    57	    raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, startup_terrain_ik_mode,
+    58	    terrain_ik_mode_for_frame,
+    59	};
+    60	use scenarios::*;
+    61	
+    62	mod capture;
+    63	mod harness;
+    64	mod inspection;
+    65	mod report;
+    66	mod scenarios;
+    67	mod setup;
+    68	mod view;
+    69	
+    70	const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
+    71	
+    72	#[derive(Resource)]
+    73	struct CaptureBodyProportions(
+    74	    Option<adventuresim_core::character_proportions::CharacterProportions>,
+    75	);
+    76	
+    77	pub(crate) struct CaptureOptions {
+    78	    pub output: PathBuf,
+    79	    pub asset_root: PathBuf,
+    80	    pub settle_frames: u32,

@@ -1,0 +1,65 @@
+{
+  "registration_sha256": "8b3dc26f9c4373b66347ba58f26019237aed6dc3adf781bd06cce1f218716867",
+  "rows": [
+    {
+      "tag": "core-filth",
+      "matches": {
+        "blood_infectious_windows": [
+          92,
+          477,
+          491,
+          506,
+          524
+        ]
+      }
+    },
+    {
+      "tag": "windows",
+      "matches": {
+        "blood_infectious_windows": [
+          9,
+          15,
+          26
+        ],
+        "has_active_compatible_foreign_blood": [
+          18
+        ]
+      }
+    },
+    {
+      "tag": "calendar",
+      "matches": {
+        "struct StrategicMinute": [
+          89
+        ],
+        "fn iter_through": [
+          177
+        ],
+        "impl Iterator": [
+          170,
+          177
+        ],
+        "saturating_add_minutes": [
+          115,
+          121,
+          182,
+          308,
+          321,
+          428,
+          543
+        ]
+      }
+    },
+    {
+      "tag": "native-disease",
+      "matches": {
+        "blood_exposure_attempts_through": [
+          1274,
+          1876,
+          2736,
+          2925
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,166 @@
+{
+  "schema": "726-npy-q2306-source-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T13:55:56.677744+00:00",
+  "registration_sha256": "948e3e50c29369f0939337bc6956f8c0a6fc593b7116abd446025874d5dd19b5",
+  "displays": [
+    {
+      "file": "SOURCE-DISPLAY-A.txt",
+      "sha256": "d3307d00709f7b2a3dc739788cefdb87355d4729dfa69a77cf4d1f766031e5f0",
+      "bytes": 4201,
+      "observed_mtime_utc": "2026-11-12T13:52:51.051444+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+          "range": [
+            1,
+            29
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+          "range": [
+            1,
+            70
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-B.txt",
+      "sha256": "0653a358bc007591406ea1c5baac465e821f5adbd1a89350caef8eabf2c6b515",
+      "bytes": 3432,
+      "observed_mtime_utc": "2026-11-12T13:52:54.071712+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+          "range": [
+            1,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-C.txt",
+      "sha256": "bb344ab93f9d9e80e49638c877e23ca8dc15ada4dcbbbf2ba950f981a92110ad",
+      "bytes": 5190,
+      "observed_mtime_utc": "2026-11-12T13:52:56.988971+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+          "range": [
+            101,
+            140
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+          "range": [
+            1,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-D.txt",
+      "sha256": "1c67f42cf226b2950f629bd8787143102e08d89b7b625fe89c170ad17862d269",
+      "bytes": 2945,
+      "observed_mtime_utc": "2026-11-12T13:52:59.698819+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+          "range": [
+            81,
+            160
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-E.txt",
+      "sha256": "03ae77d5b49d38bacda020b454fb960c942cd644fbd942aec0d24b56503ade07",
+      "bytes": 3715,
+      "observed_mtime_utc": "2026-11-12T13:53:05.196888+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+          "range": [
+            1,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-F.txt",
+      "sha256": "8918ae5e2651d81fa690a9765a020b0850ee2100714603eb9f560a83bddeee95",
+      "bytes": 3124,
+      "observed_mtime_utc": "2026-11-12T13:53:08.665478+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+          "range": [
+            91,
+            174
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-G.txt",
+      "sha256": "e15ad872def8d84bca389dfbae0e6fa7bc2dd65342a26731874b93adcfd6d79c",
+      "bytes": 4500,
+      "observed_mtime_utc": "2026-11-12T13:53:12.262632+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+          "range": [
+            1,
+            110
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-H.txt",
+      "sha256": "f1fff41e2341f5085eb9b083214b9233ec2c8bea5c985880481addbbb418eae4",
+      "bytes": 3049,
+      "observed_mtime_utc": "2026-11-12T13:53:14.806151+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+          "range": [
+            1,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-I.txt",
+      "sha256": "cb7fffdf468ce9866530aa9fbccd3caa67c242cd587384dded5a63efdd4e4cb9",
+      "bytes": 3461,
+      "observed_mtime_utc": "2026-11-12T13:53:17.543302+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+          "range": [
+            91,
+            174
+          ]
+        }
+      ]
+    }
+  ],
+  "unread_complements": {
+    "crates/fabelgeist-numpy-storage/src/npy.rs": [
+      [
+        141,
+        229
+      ]
+    ]
+  },
+  "qualification": "All nine numbered source displays returned without truncation, after prospective registration. Full-file copies do not grant source read credit outside the recorded ranges. Source from 95e is independently assessed; byte identity with the e275 subtree does not transfer personal historical credit. Existing test source beyond the registered production window was not displayed or executed."
+}

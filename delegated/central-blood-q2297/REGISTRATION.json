@@ -1,0 +1,91 @@
+{
+  "schema": "726-central-blood-q2297-registration-v1",
+  "registered_utc": "2026-11-12T13:54:53.621005+00:00",
+  "current_source": {
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "path": "crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+    "capture": "source/blood_attempts.rs",
+    "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+    "git_blob": "4b285fcc1b92e9e1df283df91aace4473f2d0e6a",
+    "bytes": 6028,
+    "eof": 157,
+    "planned_ranges": [
+      [
+        1,
+        157
+      ]
+    ],
+    "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+    "chain": [
+      {
+        "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+        "name": "crates",
+        "mode": "040000",
+        "type": "tree",
+        "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+      },
+      {
+        "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+        "name": "adventuresim-stdb-module",
+        "mode": "040000",
+        "type": "tree",
+        "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+      },
+      {
+        "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+        "name": "src",
+        "mode": "040000",
+        "type": "tree",
+        "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+      },
+      {
+        "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+        "name": "filth",
+        "mode": "040000",
+        "type": "tree",
+        "object": "ddf9a8e546df748157d77d37b7e5cc52a046305e"
+      },
+      {
+        "tree": "ddf9a8e546df748157d77d37b7e5cc52a046305e",
+        "name": "blood_attempts.rs",
+        "mode": "100644",
+        "type": "blob",
+        "object": "4b285fcc1b92e9e1df283df91aace4473f2d0e6a"
+      }
+    ]
+  },
+  "historical_selection": {
+    "path": "baseline-059/queue.json",
+    "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+    "pointer": "/entries/2297",
+    "qualification": "Public path-redacted checkpoint 059 reconstruction; not original checkpoint3821. Prior unregistered prefix navigation receives no registered credit."
+  },
+  "tree_objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "path": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+      "bytes": 1635
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "path": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+      "bytes": 2434
+    },
+    "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182": {
+      "path": "trees/d099f9a64c6e2c861f57a3cd823c38a4e4cfb182.tree.gz",
+      "sha256": "65d2a14fcbbe65bc0ca222ffea1c36d219ae10c68b3a5a6c78c240e094fd0fc0",
+      "bytes": 259
+    },
+    "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed": {
+      "path": "trees/a7ee465f194c257d117f6be3de4b2f4f9ffb82ed.tree.gz",
+      "sha256": "dcd452378ba0f84a5cdce52488e1c8bf400f78561e737e6ab1682f00669f06a1",
+      "bytes": 2691
+    },
+    "ddf9a8e546df748157d77d37b7e5cc52a046305e": {
+      "path": "trees/ddf9a8e546df748157d77d37b7e5cc52a046305e.tree.gz",
+      "sha256": "c20bbd44fdd659179acad60b2622b81e712ef909702facc691630ee075671408",
+      "bytes": 92
+    }
+  },
+  "qualification": "Registration created before the coordinator displays selected source and queue entry; captured bytes alone do not establish personal-read credit."
+}

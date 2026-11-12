@@ -1,0 +1,45 @@
+{
+  "schema": "726-blood-q2297-history-selection-registration-v1",
+  "parent_registration_sha256": "ebd9b11f96f5363bd3f0ab8590252bcdfe41dedb0d273f7a3e6a56960eb7452f",
+  "selections": [
+    {
+      "path": "parallel-l13-20261029/REGISTRATION-PL13-245.json",
+      "pointers": [
+        "/lens",
+        "/namespace",
+        "/status",
+        "/sources/1",
+        "/authority_changes"
+      ]
+    },
+    {
+      "path": "parallel-l13-20261029/READ-PL13-245.json",
+      "pointers": [
+        "/lens",
+        "/namespace",
+        "/registration",
+        "/registered_before_read_attestation",
+        "/rows/1",
+        "/connected_contracts",
+        "/product_execution",
+        "/current_reconciled",
+        "/global_clearance",
+        "/qualifications"
+      ]
+    },
+    {
+      "path": "segovb/READ-L13-PARALLEL-243.json",
+      "pointers": [
+        "/delegated_receipt",
+        "/delegated_verification",
+        "/verified_source_registrations",
+        "/root_personal_rereads",
+        "/current_source_reconciled",
+        "/runtime_validation",
+        "/implementation_gate_complete"
+      ]
+    }
+  ],
+  "proposal_qualification": "Proposal bytes were captured and hash matched but are not yet displayed; no full record read credit.",
+  "navigation_qualification": "A metadata-only keys and collection-length listing of the four already registered files was displayed; its tool result was truncated. Its original output was not saved separately; no full-record credit or exact transcript is asserted."
+}

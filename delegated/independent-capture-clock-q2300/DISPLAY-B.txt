@@ -1,0 +1,112 @@
+rate:0001: //! Animation frequencies and checked reciprocal sampling intervals.
+rate:0002: 
+rate:0003: use super::{
+rate:0004:     AnimationElapsed, AnimationQuantity, AnimationSampleSpan, AnimationValueError,
+rate:0005:     AnimationValueResult, PositiveAnimationDuration,
+rate:0006: };
+rate:0007: use serde::{Deserialize, Serialize};
+rate:0008: 
+rate:0009: /// Authored frequency and its once-checked reciprocal sampling interval.
+rate:0010: /// The original frequency is retained so scalar serialization preserves its bits.
+rate:0011: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+rate:0012: #[serde(try_from = "f32", into = "f32")]
+rate:0013: pub struct AnimationSampleRate {
+rate:0014:     frequency: AnimationFrequency,
+rate:0015:     interval: PositiveAnimationDuration,
+rate:0016: }
+rate:0017: 
+rate:0018: /// A finite positive reference multiplier in samples per second. Calibration
+rate:0019: /// does not require a representable reciprocal sampling period.
+rate:0020: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, derive_more::Into)]
+rate:0021: #[serde(try_from = "f32", into = "f32")]
+rate:0022: pub struct AnimationFrequency(f32);
+rate:0023: 
+rate:0024: impl AnimationFrequency {
+rate:0025:     /// Project at actual per-reference-sample multiplication or native math.
+rate:0026:     pub fn hertz(self) -> f32 {
+rate:0027:         self.0
+rate:0028:     }
+rate:0029: }
+rate:0030: 
+rate:0031: impl TryFrom<f32> for AnimationFrequency {
+rate:0032:     type Error = AnimationValueError;
+rate:0033:     fn try_from(hertz: f32) -> AnimationValueResult<Self> {
+rate:0034:         let quantity = AnimationQuantity::SampleRate;
+rate:0035:         if !hertz.is_finite() {
+rate:0036:             return Err(AnimationValueError::NonFinite { quantity });
+rate:0037:         }
+rate:0038:         if hertz <= 0.0 {
+rate:0039:             return Err(AnimationValueError::NonPositive { quantity });
+rate:0040:         }
+rate:0041:         Ok(Self(hertz))
+rate:0042:     }
+rate:0043: }
+rate:0044: 
+rate:0045: impl AnimationSampleRate {
+rate:0046:     /// Samples per second at multiplication, ratio or framework clock boundaries.
+rate:0047:     pub fn hertz(self) -> f32 {
+rate:0048:         self.frequency.hertz()
+rate:0049:     }
+rate:0050:     /// Native reciprocal duration for fixed-step sampling.
+rate:0051:     pub fn interval(self) -> PositiveAnimationDuration {
+rate:0052:         self.interval
+rate:0053:     }
+rate:0054:     /// Convert a remaining sample span at its authoritative frequency. Preserve
+rate:0055:     /// the original f32 count-before-division order, rather than reciprocal multiplication.
+rate:0056:     pub fn elapsed_for_span(
+rate:0057:         self,
+rate:0058:         span: AnimationSampleSpan,
+rate:0059:     ) -> AnimationValueResult<AnimationElapsed> {
+rate:0060:         Ok(AnimationElapsed::from_seconds(
+rate:0061:             span.samples() as f32 / self.hertz(),
+rate:0062:         )?)
+rate:0063:     }
+rate:0064: }
+rate:0065: 
+rate:0066: impl TryFrom<f32> for AnimationSampleRate {
+rate:0067:     type Error = AnimationValueError;
+rate:0068:     fn try_from(hertz: f32) -> AnimationValueResult<Self> {
+rate:0069:         let frequency = AnimationFrequency::try_from(hertz)?;
+rate:0070:         let quantity = AnimationQuantity::SampleRate;
+rate:0071:         let interval = PositiveAnimationDuration::from_elapsed(
+rate:0072:             AnimationElapsed::from_seconds(hertz.recip())
+rate:0073:                 .map_err(|error| AnimationValueError::from(error).for_quantity(quantity))?,
+rate:0074:         )?;
+rate:0075:         Ok(Self {
+rate:0076:             frequency,
+rate:0077:             interval,
+rate:0078:         })
+rate:0079:     }
+rate:0080: }
+rate:0081: 
+rate:0082: impl From<AnimationSampleRate> for f32 {
+rate:0083:     fn from(rate: AnimationSampleRate) -> Self {
+rate:0084:         rate.frequency.hertz()
+rate:0085:     }
+rate:0086: }
+measurement:0040:         self.0
+measurement:0041:     }
+measurement:0042:     /// Metre scalars and the admitted fraction meet at Bevy's native interpolation kernel.
+measurement:0043:     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+measurement:0044:         Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
+measurement:0045:     }
+measurement:0046:     /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
+measurement:0047:     pub fn half(self) -> Self {
+measurement:0048:         Self(self.0 * 0.5)
+measurement:0049:     }
+measurement:0050: }
+measurement:0051: impl PositiveAnimationDuration {
+measurement:0052:     pub fn from_elapsed(value: AnimationElapsed) -> AnimationValueResult<Self> {
+measurement:0053:         if value.is_zero() {
+measurement:0054:             return Err(AnimationValueError::NonPositive {
+measurement:0055:                 quantity: AnimationQuantity::Elapsed,
+measurement:0056:             });
+measurement:0057:         }
+measurement:0058:         Ok(Self(value))
+measurement:0059:     }
+measurement:0060:     /// Duration covered by a native count of fixed sample intervals.
+measurement:0061:     pub fn sample_span(self, intervals: u32) -> AnimationValueResult<AnimationElapsed> {
+measurement:0062:         let seconds = self.seconds() * intervals as f32;
+measurement:0063:         if !seconds.is_finite() {
+measurement:0064:             return Err(AnimationValueError::Overflow {
+measurement:0065:                 quantity: AnimationQuantity::Elapsed,

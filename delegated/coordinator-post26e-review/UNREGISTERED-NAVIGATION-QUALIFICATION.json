@@ -1,0 +1,49 @@
+{
+  "schema": "726-post26e-coordinator-navigation-qualification-v1",
+  "recorded_utc": "2026-11-12T14:06:31.290435+00:00",
+  "observer": "/root",
+  "events": [
+    {
+      "subject": "clock review README",
+      "scope": "Full README displayed before coordinator registration.",
+      "source_sha256": "fff2befd99cddc5db8fde289533bb899c6ee9dca7a07573c4a91dbd50129e896",
+      "source_bytes": 1471,
+      "qualification": "The original tool display was not saved separately and its exact time was not retained; no registered source-read or complete report-read credit is claimed."
+    },
+    {
+      "subject": "clock evidence verifier",
+      "scope": "Tail 80 lines displayed before registration; tool output was truncated.",
+      "source_sha256": "75f65de0cf520632cfd22ecff615d8ec03149c1da123031d91414bf7445ec711",
+      "source_bytes": 11967,
+      "qualification": "The original tool display was not saved separately and its exact time was not retained; no registered source-read or complete report-read credit is claimed."
+    },
+    {
+      "subject": "readiness report",
+      "scope": "Report displayed before coordinator registration; tool output was truncated.",
+      "source_sha256": "cfa3ef439a8fce3675d738bee54e26571fab4e9c89ce2d34170cbb56f9929771",
+      "source_bytes": 10146,
+      "qualification": "The original tool display was not saved separately and its exact time was not retained; no registered source-read or complete report-read credit is claimed."
+    },
+    {
+      "subject": "NPY report",
+      "scope": "Report displayed before coordinator registration; tool output was truncated.",
+      "source_sha256": "d905d3fafd3d0a7b86324b966cddf35472b79363f0b0ea485f8bec7bdea702bb",
+      "source_bytes": 8862,
+      "qualification": "The original tool display was not saved separately and its exact time was not retained; no registered source-read or complete report-read credit is claimed."
+    },
+    {
+      "subject": "NPY evidence verifier",
+      "scope": "Tail 65 lines displayed before coordinator registration.",
+      "source_sha256": "8cd278215e930f93686abb0ee7040fb9dc2cca3a4cbacf3981c7c80c6ffe5ed2",
+      "source_bytes": 8464,
+      "qualification": "The original tool display was not saved separately and its exact time was not retained; no registered source-read or complete report-read credit is claimed."
+    },
+    {
+      "subject": "readiness verifier filename",
+      "scope": "Attempted to display a file named verify-evidence.py; that path did not exist and the command failed before displaying content.",
+      "qualification": "The failure is preserved; the actual verifier filename is still to be discovered."
+    }
+  ],
+  "chronology": "These events occurred after 26e was published and while preparing the following checkpoint. Agent source reads retain their own registrations and attribution; no personal source review is inferred.",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "726-post26e-evidence-snapshot-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "parent_published_checkpoint": "26e360920b7b2ec32d5c76238623eaf6d6617d7e",
+  "observed_counts": {
+    "lenses": 13,
+    "lenses_complete": 0,
+    "historical_queue_indexed": 3713,
+    "queue_semantically_reconciled": 0,
+    "current_ledger_entries_and_relationships": 1033,
+    "qualification": "Working entries and relationships are not a count of independent defects; no missing checkpoint3821 evidence is inferred."
+  },
+  "queue_selections": [
+    {
+      "index": 2297,
+      "contract_id": "PL13-245-BLOOD-CURSOR-WINDOW-OWNER-PENDING",
+      "current_reconciliation": "partial original PL13-245-BLOOD-CURSOR-WINDOW-OWNER-PENDING connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-BLOOD-WINDOW-13V-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2303,
+      "contract_id": "REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT",
+      "current_reconciliation": "partial original REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-CAPTURE-READINESS-13W-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2306,
+      "contract_id": "REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+      "current_reconciliation": "partial original REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-NPY-13X-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    },
+    {
+      "index": 2307,
+      "contract_id": "REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES",
+      "current_reconciliation": "partial original REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES connected to bounded current source and separately attributed 059 history in ASSESSMENT-CENTRAL-NPZ-13Y-95E.json; producers, policy, native behavior and exact aliases remain open; no full reconciliation or checkpoint3821 credit"
+    }
+  ],
+  "central_reports": [
+    "ASSESSMENT-CENTRAL-BLOOD-WINDOW-13V-95E.json",
+    "ASSESSMENT-CENTRAL-CAPTURE-READINESS-13W-95E.json",
+    "ASSESSMENT-CENTRAL-NPY-13X-95E.json",
+    "ASSESSMENT-CENTRAL-NPZ-13Y-95E.json",
+    "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-REVIEW-ADDENDUM.json",
+    "LIVE-STATE-SUCCESSOR-DESIGN-QUALIFICATION.json"
+  ],
+  "recovery": "delegated/checkpoint26e-verification/RECOVERY-RECORD.json",
+  "qualification": "Snapshot of a time-bound reconciliation, not proof of semantic completion, full privacy, independent custody or product behavior. Historical records, reconstructions, original attribution and newly assessed work remain distinct.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

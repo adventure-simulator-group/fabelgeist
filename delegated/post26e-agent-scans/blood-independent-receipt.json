@@ -1,0 +1,53 @@
+{
+  "schema": "726-q2297-archive-receipt-v1",
+  "created_utc": "2026-11-12T14:09:31.192524+00:00",
+  "archive_name": "q2297-evidence.tar.gz",
+  "archive_sha256": "04dc189fc797fc94cb4ed0010ef78f0138f9ce637e1576deaa57f9a6b79bf00d",
+  "archive_bytes": 141460,
+  "manifest_sha256": "52bd61b391ef1e3690b19a977f9a36db9529f9b0229eb98289f28ef7763cf56e",
+  "report_sha256": "f358ddd3ee45723cf955050cfd63890b1acc1ef2fda65b50361e910850c0ff95",
+  "members_verified_byte_identical": 79,
+  "read_only_evidence_verification": {
+    "status": "passed",
+    "manifest_files": 78,
+    "tree_proofs": 8,
+    "historical_original_documents": 4,
+    "commit_roots_and_queue_ledger_selections_verified": true,
+    "scope": "Evidence identity and selected reconstruction only; personal perception, mathematical validity, product behavior and audit closure are not verified."
+  },
+  "privacy_scan": {
+    "scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "receipt_sha256": "294e00fd09b6f778903a76553ad93a1bb47da056d24c00ce0ea55fd8174c57b7",
+    "scope": "Recursive gzip and tar over the archive; maximum depth 8 and per-view maximum 83,886,080 bytes.",
+    "result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 81,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 79,
+        "cached_views": 237,
+        "text_views": 66,
+        "binary_views": 13
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "limitation": "Known private-value and prefix digest corpus plus selected path/credential patterns only; unknown paths, secrets, formats, encodings, Git history and binary metadata are not generally cleared. No Git commit bodies or author metadata included."
+  },
+  "qualification": "Additive receipt outside frozen archive, evidence-only; no assertion of product validation or lens closure."
+}

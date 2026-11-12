@@ -1,0 +1,52 @@
+{
+  "schema": "726-q2303-final-receipt-v1",
+  "created_utc": "2026-11-12T13:58:38.592990+00:00",
+  "archive_name": "q2303-evidence.tar.gz",
+  "archive_sha256": "9f456dce7756e321865baac3fca9d688559f1d11a5bf4397f49b7c74c540fa2b",
+  "archive_bytes": 115873,
+  "manifest_sha256": "bddc8ad1907350215db9ca4057a4c117d5bb0009db4a723c8a68f7d70901de33",
+  "read_only_evidence_verification": {
+    "status": "passed",
+    "manifest_files": 67,
+    "tree_proofs": 10,
+    "historical_records": 9,
+    "revision_roots_and_selected_queue_verified_with_repo": true,
+    "scope": "Evidence identities and selected reconstructions only; no product validation, semantic closure, or proof of personally viewed text."
+  },
+  "privacy_scan": {
+    "scanner_script_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+    "receipt_sha256": "43b01bba4098b36756dd3336246438b15d64e344a36c41abce9e0f9a72caffc1",
+    "target": "archive named above; recursive gzip/tar, depth at most 8, per-view max 83,886,080 bytes",
+    "result": {
+      "schema": "726-private-input-recursive-digest-scan-v1",
+      "corpus_counts": {
+        "original_map_fields": 45,
+        "original_map_values": 47,
+        "public_map_fields": 2,
+        "public_map_values": 2,
+        "scan_prefix_fields": 60,
+        "distinct_sensitive_digests": 40
+      },
+      "stats": {
+        "top_files": 1,
+        "views": 70,
+        "gzip_views": 1,
+        "gzip_members": 1,
+        "tar_views": 1,
+        "tar_members": 68,
+        "cached_views": 203,
+        "text_views": 57,
+        "binary_views": 11
+      },
+      "forbidden_digest_total": 0,
+      "forbidden_digest_locations": [],
+      "other_candidate_counts": {},
+      "other_candidate_locations": [],
+      "exceptions": [],
+      "qualification": "Digest corpus is derived from restricted original GPU evidence, not hardcoded or printed. Text path/credential/email matches are candidates and require contextual classification; binary Git commit metadata remains separately disclosed. Per-view bytes and recursion depth are bounded; unsupported formats, excluded symlinks, unknown roots, encodings or credentials are not cleared. Git administrative metadata and history are omitted; the scan covers the specified working tree only. No product code is executed."
+    },
+    "limitation": "Derived known path-value and prefix digest corpus plus selected path/credential patterns only; does not clear unknown representations, binary metadata, unsupported formats or git history. No commit bodies or author metadata are included in the packet."
+  },
+  "archive_members_verified_byte_identical_to_packet": 68,
+  "qualification": "Evidence-only verification, no product execution or validation. This receipt is additive and is outside the frozen packet and archive."
+}

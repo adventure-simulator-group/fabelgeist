@@ -1,0 +1,92 @@
+clock:0001: //! Deterministic capture tick progression and finite frame-interval admission.
+clock:0002: 
+clock:0003: use super::*;
+clock:0004: use adventuresim_tactical_core::animation::{
+clock:0005:     AnimationElapsed, AnimationQuantity, AnimationSampleRate, AnimationSampleTick,
+clock:0006:     AnimationValueError, AnimationValueResult,
+clock:0007: };
+clock:0008: use std::time::Duration;
+clock:0009: 
+clock:0010: /// Bevy's native clock requires a nonzero Duration. Preserve its f64 Hz
+clock:0011: /// reciprocal and native nanosecond rounding rather than the f32 pose interval.
+clock:0012: pub(crate) fn capture_fixed_clock(rate: AnimationSampleRate) -> AnimationValueResult<Time<Fixed>> {
+clock:0013:     let seconds = 1.0 / f64::from(rate.hertz());
+clock:0014:     let interval =
+clock:0015:         Duration::try_from_secs_f64(seconds).map_err(|_| AnimationValueError::Overflow {
+clock:0016:             quantity: AnimationQuantity::NativeSampleInterval,
+clock:0017:         })?;
+clock:0018:     if interval.is_zero() {
+clock:0019:         return Err(AnimationValueError::NonPositive {
+clock:0020:             quantity: AnimationQuantity::NativeSampleInterval,
+clock:0021:         });
+clock:0022:     }
+clock:0023:     Ok(Time::from_duration(interval))
+clock:0024: }
+clock:0025: 
+clock:0026: pub(super) fn next_capture_simulation_tick(
+clock:0027:     current: AnimationSampleTick,
+clock:0028:     absolute_first_sample: bool,
+clock:0029: ) -> AnimationSampleTick {
+clock:0030:     if absolute_first_sample {
+clock:0031:         current
+clock:0032:     } else {
+clock:0033:         current.wrapping_next()
+clock:0034:     }
+clock:0035: }
+clock:0036: 
+clock:0037: pub(super) fn capture_frame_elapsed(scenario_frame: usize) -> AnimationElapsed {
+clock:0038:     if scenario_frame == 0 {
+clock:0039:         AnimationElapsed::ZERO
+clock:0040:     } else {
+clock:0041:         locomotion_sample_rate().interval().elapsed()
+clock:0042:     }
+clock:0043: }
+clock:0044: 
+clock:0045: #[cfg(test)]
+clock:0046: mod tests {
+clock:0047:     use super::*;
+clock:0048: 
+clock:0049:     #[test]
+clock:0050:     fn capture_ticks_remain_unique_across_consecutive_scenario_boundaries() {
+clock:0051:         let first = next_capture_simulation_tick(AnimationSampleTick::ZERO, true);
+clock:0052:         let second = next_capture_simulation_tick(first, false);
+clock:0053:         let next_scenario_frame_zero = next_capture_simulation_tick(second, false);
+clock:0054:         assert_eq!(first, AnimationSampleTick::from(0u64));
+clock:0055:         assert_eq!(second, AnimationSampleTick::from(1u64));
+clock:0056:         assert_eq!(next_scenario_frame_zero, AnimationSampleTick::from(2u64));
+clock:0057:     }
+clock:0058: }
+bevy_fixed:0075:     /// Corresponds to 64 Hz.
+bevy_fixed:0076:     const DEFAULT_TIMESTEP: Duration = Duration::from_micros(15625);
+bevy_fixed:0077: 
+bevy_fixed:0078:     /// Return new fixed time clock with given timestep as [`Duration`]
+bevy_fixed:0079:     ///
+bevy_fixed:0080:     /// # Panics
+bevy_fixed:0081:     ///
+bevy_fixed:0082:     /// Panics if `timestep` is zero.
+bevy_fixed:0083:     pub fn from_duration(timestep: Duration) -> Self {
+bevy_fixed:0084:         let mut ret = Self::default();
+bevy_fixed:0085:         ret.set_timestep(timestep);
+bevy_fixed:0086:         ret
+bevy_fixed:0087:     }
+bevy_fixed:0088: 
+bevy_fixed:0089:     /// Return new fixed time clock with given timestep seconds as `f64`
+bevy_fixed:0090:     ///
+bevy_fixed:0118:     /// Sets the amount of virtual time that must pass before the fixed timestep
+bevy_fixed:0119:     /// schedule is run again, as [`Duration`].
+bevy_fixed:0120:     ///
+bevy_fixed:0121:     /// Takes effect immediately on the next run of the schedule, respecting
+bevy_fixed:0122:     /// what is currently in [`Self::overstep`].
+bevy_fixed:0123:     ///
+bevy_fixed:0124:     /// # Panics
+bevy_fixed:0125:     ///
+bevy_fixed:0126:     /// Panics if `timestep` is zero.
+bevy_fixed:0127:     #[inline]
+bevy_fixed:0128:     pub fn set_timestep(&mut self, timestep: Duration) {
+bevy_fixed:0129:         assert_ne!(
+bevy_fixed:0130:             timestep,
+bevy_fixed:0131:             Duration::ZERO,
+bevy_fixed:0132:             "attempted to set fixed timestep to zero"
+bevy_fixed:0133:         );
+bevy_fixed:0134:         self.context_mut().timestep = timestep;
+bevy_fixed:0135:     }

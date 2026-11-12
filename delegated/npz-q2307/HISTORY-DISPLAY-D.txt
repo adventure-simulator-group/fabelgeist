@@ -1,0 +1,86 @@
+=== QUEUE-ENTRY-ORIGINAL.json 256..340 ===
+ 256 |             "verification": "segovb/VERIFY-L11-707.json",
+ 257 |             "verification_sha256": "4048c851f1c607badfe2d1dd470d9fac862ee8991f2d517256ca84a4751496b9"
+ 258 |           },
+ 259 |           "body_credit_from_queue": 0
+ 260 |         },
+ 261 |         {
+ 262 |           "source_row_key": "R171-7",
+ 263 |           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/names.rs:current-delta-NPY-NPZ-owned-native-boundary",
+ 264 |           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+ 265 |           "source_sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb",
+ 266 |           "assessed_ranges": [
+ 267 |             [
+ 268 |               1,
+ 269 |               28
+ 270 |             ]
+ 271 |           ],
+ 272 |           "receipt_pointer": "/rows/7",
+ 273 |           "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+ 274 |           "contract_relevant_ranges": [
+ 275 |             [
+ 276 |               1,
+ 277 |               28
+ 278 |             ]
+ 279 |           ],
+ 280 |           "body_receipt": {
+ 281 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+ 282 |             "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+ 283 |           },
+ 284 |           "registration_ref_and_sha256": {
+ 285 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+ 286 |             "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+ 287 |             "json_pointer": "/rows/11"
+ 288 |           },
+ 289 |           "root_adoption": {
+ 290 |             "path": "segovb/READ-L11-707.json",
+ 291 |             "sha256": "2d4d14ccbe1f4551707c122f3961a81534955f37ec0e48e2428bfec7d4525c4d",
+ 292 |             "verification": "segovb/VERIFY-L11-707.json",
+ 293 |             "verification_sha256": "4048c851f1c607badfe2d1dd470d9fac862ee8991f2d517256ca84a4751496b9"
+ 294 |           },
+ 295 |           "body_credit_from_queue": 0
+ 296 |         }
+ 297 |       ],
+ 298 |       "producer_api_retained_state_consumer_native_trace": [
+ 299 |         "Npz wrapsoneZipArchive18..20; NpzMember26..29 binds exactprivateZipMember lifetime andretains originalNpzArrayName query. get56..63 asksZipArchive.find directoryfirstpredicate andconstructsmember+querytogether, so metadatauncompressed_size79 andactualarraybytes84 useSAME selectedentry, no secondlookuppossiblydifferentmember. Borrowlifetimepreventsindependentarchivepair throughpublichandle.",
+ 300 |         "NpzArrayName43 distinct full ArchiveMemberName13; matches51..54 fullparsedname OR exactlyone trailing.npy removal. Queryconstructor47 preservesverbatim spelling; keys52 mapsactualmemberorder. Ifearlierfull-or-suffixmatch precedeslaterexactfilename, first wins byexplicitpolicy, not invalidlateexactmatch or backwardscompatdefect. Empty/case/separators/NUL are query/textidentity, no path/filesystemcertification expected. ParsedbytesnameslossyUTF815..18 documentedidentitypolicy, not automaticmembership/securityfinding.",
+ 301 |         "ZipArchive.open65..80 retainsoriginalpath+operation+ioerror onFileopen67 andMmap74, readonlyinput concurrenttruncation explicitassumption72..73. from_data86..110 delegatesdirectory/ZIP64/framing toZipLocator maxsearch66000, retains typedArchiveMemberCount91, cappedinitialcapacity409692 vs fullu64 iteration96, breakswhen actualselecteddirectoryends97. Noinferredmustparseexactdeclaredcount/globalallrecordvalidation fromnameddeclarationupperboundpolicy94..95.",
+ 302 |         "Entry31..36 ownsparsedname/compression/declaredlength/nativeWayfinder once centralheaderselected100..106. ZipMember45..48 carries archive+entry privatepair, get_entry165 usesexactentrywayfinder onSAMEarchive. Native localframing/payloadrawbytesproof remains actualrawzip source, notdocumentationor installedversion. Stored169 borrowsarchivebytes; Deflate170..179 producesownedCow andretains actualioerrorInflate175..178. Unsupported method becomesZipCompressionCode andtypederror181 AFTERget_entrylocalframing.",
+ 303 |         "ZipReadError34..69 ownsNativeOpen/Map originalPathBuf+ioerror, Archive/rawzipError, CorruptMember/MemberPastEnd exactname+rawzipError, Inflate/name+ioerror, MissingMember/canonicalname andUnsupported/nativecode. Error::source114..124 retainsavailablecauses; ordinaryDisplay71..113 doesnotdiscardthem. MissingEndRecord isintentionalcategoryprojection126..132 withnomember/nativeIOcontext, notsameasformattingallerrorsintoString.",
+ 304 |         "DeclaredUncompressedByteLength27 namesUNVERIFIEDdirectorymetadata explicitly7..8; zero/u64MAX admitted31..33, native_allocation_capacity41..43 lossyusize onlyatVecreservation172, notpersistedapplicationcountorvalidatedlimit. Actualdecompressedpayloadlength/notCRC/resourceallocationpolicy mustremainexplicit; no requirementpreserveobsoleteinvalidallocationpanic ordeclarearbitrarymaxfrominheritance.",
+ 305 |         "ArchiveMemberCount10 u64bound retainedthroughnative0..u64range24..26; initial_capacity17..19 min4096 affectsreservationonly, notcardinality. Tests29..92 and NPZtests89..221 source-readonly; no binaryfixtureparsed/executedbodycredit fromincludes/docs/tests. .zipfixtures have actualbinary contract, notnulltextEOF coverage."
+ 306 |       ],
+ 307 |       "remaining_evidence": [
+ 308 |         "Exactrawzip0.5.2 ownlockedarchive/native structural/directory/localmember/Wayfinder proof andflate2source neededbeforebroadernativeboundaryclosure.",
+ 309 |         "Actualtestsource/docs/binaryfixturecurrentdeltas remainseparate; no parser/runtimeexecuted."
+ 310 |       ],
+ 311 |       "dependencies": [
+ 312 |         "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+ 313 |         "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+ 314 |       ],
+ 315 |       "closure_condition": [
+ 316 |         "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+ 317 |         "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+ 318 |       ],
+ 319 |       "disposition": "documented-conditional-policy-question",
+ 320 |       "policy_decisions_remaining": [
+ 321 |         "Declaredsizeallocation/decodedlength/CRC/resourcepolicy explicit; no obsoleteinvalidbehaviorpreservation frominheritancecomment.",
+ 322 |         "Directorydeclarationupperbound/firstfull-or-onesuffixmatch/nativeunknownmethod availability areactualsourcepolicies, notautomaticcompatibilitydefects."
+ 323 |       ],
+ 324 |       "later_repair_acceptance_requirements": [
+ 325 |         "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+ 326 |         "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+ 327 |       ],
+ 328 |       "named_disposition_recorded": true,
+ 329 |       "audit_discovery_closed_within_exact_named_scope": false,
+ 330 |       "all_lenses_or_coarse_parent_closed": false,
+ 331 |       "global_exact_alias_inventory_complete": false,
+ 332 |       "repair_runtime_passed": false,
+ 333 |       "proposal": {
+ 334 |         "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+ 335 |         "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+ 336 |         "row_pointer": "/contract_updates/7"
+ 337 |       },
+ 338 |       "body_or_population_credit": 0,
+ 339 |       "implementation_gate_complete": false
+ 340 |     }

@@ -1,0 +1,6 @@
+{
+  "schema": "726-checkpoint26e-packet-assembly-correction-v1",
+  "first_attempt": "The coordinator copied the eight input evidence files, then an assertion failed because the expected transcript digest was mistyped with two characters missing. It stopped before writing the recovery record or manifest. The original tool traceback was not saved separately.",
+  "correction": "The copied pre-push and recovery transcripts were compared byte-for-byte and rehashed; both have the complete 64-character digest recorded in RECOVERY-RECORD.json. No transcript was changed.",
+  "qualification": "A packet bookkeeping error, not a failed recovery run; the first interrupted evidence driver from the preceding checkpoint is separately preserved."
+}

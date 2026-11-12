@@ -4,7 +4,7 @@ This continuation uses `BASELINE-95E-20261110.json` as its explicitly
 incomplete working authority at source revision
 `95e63628f9d70b8dd6e6fede64334696c6995009`, observed as `origin/main` on
 2026-11-10 and rechecked on 2026-11-12
-(`MAIN-RECHECK-20261112-1353.json`).
+(`MAIN-RECHECK-20261112-1429.json`).
 Main may advance again. `MAIN-ADVANCE-95E.json` records the direct
 parent, complete tree inventories, lockfile bytes and frozen predecessor
 records. It is not a restoration of the missing checkpoint 3821. All thirteen
@@ -361,11 +361,25 @@ clock admission trace without closing wider capture timing questions.
 attributed required-root trace while preserving the initially unregistered
 view, later registered redisplay and aborted mutable-ledger selection.
 Optional observations and terrain producers remain open.
+`ASSESSMENT-CENTRAL-BLOOD-WINDOW-13V-95E.json` records a conditional
+terminal-minute window discrepancy, its independent review and distinct
+historical cursor and calendar questions; reachability and policy remain open.
+`ASSESSMENT-CENTRAL-CAPTURE-READINESS-13W-95E.json` preserves the exact
+conditions and limitations of the delegated readiness trace.
+`ASSESSMENT-CENTRAL-NPY-13X-95E.json` and
+`ASSESSMENT-CENTRAL-NPZ-13Y-95E.json` connect separately attributed parser
+records without equating shared source trees with dependency equivalence.
+`ASSESSMENT-CENTRAL-CAPTURE-CLOCK-REVIEW-ADDENDUM.json` records the separate
+clock review and its conditional label observation.
+`FOLLOWUP-POST26E-EVIDENCE.json` preserves the time-bound counts and partial
+connections for this evidence batch; it is not a lens-completion claim.
 `delegated/coordinator-navigation-qualification-13u/QUALIFICATION.json`
 records the coordinator’s separate unregistered metadata navigation and
 the interrupted evidence check; its queue prefix display is reconstructed.
 `delegated/verifier-evolution-independent/REPORT.md` separately evaluates
 possible historical replay and live-state verification, without implementing it.
+`LIVE-STATE-SUCCESSOR-DESIGN-QUALIFICATION.json` records a later independent
+proposal and its unresolved replay, live-binding and privacy requirements.
 `delegated/checkpoint39-stage/REPORT.json` preserves three additional
 source-family packets pending central reconciliation. The independent review
 and the earlier temporary-original permission limitation are recorded in
@@ -383,6 +397,8 @@ next fetched-checkout evidence check and its same-machine custody limitation.
 next byte-identical fetched-checkout evidence check, with the same-machine limit.
 `delegated/checkpointa9b-verification/RECOVERY-RECORD.json` records the
 next byte-identical fetched-checkout evidence check, with the same-machine limit.
+`delegated/checkpoint26e-verification/RECOVERY-RECORD.json` records the
+following byte-identical fetched-checkout check and its bookkeeping correction.
 `RECOVERY-VERIFICATION-D7B14A15.json` records the subsequent same-machine
 fetch, checkout and qualified evidence check, with its transcript limitation.
 `QUALIFICATION-PUBLIC-EVIDENCE-PRIVACY-56F.json` distinguishes nine

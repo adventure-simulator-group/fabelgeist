@@ -1,0 +1,5 @@
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0018: sha = lambda b: hashlib.sha256(b).hexdigest()
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0019: checkpoints = []
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0020: for p in sorted(root.glob('DELEGATED-EVIDENCE-CHECKPOINT*.json')):
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0021:     d = json.loads(p.read_text())
+delegated/qualified-059-early-links/successors/verify_delegated_links_13_059_public.py:0022:     if isinstance(d.get('bundles'), list):

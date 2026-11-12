@@ -1,0 +1,12 @@
+{
+  "schema": "726-blood-q2297-verifier-correction-v1",
+  "earlier_verifier": "previous-verifier/verify-evidence.py",
+  "earlier_verifier_sha256": "f7ddccb0773b85a283313fd73112d5c86df3fa70708a31175c2b68ace0853952",
+  "earlier_manifest": "previous-verifier/MANIFEST.json",
+  "earlier_manifest_sha256": "0f2efd82335c37d3fc720352f30171e31f1d5b1aefe7a69028160f4df2bda96b",
+  "first_failure": "The first evidence-verifier run raised AssertionError in tree proof because git ls-tree reports a tree mode with a leading zero while the raw tree object omits it. The first tool display was not separately saved.",
+  "preserved_replay": "An immediate same-machine replay of that exact verifier against the same packet failed with exit 1 and a 576-byte transcript; its exact transcript remains restricted locally because the traceback contains local paths.",
+  "restricted_replay_sha256": "8028d8c48e3c100a1a326ab5592dbd7775840e82586c9754896a0605d4e44ec1",
+  "correction": "Compare both mode spellings as octal integers and continue requiring exact entry object identity and tree bytes. The earlier script and original manifest remain as exact historical files.",
+  "limits": "This corrects evidence-verifier parsing only; it does not establish a product finding, runtime behavior or completion."
+}

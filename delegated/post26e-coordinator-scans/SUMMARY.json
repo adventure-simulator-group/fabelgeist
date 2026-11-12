@@ -1,0 +1,60 @@
+{
+  "schema": "726-post26e-coordinator-bounded-archive-scans-v1",
+  "scans": [
+    {
+      "tag": "clock",
+      "archive_sha256": "250c85cb742b9d7812b215e183803e55cb080ed12e3d77229a6833eda7a9f25e",
+      "scan_sha256": "99f557e84cdcab82b95879e062e4e2cd78fbf0864cc55dbcdae0e6bfb2f9e7bd",
+      "views": 33,
+      "digest_matches": 0,
+      "candidate_counts": {},
+      "exceptions": 0
+    },
+    {
+      "tag": "readiness",
+      "archive_sha256": "9f456dce7756e321865baac3fca9d688559f1d11a5bf4397f49b7c74c540fa2b",
+      "scan_sha256": "43b01bba4098b36756dd3336246438b15d64e344a36c41abce9e0f9a72caffc1",
+      "views": 70,
+      "digest_matches": 0,
+      "candidate_counts": {},
+      "exceptions": 0
+    },
+    {
+      "tag": "npy",
+      "archive_sha256": "cae31741c9eda230ccf994cd3e02d72be5810aff5fe07e9ddfb7ccadae61aa1c",
+      "scan_sha256": "abe49e203cf7809104b48661e57d6601713d53f20ac190128d20f236ee577032",
+      "views": 67,
+      "digest_matches": 0,
+      "candidate_counts": {},
+      "exceptions": 0
+    },
+    {
+      "tag": "npz",
+      "archive_sha256": "b01c8b9035cf5af00322e9dd364b184f0e99456c7e9b4ecc06d7420823b9ff32",
+      "scan_sha256": "acd775819106323f1272ff13fddf1ebb3f2ee846570ebf4686fd50561ba663f5",
+      "views": 72,
+      "digest_matches": 0,
+      "candidate_counts": {},
+      "exceptions": 0
+    },
+    {
+      "tag": "blood-coordinator",
+      "archive_sha256": "eb94b5c90ef95f19f8750edcdaf9bd3fd07957f2e5594f3cffd0d54253bc1068",
+      "scan_sha256": "f3a7e2591ad4004a129d3b526c2a8cac8e801150f1ee73362b9a5aee30005e7a",
+      "views": 91,
+      "digest_matches": 0,
+      "candidate_counts": {},
+      "exceptions": 0
+    },
+    {
+      "tag": "blood-independent",
+      "archive_sha256": "04dc189fc797fc94cb4ed0010ef78f0138f9ce637e1576deaa57f9a6b79bf00d",
+      "scan_sha256": "294e00fd09b6f778903a76553ad93a1bb47da056d24c00ce0ea55fd8174c57b7",
+      "views": 81,
+      "digest_matches": 0,
+      "candidate_counts": {},
+      "exceptions": 0
+    }
+  ],
+  "qualification": "Same-machine selected digest, path, email and credential patterns only; bounded recursion and formats, no comprehensive privacy or Git-history clearance."
+}

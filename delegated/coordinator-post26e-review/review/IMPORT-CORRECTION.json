@@ -1,0 +1,7 @@
+{
+  "schema": "726-import-prefix-correction-v1",
+  "first_attempt": "The first private import stopped on an assertion while checking the readiness archive after importing clock and readiness packets. Its exact command output was displayed but not separately saved; the incomplete import directory remains restricted. No publication files changed.",
+  "cause": "The coordinator assumed every archive used a bundle/ top-level prefix. The agent-produced readiness archive instead has q2303/ and all 68 members are regular files.",
+  "correction": "Retain the exact readiness archive and verify each safe q2303/ member byte-for-byte against its packet; coordinator-normalized archives use bundle/. A fresh import directory is used, preserving the interrupted original.",
+  "qualification": "This corrects archive verification metadata only; it neither changes source evidence nor establishes product behavior."
+}

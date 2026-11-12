@@ -1,0 +1,13 @@
+{
+  "schema": "726-central-capture-readiness-13w-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "historical_queue": "baseline-059/queue.json#/entries/2303",
+  "source_report": "delegated/capture-readiness-q2303/REPORT.json",
+  "author": "/root/mhr_character; coordinator reconciles the delegated report and historical scope",
+  "scoped_disposition": "Warmup blocks the shown applied assignment, and only scenario frame zero with a required motion requires two successful named readiness checks. The predicates test a loaded clip with the motion ID and a non-bind playback plan; they alone do not establish the selected clip and rig, visual settling, or two rendered frames. The driver can change other state before the applied gate.",
+  "relationships": "Existing REVIEW-CAPTURE-PREAPPLIED-READINESS-TIMEOUT-001 and 059 q1214 remain separate conditional readiness and asset-failure questions. The equipment timeout is not by itself proof of a general watchdog. No new duplicate, runtime hang, exact alias or queue/lens closure is claimed.",
+  "history": "The e275 files individually match their 95e blobs. Original parallel reviewer reads and later root adoption without reread retain their own attribution; proposal wording that adoption was pending is preserved as an earlier statement. Nine exact 059 historical records and reconstructed queue selections remain distinct from missing checkpoint3821.",
+  "qualification": "The agent records an initial unregistered ledger locator/preview and later registered committed-record redisplay. The coordinator read this report after a separate recorded truncated unregistered view; no independent source-semantic review is claimed."
+}

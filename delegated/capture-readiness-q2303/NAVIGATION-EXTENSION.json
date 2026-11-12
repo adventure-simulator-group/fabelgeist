@@ -1,0 +1,45 @@
+{
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:48:34.479761+00:00",
+  "entries": [
+    {
+      "tag": "animation_mod",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "git_blob": "4a261f69f138b8a6b6636cfaa1c824d1e2e2b6a5",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "bytes": 27162,
+      "eof": 810,
+      "capture": "sources/animation_mod.rs"
+    },
+    {
+      "tag": "playback",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "git_blob": "6a76ef8c8664a1891bfcf9eb1a4d8356946b25b7",
+      "sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "bytes": 4676,
+      "eof": 155,
+      "capture": "sources/playback.rs"
+    },
+    {
+      "tag": "admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "git_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "bytes": 5765,
+      "eof": 168,
+      "capture": "sources/admission.rs"
+    }
+  ],
+  "planned_tokens": [
+    "fn motion_is_processed",
+    "fn presentation_is_settled",
+    "fn authored_pose_is_ready",
+    "fn can_drive_frame",
+    "struct AnimationPlayback",
+    "struct AnimationRuntime"
+  ],
+  "qualification": "Line-number/token locator only; exact windows registered before display."
+}

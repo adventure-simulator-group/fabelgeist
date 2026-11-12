@@ -1,0 +1,256 @@
+{
+  "schema": "726-blood-q2297-support-registration-v1",
+  "registered_utc": "2026-11-12T13:58:14.682772+00:00",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "navigation_registration_sha256": "8b3dc26f9c4373b66347ba58f26019237aed6dc3adf781bd06cce1f218716867",
+  "entries": [
+    {
+      "tag": "core-filth",
+      "path": "crates/adventuresim-core/src/filth.rs",
+      "capture": "source/core-filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "git_blob": "d375d693fb5a8498ff2be7303d023d088035c8bb",
+      "bytes": 19699,
+      "eof": 631,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-core",
+          "mode": "040000",
+          "type": "tree",
+          "object": "5c8df250bac26e66cc279349f2b2d8da25dc65ab"
+        },
+        {
+          "tree": "5c8df250bac26e66cc279349f2b2d8da25dc65ab",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a2bab2bd75fc96367f3a95785598fd29e953bd62"
+        },
+        {
+          "tree": "a2bab2bd75fc96367f3a95785598fd29e953bd62",
+          "name": "filth.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "d375d693fb5a8498ff2be7303d023d088035c8bb"
+        }
+      ],
+      "planned_ranges": [
+        [
+          65,
+          145
+        ]
+      ]
+    },
+    {
+      "tag": "windows",
+      "path": "crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "capture": "source/windows.rs",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "git_blob": "74ce1e79325485d99b0a69b6feb2dea0b08bf05f",
+      "bytes": 868,
+      "eof": 27,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-stdb-module",
+          "mode": "040000",
+          "type": "tree",
+          "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "name": "filth",
+          "mode": "040000",
+          "type": "tree",
+          "object": "ddf9a8e546df748157d77d37b7e5cc52a046305e"
+        },
+        {
+          "tree": "ddf9a8e546df748157d77d37b7e5cc52a046305e",
+          "name": "exposure_windows.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "74ce1e79325485d99b0a69b6feb2dea0b08bf05f"
+        }
+      ],
+      "planned_ranges": [
+        [
+          1,
+          27
+        ]
+      ]
+    },
+    {
+      "tag": "calendar",
+      "path": "crates/adventuresim-world-schema/src/calendar.rs",
+      "capture": "source/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "git_blob": "3bb463487d89fa1040b72d7708f7e641d5e61cec",
+      "bytes": 25367,
+      "eof": 698,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-world-schema",
+          "mode": "040000",
+          "type": "tree",
+          "object": "c4d058454e460b3f7de9c34e808b746ccff07eb0"
+        },
+        {
+          "tree": "c4d058454e460b3f7de9c34e808b746ccff07eb0",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "7fb776454b47bc8bc1e50fe289ce543e32c5421a"
+        },
+        {
+          "tree": "7fb776454b47bc8bc1e50fe289ce543e32c5421a",
+          "name": "calendar.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "3bb463487d89fa1040b72d7708f7e641d5e61cec"
+        }
+      ],
+      "planned_ranges": [
+        [
+          80,
+          200
+        ]
+      ]
+    },
+    {
+      "tag": "native-disease",
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "capture": "source/native-disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "git_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+      "bytes": 101966,
+      "eof": 2950,
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "040000",
+          "type": "tree",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "adventuresim-stdb-module",
+          "mode": "040000",
+          "type": "tree",
+          "object": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182"
+        },
+        {
+          "tree": "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182",
+          "name": "src",
+          "mode": "040000",
+          "type": "tree",
+          "object": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed"
+        },
+        {
+          "tree": "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed",
+          "name": "disease.rs",
+          "mode": "100644",
+          "type": "blob",
+          "object": "b3f5435464866afdfb3cb48e059be0251a65408d"
+        }
+      ],
+      "planned_ranges": [
+        [
+          1240,
+          1300
+        ],
+        [
+          1840,
+          1900
+        ],
+        [
+          2705,
+          2760
+        ],
+        [
+          2900,
+          2950
+        ]
+      ]
+    }
+  ],
+  "tree_objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "path": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+      "bytes": 1635
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "path": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+      "bytes": 2434
+    },
+    "5c8df250bac26e66cc279349f2b2d8da25dc65ab": {
+      "path": "trees/5c8df250bac26e66cc279349f2b2d8da25dc65ab.tree.gz",
+      "sha256": "b120c38fa7d78f6885fb5b680d69144e19a7d0c0bea0d849553d5ff87c581411",
+      "bytes": 205
+    },
+    "a2bab2bd75fc96367f3a95785598fd29e953bd62": {
+      "path": "trees/a2bab2bd75fc96367f3a95785598fd29e953bd62.tree.gz",
+      "sha256": "fbf98e2a89df733af9779fc2fc15d822c935ab99cf0dcd18b58568bb98cd792b",
+      "bytes": 5649
+    },
+    "d099f9a64c6e2c861f57a3cd823c38a4e4cfb182": {
+      "path": "trees/d099f9a64c6e2c861f57a3cd823c38a4e4cfb182.tree.gz",
+      "sha256": "65d2a14fcbbe65bc0ca222ffea1c36d219ae10c68b3a5a6c78c240e094fd0fc0",
+      "bytes": 259
+    },
+    "a7ee465f194c257d117f6be3de4b2f4f9ffb82ed": {
+      "path": "trees/a7ee465f194c257d117f6be3de4b2f4f9ffb82ed.tree.gz",
+      "sha256": "dcd452378ba0f84a5cdce52488e1c8bf400f78561e737e6ab1682f00669f06a1",
+      "bytes": 2691
+    },
+    "ddf9a8e546df748157d77d37b7e5cc52a046305e": {
+      "path": "trees/ddf9a8e546df748157d77d37b7e5cc52a046305e.tree.gz",
+      "sha256": "c20bbd44fdd659179acad60b2622b81e712ef909702facc691630ee075671408",
+      "bytes": 92
+    },
+    "c4d058454e460b3f7de9c34e808b746ccff07eb0": {
+      "path": "trees/c4d058454e460b3f7de9c34e808b746ccff07eb0.tree.gz",
+      "sha256": "075119ac3fd2bc2d69ddc0b621aa76c5a6ea33104b0d8a5c0cdc7d869e32b244",
+      "bytes": 141
+    },
+    "7fb776454b47bc8bc1e50fe289ce543e32c5421a": {
+      "path": "trees/7fb776454b47bc8bc1e50fe289ce543e32c5421a.tree.gz",
+      "sha256": "78c8243e0c2fd29896d2ede2b0567d43f2199827bab204f5191d4066ce35a590",
+      "bytes": 998
+    }
+  },
+  "qualification": "Only listed ranges receive coordinator personal-read credit after separately preserved displays; all complements remain unread."
+}

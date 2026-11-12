@@ -1,0 +1,50 @@
+{
+  "schema": "726-post26e-same-machine-evidence-replays-v1",
+  "cases": [
+    {
+      "name": "clock",
+      "transcript": "clock.log",
+      "bytes": 425,
+      "sha256": "119dbd411ff5440281bc8c931c2c2bf8eb0db675ca024197f6c240575a4014fc",
+      "exit": 0
+    },
+    {
+      "name": "readiness",
+      "transcript": "readiness.log",
+      "bytes": 293,
+      "sha256": "1b2e7ff46e2d4a8eba8c7d6268396ed5bcc6393fdba65e98453756b716943d5e",
+      "exit": 0
+    },
+    {
+      "name": "npy",
+      "transcript": "npy.log",
+      "bytes": 278,
+      "sha256": "f7d07e76336860cda0ed234756b8a4959ca67ad1fe68e9825660112000a3e671",
+      "exit": 0
+    },
+    {
+      "name": "npz",
+      "transcript": "npz.log",
+      "bytes": 342,
+      "sha256": "230f168b42276334a91f40abd13365efb829509f9d8db8d1d092dce6e23466fe",
+      "exit": 0
+    },
+    {
+      "name": "blood-coordinator",
+      "transcript": "blood-coordinator.log",
+      "bytes": 368,
+      "sha256": "7ce4dd386dc51f99667be75b66d38adf35fbcbcd315fc9b88d7e10f332695551",
+      "exit": 0
+    },
+    {
+      "name": "blood-independent",
+      "transcript": "blood-independent.log",
+      "bytes": 317,
+      "sha256": "9768a0c8aa40912837f30cc454c32a5997225c0b7e86378259b11f35fe67ab2d",
+      "exit": 0
+    }
+  ],
+  "procedure": "Coordinator ran each evidence-only verifier with its required local publication Git inputs. NPY and NPZ used the protected original 059 queue read-only; the coordinator blood check used the protected extraction and the then-current 26e ledger snapshot.",
+  "qualification": "Short transcripts do not embed input checkout or private capture identities; those were observed separately. Public checks without those inputs cannot establish the private comparison, independent custody, semantic closure, product behavior or full privacy.",
+  "product_validation": "not performed"
+}

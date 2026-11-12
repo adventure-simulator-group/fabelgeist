@@ -1,0 +1,122 @@
+--- calendar 80-200 ---
+  80 }
+  81 
+  82 /// Absolute minutes since the strategic calendar's zero minute.
+  83 #[derive(
+  84     Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,
+  85 )]
+  86 #[cfg_attr(feature = "spacetimedb", derive(spacetimedb_lib::SpacetimeType))]
+  87 #[cfg_attr(feature = "spacetimedb", sats(crate = spacetimedb_lib))]
+  88 #[serde(transparent)]
+  89 pub struct StrategicMinute {
+  90     minutes: u64,
+  91 }
+  92 
+  93 impl fmt::Display for StrategicMinute {
+  94     fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+  95         self.minutes.fmt(formatter)
+  96     }
+  97 }
+  98 
+  99 impl StrategicMinute {
+ 100     pub const ZERO: Self = Self::new(0);
+ 101     pub const MAX: Self = Self::new(u64::MAX);
+ 102 
+ 103     pub const fn new(minutes: u64) -> Self {
+ 104         Self { minutes }
+ 105     }
+ 106 
+ 107     pub const fn get(self) -> u64 {
+ 108         self.minutes
+ 109     }
+ 110 
+ 111     pub const fn is_after(self, other: Self) -> bool {
+ 112         self.minutes > other.minutes
+ 113     }
+ 114 
+ 115     pub const fn saturating_add_minutes(self, elapsed_minutes: u64) -> Self {
+ 116         Self::new(self.minutes.saturating_add(elapsed_minutes))
+ 117     }
+ 118 
+ 119     /// Advance by whole calendar days, saturating at the last absolute minute.
+ 120     pub const fn saturating_add_days(self, days: u64) -> Self {
+ 121         self.saturating_add_minutes(days.saturating_mul(MINUTES_PER_DAY))
+ 122     }
+ 123 
+ 124     /// Advance by whole calendar days only if the resulting minute fits.
+ 125     pub const fn checked_add_days(self, days: u64) -> Option<Self> {
+ 126         match days.checked_mul(MINUTES_PER_DAY) {
+ 127             Some(minutes) => self.checked_add_minutes(minutes),
+ 128             None => None,
+ 129         }
+ 130     }
+ 131 
+ 132     /// Retreat by whole calendar days, saturating at the epoch.
+ 133     pub const fn saturating_sub_days(self, days: u64) -> Self {
+ 134         self.saturating_sub_minutes(days.saturating_mul(MINUTES_PER_DAY))
+ 135     }
+ 136 
+ 137     pub const fn checked_add_minutes(self, elapsed_minutes: u64) -> Option<Self> {
+ 138         match self.minutes.checked_add(elapsed_minutes) {
+ 139             Some(minutes) => Some(Self::new(minutes)),
+ 140             None => None,
+ 141         }
+ 142     }
+ 143 
+ 144     pub const fn saturating_sub_minutes(self, elapsed_minutes: u64) -> Self {
+ 145         Self::new(self.minutes.saturating_sub(elapsed_minutes))
+ 146     }
+ 147 
+ 148     pub const fn elapsed_since(self, earlier: Self) -> u64 {
+ 149         self.minutes.saturating_sub(earlier.minutes)
+ 150     }
+ 151 
+ 152     pub const fn checked_elapsed_since(self, earlier: Self) -> Option<u64> {
+ 153         self.minutes.checked_sub(earlier.minutes)
+ 154     }
+ 155 
+ 156     /// Whole or partial calendar days until a later absolute minute.
+ 157     pub const fn days_until_ceil(self, later: Self) -> u64 {
+ 158         later.elapsed_since(self).div_ceil(MINUTES_PER_DAY)
+ 159     }
+ 160 
+ 161     /// Midpoint between ordered absolute minutes, rounded toward `self`.
+ 162     pub const fn midpoint(self, later: Self) -> Self {
+ 163         Self::new(
+ 164             self.minutes
+ 165                 .saturating_add(later.minutes.saturating_sub(self.minutes) / 2),
+ 166         )
+ 167     }
+ 168 
+ 169     /// Inclusive absolute minutes after this instant through `end`.
+ 170     pub fn iter_after_through(self, end: Self) -> impl Iterator<Item = Self> {
+ 171         (self.minutes.saturating_add(1)..=end.minutes)
+ 172             .filter(move |_| self < end)
+ 173             .map(Self::new)
+ 174     }
+ 175 
+ 176     /// Inclusive absolute minutes from this instant through `end`.
+ 177     pub fn iter_through(self, end: Self) -> impl Iterator<Item = Self> {
+ 178         (self.minutes..=end.minutes).map(Self::new)
+ 179     }
+ 180 
+ 181     pub const fn saturating_add_years(self, years: u16) -> Self {
+ 182         self.saturating_add_minutes((years as u64).saturating_mul(MINUTES_PER_YEAR))
+ 183     }
+ 184 
+ 185     pub const fn whole_years_since(self, earlier: Self) -> u64 {
+ 186         self.elapsed_since(earlier) / MINUTES_PER_YEAR
+ 187     }
+ 188 
+ 189     /// Age in complete years from the signed birth coordinate used by storage.
+ 190     pub fn age_years_since_signed_birth(self, birth_minute: i64) -> u16 {
+ 191         let years =
+ 192             self.elapsed_minutes_since_signed_birth(birth_minute) / (MINUTES_PER_YEAR as u128);
+ 193         years.min(u16::MAX as u128) as u16
+ 194     }
+ 195 
+ 196     /// Signed birth coordinate for an age at this instant, capped to storage.
+ 197     pub fn signed_birth_minute_for_age(self, age_years: u16) -> i64 {
+ 198         let birth = i128::from(self.minutes)
+ 199             .saturating_sub(i128::from(age_years) * i128::from(MINUTES_PER_YEAR));
+ 200         birth.clamp(i128::from(i64::MIN), i128::from(i64::MAX)) as i64

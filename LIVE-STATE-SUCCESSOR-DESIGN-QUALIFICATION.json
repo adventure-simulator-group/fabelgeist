@@ -1,0 +1,15 @@
+{
+  "schema": "726-live-state-successor-design-qualification-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "investigated_publication_commit": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+  "independent_report": "delegated/live-state-successor-design/REPORT-v2.md",
+  "reviewer": "/root/verifier_scope",
+  "status": "Unimplemented proposal; no semantic equivalence, closure rule, historical replay or approval is claimed.",
+  "reason": "Published historical evidence verifiers dynamically discover scripts and read many state and data-driven paths while asserting their own time-bound partial states; merely updating four live files or overlaying an unchecked scratch copy does not preserve the old assertions.",
+  "candidate": "Select a published checkpoint C, reproduce and verify its entire exact tree and historical discovery set in separately isolated writable scratch, then separately verify an explicitly authoritative live namespace and a complete, bound tree delta. Each inherited record, status event, cross-lens relationship and applicable privacy successor requires explicit binding.",
+  "landing_and_privacy": "A new live landing must distinguish the prior landing as time-bound. Known path-digest reconstructions remain unapplied and require separately reviewed identities and crosswalk; neither proposal clears old Git history.",
+  "remaining": "Exact checkpoint choice, disk and scratch needs, dynamic inputs, independently reviewed closure semantics, live-target binding, privacy review and actual recovery remain open. The report was based on a9b, not the later 26e checkpoint.",
+  "qualification": "The agent preserves its initially truncated source display and earlier general-scope registration followed by exact registered reread; the coordinator read the report and replayed its evidence verifier on the same machine. No product behavior is established.",
+  "repair": "not started",
+  "product_validation": "not performed"
+}

@@ -1,0 +1,98 @@
+=== crates/fabelgeist-numpy-storage/src/npz/name.rs 1..68 ===
+   1 | //! NumPy array keys retain query spelling and the optional member suffix rule.
+   2 | 
+   3 | use derive_more::{Debug, Display, From};
+   4 | 
+   5 | use crate::zip::ArchiveMemberName;
+   6 | 
+   7 | const NPY_MEMBER_SUFFIX: &str = ".npy";
+   8 | 
+   9 | /// A NumPy archive query key, distinct from a full archive member name.
+  10 | ///
+  11 | /// A candidate matches when its full parsed name or that name with one trailing
+  12 | /// `.npy` removed equals this key. Queries are never normalized. The archive's
+  13 | /// first matching member wins, even when another is an exact filename match.
+  14 | /// This key validates neither spelling nor membership.
+  15 | ///
+  16 | /// ```
+  17 | /// use fabelgeist_numpy_storage::{ArchiveMemberName, NpzArrayName};
+  18 | /// let member = ArchiveMemberName::from("weights.npy");
+  19 | /// let key = NpzArrayName::from(&member);
+  20 | /// assert_eq!(key, NpzArrayName::new("weights"));
+  21 | /// ```
+  22 | ///
+  23 | /// A full member name cannot be used as an array key:
+  24 | ///
+  25 | /// ```compile_fail
+  26 | /// use fabelgeist_numpy_storage::{ArchiveMemberName, Npz};
+  27 | /// fn read(archive: &Npz, member: &ArchiveMemberName) {
+  28 | ///     let _ = archive.array(member);
+  29 | /// }
+  30 | /// ```
+  31 | ///
+  32 | /// An array key cannot be used as an exact member lookup:
+  33 | ///
+  34 | /// ```compile_fail
+  35 | /// use fabelgeist_numpy_storage::{NpzArrayName, ZipArchive};
+  36 | /// fn read(archive: &ZipArchive, key: &NpzArrayName) {
+  37 | ///     let _ = archive.bytes(key);
+  38 | /// }
+  39 | /// ```
+  40 | #[derive(Clone, Debug, Display, From, PartialEq, Eq)]
+  41 | #[debug("{_0:?}")]
+  42 | #[from(String, &str)]
+  43 | pub struct NpzArrayName(String);
+  44 | 
+  45 | impl NpzArrayName {
+  46 |     /// Constructs an owned query without removing a suffix or changing spelling.
+  47 |     pub fn new(name: &str) -> Self {
+  48 |         Self::from(name)
+  49 |     }
+  50 | 
+  51 |     pub(crate) fn matches(&self, member: &ArchiveMemberName) -> bool {
+  52 |         let member = <&str>::from(member);
+  53 |         member == self.0 || member.strip_suffix(NPY_MEMBER_SUFFIX) == Some(self.0.as_str())
+  54 |     }
+  55 | }
+  56 | 
+  57 | impl From<&ArchiveMemberName> for NpzArrayName {
+  58 |     fn from(member: &ArchiveMemberName) -> Self {
+  59 |         let member = <&str>::from(member);
+  60 |         Self::new(member.strip_suffix(NPY_MEMBER_SUFFIX).unwrap_or(member))
+  61 |     }
+  62 | }
+  63 | 
+  64 | impl<'a> From<&'a NpzArrayName> for &'a str {
+  65 |     fn from(name: &'a NpzArrayName) -> Self {
+  66 |         &name.0
+  67 |     }
+  68 | }
+=== crates/fabelgeist-numpy-storage/src/zip/names.rs 1..28 ===
+   1 | //! Parsed archive filenames retain wire spelling at the decoding boundary.
+   2 | 
+   3 | use derive_more::{Debug, Display, From};
+   4 | 
+   5 | /// An archive member's parsed filename, without path or existence validation.
+   6 | ///
+   7 | /// Stored bytes use the reader's lossy UTF-8 admission. Distinct invalid byte
+   8 | /// spellings can therefore identify the same parsed name. Text constructors
+   9 | /// preserve accepted spelling, including case, separators, NUL and emptiness.
+  10 | #[derive(Clone, Debug, Display, From, PartialEq, Eq)]
+  11 | #[debug("{_0:?}")]
+  12 | #[from(String, &str)]
+  13 | pub struct ArchiveMemberName(String);
+  14 | 
+  15 | impl From<&[u8]> for ArchiveMemberName {
+  16 |     fn from(name: &[u8]) -> Self {
+  17 |         Self(String::from_utf8_lossy(name).into_owned())
+  18 |     }
+  19 | }
+  20 | 
+  21 | impl<'a> From<&'a ArchiveMemberName> for &'a str {
+  22 |     fn from(name: &'a ArchiveMemberName) -> Self {
+  23 |         &name.0
+  24 |     }
+  25 | }
+  26 | 
+  27 | #[cfg(test)]
+  28 | mod tests;

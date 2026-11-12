@@ -1,0 +1,81 @@
+main:0106:             .join(args.asset_root)
+main:0107:     };
+main:0108:     let body_proportions = args.body_proportions.map(|path| {
+main:0109:         let text = std::fs::read_to_string(&path).expect("read body proportions JSON");
+main:0110:         serde_json::from_str(&text).expect("body proportions must respect the MHR limits")
+main:0111:     });
+main:0112:     let exit = animation_viewer::run(
+main:0113:         animation_viewer::CaptureOptions {
+main:0114:             inspection: animation_viewer::CaptureInspection::new(
+main:0115:                 args.camera_orbit_degrees,
+main:0116:                 args.diffuse_armor,
+main:0117:             ),
+main:0118:             output: args.output,
+main:0119:             asset_root,
+main:0120:             settle_frames: args.frames_per_sample.max(1),
+main:0121:             scenario: args.scenario,
+main:0122:             combat_config,
+main:0123:             body_proportions,
+main:0124:             armor_harness: args.armor_harness,
+main:0125:             hidden: args.hidden,
+main:0126:         },
+main:0127:         fixed_clock,
+main:0128:     );
+main:0129:     if let bevy::app::AppExit::Error(code) = exit {
+main:0130:         std::process::exit(code.get() as i32);
+main:0131:     }
+main:0132: }
+capture:0437:         if let Err(error) = subject_motion::project_capture_motion(
+capture:0438:             &mut skeleton,
+capture:0439:             &mut transform,
+capture:0440:             &frame,
+capture:0441:             motion,
+capture:0442:             &sequence,
+capture:0443:         ) {
+capture:0444:             sequence.admission =
+capture:0445:                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+capture:0446:             return;
+capture:0447:         }
+capture:0448:         gait_phase = skeleton.gait_phase;
+capture:0449:     }
+capture:0450:     if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
+capture:0451:         return;
+capture:0452:     }
+capture:0453:     for mut label in &mut labels {
+capture:0454:         **label = format!(
+capture:0455:             "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
+capture:0456:             frame.scenario.label(),
+capture:0457:             frame.speed.metres_per_second(),
+capture:0458:             gait_phase.cycles(),
+capture:0459:             VIEWS[sequence.view_index].slug(),
+capture:0460:             frame.scenario_frame,
+capture:0461:         );
+capture:0462:     }
+capture:0463:     sequence.applied = true;
+capture:0464:     sequence.settled = 0;
+capture:0465: }
+capture:0466: 
+capture:0467: pub(super) fn draw_flat_ground_grid(sequence: Res<CaptureSequence>, mut gizmos: Gizmos) {
+capture:0468:     let Some(frame) = sequence.plan.get(sequence.index) else {
+capture:0469:         return;
+capture:0470:     };
+capture:0471:     if !frame.scenario.has(ScenarioFeature::FlatGrid) {
+capture:0472:         return;
+capture:0473:     }
+capture:0474: 
+capture:0475:     const HALF_EXTENT_METRES: i32 = 20;
+capture:0476:     const SUBDIVISIONS_PER_METRE: i32 = 4;
+capture:0477:     let half_steps = HALF_EXTENT_METRES * SUBDIVISIONS_PER_METRE;
+capture:0478:     let height = 0.012;
+capture:0479:     for step in -half_steps..=half_steps {
+capture:0480:         let coordinate = step as f32 / SUBDIVISIONS_PER_METRE as f32;
+capture:0481:         let whole_metre = step % SUBDIVISIONS_PER_METRE == 0;
+capture:0482:         let color = if step == 0 {
+capture:0483:             Color::srgba(1.0, 0.45, 0.12, 0.95)
+capture:0484:         } else if whole_metre {
+capture:0485:             Color::srgba(0.82, 0.86, 0.92, 0.80)
+capture:0486:         } else {
+capture:0487:             Color::srgba(0.42, 0.47, 0.55, 0.48)
+capture:0488:         };
+capture:0489:         gizmos.line(
+capture:0490:             Vec3::new(coordinate, height, -HALF_EXTENT_METRES as f32),

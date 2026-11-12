@@ -1,0 +1,149 @@
+{
+  "schema": "726-npz-q2307-source-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T14:05:35.965666+00:00",
+  "registration_sha256": "dd7161a8102ddc2257368d1fcd1cbaa293c2baea3e6a973df6f9969df17bb4f7",
+  "displays": [
+    {
+      "file": "SOURCE-DISPLAY-A.txt",
+      "sha256": "37037a7aad857d4344caabaa6b8883c574eb2ebed3a3293b34439b636ccb4f2c",
+      "bytes": 3431,
+      "observed_mtime_utc": "2026-11-12T14:03:29.363171+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+          "range": [
+            1,
+            88
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-B.txt",
+      "sha256": "92c02a3efb29c4cfc4afe567e0ac3d401adb44986f883e01e790b99121436f26",
+      "bytes": 3839,
+      "observed_mtime_utc": "2026-11-12T14:03:32.314866+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+          "range": [
+            1,
+            68
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+          "range": [
+            1,
+            28
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-C.txt",
+      "sha256": "e296bbd4feeb4bb9c017c947dce319f0650559b38659a656cd6f454b68343bbb",
+      "bytes": 4111,
+      "observed_mtime_utc": "2026-11-12T14:03:35.192260+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+          "range": [
+            1,
+            100
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-D.txt",
+      "sha256": "8c384f8c24d1160380d5891ae4361c1d7cf581b369181ccf75cf7dff4d5dc34d",
+      "bytes": 3581,
+      "observed_mtime_utc": "2026-11-12T14:03:38.494743+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+          "range": [
+            101,
+            184
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-E.txt",
+      "sha256": "eff964f784475f824c8197d35ddb40664515163a5f8fb5b44056c0c6965cd9ba",
+      "bytes": 4336,
+      "observed_mtime_utc": "2026-11-12T14:03:42.192338+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+          "range": [
+            1,
+            44
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+          "range": [
+            1,
+            28
+          ]
+        },
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+          "range": [
+            1,
+            27
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-F.txt",
+      "sha256": "a0b39f0dedf9677de7bb2983213213c23b7d72cfd8a1abb0f463cb84c52b963b",
+      "bytes": 3227,
+      "observed_mtime_utc": "2026-11-12T14:03:45.351761+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+          "range": [
+            1,
+            75
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SOURCE-DISPLAY-G.txt",
+      "sha256": "644f54f20081fff5037687ca511c8e2b35a80a7c94d41355fd21cbcc81faee04",
+      "bytes": 2919,
+      "observed_mtime_utc": "2026-11-12T14:03:48.408316+00:00",
+      "rows": [
+        {
+          "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+          "range": [
+            76,
+            142
+          ]
+        }
+      ]
+    }
+  ],
+  "unread_complements": {
+    "crates/fabelgeist-numpy-storage/src/npz.rs": [
+      [
+        89,
+        221
+      ]
+    ],
+    "crates/fabelgeist-numpy-storage/src/zip/member_count.rs": [
+      [
+        29,
+        92
+      ]
+    ]
+  },
+  "qualification": "All seven numbered source displays were returned without tool truncation after prospective registration. Exact copied source bodies do not confer personal read credit beyond the registered windows. Examples, tests and fixtures were not executed. Historical e275 attribution is not transferred."
+}

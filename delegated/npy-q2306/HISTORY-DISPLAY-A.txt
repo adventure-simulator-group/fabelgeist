@@ -1,0 +1,101 @@
+=== HISTORY-Q2306-EXACT.json 1..100 ===
+   1 | {
+   2 |       "contract_id": "REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+   3 |       "kind": "qualified-scoped-review-disposition",
+   4 |       "lens": 11,
+   5 |       "parent_canonical_id": null,
+   6 |       "canonical_owner": "PrivateNpyHeader/HeaderVersion\u2192immutableNpyArray/typedshape/valueowners",
+   7 |       "first_failed_contract_or_unresolved_question": "Currentframing/temporarydictionary/predicatepresence admittedbeforearraypublication; no newheader-shape findingfromhandoff.",
+   8 |       "exact_source_identities_and_assessed_ranges": [
+   9 |         {
+  10 |           "source_row_key": "R170-0",
+  11 |           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/lib.rs:current-delta-NPY-NPZ-owned-native-boundary",
+  12 |           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  13 |           "source_sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+  14 |           "assessed_ranges": [
+  15 |             [
+  16 |               1,
+  17 |               29
+  18 |             ]
+  19 |           ],
+  20 |           "receipt_pointer": "/rows/0",
+  21 |           "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+  22 |           "contract_relevant_ranges": [
+  23 |             [
+  24 |               1,
+  25 |               29
+  26 |             ]
+  27 |           ],
+  28 |           "body_receipt": {
+  29 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+  30 |             "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+  31 |           },
+  32 |           "registration_ref_and_sha256": {
+  33 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+  34 |             "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+  35 |             "json_pointer": "/rows/0"
+  36 |           },
+  37 |           "root_adoption": {
+  38 |             "path": "segovb/READ-L11-706.json",
+  39 |             "sha256": "b722d2b9c654a1d1e9e9c5ec4c6aa87616b4515c32045d4393da5a838f192e9d",
+  40 |             "verification": "segovb/VERIFY-L11-706.json",
+  41 |             "verification_sha256": "b4adeb1e4d6b08588ab70519ce29aa75314ab276b2c8a777e01eafd761a8ed38"
+  42 |           },
+  43 |           "body_credit_from_queue": 0
+  44 |         },
+  45 |         {
+  46 |           "source_row_key": "R170-1",
+  47 |           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy.rs:current-delta-NPY-NPZ-owned-native-boundary",
+  48 |           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  49 |           "source_sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+  50 |           "assessed_ranges": [
+  51 |             [
+  52 |               1,
+  53 |               229
+  54 |             ]
+  55 |           ],
+  56 |           "receipt_pointer": "/rows/1",
+  57 |           "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+  58 |           "contract_relevant_ranges": [
+  59 |             [
+  60 |               1,
+  61 |               229
+  62 |             ]
+  63 |           ],
+  64 |           "body_receipt": {
+  65 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+  66 |             "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+  67 |           },
+  68 |           "registration_ref_and_sha256": {
+  69 |             "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+  70 |             "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+  71 |             "json_pointer": "/rows/1"
+  72 |           },
+  73 |           "root_adoption": {
+  74 |             "path": "segovb/READ-L11-706.json",
+  75 |             "sha256": "b722d2b9c654a1d1e9e9c5ec4c6aa87616b4515c32045d4393da5a838f192e9d",
+  76 |             "verification": "segovb/VERIFY-L11-706.json",
+  77 |             "verification_sha256": "b4adeb1e4d6b08588ab70519ce29aa75314ab276b2c8a777e01eafd761a8ed38"
+  78 |           },
+  79 |           "body_credit_from_queue": 0
+  80 |         },
+  81 |         {
+  82 |           "source_row_key": "R170-2",
+  83 |           "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header.rs:current-delta-NPY-NPZ-owned-native-boundary",
+  84 |           "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  85 |           "source_sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+  86 |           "assessed_ranges": [
+  87 |             [
+  88 |               1,
+  89 |               160
+  90 |             ]
+  91 |           ],
+  92 |           "receipt_pointer": "/rows/2",
+  93 |           "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+  94 |           "contract_relevant_ranges": [
+  95 |             [
+  96 |               1,
+  97 |               160
+  98 |             ]
+  99 |           ],
+ 100 |           "body_receipt": {

@@ -1,0 +1,47 @@
+{
+  "schema": "726-post26e-import-registration-v1",
+  "registered_utc": "2026-11-12T14:09:22.390509+00:00",
+  "packets": [
+    {
+      "tag": "clock",
+      "manifest_sha256": "7c1fc9fcb2638bfb4b374cc6bfb7b1d6e4a5ba83219d2f68894e9988a1acfcf6",
+      "manifest_bytes": 4763,
+      "file_count": 30,
+      "file_index_type": "list",
+      "planned_selection": "manifest members and file hashes only"
+    },
+    {
+      "tag": "clock-scan",
+      "manifest_sha256": "ccffaf46832f06039aba31db58ad9fe48800d50a22945cdfca59351d85d8b241",
+      "manifest_bytes": 1133,
+      "file_count": 7,
+      "file_index_type": "list",
+      "planned_selection": "manifest members and file hashes only"
+    },
+    {
+      "tag": "readiness",
+      "manifest_sha256": "bddc8ad1907350215db9ca4057a4c117d5bb0009db4a723c8a68f7d70901de33",
+      "manifest_bytes": 11650,
+      "file_count": 67,
+      "file_index_type": "list",
+      "planned_selection": "manifest members and file hashes only"
+    },
+    {
+      "tag": "npy",
+      "manifest_sha256": "4e1b8e46c37b0a1f496c818dadd60ded51faf59b212ca73132545f3a6b3bbc7c",
+      "manifest_bytes": 10749,
+      "file_count": 64,
+      "file_index_type": "dict",
+      "planned_selection": "manifest members and file hashes only"
+    },
+    {
+      "tag": "npz",
+      "manifest_sha256": "4495b62f3f35765d2e75b0a09401f778e81ece90c6a45f47c8a345e7ef8454ce",
+      "manifest_bytes": 11220,
+      "file_count": 69,
+      "file_index_type": "dict",
+      "planned_selection": "manifest members and file hashes only"
+    }
+  ],
+  "qualification": "Metadata registration precedes import and byte comparison; it conveys no source read credit."
+}

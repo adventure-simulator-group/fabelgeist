@@ -1,0 +1,96 @@
+locomotion_config:0001: use super::{AnimationLandingConfig, TacticalCombatConfigError};
+locomotion_config:0002: use crate::animation::{AnimationSampleRate, CycleDelta, HeightDistance, UnitInterval};
+locomotion_config:0003: use adventuresim_building_generator::spatial_geometry::PositiveLength;
+locomotion_config:0004: use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed};
+locomotion_config:0005: use serde::{Deserialize, Serialize};
+locomotion_config:0006: 
+locomotion_config:0007: #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+locomotion_config:0008: #[serde(deny_unknown_fields)]
+locomotion_config:0009: pub struct AnimationLocomotionConfig {
+locomotion_config:0010:     pub sample_hz: AnimationSampleRate,
+locomotion_config:0011:     pub landing: AnimationLandingConfig,
+locomotion_config:0012:     /// Zero-speed endpoint of the distance model before blending to the walk stride.
+locomotion_config:0013:     pub zero_speed_step_distance_metres: PositiveLength,
+locomotion_config:0014:     pub walk: AnimationGaitConfig,
+locomotion_config:0015:     pub run: AnimationGaitConfig,
+runtime:0001: use std::{
+runtime:0002:     cell::Cell,
+runtime:0003:     sync::{
+runtime:0004:         OnceLock, RwLock,
+runtime:0005:         atomic::{AtomicU64, Ordering},
+runtime:0006:     },
+runtime:0007: };
+runtime:0008: 
+runtime:0009: use super::*;
+runtime:0010: 
+runtime:0011: impl TacticalCombatConfig {
+runtime:0012:     /// Makes a validated process-lifetime snapshot available to animation
+runtime:0013:     /// code that runs below Bevy's system-parameter boundary.
+runtime:0014:     pub fn install_runtime_snapshot(&self) -> Result<(), TacticalCombatConfigError> {
+runtime:0015:         self.validate()?;
+runtime:0016:         *runtime_config_lock()
+runtime:0017:             .write()
+runtime:0018:             .expect("tactical combat config lock should not be poisoned") = self.clone();
+runtime:0019:         RUNTIME_CONFIG_VERSION.fetch_add(1, Ordering::Release);
+runtime:0020:         Ok(())
+runtime:0021:     }
+runtime:0022: }
+runtime:0023: 
+runtime:0024: static RUNTIME_CONFIG: OnceLock<RwLock<TacticalCombatConfig>> = OnceLock::new();
+runtime:0025: static RUNTIME_CONFIG_VERSION: AtomicU64 = AtomicU64::new(0);
+runtime:0026: 
+runtime:0027: thread_local! {
+runtime:0028:     static CACHED_ANIMATION_CONFIG: Cell<Option<(u64, TacticalAnimationConfig)>> = const {
+runtime:0029:         Cell::new(None)
+runtime:0030:     };
+runtime:0031:     static CACHED_INVERSE_KINEMATICS_CONFIG: Cell<Option<(u64, InverseKinematicsConfig)>> = const {
+runtime:0032:         Cell::new(None)
+runtime:0033:     };
+runtime:0034: }
+runtime:0035: 
+runtime:0036: fn runtime_config_lock() -> &'static RwLock<TacticalCombatConfig> {
+runtime:0037:     RUNTIME_CONFIG.get_or_init(|| RwLock::new(TacticalCombatConfig::default()))
+runtime:0038: }
+runtime:0039: 
+runtime:0040: /// Returns the active animation tuning selected from runtime YAML. The value
+runtime:0041: /// is copied so animation evaluation never holds a synchronization guard.
+runtime:0042: pub fn runtime_animation_config() -> TacticalAnimationConfig {
+runtime:0043:     let version = RUNTIME_CONFIG_VERSION.load(Ordering::Acquire);
+runtime:0044:     CACHED_ANIMATION_CONFIG.with(|cache| {
+runtime:0045:         if let Some((cached_version, config)) = cache.get()
+runtime:0046:             && cached_version == version
+runtime:0047:         {
+runtime:0048:             return config;
+runtime:0049:         }
+runtime:0050:         let config = runtime_config_lock()
+runtime:0051:             .read()
+runtime:0052:             .expect("tactical combat config lock should not be poisoned")
+runtime:0053:             .animation;
+runtime:0054:         cache.set(Some((version, config)));
+runtime:0055:         config
+runtime:0056:     })
+runtime:0057: }
+runtime:0058: 
+runtime:0059: /// Returns the active inverse-kinematics tuning.
+runtime:0060: ///
+runtime:0061: /// Cached separately from [`runtime_animation_config`] because the leg solver
+runtime:0062: /// reads this dozens of times per leg per frame. Projecting it out of the whole
+runtime:0063: /// animation config copied every other subsystem's tuning on each of those
+runtime:0064: /// reads, which `Cell::get` cannot avoid.
+locomotion:0084:         })
+locomotion:0085:     }
+locomotion:0086: }
+locomotion:0087: 
+locomotion:0088: pub fn locomotion_sample_rate() -> super::AnimationSampleRate {
+locomotion:0089:     crate::combat_config::runtime_animation_config()
+locomotion:0090:         .locomotion
+locomotion:0091:         .sample_hz
+locomotion:0092: }
+locomotion:0093: 
+locomotion:0094: pub fn walk_locomotion_profile() -> LocomotionProfile {
+locomotion:0095:     let config = crate::combat_config::runtime_animation_config()
+locomotion:0096:         .locomotion
+locomotion:0097:         .walk;
+locomotion:0098:     gait_profile(LocomotionGait::Walk, config)
+locomotion:0099: }
+locomotion:0100: 

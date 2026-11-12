@@ -1,0 +1,124 @@
+--- native-disease 1240-1300 ---
+1240                     intensity,
+1241                     scoped,
+1242                 } = source;
+1243                 let from = start.max(source_start);
+1244                 let to = end.min(source_end);
+1245                 let definition = disease::definition(disease_id);
+1246                 let windows = if scoped {
+1247                     crate::outbreak::exposure_windows(ctx, &source_id, *id, from, to)
+1248                 } else {
+1249                     vec![(source_id.clone(), from, to)]
+1250                 };
+1251                 for (window_source_id, window_from, window_to) in windows {
+1252                     if let Some(source) = disease::protected_presence_exposure_source(
+1253                         disease_id,
+1254                         *id,
+1255                         &window_source_id,
+1256                         window_from,
+1257                         window_to,
+1258                         intensity,
+1259                         definition.base_acquisition,
+1260                         definition.primary_community_vector,
+1261                     ) {
+1262                         if environmental.len()
+1263                             >= MAX_PARTY_INTERVAL_CANDIDATES.saturating_sub(scheduled.len())
+1264                         {
+1265                             return Err(
+1266                                 "Disease interval exceeds bounded acquisition candidates".into()
+1267                             );
+1268                         }
+1269                         environmental.push(source);
+1270                     }
+1271                 }
+1272             }
+1273         }
+1274         let blood_attempts = crate::filth::blood_exposure_attempts_through(
+1275             ctx,
+1276             *id,
+1277             start,
+1278             end,
+1279             false,
+1280             allow_healing,
+1281             Some(&plan),
+1282             blood_interval_work_budget(end.elapsed_since(start)),
+1283         )?;
+1284         if blood_attempts.len()
+1285             > MAX_PARTY_INTERVAL_CANDIDATES
+1286                 .saturating_sub(scheduled.len())
+1287                 .saturating_sub(environmental.len())
+1288         {
+1289             return Err("Disease interval exceeds bounded acquisition candidates".into());
+1290         }
+1291         scheduled.extend(blood_attempts);
+1292     }
+1293     let windows = interval::contact_windows(pairs, &starts, &horizons);
+1294     let from = starts.values().copied().min().unwrap_or_default();
+1295     let to = horizons.values().copied().max().unwrap_or(from);
+1296     let resolved = disease::resolve_acquisition_timeline(
+1297         &id_set,
+1298         &initial,
+1299         scheduled,
+1300         &environmental,
+--- native-disease 1840-1900 ---
+1840         &owned_plan
+1841     };
+1842     let now = ctx
+1843         .db
+1844         .character_time()
+1845         .character_id()
+1846         .find(character_id)
+1847         .map_or(StrategicMinute::ZERO, |t| t.minutes);
+1848     let immunity = ctx
+1849         .db
+1850         .character_attributes()
+1851         .character_id()
+1852         .find(character_id)
+1853         .map_or(3.0, |a| a.immunity);
+1854     let mut episodes = character_episodes(ctx, character_id)?;
+1855     let interval_end = now.saturating_add_minutes(requested);
+1856     let proposed = plan.proposals_for(character_id, now, interval_end);
+1857     episodes.extend(proposed.iter().copied());
+1858     let mut events = interval::disease_events(&episodes, now, interval_end, immunity);
+1859     events.sort_by_key(|e| e.minute);
+1860     let terminal =
+1861         first_private_terminal(ctx, character_id, &episodes, now, interval_end, immunity)?;
+1862     let death_minute = terminal.map(|value| value.0);
+1863     let through = death_minute.unwrap_or(interval_end);
+1864     // The terminal minute is inclusive: infections and notices occurring at
+1865     // that boundary are committed; later effects from the requested interval
+1866     // are never persisted.
+1867     persist_acquisition_episodes(
+1868         ctx,
+1869         character_id,
+1870         proposed
+1871             .into_iter()
+1872             .filter(|episode| disease::infection_occurs_through(*episode, through)),
+1873     )?;
+1874     // Re-evaluate only the committed prefix and advance the private cursor.
+1875     // Absolute-minute seeds guarantee the same proposal as preview/full evaluation.
+1876     let _ = crate::filth::blood_exposure_attempts_through(
+1877         ctx,
+1878         character_id,
+1879         now,
+1880         through,
+1881         true,
+1882         allow_healing,
+1883         Some(plan),
+1884         blood_interval_work_budget(through.elapsed_since(now)),
+1885     )?;
+1886     for event in events.iter().filter(|event| event.minute <= through) {
+1887         match event.kind {
+1888             DiseaseEventKind::SymptomOnset => notice(
+1889                 ctx,
+1890                 character_id,
+1891                 event.infection_id,
+1892                 event.minute,
+1893                 "symptom-onset",
+1894                 "New symptoms have appeared.",
+1895             )?,
+1896             DiseaseEventKind::Peak => {}
+1897             DiseaseEventKind::Critical(_) => notice(
+1898                 ctx,
+1899                 character_id,
+1900                 event.infection_id,
