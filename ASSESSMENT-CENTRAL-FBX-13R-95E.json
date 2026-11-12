@@ -1,0 +1,87 @@
+{
+  "schema": "726-central-13r-fbx-bounded-corroboration-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Independent bounded current-source corroboration of the previously connected FBX array decode budget and the separately attributed typed-encoding adapter; not a full parser or lens review.",
+  "evidence": {
+    "registration": "delegated/central-13r-fbx/REGISTRATION.json",
+    "displays": [
+      "delegated/central-13r-fbx/DISPLAY-A.txt",
+      "delegated/central-13r-fbx/DISPLAY-B.txt"
+    ],
+    "receipt": "delegated/central-13r-fbx/READ-RECEIPT.json",
+    "git_membership": "delegated/central-13r-fbx/TREE-PROOFS.json"
+  },
+  "source_references": [
+    {
+      "path": "crates/fabelgeist-fbx/src/lib.rs",
+      "lines": [
+        [
+          222,
+          243
+        ],
+        [
+          420,
+          480
+        ]
+      ],
+      "observation": "Reader::take checks position addition and available file bytes. Array property reads count, admits a selected encoding, reads compressed length and takes that many raw file bytes. Uncompressed data is copied; zlib output is read into a growing vector after reserving count times width. Only after reading does the parser reject a decoded body shorter than count times width and return exactly count parsed elements."
+    },
+    {
+      "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "lines": [
+        [
+          1,
+          24
+        ]
+      ],
+      "observation": "The source declares supported codes 0 and 1 and a reported_code u32 error type, with a custom error constructor specified to a derive. This coordinator did not inspect or execute derive expansion, native decoder internals or error presentation."
+    }
+  ],
+  "conditional_observations": [
+    {
+      "identity": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "observation": "The shown parser places no count-derived output cap on read_to_end before the decoded bytes are accumulated and the short-body check is made. If a zero-count zlib body successfully produces any positive number of decoded bytes, the shown check accepts those extra bytes and the resulting element collection is empty. This is source reasoning, not a created stream, actual allocation or proof of a format violation. Accepted extra payload is a separate policy question from a resource limit."
+    },
+    {
+      "identity": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "observation": "On a 32-bit usize target, a representable array count of 2^30 and shown f32 width 4 make count times width exceed usize at the first zlib capacity expression. The selected target, feasible input, overflow profile, any earlier failure and product effect are unproved; the prior central assessment already records narrow-width arithmetic as open."
+    },
+    {
+      "identity": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "observation": "The source declares a typed unsupported-code error with a reported u32 and selects it as the derive constructor before raw payload length is read. Earlier central and delegated work inspected selected num_enum generator code; the separately registered later agent review explicitly leaves the derive_more From expansion, actual feature selection and runtime conversion open. The declaration supports intended ownership but this bounded review alone does not prove generated conversion or a displayed error."
+    }
+  ],
+  "historical_relationships": [
+    {
+      "source": "baseline-059/queue.json#/entries/153",
+      "attribution": "Original Adler recovered 059 finding, not missing checkpoint3821.",
+      "relationship": "Already names allocation/decompression budget admission; ASSESSMENT-FBX-95E.json connected current source and native decoder. The zero-count reasoning is a facet, not a new finding count."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/152",
+      "attribution": "Original Adler recovered 059 finding.",
+      "relationship": "Record cursor and enclosing extent have a different first contract; bounded Reader::take is not complete record-envelope admission. No alias to budget is assumed."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/2942",
+      "attribution": "Original lens12_frontier source read and root adoption as separately preserved in 059; no personal-read transfer.",
+      "relationship": "The historical scoped adapter disposition concerns typed code handling, not extra decompressed data or an external FBX specification. It remains partial at 95e and is not checkpoint3821."
+    },
+    {
+      "source": "delegated/checkpoint39-stage/bundles/2626-2628/report.json",
+      "attribution": "/root/mhr_character independently registered 95e and native package source; original author and package qualifications remain in that report.",
+      "relationship": "This independent source reread corroborates the selected adapter, unchecked decode boundary and open derive_more/feature question. Complete copied package bodies and this read confer no cross-reader or whole-package credit."
+    }
+  ],
+  "open": [
+    "Supported callers, import trust boundary, format and policy for extra decoded bytes.",
+    "Actual resource limits, native decoder behavior and target width; no stream, allocation or decoder was run.",
+    "Feature selection and derive_more From expansion, native error propagation and error presentation.",
+    "All other parser record envelopes, supported versions, historical aliases and checkpoint3821 recovery."
+  ],
+  "future_direction": "After audit and separate authorization, settle bounded decoded-size admission and checked extents while retaining any intentionally allowed extra payload and the supported typed encoding policy; do not conflate record-envelope and decode-budget ownership.",
+  "lens_qualification": "Source relationships touch admission, operations, retained resource authority, behavior and raw primitive/error ownership; no complete lens or semantic queue closure.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "Coordinator corroboration has not received a separate semantic review; earlier reviewer and delegate source credit remain distinct."
+}

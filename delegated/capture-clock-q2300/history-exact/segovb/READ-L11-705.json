@@ -1,0 +1,231 @@
+{
+  "lens": 11,
+  "kind": "Strict whole-bundle delegated source adoption",
+  "batch": 705,
+  "at": "2026-10-30T01:14:18.349615+00:00",
+  "proposal": "parallel-l11-20261029/READ-169.json",
+  "proposal_sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85",
+  "agent_verification": "parallel-l11-20261029/VERIFY-169.json",
+  "agent_verification_sha256": "387aed097f48a76d40d13d44ac4598885915305af807cdc478bb4196a006ca3e",
+  "bundle": {
+    "path": "parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+    "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422"
+  },
+  "ruleset": {
+    "path": "parallel-l11-20261029/l11_firstparty_bundle_preflight_v1_PROPOSAL_UNEXECUTED.py",
+    "sha256": "20577da89668140032aeac03763b86ed16bf7214f1f421d30a6bb302e15ec40c"
+  },
+  "preflight": {
+    "bundle": "target/726-audit-adler-20261027/parallel-l11-20261029/PROPOSAL-BUNDLE-L11-SOURCE-003.json",
+    "sha256": "1c69b1d5c890aaeac95f9c911303ac9e106ddaad7329dbcec15b3ac99e9ad422",
+    "new_source_receipts": 4,
+    "new_source_rows": 17,
+    "validated_source_rows_total": 25,
+    "contract_proposals": 8,
+    "current_delta_maps": 12,
+    "authority_mutation": false,
+    "product_execution": false,
+    "implementation_gate_complete": false,
+    "current_ledger_sha256": "09573b88725b90826d3d0e11a12362e160f56dcb1d215b4d3c0fbed32191a0a3",
+    "current_selector_sha256": "0331801d53b7e53f1969817fea5ee559b48f8d092c362f3070a1786ce160dc67"
+  },
+  "plans": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+      "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac"
+    }
+  ],
+  "rows": [
+    {
+      "registration": "PL11-1093",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "actual_EOF": 58,
+      "prospective_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:P05-P06-P17-actualcapture-child-contract",
+      "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1094",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "actual_EOF": 32,
+      "prospective_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs:P05-P06-P17-actualcapture-child-contract",
+      "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1095",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "actual_EOF": 136,
+      "prospective_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:P05-P06-P17-actualcapture-child-contract",
+      "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    },
+    {
+      "registration": "PL11-1096",
+      "lens": 11,
+      "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "actual_EOF": 126,
+      "prospective_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:P05-P06-P17-actualcapture-child-contract",
+      "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+      "fresh_personal_body_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "assessed_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "whole_file_assessed": true,
+      "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+    }
+  ],
+  "finding_connections_and_scope_dispositions": [
+    {
+      "id": "L11-CURRENT-CAPTURE-CLOCK-ROOT-AND-MOTION-OWNERSHIP",
+      "disposition": "Actual current childproducer lifecycle source traced; native clock/duration checks and validoptionalterrain/presentation modes preservecontract. Qualified fixture/currentpose policies not blanketfailure.",
+      "trace": [
+        "capture_fixed_clock12..24 retains AnimationSampleRate until genuinef64 reciprocal13 thenDuration::try_from_secs_f6415 andexplicitnonzero18 beforeTime::from_duration23; nativeclockrounding intentionallydiffersf32poseinterval percomment10..11. Actualnative Bevy0.19.1 TimeFixed from_duration boundary alreadyown108/109 scoped proof, no L1transfer.",
+        "next_capture_simulation_tick26..35 preserves firstlogicaltick andotherwise wrapping_next; capture_frame_elapsed37..43 returnsZEROatlocalframe0 andtypedcanonicalinterval thereafter. Scenarioframezero despitecontinuousglobaltick deliberateboundarysample semantics, notproofclockoverflowwrongbehavior. Existingtest49..57 sourceonly.",
+        "ready_for_frame6..31 decrementswarmup12..15 andrequires actualmotionprocessed pluspresentation_settled19..20 andtworeadyframes25..27 atscenarioframe0. Itdoesnotadvanceplan/index itself; driverown168 onlysetsapplied463 afterready450. Legitimateasynchronousauthoredasset/readinesswait isnotfalseunavailableorcompatdefect.",
+        "CaptureGround Terrain versusAuthoredPlane(SupportElevation)13..16 holdsdistinctsourceauthority. collect_bones19..48 selectsactualsubject/recognizedreportbone, retains Optionterrainclearance42..43 fromtypedSupportElevation; disabledterraincapture_ground124..134 admitsobservedsubjectplane or rejectsGeometryNonFinite, doesnotfallbacktoliveterrainoninvaliddatum. Missingnativebone/support remainsOption, notzero.",
+        "initial_root53..67 admitsactualterrainheight58 thencompletePosition59..63 whilepreservingscale, sceneorigin/PIrotation isfixturedatum. fixture_root_position71..94 usesnative velocity\u00d7typedelapsed79 thenadmitplanpoint80; quickstep/IKenabled requiresactualheight82/89; disabledterrainkeepscurrentheight91 explicitoptionalplane route. FinalcompletePosition93 beforeTransformpublicationdriver411. full_ragdoll_root98..112 admitsactualground/completeposition110 afterauthoredfixturefall normalization104.",
+        "CaptureMotion6..11 stores typedGroundContact/AnimationElapsed separatelyfromnativeorientation/velocity. advance_capture_facing14..33 skipswhileauthoredpostureownsroot22, otherwise passeselapsed29 tocanonicalfacingkernel. project_capture_motion35..63 constructscheckedSkeletonLocomotionInput45..51 atactualtick44, propagatesResult52, advancesposture56 beforeactualQuatdelta57..60. NativeQuat normalize legitimate finalmath, notindependentapplicationsemanticowner.",
+        "begin_capture_action66..126 selectsattackonlyscheduledstart, quickstepframe0 ornewDodge/Blockkind73..78; tick/span remaincanonical80..87/111 beforeSkeletonbegin APIs. expect failures97/102/116/121 needactualinvalidsupportedPlannedFrame/direction/start-statewitness beforepanicfinding; ordinaryauthoredscenarioadmission notcertifiedfromassertions. No fixture/action/runtimeexecution."
+      ],
+      "first_failed_contract": "No new firstfailed contract in theseactualclock/readiness/root/motionproducerbodies. Currenttypedelapsed/nativeDurationboundary preserved; optionalterrain/assetwait/fixturezeroelapsed modes explicit. Supportedexpect reachability/configuredfixturetickpolicy remain qualified separate questions ifmaterial.",
+      "canonical_owner": "CanonicalAnimationSampleRate/AnimationElapsed/AnimationSampleTick/Span plusCaptureSequence singleadmission; CaptureGround owns terrainversusauthoredplane; checkedScenePlanPoint/Position ownrootgeometry beforeTransform.",
+      "exact_function_ownership": [
+        "frame_clock::capture_fixed_clock12..24/next_capture_simulation_tick26..35/capture_frame_elapsed37..43",
+        "CaptureSequence::ready_for_frame6..31",
+        "CaptureGround::collect_bones19..48/CaptureSequence::initial_root53..67/fixture_root_position71..94/full_ragdoll_root98..112/capture_ground116..135",
+        "subject_motion::advance_capture_facing14..33/project_capture_motion35..63/begin_capture_action66..126"
+      ],
+      "connected_repair_scope": "Use actualtypedclock/optionalrootpolicy toqualifyP05/P06/P17currentroutes andretainedreport findings; do notreplacefixtureauthoringorlegitimateoptionalmodeswithuniversalpositive/required-allwrapper. No code repair.",
+      "dependencies": [
+        "ActualPlannedFrame/scenarioauthoritativeconstruction/supportedquickstepdirection andconfiguredfixturetickrelationship ifretainingexpect/countpolicyfinding; no arbitrarypublicf32witnessfromnativeinputs alone.",
+        "NativePose/Transform application/scheduling andfinalsupportcachecomparison remain their exactexistingqualifiedcontracts, notclearedbyrootadmission.",
+        "Any nativeScreenshot/fullreport/GLB/currentdelta contract remains independently scoped; source-only notruntimeacceptance."
+      ],
+      "acceptance_requirements": [
+        "Elapsed/sampletick/span stayowneduntil actualnativeDuration/math/Transformboundary, explicitnativezero-roundingrejection.",
+        "Requiredterrainfailsatactualowner; legitimateAuthoredPlane/noIKterrainchoice andnotreadyassetwaitremainhonest.",
+        "Actualscenario/direction/start-stateadmission supportsanyexpect claim; no sourceassertions/proseinventruntimepass."
+      ],
+      "accepted_unique_count_change": 0
+    }
+  ],
+  "registered_unread_sources_as_recorded": [],
+  "completes_prior_registered_unread": null,
+  "adopted_registration_mapping": [
+    {
+      "registration": "PL11-1093",
+      "adopted_continuation_number": 3287,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:P05-P06-P17-actualcapture-child-contract",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1094",
+      "adopted_continuation_number": 3288,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs:P05-P06-P17-actualcapture-child-contract",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1095",
+      "adopted_continuation_number": 3289,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:P05-P06-P17-actualcapture-child-contract",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    },
+    {
+      "registration": "PL11-1096",
+      "adopted_continuation_number": 3290,
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:P05-P06-P17-actualcapture-child-contract",
+      "qualification": "Delegated prospective source view adopted; no root reread"
+    }
+  ],
+  "original_overlay_merged_shared_credit": 0,
+  "accepted_unique_count_change": 0,
+  "source_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "actual_current_target": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+  "new_target_reconciliation_complete": false,
+  "other_lens_coverage_transferred": false,
+  "runtime_validation": "Not run",
+  "implementation_gate_complete": false
+}

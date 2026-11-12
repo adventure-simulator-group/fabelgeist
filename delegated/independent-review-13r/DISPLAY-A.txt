@@ -1,0 +1,87 @@
+reader:210:     }
+reader:211: 
+reader:212:     /// A scalar integer `Properties70` value such as `RotationOrder`.
+reader:213:     pub fn property70_i64(&self, name: &str, default: i64) -> i64 {
+reader:214:         self.property70(name)
+reader:215:             .and_then(|p| p.props.get(4))
+reader:216:             .and_then(Prop::as_i64)
+reader:217:             .unwrap_or(default)
+reader:218:     }
+reader:219: }
+reader:220: 
+reader:221: impl<'a> Reader<'a> {
+reader:222:     fn take(&mut self, len: usize) -> Result<&'a [u8]> {
+reader:223:         let end = self
+reader:224:             .pos
+reader:225:             .checked_add(len)
+reader:226:             .ok_or_else(|| anyhow!("FBX read overflow"))?;
+reader:227:         if end > self.data.len() {
+reader:228:             bail!(
+reader:229:                 "truncated FBX file: wanted {len} bytes at offset {}",
+reader:230:                 self.pos
+reader:231:             );
+reader:232:         }
+reader:233:         let slice = &self.data[self.pos..end];
+reader:234:         self.pos = end;
+reader:235:         Ok(slice)
+reader:236:     }
+reader:237: 
+reader:238:     fn u8(&mut self) -> Result<u8> {
+reader:239:         Ok(self.take(1)?[0])
+reader:240:     }
+reader:241: 
+reader:242:     fn u32(&mut self) -> Result<u32> {
+reader:243:         Ok(u32::from_le_bytes(self.take(4)?.try_into().unwrap()))
+reader:244:     }
+reader:245: 
+reader:246:     fn u64(&mut self) -> Result<u64> {
+reader:247:         Ok(u64::from_le_bytes(self.take(8)?.try_into().unwrap()))
+reader:248:     }
+reader:249: 
+reader:250:     /// Node headers went 32-bit -> 64-bit in FBX 7500.
+reader:405:         bail!("not a binary FBX file");
+reader:406:     }
+reader:407:     let version = u32::from_le_bytes(data[23..27].try_into().unwrap());
+reader:408:     let mut reader = Reader {
+reader:409:         data,
+reader:410:         pos: 27,
+reader:411:         version,
+reader:412:     };
+reader:413: 
+reader:414:     let mut roots = Vec::new();
+reader:415:     while reader.pos + reader.header_size() <= data.len() {
+reader:416:         match read_node(&mut reader)? {
+reader:417:             Some(node) => roots.push(node),
+reader:418:             None => break,
+reader:419:         }
+reader:420:     }
+reader:421:     Ok(roots)
+reader:422: }
+reader:423: 
+reader:424: fn decode_array<T: Copy>(
+reader:425:     raw: &[u8],
+reader:426:     count: usize,
+reader:427:     encoding: FbxArrayEncoding,
+reader:428:     parse: impl Fn(&[u8]) -> T,
+reader:429:     width: usize,
+reader:430: ) -> Result<Vec<T>> {
+reader:431:     let bytes = match encoding {
+reader:432:         FbxArrayEncoding::Uncompressed => raw.to_vec(),
+reader:433:         FbxArrayEncoding::Zlib => {
+reader:434:             let mut out = Vec::with_capacity(count * width);
+reader:435:             ZlibDecoder::new(raw)
+reader:436:                 .read_to_end(&mut out)
+reader:437:                 .context("inflating FBX array property")?;
+reader:438:             out
+reader:439:         }
+reader:440:     };
+reader:441:     if bytes.len() < count * width {
+reader:442:         bail!(
+reader:443:             "FBX array property is short: {} bytes for {count} x {width}",
+reader:444:             bytes.len()
+reader:445:         );
+reader:446:     }
+reader:447:     Ok((0..count)
+reader:448:         .map(|i| parse(&bytes[i * width..(i + 1) * width]))
+reader:449:         .collect())
+reader:450: }

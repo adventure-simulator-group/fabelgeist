@@ -1,0 +1,106 @@
+--- wrapped 19-21 ---
+  19     /// Course at which a removable lower section begins; zero is unsplit.
+  20     pub section_break: u8,
+  21     pub section_gap: Millimeters,
+--- wrapped 24-56 ---
+  24 impl Default for WrappedTassetDesign {
+  25     fn default() -> Self {
+  26         Self {
+  27             inner_wrap: Permille(280),
+  28             outer_wrap: Permille(620),
+  29             inner_gap: Millimeters(10),
+  30             upper_edge_slope: Permille(0),
+  31             knee_reach: Permille(880),
+  32             inner_cutaway: Millimeters(18),
+  33             hem_rounding: Millimeters(18),
+  34             section_break: 6,
+  35             section_gap: Millimeters(3),
+  36         }
+  37     }
+  38 }
+  39 
+  40 impl WrappedTassetDesign {
+  41     pub(crate) fn validate(&self) -> Result<(), DesignError> {
+  42         if !(150..=450).contains(&self.inner_wrap.0)
+  43             || !(450..=750).contains(&self.outer_wrap.0)
+  44             || !(650..=1100).contains(&self.knee_reach.0)
+  45             || self.upper_edge_slope.0 > 500
+  46             || self.inner_gap.0 > 80
+  47             || self.inner_cutaway.0 > 50
+  48             || self.hem_rounding.0 > 35
+  49             || self.section_gap.0 > 8
+  50             || self.section_break > 11
+  51         {
+  52             return Err(DesignError::ParametricParameters);
+  53         }
+  54         Ok(())
+  55     }
+  56 }
+--- garment 53-87 ---
+  53 impl GarmentArmorDesign {
+  54     pub fn new(kind: GarmentArmorKind) -> Self {
+  55         let padded = matches!(
+  56             kind,
+  57             GarmentArmorKind::ArmingDoublet
+  58                 | GarmentArmorKind::PaddedChausses
+  59                 | GarmentArmorKind::PaddedSkirt
+  60                 | GarmentArmorKind::QuiltedSleeve
+  61         );
+  62         Self {
+  63             plate_shape: GarmentPlateShape::for_kind(kind),
+  64             fluting: None,
+  65             kind,
+  66             clearance: Millimeters(if padded { 3 } else { 10 }),
+  67             wall_thickness: Millimeters(if padded { 5 } else { 3 }),
+  68             length: Permille(1_000),
+  69             flare: Permille(
+  70                 if matches!(
+  71                     kind,
+  72                     GarmentArmorKind::MailSkirt | GarmentArmorKind::PaddedSkirt
+  73                 ) {
+  74                     0
+  75                 } else {
+  76                     180
+  77                 },
+  78             ),
+  79             waist: Permille(if kind == GarmentArmorKind::MailShirt {
+  80                 1_100
+  81             } else if kind == GarmentArmorKind::JackOfPlates {
+  82                 960
+  83             } else {
+  84                 900
+  85             }),
+  86             lame_count: 4,
+  87         }
+--- garment 90-120 ---
+  90     pub fn validate(&self) -> Result<(), GenerateError> {
+  91         self.plate_shape.validate(self.kind)?;
+  92         if let Some(pattern) = &self.fluting {
+  93             if self.plate_shape == GarmentPlateShape::None {
+  94                 return Err(DesignError::ParametricParameters.into());
+  95             }
+  96             pattern.validate()?;
+  97         }
+  98         if !(1..=40).contains(&self.clearance.0)
+  99             || !(1..=16).contains(&self.wall_thickness.0)
+ 100             || !(if self.kind == GarmentArmorKind::Fauld {
+ 101                 100
+ 102             } else {
+ 103                 500
+ 104             }..=1_300)
+ 105                 .contains(&self.length.0)
+ 106             || self.flare.0 > 500
+ 107             || !(800..=1_100).contains(&self.waist.0)
+ 108             || !(1..=if self.kind == GarmentArmorKind::Tassets {
+ 109                 12
+ 110             } else {
+ 111                 8
+ 112             })
+ 113                 .contains(&self.lame_count)
+ 114         {
+ 115             return Err(DesignError::ParametricParameters.into());
+ 116         }
+ 117         if let GarmentPlateShape::WrappedTassets(shape) = self.plate_shape
+ 118             && shape.section_break >= self.lame_count
+ 119         {
+ 120             return Err(DesignError::ParametricParameters.into());

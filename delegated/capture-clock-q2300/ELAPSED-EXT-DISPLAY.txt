@@ -1,0 +1,91 @@
+--- animation_mod 1-90 ---
+   1 //! Semantic animation state shared by the tactical authority and presentation client.
+   2 //!
+   3 //! The server synchronizes intent and timing through [`SkeletonState`]. Authored
+   4 //! clips and evaluated bone transforms remain client-only presentation.
+   5 
+   6 use std::{
+   7     collections::{BTreeMap, BTreeSet, HashSet},
+   8     str::FromStr,
+   9 };
+  10 
+  11 use adventuresim_core::combat_style::MeleeAttackStyle;
+  12 use bevy::prelude::*;
+  13 use serde::{Deserialize, Serialize};
+  14 
+  15 pub use adventuresim_core::animation_pack_id::AnimationPackId;
+  16 pub use adventuresim_core::elapsed::AnimationElapsed;
+  17 pub use adventuresim_core::unit_interval::UnitInterval;
+  18 pub use authored_angle::{
+  19     AngularMagnitudeDegrees, AngularSpeedDegrees, AngularSpeedRadians, SignedAngleDegrees,
+  20     SignedAngularSpeedDegrees,
+  21 };
+  22 pub use cadence_limit::{AuthoredCadenceCap, CadenceDemand, CadenceSelection, StepCadence};
+  23 pub use calibration_parameters::{ContactHeightScale, PhaseCalibrationIntervals};
+  24 pub use contact::ContactSequence;
+  25 pub use continuation_parameters::{
+  26     AttackContinuation, ContinuationReadiness, IncomingAttackTangent,
+  27 };
+  28 pub use elapsed_reflection::ReflectedAnimationElapsed;
+  29 pub use evaluation::*;
+  30 pub use event_span::{AnimationEventSpan, CoalescedEventBudget};
+  31 pub use fraction_reflection::ReflectedUnitInterval;
+  32 pub use ground_contact::GroundContact;
+  33 pub use height_measurement::{HeightDistance, HeightSpeed};
+  34 pub use ik_parameters::{KneeTargetAmplification, SettleProgress};
+  35 pub use landing::{LandingImpactSpeed, LandingSequence};
+  36 pub use locomotion::*;
+  37 pub use measurement::{NonnegativeLength, PositiveAnimationDuration};
+  38 pub use motion_modes::{DownedMotion, GuardedLocomotionMode, JumpAnticipation};
+  39 pub use packs::*;
+  40 pub use phase_response::{PhaseCorrectionRate, PhaseErrorLimit};
+  41 pub use pose_coordinates::{ActionProgressDelta, AttackPoseCoordinate};
+  42 pub use response_parameters::{
+  43     AngularStiffness, ImpactCompressionCompliance, InertialLeanGain, LookDistribution, MuscleTone,
+  44     ReferenceAcceleration, ResponseRate,
+  45 };
+  46 pub use sample_rate::{AnimationFrequency, AnimationSampleRate};
+  47 pub use sample_tick::{AnimationSampleSpan, AnimationSampleTick};
+  48 pub use sample_values::{BlendWeight, ClipMirror, CycleDelta, CyclePhase};
+  49 pub use semantic::*;
+  50 pub use shaping_time::ResponseShapingTime;
+  51 pub use skeleton_family::SkeletonFamily;
+  52 pub use state::*;
+  53 pub use value_error::{AnimationQuantity, AnimationValueError, AnimationValueResult};
+  54 
+  55 use adventuresim_core::linear_speed::NonnegativeSpeed;
+  56 
+  57 mod attack_commitment;
+  58 mod authored_angle;
+  59 mod cadence_limit;
+  60 mod calibration_parameters;
+  61 mod contact;
+  62 mod continuation_parameters;
+  63 mod elapsed_reflection;
+  64 mod evaluation;
+  65 mod event_span;
+  66 mod fraction_reflection;
+  67 mod ground_contact;
+  68 mod height_measurement;
+  69 mod ik_parameters;
+  70 mod landing;
+  71 mod locomotion;
+  72 mod measurement;
+  73 mod motion_modes;
+  74 mod packs;
+  75 mod phase_response;
+  76 mod pose_coordinates;
+  77 mod response_parameters;
+  78 mod sample_rate;
+  79 mod sample_tick;
+  80 mod sample_values;
+  81 mod semantic;
+  82 mod shaping_time;
+  83 mod skeleton_family;
+  84 mod state;
+  85 mod value_error;
+  86 
+  87 #[cfg(test)]
+  88 use evaluation::locomotion::gait_pair;
+  89 
+  90 include!("tests.rs");

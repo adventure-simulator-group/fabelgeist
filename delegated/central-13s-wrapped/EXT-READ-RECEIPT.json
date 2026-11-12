@@ -1,0 +1,90 @@
+{
+  "schema": "726-central-13s-read-receipt-v1",
+  "reader": "/root",
+  "recorded_utc": "2026-11-12T13:30:59.840469+00:00",
+  "registration": "EXT-REGISTRATION.json",
+  "registration_sha256": "b71e2d768329ed26ee1bd27dca490647b4eba8688cc8c62864f49b6d6ba0b9b8",
+  "displays": [
+    {
+      "path": "EXT-DISPLAY.txt",
+      "tags": [
+        "garment",
+        "wrapped",
+        "shape",
+        "error"
+      ],
+      "sha256": "5d1f974f3a1b30cce13ac013d6740f389bf4b50746579862e4e5feda36e83b40"
+    }
+  ],
+  "rows": [
+    {
+      "tag": "garment",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "displayed_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "unread_complement": [
+        [
+          53,
+          129
+        ]
+      ]
+    },
+    {
+      "tag": "wrapped",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "displayed_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "unread_complement": [
+        [
+          19,
+          62
+        ]
+      ]
+    },
+    {
+      "tag": "shape",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "displayed_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "unread_complement": [
+        [
+          38,
+          137
+        ]
+      ]
+    },
+    {
+      "tag": "error",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-armor/src/error.rs",
+      "displayed_ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "unread_complement": [
+        [
+          8,
+          40
+        ]
+      ]
+    }
+  ],
+  "qualification": "These prospectively registered windows were received in the specified chunks; unread complements are per registration. Prior historical and agent readers retain their own credit, and copied full sources confer no additional read. No product, macro, formatting or fixture execution."
+}

@@ -3090,7 +3090,10 @@
         "discovery": "partial; selected-config semantics, runtime/native outcomes and global aliases open",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json"
+        "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-13T-95E.json"
+        ]
       },
       {
         "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
@@ -3108,7 +3111,8 @@
         "validation": "not performed",
         "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
         "further_current_evidence": [
-          "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+          "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+          "ASSESSMENT-CENTRAL-CAPTURE-CLOCK-13T-95E.json"
         ]
       },
       {
@@ -10242,7 +10246,11 @@
         "future_acceptance": "After audit and authorization, cover normal and extra payloads, truncated data, oversized counts, decompression failures and platform widths.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-FBX-95E.json"
+        "record": "ASSESSMENT-FBX-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-CENTRAL-FBX-13R-95E.json",
+          "ASSESSMENT-CENTRAL-FBX-13R-REVIEW-ADDENDUM.json"
+        ]
       },
       {
         "id": "SEGOVB-L12-FBX-ANIMATION-TRANSFORM-PROPERTY-PROPAGATION",
@@ -10342,7 +10350,7 @@
           11
         ],
         "severity": "unassigned; scoped native adapter disposition",
-        "classification": "The original native adapter disposition preserves rejected array-encoding codes in an owned typed error.",
+        "classification": "The source declares an owned unsupported-array-encoding error with a reported u32 and selects it as a custom constructor; the earlier review traced selected num_enum generator source, while derive_more conversion expansion, feature selection and runtime propagation remain open.",
         "historical_related_records": [
           "baseline-059/queue.json#/entries/2942",
           "segovb/READ-L12-CONNECTED-TEAM-023.json via ASSESSMENT-FBX-95E.json"
@@ -10353,7 +10361,12 @@
         "future_acceptance": "After audit and authorization, verify both supported encodings and typed rejection of other wire codes without asserting external specification validity.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-FBX-95E.json"
+        "record": "ASSESSMENT-FBX-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-CENTRAL-FBX-13R-95E.json",
+          "ASSESSMENT-CENTRAL-FBX-13R-REVIEW-ADDENDUM.json"
+        ],
+        "classification_at_earlier_reconciliation": "The original native adapter disposition preserves rejected array-encoding codes in an owned typed error."
       },
       {
         "id": "REVIEW-FBX-SCENE-INDEX-COHERENCE-95E",
@@ -18718,7 +18731,8 @@
         "future_acceptance": "After audit and separate authorization, assess the exact boundary and applicable accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+        "required_root_terrain_relationship_13u": "ASSESSMENT-CENTRAL-CAPTURE-TERRAIN-13U-95E.json distinguishes selected required-root admission from this optional observation or derived-clearance question; no alias or closure is assumed."
       },
       {
         "id": "REVIEW-CAPTURE-TERRAIN-OBSERVATION-ZERO-95E",
@@ -18737,7 +18751,8 @@
         "future_acceptance": "After audit and separate authorization, assess the exact boundary and applicable accepted behavior.",
         "repair": "not started",
         "validation": "not performed",
-        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+        "record": "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json",
+        "required_root_terrain_relationship_13u": "ASSESSMENT-CENTRAL-CAPTURE-TERRAIN-13U-95E.json distinguishes selected required-root admission from this optional observation or derived-clearance question; no alias or closure is assumed."
       },
       {
         "id": "BODY-RESPONSE-SWAY-MISSING-BONE-AS-ZERO-95E",
@@ -22186,10 +22201,43 @@
         "further_current_evidence": [
           "ASSESSMENT-CENTRAL-INCIDENCE-13P-REVIEW-ADDENDUM.json"
         ]
+      },
+      {
+        "id": "candidate-armor-design-error-bracer-prefix-95e",
+        "lens": 12,
+        "additional_current_lenses": [
+          3,
+          5,
+          6,
+          8,
+          9,
+          11
+        ],
+        "lens_scope_qualification": "Bounded source relationships only; no complete lens, runtime formatting or user-facing impact.",
+        "severity": "unassigned; conditional shared armor diagnostic",
+        "classification": "The shared GenerateError::Design variant is annotated with bracer-specific text while a non-bracer wrapped-tasset validation path supplies DesignError::ParametricParameters through source-declared conversion. If the derive expansion formats the declared annotation and a supported caller displays that error, its outer label may misleadingly name a bracer. This is an open conditional diagnostic question, not proof of compiled macro behavior, actual formatting, UI presentation, a supported caller or a unique defect count.",
+        "historical_related_records": [
+          "baseline-059/queue.json#/entries/2943",
+          "baseline-059/queue.json#/entries/288",
+          "baseline-059/queue.json#/entries/2478",
+          "baseline-059/queue.json#/entries/136",
+          "baseline-059/queue.json#/entries/137",
+          "delegated/checkpoint39-stage/bundles/2625/REPORT.json"
+        ],
+        "relationship_qualification": "q2943 is the historical local-validator-only disposition; parent error annotation is a distinct current question. GPU and helmet cause erasure have different first operations; global aliases and unique count remain open.",
+        "discovery": "partial; current annotation and conceptual aggregate source traced; macro implementation, supported caller and presentation remain open",
+        "connected_repair_direction": "Determine supported formatted armor error ownership and consider context-correct wording without losing typed causes or zero unsplit.",
+        "future_acceptance": "After audit and separate authorization, assess the selected owner and supported non-bracer and bracer diagnostic presentation while preserving existing valid modes.",
+        "repair": "not started",
+        "validation": "not performed",
+        "record": "ASSESSMENT-CENTRAL-WRAPPED-13S-95E.json",
+        "further_current_evidence": [
+          "ASSESSMENT-CENTRAL-WRAPPED-13S-ATTRIBUTION.json"
+        ]
       }
     ]
   },
-  "latest_main_recheck": "MAIN-RECHECK-20261112-1315.json",
+  "latest_main_recheck": "MAIN-RECHECK-20261112-1353.json",
   "physical_p16_patch_recovery": "RECOVERY-PHYSICAL-P16-PATCH-20261111.json: later matching tracked patch and separately preserved untracked source objects; earlier bounded search and dirty-snapshot qualification retained, with no checkpoint 3821 promotion.",
   "report_p17_patch_recovery": "RECOVERY-REPORT-P17-PATCH-20261112.json"
 }

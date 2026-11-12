@@ -1,0 +1,36 @@
+{
+  "schema": "726-13r-independent-history-extension-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T13:30:29.834200+00:00",
+  "entries": [
+    {
+      "tag": "live-queue",
+      "revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "path": "RECONCILIATION-059.json",
+      "git_blob": "b3cafa0f1fee013c2c2e1d197ab283bd605530ab",
+      "bytes": 1234266,
+      "sha256": "3cba35d4fb50366356b9d8283eca5ed206877992e614d052d67759f3144f97d3",
+      "selectors": [
+        "/entries/152",
+        "/entries/153",
+        "/entries/2942"
+      ],
+      "mode": "100644"
+    },
+    {
+      "tag": "live-ledger",
+      "revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "path": "BASELINE-95E-20261110.json",
+      "git_blob": "8047dfb3fccb148cd3a58dc31587118442034330",
+      "bytes": 1392806,
+      "sha256": "f5c5e33859c58b67b444d2f61c070abf815da358ed78e4d55e21336e3f130ea7",
+      "selectors": [
+        "/newly_assessed_ledger/entries[id=ADLER-L11-FBX-RECORD-EXTENT-ADMISSION]",
+        "/newly_assessed_ledger/entries[id=ADLER-L11-FBX-DECODE-BUDGET-ADMISSION]",
+        "/newly_assessed_ledger/entries[id=L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER]"
+      ],
+      "mode": "100644"
+    }
+  ],
+  "qualification": "Prospective selectors into this dated 8608 working continuation, separately from recovered 059 rows. Earlier Git commit tree root proof retained in TREE-PROOFS.json; selection is not source-read credit or checkpoint3821 evidence."
+}

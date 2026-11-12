@@ -1,0 +1,89 @@
+{
+  "qualification": "Selected records reconstructed independently from identified committed and observed working ledgers; full file hashes and observation time are separate.",
+  "entries": {
+    "committed": [
+      {
+        "pointer": "/newly_assessed_ledger/entries/199",
+        "value": {
+          "id": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001",
+          "lens": 8,
+          "severity": "unassigned; conditional selected-config divergence in source, no runtime or visual result",
+          "classification": "New 95e source-derived review-fixture configuration authority candidate; earlier quickstep source question is related, final aliases remain open.",
+          "historical_related_records": [
+            "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+            "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json"
+          ],
+          "relationship_qualification": "Conditional 95e source case; final checkpoint 3821 and global alias reconciliation remain unavailable.",
+          "discovery": "partial; selected-config semantics, runtime/native outcomes and global aliases open",
+          "repair": "not started",
+          "validation": "not performed",
+          "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json"
+        }
+      },
+      {
+        "pointer": "/newly_assessed_ledger/entries/200",
+        "value": {
+          "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+          "lens": 7,
+          "severity": "unassigned; conditional sample-rate timestamp divergence in source, no report or visual result",
+          "classification": "New current-source capture timestamp and sample-rate authority candidate; global alias reconciliation remains open.",
+          "historical_related_records": [
+            "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+            "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json",
+            "baseline-059/queue.json#/entries/1245 (earlier non-64-Hz UI/playback question, original revision)"
+          ],
+          "relationship_qualification": "Newly traced conditional current scenario timestamp case connected to an earlier fixed-64-Hz presentation question; exact alias, final checkpoint 3821 and global reconciliation remain unavailable.",
+          "discovery": "partial; full scenario inventory, report presentation policy and global aliases open",
+          "repair": "not started",
+          "validation": "not performed",
+          "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+          "further_current_evidence": [
+            "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+          ]
+        }
+      }
+    ],
+    "working": [
+      {
+        "pointer": "/newly_assessed_ledger/entries/199",
+        "value": {
+          "id": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001",
+          "lens": 8,
+          "severity": "unassigned; conditional selected-config divergence in source, no runtime or visual result",
+          "classification": "New 95e source-derived review-fixture configuration authority candidate; earlier quickstep source question is related, final aliases remain open.",
+          "historical_related_records": [
+            "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+            "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json"
+          ],
+          "relationship_qualification": "Conditional 95e source case; final checkpoint 3821 and global alias reconciliation remain unavailable.",
+          "discovery": "partial; selected-config semantics, runtime/native outcomes and global aliases open",
+          "repair": "not started",
+          "validation": "not performed",
+          "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json"
+        }
+      },
+      {
+        "pointer": "/newly_assessed_ledger/entries/200",
+        "value": {
+          "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+          "lens": 7,
+          "severity": "unassigned; conditional sample-rate timestamp divergence in source, no report or visual result",
+          "classification": "New current-source capture timestamp and sample-rate authority candidate; global alias reconciliation remains open.",
+          "historical_related_records": [
+            "baseline-059/queue.json#/entries/1239 through /entries/1243 (earlier scenario source questions)",
+            "historical source reads in ASSESSMENT-L01-HISTORICAL-1441-1445.json",
+            "baseline-059/queue.json#/entries/1245 (earlier non-64-Hz UI/playback question, original revision)"
+          ],
+          "relationship_qualification": "Newly traced conditional current scenario timestamp case connected to an earlier fixed-64-Hz presentation question; exact alias, final checkpoint 3821 and global reconciliation remain unavailable.",
+          "discovery": "partial; full scenario inventory, report presentation policy and global aliases open",
+          "repair": "not started",
+          "validation": "not performed",
+          "record": "ASSESSMENT-SCENARIO-CLOCK-CONFIG-95E.json",
+          "further_current_evidence": [
+            "ASSESSMENT-DELEGATED-RECONCILIATION-9-95E.json"
+          ]
+        }
+      }
+    ]
+  }
+}

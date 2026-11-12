@@ -1,0 +1,126 @@
+{
+  "schema": "726-central-13s-wrapped-bounded-reconciliation-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Independent coordinator reconciliation of q2943 local validator scope and the agent\u2019s conditional shared armor error-label candidate; no product validation or whole-lens review.",
+  "evidence": {
+    "registration": "REGISTRATION.json",
+    "displays": [
+      "DISPLAY-A.txt",
+      "DISPLAY-B.txt"
+    ],
+    "receipt": "READ-RECEIPT.json",
+    "extension_registration": "EXT-REGISTRATION.json",
+    "extension_display": "EXT-DISPLAY.txt",
+    "extension_receipt": "EXT-READ-RECEIPT.json",
+    "git_membership": "TREE-PROOFS.json",
+    "proof_chronology": "PROOF-CHRONOLOGY.json"
+  },
+  "source_trace": [
+    {
+      "path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "lines": [
+        [
+          1,
+          21
+        ],
+        [
+          24,
+          56
+        ]
+      ],
+      "observation": "The field declares zero section_break as unsplit. Default break is six; the local validator permits values through eleven, checks the displayed parameters and returns DesignError::ParametricParameters on failure. Its displayed signature has no String argument or return."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "lines": [
+        [
+          1,
+          87
+        ],
+        [
+          90,
+          120
+        ]
+      ],
+      "observation": "Garment fields including kind, shape and lame_count are public. A Tassets constructor uses four lames and an ordinary shape. The parent validates shape and other bounds before rejecting a wrapped break at least the count, using the same DesignError converted into GenerateError."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "lines": [
+        [
+          1,
+          53
+        ],
+        [
+          70,
+          75
+        ],
+        [
+          130,
+          136
+        ]
+      ],
+      "observation": "WrappedTassets carries the wrapped design; its shape validation first checks local fields and then requires the Tassets kind. The Tassets constructor\u2019s ordinary shape is a distinct variant."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "lines": [
+        [
+          1,
+          24
+        ]
+      ],
+      "observation": "GenerateError derives thiserror::Error and declares Design(#[from] DesignError) with the source annotation invalid bracer design: {0}. The derive implementation and generated formatting were not inspected or run."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "lines": [
+        [
+          157,
+          168
+        ]
+      ],
+      "observation": "DesignError::ParametricParameters carries a generic armor-shape annotation, distinct from the enclosing bracer-specific annotation."
+    }
+  ],
+  "candidate": {
+    "id": "candidate-armor-design-error-bracer-prefix-95e",
+    "classification": "The shared GenerateError::Design variant is annotated with bracer-specific text while a non-bracer wrapped-tasset validation path supplies DesignError::ParametricParameters through source-declared conversion. If the derive expansion formats the declared annotation and a supported caller displays that error, its outer label may misleadingly name a bracer. This is an open conditional diagnostic question, not proof of compiled macro behavior, actual formatting, UI presentation, a supported caller or a unique defect count.",
+    "symbolic_case": "The public Tassets default has four lames and ordinary shape; replacing only that shape with default WrappedTassets produces break six. The shown local and parent scalar defaults satisfy the visible checks; the parent break/count check then rejects 6 >= 4. This is source-directed reasoning, not a constructed fixture or execution.",
+    "safeguards": "The normal Tassets constructor does not automatically select the incompatible wrapped default. The previous /root/wrapped_scope packet separately reports the selected editor cap and eight-lame warmup; those agent reads are not transferred to this coordinator. Preserve zero as the intentional unsplit mode."
+  },
+  "historical_relationships": [
+    {
+      "source": "baseline-059/queue.json#/entries/2943",
+      "attribution": "059 lens12_frontier original registered validator reads and root adoption, separately retained; not checkpoint3821.",
+      "relationship": "Historical no-String disposition applies to the exact local validator body. It does not assess the broader parent GenerateError annotation. This current bounded review neither revises historical credit nor closes the whole queue."
+    },
+    {
+      "source": "delegated/checkpoint39-stage/bundles/2625/REPORT.json and later /root/wrapped_scope report",
+      "attribution": "Prior /root/hair_ops and later /root/wrapped_scope, each with their own current and historical read scope.",
+      "relationship": "Earlier records already preserve local/parent break checks, zero mode, editor and warmup selection. The later agent first proposes the conditional outer-label question; this coordinator independently reread the named current source."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/288 and /entries/2478",
+      "attribution": "Recovered 059 error-ownership questions, not checkpoint3821.",
+      "relationship": "q288 concerns GPU errors converted to string, q2478 a separate helmet-design cause converted to debug text. They are related error-taxonomy questions but have different first operations; no alias or unique count decision is assumed."
+    },
+    {
+      "source": "baseline-059/queue.json#/entries/136 and /entries/137",
+      "attribution": "Recovered Adler 059 engraving error ownership and bracer morph metadata questions.",
+      "relationship": "These appeared in a bounded bracer/error co-occurrence search but do not themselves establish the outer-label candidate; global aliases remain open."
+    }
+  ],
+  "deduplication_scope": "A bounded text/co-occurrence search of the 059 queue and current ledger found related bracer/error records but no established exact alias. It is not an exhaustive semantic search.",
+  "open": [
+    "Inspect the exact thiserror derive implementation and relevant feature/source identity without running macro expansion; establish intended diagnostic ownership.",
+    "Trace supported non-bracer consumers and whether, where and how the error is presented.",
+    "Reconcile broader armor error taxonomy and existing historical questions without conflating GPU or helmet cause erasure.",
+    "Retain earlier evidence attribution and the missing original checkpoint3821 records."
+  ],
+  "future_direction": "After audit and separate authorization, consider armor-generic or context-owned error wording if supported formatted non-bracer errors warrant it; preserve typed causes, validator ordering, normal producer behavior and zero unsplit.",
+  "lens_qualification": "Bounded raw-string, admission and aggregate relationships; no complete lens, global alias or queue closure.",
+  "repair": "not started",
+  "product_validation": "not performed",
+  "review_qualification": "The source candidate was proposed by /root/wrapped_scope and independently reread by the coordinator; no third-party or runtime review is claimed."
+}

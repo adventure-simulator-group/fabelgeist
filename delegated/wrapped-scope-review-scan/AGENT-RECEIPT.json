@@ -1,0 +1,30 @@
+{
+  "schema": "726-wrapped-scope-final-scan-receipt-v1",
+  "completed_utc": "2026-11-12T13:27:48.034219+00:00",
+  "packet_manifest_sha256": "13420a33bd9db0af2a4a1d6373b57ae774fb13eb45340808ebd634b8cd38beea",
+  "digest_result_sha256": "ec1400f3ca4d1f3d8cdbdc11f5c67cf6e30794e6eaa3a5d12da8ad89dc8849ff",
+  "pattern_result_sha256": "31b7ad747075f36c2b0e4d8fe04f1eec629249e05ba92c98cd0ee16a77a673b6",
+  "digest_scanner_sha256": "a2cb3c124802385e0edd4e80731bfeb334b95dcd4721589a87f507208d069917",
+  "pattern_scanner_sha256": "1fde152aab28c284144b8158b7c0dc849a52dfb9cf64adc7b291cd982a1fe7ad",
+  "digest_status": {
+    "exit": 0,
+    "top_files": 30,
+    "views": 30,
+    "digest_matches": 0,
+    "candidate_counts": {},
+    "exceptions": 0
+  },
+  "pattern_status": {
+    "exit": 0,
+    "files": 30,
+    "views": 30,
+    "counts": {
+      "local_home": 0,
+      "temporary_path": 0,
+      "windows_user": 0,
+      "email": 0,
+      "credential": 0
+    }
+  },
+  "qualification": "Entire final packet including manifest scanned as it then existed. Derived 40-digest corpus and selected path/credential/email patterns are bounded; missing formats, symlinks, histories, and other values remain unproved. The digest corpus lives separately under restricted same-machine custody. No product code executed."
+}

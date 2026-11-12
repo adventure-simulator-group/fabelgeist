@@ -1,0 +1,71 @@
+--- queries 101-170 ---
+ 101 
+ 102     /// Samples the same triangle surface used by the rendered mesh and
+ 103     /// authoritative collider. Returning the triangle normal alongside the
+ 104     /// height keeps terrain IK from fitting a foot to a different, bilinear
+ 105     /// surface than the one visible beneath it.
+ 106     pub(super) fn surface_at_stride(
+ 107         &self,
+ 108         point: ScenePlanPoint,
+ 109         stride: usize,
+ 110     ) -> Option<SurfaceHit> {
+ 111         if let TerrainGeometry::Owned(surface) = &self.geometry {
+ 112             return surface.highest_surface_at(point);
+ 113         }
+ 114         if self.scale <= 0.0 || self.grid_width() < 2 || self.grid_depth() < 2 {
+ 115             return None;
+ 116         }
+ 117         // The sampled grid is centered in scene-local east/north metres.
+ 118         let pos = point.metres() + Vec2::new(self.width(), self.depth()) * 0.5;
+ 119         let grid = pos / self.scale;
+ 120         if grid.x < 0.0
+ 121             || grid.y < 0.0
+ 122             || grid.x > (self.grid_width() - 1) as f32
+ 123             || grid.y > (self.grid_depth() - 1) as f32
+ 124         {
+ 125             return None;
+ 126         }
+ 127         // The final vertex has no cell to its right/below. Sample its adjacent
+ 128         // cell with a coordinate of one so edges remain well-defined.
+ 129         let stride = stride.max(1);
+ 130         let last_cell_x = ((self.grid_width() - 2) / stride) * stride;
+ 131         let last_cell_y = ((self.grid_depth() - 2) / stride) * stride;
+ 132         let min_x = ((grid.x / stride as f32).floor() as usize * stride).min(last_cell_x);
+ 133         let min_y = ((grid.y / stride as f32).floor() as usize * stride).min(last_cell_y);
+ 134         let max_x = (min_x + stride).min(self.grid_width() - 1);
+ 135         let max_y = (min_y + stride).min(self.grid_depth() - 1);
+ 136         let cell_scale_x = (max_x - min_x) as f32 * self.scale;
+ 137         let cell_scale_z = (max_y - min_y) as f32 * self.scale;
+ 138         let fraction = Vec2::new(
+ 139             (grid.x - min_x as f32) / (max_x - min_x) as f32,
+ 140             (grid.y - min_y as f32) / (max_y - min_y) as f32,
+ 141         );
+ 142 
+ 143         let x0y0 = *self.heightmap.get(min_x + min_y * self.width)?;
+ 144         let x1y0 = *self.heightmap.get(max_x + min_y * self.width)?;
+ 145         let x0y1 = *self.heightmap.get(min_x + max_y * self.width)?;
+ 146         let x1y1 = *self.heightmap.get(max_x + max_y * self.width)?;
+ 147 
+ 148         let (height, tangent_x, tangent_z) = if fraction.x + fraction.y <= 1.0 {
+ 149             // Matches [x0y0, x0y1, x1y0] in `mesh_components_with_stride` and
+ 150             // Avian's default heightfield subdivision.
+ 151             (
+ 152                 x0y0 + (x1y0 - x0y0) * fraction.x + (x0y1 - x0y0) * fraction.y,
+ 153                 Vec3::new(cell_scale_x, x1y0 - x0y0, 0.0),
+ 154                 Vec3::new(0.0, x0y1 - x0y0, cell_scale_z),
+ 155             )
+ 156         } else {
+ 157             // Matches [x1y0, x0y1, x1y1].
+ 158             (
+ 159                 x1y1 + (x0y1 - x1y1) * (1.0 - fraction.x) + (x1y0 - x1y1) * (1.0 - fraction.y),
+ 160                 Vec3::new(cell_scale_x, x1y1 - x0y1, 0.0),
+ 161                 Vec3::new(0.0, x1y1 - x1y0, cell_scale_z),
+ 162             )
+ 163         };
+ 164         let normal = tangent_z.cross(tangent_x);
+ 165         SurfaceHit::from_geometry(height, normal)
+ 166     }
+ 167 }
+ 168 
+ 169 #[cfg(test)]
+ 170 mod tests;

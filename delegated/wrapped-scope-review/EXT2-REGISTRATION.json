@@ -1,0 +1,27 @@
+{
+  "schema": "726-wrapped-scope-extension-registration-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T13:21:13.956347+00:00",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "prior_extension_sha256": "b502e64c73cfae75ee4d63441c97519afc7610b1c42e4b457cf1ea70bfff4087",
+  "rows": [
+    {
+      "source_file": "source/design.rs",
+      "git_path": "crates/fabelgeist-armor/src/design.rs",
+      "registered_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "line_count": 183,
+      "git_blob": "75c0a250abd9e5fc35f81acaafea283d06393658",
+      "sha256": "86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "bytes": 6116,
+      "parent_tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+      "parent_chain": "EXT-REGISTRATION.json#/rows/1/membership_chain through the src tree",
+      "copy_origin": "recovered/selected-revision-registry-sources/objects.tar.gz member 86dac554a42b48cf1547e5656337fb718b4a4fc7e231a30009ce00ff7207dd00",
+      "qualification": "Archive selected historical revision differs, but byte identity is proven against the 95e commit-rooted current tree before credit."
+    }
+  ]
+}

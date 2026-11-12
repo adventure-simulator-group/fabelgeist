@@ -1,0 +1,89 @@
+{
+  "schema": "726-13r-independent-prospective-registration-v1",
+  "reader": "/root/verifier_scope",
+  "registered_utc": "2026-11-12T13:28:10.553706+00:00",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "historical_publication_revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+  "entries": [
+    {
+      "tag": "reader",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-fbx/src/lib.rs",
+      "git_blob": "9519876da12887b9c37db2258f77a873a5c1bd90",
+      "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+      "bytes": 18066,
+      "scope": [
+        [
+          210,
+          250
+        ],
+        [
+          405,
+          500
+        ]
+      ],
+      "scope_kind": "source",
+      "eof": 548,
+      "capture": "sources/reader.rs"
+    },
+    {
+      "tag": "encoding",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "git_blob": "a935d23dfa13b14aca9d61e508f0126235fc279a",
+      "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+      "bytes": 830,
+      "scope": [
+        [
+          1,
+          24
+        ]
+      ],
+      "scope_kind": "source",
+      "eof": 24,
+      "capture": "sources/encoding.rs"
+    },
+    {
+      "tag": "queue059",
+      "revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "path": "baseline-059/queue.json",
+      "git_blob": "9c3f95edc541aa4ffe187e13bebd6745c921d5d5",
+      "sha256": "3695264e6d4531a1137f0c3232e0d5163d941c49849cb4bddef31cd8403fd173",
+      "bytes": 21631815,
+      "scope": [
+        "/entries/152",
+        "/entries/153",
+        "/entries/2942"
+      ],
+      "scope_kind": "history",
+      "input_location": "published Git checkpoint path; exact blob checked and available from specified commit"
+    },
+    {
+      "tag": "prior95e",
+      "revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "path": "ASSESSMENT-FBX-95E.json",
+      "git_blob": "f988d3b987a02cf1d539b64b5be67d444a5d9d2f",
+      "sha256": "98e9284a01e4fbc093760368c0cd991d1b26ada99acfb5d29b482028511f84f4",
+      "bytes": 64956,
+      "scope": [
+        "/"
+      ],
+      "scope_kind": "history",
+      "input_location": "published Git checkpoint path; exact blob checked and available from specified commit"
+    },
+    {
+      "tag": "review39",
+      "revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "path": "delegated/checkpoint39-stage/bundles/2626-2628/report.json",
+      "git_blob": "4e05cb169376c43d3dc1622a6c738249b6b1ce50",
+      "sha256": "1d785921eaac4490cc592d9150d22b57270373d5dcde89ded3b7e2dcde57a023",
+      "bytes": 29107,
+      "scope": [
+        "/"
+      ],
+      "scope_kind": "history",
+      "input_location": "published Git checkpoint path; exact blob checked and available from specified commit"
+    }
+  ],
+  "qualification": "Full source bytes were copied and hashed before registration but not displayed; only subsequently displayed registered windows count as this reader source inspection. Historical selectors are separate, and their revisions/attributions remain unchanged. No product execution."
+}

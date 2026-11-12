@@ -1,0 +1,101 @@
+{
+  "schema": "726-num-enum-2626-2628-reconciliation-v1",
+  "author": "/root/mhr_character",
+  "recorded_utc": "2026-11-12T07:45:03.883324+00:00",
+  "scope": "Bounded independent reconciliation of previously published checkpoint 18 roles 2626–2628, not a full-source or whole-lens review. Source and evidence verification only.",
+  "authority": {
+    "project_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "old_recorded_pr_working_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "qualification": "Pr-working recorded unrelated dirty changes; per-file equality proves only selected files. Original roles are crates.io native package objects, not Git project revisions; f82 is evidence transport."
+  },
+  "independent_personal_reads": "registration.json and read-receipt.json; native/project/lock windows separate with unread complements. Historical commit equality is proof only, not an additional historical personal display.",
+  "package_identity": {
+    "native_derive": "num_enum_derive-0.7.6.crate SHA-256 680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8",
+    "native_runtime": "num_enum-0.7.6.crate SHA-256 5d0bca838442ec211fa11de3a8b0e0e8f3a4522575b5c4c06ed722e005036f26",
+    "lock_views": "6533 Cargo.lock 7674–7682, 7684–7694; 95e Cargo.lock 7385–7393, 7395–7405. Exact body and Git membership retained. TOML evidence inspection and archive extraction are not full lock reads or Cargo resolution.",
+    "features": "FBX declares default-features=false; runtime manifest forwards std and complex-expressions to derive, with derive default std and optional proc-macro-crate. Feature unification, configuration, build and actual crate-path branch are not established."
+  },
+  "current_assessment": {
+    "classification": "Selected adapter supports previous scoped no-new-string-finding, not a new defect or a closed lens.",
+    "trace": [
+      {
+        "source": "sources/fbx-reader",
+        "path": "crates/fabelgeist-fbx/src/lib.rs",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+        "lines": [
+          222,
+          243
+        ],
+        "reader": "/root/mhr_character"
+      },
+      {
+        "source": "sources/fbx-reader",
+        "path": "crates/fabelgeist-fbx/src/lib.rs",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+        "lines": [
+          463,
+          469
+        ],
+        "reader": "/root/mhr_character"
+      },
+      {
+        "source": "sources/fbx-array-encoding",
+        "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+        "lines": [
+          6,
+          24
+        ],
+        "reader": "/root/mhr_character"
+      },
+      {
+        "source": "sources/2628-enum_attributes.rs",
+        "path": "num_enum_derive-0.7.6/src/enum_attributes.rs",
+        "revision_or_package": "num_enum_derive/num_enum 0.7.6, see package member",
+        "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+        "lines": [
+          112,
+          156
+        ],
+        "reader": "/root/mhr_character"
+      },
+      {
+        "source": "sources/2627-parsing.rs",
+        "path": "num_enum_derive-0.7.6/src/parsing.rs",
+        "revision_or_package": "num_enum_derive/num_enum 0.7.6, see package member",
+        "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+        "lines": [
+          520,
+          532
+        ],
+        "reader": "/root/mhr_character"
+      },
+      {
+        "source": "sources/2626-lib.rs",
+        "path": "num_enum_derive-0.7.6/src/lib.rs",
+        "revision_or_package": "num_enum_derive/num_enum 0.7.6, see package member",
+        "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+        "lines": [
+          201,
+          255
+        ],
+        "reader": "/root/mhr_character"
+      },
+      {
+        "source": "sources/fbx-reader",
+        "path": "crates/fabelgeist-fbx/src/lib.rs",
+        "revision_or_package": "95e63628f9d70b8dd6e6fede64334696c6995009",
+        "sha256": "13089c99686834233a21ee02e1277c7cbbd80c142a1d7caddb8d2792e43270cf",
+        "lines": [
+          424,
+          448
+        ],
+        "reader": "/root/mhr_character"
+      }
+    ],
+    "detail": "try_from is called on the wire word before compressed length and bytes; the two declared cases are uncompressed and zlib. The macro generator passes the unmatched number to the declared constructor. The error struct declares reported_code:u32 and derives From, but its derive_more expansion and resulting runtime error are not established by this read. Unsupported codes are outside this reader’s selected variants, not proved invalid under the external FBX format."
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "schema": "726-13r-independent-read-receipt-v1",
+  "reader": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T13:32:17.118617+00:00",
+  "registration_sha256": "1dd69e7ee7eaf6565109f5cfb011ce75120352ede1c1851d8a005b6813829b7a",
+  "extension_registration_sha256": "5a5e382da88b7d740555de972bce96977f97d052a357c88801b73d9113ebb5f1",
+  "displays": {
+    "DISPLAY-A.txt": {
+      "sha256": "79a24f62471471f2097f534548c81b36589d563e82dc45d3167f0eef065d692d",
+      "bytes": 3394
+    },
+    "DISPLAY-B.txt": {
+      "sha256": "7f0ea94ff16852ee981b7bac896f416d11b9379eb16f16716224a4e2d6a38bea",
+      "bytes": 4146
+    },
+    "HISTORY-DISPLAY-A.txt": {
+      "sha256": "94b728cbb76a63133ae593f920f6b07625bb4f52c05fa4a97e8c1227acff4b05",
+      "bytes": 3146
+    },
+    "HISTORY-DISPLAY-B.txt": {
+      "sha256": "11968f02e194ea6934e732daff57185d607aa8a9d1be5971dab18ac50865d6e2",
+      "bytes": 19143
+    },
+    "HISTORY-DISPLAY-B2.txt": {
+      "sha256": "00ed1a75eba6ffc40cecf0762a065d4f6d3c9d01f49a769409f6b2399d009905",
+      "bytes": 4678
+    },
+    "HISTORY-DISPLAY-C.txt": {
+      "sha256": "d01054cbf251fc0279ed9ea626c9b77e34a39a9212a3db9bf55cbccf32221341",
+      "bytes": 5053
+    },
+    "HISTORY-DISPLAY-D.txt": {
+      "sha256": "d10277adcaf96db250364cb03a32c4a4afa829d0ec376fcc579ff7d94ad0cb75",
+      "bytes": 5362
+    },
+    "HISTORY-DISPLAY-E.txt": {
+      "sha256": "435b912476e6f17c70a7da17e50f53f98238f9e2b691f53a42cf8883f5e9f0ad",
+      "bytes": 8887
+    },
+    "HISTORY-DISPLAY-F.txt": {
+      "sha256": "0a0e671da1d0c2d3f7c28f7e5bc51f20cb3b5c127e0729ffb9442d31e84bcce8",
+      "bytes": 2541
+    }
+  },
+  "personal_current_source_read": [
+    {
+      "path": "crates/fabelgeist-fbx/src/lib.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          210,
+          250
+        ],
+        [
+          405,
+          500
+        ]
+      ],
+      "unread_ranges": [
+        [
+          1,
+          209
+        ],
+        [
+          251,
+          404
+        ],
+        [
+          501,
+          548
+        ]
+      ],
+      "eof": 548,
+      "display_files": [
+        "DISPLAY-A.txt",
+        "DISPLAY-B.txt"
+      ]
+    },
+    {
+      "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "displayed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "unread_ranges": [],
+      "eof": 24,
+      "display_files": [
+        "DISPLAY-B.txt"
+      ]
+    }
+  ],
+  "historical_display_scope": [
+    {
+      "source": "baseline-059/queue.json at publication commit 8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "selection": "Selected fields of entries 152 and 153",
+      "display": "HISTORY-DISPLAY-A.txt"
+    },
+    {
+      "source": "baseline-059/queue.json at publication commit 8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "selection": "Entry 2942 disposition, selected contract fields, and attribution summaries only",
+      "display": "HISTORY-DISPLAY-B2.txt"
+    },
+    {
+      "source": "checkpoint39-stage report at publication commit 8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "selection": "Selected authority, reads, assessment, relationships, attribution, recovery qualifications and open questions",
+      "display": [
+        "HISTORY-DISPLAY-C.txt",
+        "HISTORY-DISPLAY-D.txt"
+      ]
+    },
+    {
+      "source": "ASSESSMENT-FBX-95E.json at publication commit 8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "selection": "Selected observation, relationship, scope and status fields",
+      "display": "HISTORY-DISPLAY-E.txt"
+    },
+    {
+      "source": "RECONCILIATION-059.json and BASELINE-95E-20261110.json at publication commit 8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+      "selection": "Three registered queue entries and selected matching ledger fields",
+      "display": "HISTORY-DISPLAY-F.txt"
+    }
+  ],
+  "partial_display_qualification": "The first entry-2942 historical display was saved as HISTORY-DISPLAY-B.txt but its tool output was truncated; the complete saved file is not credited as fully displayed. HISTORY-DISPLAY-B2.txt was subsequently displayed without truncation and contains only explicitly selected fields. An earlier metadata-only listing of entry keys also truncated; no source-read credit is claimed for either truncated output. Capture/hashing of complete source or historical blobs is not personal read credit.",
+  "reviewed_coordinator_draft": {
+    "sha256": "65062f4d6cdcc2fccd94726a6c49fbfbcd6ffd94ed6672297abb8c0cc9db9fab",
+    "bytes": 6068,
+    "capture": "REVIEWED-COORDINATOR-DRAFT.json"
+  },
+  "qualification": "Registered windows are this reviewer’s own personal source reads; the historical q2942 and checkpoint39 reviewers retain their own attribution. No native codec, macro, generated expansion, fixture, source test, build or product runtime ran. Receipts do not claim whole parser or whole lens coverage."
+}

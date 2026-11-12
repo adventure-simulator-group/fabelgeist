@@ -1,0 +1,164 @@
+{
+  "schema": "726-wrapped-scope-reconciliation-v1",
+  "author": "/root/wrapped_scope",
+  "created_utc": "2026-11-12T13:23:37.709412+00:00",
+  "review_status": "New analysis not independently semantically reviewed; coordinator reconciliation pending.",
+  "baseline": {
+    "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+    "qualification": "Pinned working audit baseline, not a claim of complete audit or timeless main. Raw commit/tree objects reside in the previously published 2625 bundle. Historical final checkpoint 3821 queue and ledger remain missing."
+  },
+  "scope": "Bounded independently registered source reads about historical 059 q2943, current local/aggregate error path, selected producers and a conditional display-text concern. No lens, queue, or unique-defect count closure.",
+  "historical_relationships": [
+    {
+      "identity": "059 q2943 L12-CLOSURE-WRAPPED-TASSET-VALIDATOR-CLOSING-SCOPE",
+      "source": "historical/059-reconstructed-selection.json in the 2625 published bundle",
+      "classification": "Reconstructed selection of recovered 059 queue state, not an original standalone record and not 3821.",
+      "attribution": "/root/lens12_frontier prospectively read role 2625 lines 1–54 under registration 691 and lines 55–56 under 696; historical root adopted the connected view. Historical current_source_reconciled=false and accepted unique-count change=0 remain historical facts.",
+      "disposition": "Exact frozen validator body and delimiters had a typed error and no String-valued error/API; that is not a finding about later GenerateError display strings, other lines, current source or all lenses."
+    },
+    {
+      "identity": "774 RIG-ADMISSION03-REGISTER-074 and RIG-ADMISSION03-ADDITIONAL-074",
+      "classification": "Exact JSONL record-line extracts at the historical pr-working snapshot, not present-source credit.",
+      "attribution": "774 rig already noted local ranges, zero as unsplit and default break 6 requiring a compatible enclosing count; lines 55 onward excluded."
+    },
+    {
+      "identity": "2625 checkpoint39 report",
+      "attribution": "/root/hair_ops separately re-read the 6533, transported old, and current 95e bodies and bounded supports; their assessment already linked q2943 and producer behavior, but left broader text mapping open. This agent independently registered and displayed its own current windows."
+    },
+    {
+      "identity": "role 2177 error.rs",
+      "attribution": "ASSESSMENT-L01-HISTORICAL-2172-2178 records rig and native prior historical role scopes and a separately registered current read; those attributions are retained and do not establish that they identified this message concern."
+    }
+  ],
+  "findings": [
+    {
+      "id": "q2943-bounded-current-corroboration",
+      "status": "bounded current corroboration; not full queue or lens reconciliation",
+      "source": [
+        "crates/fabelgeist-armor/src/wrapped_tassets.rs:19-21,24-56",
+        "crates/fabelgeist-armor/src/garment_plate_design.rs:70-75,130-136",
+        "crates/fabelgeist-armor/src/garment_armor.rs:90-120",
+        "crates/fabelgeist-armor/src/error.rs:8-24",
+        "crates/fabelgeist-armor/src/design.rs:157-168"
+      ],
+      "trace": "The local validator returns Result<(), DesignError> and ParametricParameters for its listed bounds, including only an upper bound 11 on section_break. The field documents zero as unsplit. Shape validation first calls the local validator and then requires Tassets kind; a mismatch returns the same typed design error. Parent validation exposes Result<(), GenerateError>, uses ? for shape validation and .into() on the same design error if break >= lame_count. GenerateError declares Design(#[from] DesignError); DesignError::ParametricParameters has a generic armor-shape error annotation. No string-valued parameter or return exists in the exact local validator body.",
+      "limits": "The ordering of shape, fluting, parent bounds and break checks matters; this read does not prove general deserialization admission, all call sites, native outcomes, or a player-visible error."
+    },
+    {
+      "id": "selected-producers-and-legitimate-zero",
+      "status": "bounded source observation, no newly asserted defect",
+      "source": [
+        "crates/fabelgeist-armor/src/garment_plate_design.rs:38-53",
+        "crates/fabelgeist-armor/src/garment_armor.rs:53-87,98-120",
+        "crates/adventuresim-character-creator/src/garment_armor_controls.rs:8-10,44-52,57-82",
+        "crates/adventuresim-character-creator/src/wrapped_tasset_controls.rs:5-8,37-40",
+        "crates/adventuresim-character-creator/src/runtime_equipment/warmup.rs:64-79",
+        "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs:29-40,53-57,67-72"
+      ],
+      "trace": "Ordinary Tassets new() creates four lames with ordinary nonwrapped Tassets shape. Independently replacing its shape with default WrappedTassets preserves default break 6; local controls and other parent defaults pass the shown checks, then 6 >= 4 fails the parent break/count check. This is static reasoning about the publicly representable aggregate, not an executed fixture or an established selected-user interaction. The selected editor calls tasset_construction then the wrapped controls, which cap the break at count.saturating_sub(1); the editor label explicitly offers zero as unsplit. Warmup sets eight lames before choosing default wrapped break 6. The shown GPU entry validates the parent before course division; nothing here proves its native operation."
+    },
+    {
+      "id": "candidate-armor-design-error-bracer-prefix-95e",
+      "status": "conditional diagnostic candidate for central deduplication and review; no accepted unique count",
+      "source": [
+        "crates/fabelgeist-armor/src/error.rs:8-24",
+        "crates/fabelgeist-armor/src/design.rs:157-168",
+        "crates/fabelgeist-armor/src/garment_armor.rs:90-120"
+      ],
+      "trace": "GenerateError declares Design(#[from] DesignError) with the source annotation \"invalid bracer design: {0}\". The public garment validator uses ? and .into() to return GenerateError for invalid wrapped-tasset designs, including the conceptual break-6/count-4 aggregate above. The annotation names a bracer for a shared design-error variant used in a broader armor context, which warrants checking whether non-bracer errors flow to this annotation and whether it produces misleading output. The underlying ParametricParameters annotation uses generic armor-shape wording. This concern is outside the historical local-validator-only conclusion.",
+      "limits": "The thiserror derive implementation and generated conversion/formatting were not inspected or executed; the annotation alone is not proof of an actual formatted message. Actual callers and user-facing presentation remain open. No product, UI, macro, or runtime execution was performed. Duplicate relationship to other records remains open. Existing 059/current baseline text searches for the exact phrase and selected bracer-diagnostic terms did not find a match but are not exhaustive semantic deduplication.",
+      "proposed_repair_dependency": "For later authorized repair planning only, trace the derive implementation and actual diagnostic consumers, then consider whether the annotation should use armor-generic wording or correctly owned context. Deduplicate existing diagnostics first. Preserve zero/unsplit, valid ordinary and wrapped shapes, validator ordering and typed error propagation."
+    }
+  ],
+  "open_questions": [
+    "Which current supported callers actually format GenerateError::Design and where is its text presented?",
+    "Are other armor-error diagnostic records already the same repair owner or related but distinct?",
+    "What is the full set of producers and raw/deserialization routes, and which are contractually supported?",
+    "Do all other lines, other modes, native representations and the thirteen independent lens populations satisfy their own obligations?",
+    "Checkpoint 3821 final ledger and queue remain unavailable; 059, 774, reconstructed selection containers and current 95e assessment must not be promoted into 3821."
+  ],
+  "evidence": {
+    "registration": "REGISTRATION.json",
+    "extension_registrations": [
+      "EXT-REGISTRATION.json",
+      "EXT2-REGISTRATION.json"
+    ],
+    "receipt": "READ-RECEIPT.json",
+    "historical_links": [
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/REPORT.json",
+        "sha256": "b4980bb0ee5dc1590c1e4756aaa6b40cf817157140e78bb7eea7cd818fc50517",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/INDEX.json",
+        "sha256": "7b47ff7d997c1b265964964c582339c05798e0479bb815b521ef811fc6b4d44e",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/059-00.json",
+        "sha256": "75a5786b37308de58ed000064cb93a6e210d091cb213533198c94d6b98654074",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/059-03.json",
+        "sha256": "a4deaf1e08283d7b7043963ab69fe46988722d0d9b4b6d10742ce5f79f16e79f",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/059-04.json",
+        "sha256": "bb507494987176cf1f9e662282585f12650a05bada494a763b65a69cd7c5a232",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/059-09.json",
+        "sha256": "9378ba65907aa4f84bb6986935f8930042922e1c66360f1cf5f19ec6d25ee065",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/059-10.json",
+        "sha256": "9366e1b52277d46b6934bb6a69832108646f51655eb3e248a5c80af3c7eeabc7",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/059-reconstructed-selection.json",
+        "sha256": "6d356f49c6628b252699c150b770d5ed89db1f008ea225b91c68836d847b4f23",
+        "kind": "reconstructed 059 selection, not original standalone record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/774-register-074.jsonl",
+        "sha256": "57ef3c761c3e7e8b220423ef5e917d7ce625cadfba46275dcb7ccc7db599b4ac",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/774-additional-074.jsonl",
+        "sha256": "4b0cea5d82832f0553aeffeced19765e44491bd9678e2ba8b6e925930bc64a81",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/prior-report.json",
+        "sha256": "07e9fff735b5f365e4cc287f489f2f50b25de7759f3460bba697b08e8ba0a510",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "delegated/checkpoint39-stage/bundles/2625/historical/prior-receipt.json",
+        "sha256": "ffb4e3fa3eef6e3eb86e32e30cd0150e148dcab6a5e151ed49d03bf9118a3fe0",
+        "kind": "exact prior published record"
+      },
+      {
+        "path": "ASSESSMENT-L01-HISTORICAL-2172-2178.json",
+        "sha256": "4d52b2921d2d83d14c39f48ac1cbf7e5381a92c96f7409d4231f8ca01c0e3c48",
+        "kind": "prior current/historical assessment, author not identified in document"
+      }
+    ],
+    "source_proofs": "The verifier checks each copied source Git blob and the commit-rooted tree path against exact raw objects in delegated/checkpoint39-stage/bundles/2625/git-objects. The error and design source files came from the 6533 registry archive but match blobs in the proven 95e tree.",
+    "privacy": "A bounded path-digest and pattern scan will be recorded separately; it is not a proof of complete privacy."
+  },
+  "limitations": "Source inspection and evidence verification only. No product builds, tests, fixtures, macro expansion, shader execution, runtime probes, repairs, cleanup or publication edits.",
+  "revision_history": {
+    "prior_draft": "REPORT-DRAFT-01.json",
+    "prior_sha256": "9d4199527d9803f024b4bc3b94b5fb408a88e317318cba49c003794ad2ecfe56",
+    "revision_utc": "2026-11-12T13:24:55.555955+00:00",
+    "reason": "Coordinator requested distinguishing observed thiserror annotations from uninspected derive implementation; no macro expansion or formatting was run."
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schema": "726-capture-clock-q2300-local-replay-v1",
+  "packet_manifest_sha256": "1f06fee68757c65ba77a06d80203784d1085647c1f0ba1878961aaa7bf9392d4",
+  "private_capture_manifest_sha256": "0e6a47bfca82dca91be9d381cf6ef13b3897f3b98570ce9083eefbfa901291dd",
+  "transcript_sha256": "81fd00f38614fcbf6f10ddd52cd520ce769a7c15058d1a8d5eab34ad80d0c77b",
+  "transcript_bytes": 249,
+  "procedure": "The coordinator ran the delegated evidence verifier with the local publication Git repository and the separately retained restricted capture supplied. The verifier checked exact historical record hashes, current and historical Git source identity, the selected original queue row, committed ledger and private capture members.",
+  "qualification": "The short transcript does not embed the input checkout or private capture identity; the coordinator observed them separately. Inputs and replay are on the same machine. Public checking without the private capture cannot establish its contents, independent custody, product behavior or full privacy.",
+  "product_validation": "not performed"
+}

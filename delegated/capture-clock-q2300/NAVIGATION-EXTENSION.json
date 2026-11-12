@@ -1,0 +1,60 @@
+{
+  "schema": "726-q2300-navigation-extension-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:09:19.087559+00:00",
+  "entries": [
+    {
+      "tag": "viewer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "bytes": 6843,
+      "eof": 179,
+      "capture": "sources/viewer.rs"
+    },
+    {
+      "tag": "main",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "bytes": 4516,
+      "eof": 132,
+      "capture": "sources/main.rs"
+    },
+    {
+      "tag": "tick",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "git_blob": "4b20ed6b41bb094a4223bbf1c042cdee6d4811c8",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "bytes": 3274,
+      "eof": 110,
+      "capture": "sources/tick.rs"
+    },
+    {
+      "tag": "pose_config",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "git_blob": "9fbbfc135b598fdcf58aab78001cc46f152ae0ef",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "bytes": 2138,
+      "eof": 46,
+      "capture": "sources/pose_config.rs"
+    }
+  ],
+  "planned_tokens": [
+    "AnimationSampleRate",
+    "capture_fixed_clock",
+    "frame_clock",
+    "sample_hz",
+    "sample_rate",
+    "Time::<",
+    "Time<",
+    "capture_fps",
+    "capture_rate",
+    "CaptureSchedule"
+  ],
+  "qualification": "Locator-only: output line number and matched token; personal source windows registered separately. Earlier search planned repository-wide but actually searched only tactical-client/src and tactical-core/src; no global-search completeness claim."
+}

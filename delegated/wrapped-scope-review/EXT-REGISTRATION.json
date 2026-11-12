@@ -1,0 +1,59 @@
+{
+  "schema": "726-wrapped-scope-extension-registration-v1",
+  "agent": "/root/wrapped_scope",
+  "registered_utc": "2026-11-12T13:20:30.565111+00:00",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "prior_registration_sha256": "c735459054e82638d1e40f5682a5ae7e246f28ae8d6a9108f664e92f699cff4f",
+  "rows": [
+    {
+      "source_file": "source/shape.rs",
+      "git_path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "registered_ranges": [
+        [
+          91,
+          137
+        ]
+      ],
+      "line_count": 137
+    },
+    {
+      "source_file": "source/error.rs",
+      "git_path": "crates/fabelgeist-armor/src/error.rs",
+      "registered_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "line_count": 40,
+      "git_blob": "4f83352df678db21eb40ee6558e3a3b40714f029",
+      "sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "bytes": 1254,
+      "membership_chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "child": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-armor",
+          "child": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "child": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "error.rs",
+          "child": "4f83352df678db21eb40ee6558e3a3b40714f029"
+        }
+      ],
+      "commit_and_trees": "delegated/checkpoint39-stage/bundles/2625/git-objects/",
+      "copy_origin": "recovered/selected-revision-registry-sources/objects.tar.gz member 1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "qualification": "Archive selected historical revision differs, but byte identity is proven against the 95e commit-rooted current tree before credit."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "726-wrapped-scope-scan-self-pattern-qualification-v1",
+  "recorded_utc": "2026-11-12T13:27:31.129546+00:00",
+  "prior_packet_manifest_sha256": "e70d6931be26982fff7ad67318d58a45a50b4407015fc5171aa73a38aa845a0c",
+  "prior_digest_result_sha256": "af72a455740b3b034663f4f69689a30ab65dfe9004cb0d08c003464d02c617c2",
+  "prior_pattern_scanner_sha256": "3d561f8853e5162c5e6050f0710cf0238ca950523a417b8e4f541d5b9b7e520d",
+  "new_pattern_scanner_sha256": "1fde152aab28c284144b8158b7c0dc849a52dfb9cf64adc7b291cd982a1fe7ad",
+  "prior_result": {
+    "forbidden_digest_total": 0,
+    "other_candidate_locations": [
+      {
+        "location": "scan-patterns.py",
+        "kind": "unix-temp",
+        "count": 1
+      }
+    ],
+    "exceptions": 0
+  },
+  "classification": "The single unix-temp candidate was a literal regular-expression prefix in the newly authored scanner program, not an observed local path. The same byte pattern is now assembled from two adjacent byte literals. Original packet and initial scan outputs are preserved separately under restricted same-machine custody.",
+  "scope": "This classification does not clear other files, old revisions or unsearched formats."
+}

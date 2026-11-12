@@ -1,0 +1,164 @@
+--- procedural_clock 1-36 ---
+   1 //! Presentation clock shared by procedural owners and deterministic tools.
+   2 
+   3 use adventuresim_tactical_core::animation::AnimationElapsed;
+   4 pub(in crate::animation) use adventuresim_tactical_core::animation::AnimationSampleTick;
+   5 use bevy::prelude::*;
+   6 
+   7 #[derive(Debug, Clone, Copy)]
+   8 pub(crate) struct FixedAnimationStep {
+   9     pub(crate) tick: AnimationSampleTick,
+  10     pub(crate) delta_seconds: AnimationElapsed,
+  11 }
+  12 
+  13 /// Optional deterministic clock for tools that render the same simulation
+  14 /// tick more than once. Gameplay leaves the override unset and advances from
+  15 /// Bevy's render delta.
+  16 #[derive(Resource, Debug, Clone, Copy, Default)]
+  17 pub(crate) struct ProceduralAnimationClock {
+  18     pub(crate) fixed_tick: Option<FixedAnimationStep>,
+  19 }
+  20 
+  21 impl ProceduralAnimationClock {
+  22     pub(crate) fn set_fixed_step(
+  23         &mut self,
+  24         tick: AnimationSampleTick,
+  25         delta_seconds: AnimationElapsed,
+  26     ) {
+  27         self.fixed_tick = Some(FixedAnimationStep {
+  28             tick,
+  29             delta_seconds,
+  30         });
+  31     }
+  32 
+  33     pub(crate) fn fixed_step(&self) -> Option<FixedAnimationStep> {
+  34         self.fixed_tick
+  35     }
+  36 }
+--- subject_motion 1-126 ---
+   1 //! Capture controller admission and ordered post-projection state updates.
+   2 
+   3 use super::*;
+   4 use adventuresim_tactical_core::animation::AnimationValueResult;
+   5 
+   6 pub(super) struct CaptureMotion {
+   7     pub(super) orientation: Quat,
+   8     pub(super) world_velocity: Vec3,
+   9     pub(super) contact: GroundContact,
+  10     pub(super) elapsed: AnimationElapsed,
+  11 }
+  12 
+  13 /// Root facing follows the fixture action only outside authored posture ownership.
+  14 pub(super) fn advance_capture_facing(
+  15     skeleton: &SkeletonState,
+  16     transform: &mut Transform,
+  17     orientation: Quat,
+  18     world_velocity: Vec3,
+  19     action: SkeletonAction,
+  20     elapsed: AnimationElapsed,
+  21 ) -> AnimationValueResult<()> {
+  22     if !skeleton.is_posture_transitioning() {
+  23         transform.rotation = advance_body_facing(
+  24             transform.rotation,
+  25             orientation,
+  26             world_velocity,
+  27             action,
+  28             skeleton.weapon_guard(),
+  29             elapsed,
+  30         )?;
+  31     }
+  32     Ok(())
+  33 }
+  34 
+  35 pub(super) fn project_capture_motion(
+  36     skeleton: &mut SkeletonState,
+  37     transform: &mut Transform,
+  38     frame: &PlannedFrame,
+  39     motion: CaptureMotion,
+  40     sequence: &CaptureSequence,
+  41 ) -> AnimationValueResult<()> {
+  42     let jump_charging = frame.scenario.is(ScenarioId::JumpChargeAnticipation)
+  43         && (4..48).contains(&frame.scenario_frame);
+  44     let tick = sequence.simulation_tick;
+  45     let input = SkeletonLocomotionInput::from_controller(
+  46         motion.orientation,
+  47         motion.world_velocity,
+  48         motion.contact,
+  49         motion.elapsed,
+  50         tick,
+  51     )?;
+  52     project_skeleton_locomotion_with_body_rotation(skeleton, input, transform.rotation, None)?;
+  53     skeleton.set_jump_anticipation(JumpAnticipation::from(jump_charging));
+  54     if sequence.warmup_frames == 0 && frame.scenario.transition().is_some() {
+  55         let previous_transition = skeleton.posture_transition();
+  56         skeleton.advance_posture_transition(tick)?;
+  57         transform.rotation = (transform.rotation
+  58             * dive_landing_facing_delta(previous_transition, skeleton.posture_transition())?
+  59             * supine_get_up_counter_yaw_delta(previous_transition, skeleton.posture_transition()))
+  60         .normalize();
+  61     }
+  62     Ok(())
+  63 }
+  64 
+  65 /// Admit the authored fixture action at its existing post-root-motion point.
+  66 pub(super) fn begin_capture_action(
+  67     skeleton: &mut SkeletonState,
+  68     frame: &PlannedFrame,
+  69     tick: AnimationSampleTick,
+  70     attack_start_frame: Option<usize>,
+  71 ) {
+  72     let quickstep = is_quickstep_scenario(&frame.scenario);
+  73     let action_starts_now = match frame.action {
+  74         SkeletonAction::Attack => attack_start_frame == Some(frame.scenario_frame),
+  75         SkeletonAction::Dodge if quickstep => frame.scenario_frame == 0,
+  76         SkeletonAction::Dodge | SkeletonAction::Block => skeleton.action_kind() != frame.action,
+  77         SkeletonAction::None => false,
+  78     };
+  79     if action_starts_now {
+  80         let start = tick;
+  81         let contact = start.saturating_add(AnimationSampleSpan::from(
+  82             if frame.action == SkeletonAction::Attack {
+  83                 19u64
+  84             } else {
+  85                 64u64
+  86             },
+  87         ));
+  88         match frame.action {
+  89             SkeletonAction::Attack => {
+  90                 let attack = if frame.scenario.is(ScenarioId::AttackLiveStationarySwing) {
+  91                     AttackSpec::new(AttackAnimation::Swing)
+  92                 } else {
+  93                     AttackSpec::new(AttackAnimation::Thrust)
+  94                 };
+  95                 skeleton
+  96                     .begin_attack(attack, start, contact)
+  97                     .expect("viewer attack transition must be admitted");
+  98             }
+  99             SkeletonAction::Dodge => {
+ 100                 let spec = if quickstep {
+ 101                     DodgeSpec::quickstep(frame.local_direction)
+ 102                         .expect("quickstep scenario direction must be non-zero")
+ 103                 } else {
+ 104                     DodgeSpec::default()
+ 105                 };
+ 106                 skeleton
+ 107                     .begin_dodge(
+ 108                         spec,
+ 109                         start,
+ 110                         if quickstep {
+ 111                             start.saturating_add(quickstep_action_ticks().half())
+ 112                         } else {
+ 113                             contact
+ 114                         },
+ 115                     )
+ 116                     .expect("viewer dodge transition must be admitted");
+ 117             }
+ 118             SkeletonAction::Block => {
+ 119                 skeleton
+ 120                     .begin_block(BlockSpec::default(), start, contact)
+ 121                     .expect("viewer block transition must be admitted");
+ 122             }
+ 123             SkeletonAction::None => {}
+ 124         }
+ 125     }
+ 126 }

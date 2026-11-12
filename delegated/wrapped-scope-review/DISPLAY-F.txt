@@ -1,0 +1,96 @@
+=== design.rs 1..95 ===
+   1 | use serde::{Deserialize, Serialize};
+   2 | use thiserror::Error;
+   3 | 
+   4 | /// Fine fabric gauge; conversion to native metres happens at geometry boundaries.
+   5 | #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+   6 | pub struct Micrometers(pub u16);
+   7 | 
+   8 | impl Micrometers {
+   9 |     pub const PER_MILLIMETRE: u32 = 1_000;
+  10 |     pub fn metres(self) -> f32 {
+  11 |         f32::from(self.0) / 1_000_000.
+  12 |     }
+  13 | }
+  14 | 
+  15 | #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  16 | pub struct Millimeters(pub u16);
+  17 | 
+  18 | impl Millimeters {
+  19 |     /// Continuous signed metres without erasing the admitted authored length.
+  20 |     pub fn signed_length(self) -> fabelgeist_geometry::SignedLength {
+  21 |         fabelgeist_geometry::SignedLength::from_millimetres(self.0)
+  22 |     }
+  23 | 
+  24 |     pub fn metres(self) -> f32 {
+  25 |         f32::from(self.0) / 1_000.0
+  26 |     }
+  27 | }
+  28 | 
+  29 | #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  30 | pub struct Permille(pub u16);
+  31 | 
+  32 | impl Permille {
+  33 |     pub const ONE: Self = Self(1_000);
+  34 | 
+  35 |     pub fn unit(self) -> f32 {
+  36 |         f32::from(self.0) / 1_000.0
+  37 |     }
+  38 | }
+  39 | 
+  40 | /// A nonnegative angle stored in thousandths of a radian.
+  41 | #[derive(Clone, Copy, Debug, Default, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  42 | pub struct Milliradians(pub u16);
+  43 | impl Milliradians {
+  44 |     pub fn radians(self) -> f32 {
+  45 |         f32::from(self.0) / 1_000.0
+  46 |     }
+  47 | }
+  48 | 
+  49 | #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  50 | #[serde(deny_unknown_fields)]
+  51 | pub struct BracerDesign {
+  52 |     pub fluting: Option<crate::PlateFluting>,
+  53 |     /// Extra opening radius; the middle of the forearm remains close fitting.
+  54 |     pub elbow_flare: Millimeters,
+  55 |     pub wrist_flare: Millimeters,
+  56 |     pub center_ridge: Millimeters,
+  57 |     pub catalog_id: String,
+  58 |     /// Fraction of the canonical elbow-to-wrist forearm span.
+  59 |     pub coverage: Permille,
+  60 |     /// Gap between the distal edge and the wrist, along the same span.
+  61 |     pub wrist_offset: Permille,
+  62 |     /// Radial air/padding gap between skin and the inner metal surface.
+  63 |     pub clearance: Millimeters,
+  64 |     /// Physical distance between the inner and outer surfaces.
+  65 |     pub wall_thickness: Millimeters,
+  66 | }
+  67 | 
+  68 | impl Default for BracerDesign {
+  69 |     fn default() -> Self {
+  70 |         Self {
+  71 |             fluting: None,
+  72 |             elbow_flare: Millimeters(0),
+  73 |             wrist_flare: Millimeters(0),
+  74 |             center_ridge: Millimeters(0),
+  75 |             catalog_id: "vambrace".into(),
+  76 |             coverage: Permille(650),
+  77 |             wrist_offset: Permille(20),
+  78 |             clearance: Millimeters(12),
+  79 |             wall_thickness: Millimeters(3),
+  80 |         }
+  81 |     }
+  82 | }
+  83 | 
+  84 | impl BracerDesign {
+  85 |     pub(crate) fn columns(&self) -> Vec<f32> {
+  86 |         const BASE_SEGMENTS: usize = 32;
+  87 |         let mut columns = self.fluting.as_ref().map_or_else(
+  88 |             || {
+  89 |                 (0..=BASE_SEGMENTS)
+  90 |                     .map(|i| i as f32 / BASE_SEGMENTS as f32)
+  91 |                     .collect()
+  92 |             },
+  93 |             |fluting| fluting.columns(BASE_SEGMENTS),
+  94 |         );
+  95 |         columns.pop();

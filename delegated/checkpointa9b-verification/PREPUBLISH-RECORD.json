@@ -1,0 +1,12 @@
+{
+  "schema": "726-checkpointa9b-prepublish-verification-v1",
+  "commit": "a9b8331ae347542b1ea707b1b04eb8092735d1bd",
+  "parent": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+  "evidence_log_sha256": "628f348f34a3b5eb7d06b9dfd9529bf4e5da7c1376b54f480092e7204ae12404",
+  "evidence_log_bytes": 144215,
+  "evidence_log_lines": 1686,
+  "scope": "The coordinator ran the evidence-only driver on frozen staged files before the commit. The transcript does not embed checkout identity; staged-byte equality and commit identity were separately observed.",
+  "privacy": "The bounded staged-input digest scan checked 289 files and 649 views with no known digest, selected path, credential or email candidates and no exceptions. The separate pattern pass checked 289 files, 479 streams and 190 tar members with no issues. Unknown formats, values and earlier history remain outside scope.",
+  "main_observation": "MAIN-POSTCHECK.json is the bracketed connector observation after the frozen evidence check and before publication; it was not included in that checked tree.",
+  "product_validation": "not performed"
+}

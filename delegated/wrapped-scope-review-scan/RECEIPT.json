@@ -1,0 +1,13 @@
+{
+  "schema": "726-delegated-bounded-scan-receipt-v1",
+  "archive_sha256": "4faf0d608202f8049920e3e8db7a3199b3140063fda6e102c1c994ffb8690a54",
+  "scans": {
+    "AGENT-RECEIPT.json": "8838aa73d4d48068e0493cadd9e0a11f5f79f7041a28f602f8bf4fc5255de99f",
+    "AGENT-DIGEST-SCAN.json": "ec1400f3ca4d1f3d8cdbdc11f5c67cf6e30794e6eaa3a5d12da8ad89dc8849ff",
+    "AGENT-PATTERN-SCAN.json": "31b7ad747075f36c2b0e4d8fe04f1eec629249e05ba92c98cd0ee16a77a673b6",
+    "COORDINATOR-PACKET-SCAN.json": "ec1400f3ca4d1f3d8cdbdc11f5c67cf6e30794e6eaa3a5d12da8ad89dc8849ff",
+    "COORDINATOR-ARCHIVE-SCAN.json": "761e90d6e95c57474fabeaddffa1661cfcccf33bb6cc1dd26faea34e3ce53c19"
+  },
+  "qualification": "Reviewer and coordinator scans used bounded selected digest and text patterns on the same machine. They do not establish general privacy, clear old history or independent custody. For the wrapped packet, the portable archive was reconstructed by the coordinator with deterministic metadata; original packet and its earlier false-positive scan qualification remain separate.",
+  "product_validation": "not performed"
+}

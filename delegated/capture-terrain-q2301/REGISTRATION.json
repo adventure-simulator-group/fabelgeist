@@ -1,0 +1,81 @@
+{
+  "schema": "726-q2301-source-registration-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:36:28.582607+00:00",
+  "scope": "Pinned current required root terrain admission, driver and selected admission/schedule state; source-only.",
+  "entries": [
+    {
+      "tag": "root",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "git_blob": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "bytes": 5327,
+      "eof": 136,
+      "capture": "sources/root.rs",
+      "planned_ranges": [
+        [
+          1,
+          136
+        ]
+      ]
+    },
+    {
+      "tag": "capture",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "eof": 1021,
+      "capture": "sources/capture.rs",
+      "planned_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          169,
+          300
+        ],
+        [
+          350,
+          450
+        ]
+      ]
+    },
+    {
+      "tag": "admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "git_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "bytes": 5765,
+      "eof": 168,
+      "capture": "sources/admission.rs",
+      "planned_ranges": [
+        [
+          1,
+          168
+        ]
+      ]
+    },
+    {
+      "tag": "schedule",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "eof": 57,
+      "capture": "sources/schedule.rs",
+      "planned_ranges": [
+        [
+          1,
+          57
+        ]
+      ]
+    }
+  ],
+  "qualification": "Prospectively registered before actual source displays; full bytes establish identity, not full personal read credit. Historical reviewer/adoption distinct."
+}

@@ -1,0 +1,4093 @@
+{
+  "schema": "726-proposal-bundle-v1",
+  "lens": 11,
+  "created_at": "2026-10-30T01:12:34.494002+00:00",
+  "protocol": {
+    "path": "target/726-audit-adler-20261027/workflow-20261030/PROPOSAL-PROTOCOL-001.json",
+    "sha256": "8fa2ba016a32b9e4b9624cdd0c1ae02d61a956f7dda4948f30fd89d8387b34ed"
+  },
+  "base_authority_snapshot": {
+    "ledger": {
+      "path": "target/726-audit-adler-20261027/evidence/continuation-segovb/ledger.json",
+      "sha256": "09573b88725b90826d3d0e11a12362e160f56dcb1d215b4d3c0fbed32191a0a3"
+    },
+    "selector": {
+      "path": "target/726-audit-adler-20261027/CURRENT-ADLER.json",
+      "sha256": "0331801d53b7e53f1969817fea5ee559b48f8d092c362f3070a1786ce160dc67"
+    },
+    "closure_queue": {
+      "path": "target/726-audit-adler-20261027/workflow-20261030/CLOSURE-QUEUE-009.json",
+      "sha256": "f915bbf31dde051891c4f0bd503ca9b2869624808e15360413692d2df2ab04b5"
+    },
+    "current_snapshot_revision": "e2755a732c84e67296b5e3441a4259a84f461b2f"
+  },
+  "ordered_frontier_before": {
+    "lens": 11,
+    "name": "type-granularity",
+    "original_accounted": 2853,
+    "next_original": 2853,
+    "state": "segovb/STATE-L11-703.json",
+    "next_action": "Continue delegated registered unread bodies and e2755a7 delta/current all20/exact aliases;7a9d92a scoped receipts historical current snapshot only. No implementation.",
+    "state_sha256": "1ff53bdc5ab6919304910b83699ee41d1530d62fcdb32a6fef0f414494b64bbb",
+    "original_total": 2853,
+    "latest_receipt": "segovb/READ-L11-703.json",
+    "partial_receipt": null,
+    "latest_qualification": {
+      "path": "segovb/QUALIFICATION-L11-511-001.json",
+      "sha256": "2ea34a42de765d8d7ed4f9f93b1d7abfb07fd5b05261073ec18d4e4bf7d83c3d"
+    }
+  },
+  "ordered_frontier_after": {
+    "lens": 11,
+    "name": "type-granularity",
+    "original_accounted": 2853,
+    "next_original": 2853,
+    "state": "segovb/STATE-L11-703.json",
+    "next_action": "Continue delegated registered unread bodies and e2755a7 delta/current all20/exact aliases;7a9d92a scoped receipts historical current snapshot only. No implementation.",
+    "state_sha256": "1ff53bdc5ab6919304910b83699ee41d1530d62fcdb32a6fef0f414494b64bbb",
+    "original_total": 2853,
+    "latest_receipt": "segovb/READ-L11-703.json",
+    "partial_receipt": null,
+    "latest_qualification": {
+      "path": "segovb/QUALIFICATION-L11-511-001.json",
+      "sha256": "2ea34a42de765d8d7ed4f9f93b1d7abfb07fd5b05261073ec18d4e4bf7d83c3d"
+    }
+  },
+  "population_deltas_separate": {
+    "original_roles": 0,
+    "overlays": 0,
+    "frozen_merged_paths": 0,
+    "original_shared_scopes": 0,
+    "registered_extensions": 0,
+    "accepted_unique_findings": 0
+  },
+  "immutable_proposals": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-01.json",
+      "sha256": "c572732cd9c26fd4afc48a2f5b15130213272ef6f1409d272a5cd09ececba1e0"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-02.json",
+      "sha256": "faa1943a2ce4088de78f13cf6d4db8db13eab9bfccfdb83a258446c1bec71040"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-03.json",
+      "sha256": "c4a270145eca0de8b94dff1c24654511be29feb33d894a67ec5a5bfe7fca87bd"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-04.json",
+      "sha256": "a0e0c7b097fb546eaa5adef26526b7a241f8374ec9b3581b7ae4a5d507380e03"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-05.json",
+      "sha256": "8bbf34e9e6019c9e1cfbfa0983e2af11542164a203098a6a5402d5745af97784"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-06.json",
+      "sha256": "8eb4b71875e208b19d2b52f2141c6aa2d8433a82fbd9a0ba4009c72687b20a50"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-07.json",
+      "sha256": "5daf8e692e09fd61c3d30a6ac81a9a4b3e82dfab5deaf7368d8bb0dcb50ba36f"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/CLOSURE-PROPOSAL-L11-003-08.json",
+      "sha256": "6689cb58b32da116d91d01cfe381c54e7993a319a0f8d1aacdb08a34c8b8d7f4"
+    }
+  ],
+  "source_receipt_adoption_order": [
+    {
+      "receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-168.json",
+        "sha256": "53d72dcc59395bea8a29bbddbbc1e8ffe207ea597ce62eadd5a1e7c27b626b0e"
+      },
+      "verify": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-168.json",
+        "sha256": "45562320bbb617a031158e73132843706d39dac764a12e52f24337f94ddb1ee4"
+      }
+    },
+    {
+      "receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-169.json",
+        "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85"
+      },
+      "verify": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-169.json",
+        "sha256": "387aed097f48a76d40d13d44ac4598885915305af807cdc478bb4196a006ca3e"
+      }
+    },
+    {
+      "receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+        "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+      },
+      "verify": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-170.json",
+        "sha256": "cad63a10a2afbbe0312ca07f4987b79ea9f129971263a28d7dfc474a2b498a69"
+      }
+    },
+    {
+      "receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "verify": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/VERIFY-171.json",
+        "sha256": "e842e5e22f484fb786d5b3de1fac7e5e459b6c5ebdb2b2de70b5b35da898a1d6"
+      }
+    }
+  ],
+  "new_prospective_registration_proofs": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-189.json",
+      "sha256": "66b7becb8075b37a7cae65f33e294bceedbba42d5674a51212d6c9f9aa4920d6"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+      "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+      "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525"
+    }
+  ],
+  "prospective_registration_proofs": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-024.json",
+      "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-027.json",
+      "sha256": "017649e35507c3e946974f3ea151996189220fd87bb5ef91982c2908f7422afb"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-025.json",
+      "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-033.json",
+      "sha256": "b4f22cdee9d5c2fcafca01d602a06c41cb8f60c1f0c45f3d36a6ca40396a9cb9"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-120.json",
+      "sha256": "ff8bfdcf1f5ce491609a96b50cae06e98970d0aa3ba9aaba46667cb1b0520058"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-189.json",
+      "sha256": "66b7becb8075b37a7cae65f33e294bceedbba42d5674a51212d6c9f9aa4920d6"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+      "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac"
+    },
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+      "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525"
+    }
+  ],
+  "exact_source_read_rows": [
+    {
+      "source_row_key": "R011-6",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505",
+      "actual_EOF_or_visual_contract": 174,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-024.json",
+        "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+        "json_pointer": "/rows/0"
+      },
+      "requested_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+              "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+            },
+            "receipt_pointer": "/rows/6",
+            "root_adoption": {
+              "path": "segovb/READ-L11-547.json",
+              "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+              "verification": "segovb/VERIFY-L11-547.json",
+              "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpyShape::try_from checked product/nativepayload layout; exactown011sourcequalification"
+        ],
+        "specific_remaining_dependencies": [
+          "Full NPZ/ZIP/NPY actual byte/header/dtype decode bodies not read here; no parser family clearance.",
+          "NpyTensorLayout proves usize arithmetic, not all native backend allocation limits/resource budget or model/rig instance association; source explicitly states extents only.",
+          "No native tensor/GPU execution/tests/build/runtime acceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+        "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+      },
+      "receipt_pointer": "/rows/6",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0244",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+        "sha256": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505",
+        "actual_EOF": 174,
+        "prospective_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-547.json",
+        "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+        "verification": "segovb/VERIFY-L11-547.json",
+        "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+      }
+    },
+    {
+      "source_row_key": "R011-7",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "e66ce25b7fac744ec37d8822741f7600771cf54697192434761c2084c5a11485",
+      "actual_EOF_or_visual_contract": 110,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-024.json",
+        "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+        "json_pointer": "/rows/1"
+      },
+      "requested_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            1,
+            110
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+              "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+            },
+            "receipt_pointer": "/rows/7",
+            "root_adoption": {
+              "path": "segovb/READ-L11-547.json",
+              "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+              "verification": "segovb/VERIFY-L11-547.json",
+              "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpyTensorLayout rank/extent validation and nativeBurnboundary; exactown011sourcequalification"
+        ],
+        "specific_remaining_dependencies": [
+          "Full NPZ/ZIP/NPY actual byte/header/dtype decode bodies not read here; no parser family clearance.",
+          "NpyTensorLayout proves usize arithmetic, not all native backend allocation limits/resource budget or model/rig instance association; source explicitly states extents only.",
+          "No native tensor/GPU execution/tests/build/runtime acceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+        "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+      },
+      "receipt_pointer": "/rows/7",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0245",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+        "sha256": "e66ce25b7fac744ec37d8822741f7600771cf54697192434761c2084c5a11485",
+        "actual_EOF": 110,
+        "prospective_ranges": [
+          [
+            1,
+            110
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            110
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            110
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-547.json",
+        "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+        "verification": "segovb/VERIFY-L11-547.json",
+        "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+      }
+    },
+    {
+      "source_row_key": "R011-8",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/values.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+      "actual_EOF_or_visual_contract": 174,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-024.json",
+        "sha256": "cacda045a9f06fea8b1e172a90b81b74cd979e0a9e12bc8993ce0f56f5d40fb6",
+        "json_pointer": "/rows/2"
+      },
+      "requested_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+              "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+            },
+            "receipt_pointer": "/rows/8",
+            "root_adoption": {
+              "path": "segovb/READ-L11-547.json",
+              "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+              "verification": "segovb/VERIFY-L11-547.json",
+              "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpyFloat32Values/NpyIntegerValues/NpyByteStates typedvaluecollection nativeconversions; exactown011sourcequalification"
+        ],
+        "specific_remaining_dependencies": [
+          "Full NPZ/ZIP/NPY actual byte/header/dtype decode bodies not read here; no parser family clearance.",
+          "NpyTensorLayout proves usize arithmetic, not all native backend allocation limits/resource budget or model/rig instance association; source explicitly states extents only.",
+          "No native tensor/GPU execution/tests/build/runtime acceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-011.json",
+        "sha256": "82e5808e3154e92aa3857170a180874667ab89cc5fb44f98ec91ea0d615ce5be"
+      },
+      "receipt_pointer": "/rows/8",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0246",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/values.rs",
+        "sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+        "actual_EOF": 174,
+        "prospective_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/values.rs",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-547.json",
+        "sha256": "25818128cb71a33f3d4dae876813ef4b60ec9968a755e4b8b467157403239d9c",
+        "verification": "segovb/VERIFY-L11-547.json",
+        "verification_sha256": "d8d3eb78aff5efdd74d744358a99680800066f3c567325aad8acf2bcc42c8fc5"
+      }
+    },
+    {
+      "source_row_key": "R012-9",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "actual_EOF_or_visual_contract": 1021,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-027.json",
+        "sha256": "017649e35507c3e946974f3ea151996189220fd87bb5ef91982c2908f7422afb",
+        "json_pointer": "/rows/0"
+      },
+      "requested_ranges": [
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            527,
+            798
+          ],
+          [
+            823,
+            899
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-012.json",
+              "sha256": "7c3f0a48fa5efca5fc4340175c572b4b5c2423f07c92c0fe7fd454c9e0d489d8"
+            },
+            "receipt_pointer": "/rows/9",
+            "root_adoption": {
+              "path": "segovb/READ-L11-548.json",
+              "sha256": "ab014fb1116de622e587ab194158a644b5df17786337901c8d2ff7a284aab8a2",
+              "verification": "segovb/VERIFY-L11-548.json",
+              "verification_sha256": "57110ea1f148daee84f6af490b70033f35f4e26f091959f8628c2f9718f15f54"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [
+        [
+          1,
+          526
+        ],
+        [
+          799,
+          822
+        ],
+        [
+          900,
+          1021
+        ]
+      ],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "Capture driver/currentfullfilequalifiedunion: own1091..168,own012527..798/823..899,own168remaining169..526/799..822/900..1021; any source row onlycontributesits actualassessedintervals."
+        ],
+        "specific_remaining_dependencies": [
+          "IK facade761..2973, observationfull453, retained SceneTerrain declaration1..110 registered unread; root/rig historical geometry/source claims remain unclosed.",
+          "OwnedSurface highest_surface_at implementation and native collider/render correspondence not read here.",
+          "No runtime analytic solve/terrain generation/visual acceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-012.json",
+        "sha256": "7c3f0a48fa5efca5fc4340175c572b4b5c2423f07c92c0fe7fd454c9e0d489d8"
+      },
+      "receipt_pointer": "/rows/9",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0258",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+        "actual_EOF": 1021,
+        "prospective_ranges": [
+          [
+            527,
+            798
+          ],
+          [
+            823,
+            899
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "fresh_personal_body_ranges": [
+          [
+            527,
+            798
+          ],
+          [
+            823,
+            899
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            527,
+            798
+          ],
+          [
+            823,
+            899
+          ]
+        ],
+        "whole_file_assessed": false,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-548.json",
+        "sha256": "ab014fb1116de622e587ab194158a644b5df17786337901c8d2ff7a284aab8a2",
+        "verification": "segovb/VERIFY-L11-548.json",
+        "verification_sha256": "57110ea1f148daee84f6af490b70033f35f4e26f091959f8628c2f9718f15f54"
+      }
+    },
+    {
+      "source_row_key": "R015-0",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "actual_EOF_or_visual_contract": 453,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-025.json",
+        "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5",
+        "json_pointer": "/rows/1"
+      },
+      "requested_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            1,
+            453
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-015.json",
+              "sha256": "8465a1e8c2e78fbaa0e8b6f96557baa9bc547f6095420413e1b36a30680ff167"
+            },
+            "receipt_pointer": "/rows/0",
+            "root_adoption": {
+              "path": "segovb/READ-L11-551.json",
+              "sha256": "168f12214402267fbe736ca764e19e5ddd1c4bbe552a80a14cce959b1bd34937",
+              "verification": "segovb/VERIFY-L11-551.json",
+              "verification_sha256": "e38178e4b28ae44e5469da1201e3d519fb323bbebc2d022ac30239054668e2b3"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "refresh_raised_support_after_propagation108..236/observed_support_weight239..258"
+        ],
+        "specific_remaining_dependencies": [
+          "IKfacade761..2973 still registeredunread; exact sole_is_at_contact/raised_support_is_actual consuming numerical implementations and state diagnostic publication remain separate source contracts.",
+          "TerrainWire actual admission/owned surface/collider/render native implementations not read here.",
+          "No runtime/visual/physics validation."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-015.json",
+        "sha256": "8465a1e8c2e78fbaa0e8b6f96557baa9bc547f6095420413e1b36a30680ff167"
+      },
+      "receipt_pointer": "/rows/0",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0248",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+        "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+        "actual_EOF": 453,
+        "prospective_ranges": [
+          [
+            1,
+            453
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            453
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            453
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-551.json",
+        "sha256": "168f12214402267fbe736ca764e19e5ddd1c4bbe552a80a14cce959b1bd34937",
+        "verification": "segovb/VERIFY-L11-551.json",
+        "verification_sha256": "e38178e4b28ae44e5469da1201e3d519fb323bbebc2d022ac30239054668e2b3"
+      }
+    },
+    {
+      "source_row_key": "R016-0",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "actual_EOF_or_visual_contract": 2973,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-025.json",
+        "sha256": "6bf4463505373c126b36edf23917f0f5a989a8a997c89b969d1dcb23855664e5",
+        "json_pointer": "/rows/0"
+      },
+      "requested_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            761,
+            2973
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-016.json",
+              "sha256": "84b85adab38374313e070f73269e9ca27c9e7efa4c1c55728b65c0c764804ce6"
+            },
+            "receipt_pointer": "/rows/0",
+            "root_adoption": {
+              "path": "segovb/READ-L11-552.json",
+              "sha256": "47184163faf3c6f57f4e3c79272745d50cd5e2ead8aea345ac9b623828ea8648",
+              "verification": "segovb/VERIFY-L11-552.json",
+              "verification_sha256": "e6507e27669c3855cd55b1577ad69daf3c626e4a72653c9c91319b240c723d6d"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          761,
+          2973
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [
+        [
+          1,
+          760
+        ]
+      ],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "CurrentIKcoordinator970..1025 final-local support observation andcachepublication; exactown016 fullregisteredbody."
+        ],
+        "specific_remaining_dependencies": [
+          "Actual native hierarchy scenario changing contact during propagation and runtime capture not executed.",
+          "Current HTMLpresentation, remaining supportslip/validation source scopes and every affected alternate capturemode still required.",
+          "No alias with general P17missingmeasurement/defaultzero or footorientation writewitness based on shared enumremedy."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-016.json",
+        "sha256": "84b85adab38374313e070f73269e9ca27c9e7efa4c1c55728b65c0c764804ce6"
+      },
+      "receipt_pointer": "/rows/0",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0247",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+        "actual_EOF": 2973,
+        "prospective_ranges": [
+          [
+            1,
+            2973
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "fresh_personal_body_ranges": [
+          [
+            761,
+            2973
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            761,
+            2973
+          ]
+        ],
+        "whole_file_assessed": false,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+        "cumulative_whole_file_assessed": true,
+        "prior_proof": {
+          "receipt": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-012.json",
+          "sha256": "7c3f0a48fa5efca5fc4340175c572b4b5c2423f07c92c0fe7fd454c9e0d489d8",
+          "ranges": [
+            [
+              1,
+              760
+            ]
+          ]
+        }
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-552.json",
+        "sha256": "47184163faf3c6f57f4e3c79272745d50cd5e2ead8aea345ac9b623828ea8648",
+        "verification": "segovb/VERIFY-L11-552.json",
+        "verification_sha256": "e6507e27669c3855cd55b1577ad69daf3c626e4a72653c9c91319b240c723d6d"
+      }
+    },
+    {
+      "source_row_key": "R021-3",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "actual_EOF_or_visual_contract": 168,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-033.json",
+        "sha256": "b4f22cdee9d5c2fcafca01d602a06c41cb8f60c1f0c45f3d36a6ca40396a9cb9",
+        "json_pointer": "/rows/3"
+      },
+      "requested_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-021.json",
+              "sha256": "0f25514741255fe5d0e6f618765c5e589a3200d120e734918e85a6af3d94244b"
+            },
+            "receipt_pointer": "/rows/3",
+            "root_adoption": {
+              "path": "segovb/READ-L11-557.json",
+              "sha256": "b142f1557c97b64243f931089b1f1028fbbf35a22ca7e63ae5bb9616ccfc60b7",
+              "verification": "segovb/VERIFY-L11-557.json",
+              "verification_sha256": "a23819b0880d9aa7b7907b505a8e30168ed2dc574f558c53a6e932d5fd83f73a"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "CaptureAdmission/requiredterrain/geometry admission;admit_ik_support87..116/can_drive_frame119..125/reject_capture147..154"
+        ],
+        "specific_remaining_dependencies": [
+          "Actual canonical hierarchy mismatch/runtimecapture stillunexecuted.",
+          "supported_foot_slip helperbody/current exactquantity producer remains widerregistered/connectedscope."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-021.json",
+        "sha256": "0f25514741255fe5d0e6f618765c5e589a3200d120e734918e85a6af3d94244b"
+      },
+      "receipt_pointer": "/rows/3",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0275",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+        "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+        "actual_EOF": 168,
+        "prospective_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-557.json",
+        "sha256": "b142f1557c97b64243f931089b1f1028fbbf35a22ca7e63ae5bb9616ccfc60b7",
+        "verification": "segovb/VERIFY-L11-557.json",
+        "verification_sha256": "a23819b0880d9aa7b7907b505a8e30168ed2dc574f558c53a6e932d5fd83f73a"
+      }
+    },
+    {
+      "source_row_key": "R109-4",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:capture-current-run-artifact-authority",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "actual_EOF_or_visual_contract": 1021,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-120.json",
+        "sha256": "ff8bfdcf1f5ce491609a96b50cae06e98970d0aa3ba9aaba46667cb1b0520058",
+        "json_pointer": "/rows/4"
+      },
+      "requested_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "fresh_personal_ranges": [],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "proofs": [
+          {
+            "body_receipt": {
+              "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-109.json",
+              "sha256": "31a894907c176feb0f23c2b6fd9e79e189abaeac1ad74e86909ece3f791f94fd"
+            },
+            "receipt_pointer": "/rows/4",
+            "root_adoption": {
+              "path": "segovb/READ-L11-645.json",
+              "sha256": "aacf69d25233f04602ab29b0c1f57d62ae4007f8b927fb23bed54a40780cae27",
+              "verification": "segovb/VERIFY-L11-645.json",
+              "verification_sha256": "1483327cd7f45ec74636da91c7c63ab7f6714a24ae7f15079d075c3fab5c35bc"
+            }
+          }
+        ]
+      },
+      "assessed_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_attribution": "Agent lens11_reconcile actual fresh prospectively registered untruncated current source reads; native archive authenticated exact current lock, no historical root read relabeled.",
+      "unread_ranges": [
+        [
+          169,
+          1021
+        ]
+      ],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "Capture driver/currentfullfilequalifiedunion: own1091..168,own012527..798/823..899,own168remaining169..526/799..822/900..1021; any source row onlycontributesits actualassessedintervals."
+        ],
+        "specific_remaining_dependencies": [
+          "Exact global aliases versus CONT08-CAPTURE-SAVE-OUTCOME-ERASURE and other viewers require actual same owning firstfailure/scope; common native helper/remedy is not proof.",
+          "Native callback image/save APIs and chosen replacement design remain later repair/acceptance work; all other report/rendering/plan contracts retain qualifiers."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-109.json",
+        "sha256": "31a894907c176feb0f23c2b6fd9e79e189abaeac1ad74e86909ece3f791f94fd"
+      },
+      "receipt_pointer": "/rows/4",
+      "preserved_exact_source_row": {
+        "registration": "PL11-0830",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+        "actual_EOF": 1021,
+        "prospective_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:capture-current-run-artifact-authority",
+        "purpose": "Actual current capture output admission/retained state/native screenshot lifecycle and exact current native lock pin; source-only no capture or write execution.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            168
+          ]
+        ],
+        "whole_file_assessed": false,
+        "attribution": "Agent lens11_reconcile actual fresh prospectively registered untruncated current source reads; native archive authenticated exact current lock, no historical root read relabeled."
+      },
+      "root_adoption_pending": false,
+      "root_adoption": {
+        "path": "segovb/READ-L11-645.json",
+        "sha256": "aacf69d25233f04602ab29b0c1f57d62ae4007f8b927fb23bed54a40780cae27",
+        "verification": "segovb/VERIFY-L11-645.json",
+        "verification_sha256": "1483327cd7f45ec74636da91c7c63ab7f6714a24ae7f15079d075c3fab5c35bc"
+      }
+    },
+    {
+      "source_row_key": "R168-0",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:P05-P06-P17-capture-owner-remainder",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "actual_EOF_or_visual_contract": 1021,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-189.json",
+        "sha256": "66b7becb8075b37a7cae65f33e294bceedbba42d5674a51212d6c9f9aa4920d6",
+        "json_pointer": "/rows/0"
+      },
+      "requested_ranges": [
+        [
+          169,
+          526
+        ],
+        [
+          799,
+          822
+        ],
+        [
+          900,
+          1021
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          169,
+          526
+        ],
+        [
+          799,
+          822
+        ],
+        [
+          900,
+          1021
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          169,
+          526
+        ],
+        [
+          799,
+          822
+        ],
+        [
+          900,
+          1021
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [
+        [
+          1,
+          168
+        ],
+        [
+          527,
+          798
+        ],
+        [
+          823,
+          899
+        ]
+      ],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "Capture driver/currentfullfilequalifiedunion: own1091..168,own012527..798/823..899,own168remaining169..526/799..822/900..1021; any source row onlycontributesits actualassessedintervals."
+        ],
+        "specific_remaining_dependencies": [
+          "Actualcapture child frame_clock/readiness/root_motion/subject_motion freshscopes required before full producer/fixture lifecycle source discovery.",
+          "Existing actualcapture653 cache override/sourceclosure facets shouldretain exact currentowner hierarchy/reach/frame applicability; nominalsolverclaimnotautomatic.",
+          "NativeScreenshot Imageformat/packedrow8bit contract if retainingfalse-negativefingerprint hypothesis; no arbitrarypublicImageparameterimpliesordinaryinvalidproducer."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-168.json",
+        "sha256": "53d72dcc59395bea8a29bbddbbc1e8ffe207ea597ce62eadd5a1e7c27b626b0e"
+      },
+      "receipt_pointer": "/rows/0",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1092",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+        "actual_EOF": 1021,
+        "prospective_ranges": [
+          [
+            169,
+            526
+          ],
+          [
+            799,
+            822
+          ],
+          [
+            900,
+            1021
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:P05-P06-P17-capture-owner-remainder",
+        "purpose": "Actual capture driver/subsystem admission/nativepublication connectedscope, preserving own012 and109 exact alreadyassessed ranges, freshonlyremainingranges. No capture/nativeimage/render/IK/runtime invocation.",
+        "fresh_personal_body_ranges": [
+          [
+            169,
+            526
+          ],
+          [
+            799,
+            822
+          ],
+          [
+            900,
+            1021
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            169,
+            526
+          ],
+          [
+            799,
+            822
+          ],
+          [
+            900,
+            1021
+          ]
+        ],
+        "whole_file_assessed": false,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R169-0",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:P05-P06-P17-actualcapture-child-contract",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "actual_EOF_or_visual_contract": 58,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+        "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+        "json_pointer": "/rows/0"
+      },
+      "requested_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "capture_fixed_clock12..24/next_capture_simulation_tick26..35/capture_frame_elapsed37..43"
+        ],
+        "specific_remaining_dependencies": [
+          "ActualPlannedFrame/scenarioauthoritativeconstruction/supportedquickstepdirection andconfiguredfixturetickrelationship ifretainingexpect/countpolicyfinding; no arbitrarypublicf32witnessfromnativeinputs alone.",
+          "NativePose/Transform application/scheduling andfinalsupportcachecomparison remain their exactexistingqualifiedcontracts, notclearedbyrootadmission.",
+          "Any nativeScreenshot/fullreport/GLB/currentdelta contract remains independently scoped; source-only notruntimeacceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-169.json",
+        "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85"
+      },
+      "receipt_pointer": "/rows/0",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1093",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+        "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+        "actual_EOF": 58,
+        "prospective_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:P05-P06-P17-actualcapture-child-contract",
+        "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            58
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R169-1",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs:P05-P06-P17-actualcapture-child-contract",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "actual_EOF_or_visual_contract": 32,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+        "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+        "json_pointer": "/rows/1"
+      },
+      "requested_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "CaptureSequence::ready_for_frame6..31"
+        ],
+        "specific_remaining_dependencies": [
+          "ActualPlannedFrame/scenarioauthoritativeconstruction/supportedquickstepdirection andconfiguredfixturetickrelationship ifretainingexpect/countpolicyfinding; no arbitrarypublicf32witnessfromnativeinputs alone.",
+          "NativePose/Transform application/scheduling andfinalsupportcachecomparison remain their exactexistingqualifiedcontracts, notclearedbyrootadmission.",
+          "Any nativeScreenshot/fullreport/GLB/currentdelta contract remains independently scoped; source-only notruntimeacceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-169.json",
+        "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85"
+      },
+      "receipt_pointer": "/rows/1",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1094",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+        "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+        "actual_EOF": 32,
+        "prospective_ranges": [
+          [
+            1,
+            32
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs:P05-P06-P17-actualcapture-child-contract",
+        "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            32
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            32
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R169-2",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:P05-P06-P17-actualcapture-child-contract",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "actual_EOF_or_visual_contract": 136,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+        "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+        "json_pointer": "/rows/2"
+      },
+      "requested_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "CaptureGround::collect_bones19..48/initial_root53..67/fixture_root_position71..94/full_ragdoll_root98..112/capture_ground116..135"
+        ],
+        "specific_remaining_dependencies": [
+          "ActualPlannedFrame/scenarioauthoritativeconstruction/supportedquickstepdirection andconfiguredfixturetickrelationship ifretainingexpect/countpolicyfinding; no arbitrarypublicf32witnessfromnativeinputs alone.",
+          "NativePose/Transform application/scheduling andfinalsupportcachecomparison remain their exactexistingqualifiedcontracts, notclearedbyrootadmission.",
+          "Any nativeScreenshot/fullreport/GLB/currentdelta contract remains independently scoped; source-only notruntimeacceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-169.json",
+        "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85"
+      },
+      "receipt_pointer": "/rows/2",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1095",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+        "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+        "actual_EOF": 136,
+        "prospective_ranges": [
+          [
+            1,
+            136
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:P05-P06-P17-actualcapture-child-contract",
+        "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            136
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            136
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R169-3",
+      "lens": 11,
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:P05-P06-P17-actualcapture-child-contract",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "actual_EOF_or_visual_contract": 126,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-190.json",
+        "sha256": "f6243605880319bf8ead23708e354957a9e14c9eb1612292c1d55ee7267343ac",
+        "json_pointer": "/rows/3"
+      },
+      "requested_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "advance_capture_facing14..33/project_capture_motion35..63/begin_capture_action66..126"
+        ],
+        "specific_remaining_dependencies": [
+          "ActualPlannedFrame/scenarioauthoritativeconstruction/supportedquickstepdirection andconfiguredfixturetickrelationship ifretainingexpect/countpolicyfinding; no arbitrarypublicf32witnessfromnativeinputs alone.",
+          "NativePose/Transform application/scheduling andfinalsupportcachecomparison remain their exactexistingqualifiedcontracts, notclearedbyrootadmission.",
+          "Any nativeScreenshot/fullreport/GLB/currentdelta contract remains independently scoped; source-only notruntimeacceptance."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-169.json",
+        "sha256": "e16aaba08fd8abdbfd31c9ac080deff8c4e2c2d1f0d5ee65072aa07cd49a1d85"
+      },
+      "receipt_pointer": "/rows/3",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1096",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+        "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+        "actual_EOF": 126,
+        "prospective_ranges": [
+          [
+            1,
+            126
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:P05-P06-P17-actualcapture-child-contract",
+        "purpose": "Actual current capture clock/readiness/root/motion necessarychild source; wholeprospectivebody freshonly no capture/motion/nativequery/Bevy/runtimeprobe.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            126
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            126
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending"
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R170-0",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/lib.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+      "actual_EOF_or_visual_contract": 29,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/0"
+      },
+      "requested_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "Publicmodule exports/demonstration source only, exactfullbody29."
+        ],
+        "specific_remaining_dependencies": [
+          "PLAN191 NPZ/name/ZIP/compression/error/extent/member_count/names fullregisteredbodies remain unreadatthispartialcheckpoint; registeredscope notclosedbyNPYread.",
+          "Exactown011 currentmetadata174/tensor110/values174 receipts mustbeindependentlylinkedforcompletearray\u2192MHR\u2192tensor/nativecontract; no cross-lensverdicttransfer.",
+          "NativeBurnscalar/shape/device upload and actualmodelscalars roles/instanceassociation remain qualifiedseparatecontracts."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+        "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+      },
+      "receipt_pointer": "/rows/0",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1097",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+        "sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+        "actual_EOF": 29,
+        "prospective_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/lib.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            29
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R170-1",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+      "actual_EOF_or_visual_contract": 229,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/1"
+      },
+      "requested_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpyArray::from_bytes120..131/read134..138/to_tensor97..103/to_int_tensor106..115;Dtype::parse52..66/storage_width68..74"
+        ],
+        "specific_remaining_dependencies": [
+          "PLAN191 NPZ/name/ZIP/compression/error/extent/member_count/names fullregisteredbodies remain unreadatthispartialcheckpoint; registeredscope notclosedbyNPYread.",
+          "Exactown011 currentmetadata174/tensor110/values174 receipts mustbeindependentlylinkedforcompletearray\u2192MHR\u2192tensor/nativecontract; no cross-lensverdicttransfer.",
+          "NativeBurnscalar/shape/device upload and actualmodelscalars roles/instanceassociation remain qualifiedseparatecontracts."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+        "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+      },
+      "receipt_pointer": "/rows/1",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1098",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+        "sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+        "actual_EOF": 229,
+        "prospective_ranges": [
+          [
+            1,
+            229
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            229
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            229
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R170-2",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+      "actual_EOF_or_visual_contract": 160,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/2"
+      },
+      "requested_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpyHeader::from_dictionary28..88/HeaderField::parse92..99/StorageOrder::parse103..114/NpyShape::from_header_tuple118..137/quoted148..160"
+        ],
+        "specific_remaining_dependencies": [
+          "PLAN191 NPZ/name/ZIP/compression/error/extent/member_count/names fullregisteredbodies remain unreadatthispartialcheckpoint; registeredscope notclosedbyNPYread.",
+          "Exactown011 currentmetadata174/tensor110/values174 receipts mustbeindependentlylinkedforcompletearray\u2192MHR\u2192tensor/nativecontract; no cross-lensverdicttransfer.",
+          "NativeBurnscalar/shape/device upload and actualmodelscalars roles/instanceassociation remain qualifiedseparatecontracts."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+        "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+      },
+      "receipt_pointer": "/rows/2",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1099",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+        "sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+        "actual_EOF": 160,
+        "prospective_ranges": [
+          [
+            1,
+            160
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            160
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            160
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R170-3",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header/frame.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1",
+      "actual_EOF_or_visual_contract": 70,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/3"
+      },
+      "requested_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpyHeader::from_bytes19..40/HeaderVersion::header_length51..69"
+        ],
+        "specific_remaining_dependencies": [
+          "PLAN191 NPZ/name/ZIP/compression/error/extent/member_count/names fullregisteredbodies remain unreadatthispartialcheckpoint; registeredscope notclosedbyNPYread.",
+          "Exactown011 currentmetadata174/tensor110/values174 receipts mustbeindependentlylinkedforcompletearray\u2192MHR\u2192tensor/nativecontract; no cross-lensverdicttransfer.",
+          "NativeBurnscalar/shape/device upload and actualmodelscalars roles/instanceassociation remain qualifiedseparatecontracts."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-170.json",
+        "sha256": "4cc969bf1427e4447957dd31307435570d0a96d96819fe4aad8dc01382339c11"
+      },
+      "receipt_pointer": "/rows/3",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1100",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+        "sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1",
+        "actual_EOF": 70,
+        "prospective_ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header/frame.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            70
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-0",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+      "actual_EOF_or_visual_contract": 221,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/4"
+      },
+      "requested_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "Npz::get56..63/array66..70/NpzMember::array83..86"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/0",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1101",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+        "sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+        "actual_EOF": 221,
+        "prospective_ranges": [
+          [
+            1,
+            221
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            221
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            221
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-1",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz/name.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f",
+      "actual_EOF_or_visual_contract": 68,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/5"
+      },
+      "requested_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "NpzArrayName::new47..49/matches51..54/FromArchiveMemberName57..61"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/1",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1102",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+        "sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f",
+        "actual_EOF": 68,
+        "prospective_ranges": [
+          [
+            1,
+            68
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz/name.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            68
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            68
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-2",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+      "actual_EOF_or_visual_contract": 184,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/6"
+      },
+      "requested_ranges": [
+        [
+          1,
+          184
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          184
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          184
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "ZipArchive::open65..80/from_data86..110/find130..141/bytes144..148/ZipMember::bytes160..183"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/2",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1103",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+        "sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+        "actual_EOF": 184,
+        "prospective_ranges": [
+          [
+            1,
+            184
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            184
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            184
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-3",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/compression.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "1ea9cfec33fc2ed93d94faf3fe03c4a67f2048061101675bd0ef6057c80c4833",
+      "actual_EOF_or_visual_contract": 27,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/7"
+      },
+      "requested_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "ZipCompression::Fromrawzip19..27"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/3",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1104",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+        "sha256": "1ea9cfec33fc2ed93d94faf3fe03c4a67f2048061101675bd0ef6057c80c4833",
+        "actual_EOF": 27,
+        "prospective_ranges": [
+          [
+            1,
+            27
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/compression.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            27
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            27
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-4",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/error.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+      "actual_EOF_or_visual_contract": 142,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/8"
+      },
+      "requested_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "ZipReadError::source114..124/Fromrawzip126..132/member136..141"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/4",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1105",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+        "sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+        "actual_EOF": 142,
+        "prospective_ranges": [
+          [
+            1,
+            142
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/error.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            142
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            142
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-5",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/extent.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649",
+      "actual_EOF_or_visual_contract": 44,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/9"
+      },
+      "requested_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "DeclaredUncompressedByteLength::from_bytes31..33/bytes36..38/native_allocation_capacity41..43"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/5",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1106",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+        "sha256": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649",
+        "actual_EOF": 44,
+        "prospective_ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/extent.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            44
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-6",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/member_count.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867",
+      "actual_EOF_or_visual_contract": 92,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/10"
+      },
+      "requested_ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "ArchiveMemberCount::initial_capacity17..19/native_iteration_range24..26;tests29..92sourceonly"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/6",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1107",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+        "sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867",
+        "actual_EOF": 92,
+        "prospective_ranges": [
+          [
+            1,
+            92
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/member_count.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            92
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            92
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    },
+    {
+      "source_row_key": "R171-7",
+      "lens": 11,
+      "path": "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+      "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/names.rs:current-delta-NPY-NPZ-owned-native-boundary",
+      "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+      "source_sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb",
+      "actual_EOF_or_visual_contract": 28,
+      "registration_ref_and_sha256": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PLAN-191.json",
+        "sha256": "7f7512ad71a8573a8a1d448441ee413d4e0a3edbad6ed40e6c0fc00ab678f525",
+        "json_pointer": "/rows/11"
+      },
+      "requested_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "fresh_personal_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "qualified_same_lens_reuse_ranges_and_exact_proofs": {
+        "ranges": [],
+        "proofs": []
+      },
+      "assessed_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+      "unread_ranges": [],
+      "registered_unread_ranges": [],
+      "complete_relevant_functions_and_dependencies": {
+        "function_ownership": [
+          "ArchiveMemberName::Frombytes15..18/borrowedstr21..25"
+        ],
+        "specific_remaining_dependencies": [
+          "ProspectivelyreadexactcurrentownCargo.lock/rawzip0.5.2 archive/member/Wayfinder/centralcount/localrecordbounds/nativeerror authority andflate2 usedDecode pathbeforebroadstructural/decompressionclaims.",
+          "Currentexternal testsource/docs/binaryfixtures andnativeparseracceptance source areindependentregistered/delta contracts, no binarypayloadcoveragefromhashes/textEOFnull.",
+          "ActualMHR/correctivesconsumer own008/011 andmetadata/tensor/value own011 qualifications mustbeattached independentlytoarchive\u2192ownedarray\u2192retainedtypedtable\u2192GPU/nativechain."
+        ],
+        "qualification": "Only exactrowassessedranges contribute; functionnames imported/sibling bodies/nativekernel/runtime notgrantcoverage."
+      },
+      "body_output_truncation_status": {
+        "all_contributing_body_outputs_untruncated": true,
+        "qualification": "Fresh168..171 postprospectivebodyreads; priorown11/12/15/16/21/109 exactqualifiedbodyreuse no newreread/fullbody credit. Partial170unread8 preservedandcompletedadditively171."
+      },
+      "body_receipt": {
+        "path": "target/726-audit-adler-20261027/parallel-l11-20261029/READ-171.json",
+        "sha256": "c4d7760142783e05a1fe5e810e78c65170e24f3848d09a204b2f4a02b3ad9aad"
+      },
+      "receipt_pointer": "/rows/7",
+      "preserved_exact_source_row": {
+        "registration": "PL11-1108",
+        "lens": 11,
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+        "sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb",
+        "actual_EOF": 28,
+        "prospective_ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/names.rs:current-delta-NPY-NPZ-owned-native-boundary",
+        "purpose": "Current#895delta actual ownedNPY/header andarchive/member/extent/error contract, freshwholebody. No npy/zipparser/fixture/runtime/test/build invocation; previousmetadata/table own011 remains separatequalifiedsource.",
+        "fresh_personal_body_ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "assessed_ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "whole_file_assessed": true,
+        "attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending."
+      },
+      "root_adoption_pending": true
+    }
+  ],
+  "semantic_dispositions": [
+    {
+      "contract_id": "REVIEW-L11-CAPTURE-NATIVE-CLOCK-INTERVAL-ADMISSION",
+      "disposition": "rejected-suspicion-source-qualified"
+    },
+    {
+      "contract_id": "REVIEW-L11-CAPTURE-REQUIRED-ROOT-TERRAIN-ADMISSION",
+      "disposition": "rejected-suspicion-source-qualified"
+    },
+    {
+      "contract_id": "REVIEW-L11-CAPTURE-AUTHORED-PLANE-OPTIONALITY",
+      "disposition": "documented-conditional-policy-question"
+    },
+    {
+      "contract_id": "REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT",
+      "disposition": "rejected-suspicion-source-qualified"
+    },
+    {
+      "contract_id": "REVIEW-L11-CAPTURE-CONTROLLER-TIME-AND-FIXTURE-ACTION-POLICY",
+      "disposition": "documented-conditional-policy-question"
+    },
+    {
+      "contract_id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH#post-local-cache-versus-propagated-support-qualified",
+      "disposition": "documented-conditional-policy-question"
+    },
+    {
+      "contract_id": "REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+      "disposition": "rejected-suspicion-source-qualified"
+    },
+    {
+      "contract_id": "REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES",
+      "disposition": "documented-conditional-policy-question"
+    }
+  ],
+  "contract_updates": [
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 1,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CAPTURE-NATIVE-CLOCK-INTERVAL-ADMISSION",
+      "subcontract_id": "capture-native-clock-interval-admission",
+      "canonical_owner_or_explicit_unresolved_owner_question": "AnimationSampleRate\u2192nativeDuration admission inframe_clock",
+      "first_failed_contract_or_unresolved_question": "No failedclockadmission: checkedf64reciprocal conversionandzeroDurationrejection beforeTime::from_duration.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R169-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:P05-P06-P17-actualcapture-child-contract",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+          "assessed_ranges": [
+            [
+              1,
+              58
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R168-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:P05-P06-P17-capture-owner-remainder",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "Actualframeclock12..24 admitsnativeintervalviaDurationtry15/nonzero18 beforeBevy23; preservesf64native rounding intentionallydistinctfromf32poseinterval. Driverelapsed393 staysAnimationElapsed toclock395/input400; delta394 onlycompletevelocity\u00d7timeequation436."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "rejected-suspicion-source-qualified",
+      "policy_decisions_remaining": [
+        "Nativef64 Duration roundingtimer andf32poseinterval serveexplicitdifferentboundaryroles; no mandatorybitidentity."
+      ],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 2,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CAPTURE-REQUIRED-ROOT-TERRAIN-ADMISSION",
+      "subcontract_id": "capture-required-root-terrain-admission",
+      "canonical_owner_or_explicit_unresolved_owner_question": "CaptureSequence singleadmission/ScenePlanPoint/Position rootowner",
+      "first_failed_contract_or_unresolved_question": "No requiredterrain silentlyconvertedtozero oninitialroot/enabledIK/quickstepactualroutes.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R169-2",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:P05-P06-P17-actualcapture-child-contract",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "assessed_ranges": [
+            [
+              1,
+              136
+            ]
+          ],
+          "receipt_pointer": "/rows/2",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              136
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R168-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:P05-P06-P17-capture-owner-remainder",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R021-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+          "assessed_ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              168
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "initial_root58 requiresadmit_terrain_height beforecompletePosition59; fixture79 physicalstep admitspoint80 andrequiredheight82/89 beforePosition93/driverTransform411. Actualadmit_terrain_height usesrequiredquery andtypedterminalfailure."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "rejected-suspicion-source-qualified",
+      "policy_decisions_remaining": [],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 3,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CAPTURE-AUTHORED-PLANE-OPTIONALITY",
+      "subcontract_id": "capture-authored-plane-optionality",
+      "canonical_owner_or_explicit_unresolved_owner_question": "CaptureGround Terrain versusAuthoredPlane SupportElevation",
+      "first_failed_contract_or_unresolved_question": "Disabledterrain retainedauthoredplane isexplicitvalidauthority; invaliddatumrejectsGeometry, no fallbacktoterrain.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R169-2",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs:P05-P06-P17-actualcapture-child-contract",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+          "assessed_ranges": [
+            [
+              1,
+              136
+            ]
+          ],
+          "receipt_pointer": "/rows/2",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              136
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R021-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+          "assessed_ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              168
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "capture_ground121 returnsTerrainonlyifenabled; disabledheight124 admitted125\u2192AuthoredPlane126, invalid128\u2192Rejected/None. collect_bones30..43 useschosenauthority andOptionclearance; validmissingnativebone isnotmeasuredzero."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "documented-conditional-policy-question",
+      "policy_decisions_remaining": [
+        "Any strongerrequired-bone/clearanceapplicability belongsactualscenario/reportowner, notblanketrequire-allterrain."
+      ],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 4,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CAPTURE-AUTHORED-READINESS-WAIT",
+      "subcontract_id": "capture-authored-readiness-wait",
+      "canonical_owner_or_explicit_unresolved_owner_question": "CaptureSequence readiness/asset/presentation ownership",
+      "first_failed_contract_or_unresolved_question": "No earlyframeacceptance: requiredmotion processed andpresentation settled pluswarmup/two-ready-framegate beforedriverapplied.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R169-1",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs:P05-P06-P17-actualcapture-child-contract",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+          "assessed_ranges": [
+            [
+              1,
+              32
+            ]
+          ],
+          "receipt_pointer": "/rows/1",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              32
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R168-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:P05-P06-P17-capture-owner-remainder",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "ready6..31 mutateswarmup/readinesswithoutplanadvance; requiredmotion19/presentation20 blockthen2frames26. Driver232/236 waitsactualauthoredpose,450requiresreadiness beforeapplied463. Validloadingwaitisnotcompatibilitymode."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "rejected-suspicion-source-qualified",
+      "policy_decisions_remaining": [],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 5,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CAPTURE-CONTROLLER-TIME-AND-FIXTURE-ACTION-POLICY",
+      "subcontract_id": "capture-controller-time-and-fixture-action-policy",
+      "canonical_owner_or_explicit_unresolved_owner_question": "CaptureMotion canonicalelapsed/tick andfixtureaction owner",
+      "first_failed_contract_or_unresolved_question": "Typedtick/elapsed retainedthroughcheckedcontrollerprojection; fixtureexpects conditional onactualauthoredPlannedFrame/state/direction.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R169-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs:P05-P06-P17-actualcapture-child-contract",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+          "assessed_ranges": [
+            [
+              1,
+              126
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R169-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs:P05-P06-P17-actualcapture-child-contract",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+          "assessed_ranges": [
+            [
+              1,
+              58
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R168-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:P05-P06-P17-capture-owner-remainder",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              169,
+              526
+            ],
+            [
+              799,
+              822
+            ],
+            [
+              900,
+              1021
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "CaptureMotion6..11 holdsGroundContact/AnimationElapsed; checkedSkeletonLocomotionInput45..51 consumesactualtick44 andelapsed49 thenproject52. begin_action73..78 explicitlydifferentattack/quickstep/newkind starts, canonicalticks/spans80..87/111; expect97/102/116/121 notordinarypanicwitnesswithoutactualinvalidsupportedproducer."
+      ],
+      "remaining_evidence": [],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "documented-conditional-policy-question",
+      "policy_decisions_remaining": [
+        "IfsupportedarbitraryPlannedFrame/direction/stateadmission isretained, proveexactactualconstructor/callerbeforepanicfinding. Capturefixturetickconstantsnotautomaticallyproductgameplaytuning."
+      ],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 6,
+      "contract_id_or_proposed_new_id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH#post-local-cache-versus-propagated-support-qualified",
+      "subcontract_id": "post-local-cache-versus-propagated-support-qualified",
+      "canonical_owner_or_explicit_unresolved_owner_question": "Finalsupport observation authority andexplicitrolepolicy",
+      "first_failed_contract_or_unresolved_question": "Currentlocalcoordinator already updatesBOTH actualankle-derivedsupportcaches; possiblelatercapturepreference discrepancyrequires exactapplicableposeowner/reach/frame/hierarchy proof orsemanticpolicy.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R016-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+          "assessed_ranges": [
+            [
+              761,
+              2973
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              761,
+              2973
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R015-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+          "assessed_ranges": [
+            [
+              1,
+              453
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              453
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R012-9",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+          "assessed_ranges": [
+            [
+              527,
+              798
+            ],
+            [
+              823,
+              899
+            ]
+          ],
+          "receipt_pointer": "/rows/9",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              527,
+              798
+            ],
+            [
+              823,
+              899
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R021-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+          "assessed_ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              168
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "Coordinator985..1011 snapshotsnativefinal-localankle andupdatesRaised1001/1008+Memory1004/1011; cannotcallcacheinvariablynominal/presolver. Laterobserver197..234 updatesMemory228/232 andtargetsbutnotRaisedfloats; capture653..656 prefersinitializedRaised afterIKadmission648..650. Exactconditionalpotentialauthoritydivergenceretained, no ordinarynative mismatch."
+      ],
+      "remaining_evidence": [
+        "Ifassertingsupportedvalue discrepancyratherthanquestion, identifyexactapplicableinitializedraisedstep/solverreach/reentry/nativehierarchy/frame/subsequentfootposeowner thatchangesclassification; no foreignL1bodycredit."
+      ],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": {
+        "existing_canonical_id": "ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+        "ledger_pointer": "/discovery_findings_and_dependencies/ADLER-L11-RAISED-SUPPORT-OBSERVATION-DISPATCH",
+        "existing_value_sha256_json": "3be4f9ee3133b70a723f5446e24d91fd44a93496903a33a4a23e069a95ba9b5a",
+        "existing_first_failed_contract": "A capture field used as final visual support must consume the final propagated observation, rather than select an earlier cache after admitting the current one.",
+        "closure_queue_pointer": "/entries/45",
+        "existing_queue_entry_sha256_json": "06788d9c908f2f5cc1c2dc227320fb16f56f070eb95dfdc5603d5a8f36dd715a"
+      },
+      "audit_discovery_disposition": "documented-conditional-policy-question",
+      "policy_decisions_remaining": [
+        "Statewhethergeneralreportfieldintendslocalraisedclassificationorfinalpropagatedsupport; ifdifferentrolesnameandkeepbothhonestly."
+      ],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 7,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CURRENT-OWNED-NPY-HEADER-FRAMING-ADMISSION",
+      "subcontract_id": "current-owned-npy-header-framing-admission",
+      "canonical_owner_or_explicit_unresolved_owner_question": "PrivateNpyHeader/HeaderVersion\u2192immutableNpyArray/typedshape/valueowners",
+      "first_failed_contract_or_unresolved_question": "Currentframing/temporarydictionary/predicatepresence admittedbeforearraypublication; no newheader-shape findingfromhandoff.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R170-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/lib.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+          "assessed_ranges": [
+            [
+              1,
+              29
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              29
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R170-1",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+          "assessed_ranges": [
+            [
+              1,
+              229
+            ]
+          ],
+          "receipt_pointer": "/rows/1",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              229
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R170-2",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+          "assessed_ranges": [
+            [
+              1,
+              160
+            ]
+          ],
+          "receipt_pointer": "/rows/2",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              160
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R170-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header/frame.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1",
+          "assessed_ranges": [
+            [
+              1,
+              70
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              70
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R011-6",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/metadata.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "9f1da6644f22150d5836dc600b8dd88abfd3ddd5d4b737214f0e688f78fdb505",
+          "assessed_ranges": [
+            [
+              1,
+              174
+            ]
+          ],
+          "receipt_pointer": "/rows/6",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              174
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R011-7",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/tensor.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "e66ce25b7fac744ec37d8822741f7600771cf54697192434761c2084c5a11485",
+          "assessed_ranges": [
+            [
+              1,
+              110
+            ]
+          ],
+          "receipt_pointer": "/rows/7",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              110
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R011-8",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/values.rs",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "d7569da7f315d9ac915ffec91ae0d33eb57e83341c006f115020321e68512617",
+          "assessed_ranges": [
+            [
+              1,
+              174
+            ]
+          ],
+          "receipt_pointer": "/rows/8",
+          "read_attribution": "parallel lens11_reconcile agent fresh personal untruncated current e275 body reads; root adoption pending",
+          "contract_relevant_ranges": [
+            [
+              1,
+              174
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "NpyArray34..38 privateimmutable shape/dtype/payloadbytes; from_bytes120..130 destructuresadmittedNpyHeader thenowns payload.to_vec. read134..138 preservesstdIO/parsecauses viaanyhowContext, unlikeStringformattererasure. NativeconstantsMAGIC/version/length widths exactformatports; no universalapplicationquantitywrappingfixedmagic.",
+        "Headerframe::from_bytes19..40 checksminimum10/magic21..23, supports1.0/u16 or2.0/3.0/u32 length25..28, checkedget/split_at_checked32..35 beforeUTF8/from_dictionary36..39. Versionnativepackingboilerplate belongsoneenumHeaderVersion; no functionbodycountfromdeletedvendoringorhandoff alone.",
+        "from_dictionary28..88 collectslexicaldescriptor/order/dimensions31..35 untilexactrequiredpresence71..73, rejectingduplicates46..60, unknownHeaderField97, malformedseparator68/trailingtext39. Thenactualdtype74 andFortran75 rejection BEFORE shape product78/payload80..82. This is temporarylexicalparserstate, notunrelatedretainedOptionfields needinganotheraggregateowner.",
+        "StorageOrderlexicalTrue/False105..110 requireseparatorslater68, so falseprefixgarbagecannotbeacceptedwithoutnextseparator. quoted148..160 firstensuresASCIIquote151 before slicing, rejectsescapes155; supportedscalarfieldpolicy neednotadmitarbitraryPythonliteral/dictfeatures. from_header_tuple118..137 handlesrank0emptyshape, requirescommafortuple123, parseusize\u2192NpyDimension131 thenNpyShape::try_from136; actualproduct/zeroextentpolicy own011metadata body qualifiedseparately.",
+        "Dtype51..75 distinctF32/F64/I32/I64/U8/Bool withlittleendiannativeformats; rawnativeencodeddescrstrings terminalformatports, notapplicationAPIsemanticselectors. Headerdtype/order rejection doesnotpreservescalarunits/finiteness: numericalvalueconversion/rawmodelparameterpolicy remains actualown011/P11contract.",
+        "to_tensor97..103 admitsNpyTensorLayout fromshape101 before NpyFloat32Values::into_tensor102; integerupload106..115 numericVec/TensorData nativeendpoint112. Actualtensor/value child own011 qualifiedseparatecurrentproof; nativeBurnandmodel-instanceassociation notcertifiedbythiswrapper. Existingtests141..229 includingdtype/order/truncatedpayloadscalars source-readonly, notexecuted."
+      ],
+      "remaining_evidence": [
+        "ActualnativeBurn/modelinstance/scalarunits policy remains separatequalifiedP09/P11contract, no broaderallfinitearrayproof."
+      ],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "rejected-suspicion-source-qualified",
+      "policy_decisions_remaining": [],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    },
+    {
+      "schema": "726-contract-update-v1",
+      "lens": 11,
+      "proposal_ordinal": 8,
+      "contract_id_or_proposed_new_id": "REVIEW-L11-CURRENT-NPZ-SELECTED-MEMBER-AND-DECLARATION-ROLES",
+      "subcontract_id": "current-npz-selected-member-and-declaration-roles",
+      "canonical_owner_or_explicit_unresolved_owner_question": "PrivateZipMember/NpzMember lifetime/query/fullmember roles andownedZIPerror boundary",
+      "first_failed_contract_or_unresolved_question": "No newselectedmember/metadata-splitlookup failure; declaredcounts/sizes/nativepolicy remainunverifiedmetadata, notcertifiedpayload/resourcebound.",
+      "exact_source_identities_and_assessed_ranges": [
+        {
+          "source_row_key": "R171-0",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+          "assessed_ranges": [
+            [
+              1,
+              221
+            ]
+          ],
+          "receipt_pointer": "/rows/0",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              221
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-1",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz/name.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f",
+          "assessed_ranges": [
+            [
+              1,
+              68
+            ]
+          ],
+          "receipt_pointer": "/rows/1",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              68
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-2",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+          "assessed_ranges": [
+            [
+              1,
+              184
+            ]
+          ],
+          "receipt_pointer": "/rows/2",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              184
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-3",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/compression.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "1ea9cfec33fc2ed93d94faf3fe03c4a67f2048061101675bd0ef6057c80c4833",
+          "assessed_ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "receipt_pointer": "/rows/3",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              27
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-4",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/error.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+          "assessed_ranges": [
+            [
+              1,
+              142
+            ]
+          ],
+          "receipt_pointer": "/rows/4",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              142
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-5",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/extent.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649",
+          "assessed_ranges": [
+            [
+              1,
+              44
+            ]
+          ],
+          "receipt_pointer": "/rows/5",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              44
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-6",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/member_count.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867",
+          "assessed_ranges": [
+            [
+              1,
+              92
+            ]
+          ],
+          "receipt_pointer": "/rows/6",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              92
+            ]
+          ]
+        },
+        {
+          "source_row_key": "R171-7",
+          "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/names.rs:current-delta-NPY-NPZ-owned-native-boundary",
+          "revision_or_explicit_transport_qualification": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+          "source_sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb",
+          "assessed_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "receipt_pointer": "/rows/7",
+          "read_attribution": "Own Lens11 agent actual fresh prospectivelyregistered untruncated current source body reads; root adoptionpending.",
+          "contract_relevant_ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        }
+      ],
+      "producer_api_retained_state_consumer_native_trace": [
+        "Npz wrapsoneZipArchive18..20; NpzMember26..29 binds exactprivateZipMember lifetime andretains originalNpzArrayName query. get56..63 asksZipArchive.find directoryfirstpredicate andconstructsmember+querytogether, so metadatauncompressed_size79 andactualarraybytes84 useSAME selectedentry, no secondlookuppossiblydifferentmember. Borrowlifetimepreventsindependentarchivepair throughpublichandle.",
+        "NpzArrayName43 distinct full ArchiveMemberName13; matches51..54 fullparsedname OR exactlyone trailing.npy removal. Queryconstructor47 preservesverbatim spelling; keys52 mapsactualmemberorder. Ifearlierfull-or-suffixmatch precedeslaterexactfilename, first wins byexplicitpolicy, not invalidlateexactmatch or backwardscompatdefect. Empty/case/separators/NUL are query/textidentity, no path/filesystemcertification expected. ParsedbytesnameslossyUTF815..18 documentedidentitypolicy, not automaticmembership/securityfinding.",
+        "ZipArchive.open65..80 retainsoriginalpath+operation+ioerror onFileopen67 andMmap74, readonlyinput concurrenttruncation explicitassumption72..73. from_data86..110 delegatesdirectory/ZIP64/framing toZipLocator maxsearch66000, retains typedArchiveMemberCount91, cappedinitialcapacity409692 vs fullu64 iteration96, breakswhen actualselecteddirectoryends97. Noinferredmustparseexactdeclaredcount/globalallrecordvalidation fromnameddeclarationupperboundpolicy94..95.",
+        "Entry31..36 ownsparsedname/compression/declaredlength/nativeWayfinder once centralheaderselected100..106. ZipMember45..48 carries archive+entry privatepair, get_entry165 usesexactentrywayfinder onSAMEarchive. Native localframing/payloadrawbytesproof remains actualrawzip source, notdocumentationor installedversion. Stored169 borrowsarchivebytes; Deflate170..179 producesownedCow andretains actualioerrorInflate175..178. Unsupported method becomesZipCompressionCode andtypederror181 AFTERget_entrylocalframing.",
+        "ZipReadError34..69 ownsNativeOpen/Map originalPathBuf+ioerror, Archive/rawzipError, CorruptMember/MemberPastEnd exactname+rawzipError, Inflate/name+ioerror, MissingMember/canonicalname andUnsupported/nativecode. Error::source114..124 retainsavailablecauses; ordinaryDisplay71..113 doesnotdiscardthem. MissingEndRecord isintentionalcategoryprojection126..132 withnomember/nativeIOcontext, notsameasformattingallerrorsintoString.",
+        "DeclaredUncompressedByteLength27 namesUNVERIFIEDdirectorymetadata explicitly7..8; zero/u64MAX admitted31..33, native_allocation_capacity41..43 lossyusize onlyatVecreservation172, notpersistedapplicationcountorvalidatedlimit. Actualdecompressedpayloadlength/notCRC/resourceallocationpolicy mustremainexplicit; no requirementpreserveobsoleteinvalidallocationpanic ordeclarearbitrarymaxfrominheritance.",
+        "ArchiveMemberCount10 u64bound retainedthroughnative0..u64range24..26; initial_capacity17..19 min4096 affectsreservationonly, notcardinality. Tests29..92 and NPZtests89..221 source-readonly; no binaryfixtureparsed/executedbodycredit fromincludes/docs/tests. .zipfixtures have actualbinary contract, notnulltextEOF coverage."
+      ],
+      "remaining_evidence": [
+        "Exactrawzip0.5.2 ownlockedarchive/native structural/directory/localmember/Wayfinder proof andflate2source neededbeforebroadernativeboundaryclosure.",
+        "Actualtestsource/docs/binaryfixturecurrentdeltas remainseparate; no parser/runtimeexecuted."
+      ],
+      "dependencies": [
+        "Actualnative/child/source-specificlimitations remainasexactrowreceipts; no generalall20/current/globalclearance.",
+        "Root validateswholebundle/orderedsourceadoption andhonestnameddisposition; no code repair/runtimeacceptance."
+      ],
+      "closure_condition": [
+        "Rootvalidates exactimmutable source/registration/ownadoptedproof/ranges beforeadoptingpending168..171.",
+        "Record onlynamedsource/conditional/policy/rejecteddisposition andremainingactualownerquestions; no coarseparent/globalclosure."
+      ],
+      "existing_contract_revisit_identity_proof_if_any": null,
+      "audit_discovery_disposition": "documented-conditional-policy-question",
+      "policy_decisions_remaining": [
+        "Declaredsizeallocation/decodedlength/CRC/resourcepolicy explicit; no obsoleteinvalidbehaviorpreservation frominheritancecomment.",
+        "Directorydeclarationupperbound/firstfull-or-onesuffixmatch/nativeunknownmethod availability areactualsourcepolicies, notautomaticcompatibilitydefects."
+      ],
+      "requested_queue_operation": "append-granular-subcontract-disposition",
+      "closure_is_not_repair_or_runtime": true,
+      "authority_mutation": false,
+      "implementation_gate_complete": false,
+      "new_body_population_unique_credit": 0,
+      "later_repair_acceptance_requirements": [
+        "Preserveactualcanonicalroles/optionalavailability andsource-specificownednativecause.",
+        "Laterauthorizedruntimevalidation/repair separate; sourceassertions/readcount/hashnotruntimepass."
+      ]
+    }
+  ],
+  "current_delta_updates": [
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/47",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/lib.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/lib.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "7a4709d77e4d1cd8b748281df5039256c50249ce",
+        "sha256": "70b08075872829b20794f6db4134a675fab973239b4f74a71db77b6e58b2af08",
+        "bytes": 960,
+        "text_EOF": 29,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R170-0",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/48",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "4b808f9c2deb641138027271d2cd2da0222d3a2d",
+        "sha256": "3d7e42f15266af610d071b2d68cd9acff68b67235cee133f3ae3d11bc397eaa9",
+        "bytes": 7031,
+        "text_EOF": 229,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R170-1",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/49",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/header.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "d1b8e1c768dbbe3f3f780eb11dce01b16514038c",
+        "sha256": "803f682737c58296f8051e54b45ffa6a3354d9fd0cda783fc680d623acacfba0",
+        "bytes": 5255,
+        "text_EOF": 160,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R170-2",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/50",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/npy/header/frame.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "b7d8e7030ea65f7d0d7775a164408402e788970f",
+        "sha256": "8d2ea9c24c9a605790cc40c413d48eb4ae18dd219b13a3c05847492892a63de1",
+        "bytes": 2421,
+        "text_EOF": 70,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R170-3",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/57",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/npz.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "46a39897a8c5cb990da8a2db0a215bf51a725b28",
+        "sha256": "dbb459aedf127a9d4977bdb83f0412aa0ebcc0e4ec69be932b11542c344d5e7c",
+        "bytes": 7894,
+        "text_EOF": 221,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-0",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/58",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/npz/name.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/npz/name.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "6623fff8b76e540ae0198222bf00ce3d62ec8f64",
+        "sha256": "edb39b267a6f8bd5b105471f6b7401c99f838dc5f778440074974cb7c0659a6f",
+        "bytes": 2178,
+        "text_EOF": 68,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-1",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/59",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "4eb9aa247e596d17a753fb2b770d5638422e62fb",
+        "sha256": "103ac802bbcdd074db8e2ea834745e2e65eb2e696ff67a5e4ca91e957d53cb57",
+        "bytes": 6286,
+        "text_EOF": 184,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-2",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/60",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/compression.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "d4418d29bd6ed99f2414ae50cac62be954afc5d0",
+        "sha256": "1ea9cfec33fc2ed93d94faf3fe03c4a67f2048061101675bd0ef6057c80c4833",
+        "bytes": 1002,
+        "text_EOF": 27,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-3",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/61",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/error.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/error.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "aea71d033af691a445a0fc03e7791402e07fc791",
+        "sha256": "5bd621e040fd71428017dfa5fe318318459aa2b6b4668caf8228f9b9128a7260",
+        "bytes": 5024,
+        "text_EOF": 142,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-4",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/62",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/extent.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "ec7e6df06a5c7057f84646ea586b419c4e958c1a",
+        "sha256": "89e5e68efda56434498ebe713bd44bc442adec15f48545c5a0eb71907abf7649",
+        "bytes": 1534,
+        "text_EOF": 44,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-5",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/64",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/member_count.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "6ddff51e696ddb4cc9f25b347423e84cae46ac81",
+        "sha256": "f965aadcab3b85b32ef4d64c0559346d205fcf990a6bf7de88730ce7641b7867",
+        "bytes": 2809,
+        "text_EOF": 92,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-6",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    },
+    {
+      "operation": "map-existing-qualified-own-lens-body-only-after-source-adoption",
+      "lens": 11,
+      "delta_id": "CURRENT-7A9-TO-E275",
+      "queue_path_pointer": "/current_main_deltas/0/paths/65",
+      "preserved_delta_identity": {
+        "source_id": "current-main:e2755a732c84e67296b5e3441a4259a84f461b2f:crates/fabelgeist-numpy-storage/src/zip/names.rs",
+        "path": "crates/fabelgeist-numpy-storage/src/zip/names.rs",
+        "revision": "e2755a732c84e67296b5e3441a4259a84f461b2f",
+        "git_blob": "c482e676ca7c30aac69e2b09d9ca55848f6b58f1",
+        "sha256": "5680fdb87a940a74a256a4db7483e1407833d99aee4b617e69047281b91e2adb",
+        "bytes": 864,
+        "text_EOF": 28,
+        "body_coverage": 0,
+        "all_thirteen_lens_reconciliation": "pending; exact required contract scopes must be prospectively registered before assessed reads",
+        "population": "current-main delta, separate from original2853/overlays246/frozenmerged38/originalshared196"
+      },
+      "prior_lens_status": "pending-exact-scope-disposition",
+      "source_row_key": "R171-7",
+      "delta_closed": false,
+      "new_body_population_unique_credit": 0,
+      "remaining_evidence": [
+        "NamedNPYframing/NPZmemberfirstpartycontractdispositions onlyafterown170/171adoption. NativeZIP/consumer/test/docs/binaryfixture/scalar/modelassociation remainqualifiedseparatecurrentdelta/connectedcontracts, no blanketpathclosure."
+      ]
+    }
+  ],
+  "additive_qualifications": [
+    {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/QUALIFICATION-RAISED-SUPPORT-CACHE-PROVENANCE-002.json",
+      "sha256": "107a092877ee1d44e71fac76682d9ace6ca35ac4ba3f2da867e9d731fe47d155"
+    }
+  ],
+  "qualifications": [
+    "17fresh firstparty rows postprospective189..191; priorown11/12/15/16/21/109 exactsameLens11 root-adoptedbodyreuse separate no newpersonalcredit.",
+    "170partialfirstfour191bodies staysimmutable;171 completesremainingeight exactly, no retrospectiveclipping/narrowing.",
+    "Actualcapturefullsamephysicalfile1021 union includesdifferentprospectiveSourceIDpurposes; allpath/revision/hash/EOF/ranges exact, priorranges notnewpersonalread.",
+    "12changedcurrentNPY/NPZ/ZIP paths getspecificbodymapsafterorderedsourceadoption; all delta_closed:false andnative/consumer/fixture/policyquestions explicit.",
+    "Raisedcachequalification preserveshistory; coordinatoractualworldankles alreadyupdatebothcaches, supportedlaterdiscrepancyconditionalwithnoL1bodytransfer.",
+    "Native/runtime/testsource resultsnotexecuted; original2853/overlay246/frozenmerged38/shared196/extensions separate. No newremote-maincheckinthisbundle; rootreverifybeforecurrentglobalclosure."
+  ],
+  "recovery_checkpoint": {
+    "path": "target/726-audit-adler-20261027/parallel-l11-20261029/PROGRESS-171-20261030.json",
+    "sha256": "b6ddc11db09584457e92267ae6c2794c673e46f9371574dc4253bccfd35c05c3"
+  },
+  "validation_ruleset": {
+    "path": "target/726-audit-adler-20261027/parallel-l11-20261029/l11_firstparty_bundle_preflight_v1_PROPOSAL_UNEXECUTED.py",
+    "sha256": "20577da89668140032aeac03763b86ed16bf7214f1f421d30a6bb302e15ec40c"
+  },
+  "new_ruleset_delta": {
+    "kind": "Compactfirstparty/adopted-own-proof adapter, reusesexactinspectedimmutableprooflibrary via runpy withoutCLI main",
+    "reused_inspected_ruleset": {
+      "path": "target/726-audit-adler-20261027/parallel-l11-20261029/l11_closure_existing_evidence_preflight_v2_PROPOSAL_UNEXECUTED.py",
+      "sha256": "5d2c50f991152937ad8db2024c987f4f0ce346c291ccd7a2c4900064d01fec9a"
+    },
+    "new_schema_cases": [
+      "Exactfresh168..171/189..191immutablehashes and17source rows; no native/inheritednewforms.",
+      "170unread8\u2192171exactregisteredcompletion; canonicalsupportoldkey/value/firstcontract+queue identity;12currentdeltaexactpath/blob/hash scopes."
+    ],
+    "no_historical_helpers_edited_or_executed_as_authority": true,
+    "root_application": "Rootinspectcompactwrapper/all8semantics andrunreadonlywholebundlepreflight beforeordered168..171authorityadoption/onequeue updates. Rootsolewriter withfreshraceguards; wrapperhasnowrites."
+  },
+  "product_execution": false,
+  "implementation_gate_complete": false
+}

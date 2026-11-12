@@ -1,0 +1,13 @@
+{
+  "schema": "726-tree-listing-path-pattern-scan-v1",
+  "stored_sha256": "96a69e73b765ad2e9838cac717a5241e88e306e7f752ffe6ba5d550a5e7f1069",
+  "entries": 23030,
+  "counts": {
+    "local_home": 0,
+    "tmp_task": 0,
+    "windows_user": 0,
+    "email": 0,
+    "credential": 0
+  },
+  "qualification": "Checks only selected local-home, task-temp, Windows-user, email and credential patterns within pathnames in this listing. It does not establish general privacy, inspect contents or clear Git history. The earlier manual attempt assumed three metadata fields and stopped at an assertion; this version accepts the actual four fields including size."
+}

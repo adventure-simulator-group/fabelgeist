@@ -1,0 +1,154 @@
+=== editor.rs 1..110 ===
+   1 | //! Waist and neck garment controls, including alternate tasset constructions.
+   2 | use super::armor_controls::number;
+   3 | use bevy_egui::egui;
+   4 | use fabelgeist_armor::{
+   5 |     GarmentArmorDesign, GarmentArmorKind, GarmentPlateShape, WrappedTassetDesign,
+   6 | };
+   7 | 
+   8 | pub(super) fn show(ui: &mut egui::Ui, design: &mut GarmentArmorDesign) -> bool {
+   9 |     let original = design.clone();
+  10 |     tasset_construction(ui, design);
+  11 |     let minimum_length = if design.kind == GarmentArmorKind::Fauld {
+  12 |         100
+  13 |     } else {
+  14 |         500
+  15 |     };
+  16 |     for (value, range, label) in [
+  17 |         (&mut design.length.0, minimum_length..=1300, "Length"),
+  18 |         (&mut design.clearance.0, 1..=40, "Padding clearance (mm)"),
+  19 |         (&mut design.wall_thickness.0, 1..=16, "Thickness (mm)"),
+  20 |     ] {
+  21 |         number(ui, value, range, label);
+  22 |     }
+  23 |     if matches!(
+  24 |         design.kind,
+  25 |         GarmentArmorKind::Brigandine
+  26 |             | GarmentArmorKind::JackOfPlates
+  27 |             | GarmentArmorKind::Fauld
+  28 |             | GarmentArmorKind::Tassets
+  29 |             | GarmentArmorKind::Gorget
+  30 |             | GarmentArmorKind::MailSkirt
+  31 |             | GarmentArmorKind::PaddedSkirt
+  32 |     ) {
+  33 |         number(ui, &mut design.flare.0, 0..=500, "Hem flare");
+  34 |     }
+  35 |     if matches!(
+  36 |         design.kind,
+  37 |         GarmentArmorKind::ArmingDoublet
+  38 |             | GarmentArmorKind::Brigandine
+  39 |             | GarmentArmorKind::JackOfPlates
+  40 |             | GarmentArmorKind::MailShirt
+  41 |     ) {
+  42 |         number(ui, &mut design.waist.0, 800..=1100, "Waist width");
+  43 |     }
+  44 |     if design.plate_shape != GarmentPlateShape::None {
+  45 |         let maximum_lames = if design.kind == GarmentArmorKind::Tassets {
+  46 |             12
+  47 |         } else {
+  48 |             8
+  49 |         };
+  50 |         ui.add(egui::Slider::new(&mut design.lame_count, 1..=maximum_lames).text("Lames"));
+  51 |         plate_shape(ui, design);
+  52 |         crate::fluting_controls::show(ui, &mut design.fluting);
+  53 |     }
+  54 |     *design != original
+  55 | }
+  56 | 
+  57 | fn tasset_construction(ui: &mut egui::Ui, design: &mut GarmentArmorDesign) {
+  58 |     if design.kind != GarmentArmorKind::Tassets {
+  59 |         return;
+  60 |     }
+  61 |     let original = matches!(design.plate_shape, GarmentPlateShape::WrappedTassets(_));
+  62 |     let mut wrapped = original;
+  63 |     ui.horizontal(|ui| {
+  64 |         ui.label("Tasset construction");
+  65 |         ui.selectable_value(&mut wrapped, false, "Front panels");
+  66 |         ui.selectable_value(&mut wrapped, true, "Wrapping thigh plates");
+  67 |     });
+  68 |     if wrapped != original {
+  69 |         design.plate_shape = if wrapped {
+  70 |             GarmentPlateShape::WrappedTassets(WrappedTassetDesign::default())
+  71 |         } else {
+  72 |             GarmentPlateShape::for_kind(GarmentArmorKind::Tassets)
+  73 |         };
+  74 |     }
+  75 | }
+  76 | 
+  77 | fn plate_shape(ui: &mut egui::Ui, design: &mut GarmentArmorDesign) {
+  78 |     match &mut design.plate_shape {
+  79 |         GarmentPlateShape::None => {}
+  80 |         GarmentPlateShape::WrappedTassets(shape) => {
+  81 |             super::wrapped_tasset_controls::show(ui, shape, design.lame_count);
+  82 |         }
+  83 |         GarmentPlateShape::Fauld {
+  84 |             front_arch,
+  85 |             front_arch_width,
+  86 |             waist_rise,
+  87 |             chevron_slope,
+  88 |         } => {
+  89 |             number(ui, &mut waist_rise.0, 0..=120, "Waist rise (mm)");
+  90 |             number(ui, &mut chevron_slope.0, 0..=500, "Chevron slope");
+  91 |             let arch_limit = 1200.min(design.length.0.saturating_sub(1));
+  92 |             front_arch.0 = front_arch.0.min(arch_limit);
+  93 |             number(ui, &mut front_arch.0, 0..=arch_limit, "Front arch");
+  94 |             number(ui, &mut front_arch_width.0, 250..=800, "Front arch width");
+  95 |         }
+  96 |         GarmentPlateShape::Tassets {
+  97 |             inner_cutaway,
+  98 |             hem_point,
+  99 |             width,
+ 100 |             gap,
+ 101 |             hem_roundness,
+ 102 |         } => {
+ 103 |             number(ui, &mut inner_cutaway.0, 0..=400, "Inner cutaway");
+ 104 |             number(ui, &mut hem_point.0, 0..=200, "Hem point");
+ 105 |             number(ui, &mut width.0, 700..=1150, "Plate width");
+ 106 |             number(ui, &mut gap.0, 100..=400, "Separation");
+ 107 |             number(ui, &mut hem_roundness.0, 0..=300, "Hem roundness");
+ 108 |         }
+ 109 |         GarmentPlateShape::Gorget {
+ 110 |             neck_clearance,
+=== editor-wrapped.rs 1..42 ===
+   1 | //! Controls for long wrapping tassets and their detachable lower section.
+   2 | use bevy_egui::egui;
+   3 | use fabelgeist_armor::WrappedTassetDesign;
+   4 | 
+   5 | pub(super) fn show(ui: &mut egui::Ui, shape: &mut WrappedTassetDesign, count: u8) -> bool {
+   6 |     let original = *shape;
+   7 |     let maximum_break = count.saturating_sub(1);
+   8 |     shape.section_break = shape.section_break.min(maximum_break);
+   9 |     for (value, range, label) in [
+  10 |         (&mut shape.inner_wrap.0, 150..=450, "Inner thigh return"),
+  11 |         (&mut shape.outer_wrap.0, 450..=750, "Outer thigh return"),
+  12 |         (
+  13 |             &mut shape.inner_gap.0,
+  14 |             0..=80,
+  15 |             "Half-width between tassets (mm)",
+  16 |         ),
+  17 |         (
+  18 |             &mut shape.upper_edge_slope.0,
+  19 |             0..=500,
+  20 |             "Suspension chevron slope",
+  21 |         ),
+  22 |         (&mut shape.knee_reach.0, 650..=1100, "Reach toward knee"),
+  23 |         (
+  24 |             &mut shape.inner_cutaway.0,
+  25 |             0..=50,
+  26 |             "Inner upper cutaway (mm)",
+  27 |         ),
+  28 |         (
+  29 |             &mut shape.hem_rounding.0,
+  30 |             0..=35,
+  31 |             "Hem corner rounding (mm)",
+  32 |         ),
+  33 |         (&mut shape.section_gap.0, 0..=8, "Section separation (mm)"),
+  34 |     ] {
+  35 |         super::armor_controls::number(ui, value, range, label);
+  36 |     }
+  37 |     ui.add(
+  38 |         egui::Slider::new(&mut shape.section_break, 0..=maximum_break)
+  39 |             .text("Lower section begins after course (0: unsplit)"),
+  40 |     );
+  41 |     *shape != original
+  42 | }

@@ -1,0 +1,519 @@
+{
+  "schema": "726-delegated-source-family-audit-v1",
+  "agent": "/root/mhr_character",
+  "generated_utc": "2026-11-11T21:10:05.467640+00:00",
+  "scope": "Original report-p17 roles 2442–2443 and current comparison; source text only; no whole-lens, population, checkpoint or ledger closure.",
+  "pinned_current_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "frozen_report_p17_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "snapshot_proof": {
+    "registry": "reference/original-registry.json.gz",
+    "pointer": "/snapshots/2",
+    "snapshot_as_recorded": {
+      "id": "report-p17",
+      "root": "SNAPSHOTS/report-p17",
+      "base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "meaning": "Mandatory P17 source delta90a; shared motor dependency still pending",
+      "changed_variants": 32,
+      "patch_sha256": "3c72c8c4f9816b49ae6306994d55571ceeff420b5a47bb5ff8bcec3c6668c9cd",
+      "status_porcelain": []
+    },
+    "original_role_records": "/files/2442 and /files/2443",
+    "git_membership": "git-proofs.json",
+    "git_nonmembership": "git-absence-proofs.json",
+    "older_recovered_copies": "older-continuation-index.json",
+    "qualification": "Original clean P17 head, 774 source copies, original registry hash and raw Git commit/tree/blob membership corroborate both P17 sources; 95e sample.rs nonmembership proven by current parent tree."
+  },
+  "assigned_source_identity": [
+    {
+      "original_role": 2442,
+      "kind": "report-p17",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "archive": "source/report-p17-2442.rs",
+      "bytes": 5537,
+      "lines": 140,
+      "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+      "git_blob_sha1": "47326b56ca209c61b357a3e2c9aef707ab9fbf36",
+      "planned_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          140
+        ]
+      ],
+      "source_provenance": "P17 recorded clean snapshot head, 774 recovered copy and exact Git blob agree"
+    },
+    {
+      "original_role": 2442,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "archive": "source/current-2442.rs",
+      "bytes": 5327,
+      "lines": 136,
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "git_blob_sha1": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+      "planned_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          136
+        ]
+      ],
+      "source_provenance": "pinned current Git tree"
+    },
+    {
+      "original_role": 2443,
+      "kind": "report-p17",
+      "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "archive": "source/report-p17-2443.rs",
+      "bytes": 8213,
+      "lines": 132,
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "git_blob_sha1": "e379fc3b3731d71ebe9d7bf938539962d3497c36",
+      "planned_display_chunks": [
+        [
+          1,
+          100
+        ],
+        [
+          101,
+          132
+        ]
+      ],
+      "source_provenance": "P17 recorded clean snapshot head, 774 recovered copy and exact Git blob agree"
+    }
+  ],
+  "absent_current_sources": [
+    {
+      "original_role": 2443,
+      "kind": "current",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "qualification": "No such path in current tree; prove Git tree nonmembership independently. No current body to display and no identity transfer."
+    }
+  ],
+  "personal_read_receipt": "read-receipt.json",
+  "support_registrations": [
+    "support-registration.json",
+    "support-registration-02.json"
+  ],
+  "support_read_receipt": "support-read-receipt.json",
+  "revision_comparison": {
+    "root_motion": "P17 checked SignedLength derived clearance and fallible collection; current raw optional f32. Other root/ground logic in exact patch.",
+    "sample": "P17 dedicated sample.rs, 132 lines; absent at exact current path. Independent current support capture.rs 615–775 retains related construction inline with distinct fallible/optional field choices; no current original role body exists.",
+    "earlier_read": "Previous P17 orientation packet included only P17 sample.rs 1–60 as support; this task independently registered and displayed 1–132, and separately retains the older support receipt."
+  },
+  "recovered_history": [
+    {
+      "record": "historical-059/segovb/READ-L11-404.json",
+      "author": "original segovb reviewer",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "registrations": [
+        "segovb/REGISTRATION-SEGOVB-1337.json",
+        "segovb/REGISTRATION-SEGOVB-1338.json"
+      ],
+      "scope": "P17 root_motion 1–140 and sample 1–132 fresh own-L11 reads; P17 optional ground/height and typed admission are historical observations, no current conclusion inherited."
+    },
+    {
+      "record": "historical-059/segovb/READ-L12-823.json",
+      "author": "/root/lens12_frontier",
+      "source_revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "registrations": [
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-451.json",
+        "parallel-l12-20261029/REGISTRATION-PAR-L12-452.json"
+      ],
+      "scope": "Independently full P17 root_motion 1–140 and sample 1–132, original Lens12 bounded untruncated attribution and no cross-lens transfer. Related TEAM014 stores separate adoption evidence."
+    },
+    {
+      "record": "older-774-index.json and older-continuation-index.json",
+      "author": "original native and segovb reviewers separately as recorded",
+      "source_revision": "report-p17 for source/landing 586 and pr-working for native aggregate 016; never infer transport commit as source revision",
+      "scope": "Native owner coverage JSONL zero-based rows262/601 for root_motion and 263/602 for sample, NATIVE-OWNER-CAPTURE-001; NATIVE-PS-MOTION-008 related_frozen_P17[1] sample 1–58. Older 586 summary personally reviewed P17 landing_validation 1–30 and explicitly required all landing compression observations. NATIVE-INITIAL05-F016 relates to jitter cohort completeness, not an alias to missing landing-height."
+    }
+  ],
+  "prior_packets": {
+    "index": "prior-packets-index.json",
+    "qualification": "Previous P17 orientation packet is complete and separately attributed; own prior sample 1–60 support remains separate from this fresh registration and personal full read."
+  },
+  "findings_and_reconciliations": [
+    {
+      "id": "CAPTURE-LANDING-MISSING-HEIGHT-AS-ZERO-95E",
+      "classification": "Newly assessed current source finding conditional on capture component absence and required landing semantics; central owns exact alias and ledger disposition.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              527,
+              575
+            ],
+            [
+              577,
+              591
+            ],
+            [
+              657,
+              668
+            ],
+            [
+              684,
+              691
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              183,
+              204
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              242,
+              275
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "archive": "source/report-p17-2443.rs",
+          "lines": [
+            [
+              59,
+              66
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-3.source",
+          "lines": [
+            [
+              222,
+              241
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+          "archive": "source/support-11.source",
+          "lines": [
+            [
+              11,
+              29
+            ]
+          ]
+        }
+      ],
+      "trace": "The current capture query admits an optional LocomotionHeightState and substitutes HeightDistance::ZERO when it is absent. The landing gate obtains the maximum from all saved values and regards its final compression <=0.005 as settled. If earlier measured landing compression provides the required 0.04–0.08 peak while final height state is absent, that absent last observation is represented as zero and can satisfy the final settled predicate. In P17 the sample preserves absent compression and landing_response_valid rejects any landing frame missing that observation.",
+      "conditions": "Requires the component to be absent at a selected landing frame, an otherwise present eligible subject/playback/route, at least one other measured frame satisfying the peak and knee gate, correct landing-sequence increment, and all other conditions for the landing predicate. Viewer lifecycle may maintain the component throughout; no actual absent component, passing report, live play or executed scenario is claimed. Other gates may reject independently.",
+      "future_repair_direction": "Determine when height observation is required and carry missing versus measured-zero through capture and landing validation, preserving deliberate absent/nonapplicable modes and existing acceptance thresholds. Do not fabricate measured values or weaken acceptance.",
+      "relationships": [
+        "059 READ-L11-404 and READ-L12-823 documented P17 optional height fields but did not adjudicate this current inline landing chain. 774 SEGOVB-INITIAL04-CONTRACT-586 records that the P17 landing gate requires all compression observations; no retroactive claim of an old current-95e finding. q842/q845 and q1157 concern separate height/config/landing producer questions, not automatic aliases."
+      ]
+    },
+    {
+      "id": "CAPTURE-GROUND-CLEARANCE-ADMISSION-95E",
+      "classification": "Current-versus-P17 source-level admission gap, conditional on nonfinite computed clearance; no established full-report false pass.",
+      "source_refs": [
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "archive": "source/current-2442.rs",
+          "lines": [
+            [
+              18,
+              47
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "archive": "source/report-p17-2442.rs",
+          "lines": [
+            [
+              19,
+              51
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/fabelgeist-geometry/src/measurement.rs",
+          "archive": "source/support-10.source",
+          "lines": [
+            [
+              9,
+              19
+            ],
+            [
+              33,
+              42
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              620,
+              629
+            ],
+            [
+              653,
+              658
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-1.source",
+          "lines": [
+            [
+              623,
+              637
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              256,
+              260
+            ],
+            [
+              291,
+              297
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-3.source",
+          "lines": [
+            [
+              294,
+              299
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              20,
+              24
+            ],
+            [
+              281,
+              299
+            ]
+          ]
+        }
+      ],
+      "trace": "Current ground collection subtracts terrain elevation from native bone Y and stores the raw optional f32 without result admission. P17 maps present clearance through SignedLength::from_metres, retains None for no terrain height, and rejects capture if the value is nonfinite. Current report finite_transforms checks position and rotation arrays, not derived clearance itself; a finite Y minus finite elevation can overflow f32, so transform finiteness alone does not establish finite derived clearance.",
+      "conditions": "Requires finite extreme actual bone/elevation values or other nonfinite input for the derived difference, an available elevation and a material capture. Whether scene/terrain owners permit the needed values and how every downstream metric reacts remain open. We do not claim ordinary terrain data, a successful report, numeric witness execution, or a current safety failure.",
+      "future_repair_direction": "Reconcile terrain-support and frame-specific SignedLength admission at the capture boundary, preserve genuine unavailable terrain separately from invalid arithmetic, and propagate the owning error to the report before retaining observations.",
+      "relationships": [
+        "059 READ-L11-404 explicitly preserved P17 optional support and requested metrics/availability policy; P17 checked arithmetic is not an automatic current finding. Related but distinct from existing missing landing observation and bouncy numerical closure."
+      ]
+    },
+    {
+      "id": "NATIVE-INITIAL05-F013-CAPTURE-ERROR-CONTINUITY",
+      "classification": "Prior 774 numerical finding and earlier independently read P17/95e producer evidence, freshly connected at the assigned sample; no new unique finding.",
+      "source_refs": [
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "archive": "source/report-p17-2443.rs",
+          "lines": [
+            [
+              24,
+              41
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-1.source",
+          "lines": [
+            [
+              663,
+              685
+            ]
+          ]
+        },
+        {
+          "revision": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-3.source",
+          "lines": [
+            [
+              222,
+              234
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "archive": "source/support-0.source",
+          "lines": [
+            [
+              657,
+              668
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "archive": "source/support-2.source",
+          "lines": [
+            [
+              183,
+              195
+            ]
+          ]
+        },
+        {
+          "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+          "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "archive": "source/support-4.source",
+          "lines": [
+            [
+              525,
+              536
+            ]
+          ]
+        }
+      ],
+      "trace": "P17 FrameSample maps an error-valued bouncy measurement to rejected capture admission; current inline FrameSample saves raw f32 telemetry. The earlier /root/mhr_character P17 orientation packet independently traces the current spring f32::max masking and native canonical NATIVE-INITIAL05-F013. This packet re-reads the consumer and does not transfer producer-body read credit.",
+      "conditions": "Nonfinite spring state and a capture must occur; no actual spring, acceptance result, viewer or test execution has been observed. P17 error admission is observation hardening, not a fix of the kernel.",
+      "future_repair_direction": "Keep kernel finite-state ownership and capture failure admission connected, with no silent neutral substitution; preserve other valid zero spring and optional-mode behavior.",
+      "relationships": [
+        "Exact earlier P17 orientation packet is archived intact as prior-packets/p17-orientation.tar.gz and keeps its original personal scopes and 774 source/alias evidence. 059 q560 remains open and belongs to that separate producer concern."
+      ]
+    }
+  ],
+  "nonfindings": [
+    "No tests, fixtures, viewer, browser, product, native diagnostic, builds or runtime probes were executed; no actual completed capture or missing component was observed.",
+    "Current required active IK support admission rejects absent weights in relevant ownership conditions; default diagnostics alone do not prove active support silently becomes zero.",
+    "CaptureGround deliberately uses an authored plane when IK is disabled and returns None if terrain height is unavailable; these modes are not automatically malformed or compatibility paths.",
+    "P17 typed capture protects admission of some measured values but does not establish finite native transform arrays or repair the upstream spring kernel.",
+    "A pathname-only metadata search for landing_validation was issued before its specific search registration; it grants no source body credit. The subsequent exact P17 source was separately prospectively registered before display."
+  ],
+  "open_questions": [
+    "Can the supported landing capture lifecycle ever remove or omit LocomotionHeightState in a frame after a measured peak, and should any landing frame permit missing compression?",
+    "What are the numeric bounds of real terrain and bone positions and how do report metrics handle absent/nonfinite clearance across each scenario?",
+    "Should every no-IK/absent body-response or height state serialize as absent, not applicable, or measured zero, for each reporting consumer?",
+    "Do existing view slugs or filenames ever collide and what owns typed map identity? Earlier q1910/q1915 remain open without a new uniqueness claim.",
+    "Can current scene root distance accumulation overflow under any admitted actual plan and does an earlier position admission preclude that route?"
+  ],
+  "thirteen_lens_perspectives": [
+    {
+      "lens": "admission-contracts",
+      "bounded_assessment": "P17 validates signed clearance and retained bouncy observation, while current stores primitive fields; current terrain/root position admission and intended absent terrain modes are separate. No runtime invalid admission inferred.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "aggregate-states",
+      "bounded_assessment": "Landing gate combines sequence, peak, final settled value and knee angle; per-field fallback zero cannot prove final observation existed. q842/q845 producer questions remain separate.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "behavior-preservation",
+      "bounded_assessment": "P17 root-motion and current differ in checked clearance; P17 sample.rs is absent in the 95e tree and its related capture logic is inlined. Preserve intended modes and exact observation availability rather than infer unchanged behavior.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "derivability",
+      "bounded_assessment": "The assigned construction/geometry logic uses explicit fallible admission; no scope evidence supports replacing custom checked behavior with blind derive.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "enum-shapes",
+      "bounded_assessment": "CaptureGround::Terrain versus AuthoredPlane(height) keeps distinct authority and payload. Optional body, height and IK observations are meaningful availability states; do not equate false/zero with None.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "existing-type-owners",
+      "bounded_assessment": "P17 uses SignedLength for finite signed clearance and root distance and Radians for telemetry. Existing world-frame Position/SupportElevation and native Bevy transform boundaries remain distinct.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "invariant-operations",
+      "bounded_assessment": "Finite inputs can produce a nonfinite subtraction or accumulated distance, and P17 re-admits observed results. Scope establishes the checked versus unchecked operation, not the existence of extreme production inputs.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-numbers",
+      "bounded_assessment": "Capture root offset, ragdoll tuning and landing thresholds encode test/report semantics; their actual authority needs producer/policy inspection. Do not alter thresholds or infer tuning defect from literals alone.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "magic-strings",
+      "bounded_assessment": "Screenshot view slugs and filenames are report keys; q1910/q1915 retain earlier typed-view concern, but no duplicate/collision or exact alias is inferred here.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "producer-propagation",
+      "bounded_assessment": "Scene root and ground sample produce selected bone observations into the retained FrameSample and validation; P17 maps geometry errors before recording. Current sample construction occurs in capture.rs, not missing sample.rs.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "redundant-authority",
+      "bounded_assessment": "Authored plane and terrain query are distinct branches; missing observation is not an independent numeric zero. Bouncy aggregate telemetry and subject capture have a separate scope question preserved in prior packet.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-granularity",
+      "bounded_assessment": "Terrain elevation, signed clearance, body compression, root distance, observed direction and time have separate units/frames and availability rules; ground missing and invalid result remain distinct.",
+      "whole_lens_completion": false
+    },
+    {
+      "lens": "type-ownership",
+      "bounded_assessment": "Geometry owns signed-distance admission; capture owns observation and terminal rejection; report validation owns applicability and thresholds. Parent owns exact alias and connected repair grouping.",
+      "whole_lens_completion": false
+    }
+  ],
+  "limitations": [
+    "Source inspection and evidence verification only; no tests, fixture generation, viewers, browsers, product builds, runtime probes or repairs.",
+    "Historical original records, reconstructed navigation subsets, current Git inspection and prior packet work remain separately attributed; nothing is promoted to missing checkpoint3821.",
+    "Central owns baseline, cross-lens and alias reconciliation, repair ledger and checkpoint publication."
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "schema": "726-followup-verifier-correction-v1",
+  "initial_script_sha256": "a6d77438f1ee257a0e4f58dd73fdb264c1c478a58549fe3510b47a336af6c935",
+  "corrected_script_sha256": "9e6610240b0502b280a41e2a05e5808618edae9060a6b34c4c738bf16c6b3638",
+  "failure": "The first expanded evidence-only verifier failed with KeyError counts while checking the independent 13R pattern scan. That scan stores candidate_counts and exceptions instead. The tool response was truncated, so no full first failure transcript is claimed; the exact pre-correction script is retained separately under restricted same-machine custody.",
+  "correction": "Read the scan\u2019s actual candidate_counts and exceptions fields; preserve all other packet, scan, archive and evidence assertions. The corrected verifier is re-run separately.",
+  "product_validation": "not performed"
+}

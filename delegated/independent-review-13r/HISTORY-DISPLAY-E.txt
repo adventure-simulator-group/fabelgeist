@@ -1,0 +1,93 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Original2251–2258 FBX source, docs, source tests and text fixture; original scoped native num_enum adapter and f82 transport; selected current MHR and rig consumers.",
+  "observations": [
+    {
+      "contract": "Original FBX record boundary and progress",
+      "trace": "parse begins node records at byte27 and repeats while one full header remains; read_node accepts nonzero end_offset and resets reader.pos to it without verifying forward progress, file extent or enclosing parent extent. In a symbolic old-format header beginning at27, end_offset27 with zero properties and zero name would leave the cursor at27 after each read; with40 total bytes the outer header condition remains true.",
+      "remaining": "Original Adler358/q152 already identified nonadvancing/escaping record ends. This is a source-level hypothetical, not a constructed or parsed file, observed hang, allocator failure or runtime test. Null sentinel, both header formats, valid nesting and any accepted malformed-input policy remain to be traced."
+    },
+    {
+      "contract": "Original FBX decode budget",
+      "trace": "read_props reserves Vec capacity directly from num_props; decode_array reserves count*width for Zlib before bounded decoded-byte admission and uses ZlibDecoder.read_to_end, then checks only whether the decoded bytes are shorter than count*width. Current flate2 1.1.10 source shows the selected read decoder wraps a bufread decoder and delegates Read; the parser itself supplies no output limit. Extra decoded payload is currently ignored after count elements in both supported encoding modes.",
+      "remaining": "Original Adler358/q153 already records resource and count questions. No data, compressed stream, allocator, multiplication in product, decoder or test ran. Overflow on narrower usize, platform resource limits and actual import admission are conditional; a budget must preserve intentionally accepted extra payload unless separately decided."
+    },
+    {
+      "contract": "Typed encoding and exact prior native adapter",
+      "trace": "Reader::u32 is passed to FbxArrayEncoding::try_from before payload length and decoder; the enum explicitly admits0 and1, and UnsupportedFbxArrayEncoding retains the reported u32. Pinned num_enum0.7.6 reexports TryFromPrimitive; its derive source emits matches for recognized discriminants and calls the configured error constructor with the original number for other values. The earlier q2942 native-adapter disposition already found no String-erasure issue in this exact route.",
+      "remaining": "Earlier native delegate source scopes and f82 object provenance are retained; no macro expansion, build, compiler, decoder or fixture ran. Unsupported values are this reader’s policy, not a claim that they are formally invalid FBX. Codec feature resolution, all native callees and source aliases remain open."
+    },
+    {
+      "contract": "Animation property and curve admission",
+      "trace": "Scene::takes recognizes exactly three Lcl transform properties then stores them as String and rematches them in collect_layer, the original q303 propagation issue; generic Link.property intentionally remains open native text. Public Curve has independently mutable times and values, and sample indexes values using times length. The source parser slices both arrays to min(times.len,values.len), so an ordinary parser-built count mismatch does not reach that direct index mismatch; however times are not ordered on construction even though Curve documents ascending key times and sample uses first/last/partition_point.",
+      "remaining": "Earlier Adler358 and delegate743 already noted public cardinality and malformed ordering/array-min policies. A direct public Curve with one time and zero values would reach an invalid value index, but no such object or panic ran. A hypothetical unsorted source array is an admission question; actual FBX ordering guarantees, external Curve callers, truncation policy, layer/default behavior and downstream animation usage remain open."
+    },
+    {
+      "contract": "Scene graph and rig import",
+      "trace": "Scene::from_roots keeps objects in a public Vec while building a separate private by_id index and link map. If a caller clears that vector after a scene with an indexed object is built, Scene::get still maps the id to the old index and indexes the now-empty vector. Independently, from_roots accepts links without a cycle check; a hypothetical Model/LimbNode object1 linked to scene root0 and to itself is reachable from children(0), and MHR SkeletonBuilder::visit recursively visits children(object.id) without visited tracking. Character::from_fbx_bytes supplies the parsed scene to this traversal.",
+      "remaining": "No Scene, object, file, mutation, traversal, stack or panic ran. Selected MHR importer does not itself mutate objects between parse and traversal, and no real malformed file or external mutation is established. Graph cycle rejection versus bounded traversal, duplicate-ID behavior and public mutation policy remain open; cyclic traversal is distinct from record byte-offset progress."
+    },
+    {
+      "contract": "Source rules and supported names",
+      "trace": "Reader exact-width takes and decoder slices precede several try_into().unwrap() calls; collect_layer uses last_mut().expect() immediately after a push. These are explicit production source conflicts with crates/AGENTS.md, but those immediately preceding conditions do not establish a reachable panic at the cited sites. Qualified names cut the first NUL-one separator before lossy UTF-8; normalized names remove the final namespace prefix and convert directly to shared RigJointName. Empty/unfamiliar spellings, first matching label lookup and raw Boolean array bytes remain distinct supported policies.",
+      "remaining": "Earlier delegate743 explicitly noted the guarded unwrap/expect rule cases. Do not invent malformed short-buffer failure for these checked slices or add label grammar. Original output text fixture is expected-output evidence only, not a test pass."
+    }
+  ],
+  "reconnected_historical_findings": [
+    {
+      "id": "ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "queue": 152,
+      "qualification": "Original Adler record progress and parent/file extent finding; symbolic example refines it."
+    },
+    {
+      "id": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "queue": 153,
+      "qualification": "Original Adler allocation/decompression budget finding."
+    },
+    {
+      "id": "SEGOVB-L12-FBX-ANIMATION-TRANSFORM-PROPERTY-PROPAGATION",
+      "queue": 303,
+      "qualification": "Original delegated recognized transform-property propagation finding."
+    },
+    {
+      "id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "queue": 2942,
+      "qualification": "Original exact native adapter scoped disposition, not a new String error or global lens clearance."
+    }
+  ],
+  "connected_historical_reason_family": {
+    "ledger_id": "REVIEW-FBX-PARSER-TYPED-REASON-FAMILY-95E",
+    "queue_indices": [
+      304,
+      305,
+      306,
+      307,
+      308,
+      309
+    ],
+    "qualification": "Six original error identities and first predicates remain separate; a common repair dependency is neither alias nor new unique finding."
+  },
+  "new_current_candidates": [
+    {
+      "id": "REVIEW-FBX-SCENE-INDEX-COHERENCE-95E",
+      "qualification": "Conditional public Scene mutation invalidates the private index; earlier Adler358 already noted independent object/index authority."
+    },
+    {
+      "id": "REVIEW-FBX-MHR-CYCLIC-JOINT-GRAPH-95E",
+      "qualification": "Conditional cyclic FBX graph reaches recursive MHR skeleton traversal; distinct from original parser record-offset progress."
+    },
+    {
+      "id": "REVIEW-FBX-CURVE-AGGREGATE-95E",
+      "qualification": "Earlier reviewers identified public curve cardinality and ordering policies; two different first conditions remain named."
+    },
+    {
+      "id": "REVIEW-FBX-GUARDED-PRODUCTION-UNWRAPS-95E",
+      "qualification": "Earlier delegate noted guarded production unwrap/expect source rule cases, not observed panics."
+    }
+  ],
+  "historical_attribution_qualification": "Adler358 and delegates743/744 each independently read their exact historical scopes; root adoption zero rereads. Native q2942 retains original f82 source-object revision, selected range and scoped root disposition; no native/runtime verdict is borrowed.",
+  "remaining": "Continue original2259 and all thirteen lenses; actual malformed input/admission, decoder feature resolution, all importer consumers, exact aliases and queue reconciliation remain open. Original3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

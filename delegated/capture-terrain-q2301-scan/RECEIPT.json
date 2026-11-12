@@ -1,0 +1,10 @@
+{
+  "schema": "726-delegated-bounded-scan-receipt-v1",
+  "archive_sha256": "66c013d7995d41bc546c47de80f8342708c360c2e176c22beef3876ba2911cf3",
+  "scans": {
+    "AGENT-ARCHIVE-SCAN.json": "8582d2b939f11e9eb4052b4be167723258c1a469e68f51203f4f44308b3e12bc",
+    "COORDINATOR-ARCHIVE-SCAN.json": "8582d2b939f11e9eb4052b4be167723258c1a469e68f51203f4f44308b3e12bc"
+  },
+  "qualification": "Agent and coordinator scans independently ran the same bounded scanner and restricted digest corpus on the same machine. They do not establish general privacy, clear old history or independent custody. The scanned archive, including registered and reconstructed displays, is byte-identical to the retained packet.",
+  "product_validation": "not performed"
+}

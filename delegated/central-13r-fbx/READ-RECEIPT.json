@@ -1,0 +1,66 @@
+{
+  "schema": "726-central-13r-read-receipt-v1",
+  "reader": "/root",
+  "recorded_utc": "2026-11-12T13:24:47.706369+00:00",
+  "registration_sha256": "2796ab15b9c805c5a5223a2d90a3140d24b6438831c08345791fec2d3c81b52e",
+  "displays": [
+    {
+      "path": "DISPLAY-A.txt",
+      "tags": [
+        "fbx-reader"
+      ],
+      "sha256": "3992546635ad612088e6b1d12d029363f208e28541b3c1bd79ff04078a8f656e"
+    },
+    {
+      "path": "DISPLAY-B.txt",
+      "tags": [
+        "fbx-array-encoding"
+      ],
+      "sha256": "c43679a81120a09df2a27b1212ebec2fd600260a5d732f12144806b4bcda3f80"
+    }
+  ],
+  "rows": [
+    {
+      "tag": "fbx-reader",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-fbx/src/lib.rs",
+      "displayed_ranges": [
+        [
+          222,
+          243
+        ],
+        [
+          420,
+          480
+        ]
+      ],
+      "unread_complement": [
+        [
+          1,
+          221
+        ],
+        [
+          244,
+          419
+        ],
+        [
+          481,
+          548
+        ]
+      ]
+    },
+    {
+      "tag": "fbx-array-encoding",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "displayed_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "unread_complement": []
+    }
+  ],
+  "qualification": "The two prospectively registered source windows were received separately. Copied complete bodies and earlier reviewer reads do not grant extra personal read credit. No product, macro, decoder, fixture or runtime execution."
+}

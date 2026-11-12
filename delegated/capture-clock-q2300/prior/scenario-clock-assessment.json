@@ -1,0 +1,772 @@
+{
+  "schema": "726-bounded-current-source-trace-v1",
+  "lenses": [
+    1,
+    3,
+    5,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13
+  ],
+  "source_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "scope": "Five historical scenario bodies and two conditional current configuration/time candidates, plus bounded selection and terrain-policy connections.",
+  "historical_reads": "ASSESSMENT-L01-HISTORICAL-1441-1445.json",
+  "current_supporting_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "bytes": 4516,
+      "lines": 132,
+      "ranges": [
+        [
+          20,
+          47
+        ],
+        [
+          68,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-0.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "bytes": 6843,
+      "lines": 179,
+      "ranges": [
+        [
+          89,
+          125
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-1.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "63ba64759d702ad1e73e0dc7fe8852b856301293",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "bytes": 4647,
+      "lines": 126,
+      "ranges": [
+        [
+          75,
+          116
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-2.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "lines": 1021,
+      "ranges": [
+        [
+          330,
+          355
+        ],
+        [
+          390,
+          417
+        ],
+        [
+          657,
+          663
+        ],
+        [
+          823,
+          862
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-3.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "bytes": 5327,
+      "lines": 136,
+      "ranges": [
+        [
+          69,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-4.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "c4129961a79ae0cf487825039993e83f2ff73026",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "bytes": 2020,
+      "lines": 58,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-5.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "bytes": 2644,
+      "lines": 81,
+      "ranges": [
+        [
+          70,
+          81
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-6.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "bytes": 132880,
+      "lines": 3497,
+      "ranges": [
+        [
+          1335,
+          1365
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-7.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "4b64e4d89c6af0bf3bda86b5083fcc77108de4fe",
+      "sha256": "73adfa554b290c3e6c1ea708a774f31fcd57ada3017d87f35632de1a6730ee7c",
+      "bytes": 31826,
+      "lines": 779,
+      "ranges": [
+        [
+          52,
+          67
+        ],
+        [
+          417,
+          699
+        ],
+        [
+          725,
+          729
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-8.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "70dd787c5f87370f4676d51434ec0825a81f65b9",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "bytes": 935,
+      "lines": 26,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-9.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "403b0ec967d1fcb55613c9bdb59c9ed3da5340ab",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "bytes": 839,
+      "lines": 19,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-10.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "lines": 98,
+      "ranges": [
+        [
+          11,
+          56
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-11.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "lines": 107,
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          51,
+          75
+        ],
+        [
+          89,
+          94
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-12.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "69c5ba2736064f8b1155cc01260f3947883972a7",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "bytes": 2982,
+      "lines": 86,
+      "ranges": [
+        [
+          18,
+          43
+        ],
+        [
+          45,
+          79
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-13.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "lines": 260,
+      "ranges": [
+        [
+          88,
+          92
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-14.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "lines": 65,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-15.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "d1d4a1e9c9f9a7b42d2b04dcf2c861b4fd3ffe0f",
+      "sha256": "d26ec83f9179ed63a120a67c34a6257d30a3182596853f870531dd9dfdca4bc6",
+      "bytes": 13809,
+      "lines": 346,
+      "ranges": [
+        [
+          95,
+          110
+        ],
+        [
+          176,
+          184
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-16.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939",
+      "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+      "bytes": 7343,
+      "lines": 99,
+      "ranges": [
+        [
+          72,
+          84
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-17.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "bytes": 80901,
+      "lines": 2050,
+      "ranges": [
+        [
+          76,
+          117
+        ],
+        [
+          539,
+          556
+        ],
+        [
+          798,
+          812
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-18.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/jitter.rs",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_blob": "f2dc05b4ff22005a67ef9367eb248445497f6d31",
+      "sha256": "aa9bc30e0fc0897f1fd272a8702ca8bfef43e3dc14846a71d4b6666a1b25f39e",
+      "bytes": 23052,
+      "lines": 608,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          421,
+          447
+        ]
+      ],
+      "preserved_bytes": "main-advance-95e/scenario-clock-evidence/support-19.source.gz",
+      "content_encoding": "gzip",
+      "qualification": "Only stated ranges personally inspected; complete source bytes retained for recovery. No config was loaded into the product, fixture, test, simulation, report, browser or runtime probe ran."
+    }
+  ],
+  "conditional_findings": [
+    {
+      "id": "REVIEW-CAPTURE-QUICKSTEP-DEFAULT-CONFIG-001",
+      "lens": 8,
+      "severity": "unassigned; conditional selected-config divergence in source, no runtime or visual result",
+      "classification": "New 95e source-derived review-fixture configuration authority candidate; earlier quickstep source question is related, final aliases remain open.",
+      "trace": "The viewer CLI accepts a tactical combat and animation YAML, builds the fixed clock from that selected sample rate, installs the validated runtime snapshot and passes the selected TacticalCombatConfig to run. But quickstep_action_ticks, quickstep_push_ticks, quickstep planar-speed construction, release and vertical-state helpers each obtain TacticalCombatConfig::default(), whose compiled canonical YAML is independent of an alternate selected file. The planned dodge contact and fixture motion therefore use default maneuver/motor values while animation sampling uses the selected runtime rate. The authoritative server begin_authoritative_quickstep instead passes its supplied config's quickstep duration to the same contact-tick conversion.",
+      "symbolic_case": "Keep the compiled canonical YAML and 64 Hz rate unchanged except that a supplied valid configuration uses quickstep_duration_seconds = 1.0 instead of canonical 0.50. PositiveAnimationDuration admits both; the inspected aggregate validation has no additional check of that field. The conversion gives canonical 0.50 × 64 = 32 complete ticks and midpoint 16, versus selected 1.0 × 64 = 64 complete ticks and midpoint 32. Under the selected plan path the viewer starts its fixture dodge at midpoint 16, while the authoritative constructor given the 1.0-second config uses midpoint 32. This is symbolic source arithmetic, not a loaded YAML file, execution, pose, gameplay event or screenshot.",
+      "limits": "When the selected configuration agrees with the compiled defaults, this duration mismatch does not arise. Other alternate motor fields and the 93.9 kg fixture versus 94.9 kg canonical-burden constants require separate intended-character and physics-policy tracing; no actual player movement, GPU or image effect is claimed. The 72-frame fixture limit and all aliases remain open.",
+      "first_failed_contract": "A review intended to represent the selected runtime quickstep configuration takes its maneuver duration and motor inputs from a second, compiled default authority.",
+      "canonical_owner": "The explicitly selected TacticalCombatConfig at capture-plan and quickstep-fixture construction, connected to the server quickstep timing owner.",
+      "connected_repair": "Decide and document whether quickstep review intentionally represents a canonical profile or the selected runtime configuration. If it is the selected profile, pass one validated configuration through plan/timing/force/landing construction and preserve explicit fixture mass and deterministic sample behavior; avoid silently changing live tactical authority.",
+      "later_acceptance": "After separate implementation and product-validation authorization, compare default and a supported nondefault duration/motor configuration across fixture plan, dodge midpoint and authoritative timing, plus baseline behavior.",
+      "discovery": "partial; selected-config semantics, runtime/native outcomes and global aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "id": "REVIEW-CAPTURE-SCENARIO-TIMESTAMP-RATE-001",
+      "lens": 7,
+      "severity": "unassigned; conditional sample-rate timestamp divergence in source, no report or visual result",
+      "classification": "New current-source capture timestamp and sample-rate authority candidate; global alias reconciliation remains open.",
+      "trace": "The selected YAML sample_hz is a checked positive AnimationSampleRate and is installed into the runtime snapshot. capture_fixed_clock and capture_frame_elapsed derive the logical fixed interval from that rate. Most scenario constructors record scenario_frame divided by the active rate, but turning_scenario, dynamics_turn_scenario and guard_plant_turn_scenario set time_seconds from frame / 64.0. capture_frame copies this authored value into FrameSample; jitter_frames copies it again, and jitter dt divides observed changes by adjacent timestamp differences. Other report metrics use those same times for durations or facing tracking.",
+      "symbolic_case": "With a supported alternate sample_hz = 32.0 and all other canonical settings retained, the selected turn scenario has 65 frames numbered 0 through 64. Its source records frame 64 at 1.0 seconds, while the 64 logical sample intervals from frame 0 to 64 at the active interval 1/32 seconds sum to 2.0 seconds, excluding warmup and wall-clock waiting. Adjacent recorded deltas are 1/64 rather than 1/32. For the same finite measured position change, the selected derivative division would use a denominator half as large; actual bones, incidents and report acceptance have not been produced. At canonical 64 Hz these particular timestamp intervals agree.",
+      "connected_presentation": "The manifest records the active sample_hz, while the HTML playback timer and descriptive text explicitly use 64 Hz. At non-64 rates this is a separate presentation consumer of the same rate question; its policy and exact alias are not assumed settled by the timestamp finding. Earlier 059 queue entry 1245 independently identified the non-64-Hz UI/playback question at its original historical revision; it did not establish this 95e timestamp chain or close the alias question.",
+      "first_failed_contract": "A captured sample timestamp used for elapsed-time metrics must represent the logical interval actually advanced by the selected capture clock, or be explicitly named as normalized scenario progress.",
+      "canonical_owner": "Selected AnimationSampleRate and its derived scenario sample-time/clock boundary, with report playback as a connected consumer.",
+      "connected_repair": "Separate normalized turn progress from elapsed sample time and derive timestamps from the selected rate; audit other frame-count assumptions and make playback rate follow its declared report contract, while preserving the intentional 64-sample turn shape and ordinary 64 Hz behavior.",
+      "later_acceptance": "After separate implementation and product-validation authorization, compare 32 Hz and 64 Hz runs for timestamps, derivative intervals, scenario progress and report playback, with warmup and intentionally fixed-frame scenarios explicit.",
+      "discovery": "partial; full scenario inventory, report presentation policy and global aliases open",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "existing_contract_connections": [
+    {
+      "ids": [
+        "Q-L12-44fc94656b244be5d4c4",
+        "Q-L12-f448722906a3d95c673f",
+        "ADLER-L11-CAPTURE-SCENARIO-ADMISSION-PANIC"
+      ],
+      "trace": "The plan and child family inspected here use authored scenario identities and positive explicit speeds for their selected steady calls. The prior unknown-scenario empty-plan assertion remains separately recorded. A generic zero-speed helper input does not by itself establish that a supported built-in plan reaches divide-by-zero; custom sample-rate and selected quickstep configuration are the two bounded current candidates above.",
+      "remaining": "Trace all programmatic callers, complete selectable catalog, timing arithmetic, accepted configuration ranges and aliases; source test assertions and native assets were not executed.",
+      "repair": "not started",
+      "validation": "not performed"
+    },
+    {
+      "ids": [
+        "Q-L12-b3d70674340ae8f11ff0"
+      ],
+      "trace": "Startup terrain mode comes from ScenarioTerrain::startup, while per-frame selection intentionally enables RaisedStop and enables Toggle only during its selected frame window. These are distinct policy stages, not automatically contradictory states.",
+      "remaining": "Selected native terrain and IK transitions, report applicability and all modes remain open.",
+      "repair": "not started",
+      "validation": "not performed"
+    }
+  ],
+  "historical_records": [
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1239 through /entries/1243"
+      ],
+      "qualification": "Earlier scenario questions retain original reviewer, revision and open status."
+    },
+    {
+      "file": "ASSESSMENT-SCENARIO-LABEL-ADMISSION-95E.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Earlier unknown-scenario assertion remains distinct; no automatic alias with clock/config candidates."
+    },
+    {
+      "file": "ASSESSMENT-QUICKSTEP-IDENTITY-95E.json",
+      "pointers": [
+        "/"
+      ],
+      "qualification": "Earlier quickstep action-instance/phase issue remains distinct from fixture configuration selection."
+    },
+    {
+      "file": "baseline-059/queue.json",
+      "pointers": [
+        "/entries/1245"
+      ],
+      "qualification": "Earlier role 1448 question explicitly noted selected non-64-Hz configuration versus fixed 64-Hz HTML and text; retains original revision and does not independently establish the current timestamp finding."
+    }
+  ],
+  "recovered_historical_records": [
+    {
+      "original_path": "segovb/PLAN-L12-419.json",
+      "sha256": "f931a1a68d79b689e3272955feaab2439d3a91d92d9f238217d48bef75e74f96",
+      "bytes": 731,
+      "git_blob": "56135451678eb0500a6a888d0048611c2044dc9f",
+      "preserved_bytes": "recovered/scenario-clock-059/f931a1a68d79b689e3272955feaab2439d3a91d92d9f238217d48bef75e74f96.gz",
+      "published_sha256": "f931a1a68d79b689e3272955feaab2439d3a91d92d9f238217d48bef75e74f96",
+      "published_bytes": 731,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-420.json",
+      "sha256": "07b635b876737ba1541416d61983491fc32a4784146a4d959769c3e254871e4a",
+      "bytes": 1247,
+      "git_blob": "a7c298ed9cce6bd1ed01a5706cb33b9b66493361",
+      "preserved_bytes": "recovered/scenario-clock-059/07b635b876737ba1541416d61983491fc32a4784146a4d959769c3e254871e4a.gz",
+      "published_sha256": "07b635b876737ba1541416d61983491fc32a4784146a4d959769c3e254871e4a",
+      "published_bytes": 1247,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/PLAN-L12-421.json",
+      "sha256": "95a28c5877ee8387c76b7427085d8615d7430655fa38113f97da29da61ac3d9c",
+      "bytes": 1738,
+      "git_blob": "4f3df4d1b8acd9a86b9e79969b74ca664e6aaa20",
+      "preserved_bytes": "recovered/scenario-clock-059/95a28c5877ee8387c76b7427085d8615d7430655fa38113f97da29da61ac3d9c.gz",
+      "published_sha256": "95a28c5877ee8387c76b7427085d8615d7430655fa38113f97da29da61ac3d9c",
+      "published_bytes": 1738,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 plan"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-419.json",
+      "sha256": "fe31843e23b4ca282afaf82257d330dd49d36d381845901663042ce63da2be4a",
+      "bytes": 7922,
+      "git_blob": "0e4dcfcb766830f0dcd1d103baa498def370f943",
+      "preserved_bytes": "recovered/scenario-clock-059/fe31843e23b4ca282afaf82257d330dd49d36d381845901663042ce63da2be4a.gz",
+      "published_sha256": "fe31843e23b4ca282afaf82257d330dd49d36d381845901663042ce63da2be4a",
+      "published_bytes": 7922,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-420.json",
+      "sha256": "5a9fc91ddbe7237680c8f51083962b4b96a50e971d9a75a42bb29a9f0fa7bd0a",
+      "bytes": 7304,
+      "git_blob": "6e29bdd524236ef6715dbfc99e20e578adb4d3d2",
+      "preserved_bytes": "recovered/scenario-clock-059/5a9fc91ddbe7237680c8f51083962b4b96a50e971d9a75a42bb29a9f0fa7bd0a.gz",
+      "published_sha256": "5a9fc91ddbe7237680c8f51083962b4b96a50e971d9a75a42bb29a9f0fa7bd0a",
+      "published_bytes": 7304,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/READ-L12-421.json",
+      "sha256": "c58a2f3364f9dd368b3c8c12f49abae586d4ead95f950dbb323c7dc39469e1ac",
+      "bytes": 11870,
+      "git_blob": "3c531ed8d1c6b5661f265d4b3edc4441083e4b35",
+      "preserved_bytes": "recovered/scenario-clock-059/c58a2f3364f9dd368b3c8c12f49abae586d4ead95f950dbb323c7dc39469e1ac.gz",
+      "published_sha256": "c58a2f3364f9dd368b3c8c12f49abae586d4ead95f950dbb323c7dc39469e1ac",
+      "published_bytes": 11870,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier independent Lens12 receipt"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-348.json",
+      "sha256": "659e9f9bb54163792a502034ec282fb64ec52fe145999bb043df651ac8207147",
+      "bytes": 1238,
+      "git_blob": "17cdae1077172fa92db7335a6b8ab82aeb8281b8",
+      "preserved_bytes": "recovered/scenario-clock-059/659e9f9bb54163792a502034ec282fb64ec52fe145999bb043df651ac8207147.gz",
+      "published_sha256": "659e9f9bb54163792a502034ec282fb64ec52fe145999bb043df651ac8207147",
+      "published_bytes": 1238,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-349.json",
+      "sha256": "0c6b69d73d6eb3ae95b5f0e31aa06fbc63a78b9d5f8eed9b600881633ba8f351",
+      "bytes": 1225,
+      "git_blob": "d138c2e4718b76b5ce5fb4dca8d69dae9487b932",
+      "preserved_bytes": "recovered/scenario-clock-059/0c6b69d73d6eb3ae95b5f0e31aa06fbc63a78b9d5f8eed9b600881633ba8f351.gz",
+      "published_sha256": "0c6b69d73d6eb3ae95b5f0e31aa06fbc63a78b9d5f8eed9b600881633ba8f351",
+      "published_bytes": 1225,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-350.json",
+      "sha256": "b9a38f209b6c60937871ceb725d1067a35d431196f929362066869f2d59f78f1",
+      "bytes": 1235,
+      "git_blob": "2d1049acf1dbb407af2acc32f30ab6b173ebf51e",
+      "preserved_bytes": "recovered/scenario-clock-059/b9a38f209b6c60937871ceb725d1067a35d431196f929362066869f2d59f78f1.gz",
+      "published_sha256": "b9a38f209b6c60937871ceb725d1067a35d431196f929362066869f2d59f78f1",
+      "published_bytes": 1235,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-351.json",
+      "sha256": "734b306ee8b7b4502e3e75c3bf10408a4576b98243ac8005144e849d7fdd52e5",
+      "bytes": 1249,
+      "git_blob": "682b3489521000dc689c523297a32f35c14d8ba0",
+      "preserved_bytes": "recovered/scenario-clock-059/734b306ee8b7b4502e3e75c3bf10408a4576b98243ac8005144e849d7fdd52e5.gz",
+      "published_sha256": "734b306ee8b7b4502e3e75c3bf10408a4576b98243ac8005144e849d7fdd52e5",
+      "published_bytes": 1249,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-352.json",
+      "sha256": "9cd5ab3fbe0aba9851d995f72b3d13c719574281f9738539c6ba858849dd6ad7",
+      "bytes": 1257,
+      "git_blob": "2c62545ef8cf7454f3a7ab11842fb40bf161f77c",
+      "preserved_bytes": "recovered/scenario-clock-059/9cd5ab3fbe0aba9851d995f72b3d13c719574281f9738539c6ba858849dd6ad7.gz",
+      "published_sha256": "9cd5ab3fbe0aba9851d995f72b3d13c719574281f9738539c6ba858849dd6ad7",
+      "published_bytes": 1257,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/REGISTRATION-SEGOVB-L12-353.json",
+      "sha256": "d33ff20e07dbba2bffc60fe6d4c643feedfe8ac97e76e66319a5aaeb93b8d41f",
+      "bytes": 1219,
+      "git_blob": "99cefbf17e80aa540877967d4e8aed140c7818e7",
+      "preserved_bytes": "recovered/scenario-clock-059/d33ff20e07dbba2bffc60fe6d4c643feedfe8ac97e76e66319a5aaeb93b8d41f.gz",
+      "published_sha256": "d33ff20e07dbba2bffc60fe6d4c643feedfe8ac97e76e66319a5aaeb93b8d41f",
+      "published_bytes": 1219,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier source registration"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-419.json",
+      "sha256": "76aae3c37b93e9256565195a10fc046828525187c4c3f2ade9d6a3efbf8e7b2f",
+      "bytes": 840,
+      "git_blob": "80b46114ff3686789ccd87372d18c22a7a061d67",
+      "preserved_bytes": "recovered/scenario-clock-059/76aae3c37b93e9256565195a10fc046828525187c4c3f2ade9d6a3efbf8e7b2f.gz",
+      "published_sha256": "76aae3c37b93e9256565195a10fc046828525187c4c3f2ade9d6a3efbf8e7b2f",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-420.json",
+      "sha256": "be4154c843b43d53329d3bf5a5bba4ea795286fbc214544183d99a174cf2016d",
+      "bytes": 840,
+      "git_blob": "2d74b27d3cac2b240bad3a76fac185f05db503d0",
+      "preserved_bytes": "recovered/scenario-clock-059/be4154c843b43d53329d3bf5a5bba4ea795286fbc214544183d99a174cf2016d.gz",
+      "published_sha256": "be4154c843b43d53329d3bf5a5bba4ea795286fbc214544183d99a174cf2016d",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/STATE-L12-421.json",
+      "sha256": "1db8f6072e8871ac5989e7f139aadca4e4745f36d69d4fe5fcd8f283c9abcc14",
+      "bytes": 840,
+      "git_blob": "248c2321c07eb85e83f3c294e59a0c26d3d7d3da",
+      "preserved_bytes": "recovered/scenario-clock-059/1db8f6072e8871ac5989e7f139aadca4e4745f36d69d4fe5fcd8f283c9abcc14.gz",
+      "published_sha256": "1db8f6072e8871ac5989e7f139aadca4e4745f36d69d4fe5fcd8f283c9abcc14",
+      "published_bytes": 840,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 scope state"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-419.json",
+      "sha256": "25af0407188fe37305b29bece9c9fc27b06dca4a83a17598bafaac99cff8468a",
+      "bytes": 558,
+      "git_blob": "2d82c81329dddd22b57dc410e1e5b01be9333e69",
+      "preserved_bytes": "recovered/scenario-clock-059/25af0407188fe37305b29bece9c9fc27b06dca4a83a17598bafaac99cff8468a.gz",
+      "published_sha256": "25af0407188fe37305b29bece9c9fc27b06dca4a83a17598bafaac99cff8468a",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-420.json",
+      "sha256": "2e74236b887a4bf3947071633b79669b7b33064c03c0566786295ec7d4ba2efc",
+      "bytes": 558,
+      "git_blob": "927f88d3aa9212f9cacfb341d2e429b1e1ed0e90",
+      "preserved_bytes": "recovered/scenario-clock-059/2e74236b887a4bf3947071633b79669b7b33064c03c0566786295ec7d4ba2efc.gz",
+      "published_sha256": "2e74236b887a4bf3947071633b79669b7b33064c03c0566786295ec7d4ba2efc",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    },
+    {
+      "original_path": "segovb/VERIFY-L12-421.json",
+      "sha256": "8c7f31cd66e88069bdb1b784b365d8b06d05455c5d2ea62c5f7eeaa74f4b756c",
+      "bytes": 558,
+      "git_blob": "1e5f8817cad3d95dcf6f92854b49b2d7ee9433e3",
+      "preserved_bytes": "recovered/scenario-clock-059/8c7f31cd66e88069bdb1b784b365d8b06d05455c5d2ea62c5f7eeaa74f4b756c.gz",
+      "published_sha256": "8c7f31cd66e88069bdb1b784b365d8b06d05455c5d2ea62c5f7eeaa74f4b756c",
+      "published_bytes": 558,
+      "redacted_local_path_occurrences": 0,
+      "original_recovery": "Exact original bytes preserved in this gzip.",
+      "roles": [
+        "earlier Lens12 verification"
+      ],
+      "qualification": "Original reviewer, lens, revision, partial ranges and scope retained; no checkpoint 3821 transfer."
+    }
+  ],
+  "remaining": "Actual selected YAML use, native fixture/physics/report outcomes, complete scenario and config owners, exact aliases and thirteen independent lenses remain open. Final checkpoint 3821 ledger and queue remain missing.",
+  "repair": "not started",
+  "validation": "not performed"
+}

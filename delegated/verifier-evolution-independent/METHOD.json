@@ -1,0 +1,211 @@
+{
+  "schema": "726-static-verifier-scope-v1",
+  "author": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T13:19:53.158523+00:00",
+  "publication_commit": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+  "publication_tree": "217237e656492faf524eea11c156fafbe4eb65e7",
+  "source_revision_as_recorded": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "raw_tree_listing": {
+    "command": [
+      "git",
+      "--no-replace-objects",
+      "ls-tree",
+      "-r",
+      "-l",
+      "-z",
+      "8608c88ad0cd75ca188ce03908c7662c1aa436e8"
+    ],
+    "raw_bytes": 3203416,
+    "raw_sha256": "ccfa10e3b53bfbe715d1d5097c3730adcd1d1229dae8178586bd736846e90d8a",
+    "gzip_path": "TREE-LISTING.z.gz",
+    "gzip_bytes": 1101624,
+    "gzip_sha256": "96a69e73b765ad2e9838cac717a5241e88e306e7f752ffe6ba5d550a5e7f1069"
+  },
+  "tree_inventory": {
+    "tracked_entries": 23030,
+    "modes": {
+      "100644": 23017,
+      "100755": 13
+    },
+    "summed_blob_sizes_bytes": 3069809657,
+    "root_verify_scripts": 694,
+    "root_driver_selected_names": 692,
+    "native_verify_scripts": 54
+  },
+  "static_grep_patterns": {
+    "root_scripts_naming_progress": "CONTINUATION-PROGRESS-95E\\.json",
+    "root_scripts_naming_baseline": "BASELINE-95E-20261110\\.json",
+    "root_scripts_naming_queue_reconciliation": "RECONCILIATION-059\\.json",
+    "root_scripts_naming_role_coverage": "COVERAGE-L01-ROLES\\.json",
+    "root_scripts_with_literal_zero_lens_pattern": "lenses_complete.*== *0|0 *==.*lenses_complete",
+    "root_scripts_with_literal_zero_queue_pattern": "queue_records_semantically_reconciled.*== *0|0 *==.*queue_records_semantically_reconciled",
+    "root_scripts_with_some_literal_role_status_pattern": "full-historical-body-trace-open|deleted-base-trace-open|prior_role_status|\\['status'\\].*unassessed"
+  },
+  "static_grep_counts": {
+    "root_scripts_naming_progress": 413,
+    "root_scripts_naming_baseline": 373,
+    "root_scripts_naming_queue_reconciliation": 273,
+    "root_scripts_naming_role_coverage": 448,
+    "root_scripts_with_literal_zero_lens_pattern": 249,
+    "root_scripts_with_literal_zero_queue_pattern": 312,
+    "root_scripts_with_some_literal_role_status_pattern": 288
+  },
+  "state_as_recorded_at_publication_commit": {
+    "lens_names": [
+      "producer propagation",
+      "existing owners",
+      "admission",
+      "operations",
+      "aggregates",
+      "type ownership",
+      "redundant authority",
+      "behavior preservation",
+      "enum shapes",
+      "derivability",
+      "type granularity",
+      "raw strings",
+      "raw primitives"
+    ],
+    "lens_status": [
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete",
+      "incomplete"
+    ],
+    "lenses_complete": 0,
+    "ledger_entries": 1030,
+    "queue_rows": 3713,
+    "queue_unassessed_exact": 2430,
+    "queue_semantically_reconciled_counter": 0,
+    "roles": 2853,
+    "role_statuses": {
+      "unassessed": 330,
+      "lock-metadata-partial": 4,
+      "bounded-current-trace-only": 22,
+      "assessed-nonapplicable": 3,
+      "full-historical-body-trace-open": 2480,
+      "deleted-base-trace-open": 7,
+      "source-metadata-partial": 7
+    }
+  },
+  "source_identities": [
+    {
+      "path": "check_published_evidence_privacy.py",
+      "git_blob": "bd0dcd75bec78214c0728c477f3c2eace3a6fdcd",
+      "bytes": 2674,
+      "sha256": "b3351682ac0d6bd236f435cd3cfcd7f456426b5ac26b79bcb792fb818b7b34e4"
+    },
+    {
+      "path": "verify_action_state_95e.py",
+      "git_blob": "210bc29f26e1c72740e966333302c19d303e6e17",
+      "bytes": 11136,
+      "sha256": "1e66d345bce981f64dff117d6f48e944069411a023839976e7ca59a918179738"
+    },
+    {
+      "path": "verify_role_worklist.py",
+      "git_blob": "ee926d2746ad37d5bb9040212dc472ab3585651e",
+      "bytes": 20715,
+      "sha256": "8c8e1a0599971393e1a6088b300dad7ba08808843489449a7b6a0e978f70f025"
+    },
+    {
+      "path": "verify_central_particles_13o_95e.py",
+      "git_blob": "04c685abf1acf8706e151ed0666e434a51c4d863",
+      "bytes": 3222,
+      "sha256": "770bb73a0cea80772c50f591b1c1ce7c030dbf1c3bdf44640bdbb8be28b4aaad"
+    },
+    {
+      "path": "verify_central_cloth_13l_95e.py",
+      "git_blob": "ae26a4c759f8d7d87ca162f1231356bb2d7941d9",
+      "bytes": 1832,
+      "sha256": "3550e891cce38cd1d3d8001ea8a653a0d65472af10410b6cf42271a293756471"
+    },
+    {
+      "path": "verify_central_collider_13m_95e.py",
+      "git_blob": "15a50b657c9d7b59618ca4242ae79348f4989ffb",
+      "bytes": 8540,
+      "sha256": "f8ac8f40623be7e295e73d2b2a6c03201282d8553840ca4922f4cff5df8cc74a"
+    },
+    {
+      "path": "verify_central_surface_13n_95e.py",
+      "git_blob": "198b67aa3597d76d6bb3b9b5a2fde7180ff004a8",
+      "bytes": 4993,
+      "sha256": "b0b71f5b416aafd6ea74883406a6dcb973a17e6a08c13e0fcdbe56b03a299551"
+    },
+    {
+      "path": "verify_p17_patch_recovery.py",
+      "git_blob": "97d87d46297aa81182dca2a222d1728bff595dbd",
+      "bytes": 3643,
+      "sha256": "0bc8cfd60fec6cabca956a6925c15a15f43957b3bfee7eeab431902b8a8792df"
+    },
+    {
+      "path": "verify_recovered_public_redacted_plus2.py",
+      "git_blob": "bd789e5c272e887b023e9e9903cb3777134406b9",
+      "bytes": 578503,
+      "sha256": "d88a6859727ff6cdf78b16d8b5f1870c13a03398edc8a41b20cc904648a1043e"
+    },
+    {
+      "path": "verify_checkpointc629_recovery.py",
+      "git_blob": "7d24436ce18ed39bf68a06fbc968cbb191004b7e",
+      "bytes": 2455,
+      "sha256": "c393030e2aa43b01567672b58102d0976a7dd0a7daf277b620de78b233f878cc"
+    },
+    {
+      "path": "verify_adapter_coordinator_review.py",
+      "git_blob": "ef025e3290361ba10f5b0e665ce3cb4d7f03b25d",
+      "bytes": 2217,
+      "sha256": "9ac2366cda77fcedfc3c928fb32b38fa6e0802ae428e3329bb422d206abf6863"
+    },
+    {
+      "path": "delegated/qualified-059-successors/successors/verify_reconciliation_proposal_links_15_059_public.py",
+      "git_blob": "5d1f14e901c7da7380774ea21a8a1d1a76f0eb0b",
+      "bytes": 4261,
+      "sha256": "4aa02f52d3ccb87506d71632e0d4a0e0679c45267f4997e64dfe9c4132882cca"
+    },
+    {
+      "path": "native-evidence/ab_glyph-0.2.32/verify.py",
+      "git_blob": "5a6383524ef1ba3b40f768f236db5ea658d7762a",
+      "bytes": 1168,
+      "sha256": "14b59d076519bbc3ba7597216e00bc92b1b2e47cb536b8e24dbda229664a3c19"
+    },
+    {
+      "path": "BASELINE-95E-20261110.json",
+      "git_blob": "8047dfb3fccb148cd3a58dc31587118442034330",
+      "bytes": 1392806,
+      "sha256": "f5c5e33859c58b67b444d2f61c070abf815da358ed78e4d55e21336e3f130ea7"
+    },
+    {
+      "path": "CONTINUATION-PROGRESS-95E.json",
+      "git_blob": "0ea7d13a789686a8d43aa500e83f86ecd357e154",
+      "bytes": 117652,
+      "sha256": "7d221301241e12ecaf28e6a592efabd75c9d1d88bef51aa4d714b95d4ae64ffc"
+    },
+    {
+      "path": "RECONCILIATION-059.json",
+      "git_blob": "b3cafa0f1fee013c2c2e1d197ab283bd605530ab",
+      "bytes": 1234266,
+      "sha256": "3cba35d4fb50366356b9d8283eca5ed206877992e614d052d67759f3144f97d3"
+    },
+    {
+      "path": "COVERAGE-L01-ROLES.json",
+      "git_blob": "cd5e9c999f1c162fad55c5d0864b08227ad077a3",
+      "bytes": 2051105,
+      "sha256": "84df54cf1c8001b43bac09e25bd9e19370a52b80f4bb8b44963ac588438398ff"
+    }
+  ],
+  "limits": [
+    "Static filename and textual-pattern counts, not a complete Python dependency analysis or a count of unique defects.",
+    "Only cited source windows were inspected. The whole-checkpoint tree inventory was enumerated, not every blob rehashed or every dynamically referenced input traced.",
+    "The exact tree listing records Git object names and sizes available locally at inspection; it does not establish independent custody or replay success.",
+    "No product source, fixture, shader, macro, product build, test, runtime probe, or historical verifier was executed for this report.",
+    "This packet is owner-restricted, has not been privacy reviewed, and is not yet published."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:36:55.258404+00:00",
+  "entries": [
+    {
+      "tag": "scene",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/scene.rs",
+      "git_blob": "8a54b1049b5593d0d06440ec8bda5f08f28c4ef8",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "bytes": 20452,
+      "eof": 553,
+      "capture": "sources/scene.rs"
+    },
+    {
+      "tag": "queries",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "git_blob": "a7fbe35525bc0e222e93cbedfac379560fbf4f0c",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "bytes": 6550,
+      "eof": 170,
+      "capture": "sources/queries.rs"
+    },
+    {
+      "tag": "terrain_policy",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs",
+      "git_blob": "dcd08ae262513c722aa3077c12dc370123cd0e6f",
+      "sha256": "ef089759439d79d013473eda445c12a1f4ee725f5aee47be890a3983a8a492a2",
+      "bytes": 1293,
+      "eof": 40,
+      "capture": "sources/terrain_policy.rs"
+    }
+  ],
+  "planned_tokens": [
+    "required_height_at",
+    "height_at",
+    "SceneTerrain",
+    "TerrainSupportError",
+    "scenario_uses_terrain_ik",
+    "terrain_ik_mode_for_frame"
+  ],
+  "qualification": "Prospective line-number/token-only locators; source displays registered separately."
+}

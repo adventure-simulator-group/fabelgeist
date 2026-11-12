@@ -1,0 +1,89 @@
+=== shape.rs 91..137 ===
+  91 |                 width,
+  92 |                 gap,
+  93 |                 hem_roundness,
+  94 |             } => {
+  95 |                 kind == GarmentArmorKind::Tassets
+  96 |                     && inner_cutaway.0 <= 400
+  97 |                     && hem_point.0 <= 200
+  98 |                     && (700..=1150).contains(&width.0)
+  99 |                     && (100..=400).contains(&gap.0)
+ 100 |                     && hem_roundness.0 <= 300
+ 101 |             }
+ 102 |             Self::Gorget {
+ 103 |                 neck_clearance,
+ 104 |                 collar_slope,
+ 105 |                 collar_height,
+ 106 |                 hem_flatness,
+ 107 |                 rear_hem_flatness,
+ 108 |                 rear_sweep,
+ 109 |                 front_depth,
+ 110 |                 back_depth,
+ 111 |                 front_width,
+ 112 |                 back_width,
+ 113 |             } => {
+ 114 |                 kind == GarmentArmorKind::Gorget
+ 115 |                     && (2..=15).contains(&neck_clearance.0)
+ 116 |                     && collar_slope.0 <= 1000
+ 117 |                     && (500..=2000).contains(&collar_height.0)
+ 118 |                     && hem_flatness.0 <= 1000
+ 119 |                     && rear_hem_flatness.0 <= 1000
+ 120 |                     && rear_sweep.0 <= 1000
+ 121 |                     && (600..=1500).contains(&front_depth.0)
+ 122 |                     && (600..=1500).contains(&back_depth.0)
+ 123 |                     && (500..=1300).contains(&front_width.0)
+ 124 |                     && (500..=1300).contains(&back_width.0)
+ 125 |             }
+ 126 |             Self::None => !matches!(
+ 127 |                 kind,
+ 128 |                 GarmentArmorKind::Fauld | GarmentArmorKind::Tassets | GarmentArmorKind::Gorget
+ 129 |             ),
+ 130 |         };
+ 131 |         if valid {
+ 132 |             Ok(())
+ 133 |         } else {
+ 134 |             Err(DesignError::ParametricParameters)
+ 135 |         }
+ 136 |     }
+ 137 | }
+=== error.rs 1..40 ===
+   1 | //! Why armor generation failed.
+   2 | 
+   3 | use fabelgeist_compute::ReadbackError;
+   4 | use thiserror::Error;
+   5 | 
+   6 | use crate::DesignError;
+   7 | 
+   8 | #[derive(Debug, Error)]
+   9 | pub enum GenerateError {
+  10 |     #[error("armor skin: {0}")]
+  11 |     Skin(#[from] fabelgeist_rig::RigSkinError),
+  12 |     #[error("armor GPU readback: {0}")]
+  13 |     Readback(#[from] ReadbackError),
+  14 |     #[error("armor plate shell: {0}")]
+  15 |     PlateShell(#[from] PlateShellFailure),
+  16 |     #[error(
+  17 |         "sabaton ankle cutaway {cutaway_m} m must be smaller than the available instep span {available_span_m} m"
+  18 |     )]
+  19 |     SabatonTrimExceedsFoot {
+  20 |         cutaway_m: f32,
+  21 |         available_span_m: f32,
+  22 |     },
+  23 |     #[error("invalid bracer design: {0}")]
+  24 |     Design(#[from] DesignError),
+  25 |     #[error("anatomical surface arrays or topology are inconsistent")]
+  26 |     InvalidSurface,
+  27 |     #[error("anatomical surface has no closed forearm contour at the requested placement")]
+  28 |     EmptySelection,
+  29 |     #[error("generated armor geometry is degenerate")]
+  30 |     Degenerate,
+  31 |     #[error("armor GPU: {0}")]
+  32 |     Gpu(std::sync::Arc<str>),
+  33 | }
+  34 | 
+  35 | /// An evaluated metal wall has unusable facets.
+  36 | #[derive(Clone, Copy, Debug, Error)]
+  37 | pub enum PlateShellFailure {
+  38 |     #[error("a wall face is collapsed or has nonfinite coordinates")]
+  39 |     CollapsedFace,
+  40 | }

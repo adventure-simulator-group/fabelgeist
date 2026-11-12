@@ -1,0 +1,130 @@
+=== parent.rs 1..129 ===
+   1 | //! Pattern-cut textile and mail carriers and articulated waist/neck defenses.
+   2 | //!
+   3 | //! These surfaces are authored independently of anatomical triangulation. Mail
+   4 | //! represents the garment envelope; individual links belong to material detail.
+   5 | use serde::{Deserialize, Serialize};
+   6 | 
+   7 | use crate::{DesignError, GarmentPlateShape, GenerateError, Millimeters, Permille, PlateFluting};
+   8 | 
+   9 | pub const GARMENT_RING_SEGMENTS: usize = 48;
+  10 | pub const GARMENT_AXIAL_SEGMENTS: usize = 16;
+  11 | /// Local radial clearance at the lower edge of an overlapping plate course.
+  12 | pub const GARMENT_LAME_SPACING_GAUGES: f32 = 2.5;
+  13 | pub(crate) const GARMENT_LAME_OVERLAP: f32 = 0.12;
+  14 | pub const GARMENT_PANEL_ACROSS: usize = 32;
+  15 | pub const GARMENT_PANEL_ALONG: usize = 12;
+  16 | pub const GARMENT_ARMPIT_ROW: usize = 9;
+  17 | pub const GARMENT_SHOULDER_DEPTH_SEGMENTS: usize = 8;
+  18 | 
+  19 | #[derive(Clone, Copy, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  20 | pub enum GarmentArmorKind {
+  21 |     ArmingDoublet,
+  22 |     Brigandine,
+  23 |     JackOfPlates,
+  24 |     Fauld,
+  25 |     MailChausses,
+  26 |     MailShirt,
+  27 |     MailSkirt,
+  28 |     MailSleeve,
+  29 |     PaddedChausses,
+  30 |     PaddedSkirt,
+  31 |     QuiltedSleeve,
+  32 |     Tassets,
+  33 |     Gorget,
+  34 | }
+  35 | 
+  36 | #[derive(Clone, Debug, Eq, Hash, PartialEq, Serialize, Deserialize)]
+  37 | pub struct GarmentArmorDesign {
+  38 |     pub plate_shape: GarmentPlateShape,
+  39 |     pub fluting: Option<PlateFluting>,
+  40 |     pub kind: GarmentArmorKind,
+  41 |     pub clearance: Millimeters,
+  42 |     pub wall_thickness: Millimeters,
+  43 |     /// Axial length relative to the anatomical fitting frame.
+  44 |     pub length: Permille,
+  45 |     /// Additional lower-edge width, as a fraction of fitted width.
+  46 |     pub flare: Permille,
+  47 |     /// Waist width relative to fitted chest width for torso patterns.
+  48 |     pub waist: Permille,
+  49 |     /// Number of articulated plates for the fauld and each tasset.
+  50 |     pub lame_count: u8,
+  51 | }
+  52 | 
+  53 | impl GarmentArmorDesign {
+  54 |     pub fn new(kind: GarmentArmorKind) -> Self {
+  55 |         let padded = matches!(
+  56 |             kind,
+  57 |             GarmentArmorKind::ArmingDoublet
+  58 |                 | GarmentArmorKind::PaddedChausses
+  59 |                 | GarmentArmorKind::PaddedSkirt
+  60 |                 | GarmentArmorKind::QuiltedSleeve
+  61 |         );
+  62 |         Self {
+  63 |             plate_shape: GarmentPlateShape::for_kind(kind),
+  64 |             fluting: None,
+  65 |             kind,
+  66 |             clearance: Millimeters(if padded { 3 } else { 10 }),
+  67 |             wall_thickness: Millimeters(if padded { 5 } else { 3 }),
+  68 |             length: Permille(1_000),
+  69 |             flare: Permille(
+  70 |                 if matches!(
+  71 |                     kind,
+  72 |                     GarmentArmorKind::MailSkirt | GarmentArmorKind::PaddedSkirt
+  73 |                 ) {
+  74 |                     0
+  75 |                 } else {
+  76 |                     180
+  77 |                 },
+  78 |             ),
+  79 |             waist: Permille(if kind == GarmentArmorKind::MailShirt {
+  80 |                 1_100
+  81 |             } else if kind == GarmentArmorKind::JackOfPlates {
+  82 |                 960
+  83 |             } else {
+  84 |                 900
+  85 |             }),
+  86 |             lame_count: 4,
+  87 |         }
+  88 |     }
+  89 | 
+  90 |     pub fn validate(&self) -> Result<(), GenerateError> {
+  91 |         self.plate_shape.validate(self.kind)?;
+  92 |         if let Some(pattern) = &self.fluting {
+  93 |             if self.plate_shape == GarmentPlateShape::None {
+  94 |                 return Err(DesignError::ParametricParameters.into());
+  95 |             }
+  96 |             pattern.validate()?;
+  97 |         }
+  98 |         if !(1..=40).contains(&self.clearance.0)
+  99 |             || !(1..=16).contains(&self.wall_thickness.0)
+ 100 |             || !(if self.kind == GarmentArmorKind::Fauld {
+ 101 |                 100
+ 102 |             } else {
+ 103 |                 500
+ 104 |             }..=1_300)
+ 105 |                 .contains(&self.length.0)
+ 106 |             || self.flare.0 > 500
+ 107 |             || !(800..=1_100).contains(&self.waist.0)
+ 108 |             || !(1..=if self.kind == GarmentArmorKind::Tassets {
+ 109 |                 12
+ 110 |             } else {
+ 111 |                 8
+ 112 |             })
+ 113 |                 .contains(&self.lame_count)
+ 114 |         {
+ 115 |             return Err(DesignError::ParametricParameters.into());
+ 116 |         }
+ 117 |         if let GarmentPlateShape::WrappedTassets(shape) = self.plate_shape
+ 118 |             && shape.section_break >= self.lame_count
+ 119 |         {
+ 120 |             return Err(DesignError::ParametricParameters.into());
+ 121 |         }
+ 122 |         if let GarmentPlateShape::Fauld { front_arch, .. } = self.plate_shape
+ 123 |             && front_arch.0 >= self.length.0
+ 124 |         {
+ 125 |             return Err(DesignError::ParametricParameters.into());
+ 126 |         }
+ 127 |         Ok(())
+ 128 |     }
+ 129 | }

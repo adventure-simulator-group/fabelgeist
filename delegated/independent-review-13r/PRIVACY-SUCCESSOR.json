@@ -1,0 +1,15 @@
+{
+  "schema": "726-13r-independent-privacy-successor-v1",
+  "recorded_utc": "2026-11-12T13:33:34.355217+00:00",
+  "reason": "An initial bounded scan found two email candidates in the copied 95e commit object and no forbidden digest matches or exceptions. The exact draft remains owner-restricted; its existing Git/archive publication and history are not removed or cleared.",
+  "original_private_draft_manifest_sha256": "e29cb3a232141e9cf652aa777bbdc91b3592876e90ec26a09b0ef90ce997614d",
+  "omitted_member": {
+    "path": "objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+    "bytes": 856,
+    "sha256": "ae58b80082dea7773337a56a996c6bd431ebb1f351d8f93128f886d0c07651aa"
+  },
+  "tree_proof_original_sha256": "563476a3d3b059debeb3eb3111c2831db40e77f4f73235395eda04823cef9942",
+  "tree_proof_successor_sha256": "ffbf0e28ea7ad081c7cce41c67383fadb58cc66bcc2355e33a909bcb4c382211",
+  "replacement": "Reference to the byte-identical object already in the published XPBD evidence archive, with archive/member identities and unchanged raw commit SHA-256 retained. The initial scan was limited to the original packet; public successor requires a separate scan.",
+  "other_members": "All original draft files except the omitted commit object, the replaced TREE-PROOFS.json and private DRAFT-MANIFEST.json were copied byte-for-byte."
+}

@@ -1,0 +1,178 @@
+{
+  "schema": "726-wrapped-scope-personal-read-receipt-v1",
+  "agent": "/root/wrapped_scope",
+  "recorded_utc": "2026-11-12T13:23:37.708879+00:00",
+  "baseline": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "registration_hashes": {
+    "REGISTRATION.json": "c735459054e82638d1e40f5682a5ae7e246f28ae8d6a9108f664e92f699cff4f",
+    "EXT-REGISTRATION.json": "b502e64c73cfae75ee4d63441c97519afc7610b1c42e4b457cf1ea70bfff4087",
+    "EXT2-REGISTRATION.json": "e5e00e23e40df68a89fc50d37d6a0672873f3261fba257c25c528758efbd0f64"
+  },
+  "displays": [
+    {
+      "path": "DISPLAY-A.txt",
+      "sha256": "11f15580e70c91f0b3261606c3ae2ca79dd5b8cfd53c18ef4be75787605b132c",
+      "bytes": 6194,
+      "observed_mtime_utc": "2026-11-12T13:19:05.886585+00:00",
+      "rows": [
+        {
+          "source": "source/current.rs",
+          "range": [
+            1,
+            56
+          ]
+        },
+        {
+          "source": "source/shape.rs",
+          "range": [
+            1,
+            90
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DISPLAY-B.txt",
+      "sha256": "260b22e27a762448bd197b26f49df0ee7260b0e8ed4d87c2763ba7138f52b15e",
+      "bytes": 5347,
+      "observed_mtime_utc": "2026-11-12T13:19:11.628373+00:00",
+      "rows": [
+        {
+          "source": "source/parent.rs",
+          "range": [
+            1,
+            129
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DISPLAY-C.txt",
+      "sha256": "2b0bef75dc257fde1d97769fcdfcc61e9c15e02acb9d1a8b2e9aaec8ebc93567",
+      "bytes": 6642,
+      "observed_mtime_utc": "2026-11-12T13:19:18.176544+00:00",
+      "rows": [
+        {
+          "source": "source/editor.rs",
+          "range": [
+            1,
+            110
+          ]
+        },
+        {
+          "source": "source/editor-wrapped.rs",
+          "range": [
+            1,
+            42
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DISPLAY-D.txt",
+      "sha256": "819c0c6d64d5eef7801c38dbbbda3aa1d760b7e77bef23e86214ac7b4d904352",
+      "bytes": 5734,
+      "observed_mtime_utc": "2026-11-12T13:19:23.499594+00:00",
+      "rows": [
+        {
+          "source": "source/warmup.rs",
+          "range": [
+            50,
+            85
+          ]
+        },
+        {
+          "source": "source/gpu.rs",
+          "range": [
+            1,
+            80
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DISPLAY-E.txt",
+      "sha256": "5675bc34032498d7e122893c9a1e553b7eb43bcbca7a5ae9d11cc37492f9291d",
+      "bytes": 3575,
+      "observed_mtime_utc": "2026-11-12T13:20:35.486440+00:00",
+      "rows": [
+        {
+          "source": "source/shape.rs",
+          "range": [
+            91,
+            137
+          ]
+        },
+        {
+          "source": "source/error.rs",
+          "range": [
+            1,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DISPLAY-F.txt",
+      "sha256": "ecbc2b4b8bf638012abefe6729148d6b04b451f3d5f7425a476df88cac2bcaf9",
+      "bytes": 3697,
+      "observed_mtime_utc": "2026-11-12T13:21:18.592443+00:00",
+      "rows": [
+        {
+          "source": "source/design.rs",
+          "range": [
+            1,
+            95
+          ]
+        }
+      ]
+    },
+    {
+      "path": "DISPLAY-G.txt",
+      "sha256": "077e0838307bf25efa458ca8b6c1b0ac3ce5e89c76efafa388cf3db9554e3ccd",
+      "bytes": 3750,
+      "observed_mtime_utc": "2026-11-12T13:21:23.000634+00:00",
+      "rows": [
+        {
+          "source": "source/design.rs",
+          "range": [
+            96,
+            183
+          ]
+        }
+      ]
+    }
+  ],
+  "unread_complements": {
+    "current.rs": [
+      [
+        57,
+        62
+      ]
+    ],
+    "parent.rs": [],
+    "shape.rs": [],
+    "editor.rs": [
+      [
+        111,
+        133
+      ]
+    ],
+    "editor-wrapped.rs": [],
+    "warmup.rs": [
+      [
+        1,
+        49
+      ]
+    ],
+    "gpu.rs": [
+      [
+        81,
+        154
+      ]
+    ],
+    "error.rs": [],
+    "design.rs": []
+  },
+  "qualification": "Each named display was returned completely without tool-output truncation. Display timestamps are filesystem mtimes observed after the displays, not independently timestamped attestations. Full copied files do not imply personal-read credit outside the recorded windows. A filename-only source locator scan produced no displayed source and grants no source-read credit. No code, macro, shader or product execution."
+}

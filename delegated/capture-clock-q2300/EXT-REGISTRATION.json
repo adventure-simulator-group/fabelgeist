@@ -1,0 +1,105 @@
+{
+  "schema": "726-q2300-source-extension-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:11:37.186335+00:00",
+  "scope": "Rate configuration, runtime snapshot, elapsed admission, fixed clock installation and matching locked Bevy native clock constructor.",
+  "entries": [
+    {
+      "tag": "viewer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "bytes": 6843,
+      "eof": 179,
+      "capture": "sources/viewer.rs",
+      "planned_ranges": [
+        [
+          121,
+          179
+        ]
+      ]
+    },
+    {
+      "tag": "locomotion",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "git_blob": "0c133953d32f479dee44b2ab0f94264e1b5395f8",
+      "sha256": "f26dc1059e4a9d133ac1fba9c80a1086753b20b54e5a5074dc8e557540cea67b",
+      "bytes": 9366,
+      "eof": 260,
+      "capture": "sources/locomotion.rs",
+      "planned_ranges": [
+        [
+          70,
+          105
+        ]
+      ]
+    },
+    {
+      "tag": "locomotion_config",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/locomotion.rs",
+      "git_blob": "73af7f0cb329aa85659960c33e3d1f3687c592c9",
+      "sha256": "b394bde991895d6328b6f9f2be24fcb6d51c5c00e7f7143316339c372b7b5089",
+      "bytes": 2521,
+      "eof": 65,
+      "capture": "sources/locomotion_config.rs",
+      "planned_ranges": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "tag": "runtime",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "git_blob": "a9e2ddafa154aea5bd420ff42968d491ca726344",
+      "sha256": "39a9e16f5913535b637c6b4fd26ef5d4d2f900fc7ea5ae4f1f2eb790d6dff28f",
+      "bytes": 3309,
+      "eof": 98,
+      "capture": "sources/runtime.rs",
+      "planned_ranges": [
+        [
+          1,
+          98
+        ]
+      ]
+    },
+    {
+      "tag": "measurement",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "git_blob": "a6af10e5436c223765c54b58458beb7daa755097",
+      "sha256": "f0935376f22a6566ba0dbf7489e902f2d5ab2a6cefad2e14353e925177ca4027",
+      "bytes": 3696,
+      "eof": 107,
+      "capture": "sources/measurement.rs",
+      "planned_ranges": [
+        [
+          1,
+          107
+        ]
+      ]
+    },
+    {
+      "tag": "bevy_fixed",
+      "revision": "native:bevy_time-0.19.1",
+      "package_checksum": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e",
+      "member": "bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "bytes": 13890,
+      "eof": 367,
+      "capture": "native/bevy-time-fixed.rs",
+      "planned_ranges": [
+        [
+          50,
+          135
+        ]
+      ]
+    }
+  ],
+  "qualification": "Prospective bounded source windows. Native package source is identified by crate checksum, not project Git; no Cargo resolution or execution."
+}

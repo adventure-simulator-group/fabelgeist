@@ -1,0 +1,161 @@
+{
+  "schema": "726-q2300-current-source-registration-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:09:38.514910+00:00",
+  "scope": "Independent pinned 95e clock admission, sample-rate producer, elapsed state and selected viewer/capture consumers.",
+  "entries": [
+    {
+      "tag": "clock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "git_blob": "c4129961a79ae0cf487825039993e83f2ff73026",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "bytes": 2020,
+      "eof": 58,
+      "capture": "sources/clock.rs",
+      "planned_ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    },
+    {
+      "tag": "capture",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "eof": 1021,
+      "capture": "sources/capture.rs",
+      "planned_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          169,
+          225
+        ],
+        [
+          350,
+          450
+        ]
+      ]
+    },
+    {
+      "tag": "schedule",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "eof": 57,
+      "capture": "sources/schedule.rs",
+      "planned_ranges": [
+        [
+          1,
+          57
+        ]
+      ]
+    },
+    {
+      "tag": "admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "git_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "bytes": 5765,
+      "eof": 168,
+      "capture": "sources/admission.rs",
+      "planned_ranges": [
+        [
+          1,
+          90
+        ]
+      ]
+    },
+    {
+      "tag": "rate",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "git_blob": "69c5ba2736064f8b1155cc01260f3947883972a7",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "bytes": 2982,
+      "eof": 86,
+      "capture": "sources/rate.rs",
+      "planned_ranges": [
+        [
+          1,
+          86
+        ]
+      ]
+    },
+    {
+      "tag": "viewer",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "git_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "bytes": 6843,
+      "eof": 179,
+      "capture": "sources/viewer.rs",
+      "planned_ranges": [
+        [
+          1,
+          120
+        ]
+      ]
+    },
+    {
+      "tag": "main",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "git_blob": "e416dc7b646d0c1652361a08ac6f2bfb74eed9b8",
+      "sha256": "aa3d28a6c951d8fe7246dcd68b52baf41afebe9ccfdf5eb84dbf5cbe17c40932",
+      "bytes": 4516,
+      "eof": 132,
+      "capture": "sources/main.rs",
+      "planned_ranges": [
+        [
+          1,
+          132
+        ]
+      ]
+    },
+    {
+      "tag": "tick",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "git_blob": "4b20ed6b41bb094a4223bbf1c042cdee6d4811c8",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "bytes": 3274,
+      "eof": 110,
+      "capture": "sources/tick.rs",
+      "planned_ranges": [
+        [
+          1,
+          110
+        ]
+      ]
+    },
+    {
+      "tag": "pose_config",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "git_blob": "9fbbfc135b598fdcf58aab78001cc46f152ae0ef",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "bytes": 2138,
+      "eof": 46,
+      "capture": "sources/pose_config.rs",
+      "planned_ranges": [
+        [
+          1,
+          46
+        ]
+      ]
+    }
+  ],
+  "qualification": "Registered before source displays. Prior e275 reviewers retain their scopes; full captured files do not grant personal full-body credit. Tests in source are text only."
+}

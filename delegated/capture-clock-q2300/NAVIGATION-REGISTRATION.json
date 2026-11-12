@@ -1,0 +1,70 @@
+{
+  "schema": "726-q2300-navigation-registration-v1",
+  "reader": "/root/mhr_character",
+  "registered_utc": "2026-11-12T13:08:50.399868+00:00",
+  "entries": [
+    {
+      "tag": "clock",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "git_blob": "c4129961a79ae0cf487825039993e83f2ff73026",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "bytes": 2020,
+      "eof": 58,
+      "capture": "sources/clock.rs"
+    },
+    {
+      "tag": "capture",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "git_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "bytes": 40632,
+      "eof": 1021,
+      "capture": "sources/capture.rs"
+    },
+    {
+      "tag": "schedule",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "git_blob": "458b76e92dd6ab09e86a2e162fce1093866883e2",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "bytes": 1882,
+      "eof": 57,
+      "capture": "sources/schedule.rs"
+    },
+    {
+      "tag": "admission",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "git_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "bytes": 5765,
+      "eof": 168,
+      "capture": "sources/admission.rs"
+    },
+    {
+      "tag": "rate",
+      "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+      "git_path": "crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "git_blob": "69c5ba2736064f8b1155cc01260f3947883972a7",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "bytes": 2982,
+      "eof": 86,
+      "capture": "sources/rate.rs"
+    }
+  ],
+  "planned_tokens": [
+    "AnimationSampleRate",
+    "capture_fixed_clock",
+    "frame_clock",
+    "sample_rate",
+    "sample_hz",
+    "frame_interval",
+    "Duration",
+    "elapsed",
+    "delta",
+    "clock"
+  ],
+  "qualification": "Location-only navigation, returning line numbers and matched token only; this is not a source-body display or read credit. Personal source windows will be separately registered before display."
+}

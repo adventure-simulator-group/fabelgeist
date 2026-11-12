@@ -1,0 +1,89 @@
+=== design.rs 96..183 ===
+  96 |         columns
+  97 |     }
+  98 | 
+  99 |     pub fn bracelet() -> Self {
+ 100 |         Self {
+ 101 |             coverage: Permille(120),
+ 102 |             wrist_offset: Permille(10),
+ 103 |             wall_thickness: Millimeters(2),
+ 104 |             ..Self::default()
+ 105 |         }
+ 106 |     }
+ 107 | 
+ 108 |     pub fn full_forearm() -> Self {
+ 109 |         Self {
+ 110 |             coverage: Permille(1_000),
+ 111 |             wrist_offset: Permille(0),
+ 112 |             ..Self::default()
+ 113 |         }
+ 114 |     }
+ 115 | 
+ 116 |     pub fn axial_interval(&self) -> (f32, f32) {
+ 117 |         let end = 1.0 - self.wrist_offset.unit();
+ 118 |         (end - self.coverage.unit(), end)
+ 119 |     }
+ 120 | }
+ 121 | 
+ 122 | #[derive(Clone, Debug, PartialEq)]
+ 123 | pub struct ArmorMorph {
+ 124 |     pub name: String,
+ 125 |     /// Absolute endpoint positions on the frozen production
+ 126 |     /// topology. Exporters use these to verify signed-delta encoding exactly;
+ 127 |     /// they are not a second mesh or alternate connectivity path.
+ 128 |     pub direct_positions: Vec<[f32; 3]>,
+ 129 |     pub position_deltas: Vec<[f32; 3]>,
+ 130 |     pub normal_deltas: Vec<[f32; 3]>,
+ 131 | }
+ 132 | 
+ 133 | #[derive(Clone, Debug, PartialEq)]
+ 134 | pub struct GeneratedArmor {
+ 135 |     /// Semantic cloth support; independent of appearance texture coordinates.
+ 136 |     pub components: Vec<crate::ArmorComponent>,
+ 137 |     pub design_hash: [u8; 32],
+ 138 |     pub surface_domain: String,
+ 139 |     pub positions: Vec<[f32; 3]>,
+ 140 |     pub normals: Vec<[f32; 3]>,
+ 141 |     pub texcoords: Vec<[f32; 2]>,
+ 142 |     pub joint_indices: fabelgeist_rig::PackedRigSkin<8>,
+ 143 |     pub joint_weights: Vec<[f32; 8]>,
+ 144 |     pub indices: Vec<u32>,
+ 145 |     /// The plate face of each triangle; empty for a piece that is not a
+ 146 |     /// thickened plate.
+ 147 |     pub faces: Vec<crate::PlateFace>,
+ 148 |     /// The band along the plates' edges, once [`GeneratedArmor::trimmed`].
+ 149 |     pub trim: Option<crate::ArmorTrim>,
+ 150 |     /// The outer face of every plate laid out on a grid, which a
+ 151 |     /// construction such as scales is laid over. Trimming renumbers the
+ 152 |     /// vertices, so a trimmed piece has none.
+ 153 |     pub grids: Vec<crate::SurfaceGrid>,
+ 154 |     pub morphs: Vec<ArmorMorph>,
+ 155 | }
+ 156 | 
+ 157 | #[derive(Clone, Debug, Error, Eq, PartialEq)]
+ 158 | pub enum DesignError {
+ 159 |     #[error("breastplate profile parameters are outside their supported ranges")]
+ 160 |     BreastplateShape,
+ 161 |     #[error("breastplate flute parameters or fade spacing are outside their supported ranges")]
+ 162 |     PlateFluting,
+ 163 |     #[error(
+ 164 |         "visor slots do not fit their pattern span or row spacing with a 3 mm metal web; reduce count/size or increase spacing"
+ 165 |     )]
+ 166 |     VisorOpeningSpacing,
+ 167 |     #[error("armor shape parameters are outside their supported ranges")]
+ 168 |     ParametricParameters,
+ 169 |     #[error("armor catalog ID cannot be empty")]
+ 170 |     EmptyCatalogId,
+ 171 |     #[error("bracer coverage must be between 50 and 1000 permille")]
+ 172 |     Coverage,
+ 173 |     #[error("bracer coverage and wrist offset leave the canonical forearm")]
+ 174 |     Placement,
+ 175 |     #[error("bracer wall thickness must be between 1 and 20 millimeters")]
+ 176 |     WallThickness,
+ 177 |     #[error("bracer clearance must be between 1 and 30 millimeters")]
+ 178 |     Clearance,
+ 179 |     #[error("armor recipe encoding failed")]
+ 180 |     Encoding,
+ 181 |     #[error("breastplate edge parameters are outside their supported ranges")]
+ 182 |     BreastplateEdges,
+ 183 | }

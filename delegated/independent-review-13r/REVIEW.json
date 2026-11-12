@@ -1,0 +1,51 @@
+{
+  "schema": "726-13r-independent-semantic-review-v1",
+  "reviewer": "/root/verifier_scope",
+  "recorded_utc": "2026-11-12T13:32:17.118762+00:00",
+  "baseline_revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "reviewed_coordinator_draft_sha256": "65062f4d6cdcc2fccd94726a6c49fbfbcd6ffd94ed6672297abb8c0cc9db9fab",
+  "result": "corroborated within the named source and historical scope; no full parser, native or lens conclusion",
+  "findings": [
+    {
+      "topic": "zero-element zlib",
+      "finding": "If array metadata reaches the zlib arm with count zero and read_to_end returns Ok after producing one or more decoded bytes, the displayed short-body condition is false and 0..count collects no elements. The parser shows no count-derived read_to_end output cap; this does not establish a concrete compressed stream, allocation outcome, supported caller, decoder implementation semantics, or policy forbidding extra bytes.",
+      "source": "lib.rs 424–449; 463–469 and 471–476"
+    },
+    {
+      "topic": "conditional 32-bit multiplication",
+      "finding": "On a target with 32-bit usize, count 2^30 is representable after the shown u32-to-usize conversion and the f32 width is 4; their mathematical product is 2^32, outside usize. If a suitable input reaches the zlib capacity expression, this is the first displayed count-times-width expression on that branch. Overflow behavior, target support, earlier admission, feasible input, allocation and product effects remain unproved.",
+      "source": "lib.rs 424–441; 463–477"
+    },
+    {
+      "topic": "typed encoding declaration",
+      "finding": "The displayed source calls FbxArrayEncoding::try_from on the read u32 before reading compressed_len; the enum declares Uncompressed=0 and Zlib=1, and the configured custom error has reported_code:u32 with a derived From. This declaration and call order do not independently prove num_enum or derive_more expansion, feature selection, actual error propagation or display, or external FBX validity.",
+      "source": "lib.rs 463–469; array_encoding.rs 1–24"
+    },
+    {
+      "topic": "historical q152 versus q153",
+      "finding": "Recovered 059 q153 already identifies count/decompression budget admission; the previously published 95e assessment already documents count-derived unbounded decoded output, extra suffix handling in both modes and narrow-width arithmetic as open. The zero-count calculation is an illustration of that connected finding, not a separately counted historical defect. Recovered q152 concerns record progress and enclosing extents, a separate first contract; the displayed Reader::take checks the global input slice only, and this review does not establish whether other parser paths impose additional record-envelope checks.",
+      "sources": [
+        "baseline-059/queue.json#/entries/152",
+        "baseline-059/queue.json#/entries/153",
+        "ASSESSMENT-FBX-95E.json",
+        "lib.rs 222–235"
+      ]
+    },
+    {
+      "topic": "historical q2942 and checkpoint39",
+      "finding": "The 059 q2942 exact frozen-scope adapter disposition credits /root/lens12_frontier and separately records root adoption, accepted unique count change 0, and current_source_reconciled=false at that historical time. At publication commit 8608 the working continuation still marks q2942 partial. The separately attributed /root/mhr_character checkpoint39 report independently read selected 95e decoder/adapter and num_enum generator windows, while leaving derive_more expansion and feature unification open; this review did not inspect those native package source windows.",
+      "sources": [
+        "baseline-059/queue.json#/entries/2942",
+        "RECONCILIATION-059.json#/entries/2942 at 8608",
+        "delegated/checkpoint39-stage/bundles/2626-2628/report.json at 8608"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Actual import trust boundary, callers, limits, and any separately imposed enclosing-record checks.",
+    "Decoder behavior, feasible input, platform and profile selection, feature unification, macro expansion and native error presentation.",
+    "Intended policy for unused decoded suffix bytes and unsupported encoding codes; the reviewed source does not establish external format validity.",
+    "Unreviewed parser ranges, other consumers and aliases, exact missing checkpoint3821 ledger and queue, and thirteen-lens closure."
+  ],
+  "qualification": "Evidence source snapshots preserve historical revision and attribution. 059 and checkpoint39 are not checkpoint3821. Pinned 95e is the stated working audit baseline, not necessarily current main. The reviewed work remains conditional and does not authorize product repairs or validation."
+}

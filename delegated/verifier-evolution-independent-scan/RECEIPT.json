@@ -1,0 +1,11 @@
+{
+  "schema": "726-verifier-evolution-independent-scan-v1",
+  "packet_manifest_sha256": "c01b7a445d6cf7791d8b2e420852df728f175f36a94bcaaa9567053e7983ae51",
+  "files": {
+    "DIGEST-SCAN.json": "68a57f33a0646ea696e3889907190f4d224a919efbfb177a424b7a44b09d82b7",
+    "PATH-SCAN.py.txt": "6909490d33c291342f090e8b9e561419e6f57b189696a8736d510dd3183e1784",
+    "PATH-SCAN-RESULT.json": "bde9b758068b9bd85bb7bc6a9564279f715b1e6ad0eedd3ab160d4978e6a7ab4"
+  },
+  "qualification": "The recursive private-input scan checks a bounded derived digest corpus and selected text patterns; the additional pathname pass checks the NUL-delimited Git listing\u2019s 23,030 names. An earlier manual pass stopped at a metadata-field assertion before scanning; the corrected four-field pass is recorded. Unknown encodings, values and old history remain outside scope.",
+  "product_validation": "not performed"
+}

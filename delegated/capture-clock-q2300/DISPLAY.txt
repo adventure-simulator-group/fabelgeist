@@ -1,0 +1,893 @@
+--- clock 1-58 ---
+   1 //! Deterministic capture tick progression and finite frame-interval admission.
+   2 
+   3 use super::*;
+   4 use adventuresim_tactical_core::animation::{
+   5     AnimationElapsed, AnimationQuantity, AnimationSampleRate, AnimationSampleTick,
+   6     AnimationValueError, AnimationValueResult,
+   7 };
+   8 use std::time::Duration;
+   9 
+  10 /// Bevy's native clock requires a nonzero Duration. Preserve its f64 Hz
+  11 /// reciprocal and native nanosecond rounding rather than the f32 pose interval.
+  12 pub(crate) fn capture_fixed_clock(rate: AnimationSampleRate) -> AnimationValueResult<Time<Fixed>> {
+  13     let seconds = 1.0 / f64::from(rate.hertz());
+  14     let interval =
+  15         Duration::try_from_secs_f64(seconds).map_err(|_| AnimationValueError::Overflow {
+  16             quantity: AnimationQuantity::NativeSampleInterval,
+  17         })?;
+  18     if interval.is_zero() {
+  19         return Err(AnimationValueError::NonPositive {
+  20             quantity: AnimationQuantity::NativeSampleInterval,
+  21         });
+  22     }
+  23     Ok(Time::from_duration(interval))
+  24 }
+  25 
+  26 pub(super) fn next_capture_simulation_tick(
+  27     current: AnimationSampleTick,
+  28     absolute_first_sample: bool,
+  29 ) -> AnimationSampleTick {
+  30     if absolute_first_sample {
+  31         current
+  32     } else {
+  33         current.wrapping_next()
+  34     }
+  35 }
+  36 
+  37 pub(super) fn capture_frame_elapsed(scenario_frame: usize) -> AnimationElapsed {
+  38     if scenario_frame == 0 {
+  39         AnimationElapsed::ZERO
+  40     } else {
+  41         locomotion_sample_rate().interval().elapsed()
+  42     }
+  43 }
+  44 
+  45 #[cfg(test)]
+  46 mod tests {
+  47     use super::*;
+  48 
+  49     #[test]
+  50     fn capture_ticks_remain_unique_across_consecutive_scenario_boundaries() {
+  51         let first = next_capture_simulation_tick(AnimationSampleTick::ZERO, true);
+  52         let second = next_capture_simulation_tick(first, false);
+  53         let next_scenario_frame_zero = next_capture_simulation_tick(second, false);
+  54         assert_eq!(first, AnimationSampleTick::from(0u64));
+  55         assert_eq!(second, AnimationSampleTick::from(1u64));
+  56         assert_eq!(next_scenario_frame_zero, AnimationSampleTick::from(2u64));
+  57     }
+  58 }
+--- capture 1-25 ---
+   1 //! ECS fixture driving, sampling, and three-view capture.
+   2 
+   3 use super::*;
+   4 pub(super) use admission::reject_capture;
+   5 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
+   6 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+   7 pub(super) use capture_schedule::CapturePlugin;
+   8 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
+   9 use repeated_evaluation::RepeatedEvaluationSnapshot;
+  10 
+  11 mod admission;
+  12 mod capture_schedule;
+  13 pub(super) mod frame_clock;
+  14 mod global_bones;
+  15 mod overlay;
+  16 mod readiness;
+  17 mod repeated_evaluation;
+  18 mod root_motion;
+  19 mod subject_motion;
+  20 
+  21 pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
+  22 pub(super) const FULL_PLANT_SUPPORT_WEIGHT: f32 = 0.99;
+  23 
+  24 #[derive(Component)]
+  25 pub(super) struct CaptureSubject;
+--- capture 169-225 ---
+ 169 pub(super) fn freeze_capture_look(
+ 170     sequence: Res<CaptureSequence>,
+ 171     mut subjects: Query<&mut CharacterLook, With<CaptureSubject>>,
+ 172 ) {
+ 173     if !sequence.admission.is_open() {
+ 174         return;
+ 175     }
+ 176     let Some(frame) = sequence.plan.get(sequence.index) else {
+ 177         return;
+ 178     };
+ 179     for mut look in &mut subjects {
+ 180         look.yaw = frame.camera_yaw.radians();
+ 181         look.pitch = frame.camera_pitch.radians();
+ 182     }
+ 183 }
+ 184 
+ 185 #[expect(
+ 186     clippy::too_many_arguments,
+ 187     clippy::type_complexity,
+ 188     reason = "the Bevy capture driver independently controls timing, IK modes, animation input, subject state, and labels"
+ 189 )]
+ 190 pub(super) fn drive_sequence(
+ 191     mut sequence: ResMut<CaptureSequence>,
+ 192     mut procedural_clock: ResMut<ProceduralAnimationClock>,
+ 193     mut terrain_ik: ResMut<TerrainIkMode>,
+ 194     mut guard_input: ResMut<WeaponGuardInputState>,
+ 195     animation_runtime: Res<AnimationRuntime>,
+ 196     terrain: Single<&SceneTerrain>,
+ 197     mut subjects: Query<
+ 198         (
+ 199             &mut SkeletonState,
+ 200             &mut Transform,
+ 201             &mut CharacterLook,
+ 202             Option<&AnimationPlayback>,
+ 203             Option<&mut LegIkState>,
+ 204             Option<&mut ArmIkState>,
+ 205             Option<&mut RaisedFootworkState>,
+ 206             Option<&mut LocomotionHeightState>,
+ 207             Option<&mut LocomotionBodyResponseState>,
+ 208         ),
+ 209         With<CaptureSubject>,
+ 210     >,
+ 211     mut labels: Query<&mut Text, With<CaptureLabel>>,
+ 212 ) {
+ 213     if !sequence.can_drive_frame() {
+ 214         return;
+ 215     }
+ 216     let frame = sequence.plan[sequence.index].clone();
+ 217     let metadata = frame.scenario.clone();
+ 218     let mut gait_phase = CyclePhase::ZERO;
+ 219     let mut observed_playback = None;
+ 220     for (
+ 221         mut skeleton,
+ 222         mut transform,
+ 223         mut look,
+ 224         playback,
+ 225         ik_state,
+--- capture 350-450 ---
+ 350             quickstep_fixture_vertical_state(frame.scenario_frame).1
+ 351         } else if (metadata.kind() == ScenarioKind::Landing || dive_impact) && !grounded {
+ 352             -4.5
+ 353         } else {
+ 354             0.0
+ 355         };
+ 356         let requested_local_velocity = Vec3::new(
+ 357             frame.local_direction.x * frame.speed.metres_per_second(),
+ 358             vertical_velocity,
+ 359             frame.local_direction.y * frame.speed.metres_per_second(),
+ 360         );
+ 361         let local_velocity = requested_local_velocity;
+ 362         let world_velocity = controller_yaw(orientation) * local_velocity;
+ 363         sequence.simulation_tick = next_capture_simulation_tick(
+ 364             sequence.simulation_tick,
+ 365             sequence.index == 0 && sequence.warmup_frames == 0,
+ 366         );
+ 367         if sequence.warmup_frames == 0
+ 368             && frame.scenario_frame == 0
+ 369             && let Some((start_body, transition)) = frame.scenario.transition()
+ 370         {
+ 371             skeleton.transition_body(start_body);
+ 372             if frame.scenario.has(ScenarioFeature::AimedImpact) {
+ 373                 // Match the authoritative launch seam: velocity and authored
+ 374                 // direction capture one camera frame even if the previously
+ 375                 // displayed root had not finished turning toward it.
+ 376                 transform.rotation =
+ 377                     dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw.radians()));
+ 378             }
+ 379             // Matches the live server's terrain-contact dive recovery.
+ 380             let duration = if frame.scenario.has(ScenarioFeature::DiveBackward) {
+ 381                 32
+ 382             } else if dive_impact {
+ 383                 20
+ 384             } else {
+ 385                 84
+ 386             };
+ 387             skeleton.begin_posture_transition(
+ 388                 transition,
+ 389                 sequence.simulation_tick,
+ 390                 AnimationSampleSpan::from(duration as u64),
+ 391             );
+ 392         }
+ 393         let elapsed = capture_frame_elapsed(frame.scenario_frame);
+ 394         let delta_seconds = elapsed.seconds();
+ 395         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+ 396         let motion = subject_motion::CaptureMotion {
+ 397             orientation,
+ 398             world_velocity,
+ 399             contact: GroundContact::from(grounded),
+ 400             elapsed,
+ 401         };
+ 402         let Some(position) = sequence.fixture_root_position(
+ 403             &terrain,
+ 404             transform.translation,
+ 405             &frame,
+ 406             &motion,
+ 407             *terrain_ik,
+ 408         ) else {
+ 409             return;
+ 410         };
+ 411         transform.translation = position.metres();
+ 412         subject_motion::begin_capture_action(
+ 413             &mut skeleton,
+ 414             &frame,
+ 415             sequence.simulation_tick,
+ 416             attack_start_frame,
+ 417         );
+ 418         if let Err(error) = subject_motion::advance_capture_facing(
+ 419             &skeleton,
+ 420             &mut transform,
+ 421             orientation,
+ 422             world_velocity,
+ 423             frame.action,
+ 424             elapsed,
+ 425         ) {
+ 426             sequence.admission =
+ 427                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+ 428             return;
+ 429         }
+ 430         if frame.scenario.is(ScenarioId::FullRagdoll) {
+ 431             let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
+ 432                 return;
+ 433             };
+ 434             *transform = projected;
+ 435         }
+ 436         sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
+ 437         if let Err(error) = subject_motion::project_capture_motion(
+ 438             &mut skeleton,
+ 439             &mut transform,
+ 440             &frame,
+ 441             motion,
+ 442             &sequence,
+ 443         ) {
+ 444             sequence.admission =
+ 445                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+ 446             return;
+ 447         }
+ 448         gait_phase = skeleton.gait_phase;
+ 449     }
+ 450     if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
+--- schedule 1-57 ---
+   1 //! Capture-phase registration and its ordered readiness/terminal-consumption policy.
+   2 
+   3 use super::overlay::draw_skeleton_overlay;
+   4 use super::{
+   5     CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
+   6     drive_sequence, freeze_capture_look, reject_capture,
+   7 };
+   8 use crate::animation_viewer::{
+   9     harness, inspection, setup::setup_viewer, view::position_capture_camera,
+  10 };
+  11 use crate::camera::TacticalCameraSet;
+  12 use bevy::prelude::*;
+  13 
+  14 pub(in crate::animation_viewer) struct CapturePlugin;
+  15 
+  16 impl Plugin for CapturePlugin {
+  17     fn build(&self, app: &mut App) {
+  18         app.add_systems(Startup, setup_viewer)
+  19             .add_systems(
+  20                 PreUpdate,
+  21                 (
+  22                     drive_sequence.run_if(admission_is_open),
+  23                     freeze_capture_look,
+  24                 )
+  25                     .chain(),
+  26             )
+  27             .add_systems(
+  28                 PostUpdate,
+  29                 position_capture_camera
+  30                     .after(TacticalCameraSet::Offset)
+  31                     .before(TransformSystems::Propagate),
+  32             )
+  33             .add_systems(
+  34                 PostUpdate,
+  35                 (draw_flat_ground_grid, draw_skeleton_overlay)
+  36                     .chain()
+  37                     .after(TransformSystems::Propagate),
+  38             )
+  39             .add_systems(
+  40                 Last,
+  41                 (
+  42                     inspection::inspect_materials,
+  43                     harness::update_readiness,
+  44                     collect_locomotion_presentation_events,
+  45                     reject_capture,
+  46                     capture_frame
+  47                         .run_if(harness::ready)
+  48                         .run_if(admission_is_open),
+  49                 )
+  50                     .chain(),
+  51             );
+  52     }
+  53 }
+  54 
+  55 fn admission_is_open(sequence: Res<CaptureSequence>) -> bool {
+  56     sequence.admission.is_open()
+  57 }
+--- admission 1-90 ---
+   1 //! Terminal capture admission rejection, separate from loading/readiness waits.
+   2 
+   3 use super::*;
+   4 use adventuresim_building_generator::spatial_geometry::{GeometryError, Position};
+   5 use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
+   6 use adventuresim_tactical_core::{
+   7     city_layout::grounding::SupportElevation,
+   8     scene::TerrainSupportError,
+   9     scene_coordinates::{Scene, ScenePlanPoint},
+  10 };
+  11 
+  12 /// One terminal authority: a rejected admission cannot return to driving.
+  13 pub(super) enum CaptureAdmission {
+  14     Open,
+  15     Rejected(RejectedCaptureAdmission),
+  16     Terminated,
+  17 }
+  18 
+  19 pub(super) enum RejectedCaptureAdmission {
+  20     FrameInterval(AnimationValueError),
+  21     Locomotion(AnimationValueError),
+  22     Terrain(TerrainSupportError),
+  23     Geometry(GeometryError),
+  24 }
+  25 
+  26 impl CaptureSequence {
+  27     pub(in crate::animation_viewer) fn admit_terrain_height(
+  28         &mut self,
+  29         terrain: &SceneTerrain,
+  30         point: ScenePlanPoint,
+  31     ) -> Option<SupportElevation> {
+  32         match terrain.required_height_at(point) {
+  33             Ok(height) => Some(height),
+  34             Err(error) => {
+  35                 self.admission =
+  36                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Terrain(error));
+  37                 None
+  38             }
+  39         }
+  40     }
+  41 
+  42     pub(super) fn admit_terrain_point(&mut self, metres: Vec2) -> Option<ScenePlanPoint> {
+  43         match ScenePlanPoint::try_from(metres) {
+  44             Ok(point) => Some(point),
+  45             Err(error) => {
+  46                 self.admission =
+  47                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+  48                 None
+  49             }
+  50         }
+  51     }
+  52 
+  53     pub(in crate::animation_viewer) fn admit_scene_position(
+  54         &mut self,
+  55         metres: Vec3,
+  56     ) -> Option<Position<Scene>> {
+  57         match Position::from_metres(metres) {
+  58             Ok(position) => Some(position),
+  59             Err(error) => {
+  60                 self.admission =
+  61                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+  62                 None
+  63             }
+  64         }
+  65     }
+  66 
+  67     /// A failed support calculation is terminal admission, not another readiness wait.
+  68     pub(super) fn admit_locomotion_support(
+  69         &mut self,
+  70         skeleton: &SkeletonState,
+  71         speed: NonnegativeSpeed,
+  72     ) -> Option<(
+  73         adventuresim_tactical_core::animation::UnitInterval,
+  74         adventuresim_tactical_core::animation::UnitInterval,
+  75     )> {
+  76         match locomotion_support_weights(skeleton, speed) {
+  77             Ok(weights) => Some(weights),
+  78             Err(error) => {
+  79                 self.admission =
+  80                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+  81                 None
+  82             }
+  83         }
+  84     }
+  85 
+  86     /// Active IK owns these observations; absent observations cannot become flight.
+  87     pub(super) fn admit_ik_support(
+  88         &mut self,
+  89         diagnostics: LegIkDiagnostics,
+  90         cadence: (UnitInterval, UnitInterval),
+--- rate 1-86 ---
+   1 //! Animation frequencies and checked reciprocal sampling intervals.
+   2 
+   3 use super::{
+   4     AnimationElapsed, AnimationQuantity, AnimationSampleSpan, AnimationValueError,
+   5     AnimationValueResult, PositiveAnimationDuration,
+   6 };
+   7 use serde::{Deserialize, Serialize};
+   8 
+   9 /// Authored frequency and its once-checked reciprocal sampling interval.
+  10 /// The original frequency is retained so scalar serialization preserves its bits.
+  11 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+  12 #[serde(try_from = "f32", into = "f32")]
+  13 pub struct AnimationSampleRate {
+  14     frequency: AnimationFrequency,
+  15     interval: PositiveAnimationDuration,
+  16 }
+  17 
+  18 /// A finite positive reference multiplier in samples per second. Calibration
+  19 /// does not require a representable reciprocal sampling period.
+  20 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize, derive_more::Into)]
+  21 #[serde(try_from = "f32", into = "f32")]
+  22 pub struct AnimationFrequency(f32);
+  23 
+  24 impl AnimationFrequency {
+  25     /// Project at actual per-reference-sample multiplication or native math.
+  26     pub fn hertz(self) -> f32 {
+  27         self.0
+  28     }
+  29 }
+  30 
+  31 impl TryFrom<f32> for AnimationFrequency {
+  32     type Error = AnimationValueError;
+  33     fn try_from(hertz: f32) -> AnimationValueResult<Self> {
+  34         let quantity = AnimationQuantity::SampleRate;
+  35         if !hertz.is_finite() {
+  36             return Err(AnimationValueError::NonFinite { quantity });
+  37         }
+  38         if hertz <= 0.0 {
+  39             return Err(AnimationValueError::NonPositive { quantity });
+  40         }
+  41         Ok(Self(hertz))
+  42     }
+  43 }
+  44 
+  45 impl AnimationSampleRate {
+  46     /// Samples per second at multiplication, ratio or framework clock boundaries.
+  47     pub fn hertz(self) -> f32 {
+  48         self.frequency.hertz()
+  49     }
+  50     /// Native reciprocal duration for fixed-step sampling.
+  51     pub fn interval(self) -> PositiveAnimationDuration {
+  52         self.interval
+  53     }
+  54     /// Convert a remaining sample span at its authoritative frequency. Preserve
+  55     /// the original f32 count-before-division order, rather than reciprocal multiplication.
+  56     pub fn elapsed_for_span(
+  57         self,
+  58         span: AnimationSampleSpan,
+  59     ) -> AnimationValueResult<AnimationElapsed> {
+  60         Ok(AnimationElapsed::from_seconds(
+  61             span.samples() as f32 / self.hertz(),
+  62         )?)
+  63     }
+  64 }
+  65 
+  66 impl TryFrom<f32> for AnimationSampleRate {
+  67     type Error = AnimationValueError;
+  68     fn try_from(hertz: f32) -> AnimationValueResult<Self> {
+  69         let frequency = AnimationFrequency::try_from(hertz)?;
+  70         let quantity = AnimationQuantity::SampleRate;
+  71         let interval = PositiveAnimationDuration::from_elapsed(
+  72             AnimationElapsed::from_seconds(hertz.recip())
+  73                 .map_err(|error| AnimationValueError::from(error).for_quantity(quantity))?,
+  74         )?;
+  75         Ok(Self {
+  76             frequency,
+  77             interval,
+  78         })
+  79     }
+  80 }
+  81 
+  82 impl From<AnimationSampleRate> for f32 {
+  83     fn from(rate: AnimationSampleRate) -> Self {
+  84         rate.frequency.hertz()
+  85     }
+  86 }
+--- viewer 1-120 ---
+   1 //! A deterministic gameplay-presentation fixture for tactical animation review.
+   2 
+   3 use std::{
+   4     collections::{BTreeMap, BTreeSet},
+   5     fs::{self, File},
+   6     io::{BufWriter, Write},
+   7     path::PathBuf,
+   8 };
+   9 
+  10 use adventuresim_tactical_core::animation::{
+  11     AnimationValueResult, UnitInterval, dive_launch_root_rotation,
+  12 };
+  13 use adventuresim_tactical_core::physics::{
+  14     AdventureSimulatorPhysicsPlugin, TACTICAL_DIVE_HORIZONTAL_SPEED_METRES_PER_SECOND,
+  15     quickstep_force_curve, quickstep_motion_target, quickstep_peak_horizontal_force_newtons,
+  16     quickstep_push_duration, quickstep_target_displacement_metres,
+  17     quickstep_tracking_force_newtons,
+  18 };
+  19 use adventuresim_tactical_core::prelude::*;
+  20 use adventuresim_tactical_netcode::client::WeaponGuardInputState;
+  21 use bevy::{
+  22     animation::AnimationTargetId,
+  23     app::AppExit,
+  24     asset::io::AssetSourceBuilder,
+  25     prelude::*,
+  26     render::view::screenshot::{Screenshot, ScreenshotCaptured, save_to_disk},
+  27     window::PresentMode,
+  28 };
+  29 use serde::Serialize;
+  30 
+  31 use crate::animation::jitter::{self, JitterBone, JitterFrame, JitterValidationSummary};
+  32 use crate::animation::pose_buffer::PoseBufferMetrics;
+  33 use crate::animation::review_scenarios::*;
+  34 use crate::animation::{
+  35     AnimationPlayback, AnimationRuntime, ArmIkState, AuthoredBindTransform, BodyAngle, BoneRole,
+  36     HumanoidBone, LegIkDiagnostics, LegIkState, LocomotionBodyResponseState, LocomotionHeightState,
+  37     LocomotionPresentationEvent, LocomotionPresentationPayload, PresentedSkeleton,
+  38     ProceduralAnimationClock, RaisedFootworkState, TacticalAnimationPlugin, TerrainIkMode,
+  39     bouncy_bones::BouncyBonesTelemetry,
+  40     capture_animation_target_id, capture_entity_id, locomotion_support_weights,
+  41     measured_ankle_sole_offset_metres,
+  42     semantic_route::{SemanticRoutePath, SemanticRouteTrace},
+  43     sole_contact_tolerance_metres,
+  44 };
+  45 use crate::{
+  46     camera::{CameraMode, TacticalCameraPlugin, animation_capture_camera_offset},
+  47     player::{LocalCharacterId, PlayerPlugin},
+  48     presentation::{TacticalGameplayCamera, TacticalPresentationPlugin},
+  49 };
+  50 
+  51 pub(crate) use capture::frame_clock::capture_fixed_clock;
+  52 use capture::*;
+  53 pub(crate) use harness::ArmorHarness;
+  54 pub(crate) use inspection::CaptureInspection;
+  55 use report::*;
+  56 use scenarios::terrain_policy::{
+  57     raised_scenario_requires_zero_flight, scenario_uses_terrain_ik, startup_terrain_ik_mode,
+  58     terrain_ik_mode_for_frame,
+  59 };
+  60 use scenarios::*;
+  61 
+  62 mod capture;
+  63 mod harness;
+  64 mod inspection;
+  65 mod report;
+  66 mod scenarios;
+  67 mod setup;
+  68 mod view;
+  69 
+  70 const CAPTURE_LOAD_FRAME_LIMIT: u32 = 1200;
+  71 
+  72 #[derive(Resource)]
+  73 struct CaptureBodyProportions(
+  74     Option<adventuresim_core::character_proportions::CharacterProportions>,
+  75 );
+  76 
+  77 pub(crate) struct CaptureOptions {
+  78     pub output: PathBuf,
+  79     pub asset_root: PathBuf,
+  80     pub settle_frames: u32,
+  81     pub scenario: Option<String>,
+  82     pub combat_config: TacticalCombatConfig,
+  83     pub body_proportions: Option<adventuresim_core::character_proportions::CharacterProportions>,
+  84     pub armor_harness: Option<ArmorHarness>,
+  85     pub hidden: bool,
+  86     pub inspection: CaptureInspection,
+  87 }
+  88 
+  89 pub(crate) fn run(options: CaptureOptions, fixed_clock: Time<Fixed>) -> AppExit {
+  90     let CaptureOptions {
+  91         output,
+  92         asset_root,
+  93         settle_frames,
+  94         scenario,
+  95         combat_config,
+  96         body_proportions,
+  97         armor_harness,
+  98         hidden,
+  99         inspection,
+ 100     } = options;
+ 101     let scenario = scenario.as_deref();
+ 102     let selected_scenario = scenario.map(ScenarioMetadata::from_label);
+ 103     let initial_terrain_ik = startup_terrain_ik_mode(selected_scenario.as_ref());
+ 104     let capture = match CaptureSequence::new(output.clone(), settle_frames, selected_scenario) {
+ 105         Ok(capture) => capture,
+ 106         Err(error) => {
+ 107             error!(%error, "capture plan admission failed");
+ 108             return AppExit::Error(std::num::NonZeroU8::MIN);
+ 109         }
+ 110     };
+ 111     inspection.publish(&output);
+ 112     fs::create_dir_all(&output).unwrap_or_else(|error| {
+ 113         panic!("failed to create animation capture directory {output:?}: {error}")
+ 114     });
+ 115     invalidate_previous_report(&output);
+ 116     setup::write_body_proportions(&output, body_proportions);
+ 117     let default_character_id = default_tactical_character_id();
+ 118 
+ 119     let workspace_asset_source =
+ 120         AssetSourceBuilder::platform_default(&asset_root.to_string_lossy(), None);
+--- main 1-132 ---
+   1 //! Deterministic native animation capture utility.
+   2 
+   3 // This binary reuses the full gameplay presentation modules while installing
+   4 // only the deterministic capture path.
+   5 #![expect(
+   6     dead_code,
+   7     reason = "the deterministic viewer compiles the gameplay module graph but exercises only its capture path"
+   8 )]
+   9 
+  10 mod animation;
+  11 mod animation_viewer;
+  12 mod camera;
+  13 mod equipment;
+  14 mod hud;
+  15 mod player;
+  16 mod presentation;
+  17 mod targeting;
+  18 
+  19 use std::path::PathBuf;
+  20 
+  21 use clap::Parser;
+  22 
+  23 #[derive(Debug, Parser)]
+  24 #[command(
+  25     version,
+  26     about = "Capture deterministic tactical locomotion review sequences"
+  27 )]
+  28 struct Args {
+  29     /// Directory receiving per-view PNGs, manifest.json, and index.html.
+  30     #[arg(long, default_value = "target/animation-captures/locomotion-review")]
+  31     output: PathBuf,
+  32 
+  33     /// Repository asset directory containing animations/.
+  34     #[arg(long, default_value = "assets")]
+  35     asset_root: PathBuf,
+  36 
+  37     /// Rendered frames allowed for each deterministic sample to settle.
+  38     #[arg(long, default_value_t = 1)]
+  39     frames_per_sample: u32,
+  40 
+  41     /// Capture only one named scenario (for example `steady-walk-2.0`).
+  42     #[arg(long)]
+  43     scenario: Option<String>,
+  44 
+  45     /// Runtime tactical combat and animation tuning YAML.
+  46     #[arg(long, default_value = "content/tactical/combat.yaml")]
+  47     combat_config: PathBuf,
+  48 
+  49     /// JSON array of nine absolute MHR skeletal coefficients for this capture.
+  50     #[arg(long)]
+  51     body_proportions: Option<PathBuf>,
+  52 
+  53     /// Generate and equip a catalog armor fixture on the captured wearer.
+  54     #[arg(long, value_enum)]
+  55     armor_harness: Option<animation_viewer::ArmorHarness>,
+  56 
+  57     /// Render automated screenshots without showing a desktop window.
+  58     #[arg(long)]
+  59     hidden: bool,
+  60     /// Orbit inspection views around the subject; default keeps gameplay framing.
+  61     #[arg(long, default_value_t = 0.0)]
+  62     camera_orbit_degrees: f32,
+  63     /// Diffuse armor with a translucent supporting cuirass, for boundary inspection.
+  64     #[arg(long)]
+  65     diffuse_armor: bool,
+  66 }
+  67 
+  68 fn main() {
+  69     let args = Args::parse();
+  70     let combat_config_path = if args.combat_config.is_absolute() {
+  71         args.combat_config.clone()
+  72     } else {
+  73         std::env::current_dir()
+  74             .expect("animation viewer needs a working directory")
+  75             .join(&args.combat_config)
+  76     };
+  77     let combat_config_text = std::fs::read_to_string(&combat_config_path).unwrap_or_else(|error| {
+  78         panic!(
+  79             "could not read animation tuning {}: {error}",
+  80             combat_config_path.display()
+  81         )
+  82     });
+  83     let combat_config: adventuresim_tactical_core::combat_config::TacticalCombatConfig =
+  84         serde_saphyr::from_str(&combat_config_text).unwrap_or_else(|error| {
+  85             panic!(
+  86                 "{} is not valid tactical combat YAML: {error}",
+  87                 combat_config_path.display()
+  88             )
+  89         });
+  90     let fixed_clock =
+  91         match animation_viewer::capture_fixed_clock(combat_config.animation.locomotion.sample_hz) {
+  92             Ok(clock) => clock,
+  93             Err(error) => {
+  94                 eprintln!("animation viewer could not construct its fixed clock: {error}");
+  95                 std::process::exit(1);
+  96             }
+  97         };
+  98     combat_config
+  99         .install_runtime_snapshot()
+ 100         .unwrap_or_else(|error| panic!("{}: {error}", combat_config_path.display()));
+ 101     let asset_root = if args.asset_root.is_absolute() {
+ 102         args.asset_root
+ 103     } else {
+ 104         std::env::current_dir()
+ 105             .expect("animation viewer needs a working directory")
+ 106             .join(args.asset_root)
+ 107     };
+ 108     let body_proportions = args.body_proportions.map(|path| {
+ 109         let text = std::fs::read_to_string(&path).expect("read body proportions JSON");
+ 110         serde_json::from_str(&text).expect("body proportions must respect the MHR limits")
+ 111     });
+ 112     let exit = animation_viewer::run(
+ 113         animation_viewer::CaptureOptions {
+ 114             inspection: animation_viewer::CaptureInspection::new(
+ 115                 args.camera_orbit_degrees,
+ 116                 args.diffuse_armor,
+ 117             ),
+ 118             output: args.output,
+ 119             asset_root,
+ 120             settle_frames: args.frames_per_sample.max(1),
+ 121             scenario: args.scenario,
+ 122             combat_config,
+ 123             body_proportions,
+ 124             armor_harness: args.armor_harness,
+ 125             hidden: args.hidden,
+ 126         },
+ 127         fixed_clock,
+ 128     );
+ 129     if let bevy::app::AppExit::Error(code) = exit {
+ 130         std::process::exit(code.get() as i32);
+ 131     }
+ 132 }
+--- tick 1-110 ---
+   1 //! Identity of a sampled authoritative animation observation.
+   2 
+   3 use super::{AnimationSampleRate, PositiveAnimationDuration};
+   4 use bevy::prelude::Reflect;
+   5 use derive_more::{Debug, Display, From};
+   6 use serde::{Deserialize, Serialize};
+   7 
+   8 #[derive(
+   9     Clone,
+  10     Copy,
+  11     Debug,
+  12     Default,
+  13     PartialEq,
+  14     Eq,
+  15     PartialOrd,
+  16     Ord,
+  17     Reflect,
+  18     Serialize,
+  19     Deserialize,
+  20     From,
+  21     Display,
+  22 )]
+  23 #[serde(transparent)]
+  24 #[debug("{_0:?}")]
+  25 pub struct AnimationSampleTick(u64);
+  26 
+  27 /// Nonnegative count of animation samples; not an absolute clock coordinate.
+  28 #[derive(
+  29     Clone,
+  30     Copy,
+  31     Debug,
+  32     Default,
+  33     PartialEq,
+  34     Eq,
+  35     PartialOrd,
+  36     Ord,
+  37     Reflect,
+  38     Serialize,
+  39     Deserialize,
+  40     From,
+  41     Display,
+  42 )]
+  43 #[serde(transparent)]
+  44 #[debug("{_0:?}")]
+  45 pub struct AnimationSampleSpan(u64);
+  46 
+  47 impl AnimationSampleTick {
+  48     pub const ZERO: Self = Self(0);
+  49     pub const MAX: Self = Self(u64::MAX);
+  50     /// Checked coordinate advance; unlike deadlines, fixture/required coordinates may fail.
+  51     pub fn checked_add(self, span: AnimationSampleSpan) -> Option<Self> {
+  52         self.0.checked_add(span.0).map(Self)
+  53     }
+  54     pub fn checked_sub_span(self, span: AnimationSampleSpan) -> Option<Self> {
+  55         self.0.checked_sub(span.0).map(Self)
+  56     }
+  57     pub fn saturating_sub_span(self, span: AnimationSampleSpan) -> Self {
+  58         Self(self.0.saturating_sub(span.0))
+  59     }
+  60     /// A deadline never wraps into the past at the end of the clock.
+  61     pub fn saturating_add(self, span: AnimationSampleSpan) -> Self {
+  62         Self(self.0.saturating_add(span.0))
+  63     }
+  64     pub fn saturating_sub(self, previous: Self) -> AnimationSampleSpan {
+  65         AnimationSampleSpan(self.0.saturating_sub(previous.0))
+  66     }
+  67     /// Capture and consecutive-observation clocks intentionally admit MAX → 0.
+  68     pub fn wrapping_next(self) -> Self {
+  69         Self(self.0.wrapping_add(1))
+  70     }
+  71     pub fn wrapping_delta(self, previous: Self) -> AnimationSampleSpan {
+  72         AnimationSampleSpan(self.0.wrapping_sub(previous.0))
+  73     }
+  74     pub fn checked_delta(self, previous: Self) -> Option<AnimationSampleSpan> {
+  75         self.0.checked_sub(previous.0).map(AnimationSampleSpan)
+  76     }
+  77     /// Native simulation clock, event/report or deterministic-seed encoding.
+  78     pub fn encoded(self) -> u64 {
+  79         self.0
+  80     }
+  81 }
+  82 
+  83 impl AnimationSampleSpan {
+  84     pub const ZERO: Self = Self(0);
+  85     pub const ONE: Self = Self(1);
+  86 
+  87     /// Quantize a positive action duration at its sample rate. Preserve
+  88     /// multiply, round, minimum-one, then native saturating count conversion;
+  89     /// even a finite duration whose product overflows reaches the maximum span.
+  90     pub fn from_positive_duration(
+  91         duration: PositiveAnimationDuration,
+  92         rate: AnimationSampleRate,
+  93     ) -> Self {
+  94         Self((duration.seconds() * rate.hertz()).round().max(1.0) as u64)
+  95     }
+  96 
+  97     pub fn saturating_add(self, other: Self) -> Self {
+  98         Self(self.0.saturating_add(other.0))
+  99     }
+ 100     pub fn saturating_mul(self, count: u64) -> Self {
+ 101         Self(self.0.saturating_mul(count))
+ 102     }
+ 103     pub fn half(self) -> Self {
+ 104         Self(self.0 / 2)
+ 105     }
+ 106     /// Native sample-count arithmetic, diagnostics or duration conversion boundary.
+ 107     pub fn samples(self) -> u64 {
+ 108         self.0
+ 109     }
+ 110 }
+--- pose_config 1-46 ---
+   1 //! Pose sampling, calibration and measurement tuning authored in combat YAML.
+   2 
+   3 use super::TacticalCombatConfigError;
+   4 use crate::animation::{
+   5     AnimationSampleRate, ContactHeightScale, PhaseCalibrationIntervals, PositiveAnimationDuration,
+   6 };
+   7 use adventuresim_building_generator::spatial_geometry::PositiveLength;
+   8 use serde::{Deserialize, Serialize};
+   9 
+  10 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+  11 #[serde(deny_unknown_fields)]
+  12 pub struct PoseBufferConfig {
+  13     pub sample_hz: AnimationSampleRate,
+  14     /// Minimum extent of the numerical bake grid, after source-duration admission.
+  15     pub minimum_baked_grid_seconds: PositiveAnimationDuration,
+  16     /// Minimum signed stance displacement needed for a stable phase fit.
+  17     pub minimum_phase_fit_displacement_metres: PositiveLength,
+  18     pub maximum_observation_seconds: PositiveAnimationDuration,
+  19     pub authored_phase_calibration_intervals: PhaseCalibrationIntervals,
+  20     pub minimum_authored_foot_range_metres: PositiveLength,
+  21     pub maximum_authored_foot_range_metres: PositiveLength,
+  22     /// Seconds an inertialized transition takes to decay fully onto its new
+  23     /// target. A joint already closing fast may finish sooner.
+  24     pub inertial_blend_seconds: PositiveAnimationDuration,
+  25     pub cull_distance_metres: PositiveLength,
+  26     pub cull_radius_metres: PositiveLength,
+  27     pub authored_contact_plant_limit_metres: PositiveLength,
+  28     pub authored_contact_height_fraction: ContactHeightScale,
+  29     pub authored_contact_minimum_height_window_metres: PositiveLength,
+  30     pub authored_contact_maximum_height_window_metres: PositiveLength,
+  31 }
+  32 
+  33 impl PoseBufferConfig {
+  34     pub(super) fn validate(&self) -> Result<(), TacticalCombatConfigError> {
+  35         let pose = self;
+  36         if pose.maximum_authored_foot_range_metres < pose.minimum_authored_foot_range_metres
+  37             || pose.authored_contact_maximum_height_window_metres
+  38                 < pose.authored_contact_minimum_height_window_metres
+  39         {
+  40             return Err(TacticalCombatConfigError::Validation(
+  41                 "invalid pose buffer tuning",
+  42             ));
+  43         }
+  44         Ok(())
+  45     }
+  46 }

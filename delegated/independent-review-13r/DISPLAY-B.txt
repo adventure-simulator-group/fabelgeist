@@ -1,0 +1,74 @@
+reader:451: 
+reader:452: fn read_props(reader: &mut Reader<'_>, count: usize) -> Result<Vec<Prop>> {
+reader:453:     let mut props = Vec::with_capacity(count);
+reader:454:     for _ in 0..count {
+reader:455:         let kind = reader.u8()?;
+reader:456:         let prop = match kind {
+reader:457:             b'Y' => Prop::I16(i16::from_le_bytes(reader.take(2)?.try_into().unwrap())),
+reader:458:             b'C' => Prop::Bool(reader.u8()? != 0),
+reader:459:             b'I' => Prop::I32(i32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+reader:460:             b'F' => Prop::F32(f32::from_le_bytes(reader.take(4)?.try_into().unwrap())),
+reader:461:             b'D' => Prop::F64(f64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+reader:462:             b'L' => Prop::I64(i64::from_le_bytes(reader.take(8)?.try_into().unwrap())),
+reader:463:             b'f' | b'd' | b'l' | b'i' | b'b' => {
+reader:464:                 let count = reader.u32()? as usize;
+reader:465:                 // FBX array metadata stores encoding as a little-endian u32.
+reader:466:                 // Admit only supported encodings before decoding the payload.
+reader:467:                 let encoding = FbxArrayEncoding::try_from(reader.u32()?)?;
+reader:468:                 let compressed_len = reader.u32()? as usize;
+reader:469:                 let raw = reader.take(compressed_len)?;
+reader:470:                 match kind {
+reader:471:                     b'f' => Prop::ArrF32(decode_array(
+reader:472:                         raw,
+reader:473:                         count,
+reader:474:                         encoding,
+reader:475:                         |b| f32::from_le_bytes(b.try_into().unwrap()),
+reader:476:                         4,
+reader:477:                     )?),
+reader:478:                     b'd' => Prop::ArrF64(decode_array(
+reader:479:                         raw,
+reader:480:                         count,
+reader:481:                         encoding,
+reader:482:                         |b| f64::from_le_bytes(b.try_into().unwrap()),
+reader:483:                         8,
+reader:484:                     )?),
+reader:485:                     b'i' => Prop::ArrI32(decode_array(
+reader:486:                         raw,
+reader:487:                         count,
+reader:488:                         encoding,
+reader:489:                         |b| i32::from_le_bytes(b.try_into().unwrap()),
+reader:490:                         4,
+reader:491:                     )?),
+reader:492:                     b'l' => Prop::ArrI64(decode_array(
+reader:493:                         raw,
+reader:494:                         count,
+reader:495:                         encoding,
+reader:496:                         |b| i64::from_le_bytes(b.try_into().unwrap()),
+reader:497:                         8,
+reader:498:                     )?),
+reader:499:                     _ => Prop::ArrBool(decode_array(raw, count, encoding, |b| b[0], 1)?),
+reader:500:                 }
+encoding:001: //! Supported array encodings admitted from the four-byte wire metadata field.
+encoding:002: 
+encoding:003: use derive_more::{Display, Error, From};
+encoding:004: use num_enum::TryFromPrimitive;
+encoding:005: 
+encoding:006: /// An array encoding code this binary FBX reader does not support.
+encoding:007: #[derive(Clone, Copy, Debug, Display, Error, From, PartialEq, Eq)]
+encoding:008: #[display("unsupported FBX array encoding code {reported_code}")]
+encoding:009: pub struct UnsupportedFbxArrayEncoding {
+encoding:010:     /// The raw 32-bit encoding code reported in the array property header.
+encoding:011:     pub reported_code: u32,
+encoding:012: }
+encoding:013: 
+encoding:014: /// An array encoding supported by this binary FBX reader.
+encoding:015: #[derive(Clone, Copy, Debug, PartialEq, Eq, TryFromPrimitive)]
+encoding:016: #[repr(u32)]
+encoding:017: #[num_enum(error_type(
+encoding:018:     name = UnsupportedFbxArrayEncoding,
+encoding:019:     constructor = UnsupportedFbxArrayEncoding::from
+encoding:020: ))]
+encoding:021: pub(super) enum FbxArrayEncoding {
+encoding:022:     Uncompressed = 0,
+encoding:023:     Zlib = 1,
+encoding:024: }

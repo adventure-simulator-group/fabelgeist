@@ -1,0 +1,625 @@
+--- root 1-136 ---
+   1 //! Scene-root fixture motion and explicit capture ground-observation authority.
+   2 
+   3 use super::*;
+   4 use adventuresim_building_generator::spatial_geometry::{
+   5     CoordinateAxis, GeometryError, GeometryRole, Position,
+   6 };
+   7 use adventuresim_tactical_core::{
+   8     city_layout::grounding::SupportElevation,
+   9     scene_coordinates::{Scene, ScenePlanPoint},
+  10 };
+  11 
+  12 #[derive(Clone, Copy)]
+  13 pub(super) enum CaptureGround {
+  14     Terrain,
+  15     AuthoredPlane(SupportElevation),
+  16 }
+  17 
+  18 impl CaptureGround {
+  19     pub(super) fn collect_bones(
+  20         self,
+  21         subject: Entity,
+  22         bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+  23         terrain: &SceneTerrain,
+  24     ) -> CapturedBones {
+  25         bones
+  26             .iter()
+  27             .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
+  28             .map(|(bone, transform)| {
+  29                 let rotation = transform.rotation();
+  30                 let elevation = match self {
+  31                     CaptureGround::AuthoredPlane(height) => Some(height),
+  32                     CaptureGround::Terrain => {
+  33                         ScenePlanPoint::from_metres(transform.translation().xz())
+  34                             .and_then(|point| terrain.height_at(point))
+  35                     }
+  36                 };
+  37                 (
+  38                     bone.role,
+  39                     BoneSample {
+  40                         position: transform.translation().to_array(),
+  41                         rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+  42                         terrain_clearance_metres: elevation
+  43                             .map(|height| transform.translation().y - height.metres()),
+  44                     },
+  45                 )
+  46             })
+  47             .collect()
+  48     }
+  49 }
+  50 
+  51 impl CaptureSequence {
+  52     /// Admit the initial scene root while retaining its current scale.
+  53     pub(super) fn initial_root(
+  54         &mut self,
+  55         terrain: &SceneTerrain,
+  56         mut transform: Transform,
+  57     ) -> Option<Transform> {
+  58         let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
+  59         let position = self.admit_scene_position(Vec3::new(
+  60             0.0,
+  61             ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
+  62             0.0,
+  63         ))?;
+  64         transform.translation = position.metres();
+  65         transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
+  66         Some(transform)
+  67     }
+  68 
+  69     /// Native scene-root translation advances by the existing controller step;
+  70     /// admit its footprint before queries and its complete position before Bevy.
+  71     pub(super) fn fixture_root_position(
+  72         &mut self,
+  73         terrain: &SceneTerrain,
+  74         current: Vec3,
+  75         frame: &PlannedFrame,
+  76         motion: &subject_motion::CaptureMotion,
+  77         terrain_ik: TerrainIkMode,
+  78     ) -> Option<Position<Scene>> {
+  79         let horizontal = current.xz() + motion.world_velocity.xz() * motion.elapsed.seconds();
+  80         let point = self.admit_terrain_point(horizontal)?;
+  81         let vertical = if is_quickstep_scenario(&frame.scenario) {
+  82             let ground = self.admit_terrain_height(terrain, point)?.metres()
+  83                 + CAPTURE_ROOT_GROUND_OFFSET_METRES;
+  84             ground
+  85                 + quickstep_fixture_vertical_state(frame.scenario_frame)
+  86                     .0
+  87                     .max(0.0)
+  88         } else if terrain_ik.is_enabled() {
+  89             self.admit_terrain_height(terrain, point)?.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES
+  90         } else {
+  91             current.y
+  92         };
+  93         self.admit_scene_position(Vec3::new(horizontal.x, vertical, horizontal.y))
+  94     }
+  95 
+  96     /// The full ragdoll scenario lowers the production-like controller root
+  97     /// while its capsule island resolves contact against the same terrain.
+  98     pub(super) fn full_ragdoll_root(
+  99         &mut self,
+ 100         terrain: &SceneTerrain,
+ 101         mut transform: Transform,
+ 102         frame: &PlannedFrame,
+ 103     ) -> Option<Transform> {
+ 104         let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
+ 105         transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
+ 106             * Quat::from_rotation_x(1.25 * smoothstep01(fall));
+ 107         let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
+ 108         transform.translation.y =
+ 109             ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
+ 110         transform.translation = self.admit_scene_position(transform.translation)?.metres();
+ 111         Some(transform)
+ 112     }
+ 113 
+ 114     /// An authored flat plane is measured from the visible scene-root datum;
+ 115     /// failure to admit that observation cannot select terrain instead.
+ 116     pub(super) fn capture_ground(
+ 117         &mut self,
+ 118         terrain_ik: TerrainIkMode,
+ 119         subject: Vec3,
+ 120     ) -> Option<CaptureGround> {
+ 121         if terrain_ik.is_enabled() {
+ 122             return Some(CaptureGround::Terrain);
+ 123         }
+ 124         let height = subject.y - CAPTURE_ROOT_GROUND_OFFSET_METRES;
+ 125         if let Some(height) = SupportElevation::from_metres(height) {
+ 126             return Some(CaptureGround::AuthoredPlane(height));
+ 127         }
+ 128         self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(
+ 129             GeometryError::NonFinite {
+ 130                 role: GeometryRole::Elevation,
+ 131                 axis: CoordinateAxis::Y,
+ 132             },
+ 133         ));
+ 134         None
+ 135     }
+ 136 }
+--- capture 1-25 ---
+   1 //! ECS fixture driving, sampling, and three-view capture.
+   2 
+   3 use super::*;
+   4 pub(super) use admission::reject_capture;
+   5 use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
+   6 use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
+   7 pub(super) use capture_schedule::CapturePlugin;
+   8 use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
+   9 use repeated_evaluation::RepeatedEvaluationSnapshot;
+  10 
+  11 mod admission;
+  12 mod capture_schedule;
+  13 pub(super) mod frame_clock;
+  14 mod global_bones;
+  15 mod overlay;
+  16 mod readiness;
+  17 mod repeated_evaluation;
+  18 mod root_motion;
+  19 mod subject_motion;
+  20 
+  21 pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
+  22 pub(super) const FULL_PLANT_SUPPORT_WEIGHT: f32 = 0.99;
+  23 
+  24 #[derive(Component)]
+  25 pub(super) struct CaptureSubject;
+--- capture 169-300 ---
+ 169 pub(super) fn freeze_capture_look(
+ 170     sequence: Res<CaptureSequence>,
+ 171     mut subjects: Query<&mut CharacterLook, With<CaptureSubject>>,
+ 172 ) {
+ 173     if !sequence.admission.is_open() {
+ 174         return;
+ 175     }
+ 176     let Some(frame) = sequence.plan.get(sequence.index) else {
+ 177         return;
+ 178     };
+ 179     for mut look in &mut subjects {
+ 180         look.yaw = frame.camera_yaw.radians();
+ 181         look.pitch = frame.camera_pitch.radians();
+ 182     }
+ 183 }
+ 184 
+ 185 #[expect(
+ 186     clippy::too_many_arguments,
+ 187     clippy::type_complexity,
+ 188     reason = "the Bevy capture driver independently controls timing, IK modes, animation input, subject state, and labels"
+ 189 )]
+ 190 pub(super) fn drive_sequence(
+ 191     mut sequence: ResMut<CaptureSequence>,
+ 192     mut procedural_clock: ResMut<ProceduralAnimationClock>,
+ 193     mut terrain_ik: ResMut<TerrainIkMode>,
+ 194     mut guard_input: ResMut<WeaponGuardInputState>,
+ 195     animation_runtime: Res<AnimationRuntime>,
+ 196     terrain: Single<&SceneTerrain>,
+ 197     mut subjects: Query<
+ 198         (
+ 199             &mut SkeletonState,
+ 200             &mut Transform,
+ 201             &mut CharacterLook,
+ 202             Option<&AnimationPlayback>,
+ 203             Option<&mut LegIkState>,
+ 204             Option<&mut ArmIkState>,
+ 205             Option<&mut RaisedFootworkState>,
+ 206             Option<&mut LocomotionHeightState>,
+ 207             Option<&mut LocomotionBodyResponseState>,
+ 208         ),
+ 209         With<CaptureSubject>,
+ 210     >,
+ 211     mut labels: Query<&mut Text, With<CaptureLabel>>,
+ 212 ) {
+ 213     if !sequence.can_drive_frame() {
+ 214         return;
+ 215     }
+ 216     let frame = sequence.plan[sequence.index].clone();
+ 217     let metadata = frame.scenario.clone();
+ 218     let mut gait_phase = CyclePhase::ZERO;
+ 219     let mut observed_playback = None;
+ 220     for (
+ 221         mut skeleton,
+ 222         mut transform,
+ 223         mut look,
+ 224         playback,
+ 225         ik_state,
+ 226         arm_ik_state,
+ 227         raised_footwork,
+ 228         height_state,
+ 229         body_response,
+ 230     ) in &mut subjects
+ 231     {
+ 232         let Some(playback) = playback else {
+ 233             return;
+ 234         };
+ 235         observed_playback = Some(playback);
+ 236         if !frame.scenario.is(ScenarioId::FullRagdoll) && !playback.authored_pose_is_ready() {
+ 237             return;
+ 238         }
+ 239 
+ 240         if sequence.active_scenario.as_ref() != Some(&frame.scenario) {
+ 241             sequence.active_scenario = Some(frame.scenario.clone());
+ 242             sequence.scenario_distance = 0.0;
+ 243             sequence.motion_ready_frames = 0;
+ 244             *skeleton = SkeletonState::default();
+ 245             *guard_input = WeaponGuardInputState::default();
+ 246             if let Some(mut ik_state) = ik_state {
+ 247                 *ik_state = LegIkState::default();
+ 248             }
+ 249             if let Some(mut arm_ik_state) = arm_ik_state {
+ 250                 *arm_ik_state = ArmIkState::default();
+ 251             }
+ 252             if let Some(mut raised_footwork) = raised_footwork {
+ 253                 *raised_footwork = RaisedFootworkState::default();
+ 254             }
+ 255             if let Some(mut height_state) = height_state {
+ 256                 *height_state = LocomotionHeightState::default();
+ 257             }
+ 258             if let Some(mut body_response) = body_response {
+ 259                 *body_response = LocomotionBodyResponseState::default();
+ 260             }
+ 261             let Some(initial) = sequence.initial_root(&terrain, *transform) else {
+ 262                 return;
+ 263             };
+ 264             *transform = initial;
+ 265             if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
+ 266                 // Prime the static combat stance and its terrain-conformed IK
+ 267                 // before judging the later six-frame movement tap. A live
+ 268                 // character has already held this stance; capturing component
+ 269                 // allocation and pelvis acquisition would test viewer spawn,
+ 270                 // not the authored-to-procedural stop transition.
+ 271                 sequence.warmup_frames = 8;
+ 272             }
+ 273             if let Some((start_body, _)) = frame.scenario.transition() {
+ 274                 skeleton.transition_body(start_body);
+ 275                 // Prime the authored endpoint before beginning the transition.
+ 276                 // Live characters have already evaluated their prone/supine or
+ 277                 // upright base; a fresh viewer subject otherwise crossfades
+ 278                 // from its default standing pose during the first samples.
+ 279                 sequence.warmup_frames = 8;
+ 280             }
+ 281         }
+ 282 
+ 283         if let Some(body) = frame.scenario.body() {
+ 284             skeleton.transition_body(body);
+ 285             let preload_locomotion = frame.scenario_frame == 0
+ 286                 && frame.scenario.required_motion().is_some_and(|motion| {
+ 287                     *motion == crate::animation::MotionId::PRONE_CRAWL
+ 288                         || *motion == crate::animation::MotionId::SUPINE_SCAMPER
+ 289                 })
+ 290                 && !frame
+ 291                     .scenario
+ 292                     .required_motion()
+ 293                     .is_some_and(|motion| animation_runtime.motion_is_processed(motion));
+ 294             skeleton.set_downed_motion(
+ 295                 if !frame.scenario.is(ScenarioId::DownedProneLookAt)
+ 296                     && (preload_locomotion
+ 297                         || (frame.scenario_frame >= 4
+ 298                             && frame.speed <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)))
+ 299                 {
+ 300                     DownedMotion::Turning
+--- capture 350-450 ---
+ 350             quickstep_fixture_vertical_state(frame.scenario_frame).1
+ 351         } else if (metadata.kind() == ScenarioKind::Landing || dive_impact) && !grounded {
+ 352             -4.5
+ 353         } else {
+ 354             0.0
+ 355         };
+ 356         let requested_local_velocity = Vec3::new(
+ 357             frame.local_direction.x * frame.speed.metres_per_second(),
+ 358             vertical_velocity,
+ 359             frame.local_direction.y * frame.speed.metres_per_second(),
+ 360         );
+ 361         let local_velocity = requested_local_velocity;
+ 362         let world_velocity = controller_yaw(orientation) * local_velocity;
+ 363         sequence.simulation_tick = next_capture_simulation_tick(
+ 364             sequence.simulation_tick,
+ 365             sequence.index == 0 && sequence.warmup_frames == 0,
+ 366         );
+ 367         if sequence.warmup_frames == 0
+ 368             && frame.scenario_frame == 0
+ 369             && let Some((start_body, transition)) = frame.scenario.transition()
+ 370         {
+ 371             skeleton.transition_body(start_body);
+ 372             if frame.scenario.has(ScenarioFeature::AimedImpact) {
+ 373                 // Match the authoritative launch seam: velocity and authored
+ 374                 // direction capture one camera frame even if the previously
+ 375                 // displayed root had not finished turning toward it.
+ 376                 transform.rotation =
+ 377                     dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw.radians()));
+ 378             }
+ 379             // Matches the live server's terrain-contact dive recovery.
+ 380             let duration = if frame.scenario.has(ScenarioFeature::DiveBackward) {
+ 381                 32
+ 382             } else if dive_impact {
+ 383                 20
+ 384             } else {
+ 385                 84
+ 386             };
+ 387             skeleton.begin_posture_transition(
+ 388                 transition,
+ 389                 sequence.simulation_tick,
+ 390                 AnimationSampleSpan::from(duration as u64),
+ 391             );
+ 392         }
+ 393         let elapsed = capture_frame_elapsed(frame.scenario_frame);
+ 394         let delta_seconds = elapsed.seconds();
+ 395         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+ 396         let motion = subject_motion::CaptureMotion {
+ 397             orientation,
+ 398             world_velocity,
+ 399             contact: GroundContact::from(grounded),
+ 400             elapsed,
+ 401         };
+ 402         let Some(position) = sequence.fixture_root_position(
+ 403             &terrain,
+ 404             transform.translation,
+ 405             &frame,
+ 406             &motion,
+ 407             *terrain_ik,
+ 408         ) else {
+ 409             return;
+ 410         };
+ 411         transform.translation = position.metres();
+ 412         subject_motion::begin_capture_action(
+ 413             &mut skeleton,
+ 414             &frame,
+ 415             sequence.simulation_tick,
+ 416             attack_start_frame,
+ 417         );
+ 418         if let Err(error) = subject_motion::advance_capture_facing(
+ 419             &skeleton,
+ 420             &mut transform,
+ 421             orientation,
+ 422             world_velocity,
+ 423             frame.action,
+ 424             elapsed,
+ 425         ) {
+ 426             sequence.admission =
+ 427                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+ 428             return;
+ 429         }
+ 430         if frame.scenario.is(ScenarioId::FullRagdoll) {
+ 431             let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
+ 432                 return;
+ 433             };
+ 434             *transform = projected;
+ 435         }
+ 436         sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
+ 437         if let Err(error) = subject_motion::project_capture_motion(
+ 438             &mut skeleton,
+ 439             &mut transform,
+ 440             &frame,
+ 441             motion,
+ 442             &sequence,
+ 443         ) {
+ 444             sequence.admission =
+ 445                 CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+ 446             return;
+ 447         }
+ 448         gait_phase = skeleton.gait_phase;
+ 449     }
+ 450     if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
+--- admission 1-168 ---
+   1 //! Terminal capture admission rejection, separate from loading/readiness waits.
+   2 
+   3 use super::*;
+   4 use adventuresim_building_generator::spatial_geometry::{GeometryError, Position};
+   5 use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
+   6 use adventuresim_tactical_core::{
+   7     city_layout::grounding::SupportElevation,
+   8     scene::TerrainSupportError,
+   9     scene_coordinates::{Scene, ScenePlanPoint},
+  10 };
+  11 
+  12 /// One terminal authority: a rejected admission cannot return to driving.
+  13 pub(super) enum CaptureAdmission {
+  14     Open,
+  15     Rejected(RejectedCaptureAdmission),
+  16     Terminated,
+  17 }
+  18 
+  19 pub(super) enum RejectedCaptureAdmission {
+  20     FrameInterval(AnimationValueError),
+  21     Locomotion(AnimationValueError),
+  22     Terrain(TerrainSupportError),
+  23     Geometry(GeometryError),
+  24 }
+  25 
+  26 impl CaptureSequence {
+  27     pub(in crate::animation_viewer) fn admit_terrain_height(
+  28         &mut self,
+  29         terrain: &SceneTerrain,
+  30         point: ScenePlanPoint,
+  31     ) -> Option<SupportElevation> {
+  32         match terrain.required_height_at(point) {
+  33             Ok(height) => Some(height),
+  34             Err(error) => {
+  35                 self.admission =
+  36                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Terrain(error));
+  37                 None
+  38             }
+  39         }
+  40     }
+  41 
+  42     pub(super) fn admit_terrain_point(&mut self, metres: Vec2) -> Option<ScenePlanPoint> {
+  43         match ScenePlanPoint::try_from(metres) {
+  44             Ok(point) => Some(point),
+  45             Err(error) => {
+  46                 self.admission =
+  47                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+  48                 None
+  49             }
+  50         }
+  51     }
+  52 
+  53     pub(in crate::animation_viewer) fn admit_scene_position(
+  54         &mut self,
+  55         metres: Vec3,
+  56     ) -> Option<Position<Scene>> {
+  57         match Position::from_metres(metres) {
+  58             Ok(position) => Some(position),
+  59             Err(error) => {
+  60                 self.admission =
+  61                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
+  62                 None
+  63             }
+  64         }
+  65     }
+  66 
+  67     /// A failed support calculation is terminal admission, not another readiness wait.
+  68     pub(super) fn admit_locomotion_support(
+  69         &mut self,
+  70         skeleton: &SkeletonState,
+  71         speed: NonnegativeSpeed,
+  72     ) -> Option<(
+  73         adventuresim_tactical_core::animation::UnitInterval,
+  74         adventuresim_tactical_core::animation::UnitInterval,
+  75     )> {
+  76         match locomotion_support_weights(skeleton, speed) {
+  77             Ok(weights) => Some(weights),
+  78             Err(error) => {
+  79                 self.admission =
+  80                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+  81                 None
+  82             }
+  83         }
+  84     }
+  85 
+  86     /// Active IK owns these observations; absent observations cannot become flight.
+  87     pub(super) fn admit_ik_support(
+  88         &mut self,
+  89         diagnostics: LegIkDiagnostics,
+  90         cadence: (UnitInterval, UnitInterval),
+  91         skeleton: &SkeletonState,
+  92         terrain_ik: TerrainIkMode,
+  93     ) -> Option<(UnitInterval, UnitInterval)> {
+  94         let ordinary_support_required =
+  95             terrain_ik.is_enabled() && crate::animation::authored_locomotion_ik_owns(skeleton);
+  96         if !ordinary_support_required
+  97             && diagnostics.left_solve_target.is_none()
+  98             && diagnostics.right_solve_target.is_none()
+  99         {
+ 100             return Some(cadence);
+ 101         }
+ 102         match diagnostics
+ 103             .left_support_weight
+ 104             .zip(diagnostics.right_support_weight)
+ 105         {
+ 106             Some(weights) => Some(weights),
+ 107             None => {
+ 108                 self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(
+ 109                     AnimationValueError::UnavailableObservation {
+ 110                         quantity: AnimationQuantity::SupportObservation,
+ 111                     },
+ 112                 ));
+ 113                 None
+ 114             }
+ 115         }
+ 116     }
+ 117 
+ 118     /// Driving is permitted only before admission terminates and between captures.
+ 119     pub(super) fn can_drive_frame(&self) -> bool {
+ 120         self.admission.is_open()
+ 121             && !self.applied
+ 122             && !self.capture_in_flight
+ 123             && self.index < self.plan.len()
+ 124     }
+ 125 }
+ 126 
+ 127 impl CaptureAdmission {
+ 128     pub(super) fn is_open(&self) -> bool {
+ 129         matches!(self, Self::Open)
+ 130     }
+ 131 }
+ 132 
+ 133 impl RejectedCaptureAdmission {
+ 134     pub(super) fn message(&self) -> String {
+ 135         match self {
+ 136             Self::FrameInterval(error) => format!("capture frame interval rejected: {error}\n"),
+ 137             Self::Locomotion(error) => {
+ 138                 format!("capture locomotion observation rejected: {error}\n")
+ 139             }
+ 140             Self::Terrain(error) => format!("capture terrain support rejected: {error}\n"),
+ 141             Self::Geometry(error) => format!("capture scene geometry rejected: {error}\n"),
+ 142         }
+ 143     }
+ 144 }
+ 145 
+ 146 /// Admission rejection must terminate even while equipment is still loading.
+ 147 pub(in crate::animation_viewer) fn reject_capture(
+ 148     mut sequence: ResMut<CaptureSequence>,
+ 149     mut exit: MessageWriter<AppExit>,
+ 150 ) {
+ 151     if let CaptureAdmission::Rejected(rejection) = &sequence.admission {
+ 152         fail_capture(&sequence, &rejection.message(), &mut exit);
+ 153         sequence.admission = CaptureAdmission::Terminated;
+ 154     }
+ 155 }
+ 156 
+ 157 pub(super) fn fail_capture(
+ 158     sequence: &CaptureSequence,
+ 159     message: &str,
+ 160     exit: &mut MessageWriter<AppExit>,
+ 161 ) {
+ 162     let path = sequence.output.join("failure.txt");
+ 163     if let Err(error) = fs::write(&path, message) {
+ 164         error!(%error, ?path, "Failed to write capture failure artifact");
+ 165     }
+ 166     error!(%message, ?path, "Animation capture failed");
+ 167     exit.write(AppExit::Error(std::num::NonZeroU8::MIN));
+ 168 }
+--- schedule 1-57 ---
+   1 //! Capture-phase registration and its ordered readiness/terminal-consumption policy.
+   2 
+   3 use super::overlay::draw_skeleton_overlay;
+   4 use super::{
+   5     CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
+   6     drive_sequence, freeze_capture_look, reject_capture,
+   7 };
+   8 use crate::animation_viewer::{
+   9     harness, inspection, setup::setup_viewer, view::position_capture_camera,
+  10 };
+  11 use crate::camera::TacticalCameraSet;
+  12 use bevy::prelude::*;
+  13 
+  14 pub(in crate::animation_viewer) struct CapturePlugin;
+  15 
+  16 impl Plugin for CapturePlugin {
+  17     fn build(&self, app: &mut App) {
+  18         app.add_systems(Startup, setup_viewer)
+  19             .add_systems(
+  20                 PreUpdate,
+  21                 (
+  22                     drive_sequence.run_if(admission_is_open),
+  23                     freeze_capture_look,
+  24                 )
+  25                     .chain(),
+  26             )
+  27             .add_systems(
+  28                 PostUpdate,
+  29                 position_capture_camera
+  30                     .after(TacticalCameraSet::Offset)
+  31                     .before(TransformSystems::Propagate),
+  32             )
+  33             .add_systems(
+  34                 PostUpdate,
+  35                 (draw_flat_ground_grid, draw_skeleton_overlay)
+  36                     .chain()
+  37                     .after(TransformSystems::Propagate),
+  38             )
+  39             .add_systems(
+  40                 Last,
+  41                 (
+  42                     inspection::inspect_materials,
+  43                     harness::update_readiness,
+  44                     collect_locomotion_presentation_events,
+  45                     reject_capture,
+  46                     capture_frame
+  47                         .run_if(harness::ready)
+  48                         .run_if(admission_is_open),
+  49                 )
+  50                     .chain(),
+  51             );
+  52     }
+  53 }
+  54 
+  55 fn admission_is_open(sequence: Res<CaptureSequence>) -> bool {
+  56     sequence.admission.is_open()
+  57 }

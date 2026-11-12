@@ -1,0 +1,52 @@
+{
+  "snapshot_revision": "8608c88ad0cd75ca188ce03908c7662c1aa436e8",
+  "reconciliation": {
+    "152": {
+      "contract_id": "ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "historical_lens": 11,
+      "historical_status": "open-reconciliation",
+      "source_pointer": "/entries/152",
+      "current_reconciliation": "partial original nonadvancing and escaping FBX record extent finding reconnected to current parser and conditional source-only nonprogress example; see ASSESSMENT-FBX-95E.json; no full reconciliation or checkpoint3821 attribution"
+    },
+    "153": {
+      "contract_id": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "historical_lens": 11,
+      "historical_status": "open-reconciliation",
+      "source_pointer": "/entries/153",
+      "current_reconciliation": "partial original untrusted property allocation and decompression budget finding reconnected to current parser and pinned native decoder source; see ASSESSMENT-FBX-95E.json; no full reconciliation or checkpoint3821 attribution"
+    },
+    "2942": {
+      "contract_id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "historical_lens": 12,
+      "historical_status": null,
+      "source_pointer": "/entries/2942",
+      "current_reconciliation": "partial original native num_enum custom-error adapter disposition connected to exact f82 source and current locked source; no broader closure; see ASSESSMENT-FBX-95E.json; no full reconciliation or checkpoint3821 attribution"
+    }
+  },
+  "matching_ledger_entries": [
+    {
+      "index": 517,
+      "id": "ADLER-L11-FBX-RECORD-EXTENT-ADMISSION",
+      "record": "ASSESSMENT-FBX-95E.json",
+      "repair": "not started",
+      "validation": "not performed",
+      "discovery": "partial; record cursor, containing extent and selected importer traced; nesting, all versions and aliases open"
+    },
+    {
+      "index": 518,
+      "id": "ADLER-L11-FBX-DECODE-BUDGET-ADMISSION",
+      "record": "ASSESSMENT-FBX-95E.json",
+      "repair": "not started",
+      "validation": "not performed",
+      "discovery": "partial; property counts, decoded output and selected native source traced; actual resource limits and narrow-width arithmetic open"
+    },
+    {
+      "index": 521,
+      "id": "L12-CLOSURE-FBX-NUM-ENUM-NATIVE-ADAPTER",
+      "record": "ASSESSMENT-FBX-95E.json",
+      "repair": "not started",
+      "validation": "not performed",
+      "discovery": "partial; exact current package checksums and relevant macro source connected; feature resolution, remaining native scope and aliases open"
+    }
+  ]
+}

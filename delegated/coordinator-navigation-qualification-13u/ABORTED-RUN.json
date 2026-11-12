@@ -1,0 +1,11 @@
+{
+  "schema": "726-interrupted-evidence-check-v1",
+  "reason": "The coordinator interrupted this evidence-only driver after discovering an earlier unregistered navigation and before adding its qualification to the staged checkpoint. The final check must run again on the complete staged bytes.",
+  "exit_observed": 130,
+  "interruption": "Control-C sent through the session; output is a partial transcript, not a completed verification or evidence of a failed contract.",
+  "transcript_bytes": 35424,
+  "transcript_lines": 425,
+  "transcript_sha256": "52da81a7d99f69cc1c6ce16f5a8d27f472a63e578d76e67c8b4addd8d2aa96ba",
+  "last_output_line": "CHECK verify_delegated_bundles_21.py",
+  "qualification": "No exact start or interruption timestamps were recorded in the transcript. This run did not execute product tests, builds or runtime probes."
+}

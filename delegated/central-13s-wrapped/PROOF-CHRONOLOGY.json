@@ -1,0 +1,7 @@
+{
+  "schema": "726-central-13s-proof-chronology-v1",
+  "recorded_utc": "2026-11-12T13:31:51.170703+00:00",
+  "first_attempt": "An initial tree-proof capture looked for a .tree.gz file in the published 2625 git-objects directory. Its objects there are raw .tree files; the attempt stopped at the missing root file before capturing any tree object. An empty trees directory was created.",
+  "correction": "A separate trees-v2 directory captures gzip reconstructions of the exact raw objects after Git tree identity verification; decoded bytes and Git IDs, not compressed transport identity, are authoritative. No prior object or failed record was overwritten.",
+  "product_validation": "not performed"
+}

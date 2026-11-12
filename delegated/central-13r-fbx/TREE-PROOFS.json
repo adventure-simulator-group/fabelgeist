@@ -1,0 +1,93 @@
+{
+  "schema": "726-central-13r-git-tree-proof-v1",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "commit_evidence": "delegated/xpbd-incidence-address-hair-ops-evidence.tar.gz git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+  "tree_evidence": "delegated/checkpoint39-stage/bundles/2626-2628/git-objects",
+  "objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "file": "trees/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "decoded_bytes": 1635,
+      "decoded_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "file": "trees/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "decoded_bytes": 2434,
+      "decoded_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0"
+    },
+    "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8": {
+      "file": "trees/cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8.tree.gz",
+      "decoded_bytes": 105,
+      "decoded_sha256": "7b895ea5abd5deb1f18566f4adea6a6bcd8b137940d9d07306165fcd3cd29a5b"
+    },
+    "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd": {
+      "file": "trees/e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd.tree.gz",
+      "decoded_bytes": 247,
+      "decoded_sha256": "87d84871f027f13e4cccb043c4360de29d629b8a05ee21926619f8bab9fe6279"
+    }
+  },
+  "proofs": [
+    {
+      "tag": "fbx-reader",
+      "path": "crates/fabelgeist-fbx/src/lib.rs",
+      "blob": "9519876da12887b9c37db2258f77a873a5c1bd90",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "object": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "object": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "lib.rs",
+          "mode": "100644",
+          "object": "9519876da12887b9c37db2258f77a873a5c1bd90"
+        }
+      ]
+    },
+    {
+      "tag": "fbx-array-encoding",
+      "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+      "blob": "a935d23dfa13b14aca9d61e508f0126235fc279a",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-fbx",
+          "mode": "40000",
+          "object": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8"
+        },
+        {
+          "tree": "cc5e9edba1e96b1d22b18bfafb5dbacd468ad3c8",
+          "name": "src",
+          "mode": "40000",
+          "object": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd"
+        },
+        {
+          "tree": "e4e2d6ccdf7c742fe2c495f95d16bed5ee268fcd",
+          "name": "array_encoding.rs",
+          "mode": "100644",
+          "object": "a935d23dfa13b14aca9d61e508f0126235fc279a"
+        }
+      ]
+    }
+  ]
+}

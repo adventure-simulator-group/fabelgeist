@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""Verify bounded audit evidence bytes only; never invoke product code."""
+import argparse, hashlib, json
+from datetime import datetime
+from pathlib import Path
+
+BASE = "95e63628f9d70b8dd6e6fede64334696c6995009"
+p = argparse.ArgumentParser()
+p.add_argument("--publication-root", required=True, type=Path)
+a = p.parse_args()
+root = Path(__file__).resolve().parent
+pub = a.publication_root.resolve()
+obj = pub / "delegated/checkpoint39-stage/bundles/2625/git-objects"
+def digest(data): return hashlib.sha256(data).hexdigest()
+def gitid(kind, data): return hashlib.sha1(kind.encode()+b" "+str(len(data)).encode()+b"\0"+data).hexdigest()
+def load(name): return json.loads((root/name).read_bytes())
+def tree_entries(oid):
+    raw = (obj/(oid+".tree")).read_bytes()
+    assert gitid("tree",raw)==oid
+    out = {}
+    at = 0
+    while at < len(raw):
+        z = raw.index(b"\0",at)
+        mode,name = raw[at:z].split(b" ",1)
+        child = raw[z+1:z+21].hex()
+        assert len(child)==40 and name not in out
+        out[name.decode()] = (mode.decode(),child)
+        at=z+21
+    assert at == len(raw)
+    return out
+commit=(obj/(BASE+".commit")).read_bytes()
+assert gitid("commit",commit)==BASE
+root_oid=commit.splitlines()[0].decode().split(" ")[1]
+reg=load("REGISTRATION.json");ext=load("EXT-REGISTRATION.json");ext2=load("EXT2-REGISTRATION.json"); receipt=load("READ-RECEIPT.json"); report=load("REPORT.json")
+assert reg["commit"]==ext["baseline"]==ext2["baseline"]==receipt["baseline"]==report["baseline"]["revision"]==BASE
+assert ext["prior_registration_sha256"]==digest((root/"REGISTRATION.json").read_bytes())
+assert ext2["prior_extension_sha256"]==digest((root/"EXT-REGISTRATION.json").read_bytes())
+assert all(receipt["registration_hashes"][n]==digest((root/n).read_bytes()) for n in receipt["registration_hashes"])
+rows={row["source_file"]:dict(row) for row in reg["rows"]}
+for x in ext["rows"]+ext2["rows"]:
+    if x["source_file"] in rows:
+        rows[x["source_file"]]["registered_ranges"] += x["registered_ranges"]
+    else: rows[x["source_file"]]=dict(x)
+for name,row in rows.items():
+    data=(root/name).read_bytes()
+    assert digest(data)==row["sha256"] and gitid("blob",data)==row["git_blob"]
+    assert len(data.splitlines())==row["line_count"]
+    parts=row["git_path"].split("/"); cur=root_oid
+    for index,part in enumerate(parts):
+        mode,child=tree_entries(cur)[part]
+        if index == len(parts)-1:
+            assert mode=="100644" and child==row["git_blob"]
+        else:
+            assert mode in ("40000","040000");cur=child
+actual={name:set() for name in rows}
+registered_times={"DISPLAY-A.txt":reg["registered_utc"],"DISPLAY-B.txt":reg["registered_utc"],"DISPLAY-C.txt":reg["registered_utc"],"DISPLAY-D.txt":reg["registered_utc"],"DISPLAY-E.txt":ext["registered_utc"],"DISPLAY-F.txt":ext2["registered_utc"],"DISPLAY-G.txt":ext2["registered_utc"]}
+for d in receipt["displays"]:
+    assert datetime.fromisoformat(d["observed_mtime_utc"]) >= datetime.fromisoformat(registered_times[d["path"]])
+    text=[]
+    for r in d["rows"]:
+        name=r["source"];lo,hi=r["range"]
+        lines=(root/name).read_text().splitlines()
+        assert 1<=lo<=hi<=len(lines)
+        text.append(f"=== {Path(name).name} {lo}..{hi} ===")
+        text.extend(f"{i:4d} | {lines[i-1]}" for i in range(lo,hi+1))
+        new=set(range(lo,hi+1));assert not (actual[name]&new);actual[name]|=new
+    data=("\n".join(text)+"\n").encode()
+    assert data==(root/d["path"]).read_bytes()
+    assert d["sha256"]==digest(data) and d["bytes"]==len(data)
+for name,row in rows.items():
+    expected=set()
+    for lo,hi in row["registered_ranges"]:expected.update(range(lo,hi+1))
+    assert expected==actual[name]
+    unseen=set(range(1,row["line_count"]+1))-actual[name]
+    registered_unseen=set()
+    for lo,hi in receipt["unread_complements"][Path(name).name]:registered_unseen.update(range(lo,hi+1))
+    assert unseen==registered_unseen
+for r in report["evidence"]["historical_links"]:
+    assert digest((pub/r["path"]).read_bytes())==r["sha256"]
+q=json.loads((pub/"delegated/checkpoint39-stage/bundles/2625/historical/059-reconstructed-selection.json").read_bytes())["queue"]["entry"]
+assert q["contract_id"]=="L12-CLOSURE-WRAPPED-TASSET-VALIDATOR-CLOSING-SCOPE"
+assert q["body_or_population_credit"]==0 and q["implementation_gate_complete"] is False
+manifest=root/"MANIFEST.json"
+if manifest.exists():
+    m=json.loads(manifest.read_bytes()); expected=set(m["files"])
+    actual={str(q.relative_to(root)) for q in root.rglob("*") if q.is_file() and q!=manifest}
+    assert expected==actual and all(not q.is_symlink() for q in root.rglob("*"))
+    for name,metadata in m["files"].items():
+        data=(root/name).read_bytes();assert digest(data)==metadata["sha256"] and len(data)==metadata["bytes"]
+print("evidence identities, 95e commit/tree paths, registrations, displays, unread complements and 13 historical references verified")
+print("semantic assessment, actual presentation, privacy beyond separately stated scans and product behavior not verified")

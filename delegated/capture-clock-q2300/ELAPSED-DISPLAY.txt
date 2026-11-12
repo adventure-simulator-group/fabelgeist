@@ -1,0 +1,181 @@
+--- semantic 1-180 ---
+   1 use super::*;
+   2 
+   3 /// Stable semantic names used by animation packs.
+   4 #[derive(
+   5     Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize, Reflect,
+   6 )]
+   7 #[serde(rename_all = "snake_case")]
+   8 pub enum SemanticPose {
+   9     IdleRelaxed,
+  10     WalkContact,
+  11     WalkPassing,
+  12     RunContact,
+  13     RunFlight,
+  14     CombatStance,
+  15     StrafeCycle,
+  16     SkipCycle,
+  17     QuickstepForwardTakeoff,
+  18     QuickstepForwardContact,
+  19     QuickstepRightTakeoff,
+  20     QuickstepRightContact,
+  21     QuickstepLeftTakeoff,
+  22     QuickstepLeftContact,
+  23     QuickstepBackTakeoff,
+  24     QuickstepBackContact,
+  25     DiveForward,
+  26     DiveBackward,
+  27     DiveLeft,
+  28     DiveRight,
+  29     AirborneCenter,
+  30     AirborneTravel,
+  31     ProneIdle,
+  32     SupineIdle,
+  33     ProneCrawlContact,
+  34     SupineScamperContact,
+  35     ProneTransition,
+  36     ProneSupineRollLeft,
+  37     ProneSupineRollRight,
+  38     SupineTransition,
+  39     GuardSwing,
+  40     AttackSwing,
+  41     RecoverSwing,
+  42     ContinueSwing,
+  43     GuardThrust,
+  44     AttackThrust,
+  45     RecoverThrust,
+  46     ContinueThrust,
+  47     GuardOffhand,
+  48     AttackOffhand,
+  49     AttackOffhandPrepared,
+  50 }
+  51 
+  52 #[cfg(test)]
+  53 #[expect(
+  54     clippy::items_after_test_module,
+  55     reason = "the large animation contract suite stays next to its semantic pose declaration"
+  56 )]
+  57 mod contract_tests {
+  58     use super::*;
+  59 
+  60     #[test]
+  61     fn humanoid_contract_resolves_from_twenty_nine_semantic_variants() {
+  62         assert_eq!(SemanticPose::HUMANOID_REQUIRED.len(), 30);
+  63         let authored = SemanticPose::HUMANOID_REQUIRED
+  64             .into_iter()
+  65             .filter(|pose| {
+  66                 pose.mirrored_counterpart()
+  67                     .is_none_or(|other| pose.as_str() < other.as_str())
+  68             })
+  69             .collect::<BTreeSet<_>>();
+  70         assert_eq!(authored.len(), 29);
+  71         let mut library = AnimationPackLibrary::default();
+  72         library
+  73             .insert(AnimationPack {
+  74                 id: "root".into(),
+  75                 skeleton_family: SkeletonFamily::HUMANOID,
+  76                 fallback: None,
+  77                 clips: authored,
+  78             })
+  79             .unwrap();
+  80         assert_eq!(
+  81             library.validate_complete(&AnimationPackId::from("root")),
+  82             Ok(())
+  83         );
+  84     }
+  85 
+  86     #[test]
+  87     fn complete_validation_requires_a_terminal_family_root() {
+  88         let mut library = AnimationPackLibrary::default();
+  89         library
+  90             .insert(AnimationPack {
+  91                 id: "root".into(),
+  92                 skeleton_family: SkeletonFamily::HUMANOID,
+  93                 fallback: Some("parent".into()),
+  94                 clips: BTreeSet::new(),
+  95             })
+  96             .unwrap();
+  97         library
+  98             .insert(AnimationPack {
+  99                 id: "parent".into(),
+ 100                 skeleton_family: SkeletonFamily::HUMANOID,
+ 101                 fallback: None,
+ 102                 clips: BTreeSet::new(),
+ 103             })
+ 104             .unwrap();
+ 105         assert_eq!(
+ 106             library.validate_complete(&AnimationPackId::from("root")),
+ 107             Err(PackValidationError::RootHasFallback("root".into()))
+ 108         );
+ 109     }
+ 110 
+ 111     #[test]
+ 112     fn body_and_action_discriminants_own_their_valid_payloads() {
+ 113         let mut state = SkeletonState::default();
+ 114         assert_eq!(state.body(), BodyState::Grounded(GroundedPosture::Upright));
+ 115         assert!(state.is_grounded());
+ 116         assert_eq!(state.action(), ActionState::default());
+ 117 
+ 118         state
+ 119             .begin_attack(
+ 120                 AttackSpec::default(),
+ 121                 crate::animation::AnimationSampleTick::from(10u64),
+ 122                 crate::animation::AnimationSampleTick::from(20u64),
+ 123             )
+ 124             .unwrap();
+ 125         assert_eq!(state.action_kind(), SkeletonAction::Attack);
+ 126         state
+ 127             .begin_dodge(
+ 128                 DodgeSpec::default(),
+ 129                 crate::animation::AnimationSampleTick::from(12u64),
+ 130                 crate::animation::AnimationSampleTick::from(13u64),
+ 131             )
+ 132             .unwrap();
+ 133         assert_eq!(state.action_kind(), SkeletonAction::Dodge);
+ 134         assert!(!state.is_quickstep());
+ 135     }
+ 136 
+ 137     #[test]
+ 138     fn lowered_stance_cannot_retain_raised_motion_and_inputs_are_normalized() {
+ 139         let raised = SkeletonState::default()
+ 140             .with_weapon_guard(WeaponGuardState::Raised)
+ 141             .with_raised_locomotion(RaisedLocomotionIntent::moving(
+ 142                 Vec2::new(10.0, 0.0),
+ 143                 adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0)
+ 144                     .unwrap(),
+ 145             ));
+ 146         assert_eq!(raised.raised_locomotion().local_direction(), Vec2::X);
+ 147         let lowered = raised.with_weapon_guard(WeaponGuardState::Lowered);
+ 148         assert_eq!(lowered.stance(), StanceState::Lowered);
+ 149         assert_eq!(
+ 150             lowered.raised_locomotion(),
+ 151             RaisedLocomotionIntent::default()
+ 152         );
+ 153     }
+ 154 
+ 155     #[test]
+ 156     fn action_timeline_uses_saturating_arithmetic_at_u64_max() {
+ 157         let mut state = SkeletonState::default();
+ 158         state
+ 159             .begin_block(
+ 160                 BlockSpec::default(),
+ 161                 AnimationSampleTick::MAX,
+ 162                 AnimationSampleTick::MAX,
+ 163             )
+ 164             .unwrap();
+ 165         state.advance_action(AnimationSampleTick::MAX).unwrap();
+ 166         assert_eq!(state.action(), ActionState::default());
+ 167         assert_eq!(state.action_phase().fraction(), 0.0);
+ 168     }
+ 169 
+ 170     #[test]
+ 171     fn projection_rejects_nonfinite_elapsed_before_mutating_body() {
+ 172         let mut state = SkeletonState::default();
+ 173         let admission = AnimationElapsed::from_seconds(f32::NAN)
+ 174             .map_err(AnimationValueError::from)
+ 175             .and_then(|delta_seconds| {
+ 176                 project_skeleton_locomotion(
+ 177                     &mut state,
+ 178                     SkeletonLocomotionInput::from_controller(
+ 179                         Quat::IDENTITY,
+ 180                         Vec3::splat(f32::NAN),

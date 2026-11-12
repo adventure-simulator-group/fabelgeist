@@ -1,0 +1,118 @@
+=== warmup.rs 50..85 ===
+  50 |         .await
+  51 |         .context("preparing layered pauldrons")?;
+  52 |     fitted_placements += 2;
+  53 | 
+  54 |     let mut alternate = breastplate.clone();
+  55 |     alternate.construction = match &breastplate.construction {
+  56 |         BreastplateConstruction::Solid => BreastplateConstruction::Anime(Default::default()),
+  57 |         BreastplateConstruction::Anime(_) => BreastplateConstruction::Solid,
+  58 |     };
+  59 |     generate(body, cuirass_selection, bracer, &alternate, &[])
+  60 |         .await
+  61 |         .context("preparing alternate cuirass construction")?;
+  62 |     fitted_placements += 1;
+  63 | 
+  64 |     // Wrapped courses are an alternative to the authored sector waist recipe.
+  65 |     let mut tassets = GarmentArmorDesign::new(GarmentArmorKind::Tassets);
+  66 |     tassets.lame_count = 8;
+  67 |     tassets.plate_shape = GarmentPlateShape::WrappedTassets(WrappedTassetDesign::default());
+  68 |     let design = ParametricDesign::Garment(tassets);
+  69 |     let placement = CatalogPlacement::find(item_catalog::catalog(), "tassets", "worn")
+  70 |         .context("missing authored tassets placement")?;
+  71 |     generate_parametric(
+  72 |         crate::armor_gpu_async().await?,
+  73 |         body,
+  74 |         &design,
+  75 |         placement,
+  76 |         &[],
+  77 |     )
+  78 |     .await
+  79 |     .context("preparing wrapped tassets")?;
+  80 |     fitted_placements += 1;
+  81 |     Ok(WarmupReport {
+  82 |         fitted_placements,
+  83 |         cached_kernels: crate::armor_gpu_async().await?.cache().len(),
+  84 |     })
+  85 | }
+=== gpu.rs 1..80 ===
+   1 | //! Long thigh plates cut from a measured upright anatomical carrier.
+   2 | use fabelgeist_compute::KernelBatch;
+   3 | use fabelgeist_gpu::prelude::BufferUpload;
+   4 | use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+   5 | 
+   6 | use super::chart::{ChartBoundary, ChartKernel, PlateChart};
+   7 | use super::part::Extrusion;
+   8 | use super::recipe::PartRecipe;
+   9 | use super::{ArmorGpu, DevicePart, device_error, wgsl};
+  10 | use crate::{ArmorComponentRole, GarmentArmorDesign, GarmentPlateShape, GenerateError};
+  11 | 
+  12 | /// Frame, fitting metadata and quadratic control sections precede hull nodes.
+  13 | pub const HULL_START: u32 = 48;
+  14 | /// Maximum corners in one convex anatomical section. Overflow is an error.
+  15 | pub const HULL_LIMIT: u32 = 512;
+  16 | pub const HULL_WORDS: u32 = 1 + HULL_LIMIT * 2;
+  17 | pub const MEASURED_SECTIONS: u32 = 26;
+  18 | pub const RADII: u32 = 64;
+  19 | pub const MEASURED_WORDS: u32 = 2 + RADII;
+  20 | pub const LAYER_STATIONS: u32 = 17;
+  21 | pub const COURSE_ROWS: u32 = 8;
+  22 | 
+  23 | pub fn layout() -> String {
+  24 |     format!(
+  25 |         "const COURSE_ROWS: u32 = {COURSE_ROWS}u;\nconst HULL_START: u32 = {HULL_START}u;\nconst HULL_WORDS: u32 = {HULL_WORDS}u;\nconst HULL_LIMIT: u32 = {HULL_LIMIT}u;\nconst MEASURED_SECTIONS: u32 = {MEASURED_SECTIONS}u;\nconst RADII: u32 = {RADII}u;\nconst MEASURED_WORDS: u32 = {MEASURED_WORDS}u;\nconst LAYER_STATIONS: u32 = {LAYER_STATIONS}u;\n"
+  26 |     )
+  27 | }
+  28 | 
+  29 | /// Evaluate both sides after their fit buffers have been measured on the GPU.
+  30 | /// The frame is identity in canonical body coordinates, Y upright, +X left.
+  31 | pub fn record_wrapped_tassets(
+  32 |     gpu: &ArmorGpu,
+  33 |     batch: &mut KernelBatch,
+  34 |     design: &GarmentArmorDesign,
+  35 |     fits: [&Buffer; 2],
+  36 |     statuses: [&Buffer; 2],
+  37 | ) -> Result<DevicePart, GenerateError> {
+  38 |     design.validate()?;
+  39 |     let GarmentPlateShape::WrappedTassets(shape) = design.plate_shape else {
+  40 |         return Err(GenerateError::InvalidSurface);
+  41 |     };
+  42 |     let words = [
+  43 |         shape.inner_wrap.unit() * std::f32::consts::PI,
+  44 |         shape.outer_wrap.unit() * std::f32::consts::PI,
+  45 |         // Reserve the normal extrusion so the finished medial edge retains
+  46 |         // the requested gap, including on thicker plates.
+  47 |         shape.inner_gap.metres()
+  48 |             + design.wall_thickness.metres()
+  49 |             + design.fluting.map_or(0.0, |pattern| pattern.depth.metres()),
+  50 |         shape.upper_edge_slope.unit(),
+  51 |         shape.inner_cutaway.metres(),
+  52 |         shape.hem_rounding.metres(),
+  53 |         f32::from(shape.section_break),
+  54 |         shape.section_gap.metres(),
+  55 |         design.wall_thickness.metres(),
+  56 |     ];
+  57 |     record_boundaries(gpu, batch, design.lame_count, &words, fits, statuses)?;
+  58 |     let kernel = ChartKernel::new(
+  59 |         gpu,
+  60 |         &format!(
+  61 |             "{}\n{}\n{}",
+  62 |             layout(),
+  63 |             include_str!("wrapped_tasset_carrier.wgsl"),
+  64 |             include_str!("wrapped_tasset_shape.wgsl")
+  65 |         ),
+  66 |     )?;
+  67 |     let mut recipe = PartRecipe::new();
+  68 |     for (frame, side) in [1.0, -1.0].into_iter().enumerate() {
+  69 |         for course in 0..design.lame_count {
+  70 |             let top = 1.0 - f32::from(course) / f32::from(design.lame_count);
+  71 |             let bottom =
+  72 |                 (1.0 - (f32::from(course) + 1.0 + 0.14) / f32::from(design.lame_count)).max(0.0);
+  73 |             recipe.push_chart(
+  74 |                 PlateChart {
+  75 |                     rows: COURSE_ROWS as usize,
+  76 |                     around: 64,
+  77 |                     boundary: ChartBoundary::Open,
+  78 |                     thickness: design.wall_thickness.metres(),
+  79 |                     extrusion: Extrusion::Normal,
+  80 |                     origin: [0.0; 3],

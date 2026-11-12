@@ -1,0 +1,457 @@
+--- viewer 121-179 ---
+ 121     App::new()
+ 122         .insert_resource(combat_config)
+ 123         .insert_resource(inspection)
+ 124         .insert_resource(CaptureBodyProportions(body_proportions))
+ 125         .insert_resource(harness::ArmorCapture::new(armor_harness, output.clone()))
+ 126         .insert_resource(harness::equipment_cache(armor_harness))
+ 127         .register_asset_source(
+ 128             crate::animation::WORKSPACE_ASSET_SOURCE,
+ 129             workspace_asset_source,
+ 130         )
+ 131         // The live debug client registers the same default through
+ 132         // `DebugPlugin`. The fixture does not install that input/network
+ 133         // plugin, so mirror its presentation default explicitly.
+ 134         .register_required_components_with::<Collider, _>(DebugRender::none)
+ 135         .add_plugins(
+ 136             DefaultPlugins
+ 137                 .set(AssetPlugin {
+ 138                     file_path: asset_root.to_string_lossy().into_owned(),
+ 139                     ..default()
+ 140                 })
+ 141                 .set(WindowPlugin {
+ 142                     primary_window: Some(Window {
+ 143                         title: "Fabelgeist Animation Review Capture".into(),
+ 144                         resolution: (960, 720).into(),
+ 145                         present_mode: PresentMode::AutoVsync,
+ 146                         visible: !hidden,
+ 147                         ..default()
+ 148                     }),
+ 149                     ..default()
+ 150                 }),
+ 151         )
+ 152         .add_plugins((
+ 153             AdventureSimulatorCorePlugins
+ 154                 .build()
+ 155                 .set(AdventureSimulatorPhysicsPlugin {
+ 156                     enable_simulation: false,
+ 157                     enable_presentation_simulation: true,
+ 158                 }),
+ 159             EnhancedInputPlugin,
+ 160         ))
+ 161         .add_plugins((
+ 162             PlayerPlugin,
+ 163             crate::equipment::EquipmentVisualPlugin,
+ 164             TacticalAnimationPlugin,
+ 165             TacticalCameraPlugin,
+ 166             TacticalPresentationPlugin::default(),
+ 167         ))
+ 168         .insert_resource(LocalCharacterId(default_character_id))
+ 169         .insert_resource(CameraMode { third_person: true })
+ 170         .insert_resource(WeaponGuardInputState::default())
+ 171         .insert_resource(fixed_clock)
+ 172         // Individual scenarios select terrain conformity explicitly so the
+ 173         // viewer can retain FK-only controls after the live default changed.
+ 174         .insert_resource(initial_terrain_ik)
+ 175         .insert_resource(ClearColor(Color::srgb(0.08, 0.1, 0.13)))
+ 176         .insert_resource(capture)
+ 177         .add_plugins(CapturePlugin)
+ 178         .run()
+ 179 }
+--- locomotion 70-105 ---
+  70     /// Measure animation motion in the body's horizontal plane. Reject a
+  71     /// nonfinite norm before applying the existing downed-turning minimum.
+  72     pub fn animation_speed(&self) -> AnimationValueResult<NonnegativeSpeed> {
+  73         let physical = self.animation_local_velocity().xz().length();
+  74         if !physical.is_finite() {
+  75             return Err(AnimationValueError::Overflow {
+  76                 quantity: AnimationQuantity::Speed,
+  77             });
+  78         }
+  79         let physical = NonnegativeSpeed::from_metres_per_second(physical)?;
+  80         Ok(if self.is_downed_turning() {
+  81             physical.max(MINIMUM_DOWNED_ANIMATION_SPEED)
+  82         } else {
+  83             physical
+  84         })
+  85     }
+  86 }
+  87 
+  88 pub fn locomotion_sample_rate() -> super::AnimationSampleRate {
+  89     crate::combat_config::runtime_animation_config()
+  90         .locomotion
+  91         .sample_hz
+  92 }
+  93 
+  94 pub fn walk_locomotion_profile() -> LocomotionProfile {
+  95     let config = crate::combat_config::runtime_animation_config()
+  96         .locomotion
+  97         .walk;
+  98     gait_profile(LocomotionGait::Walk, config)
+  99 }
+ 100 
+ 101 pub fn run_locomotion_profile() -> LocomotionProfile {
+ 102     let config = crate::combat_config::runtime_animation_config()
+ 103         .locomotion
+ 104         .run;
+ 105     gait_profile(LocomotionGait::Run, config)
+--- locomotion_config 1-65 ---
+   1 use super::{AnimationLandingConfig, TacticalCombatConfigError};
+   2 use crate::animation::{AnimationSampleRate, CycleDelta, HeightDistance, UnitInterval};
+   3 use adventuresim_building_generator::spatial_geometry::PositiveLength;
+   4 use adventuresim_core::linear_speed::{NonnegativeSpeed, PositiveSpeed};
+   5 use serde::{Deserialize, Serialize};
+   6 
+   7 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+   8 #[serde(deny_unknown_fields)]
+   9 pub struct AnimationLocomotionConfig {
+  10     pub sample_hz: AnimationSampleRate,
+  11     pub landing: AnimationLandingConfig,
+  12     /// Zero-speed endpoint of the distance model before blending to the walk stride.
+  13     pub zero_speed_step_distance_metres: PositiveLength,
+  14     pub walk: AnimationGaitConfig,
+  15     pub run: AnimationGaitConfig,
+  16     pub raised_guard: AnimationGaitConfig,
+  17     pub prone: AnimationGaitConfig,
+  18     pub supine: AnimationGaitConfig,
+  19     pub blend_speed: PositiveSpeed,
+  20 }
+  21 
+  22 #[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
+  23 #[serde(deny_unknown_fields)]
+  24 pub struct AnimationGaitConfig {
+  25     pub reference_speed_metres_per_second: PositiveSpeed,
+  26     pub step_distance_metres: PositiveLength,
+  27     pub support_phase_radius: CycleDelta,
+  28     pub bounce_metres: HeightDistance,
+  29     pub flight_apex_metres: HeightDistance,
+  30 }
+  31 
+  32 impl AnimationLocomotionConfig {
+  33     pub(super) fn validate(
+  34         &self,
+  35         initial_locomotion_speed: NonnegativeSpeed,
+  36     ) -> Result<(), TacticalCombatConfigError> {
+  37         let gaits = [
+  38             self.walk,
+  39             self.run,
+  40             self.raised_guard,
+  41             self.prone,
+  42             self.supine,
+  43         ];
+  44         if gaits.into_iter().any(|gait| {
+  45             gait.support_phase_radius < CycleDelta::ZERO
+  46                 || gait.support_phase_radius >= CycleDelta::from_unit_cycles(UnitInterval::HALF)
+  47         }) {
+  48             return Err(TacticalCombatConfigError::Validation(
+  49                 "invalid animation locomotion tuning",
+  50             ));
+  51         }
+  52         if self.run.reference_speed_metres_per_second <= self.walk.reference_speed_metres_per_second
+  53         {
+  54             return Err(TacticalCombatConfigError::Validation(
+  55                 "run reference speed must exceed walk reference speed",
+  56             ));
+  57         }
+  58         if NonnegativeSpeed::from(self.blend_speed) <= initial_locomotion_speed {
+  59             return Err(TacticalCombatConfigError::Validation(
+  60                 "locomotion blend speed must exceed initial locomotion speed",
+  61             ));
+  62         }
+  63         self.landing.validate()
+  64     }
+  65 }
+--- runtime 1-98 ---
+   1 use std::{
+   2     cell::Cell,
+   3     sync::{
+   4         OnceLock, RwLock,
+   5         atomic::{AtomicU64, Ordering},
+   6     },
+   7 };
+   8 
+   9 use super::*;
+  10 
+  11 impl TacticalCombatConfig {
+  12     /// Makes a validated process-lifetime snapshot available to animation
+  13     /// code that runs below Bevy's system-parameter boundary.
+  14     pub fn install_runtime_snapshot(&self) -> Result<(), TacticalCombatConfigError> {
+  15         self.validate()?;
+  16         *runtime_config_lock()
+  17             .write()
+  18             .expect("tactical combat config lock should not be poisoned") = self.clone();
+  19         RUNTIME_CONFIG_VERSION.fetch_add(1, Ordering::Release);
+  20         Ok(())
+  21     }
+  22 }
+  23 
+  24 static RUNTIME_CONFIG: OnceLock<RwLock<TacticalCombatConfig>> = OnceLock::new();
+  25 static RUNTIME_CONFIG_VERSION: AtomicU64 = AtomicU64::new(0);
+  26 
+  27 thread_local! {
+  28     static CACHED_ANIMATION_CONFIG: Cell<Option<(u64, TacticalAnimationConfig)>> = const {
+  29         Cell::new(None)
+  30     };
+  31     static CACHED_INVERSE_KINEMATICS_CONFIG: Cell<Option<(u64, InverseKinematicsConfig)>> = const {
+  32         Cell::new(None)
+  33     };
+  34 }
+  35 
+  36 fn runtime_config_lock() -> &'static RwLock<TacticalCombatConfig> {
+  37     RUNTIME_CONFIG.get_or_init(|| RwLock::new(TacticalCombatConfig::default()))
+  38 }
+  39 
+  40 /// Returns the active animation tuning selected from runtime YAML. The value
+  41 /// is copied so animation evaluation never holds a synchronization guard.
+  42 pub fn runtime_animation_config() -> TacticalAnimationConfig {
+  43     let version = RUNTIME_CONFIG_VERSION.load(Ordering::Acquire);
+  44     CACHED_ANIMATION_CONFIG.with(|cache| {
+  45         if let Some((cached_version, config)) = cache.get()
+  46             && cached_version == version
+  47         {
+  48             return config;
+  49         }
+  50         let config = runtime_config_lock()
+  51             .read()
+  52             .expect("tactical combat config lock should not be poisoned")
+  53             .animation;
+  54         cache.set(Some((version, config)));
+  55         config
+  56     })
+  57 }
+  58 
+  59 /// Returns the active inverse-kinematics tuning.
+  60 ///
+  61 /// Cached separately from [`runtime_animation_config`] because the leg solver
+  62 /// reads this dozens of times per leg per frame. Projecting it out of the whole
+  63 /// animation config copied every other subsystem's tuning on each of those
+  64 /// reads, which `Cell::get` cannot avoid.
+  65 pub fn runtime_inverse_kinematics_config() -> InverseKinematicsConfig {
+  66     let version = RUNTIME_CONFIG_VERSION.load(Ordering::Acquire);
+  67     CACHED_INVERSE_KINEMATICS_CONFIG.with(|cache| {
+  68         if let Some((cached_version, config)) = cache.get()
+  69             && cached_version == version
+  70         {
+  71             return config;
+  72         }
+  73         let config = runtime_config_lock()
+  74             .read()
+  75             .expect("tactical combat config lock should not be poisoned")
+  76             .animation
+  77             .inverse_kinematics;
+  78         cache.set(Some((version, config)));
+  79         config
+  80     })
+  81 }
+  82 
+  83 pub fn runtime_combat_presentation_config() -> CombatPresentationConfig {
+  84     runtime_config_lock()
+  85         .read()
+  86         .expect("tactical combat config lock should not be poisoned")
+  87         .presentation
+  88         .clone()
+  89 }
+  90 
+  91 pub fn runtime_melee_authority_config() -> MeleeAuthorityConfig {
+  92     runtime_config_lock()
+  93         .read()
+  94         .expect("tactical combat config lock should not be poisoned")
+  95         .realtime_authority
+  96         .melee
+  97         .clone()
+  98 }
+--- measurement 1-107 ---
+   1 //! Checked animation measurements shared by configuration and presentation.
+   2 
+   3 use super::{
+   4     AnimationElapsed, AnimationQuantity, AnimationValueError, AnimationValueResult, UnitInterval,
+   5 };
+   6 use adventuresim_building_generator::spatial_geometry::PositiveLength;
+   7 use bevy::math::FloatExt;
+   8 use serde::{Deserialize, Serialize};
+   9 
+  10 #[derive(
+  11     Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into,
+  12 )]
+  13 #[serde(try_from = "f32", into = "f32")]
+  14 pub struct NonnegativeLength(f32);
+  15 
+  16 /// Positive elapsed seconds for action durations, divisors and decay lengths.
+  17 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
+  18 #[serde(try_from = "f32", into = "f32")]
+  19 #[into(f32)]
+  20 pub struct PositiveAnimationDuration(AnimationElapsed);
+  21 
+  22 impl NonnegativeLength {
+  23     pub const ZERO: Self = Self(0.0);
+  24     pub const fn from_metres(value: f32) -> AnimationValueResult<Self> {
+  25         match checked_nonnegative(value, AnimationQuantity::Length) {
+  26             Ok(value) => Ok(Self(value)),
+  27             Err(error) => Err(error),
+  28         }
+  29     }
+  30     /// Admit a completed nonnegative distance computation before retaining it.
+  31     pub fn from_arithmetic(value: f32) -> AnimationValueResult<Self> {
+  32         if !value.is_finite() {
+  33             return Err(AnimationValueError::Overflow {
+  34                 quantity: AnimationQuantity::Length,
+  35             });
+  36         }
+  37         Self::from_metres(value)
+  38     }
+  39     pub fn metres(self) -> f32 {
+  40         self.0
+  41     }
+  42     /// Metre scalars and the admitted fraction meet at Bevy's native interpolation kernel.
+  43     pub fn checked_lerp(self, other: Self, fraction: UnitInterval) -> AnimationValueResult<Self> {
+  44         Self::from_arithmetic(self.0.lerp(other.0, fraction.fraction()))
+  45     }
+  46     /// Halving remains finite/nonnegative; subnormal underflow may validly reach zero.
+  47     pub fn half(self) -> Self {
+  48         Self(self.0 * 0.5)
+  49     }
+  50 }
+  51 impl PositiveAnimationDuration {
+  52     pub fn from_elapsed(value: AnimationElapsed) -> AnimationValueResult<Self> {
+  53         if value.is_zero() {
+  54             return Err(AnimationValueError::NonPositive {
+  55                 quantity: AnimationQuantity::Elapsed,
+  56             });
+  57         }
+  58         Ok(Self(value))
+  59     }
+  60     /// Duration covered by a native count of fixed sample intervals.
+  61     pub fn sample_span(self, intervals: u32) -> AnimationValueResult<AnimationElapsed> {
+  62         let seconds = self.seconds() * intervals as f32;
+  63         if !seconds.is_finite() {
+  64             return Err(AnimationValueError::Overflow {
+  65                 quantity: AnimationQuantity::Elapsed,
+  66             });
+  67         }
+  68         Ok(AnimationElapsed::from_seconds(seconds)?)
+  69     }
+  70     pub fn elapsed(self) -> AnimationElapsed {
+  71         self.0
+  72     }
+  73     pub fn seconds(self) -> f32 {
+  74         self.0.seconds()
+  75     }
+  76 }
+  77 impl From<PositiveLength> for NonnegativeLength {
+  78     fn from(value: PositiveLength) -> Self {
+  79         Self(value.metres())
+  80     }
+  81 }
+  82 impl TryFrom<f32> for NonnegativeLength {
+  83     type Error = AnimationValueError;
+  84     fn try_from(value: f32) -> AnimationValueResult<Self> {
+  85         Self::from_metres(value)
+  86     }
+  87 }
+  88 
+  89 impl TryFrom<f32> for PositiveAnimationDuration {
+  90     type Error = AnimationValueError;
+  91     fn try_from(value: f32) -> AnimationValueResult<Self> {
+  92         Self::from_elapsed(AnimationElapsed::from_seconds(value)?)
+  93     }
+  94 }
+  95 
+  96 pub(super) const fn checked_nonnegative(
+  97     value: f32,
+  98     quantity: AnimationQuantity,
+  99 ) -> AnimationValueResult<f32> {
+ 100     if !value.is_finite() {
+ 101         return Err(AnimationValueError::NonFinite { quantity });
+ 102     }
+ 103     if value < 0.0 {
+ 104         return Err(AnimationValueError::Negative { quantity });
+ 105     }
+ 106     Ok(value)
+ 107 }
+--- bevy_fixed 50-135 ---
+  50 /// [`set_max_delta()`](Time::set_max_delta) from virtual time. If the virtual
+  51 /// clock is paused, the [`FixedUpdate`](bevy_app::FixedUpdate) schedule will
+  52 /// not run. It is guaranteed that the [`elapsed()`](Time::elapsed) time in
+  53 /// `Time<Fixed>` is always between the previous `elapsed()` and the current
+  54 /// `elapsed()` value in `Time<Virtual>`, so the values are compatible.
+  55 ///
+  56 /// Changing the timestep size while the game is running should not normally be
+  57 /// done, as having a regular interval is the point of this schedule, but it may
+  58 /// be necessary for effects like "bullet-time" if the normal granularity of the
+  59 /// fixed timestep is too big for the slowed down time. In this case,
+  60 /// [`set_timestep()`](Time::set_timestep) and be called to set a new value. The
+  61 /// new value will be used immediately for the next run of the
+  62 /// [`FixedUpdate`](bevy_app::FixedUpdate) schedule, meaning that it will affect
+  63 /// the [`delta()`](Time::delta) value for the very next
+  64 /// [`FixedUpdate`](bevy_app::FixedUpdate), even if it is still during the same
+  65 /// frame. Any [`overstep()`](Time::overstep) present in the accumulator will be
+  66 /// processed according to the new [`timestep()`](Time::timestep) value.
+  67 #[derive(Debug, Copy, Clone)]
+  68 #[cfg_attr(feature = "bevy_reflect", derive(Reflect), reflect(Clone))]
+  69 pub struct Fixed {
+  70     timestep: Duration,
+  71     overstep: Duration,
+  72 }
+  73 
+  74 impl Time<Fixed> {
+  75     /// Corresponds to 64 Hz.
+  76     const DEFAULT_TIMESTEP: Duration = Duration::from_micros(15625);
+  77 
+  78     /// Return new fixed time clock with given timestep as [`Duration`]
+  79     ///
+  80     /// # Panics
+  81     ///
+  82     /// Panics if `timestep` is zero.
+  83     pub fn from_duration(timestep: Duration) -> Self {
+  84         let mut ret = Self::default();
+  85         ret.set_timestep(timestep);
+  86         ret
+  87     }
+  88 
+  89     /// Return new fixed time clock with given timestep seconds as `f64`
+  90     ///
+  91     /// # Panics
+  92     ///
+  93     /// Panics if `seconds` is zero, negative or not finite.
+  94     pub fn from_seconds(seconds: f64) -> Self {
+  95         let mut ret = Self::default();
+  96         ret.set_timestep_seconds(seconds);
+  97         ret
+  98     }
+  99 
+ 100     /// Return new fixed time clock with given timestep frequency in Hertz (1/seconds)
+ 101     ///
+ 102     /// # Panics
+ 103     ///
+ 104     /// Panics if `hz` is zero, negative or not finite.
+ 105     pub fn from_hz(hz: f64) -> Self {
+ 106         let mut ret = Self::default();
+ 107         ret.set_timestep_hz(hz);
+ 108         ret
+ 109     }
+ 110 
+ 111     /// Returns the amount of virtual time that must pass before the fixed
+ 112     /// timestep schedule is run again.
+ 113     #[inline]
+ 114     pub fn timestep(&self) -> Duration {
+ 115         self.context().timestep
+ 116     }
+ 117 
+ 118     /// Sets the amount of virtual time that must pass before the fixed timestep
+ 119     /// schedule is run again, as [`Duration`].
+ 120     ///
+ 121     /// Takes effect immediately on the next run of the schedule, respecting
+ 122     /// what is currently in [`Self::overstep`].
+ 123     ///
+ 124     /// # Panics
+ 125     ///
+ 126     /// Panics if `timestep` is zero.
+ 127     #[inline]
+ 128     pub fn set_timestep(&mut self, timestep: Duration) {
+ 129         assert_ne!(
+ 130             timestep,
+ 131             Duration::ZERO,
+ 132             "attempted to set fixed timestep to zero"
+ 133         );
+ 134         self.context_mut().timestep = timestep;
+ 135     }

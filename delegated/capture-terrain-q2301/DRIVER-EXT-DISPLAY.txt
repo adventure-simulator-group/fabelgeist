@@ -1,0 +1,50 @@
+--- capture 301-349 ---
+ 301                 } else {
+ 302                     DownedMotion::Resting
+ 303                 },
+ 304             );
+ 305         }
+ 306 
+ 307         let orientation = Quat::from_euler(
+ 308             EulerRot::YXZ,
+ 309             frame.camera_yaw.radians(),
+ 310             frame.camera_pitch.radians(),
+ 311             0.0,
+ 312         );
+ 313         look.yaw = frame.camera_yaw.radians();
+ 314         look.pitch = frame.camera_pitch.radians();
+ 315         let attack_start_frame = frame.scenario.has(ScenarioFeature::AttackLive).then_some(8);
+ 316         if frame.action != SkeletonAction::Attack
+ 317             || attack_start_frame == Some(frame.scenario_frame)
+ 318         {
+ 319             skeleton.lead_foot = frame.lead_foot;
+ 320         }
+ 321         *terrain_ik = terrain_ik_mode_for_frame(&frame);
+ 322         guard_input.desired = frame.weapon_guard;
+ 323         set_weapon_guard(&mut skeleton, guard_input.desired);
+ 324         if frame.scenario.is(ScenarioId::DownedProneLookAt) {
+ 325             let target = downed_camera_roll_target(transform.rotation, orientation);
+ 326             let step = if frame.scenario_frame == 0 {
+ 327                 Ok(DownedFacingStep::ZERO)
+ 328             } else {
+ 329                 DownedFacingStep::from_half_turns(1.0 / 84.0)
+ 330             };
+ 331             if let Err(error) = step.and_then(|step| {
+ 332                 skeleton.advance_downed_facing(target, DownedFacingAim::Held, step)
+ 333             }) {
+ 334                 sequence.admission =
+ 335                     CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
+ 336                 return;
+ 337             }
+ 338         }
+ 339         let dive_impact = frame.scenario.has(ScenarioFeature::Impact);
+ 340         let quickstep = is_quickstep_scenario(&frame.scenario);
+ 341         let grounded = if quickstep {
+ 342             frame.scenario_frame < quickstep_release_frame()
+ 343                 || frame.scenario_frame >= quickstep_landing_frame()
+ 344         } else if dive_impact {
+ 345             frame.scenario_frame == 0 || frame.scenario_frame >= 17
+ 346         } else {
+ 347             metadata.kind() != ScenarioKind::Landing || frame.scenario_frame >= 32
+ 348         };
+ 349         let vertical_velocity = if quickstep && frame.scenario_frame < quickstep_landing_frame() {

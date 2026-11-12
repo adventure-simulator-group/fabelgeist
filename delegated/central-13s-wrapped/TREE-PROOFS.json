@@ -1,0 +1,191 @@
+{
+  "schema": "726-central-13s-git-tree-proof-v1",
+  "revision": "95e63628f9d70b8dd6e6fede64334696c6995009",
+  "root_tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+  "commit_evidence": "delegated/xpbd-incidence-address-hair-ops-evidence.tar.gz git-objects/95e63628f9d70b8dd6e6fede64334696c6995009.commit.gz",
+  "tree_evidence": "delegated/checkpoint39-stage/bundles/2625/git-objects raw .tree",
+  "objects": {
+    "1eec97de340d9b7debbb30ca0c0fb2240a73b93f": {
+      "file": "trees-v2/1eec97de340d9b7debbb30ca0c0fb2240a73b93f.tree.gz",
+      "decoded_bytes": 1635,
+      "decoded_sha256": "9eee33401091e677ef88fe27689873abf2a15f9420d63e746a03c5b8b373c494",
+      "transport": "gzip reconstruction of raw published tree"
+    },
+    "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e": {
+      "file": "trees-v2/0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e.tree.gz",
+      "decoded_bytes": 2434,
+      "decoded_sha256": "c33f1ec552e389a645009b046da3f2025711c8ae3921c5e9eaaa8ed3193ac8c0",
+      "transport": "gzip reconstruction of raw published tree"
+    },
+    "3c04cdb8f80c844774098f86f4481f02d46bbe60": {
+      "file": "trees-v2/3c04cdb8f80c844774098f86f4481f02d46bbe60.tree.gz",
+      "decoded_bytes": 242,
+      "decoded_sha256": "edcffe768f424e7000e4a3bfe906c69ae2129cb300fea3bae05a752fa32f2b5b",
+      "transport": "gzip reconstruction of raw published tree"
+    },
+    "e0b74d17ff8eda39f94bb32f3b6d249919ee095a": {
+      "file": "trees-v2/e0b74d17ff8eda39f94bb32f3b6d249919ee095a.tree.gz",
+      "decoded_bytes": 3079,
+      "decoded_sha256": "1cbd8cf5ec5c526586402857072e86bc9391b1e9416e101e72f886a226f3799a",
+      "transport": "gzip reconstruction of raw published tree"
+    }
+  },
+  "proofs": [
+    {
+      "tag": "wrapped",
+      "path": "crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "blob": "d8eaf44838a4324df14ddf8b8a05c4e3a252be14",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "object": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "mode": "40000",
+          "object": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "wrapped_tassets.rs",
+          "mode": "100644",
+          "object": "d8eaf44838a4324df14ddf8b8a05c4e3a252be14"
+        }
+      ]
+    },
+    {
+      "tag": "garment",
+      "path": "crates/fabelgeist-armor/src/garment_armor.rs",
+      "blob": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "object": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "mode": "40000",
+          "object": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "garment_armor.rs",
+          "mode": "100644",
+          "object": "d5a0167c9bcd96c70e2def8ebfe1ea3a1aa35684"
+        }
+      ]
+    },
+    {
+      "tag": "shape",
+      "path": "crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "blob": "037c16612fcd67f30c6973866225a575f01dbf1b",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "object": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "mode": "40000",
+          "object": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "garment_plate_design.rs",
+          "mode": "100644",
+          "object": "037c16612fcd67f30c6973866225a575f01dbf1b"
+        }
+      ]
+    },
+    {
+      "tag": "error",
+      "path": "crates/fabelgeist-armor/src/error.rs",
+      "blob": "4f83352df678db21eb40ee6558e3a3b40714f029",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "object": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "mode": "40000",
+          "object": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "error.rs",
+          "mode": "100644",
+          "object": "4f83352df678db21eb40ee6558e3a3b40714f029"
+        }
+      ]
+    },
+    {
+      "tag": "design",
+      "path": "crates/fabelgeist-armor/src/design.rs",
+      "blob": "75c0a250abd9e5fc35f81acaafea283d06393658",
+      "chain": [
+        {
+          "tree": "1eec97de340d9b7debbb30ca0c0fb2240a73b93f",
+          "name": "crates",
+          "mode": "40000",
+          "object": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e"
+        },
+        {
+          "tree": "0ab1fd65e5745fd3440b7798c8a5cb5bf8ca8b7e",
+          "name": "fabelgeist-armor",
+          "mode": "40000",
+          "object": "3c04cdb8f80c844774098f86f4481f02d46bbe60"
+        },
+        {
+          "tree": "3c04cdb8f80c844774098f86f4481f02d46bbe60",
+          "name": "src",
+          "mode": "40000",
+          "object": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a"
+        },
+        {
+          "tree": "e0b74d17ff8eda39f94bb32f3b6d249919ee095a",
+          "name": "design.rs",
+          "mode": "100644",
+          "object": "75c0a250abd9e5fc35f81acaafea283d06393658"
+        }
+      ]
+    }
+  ],
+  "chronology": "PROOF-CHRONOLOGY.json"
+}
